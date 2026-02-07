@@ -1,0 +1,176 @@
+"""Citation parsing using eyecite with regex fallbacks."""
+
+from __future__ import annotations
+
+import re
+
+from eyecite import get_citations
+from eyecite.models import FullCaseCitation
+
+from .models import ParsedCitation
+
+_MONTH_MAP = {
+    "jan": 1, "feb": 2, "mar": 3, "apr": 4, "may": 5, "jun": 6,
+    "jul": 7, "aug": 8, "sep": 9, "oct": 10, "nov": 11, "dec": 12,
+}
+
+# Regex for WestLaw citations: "2018 WL 301424"
+_WL_PATTERN = re.compile(r"(\d{4})\s+WL\s+(\d+)")
+
+# Regex for parenthetical court/date: "(S.D.N.Y. Mar. 5, 2018)" or "(S.D.N.Y. 2018)"
+_PAREN_PATTERN = re.compile(
+    r"\(\s*"
+    r"([A-Za-z][A-Za-z.\s]*?)"  # court abbreviation
+    r"(?:\s+"
+    r"(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z.]*"  # month
+    r"\s+(\d{1,2}),?\s*)?"  # day
+    r"\s*(\d{4})"  # year
+    r"\s*\)"
+)
+
+# Regex for case name: "Plaintiff v. Defendant" before a citation number
+# Permissive character class to handle names like "Macy's Texas, Inc." and "D.A. Adams & Co."
+# Matches before ", <digits>" (federal) or " (<year>) <digits>" (California)
+_CASE_NAME_PATTERN = re.compile(
+    r"^(.+?)\s+v\.\s+(.+?)(?:,\s+\d|\s+\(\d{4}\)\s+\d)"
+)
+
+# California-style year before reporter: "Case Name (2022) 76 Cal.App.5th 685"
+_CAL_YEAR_PATTERN = re.compile(r"\((\d{4})\)\s+\d")
+
+# Trailing year parenthetical to strip from case names: "Inc. (2022)"
+_TRAILING_YEAR = re.compile(r"\s*\(\d{4}\)\s*$")
+
+# Docket number: "Case No. 24-cv-9429" or "No. 12-345" — extracted then stripped
+_DOCKET_NUMBER_PATTERN = re.compile(r"(?:Case\s+)?No\.\s+(\S+)", re.IGNORECASE)
+_DOCKET_JUNK = re.compile(r",?\s*(?:Case\s+)?No\.\s+\S+.*$", re.IGNORECASE)
+
+# Parenthetical with date before court: "(Feb. 5, 2026 SDNY)" or "(Mar. 2020 S.D.N.Y.)"
+_PAREN_DATE_COURT_PATTERN = re.compile(
+    r"\(\s*"
+    r"(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z.]*"  # month
+    r"(?:\s+(\d{1,2}),?)?"  # optional day
+    r"\s*(\d{4})"  # year
+    r"\s+([A-Za-z][A-Za-z.\s]*?)"  # court abbreviation after year
+    r"\s*\)"
+)
+
+# Reporter patterns for standard citations
+_STANDARD_CITE_PATTERN = re.compile(
+    r"(\d+)\s+"
+    r"(U\.S\.|S\.\s*Ct\.|L\.\s*Ed(?:\.\s*2d)?|F\.\s*(?:2d|3d|4th)|"
+    r"F\.\s*Supp\.?\s*(?:2d|3d)?|F\.\s*App(?:'|')x)"
+    r"\s+(\d+)"
+)
+
+
+def parse_citation(text: str) -> ParsedCitation:
+    """Parse a citation string into structured components.
+
+    Uses eyecite for standard reporter citations, with regex fallbacks
+    for WestLaw citations and parenthetical metadata.
+    """
+    result = ParsedCitation(raw_text=text)
+
+    # Try eyecite first for standard citations
+    eyecite_results = get_citations(text)
+    for cite in eyecite_results:
+        if isinstance(cite, FullCaseCitation):
+            result.volume = str(cite.groups.get("volume", ""))
+            result.reporter = str(cite.corrected_reporter() or "")
+            result.page = str(cite.groups.get("page", ""))
+            if hasattr(cite, "metadata"):
+                meta = cite.metadata
+                if hasattr(meta, "court") and meta.court:
+                    result.court = meta.court
+                if hasattr(meta, "year") and meta.year:
+                    try:
+                        result.year = int(meta.year)
+                    except (ValueError, TypeError):
+                        pass
+            break  # use first full citation found
+
+    # Check for WestLaw citation
+    wl_match = _WL_PATTERN.search(text)
+    if wl_match:
+        result.is_westlaw = True
+        result.wl_number = wl_match.group(2)
+        wl_year = int(wl_match.group(1))
+        if result.year is None:
+            result.year = wl_year
+
+    # California-style year: "(2022) 76 Cal.App.5th 685"
+    cal_year_match = _CAL_YEAR_PATTERN.search(text)
+    if cal_year_match and result.year is None:
+        result.year = int(cal_year_match.group(1))
+
+    # Extract court/date from parenthetical if not already found
+    # Try standard format first: "(S.D.N.Y. Sept. 17, 2018)" — court before year
+    paren_match = _PAREN_PATTERN.search(text)
+    if paren_match:
+        if result.court is None:
+            result.court = paren_match.group(1).strip()
+        if paren_match.group(2) and result.month is None:
+            result.month = _MONTH_MAP.get(paren_match.group(2)[:3].lower())
+        if paren_match.group(3) and result.day is None:
+            result.day = int(paren_match.group(3))
+        if result.year is None:
+            result.year = int(paren_match.group(4))
+
+    # Try reversed format: "(Feb. 5, 2026 SDNY)" — date before court
+    if result.court is None:
+        date_court_match = _PAREN_DATE_COURT_PATTERN.search(text)
+        if date_court_match:
+            result.court = date_court_match.group(4).strip()
+            if date_court_match.group(1) and result.month is None:
+                result.month = _MONTH_MAP.get(date_court_match.group(1)[:3].lower())
+            if date_court_match.group(2) and result.day is None:
+                result.day = int(date_court_match.group(2))
+            if result.year is None:
+                result.year = int(date_court_match.group(3))
+
+    # Fallback: extract standard citation components via regex
+    if result.volume is None:
+        std_match = _STANDARD_CITE_PATTERN.search(text)
+        if std_match:
+            result.volume = std_match.group(1)
+            result.reporter = std_match.group(2)
+            result.page = std_match.group(3)
+
+    # Extract case name
+    name_match = _CASE_NAME_PATTERN.search(text)
+    if name_match:
+        result.plaintiff = name_match.group(1).strip()
+        result.defendant = name_match.group(2).strip()
+        result.case_name = f"{result.plaintiff} v. {result.defendant}"
+
+    # Fallback case name extraction: everything before ", <digits>" or the first
+    # reporter citation, whichever comes first
+    if result.case_name is None and "v." in text:
+        fallback_match = re.match(r"^(.+?\s+v\.\s+.+?),\s+\d", text)
+        if fallback_match:
+            result.case_name = fallback_match.group(1).strip()
+        else:
+            # Last resort: split on " v. " and take surrounding text
+            parts = text.split(" v. ", 1)
+            if len(parts) == 2:
+                plaintiff = parts[0].strip()
+                # Defendant is everything up to the first number sequence
+                defendant = re.split(r",?\s+\d", parts[1])[0].strip()
+                if plaintiff and defendant:
+                    result.case_name = f"{plaintiff} v. {defendant}"
+
+    # Extract docket number before cleaning it from the case name
+    docket_match = _DOCKET_NUMBER_PATTERN.search(text)
+    if docket_match:
+        result.docket_number = docket_match.group(1).rstrip(",")
+
+    # Clean trailing year parentheticals from case name: "Inc. (2022)" → "Inc."
+    if result.case_name:
+        result.case_name = _TRAILING_YEAR.sub("", result.case_name)
+        result.case_name = _DOCKET_JUNK.sub("", result.case_name)
+    if result.defendant:
+        result.defendant = _TRAILING_YEAR.sub("", result.defendant)
+        result.defendant = _DOCKET_JUNK.sub("", result.defendant)
+
+    return result
