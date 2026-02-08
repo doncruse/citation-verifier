@@ -469,6 +469,16 @@ class TestHelpers:
         assert n("2:17-cv-00012676") == n("17-cv-12676")
         assert n("4:06-CV-00043") == n("4:06-CV-43")
 
+    def test_normalize_docket_strips_judge_suffix(self):
+        n = CitationVerifier._normalize_docket_number
+        assert n("2:24-cv-01776-JHC") == n("2:24-cv-01776")
+        assert n("6:18-CV-02337-DCC") == n("6:18-cv-02337")
+
+    def test_normalize_docket_expands_shorthand(self):
+        n = CitationVerifier._normalize_docket_number
+        assert n("C15-1228-JCC") == n("2:15-cv-01228")
+        assert n("C15-1228") == n("15-cv-1228")
+
     def test_is_substantive_doc(self):
         s = CitationVerifier._is_substantive_doc
         assert s("order")

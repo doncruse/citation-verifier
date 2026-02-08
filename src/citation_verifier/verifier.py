@@ -540,12 +540,20 @@ class CitationVerifier:
     def _normalize_docket_number(dn: str) -> str:
         """Normalize a docket number for comparison.
 
-        Strips division prefix ('2:') and leading zeros from numeric
-        segments so that '17-cv-12676' and '2:17-cv-00012676' compare
-        as equal.
+        Strips division prefix ('2:'), judge suffix ('-JCC'), and leading
+        zeros from numeric segments so that '17-cv-12676' and
+        '2:17-cv-00012676' compare as equal.
+
+        Also expands shorthand prefixes: 'C15-1228' → '15-cv-1228',
+        'CR15-1228' → '15-cr-1228'.
         """
         # Strip optional division prefix (e.g. "2:" or "4:")
         dn = re.sub(r"^\d+:", "", dn)
+        # Strip trailing judge initials (e.g. "-JCC", "-DCC", "-JHC")
+        dn = re.sub(r"-[A-Za-z]{2,4}$", "", dn)
+        # Expand shorthand: CR15-1228 → 15-cr-1228, C15-1228 → 15-cv-1228
+        dn = re.sub(r"^CR(\d+)", r"\1-cr", dn, flags=re.IGNORECASE)
+        dn = re.sub(r"^C(\d+)", r"\1-cv", dn, flags=re.IGNORECASE)
         # Strip leading zeros from numeric segments
         return re.sub(r"(?<!\d)0+(?=\d)", "", dn).lower()
 

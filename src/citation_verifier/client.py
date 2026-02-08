@@ -111,7 +111,9 @@ class CourtListenerClient:
         if case_name:
             params["case_name"] = case_name
         if docket_number:
-            params["docket"] = docket_number
+            # Use q with quoted string — the docket param is unreliable
+            q_parts = [params.get("q", ""), f'"{docket_number}"']
+            params["q"] = " ".join(p for p in q_parts if p)
 
         url = f"{self.BASE_URL}/search/"
         resp = self._session.get(url, params=params, timeout=self.REQUEST_TIMEOUT)
