@@ -65,6 +65,30 @@ _STANDARD_CITE_PATTERN = re.compile(
 )
 
 
+def _normalize_case_name(case_name: str) -> str:
+    """Expand common legal abbreviations in case names for better search matching.
+
+    Examples: "Cnty." → "County", "Dept." → "Department"
+    """
+    # Mapping of abbreviations to full forms
+    abbrev_map = {
+        r"\bCnty\b": "County",
+        r"\bDep't\b": "Department",
+        r"\bDept\b": "Department",
+        r"\bBd\b": "Board",
+        r"\bOfc\b": "Office",
+        r"\bCorp\b": "Corporation",
+        r"\bAssn\b": "Association",
+        r"\bComm\b": "Commission",
+        r"\bDiv\b": "Division",
+    }
+
+    normalized = case_name
+    for abbrev, full_form in abbrev_map.items():
+        normalized = re.sub(abbrev, full_form, normalized, flags=re.IGNORECASE)
+    return normalized
+
+
 def _apply_date_fields(
     result: ParsedCitation,
     month_str: str | None,
@@ -179,8 +203,12 @@ def parse_citation(text: str) -> ParsedCitation:
     if result.case_name:
         result.case_name = _TRAILING_YEAR.sub("", result.case_name)
         result.case_name = _DOCKET_JUNK.sub("", result.case_name)
+        result.case_name = _normalize_case_name(result.case_name)
     if result.defendant:
         result.defendant = _TRAILING_YEAR.sub("", result.defendant)
         result.defendant = _DOCKET_JUNK.sub("", result.defendant)
+        result.defendant = _normalize_case_name(result.defendant)
+    if result.plaintiff:
+        result.plaintiff = _normalize_case_name(result.plaintiff)
 
     return result

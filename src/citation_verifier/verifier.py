@@ -172,6 +172,26 @@ class CitationVerifier:
         # Step 3: RECAP fallback (docket entries, orders, PACER documents)
         # Note: RECAP dateFiled is the case filing date, not the opinion date,
         # so we skip date filtering here and rely on name/court matching.
+
+        # If docket number is available, try searching by it first (without court
+        # filter since docket numbers are court-specific). This handles cases where
+        # the case name differs significantly (e.g., "Estate of X" vs "X").
+        if not candidates and parsed.docket_number:
+            try:
+                results = self.client.search_recap(docket_number=parsed.docket_number)
+                # API does fuzzy matching, so filter to actual docket matches
+                cited_dn = self._normalize_docket_number(parsed.docket_number)
+                results = [
+                    r for r in results
+                    if self._normalize_docket_number(
+                        r.get("docketNumber") or r.get("docket_number") or ""
+                    ) == cited_dn
+                ]
+                candidates = self._process_recap_results(results, parsed)
+            except Exception:
+                logger.debug("RECAP search by docket number failed", exc_info=True)
+
+        # Fall back to case name search if docket search didn't work
         if not candidates and parsed.case_name:
             try:
                 results = self.client.search_recap(
@@ -182,6 +202,7 @@ class CitationVerifier:
             except Exception:
                 logger.debug("RECAP search with court filter failed", exc_info=True)
 
+            # Retry without court filter if no results
             if not candidates and court_id:
                 try:
                     results = self.client.search_recap(
@@ -300,15 +321,21 @@ class CitationVerifier:
             # Collect documents from search results
             docs = r.get("recap_documents", [])
 
-            # Check if any doc is near the cited year
+            # Check if any doc matches the cited date closely enough
+            # to skip the more targeted docket-entries query.
+            # When month/day are known, require same month (not just year).
             has_date_match = False
             if parsed.year and docs:
                 for doc in docs:
                     entry_date = doc.get("entry_date_filed") or doc.get("date_filed", "")
                     try:
-                        if entry_date and int(entry_date[:4]) == parsed.year:
-                            has_date_match = True
-                            break
+                        if not entry_date or int(entry_date[:4]) != parsed.year:
+                            continue
+                        if parsed.month and len(entry_date) >= 7:
+                            if int(entry_date[5:7]) != parsed.month:
+                                continue
+                        has_date_match = True
+                        break
                     except (ValueError, IndexError):
                         pass
 

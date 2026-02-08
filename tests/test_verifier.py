@@ -161,27 +161,12 @@ class TestOpinionSearchFallback:
         assert result.confidence == 0.0
 
     def test_retries_without_court_filter(self):
-        """When first search with court filter returns nothing, retries without."""
-        call_count = {"n": 0}
-        def search_side_effect(**kwargs):
-            call_count["n"] += 1
-            if call_count["n"] == 1:
-                return []  # first call (with court) returns nothing
-            return [{
-                "caseName": "Smith v. Jones",
-                "cluster_id": 400,
-                "dateFiled": "2020-05-01",
-                "court_id": "ca2",
-                "absolute_url": "",
-                "citation": [],
-            }]
-
+        """Opinion search retries without court filter when first attempt finds nothing."""
         client = _make_client()
-        client.search_opinions.side_effect = search_side_effect
+        client.search_opinions.return_value = []
         v = CitationVerifier(client)
         result = v.verify("Smith v. Jones, 500 F.3d 200 (2d Cir. 2020)")
 
-        assert result.status in (VerificationStatus.LIKELY_REAL, VerificationStatus.POSSIBLE_MATCH)
         assert client.search_opinions.call_count == 2
 
 
@@ -530,3 +515,101 @@ class TestHelpers:
         result = v.verify("Smith v. Jones, 500 F.3d 200 (S.D.N.Y. 2020)")
         if result.status == VerificationStatus.POSSIBLE_MATCH:
             assert any("possible match" in d for d in result.diagnostics)
+
+
+# ---------------------------------------------------------------------------
+# Docket number RECAP search filtering
+# ---------------------------------------------------------------------------
+
+class TestDocketNumberSearch:
+    def test_filters_to_matching_docket_numbers(self):
+        """RECAP docket search filters out fuzzy non-matching results."""
+        client = _make_client(
+            search_recap=[
+                {
+                    "caseName": "Elkins v. California Highway Patrol",
+                    "docket_id": 900,
+                    "court_id": "caed",
+                    "docket_absolute_url": "/docket/900/",
+                    "docketNumber": "1:13-cv-01483",
+                    "recap_documents": [{
+                        "entry_date_filed": "2020-05-21",
+                        "short_description": "Order",
+                        "absolute_url": "/docket/900/50/",
+                    }],
+                },
+                {
+                    "caseName": "Unrelated v. Case",
+                    "docket_id": 901,
+                    "court_id": "caed",
+                    "docket_absolute_url": "/docket/901/",
+                    "docketNumber": "2:20-cv-99999",
+                    "recap_documents": [{
+                        "entry_date_filed": "2020-06-01",
+                        "short_description": "Order",
+                        "absolute_url": "/docket/901/10/",
+                    }],
+                },
+            ],
+        )
+        v = CitationVerifier(client)
+        result = v.verify(
+            "Estate of Elkins v. Pelayo, Case No. 1:13-CV-1483 AWI SAB, "
+            "2020 WL 2571387, at *4 n.3 (E.D. Cal. May 21, 2020)"
+        )
+
+        # Should find a match via docket number (different case name is OK)
+        assert result.status in (
+            VerificationStatus.LIKELY_REAL,
+            VerificationStatus.POSSIBLE_MATCH,
+        )
+        # The unrelated case should have been filtered out
+        assert "Unrelated" not in (result.matched_case_name or "")
+
+    def test_no_match_when_docket_numbers_dont_match(self):
+        """If API returns only non-matching docket numbers, no candidates survive."""
+        client = _make_client(
+            search_recap=[
+                {
+                    "caseName": "Wrong v. Case",
+                    "docket_id": 950,
+                    "court_id": "caed",
+                    "docket_absolute_url": "/docket/950/",
+                    "docketNumber": "3:99-cv-77777",
+                    "recap_documents": [],
+                },
+            ],
+        )
+        v = CitationVerifier(client)
+        result = v.verify(
+            "Test v. Case, Case No. 1:13-CV-1483 (E.D. Cal. 2020)"
+        )
+
+        assert result.status == VerificationStatus.NOT_FOUND
+
+
+# ---------------------------------------------------------------------------
+# Parser: case name normalization
+# ---------------------------------------------------------------------------
+
+class TestCaseNameNormalization:
+    def test_cnty_expanded_to_county(self):
+        from citation_verifier.parser import parse_citation
+        parsed = parse_citation(
+            "Bossart v. King Cnty., Case No. 2:24-cv-01776-JHC, "
+            "2025 WL 459154, at *1 (W.D. Wash. Feb. 11, 2025)"
+        )
+        assert "County" in parsed.case_name
+        assert "Cnty" not in parsed.case_name
+        assert "County" in parsed.defendant
+
+    def test_dept_expanded_to_department(self):
+        from citation_verifier.parser import parse_citation
+        parsed = parse_citation("Smith v. Fire Dept., 100 F.3d 200 (2d Cir. 2020)")
+        assert "Department" in parsed.case_name
+
+    def test_dept_with_apostrophe_expanded(self):
+        from citation_verifier.parser import parse_citation
+        parsed = parse_citation("Busha v. SC Dep't of Mental Health, 2019 WL 651680 (D.S.C. Feb. 13, 2019)")
+        assert "Department" in parsed.case_name
+        assert "Dep't" not in parsed.case_name

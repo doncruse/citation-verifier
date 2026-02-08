@@ -92,6 +92,7 @@ class CourtListenerClient:
         filed_after: str | None = None,
         filed_before: str | None = None,
         case_name: str | None = None,
+        docket_number: str | None = None,
     ) -> list[dict[str, Any]]:
         """Search RECAP docket entries (orders, opinions from PACER).
 
@@ -109,6 +110,8 @@ class CourtListenerClient:
             params["filed_before"] = filed_before
         if case_name:
             params["case_name"] = case_name
+        if docket_number:
+            params["docket"] = docket_number
 
         url = f"{self.BASE_URL}/search/"
         resp = self._session.get(url, params=params, timeout=self.REQUEST_TIMEOUT)
