@@ -29,7 +29,8 @@ _PAREN_PATTERN = re.compile(
 )
 
 # Regex for case name: "Plaintiff v. Defendant" before a citation number
-# Permissive character class to handle names like "Macy's Texas, Inc." and "D.A. Adams & Co."
+# Uses .+? (non-greedy) to stop at the citation number while still matching
+# commas, apostrophes, periods in party names like "Macy's Texas, Inc." or "D.A. Adams & Co."
 # Matches before ", <digits>" (federal) or " (<year>) <digits>" (California)
 _CASE_NAME_PATTERN = re.compile(
     r"^(.+?)\s+v\.\s+(.+?)(?:,\s+\d|\s+\(\d{4}\)\s+\d)"
@@ -62,6 +63,25 @@ _STANDARD_CITE_PATTERN = re.compile(
     r"F\.\s*Supp\.?\s*(?:2d|3d)?|F\.\s*App(?:'|')x)"
     r"\s+(\d+)"
 )
+
+
+def _apply_date_fields(
+    result: ParsedCitation,
+    month_str: str | None,
+    day_str: str | None,
+    year_str: str | None,
+) -> None:
+    """Apply parsed date fields to a ParsedCitation object.
+
+    Handles month name lookup, None checks, and int conversion.
+    Mutates result in place.
+    """
+    if month_str and result.month is None:
+        result.month = _MONTH_MAP.get(month_str[:3].lower())
+    if day_str and result.day is None:
+        result.day = int(day_str)
+    if year_str and result.year is None:
+        result.year = int(year_str)
 
 
 def parse_citation(text: str) -> ParsedCitation:
@@ -110,24 +130,14 @@ def parse_citation(text: str) -> ParsedCitation:
     if paren_match:
         if result.court is None:
             result.court = paren_match.group(1).strip()
-        if paren_match.group(2) and result.month is None:
-            result.month = _MONTH_MAP.get(paren_match.group(2)[:3].lower())
-        if paren_match.group(3) and result.day is None:
-            result.day = int(paren_match.group(3))
-        if result.year is None:
-            result.year = int(paren_match.group(4))
+        _apply_date_fields(result, paren_match.group(2), paren_match.group(3), paren_match.group(4))
 
     # Try reversed format: "(Feb. 5, 2026 SDNY)" — date before court
     if result.court is None:
         date_court_match = _PAREN_DATE_COURT_PATTERN.search(text)
         if date_court_match:
             result.court = date_court_match.group(4).strip()
-            if date_court_match.group(1) and result.month is None:
-                result.month = _MONTH_MAP.get(date_court_match.group(1)[:3].lower())
-            if date_court_match.group(2) and result.day is None:
-                result.day = int(date_court_match.group(2))
-            if result.year is None:
-                result.year = int(date_court_match.group(3))
+            _apply_date_fields(result, date_court_match.group(1), date_court_match.group(2), date_court_match.group(3))
 
     # Fallback: extract standard citation components via regex
     if result.volume is None:

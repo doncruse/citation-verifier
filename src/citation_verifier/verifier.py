@@ -2,12 +2,16 @@
 
 from __future__ import annotations
 
+import logging
+import re
 from difflib import SequenceMatcher
 
 from .client import CourtListenerClient
 from .court_map import lookup_court_id
 from .models import CandidateMatch, ParsedCitation, VerificationResult, VerificationStatus
 from .parser import parse_citation
+
+logger = logging.getLogger(__name__)
 
 
 class CitationVerifier:
@@ -65,7 +69,7 @@ class CitationVerifier:
                     )
         except Exception:
             # Citation lookup failed; fall through to search
-            pass
+            logger.debug("Citation lookup failed", exc_info=True)
 
         # Step 1b: Try adjacent starting pages (off-by-one is common)
         if parsed.volume and parsed.reporter and parsed.page:
@@ -77,6 +81,7 @@ class CitationVerifier:
                     try:
                         lookup_results = self.client.citation_lookup(alt_cite)
                     except Exception:
+                        logger.debug("Adjacent page lookup failed for %s", alt_cite, exc_info=True)
                         continue
                     for lr in lookup_results:
                         clusters = lr.get("clusters", [])
@@ -150,7 +155,7 @@ class CitationVerifier:
                 )
                 candidates = self._process_results(results, parsed)
             except Exception:
-                pass
+                logger.debug("Opinion search with court filter failed", exc_info=True)
 
             # Retry without court filter if no results
             if not candidates and court_id:
@@ -162,7 +167,7 @@ class CitationVerifier:
                     )
                     candidates = self._process_results(results, parsed)
                 except Exception:
-                    pass
+                    logger.debug("Opinion search without court filter failed", exc_info=True)
 
         # Step 3: RECAP fallback (docket entries, orders, PACER documents)
         # Note: RECAP dateFiled is the case filing date, not the opinion date,
@@ -175,7 +180,7 @@ class CitationVerifier:
                 )
                 candidates = self._process_recap_results(results, parsed)
             except Exception:
-                pass
+                logger.debug("RECAP search with court filter failed", exc_info=True)
 
             if not candidates and court_id:
                 try:
@@ -184,7 +189,7 @@ class CitationVerifier:
                     )
                     candidates = self._process_recap_results(results, parsed)
                 except Exception:
-                    pass
+                    logger.debug("RECAP search without court filter failed", exc_info=True)
 
         if not candidates:
             return VerificationResult(
@@ -224,17 +229,7 @@ class CitationVerifier:
         else:
             status = VerificationStatus.NOT_FOUND
 
-        diagnostics = list(best.mismatches)
-        if best.score >= 0.40 and best.case_name:
-            match_word = "likely" if status == VerificationStatus.LIKELY_REAL else "possible"
-            if diagnostics:
-                last = diagnostics[-1]
-                if last.endswith("could be verified"):
-                    diagnostics[-1] = last + f". However, we identified a {match_word} match."
-                else:
-                    diagnostics[-1] = last + f", but we identified a {match_word} match."
-            else:
-                diagnostics.append(f"We identified a {match_word} match.")
+        diagnostics = self._finalize_diagnostics(best.mismatches, best.score, status)
 
         return VerificationResult(
             input_citation=citation_text,
@@ -317,129 +312,202 @@ class CitationVerifier:
                     except (ValueError, IndexError):
                         pass
 
-            # If no matching docs, query the docket-entries API for the cited date.
-            # Try exact date first (cheapest), then fall back to year range.
+            # If no matching docs, query docket-entries API for the cited date
             if not has_date_match and parsed.year and docket_id:
-                found_entries = False
-                # Exact date query when we have month and day
-                if parsed.month and parsed.day:
-                    exact = f"{parsed.year}-{parsed.month:02d}-{parsed.day:02d}"
-                    try:
-                        entries = self.client.get_docket_entries(
-                            docket_id=docket_id,
-                            date_filed_after=exact,
-                            date_filed_before=exact,
-                        )
-                        for entry in entries:
-                            entry_date = entry.get("date_filed", "")
-                            for doc in entry.get("recap_documents", []):
-                                doc["entry_date_filed"] = entry_date
-                                docs.append(doc)
-                                found_entries = True
-                    except Exception:
-                        pass
-                # Fall back to year range if exact date found nothing
-                if not found_entries:
-                    try:
-                        entries = self.client.get_docket_entries(
-                            docket_id=docket_id,
-                            date_filed_after=f"{parsed.year}-01-01",
-                            date_filed_before=f"{parsed.year}-12-31",
-                        )
-                        for entry in entries:
-                            entry_date = entry.get("date_filed", "")
-                            for doc in entry.get("recap_documents", []):
-                                doc["entry_date_filed"] = entry_date
-                                docs.append(doc)
-                    except Exception:
-                        pass
+                self._fetch_docs_for_docket(docket_id, parsed, docs)
 
             # Build candidates from individual documents
             if docs:
-                # Score all docs, preferring opinions/orders over procedural filings
-                scored_docs = []
-                for doc in docs:
-                    entry_date = doc.get("entry_date_filed") or doc.get("date_filed", "")
-                    score, mismatches = self._score_match(
-                        parsed, case_name, court_id, entry_date, r,
-                    )
-                    desc = (
-                        doc.get("short_description")
-                        or doc.get("description")
-                        or ""
-                    ).lower()
-                    is_substantive = self._is_substantive_doc(desc)
-                    scored_docs.append((doc, entry_date, score, mismatches, is_substantive))
-
-                # Pick best substantive doc; fall back to best overall
-                substantive = [d for d in scored_docs if d[4]]
-                pool = substantive or scored_docs
-                best_doc = max(pool, key=lambda d: d[2])
-
-                if best_doc:
-                    doc, entry_date, score, mismatches, _ = best_doc
-                    doc_url = doc.get("absolute_url", "")
-                    if doc_url and not doc_url.startswith("http"):
-                        doc_url = f"https://www.courtlistener.com{doc_url}"
-                    desc = doc.get("short_description") or doc.get("description", "")
-                    if desc and len(desc) > 80:
-                        desc = desc[:80] + "..."
-
-                    recap_note = "Found in RECAP (not in opinions database)"
-                    if entry_date:
-                        recap_note += f". Document dated {entry_date}"
-                    if desc:
-                        recap_note += f": {desc}"
-                    mismatches.insert(0, recap_note)
-
-                    candidates.append(
-                        CandidateMatch(
-                            case_name=case_name,
-                            url=doc_url or docket_url,
-                            cluster_id=docket_id,
-                            date_filed=entry_date,
-                            court_id=court_id,
-                            score=score,
-                            mismatches=mismatches,
-                        )
-                    )
+                candidate = self._pick_best_recap_doc(
+                    docs, parsed, case_name, court_id, docket_url, docket_id, r
+                )
+                if candidate:
+                    candidates.append(candidate)
             else:
                 # No documents at all — docket-level fallback
-                # Discount the score: a docket match is weaker evidence
-                # than a document match
-                score, mismatches = self._score_match(
-                    parsed, case_name, court_id, "", r,
+                candidate = self._build_docket_only_candidate(
+                    parsed, case_name, court_id, docket_url, docket_id, r
                 )
-                score = round(score * 0.6, 4)
-                # Remove date/citation diagnostics — they're redundant when
-                # we already can't verify a specific document.
-                # Keep court/name diagnostics — those are still useful.
-                _date_cite_prefixes = (
-                    "Year ", "Date close", "Date mismatch",
-                    "Reporter citation ", "WL number ",
-                    "Citation mismatch", "Case name not returned",
-                )
-                mismatches = [
-                    m for m in mismatches
-                    if not m.startswith(_date_cite_prefixes)
-                ]
-                mismatches.insert(
-                    0,
-                    "We found a possible docket match in RECAP, "
-                    "but no specific document could be verified",
-                )
-                candidates.append(
-                    CandidateMatch(
-                        case_name=case_name,
-                        url=docket_url,
-                        cluster_id=docket_id,
-                        date_filed="",
-                        court_id=court_id,
-                        score=score,
-                        mismatches=mismatches,
-                    )
-                )
+                candidates.append(candidate)
         return candidates
+
+    def _fetch_docs_for_docket(
+        self, docket_id: int, parsed: ParsedCitation, docs: list[dict]
+    ) -> None:
+        """Query docket-entries API for documents matching the cited date.
+
+        Tries exact date first (when month/day available), then year range.
+        Appends found documents to the *docs* list (mutates in place).
+        """
+        found_entries = False
+        # Exact date query when we have month and day
+        if parsed.month and parsed.day:
+            exact = f"{parsed.year}-{parsed.month:02d}-{parsed.day:02d}"
+            try:
+                entries = self.client.get_docket_entries(
+                    docket_id=docket_id,
+                    date_filed_after=exact,
+                    date_filed_before=exact,
+                )
+                for entry in entries:
+                    entry_date = entry.get("date_filed", "")
+                    for doc in entry.get("recap_documents", []):
+                        doc["entry_date_filed"] = entry_date
+                        docs.append(doc)
+                        found_entries = True
+            except Exception:
+                logger.debug(
+                    "Docket entries query (exact date) failed for docket %s",
+                    docket_id, exc_info=True
+                )
+        # Fall back to year range if exact date found nothing
+        if not found_entries:
+            try:
+                entries = self.client.get_docket_entries(
+                    docket_id=docket_id,
+                    date_filed_after=f"{parsed.year}-01-01",
+                    date_filed_before=f"{parsed.year}-12-31",
+                )
+                for entry in entries:
+                    entry_date = entry.get("date_filed", "")
+                    for doc in entry.get("recap_documents", []):
+                        doc["entry_date_filed"] = entry_date
+                        docs.append(doc)
+            except Exception:
+                logger.debug(
+                    "Docket entries query (year range) failed for docket %s",
+                    docket_id, exc_info=True
+                )
+
+    def _pick_best_recap_doc(
+        self,
+        docs: list[dict],
+        parsed: ParsedCitation,
+        case_name: str,
+        court_id: str,
+        docket_url: str,
+        docket_id: int,
+        result: dict,
+    ) -> CandidateMatch | None:
+        """Score all docs, pick the best substantive one, and build a CandidateMatch.
+
+        Prefers opinions/orders over procedural filings. Returns None if no docs.
+        """
+        if not docs:
+            return None
+
+        # Score all docs, preferring opinions/orders over procedural filings
+        scored_docs = []
+        for doc in docs:
+            entry_date = doc.get("entry_date_filed") or doc.get("date_filed", "")
+            score, mismatches = self._score_match(
+                parsed, case_name, court_id, entry_date, result,
+            )
+            desc = (
+                doc.get("short_description")
+                or doc.get("description")
+                or ""
+            ).lower()
+            is_substantive = self._is_substantive_doc(desc)
+            scored_docs.append((doc, entry_date, score, mismatches, is_substantive))
+
+        # Pick best substantive doc; fall back to best overall
+        substantive = [d for d in scored_docs if d[4]]
+        pool = substantive or scored_docs
+        best_doc = max(pool, key=lambda d: d[2])
+
+        doc, entry_date, score, mismatches, _ = best_doc
+        doc_url = doc.get("absolute_url", "")
+        if doc_url and not doc_url.startswith("http"):
+            doc_url = f"https://www.courtlistener.com{doc_url}"
+        desc = doc.get("short_description") or doc.get("description", "")
+        if desc and len(desc) > 80:
+            desc = desc[:80] + "..."
+
+        recap_note = "Found in RECAP (not in opinions database)"
+        if entry_date:
+            recap_note += f". Document dated {entry_date}"
+        if desc:
+            recap_note += f": {desc}"
+        mismatches.insert(0, recap_note)
+
+        return CandidateMatch(
+            case_name=case_name,
+            url=doc_url or docket_url,
+            cluster_id=docket_id,
+            date_filed=entry_date,
+            court_id=court_id,
+            score=score,
+            mismatches=mismatches,
+        )
+
+    def _build_docket_only_candidate(
+        self,
+        parsed: ParsedCitation,
+        case_name: str,
+        court_id: str,
+        docket_url: str,
+        docket_id: int,
+        result: dict,
+    ) -> CandidateMatch:
+        """Build a docket-level candidate when no documents are available.
+
+        Discounts the score (0.6x) and strips date/citation diagnostics.
+        """
+        score, mismatches = self._score_match(
+            parsed, case_name, court_id, "", result,
+        )
+        score = round(score * 0.6, 4)
+        # Remove date/citation diagnostics — they're redundant when
+        # we already can't verify a specific document.
+        # Keep court/name diagnostics — those are still useful.
+        _date_cite_prefixes = (
+            "Year ", "Date close", "Date mismatch",
+            "Reporter citation ", "WL number ",
+            "Citation mismatch", "Case name not returned",
+        )
+        mismatches = [
+            m for m in mismatches
+            if not m.startswith(_date_cite_prefixes)
+        ]
+        mismatches.insert(
+            0,
+            "We found a possible docket match in RECAP, "
+            "but no specific document could be verified",
+        )
+        return CandidateMatch(
+            case_name=case_name,
+            url=docket_url,
+            cluster_id=docket_id,
+            date_filed="",
+            court_id=court_id,
+            score=score,
+            mismatches=mismatches,
+        )
+
+    @staticmethod
+    def _finalize_diagnostics(
+        mismatches: list[str],
+        score: float,
+        status: VerificationStatus,
+    ) -> list[str]:
+        """Finalize diagnostics by appending match language for non-verified results.
+
+        When score >= 0.40, appends "However, we identified a likely/possible match"
+        to the last diagnostic or as a standalone message.
+        """
+        diagnostics = list(mismatches)
+        if score >= 0.40:
+            match_word = "likely" if status == VerificationStatus.LIKELY_REAL else "possible"
+            if diagnostics:
+                last = diagnostics[-1]
+                if last.endswith("could be verified"):
+                    diagnostics[-1] = last + f". However, we identified a {match_word} match."
+                else:
+                    diagnostics[-1] = last + f", but we identified a {match_word} match."
+            else:
+                diagnostics.append(f"We identified a {match_word} match.")
+        return diagnostics
 
     @staticmethod
     def _normalize_docket_number(dn: str) -> str:
@@ -449,7 +517,6 @@ class CitationVerifier:
         segments so that '17-cv-12676' and '2:17-cv-00012676' compare
         as equal.
         """
-        import re
         # Strip optional division prefix (e.g. "2:" or "4:")
         dn = re.sub(r"^\d+:", "", dn)
         # Strip leading zeros from numeric segments
