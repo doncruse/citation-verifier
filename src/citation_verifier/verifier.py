@@ -67,6 +67,60 @@ class CitationVerifier:
             # Citation lookup failed; fall through to search
             pass
 
+        # Step 1b: Try adjacent starting pages (off-by-one is common)
+        if parsed.volume and parsed.reporter and parsed.page:
+            try:
+                base_page = int(parsed.page)
+                for offset in (-1, 1, -2, 2):
+                    alt_page = str(base_page + offset)
+                    alt_cite = f"{parsed.volume} {parsed.reporter} {alt_page}"
+                    try:
+                        lookup_results = self.client.citation_lookup(alt_cite)
+                    except Exception:
+                        continue
+                    for lr in lookup_results:
+                        clusters = lr.get("clusters", [])
+                        for cluster in clusters:
+                            case_name = cluster.get("case_name", "")
+                            cluster_id = cluster.get("id")
+                            url = cluster.get("absolute_url", "")
+                            if url and not url.startswith("http"):
+                                url = f"https://www.courtlistener.com{url}"
+                            elif cluster_id and not url:
+                                url = f"https://www.courtlistener.com/opinion/{cluster_id}/"
+                            if not (parsed.case_name and case_name):
+                                continue
+                            # Stricter name check for adjacent-page matches:
+                            # require defendant similarity >= 0.7
+                            result_lower = case_name.lower()
+                            result_def = ""
+                            if " v. " in result_lower:
+                                result_def = result_lower.split(" v. ", 1)[1].strip()
+                            elif " v " in result_lower:
+                                result_def = result_lower.split(" v ", 1)[1].strip()
+                            if parsed.defendant and result_def:
+                                def_sim = SequenceMatcher(
+                                    None, parsed.defendant.lower(), result_def,
+                                ).ratio()
+                                if def_sim < 0.7:
+                                    continue
+                            elif not self._names_match(parsed, case_name):
+                                continue
+                            return VerificationResult(
+                                    input_citation=citation_text,
+                                    status=VerificationStatus.VERIFIED,
+                                    confidence=1.0,
+                                    matched_case_name=case_name,
+                                    matched_url=url,
+                                    matched_cluster_id=cluster_id,
+                                    diagnostics=[
+                                        f"Matched via adjacent page: cited page {parsed.page}, "
+                                        f"case starts at page {alt_page}",
+                                    ],
+                                )
+            except (ValueError, TypeError):
+                pass
+
         # Step 2: Fuzzy search fallback
         return self._search_fallback(citation_text, parsed)
 
@@ -144,6 +198,25 @@ class CitationVerifier:
         candidates.sort(key=lambda c: c.score, reverse=True)
         best = candidates[0]
 
+        # When a reporter/WL citation was given but couldn't be verified
+        # via lookup, require court corroboration before calling it a match.
+        # A name-only hit in the wrong court is likely a coincidence.
+        has_unverified_cite = bool(
+            (parsed.volume and parsed.reporter and parsed.page)
+            or parsed.wl_number
+        )
+        if has_unverified_cite and court_id and best.court_id != court_id:
+            return VerificationResult(
+                input_citation=citation_text,
+                status=VerificationStatus.NOT_FOUND,
+                confidence=0.0,
+                candidates=candidates[:5],
+                diagnostics=[
+                    f"Reporter citation could not be verified, and no matching "
+                    f"cases were found in {parsed.court}",
+                ],
+            )
+
         if best.score >= 0.85:
             status = VerificationStatus.LIKELY_REAL
         elif best.score >= 0.40:
@@ -153,9 +226,7 @@ class CitationVerifier:
 
         diagnostics = list(best.mismatches)
         if best.score >= 0.40 and best.case_name:
-            # "possible" for docket-only RECAP matches, "likely" when we have a document
-            is_docket_only = any("possible docket match" in d for d in diagnostics)
-            match_word = "possible" if is_docket_only else "likely"
+            match_word = "likely" if status == VerificationStatus.LIKELY_REAL else "possible"
             if diagnostics:
                 last = diagnostics[-1]
                 if last.endswith("could be verified"):
@@ -374,10 +445,14 @@ class CitationVerifier:
     def _normalize_docket_number(dn: str) -> str:
         """Normalize a docket number for comparison.
 
-        Strips leading zeros from numeric segments so that
-        '4:06-CV-43' and '4:06-cv-00043' compare as equal.
+        Strips division prefix ('2:') and leading zeros from numeric
+        segments so that '17-cv-12676' and '2:17-cv-00012676' compare
+        as equal.
         """
         import re
+        # Strip optional division prefix (e.g. "2:" or "4:")
+        dn = re.sub(r"^\d+:", "", dn)
+        # Strip leading zeros from numeric segments
         return re.sub(r"(?<!\d)0+(?=\d)", "", dn).lower()
 
     @staticmethod
