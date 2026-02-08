@@ -11,13 +11,18 @@ Input: "Smith v. Jones, 2018 WL 301424 (S.D.N.Y. Mar. 5, 2018)"
   |     Found + name matches? -> VERIFIED + CourtListener link
   |     Found but different case? -> NOT FOUND ("citation belongs to ...")
   |
+  +-- Step 1b: Adjacent Page Fallback
+  |     Try pages +/-1 and +/-2 for off-by-one starting pages
+  |
   +-- Step 2: Opinion Search (fuzzy fallback)
   |     Search by case name + court + date range
+  |     Retries without court filter if no results
   |     Score results by name/court/date/citation similarity
   |
   +-- Step 3: RECAP Search (docket/PACER fallback)
-        Search dockets, then query docket-entries API for
-        documents near the cited date
+        Search by docket number first (if available),
+        then by case name (with/without court filter).
+        Query docket-entries API for documents near the cited date
 ```
 
 ### Statuses
@@ -97,9 +102,11 @@ print(result.diagnostics)     # []
 - Standard reporters: `576 U.S. 644`, `999 F.3d 1`, `584 S.W.2d 716`
 - WestLaw: `2018 WL 301424`
 - California style: `(2022) 76 Cal.App.5th 685`
+- Docket numbers: `Case No. 24-cv-9429`, `No. 17-cv-12676`, shorthand `C15-1228-JCC`
 - Federal parentheticals: `(S.D.N.Y. 2018)`, `(M.D. Ala. July 6, 2018)`
 - Reversed date/court: `(Feb. 5, 2026 SDNY)`
 - Complex party names: `Macy's Texas, Inc. v. D.A. Adams & Co.`
+- Abbreviations auto-expanded: `Cnty.` → `County`, `Dep't` → `Department`, `Corp.` → `Corporation`, etc.
 
 ## Project Structure
 
@@ -121,7 +128,8 @@ Fuzzy match confidence is a weighted score:
 |-----------|--------|-------|
 | Case name | 50% | SequenceMatcher similarity; compares defendants for "State v." style cases |
 | Court | 20% | Exact match on CourtListener court ID |
-| Date | 20% | Full credit for same year, partial for +/- 1 year |
-| Citation | 10% | Reporter citation or WL number found in CourtListener record |
+| Date | 20% | Full credit for exact date; granular scoring for same month, same year, +/- 1 year |
+| Docket no. | 5% | Normalized comparison (strips division prefix, judge suffix, expands shorthand) |
+| Citation | 5% | Reporter citation or WL number found in CourtListener record |
 
 RECAP docket-only matches (no specific document found) receive a 40% score discount.
