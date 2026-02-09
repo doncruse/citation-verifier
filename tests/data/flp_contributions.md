@@ -151,43 +151,92 @@ Before submitting:
 
 ## 2. Docket Parameter Unreliability
 
-**Status:** DRAFT
-**Target:** CourtListener (new issue)
-**Type:** Bug report
+**Status:** DECLINED (won't report - related issues already exist)
+**Target:** CourtListener
+**Type:** Bug report / Limitation
 
 ### Summary
 
-The RECAP search API `docket` parameter appears to be ignored, returning unfiltered recent results instead of filtering by docket number.
+The RECAP search API `docket` parameter is completely ignored by the API, returning unfiltered recent results instead of filtering by docket number. This appears to be a known limitation tracked in related FLP issues about docket number normalization and search.
 
-### Evidence Needed
+### Evidence
 
-- [ ] Check API documentation for `docket` parameter
-- [ ] Test 3-5 different docket numbers systematically
-- [ ] Verify `q` parameter workaround works consistently
-- [ ] Search FLP issues for existing reports
-- [ ] Determine: bug or undocumented behavior?
+**Testing conducted 2025-02-09 using API v4.3:**
 
-### Current Status
+Test 1 - Bossart case docket:
+```bash
+# Using docket parameter - BROKEN
+curl "https://www.courtlistener.com/api/rest/v4/search/?type=r&docket=2:24-cv-01776"
+# Returns: 60,994,914 results (all recent RECAP docs, unrelated)
 
-**What we know:**
-- API call: `GET /api/rest/v4/search/?type=r&docket=C15-1228-JCC`
-- Expected: Results filtered to that docket
-- Actual: Returns recent RECAP results, unrelated to docket number
-- Workaround: Use `q="C15-1228"` instead, filter client-side
+# Using q parameter - WORKS
+curl "https://www.courtlistener.com/api/rest/v4/search/?type=r&q=\"2:24-cv-01776\""
+# Returns: 16 results including correct case (docket ID 69346061)
+```
 
-**What we need:**
-- More test cases
-- Confirmation it's a bug vs "never implemented"
-- Impact assessment (does anyone else rely on this?)
+Test 2 - Anderson case docket:
+```bash
+# Using docket parameter - BROKEN
+curl "https://www.courtlistener.com/api/rest/v4/search/?type=r&docket=17-cv-12676"
+# Returns: 60,994,914 results (all recent RECAP docs, unrelated)
 
-### Next Steps
+# Using q parameter - WORKS
+curl "https://www.courtlistener.com/api/rest/v4/search/?type=r&q=\"17-cv-12676\""
+# Returns: 21 results including correct case (docket ID 6264209)
+```
 
-1. API documentation review
-2. Systematic testing
-3. Issue search
-4. Draft report (if warranted)
+**Conclusion:** The `docket` parameter has no effect on filtering. It's present in the URL but completely ignored.
 
-**Decision:** ON HOLD - needs investigation before determining if worth reporting
+### Related FLP Issues
+
+Search found several related issues about docket number handling:
+
+1. **[Issue #764](https://github.com/freelawproject/courtlistener/issues/764)** - RECAP docket number search doesn't allow suffixes (judge initials)
+2. **[Issue #635](https://github.com/freelawproject/courtlistener/issues/635)** - Normalize PACER docket numbers for search (leading zeroes)
+3. **[Issue #6296](https://github.com/freelawproject/courtlistener/issues/6296)** - Docket number clean-up to prep for appellate chain linking
+4. **[Issue #6313](https://github.com/freelawproject/courtlistener/issues/6313)** - Implement docket number cleaning to CL workflow
+
+These issues focus on docket number normalization and search via the main search box, but they indicate FLP is aware that docket number search has challenges. The `docket` parameter specifically may never have been fully implemented for the API.
+
+### Our Workaround
+
+From `src/citation_verifier/client.py`:
+```python
+if docket_number:
+    # Use q with quoted string -- the docket param is unreliable
+    q_parts = [params.get("q", ""), f'"{docket_number}"']
+    params["q"] = " ".join(p for p in q_parts if p)
+```
+
+Then in `verifier.py`, we filter results client-side:
+```python
+# API does fuzzy matching, so filter to actual docket matches
+cited_dn = self._normalize_docket_number(parsed.docket_number)
+results = [
+    r for r in results
+    if self._normalize_docket_number(
+        r.get("docketNumber") or r.get("docket_number") or ""
+    ) == cited_dn
+]
+```
+
+This two-step approach (search with `q`, then client-side filter) works reliably.
+
+### Decision Factors
+
+**Why not report:**
+- Related issues already exist (#764, #635, #6296, #6313)
+- FLP is aware docket number search is challenging
+- The `docket` parameter may never have been fully implemented (not documented)
+- Our workaround is straightforward and works well
+- Low priority - affects API users but not web interface users
+- Reporting would likely duplicate or overlap with existing work
+
+**Alternative action:**
+- Could comment on existing issues with our API testing data
+- But seems more useful to wait until FLP addresses the broader docket normalization work
+
+**Recommendation:** Don't create a new issue. If FLP solicits feedback on docket search improvements (e.g., in #635 or #6296), we could contribute our API testing data showing the `docket` parameter doesn't work.
 
 ---
 

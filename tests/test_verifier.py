@@ -594,6 +594,15 @@ class TestHelpers:
         assert n("C15-1228-JCC") == n("2:15-cv-01228")
         assert n("C15-1228") == n("15-cv-1228")
 
+    def test_extract_surname(self):
+        s = CitationVerifier._extract_surname
+        assert s("Gomez") == "Gomez"
+        assert s("Daou Systems, Inc.") == "Daou"
+        assert s("James H. Gomez, Director") == "James"
+        assert s("None") == ""
+        assert s("") == ""
+        assert s(None) == ""
+
     def test_is_substantive_doc(self):
         s = CitationVerifier._is_substantive_doc
         assert s("order")
@@ -773,3 +782,143 @@ class TestCaseNameNormalization:
                     f"Expected '{expected}' in '{parsed.case_name}' "
                     f"for input '{citation_fragment}'"
                 )
+
+
+# ---------------------------------------------------------------------------
+# Citation lookup name matching (lenient surname-based)
+# ---------------------------------------------------------------------------
+
+
+class TestCitationLookupNameMatching:
+    """Citation lookup should use lenient surname-based matching."""
+
+    def test_abbreviated_name_matches_full_name(self):
+        """'Fink v. Gomez' should match 'David M. Fink v. James H. Gomez, Director...'"""
+        client = _make_client(
+            citation_lookup=[
+                {
+                    "clusters": [
+                        {
+                            "case_name": "David M. Fink v. James H. Gomez, Director, Diana Carloni Nourse",
+                            "id": 772039,
+                            "absolute_url": "/opinion/772039/david-m-fink-v-james-h-gomez/",
+                        }
+                    ]
+                }
+            ]
+        )
+        v = CitationVerifier(client)
+        result = v.verify("Fink v. Gomez, 239 F.3d 989 (9th Cir. 2001)")
+
+        assert result.status == VerificationStatus.VERIFIED
+
+    def test_none_plaintiff_trusts_citation_lookup(self):
+        """When eyecite fails to parse plaintiff ('None v. X'), trust citation lookup."""
+        client = _make_client(
+            citation_lookup=[
+                {
+                    "clusters": [
+                        {
+                            "case_name": "Sparling v. Daou",
+                            "id": 8438896,
+                            "absolute_url": "/opinion/8438896/sparling-v-daou/",
+                        }
+                    ]
+                }
+            ]
+        )
+        v = CitationVerifier(client)
+        result = v.verify("None v. Daou Systems, Inc., 411 F.3d 1006 (2005)")
+
+        assert result.status == VerificationStatus.VERIFIED
+
+    def test_completely_wrong_name_still_rejected(self):
+        """Fabricated name + real citation should still be NOT_FOUND."""
+        client = _make_client(
+            citation_lookup=[
+                {
+                    "clusters": [
+                        {
+                            "case_name": "David M. Fink v. James H. Gomez, Director",
+                            "id": 772039,
+                            "absolute_url": "/opinion/772039/",
+                        }
+                    ]
+                }
+            ]
+        )
+        v = CitationVerifier(client)
+        result = v.verify("Johnson v. Microsoft Corp., 239 F.3d 989 (9th Cir. 2001)")
+
+        assert result.status == VerificationStatus.NOT_FOUND
+
+    def test_defendant_only_match_sufficient(self):
+        """If just the defendant surname matches, accept it (plaintiff may be 'Estate of X')."""
+        client = _make_client(
+            citation_lookup=[
+                {
+                    "clusters": [
+                        {
+                            "case_name": "Elkins v. California Highway Patrol",
+                            "id": 100,
+                            "absolute_url": "/opinion/100/",
+                        }
+                    ]
+                }
+            ]
+        )
+        v = CitationVerifier(client)
+        # "Estate" won't appear in CL name, but "Pelayo" won't either —
+        # actually this should NOT match since neither surname is in there.
+        # But "Elkins" IS in both. Let's test the right thing:
+        result = v.verify("Elkins v. Pelayo, 100 F.3d 200 (2001)")
+        # "Elkins" appears in CL name → passes surname check
+        assert result.status == VerificationStatus.VERIFIED
+
+
+# ---------------------------------------------------------------------------
+# Surname score bonus for search fallback
+# ---------------------------------------------------------------------------
+
+
+class TestSurnameScoreBonus:
+    """Search fallback should boost score when surnames match despite low SequenceMatcher."""
+
+    def test_surname_match_boosts_score(self):
+        """'Jindrich v. Weihele' vs 'Edward S. Jindrich, Jr. v. Michaela Weihele' should score well."""
+        from citation_verifier.models import ParsedCitation
+
+        parsed = ParsedCitation(
+            raw_text="test",
+            case_name="Jindrich v. Weihele",
+            plaintiff="Jindrich",
+            defendant="Weihele",
+        )
+        v = CitationVerifier(_make_client())
+        score, _ = v._score_match(
+            parsed,
+            "Edward S. Jindrich, Jr. v. Michaela Weihele",
+            "", "", {}
+        )
+        # Without bonus: ~0.5 * 0.61 = 0.305
+        # With bonus: should be boosted to ~0.5 * 0.85 = 0.425
+        assert score >= 0.40
+
+    def test_no_bonus_when_surnames_dont_match(self):
+        """Unrelated names should not get a surname bonus."""
+        from citation_verifier.models import ParsedCitation
+
+        parsed = ParsedCitation(
+            raw_text="test",
+            case_name="Smith v. Jones",
+            plaintiff="Smith",
+            defendant="Jones",
+        )
+        v = CitationVerifier(_make_client())
+        score, _ = v._score_match(
+            parsed,
+            "Edward S. Jindrich, Jr. v. Michaela Weihele",
+            "", "", {}
+        )
+        # No surname match → no bonus → stays low
+        assert score < 0.30

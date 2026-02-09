@@ -51,7 +51,7 @@ class CitationVerifier:
 
                     # Verify the case name actually matches before calling it VERIFIED
                     if parsed.case_name and case_name:
-                        if not self._names_match(parsed, case_name):
+                        if not self._names_match_citation_lookup(parsed, case_name):
                             return VerificationResult(
                                 input_citation=citation_text,
                                 status=VerificationStatus.NOT_FOUND,
@@ -616,6 +616,68 @@ class CitationVerifier:
         return any(kw in desc for kw in _SUBSTANTIVE_KEYWORDS)
 
     @staticmethod
+    def _extract_surname(party_name: str) -> str:
+        """Extract the likely surname from a party name.
+
+        Takes the first word, which in abbreviated legal citations is typically
+        the surname: 'Gomez' from 'Gomez', 'Daou' from 'Daou Systems, Inc.'
+        Returns empty string if input is empty/None-like.
+        """
+        if not party_name or party_name.lower() in ("none", ""):
+            return ""
+        return party_name.split()[0].rstrip(",.")
+
+    def _names_match_citation_lookup(self, parsed: ParsedCitation, cl_case_name: str) -> bool:
+        """Lenient name check for citation-lookup matches.
+
+        When the Citation Lookup API confirms a reporter citation exists,
+        the case identity is already established. This check only rejects
+        truly wrong names (e.g., fabricated name + real citation number).
+
+        Uses surname containment rather than SequenceMatcher because
+        briefs commonly abbreviate: 'Fink v. Gomez' for
+        'David M. Fink v. James H. Gomez, Director, Diana Carloni Nourse'.
+        """
+        # If we couldn't parse a case name, trust the citation lookup
+        if not parsed.case_name:
+            return True
+        if not parsed.plaintiff or parsed.plaintiff.lower() == "none":
+            # eyecite failed to parse plaintiff — don't reject on broken parse
+            return True
+
+        cl_lower = cl_case_name.lower()
+
+        # For common-prefix cases (United States v. X, State v. X), compare defendants
+        # since the plaintiff is not distinctive
+        if parsed.defendant:
+            defendant_lower = parsed.defendant.lower()
+            # Check if this is a common-prefix case
+            common_prefixes = ("united states", "state of", "commonwealth", "people")
+            if any(parsed.case_name.lower().startswith(prefix) for prefix in common_prefixes):
+                # For common-prefix cases, the defendant must match
+                defendant_surname = self._extract_surname(parsed.defendant)
+                if defendant_surname:
+                    # Defendant surname must appear in CL case name
+                    return defendant_surname.lower() in cl_lower
+                # If we can't extract defendant surname, fall back to full match check
+                return defendant_lower in cl_lower
+
+        # For regular cases, extract surnames from cited parties
+        cited_surnames = []
+        plaintiff_surname = self._extract_surname(parsed.plaintiff)
+        if plaintiff_surname:
+            cited_surnames.append(plaintiff_surname.lower())
+        defendant_surname = self._extract_surname(parsed.defendant) if parsed.defendant else ""
+        if defendant_surname:
+            cited_surnames.append(defendant_surname.lower())
+
+        if not cited_surnames:
+            return True  # nothing to check against
+
+        # At least one cited surname must appear in the CL case name
+        return any(name in cl_lower for name in cited_surnames)
+
+    @staticmethod
     def _names_match(parsed: ParsedCitation, result_case_name: str) -> bool:
         """Check whether parsed citation and result refer to the same case.
 
@@ -680,6 +742,26 @@ class CitationVerifier:
                 result_case_name.lower(),
             ).ratio()
             score += 0.5 * name_sim
+
+            # Surname containment bonus: when SequenceMatcher underscores due to
+            # length differences (e.g., "Jindrich v. Weihele" vs
+            # "Edward S. Jindrich, Jr. v. Michaela Weihele"), check if the cited
+            # party surnames actually appear in the result name.
+            if name_sim < 0.85:
+                result_lower = result_case_name.lower()
+                surnames_found = 0
+                surnames_checked = 0
+                for party in (parsed.plaintiff, parsed.defendant):
+                    surname = self._extract_surname(party) if party else ""
+                    if surname:
+                        surnames_checked += 1
+                        if surname.lower() in result_lower:
+                            surnames_found += 1
+                if surnames_checked > 0 and surnames_found == surnames_checked:
+                    # Both surnames present — boost up to 0.85 equivalent
+                    boosted = max(name_sim, 0.85)
+                    score += 0.5 * (boosted - name_sim)
+
             if name_sim < 0.6:
                 mismatches.append(
                     f'Name mismatch: cited "{parsed.case_name}" '
