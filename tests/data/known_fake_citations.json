@@ -27,5 +27,24 @@
     "context": "Same passage as Bloomberg and Hogan citations above - court identified as non-existent.",
     "expected_status": "NOT_FOUND",
     "notes": "Completely fabricated case. No case with this name exists at this citation. Part of AI hallucination in legal brief."
+  },
+  {
+    "citation": "Shell Petroleum N.V. v. Republic of Costa Rica, 608 F. Supp. 2d 269 (S.D.N.Y. 2009)",
+    "category": "hallucinated_case",
+    "source_document": "Flowz Digital LLC v. Flowz Staffing LLC, Case No. 2:25-cv-00709-SB-PVC (C.D. Cal. May 5, 2025)",
+    "court_finding": "Court states: 'after multiple search attempts, the Court is unable to locate Shell Petroleum N.V. v. Republic of Costa Rica, 608 F. Supp. 2d 269 (S.D.N.Y. 2009).'",
+    "context": "Moreover, after multiple search attempts, the Court is unable to locate Shell Petroleum N.V. v. Republic of Costa Rica, 608 F. Supp. 2d 269 (S.D.N.Y. 2009). Plaintiff shall attach the case to its response to this order to show cause.",
+    "expected_status": "NOT_FOUND",
+    "notes": "Completely fabricated case. Court unable to locate after multiple searches. Citation lookup found a different case ('Faghri v. University of Connecticut') at 608 F. Supp. 2d 269."
+  },
+  {
+    "citation": "Butler Motors, Inc. v. Benosky, 181 N.E.3d 857 (Ind. Ct. App. 2021)",
+    "category": "wrong_page_number",
+    "source_document": "Wilcox v. Gingrich (Ind. Ct. App. 2025)",
+    "court_finding": "Court states: 'The Wilcoxes also cite \"Butler Motors, Inc. v. Benosky, 181 N.E.3d 857 (Ind. Ct. App. 2021)\" in their Table of Authorities as appearing on page 3 and on page 17 of their brief, but the actual case citation is at 181 N.E.3d 304.'",
+    "actual_case_at_citation": "Butler Motors, Inc. v. Benosky, 181 N.E.3d 304 (Ind. Ct. App. 2021)",
+    "context": "The Wilcoxes also cite \"Butler Motors, Inc. v. Benosky, 181 N.E.3d 857 (Ind. Ct. App. 2021)\" in their Table of Authorities as appearing on page 3 and on page 17 of their brief, but the actual case citation is at 181 N.E.3d 304.",
+    "expected_status": "NOT_FOUND",
+    "notes": "Real case with wrong page number. Cited as 181 N.E.3d 857 but actual citation is 181 N.E.3d 304. Also note: extraction pipeline lost 'Butler' from party name, extracting as just 'Motors, Inc. v. Benosky'."
   }
 ]
