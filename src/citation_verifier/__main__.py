@@ -7,7 +7,7 @@ import json
 import sys
 from dataclasses import asdict
 
-from .models import VerificationStatus
+from .models import VerificationResult, VerificationStatus
 from .verifier import CitationVerifier
 
 # Status → display style
@@ -19,7 +19,7 @@ _STATUS_LABELS = {
 }
 
 
-def _print_result(result, json_mode: bool) -> None:
+def _print_result(result: VerificationResult, json_mode: bool) -> None:
     if json_mode:
         d = asdict(result)
         d["status"] = result.status.value
@@ -38,8 +38,8 @@ def _print_result(result, json_mode: bool) -> None:
 
     if result.diagnostics:
         print("  Issues:")
-        for d in result.diagnostics:
-            print(f"    - {d}")
+        for diagnostic in result.diagnostics:
+            print(f"    - {diagnostic}")
 
     if result.candidates and result.status in (
         VerificationStatus.POSSIBLE_MATCH,
@@ -47,8 +47,10 @@ def _print_result(result, json_mode: bool) -> None:
     ):
         print("  Candidates:")
         for c in result.candidates[:3]:
-            print(f"    - {c.case_name} ({c.date_filed}, {c.court_id}) "
-                  f"score={c.score:.2f}  {c.url}")
+            print(
+                f"    - {c.case_name} ({c.date_filed}, {c.court_id}) "
+                f"score={c.score:.2f}  {c.url}"
+            )
 
     if result.error:
         print(f"  Error:    {result.error}")
@@ -66,7 +68,8 @@ def main(argv: list[str] | None = None) -> int:
         help="Citation strings to verify",
     )
     parser.add_argument(
-        "--file", "-f",
+        "--file",
+        "-f",
         help="File with one citation per line",
     )
     parser.add_argument(

@@ -10,8 +10,18 @@ from eyecite.models import FullCaseCitation
 from .models import ParsedCitation
 
 _MONTH_MAP = {
-    "jan": 1, "feb": 2, "mar": 3, "apr": 4, "may": 5, "jun": 6,
-    "jul": 7, "aug": 8, "sep": 9, "oct": 10, "nov": 11, "dec": 12,
+    "jan": 1,
+    "feb": 2,
+    "mar": 3,
+    "apr": 4,
+    "may": 5,
+    "jun": 6,
+    "jul": 7,
+    "aug": 8,
+    "sep": 9,
+    "oct": 10,
+    "nov": 11,
+    "dec": 12,
 }
 
 # Regex for WestLaw citations: "2018 WL 301424"
@@ -32,9 +42,7 @@ _PAREN_PATTERN = re.compile(
 # Uses .+? (non-greedy) to stop at the citation number while still matching
 # commas, apostrophes, periods in party names like "Macy's Texas, Inc." or "D.A. Adams & Co."
 # Matches before ", <digits>" (federal) or " (<year>) <digits>" (California)
-_CASE_NAME_PATTERN = re.compile(
-    r"^(.+?)\s+v\.\s+(.+?)(?:,\s+\d|\s+\(\d{4}\)\s+\d)"
-)
+_CASE_NAME_PATTERN = re.compile(r"^(.+?)\s+v\.\s+(.+?)(?:,\s+\d|\s+\(\d{4}\)\s+\d)")
 
 # California-style year before reporter: "Case Name (2022) 76 Cal.App.5th 685"
 _CAL_YEAR_PATTERN = re.compile(r"\((\d{4})\)\s+\d")
@@ -121,7 +129,7 @@ def parse_citation(text: str) -> ParsedCitation:
     for cite in eyecite_results:
         if isinstance(cite, FullCaseCitation):
             result.volume = str(cite.groups.get("volume", ""))
-            result.reporter = str(cite.corrected_reporter() or "")
+            result.reporter = str(cite.corrected_reporter() or "")  # type: ignore[no-untyped-call]
             result.page = str(cite.groups.get("page", ""))
             if hasattr(cite, "metadata"):
                 meta = cite.metadata
@@ -154,14 +162,21 @@ def parse_citation(text: str) -> ParsedCitation:
     if paren_match:
         if result.court is None:
             result.court = paren_match.group(1).strip()
-        _apply_date_fields(result, paren_match.group(2), paren_match.group(3), paren_match.group(4))
+        _apply_date_fields(
+            result, paren_match.group(2), paren_match.group(3), paren_match.group(4)
+        )
 
     # Try reversed format: "(Feb. 5, 2026 SDNY)" — date before court
     if result.court is None:
         date_court_match = _PAREN_DATE_COURT_PATTERN.search(text)
         if date_court_match:
             result.court = date_court_match.group(4).strip()
-            _apply_date_fields(result, date_court_match.group(1), date_court_match.group(2), date_court_match.group(3))
+            _apply_date_fields(
+                result,
+                date_court_match.group(1),
+                date_court_match.group(2),
+                date_court_match.group(3),
+            )
 
     # Fallback: extract standard citation components via regex
     if result.volume is None:

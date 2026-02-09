@@ -2,8 +2,8 @@
 "Odd v. Malone, 538
 >> F.3d 202 (3d Cir. 2008)" - line break caused citation to not be recognized 
 
-""Townsley v. Lifewise Assurance Co., Case No. C15-1228-JCC, 2016 WL 1393548, at *3 (W.D.
->> Wash. April 8, 2016)" - failed to locate https://www.courtlistener.com/docket/5352576/42/townsley-v-snc-lavalin-constructors-inc/ (this may be CL data issue too, case is captioned "Townsley v. SNC-Lavalin Constructors Inc", but case no. should be parsed correctly)
+"Button v. Doherty,
+>> Case No. 24 Civ. 5026 (JPC) (KHP), 2025 WL 2776069 at *5 n. 7 (S.D.N.Y. Sept. 30, 2025)" - suspect parsing issue with case number
 
 ## False negatives 
 "Estate of
@@ -32,6 +32,9 @@
 >> Bainbridge Island School District #303, 566 P.3d 132, 147 (Wash. Ct. App. 2025)." - CL doesn't have
 
 "Himes v. Provident Life & Accident Insurancy Co., No. 3:19-CV-00215, 2020 WL 9935829 (M.D. Tenn. Mar. 3, 2020)" - opinion not marked as free 
+
+"Neravetla v. Virginia Mason Med. Ctr., No. C13-1501-JCC, 2014 WL 12787876, *3–*4 (W.D.
+>> Wash. May 23, 2014) " - opinion not marked as free https://www.courtlistener.com/docket/5262939/neravetla-v-virginia-mason-medical-center/ 
 
 ## Notes to self
 "M.G., 566 P.3d at

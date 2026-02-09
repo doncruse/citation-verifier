@@ -43,15 +43,19 @@ class CourtListenerClient:
         """
         self._rate_limit()
         url = f"{self.BASE_URL}/citation-lookup/"
-        resp = self._session.post(url, json={"text": text}, timeout=self.REQUEST_TIMEOUT)
+        resp = self._session.post(
+            url, json={"text": text}, timeout=self.REQUEST_TIMEOUT
+        )
         resp.raise_for_status()
-        data = resp.json()
+        data: Any = resp.json()
         # The API returns a list of matched clusters
         if isinstance(data, list):
             return data
         # Or it may return a dict with results
         if isinstance(data, dict):
-            return data.get("results", data.get("clusters", []))
+            results_val = data.get("results", data.get("clusters", []))
+            if isinstance(results_val, list):
+                return results_val
         return []
 
     def search_opinions(
@@ -82,8 +86,9 @@ class CourtListenerClient:
         url = f"{self.BASE_URL}/search/"
         resp = self._session.get(url, params=params, timeout=self.REQUEST_TIMEOUT)
         resp.raise_for_status()
-        data = resp.json()
-        return data.get("results", [])
+        data: Any = resp.json()
+        results: list[dict[str, Any]] = data.get("results", [])
+        return results
 
     def search_recap(
         self,
@@ -118,8 +123,9 @@ class CourtListenerClient:
         url = f"{self.BASE_URL}/search/"
         resp = self._session.get(url, params=params, timeout=self.REQUEST_TIMEOUT)
         resp.raise_for_status()
-        data = resp.json()
-        return data.get("results", [])
+        data: Any = resp.json()
+        results: list[dict[str, Any]] = data.get("results", [])
+        return results
 
     def get_docket_entries(
         self,
@@ -141,5 +147,6 @@ class CourtListenerClient:
         url = f"{self.BASE_URL}/docket-entries/"
         resp = self._session.get(url, params=params, timeout=self.REQUEST_TIMEOUT)
         resp.raise_for_status()
-        data = resp.json()
-        return data.get("results", [])
+        data: Any = resp.json()
+        results: list[dict[str, Any]] = data.get("results", [])
+        return results

@@ -5,10 +5,16 @@ from __future__ import annotations
 import logging
 import re
 from difflib import SequenceMatcher
+from typing import Any
 
 from .client import CourtListenerClient
 from .court_map import lookup_court_id
-from .models import CandidateMatch, ParsedCitation, VerificationResult, VerificationStatus
+from .models import (
+    CandidateMatch,
+    ParsedCitation,
+    VerificationResult,
+    VerificationStatus,
+)
 from .parser import parse_citation
 
 logger = logging.getLogger(__name__)
@@ -55,7 +61,7 @@ class CitationVerifier:
                                 matched_cluster_id=cluster_id,
                                 diagnostics=[
                                     f"Citation exists but belongs to a different case: "
-                                    f"\"{case_name}\"",
+                                    f'"{case_name}"',
                                 ],
                             )
 
@@ -81,7 +87,11 @@ class CitationVerifier:
                     try:
                         lookup_results = self.client.citation_lookup(alt_cite)
                     except Exception:
-                        logger.debug("Adjacent page lookup failed for %s", alt_cite, exc_info=True)
+                        logger.debug(
+                            "Adjacent page lookup failed for %s",
+                            alt_cite,
+                            exc_info=True,
+                        )
                         continue
                     for lr in lookup_results:
                         clusters = lr.get("clusters", [])
@@ -105,24 +115,26 @@ class CitationVerifier:
                                 result_def = result_lower.split(" v ", 1)[1].strip()
                             if parsed.defendant and result_def:
                                 def_sim = SequenceMatcher(
-                                    None, parsed.defendant.lower(), result_def,
+                                    None,
+                                    parsed.defendant.lower(),
+                                    result_def,
                                 ).ratio()
                                 if def_sim < 0.7:
                                     continue
                             elif not self._names_match(parsed, case_name):
                                 continue
                             return VerificationResult(
-                                    input_citation=citation_text,
-                                    status=VerificationStatus.VERIFIED,
-                                    confidence=1.0,
-                                    matched_case_name=case_name,
-                                    matched_url=url,
-                                    matched_cluster_id=cluster_id,
-                                    diagnostics=[
-                                        f"Matched via adjacent page: cited page {parsed.page}, "
-                                        f"case starts at page {alt_page}",
-                                    ],
-                                )
+                                input_citation=citation_text,
+                                status=VerificationStatus.VERIFIED,
+                                confidence=1.0,
+                                matched_case_name=case_name,
+                                matched_url=url,
+                                matched_cluster_id=cluster_id,
+                                diagnostics=[
+                                    f"Matched via adjacent page: cited page {parsed.page}, "
+                                    f"case starts at page {alt_page}",
+                                ],
+                            )
             except (ValueError, TypeError):
                 pass
 
@@ -167,7 +179,9 @@ class CitationVerifier:
                     )
                     candidates = self._process_results(results, parsed)
                 except Exception:
-                    logger.debug("Opinion search without court filter failed", exc_info=True)
+                    logger.debug(
+                        "Opinion search without court filter failed", exc_info=True
+                    )
 
         # Step 3: RECAP fallback (docket entries, orders, PACER documents)
         # Note: RECAP dateFiled is the case filing date, not the opinion date,
@@ -182,10 +196,12 @@ class CitationVerifier:
                 # API does fuzzy matching, so filter to actual docket matches
                 cited_dn = self._normalize_docket_number(parsed.docket_number)
                 results = [
-                    r for r in results
+                    r
+                    for r in results
                     if self._normalize_docket_number(
                         r.get("docketNumber") or r.get("docket_number") or ""
-                    ) == cited_dn
+                    )
+                    == cited_dn
                 ]
                 candidates = self._process_recap_results(results, parsed)
             except Exception:
@@ -210,14 +226,18 @@ class CitationVerifier:
                     )
                     candidates = self._process_recap_results(results, parsed)
                 except Exception:
-                    logger.debug("RECAP search without court filter failed", exc_info=True)
+                    logger.debug(
+                        "RECAP search without court filter failed", exc_info=True
+                    )
 
         if not candidates:
             return VerificationResult(
                 input_citation=citation_text,
                 status=VerificationStatus.NOT_FOUND,
                 confidence=0.0,
-                diagnostics=["No matching cases found in CourtListener opinions or RECAP"],
+                diagnostics=[
+                    "No matching cases found in CourtListener opinions or RECAP"
+                ],
             )
 
         # Sort by score descending
@@ -228,8 +248,7 @@ class CitationVerifier:
         # via lookup, require court corroboration before calling it a match.
         # A name-only hit in the wrong court is likely a coincidence.
         has_unverified_cite = bool(
-            (parsed.volume and parsed.reporter and parsed.page)
-            or parsed.wl_number
+            (parsed.volume and parsed.reporter and parsed.page) or parsed.wl_number
         )
         if has_unverified_cite and court_id and best.court_id != court_id:
             return VerificationResult(
@@ -264,13 +283,15 @@ class CitationVerifier:
         )
 
     def _process_results(
-        self, results: list[dict], parsed: ParsedCitation
+        self, results: list[dict[str, Any]], parsed: ParsedCitation
     ) -> list[CandidateMatch]:
         """Convert API results to scored CandidateMatch objects."""
         candidates = []
         for r in results:
             case_name = r.get("caseName") or r.get("case_name", "")
             cluster_id = r.get("cluster_id") or r.get("id")
+            if cluster_id is None:
+                continue
             date_filed = r.get("dateFiled") or r.get("date_filed", "")
             court_id = r.get("court_id") or r.get("court", "")
             url = r.get("absolute_url", "")
@@ -279,7 +300,9 @@ class CitationVerifier:
             elif url and not url.startswith("http"):
                 url = f"https://www.courtlistener.com{url}"
 
-            score, mismatches = self._score_match(parsed, case_name, court_id, date_filed, r)
+            score, mismatches = self._score_match(
+                parsed, case_name, court_id, date_filed, r
+            )
             candidates.append(
                 CandidateMatch(
                     case_name=case_name,
@@ -294,7 +317,7 @@ class CitationVerifier:
         return candidates
 
     def _process_recap_results(
-        self, results: list[dict], parsed: ParsedCitation
+        self, results: list[dict[str, Any]], parsed: ParsedCitation
     ) -> list[CandidateMatch]:
         """Convert RECAP search results to scored CandidateMatch objects.
 
@@ -314,6 +337,8 @@ class CitationVerifier:
             elif docket_id and not docket_url:
                 docket_url = f"https://www.courtlistener.com/docket/{docket_id}/"
 
+            if docket_id is None:
+                continue
             if docket_id in seen_dockets:
                 continue
             seen_dockets.add(docket_id)
@@ -327,7 +352,9 @@ class CitationVerifier:
             has_date_match = False
             if parsed.year and docs:
                 for doc in docs:
-                    entry_date = doc.get("entry_date_filed") or doc.get("date_filed", "")
+                    entry_date = doc.get("entry_date_filed") or doc.get(
+                        "date_filed", ""
+                    )
                     try:
                         if not entry_date or int(entry_date[:4]) != parsed.year:
                             continue
@@ -359,7 +386,7 @@ class CitationVerifier:
         return candidates
 
     def _fetch_docs_for_docket(
-        self, docket_id: int, parsed: ParsedCitation, docs: list[dict]
+        self, docket_id: int, parsed: ParsedCitation, docs: list[dict[str, Any]]
     ) -> None:
         """Query docket-entries API for documents matching the cited date.
 
@@ -385,7 +412,8 @@ class CitationVerifier:
             except Exception:
                 logger.debug(
                     "Docket entries query (exact date) failed for docket %s",
-                    docket_id, exc_info=True
+                    docket_id,
+                    exc_info=True,
                 )
         # Fall back to year range if exact date found nothing
         if not found_entries:
@@ -403,18 +431,19 @@ class CitationVerifier:
             except Exception:
                 logger.debug(
                     "Docket entries query (year range) failed for docket %s",
-                    docket_id, exc_info=True
+                    docket_id,
+                    exc_info=True,
                 )
 
     def _pick_best_recap_doc(
         self,
-        docs: list[dict],
+        docs: list[dict[str, Any]],
         parsed: ParsedCitation,
         case_name: str,
         court_id: str,
         docket_url: str,
         docket_id: int,
-        result: dict,
+        result: dict[str, Any],
     ) -> CandidateMatch | None:
         """Score all docs, pick the best substantive one, and build a CandidateMatch.
 
@@ -428,12 +457,14 @@ class CitationVerifier:
         for doc in docs:
             entry_date = doc.get("entry_date_filed") or doc.get("date_filed", "")
             score, mismatches = self._score_match(
-                parsed, case_name, court_id, entry_date, result,
+                parsed,
+                case_name,
+                court_id,
+                entry_date,
+                result,
             )
             desc = (
-                doc.get("short_description")
-                or doc.get("description")
-                or ""
+                doc.get("short_description") or doc.get("description") or ""
             ).lower()
             is_substantive = self._is_substantive_doc(desc)
             scored_docs.append((doc, entry_date, score, mismatches, is_substantive))
@@ -475,28 +506,33 @@ class CitationVerifier:
         court_id: str,
         docket_url: str,
         docket_id: int,
-        result: dict,
+        result: dict[str, Any],
     ) -> CandidateMatch:
         """Build a docket-level candidate when no documents are available.
 
         Discounts the score (0.6x) and strips date/citation diagnostics.
         """
         score, mismatches = self._score_match(
-            parsed, case_name, court_id, "", result,
+            parsed,
+            case_name,
+            court_id,
+            "",
+            result,
         )
         score = round(score * 0.6, 4)
         # Remove date/citation diagnostics — they're redundant when
         # we already can't verify a specific document.
         # Keep court/name diagnostics — those are still useful.
         _date_cite_prefixes = (
-            "Year ", "Date close", "Date mismatch",
-            "Reporter citation ", "WL number ",
-            "Citation mismatch", "Case name not returned",
+            "Year ",
+            "Date close",
+            "Date mismatch",
+            "Reporter citation ",
+            "WL number ",
+            "Citation mismatch",
+            "Case name not returned",
         )
-        mismatches = [
-            m for m in mismatches
-            if not m.startswith(_date_cite_prefixes)
-        ]
+        mismatches = [m for m in mismatches if not m.startswith(_date_cite_prefixes)]
         mismatches.insert(
             0,
             "We found a possible docket match in RECAP, "
@@ -525,13 +561,19 @@ class CitationVerifier:
         """
         diagnostics = list(mismatches)
         if score >= 0.40:
-            match_word = "likely" if status == VerificationStatus.LIKELY_REAL else "possible"
+            match_word = (
+                "likely" if status == VerificationStatus.LIKELY_REAL else "possible"
+            )
             if diagnostics:
                 last = diagnostics[-1]
                 if last.endswith("could be verified"):
-                    diagnostics[-1] = last + f". However, we identified a {match_word} match."
+                    diagnostics[-1] = (
+                        last + f". However, we identified a {match_word} match."
+                    )
                 else:
-                    diagnostics[-1] = last + f", but we identified a {match_word} match."
+                    diagnostics[-1] = (
+                        last + f", but we identified a {match_word} match."
+                    )
             else:
                 diagnostics.append(f"We identified a {match_word} match.")
         return diagnostics
@@ -562,8 +604,14 @@ class CitationVerifier:
         """Return True if a RECAP document description looks like an opinion,
         order, judgment, or similar ruling rather than a procedural filing."""
         _SUBSTANTIVE_KEYWORDS = (
-            "opinion", "order", "judgment", "memorandum", "ruling",
-            "decision", "decree", "findings of fact",
+            "opinion",
+            "order",
+            "judgment",
+            "memorandum",
+            "ruling",
+            "decision",
+            "decree",
+            "findings of fact",
         )
         return any(kw in desc for kw in _SUBSTANTIVE_KEYWORDS)
 
@@ -613,7 +661,7 @@ class CitationVerifier:
         result_case_name: str,
         result_court: str,
         result_date: str,
-        result: dict,
+        result: dict[str, Any],
     ) -> tuple[float, list[str]]:
         """Score how well a search result matches the parsed citation.
 
@@ -634,13 +682,13 @@ class CitationVerifier:
             score += 0.5 * name_sim
             if name_sim < 0.6:
                 mismatches.append(
-                    f"Name mismatch: cited \"{parsed.case_name}\" "
-                    f"vs found \"{result_case_name}\""
+                    f'Name mismatch: cited "{parsed.case_name}" '
+                    f'vs found "{result_case_name}"'
                 )
             elif name_sim < 0.85:
                 mismatches.append(
-                    f"Name differs: cited \"{parsed.case_name}\" "
-                    f"~ found \"{result_case_name}\" ({name_sim:.0%} similar)"
+                    f'Name differs: cited "{parsed.case_name}" '
+                    f'~ found "{result_case_name}" ({name_sim:.0%} similar)'
                 )
         elif parsed.case_name:
             mismatches.append("Case name not returned by API")
@@ -710,9 +758,7 @@ class CitationVerifier:
         # Docket number match (5%)
         if parsed.docket_number:
             result_docket = (
-                result.get("docketNumber")
-                or result.get("docket_number")
-                or ""
+                result.get("docketNumber") or result.get("docket_number") or ""
             )
             if result_docket:
                 cited_dn = self._normalize_docket_number(parsed.docket_number)
