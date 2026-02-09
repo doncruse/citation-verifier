@@ -1,0 +1,103 @@
+[
+  {
+    "issue_type": "search_abbreviation_matching",
+    "status": "known_flp_issue",
+    "severity": "high",
+    "description": "CourtListener search doesn't match common legal abbreviations in case names",
+    "examples": [
+      {
+        "search_term": "Bossart v. King Cnty.",
+        "expected": "Should match 'Bossart v. King County'",
+        "actual": "No match unless normalized to 'County'",
+        "cluster_id": 69346061
+      },
+      {
+        "search_term": "Busha v. SC Dep't of Mental Health",
+        "expected": "Should match 'Busha v. SC Department of Mental Health'",
+        "actual": "No match unless normalized to 'Department'",
+        "cluster_id": 14553775
+      }
+    ],
+    "related_flp_issues": [
+      "https://github.com/freelawproject/courtlistener/issues/3089",
+      "https://github.com/freelawproject/courtlistener/issues/3367"
+    ],
+    "flp_notes": "Issue #3089 added some abbreviations to Elasticsearch (Apr 2023). Issue #3367 requests full Indigo Book table. Unclear if API search uses same index as web search.",
+    "our_workaround": "Parser normalizes abbreviations before search: Cnty.->County, Dep't->Department, Corp.->Corporation, etc. See parser.py _normalize_case_name()",
+    "upstream_fix_needed": "Add full Indigo Book abbreviation table to Elasticsearch synonyms. See https://law.resource.org/pub/us/code/blue/indigobook-2.0-beta.html#t11",
+    "test_coverage": "tests/test_false_negatives.py category=abbreviation_normalization",
+    "date_identified": "2025-02"
+  },
+  {
+    "issue_type": "docket_param_unreliable",
+    "status": "confirmed",
+    "severity": "high",
+    "description": "RECAP search API 'docket' parameter appears to be ignored, returns unfiltered recent results",
+    "examples": [
+      {
+        "api_call": "GET /api/rest/v4/search/?type=r&docket=C15-1228-JCC",
+        "expected": "Results filtered to docket C15-1228-JCC",
+        "actual": "Returns recent RECAP results unrelated to docket number",
+        "test_date": "2025-02"
+      }
+    ],
+    "related_flp_issues": [],
+    "flp_notes": "Not yet reported to FLP. Needs confirmation with test cases.",
+    "our_workaround": "Use 'q' parameter with quoted docket number instead: q='\"C15-1228\"'. Then filter results client-side to matching dockets. See client.py search_recap() and verifier.py docket number search.",
+    "upstream_fix_needed": "Fix docket parameter to actually filter results, or document that it doesn't work",
+    "test_coverage": "tests/test_docket_number_search.py (tests our workaround)",
+    "date_identified": "2025-02"
+  },
+  {
+    "issue_type": "case_name_format_variations",
+    "status": "data_quality",
+    "severity": "medium",
+    "description": "Case names in CL database don't always match how they're cited in opinions",
+    "examples": [
+      {
+        "cited_as": "Estate of Elkins v. Pelayo",
+        "cl_has": "Elkins v. California Highway Patrol",
+        "cluster_id": null,
+        "notes": "Multi-party case, CL uses different defendant"
+      },
+      {
+        "cited_as": "Townsley v. Lifewise Assurance Co.",
+        "cl_has": "Townsley v. SNC-Lavalin Constructors Inc",
+        "cluster_id": 5352576,
+        "notes": "Multi-defendant case, different defendant used in caption"
+      }
+    ],
+    "related_flp_issues": [],
+    "flp_notes": "This may be expected behavior for multi-party cases. CL picks primary defendant, citations may reference different party.",
+    "our_workaround": "Docket number search bypasses name matching. Also uses fuzzy name matching with defendant comparison for 'State v.' style cases.",
+    "upstream_fix_needed": "Consider indexing all party names for search, not just primary caption. Or document this limitation.",
+    "test_coverage": "tests/test_false_negatives.py category=multi_defendant_case",
+    "date_identified": "2025-02"
+  },
+  {
+    "issue_type": "missing_citations_field",
+    "status": "data_quality",
+    "severity": "medium",
+    "description": "Some cases exist in CL but have empty 'citations' field, making citation lookup fail",
+    "examples": [],
+    "related_flp_issues": [],
+    "flp_notes": "Need to collect specific cluster IDs to report",
+    "our_workaround": "Fall back to opinion/RECAP search when citation lookup returns nothing",
+    "upstream_fix_needed": "Backfill citations for existing cases, improve citation extraction from documents",
+    "test_coverage": "Would need to add cases that fail citation lookup but exist in search",
+    "date_identified": "2025-02"
+  },
+  {
+    "issue_type": "state_court_coverage_gaps",
+    "status": "known_limitation",
+    "severity": "low",
+    "description": "State court coverage is incomplete, some opinions not indexed for search",
+    "examples": [],
+    "related_flp_issues": [],
+    "flp_notes": "This is a known limitation documented in CL. State court data is harder to obtain than federal.",
+    "our_workaround": "None - we can only verify what CL has",
+    "upstream_fix_needed": "Ongoing data acquisition effort by FLP",
+    "test_coverage": "None - can't test against data CL doesn't have",
+    "date_identified": "From CLAUDE.md documentation"
+  }
+]

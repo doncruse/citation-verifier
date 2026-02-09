@@ -9,6 +9,44 @@ This directory contains structured test corpora for:
 
 ## Files
 
+### `cl_api_issues.json`
+
+Structured documentation of CourtListener API limitations, search issues, and data quality problems. Each entry tracks:
+
+```json
+{
+  "issue_type": "search_abbreviation_matching",
+  "status": "known_flp_issue",  // confirmed | known_flp_issue | data_quality | known_limitation
+  "severity": "high",  // low | medium | high
+  "description": "What's wrong",
+  "examples": [...],  // Concrete examples with cluster IDs
+  "related_flp_issues": ["https://github.com/..."],  // Links to FLP GitHub issues
+  "flp_notes": "Context about FLP's awareness/plans",
+  "our_workaround": "How we handle it in our code",
+  "upstream_fix_needed": "What FLP should do",
+  "test_coverage": "Where we test the workaround",
+  "date_identified": "2025-02"
+}
+```
+
+**Status values:**
+- `confirmed` - We've verified the issue, not yet reported to FLP
+- `known_flp_issue` - FLP is aware, tracked in their GitHub
+- `data_quality` - Data issue rather than API bug
+- `known_limitation` - Won't be fixed (e.g., data coverage gaps)
+
+**Usage:**
+```bash
+# View all tracked issues
+pytest tests/test_cl_api_issues.py::TestAPIIssueDocumentation::test_print_issues_summary -v -s
+
+# See what should be reported to FLP
+pytest tests/test_cl_api_issues.py::TestAPIIssueDocumentation::test_suggest_flp_contributions -v -s
+
+# Test our workarounds still work
+pytest tests/test_cl_api_issues.py -v
+```
+
 ### `known_real_citations.json`
 
 Corpus of verified real citations for regression testing. Each entry:
@@ -129,17 +167,80 @@ When our regex fallbacks catch what eyecite misses, that's potential upstream co
 
 ## Reporting to FLP
 
+### Workflow
+
+1. **Identify issue** - Parser diagnostic or false negative reveals a problem
+2. **Determine type** - Parser gap? API bug? Data quality?
+3. **Collect examples** - Need 3-5 concrete cases with cluster IDs
+4. **Document in `cl_api_issues.json`** - Add with status="confirmed"
+5. **Check for duplicates** - Search FLP GitHub for existing issues
+6. **Report** - Create issue with examples and our findings
+
 ### Parser improvements (eyecite)
-When we have 10+ examples of a pattern eyecite misses:
+
+**Current status:** Our diagnostics show eyecite handles everything well!
+- WestLaw citations ✅
+- Standard reporters ✅
+- California style ✅
+- Abbreviations extracted as-is ✅
+
+If we find gaps in the future:
 1. Review `test_parser_diagnostics.py` output
-2. Create minimal test case
+2. Collect 10+ examples of the pattern
 3. Submit issue/PR to https://github.com/freelawproject/eyecite
 
+### API/Search issues
+
+**Before reporting:**
+```bash
+# Check current status
+pytest tests/test_cl_api_issues.py::TestAPIIssueDocumentation -v -s
+
+# Verify issue still exists
+pytest tests/test_cl_api_issues.py -v
+```
+
+**Example issues to report:**
+
+1. **Abbreviation matching** (already tracked in FLP issues #3089, #3367)
+   - Status: FLP aware, partial fix in 2023
+   - Action: Monitor, may need follow-up on Indigo Book table
+
+2. **Docket param unreliable** (status: confirmed, needs reporting)
+   - We have examples in `cl_api_issues.json`
+   - Ready to report with test case showing `q` workaround
+
+**Template for FLP issue:**
+```markdown
+### Issue
+[One-line description]
+
+### Expected behavior
+[What should happen]
+
+### Actual behavior
+[What actually happens]
+
+### Examples
+- Cluster ID: 12345, Citation: "...", API call: "..."
+- Cluster ID: 67890, ...
+
+### Our workaround
+[How we handle it - may be useful for others]
+
+### Suggested fix
+[If applicable]
+
+### Test case
+[Reproducible API call or code example]
+```
+
 ### Data quality issues
-When we find citation/search problems in CourtListener:
-1. Document the pattern (case exists but not searchable, etc.)
+When we find missing/incorrect data in CourtListener:
+1. Document in `cl_api_issues.json` with status="data_quality"
 2. Collect cluster IDs and examples
-3. Submit issue to https://github.com/freelawproject/courtlistener
+3. Check if pattern is widespread (one case vs systemic)
+4. Submit issue to https://github.com/freelawproject/courtlistener with cluster IDs
 
 ## Maintenance
 
