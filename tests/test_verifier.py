@@ -751,3 +751,25 @@ class TestCaseNameNormalization:
         )
         assert "Department" in parsed.case_name
         assert "Dep't" not in parsed.case_name
+
+    def test_multiple_abbreviations_expanded(self):
+        """Test various Indigo Book abbreviations are normalized."""
+        from citation_verifier.parser import parse_citation
+
+        test_cases = [
+            ("Smith v. ABC Corp.", "Corporation"),
+            ("Jones v. National Assn. of Realtors", "Association"),
+            ("Doe v. University Hosp.", "Hospital"),
+            ("Roe v. City School Dist.", "District"),
+            ("Brown v. XYZ Inc.", "Incorporated"),
+            ("Green v. County Bd. of Education", "Board"),
+            ("White v. Public Util. Comm.", "Utility", "Commission"),
+        ]
+
+        for citation_fragment, *expected_words in test_cases:
+            parsed = parse_citation(f"{citation_fragment}, 100 F.3d 200 (2d Cir. 2020)")
+            for expected in expected_words:
+                assert expected in parsed.case_name, (
+                    f"Expected '{expected}' in '{parsed.case_name}' "
+                    f"for input '{citation_fragment}'"
+                )

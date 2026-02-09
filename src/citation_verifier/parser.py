@@ -76,19 +76,83 @@ _STANDARD_CITE_PATTERN = re.compile(
 def _normalize_case_name(case_name: str) -> str:
     """Expand common legal abbreviations in case names for better search matching.
 
-    Examples: "Cnty." → "County", "Dept." → "Department"
+    Based on Indigo Book legal citation guide. Focuses on abbreviations that are
+    unambiguous and commonly appear in party names.
+
+    Examples: "Cnty." → "County", "Dept." → "Department", "Inc." → "Incorporated"
+
+    Note: Skips ambiguous single-letter abbreviations (N., S., E., W.) that could
+    be initials, and context-dependent terms like "St." (Street vs Saint).
     """
-    # Mapping of abbreviations to full forms
+    # Mapping of abbreviations to full forms (Indigo Book subset)
+    # Organized by category for maintainability
     abbrev_map = {
-        r"\bCnty\b": "County",
+        # Government entities - SAFE
+        r"\bCnty\.?\b": "County",
+        r"\bCty\.?\b": "County",
         r"\bDep't\b": "Department",
-        r"\bDept\b": "Department",
-        r"\bBd\b": "Board",
-        r"\bOfc\b": "Office",
-        r"\bCorp\b": "Corporation",
-        r"\bAssn\b": "Association",
-        r"\bComm\b": "Commission",
-        r"\bDiv\b": "Division",
+        r"\bDept\.?\b": "Department",
+        r"\bComm'n\b": "Commission",
+        r"\bComm\.?\b": "Commission",
+        r"\bBd\.?\b": "Board",
+        r"\bDiv\.?\b": "Division",
+        r"\bDist\.?\b": "District",
+        r"\bOff\.?\b": "Office",
+        r"\bOfc\.?\b": "Office",
+
+        # Organizations - SAFE
+        r"\bCorp\.?\b": "Corporation",
+        r"\bCo\.?\b": "Company",
+        r"\bInc\.?\b": "Incorporated",
+        r"\bLtd\.?\b": "Limited",
+        r"\bL\.L\.C\.?\b": "Limited Liability Company",
+        r"\bLLC\b": "Limited Liability Company",
+        r"\bAss'n\b": "Association",
+        r"\bAssn\.?\b": "Association",
+
+        # Positions - SAFE
+        r"\bAdm'r\b": "Administrator",
+        r"\bAdmin\.?\b": "Administrator",
+        r"\bExec\.?\b": "Executive",
+        r"\bDir\.?\b": "Director",
+        r"\bSec'y\b": "Secretary",
+        r"\bTreas\.?\b": "Treasurer",
+        r"\bAtty\.?\b": "Attorney",
+        r"\bGen\.?\b": "General",
+
+        # Education - SAFE
+        r"\bUniv\.?\b": "University",
+        r"\bColl\.?\b": "College",
+        r"\bSch\.?\b": "School",
+
+        # Medical/Health - SAFE
+        r"\bHosp\.?\b": "Hospital",
+        r"\bMed\.?\b": "Medical",
+        r"\bCtr\.?\b": "Center",
+
+        # Business/Services - SAFE
+        r"\bIns\.?\b": "Insurance",
+        r"\bMfg\.?\b": "Manufacturing",
+        r"\bServ\.?\b": "Service",
+        r"\bServs\.?\b": "Services",
+        r"\bTransp\.?\b": "Transportation",
+        r"\bUtil\.?\b": "Utility",
+        r"\bPub\.?\b": "Public",
+
+        # Geographic/Organizational scope - SAFE
+        r"\bNat'l\b": "National",
+        r"\bNatl\.?\b": "National",
+        r"\bInt'l\b": "International",
+        r"\bIntl\.?\b": "International",
+
+        # Religious - SAFE
+        r"\bCath\.?\b": "Catholic",
+        r"\bCh\.?\b": "Church",
+
+        # SKIPPED - Ambiguous or risky:
+        # - N., S., E., W. (could be initials: "John E. Smith")
+        # - St. (Street vs Saint, context-dependent)
+        # - Ave., Blvd. (addresses, rarely in case names)
     }
 
     normalized = case_name
