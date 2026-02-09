@@ -208,10 +208,16 @@ class CitationVerifier:
         # Note: RECAP dateFiled is the case filing date, not the opinion date,
         # so we skip date filtering here and rely on name/court matching.
 
+        # Only skip RECAP if we have a credible opinion match (score >= 0.5).
+        # Full-text search (q=) can return junk results that score low but block
+        # RECAP from firing. By checking score quality, we ensure RECAP runs when
+        # opinion search returns only noise.
+        has_credible_match = any(c.score >= 0.5 for c in candidates)
+
         # If docket number is available, try searching by it first (without court
         # filter since docket numbers are court-specific). This handles cases where
         # the case name differs significantly (e.g., "Estate of X" vs "X").
-        if not candidates and parsed.docket_number:
+        if not has_credible_match and parsed.docket_number:
             try:
                 results = self.client.search_recap(docket_number=parsed.docket_number)
                 # API does fuzzy matching, so filter to actual docket matches
@@ -224,28 +230,32 @@ class CitationVerifier:
                     )
                     == cited_dn
                 ]
-                candidates = self._process_recap_results(results, parsed)
+                recap_candidates = self._process_recap_results(results, parsed)
+                candidates.extend(recap_candidates)
             except Exception:
                 logger.debug("RECAP search by docket number failed", exc_info=True)
 
         # Fall back to case name search if docket search didn't work
-        if not candidates and parsed.case_name:
+        if not has_credible_match and parsed.case_name:
             try:
                 results = self.client.search_recap(
                     q=parsed.case_name,
                     court=court_id,
                 )
-                candidates = self._process_recap_results(results, parsed)
+                recap_candidates = self._process_recap_results(results, parsed)
+                candidates.extend(recap_candidates)
             except Exception:
                 logger.debug("RECAP search with court filter failed", exc_info=True)
 
-            # Retry without court filter if no results
-            if not candidates and court_id:
+            # Retry without court filter if no RECAP results found yet
+            recap_found = any(c.score >= 0.5 for c in candidates)
+            if not recap_found and court_id:
                 try:
                     results = self.client.search_recap(
                         q=parsed.case_name,
                     )
-                    candidates = self._process_recap_results(results, parsed)
+                    recap_candidates = self._process_recap_results(results, parsed)
+                    candidates.extend(recap_candidates)
                 except Exception:
                     logger.debug(
                         "RECAP search without court filter failed", exc_info=True
