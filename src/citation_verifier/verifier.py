@@ -15,7 +15,9 @@ from .models import (
     VerificationResult,
     VerificationStatus,
 )
+from .name_matcher import CaseNameMatcher
 from .parser import parse_citation
+from .state_reporter_map import get_states_for_reporter
 
 logger = logging.getLogger(__name__)
 
@@ -25,6 +27,7 @@ class CitationVerifier:
 
     def __init__(self, client: CourtListenerClient | None = None):
         self.client = client or CourtListenerClient()
+        self.name_matcher = CaseNameMatcher()
 
     def verify(self, citation_text: str) -> VerificationResult:
         """Verify a citation string through the two-step pipeline.
@@ -147,6 +150,24 @@ class CitationVerifier:
         """Search CourtListener using parsed citation metadata."""
         court_id = lookup_court_id(parsed.court) if parsed.court else None
 
+        # If no court was parsed but we have a reporter, we can infer possible
+        # states from regional/state-specific reporters. This helps with state
+        # court citations where eyecite doesn't return a court ID.
+        possible_states = []
+        if not court_id and parsed.reporter:
+            possible_states = get_states_for_reporter(parsed.reporter)
+            # For single-state reporters, use as court filter
+            if len(possible_states) == 1:
+                court_id = possible_states[0]
+                logger.debug(
+                    f"Inferred court {court_id} from reporter {parsed.reporter}"
+                )
+            elif possible_states:
+                logger.debug(
+                    f"Reporter {parsed.reporter} maps to {len(possible_states)} states: "
+                    f"{possible_states[:3]}..."
+                )
+
         # Build date range: +/- 1 year from cited year
         filed_after = None
         filed_before = None
@@ -156,11 +177,11 @@ class CitationVerifier:
 
         candidates: list[CandidateMatch] = []
 
-        # First search: with court filter
+        # First search: with court filter (from parsed court or inferred from reporter)
         if parsed.case_name:
             try:
                 results = self.client.search_opinions(
-                    case_name=parsed.case_name,
+                    q=parsed.case_name,
                     court=court_id,
                     filed_after=filed_after,
                     filed_before=filed_before,
@@ -173,7 +194,7 @@ class CitationVerifier:
             if not candidates and court_id:
                 try:
                     results = self.client.search_opinions(
-                        case_name=parsed.case_name,
+                        q=parsed.case_name,
                         filed_after=filed_after,
                         filed_before=filed_before,
                     )
@@ -211,7 +232,7 @@ class CitationVerifier:
         if not candidates and parsed.case_name:
             try:
                 results = self.client.search_recap(
-                    case_name=parsed.case_name,
+                    q=parsed.case_name,
                     court=court_id,
                 )
                 candidates = self._process_recap_results(results, parsed)
@@ -222,7 +243,7 @@ class CitationVerifier:
             if not candidates and court_id:
                 try:
                     results = self.client.search_recap(
-                        case_name=parsed.case_name,
+                        q=parsed.case_name,
                     )
                     candidates = self._process_recap_results(results, parsed)
                 except Exception:
@@ -727,40 +748,63 @@ class CitationVerifier:
     ) -> tuple[float, list[str]]:
         """Score how well a search result matches the parsed citation.
 
-        Weights: case name (50%), court (20%), date (20%),
+        Base weights: case name (50%), court (20%), date (20%),
         docket number (5%), reporter/WL citation (5%).
+
+        When parsed data is missing for a component (e.g. no court in the
+        citation text), we can't evaluate that component. Rather than
+        penalizing the match with 0 points, we redistribute the weight
+        to the components we CAN evaluate. This prevents citations like
+        "Moore v. Hillman, No. 4:06-CV-43, 2006 WL 1313880" (no court
+        parenthetical) from being capped at 0.80 even when everything
+        else matches perfectly.
+
         Returns (score, list of mismatch descriptions).
         """
-        score = 0.0
         mismatches: list[str] = []
 
-        # Case name similarity (50%)
-        if parsed.case_name and result_case_name:
-            name_sim = SequenceMatcher(
-                None,
-                parsed.case_name.lower(),
-                result_case_name.lower(),
-            ).ratio()
-            score += 0.5 * name_sim
+        # --- Determine which components are evaluable ---
+        can_eval_court = bool(parsed.court)
+        can_eval_date = bool(parsed.year)
 
-            # Surname containment bonus: when SequenceMatcher underscores due to
-            # length differences (e.g., "Jindrich v. Weihele" vs
-            # "Edward S. Jindrich, Jr. v. Michaela Weihele"), check if the cited
-            # party surnames actually appear in the result name.
-            if name_sim < 0.85:
-                result_lower = result_case_name.lower()
-                surnames_found = 0
-                surnames_checked = 0
-                for party in (parsed.plaintiff, parsed.defendant):
-                    surname = self._extract_surname(party) if party else ""
-                    if surname:
-                        surnames_checked += 1
-                        if surname.lower() in result_lower:
-                            surnames_found += 1
-                if surnames_checked > 0 and surnames_found == surnames_checked:
-                    # Both surnames present — boost up to 0.85 equivalent
-                    boosted = max(name_sim, 0.85)
-                    score += 0.5 * (boosted - name_sim)
+        # Base weights
+        w_name = 0.50
+        w_court = 0.20
+        w_date = 0.20
+        w_docket = 0.05
+        w_cite = 0.05
+
+        # Redistribute weight from non-evaluable components proportionally
+        # to the evaluable ones. Name, docket, and citation are always
+        # evaluable (name is always present for us to reach this point;
+        # docket/citation are scored only when parsed data exists, but
+        # their weight is small enough that we keep it fixed).
+        redistributed = 0.0
+        if not can_eval_court:
+            redistributed += w_court
+            w_court = 0.0
+        if not can_eval_date:
+            redistributed += w_date
+            w_date = 0.0
+
+        if redistributed > 0:
+            # Distribute to name, docket, and citation proportionally
+            base_sum = w_name + w_docket + w_cite
+            if base_sum > 0:
+                w_name += redistributed * (w_name / base_sum)
+                w_docket += redistributed * (w_docket / base_sum)
+                w_cite += redistributed * (w_cite / base_sum)
+
+        # --- Score each component ---
+        score = 0.0
+
+        # Case name similarity - using multi-factor matcher
+        if parsed.case_name and result_case_name:
+            name_sim = self.name_matcher.calculate_similarity(
+                parsed.case_name,
+                result_case_name
+            )
+            score += w_name * name_sim
 
             if name_sim < 0.6:
                 mismatches.append(
@@ -775,11 +819,11 @@ class CitationVerifier:
         elif parsed.case_name:
             mismatches.append("Case name not returned by API")
 
-        # Court match (20%)
-        if parsed.court and result_court:
+        # Court match
+        if can_eval_court and result_court:
             expected_court = lookup_court_id(parsed.court)
             if expected_court and expected_court == result_court:
-                score += 0.2
+                score += w_court
             elif expected_court:
                 mismatches.append(
                     f"Court mismatch: cited {parsed.court} ({expected_court}) "
@@ -787,7 +831,7 @@ class CitationVerifier:
                 )
             elif parsed.court.lower() == result_court.lower():
                 # Direct match on raw court string (e.g. state courts)
-                score += 0.2
+                score += w_court
             else:
                 mismatches.append(
                     f"Court mismatch: cited {parsed.court} vs found {result_court}"
@@ -795,8 +839,8 @@ class CitationVerifier:
         elif parsed.court:
             mismatches.append(f"Court {parsed.court} could not be verified")
 
-        # Date match (20%) — with month/day granularity when available
-        if parsed.year and result_date:
+        # Date match — with month/day granularity when available
+        if can_eval_date and result_date:
             try:
                 result_year = int(result_date[:4])
                 year_diff = abs(parsed.year - result_year)
@@ -808,13 +852,13 @@ class CitationVerifier:
                             if parsed.day and len(result_date) >= 10:
                                 result_day = int(result_date[8:10])
                                 if parsed.day == result_day:
-                                    score += 0.20  # exact date
+                                    score += w_date  # exact date
                                 else:
-                                    score += 0.18  # same month
+                                    score += w_date * 0.9  # same month
                             else:
-                                score += 0.18  # same month, no day to compare
+                                score += w_date * 0.9  # same month, no day to compare
                         else:
-                            score += 0.15  # same year, wrong month
+                            score += w_date * 0.75  # same year, wrong month
                             cited_date = f"{parsed.year}-{parsed.month:02d}"
                             if parsed.day:
                                 cited_date += f"-{parsed.day:02d}"
@@ -822,9 +866,9 @@ class CitationVerifier:
                                 f"Date close: cited {cited_date} vs filed {result_date}"
                             )
                     else:
-                        score += 0.20  # same year, no month info to compare
+                        score += w_date  # same year, no month info to compare
                 elif year_diff == 1:
-                    score += 0.1
+                    score += w_date * 0.5
                     mismatches.append(
                         f"Date close: cited {parsed.year} vs filed {result_date}"
                     )
@@ -837,7 +881,7 @@ class CitationVerifier:
         elif parsed.year:
             mismatches.append(f"Year {parsed.year} could not be verified")
 
-        # Docket number match (5%)
+        # Docket number match
         if parsed.docket_number:
             result_docket = (
                 result.get("docketNumber") or result.get("docket_number") or ""
@@ -846,14 +890,14 @@ class CitationVerifier:
                 cited_dn = self._normalize_docket_number(parsed.docket_number)
                 found_dn = self._normalize_docket_number(result_docket)
                 if cited_dn == found_dn:
-                    score += 0.05
+                    score += w_docket
                 else:
                     mismatches.append(
                         f"Docket mismatch: cited {parsed.docket_number} "
                         f"vs found {result_docket}"
                     )
 
-        # Reporter/WL citation match (5%)
+        # Reporter/WL citation match
         result_citation = result.get("citation", [])
         if isinstance(result_citation, list):
             result_citation = " ".join(str(c) for c in result_citation)
@@ -862,8 +906,13 @@ class CitationVerifier:
 
         if parsed.volume and parsed.page and parsed.reporter:
             cite_str = f"{parsed.volume} {parsed.reporter} {parsed.page}"
-            if cite_str.lower() in result_citation.lower():
-                score += 0.05
+            # Normalize spacing around periods for comparison:
+            # "Cal. Rptr. 3d" should match "Cal.Rptr.3d"
+            cite_normalized = re.sub(r"\.\s+", ".", cite_str.lower())
+            result_normalized = re.sub(r"\.\s+", ".", result_citation.lower())
+            if (cite_str.lower() in result_citation.lower()
+                    or cite_normalized in result_normalized):
+                score += w_cite
             elif not result_citation.strip():
                 mismatches.append(
                     f"Reporter citation {cite_str} could not be confirmed "
@@ -876,7 +925,7 @@ class CitationVerifier:
                 )
         elif parsed.wl_number:
             if parsed.wl_number in result_citation:
-                score += 0.05
+                score += w_cite
             elif not result_citation.strip():
                 mismatches.append(
                     f"WL number {parsed.wl_number} could not be confirmed "

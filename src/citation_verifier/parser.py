@@ -84,6 +84,10 @@ def _normalize_case_name(case_name: str) -> str:
     Note: Skips ambiguous single-letter abbreviations (N., S., E., W.) that could
     be initials, and context-dependent terms like "St." (Street vs Saint).
     """
+    # Normalize curly/smart apostrophes to straight apostrophes before
+    # abbreviation matching so that "Dep\u2019t" matches the same pattern as "Dep't"
+    case_name = case_name.replace("\u2018", "'").replace("\u2019", "'")
+
     # Mapping of abbreviations to full forms (Indigo Book subset)
     # Organized by category for maintainability
     abbrev_map = {
@@ -100,13 +104,11 @@ def _normalize_case_name(case_name: str) -> str:
         r"\bOff\.?\b": "Office",
         r"\bOfc\.?\b": "Office",
 
-        # Organizations - SAFE
-        r"\bCorp\.?\b": "Corporation",
-        r"\bCo\.?\b": "Company",
-        r"\bInc\.?\b": "Incorporated",
-        r"\bLtd\.?\b": "Limited",
-        r"\bL\.L\.C\.?\b": "Limited Liability Company",
-        r"\bLLC\b": "Limited Liability Company",
+        # Organizations - only expand terms CL commonly stores expanded
+        # NOTE: Corp., Co., Inc., Ltd., LLC are NOT expanded because
+        # CourtListener commonly stores these abbreviated. Expanding them
+        # breaks search matching (e.g., "LLC" → "Limited Liability Company"
+        # won't match CL's "2715 NMA LLC").
         r"\bAss'n\b": "Association",
         r"\bAssn\.?\b": "Association",
 
@@ -124,6 +126,7 @@ def _normalize_case_name(case_name: str) -> str:
         r"\bUniv\.?\b": "University",
         r"\bColl\.?\b": "College",
         r"\bSch\.?\b": "School",
+        r"\bEduc\.?\b": "Education",
 
         # Medical/Health - SAFE
         r"\bHosp\.?\b": "Hospital",
@@ -272,6 +275,16 @@ def parse_citation(text: str) -> ParsedCitation:
                 defendant = re.split(r",?\s+\d", parts[1])[0].strip()
                 if plaintiff and defendant:
                     result.case_name = f"{plaintiff} v. {defendant}"
+
+    # Fallback for "In re" / "Ex parte" / "Matter of" cases (no "v.")
+    if result.case_name is None:
+        in_re_match = re.match(
+            r"^((?:In\s+re|Ex\s+parte|Matter\s+of)\s+.+?),\s+\d",
+            text,
+            re.IGNORECASE,
+        )
+        if in_re_match:
+            result.case_name = in_re_match.group(1).strip()
 
     # Extract docket number before cleaning it from the case name
     docket_match = _DOCKET_NUMBER_PATTERN.search(text)

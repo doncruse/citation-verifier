@@ -1,88 +1,18 @@
 {
   "VERIFIED": [
     {
-      "citation": "Md. State Bd.  Elections v. Libertarian Party of Md., 426 Md. 488 (2012)",
-      "original": "FullCaseCitation('426 Md. 488', groups={'volume': '426', 'reporter': 'Md.', 'page': '488'}, metadata=FullCaseCitation.Metadata(parenthetical=None, pin_cite=None, pin_cite_span_start=None, pin_cite_span_end=None, year='2012', month=None, day=None, court=None, plaintiff='Md. State Bd.  Elections', defendant='Libertarian Party of Md.', extra=None, antecedent_guess=None, resolved_case_name_short=None, resolved_case_name=None))",
-      "source_pdf": "1685s24.pdf",
-      "status": "VERIFIED",
-      "matched_url": "https://www.courtlistener.com/opinion/2298767/maryland-state-board-of-elections-v-libertarian-party/",
-      "matched_cluster_id": 2298767,
-      "confidence": 1.0,
-      "diagnostics": []
-    },
-    {
-      "citation": "Park v. Kim, 91 F.4th 610 (2024)",
-      "original": "FullCaseCitation('91 F.4th 610', groups={'volume': '91', 'reporter': 'F.4th', 'page': '610'}, metadata=FullCaseCitation.Metadata(parenthetical=None, pin_cite='615', pin_cite_span_start=None, pin_cite_span_end=4660, year='2024', month=None, day=None, court='ca2', plaintiff='Park', defendant='Kim', extra=None, antecedent_guess=None, resolved_case_name_short=None, resolved_case_name=None))",
-      "source_pdf": "buchanan_v_vuori_inc_11-20-2025_order.pdf",
-      "status": "VERIFIED",
-      "matched_url": "https://www.courtlistener.com/opinion/9469987/park-v-kim/",
-      "matched_cluster_id": 9469987,
-      "confidence": 1.0,
-      "diagnostics": []
-    },
-    {
-      "citation": "Schwartz v. Millon Air, Inc., 341 F.3d 1220 (2003)",
-      "original": "FullCaseCitation('341 F.3d 1220', groups={'volume': '341', 'reporter': 'F.3d', 'page': '1220'}, metadata=FullCaseCitation.Metadata(parenthetical=None, pin_cite='1225', pin_cite_span_start=None, pin_cite_span_end=10766, year='2003', month=None, day=None, court='ca11', plaintiff='Schwartz', defendant='Millon Air, Inc.', extra=None, antecedent_guess=None, resolved_case_name_short=None, resolved_case_name=None))",
+      "citation": "Link v. Wabash R. Co., 370 U.S. 626 (1962)",
+      "original": "Link v. Wabash R. Co., 370 U.S. 626 (1962)",
       "source_pdf": "Button_v._Mccawley_USA_4_February_2026.pdf",
       "status": "VERIFIED",
-      "matched_url": "https://www.courtlistener.com/opinion/76290/schwartz-v-millon-air-inc/",
-      "matched_cluster_id": 76290,
-      "confidence": 1.0,
-      "diagnostics": []
-    },
-    {
-      "citation": "Macort v. Prem, Inc., 208 F. App\u2019x 781 (2006)",
-      "original": "FullCaseCitation('208 F. App\u2019x 781', groups={'volume': '208', 'reporter': 'F. App\u2019x', 'page': '781'}, metadata=FullCaseCitation.Metadata(parenthetical=None, pin_cite='784', pin_cite_span_start=None, pin_cite_span_end=2404, year='2006', month=None, day=None, court='ca11', plaintiff='Macort', defendant='Prem, Inc.', extra=None, antecedent_guess=None, resolved_case_name_short=None, resolved_case_name=None))",
-      "source_pdf": "Button_v._Mccawley_USA_4_February_2026.pdf",
-      "status": "VERIFIED",
-      "matched_url": "https://www.courtlistener.com/opinion/44762/colleen-macort-v-prem-inc/",
-      "matched_cluster_id": 44762,
-      "confidence": 1.0,
-      "diagnostics": []
-    },
-    {
-      "citation": "Jenkins v. Arnold, 223 Kan. 298 (1978)",
-      "original": "FullCaseCitation('223 Kan. 298', groups={'volume': '223', 'reporter': 'Kan.', 'page': '298'}, metadata=FullCaseCitation.Metadata(parenthetical=None, pin_cite='299', pin_cite_span_start=None, pin_cite_span_end=27642, year='1978', month=None, day=None, court=None, plaintiff='Jenkins', defendant='Arnold', extra='573 P.2d 1013', antecedent_guess=None, resolved_case_name_short=None, resolved_case_name=None))",
-      "source_pdf": "caseDecisions_8629a673-c319-4961-8664-9671575f33c4_128338.pdf",
-      "status": "VERIFIED",
-      "matched_url": "https://www.courtlistener.com/opinion/1166317/jenkins-v-arnold/",
-      "matched_cluster_id": 1166317,
-      "confidence": 1.0,
-      "diagnostics": []
-    },
-    {
-      "citation": "United Energy Owners Comm., Inc. v. U.S. Energy Mgmt. Sys., Inc., 837 F.2d 356",
-      "original": "FullCaseCitation('837 F.2d 356', groups={'volume': '837', 'reporter': 'F.2d', 'page': '356'}, metadata=FullCaseCitation.Metadata(parenthetical=None, pin_cite=None, pin_cite_span_start=None, pin_cite_span_end=None, year=None, month=None, day=None, court=None, plaintiff='United Energy Owners Comm., Inc.', defendant='U.S. Energy Mgmt. Sys., Inc.', extra=None, antecedent_guess=None, resolved_case_name_short=None, resolved_case_name=None))",
-      "source_pdf": "flowz_digital_llc_v_flowz_staffing_llc_5-30-2025_order.pdf",
-      "status": "VERIFIED",
-      "matched_url": "https://www.courtlistener.com/opinion/500113/united-energy-owners-committee-inc-and-robert-t-gilleran-v-united/",
-      "matched_cluster_id": 500113,
-      "confidence": 1.0,
-      "diagnostics": []
-    },
-    {
-      "citation": "Edwards v. General Motors Corp., 153 F.3d 242",
-      "original": "FullCaseCitation('153 F.3d 242', groups={'volume': '153', 'reporter': 'F.3d', 'page': '242'}, metadata=FullCaseCitation.Metadata(parenthetical=None, pin_cite=None, pin_cite_span_start=None, pin_cite_span_end=None, year=None, month=None, day=None, court=None, plaintiff='Edwards', defendant='General Motors Corp.', extra=None, antecedent_guess=None, resolved_case_name_short=None, resolved_case_name=None))",
-      "source_pdf": "gonzalez_v_texas_taxpayer_and_research_association_01-29-2005_order.pdf",
-      "status": "VERIFIED",
-      "matched_url": "https://www.courtlistener.com/opinion/15646/edwards-v-general-motors-corp/",
-      "matched_cluster_id": 15646,
-      "confidence": 1.0,
-      "diagnostics": []
-    },
-    {
-      "citation": "Moderwell v. Cuyahoga Cty., 997 F.3d 653 (2021)",
-      "original": "FullCaseCitation('997 F.3d 653', groups={'volume': '997', 'reporter': 'F.3d', 'page': '653'}, metadata=FullCaseCitation.Metadata(parenthetical=None, pin_cite='659', pin_cite_span_start=None, pin_cite_span_end=3487, year='2021', month=None, day=None, court='ca6', plaintiff='Moderwell', defendant='Cuyahoga Cty.', extra=None, antecedent_guess=None, resolved_case_name_short=None, resolved_case_name=None))",
-      "source_pdf": "gov.uscourts.mied.376829.74.0.pdf",
-      "status": "VERIFIED",
-      "matched_url": "https://www.courtlistener.com/opinion/4882339/marie-moderwell-v-cuyahoga-cnty-ohio/",
-      "matched_cluster_id": 4882339,
+      "matched_url": "https://www.courtlistener.com/opinion/106449/link-v-wabash-railroad/",
+      "matched_cluster_id": 106449,
       "confidence": 1.0,
       "diagnostics": []
     },
     {
       "citation": "Ashcroft v. Iqbal, 556 U.S. 662 (2009)",
-      "original": "FullCaseCitation('556 U.S. 662', groups={'volume': '556', 'reporter': 'U.S.', 'page': '662'}, metadata=FullCaseCitation.Metadata(parenthetical=None, pin_cite='678', pin_cite_span_start=None, pin_cite_span_end=5882, year='2009', month=None, day=None, court='scotus', plaintiff='Ashcroft', defendant='Iqbal', extra=None, antecedent_guess=None, resolved_case_name_short=None, resolved_case_name=None))",
+      "original": "Ashcroft v. Iqbal, 556 U.S. 662 (2009)",
       "source_pdf": "Hobbs_v._Goncharko_USA_16_January_2026.pdf",
       "status": "VERIFIED",
       "matched_url": "https://www.courtlistener.com/opinion/145875/ashcroft-v-iqbal/",
@@ -91,88 +21,48 @@
       "diagnostics": []
     },
     {
-      "citation": "Ricci v. DeStefano, 557 U.S. 557 (2009)",
-      "original": "FullCaseCitation('557 U.S. 557', groups={'volume': '557', 'reporter': 'U.S.', 'page': '557'}, metadata=FullCaseCitation.Metadata(parenthetical=None, pin_cite='577', pin_cite_span_start=None, pin_cite_span_end=6992, year='2009', month=None, day=None, court='scotus', plaintiff='Ricci', defendant='DeStefano', extra=None, antecedent_guess=None, resolved_case_name_short=None, resolved_case_name=None))",
+      "citation": "Servs., Inc. v. City of Milwaukee, 465 F.3d 737 (2006)",
+      "original": "Servs., Inc. v. City of Milwaukee, 465 F.3d 737 (2006)",
       "source_pdf": "Hobbs_v._Goncharko_USA_16_January_2026.pdf",
       "status": "VERIFIED",
-      "matched_url": "https://www.courtlistener.com/opinion/145848/ricci-v-destefano/",
-      "matched_cluster_id": 145848,
+      "matched_url": "https://www.courtlistener.com/opinion/2999760/wisconsin-community-services-inc-v-city-of-milwaukee/",
+      "matched_cluster_id": 2999760,
       "confidence": 1.0,
       "diagnostics": []
     },
     {
-      "citation": "v. Fletcher, 871 N.E.2d 725 (2007)",
-      "original": "FullCaseCitation('871 N.E.2d 725', groups={'volume': '871', 'reporter': 'N.E.2d', 'page': '725'}, metadata=FullCaseCitation.Metadata(parenthetical=None, pin_cite=None, pin_cite_span_start=None, pin_cite_span_end=None, year='2007', month=None, day=None, court='indctapp', plaintiff='', defendant='Fletcher', extra=None, antecedent_guess=None, resolved_case_name_short=None, resolved_case_name=None))",
-      "source_pdf": "melissa_wilcox_v._matthew_a._gingrich.pdf",
-      "status": "VERIFIED",
-      "matched_url": "https://www.courtlistener.com/opinion/2219951/people-v-urdiales/",
-      "matched_cluster_id": 2219951,
-      "confidence": 1.0,
-      "diagnostics": []
-    },
-    {
-      "citation": "Suburban Sanitary Comm\u2019 v. Bowen, 410 Md. 287",
-      "original": "FullCaseCitation('410 Md. 287', groups={'volume': '410', 'reporter': 'Md.', 'page': '287'}, metadata=FullCaseCitation.Metadata(parenthetical=None, pin_cite=None, pin_cite_span_start=None, pin_cite_span_end=None, year=None, month=None, day=None, court=None, plaintiff='Suburban Sanitary Comm\u2019', defendant='Bowen', extra=None, antecedent_guess=None, resolved_case_name_short=None, resolved_case_name=None))",
-      "source_pdf": "mezu_v_mezu_10-29-2025_order.pdf",
-      "status": "VERIFIED",
-      "matched_url": "https://www.courtlistener.com/opinion/2367616/washington-suburban-sanitary-commission-v-bowen/",
-      "matched_cluster_id": 2367616,
-      "confidence": 1.0,
-      "diagnostics": []
-    },
-    {
-      "citation": "Tamburo v. Dworkin, 601 F.3d 693 (2010)",
-      "original": "FullCaseCitation('601 F.3d 693', groups={'volume': '601', 'reporter': 'F.3d', 'page': '693'}, metadata=FullCaseCitation.Metadata(parenthetical=None, pin_cite='702', pin_cite_span_start=None, pin_cite_span_end=7656, year='2010', month=None, day=None, court='ca7', plaintiff='Tamburo', defendant='Dworkin', extra=None, antecedent_guess=None, resolved_case_name_short=None, resolved_case_name=None))",
+      "citation": "Bristol-Myers Squibb Co. v. Superior Ct., 137 S.Ct. 1773",
+      "original": "Bristol-Myers Squibb Co. v. Superior Ct., 137 S.Ct. 1773",
       "source_pdf": "NAOC_v._Indiana_Imports_USA_15_January_2026.pdf",
       "status": "VERIFIED",
-      "matched_url": "https://www.courtlistener.com/opinion/1428/tamburo-v-dworkin/",
-      "matched_cluster_id": 1428,
+      "matched_url": "https://www.courtlistener.com/opinion/4403809/bristol-myers-squibb-co-v-superior-court-of-cal-san-francisco-cty/",
+      "matched_cluster_id": 4403809,
       "confidence": 1.0,
       "diagnostics": []
     },
     {
-      "citation": "Advanced Tactical Ordnance Sys., LLC v. Real Action Paintball, Inc., 751 F.3d 796 (2014)",
-      "original": "FullCaseCitation('751 F.3d 796', groups={'volume': '751', 'reporter': 'F.3d', 'page': '796'}, metadata=FullCaseCitation.Metadata(parenthetical=None, pin_cite='800', pin_cite_span_start=None, pin_cite_span_end=6217, year='2014', month=None, day=None, court='ca7', plaintiff='Advanced Tactical Ordnance Sys., LLC', defendant='Real Action Paintball, Inc.', extra=None, antecedent_guess=None, resolved_case_name_short=None, resolved_case_name=None))",
+      "citation": "Ford Motor Co. v. Montana Eighth Jud. Dist. Ct., 592 U.S. 351 (2021)",
+      "original": "Ford Motor Co. v. Montana Eighth Jud. Dist. Ct., 592 U.S. 351 (2021)",
       "source_pdf": "NAOC_v._Indiana_Imports_USA_15_January_2026.pdf",
       "status": "VERIFIED",
-      "matched_url": "https://www.courtlistener.com/opinion/2708652/advanced-tactical-ordnance-systems-llc-v-real-action-paintball-inc/",
-      "matched_cluster_id": 2708652,
+      "matched_url": "https://www.courtlistener.com/opinion/4867543/ford-motor-co-v-montana-eighth-judicial-dist/",
+      "matched_cluster_id": 4867543,
       "confidence": 1.0,
       "diagnostics": []
     },
     {
-      "citation": "Park v. Kim, 91 F.4th 610 (2024)",
-      "original": "FullCaseCitation('91 F.4th 610', groups={'volume': '91', 'reporter': 'F.4th', 'page': '610'}, metadata=FullCaseCitation.Metadata(parenthetical=None, pin_cite='615', pin_cite_span_start=None, pin_cite_span_end=10102, year='2024', month=None, day=None, court='ca2', plaintiff='Park', defendant='Kim', extra=None, antecedent_guess=None, resolved_case_name_short=None, resolved_case_name=None))",
-      "source_pdf": "nora_v_m_a_transport_inc_8-13-2025_order.pdf",
-      "status": "VERIFIED",
-      "matched_url": "https://www.courtlistener.com/opinion/9469987/park-v-kim/",
-      "matched_cluster_id": 9469987,
-      "confidence": 1.0,
-      "diagnostics": []
-    },
-    {
-      "citation": "Ford Motor Co. v. Summit\nMotor Prods., Inc., 930 F.2d 277 (1991)",
-      "original": "FullCaseCitation('930 F.2d 277', groups={'volume': '930', 'reporter': 'F.2d', 'page': '277'}, metadata=FullCaseCitation.Metadata(parenthetical=None, pin_cite='289', pin_cite_span_start=None, pin_cite_span_end=5632, year='1991', month=None, day=None, court=None, plaintiff='Ford Motor Co.', defendant='Summit\\nMotor Prods., Inc.', extra=None, antecedent_guess=None, resolved_case_name_short=None, resolved_case_name=None))",
-      "source_pdf": "otg_new_york_inc_v_ottogi_america_inc_9-18-2025_order.pdf",
-      "status": "VERIFIED",
-      "matched_url": "https://www.courtlistener.com/opinion/8997411/ford-motor-co-v-summit-motor-products-inc/",
-      "matched_cluster_id": 8997411,
-      "confidence": 1.0,
-      "diagnostics": []
-    },
-    {
-      "citation": "McMillian v. Monroe Cnty., 520 U.S. 781 (1997)",
-      "original": "FullCaseCitation('520 U.S. 781', groups={'volume': '520', 'reporter': 'U.S.', 'page': '781'}, metadata=FullCaseCitation.Metadata(parenthetical=None, pin_cite=None, pin_cite_span_start=None, pin_cite_span_end=None, year='1997', month=None, day=None, court='scotus', plaintiff='McMillian', defendant='Monroe Cnty.', extra=None, antecedent_guess=None, resolved_case_name_short=None, resolved_case_name=None))",
+      "citation": "Bell Atl. Corp. v. Twombly, 550 U.S. 544 (2007)",
+      "original": "Bell Atl. Corp. v. Twombly, 550 U.S. 544 (2007)",
       "source_pdf": "Thornton_v._Flathead_County_USA_23_January_2026.pdf",
       "status": "VERIFIED",
-      "matched_url": "https://www.courtlistener.com/opinion/118118/mcmillian-v-monroe-county/",
-      "matched_cluster_id": 118118,
+      "matched_url": "https://www.courtlistener.com/opinion/145730/bell-atlantic-corp-v-twombly/",
+      "matched_cluster_id": 145730,
       "confidence": 1.0,
       "diagnostics": []
     },
     {
       "citation": "Horton v. City of Santa Maria, 915 F.3d 592 (2019)",
-      "original": "FullCaseCitation('915 F.3d 592', groups={'volume': '915', 'reporter': 'F.3d', 'page': '592'}, metadata=FullCaseCitation.Metadata(parenthetical=None, pin_cite='602-03', pin_cite_span_start=None, pin_cite_span_end=24246, year='2019', month=None, day=None, court='ca9', plaintiff='Horton', defendant='City of Santa Maria', extra=None, antecedent_guess=None, resolved_case_name_short=None, resolved_case_name=None))",
+      "original": "Horton v. City of Santa Maria, 915 F.3d 592 (2019)",
       "source_pdf": "Thornton_v._Flathead_County_USA_23_January_2026.pdf",
       "status": "VERIFIED",
       "matched_url": "https://www.courtlistener.com/opinion/4586718/shane-horton-v-city-of-santa-maria/",
@@ -181,18 +71,118 @@
       "diagnostics": []
     },
     {
-      "citation": "United States v. McQueen, 727 F.3d 1144 (2013)",
-      "original": "FullCaseCitation('727 F.3d 1144', groups={'volume': '727', 'reporter': 'F.3d', 'page': '1144'}, metadata=FullCaseCitation.Metadata(parenthetical=None, pin_cite='1155', pin_cite_span_start=None, pin_cite_span_end=2841, year='2013', month=None, day=None, court='ca11', plaintiff='United States', defendant='McQueen', extra=None, antecedent_guess=None, resolved_case_name_short=None, resolved_case_name=None))",
-      "source_pdf": "united_states_v_burke_5-15-2025_order.pdf",
+      "citation": "Garr v. U.S. Healthcare, 3, 22 F.3d 1274 (1994)",
+      "original": "Garr v. U.S. Healthcare, 3, 22 F.3d 1274 (1994)",
+      "source_pdf": "anthony_c_hill_v_workday_inc_9-5-2025_order.pdf",
       "status": "VERIFIED",
-      "matched_url": "https://www.courtlistener.com/opinion/1038255/usa-v-alexander-mcqueen/",
-      "matched_cluster_id": 1038255,
+      "matched_url": "https://www.courtlistener.com/opinion/7028712/garr-v-us-healthcare-inc/",
+      "matched_cluster_id": 7028712,
+      "confidence": 1.0,
+      "diagnostics": []
+    },
+    {
+      "citation": "Yagman v. Republic Ins., 8, 987 F.2d 622 (1993)",
+      "original": "Yagman v. Republic Ins., 8, 987 F.2d 622 (1993)",
+      "source_pdf": "buchanan_v_vuori_inc_11-20-2025_order.pdf",
+      "status": "VERIFIED",
+      "matched_url": "https://www.courtlistener.com/opinion/601572/stephen-yagman-v-republic-insurance-cna-insurance-valley-forge-insurance/",
+      "matched_cluster_id": 601572,
+      "confidence": 1.0,
+      "diagnostics": []
+    },
+    {
+      "citation": "In re A.S., 555 P.3d 732",
+      "original": "In re A.S., 555 P.3d 732",
+      "source_pdf": "caseDecisions_8629a673-c319-4961-8664-9671575f33c4_128338.pdf",
+      "status": "VERIFIED",
+      "matched_url": "https://www.courtlistener.com/opinion/10106361/in-re-as/",
+      "matched_cluster_id": 10106361,
+      "confidence": 1.0,
+      "diagnostics": []
+    },
+    {
+      "citation": "Montez v. Tonkawa Village Apartments, 215 Kan. 59",
+      "original": "Montez v. Tonkawa Village Apartments, 215 Kan. 59",
+      "source_pdf": "caseDecisions_8629a673-c319-4961-8664-9671575f33c4_128338.pdf",
+      "status": "VERIFIED",
+      "matched_url": "https://www.courtlistener.com/opinion/1163810/montez-v-tonkawa-village-apartments/",
+      "matched_cluster_id": 1163810,
+      "confidence": 1.0,
+      "diagnostics": []
+    },
+    {
+      "citation": "S.E.C. v. Cross Financial Services, Inc., 908 F. Supp. 718 (1995)",
+      "original": "S.E.C. v. Cross Financial Services, Inc., 908 F. Supp. 718 (1995)",
+      "source_pdf": "flowz_digital_llc_v_flowz_staffing_llc_5-30-2025_order.pdf",
+      "status": "VERIFIED",
+      "matched_url": "https://www.courtlistener.com/opinion/1457502/securities-exchange-commission-v-cross-financial-services-inc/",
+      "matched_cluster_id": 1457502,
+      "confidence": 1.0,
+      "diagnostics": []
+    },
+    {
+      "citation": "Roadway Express, Inc. v. Piper, 447 U.S. 752 (1980)",
+      "original": "Roadway Express, Inc. v. Piper, 447 U.S. 752 (1980)",
+      "source_pdf": "lacey_v_state_farm_general_insurance_co_5-6-2025_order.pdf",
+      "status": "VERIFIED",
+      "matched_url": "https://www.courtlistener.com/opinion/110318/roadway-express-inc-v-piper/",
+      "matched_cluster_id": 110318,
+      "confidence": 1.0,
+      "diagnostics": []
+    },
+    {
+      "citation": "Surety Co. v. Superior, 153 Cal.App.3d 467 (1984)",
+      "original": "Surety Co. v. Superior, 153 Cal.App.3d 467 (1984)",
+      "source_pdf": "lacey_v_state_farm_general_insurance_co_5-6-2025_order.pdf",
+      "status": "VERIFIED",
+      "matched_url": "https://www.courtlistener.com/opinion/2116661/aetna-casualty-surety-co-v-superior-court/",
+      "matched_cluster_id": 2116661,
+      "confidence": 1.0,
+      "diagnostics": []
+    },
+    {
+      "citation": "Ashfaq v. Ashfaq, 467 S.W.3d 539",
+      "original": "Ashfaq v. Ashfaq, 467 S.W.3d 539",
+      "source_pdf": "maryvel_suday_and_the_estate_of_olga_tamez_de_suday_v._jesus_lozano_suday.pdf",
+      "status": "VERIFIED",
+      "matched_url": "https://www.courtlistener.com/opinion/3078899/fariha-ashfaq-v-mohammad-ashfaq/",
+      "matched_cluster_id": 3078899,
+      "confidence": 1.0,
+      "diagnostics": []
+    },
+    {
+      "citation": "In re Dashawn W., 992 N.E.2d 402",
+      "original": "In re Dashawn W., 992 N.E.2d 402",
+      "source_pdf": "melissa_wilcox_v._matthew_a._gingrich.pdf",
+      "status": "VERIFIED",
+      "matched_url": "https://www.courtlistener.com/opinion/5642236/in-re-dashawn-w/",
+      "matched_cluster_id": 5642236,
+      "confidence": 1.0,
+      "diagnostics": []
+    },
+    {
+      "citation": "In re S.D. Ind. 1997). 11, 962 F.2d 120 (1992)",
+      "original": "In re S.D. Ind. 1997). 11, 962 F.2d 120 (1992)",
+      "source_pdf": "nora_v_m_a_transport_inc_8-13-2025_order.pdf",
+      "status": "VERIFIED",
+      "matched_url": "https://www.courtlistener.com/opinion/582535/carolyn-m-gallagher-plaintiff-appellee-v-wilton-enterprises-inc/",
+      "matched_cluster_id": 582535,
+      "confidence": 1.0,
+      "diagnostics": []
+    },
+    {
+      "citation": "Ford Motor Co. v. Summit Motor Prods., Inc., 930 F.2d 277 (1991)",
+      "original": "Ford Motor Co. v. Summit Motor Prods., Inc., 930 F.2d 277 (1991)",
+      "source_pdf": "otg_new_york_inc_v_ottogi_america_inc_9-18-2025_order.pdf",
+      "status": "VERIFIED",
+      "matched_url": "https://www.courtlistener.com/opinion/8997411/ford-motor-co-v-summit-motor-products-inc/",
+      "matched_cluster_id": 8997411,
       "confidence": 1.0,
       "diagnostics": []
     },
     {
       "citation": "United States v. Hasson, 26 F.4th 610 (2022)",
-      "original": "FullCaseCitation('26 F.4th 610', groups={'volume': '26', 'reporter': 'F.4th', 'page': '610'}, metadata=FullCaseCitation.Metadata(parenthetical=None, pin_cite=None, pin_cite_span_start=None, pin_cite_span_end=None, year='2022', month=None, day=None, court='ca11', plaintiff='United States', defendant='Hasson', extra=None, antecedent_guess=None, resolved_case_name_short=None, resolved_case_name=None))",
+      "original": "United States v. Hasson, 26 F.4th 610 (2022)",
       "source_pdf": "united_states_v_burke_5-15-2025_order.pdf",
       "status": "VERIFIED",
       "matched_url": "https://www.courtlistener.com/opinion/6444297/united-states-v-christopher-hasson/",
@@ -201,22 +191,22 @@
       "diagnostics": []
     },
     {
-      "citation": "Howard Town Ctr.\nDeveloper, LLC v. Howard Univ., 278 F. Supp. 3d 333 (2017)",
-      "original": "FullCaseCitation('278 F. Supp. 3d 333', groups={'volume': '278', 'reporter': 'F. Supp. 3d', 'page': '333'}, metadata=FullCaseCitation.Metadata(parenthetical=None, pin_cite='383', pin_cite_span_start=None, pin_cite_span_end=11547, year='2017', month=None, day=None, court='dcd', plaintiff='Howard Town Ctr.\\nDeveloper, LLC', defendant='Howard Univ.', extra=None, antecedent_guess=None, resolved_case_name_short=None, resolved_case_name=None))",
-      "source_pdf": "williams_v_capital_one_bank_na_3-18-2025_order.pdf",
+      "citation": "Doe v. Miami-Dade County, 846 F.3d 1180 (2017)",
+      "original": "Doe v. Miami-Dade County, 846 F.3d 1180 (2017)",
+      "source_pdf": "united_states_v_burke_5-15-2025_order.pdf",
       "status": "VERIFIED",
-      "matched_url": "https://www.courtlistener.com/opinion/4418421/howard-town-center-developer-llc-v-howard-university/",
-      "matched_cluster_id": 4418421,
+      "matched_url": "https://www.courtlistener.com/opinion/4341157/john-doe-1-v-miami-dade-county/",
+      "matched_cluster_id": 4341157,
       "confidence": 1.0,
       "diagnostics": []
     },
     {
-      "citation": "Whole Foods Mkt. Grp. v. Wical L.P., 288 F. Supp. 3d 176",
-      "original": "FullCaseCitation('288 F. Supp. 3d 176', groups={'volume': '288', 'reporter': 'F. Supp. 3d', 'page': '176'}, metadata=FullCaseCitation.Metadata(parenthetical=None, pin_cite='188', pin_cite_span_start=None, pin_cite_span_end=19430, year=None, month=None, day=None, court=None, plaintiff='Whole Foods Mkt. Grp.', defendant='Wical L.P.', extra=None, antecedent_guess=None, resolved_case_name_short=None, resolved_case_name=None))",
+      "citation": "Gray v. Poole, 275 F.3d 1113 (2002)",
+      "original": "Gray v. Poole, 275 F.3d 1113 (2002)",
       "source_pdf": "williams_v_capital_one_bank_na_3-18-2025_order.pdf",
       "status": "VERIFIED",
-      "matched_url": "https://www.courtlistener.com/opinion/7328251/whole-foods-mkt-grp-inc-v-wical-ltd-pship/",
-      "matched_cluster_id": 7328251,
+      "matched_url": "https://www.courtlistener.com/opinion/185585/gray-william-t-v-poole-theisha/",
+      "matched_cluster_id": 185585,
       "confidence": 1.0,
       "diagnostics": []
     }
@@ -224,48 +214,76 @@
   "LIKELY_REAL": [],
   "POSSIBLE_MATCH": [
     {
-      "citation": "Anderson v. Furst, No. 17-cv-12676, 2018 WL 4407750",
-      "original": "FullCaseCitation('2018 WL 4407750', groups={'volume': '2018', 'reporter': 'WL', 'page': '4407750'}, metadata=FullCaseCitation.Metadata(parenthetical=None, pin_cite='at *2', pin_cite_span_start=None, pin_cite_span_end=9203, year=None, month=None, day=None, court=None, plaintiff='Anderson', defendant='Furst, No. 17-cv-12676', extra=None, antecedent_guess=None, resolved_case_name_short=None, resolved_case_name=None))",
+      "citation": "Pointe Wholesale, Inc. v. Vilardi, No. 1:17-CV-00052-GNS, 2017 WL 3877860",
+      "original": "Pointe Wholesale, Inc. v. Vilardi, No. 1:17-CV-00052-GNS, 2017 WL 3877860",
+      "source_pdf": "anthony_c_hill_v_workday_inc_9-5-2025_order.pdf",
+      "status": "POSSIBLE_MATCH",
+      "matched_url": "https://www.courtlistener.com/docket/6194912/49/south-pointe-wholesale-inc-v-vilardi/",
+      "matched_cluster_id": 6194912,
+      "confidence": 0.675,
+      "diagnostics": [
+        "Found in RECAP (not in opinions database). Document dated 2017-09-05:  MEMORANDUM, OPINION, AND ORDER by Magistrate Judge H. Brent Brennenstuhl on 9/5...",
+        "Reporter citation 2017 WL 3877860 could not be confirmed (CourtListener has no reporter citations on file for this case), but we identified a possible match."
+      ]
+    },
+    {
+      "citation": "Moore v. Hillman, No. 4:06-CV-43, 2006 WL 1313880",
+      "original": "Moore v. Hillman, No. 4:06-CV-43, 2006 WL 1313880",
       "source_pdf": "gov.uscourts.mied.376829.74.0.pdf",
       "status": "POSSIBLE_MATCH",
-      "matched_url": "https://www.courtlistener.com/docket/6264209/54/anderson-v-furst/",
-      "matched_cluster_id": 6264209,
+      "matched_url": "https://www.courtlistener.com/docket/4697246/7/moore-v-hillman/",
+      "matched_cluster_id": 4697246,
       "confidence": 0.75,
       "diagnostics": [
-        "Found in RECAP (not in opinions database). Document dated 2018-09-17: Order on Motion to Compel",
-        "Reporter citation 2018 WL 4407750 could not be confirmed (CourtListener has no reporter citations on file for this case), but we identified a possible match."
+        "Found in RECAP (not in opinions database). Document dated 2006-05-12: MEMORANDUM OPINION; signed by Chief Judge Robert Holmes Bell  (Chief Judge Rober...",
+        "Reporter citation 2006 WL 1313880 could not be confirmed (CourtListener has no reporter citations on file for this case), but we identified a possible match."
+      ]
+    },
+    {
+      "citation": "Noland v. Land of the Free, L.P., 336 Cal. Rptr. 3d 897",
+      "original": "Noland v. Land of the Free, L.P., 336 Cal. Rptr. 3d 897",
+      "source_pdf": "mezu_v_mezu_10-29-2025_order.pdf",
+      "status": "POSSIBLE_MATCH",
+      "matched_url": "https://www.courtlistener.com/opinion/10670865/noland-v-land-of-the-free-lp/",
+      "matched_cluster_id": 10670865,
+      "confidence": 0.5,
+      "diagnostics": [
+        "Reporter citation 336 Cal. Rptr. 3d 897 could not be confirmed (CourtListener has no reporter citations on file for this case), but we identified a possible match."
+      ]
+    },
+    {
+      "citation": "Dehghani v. Castro, 782 F. Supp. 3d 1051",
+      "original": "Dehghani v. Castro, 782 F. Supp. 3d 1051",
+      "source_pdf": "otg_new_york_inc_v_ottogi_america_inc_9-18-2025_order.pdf",
+      "status": "POSSIBLE_MATCH",
+      "matched_url": "https://www.courtlistener.com/docket/69550312/23/2/dehghani-v-castro/",
+      "matched_cluster_id": 69550312,
+      "confidence": 0.5,
+      "diagnostics": [
+        "Found in RECAP (not in opinions database). Document dated 2025-03-14: Exhibit EXHIBIT A - P",
+        "Reporter citation 782 F. Supp. 3d 1051 could not be confirmed (CourtListener has no reporter citations on file for this case), but we identified a possible match."
+      ]
+    },
+    {
+      "citation": "Anonymous v. New York City Dep\u2019t of Educ., No. 1:24-cv-4232, 2024 WL 3460049 (2024)",
+      "original": "Anonymous v. New York City Dep\u2019t of Educ., No. 1:24-cv-4232, 2024 WL 3460049 (2024)",
+      "source_pdf": "williams_v_capital_one_bank_na_3-18-2025_order.pdf",
+      "status": "POSSIBLE_MATCH",
+      "matched_url": "https://www.courtlistener.com/docket/68824429/36/anonymous-v-new-york-city-department-of-education/",
+      "matched_cluster_id": 68824429,
+      "confidence": 0.5022,
+      "diagnostics": [
+        "Found in RECAP (not in opinions database). Document dated 2024-07-18: Memorandum & Opinion",
+        "Name mismatch: cited \"Anonymous v. New York City Dep\u2019t of Educ.\" vs found \"Anonymous v. New York City Department of Education\"",
+        "Reporter citation 2024 WL 3460049 could not be confirmed (CourtListener has no reporter citations on file for this case), but we identified a possible match."
       ]
     }
   ],
   "NOT_FOUND": [
     {
-      "citation": "Lohrmann v. Lohrmann, 148 Md. App. 456 (2002)",
-      "original": "FullCaseCitation('148 Md. App. 456', groups={'volume': '148', 'reporter': 'Md. App.', 'page': '456'}, metadata=FullCaseCitation.Metadata(parenthetical=None, pin_cite=None, pin_cite_span_start=None, pin_cite_span_end=None, year='2002', month=None, day=None, court=None, plaintiff='Lohrmann', defendant='Lohrmann', extra=None, antecedent_guess=None, resolved_case_name_short=None, resolved_case_name=None))",
-      "source_pdf": "1685s24.pdf",
-      "status": "NOT_FOUND",
-      "matched_url": "https://www.courtlistener.com/opinion/2209431/lee-v-lee/",
-      "matched_cluster_id": 2209431,
-      "confidence": 0.0,
-      "diagnostics": [
-        "Citation exists but belongs to a different case: \"Lee v. Lee\""
-      ]
-    },
-    {
-      "citation": "Fink v. Gomez, 239 F.3d 989 (2001)",
-      "original": "FullCaseCitation('239 F.3d 989', groups={'volume': '239', 'reporter': 'F.3d', 'page': '989'}, metadata=FullCaseCitation.Metadata(parenthetical=None, pin_cite=None, pin_cite_span_start=None, pin_cite_span_end=None, year='2001', month=None, day=None, court='ca9', plaintiff='Fink', defendant='Gomez', extra='991\u201392', antecedent_guess=None, resolved_case_name_short=None, resolved_case_name=None))",
-      "source_pdf": "anthony_c_hill_v_workday_inc_9-5-2025_order.pdf",
-      "status": "NOT_FOUND",
-      "matched_url": "https://www.courtlistener.com/opinion/772039/david-m-fink-v-james-h-gomez-director-diana-carloni-nourse/",
-      "matched_cluster_id": 772039,
-      "confidence": 0.0,
-      "diagnostics": [
-        "Citation exists but belongs to a different case: \"David M. Fink v. James H. Gomez, Director, Diana Carloni Nourse\""
-      ]
-    },
-    {
-      "citation": "Coronavirus Reporter Corp. v. Apple Inc., 2025, 7 WL 2162947 (2025)",
-      "original": "FullCaseCitation('7 WL 2162947', groups={'volume': '7', 'reporter': 'WL', 'page': '2162947'}, metadata=FullCaseCitation.Metadata(parenthetical=None, pin_cite=None, pin_cite_span_start=None, pin_cite_span_end=None, year='2025', month='July', day='30', court='cand', plaintiff='Coronavirus Reporter Corp.', defendant='Apple Inc., 2025', extra='at *5\u20136', antecedent_guess=None, resolved_case_name_short=None, resolved_case_name=None))",
-      "source_pdf": "anthony_c_hill_v_workday_inc_9-5-2025_order.pdf",
+      "citation": "Fibertext Corp. v. New Concepts Distribs. Int\u2019l, LLC, No. 20-20720-Civ, 2021 WL 302645",
+      "original": "Fibertext Corp. v. New Concepts Distribs. Int\u2019l, LLC, No. 20-20720-Civ, 2021 WL 302645",
+      "source_pdf": "Button_v._Mccawley_USA_4_February_2026.pdf",
       "status": "NOT_FOUND",
       "matched_url": null,
       "matched_cluster_id": null,
@@ -275,44 +293,20 @@
       ]
     },
     {
-      "citation": "Tercero v. Sacramento Logistics, LLC, No. 24-cv-00953-DC-\n11 JDP, 2025 WL 2605020 (2025)",
-      "original": "FullCaseCitation('2025 WL 2605020', groups={'volume': '2025', 'reporter': 'WL', 'page': '2605020'}, metadata=FullCaseCitation.Metadata(parenthetical=None, pin_cite='at *8', pin_cite_span_start=None, pin_cite_span_end=6991, year='2025', month='Sep.', day='9', court='caed', plaintiff='Tercero', defendant='Sacramento Logistics, LLC, No. 24-cv-00953-DC-\\n11 JDP', extra=None, antecedent_guess=None, resolved_case_name_short=None, resolved_case_name=None))",
-      "source_pdf": "buchanan_v_vuori_inc_11-20-2025_order.pdf",
-      "status": "NOT_FOUND",
-      "matched_url": null,
-      "matched_cluster_id": null,
-      "confidence": 0.0,
-      "diagnostics": [
-        "No matching cases found in CourtListener opinions or RECAP"
-      ]
-    },
-    {
-      "citation": "Morgan v. Cmty. Against Violence, No. 23\nCiv. 353-WPJ/JMR, 2023 WL 6976510 (2023)",
-      "original": "FullCaseCitation('2023 WL 6976510', groups={'volume': '2023', 'reporter': 'WL', 'page': '6976510'}, metadata=FullCaseCitation.Metadata(parenthetical=None, pin_cite='at *7', pin_cite_span_start=None, pin_cite_span_end=23557, year='2023', month='Oct.', day='23', court='nmd', plaintiff='Morgan', defendant='Cmty. Against Violence, No. 23\\nCiv. 353-WPJ/JMR', extra=None, antecedent_guess=None, resolved_case_name_short=None, resolved_case_name=None))",
-      "source_pdf": "caseDecisions_8629a673-c319-4961-8664-9671575f33c4_128338.pdf",
-      "status": "NOT_FOUND",
-      "matched_url": null,
-      "matched_cluster_id": null,
-      "confidence": 0.0,
-      "diagnostics": [
-        "No matching cases found in CourtListener opinions or RECAP"
-      ]
-    },
-    {
-      "citation": "None v. Daou Systems, Inc., 411 F.3d 1006 (2005)",
-      "original": "FullCaseCitation('411 F.3d 1006', groups={'volume': '411', 'reporter': 'F.3d', 'page': '1006'}, metadata=FullCaseCitation.Metadata(parenthetical=None, pin_cite=None, pin_cite_span_start=None, pin_cite_span_end=None, year='2005', month=None, day=None, court='ca9', plaintiff=None, defendant='Daou Systems, Inc.', extra=None, antecedent_guess=None, resolved_case_name_short=None, resolved_case_name=None))",
+      "citation": "Shell Petroleum N.V. v. Republic of Costa Rica, 608 F. Supp. 2d 269 (2009)",
+      "original": "Shell Petroleum N.V. v. Republic of Costa Rica, 608 F. Supp. 2d 269 (2009)",
       "source_pdf": "flowz_digital_llc_v_flowz_staffing_llc_5-30-2025_order.pdf",
       "status": "NOT_FOUND",
-      "matched_url": "https://www.courtlistener.com/opinion/8438896/sparling-v-daou/",
-      "matched_cluster_id": 8438896,
+      "matched_url": "https://www.courtlistener.com/opinion/2467149/faghri-v-university-of-connecticut/",
+      "matched_cluster_id": 2467149,
       "confidence": 0.0,
       "diagnostics": [
-        "Citation exists but belongs to a different case: \"Sparling v. Daou\""
+        "Citation exists but belongs to a different case: \"Faghri v. University of Connecticut\""
       ]
     },
     {
-      "citation": "Head v. Chicora\nLife Ctr., LLC, 290 F. Supp. 3d 883 (2018)",
-      "original": "FullCaseCitation('290 F. Supp. 3d 883', groups={'volume': '290', 'reporter': 'F. Supp. 3d', 'page': '883'}, metadata=FullCaseCitation.Metadata(parenthetical=None, pin_cite='893', pin_cite_span_start=None, pin_cite_span_end=4556, year='2018', month=None, day=None, court='txsd', plaintiff='Head', defendant='Chicora\\nLife Ctr., LLC', extra=None, antecedent_guess=None, resolved_case_name_short=None, resolved_case_name=None))",
+      "citation": "Head v. Chicora Life Ctr., LLC, 290 F. Supp. 3d 883 (2018)",
+      "original": "Head v. Chicora Life Ctr., LLC, 290 F. Supp. 3d 883 (2018)",
       "source_pdf": "gonzalez_v_texas_taxpayer_and_research_association_01-29-2005_order.pdf",
       "status": "NOT_FOUND",
       "matched_url": "https://www.courtlistener.com/opinion/7328468/troyer-v-natl-futures-assn/",
@@ -323,32 +317,8 @@
       ]
     },
     {
-      "citation": "None v. Vioxx Prods. Liability Litig., 12 La. 2007",
-      "original": "FullCaseCitation('12 La. 2007', groups={'volume': '12', 'reporter': 'La.', 'page': '2007'}, metadata=FullCaseCitation.Metadata(parenthetical=None, pin_cite=None, pin_cite_span_start=None, pin_cite_span_end=None, year=None, month=None, day=None, court=None, plaintiff=None, defendant='Vioxx Prods. Liability Litig.', extra=None, antecedent_guess=None, resolved_case_name_short=None, resolved_case_name=None))",
-      "source_pdf": "lacey_v_state_farm_general_insurance_co_5-6-2025_order.pdf",
-      "status": "NOT_FOUND",
-      "matched_url": null,
-      "matched_cluster_id": null,
-      "confidence": 0.0,
-      "diagnostics": [
-        "No matching cases found in CourtListener opinions or RECAP"
-      ]
-    },
-    {
-      "citation": "Zurich Ins. Co. v. State Farm Mut.\n28 Auto. Ins. Co., 137 A.2d 401 (1988)",
-      "original": "FullCaseCitation('137 A.2d 401', groups={'volume': '137', 'reporter': 'A.2d', 'page': '401'}, metadata=FullCaseCitation.Metadata(parenthetical=None, pin_cite='402', pin_cite_span_start=None, pin_cite_span_end=109640, year='1988', month=None, day=None, court=None, plaintiff='Zurich Ins. Co.', defendant='State Farm Mut.\\n28 Auto. Ins. Co.', extra=None, antecedent_guess=None, resolved_case_name_short=None, resolved_case_name=None))",
-      "source_pdf": "lacey_v_state_farm_general_insurance_co_5-6-2025_order.pdf",
-      "status": "NOT_FOUND",
-      "matched_url": null,
-      "matched_cluster_id": null,
-      "confidence": 0.0,
-      "diagnostics": [
-        "No matching cases found in CourtListener opinions or RECAP"
-      ]
-    },
-    {
-      "citation": "None v. Suday I), No. 04-19-00832-CV, 2020 WL 6928447",
-      "original": "FullCaseCitation('2020 WL 6928447', groups={'volume': '2020', 'reporter': 'WL', 'page': '6928447'}, metadata=FullCaseCitation.Metadata(parenthetical=None, pin_cite='at *6', pin_cite_span_start=None, pin_cite_span_end=758, year=None, month=None, day=None, court=None, plaintiff=None, defendant='Suday I), No. 04-19-00832-CV', extra=None, antecedent_guess=None, resolved_case_name_short=None, resolved_case_name=None))",
+      "citation": "In re Suday II), No. 04-20- 00510-CV, 2020 WL 7232130",
+      "original": "In re Suday II), No. 04-20- 00510-CV, 2020 WL 7232130",
       "source_pdf": "maryvel_suday_and_the_estate_of_olga_tamez_de_suday_v._jesus_lozano_suday.pdf",
       "status": "NOT_FOUND",
       "matched_url": null,
@@ -359,21 +329,8 @@
       ]
     },
     {
-      "citation": "Jindrich v. Weihele, 656 S.W.3d 519",
-      "original": "FullCaseCitation('656 S.W.3d 519', groups={'volume': '656', 'reporter': 'S.W.3d', 'page': '519'}, metadata=FullCaseCitation.Metadata(parenthetical=None, pin_cite='525', pin_cite_span_start=None, pin_cite_span_end=6083, year=None, month=None, day=None, court=None, plaintiff='Jindrich', defendant='Weihele', extra=None, antecedent_guess=None, resolved_case_name_short=None, resolved_case_name=None))",
-      "source_pdf": "maryvel_suday_and_the_estate_of_olga_tamez_de_suday_v._jesus_lozano_suday.pdf",
-      "status": "NOT_FOUND",
-      "matched_url": "https://www.courtlistener.com/opinion/5174585/edward-s-jindrich-jr-v-michaela-weihele/",
-      "matched_cluster_id": 5174585,
-      "confidence": 0.3065,
-      "diagnostics": [
-        "Name differs: cited \"Jindrich v. Weihele\" ~ found \"Edward S. Jindrich, Jr. v. Michaela Weihele\" (61% similar)",
-        "Reporter citation 656 S.W.3d 519 could not be confirmed (CourtListener has no reporter citations on file for this case)"
-      ]
-    },
-    {
-      "citation": "Welfare Fund v. HoosierVac LLC, No.\n2:24-CV-00326-JPH-MJD, 2025 WL 1511211 (2025)",
-      "original": "FullCaseCitation('2025 WL 1511211', groups={'volume': '2025', 'reporter': 'WL', 'page': '1511211'}, metadata=FullCaseCitation.Metadata(parenthetical=None, pin_cite='at 2', pin_cite_span_start=None, pin_cite_span_end=23161, year='2025', month='May', day='28', court='insd', plaintiff='Welfare Fund', defendant='HoosierVac LLC, No.\\n2:24-CV-00326-JPH-MJD', extra=None, antecedent_guess=None, resolved_case_name_short=None, resolved_case_name=None))",
+      "citation": "Motors, Inc. v. Benosky, 181 N.E.3d 857",
+      "original": "Motors, Inc. v. Benosky, 181 N.E.3d 857",
       "source_pdf": "melissa_wilcox_v._matthew_a._gingrich.pdf",
       "status": "NOT_FOUND",
       "matched_url": null,
@@ -384,42 +341,33 @@
       ]
     },
     {
-      "citation": "None v. None, 437 Md. 47 (2014)",
-      "original": "FullCaseCitation('437 Md. 47', groups={'volume': '437', 'reporter': 'Md.', 'page': '47'}, metadata=FullCaseCitation.Metadata(parenthetical=None, pin_cite=None, pin_cite_span_start=None, pin_cite_span_end=None, year='2014', month=None, day=None, court=None, plaintiff=None, defendant=None, extra=None, antecedent_guess=None, resolved_case_name_short=None, resolved_case_name=None))",
+      "citation": "Garner v. Kadince, Inc., 571 P.3d 812 (2025)",
+      "original": "Garner v. Kadince, Inc., 571 P.3d 812 (2025)",
       "source_pdf": "mezu_v_mezu_10-29-2025_order.pdf",
       "status": "NOT_FOUND",
-      "matched_url": "https://www.courtlistener.com/opinion/2681046/shih-ping-li-v-tzu-lee/",
-      "matched_cluster_id": 2681046,
+      "matched_url": null,
+      "matched_cluster_id": null,
       "confidence": 0.0,
       "diagnostics": [
-        "Citation exists but belongs to a different case: \"Shih Ping Li v. Tzu Lee\""
+        "No matching cases found in CourtListener opinions or RECAP"
       ]
+    }
+  ],
+  "SKIPPED": [
+    {
+      "citation": "640 S.W. 2d 232",
+      "source_pdf": "gonzalez_v_texas_taxpayer_and_research_association_01-29-2005_order.pdf",
+      "reason": "Short cite with no case name - cannot verify"
     },
     {
-      "citation": "Gauthier v. Goodyear Tire & Rubber Co., No. 23-00281, 2024 WL 4882651",
-      "original": "FullCaseCitation('2024 WL 4882651', groups={'volume': '2024', 'reporter': 'WL', 'page': '4882651'}, metadata=FullCaseCitation.Metadata(parenthetical=None, pin_cite='at *2', pin_cite_span_start=None, pin_cite_span_end=10030, year=None, month=None, day=None, court=None, plaintiff='Gauthier', defendant='Goodyear Tire & Rubber Co., No. 23-00281', extra=None, antecedent_guess=None, resolved_case_name_short=None, resolved_case_name=None))",
+      "citation": "2006 WL 1133220",
+      "source_pdf": "gov.uscourts.mied.376829.74.0.pdf",
+      "reason": "Short cite with no case name - cannot verify"
+    },
+    {
+      "citation": "4 A.3d 642 (2005)",
       "source_pdf": "nora_v_m_a_transport_inc_8-13-2025_order.pdf",
-      "status": "NOT_FOUND",
-      "matched_url": "https://www.courtlistener.com/docket/68227193/12/clarence-davis-v-capital-one-na/",
-      "matched_cluster_id": 68227193,
-      "confidence": 0.3929,
-      "diagnostics": [
-        "Found in RECAP (not in opinions database). Document dated 2024-02-06: Court order filed",
-        "Name mismatch: cited \"Gauthier v. Goodyear Tire & Rubber Company.\" vs found \"Clarence Davis v. Capital One N.A.\"",
-        "Reporter citation 2024 WL 4882651 could not be confirmed (CourtListener has no reporter citations on file for this case)"
-      ]
-    },
-    {
-      "citation": "None v. Officers, 855 F.2d 1080",
-      "original": "FullCaseCitation('855 F.2d 1080', groups={'volume': '855', 'reporter': 'F.2d', 'page': '1080'}, metadata=FullCaseCitation.Metadata(parenthetical=None, pin_cite=None, pin_cite_span_start=None, pin_cite_span_end=None, year=None, month=None, day=None, court=None, plaintiff=None, defendant='Officers', extra=None, antecedent_guess=None, resolved_case_name_short=None, resolved_case_name=None))",
-      "source_pdf": "otg_new_york_inc_v_ottogi_america_inc_9-18-2025_order.pdf",
-      "status": "NOT_FOUND",
-      "matched_url": "https://www.courtlistener.com/opinion/8972014/napier-v-thirty-or-more-unidentified-federal-agents-employees-or-officers/",
-      "matched_cluster_id": 8972014,
-      "confidence": 0.0,
-      "diagnostics": [
-        "Citation exists but belongs to a different case: \"Napier v. Thirty or More Unidentified Federal Agents, Employees or Officers\""
-      ]
+      "reason": "Short cite with no case name - cannot verify"
     }
   ]
 }

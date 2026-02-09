@@ -453,23 +453,48 @@ class TestScoring:
             parsed, result_case_name, result_court, result_date, result or {}
         )
 
-    def test_perfect_name_gives_50_percent(self):
-        score, mismatches = self._score()
-        assert score == pytest.approx(0.5, abs=0.01)
+    # --- Tests with all components evaluable (no redistribution) ---
+    # When court AND year are provided, base weights apply: 50/20/20/5/5
+
+    def test_perfect_score_all_components(self):
+        """With all components, perfect name + court + date + cite = 1.0."""
+        score, mismatches = self._score(
+            parsed_overrides={"court": "S.D.N.Y.", "year": 2020,
+                              "volume": "500", "reporter": "F.3d", "page": "200"},
+            result_court="nysd",
+            result_date="2020-06-15",
+            result={"citation": ["500 F.3d 200"]},
+        )
+        assert score == pytest.approx(0.95, abs=0.01)  # name 0.5 + court 0.2 + date 0.2 + cite 0.05
         assert not any("mismatch" in m.lower() for m in mismatches)
+
+    def test_name_only_with_all_weights(self):
+        """With court and year evaluable but not matching, name contributes 50%."""
+        score, _ = self._score(
+            parsed_overrides={"court": "S.D.N.Y.", "year": 2020},
+            result_court="ca9",  # mismatch
+            result_date="2015-01-01",  # mismatch
+        )
+        assert score == pytest.approx(0.5, abs=0.01)
 
     def test_name_mismatch_flagged(self):
         score, mismatches = self._score(result_case_name="Totally Different v. Case")
-        assert score < 0.3
+        assert score < 0.4
         assert any("name mismatch" in m.lower() for m in mismatches)
 
     def test_court_match_adds_20_percent(self):
-        score_no_court, _ = self._score()
-        score_with_court, _ = self._score(
-            parsed_overrides={"court": "S.D.N.Y."},
-            result_court="nysd",
+        """Court match adds 20% when base weights apply (year also provided)."""
+        score_no_match, _ = self._score(
+            parsed_overrides={"court": "S.D.N.Y.", "year": 2020},
+            result_court="ca9",  # mismatch
+            result_date="2015-01-01",  # mismatch
         )
-        assert score_with_court - score_no_court == pytest.approx(0.2, abs=0.01)
+        score_with_court, _ = self._score(
+            parsed_overrides={"court": "S.D.N.Y.", "year": 2020},
+            result_court="nysd",  # match
+            result_date="2015-01-01",  # mismatch
+        )
+        assert score_with_court - score_no_match == pytest.approx(0.2, abs=0.01)
 
     def test_court_mismatch_adds_nothing(self):
         score, mismatches = self._score(
@@ -479,28 +504,33 @@ class TestScoring:
         assert any("court mismatch" in m.lower() for m in mismatches)
 
     def test_exact_year_adds_20_percent(self):
+        """Year match adds 20% when base weights apply (court also provided)."""
         score, _ = self._score(
-            parsed_overrides={"year": 2020},
+            parsed_overrides={"court": "S.D.N.Y.", "year": 2020},
+            result_court="nysd",
             result_date="2020-06-15",
         )
-        # name (0.5) + date (0.2)
-        assert score == pytest.approx(0.7, abs=0.01)
+        # name (0.5) + court (0.2) + date (0.2)
+        assert score == pytest.approx(0.9, abs=0.01)
 
-    def test_off_by_one_year_adds_10_percent(self):
+    def test_off_by_one_year_adds_half_date_weight(self):
         score, mismatches = self._score(
-            parsed_overrides={"year": 2020},
+            parsed_overrides={"court": "S.D.N.Y.", "year": 2020},
+            result_court="nysd",
             result_date="2019-12-31",
         )
-        # name (0.5) + date (0.1)
-        assert score == pytest.approx(0.6, abs=0.01)
+        # name (0.5) + court (0.2) + date (0.2 * 0.5 = 0.1)
+        assert score == pytest.approx(0.8, abs=0.01)
         assert any("date close" in m.lower() for m in mismatches)
 
     def test_date_mismatch_adds_nothing(self):
         score, mismatches = self._score(
-            parsed_overrides={"year": 2020},
+            parsed_overrides={"court": "S.D.N.Y.", "year": 2020},
+            result_court="nysd",
             result_date="2015-01-01",
         )
-        assert score == pytest.approx(0.5, abs=0.01)
+        # name (0.5) + court (0.2) + date (0)
+        assert score == pytest.approx(0.7, abs=0.01)
         assert any("date mismatch" in m.lower() for m in mismatches)
 
     def test_exact_date_scores_higher_than_same_year_wrong_month(self):
@@ -525,13 +555,22 @@ class TestScoring:
         )
         assert score_same_month > score_diff_month
 
-    def test_docket_number_match_adds_5_percent(self):
-        score, _ = self._score(
-            parsed_overrides={"docket_number": "17-cv-12676"},
+    def test_docket_number_match_adds_points(self):
+        """Docket match adds to score (weight may be redistributed)."""
+        score_without, _ = self._score(
+            parsed_overrides={"court": "S.D.N.Y.", "year": 2020},
+            result_court="nysd",
+            result_date="2020-06-15",
+        )
+        score_with, _ = self._score(
+            parsed_overrides={"court": "S.D.N.Y.", "year": 2020,
+                              "docket_number": "17-cv-12676"},
+            result_court="nysd",
+            result_date="2020-06-15",
             result={"docketNumber": "2:17-cv-00012676"},
         )
-        # name (0.5) + docket (0.05)
-        assert score == pytest.approx(0.55, abs=0.01)
+        # Docket adds 5% with base weights
+        assert score_with - score_without == pytest.approx(0.05, abs=0.01)
 
     def test_docket_number_mismatch_flagged(self):
         _, mismatches = self._score(
@@ -540,21 +579,72 @@ class TestScoring:
         )
         assert any("docket mismatch" in m.lower() for m in mismatches)
 
-    def test_reporter_citation_match_adds_5_percent(self):
-        score, _ = self._score(
-            parsed_overrides={"volume": "500", "reporter": "F.3d", "page": "200"},
+    def test_reporter_citation_match_adds_points(self):
+        """Reporter match adds to score (weight may be redistributed)."""
+        score_without, _ = self._score(
+            parsed_overrides={"court": "S.D.N.Y.", "year": 2020},
+            result_court="nysd",
+            result_date="2020-06-15",
+        )
+        score_with, _ = self._score(
+            parsed_overrides={"court": "S.D.N.Y.", "year": 2020,
+                              "volume": "500", "reporter": "F.3d", "page": "200"},
+            result_court="nysd",
+            result_date="2020-06-15",
             result={"citation": ["500 F.3d 200"]},
         )
-        # name (0.5) + citation (0.05)
-        assert score == pytest.approx(0.55, abs=0.01)
+        # Reporter adds 5% with base weights
+        assert score_with - score_without == pytest.approx(0.05, abs=0.01)
 
-    def test_wl_number_match_adds_5_percent(self):
-        score, _ = self._score(
-            parsed_overrides={"wl_number": "4407750"},
+    def test_wl_number_match_adds_points(self):
+        """WL number match adds to score (weight may be redistributed)."""
+        score_without, _ = self._score(
+            parsed_overrides={"court": "S.D.N.Y.", "year": 2020},
+            result_court="nysd",
+            result_date="2020-06-15",
+        )
+        score_with, _ = self._score(
+            parsed_overrides={"court": "S.D.N.Y.", "year": 2020,
+                              "wl_number": "4407750"},
+            result_court="nysd",
+            result_date="2020-06-15",
             result={"citation": ["2018 WL 4407750"]},
         )
-        # name (0.5) + WL (0.05)
-        assert score == pytest.approx(0.55, abs=0.01)
+        # WL adds 5% with base weights
+        assert score_with - score_without == pytest.approx(0.05, abs=0.01)
+
+    # --- Tests for weight redistribution (missing court/date) ---
+
+    def test_weight_redistribution_no_court(self):
+        """When court is not parsed, its 20% weight is redistributed."""
+        # No court → name gets ~0.667 weight (0.5 + redistribution)
+        score, _ = self._score(
+            parsed_overrides={"year": 2020},
+            result_date="2020-06-15",
+        )
+        # With redistribution: name ~0.667 + date 0.2 = ~0.867
+        assert score > 0.85
+        assert score < 0.95
+
+    def test_weight_redistribution_no_court_no_date(self):
+        """When both court and date are missing, 40% is redistributed to name."""
+        score, _ = self._score()  # no court, no year
+        # name ~0.833 (0.5/0.6 * 1.0) + docket 0 + cite 0 = ~0.833
+        assert score > 0.80
+        assert score < 0.90
+
+    def test_redistribution_preserves_relative_ordering(self):
+        """A mismatched date still scores lower than a matched date,
+        even when court is missing and weights are redistributed."""
+        score_match, _ = self._score(
+            parsed_overrides={"year": 2020},
+            result_date="2020-06-15",
+        )
+        score_mismatch, _ = self._score(
+            parsed_overrides={"year": 2020},
+            result_date="2015-01-01",
+        )
+        assert score_match > score_mismatch
 
 
 # ---------------------------------------------------------------------------
@@ -766,11 +856,12 @@ class TestCaseNameNormalization:
         from citation_verifier.parser import parse_citation
 
         test_cases = [
-            ("Smith v. ABC Corp.", "Corporation"),
+            # Business entity suffixes are NOT expanded (CL stores them abbreviated)
+            ("Smith v. ABC Corp.", "Corp."),
             ("Jones v. National Assn. of Realtors", "Association"),
             ("Doe v. University Hosp.", "Hospital"),
             ("Roe v. City School Dist.", "District"),
-            ("Brown v. XYZ Inc.", "Incorporated"),
+            ("Brown v. XYZ Inc.", "Inc."),
             ("Green v. County Bd. of Education", "Board"),
             ("White v. Public Util. Comm.", "Utility", "Commission"),
         ]

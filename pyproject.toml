@@ -13,6 +13,12 @@ dependencies = [
     "python-dotenv>=1.0",
 ]
 
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "pdfplumber>=0.11",
+]
+
 [project.scripts]
 citation-verifier = "citation_verifier.__main__:main"
 

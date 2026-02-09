@@ -60,7 +60,13 @@ def extract_text_from_pdf(pdf_path: Path) -> str:
 
 
 def get_citation_context(citation_text: str, full_text: str, context_chars: int = 200) -> str:
-    """Extract surrounding text for a citation."""
+    """Extract surrounding text for a citation.
+
+    Args:
+        citation_text: The reporter portion (e.g., "411 F.3d 1006") to search for
+        full_text: Full PDF text
+        context_chars: Number of characters before/after to include
+    """
     idx = full_text.find(citation_text)
     if idx == -1:
         return ""
@@ -118,6 +124,11 @@ def classify_citation(
     full_text: str
 ) -> dict[str, Any]:
     """Classify a citation as likely fake, likely real, or uncertain.
+
+    Args:
+        citation: The eyecite FullCaseCitation object
+        citation_text: The reporter portion (e.g., "411 F.3d 1006") to search for
+        full_text: Full PDF text
 
     Returns:
         Dict with 'classification' and 'confidence' and 'reason'

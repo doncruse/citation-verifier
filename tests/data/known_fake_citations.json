@@ -1,0 +1,31 @@
+[
+  {
+    "citation": "Bloomberg L.P. v. Bd. of Govs. of the Fed. Reserve Sys., 649 F. 3d 651, 657 (D.C. Cir. 2011)",
+    "category": "hallucinated_case",
+    "source_document": "Gonzalez v. Texas Taxpayers & Research Association, Civil No. 1:25-CV-00029 (S.D. Tex. Jan. 29, 2025)",
+    "court_finding": "Court explicitly states this citation 'does not exist' as part of sanctions order for AI-generated brief containing fabricated citations.",
+    "context": "Pittman cites Bloomberg L.P. v. Bd. of Govs. of the Fed. Reserve Sys., 649 F. 3d 651, 657 (D.C. Cir. 2011), Hogan v. AT&T, Inc., 917 F. Supp. 1275, 1280 (S.D. Tex. 1994), and Head v. Chicora Life Ctr., LLC, 290 F. Supp. 3d 883, 893 (S.D. Tex. 2018), which do not exist.",
+    "expected_status": "NOT_FOUND",
+    "notes": "Completely fabricated case. No case with this name exists at this citation. Part of AI hallucination in legal brief."
+  },
+  {
+    "citation": "Hogan v. AT&T, Inc., 917 F. Supp. 1275, 1280 (S.D. Tex. 1994)",
+    "category": "wrong_name_real_citation",
+    "source_document": "Gonzalez v. Texas Taxpayers & Research Association, Civil No. 1:25-CV-00029 (S.D. Tex. Jan. 29, 2025)",
+    "court_finding": "Court explicitly states this citation 'does not exist' as part of sanctions order for AI-generated brief.",
+    "actual_case_at_citation": "United States Ex Rel. Green v. Washington, 917 F. Supp. 1275 (D.D.C. 1994)",
+    "actual_cluster_id": 2140439,
+    "context": "Same passage as Bloomberg citation above - court identified as non-existent.",
+    "expected_status": "NOT_FOUND",
+    "notes": "Real citation (917 F. Supp. 1275) but completely wrong case name. The citation belongs to 'United States Ex Rel. Green v. Washington', not 'Hogan v. AT&T, Inc.' Our verifier correctly rejects this as NOT_FOUND because the name doesn't match."
+  },
+  {
+    "citation": "Head v. Chicora Life Ctr., LLC, 290 F. Supp. 3d 883, 893 (S.D. Tex. 2018)",
+    "category": "hallucinated_case",
+    "source_document": "Gonzalez v. Texas Taxpayers & Research Association, Civil No. 1:25-CV-00029 (S.D. Tex. Jan. 29, 2025)",
+    "court_finding": "Court explicitly states this citation 'does not exist' as part of sanctions order for AI-generated brief.",
+    "context": "Same passage as Bloomberg and Hogan citations above - court identified as non-existent.",
+    "expected_status": "NOT_FOUND",
+    "notes": "Completely fabricated case. No case with this name exists at this citation. Part of AI hallucination in legal brief."
+  }
+]

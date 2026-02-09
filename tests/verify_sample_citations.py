@@ -10,9 +10,16 @@ Usage:
 import argparse
 import json
 import random
+import re
+import sys
 from pathlib import Path
 
+import pdfplumber
+
+# Add parent directory to path
+sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 from citation_verifier.verifier import CitationVerifier
+from citation_verifier.text_cleaner import clean_case_name
 
 
 def sample_citations(results: list[dict], sample_size: int = 50) -> list[dict]:
@@ -49,21 +56,75 @@ def sample_citations(results: list[dict], sample_size: int = 50) -> list[dict]:
     return sampled[:sample_size]
 
 
+def extract_citation_from_pdf(pdf_path: Path, reporter_text: str, context_chars: int = 200) -> str | None:
+    """Given a reporter citation string, find it in the PDF and extract
+    the full citation including case name from surrounding text.
+
+    Args:
+        pdf_path: Path to the PDF file
+        reporter_text: The reporter portion (e.g., "411 F.3d 1006")
+        context_chars: Number of characters before match to grab
+
+    Returns:
+        The cleaned-up full citation string or None if not found
+    """
+    try:
+        with pdfplumber.open(pdf_path) as pdf:
+            full_text = "\n".join(p.extract_text() or "" for p in pdf.pages)
+
+        idx = full_text.find(reporter_text)
+        if idx == -1:
+            return None
+
+        # Grab context before the reporter citation
+        start = max(0, idx - context_chars)
+        context = full_text[start:idx + len(reporter_text)]
+
+        # Normalize whitespace
+        context = re.sub(r'\s+', ' ', context).strip()
+
+        # Look for "In re" pattern
+        in_re_match = re.search(r'In re ([^,]+),\s*' + re.escape(reporter_text), context, re.IGNORECASE)
+        if in_re_match:
+            case_name = f"In re {in_re_match.group(1)}"
+            case_name = clean_case_name(case_name)
+            return f"{case_name}, {reporter_text}"
+
+        # Look for standard "X v. Y" pattern
+        vs_match = re.search(r'([A-Z][^\n,]+?)\s+v\.\s+([^,\n]+?),\s*' + re.escape(reporter_text), context, re.IGNORECASE)
+        if vs_match:
+            plaintiff = vs_match.group(1).strip()
+            defendant = vs_match.group(2).strip()
+            # Strip parenthetical aliases like "(Suday I)"
+            defendant = re.sub(r'\s*\([^)]+\)\s*$', '', defendant).strip()
+            case_name = f"{plaintiff} v. {defendant}"
+            case_name = clean_case_name(case_name)
+            return f"{case_name}, {reporter_text}"
+
+        # Couldn't reconstruct, return just the reporter
+        return reporter_text
+
+    except Exception as e:
+        return None
+
+
 def verify_citations_batch(citations: list[dict]) -> dict[str, list[dict]]:
     """Verify a batch of citations and organize by result status.
 
     Returns:
-        Dict with keys: verified, possible_match, likely_real, not_found
+        Dict with keys: verified, possible_match, likely_real, not_found, skipped
     """
     results = {
         'VERIFIED': [],
         'LIKELY_REAL': [],
         'POSSIBLE_MATCH': [],
-        'NOT_FOUND': []
+        'NOT_FOUND': [],
+        'SKIPPED': []
     }
 
     # Initialize verifier
     verifier = CitationVerifier()
+    opinions_dir = Path(__file__).parent / "data" / "hallucination_opinions"
 
     total = len(citations)
     print(f"\nVerifying {total} citations...")
@@ -72,16 +133,53 @@ def verify_citations_batch(citations: list[dict]) -> dict[str, list[dict]]:
     for i, cite_data in enumerate(citations, 1):
         citation_text = cite_data['citation']
         source_pdf = cite_data.get('source_pdf', 'unknown')
+        reporter_text = cite_data.get('reporter_text', '')
 
-        # Extract a simple citation string for verification
-        # Format: "Case Name, Volume Reporter Page (Year)"
-        case_name = cite_data['case_name'].strip()
-        if not case_name or case_name == 'v.':
-            case_name = f"{cite_data['volume']} {cite_data['reporter']} {cite_data['page']}"
+        # Check if we have a usable citation
+        case_name = cite_data.get('case_name', '').strip()
 
-        simple_citation = f"{case_name}, {cite_data['volume']} {cite_data['reporter']} {cite_data['page']}"
-        if cite_data['year']:
-            simple_citation += f" ({cite_data['year']})"
+        # Skip short cites (both parties None/empty)
+        if not case_name or case_name == 'v.' or case_name.startswith('None v. None'):
+            print(f"[{i}/{total}] SKIPPED: {citation_text} (short cite - no case name)")
+            results['SKIPPED'].append({
+                'citation': citation_text,
+                'source_pdf': source_pdf,
+                'reason': 'Short cite with no case name - cannot verify'
+            })
+            print()
+            continue
+
+        # Handle "None v." cases by going back to PDF
+        if case_name.startswith('None v.') or 'None' in case_name:
+            print(f"[{i}/{total}] Reconstructing from PDF: {source_pdf}")
+            pdf_path = opinions_dir / source_pdf
+            if pdf_path.exists() and reporter_text:
+                reconstructed = extract_citation_from_pdf(pdf_path, reporter_text)
+                if reconstructed and reconstructed != reporter_text:
+                    simple_citation = reconstructed
+                    print(f"  Reconstructed: {simple_citation}")
+                else:
+                    # Couldn't reconstruct, skip it
+                    print(f"  Could not reconstruct case name, skipping")
+                    results['SKIPPED'].append({
+                        'citation': citation_text,
+                        'source_pdf': source_pdf,
+                        'reason': 'Could not reconstruct case name from PDF'
+                    })
+                    print()
+                    continue
+            else:
+                print(f"  PDF not found or no reporter text, skipping")
+                results['SKIPPED'].append({
+                    'citation': citation_text,
+                    'source_pdf': source_pdf,
+                    'reason': 'PDF not found or no reporter text'
+                })
+                print()
+                continue
+        else:
+            # Use the citation as-is (already cleaned by extract_citations_batch.py)
+            simple_citation = citation_text
 
         print(f"[{i}/{total}] Verifying: {simple_citation}")
 
