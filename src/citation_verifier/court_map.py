@@ -145,6 +145,15 @@ for abbr, cl_id in COURT_MAP.items():
     _KNOWN_IDS.add(cl_id)
 
 
+def is_federal_court(court_id: str) -> bool:
+    """Return True if the court ID is a known federal court.
+
+    COURT_MAP only covers federal courts, so any ID in _KNOWN_IDS is federal.
+    Used to skip RECAP searches for state courts (RECAP is PACER data only).
+    """
+    return court_id in _KNOWN_IDS
+
+
 def lookup_court_id(court_str: str) -> str | None:
     """Look up a CourtListener court ID from a court abbreviation.
 

@@ -8,7 +8,7 @@ from difflib import SequenceMatcher
 from typing import Any
 
 from .client import CourtListenerClient
-from .court_map import lookup_court_id
+from .court_map import is_federal_court, lookup_court_id
 from .models import (
     CandidateMatch,
     ParsedCitation,
@@ -208,6 +208,9 @@ class CitationVerifier:
         # Note: RECAP dateFiled is the case filing date, not the opinion date,
         # so we skip date filtering here and rely on name/court matching.
 
+        # Skip RECAP for state courts — RECAP is federal PACER data only.
+        is_state_court = court_id and not is_federal_court(court_id)
+
         # Only skip RECAP if we have a credible opinion match (score >= 0.5).
         # Full-text search (q=) can return junk results that score low but block
         # RECAP from firing. By checking score quality, we ensure RECAP runs when
@@ -217,7 +220,7 @@ class CitationVerifier:
         # If docket number is available, try searching by it first (without court
         # filter since docket numbers are court-specific). This handles cases where
         # the case name differs significantly (e.g., "Estate of X" vs "X").
-        if not has_credible_match and parsed.docket_number:
+        if not has_credible_match and not is_state_court and parsed.docket_number:
             try:
                 results = self.client.search_recap(docket_number=parsed.docket_number)
                 # API does fuzzy matching, so filter to actual docket matches
@@ -236,7 +239,7 @@ class CitationVerifier:
                 logger.debug("RECAP search by docket number failed", exc_info=True)
 
         # Fall back to case name search if docket search didn't work
-        if not has_credible_match and parsed.case_name:
+        if not has_credible_match and not is_state_court and parsed.case_name:
             try:
                 results = self.client.search_recap(
                     q=parsed.case_name,
