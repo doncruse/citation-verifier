@@ -215,8 +215,11 @@ def parse_citation(text: str) -> ParsedCitation:
         result.is_westlaw = True
         result.wl_number = wl_match.group(2)
         wl_year = int(wl_match.group(1))
-        if result.year is None:
-            result.year = wl_year
+        # The WL volume IS the year (e.g. "2025 WL ..." means 2025).
+        # Always use it — it's more reliable than a parenthetical year,
+        # which may come from a nested "(citing ... (11th Cir. 2006))"
+        # parenthetical belonging to a different citation.
+        result.year = wl_year
 
     # California-style year: "(2022) 76 Cal.App.5th 685"
     cal_year_match = _CAL_YEAR_PATTERN.search(text)

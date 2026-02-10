@@ -165,6 +165,8 @@ class CourtListenerClient:
         results: list[dict[str, Any]] = data.get("results", [])
         return results
 
+    MAX_DOCKET_ENTRIES = 200
+
     def get_docket_entries(
         self,
         docket_id: int,
@@ -172,6 +174,9 @@ class CourtListenerClient:
         date_filed_before: str | None = None,
     ) -> list[dict[str, Any]]:
         """Fetch docket entries for a specific docket, optionally filtered by date.
+
+        Follows cursor pagination to retrieve all matching entries (up to
+        MAX_DOCKET_ENTRIES to avoid runaway requests on very large dockets).
 
         Returns individual docket entries with their recap_documents.
         """
@@ -181,8 +186,14 @@ class CourtListenerClient:
         if date_filed_before:
             params["date_filed__lte"] = date_filed_before
 
-        url = f"{self.BASE_URL}/docket-entries/"
-        resp = self._request_with_retry("GET", url, params=params)
-        data: Any = resp.json()
-        results: list[dict[str, Any]] = data.get("results", [])
+        url: str | None = f"{self.BASE_URL}/docket-entries/"
+        results: list[dict[str, Any]] = []
+        while url and len(results) < self.MAX_DOCKET_ENTRIES:
+            resp = self._request_with_retry("GET", url, params=params)
+            data: Any = resp.json()
+            results.extend(data.get("results", []))
+            url = data.get("next")
+            # Only pass params on the first request; subsequent pages
+            # encode params in the next URL already.
+            params = {}
         return results

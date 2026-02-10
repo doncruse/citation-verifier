@@ -400,9 +400,11 @@ class CitationVerifier:
             # Collect documents from search results
             docs = r.get("recap_documents", [])
 
-            # Check if any doc matches the cited date closely enough
-            # to skip the more targeted docket-entries query.
-            # When month/day are known, require same month (not just year).
+            # Check if any substantive doc matches the cited date closely
+            # enough to skip the more targeted docket-entries query.
+            # Only substantive docs (opinions, orders, etc.) qualify —
+            # procedural filings like writs or motions shouldn't prevent
+            # us from querying for the actual opinion document.
             has_date_match = False
             if parsed.year and docs:
                 for doc in docs:
@@ -415,6 +417,13 @@ class CitationVerifier:
                         if parsed.month and len(entry_date) >= 7:
                             if int(entry_date[5:7]) != parsed.month:
                                 continue
+                        desc = (
+                            doc.get("short_description")
+                            or doc.get("description")
+                            or ""
+                        ).lower()
+                        if not self._is_substantive_doc(desc):
+                            continue
                         has_date_match = True
                         break
                     except (ValueError, IndexError):
@@ -459,8 +468,10 @@ class CitationVerifier:
                 )
                 for entry in entries:
                     entry_date = entry.get("date_filed", "")
+                    entry_desc = entry.get("description", "")
                     for doc in entry.get("recap_documents", []):
                         doc["entry_date_filed"] = entry_date
+                        doc["entry_description"] = entry_desc
                         docs.append(doc)
                         found_entries = True
             except Exception:
@@ -479,8 +490,10 @@ class CitationVerifier:
                 )
                 for entry in entries:
                     entry_date = entry.get("date_filed", "")
+                    entry_desc = entry.get("description", "")
                     for doc in entry.get("recap_documents", []):
                         doc["entry_date_filed"] = entry_date
+                        doc["entry_description"] = entry_desc
                         docs.append(doc)
             except Exception:
                 logger.debug(
@@ -506,7 +519,9 @@ class CitationVerifier:
         if not docs:
             return None
 
-        # Score all docs, preferring opinions/orders over procedural filings
+        # Score all docs, preferring opinions/orders over procedural filings.
+        # Use both document short_description and entry-level description
+        # (the latter is often richer, e.g. "ORDER by District Judge ...").
         scored_docs = []
         for doc in docs:
             entry_date = doc.get("entry_date_filed") or doc.get("date_filed", "")
@@ -519,14 +534,27 @@ class CitationVerifier:
             )
             desc = (
                 doc.get("short_description") or doc.get("description") or ""
-            ).lower()
-            is_substantive = self._is_substantive_doc(desc)
+            )
+            entry_desc = doc.get("entry_description") or ""
+            full_desc = f"{desc} {entry_desc}".lower()
+            is_substantive = self._is_substantive_doc(full_desc)
             scored_docs.append((doc, entry_date, score, mismatches, is_substantive))
 
-        # Pick best substantive doc; fall back to best overall
+        # Pick best substantive doc; fall back to best overall.
+        # Tiebreakers (in order): score, date proximity, document type.
         substantive = [d for d in scored_docs if d[4]]
         pool = substantive or scored_docs
-        best_doc = max(pool, key=lambda d: d[2])
+        best_doc = max(
+            pool,
+            key=lambda d: (
+                d[2],
+                self._date_proximity(parsed, d[1]),
+                self._doc_type_priority(
+                    f"{d[0].get('short_description') or d[0].get('description') or ''} "
+                    f"{d[0].get('entry_description') or ''}"
+                ),
+            ),
+        )
 
         doc, entry_date, score, mismatches, _ = best_doc
         doc_url = doc.get("absolute_url", "")
@@ -668,6 +696,50 @@ class CitationVerifier:
             "findings of fact",
         )
         return any(kw in desc for kw in _SUBSTANTIVE_KEYWORDS)
+
+    @staticmethod
+    def _date_proximity(parsed: ParsedCitation, entry_date: str) -> float:
+        """Score date proximity for tiebreaking (higher = closer match).
+
+        When the citation includes month/day, prefers documents filed on or
+        near that exact date. Returns 0.0 when no useful comparison can be made.
+        """
+        if not entry_date or not parsed.year:
+            return 0.0
+        try:
+            result_year = int(entry_date[:4])
+            if result_year != parsed.year:
+                return 0.0
+            if parsed.month and len(entry_date) >= 7:
+                result_month = int(entry_date[5:7])
+                if parsed.month == result_month:
+                    if parsed.day and len(entry_date) >= 10:
+                        result_day = int(entry_date[8:10])
+                        day_diff = abs(parsed.day - result_day)
+                        return max(0.0, 1.0 - day_diff / 31.0)
+                    return 0.5  # same month, no day info
+                # Different month — closer months rank higher
+                month_diff = abs(parsed.month - result_month)
+                return max(0.0, 0.3 - month_diff / 12.0)
+        except (ValueError, IndexError):
+            pass
+        return 0.0
+
+    @staticmethod
+    def _doc_type_priority(desc: str) -> int:
+        """Rank document types for tiebreaking when scores are equal.
+
+        Published reporter citations (F. Supp. 3d, F.3d, etc.) almost always
+        refer to opinions or memorandum opinions, not bare judgments. This
+        helps select the right document when multiple substantive docs from
+        the same docket score identically.
+        """
+        desc = desc.lower()
+        if "opinion" in desc or "memorandum" in desc:
+            return 2
+        if "order" in desc or "ruling" in desc or "decision" in desc:
+            return 1
+        return 0
 
     @staticmethod
     def _extract_surname(party_name: str) -> str:

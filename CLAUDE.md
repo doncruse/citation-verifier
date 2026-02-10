@@ -145,9 +145,9 @@ python tests/extract_citations_batch.py
 python tests/verify_sample_citations.py --sample-size 50
 ```
 
-## Session State (2026-02-09 night - continued)
+## Session State (2026-02-10 night)
 
-### What was completed in this session
+### What was completed across sessions
 
 1. **Forked eyecite fixes working**
    - Cloned user's fork (rlfordon/eyecite) to /Users/fordon.4/Projects/eyecite
@@ -200,30 +200,46 @@ python tests/verify_sample_citations.py --sample-size 50
    - FLP's Doctor microservice uses pdftotext + Tesseract OCR — overkill for our use case
    - juriscraper has harmonize()/clean_string() — we already have equivalent in text_cleaner.py
 
+10. **Fixed RECAP document selection bug (Dehghani v. Castro)**
+    - **Pagination in `get_docket_entries`** (client.py): Now follows cursor pagination up to 200 entries. Previously only got first 20 entries, missing documents on later pages.
+    - **Substantive-only `has_date_match`** (verifier.py): Only substantive documents (opinions/orders) can satisfy `has_date_match`, preventing procedural filings (habeas writs, motions) from skipping the docket-entries API query.
+    - **Document type priority tiebreaker** (verifier.py): `_doc_type_priority()` ranks opinions/memorandums > orders > judgments when scores are tied. Used in `_pick_best_recap_doc`.
+    - **Date proximity tiebreaker** (verifier.py): `_date_proximity()` prefers documents closest to the cited date when month/day are available.
+    - **Entry description propagation**: Docket entry descriptions (richer than document `short_description`) now attached to docs and used for type priority.
+    - Result: Dehghani went from doc 13 (habeas writ) → doc 35 (District Judge's order affirming sanctions opinion), correctly matching the published opinion at 782 F. Supp. 3d 1051.
+
+11. **Fixed WL year extraction bug** (parser.py)
+    - WL volume year now always overrides parenthetical year (was only used as fallback)
+    - Fixes "Versant, 2025 WL 1440351 (citing McDonald ... (11th Cir. 2006))" where parser picked up 2006 from the nested `(citing ...)` parenthetical instead of 2025 from the WL volume
+
+12. **Verification run seed 256 (36 sampled, 50 requested)**
+    - 22 VERIFIED (61%), 3 LIKELY_REAL (8%), 5 POSSIBLE_MATCH (14%), 5 NOT_FOUND (14%), 1 SKIPPED (3%)
+    - 30/35 non-skipped found (86%)
+    - All 3 LIKELY_REAL are confirmed real (Mezu, Fedynich, Dehghani)
+    - 4 of 5 NOT_FOUND are confirmed hallucinations (Shell Petroleum, Hogan, Head, Gallagher — all wrong_name_real_citation)
+    - Remaining NOT_FOUND: Versant (real but abbreviated name + no court, too little data to match)
+    - POSSIBLE_MATCH investigation: 2 real (Ins. Co. v. Shepard, Fin. Corp. v. Liu — both truncated plaintiffs), 1 known party variation (Ramirez), 1 hallucination (Jones v. Tenn. Dep't — context says Jones but parser dropped plaintiff), 1 indeterminate (Corp. v. Cook)
+    - All 54 unit tests + 7 false negative regression tests pass
+
 ### What needs to happen next
 
-#### Priority 1: Verification run in progress
-- Running with seed 42, sample 50 — results pending
-- Will validate all eyecite fork fixes + PDF cleaning + insufficient-data guard + RECAP state skip
+#### Priority 1: Plaintiff name truncation in extraction (investigate)
+The dominant remaining false negative pattern. eyecite's case name boundary scanner stops too early on multi-word plaintiffs with abbreviations/punctuation. Examples from seed 256:
+- "Acceptance Indem. Ins. Co. v. Shepard" → extracted as "Ins. Co. v. Shepard"
+- "Auto. Fin. Corp. v. Liu" → extracted as "Fin. Corp. v. Liu"
+- "Ferro Corp. v. Cook" → extracted as "Corp. v. Cook"
+- "Jones v. Tenn. Dep't of Homeland Sec." → extracted as "In re Tenn. Dep't of Homeland Sec." (plaintiff dropped, "In re" fallback triggered)
+- "Ramirez v. Humala" → extracted as "In re Ramirez" (same pattern)
+Root cause likely in eyecite's `_scan_for_case_boundaries()` or our regex fallbacks. The "In re" misclassification is especially problematic — when eyecite fails to capture the plaintiff, our "In re" fallback fires and creates a completely wrong case structure.
 
-#### Priority 2: RECAP document selection bug
-- Dehghani v. Castro found document 23/2 (Exhibit, 2025-03-14) instead of document 35 (correct one)
-- Issue in `_pick_best_recap_doc` date sorting logic — needs investigation
-
-#### Priority 3: CL fuzzy search limitations
+#### Priority 2: CL fuzzy search limitations
 - Fibertext spelling mismatch: "Fibertext" (cited) vs "Fibertex" (actual) — single character difference defeats CL fuzzy search
 - Docket number also differs (20-20720-Civ vs 1:20-cv-20718)
 - No easy fix — semantic search might help (see Ideas Backlog)
 
-#### Priority 4: Upstream eyecite PR
+#### Priority 3: Upstream eyecite PR
 - Holding until we've used the fork more
 - Need to verify all fixes stable across more verification runs
-
-#### Priority 5: Run false negative regression tests
-```bash
-pytest tests/test_false_negatives.py -v
-```
-Check that 5 known real citations still verify correctly with all the changes.
 
 ## Known CL API Limitations (see `tests/data/cl_api_issues.json`)
 
