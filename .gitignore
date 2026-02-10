@@ -4,3 +4,9 @@ __pycache__/
 *.egg-info/
 .claude/
 CLAUDE.md
+venv/
+.DS_Store
+
+# Ephemeral diagnostic output (timestamped extraction/verification runs)
+tests/data/citations_extracted_2*.json
+tests/data/verification_*.json

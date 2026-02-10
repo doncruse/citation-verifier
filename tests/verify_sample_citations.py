@@ -5,13 +5,17 @@ are real vs fake.
 
 Usage:
     python tests/verify_sample_citations.py --sample-size 50
+    python tests/verify_sample_citations.py --input tests/data/citations_extracted_2026-02-09.json
+    python tests/verify_sample_citations.py --output custom_output.json
 """
 
 import argparse
 import json
 import random
 import re
+import subprocess
 import sys
+from datetime import datetime, timezone
 from pathlib import Path
 
 import pdfplumber
@@ -20,6 +24,20 @@ import pdfplumber
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 from citation_verifier.verifier import CitationVerifier
 from citation_verifier.text_cleaner import clean_case_name
+
+
+def _get_git_hash() -> str | None:
+    """Get the current git short hash, or None if not in a git repo."""
+    try:
+        result = subprocess.run(
+            ["git", "rev-parse", "--short", "HEAD"],
+            capture_output=True, text=True, timeout=5,
+        )
+        if result.returncode == 0:
+            return result.stdout.strip()
+    except (subprocess.TimeoutExpired, FileNotFoundError):
+        pass
+    return None
 
 
 def sample_citations(results: list[dict], sample_size: int = 50) -> list[dict]:
@@ -226,6 +244,10 @@ def main() -> None:
                         help='Number of citations to sample (default: 50)')
     parser.add_argument('--seed', type=int, default=42,
                         help='Random seed for reproducibility (default: 42)')
+    parser.add_argument('--input', type=str, default=None,
+                        help='Input extraction file (default: citations_extracted_raw.json)')
+    parser.add_argument('--output', type=str, default=None,
+                        help='Output file path (default: timestamped file in tests/data/)')
     args = parser.parse_args()
 
     # Set random seed for reproducibility
@@ -233,7 +255,11 @@ def main() -> None:
 
     # Load extracted citations
     data_dir = Path(__file__).parent / "data"
-    extracted_file = data_dir / "citations_extracted_raw.json"
+
+    if args.input:
+        extracted_file = Path(args.input)
+    else:
+        extracted_file = data_dir / "citations_extracted_raw.json"
 
     if not extracted_file.exists():
         print(f"Error: {extracted_file} not found")
@@ -241,24 +267,59 @@ def main() -> None:
         return
 
     with open(extracted_file) as f:
-        all_results = json.load(f)
+        raw_data = json.load(f)
+
+    # Handle metadata wrapper (new format) or bare list (old format)
+    if isinstance(raw_data, dict) and '_metadata' in raw_data:
+        all_results = raw_data['results']
+        source_hash = raw_data['_metadata'].get('git_hash')
+    elif isinstance(raw_data, list):
+        all_results = raw_data
+        source_hash = None
+    else:
+        print(f"Error: unexpected format in {extracted_file}")
+        return
 
     # Count total citations
     total_citations = sum(len(r.get('uncertain', [])) for r in all_results)
     print(f"Loaded {total_citations} citations from {len(all_results)} opinions")
+    print(f"Source: {extracted_file.name}")
 
     # Sample citations
-    print(f"\nSampling {args.sample_size} citations...")
+    print(f"\nSampling {args.sample_size} citations (seed={args.seed})...")
     sampled = sample_citations(all_results, args.sample_size)
     print(f"Sampled {len(sampled)} citations")
 
     # Verify the sample
     verification_results = verify_citations_batch(sampled)
 
-    # Save results
-    output_file = data_dir / f"verification_sample_{args.sample_size}.json"
+    # Determine output path
+    if args.output:
+        output_file = Path(args.output)
+    else:
+        timestamp = datetime.now().strftime("%Y-%m-%d")
+        output_file = data_dir / f"verification_{timestamp}_seed{args.seed}.json"
+
+    # Build metadata
+    metadata = {
+        "generated_at": datetime.now(timezone.utc).isoformat(),
+        "git_hash": _get_git_hash(),
+        "script": "verify_sample_citations.py",
+        "source_file": str(extracted_file),
+        "source_git_hash": source_hash,
+        "args": {
+            "sample_size": args.sample_size,
+            "seed": args.seed,
+        },
+    }
+
+    # Save results with metadata
+    output_data = {
+        "_metadata": metadata,
+        "results": verification_results,
+    }
     with open(output_file, 'w') as f:
-        json.dump(verification_results, f, indent=2)
+        json.dump(output_data, f, indent=2)
 
     # Print summary
     print(f"\n{'='*80}")
@@ -270,6 +331,7 @@ def main() -> None:
         print(f"  {status:20s}: {len(items)}")
 
     print(f"\nResults saved to: {output_file}")
+    print(f"Git hash: {metadata['git_hash'] or 'unknown'}")
 
     # Show NOT_FOUND citations for manual review
     not_found = verification_results.get('NOT_FOUND', [])
