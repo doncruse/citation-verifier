@@ -240,24 +240,111 @@ This two-step approach (search with `q`, then client-side filter) works reliably
 
 ---
 
-## 3. Parser Improvements (eyecite)
+## 3. eyecite: Newline Breaks Metadata Parsing (ParagraphToken boundary)
 
-**Status:** DECLINED
-**Target:** eyecite repository
-**Type:** N/A
+**Status:** READY
+**Target:** eyecite ([https://github.com/freelawproject/eyecite](https://github.com/freelawproject/eyecite))
+**Type:** Bug report / Feature request
 
 ### Summary
 
-Our parser diagnostics (`tests/test_parser_diagnostics.py`) show that eyecite handles all common citation formats well:
-- ✅ WestLaw citations
-- ✅ Standard reporters
-- ✅ California style
-- ✅ Case name extraction
-- ✅ Abbreviations (extracted as-is, which is correct behavior)
+eyecite's `match_on_tokens()` stops scanning for court/year metadata when it encounters a `ParagraphToken` (newline). This means any PDF where a line break separates a citation from its parenthetical loses court and year data. This is extremely common in court opinion PDFs — we found **101 affected citations across 19 PDFs** (19% of all citations).
 
-**Conclusion:** No eyecite contributions needed at this time. Our regex fallbacks don't reveal eyecite gaps - they're for our specific normalization needs.
+### Root Cause
 
-**Future:** If we find actual eyecite gaps (citations it should parse but doesn't), document here with 10+ examples before submitting.
+In `eyecite/helpers.py`, `match_on_tokens()` stops at paragraph boundaries by design. When pdfplumber (or any PDF text extractor) produces text like:
+
+```
+728 F.2d 911
+(7th Cir. 1984)
+```
+
+eyecite tokenizes the newline as a `ParagraphToken` and never sees the `(7th Cir. 1984)` parenthetical. The citation is extracted with `year=None, court=None`.
+
+### Evidence
+
+**Simple case — newline before parenthetical:**
+```python
+from eyecite import get_citations
+from eyecite.models import FullCaseCitation
+
+# Same line: WORKS
+c = [c for c in get_citations('Citation 123 F.3d 456 (N.D. Ohio 2006).')
+     if isinstance(c, FullCaseCitation)][0]
+assert c.metadata.year == '2006'   # ✓
+assert c.metadata.court == 'ohnd'  # ✓
+
+# Newline: FAILS
+c = [c for c in get_citations('Citation 123 F.3d 456\n(N.D. Ohio 2006).')
+     if isinstance(c, FullCaseCitation)][0]
+assert c.metadata.year is None    # ✗ lost
+assert c.metadata.court is None   # ✗ lost
+```
+
+**Pin cite + newline before parenthetical:**
+```python
+# Common pattern: "962 F.3d 979, 984 (7th Cir.\n2020)"
+c = [c for c in get_citations('Citation 962 F.3d 979, 984 (7th Cir.\n2020).')
+     if isinstance(c, FullCaseCitation)][0]
+assert c.metadata.year is None    # ✗ lost
+```
+
+**Pin cite on next line:**
+```python
+# "728 F.2d 911,\n915 (7th Cir. 1984)"
+c = [c for c in get_citations('Citation 728 F.2d 911,\n915 (7th Cir. 1984).')
+     if isinstance(c, FullCaseCitation)][0]
+assert c.metadata.year is None    # ✗ lost
+```
+
+**Scale of impact (our corpus: 19 court opinion PDFs, 536 citations):**
+- 101 citations (19%) had orphaned parentheticals due to this issue
+- Every single PDF was affected (repairs per PDF ranged from 1 to 13)
+- All common reporters affected: F.2d, F.3d, F.4th, F. Supp. 2d/3d, N.E.2d/3d, S.W.2d/3d, P.3d, Cal. App., WL
+
+### Our Workaround
+
+We implemented a post-extraction repair pass in our pipeline (`extract_citations_batch.py:_repair_orphaned_parentheticals()`):
+
+1. After `get_citations()`, iterate through citations with `year=None`
+2. Look at text after `citation.span()[1]` for orphaned parentheticals
+3. Use a two-phase regex: first match optional pin cite + `(...)`, then parse court/date from contents
+4. Patch `citation.metadata.year`, `.month`, `.day`, `.court`
+5. Use eyecite's own `get_court_by_paren()` for court ID mapping
+
+This works but is fragile and duplicates logic that should live in eyecite.
+
+### Proposed Fix
+
+Allow `match_on_tokens()` to continue scanning across a single `ParagraphToken` boundary when looking for a court/year parenthetical. Options:
+
+1. **Least disruptive**: Add an option like `allow_newline_before_paren=True` (default `False` for backward compat)
+2. **Better default**: Always scan one token past a `ParagraphToken` if the next non-whitespace token starts with `(`
+3. **Most robust**: Treat single newlines differently from double newlines (paragraph breaks) — single `\n` is a line break within a citation, `\n\n` is a true paragraph boundary
+
+### Decision Factors
+
+**Pros:**
+- Affects 19% of citations in real court PDFs — this is widespread
+- Clear reproduction case with minimal code
+- Root cause is well-understood (`ParagraphToken` boundary)
+- We have 101 concrete examples across 19 PDFs
+- PDF text extraction is a primary eyecite use case
+
+**Cons:**
+- Our workaround works (but is fragile and external to eyecite)
+- Changing `ParagraphToken` handling could have unintended side effects
+- May need careful testing against eyecite's own test suite
+
+**Recommendation:** Submit as a bug report with reproduction code and impact data. This is the kind of concrete, well-documented issue that open source projects appreciate.
+
+### Submission Checklist
+
+- [ ] Verify no existing eyecite issue covers this
+- [ ] Run reproduction code against latest eyecite release
+- [ ] Draft issue with minimal reproduction + impact numbers
+- [ ] Submit issue
+- [ ] Update this doc with link
 
 ---
 
