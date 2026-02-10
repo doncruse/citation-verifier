@@ -259,7 +259,13 @@ def main() -> None:
     if args.input:
         extracted_file = Path(args.input)
     else:
-        extracted_file = data_dir / "citations_extracted_raw.json"
+        # Find most recent extraction file
+        candidates = sorted(data_dir.glob("citations_extracted_*.json"), reverse=True)
+        if not candidates:
+            print("Error: no extraction files found in tests/data/")
+            print("Run extract_citations_batch.py first")
+            return
+        extracted_file = candidates[0]
 
     if not extracted_file.exists():
         print(f"Error: {extracted_file} not found")
