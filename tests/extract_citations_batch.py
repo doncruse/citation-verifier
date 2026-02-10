@@ -20,7 +20,7 @@ from pathlib import Path
 from typing import Any
 
 import pdfplumber
-from eyecite import get_citations
+from eyecite import clean_text, get_citations
 from eyecite.models import FullCaseCitation
 
 # Add parent directory to path to import from citation_verifier
@@ -94,6 +94,60 @@ def _strip_line_numbers(page_text: str) -> str:
     return " ".join(stripped)
 
 
+# PACER/ECF header patterns:
+#   "Case 1:25-cv-03398 Document #: 72 Filed: 01/16/26 Page 6 of 9 PageID #:653"
+#   "FLSD Docket 02/04/2026 Page 5 of 12"
+_PACER_HEADER_RE = re.compile(
+    r'(?:'
+    r'Case:?\s+[\d:]+[-\w]+\s+Document\s+[#\d:]+\s*\d*\s+Filed:?\s+\d+/\d+/\d+\s+'
+    r'Page\s+\d+\s+of\s+\d+(?:\s+Page\s*ID\s*#?:?\s*\d+)?'
+    r'|'
+    r'[A-Z]{2,5}\s+Docket\s+\d+/\d+/\d+\s+Page\s+\d+\s+of\s+\d+'
+    r')'
+)
+
+# Court seal garble: short lines of single spaced characters from circular watermarks.
+# Matches lines like "t r i n", "Cf", "si", "cC", "Uo" — artifacts from
+# "United States District Court" etc. rendered in a circle.
+_GARBLE_LINE_RE = re.compile(r'^[a-zA-Z](?:\s[a-zA-Z]){0,8}$')
+
+
+def _clean_pdf_text(text: str) -> str:
+    """Clean PDF-extracted text before passing to eyecite.
+
+    Applies targeted fixes for common PDF extraction artifacts while
+    preserving paragraph boundaries (double newlines) that eyecite uses.
+    """
+    # 1. Normalize smart quotes and typographic characters
+    text = text.replace('\u2019', "'")   # right single quote → apostrophe
+    text = text.replace('\u2018', "'")   # left single quote → apostrophe
+    text = text.replace('\u201c', '"')   # left double quote
+    text = text.replace('\u201d', '"')   # right double quote
+    text = text.replace('\u200b', '')    # zero-width space
+
+    # 2. Strip PACER/ECF headers that span page breaks
+    text = _PACER_HEADER_RE.sub(' ', text)
+
+    # 3. Strip court seal garble lines (single-character-per-word short lines)
+    lines = text.split('\n')
+    cleaned_lines = []
+    for line in lines:
+        stripped = line.strip()
+        if stripped and len(stripped) <= 20 and _GARBLE_LINE_RE.match(stripped):
+            continue  # drop garble line
+        cleaned_lines.append(line)
+    text = '\n'.join(cleaned_lines)
+
+    # 4. Normalize single newlines to spaces (PDF line breaks within a paragraph),
+    #    but preserve double newlines (real paragraph boundaries).
+    #    This is belt-and-suspenders with the forked eyecite's ParagraphToken fix.
+    text = re.sub(r'\n(?!\n)', ' ', text)
+
+    # 5. Use eyecite's built-in cleaners for underscores and inline whitespace
+    text = clean_text(text, ['underscores', 'inline_whitespace'])
+
+    return text
+
 
 def _infer_westlaw_year(citation: FullCaseCitation) -> str | None:
     """For WestLaw citations (e.g., '2025 WL 1234567'), the year is the volume."""
@@ -126,6 +180,9 @@ def process_opinion_batch(pdf_path: Path) -> dict[str, Any]:
             'likely_real': [],
             'uncertain': []
         }
+
+    # Clean text before eyecite processes it
+    full_text = _clean_pdf_text(full_text)
 
     # Extract all citations with eyecite
     citations = get_citations(full_text)
