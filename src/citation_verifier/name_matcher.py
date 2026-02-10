@@ -157,12 +157,17 @@ class CaseNameMatcher:
         # Abbreviated name boost: If one name is short (≤4 words) and all its words
         # appear in the other name, it's likely an abbreviated citation.
         # Example: "Fink v. Gomez" vs "David M. Fink v. James H. Gomez, Director..."
-        if len(words1) <= 4 and words1.issubset(words2):
-            # All words from short name appear in long name - boost score
-            combined_similarity = max(combined_similarity, 0.85)
-        elif len(words2) <= 4 and words2.issubset(words1):
-            # Reversed: short name in words2
-            combined_similarity = max(combined_similarity, 0.85)
+        #
+        # EXCEPTION: Skip boost for "In re" cases. "In re [Surname]" is so generic
+        # that subset matching produces false positives (e.g., "In re Wright" matches
+        # "In re Wright, Minors" or "In re Ramirez" matches "In re Faith Ramirez v.
+        # The State of Texas"). The 4-factor score alone is sufficient for these.
+        is_in_re = "in re" in norm1 or "in re" in norm2
+        if not is_in_re:
+            if len(words1) <= 4 and words1.issubset(words2):
+                combined_similarity = max(combined_similarity, 0.85)
+            elif len(words2) <= 4 and words2.issubset(words1):
+                combined_similarity = max(combined_similarity, 0.85)
 
         return round(combined_similarity, 4)
 

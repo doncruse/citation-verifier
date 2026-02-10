@@ -293,6 +293,26 @@ class CitationVerifier:
                 ],
             )
 
+        # When both court and date are missing from the parsed citation,
+        # we don't have enough signal to verify reliably — any match is
+        # essentially name-only, which is too weak (especially for generic
+        # names like "In re Wright"). Return NOT_FOUND with a clear
+        # diagnostic so the user knows this is a data issue, not
+        # necessarily a fake citation.
+        if not parsed.court and not parsed.year:
+            return VerificationResult(
+                input_citation=citation_text,
+                status=VerificationStatus.NOT_FOUND,
+                confidence=0.0,
+                candidates=candidates[:5],
+                diagnostics=[
+                    "Insufficient data to verify: citation text is missing "
+                    "both court and date. A match cannot be confirmed with "
+                    "name alone. Try adding the court and year parenthetical "
+                    "(e.g. '(E.D. Tenn. 2020)') to the citation text.",
+                ],
+            )
+
         if best.score >= 0.85:
             status = VerificationStatus.LIKELY_REAL
         elif best.score >= 0.40:
@@ -804,6 +824,18 @@ class CitationVerifier:
                 w_name += redistributed * (w_name / base_sum)
                 w_docket += redistributed * (w_docket / base_sum)
                 w_cite += redistributed * (w_cite / base_sum)
+
+        # --- Warn when key verification signals are missing ---
+        missing = []
+        if not can_eval_court:
+            missing.append("court")
+        if not can_eval_date:
+            missing.append("date")
+        if missing:
+            mismatches.append(
+                f"Low confidence: {' and '.join(missing)} not available "
+                f"in citation text"
+            )
 
         # --- Score each component ---
         score = 0.0

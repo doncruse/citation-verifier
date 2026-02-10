@@ -285,6 +285,13 @@ NOT to be added to production pipeline — we are CL-centric and want FLP to ben
 ### Known Fake Citations Corpus
 Build `tests/data/known_fake_citations.json` from the hallucination opinion PDFs. Categories planned: hallucinated_case_name, wrong_name_real_citation, wrong_court, future_date, invalid_reporter, out_of_range_page. See `tests/data/README.md` for schema.
 
+### INSUFFICIENT_DATA Status
+When a citation is missing both court and date, we currently return NOT_FOUND with a diagnostic ("Insufficient data to verify"). Consider adding a dedicated `INSUFFICIENT_DATA` status to `VerificationStatus` so these are clearly distinguished from actual failed lookups. Court-only-missing is also problematic — a name+year match on generic names like "In re Wright" is too weak to be meaningful (55% POSSIBLE_MATCH on the wrong case). Options:
+- Add `INSUFFICIENT_DATA` enum value and return it when court is missing (not just both court+date)
+- Or cap score / block match return when court is missing
+- Key insight: WL citation "years" come from the volume number, not a court parenthetical — they're weaker evidence than proper `(E.D. Tenn. 2020)` year data
+- Root cause is often the extraction pipeline (stale data, PDF line breaks splitting parentheticals). Re-running extraction with current code fixes many cases.
+
 ### Short Cite Handling
 eyecite may support short cites (e.g., "M.G., 566 P.3d at 146-147") -- investigate. Would need to resolve back to the full citation earlier in the document.
 

@@ -46,5 +46,34 @@
     "context": "The Wilcoxes also cite \"Butler Motors, Inc. v. Benosky, 181 N.E.3d 857 (Ind. Ct. App. 2021)\" in their Table of Authorities as appearing on page 3 and on page 17 of their brief, but the actual case citation is at 181 N.E.3d 304.",
     "expected_status": "NOT_FOUND",
     "notes": "Real case with wrong page number. Cited as 181 N.E.3d 857 but actual citation is 181 N.E.3d 304. Also note: extraction pipeline lost 'Butler' from party name, extracting as just 'Motors, Inc. v. Benosky'."
+  },
+  {
+    "citation": "TIG Ins. Co. v. Carter, 640 S.W. 2d 232, 237 (Tex. 1982)",
+    "category": "wrong_name_real_citation",
+    "source_document": "Gonzalez v. Texas Taxpayers & Research Association, Civil No. 1:25-CV-00029 (S.D. Tex. Jan. 29, 2025)",
+    "court_finding": "Court states: 'The Court could not locate a case entitled TIG Ins. Co. v. Carter, and the case at 640 S.W. 2d 232 is a wrongful foreclosure case captioned Ogden [v. Gibraltar Savings Ass'n].'",
+    "actual_case_at_citation": "Ogden v. Gibraltar Savings Ass'n, 640 S.W.2d 232 (Tex. 1982)",
+    "context": "TIG Ins. Co. v. Carter, 640 S.W. 2d 232, 237 (Tex. 1982), representing that the court \"held that a plaintiff's allegations of defamatory statements made during business meetings and in internal company communications were sufficient to state a claim, even though the plaintiff could not provide the exact wording of the statements at the pleading stage.\" The Court could not locate a case entitled TIG Ins. Co. v. Carter, and the case at 640 S.W. 2d 232 is a wrongful foreclosure case captioned Ogden.",
+    "expected_status": "NOT_FOUND",
+    "notes": "Real citation (640 S.W. 2d 232) but completely wrong case name. The citation belongs to 'Ogden v. Gibraltar Savings Ass'n', not 'TIG Ins. Co. v. Carter'. Same source document as Bloomberg/Hogan/Head hallucinations."
+  },
+  {
+    "citation": "Gallagher v. Wilton Enterprises, Inc., 962 F. Supp. 1162 (E.D. Pa. 1997)",
+    "category": "wrong_name_real_citation",
+    "source_document": "Nora v. M.A. Transport, Inc. (N.D. Ill. Aug. 13, 2025)",
+    "court_finding": "Court states: 'The citation \"962 F. Supp. 1162\" corresponds to Kenro, Inc. v. Fax Daily, Inc. rather than Gallagher.' Court also notes: 'Although Gallagher v. Wilton Enterprises, Inc. is the name of a reported opinion issued by the United States Court of Appeals for the First Circuit, neither Gallagher nor Kenro discuss venue transfer or equitable tolling.'",
+    "actual_case_at_citation": "Kenro, Inc. v. Fax Daily, Inc., 962 F. Supp. 1162 (S.D. Ind. 1997)",
+    "context": "The first of these \"suspicious\" citations is Ms. Hamilton's citation to Gallagher v. Wilton Enterprises, Inc., 962 F. Supp. 1162 (E.D. Pa. 1997). Ms. Hamilton cited Gallagher as a case in which \"the Eastern District of Pennsylvania transferred a case filed in the wrong district rather than dismissing it.\" The citation \"962 F. Supp. 1162\" corresponds to Kenro, Inc. v. Fax Daily, Inc. rather than Gallagher.",
+    "expected_status": "NOT_FOUND",
+    "notes": "Real citation (962 F. Supp. 1162) but wrong case name. Gallagher v. Wilton Enterprises does exist as a First Circuit opinion, but at a different citation. The reporter number belongs to Kenro, Inc. v. Fax Daily, Inc. A hybrid hallucination: real case name + real citation number that don't go together."
+  },
+  {
+    "citation": "Gibbs v. Wright, 2020 WL 1877661, at *2 (E.D. Tenn. Apr. 15, 2020)",
+    "category": "hallucinated_case",
+    "source_document": "Hardy v. Ford Motor Co., Case No. 23-cv-12716 (E.D. Mich. 2025)",
+    "court_finding": "Court states: 'Hardy's brief includes fake citations' and lists this citation alongside 'Moore v. Ford Motor co., 755 F.2d 510, 513 (6th Cir. 1985)'. Court adds: 'The Court suspects that the fake citations result from Hardy using generative artificial intelligence (AI).'",
+    "context": "Making matters worse, Hardy's brief includes fake citations. ECF No. 59, PageID.413 (citing \"Moore v. Ford Motor co.,755 F.2d 510, 513 (6th Cir. 1985)\" and \"Gibbs v. Wright, 2020 WL 1877661, at *2 (E.D. Tenn. Apr. 15, 2020)\"). The Court suspects that the fake citations result from Hardy using generative artificial intelligence (AI).",
+    "expected_status": "NOT_FOUND",
+    "notes": "Confirmed fake citation. Court explicitly calls it fake. Extraction pipeline mangled this as 'In re Wright, 2020 WL 1877661' (wrong case name, lost court and date) due to PDF line break splitting the parenthetical. With the correct full citation, our verifier correctly returns NOT_FOUND."
   }
 ]
