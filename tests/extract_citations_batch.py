@@ -21,7 +21,6 @@ from typing import Any
 
 import pdfplumber
 from eyecite import get_citations
-from eyecite.helpers import get_court_by_paren
 from eyecite.models import FullCaseCitation
 
 # Add parent directory to path to import from citation_verifier
@@ -95,54 +94,6 @@ def _strip_line_numbers(page_text: str) -> str:
     return " ".join(stripped)
 
 
-def _repair_orphaned_parentheticals(
-    citations: list[FullCaseCitation], full_text: str
-) -> int:
-    """Repair citations missing court/year due to PDF line breaks.
-
-    eyecite stops scanning metadata at ParagraphToken boundaries (newlines).
-    When a PDF line break separates "728 F.2d 911" from "(7th Cir. 1984)",
-    the court and year are lost. This also handles pin cites before the
-    parenthetical ("911, 915 (7th Cir. 1984)") and newlines inside the
-    parenthetical ("(7th Cir.\\n2020)").
-
-    Returns the number of citations repaired.
-    """
-    # Phase 1: match optional pin cite + parenthetical (DOTALL for internal newlines)
-    paren_re = re.compile(
-        r'(?:,?\s*(?:at\s+)?[\*]?\d[\d\-\u2013]*)?'  # optional pin cite
-        r'\s*'                                         # whitespace including newlines
-        r'\(([^)]+)\)',                                 # capture paren contents
-        re.DOTALL,
-    )
-    # Phase 2: parse court + date from paren contents
-    date_re = re.compile(
-        r'(?:(?P<month>Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z.]*\s+)?'
-        r'(?:(?P<day>\d{1,2}),?\s+)?'
-        r'(?P<year>\d{4})$'
-    )
-    repaired = 0
-    for citation in citations:
-        if citation.metadata.year is not None:
-            continue
-        end = citation.span()[1]
-        after = full_text[end:end + 120]
-        m = paren_re.match(after)
-        if not m:
-            continue
-        inner = re.sub(r'\s+', ' ', m.group(1).strip())
-        dm = date_re.search(inner)
-        if not dm:
-            continue
-        citation.metadata.year = dm.group('year')
-        citation.metadata.month = dm.group('month')
-        citation.metadata.day = dm.group('day')
-        court_str = inner[:dm.start()].strip().rstrip(',').strip()
-        if court_str and not citation.metadata.court:
-            citation.metadata.court = get_court_by_paren(court_str)
-        repaired += 1
-    return repaired
-
 
 def _infer_westlaw_year(citation: FullCaseCitation) -> str | None:
     """For WestLaw citations (e.g., '2025 WL 1234567'), the year is the volume."""
@@ -180,10 +131,7 @@ def process_opinion_batch(pdf_path: Path) -> dict[str, Any]:
     citations = get_citations(full_text)
     full_citations = [c for c in citations if isinstance(c, FullCaseCitation)]
 
-    # Repair citations with orphaned parentheticals (PDF line break issue)
-    repaired = _repair_orphaned_parentheticals(full_citations, full_text)
-
-    print(f"  Found {len(full_citations)} full citations ({repaired} parentheticals repaired)")
+    print(f"  Found {len(full_citations)} full citations")
 
     # Classify each citation
     likely_fake = []

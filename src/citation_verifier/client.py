@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import os
 import time
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
@@ -29,6 +30,8 @@ class CourtListenerClient:
         self._session.headers["User-Agent"] = "citation-verifier/0.1"
         self._last_request_time: float = 0.0
 
+    MAX_RETRIES = 3
+
     def _rate_limit(self) -> None:
         """Enforce at least 1 second between requests."""
         elapsed = time.monotonic() - self._last_request_time
@@ -36,17 +39,56 @@ class CourtListenerClient:
             time.sleep(1.0 - elapsed)
         self._last_request_time = time.monotonic()
 
+    def _request_with_retry(
+        self, method: str, url: str, **kwargs: Any
+    ) -> requests.Response:
+        """Make an HTTP request with 429 retry handling.
+
+        On 429 (Too Many Requests), respects the ``wait_until`` timestamp
+        from the response body or falls back to ``Retry-After`` header.
+        """
+        kwargs.setdefault("timeout", self.REQUEST_TIMEOUT)
+        for attempt in range(self.MAX_RETRIES):
+            self._rate_limit()
+            resp = self._session.request(method, url, **kwargs)
+            if resp.status_code != 429:
+                resp.raise_for_status()
+                return resp
+
+            # Parse wait time from response
+            wait_seconds = 60.0  # conservative default
+            try:
+                body = resp.json()
+                wait_until = body.get("wait_until")
+                if wait_until:
+                    target = datetime.fromisoformat(wait_until)
+                    if target.tzinfo is None:
+                        target = target.replace(tzinfo=timezone.utc)
+                    wait_seconds = max(
+                        0.0, (target - datetime.now(timezone.utc)).total_seconds()
+                    )
+            except Exception:
+                retry_after = resp.headers.get("Retry-After")
+                if retry_after:
+                    try:
+                        wait_seconds = float(retry_after)
+                    except ValueError:
+                        pass
+
+            if attempt < self.MAX_RETRIES - 1:
+                time.sleep(wait_seconds + 1.0)  # +1s buffer
+
+        # Final attempt failed
+        resp.raise_for_status()
+        return resp  # unreachable but satisfies type checker
+
     def citation_lookup(self, text: str) -> list[dict[str, Any]]:
         """Look up citations using the Citation Lookup API.
 
         Returns a list of matched opinion clusters.
         """
-        self._rate_limit()
         url = f"{self.BASE_URL}/citation-lookup/"
-        resp = self._session.post(
-            url, json={"text": text}, timeout=self.REQUEST_TIMEOUT
-        )
-        resp.raise_for_status()
+        resp = self._request_with_retry("POST", url, json={"text": text})
         data: Any = resp.json()
         # The API returns a list of matched clusters
         if isinstance(data, list):
@@ -70,7 +112,6 @@ class CourtListenerClient:
 
         Returns a list of search result dicts.
         """
-        self._rate_limit()
         params: dict[str, str] = {"type": "o"}
         if q:
             params["q"] = q
@@ -84,8 +125,7 @@ class CourtListenerClient:
             params["case_name"] = case_name
 
         url = f"{self.BASE_URL}/search/"
-        resp = self._session.get(url, params=params, timeout=self.REQUEST_TIMEOUT)
-        resp.raise_for_status()
+        resp = self._request_with_retry("GET", url, params=params)
         data: Any = resp.json()
         results: list[dict[str, Any]] = data.get("results", [])
         return results
@@ -103,7 +143,6 @@ class CourtListenerClient:
 
         Returns a list of search result dicts.
         """
-        self._rate_limit()
         params: dict[str, str] = {"type": "r"}
         if q:
             params["q"] = q
@@ -121,8 +160,7 @@ class CourtListenerClient:
             params["q"] = " ".join(p for p in q_parts if p)
 
         url = f"{self.BASE_URL}/search/"
-        resp = self._session.get(url, params=params, timeout=self.REQUEST_TIMEOUT)
-        resp.raise_for_status()
+        resp = self._request_with_retry("GET", url, params=params)
         data: Any = resp.json()
         results: list[dict[str, Any]] = data.get("results", [])
         return results
@@ -137,7 +175,6 @@ class CourtListenerClient:
 
         Returns individual docket entries with their recap_documents.
         """
-        self._rate_limit()
         params: dict[str, str] = {"docket": str(docket_id)}
         if date_filed_after:
             params["date_filed__gte"] = date_filed_after
@@ -145,8 +182,7 @@ class CourtListenerClient:
             params["date_filed__lte"] = date_filed_before
 
         url = f"{self.BASE_URL}/docket-entries/"
-        resp = self._session.get(url, params=params, timeout=self.REQUEST_TIMEOUT)
-        resp.raise_for_status()
+        resp = self._request_with_retry("GET", url, params=params)
         data: Any = resp.json()
         results: list[dict[str, Any]] = data.get("results", [])
         return results
