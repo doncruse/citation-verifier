@@ -36,7 +36,7 @@ Three-step verification pipeline in `src/citation_verifier/verifier.py`:
 
 - **Reporter citation comparison**: Normalizes spacing around periods ("Cal. Rptr. 3d" matches "Cal.Rptr.3d") for the 5% citation component.
 
-- **Parser**: `eyecite` handles standard reporter citations. Regex fallbacks handle WestLaw (`2018 WL 301424`), California style (`(2022) 76 Cal.App.5th`), reversed parentheticals (`(Feb. 5, 2026 SDNY)`), and complex party names with commas/ampersands. Docket number junk (`Case No. 24-cv-9429`) is stripped from parsed case names.
+- **Parser**: Forked `eyecite` (rlfordon/eyecite branch `fix-pdf-metadata-parsing`) with PDF parsing improvements: apostrophe preservation in case names, single newline = space (PDF line breaks), consecutive newlines = paragraph break. Main library handles standard reporter citations. Regex fallbacks handle WestLaw (`2018 WL 301424`), California style (`(2022) 76 Cal.App.5th`), reversed parentheticals (`(Feb. 5, 2026 SDNY)`), and complex party names with commas/ampersands. Docket number junk (`Case No. 24-cv-9429`) is stripped from parsed case names.
 
 - **Abbreviation normalization**: 47 Indigo Book terms (87% real-world coverage) expanded client-side in `parser.py:_normalize_case_name()` to work around CourtListener search not matching abbreviations. Categories: government entities, organizations, positions, education, medical, business, geographic, religious. Curly/smart apostrophes (`\u2018`/`\u2019`) are normalized to straight apostrophes before matching, so "Dep\u2019t" correctly expands to "Department".
 
@@ -46,6 +46,10 @@ Three-step verification pipeline in `src/citation_verifier/verifier.py`:
 
 - **Contamination phrase removal** (`text_cleaner.py`): Removes legal signals ("see", "e.g."), procedural phrases ("de novo", "holding that"), and court references from extracted case names. Used in the PDF extraction pipeline.
 
+- **RECAP state court skip**: RECAP is federal PACER data only. Verifier uses `is_federal_court()` to gate all 3 RECAP API call paths (docket search, docket lookup, docket-entries), saving API calls on state court citations.
+
+- **429 retry handling** (`client.py`): All 4 API endpoints parse `wait_until` ISO-8601 timestamp from CL response body (per FLP #6895), fall back to Retry-After header, retry up to 3 times with exponential backoff.
+
 ## Files
 
 ### Core library (`src/citation_verifier/`)
@@ -53,13 +57,13 @@ Three-step verification pipeline in `src/citation_verifier/verifier.py`:
 | File | Purpose | Dependencies |
 |------|---------|--------------|
 | `models.py` | Data structures (enums, dataclasses) | None |
-| `court_map.py` | Court abbreviation -> CL ID mapping (135 federal courts) | None |
+| `court_map.py` | Court abbreviation -> CL ID mapping (135 federal courts), federal court check | None |
 | `state_reporter_map.py` | Regional reporter -> state court mapping | None |
 | `name_matcher.py` | Multi-factor case name similarity (adapted from CaseStrainer) | None |
 | `text_cleaner.py` | Contamination phrase removal (adapted from CaseStrainer) | None |
 | `parser.py` | Citation parsing (eyecite + regex + abbreviation normalization) | models, eyecite |
-| `client.py` | CourtListener API wrapper (rate limiting, 15s timeout) | requests, python-dotenv |
-| `verifier.py` | Core 3-step pipeline | All above |
+| `client.py` | CourtListener API wrapper (rate limiting, 15s timeout, 429 retry) | requests, python-dotenv |
+| `verifier.py` | Core 3-step pipeline (with insufficient-data guard, RECAP state skip) | All above |
 | `__main__.py` | CLI | verifier |
 
 ### Test infrastructure (`tests/`)
@@ -70,14 +74,14 @@ Three-step verification pipeline in `src/citation_verifier/verifier.py`:
 | `test_false_negatives.py` | Regression tests against real CourtListener API |
 | `test_parser_diagnostics.py` | eyecite vs our parser comparison |
 | `test_cl_api_issues.py` | Documents and tests CL API limitations |
-| `extract_citations_batch.py` | Non-interactive batch PDF extraction (uses eyecite + text_cleaner) |
+| `extract_citations_batch.py` | Non-interactive batch PDF extraction (PDF cleaning + eyecite + text_cleaner) |
 | `extract_hallucination_citations.py` | Interactive PDF extraction with hallucination keyword classifier |
 | `verify_sample_citations.py` | Sample and verify citations from extracted results |
 | `analyze_not_found_citations.py` | PDF context analysis for NOT_FOUND citations |
 | `data/known_real_citations.json` | 5-case real citation regression corpus |
-| `data/known_fake_citations.json` | 3-case confirmed hallucination corpus (from Gonzalez v. Texas Taxpayers) |
+| `data/known_fake_citations.json` | 8-case confirmed hallucination corpus |
 | `data/cl_api_issues.json` | 5 documented CL API issues with workarounds |
-| `data/citations_extracted_raw.json` | 536 extracted citations from 19 hallucination opinion PDFs |
+| `data/citations_extracted_raw.json` | 592 extracted citations from 19 hallucination opinion PDFs |
 | `data/verification_sample_50.json` | Previous verification run (stale - needs re-run) |
 | `data/hallucination_opinions/` | 19 PDFs of judicial opinions discussing AI-fabricated citations |
 | `cases_to_investigate.md` | Informal tracking of edge cases found during testing |
@@ -141,110 +145,81 @@ python tests/extract_citations_batch.py
 python tests/verify_sample_citations.py --sample-size 50
 ```
 
-## Session State (2026-02-09 evening - continued)
+## Session State (2026-02-09 night - continued)
 
 ### What was completed in this session
 
-1. **Fixed Python environment setup**
-   - Created virtual environment (`venv/`)
-   - Installed all dependencies (requests, eyecite, python-dotenv, courts-db, etc.)
-   - Installed pytest for testing
-   - Installed pdfplumber for PDF extraction scripts
-   - Added virtual environment activation instructions to CLAUDE.md
-   - Added pytest and pdfplumber to pyproject.toml as optional dev dependencies
+1. **Forked eyecite fixes working**
+   - Cloned user's fork (rlfordon/eyecite) to /Users/fordon.4/Projects/eyecite
+   - Branch: `fix-pdf-metadata-parsing`
+   - Fix 1: Apostrophe truncation in `_process_case_name()` — regex `\b[a-z]\w*\b` treated apostrophes as word boundaries, stripping "t" from "Dep't", "s" from "People's", etc. Fixed with negative lookbehind `(?<!['\u2019])\b[a-z]\w*\b`
+   - Fix 2: ParagraphToken boundary in `match_on_tokens()` — single newlines now treated as spaces (PDF line breaks), consecutive newlines still stop scanning (real paragraph break)
+   - Fix 3: Apostrophe added to character classes in SHORT_CITE_ANTECEDENT_REGEX, SUPRA_ANTECEDENT_REGEX, PRE_FULL_CITATION_REGEX
+   - All 52 eyecite tests pass (193 HyperscanTokenizer subtests skip — optional C extension)
+   - Pushed to rlfordon/eyecite branch fix-pdf-metadata-parsing
+   - Installed in citation-verifier venv as editable (`pip install -e /Users/fordon.4/Projects/eyecite`)
 
-2. **Fixed API token issue**
-   - Discovered leading "y" typo in .env file causing "Invalid token" errors
-   - Corrected token, verified with curl and CLI
-   - All API calls now working correctly
+2. **Removed _repair_orphaned_parentheticals workaround**
+   - Deleted from extract_citations_batch.py — eyecite's ParagraphToken fix handles this natively
+   - Removed get_court_by_paren import
 
-3. **Completed Priority 1-2-5: Verification pipeline tested and validated**
-   - ✅ **Unit tests**: All 50 tests in test_verifier.py passed — multi-factor name matching works correctly with no regressions
-   - ✅ **Re-ran verification**: 26/35 citations VERIFIED (74%), 1 POSSIBLE_MATCH (3%), 6 NOT_FOUND (17%), 2 SKIPPED (6%)
-   - ✅ **False negative tests**: All 7 tests passed — known real citations still verify correctly with new name matcher
-   - ✅ **Parser diagnostics**: All 3 tests passed — parser handling all citation formats correctly
-   - ✅ **CL API issues**: 5 passed, 3 skipped — documented workarounds still valid
+3. **Added API 429 retry handling**
+   - New `_request_with_retry()` method in client.py
+   - Parses `wait_until` ISO-8601 timestamp from CL response body per freelawproject/courtlistener#6895
+   - Falls back to Retry-After header, retries up to 3 times
+   - All four endpoints now use this method
 
-4. **Key findings from verification run**
-   - **Two confirmed fabrications caught**: "Hogan v. AT&T, Inc., 917 F. Supp. 1275 (1994)" and "Surety Co. v. Superior Court, 153, 6 Cal.App.3d 467 (1984)" are fabricated names with real citations (verifier correctly identified mismatch)
-   - **Four need manual investigation**: "Farhan v. 2715 NMA LLC, 161 F.4th 475 (2025)", "In re A.S., 319 Kan. 396", "Bloomberg L.P. v. Bd. of Govs. of the Fed. Reserve Sys., 649 F. 3d 651", "Ramirez v. Humala, No. 24-cv-242, 2025 WL 1384161 (2025)"
-   - **Note**: F.4th IS a valid reporter (Federal Reporter, Fourth Series) — initial analysis was incorrect
+4. **Added PDF text cleaning pipeline**
+   - `_clean_pdf_text()` function in extract_citations_batch.py runs before eyecite
+   - Smart quote/apostrophe normalization (U+2018, U+2019, U+201C, U+201D → ASCII)
+   - PACER/ECF header stripping (two format variants)
+   - Court seal watermark garble line removal
+   - Single newline → space normalization (belt-and-suspenders with eyecite fork)
+   - eyecite's built-in `underscores` and `inline_whitespace` cleaners
+   - Result: 536 → 592 citations extracted (+10%), 2 new courts, 2 new years, 31 case names improved
 
-5. **Manual investigation of 6 NOT_FOUND citations (completed)**
-   - [1] Farhan v. 2715 NMA LLC, 161 F.4th 475 (2025) → **FALSE NEGATIVE** — real case in CL (empty citations field + LLC expansion broke search)
-   - [2] In re A.S., 319 Kan. 396 → **FALSE NEGATIVE** — real case in CL (parser returned None for "In re" case names)
-   - [3] Bloomberg L.P. v. Bd. of Govs. of the Fed. Reserve Sys., 649 F. 3d 651 → **CONFIRMED HALLUCINATION** — court says "do not exist"
-   - [4] Hogan v. AT&T, Inc., 917 F. Supp. 1275 (1994) → **CONFIRMED HALLUCINATION** — fabricated name with real citation
-   - [5] Surety Co. v. Superior Court, 153, 6 Cal.App.3d 467 (1984) → **PDF EXTRACTION BUG** — real case "Aetna Cas. & Surety Co. v. Superior Court, 153 Cal. App. 3d 476" but line numbers contaminated parsing
-   - [6] Ramirez v. Humala, No. 24-cv-242, 2025 WL 1384161 → **PARTY NAME VARIATION** — found in RECAP as "Ramirez v. El Tri MX Restaurant & Bar Corp"
+5. **Added insufficient-data guard in verifier**
+   - Returns NOT_FOUND early when both court and year are missing from parsed citation
+   - Added "Low confidence" diagnostic when court or date unavailable
 
-6. **Fixed 3 bugs identified from investigation**
-   - **Abbreviation over-expansion** (parser.py): Removed business entity suffix expansions (LLC, Inc., Corp., Co., Ltd.) that broke CL search matching. CL stores these abbreviated; expanding "LLC" → "Limited Liability Company" prevented matches. Kept Cnty., Dept., Bd., etc. (CL stores these expanded).
-   - **"In re" case name parsing** (parser.py): Added fallback regex for "In re" / "Ex parte" / "Matter of" cases that lack "v." — parser now correctly extracts case names like "In re A.S."
-   - **PDF line number contamination** (extract_citations_batch.py): Added `_strip_line_numbers()` that detects court document line numbers (1-28 in left margin) and strips them before eyecite processes the text. Joins stripped lines with spaces so citations spanning lines parse correctly.
+6. **"In re" abbreviated name boost fix**
+   - name_matcher.py: Skip the 0.85 floor boost for "In re" cases (too generic for subset matching)
 
-7. **Integrated state_reporter_map into search pipeline (completed)**
-   - Fixed bug in `get_states_for_reporter()` — normalization was broken, always returned empty list
-   - Built comprehensive state reporter mapping (470 reporters) using Free Law Project's courts-db:
-     - All 50 states supreme courts (Kan., Cal., N.Y., etc.)
-     - All appellate courts (Kan. App., Cal. App., etc.)
-     - All series (2d, 3d, 4th, 5th)
-   - Created `scripts/generate_state_reporter_map.py` for maintainability
-   - Integrated into verifier: when reporter maps to single state (e.g., "Kan." → "kan"), uses as court filter in searches
-   - Results: Farhan: NOT_FOUND → POSSIBLE_MATCH (64%). In re A.S.: would improve if citation existed in CL.
+7. **Expanded known_fake_citations.json to 8 entries**
+   - Added: TIG Ins. Co. v. Carter, Gallagher v. Wilton Enterprises, Gibbs v. Wright
+   - Added: Shell Petroleum N.V. v. Republic of Costa Rica, Butler Motors Inc. v. Benosky
+   - Previous: Bloomberg, Hogan, Head (from Gonzalez v. Texas Taxpayers)
 
-8. **Re-ran extraction + verification with all fixes (completed)**
-   - Extraction: 536 citations extracted (stable, same as before)
-   - Verification results (seed 42, same sample):
-     - **Baseline**: 26 VERIFIED (74%), 1 POSSIBLE_MATCH (3%), 6 NOT_FOUND (17%), 2 SKIPPED
-     - **After fixes**: 26 VERIFIED (74%), **4 POSSIBLE_MATCH (11%)**, **3 NOT_FOUND (9%)**, 2 SKIPPED
-   - **3 citations improved** from NOT_FOUND to POSSIBLE_MATCH:
-     1. Farhan v. 2715 NMA LLC (LLC expansion fix)
-     2. In re A.S., 319 Kan. 396 ("In re" parser + state reporter map)
-     3. Two new California cases from PDF line number stripping (Zurich American, National Steel Products)
-   - **Remaining NOT_FOUND (3)**: All confirmed issues (Bloomberg/Hogan = hallucinations, Ramirez = party name variation)
-   - **Success rate**: 30/33 valid citations found (91%) — only hallucinations and party variations remain as NOT_FOUND
+8. **Skip RECAP for state courts**
+   - Added `is_federal_court()` helper in court_map.py
+   - RECAP search (3 API call paths) now gated on federal court check
+   - Saves 1-3 API calls per state court citation
 
-9. **Fixed low-confidence scoring for correct matches (completed)**
-   - Root cause: `_score_match()` awarded 0 points for court/date when `parsed.court`/`parsed.year` was None, penalizing citations without court parentheticals (e.g., WestLaw-only citations like "2017 WL 3877860")
-   - **Fix 1: Weight redistribution** — when court/date are not parseable from the citation text, their weight is redistributed proportionally to evaluable components (name, docket, reporter)
-   - **Fix 2: Curly apostrophe normalization** — `\u2019` (right single quotation mark) now normalized to straight apostrophe in both parser.py and name_matcher.py, so "Dep\u2019t" correctly expands to "Department"
-   - **Fix 3: "Educ." abbreviation** — added to both parser and name matcher abbreviation maps
-   - **Fix 4: Period-separated initials** — name_matcher now collapses "L.P." to "LP" before comparison, preventing false token splits
-   - **Fix 5: Reporter citation spacing** — "Cal. Rptr. 3d" now matches "Cal.Rptr.3d" via space normalization around periods
-   - **Fix 6: Opinion/RECAP search uses `q=` instead of `case_name=`** — confirmed correct; `q=` does fuzzy search (finds "Kadince" when cited as "Kadince, Inc.") while `case_name=` does exact match. False positive risk is mitigated by downstream name matching and court corroboration.
-   - Results: Pointe Wholesale 0.675->0.833, Moore v. Hillman 0.750->0.933, Noland 0.500->0.917, Anonymous 0.502->0.933
-   - All 54 unit tests pass
-
-10. **Second verification run (seed 123) and manual investigation**
-   - 21 VERIFIED (60%), 5 POSSIBLE_MATCH (14%), 6 NOT_FOUND (17%), 3 SKIPPED (9%)
-   - Confirmed bug fixes working: "In re A.S." now VERIFIED, "Surety Co. v. Superior" now VERIFIED
-   - User manually investigated all POSSIBLE_MATCH and NOT_FOUND results
-   - Confirmed fakes: Shell Petroleum N.V. v. Republic of Costa Rica (wrong_name_real_citation), Motors Inc. v. Benosky (wrong page - cited 857, actual 304)
-   - Confirmed false negatives: Garner v. Kadince (in CL but not found), Fibertext Corp (spelling "Fibertext" vs "Fibertex")
-
-11. **Started known_fake_citations.json**
-   - Created with 3 entries from Gonzalez v. Texas Taxpayers (Bloomberg, Hogan, Head)
-   - Still need to add: Shell Petroleum (from Flowz Digital), Motors/Benosky (from Wilcox v. Gingrich)
+9. **Investigated FLP codebase for PDF/OCR tools**
+   - eyecite has `clean_text()` with built-in cleaners (underscores, inline_whitespace, all_whitespace) — now using these
+   - FLP's Doctor microservice uses pdftotext + Tesseract OCR — overkill for our use case
+   - juriscraper has harmonize()/clean_string() — we already have equivalent in text_cleaner.py
 
 ### What needs to happen next
 
-#### Priority 1: Expand known_fake_citations.json
-Add confirmed fakes from second verification run:
-- Shell Petroleum N.V. v. Republic of Costa Rica, 608 F. Supp. 2d 269 (wrong_name_real_citation) — court says "unable to locate"
-- Butler Motors, Inc. v. Benosky, 181 N.E.3d 857 (wrong_page_number) — actual citation is 181 N.E.3d 304
+#### Priority 1: Verification run in progress
+- Running with seed 42, sample 50 — results pending
+- Will validate all eyecite fork fixes + PDF cleaning + insufficient-data guard + RECAP state skip
 
-#### Priority 2: Re-run verification with scoring fixes
-All the scoring/search improvements need to be validated with a fresh sample run.
+#### Priority 2: RECAP document selection bug
+- Dehghani v. Castro found document 23/2 (Exhibit, 2025-03-14) instead of document 35 (correct one)
+- Issue in `_pick_best_recap_doc` date sorting logic — needs investigation
 
-#### Priority 3: Remaining bugs from manual investigation
-- **Incomplete party name extraction**: "Motors, Inc. v. Benosky" — should be "Butler Motors, Inc. v. Benosky" (PDF extraction lost "Butler")
-- **Parser miss**: "Bradley v. Wallrad, No. 1:06 cv 246, 2006 WL 1133220" treated as short cite but has a case name — eyecite didn't capture it
-- **State case RECAP search**: Should skip RECAP for state cases (RECAP is federal PACER data only) — wastes API calls
-- **Wrong RECAP document selection**: Dehghani v. Castro found document 23/2 (Exhibit, 2025-03-14) instead of document 35 (correct one) — date sorting issue in `_pick_best_recap_doc`
-- **Fibertext spelling mismatch**: "Fibertext" (cited) vs "Fibertex" (actual) — single character difference defeats CL fuzzy search. Docket number also differs (20-20720-Civ vs 1:20-cv-20718)
+#### Priority 3: CL fuzzy search limitations
+- Fibertext spelling mismatch: "Fibertext" (cited) vs "Fibertex" (actual) — single character difference defeats CL fuzzy search
+- Docket number also differs (20-20720-Civ vs 1:20-cv-20718)
+- No easy fix — semantic search might help (see Ideas Backlog)
 
-#### Priority 4: Run false negative regression tests
+#### Priority 4: Upstream eyecite PR
+- Holding until we've used the fork more
+- Need to verify all fixes stable across more verification runs
+
+#### Priority 5: Run false negative regression tests
 ```bash
 pytest tests/test_false_negatives.py -v
 ```
