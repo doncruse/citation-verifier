@@ -24,7 +24,9 @@ Three-step verification pipeline in `src/citation_verifier/verifier.py`:
 
 - **Scoring weights**: case name 50%, court 20%, date 20%, docket number 5%, reporter/WL citation 5%. Weights redistribute proportionally when court or year is missing from the citation. RECAP docket-only matches get a 0.6x score discount.
 
-- **Parser** (`parser.py`): eyecite handles standard reporters. Regex fallbacks handle WestLaw (`2018 WL 301424`), California style (`(2022) 76 Cal.App.5th`), reversed parentheticals (`(Feb. 5, 2026 SDNY)`), and complex party names. Docket number junk is stripped from case names.
+- **Parser** (`parser.py`): eyecite handles standard reporters. Regex fallbacks handle WestLaw (`2018 WL 301424`), California style (`(2022) 76 Cal.App.5th`), reversed parentheticals (`(Feb. 5, 2026 SDNY)`), and complex party names. Docket number junk is stripped from case names. `parsed_citation_from_eyecite()` builds a `ParsedCitation` directly from an eyecite `FullCaseCitation`, avoiding the lossy string round-trip that drops court, month, and day fields.
+
+- **Pre-parsed citation path**: `verify()` accepts an optional `parsed: ParsedCitation` parameter. When provided, the internal `parse_citation()` call is skipped. This lets batch pipelines pass eyecite-extracted metadata (court, month, day) without information loss. All existing callers (CLI, tests) are unaffected.
 
 - **Abbreviation normalization**: 47 Indigo Book terms expanded client-side in `parser.py:_normalize_case_name()` to work around CL search not matching abbreviations. Smart apostrophes normalized to straight before matching.
 
@@ -45,7 +47,7 @@ Three-step verification pipeline in `src/citation_verifier/verifier.py`:
 | `state_reporter_map.py` | Regional reporter -> state court mapping |
 | `name_matcher.py` | Multi-factor case name similarity (adapted from CaseStrainer) |
 | `text_cleaner.py` | Contamination phrase removal (adapted from CaseStrainer) |
-| `parser.py` | Citation parsing (eyecite + regex + abbreviation normalization) |
+| `parser.py` | Citation parsing (eyecite + regex + abbreviation normalization + eyecite factory) |
 | `client.py` | CourtListener API wrapper (rate limiting, 15s timeout, 429 retry) |
 | `verifier.py` | Core 3-step pipeline (with insufficient-data guard, RECAP state skip) |
 | `__main__.py` | CLI |
@@ -54,7 +56,7 @@ Three-step verification pipeline in `src/citation_verifier/verifier.py`:
 
 | File | Purpose |
 |------|---------|
-| `test_verifier.py` | 54 unit tests (mocked API calls) |
+| `test_verifier.py` | 62 unit tests (mocked API calls) |
 | `test_false_negatives.py` | Regression tests against real CourtListener API |
 | `test_parser_diagnostics.py` | eyecite vs our parser comparison |
 | `test_cl_api_issues.py` | Documents and tests CL API limitations |

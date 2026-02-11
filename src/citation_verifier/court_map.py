@@ -137,12 +137,16 @@ COURT_MAP: dict[str, str] = {
 }
 
 # Build a normalized lookup: strip dots and spaces, lowercase
+# Build reverse lookup: CL ID → canonical abbreviation (first one wins)
 _NORMALIZED: dict[str, str] = {}
 _KNOWN_IDS: set[str] = set()
+_ID_TO_ABBREV: dict[str, str] = {}
 for abbr, cl_id in COURT_MAP.items():
     normalized = re.sub(r"[\s.]", "", abbr).lower()
     _NORMALIZED[normalized] = cl_id
     _KNOWN_IDS.add(cl_id)
+    if cl_id not in _ID_TO_ABBREV:
+        _ID_TO_ABBREV[cl_id] = abbr
 
 
 def is_federal_court(court_id: str) -> bool:
@@ -152,6 +156,15 @@ def is_federal_court(court_id: str) -> bool:
     Used to skip RECAP searches for state courts (RECAP is PACER data only).
     """
     return court_id in _KNOWN_IDS
+
+
+def lookup_court_abbrev(court_id: str) -> str | None:
+    """Look up the canonical abbreviation for a CourtListener court ID.
+
+    Returns the standard legal abbreviation (e.g. "7th Cir.", "S.D. Fla.")
+    or None if the ID is not a known federal court.
+    """
+    return _ID_TO_ABBREV.get(court_id)
 
 
 def lookup_court_id(court_str: str) -> str | None:

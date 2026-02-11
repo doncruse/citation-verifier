@@ -314,3 +314,99 @@ def parse_citation(text: str) -> ParsedCitation:
             result.court = states[0]
 
     return result
+
+
+def parsed_citation_from_eyecite(
+    cite: FullCaseCitation, raw_text: str = ""
+) -> ParsedCitation:
+    """Build a ParsedCitation directly from an eyecite FullCaseCitation.
+
+    This avoids the lossy round-trip of serializing to a string and
+    re-parsing.  The same post-processing that parse_citation() applies
+    (docket-junk stripping, abbreviation normalization, state-court
+    inference, etc.) is applied here too.
+
+    Parameters
+    ----------
+    cite : FullCaseCitation
+        An eyecite citation object (typically from ``get_citations()``
+        called on full document text).
+    raw_text : str
+        Display / lookup string stored as ``ParsedCitation.raw_text``.
+        Defaults to the empty string.
+    """
+    result = ParsedCitation(raw_text=raw_text)
+
+    # --- volume / reporter / page from groups ---
+    result.volume = str(cite.groups.get("volume", "")) or None
+    result.reporter = str(cite.corrected_reporter() or "") or None
+    result.page = str(cite.groups.get("page", "")) or None
+
+    # --- metadata fields ---
+    meta = cite.metadata
+    if hasattr(meta, "court") and meta.court:
+        result.court = meta.court
+    if hasattr(meta, "plaintiff") and meta.plaintiff:
+        result.plaintiff = meta.plaintiff
+    if hasattr(meta, "defendant") and meta.defendant:
+        result.defendant = meta.defendant
+
+    # Year: prefer the int attribute on the citation object itself
+    if cite.year is not None:
+        result.year = cite.year
+    elif hasattr(meta, "year") and meta.year:
+        try:
+            result.year = int(meta.year)
+        except (ValueError, TypeError):
+            pass
+
+    # Month (eyecite stores strings like "Jan.", "Feb.")
+    if hasattr(meta, "month") and meta.month:
+        result.month = _MONTH_MAP.get(meta.month[:3].lower())
+
+    # Day
+    if hasattr(meta, "day") and meta.day:
+        try:
+            result.day = int(meta.day)
+        except (ValueError, TypeError):
+            pass
+
+    # --- WestLaw detection ---
+    if result.reporter == "WL":
+        result.is_westlaw = True
+        result.wl_number = result.page
+        if result.volume:
+            try:
+                result.year = int(result.volume)
+            except (ValueError, TypeError):
+                pass
+
+    # --- Build case_name ---
+    if result.plaintiff and result.defendant:
+        result.case_name = f"{result.plaintiff} v. {result.defendant}"
+
+    # --- Docket number extraction from raw_text ---
+    if raw_text:
+        docket_match = _DOCKET_NUMBER_PATTERN.search(raw_text)
+        if docket_match:
+            result.docket_number = docket_match.group(1).rstrip(",")
+
+    # --- Clean names (same post-processing as parse_citation) ---
+    if result.case_name:
+        result.case_name = _TRAILING_YEAR.sub("", result.case_name)
+        result.case_name = _DOCKET_JUNK.sub("", result.case_name)
+        result.case_name = _normalize_case_name(result.case_name)
+    if result.defendant:
+        result.defendant = _TRAILING_YEAR.sub("", result.defendant)
+        result.defendant = _DOCKET_JUNK.sub("", result.defendant)
+        result.defendant = _normalize_case_name(result.defendant)
+    if result.plaintiff:
+        result.plaintiff = _normalize_case_name(result.plaintiff)
+
+    # --- Infer court from state-specific reporter ---
+    if result.court is None and result.reporter:
+        states = get_states_for_reporter(result.reporter)
+        if len(states) == 1:
+            result.court = states[0]
+
+    return result

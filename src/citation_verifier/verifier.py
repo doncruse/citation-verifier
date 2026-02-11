@@ -29,16 +29,32 @@ class CitationVerifier:
         self.client = client or CourtListenerClient()
         self.name_matcher = CaseNameMatcher()
 
-    def verify(self, citation_text: str) -> VerificationResult:
+    def verify(
+        self,
+        citation_text: str,
+        parsed: ParsedCitation | None = None,
+    ) -> VerificationResult:
         """Verify a citation string through the two-step pipeline.
 
         Step 1: Try the Citation Lookup API (fast, precise).
         Step 2: Parse and fuzzy-search as fallback.
+
+        Parameters
+        ----------
+        citation_text : str
+            Raw citation string used for the citation-lookup API call
+            and stored in ``VerificationResult.input_citation``.
+        parsed : ParsedCitation | None
+            Pre-parsed citation metadata.  When provided the internal
+            ``parse_citation()`` call is skipped, preserving fields
+            (court, month, day) that would otherwise be lost in a
+            text round-trip.
         """
         citation_text = citation_text.strip()
 
         # Step 1: Citation Lookup API
-        parsed = parse_citation(citation_text)
+        if parsed is None:
+            parsed = parse_citation(citation_text)
         try:
             lookup_results = self.client.citation_lookup(citation_text)
             for lr in lookup_results:

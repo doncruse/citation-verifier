@@ -31,6 +31,27 @@ CL supports semantic search via `semantic=true` (GET) or POST with embeddings. O
 - Best fit: new step between opinion search (Step 2) and RECAP search (Step 3), triggered only on failures
 - See: https://www.courtlistener.com/help/api/rest/search/#semantic-search
 
+### Bidirectional abbreviation normalization (Priority 1)
+Currently we normalize cited names → expanded form (Cnty. → County) to match CL. But CL also stores expanded forms that don't match our abbreviated citations. 6/10 POSSIBLE_MATCHes in the 2026-02-11 run were correct but scored low due to abbreviation mismatches:
+- `Comm'r` vs `Commissioner` (Russomanno)
+- `&` vs `and` (King v. Police & Fire)
+- `Info. Sols.` vs `Information Solutions` (Dukuray)
+- `Fed.` vs `Federal` (King)
+- First names in CL but not in citation (Glass, Todd v. vs Glass v.)
+
+Fix: normalize both the cited name AND the CL result name before comparison. Either expand both or strip both to a canonical form. The name_matcher should handle this.
+
+### RECAP score too conservative for confirmed matches
+RECAP-only matches get a 0.6x docket-only discount, and WL citations almost never confirmed in CL (CL doesn't store them). This double penalty means real RECAP matches top out around 60-75% even when name + court + date all match. Consider:
+- Boosting RECAP document matches (not docket-only) when court and date align
+- Not penalizing WL citation mismatch when CL simply has no citations on file (empty vs contradictory)
+
+### Investigate: Johnson v. Dunn false negative
+Real case at https://www.courtlistener.com/docket/62980057/204/johnson-v-dunn/ but verifier returned NOT_FOUND. Citation: `Johnson v. Dunn, -- F. Supp. 3d ----, 2025 WL 2086116 (N.D. Ala. July 23, 2025)`. The `-- F. Supp. 3d ----` slip-opinion format (no page number) likely threw off citation lookup, and RECAP search should have caught it but didn't. Investigate why.
+
+### Investigate: United States v. Cohen false negative
+Real case but verifier can't find it. Citation: `United States v. Cohen, 724 F. Supp. 3d 251 (S.D.N.Y. 2024)`. Common defendant name + CL search limitations. Semantic search may help.
+
 ### CL fuzzy search limitations
 - "Fibertext" (cited) vs "Fibertex" (actual) -- single character difference defeats CL fuzzy search
 - Docket number also differs (20-20720-Civ vs 1:20-cv-20718)

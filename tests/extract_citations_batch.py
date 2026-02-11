@@ -25,6 +25,7 @@ from eyecite.models import FullCaseCitation
 
 # Add parent directory to path to import from citation_verifier
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
+from citation_verifier.court_map import lookup_court_abbrev
 from citation_verifier.text_cleaner import clean_case_name
 
 from extract_hallucination_citations import (
@@ -232,9 +233,23 @@ def process_opinion_batch(pdf_path: Path) -> dict[str, Any]:
         if not year:
             year = _infer_westlaw_year(citation)
         court = getattr(citation.metadata, 'court', None)
+        month = getattr(citation.metadata, 'month', None)
+        day = getattr(citation.metadata, 'day', None)
 
         if year and reporter_text:
-            clean_citation += f" ({year})"
+            # Build parenthetical: (court month day, year)
+            # Use standard legal abbreviation (e.g. "7th Cir.") not CL ID ("ca7")
+            court_display = lookup_court_abbrev(court) or court if court else None
+            paren_parts = []
+            if court_display:
+                paren_parts.append(court_display)
+            if month:
+                date_str = str(month)
+                if day:
+                    date_str += f" {day},"
+                paren_parts.append(date_str)
+            paren_parts.append(str(year))
+            clean_citation += f" ({' '.join(paren_parts)})"
 
         citation_data = {
             'citation': clean_citation,
@@ -244,6 +259,8 @@ def process_opinion_batch(pdf_path: Path) -> dict[str, Any]:
             'reporter': reporter,
             'page': page,
             'year': year,
+            'month': month,
+            'day': day,
             'court': court,
             'plaintiff': plaintiff,
             'defendant': defendant,

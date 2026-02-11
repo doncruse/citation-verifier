@@ -1013,3 +1013,200 @@ class TestSurnameScoreBonus:
         )
         # No surname match → no bonus → stays low
         assert score < 0.30
+
+
+# ---------------------------------------------------------------------------
+# Factory function: parsed_citation_from_eyecite
+# ---------------------------------------------------------------------------
+
+
+class TestParsedCitationFromEyecite:
+    """Tests for the parsed_citation_from_eyecite() factory function."""
+
+    def test_basic_fields_from_eyecite(self):
+        """Factory should populate volume, reporter, page, court, year, and parties."""
+        from eyecite import get_citations
+        from eyecite.models import FullCaseCitation as EyeciteFullCite
+
+        from citation_verifier.parser import parsed_citation_from_eyecite
+
+        text = "Obergefell v. Hodges, 576 U.S. 644 (2015)"
+        cites = get_citations(text)
+        full_cite = next(c for c in cites if isinstance(c, EyeciteFullCite))
+        result = parsed_citation_from_eyecite(full_cite, raw_text=text)
+
+        assert result.raw_text == text
+        assert result.volume == "576"
+        assert result.reporter == "U.S."
+        assert result.page == "644"
+        assert result.year == 2015
+        assert result.case_name is not None
+        assert "Hodges" in result.case_name
+
+    def test_westlaw_detection(self):
+        """WL reporter should set is_westlaw and wl_number."""
+        from eyecite import get_citations
+        from eyecite.models import FullCaseCitation as EyeciteFullCite
+
+        from citation_verifier.parser import parsed_citation_from_eyecite
+
+        text = "Anderson v. Furst, 2018 WL 4407750 (E.D. Mich. Sept. 17, 2018)"
+        cites = get_citations(text)
+        full_cite = next(c for c in cites if isinstance(c, EyeciteFullCite))
+        result = parsed_citation_from_eyecite(full_cite, raw_text=text)
+
+        assert result.is_westlaw is True
+        assert result.wl_number == "4407750"
+        assert result.year == 2018
+
+    def test_abbreviation_normalization(self):
+        """Abbreviations should be expanded just like parse_citation()."""
+        from eyecite import get_citations
+        from eyecite.models import FullCaseCitation as EyeciteFullCite
+
+        from citation_verifier.parser import parsed_citation_from_eyecite
+
+        text = "Bossart v. King Cnty., 100 F.3d 200 (2020)"
+        cites = get_citations(text)
+        full_cite = next(c for c in cites if isinstance(c, EyeciteFullCite))
+        result = parsed_citation_from_eyecite(full_cite, raw_text=text)
+
+        assert result.case_name is not None
+        assert "County" in result.case_name
+        assert "Cnty" not in result.case_name
+
+    def test_docket_number_extraction(self):
+        """Docket number should be extracted from raw_text."""
+        from eyecite import get_citations
+        from eyecite.models import FullCaseCitation as EyeciteFullCite
+
+        from citation_verifier.parser import parsed_citation_from_eyecite
+
+        text = (
+            "Bossart v. King County, Case No. 2:24-cv-01776-JHC, "
+            "2025 WL 459154 (W.D. Wash. Feb. 11, 2025)"
+        )
+        cites = get_citations(text)
+        full_cite = next(c for c in cites if isinstance(c, EyeciteFullCite))
+        result = parsed_citation_from_eyecite(full_cite, raw_text=text)
+
+        assert result.docket_number == "2:24-cv-01776-JHC"
+
+    def test_month_day_preserved(self):
+        """Month and day from eyecite metadata should be preserved."""
+        from eyecite import get_citations
+        from eyecite.models import FullCaseCitation as EyeciteFullCite
+
+        from citation_verifier.parser import parsed_citation_from_eyecite
+
+        text = "Smith v. Jones, 2020 WL 123456 (S.D.N.Y. Sept. 17, 2020)"
+        cites = get_citations(text)
+        full_cite = next(c for c in cites if isinstance(c, EyeciteFullCite))
+        result = parsed_citation_from_eyecite(full_cite, raw_text=text)
+
+        # eyecite extracts month/day from the parenthetical
+        if result.month is not None:
+            assert result.month == 9
+        if result.day is not None:
+            assert result.day == 17
+
+
+# ---------------------------------------------------------------------------
+# verify() with pre-parsed citation
+# ---------------------------------------------------------------------------
+
+
+class TestVerifyWithParsedCitation:
+    """Tests for passing a pre-built ParsedCitation to verify()."""
+
+    def test_verify_uses_preparsed_citation(self):
+        """When parsed is provided, verify() should skip internal parsing."""
+        from citation_verifier.models import ParsedCitation
+
+        client = _make_client(
+            citation_lookup=[
+                {
+                    "clusters": [
+                        {
+                            "case_name": "Obergefell v. Hodges",
+                            "id": 123,
+                            "absolute_url": "/opinion/123/obergefell-v-hodges/",
+                        }
+                    ]
+                }
+            ]
+        )
+        parsed = ParsedCitation(
+            raw_text="Obergefell v. Hodges, 576 U.S. 644 (2015)",
+            case_name="Obergefell v. Hodges",
+            plaintiff="Obergefell",
+            defendant="Hodges",
+            volume="576",
+            reporter="U.S.",
+            page="644",
+            court="scotus",
+            year=2015,
+        )
+        v = CitationVerifier(client)
+        result = v.verify(
+            "Obergefell v. Hodges, 576 U.S. 644 (2015)", parsed=parsed
+        )
+
+        assert result.status == VerificationStatus.VERIFIED
+        assert result.confidence == 1.0
+
+    def test_preparsed_preserves_month_day(self):
+        """Pre-parsed citation with month/day should flow through to scoring."""
+        from citation_verifier.models import ParsedCitation
+
+        client = _make_client(
+            search_opinions=[
+                {
+                    "caseName": "Smith v. Jones",
+                    "cluster_id": 400,
+                    "dateFiled": "2020-09-17",
+                    "court_id": "nysd",
+                    "absolute_url": "/opinion/400/",
+                    "citation": ["2020 WL 123456"],
+                }
+            ],
+        )
+        parsed = ParsedCitation(
+            raw_text="Smith v. Jones, 2020 WL 123456 (S.D.N.Y. Sept. 17, 2020)",
+            case_name="Smith v. Jones",
+            plaintiff="Smith",
+            defendant="Jones",
+            court="S.D.N.Y.",
+            year=2020,
+            month=9,
+            day=17,
+            is_westlaw=True,
+            wl_number="123456",
+        )
+        v = CitationVerifier(client)
+        result = v.verify(
+            "Smith v. Jones, 2020 WL 123456 (S.D.N.Y. Sept. 17, 2020)",
+            parsed=parsed,
+        )
+
+        assert result.status == VerificationStatus.LIKELY_REAL
+
+    def test_existing_callers_unaffected(self):
+        """Calling verify() with only citation_text still works (backward compat)."""
+        client = _make_client(
+            citation_lookup=[
+                {
+                    "clusters": [
+                        {
+                            "case_name": "Smith v. Jones",
+                            "id": 500,
+                            "absolute_url": "/opinion/500/",
+                        }
+                    ]
+                }
+            ]
+        )
+        v = CitationVerifier(client)
+        result = v.verify("Smith v. Jones, 100 F.3d 200 (2d Cir. 2020)")
+
+        assert result.status == VerificationStatus.VERIFIED

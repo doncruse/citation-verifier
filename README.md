@@ -97,6 +97,24 @@ print(result.matched_url)     # https://www.courtlistener.com/opinion/2812209/..
 print(result.diagnostics)     # []
 ```
 
+#### Pre-parsed citations (batch pipelines)
+
+When processing PDFs with eyecite, you can pass pre-parsed citations directly to avoid the lossy string round-trip that drops court, month, and day metadata:
+
+```python
+from eyecite import get_citations
+from eyecite.models import FullCaseCitation
+from citation_verifier import CitationVerifier
+from citation_verifier.parser import parsed_citation_from_eyecite
+
+text = "Obergefell v. Hodges, 576 U.S. 644 (2015)"
+cite = next(c for c in get_citations(text) if isinstance(c, FullCaseCitation))
+parsed = parsed_citation_from_eyecite(cite, raw_text=text)
+
+verifier = CitationVerifier()
+result = verifier.verify(text, parsed=parsed)
+```
+
 ## Supported Citation Formats
 
 - Standard reporters: `576 U.S. 644`, `999 F.3d 1`, `584 S.W.2d 716`
@@ -124,7 +142,7 @@ pytest tests/test_parser_diagnostics.py -v
 pytest tests/test_cl_api_issues.py -v
 ```
 
-`test_verifier.py` has 54 unit tests covering the full pipeline: citation lookup, name matching, adjacent page fallback, opinion search, RECAP search, court corroboration, scoring and weight redistribution, docket number normalization, abbreviation expansion, and surname matching. All API calls are mocked.
+`test_verifier.py` has 62 unit tests covering the full pipeline: citation lookup, name matching, adjacent page fallback, opinion search, RECAP search, court corroboration, scoring and weight redistribution, docket number normalization, abbreviation expansion, surname matching, the eyecite factory function, and the pre-parsed citation path. All API calls are mocked.
 
 `test_false_negatives.py` runs against the real CourtListener API using the corpus in `tests/data/known_real_citations.json` (5 cases). `tests/data/known_fake_citations.json` contains 8 confirmed hallucinations for reference.
 
@@ -137,7 +155,7 @@ src/citation_verifier/
   state_reporter_map.py -- Regional reporter -> state court mapping
   name_matcher.py    -- Multi-factor case name similarity scoring
   text_cleaner.py    -- Contamination phrase removal from extracted names
-  parser.py          -- Citation parsing (eyecite + regex fallbacks)
+  parser.py          -- Citation parsing (eyecite + regex fallbacks + eyecite factory)
   client.py          -- CourtListener API wrapper with rate limiting
   verifier.py        -- Core three-step verification pipeline
   __main__.py        -- CLI interface
