@@ -13,13 +13,13 @@ This document tracks potential contributions to FLP's projects (CourtListener, e
 
 ## 1. Abbreviation Synonym Coverage for Search
 
-**Status:** READY
+**Status:** DRAFT
 **Target:** CourtListener issue [#3367](https://github.com/freelawproject/courtlistener/issues/3367)
 **Type:** Data contribution / Comment on existing issue
 
 ### Summary
 
-Provide prioritized subset of Indigo Book abbreviations based on real-world false negative analysis. Issue #3367 requests "full Indigo Book table" but that's 100+ terms - we can help prioritize which ones matter most.
+Provide prioritized subset of Indigo Book abbreviations based on real-world false negative analysis. Issue #3367 requests "full Indigo Book table" but that's 100+ terms - we can help prioritize which ones matter most. [Note: we decided not to include some of the below abbreviations, so need to review code and update this before submitting]
 
 ### Our Findings
 
