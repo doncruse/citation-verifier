@@ -62,7 +62,8 @@ Three-step verification pipeline in `src/citation_verifier/verifier.py`:
 | `test_cl_api_issues.py` | Documents and tests CL API limitations |
 | `extract_citations_batch.py` | Batch PDF citation extraction (reads from `scratch/hallucination_opinions/`) |
 | `extract_hallucination_citations.py` | Hallucination keyword classifier (imported by batch extractor) |
-| `verify_sample_citations.py` | Sample and verify citations from extraction results |
+| `verify_from_csv.py` | Iterative CSV-based verification (master workflow — see below) |
+| `verify_sample_citations.py` | Sample and verify citations from JSON extraction results (ad-hoc exploration) |
 | `data/known_real_citations.json` | 5-case real citation regression corpus |
 | `data/known_fake_citations.json` | 8-case confirmed hallucination corpus |
 | `data/cl_api_issues.json` | 5 documented CL API issues with workarounds |
@@ -73,7 +74,10 @@ Three-step verification pipeline in `src/citation_verifier/verifier.py`:
 | File | Purpose |
 |------|---------|
 | `scratch/` | Working notes, utility scripts, hallucination opinion PDFs (not part of the tool) |
+| `scratch/citations_for_review.csv` | Master CSV — 515 citations with verification results and QC status |
+| `scratch/verification_quality_log.md` | Per-run QC breakdowns and observations |
 | `scratch/flp_contributions.md` | Drafted contributions to Free Law Project (with submission checklists) |
+| `scratch/TODO.md` | Bug/feature tracking with prioritized items |
 
 ## Environment
 
@@ -113,6 +117,71 @@ python tests/extract_citations_batch.py
 
 # Sample verification
 python tests/verify_sample_citations.py --sample-size 50
+```
+
+## Iterative Verification Workflow
+
+The master state file is `scratch/citations_for_review.csv`. Each row tracks a citation through extraction → verification → human QC.
+
+### CSV columns
+
+The CSV has 25 columns: 18 original extraction columns + 7 verification/QC columns:
+
+| Column | Values | Purpose |
+|--------|--------|---------|
+| `v_status` | `VERIFIED`, `LIKELY_REAL`, `POSSIBLE_MATCH`, `NOT_FOUND`, `SKIPPED`, (empty) | Verifier result. Empty = not yet run. |
+| `v_confidence` | 0.0–1.0, (empty) | Confidence score |
+| `v_url` | URL or empty | CourtListener match URL for QC |
+| `v_matched_name` | case name or empty | What CL matched (for QC comparison) |
+| `v_git_hash` | short hash or empty | Code version that produced this result |
+| `qc_status` | `approved`, `rerun`, `duplicate`, `ignore`, `investigate`, `data`, (empty) | Human QC decision. Empty = not yet reviewed. |
+| `qc_notes` | free text | Human notes |
+
+### qc_status vocabulary
+
+- **approved** — verified result is correct, no action needed
+- **rerun** — needs re-verification after code fix (cleared on next run)
+- **duplicate** — duplicate citation in the CSV, skip in future runs
+- **ignore** — not worth verifying (e.g. short cite, junk extraction)
+- **investigate** — QC issue that may require a code fix (tracked in `scratch/TODO.md`)
+- **data** — CL data gap to follow up with FLP (tracked in `scratch/flp_contributions.md` §6)
+
+### One iteration
+
+```bash
+# 1. Run verification on next batch
+python tests/verify_from_csv.py --sample-size 50
+
+# 2. QC review (in conversation)
+#    - Review NOT_FOUND and POSSIBLE_MATCH from JSON sidecar
+#    - Update qc_status and qc_notes in CSV
+#    - Items marked "investigate" → add to scratch/TODO.md
+#    - Items marked "data" → add to scratch/flp_contributions.md §6
+
+# 3. After code fixes, re-verify affected rows
+#    (set qc_status=rerun on rows to re-check)
+python tests/verify_from_csv.py --rerun-only
+```
+
+### Post-run checklist
+
+After running `verify_from_csv.py`, prompt the user to:
+1. Review NOT_FOUND and POSSIBLE_MATCH items from the JSON sidecar
+2. Set `qc_status` on reviewed rows in the CSV
+3. Update `scratch/TODO.md` with any new `investigate` items
+4. Update `scratch/flp_contributions.md` §6 with any new `data` items
+5. Update `scratch/verification_quality_log.md` with run summary
+
+### CLI reference
+
+```bash
+python tests/verify_from_csv.py [options]
+  --csv PATH          (default: scratch/citations_for_review.csv)
+  --sample-size N     (default: 50)
+  --seed N            (default: random)
+  --all               verify all pending, no sampling
+  --rerun-only        only rows where qc_status=rerun
+  --dry-run           show what would be verified, don't call API
 ```
 
 ## Common Pitfalls
