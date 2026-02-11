@@ -8,6 +8,7 @@ from eyecite import get_citations
 from eyecite.models import FullCaseCitation
 
 from .models import ParsedCitation
+from .state_reporter_map import get_states_for_reporter
 
 _MONTH_MAP = {
     "jan": 1,
@@ -305,5 +306,11 @@ def parse_citation(text: str) -> ParsedCitation:
         result.defendant = _normalize_case_name(result.defendant)
     if result.plaintiff:
         result.plaintiff = _normalize_case_name(result.plaintiff)
+
+    # Infer court from state-specific reporter when no court was parsed
+    if result.court is None and result.reporter:
+        states = get_states_for_reporter(result.reporter)
+        if len(states) == 1:
+            result.court = states[0]
 
     return result
