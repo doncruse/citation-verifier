@@ -479,22 +479,33 @@ Known gaps from this pipeline:
 
 Latest sweep coverage: **1950-05-12 to 2024-08-05**, plus daily ingestion. If documents were later marked as free, a targeted sweep on a specific date range can be run.
 
-### Confirmed RECAP-Only Cases (5 civil, manually verified)
+### Confirmed RECAP-Only Cases (9 civil, manually verified)
 
-All 5 cases below were found in RECAP dockets with the correct opinion/order document, but are **not searchable** in the opinions database (`type=o`). Each was manually reviewed and marked `qc_status=investigate` with note "correct match; low confidence" in our verification CSV.
+All 9 cases below were found in RECAP dockets with the correct opinion/order document, but are **not searchable** in the opinions database (`type=o`). Each was manually reviewed during QC.
+
+**QC approved (high confidence matches):**
 
 | # | Full Citation | RECAP Document URL | Confidence |
 |---|---|---|---|
-| 1 | Russomanno v. Comm'r of Soc. Sec., No. 24-cv-01641, 2025 WL 2383541 (M.D. Fla. Aug. 18, 2025) | [docket/69146971/22](https://www.courtlistener.com/docket/69146971/22/russomanno-v-commissioner-of-social-security/) | 0.62 |
-| 2 | Glass v. Foley & Lardner LLP, 2025 WL 3079280 (W.D. Wis. Nov. 4, 2025) | [docket/69584955/32](https://www.courtlistener.com/docket/69584955/32/glass-todd-v-foley-lardner-llp/) | 0.74 |
-| 3 | Welfare Fund v. HoosierVac LLC, No. 2:24-CV-00326-JPH-MJD, 2025 WL 1511211 (S.D. Ind. May 28, 2025) | [docket/68879596/122](https://www.courtlistener.com/docket/68879596/122/mid-central-operating-engineers-health-and-welfare-fund-v-hoosiervac-llc/) | 0.69 |
-| 4 | Dukuray v. Experian Info. Sols., 2024 WL 3936347 (S.D.N.Y. Aug. 26, 2024) | [docket/67881565/43](https://www.courtlistener.com/docket/67881565/43/dukuray-v-experian-information-solutions/) | 0.61 |
-| 5 | King v. Police & Fire Fed. Credit Union, No. 16-6414, 2019 WL 2226049 (E.D. Pa. May 22, 2019) | [docket/7632576/31](https://www.courtlistener.com/docket/7632576/31/king-v-police-and-fire-federal-credit-union/) | 0.67 |
+| 1 | Button v. Humphries, No. 24-cv-01730, 2025 WL 2994725 (C.D. Cal. Sept. 12, 2025) | [docket/69037800/148](https://www.courtlistener.com/docket/69037800/148/dusty-button-v-micah-humphries/) | 0.88 |
+| 2 | Fagundes v. Charter Builders, Inc., 2008 WL 268977 (N.D. Cal. Jan. 29, 2008) | [docket/5793562/104](https://www.courtlistener.com/docket/5793562/104/fagundes-v-charter-builders-inc/) | 0.90 |
+| 3 | Tercero v. Sacramento Logistics, LLC, No. 24-cv-00953-DC-11-JDP, 2025 WL 2605020 (E.D. Cal. Sep. 9, 2025) | [docket/68387287/50](https://www.courtlistener.com/docket/68387287/50/tercero-v-sacramento-logistics-llc/) | 0.90 |
+| 4 | Oneto v. Watson, No. 22-cv-05206-AMO, 2025 WL 2901666 (N.D. Cal. Oct. 10, 2025) | [docket/65342301/93](https://www.courtlistener.com/docket/65342301/93/oneto-v-watson/) | 0.95 |
+
+**QC investigate (correct match, low confidence — scoring needs improvement on our side):**
+
+| # | Full Citation | RECAP Document URL | Confidence |
+|---|---|---|---|
+| 5 | Russomanno v. Comm'r of Soc. Sec., No. 24-cv-01641, 2025 WL 2383541 (M.D. Fla. Aug. 18, 2025) | [docket/69146971/22](https://www.courtlistener.com/docket/69146971/22/russomanno-v-commissioner-of-social-security/) | 0.62 |
+| 6 | Glass v. Foley & Lardner LLP, 2025 WL 3079280 (W.D. Wis. Nov. 4, 2025) | [docket/69584955/32](https://www.courtlistener.com/docket/69584955/32/glass-todd-v-foley-lardner-llp/) | 0.74 |
+| 7 | Welfare Fund v. HoosierVac LLC, No. 2:24-CV-00326-JPH-MJD, 2025 WL 1511211 (S.D. Ind. May 28, 2025) | [docket/68879596/122](https://www.courtlistener.com/docket/68879596/122/mid-central-operating-engineers-health-and-welfare-fund-v-hoosiervac-llc/) | 0.69 |
+| 8 | Dukuray v. Experian Info. Sols., 2024 WL 3936347 (S.D.N.Y. Aug. 26, 2024) | [docket/67881565/43](https://www.courtlistener.com/docket/67881565/43/dukuray-v-experian-information-solutions/) | 0.61 |
+| 9 | King v. Police & Fire Fed. Credit Union, No. 16-6414, 2019 WL 2226049 (E.D. Pa. May 22, 2019) | [docket/7632576/31](https://www.courtlistener.com/docket/7632576/31/king-v-police-and-fire-federal-credit-union/) | 0.67 |
 
 **Notable:** All are civil federal district cases — they should meet the ingestion criteria. Possible explanations:
-- **Cases 1–3 (2025):** Filed after the latest sweep (ends 2024-08-05) and may not have been picked up by daily ingestion. Could need a targeted sweep.
-- **Case 4 (Aug 2024):** Falls right at the edge of the sweep window (sweep ends 2024-08-05, case filed 2024-08-26). Likely just missed.
-- **Case 5 (2019):** Most puzzling — well within sweep range. May indicate a pipeline bug (perhaps no case law citations detected in the document text?).
+- **Cases 1–4, 5–7 (2025):** Filed after the latest sweep (ends 2024-08-05) and may not have been picked up by daily ingestion. Could need a targeted sweep.
+- **Case 8 (Aug 2024):** Falls right at the edge of the sweep window (sweep ends 2024-08-05, case filed 2024-08-26). Likely just missed.
+- **Case 2 (2008) and Case 9 (2019):** Most puzzling — well within sweep range. May indicate a pipeline bug (perhaps no case law citations detected in the document text?).
 
 ### Also Found (excluded from this report)
 
