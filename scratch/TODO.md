@@ -124,15 +124,17 @@ Tracked in `tests/data/cl_api_issues.json`. All have workarounds implemented.
 
 ## Future Ideas
 
-### Capture WL/Lexis documents for confirmed cases and contribute to FLP
-When our tool confirms a citation is real (VERIFIED or LIKELY_REAL), the cited WestLaw or Lexis document is a known-good opinion that may not exist in CourtListener. We could capture/download these documents and contribute them to FLP's corpus. This would turn the verification pipeline into a data flywheel: every confirmed citation potentially fills a gap in CL's coverage. Especially valuable for RECAP-only cases where CL has the docket but not the opinion text.
+### Contribute WL/Lexis citation strings for confirmed cases to FLP
+When our tool confirms a citation is real (VERIFIED or LIKELY_REAL), we know the WestLaw or Lexis citation string (e.g. "2018 WL 01581301") corresponds to a real opinion. CL often doesn't have these proprietary citations on file — the `citation` field is empty or only has reporter cites. We could collect these confirmed WL/Lexis citation strings and contribute them to FLP as metadata, not the documents themselves. Something like "we've confirmed that cluster X / docket Y corresponds to 2018 WL 01581301."
+
+This would turn the verification pipeline into a data flywheel: every confirmed citation enriches CL's citation metadata, which in turn improves citation lookup for everyone.
 
 Would need to figure out:
-- Legal/TOS implications of scraping WL/Lexis content
-- What format FLP accepts for contributed documents
-- Whether FLP has an existing pipeline for community-contributed opinions
-- How to deduplicate against what CL already has
-- Whether this could be tied into FLP's RECAP browser extension model
+- Whether FLP wants this kind of contributed citation metadata
+- What format to submit (bulk CSV? API? issue with list?)
+- Whether there's a "possible citation" or "unverified citation" field they could use
+- How to batch these up (per-case is too noisy, periodic bulk submissions better)
+- Whether WL/Lexis citation strings themselves have any IP concerns (probably not — they're just identifiers)
 
 ## Last Verification Results (seed 3193, 2026-02-11)
 
