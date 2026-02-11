@@ -456,40 +456,52 @@ We plan to **fork eyecite and submit a PR** with this fix alongside the Paragrap
 ## 5. Federal District Court Opinions Only in RECAP (Not in Opinions DB)
 
 **Status:** DRAFT
-**Target:** CourtListener issue [#3790](https://github.com/freelawproject/courtlistener/issues/3790) (closed Oct 2025)
-**Type:** Data contribution / Comment on closed issue
+**Target:** CourtListener (correct issue TBD — may be #3790 or a new issue)
+**Type:** Bug report with examples — RECAP documents not ingested as opinions
 
 ### Summary
 
-Federal district court opinions that exist in RECAP (PACER docket data) are not always present in the opinions database (`type=o` search). Our verification pipeline falls back to RECAP search (Step 3) for these cases, finding the document but scoring it lower due to the RECAP discount.
+Federal district court opinions that exist in RECAP (PACER docket data) are not always present in the opinions database (`type=o` search). Our verification pipeline falls back to RECAP search (Step 3) for these cases, finding the document but scoring it lower due to the RECAP discount. We've manually confirmed 5 civil cases where the correct opinion document exists in the docket but was never imported into the opinions database.
 
-### Our Findings
+### CL's Ingestion Pipeline (from dev)
 
-**From verification run 2026-02-11 (seed 42, 50 citations):**
+The RECAP-to-opinions pipeline works as follows:
+1. CL scrapes all "Free on PACER" content
+2. A document is ingested into opinions if it:
+   - Is in a **federal district or bankruptcy** jurisdiction
+   - Is a **civil case** (in federal district)
+   - Has **case law citations** inside the document text
 
-9 of 50 citations (18%) were found only via RECAP, all federal district courts. After removing 2 false matches and 1 duplicate, **6 unique real cases** were RECAP-only:
+Known gaps from this pipeline:
+- **Criminal cases** — excluded by design (not civil)
+- **Documents without case law citations** — will be missed even if they are opinions/orders
+- Could also be a bug in the ingestion pipeline itself
 
-| Case | Court | Year | Type | Notes |
-|------|-------|------|------|-------|
-| Welfare Fund v. HoosierVac LLC | S.D. Ind. | 2025 | Civil | Order on Motion for Reconsideration |
-| Dukuray v. Experian Info. Sols. | S.D.N.Y. | 2024 | Civil | Order Adopting Report and Recommendations |
-| United States v. Hayes | (F.Supp.3d) | 2025 | **Criminal** | Memorandum Opinion and Order |
-| Russomanno v. Comm'r of Soc. Sec. | M.D. Fla. | 2025 | Civil | Order on Social Security Brief |
-| King v. Police & Fire Fed. Credit Union | E.D. Pa. | 2019 | Civil | Memorandum and/or Opinion Order |
-| Glass v. Foley & Lardner LLP | W.D. Wis. | 2025 | Civil | Order on Motion for Discovery |
+Latest sweep coverage: **1950-05-12 to 2024-08-05**, plus daily ingestion. If documents were later marked as free, a targeted sweep on a specific date range can be run.
 
-### Relationship to #3790
+### Confirmed RECAP-Only Cases (5 civil, manually verified)
 
-FLP's [#3790 (RECAP into Opinions)](https://github.com/freelawproject/courtlistener/issues/3790) converted 317,728+ civil RECAP documents into opinion records (completed Oct 2025). However:
+All 5 cases below were found in RECAP dockets with the correct opinion/order document, but are **not searchable** in the opinions database (`type=o`). Each was manually reviewed and marked `qc_status=investigate` with note "correct match; low confidence" in our verification CSV.
 
-1. **Criminal cases not yet processed** — Hayes is criminal, explaining why it's missing. Criminal and bankruptcy are planned future phases per #4642.
-2. **5 civil cases still missing** — These should have been caught by #3790's civil batch. Possible explanations:
-   - Filed/ingested after the batch ran (4 of 5 are 2025 cases)
-   - The `recap_into_opinions` command may not run continuously
-   - Edge cases missed by the LLM-based case name extraction ([PR #6290](https://github.com/freelawproject/courtlistener/pull/6290))
-3. **King v. Police & Fire (2019)** is the oldest and most puzzling — a 2019 civil case should have been in the initial batch.
+| # | Full Citation | RECAP Document URL | Confidence |
+|---|---|---|---|
+| 1 | Russomanno v. Comm'r of Soc. Sec., No. 24-cv-01641, 2025 WL 2383541 (M.D. Fla. Aug. 18, 2025) | [docket/69146971/22](https://www.courtlistener.com/docket/69146971/22/russomanno-v-commissioner-of-social-security/) | 0.62 |
+| 2 | Glass v. Foley & Lardner LLP, 2025 WL 3079280 (W.D. Wis. Nov. 4, 2025) | [docket/69584955/32](https://www.courtlistener.com/docket/69584955/32/glass-todd-v-foley-lardner-llp/) | 0.74 |
+| 3 | Welfare Fund v. HoosierVac LLC, No. 2:24-CV-00326-JPH-MJD, 2025 WL 1511211 (S.D. Ind. May 28, 2025) | [docket/68879596/122](https://www.courtlistener.com/docket/68879596/122/mid-central-operating-engineers-health-and-welfare-fund-v-hoosiervac-llc/) | 0.69 |
+| 4 | Dukuray v. Experian Info. Sols., 2024 WL 3936347 (S.D.N.Y. Aug. 26, 2024) | [docket/67881565/43](https://www.courtlistener.com/docket/67881565/43/dukuray-v-experian-information-solutions/) | 0.61 |
+| 5 | King v. Police & Fire Fed. Credit Union, No. 16-6414, 2019 WL 2226049 (E.D. Pa. May 22, 2019) | [docket/7632576/31](https://www.courtlistener.com/docket/7632576/31/king-v-police-and-fire-federal-credit-union/) | 0.67 |
 
-### Related Issues
+**Notable:** All are civil federal district cases — they should meet the ingestion criteria. Possible explanations:
+- **Cases 1–3 (2025):** Filed after the latest sweep (ends 2024-08-05) and may not have been picked up by daily ingestion. Could need a targeted sweep.
+- **Case 4 (Aug 2024):** Falls right at the edge of the sweep window (sweep ends 2024-08-05, case filed 2024-08-26). Likely just missed.
+- **Case 5 (2019):** Most puzzling — well within sweep range. May indicate a pipeline bug (perhaps no case law citations detected in the document text?).
+
+### Also Found (excluded from this report)
+
+- **United States v. Hayes** — criminal case, excluded from opinions by design per pipeline rules. Criminal ingestion is tracked separately in #4642.
+- **Lacey v. State Farm General Ins. Co.** — correct docket found but our tool selected the wrong document (doc 117 "leave to file under seal" instead of doc 119 "order"). This is a bug in our tool, not a CL data issue.
+
+### Relationship to Existing Issues
 
 - [#3790](https://github.com/freelawproject/courtlistener/issues/3790) — RECAP into Opinions (closed Oct 2025, civil cases done)
 - [#4642](https://github.com/freelawproject/courtlistener/issues/4642) — Index cleanup, notes criminal cases still pending
@@ -500,25 +512,26 @@ FLP's [#3790 (RECAP into Opinions)](https://github.com/freelawproject/courtliste
 ### Decision Factors
 
 **Pros:**
-- Concrete data showing the gap persists post-#3790
-- Specific cluster/docket IDs FLP can investigate
-- Helps assess whether `recap_into_opinions` needs to run more frequently or continuously
-- 18% RECAP-only rate in our sample is significant
+- 5 concrete examples with docket URLs FLP can investigate directly
+- All are civil federal district — should have been ingested
+- King v. Police & Fire (2019) is particularly strong evidence of a gap
+- Pipeline context from dev helps frame the issue constructively
 
 **Cons:**
-- #3790 is closed — FLP may consider this done for now
-- Most of our cases are very recent (2025) — may just need time to be processed
-- Small sample size (50 citations)
-- Criminal gap is already known (#4642)
+- 4 of 5 cases are recent (2024–2025) — may just need a sweep
+- Small sample (need more data to show pattern)
+- Correct issue to file against is unclear
 
-**Recommendation:** Wait and collect more data. Run another verification sample in a few months. If the RECAP-only rate remains high for civil cases, comment on #3790 with our data. The King v. Police & Fire (2019) case is worth investigating individually — if it was missed by the civil batch, that's a concrete bug to report.
+**Recommendation:** Collect more examples from additional verification runs. The 2019 case (King) is strong enough to report on its own once we identify the right issue. The 2024–2025 cases may resolve after a sweep request.
 
 ### Submission Checklist
 
-- [ ] Collect more data (target: 100+ citation sample)
-- [ ] Verify King v. Police & Fire (2019) specifically — is it in CL opinions at all?
-- [ ] Check if any of the 2025 cases appear in opinions DB after a few weeks
-- [ ] If pattern persists, comment on #3790 with data
+- [ ] Identify the correct issue to report against (may need to search CL issues or ask)
+- [ ] Verify King v. Police & Fire (2019) is still not in opinions DB
+- [ ] Check if Dukuray (Aug 2024) has appeared in opinions DB since sweep coverage ends 2024-08-05
+- [ ] Collect more examples from additional verification runs (target: 10+ confirmed)
+- [ ] Check whether documents contain case law citations (pipeline requirement)
+- [ ] Draft issue/comment with examples and pipeline context
 - [ ] Update this doc with findings
 
 ---
