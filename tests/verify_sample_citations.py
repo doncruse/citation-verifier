@@ -142,7 +142,7 @@ def verify_citations_batch(citations: list[dict]) -> dict[str, list[dict]]:
 
     # Initialize verifier
     verifier = CitationVerifier()
-    opinions_dir = Path(__file__).parent / "data" / "hallucination_opinions"
+    opinions_dir = Path(__file__).parent.parent / "scratch" / "hallucination_opinions"
 
     total = len(citations)
     print(f"\nVerifying {total} citations...")

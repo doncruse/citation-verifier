@@ -560,7 +560,7 @@ def main() -> None:
                         help='Compare against a previous extraction file')
     args = parser.parse_args()
 
-    opinions_dir = Path(__file__).parent / "data" / "hallucination_opinions"
+    opinions_dir = Path(__file__).parent.parent / "scratch" / "hallucination_opinions"
     output_dir = Path(__file__).parent / "data"
 
     # Determine output path

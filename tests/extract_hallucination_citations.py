@@ -294,7 +294,7 @@ def process_opinion(pdf_path: Path) -> dict[str, list[dict[str, Any]]]:
 
 def main() -> None:
     """Main entry point."""
-    opinions_dir = Path(__file__).parent / "data" / "hallucination_opinions"
+    opinions_dir = Path(__file__).parent.parent / "scratch" / "hallucination_opinions"
     output_dir = Path(__file__).parent / "data"
 
     # Find all PDF files

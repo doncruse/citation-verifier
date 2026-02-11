@@ -108,17 +108,58 @@ print(result.diagnostics)     # []
 - Complex party names: `Macy's Texas, Inc. v. D.A. Adams & Co.`
 - Abbreviations auto-expanded: `Cnty.` → `County`, `Dep't` → `Department`, `Corp.` → `Corporation`, etc.
 
+## Testing
+
+```bash
+# Unit tests (mocked, no API calls)
+pytest tests/test_verifier.py -v
+
+# False negative regression (hits real API, needs token)
+pytest tests/test_false_negatives.py -v
+
+# Parser diagnostics (eyecite vs our parser comparison)
+pytest tests/test_parser_diagnostics.py -v
+
+# CourtListener API limitation workarounds
+pytest tests/test_cl_api_issues.py -v
+```
+
+`test_verifier.py` has 54 unit tests covering the full pipeline: citation lookup, name matching, adjacent page fallback, opinion search, RECAP search, court corroboration, scoring and weight redistribution, docket number normalization, abbreviation expansion, and surname matching. All API calls are mocked.
+
+`test_false_negatives.py` runs against the real CourtListener API using the corpus in `tests/data/known_real_citations.json` (5 cases). `tests/data/known_fake_citations.json` contains 8 confirmed hallucinations for reference.
+
 ## Project Structure
 
 ```
 src/citation_verifier/
-  models.py      -- VerificationStatus, ParsedCitation, CandidateMatch, VerificationResult
-  court_map.py   -- Court abbreviation -> CourtListener ID mapping (federal courts)
-  parser.py      -- Citation parsing (eyecite + regex fallbacks)
-  client.py      -- CourtListener API wrapper with rate limiting
-  verifier.py    -- Core three-step verification pipeline
-  __main__.py    -- CLI interface
+  models.py          -- Data structures (statuses, parsed citations, results)
+  court_map.py       -- Court abbreviation -> CourtListener ID mapping (federal courts)
+  state_reporter_map.py -- Regional reporter -> state court mapping
+  name_matcher.py    -- Multi-factor case name similarity scoring
+  text_cleaner.py    -- Contamination phrase removal from extracted names
+  parser.py          -- Citation parsing (eyecite + regex fallbacks)
+  client.py          -- CourtListener API wrapper with rate limiting
+  verifier.py        -- Core three-step verification pipeline
+  __main__.py        -- CLI interface
+
+tests/
+  test_verifier.py             -- Unit tests (mocked API)
+  test_false_negatives.py      -- Regression tests (live API)
+  test_parser_diagnostics.py   -- Parser comparison diagnostics
+  test_cl_api_issues.py        -- CL API limitation tests
+  extract_citations_batch.py   -- Batch PDF citation extraction
+  verify_sample_citations.py   -- Sample and verify extracted citations
+  data/                        -- Test fixtures and results
+
+scratch/                       -- Working notes and utility scripts (not part of the tool)
 ```
+
+## Contributing
+
+This project is built on the [Free Law Project](https://free.law/)'s infrastructure:
+
+- [CourtListener](https://www.courtlistener.com/) -- the legal research platform and API we verify citations against
+- [eyecite](https://github.com/freelawproject/eyecite) -- the citation extraction library that powers our parser
 
 ## Scoring
 
