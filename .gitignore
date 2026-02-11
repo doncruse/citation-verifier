@@ -5,6 +5,7 @@ __pycache__/
 .claude/
 venv/
 .DS_Store
+.citation_cache.json
 
 # Ephemeral diagnostic output (timestamped extraction/verification runs)
 tests/data/results/citations_extracted_2*.json

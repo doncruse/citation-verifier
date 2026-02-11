@@ -73,11 +73,10 @@ Three-step verification pipeline in `src/citation_verifier/verifier.py`:
 
 | File | Purpose |
 |------|---------|
-| `scratch/` | Working notes, utility scripts, hallucination opinion PDFs (not part of the tool) |
+| `scratch/` | Working directory for iterative verification workflow (see `scratch/README.md`) |
 | `scratch/citations_for_review.csv` | Master CSV — 515 citations with verification results and QC status |
-| `scratch/verification_quality_log.md` | Per-run QC breakdowns and observations |
-| `scratch/flp_contributions.md` | Drafted contributions to Free Law Project (with submission checklists) |
 | `scratch/TODO.md` | Bug/feature tracking with prioritized items |
+| `scratch/flp_contributions.md` | Drafted contributions to Free Law Project (with submission checklists) |
 
 ## Environment
 
@@ -121,47 +120,19 @@ python tests/verify_sample_citations.py --sample-size 50
 
 ## Iterative Verification Workflow
 
-The master state file is `scratch/citations_for_review.csv`. Each row tracks a citation through extraction → verification → human QC.
+The master state file is `scratch/citations_for_review.csv`. Full workflow documentation is in `scratch/README.md`.
 
-### CSV columns
+### CSV verification columns
 
-The CSV has 25 columns: 18 original extraction columns + 7 verification/QC columns:
-
-| Column | Values | Purpose |
-|--------|--------|---------|
-| `v_status` | `VERIFIED`, `LIKELY_REAL`, `POSSIBLE_MATCH`, `NOT_FOUND`, `SKIPPED`, (empty) | Verifier result. Empty = not yet run. |
-| `v_confidence` | 0.0–1.0, (empty) | Confidence score |
-| `v_url` | URL or empty | CourtListener match URL for QC |
-| `v_matched_name` | case name or empty | What CL matched (for QC comparison) |
-| `v_git_hash` | short hash or empty | Code version that produced this result |
-| `qc_status` | `approved`, `rerun`, `duplicate`, `ignore`, `investigate`, `data`, (empty) | Human QC decision. Empty = not yet reviewed. |
-| `qc_notes` | free text | Human notes |
-
-### qc_status vocabulary
-
-- **approved** — verified result is correct, no action needed
-- **rerun** — needs re-verification after code fix (cleared on next run)
-- **duplicate** — duplicate citation in the CSV, skip in future runs
-- **ignore** — not worth verifying (e.g. short cite, junk extraction)
-- **investigate** — QC issue that may require a code fix (tracked in `scratch/TODO.md`)
-- **data** — CL data gap to follow up with FLP (tracked in `scratch/flp_contributions.md` §6)
-
-### One iteration
-
-```bash
-# 1. Run verification on next batch
-python tests/verify_from_csv.py --sample-size 50
-
-# 2. QC review (in conversation)
-#    - Review NOT_FOUND and POSSIBLE_MATCH from JSON sidecar
-#    - Update qc_status and qc_notes in CSV
-#    - Items marked "investigate" → add to scratch/TODO.md
-#    - Items marked "data" → add to scratch/flp_contributions.md §6
-
-# 3. After code fixes, re-verify affected rows
-#    (set qc_status=rerun on rows to re-check)
-python tests/verify_from_csv.py --rerun-only
-```
+| Column | Values |
+|--------|--------|
+| `v_status` | `VERIFIED`, `LIKELY_REAL`, `POSSIBLE_MATCH`, `NOT_FOUND`, `SKIPPED`, (empty) |
+| `v_confidence` | 0.0–1.0 |
+| `v_url` | CourtListener match URL |
+| `v_matched_name` | CL matched case name |
+| `v_git_hash` | Code version |
+| `qc_status` | `approved`, `rerun`, `duplicate`, `ignore`, `investigate`, `data`, (empty) |
+| `qc_notes` | free text |
 
 ### Post-run checklist
 
@@ -170,7 +141,6 @@ After running `verify_from_csv.py`, prompt the user to:
 2. Set `qc_status` on reviewed rows in the CSV
 3. Update `scratch/TODO.md` with any new `investigate` items
 4. Update `scratch/flp_contributions.md` §6 with any new `data` items
-5. Update `scratch/verification_quality_log.md` with run summary
 
 ### CLI reference
 

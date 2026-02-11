@@ -12,6 +12,9 @@ The dominant false negative pattern. eyecite's case name boundary scanner stops 
 
 Root cause likely in eyecite's `_scan_for_case_boundaries()` or our regex fallbacks. The "In re" misclassification is especially problematic -- when eyecite fails to capture the plaintiff, our "In re" fallback fires and creates a completely wrong case structure.
 
+### Complex case number parsing (Button v. Doherty)
+"Button v. Doherty, Case No. 24 Civ. 5026 (JPC) (KHP), 2025 WL 2776069 at *5 n. 7 (S.D.N.Y. Sept. 30, 2025)" — suspect parsing issue with `Case No. 24 Civ. 5026 (JPC) (KHP)` format. The multiple parentheticals in the case number may confuse court/year extraction. Needs investigation.
+
 ### Short cite handling
 eyecite may support short cites (e.g., "M.G., 566 P.3d at 146-147"). Would need to resolve back to the full citation earlier in the document.
 

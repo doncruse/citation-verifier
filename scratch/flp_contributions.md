@@ -534,11 +534,21 @@ FLP's [#3790 (RECAP into Opinions)](https://github.com/freelawproject/courtliste
 As we encounter data quality problems, document them here:
 
 **State court coverage gaps:**
-- Status: 2 confirmed cases missing from CL
+- Status: 5 confirmed cases missing from CL
 - Examples:
   1. **Rupnow v. Mont. State Auditor & Comm'r of Ins., 542 P.3d 384 (Mont. 2024)** — Montana Supreme Court opinion not in CL at all. Verified real citation (likely_real classification). Source: Thornton v. Flathead County PDF.
   2. **Jindrich v. Weihele, 656 S.W.3d 519 (Tex. App. 2022)** — Texas Court of Appeals. CL has a different opinion for this case (cluster 5174585, "Edward S. Jindrich, Jr. v. Michaela Weihele") but it appears to be the wrong document — the opinion at 656 S.W.3d 519 is not available. Source: Suday v. Suday PDF.
-- Action: Collect more examples before reporting. Known CL limitation (#5 in Known CL API Limitations).
+  3. **Jha v. Khan, 520 P.3d 470, 477 (Wash. Ct. App. 2022)** — Washington Court of Appeals. Not in CL. Available at https://www.courts.wa.gov/opinions/pdf/837681.pdf
+  4. **Fowler v. Guerin, 515 P.3d 502, 506 (Wash. 2022)** — Washington Supreme Court. Not in CL. Available at https://www.courts.wa.gov/opinions/index.cfm?fa=opinions.showOpinion&filename=1000693MAJ
+  5. **M.G. v. Bainbridge Island School District #303, 566 P.3d 132, 147 (Wash. Ct. App. 2025)** — Washington Court of Appeals. Not in CL.
+- Action: Collect more examples before reporting. Known CL limitation (#5 in Known CL API Limitations). Washington state courts appear to be a systemic gap (3 of 5 examples).
+
+**Opinions not marked as free:**
+- Status: 2 cases exist in CL but opinions not accessible
+- Examples:
+  1. **Himes v. Provident Life & Accident Insurance Co., No. 3:19-CV-00215, 2020 WL 9935829 (M.D. Tenn. Mar. 3, 2020)** — federal opinion not marked as free.
+  2. **Neravetla v. Virginia Mason Med. Ctr., No. C13-1501-JCC, 2014 WL 12787876, *3-*4 (W.D. Wash. May 23, 2014)** — federal opinion not marked as free. Docket: https://www.courtlistener.com/docket/5262939/neravetla-v-virginia-mason-medical-center/
+- Action: Collect more examples. These are federal cases that should be available but aren't searchable via the opinions API.
 
 **Case name format variations:**
 - Status: May be expected behavior for multi-party cases

@@ -3,14 +3,16 @@
 from __future__ import annotations
 
 import argparse
+import asyncio
 import json
 import sys
 from dataclasses import asdict
 
+from .cache import VerificationCache
 from .models import VerificationResult, VerificationStatus
 from .verifier import CitationVerifier
 
-# Status → display style
+# Status -> display style
 _STATUS_LABELS = {
     VerificationStatus.VERIFIED: "[OK] VERIFIED",
     VerificationStatus.LIKELY_REAL: "[~] LIKELY REAL",
@@ -78,7 +80,23 @@ def main(argv: list[str] | None = None) -> int:
         dest="json_mode",
         help="Output results as JSON",
     )
+    parser.add_argument(
+        "--no-cache",
+        action="store_true",
+        help="Bypass the results cache",
+    )
+    parser.add_argument(
+        "--clear-cache",
+        action="store_true",
+        help="Clear the results cache and exit",
+    )
     args = parser.parse_args(argv)
+
+    if args.clear_cache:
+        cache = VerificationCache()
+        count = cache.clear()
+        print(f"Cache cleared ({count} entries removed).")
+        return 0
 
     citations: list[str] = list(args.citations)
     if args.file:
@@ -91,11 +109,54 @@ def main(argv: list[str] | None = None) -> int:
     if not citations:
         parser.error("No citations provided. Pass them as arguments or use --file.")
 
+    cache = None if args.no_cache else VerificationCache()
     verifier = CitationVerifier()
-    any_not_found = False
 
-    for cite_text in citations:
-        result = verifier.verify(cite_text)
+    # Check cache for hits, collect misses for batch verification
+    results: list[VerificationResult | None] = [None] * len(citations)
+    to_verify: list[tuple[int, str]] = []
+
+    for i, cite_text in enumerate(citations):
+        if cache:
+            cached = cache.get(cite_text)
+            if cached:
+                results[i] = cached
+                continue
+        to_verify.append((i, cite_text))
+
+    if cache and len(citations) > len(to_verify) and to_verify:
+        print(
+            f"  Cache: {len(citations) - len(to_verify)} cached, "
+            f"{len(to_verify)} to verify"
+        )
+
+    if to_verify:
+        if len(to_verify) == 1:
+            # Single citation -- use sync path (simpler, no event loop needed)
+            idx, cite_text = to_verify[0]
+            result = verifier.verify(cite_text)
+            results[idx] = result
+            if cache:
+                cache.put(cite_text, result)
+        else:
+            # Multiple citations -- use async batch verification
+            uncached_cites = [cite for _, cite in to_verify]
+
+            def _progress(done: int, total: int) -> None:
+                print(f"  Verifying {done}/{total}...", flush=True)
+
+            batch_results = asyncio.run(
+                verifier.verify_batch(uncached_cites, progress_callback=_progress)
+            )
+            for (idx, cite_text), result in zip(to_verify, batch_results):
+                results[idx] = result
+                if cache:
+                    cache.put(cite_text, result)
+
+    # Print all results in original order
+    any_not_found = False
+    for result in results:
+        assert result is not None
         _print_result(result, args.json_mode)
         if result.status == VerificationStatus.NOT_FOUND:
             any_not_found = True

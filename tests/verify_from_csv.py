@@ -14,18 +14,20 @@ Usage:
 """
 
 import argparse
+import asyncio
 import csv
 import json
 import random
 import shutil
 import subprocess
 import sys
+import time
 from datetime import datetime, timezone
 from pathlib import Path
 
 # Add parent directory to path
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
-from citation_verifier.models import ParsedCitation
+from citation_verifier.models import ParsedCitation, VerificationResult
 from citation_verifier.verifier import CitationVerifier
 
 
@@ -258,27 +260,22 @@ def main() -> None:
     git_hash = _get_git_hash()
     verifier = CitationVerifier()
     results_for_sidecar: list[dict] = []
-
-    # Build a lookup set of rows being verified (by index in all_rows)
-    verify_indices: set[int] = set()
-    for row in to_verify:
-        for i, r in enumerate(all_rows):
-            if r is row:
-                verify_indices.add(i)
-                break
+    t_start = time.monotonic()
 
     total = len(to_verify)
     print(f"\nVerifying {total} citations...")
-    print("This will take a few minutes (rate limited to 1 req/sec)\n")
 
-    for seq, row in enumerate(to_verify, 1):
+    # Separate short cites (skip) from real citations (verify async)
+    batch_citations: list[str] = []
+    batch_parsed: list[ParsedCitation] = []
+    batch_row_indices: list[int] = []  # index into to_verify
+
+    for seq, row in enumerate(to_verify):
         citation_text = row.get("citation_text", "").strip()
-        parsed = _parsed_citation_from_row(row)
-
-        # Skip rows with no case name (short cites)
         case_name = row.get("case_name", "").strip()
+
         if not case_name or case_name == "v." or case_name.startswith("None v. None"):
-            print(f"[{seq}/{total}] SKIPPED: {citation_text} (short cite)")
+            print(f"  SKIPPED: {citation_text} (short cite)")
             row["v_status"] = "SKIPPED"
             row["v_confidence"] = ""
             row["v_url"] = ""
@@ -297,62 +294,53 @@ def main() -> None:
                 "matched_url": None,
                 "diagnostics": ["Short cite with no case name"],
             })
-            print()
             continue
 
-        print(f"[{seq}/{total}] Verifying: {citation_text}")
+        batch_citations.append(citation_text)
+        batch_parsed.append(_parsed_citation_from_row(row))
+        batch_row_indices.append(seq)
 
-        try:
-            result = verifier.verify(citation_text, parsed=parsed)
-            print(f"  Status: {result.status.value}  "
-                  f"Confidence: {result.confidence:.2f}")
-            if result.matched_url:
-                print(f"  Match: {result.matched_url}")
+    # Run batch verification (async)
+    batch_results: list[VerificationResult] = []
+    if batch_citations:
+        def _progress(done: int, total_: int) -> None:
+            print(f"  Verifying {done}/{total_}...", flush=True)
 
-            row["v_status"] = result.status.value
-            row["v_confidence"] = str(result.confidence)
-            row["v_url"] = result.matched_url or ""
-            row["v_matched_name"] = result.matched_case_name or ""
-            row["v_git_hash"] = git_hash or ""
+        print(f"  Sending {len(batch_citations)} citations to async verifier "
+              f"(max {verifier.client.__class__.__name__} concurrency)...\n")
+        batch_results = asyncio.run(
+            verifier.verify_batch(
+                batch_citations,
+                parsed_citations=batch_parsed,
+                progress_callback=_progress,
+            )
+        )
 
-            # Clear QC fields on rerun
-            if row.get("qc_status") == "rerun":
-                row["qc_status"] = ""
-                row["qc_notes"] = ""
+    # Apply results back to rows
+    for i, result in enumerate(batch_results):
+        row = to_verify[batch_row_indices[i]]
+        citation_text = batch_citations[i]
 
-            results_for_sidecar.append({
-                "citation_text": citation_text,
-                "classification": row.get("classification", ""),
-                "pdf": row.get("pdf", ""),
-                "status": result.status.value,
-                "confidence": result.confidence,
-                "matched_case_name": result.matched_case_name,
-                "matched_url": result.matched_url,
-                "diagnostics": result.diagnostics,
-            })
+        row["v_status"] = result.status.value
+        row["v_confidence"] = str(result.confidence)
+        row["v_url"] = result.matched_url or ""
+        row["v_matched_name"] = result.matched_case_name or ""
+        row["v_git_hash"] = git_hash or ""
 
-        except Exception as e:
-            print(f"  ERROR: {e}")
-            row["v_status"] = "NOT_FOUND"
-            row["v_confidence"] = "0.0"
-            row["v_url"] = ""
-            row["v_matched_name"] = ""
-            row["v_git_hash"] = git_hash or ""
-            if row.get("qc_status") == "rerun":
-                row["qc_status"] = ""
-                row["qc_notes"] = ""
-            results_for_sidecar.append({
-                "citation_text": citation_text,
-                "classification": row.get("classification", ""),
-                "pdf": row.get("pdf", ""),
-                "status": "ERROR",
-                "confidence": 0.0,
-                "matched_case_name": None,
-                "matched_url": None,
-                "diagnostics": [str(e)],
-            })
+        if row.get("qc_status") == "rerun":
+            row["qc_status"] = ""
+            row["qc_notes"] = ""
 
-        print()
+        results_for_sidecar.append({
+            "citation_text": citation_text,
+            "classification": row.get("classification", ""),
+            "pdf": row.get("pdf", ""),
+            "status": result.status.value,
+            "confidence": result.confidence,
+            "matched_case_name": result.matched_case_name,
+            "matched_url": result.matched_url,
+            "diagnostics": result.diagnostics,
+        })
 
     # Write CSV back (backup first)
     bak_path = csv_path.with_suffix(".csv.bak")
@@ -376,6 +364,7 @@ def main() -> None:
     results_dir.mkdir(parents=True, exist_ok=True)
     timestamp = datetime.now().strftime("%Y-%m-%d")
     sidecar_path = results_dir / f"verification_{timestamp}_csv_seed{seed_label}.json"
+    elapsed = time.monotonic() - t_start
     sidecar_data = {
         "_metadata": {
             "generated_at": datetime.now(timezone.utc).isoformat(),
@@ -384,6 +373,7 @@ def main() -> None:
             "sample_size": len(to_verify),
             "source": str(csv_path),
             "stratification": strat_str,
+            "elapsed_seconds": round(elapsed, 1),
         },
         "results": results_for_sidecar,
     }
@@ -402,7 +392,9 @@ def main() -> None:
     print(f"Total: {len(to_verify)}")
     for status, count in sorted(by_status.items()):
         print(f"  {status:20s}: {count}")
-    print(f"\nJSON sidecar: {sidecar_path}")
+    minutes, secs = divmod(elapsed, 60)
+    print(f"\nCompleted in {int(minutes)}m {secs:.0f}s ({elapsed:.1f}s)")
+    print(f"JSON sidecar: {sidecar_path}")
     print(f"Git hash: {git_hash or 'unknown'}")
 
     # Highlight items needing QC

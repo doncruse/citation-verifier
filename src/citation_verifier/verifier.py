@@ -2,12 +2,13 @@
 
 from __future__ import annotations
 
+import asyncio
 import logging
 import re
 from difflib import SequenceMatcher
-from typing import Any
+from typing import Any, Callable
 
-from .client import CourtListenerClient
+from .client import AsyncCourtListenerClient, CourtListenerClient
 from .court_map import is_federal_court, lookup_court_id
 from .models import (
     CandidateMatch,
@@ -1071,3 +1072,460 @@ class CitationVerifier:
                 )
 
         return round(score, 4), mismatches
+
+    # ------------------------------------------------------------------
+    # Async verification
+    # ------------------------------------------------------------------
+
+    async def verify_async(
+        self,
+        async_client: AsyncCourtListenerClient,
+        citation_text: str,
+        parsed: ParsedCitation | None = None,
+    ) -> VerificationResult:
+        """Async version of verify(). Requires an AsyncCourtListenerClient.
+
+        Uses the same scoring/matching logic as the sync version.
+        """
+        citation_text = citation_text.strip()
+
+        if parsed is None:
+            parsed = parse_citation(citation_text)
+
+        # Step 1: Citation Lookup API
+        try:
+            lookup_results = await async_client.citation_lookup(citation_text)
+            for lr in lookup_results:
+                clusters = lr.get("clusters", [])
+                for cluster in clusters:
+                    case_name = cluster.get("case_name", "")
+                    cluster_id = cluster.get("id")
+                    url = cluster.get("absolute_url", "")
+                    if url and not url.startswith("http"):
+                        url = f"https://www.courtlistener.com{url}"
+                    elif cluster_id and not url:
+                        url = f"https://www.courtlistener.com/opinion/{cluster_id}/"
+
+                    if parsed.case_name and case_name:
+                        if not self._names_match_citation_lookup(parsed, case_name):
+                            return VerificationResult(
+                                input_citation=citation_text,
+                                status=VerificationStatus.NOT_FOUND,
+                                confidence=0.0,
+                                matched_case_name=case_name,
+                                matched_url=url,
+                                matched_cluster_id=cluster_id,
+                                diagnostics=[
+                                    f"Citation exists but belongs to a different case: "
+                                    f'"{case_name}"',
+                                ],
+                            )
+
+                    return VerificationResult(
+                        input_citation=citation_text,
+                        status=VerificationStatus.VERIFIED,
+                        confidence=1.0,
+                        matched_case_name=case_name,
+                        matched_url=url,
+                        matched_cluster_id=cluster_id,
+                    )
+        except Exception:
+            logger.debug("Citation lookup failed", exc_info=True)
+
+        # Step 1b: Adjacent starting pages
+        if parsed.volume and parsed.reporter and parsed.page:
+            try:
+                base_page = int(parsed.page)
+                for offset in (-1, 1, -2, 2):
+                    alt_page = str(base_page + offset)
+                    alt_cite = f"{parsed.volume} {parsed.reporter} {alt_page}"
+                    try:
+                        lookup_results = await async_client.citation_lookup(alt_cite)
+                    except Exception:
+                        logger.debug(
+                            "Adjacent page lookup failed for %s",
+                            alt_cite,
+                            exc_info=True,
+                        )
+                        continue
+                    for lr in lookup_results:
+                        clusters = lr.get("clusters", [])
+                        for cluster in clusters:
+                            case_name = cluster.get("case_name", "")
+                            cluster_id = cluster.get("id")
+                            url = cluster.get("absolute_url", "")
+                            if url and not url.startswith("http"):
+                                url = f"https://www.courtlistener.com{url}"
+                            elif cluster_id and not url:
+                                url = f"https://www.courtlistener.com/opinion/{cluster_id}/"
+                            if not (parsed.case_name and case_name):
+                                continue
+                            result_lower = case_name.lower()
+                            result_def = ""
+                            if " v. " in result_lower:
+                                result_def = result_lower.split(" v. ", 1)[1].strip()
+                            elif " v " in result_lower:
+                                result_def = result_lower.split(" v ", 1)[1].strip()
+                            if parsed.defendant and result_def:
+                                def_sim = SequenceMatcher(
+                                    None,
+                                    parsed.defendant.lower(),
+                                    result_def,
+                                ).ratio()
+                                if def_sim < 0.7:
+                                    continue
+                            elif not self._names_match(parsed, case_name):
+                                continue
+                            return VerificationResult(
+                                input_citation=citation_text,
+                                status=VerificationStatus.VERIFIED,
+                                confidence=1.0,
+                                matched_case_name=case_name,
+                                matched_url=url,
+                                matched_cluster_id=cluster_id,
+                                diagnostics=[
+                                    f"Matched via adjacent page: cited page {parsed.page}, "
+                                    f"case starts at page {alt_page}",
+                                ],
+                            )
+            except (ValueError, TypeError):
+                pass
+
+        # Step 2: Fuzzy search fallback
+        return await self._search_fallback_async(async_client, citation_text, parsed)
+
+    async def _search_fallback_async(
+        self,
+        async_client: AsyncCourtListenerClient,
+        citation_text: str,
+        parsed: ParsedCitation,
+    ) -> VerificationResult:
+        """Async version of _search_fallback()."""
+        court_id = lookup_court_id(parsed.court) if parsed.court else None
+
+        possible_states = []
+        if not court_id and parsed.reporter:
+            possible_states = get_states_for_reporter(parsed.reporter)
+            if len(possible_states) == 1:
+                court_id = possible_states[0]
+                logger.debug(
+                    f"Inferred court {court_id} from reporter {parsed.reporter}"
+                )
+
+        filed_after = None
+        filed_before = None
+        if parsed.year:
+            filed_after = f"{parsed.year - 1}-01-01"
+            filed_before = f"{parsed.year + 1}-12-31"
+
+        candidates: list[CandidateMatch] = []
+
+        if parsed.case_name:
+            try:
+                results = await async_client.search_opinions(
+                    q=parsed.case_name,
+                    court=court_id,
+                    filed_after=filed_after,
+                    filed_before=filed_before,
+                )
+                candidates = self._process_results(results, parsed)
+            except Exception:
+                logger.debug("Opinion search with court filter failed", exc_info=True)
+
+            if not candidates and court_id:
+                try:
+                    results = await async_client.search_opinions(
+                        q=parsed.case_name,
+                        filed_after=filed_after,
+                        filed_before=filed_before,
+                    )
+                    candidates = self._process_results(results, parsed)
+                except Exception:
+                    logger.debug(
+                        "Opinion search without court filter failed", exc_info=True
+                    )
+
+        # Step 3: RECAP fallback
+        is_state_court = court_id and not is_federal_court(court_id)
+        has_credible_match = any(c.score >= 0.5 for c in candidates)
+
+        if not has_credible_match and not is_state_court and parsed.docket_number:
+            try:
+                results = await async_client.search_recap(
+                    docket_number=parsed.docket_number
+                )
+                cited_dn = self._normalize_docket_number(parsed.docket_number)
+                results = [
+                    r
+                    for r in results
+                    if self._normalize_docket_number(
+                        r.get("docketNumber") or r.get("docket_number") or ""
+                    )
+                    == cited_dn
+                ]
+                recap_candidates = await self._process_recap_results_async(
+                    async_client, results, parsed
+                )
+                candidates.extend(recap_candidates)
+            except Exception:
+                logger.debug("RECAP search by docket number failed", exc_info=True)
+
+        if not has_credible_match and not is_state_court and parsed.case_name:
+            try:
+                results = await async_client.search_recap(
+                    q=parsed.case_name,
+                    court=court_id,
+                )
+                recap_candidates = await self._process_recap_results_async(
+                    async_client, results, parsed
+                )
+                candidates.extend(recap_candidates)
+            except Exception:
+                logger.debug("RECAP search with court filter failed", exc_info=True)
+
+            recap_found = any(c.score >= 0.5 for c in candidates)
+            if not recap_found and court_id:
+                try:
+                    results = await async_client.search_recap(
+                        q=parsed.case_name,
+                    )
+                    recap_candidates = await self._process_recap_results_async(
+                        async_client, results, parsed
+                    )
+                    candidates.extend(recap_candidates)
+                except Exception:
+                    logger.debug(
+                        "RECAP search without court filter failed", exc_info=True
+                    )
+
+        if not candidates:
+            return VerificationResult(
+                input_citation=citation_text,
+                status=VerificationStatus.NOT_FOUND,
+                confidence=0.0,
+                diagnostics=[
+                    "No matching cases found in CourtListener opinions or RECAP"
+                ],
+            )
+
+        candidates.sort(key=lambda c: c.score, reverse=True)
+        best = candidates[0]
+
+        has_unverified_cite = bool(
+            (parsed.volume and parsed.reporter and parsed.page) or parsed.wl_number
+        )
+        if has_unverified_cite and court_id and best.court_id != court_id:
+            return VerificationResult(
+                input_citation=citation_text,
+                status=VerificationStatus.NOT_FOUND,
+                confidence=0.0,
+                candidates=candidates[:5],
+                diagnostics=[
+                    f"Reporter citation could not be verified, and no matching "
+                    f"cases were found in {parsed.court}",
+                ],
+            )
+
+        if not parsed.court and not parsed.year:
+            return VerificationResult(
+                input_citation=citation_text,
+                status=VerificationStatus.NOT_FOUND,
+                confidence=0.0,
+                candidates=candidates[:5],
+                diagnostics=[
+                    "Insufficient data to verify: citation text is missing "
+                    "both court and date. A match cannot be confirmed with "
+                    "name alone. Try adding the court and year parenthetical "
+                    "(e.g. '(E.D. Tenn. 2020)') to the citation text.",
+                ],
+            )
+
+        if best.score >= 0.85:
+            status = VerificationStatus.LIKELY_REAL
+        elif best.score >= 0.40:
+            status = VerificationStatus.POSSIBLE_MATCH
+        else:
+            status = VerificationStatus.NOT_FOUND
+
+        diagnostics = self._finalize_diagnostics(best.mismatches, best.score, status)
+
+        return VerificationResult(
+            input_citation=citation_text,
+            status=status,
+            confidence=best.score,
+            matched_case_name=best.case_name,
+            matched_url=best.url,
+            matched_cluster_id=best.cluster_id,
+            candidates=candidates[:5],
+            diagnostics=diagnostics,
+        )
+
+    async def _process_recap_results_async(
+        self,
+        async_client: AsyncCourtListenerClient,
+        results: list[dict[str, Any]],
+        parsed: ParsedCitation,
+    ) -> list[CandidateMatch]:
+        """Async version of _process_recap_results()."""
+        candidates = []
+        seen_dockets: set[int] = set()
+        for r in results:
+            case_name = r.get("caseName") or r.get("case_name", "")
+            docket_id = r.get("docket_id") or r.get("id")
+            court_id = r.get("court_id") or r.get("court", "")
+            docket_url = r.get("docket_absolute_url") or r.get("absolute_url", "")
+            if docket_url and not docket_url.startswith("http"):
+                docket_url = f"https://www.courtlistener.com{docket_url}"
+            elif docket_id and not docket_url:
+                docket_url = f"https://www.courtlistener.com/docket/{docket_id}/"
+
+            if docket_id is None:
+                continue
+            if docket_id in seen_dockets:
+                continue
+            seen_dockets.add(docket_id)
+
+            docs = r.get("recap_documents", [])
+
+            has_date_match = False
+            if parsed.year and docs:
+                for doc in docs:
+                    entry_date = doc.get("entry_date_filed") or doc.get(
+                        "date_filed", ""
+                    )
+                    try:
+                        if not entry_date or int(entry_date[:4]) != parsed.year:
+                            continue
+                        if parsed.month and len(entry_date) >= 7:
+                            if int(entry_date[5:7]) != parsed.month:
+                                continue
+                        desc = (
+                            doc.get("short_description")
+                            or doc.get("description")
+                            or ""
+                        ).lower()
+                        if not self._is_substantive_doc(desc):
+                            continue
+                        has_date_match = True
+                        break
+                    except (ValueError, IndexError):
+                        pass
+
+            if not has_date_match and parsed.year and docket_id:
+                await self._fetch_docs_for_docket_async(
+                    async_client, docket_id, parsed, docs
+                )
+
+            if docs:
+                candidate = self._pick_best_recap_doc(
+                    docs, parsed, case_name, court_id, docket_url, docket_id, r
+                )
+                if candidate:
+                    candidates.append(candidate)
+            else:
+                candidate = self._build_docket_only_candidate(
+                    parsed, case_name, court_id, docket_url, docket_id, r
+                )
+                candidates.append(candidate)
+        return candidates
+
+    async def _fetch_docs_for_docket_async(
+        self,
+        async_client: AsyncCourtListenerClient,
+        docket_id: int,
+        parsed: ParsedCitation,
+        docs: list[dict[str, Any]],
+    ) -> None:
+        """Async version of _fetch_docs_for_docket()."""
+        found_entries = False
+        if parsed.month and parsed.day:
+            exact = f"{parsed.year}-{parsed.month:02d}-{parsed.day:02d}"
+            try:
+                entries = await async_client.get_docket_entries(
+                    docket_id=docket_id,
+                    date_filed_after=exact,
+                    date_filed_before=exact,
+                )
+                for entry in entries:
+                    entry_date = entry.get("date_filed", "")
+                    entry_desc = entry.get("description", "")
+                    for doc in entry.get("recap_documents", []):
+                        doc["entry_date_filed"] = entry_date
+                        doc["entry_description"] = entry_desc
+                        docs.append(doc)
+                        found_entries = True
+            except Exception:
+                logger.debug(
+                    "Docket entries query (exact date) failed for docket %s",
+                    docket_id,
+                    exc_info=True,
+                )
+        if not found_entries:
+            try:
+                entries = await async_client.get_docket_entries(
+                    docket_id=docket_id,
+                    date_filed_after=f"{parsed.year}-01-01",
+                    date_filed_before=f"{parsed.year}-12-31",
+                )
+                for entry in entries:
+                    entry_date = entry.get("date_filed", "")
+                    entry_desc = entry.get("description", "")
+                    for doc in entry.get("recap_documents", []):
+                        doc["entry_date_filed"] = entry_date
+                        doc["entry_description"] = entry_desc
+                        docs.append(doc)
+            except Exception:
+                logger.debug(
+                    "Docket entries query (year range) failed for docket %s",
+                    docket_id,
+                    exc_info=True,
+                )
+
+    async def verify_batch(
+        self,
+        citations: list[str],
+        parsed_citations: list[ParsedCitation | None] | None = None,
+        progress_callback: Callable[[int, int], None] | None = None,
+    ) -> list[VerificationResult]:
+        """Verify multiple citations concurrently.
+
+        Creates an async client, runs all citations through verify_async
+        with concurrency limited by the client's semaphore.
+
+        Parameters
+        ----------
+        citations : list[str]
+            Citation strings to verify.
+        parsed_citations : list[ParsedCitation | None] | None
+            Optional pre-parsed citations (same length as *citations*).
+            When provided, skips internal parsing for non-None entries.
+        progress_callback : callable, optional
+            Called as progress_callback(completed, total) after each citation.
+
+        Returns results in the same order as the input citations.
+        """
+        if parsed_citations is None:
+            parsed_citations = [None] * len(citations)
+
+        completed = 0
+
+        async def _verify_one(
+            client: AsyncCourtListenerClient,
+            cite: str,
+            parsed: ParsedCitation | None,
+        ) -> VerificationResult:
+            nonlocal completed
+            result = await self.verify_async(client, cite, parsed=parsed)
+            completed += 1
+            if progress_callback:
+                progress_callback(completed, len(citations))
+            return result
+
+        async with AsyncCourtListenerClient() as client:
+            tasks = [
+                _verify_one(client, cite, parsed)
+                for cite, parsed in zip(citations, parsed_citations)
+            ]
+            results = await asyncio.gather(*tasks)
+
+        return list(results)
