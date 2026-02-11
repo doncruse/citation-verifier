@@ -6,6 +6,10 @@ Legal citation verification tool that checks citations against [CourtListener](h
 
 Uses a forked [eyecite](https://github.com/freelawproject/eyecite) (rlfordon/eyecite branch `fix-pdf-metadata-parsing`) with PDF parsing improvements: apostrophe preservation in case names, single newline = space (PDF line breaks), consecutive newlines = paragraph break. Installed as editable: `pip install -e /Users/fordon.4/Projects/eyecite`.
 
+## Workflow Preferences
+
+- **Always commit and push all changes** (not just code). Working data in `scratch/`, CSV files, etc. should all be committed and pushed unless gitignored. The user works across multiple computers and uses git to sync everything.
+
 ## Architecture
 
 Three-step verification pipeline in `src/citation_verifier/verifier.py`:
