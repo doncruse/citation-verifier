@@ -76,9 +76,6 @@ class CitationVerifier:
                                 input_citation=citation_text,
                                 status=VerificationStatus.NOT_FOUND,
                                 confidence=0.0,
-                                matched_case_name=case_name,
-                                matched_url=url,
-                                matched_cluster_id=cluster_id,
                                 diagnostics=[
                                     f"Citation exists but belongs to a different case: "
                                     f'"{case_name}"',
@@ -205,21 +202,7 @@ class CitationVerifier:
                 )
                 candidates = self._process_results(results, parsed)
             except Exception:
-                logger.debug("Opinion search with court filter failed", exc_info=True)
-
-            # Retry without court filter if no results
-            if not candidates and court_id:
-                try:
-                    results = self.client.search_opinions(
-                        q=parsed.case_name,
-                        filed_after=filed_after,
-                        filed_before=filed_before,
-                    )
-                    candidates = self._process_results(results, parsed)
-                except Exception:
-                    logger.debug(
-                        "Opinion search without court filter failed", exc_info=True
-                    )
+                logger.debug("Opinion search failed", exc_info=True)
 
         # Step 3: RECAP fallback (docket entries, orders, PACER documents)
         # Note: RECAP dateFiled is the case filing date, not the opinion date,
@@ -265,21 +248,7 @@ class CitationVerifier:
                 recap_candidates = self._process_recap_results(results, parsed)
                 candidates.extend(recap_candidates)
             except Exception:
-                logger.debug("RECAP search with court filter failed", exc_info=True)
-
-            # Retry without court filter if no RECAP results found yet
-            recap_found = any(c.score >= 0.5 for c in candidates)
-            if not recap_found and court_id:
-                try:
-                    results = self.client.search_recap(
-                        q=parsed.case_name,
-                    )
-                    recap_candidates = self._process_recap_results(results, parsed)
-                    candidates.extend(recap_candidates)
-                except Exception:
-                    logger.debug(
-                        "RECAP search without court filter failed", exc_info=True
-                    )
+                logger.debug("RECAP search failed", exc_info=True)
 
         if not candidates:
             return VerificationResult(
@@ -702,6 +671,18 @@ class CitationVerifier:
     def _is_substantive_doc(desc: str) -> bool:
         """Return True if a RECAP document description looks like an opinion,
         order, judgment, or similar ruling rather than a procedural filing."""
+        _NON_SUBSTANTIVE_PATTERNS = (
+            "leave to file",
+            "leave to seal",
+            "proposed order",
+            "proposed judgment",
+            "proposed ",
+            "transcript order form",
+            "certificate of service",
+            "notice of ",
+            "motion to ",
+            "motion for ",
+        )
         _SUBSTANTIVE_KEYWORDS = (
             "opinion",
             "order",
@@ -712,6 +693,10 @@ class CitationVerifier:
             "decree",
             "findings of fact",
         )
+        # Reject docs whose primary type is non-substantive, even if they
+        # contain a substantive keyword (e.g. "proposed order", "leave to file")
+        if any(desc.startswith(pat) for pat in _NON_SUBSTANTIVE_PATTERNS):
+            return False
         return any(kw in desc for kw in _SUBSTANTIVE_KEYWORDS)
 
     @staticmethod
@@ -752,9 +737,13 @@ class CitationVerifier:
         the same docket score identically.
         """
         desc = desc.lower()
-        if "opinion" in desc or "memorandum" in desc:
+        if any(kw in desc for kw in (
+            "opinion", "memorandum",
+            "report and recommendation", "report & recommendation",
+            "findings of fact",
+        )):
             return 2
-        if "order" in desc or "ruling" in desc or "decision" in desc:
+        if any(kw in desc for kw in ("order", "ruling", "decision", "decree")):
             return 1
         return 0
 
@@ -769,6 +758,14 @@ class CitationVerifier:
         if not party_name or party_name.lower() in ("none", ""):
             return ""
         return party_name.split()[0].rstrip(",.")
+
+    _NONDISTINCTIVE_SURNAMES = frozenset({
+        "american", "national", "united", "general", "federal",
+        "first", "central", "western", "eastern", "northern",
+        "southern", "international", "new", "state", "mutual",
+        "pacific", "atlantic", "continental", "metropolitan",
+        "associated", "consolidated", "independent", "community",
+    })
 
     def _names_match_citation_lookup(self, parsed: ParsedCitation, cl_case_name: str) -> bool:
         """Lenient name check for citation-lookup matches.
@@ -817,8 +814,14 @@ class CitationVerifier:
         if not cited_surnames:
             return True  # nothing to check against
 
-        # At least one cited surname must appear in the CL case name
-        return any(name in cl_lower for name in cited_surnames)
+        # Filter out common generic first-words (e.g. "American", "National")
+        # that cause false matches against unrelated organization names
+        distinctive = [s for s in cited_surnames if s not in self._NONDISTINCTIVE_SURNAMES]
+        if not distinctive:
+            return True  # all words too generic, trust citation lookup
+
+        # At least one distinctive surname must appear in the CL case name
+        return any(name in cl_lower for name in distinctive)
 
     @staticmethod
     def _names_match(parsed: ParsedCitation, result_case_name: str) -> bool:
@@ -1112,9 +1115,6 @@ class CitationVerifier:
                                 input_citation=citation_text,
                                 status=VerificationStatus.NOT_FOUND,
                                 confidence=0.0,
-                                matched_case_name=case_name,
-                                matched_url=url,
-                                matched_cluster_id=cluster_id,
                                 diagnostics=[
                                     f"Citation exists but belongs to a different case: "
                                     f'"{case_name}"',
@@ -1230,20 +1230,7 @@ class CitationVerifier:
                 )
                 candidates = self._process_results(results, parsed)
             except Exception:
-                logger.debug("Opinion search with court filter failed", exc_info=True)
-
-            if not candidates and court_id:
-                try:
-                    results = await async_client.search_opinions(
-                        q=parsed.case_name,
-                        filed_after=filed_after,
-                        filed_before=filed_before,
-                    )
-                    candidates = self._process_results(results, parsed)
-                except Exception:
-                    logger.debug(
-                        "Opinion search without court filter failed", exc_info=True
-                    )
+                logger.debug("Opinion search failed", exc_info=True)
 
         # Step 3: RECAP fallback
         is_state_court = court_id and not is_federal_court(court_id)
@@ -1281,22 +1268,7 @@ class CitationVerifier:
                 )
                 candidates.extend(recap_candidates)
             except Exception:
-                logger.debug("RECAP search with court filter failed", exc_info=True)
-
-            recap_found = any(c.score >= 0.5 for c in candidates)
-            if not recap_found and court_id:
-                try:
-                    results = await async_client.search_recap(
-                        q=parsed.case_name,
-                    )
-                    recap_candidates = await self._process_recap_results_async(
-                        async_client, results, parsed
-                    )
-                    candidates.extend(recap_candidates)
-                except Exception:
-                    logger.debug(
-                        "RECAP search without court filter failed", exc_info=True
-                    )
+                logger.debug("RECAP search failed", exc_info=True)
 
         if not candidates:
             return VerificationResult(

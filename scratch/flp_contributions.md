@@ -479,9 +479,9 @@ Known gaps from this pipeline:
 
 Latest sweep coverage: **1950-05-12 to 2024-08-05**, plus daily ingestion. If documents were later marked as free, a targeted sweep on a specific date range can be run.
 
-### Confirmed RECAP-Only Cases (9 civil, manually verified)
+### Confirmed RECAP-Only Cases (16 cases, manually verified)
 
-All 9 cases below were found in RECAP dockets with the correct opinion/order document, but are **not searchable** in the opinions database (`type=o`). Each was manually verified as the correct case.
+All cases below were found in RECAP dockets with the correct opinion/order document, but are **not searchable** in the opinions database (`type=o`). Each was manually verified as the correct case.
 
 | # | Full Citation | RECAP Document URL |
 |---|---|---|
@@ -494,16 +494,24 @@ All 9 cases below were found in RECAP dockets with the correct opinion/order doc
 | 7 | Welfare Fund v. HoosierVac LLC, No. 2:24-CV-00326-JPH-MJD, 2025 WL 1511211 (S.D. Ind. May 28, 2025) | [docket/68879596/122](https://www.courtlistener.com/docket/68879596/122/mid-central-operating-engineers-health-and-welfare-fund-v-hoosiervac-llc/) |
 | 8 | Dukuray v. Experian Info. Sols., 2024 WL 3936347 (S.D.N.Y. Aug. 26, 2024) | [docket/67881565/43](https://www.courtlistener.com/docket/67881565/43/dukuray-v-experian-information-solutions/) |
 | 9 | King v. Police & Fire Fed. Credit Union, No. 16-6414, 2019 WL 2226049 (E.D. Pa. May 22, 2019) | [docket/7632576/31](https://www.courtlistener.com/docket/7632576/31/king-v-police-and-fire-federal-credit-union/) |
+| 10 | Mali v. British Airways, 2018 WL 3329858 (S.D.N.Y. July 6, 2018) | [docket/7378483/44](https://www.courtlistener.com/docket/7378483/44/mali-v-british-airways/) |
+| 11 | Ruggierlo, Velardo, Burke, Reizen & Fox, P.C. v. Lancaster, 2023 WL 5846798 (E.D. Mich. Sept. 11, 2023) | [docket/64925451/25](https://www.courtlistener.com/docket/64925451/25/ruggierlo-velardo-burke-reizen-fox-pc-v-lancaster/) |
+| 12 | Thomas v. Pangburn, 2024 WL 329947 (S.D. Ga. Jan. 29, 2024) | [docket/67565382/64](https://www.courtlistener.com/docket/67565382/64/thomas-v-pangburn/) |
+| 13 | Lahti v. Consensys Software Inc., 2025 WL 2 (S.D. Ohio Aug. 20, 2025) | [docket/68403961/44](https://www.courtlistener.com/docket/68403961/44/lahti-v-consensys-inc/) |
+| 14 | Coronavirus Reporter Corp. v. Apple Inc., 2025 WL 2162947 (N.D. Cal. July 30, 2025) | [docket/69434738/102](https://www.courtlistener.com/docket/69434738/102/coronavirus-reporter-corporation-v-apple-inc/) |
+| 15 | Davis v. Marion County Superior Court Juvenile Detention Center, 2025 WL 2502308 (S.D. Ind. Sept. 2025) | [docket/69325037/71](https://www.courtlistener.com/docket/69325037/71/davis-v-marion-county-superior-court-juvenile-detention-center/) |
+| 16 | O'Brien v. Flick, No. 25-10143, 2025 WL 2731627 (11th Cir. 2025) | [docket/69638127/30](https://www.courtlistener.com/docket/69638127/30/emmet-obrien-v-paul-flick/) |
 
-**Notable:** All are civil federal district cases — they should meet the ingestion criteria. Possible explanations:
-- **Cases 1–4, 5–7 (2025):** Filed after the latest sweep (ends 2024-08-05) and may not have been picked up by daily ingestion. Could need a targeted sweep.
+**Notable:** 15 of 16 are civil federal district cases — they should meet the ingestion criteria. Case 16 is 11th Circuit (appellate). Possible explanations:
+- **Cases 1, 3–7, 13–16 (2025):** Filed after the latest sweep (ends 2024-08-05) and may not have been picked up by daily ingestion. Could need a targeted sweep.
 - **Case 8 (Aug 2024):** Falls right at the edge of the sweep window (sweep ends 2024-08-05, case filed 2024-08-26). Likely just missed.
-- **Case 2 (2008) and Case 9 (2019):** Most puzzling — well within sweep range. May indicate a pipeline bug (perhaps no case law citations detected in the document text?).
+- **Cases 2, 10, 11 (2008, 2018, 2023) and Case 9 (2019):** Most puzzling — well within sweep range. May indicate a pipeline bug (perhaps no case law citations detected in the document text?).
 
 ### Also Found (excluded from this report)
 
 - **United States v. Hayes** — criminal case, excluded from opinions by design per pipeline rules. Criminal ingestion is tracked separately in #4642.
 - **Lacey v. State Farm General Ins. Co.** — correct docket found but our tool selected the wrong document (doc 117 "leave to file under seal" instead of doc 119 "order"). This is a bug in our tool, not a CL data issue.
+- **O'Brien v. Flick (S.D. Fla.)** — correct docket found but our tool selected "Transcript Order Form" (doc 28). Actual order is behind paywall (not free on PACER). Can't confirm whether CL should have it.
 
 ### Relationship to Existing Issues
 
@@ -516,17 +524,16 @@ All 9 cases below were found in RECAP dockets with the correct opinion/order doc
 ### Decision Factors
 
 **Pros:**
-- 5 concrete examples with docket URLs FLP can investigate directly
-- All are civil federal district — should have been ingested
-- King v. Police & Fire (2019) is particularly strong evidence of a gap
+- 16 concrete examples with docket URLs FLP can investigate directly
+- 15 are civil federal district — should have been ingested
+- 4 pre-sweep cases (2008, 2018, 2019, 2023) are strong evidence of a pipeline gap
 - Pipeline context from dev helps frame the issue constructively
 
 **Cons:**
-- 4 of 5 cases are recent (2024–2025) — may just need a sweep
-- Small sample (need more data to show pattern)
+- 10 of 16 cases are post-sweep (2025) — may just need a targeted sweep
 - Correct issue to file against is unclear
 
-**Recommendation:** Collect more examples from additional verification runs. The 2019 case (King) is strong enough to report on its own once we identify the right issue. The 2024–2025 cases may resolve after a sweep request.
+**Recommendation:** Sample is now large enough to report (16 cases, 4 pre-sweep). The pre-sweep cases (Fagundes 2008, Mali 2018, King 2019, Ruggierlo 2023) are the strongest evidence — these should have been picked up. Consider filing a comment on #3790 or a new issue.
 
 ### Submission Checklist
 
@@ -551,14 +558,16 @@ All 9 cases below were found in RECAP dockets with the correct opinion/order doc
 As we encounter data quality problems, document them here:
 
 **State court coverage gaps:**
-- Status: 5 confirmed cases missing from CL
+- Status: 7 confirmed cases missing from CL
 - Examples:
   1. **Rupnow v. Mont. State Auditor & Comm'r of Ins., 542 P.3d 384 (Mont. 2024)** — Montana Supreme Court opinion not in CL at all. Verified real citation (likely_real classification). Source: Thornton v. Flathead County PDF.
   2. **Jindrich v. Weihele, 656 S.W.3d 519 (Tex. App. 2022)** — Texas Court of Appeals. CL has a different opinion for this case (cluster 5174585, "Edward S. Jindrich, Jr. v. Michaela Weihele") but it appears to be the wrong document — the opinion at 656 S.W.3d 519 is not available. Source: Suday v. Suday PDF.
   3. **Jha v. Khan, 520 P.3d 470, 477 (Wash. Ct. App. 2022)** — Washington Court of Appeals. Not in CL. Available at https://www.courts.wa.gov/opinions/pdf/837681.pdf
   4. **Fowler v. Guerin, 515 P.3d 502, 506 (Wash. 2022)** — Washington Supreme Court. Not in CL. Available at https://www.courts.wa.gov/opinions/index.cfm?fa=opinions.showOpinion&filename=1000693MAJ
   5. **M.G. v. Bainbridge Island School District #303, 566 P.3d 132, 147 (Wash. Ct. App. 2025)** — Washington Court of Appeals. Not in CL.
-- Action: Collect more examples before reporting. Known CL limitation (#5 in Known CL API Limitations). Washington state courts appear to be a systemic gap (3 of 5 examples).
+  6. **Reinlasoder v. City of Billings, 455 P.3d 477 (Mont. 2020)** — Montana Supreme Court. Not in CL. Source: Thornton v. Flathead County PDF.
+  7. **Mungo v. State, 486 Md. 158 (2023)** — Maryland Court of Appeals. Not in CL. Source: mezu_v_mezu PDF.
+- Action: Collect more examples before reporting. Known CL limitation (#5 in Known CL API Limitations). Washington state courts appear to be a systemic gap (3 of 7 examples). Montana also showing pattern (2 of 7).
 
 **Opinions not marked as free:**
 - Status: 2 cases exist in CL but opinions not accessible

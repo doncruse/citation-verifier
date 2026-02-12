@@ -230,14 +230,14 @@ class TestOpinionSearchFallback:
         assert result.status == VerificationStatus.NOT_FOUND
         assert result.confidence == 0.0
 
-    def test_retries_without_court_filter(self):
-        """Opinion search retries without court filter when first attempt finds nothing."""
+    def test_no_retry_without_court_filter(self):
+        """Opinion search does NOT retry without court filter (removed: never found correct matches)."""
         client = _make_client()
         client.search_opinions.return_value = []
         v = CitationVerifier(client)
         v.verify("Smith v. Jones, 500 F.3d 200 (2d Cir. 2020)")
 
-        assert client.search_opinions.call_count == 2
+        assert client.search_opinions.call_count == 1
 
 
 # ---------------------------------------------------------------------------
@@ -704,6 +704,41 @@ class TestHelpers:
         assert not s("motion - free")
         assert not s("extend - free")
 
+    def test_is_substantive_doc_rejects_non_substantive_patterns(self):
+        """Docs matching negative patterns should be rejected even if they contain substantive keywords."""
+        s = CitationVerifier._is_substantive_doc
+        assert not s("proposed order")
+        assert not s("proposed judgment")
+        assert not s("leave to file document under seal")
+        assert not s("leave to seal")
+        assert not s("transcript order form")
+        assert not s("certificate of service")
+        assert not s("notice of appeal")
+        assert not s("motion to dismiss")
+        assert not s("motion for summary judgment")
+        # But a real order is still substantive
+        assert s("order granting motion to dismiss")
+        assert s("order on motion for summary judgment")
+
+    def test_doc_type_priority_rankings(self):
+        """Test expanded document type priority rankings."""
+        p = CitationVerifier._doc_type_priority
+        # Priority 2: opinions, memoranda, R&R, findings of fact
+        assert p("opinion") == 2
+        assert p("memorandum") == 2
+        assert p("report and recommendation") == 2
+        assert p("report & recommendation") == 2
+        assert p("findings of fact") == 2
+        # Priority 1: orders, rulings, decisions, decrees
+        assert p("order") == 1
+        assert p("ruling") == 1
+        assert p("decision") == 1
+        assert p("decree") == 1
+        # Priority 0: everything else
+        assert p("judgment") == 0
+        assert p("clerk's judgment") == 0
+        assert p("reply") == 0
+
     def test_match_word_follows_status(self):
         """LIKELY_REAL says 'likely', POSSIBLE_MATCH says 'possible'."""
         # High-scoring match → LIKELY_REAL → "likely"
@@ -942,6 +977,68 @@ class TestCitationLookupNameMatching:
         result = v.verify("Johnson v. Microsoft Corp., 239 F.3d 989 (9th Cir. 2001)")
 
         assert result.status == VerificationStatus.NOT_FOUND
+
+    def test_common_word_surname_rejected(self):
+        """'American' as a defendant surname should not match an unrelated 'American National Insurance'."""
+        client = _make_client(
+            citation_lookup=[
+                {
+                    "clusters": [
+                        {
+                            "case_name": "American National Insurance v. Smith",
+                            "id": 999,
+                            "absolute_url": "/opinion/999/",
+                        }
+                    ]
+                }
+            ]
+        )
+        v = CitationVerifier(client)
+        result = v.verify(
+            "Pettway v. American Savings & Loan Association, 197 F. Supp. 489 "
+            "(N.D. Ala. 1961)"
+        )
+        # "American" is nondistinctive; "Pettway" is distinctive but not in CL name
+        assert result.status == VerificationStatus.NOT_FOUND
+
+    def test_distinctive_org_name_still_matches(self):
+        """Non-generic org names like 'Costco' should still match."""
+        client = _make_client(
+            citation_lookup=[
+                {
+                    "clusters": [
+                        {
+                            "case_name": "Costco Wholesale Corp. v. Omega, S.A.",
+                            "id": 888,
+                            "absolute_url": "/opinion/888/",
+                        }
+                    ]
+                }
+            ]
+        )
+        v = CitationVerifier(client)
+        result = v.verify("Costco v. Omega, 562 U.S. 40 (2010)")
+        assert result.status == VerificationStatus.VERIFIED
+
+    def test_all_nondistinctive_surnames_trusts_lookup(self):
+        """When all extracted surnames are generic, trust the citation lookup."""
+        client = _make_client(
+            citation_lookup=[
+                {
+                    "clusters": [
+                        {
+                            "case_name": "First National Bank v. Federal Reserve",
+                            "id": 777,
+                            "absolute_url": "/opinion/777/",
+                        }
+                    ]
+                }
+            ]
+        )
+        v = CitationVerifier(client)
+        result = v.verify("First National v. Federal Reserve, 100 U.S. 50 (1990)")
+        # Both "First" and "Federal" are nondistinctive → trusts lookup
+        assert result.status == VerificationStatus.VERIFIED
 
     def test_defendant_only_match_sufficient(self):
         """If just the defendant surname matches, accept it (plaintiff may be 'Estate of X')."""
