@@ -50,30 +50,26 @@ Currently we normalize cited names → expanded form (Cnty. → County) to match
 Fix: normalize both the cited name AND the CL result name before comparison. Either expand both or strip both to a canonical form. The name_matcher should handle this.
 
 ### RECAP document selection improvements (Priority 2)
-The verifier frequently picks the wrong RECAP document from a docket. 10 confirmed cases across 3 patterns:
+Negative patterns and expanded doc type priority implemented in ff0a91d. Rerun results (seed 814):
 
-**Pattern A: Non-substantive doc chosen over substantive (fix `_is_substantive_doc()` / `_doc_type_priority()`)**
-- Lacey v. State Farm: chose "Leave to File Document Under Seal" (doc 117) over "Order" (doc 119), same day. Correct: https://www.courtlistener.com/docket/68872463/119/
-- O'Brien v. Flick (SD Fla): chose "Transcript Order Form" (doc 28) — not the actual order. Case behind paywall, can't identify correct doc.
-- Coronavirus Reporter v. Apple: chose "Proposed Order" (doc 89/1) over "Order" (doc 102). Correct: https://www.courtlistener.com/docket/69434738/102/
+**Pattern A: Non-substantive doc filtering — partially fixed**
+- ~~O'Brien v. Flick (SD Fla): was "Transcript Order Form" →~~ now "Order Dismissing/Closing Case" (LIKELY_REAL 0.90) ✓
+- ~~Coronavirus Reporter v. Apple: was "Proposed Order" →~~ now "Order on Administrative Motion" (LIKELY_REAL 0.90) ✓
+- Lacey v. State Farm: still chose "Order on Motion for Leave to File Document Under Seal" (POSSIBLE_MATCH 0.79). The `startswith` check misses this because desc starts with "Order on Motion for..." not "leave to file". Fix: use `"leave to file" in desc` (contains) instead of `startswith` for "leave to file" and "leave to seal" patterns, or add "leave to file document under seal" as a substring check.
 
-Fix: add negative keywords ("leave to file", "transcript order form", "proposed order", "proposed") that disqualify docs. A "proposed order" is not an order.
+**Pattern B: Doc type priority — not fixed (API issue)**
+- Mata v. Avianca: still chose "Clerk's Judgment" (LIKELY_REAL 0.90) over "Opinion" (doc 54). The R&R/opinion priority fix is correct, but the Opinion doc likely isn't in the `recap_documents` returned by the search API. The priority ranking never gets a chance to compare them.
+- Davis v. Marion County: still chose "Order on Motion" (LIKELY_REAL 0.90 / POSSIBLE_MATCH 0.76) over R&R (doc 71). Same API issue — R&R likely not in search response.
 
-**Pattern B: Lower-priority substantive doc over higher-priority**
-- Davis v. Marion County: chose "Order" (doc 70) over "Report & Recommendation" (doc 71). In magistrate cases the R&R is the opinion-equivalent. Correct: https://www.courtlistener.com/docket/69325037/71/
-- Mata v. Avianca: chose "Clerk's Judgment" (doc 59) over "Opinion" (doc 54). Correct: https://www.courtlistener.com/docket/63107798/54/
+Investigate: are the correct docs missing from `recap_documents` in the API response, or present but losing on a different tiebreaker? If missing, a docket-entries API followup query (like the existing exact-date query) might find them.
 
-Fix: add "report" and "recommendation" to `_doc_type_priority()` at priority 2 (same as opinion/memorandum). Add "clerk's judgment" at priority 0 (below order).
+**Pattern C: Docket-level match — fixed**
+- ~~Mali v. British Airways: was docket-only →~~ now LIKELY_REAL 0.90 with document dated 2018-07-06 ✓
 
-**Pattern C: Docket-level match when document match exists**
-- Mali v. British Airways: returned docket URL instead of document #44 (the actual opinion, dated 2018-07-06 — exact date match). Correct: https://www.courtlistener.com/docket/7378483/44/
-
-Investigate why `_pick_best_recap_doc()` didn't find doc #44. May be a search result issue (doc not in `recap_documents` response).
-
-**Pattern D: Wrong document due to imprecise date matching**
-- Wadsworth v. Walmart: wrong doc selected, no exact date available to disambiguate
-- Dobson v. U.S. Bank: wrong doc, not exact same date
-- Moore v. Md. Hemp Coal.: wrong doc (parties also reversed — "Charm City Hemp v. Moore")
+**Pattern D: Wrong document due to imprecise date matching — not fixed**
+- Wadsworth v. Walmart: chose "Memorandum in Opposition" (LIKELY_REAL 0.90) — procedural doc, not the opinion
+- Dobson v. U.S. Bank: chose "Judgment" (POSSIBLE_MATCH 0.71), not the opinion
+- Moore v. Md. Hemp Coal.: NOT_FOUND 0.37 — found correct doc (MEMORANDUM OPINION) but name mismatch ("Charm City Hemp v. Moore" vs "Moore v. Md. Hemp Coal.") tanked the score
 
 ### RECAP score too conservative for confirmed matches
 RECAP-only matches get a 0.6x docket-only discount, and WL citations almost never confirmed in CL (CL doesn't store them). This double penalty means real RECAP matches top out around 60-75% even when name + court + date all match. Consider:
@@ -92,16 +88,8 @@ Real case (confirmed by user QC) but verifier returns NOT_FOUND. Citation: `U.S.
 ### Investigate: In re Suday, 2025 WL 3193777
 Returned NOT_FOUND (0.29 confidence, matched Chinese Drywall litigation). May be a data issue (case not in CL) or a search issue. Needs manual investigation to determine whether case exists in CL at all.
 
-### CRITICAL: Pettway v. American Savings — VERIFIED hallucination (Priority 1)
-Citation: `Pettway v. American Savings & Loan Association, 197 F. Supp. 489 (N.D. Ala. 1961)`. Citation lookup found 197 F. Supp. 489, which belongs to "American National Insurance v. Smith". Verifier returned VERIFIED at 100% confidence despite completely different case names. User QC confirmed this is a hallucination.
-
-Root cause: `_names_match_citation_lookup()` extracts defendant surname "American" from "American Savings & Loan Association", checks if "american" appears in "American National Insurance v. Smith" → YES. But these are completely different parties — "American" is a common word, not a distinctive surname.
-
-Fix options:
-- Skip single common words as surnames (American, National, United, General, etc.)
-- Require surname match of 2+ words when the first word is common
-- Or require higher similarity threshold for single-word surnames that are dictionary words
-- This is the most critical false positive found so far — a VERIFIED hallucination undermines trust
+### ~~CRITICAL: Pettway v. American Savings — VERIFIED hallucination~~ FIXED
+Fixed in ff0a91d. Added `_NONDISTINCTIVE_SURNAMES` frozenset (23 common organization-starting words). Rerun confirmed: now returns NOT_FOUND ("Citation exists but belongs to a different case: American National Insurance v. Smith").
 
 ### False positives: hallucinations getting POSSIBLE_MATCH
 Seven confirmed hallucinations scored as POSSIBLE_MATCH across seed 42/3193/5270 runs:
@@ -180,13 +168,18 @@ Would need to figure out:
 - How to batch these up (per-case is too noisy, periodic bulk submissions better)
 - Whether WL/Lexis citation strings themselves have any IP concerns (probably not — they're just identifiers)
 
-## Last Verification Results (seed 5270, 2026-02-11)
+## Last Verification Results (seed 814 reruns, 2026-02-11)
 
-50 sampled (20 likely_fake, 20 likely_real, 10 uncertain):
-- 27 VERIFIED (54%), 7 LIKELY_REAL (14%), 9 POSSIBLE_MATCH (18%), 7 NOT_FOUND (14%)
-- QC: 2 new abbreviation examples (Weatherly, Auto Fin. Corp.), 5 RECAP document selection bugs (Mali, Coronavirus, O'Brien SD Fla, Wadsworth, Dobson), 1 VERIFIED hallucination (Pettway — critical bug), 2 new false positive POSSIBLE_MATCHes (Mavy, South Pointe), 1 parser issue (Thomas v. Pangburn), 1 FLP data gap (O'Brien 11th Cir)
+13 rerun rows (Pettway surname fix + RECAP doc selection fixes):
+- 7 LIKELY_REAL, 4 POSSIBLE_MATCH, 2 NOT_FOUND
+- Pettway false VERIFIED → now correctly NOT_FOUND ✓
+- RECAP Pattern A: 2/3 fixed (O'Brien, Coronavirus). Lacey still picks wrong doc (startswith miss).
+- RECAP Pattern B: 0/2 fixed (Mata, Davis). Correct docs likely not in API search response.
+- RECAP Pattern C: 1/1 fixed (Mali now has document match).
+- RECAP Pattern D: 0/3 fixed (Wadsworth, Dobson, Moore). Date/name issues remain.
 
+Prior batch (seed 5270): 27 VERIFIED, 7 LIKELY_REAL, 9 POSSIBLE_MATCH, 7 NOT_FOUND
 Prior batch (seed 3193): 24 VERIFIED, 5 LIKELY_REAL, 6 POSSIBLE_MATCH, 15 NOT_FOUND
 Prior batch (seed 8487, reruns): 0 VERIFIED, 1 LIKELY_REAL, 2 POSSIBLE_MATCH, 1 NOT_FOUND
 
-Cumulative: 153/515 rows verified (49 seed 42 + 50 seed 3193 + 4 reruns + 50 seed 5270)
+Cumulative: 153/515 rows verified (49 seed 42 + 50 seed 3193 + 4 reruns + 50 seed 5270 + 13 reruns overlap)
