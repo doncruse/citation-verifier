@@ -158,6 +158,10 @@ python tests/verify_from_csv.py [options]
   --dry-run           show what would be verified, don't call API
 ```
 
+## Claude Code Skills
+
+- **`/file-issue`** — Interactive coach for filing effective GitHub issues. Guides through duplicate search, evidence gathering, repo norm study, and drafting. Use it when filing issues on FLP repos (or any repo). Catches the antipatterns that get issues ignored: tentative framing, insufficient examples, no methodology, no cross-references, no root cause theory. Lives at `~/.claude/skills/file-issue/SKILL.md`.
+
 ## Common Pitfalls
 
 - **CL API response structure**: Citation lookup returns `[{citation, clusters: [...]}]`, not a flat list. Always access `lr["clusters"]`.

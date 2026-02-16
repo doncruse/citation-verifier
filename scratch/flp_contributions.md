@@ -504,6 +504,10 @@ Happy to provide more specific examples or test cases for any of these. And than
 
 ## Submission Guidelines
 
+### Use `/file-issue` for New Submissions
+
+The `/file-issue` Claude Code skill walks through the full issue-filing workflow: duplicate search, evidence gathering, repo norm study, drafting, and antipattern review. Use it instead of filing issues manually — it catches the seven antipatterns that get issues ignored.
+
 ### Before Submitting Anything
 
 1. **Search existing issues** - Don't duplicate
