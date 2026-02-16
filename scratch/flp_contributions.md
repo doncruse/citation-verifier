@@ -2,6 +2,18 @@
 
 This document tracks potential contributions to FLP's projects (CourtListener, eyecite, courts-db, etc.) based on our findings.
 
+## Table of Contents
+
+| # | Title | Status | Target |
+|---|-------|--------|--------|
+| [1](#1-abbreviation-synonym-coverage-for-search) | Abbreviation Synonym Coverage for Search | DRAFT | CL [#3367](https://github.com/freelawproject/courtlistener/issues/3367) |
+| [2](#2-docket-parameter-unreliability) | Docket Parameter Unreliability | DECLINED | CL |
+| [3](#3-eyecite-newline-breaks-metadata-parsing-paragraphtoken-boundary) | eyecite: Newline Breaks Metadata Parsing | READY | eyecite |
+| [4](#4-eyecite-apostrophe-truncates-case-name-words) | eyecite: Apostrophe Truncates Case Names | READY | eyecite |
+| [5](#5-federal-district-court-opinions-only-in-recap-not-in-opinions-db) | Federal Court Opinions Only in RECAP | SUBMITTED | CL [#6963](https://github.com/freelawproject/courtlistener/issues/6963) |
+| [6](#6-data-quality-issues) | Data Quality Issues | DRAFT | CL |
+| [7](#7-simpler-case-law-apis--feedback-from-citation-verification-consumer) | Simpler Case Law APIs — Consumer Feedback | DRAFT | CL [#6946](https://github.com/freelawproject/courtlistener/issues/6946) |
+
 ## Status Legend
 
 - **DRAFT** - Needs more evidence/testing before submitting
@@ -455,95 +467,40 @@ We plan to **fork eyecite and submit a PR** with this fix alongside the Paragrap
 
 ## 5. Federal District Court Opinions Only in RECAP (Not in Opinions DB)
 
-**Status:** DRAFT
-**Target:** CourtListener (correct issue TBD — may be #3790 or a new issue)
-**Type:** Bug report with examples — RECAP documents not ingested as opinions
+**Status:** SUBMITTED
+**Target:** CourtListener [#6963](https://github.com/freelawproject/courtlistener/issues/6963) (related to closed #3790)
+**Type:** Bug report — 16 civil federal cases in RECAP but not in opinions DB
+**Filed:** 2026-02-16
 
 ### Summary
 
-Federal district court opinions that exist in RECAP (PACER docket data) are not always present in the opinions database (`type=o` search). Our verification pipeline falls back to RECAP search (Step 3) for these cases, finding the document but scoring it lower due to the RECAP discount. We've manually confirmed 5 civil cases where the correct opinion document exists in the docket but was never imported into the opinions database.
+16 federal civil cases where the opinion/order document exists in a RECAP docket but is not in the opinions database. 4 pre-sweep cases (2008–2023) are strongest evidence of a pipeline gap. All pre-sweep/edge cases re-verified absent from opinions DB on 2026-02-16.
 
-### CL's Ingestion Pipeline (from dev)
+### Background
 
-The RECAP-to-opinions pipeline works as follows:
-1. CL scrapes all "Free on PACER" content
-2. A document is ingested into opinions if it:
-   - Is in a **federal district or bankruptcy** jurisdiction
-   - Is a **civil case** (in federal district)
-   - Has **case law citations** inside the document text
+CL's RECAP-to-opinions pipeline requires: federal district/bankruptcy, civil case, and case law citations in the document text. Sweep coverage: 1950-05-12 to 2024-08-05, plus daily ingestion. Criminal cases excluded by design (#4642).
 
-Known gaps from this pipeline:
-- **Criminal cases** — excluded by design (not civil)
-- **Documents without case law citations** — will be missed even if they are opinions/orders
-- Could also be a bug in the ingestion pipeline itself
+### Cases reported in #6963
 
-Latest sweep coverage: **1950-05-12 to 2024-08-05**, plus daily ingestion. If documents were later marked as free, a targeted sweep on a specific date range can be run.
+| Category | Count | Key examples |
+|----------|-------|-------------|
+| Pre-sweep (2008–2023) | 4 | Fagundes (2008), Mali (2018), King (2019), Ruggierlo (2023) |
+| Sweep-edge (Aug 2024) | 1 | Dukuray |
+| Post-sweep (2025) | 11 | Button, Tercero, Oneto, Russomanno, Glass, HoosierVac, Thomas, Lahti, Coronavirus Reporter, Davis, O'Brien |
 
-### Confirmed RECAP-Only Cases (16 cases, manually verified)
+### Excluded from report
 
-All cases below were found in RECAP dockets with the correct opinion/order document, but are **not searchable** in the opinions database (`type=o`). Each was manually verified as the correct case.
+- **United States v. Hayes** — criminal case (excluded by design)
+- **Lacey v. State Farm** — our tool bug (picked wrong document)
+- **O'Brien v. Flick (S.D. Fla.)** — order behind paywall
 
-| # | Full Citation | RECAP Document URL |
-|---|---|---|
-| 1 | Button v. Humphries, No. 24-cv-01730, 2025 WL 2994725 (C.D. Cal. Sept. 12, 2025) | [docket/69037800/148](https://www.courtlistener.com/docket/69037800/148/dusty-button-v-micah-humphries/) |
-| 2 | Fagundes v. Charter Builders, Inc., 2008 WL 268977 (N.D. Cal. Jan. 29, 2008) | [docket/5793562/104](https://www.courtlistener.com/docket/5793562/104/fagundes-v-charter-builders-inc/) |
-| 3 | Tercero v. Sacramento Logistics, LLC, No. 24-cv-00953-DC-11-JDP, 2025 WL 2605020 (E.D. Cal. Sep. 9, 2025) | [docket/68387287/50](https://www.courtlistener.com/docket/68387287/50/tercero-v-sacramento-logistics-llc/) |
-| 4 | Oneto v. Watson, No. 22-cv-05206-AMO, 2025 WL 2901666 (N.D. Cal. Oct. 10, 2025) | [docket/65342301/93](https://www.courtlistener.com/docket/65342301/93/oneto-v-watson/) |
-| 5 | Russomanno v. Comm'r of Soc. Sec., No. 24-cv-01641, 2025 WL 2383541 (M.D. Fla. Aug. 18, 2025) | [docket/69146971/22](https://www.courtlistener.com/docket/69146971/22/russomanno-v-commissioner-of-social-security/) |
-| 6 | Glass v. Foley & Lardner LLP, 2025 WL 3079280 (W.D. Wis. Nov. 4, 2025) | [docket/69584955/32](https://www.courtlistener.com/docket/69584955/32/glass-todd-v-foley-lardner-llp/) |
-| 7 | Welfare Fund v. HoosierVac LLC, No. 2:24-CV-00326-JPH-MJD, 2025 WL 1511211 (S.D. Ind. May 28, 2025) | [docket/68879596/122](https://www.courtlistener.com/docket/68879596/122/mid-central-operating-engineers-health-and-welfare-fund-v-hoosiervac-llc/) |
-| 8 | Dukuray v. Experian Info. Sols., 2024 WL 3936347 (S.D.N.Y. Aug. 26, 2024) | [docket/67881565/43](https://www.courtlistener.com/docket/67881565/43/dukuray-v-experian-information-solutions/) |
-| 9 | King v. Police & Fire Fed. Credit Union, No. 16-6414, 2019 WL 2226049 (E.D. Pa. May 22, 2019) | [docket/7632576/31](https://www.courtlistener.com/docket/7632576/31/king-v-police-and-fire-federal-credit-union/) |
-| 10 | Mali v. British Airways, 2018 WL 3329858 (S.D.N.Y. July 6, 2018) | [docket/7378483/44](https://www.courtlistener.com/docket/7378483/44/mali-v-british-airways/) |
-| 11 | Ruggierlo, Velardo, Burke, Reizen & Fox, P.C. v. Lancaster, 2023 WL 5846798 (E.D. Mich. Sept. 11, 2023) | [docket/64925451/25](https://www.courtlistener.com/docket/64925451/25/ruggierlo-velardo-burke-reizen-fox-pc-v-lancaster/) |
-| 12 | Thomas v. Pangburn, 2024 WL 329947 (S.D. Ga. Jan. 29, 2024) | [docket/67565382/64](https://www.courtlistener.com/docket/67565382/64/thomas-v-pangburn/) |
-| 13 | Lahti v. Consensys Software Inc., 2025 WL 2 (S.D. Ohio Aug. 20, 2025) | [docket/68403961/44](https://www.courtlistener.com/docket/68403961/44/lahti-v-consensys-inc/) |
-| 14 | Coronavirus Reporter Corp. v. Apple Inc., 2025 WL 2162947 (N.D. Cal. July 30, 2025) | [docket/69434738/102](https://www.courtlistener.com/docket/69434738/102/coronavirus-reporter-corporation-v-apple-inc/) |
-| 15 | Davis v. Marion County Superior Court Juvenile Detention Center, 2025 WL 2502308 (S.D. Ind. Sept. 2025) | [docket/69325037/71](https://www.courtlistener.com/docket/69325037/71/davis-v-marion-county-superior-court-juvenile-detention-center/) |
-| 16 | O'Brien v. Flick, No. 25-10143, 2025 WL 2731627 (11th Cir. 2025) | [docket/69638127/30](https://www.courtlistener.com/docket/69638127/30/emmet-obrien-v-paul-flick/) |
+### Additional examples to add later
 
-**Notable:** 15 of 16 are civil federal district cases — they should meet the ingestion criteria. Case 16 is 11th Circuit (appellate). Possible explanations:
-- **Cases 1, 3–7, 13–16 (2025):** Filed after the latest sweep (ends 2024-08-05) and may not have been picked up by daily ingestion. Could need a targeted sweep.
-- **Case 8 (Aug 2024):** Falls right at the edge of the sweep window (sweep ends 2024-08-05, case filed 2024-08-26). Likely just missed.
-- **Cases 2, 10, 11 (2008, 2018, 2023) and Case 9 (2019):** Most puzzling — well within sweep range. May indicate a pipeline bug (perhaps no case law citations detected in the document text?).
+As new RECAP-only cases are found in verification runs, add them here and consider commenting on #6963 with a batch update.
 
-### Also Found (excluded from this report)
-
-- **United States v. Hayes** — criminal case, excluded from opinions by design per pipeline rules. Criminal ingestion is tracked separately in #4642.
-- **Lacey v. State Farm General Ins. Co.** — correct docket found but our tool selected the wrong document (doc 117 "leave to file under seal" instead of doc 119 "order"). This is a bug in our tool, not a CL data issue.
-- **O'Brien v. Flick (S.D. Fla.)** — correct docket found but our tool selected "Transcript Order Form" (doc 28). Actual order is behind paywall (not free on PACER). Can't confirm whether CL should have it.
-
-### Relationship to Existing Issues
-
-- [#3790](https://github.com/freelawproject/courtlistener/issues/3790) — RECAP into Opinions (closed Oct 2025, civil cases done)
-- [#4642](https://github.com/freelawproject/courtlistener/issues/4642) — Index cleanup, notes criminal cases still pending
-- [#6213](https://github.com/freelawproject/courtlistener/issues/6213) — Parent issue for LLM document ingestion
-- [#6065](https://github.com/freelawproject/courtlistener/issues/6065) — ~500 trial court docs ingested since June 2025 lacked HTML with citations (fixed)
-- [#6514](https://github.com/freelawproject/courtlistener/issues/6514) — 458 RECAP-sourced opinions have HTML in case name slugs
-
-### Decision Factors
-
-**Pros:**
-- 16 concrete examples with docket URLs FLP can investigate directly
-- 15 are civil federal district — should have been ingested
-- 4 pre-sweep cases (2008, 2018, 2019, 2023) are strong evidence of a pipeline gap
-- Pipeline context from dev helps frame the issue constructively
-
-**Cons:**
-- 10 of 16 cases are post-sweep (2025) — may just need a targeted sweep
-- Correct issue to file against is unclear
-
-**Recommendation:** Sample is now large enough to report (16 cases, 4 pre-sweep). The pre-sweep cases (Fagundes 2008, Mali 2018, King 2019, Ruggierlo 2023) are the strongest evidence — these should have been picked up. Consider filing a comment on #3790 or a new issue.
-
-### Submission Checklist
-
-- [ ] Identify the correct issue to report against (may need to search CL issues or ask)
-- [ ] Verify King v. Police & Fire (2019) is still not in opinions DB
-- [ ] Check if Dukuray (Aug 2024) has appeared in opinions DB since sweep coverage ends 2024-08-05
-- [ ] Collect more examples from additional verification runs (target: 10+ confirmed)
-- [ ] Check whether documents contain case law citations (pipeline requirement)
-- [ ] Draft issue/comment with examples and pipeline context
-- [ ] Update this doc with findings
+| Citation | Year | Court | RECAP Document | Found in run |
+|----------|------|-------|---------------|-------------|
+| *(none yet)* | | | | |
 
 ---
 
@@ -597,6 +554,120 @@ Before reporting data quality issues:
 - Verify it's not expected behavior
 - Check if already reported
 - Assess impact (widespread vs edge case)
+
+---
+
+## 7. Simpler Case Law APIs — Feedback from Citation Verification Consumer
+
+**Status:** DRAFT
+**Target:** CourtListener issue [#6946](https://github.com/freelawproject/courtlistener/issues/6946)
+**Type:** Comment on existing issue
+
+### Summary
+
+Issue #6946 proposes simpler case law APIs — flatter responses, top-level court filtering, state-level parameters. We've been building a citation verification tool on top of the v4 API and have concrete feedback about what structural changes would help most.
+
+### Proposed Comment for Issue #6946
+
+```markdown
+Hi -- great to see this issue opened. I've been building a citation verification tool ([rlfordon/citation-verifier](https://github.com/rlfordon/citation-verifier)) that checks legal citations against the CourtListener API to catch AI-hallucinated case references. I've been living inside the v4 API for a while now and wanted to share some friction points from a real consumer's perspective that might be useful as you think about what a simpler API looks like.
+
+### The verification pipeline today
+
+To verify a single citation like `Obergefell v. Hodges, 576 U.S. 644 (2015)`, my tool makes up to **5-8 API calls**:
+
+1. `POST /citation-lookup/` — exact reporter match
+2. Up to 4 more citation lookups trying adjacent pages (off-by-one is common in briefs)
+3. `GET /search/?type=o` — fuzzy opinion search as fallback
+4. `GET /search/?type=r` — RECAP search as second fallback
+5. `GET /docket-entries/` — paginated follow-up to find the actual opinion document within a docket
+
+Each step exists because the previous one lacks something. A lot of this could collapse into fewer round trips with some structural changes.
+
+### Specific issues I've hit
+
+**1. Citation lookup is text-only, no structured input**
+
+`/citation-lookup/` takes a raw text string and does its own internal parsing. My parser has already extracted `volume=576, reporter="U.S.", page=644` but I have to serialize it back to a string and hope CL's parser agrees. When there's an off-by-one page number (common in briefs that cite a pinpoint page instead of the starting page), I can't say "find cases near page 644 in 576 U.S." — I have to make 4 extra calls trying pages 643, 645, 642, 646 individually. A structured lookup with a page tolerance would eliminate these.
+
+**2. Opinions and RECAP are parallel universes**
+
+I maintain two entirely separate processing pipelines (~200 lines each) because the response shapes and semantics are so different. Some real cases exist only in opinions, some only in RECAP, some in both with different metadata. There's no unified "does this case exist?" query. I've found [16 confirmed real federal cases](https://github.com/rlfordon/citation-verifier/blob/main/scratch/flp_contributions.md) that exist only in RECAP and not in the opinions DB.
+
+**3. RECAP returns dockets, not documents**
+
+When I search RECAP I get docket-level results, but I need a specific document (the opinion, not the "Certificate of Service"). So I have to: query docket-entries filtered by date, iterate all entries and their nested documents, then run my own keyword heuristic to distinguish opinions from procedural filings. There's no `doc_type` filter on RECAP search or docket-entries. A way to search for "opinion documents matching X" directly would save 1-2 round trips per citation and a lot of client-side heuristic code.
+
+**4. `dateFiled` means different things on different endpoints**
+
+On opinion search, `dateFiled` is the opinion date. On RECAP search, `dateFiled` is the case filing date (which can be years before the opinion). The actual document date is buried in `entry_date_filed` on individual docket entries, which I can only get by querying the docket-entries API. This semantic inconsistency requires a follow-up API call every time I need to verify a date against a RECAP result.
+
+**5. Field naming is inconsistent across v4 endpoints**
+
+I have dual-key lookups everywhere because search returns camelCase (`caseName`, `dateFiled`, `docketNumber`) while REST endpoints return snake_case (`case_name`, `date_filed`, `docket_number`). Same API version, different conventions:
+
+\`\`\`python
+case_name = r.get("caseName") or r.get("case_name", "")
+date_filed = r.get("dateFiled") or r.get("date_filed", "")
+\`\`\`
+
+**6. URLs are sometimes relative, sometimes absent**
+
+I have URL construction logic in 5 separate places — the API returns relative paths sometimes, absolute URLs sometimes, and nothing at all sometimes (just a cluster_id). Canonical absolute URLs on every result would help.
+
+**7. Search doesn't handle standard legal abbreviations**
+
+"Cnty." doesn't match "County", "Dep't" doesn't match "Department". I maintain a [47-term normalization table](https://github.com/rlfordon/citation-verifier/blob/main/src/citation_verifier/parser.py) expanding Indigo Book abbreviations client-side before every search call. I know this is tracked in #3089 and #3367, but it's worth noting here because it's one of the biggest sources of false negatives in practice and a simpler API could address it.
+
+**8. No match-quality signal in search responses**
+
+Search results come back with no indication of match strength. I built a [270-line multi-factor name matcher](https://github.com/rlfordon/citation-verifier/blob/main/src/citation_verifier/name_matcher.py) and a 200-line weighted scoring system because the API gives me a flat list with no signal about how well a result matches my query. Even a rough relevance score or match-type indicator ("exact match" vs "partial" vs "keyword") would help consumers avoid rebuilding this.
+
+**9. The `docket` search parameter is silently broken**
+
+The RECAP search `docket` parameter appears to be ignored — it returns unfiltered results regardless. I work around this by passing quoted docket numbers through the `q` parameter and filtering client-side. A parameter that silently does nothing is worse than a missing one. (Happy to provide test cases if this isn't already known.)
+
+**10. The `citation` field on results is structurally unpredictable**
+
+Sometimes it's a list, sometimes a string, sometimes empty even for cases that have reporter citations. WestLaw citations are almost never present. This makes it impossible to confirm whether a found case actually matches the cited reporter volume/page, which is a key verification signal.
+
+### What would help most
+
+From my use case, the highest-impact changes would be:
+
+1. **Structured citation lookup** — accept volume/reporter/page with tolerance, not just raw text
+2. **Unified case search** across opinions and RECAP in one call with one response shape
+3. **Document-type filtering** on RECAP/docket-entries (e.g., `doc_type=opinion`)
+4. **Consistent field naming and absolute URLs** across all v4 endpoints
+5. **Abbreviation synonyms** in the search index (the Indigo Book table from #3367)
+
+Happy to provide more specific examples or test cases for any of these. And thanks for all the work on CourtListener — even with these friction points, it's an incredible resource and the only reason a tool like mine is possible.
+```
+
+### Decision Factors
+
+**Pros:**
+- Real consumer feedback with concrete code examples
+- Links to public repo so FLP can see the actual workarounds
+- Constructive tone — acknowledges CL's value while highlighting friction
+- Aligns directly with what #6946 is asking for (simpler APIs)
+- Quantifies the problem (5-8 API calls per citation, 200+ lines of workaround code)
+
+**Cons:**
+- Long comment — may be too detailed for an early-stage discussion
+- Some points overlap with existing issues (#3089, #3367, docket param)
+- Could overwhelm if they're still in the "what should we build?" phase
+
+**Recommendation:** Wait for some initial discussion on #6946 before posting. If the issue gets traction and FLP is actively soliciting feedback, this is exactly the kind of consumer perspective they need. If the issue goes quiet, may not be worth the noise.
+
+### Submission Checklist
+
+- [ ] Wait for initial discussion on #6946
+- [ ] Verify repo is public and links work
+- [ ] Review tone one more time
+- [ ] Consider shortening to top 5 issues if comment is too long
+- [ ] Post comment
+- [ ] Update this doc with link
 
 ---
 
