@@ -9,7 +9,7 @@ This document tracks potential contributions to FLP's projects (CourtListener, e
 | [1](#1-abbreviation-synonym-coverage-for-search) | Abbreviation Synonym Coverage for Search | DRAFT | CL [#3367](https://github.com/freelawproject/courtlistener/issues/3367) |
 | [2](#2-docket-parameter-unreliability) | Docket Parameter Unreliability | DECLINED | CL |
 | [3](#3-eyecite-newline-breaks-metadata-parsing-paragraphtoken-boundary) | eyecite: Newline Breaks Metadata Parsing | READY | eyecite |
-| [4](#4-eyecite-apostrophe-truncates-case-name-words) | eyecite: Apostrophe Truncates Case Names | READY | eyecite |
+| [4](#4-eyecite-apostrophe-truncates-case-name-words) | eyecite: Apostrophe Truncates Case Names | SUBMITTED | eyecite [#296](https://github.com/freelawproject/eyecite/issues/296) |
 | [5](#5-federal-district-court-opinions-only-in-recap-not-in-opinions-db) | Federal Court Opinions Only in RECAP | SUBMITTED | CL [#6963](https://github.com/freelawproject/courtlistener/issues/6963) |
 | [6](#6-data-quality-issues) | Data Quality Issues | DRAFT | CL |
 | [7](#7-simpler-case-law-apis--feedback-from-citation-verification-consumer) | Simpler Case Law APIs — Consumer Feedback | DRAFT | CL [#6946](https://github.com/freelawproject/courtlistener/issues/6946) |
@@ -362,106 +362,26 @@ Allow `match_on_tokens()` to continue scanning across a single `ParagraphToken` 
 
 ## 4. eyecite: Apostrophe Truncates Case Name Words
 
-**Status:** READY
-**Target:** eyecite ([https://github.com/freelawproject/eyecite](https://github.com/freelawproject/eyecite))
-**Type:** Bug fix PR
+**Status:** SUBMITTED
+**Target:** eyecite [#296](https://github.com/freelawproject/eyecite/issues/296)
+**Type:** Bug report
+**Filed:** 2026-02-16
 
 ### Summary
 
-eyecite's case name extraction regexes use `[\w\-.]+` to match words, but `\w` excludes apostrophes. Legal abbreviations with internal apostrophes (`Att'y`, `Dep't`, `Gov't`, `Comm'n`, `P'ship`, `Nat'l`, `Sec'y`) are truncated at the apostrophe, losing the suffix.
+eyecite's case name extraction regexes use `[\w\-.]+` to match words, but `\w` excludes apostrophes. Legal abbreviations with internal apostrophes (`Att'y`, `Dep't`, `Gov't`, `Comm'n`, `P'ship`, `Nat'l`, `Sec'y`) are truncated at the apostrophe, losing the suffix. 8 case names affected in our 19-PDF corpus. 11 standard Indigo Book abbreviations identified.
 
-### Root Cause
+### Suggested fix
 
-Three regexes in `eyecite/regexes.py` use character classes that don't include apostrophes:
+Add straight and curly apostrophes to three character classes in `eyecite/regexes.py`:
+- `[\w\-.]+` → `[\w\-.'\u2019]+` (SHORT_CITE_ANTECEDENT_REGEX, SUPRA_ANTECEDENT_REGEX)
+- `[a-z\-.]+` → `[a-z\-.'\u2019]+` (PRE_FULL_CITATION_REGEX)
 
-| Line | Regex | Purpose |
-|------|-------|---------|
-| 266 | `SHORT_CITE_ANTECEDENT_REGEX`: `[\w\-.]+` | Short cite antecedents ("Adarand, 515 U.S. at 241") |
-| 278, 280 | `SUPRA_ANTECEDENT_REGEX`: `[\w\-.]+` | Supra cite antecedents |
-| 336 | `PRE_FULL_CITATION_REGEX`: `[a-z\-.]+` | Backward scan for case names before full citations |
+Offered to submit a PR if maintainers want one.
 
-### Evidence
+### Draft
 
-```python
-from eyecite import get_citations
-from eyecite.models import FullCaseCitation
-
-cases = [
-    ("Att'y Grievance Comm'n v. Glenn, 341 Md. 448 (2003).",
-     "Att'y Grievance Comm'n", "Att' Grievance Comm'"),
-    ("Keaau Dev. P'ship LLC v. Lawrence, 571 P.3d 958 (2025).",
-     "Keaau Dev. P'ship LLC", "Keaau Dev. P' LLC"),
-    ("Am. Nat'l Ins. Co. v. FDIC, 642 F.3d 1137 (2011).",
-     "Am. Nat'l Ins. Co.", "Am. Nat' Ins. Co."),
-]
-
-for text, expected_plaintiff, actual_plaintiff in cases:
-    c = [c for c in get_citations(text) if isinstance(c, FullCaseCitation)][0]
-    p = c.metadata.plaintiff or ''
-    print(f"Expected: {expected_plaintiff}")
-    print(f"Actual:   {p}")
-    # All cases: suffix after apostrophe is dropped
-```
-
-**Affected abbreviations (standard Indigo Book terms):**
-- `Att'y` (Attorney) → `Att'`
-- `Dep't` (Department) → `Dep'`
-- `Gov't` (Government) → `Gov'`
-- `Comm'n` (Commission) → `Comm'`
-- `Comm'r` (Commissioner) → `Comm'`
-- `P'ship` (Partnership) → `P'`
-- `Nat'l` (National) → `Nat'`
-- `Int'l` (International) → `Int'`
-- `Sec'y` (Secretary) → `Sec'`
-- `Ass'n` (Association) → `Ass'`
-- `Adm'r` (Administrator) → `Adm'`
-
-**Scale of impact (our corpus):** 8 case names directly affected across 19 PDFs. These abbreviations are extremely common in legal citations generally.
-
-### Proposed Fix
-
-Change three character classes to include straight and curly apostrophes:
-
-```python
-# Line 266 (SHORT_CITE_ANTECEDENT_REGEX)
-# Before:
-[\w\-.]+
-# After:
-[\w\-.'\u2019]+
-
-# Line 278, 280 (SUPRA_ANTECEDENT_REGEX)
-# Same change
-
-# Line 336 (PRE_FULL_CITATION_REGEX)
-# Before:
-[a-z\-.]+
-# After:
-[a-z\-.'\u2019]+
-```
-
-Including `\u2019` (right single quotation mark / curly apostrophe) handles PDFs that use Unicode typography.
-
-### Risk Assessment
-
-**Low risk:**
-- These regexes already allow periods (`.`) and hyphens (`-`), so apostrophes are consistent
-- Legal abbreviations with internal apostrophes are well-defined and unambiguous
-- Possessives (e.g., "Smith's") are unlikely to appear at word boundaries in case names
-- Change is additive — existing matches are unaffected, only previously-truncated words are now captured fully
-
-### Plan
-
-We plan to **fork eyecite and submit a PR** with this fix alongside the ParagraphToken fix (item #3 above). Both are small, focused changes that can be reviewed independently.
-
-### Submission Checklist
-
-- [ ] Fork eyecite repository
-- [ ] Create branch for apostrophe fix
-- [ ] Make the three regex changes
-- [ ] Add test cases for affected abbreviations
-- [ ] Verify existing eyecite tests still pass
-- [ ] Open PR with reproduction examples and impact data
-- [ ] Update this doc with PR link
+See `scratch/drafts/eyecite-apostrophe-truncation.md` for the full issue text as filed.
 
 ---
 
