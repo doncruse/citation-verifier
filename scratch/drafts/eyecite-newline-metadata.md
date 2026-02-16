@@ -33,7 +33,7 @@ Also affects pin cites with newlines:
 
 I'm building a citation verification tool ([rlfordon/citation-verifier](https://github.com/rlfordon/citation-verifier)) that extracts citations from court opinion PDFs using eyecite. In my corpus of 19 PDFs (536 total citations), **101 citations (19%) lost court/year metadata** due to this issue. Every single PDF was affected. All common reporters hit: F.2d, F.3d, F.4th, F. Supp. 2d/3d, N.E.2d/3d, S.W.2d/3d, P.3d, Cal. App., WL.
 
-This is because PDF text extractors (pdfplumber, pdfminer, etc.) preserve line breaks from the page layout, and court opinions frequently break lines between a citation and its parenthetical.
+This is because many PDF text extractors (pdfplumber, pdfminer, etc.) preserve line breaks from the page layout, and court opinions frequently break lines between a citation and its parenthetical.
 
 ## Root cause
 
