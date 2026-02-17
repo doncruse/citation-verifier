@@ -13,6 +13,7 @@ This document tracks potential contributions to FLP's projects (CourtListener, e
 | [5](#5-federal-district-court-opinions-only-in-recap-not-in-opinions-db) | Federal Court Opinions Only in RECAP | SUBMITTED | CL [#6963](https://github.com/freelawproject/courtlistener/issues/6963) |
 | [6](#6-data-quality-issues) | Data Quality Issues | DRAFT | CL |
 | [7](#7-simpler-case-law-apis--feedback-from-citation-verification-consumer) | Simpler Case Law APIs — Consumer Feedback | DRAFT | CL [#6946](https://github.com/freelawproject/courtlistener/issues/6946) |
+| [8](#8-api-docs-blocked-by-bot-protection--llmstxt) | API Docs Blocked by Bot Protection / llms.txt | SUBMITTED | CL [#6040](https://github.com/freelawproject/courtlistener/issues/6040) |
 
 ## Status Legend
 
@@ -499,6 +500,69 @@ Happy to provide more specific examples or test cases for any of these. And than
 - [ ] Consider shortening to top 5 issues if comment is too long
 - [ ] Post comment
 - [ ] Update this doc with link
+
+---
+
+## 8. API Docs Blocked by Bot Protection / llms.txt
+
+**Status:** SUBMITTED — [comment](https://github.com/freelawproject/courtlistener/issues/6040#issuecomment-3917584540)
+**Target:** CourtListener [#6040](https://github.com/freelawproject/courtlistener/issues/6040)
+**Filed:** 2026-02-17
+**Type:** Comment on existing issue
+
+### Summary
+
+CourtListener's API documentation pages (`/help/api/`, `/help/api/rest/`, etc.) return HTTP 403 to programmatic requests, likely due to blanket bot protection (Cloudflare or similar) across the whole domain. This means LLM agents and developer tools cannot read the canonical API docs, forcing them to rely on stale blog posts and GitHub discussions — which is likely the root cause of the "LLMs reading our docs badly" problem that prompted #6040.
+
+Issue #6040 proposes an `llms.txt` file, which would help, but the underlying 403 problem would affect that file too if served behind the same protection.
+
+### How We Discovered This
+
+While building citation-verifier, we used an LLM coding assistant (Claude Code) to help with API integration. When the assistant tried to fetch API documentation to understand endpoint parameters and response shapes:
+
+- `courtlistener.com/help/api/` → **403**
+- `courtlistener.com/help/api/rest/` → **403**
+
+The assistant fell back on blog posts, GitHub discussions, and cached knowledge — leading to the exact "bad API usage" pattern mlissner described in #6040.
+
+### Why This Matters
+
+1. **LLM agents can't self-correct** — They make malformed API calls because they literally cannot read the docs
+2. **Developer tools are affected too** — CI pipelines, doc aggregators, any programmatic access
+3. **It wastes CL's rate limits** — Bad calls from uninformed consumers burn through the 5,000/hr budget
+4. **The problem is self-reinforcing** — Blocked docs → bad usage → more noise on CL's API → more motivation for bot protection
+
+### Proposed Comment for Issue #6040
+
+```markdown
+Wanted to add some concrete context on this — I think the problem may be more fundamental than LLMs misreading the docs.
+
+**The API documentation pages actively block programmatic access.** Fetching `courtlistener.com/help/api/rest/` from any non-browser client returns 403. This means LLM agents and developer tools aren't reading the docs badly — they can't read them at all. They fall back on whatever they can find: old blog posts, GitHub discussions, cached training data — which explains the bad API usage you're seeing.
+
+I hit this while building [citation-verifier](https://github.com/rlfordon/citation-verifier), a tool that checks legal citations against the CL API to catch AI-hallucinated cases. My LLM coding assistant tried to fetch the API docs to help with integration and got 403'd on every `/help/api/` page. It ended up relying on GitHub discussions and blog posts instead — functional but incomplete.
+
+An `llms.txt` file would help, but only if it's served without the same bot protection. A potentially quicker complementary win: exempt the `/help/` paths from whatever bot filtering is in place. Those pages are static documentation with zero abuse risk, and making them accessible would immediately improve the quality of every LLM-assisted integration being built against the API.
+```
+
+### Decision Factors
+
+**Pros:**
+- Concrete evidence of a problem they may not fully understand
+- Reframes #6040 from "LLMs are bad at reading" to "LLMs can't read at all" — increases urgency
+- Actionable suggestion (exempt `/help/` from bot protection) that's independent of `llms.txt`
+- Short, focused comment — not overwhelming
+- Directly relevant to an open issue they created
+
+**Cons:**
+- #6040 has been open since July 2025 with minimal activity — may not be prioritized
+- Bot protection may be a deliberate security posture they don't want to weaken
+- Could be seen as "you should change your infrastructure for my use case"
+
+**Recommendation:** Comment on #6040. The reframing adds genuine value — if they think the problem is LLM output quality, they'll build `llms.txt` and wonder why it doesn't help (because it'll also get 403'd). The 403 evidence changes the diagnosis.
+
+### Draft
+
+See `scratch/drafts/cl-6040-api-docs-bot-protection.md` for the full comment text.
 
 ---
 
