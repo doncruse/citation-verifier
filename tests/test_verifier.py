@@ -909,10 +909,120 @@ class TestCaseNameNormalization:
                     f"for input '{citation_fragment}'"
                 )
 
+    def test_commr_expanded_to_commissioner(self):
+        """Comm'r should expand to Commissioner (Russomanno case)."""
+        from citation_verifier.parser import parse_citation
+
+        parsed = parse_citation(
+            "Russomanno v. Comm'r of Internal Revenue, 100 F.3d 200 (2d Cir. 2020)"
+        )
+        assert "Commissioner" in parsed.case_name
+        assert "Comm'r" not in parsed.case_name
+
+    def test_info_sols_expanded(self):
+        """Info. Sols. should expand to Information Solutions (Dukuray case)."""
+        from citation_verifier.parser import parse_citation
+
+        parsed = parse_citation(
+            "Dukuray v. Global Info. Sols., 100 F.3d 200 (2d Cir. 2020)"
+        )
+        assert "Information" in parsed.case_name
+        assert "Solutions" in parsed.case_name
+
+    def test_fin_expanded_to_finance(self):
+        """Fin. should expand to Finance (Auto Fin. Corp. case)."""
+        from citation_verifier.parser import parse_citation
+
+        parsed = parse_citation(
+            "Auto Fin. Corp. v. Liu, 100 F.3d 200 (2d Cir. 2020)"
+        )
+        assert "Finance" in parsed.case_name
+
+    def test_nw_expanded_to_northwest(self):
+        """Nw. should expand to Northwest (Weatherly case)."""
+        from citation_verifier.parser import parse_citation
+
+        parsed = parse_citation(
+            "Weatherly v. Second Nw. Coop. Homes, 100 F.3d 200 (D.C. 2020)"
+        )
+        assert "Northwest" in parsed.case_name
+
 
 # ---------------------------------------------------------------------------
 # Citation lookup name matching (lenient surname-based)
 # ---------------------------------------------------------------------------
+
+
+class TestBidirectionalAbbreviationNormalization:
+    """Name matcher should normalize both cited and CL names so abbreviation
+    differences don't tank similarity scores. See TODO: Bidirectional abbreviation
+    normalization (Priority 1)."""
+
+    def test_commr_vs_commissioner(self):
+        """Comm'r should match Commissioner (Russomanno case)."""
+        from citation_verifier.name_matcher import CaseNameMatcher
+
+        m = CaseNameMatcher()
+        score = m.calculate_similarity(
+            "Russomanno v. Comm'r of Internal Revenue",
+            "Russomanno v. Commissioner of Internal Revenue",
+        )
+        assert score >= 0.85, f"Expected >= 0.85, got {score}"
+
+    def test_ampersand_vs_and(self):
+        """& should match 'and' (King v. Police & Fire case)."""
+        from citation_verifier.name_matcher import CaseNameMatcher
+
+        m = CaseNameMatcher()
+        score = m.calculate_similarity(
+            "King v. Police & Fire Retirement System",
+            "King v. Police and Fire Retirement System",
+        )
+        assert score >= 0.85, f"Expected >= 0.85, got {score}"
+
+    def test_info_sols_vs_information_solutions(self):
+        """Info. Sols. should match Information Solutions (Dukuray case)."""
+        from citation_verifier.name_matcher import CaseNameMatcher
+
+        m = CaseNameMatcher()
+        score = m.calculate_similarity(
+            "Dukuray v. Global Info. Sols.",
+            "Dukuray v. Global Information Solutions",
+        )
+        assert score >= 0.85, f"Expected >= 0.85, got {score}"
+
+    def test_fin_corp_vs_finance_corporation(self):
+        """Fin. Corp. should match Finance Corporation (Auto Fin. Corp. case)."""
+        from citation_verifier.name_matcher import CaseNameMatcher
+
+        m = CaseNameMatcher()
+        score = m.calculate_similarity(
+            "Auto Fin. Corp. v. Liu",
+            "Auto Finance Corporation v. Liu",
+        )
+        assert score >= 0.85, f"Expected >= 0.85, got {score}"
+
+    def test_nw_assn_vs_northwest_association(self):
+        """Nw. + Ass'n should match Northwest + Association (Weatherly case)."""
+        from citation_verifier.name_matcher import CaseNameMatcher
+
+        m = CaseNameMatcher()
+        score = m.calculate_similarity(
+            "Weatherly v. Second Nw. Coop. Homes Ass'n",
+            "Weatherly v. Second Northwest Cooperative Homes Association",
+        )
+        assert score >= 0.85, f"Expected >= 0.85, got {score}"
+
+    def test_smart_apostrophe_normalization(self):
+        """Smart apostrophes (\u2019) should match straight apostrophes."""
+        from citation_verifier.name_matcher import CaseNameMatcher
+
+        m = CaseNameMatcher()
+        score = m.calculate_similarity(
+            "Busha v. SC Dep\u2019t of Mental Health",
+            "Busha v. SC Department of Mental Health",
+        )
+        assert score >= 0.85, f"Expected >= 0.85, got {score}"
 
 
 class TestCitationLookupNameMatching:
