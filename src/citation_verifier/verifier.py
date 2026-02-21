@@ -408,7 +408,8 @@ class CitationVerifier:
                             or doc.get("description")
                             or ""
                         ).lower()
-                        if not self._is_substantive_doc(desc):
+                        is_free = doc.get("is_free_on_pacer") is True
+                        if not self._is_substantive_doc(desc) and not is_free:
                             continue
                         has_date_match = True
                         break
@@ -524,16 +525,20 @@ class CitationVerifier:
             entry_desc = doc.get("entry_description") or ""
             full_desc = f"{desc} {entry_desc}".lower()
             is_substantive = self._is_substantive_doc(full_desc)
-            scored_docs.append((doc, entry_date, score, mismatches, is_substantive))
+            is_free = doc.get("is_free_on_pacer") is True
+            scored_docs.append((doc, entry_date, score, mismatches, is_substantive, is_free))
 
         # Pick best substantive doc; fall back to best overall.
-        # Tiebreakers (in order): score, date proximity, document type.
-        substantive = [d for d in scored_docs if d[4]]
+        # is_free_on_pacer=True is a strong signal the doc is an opinion
+        # (PACER's Written Opinion Report), so treat it as substantive.
+        # Tiebreakers (in order): score, is_free_on_pacer, date proximity, document type.
+        substantive = [d for d in scored_docs if d[4] or d[5]]
         pool = substantive or scored_docs
         best_doc = max(
             pool,
             key=lambda d: (
                 d[2],
+                d[5],  # is_free_on_pacer — strong opinion signal
                 self._date_proximity(parsed, d[1]),
                 self._doc_type_priority(
                     f"{d[0].get('short_description') or d[0].get('description') or ''} "
@@ -542,7 +547,7 @@ class CitationVerifier:
             ),
         )
 
-        doc, entry_date, score, mismatches, _ = best_doc
+        doc, entry_date, score, mismatches, _, _ = best_doc
         doc_url = doc.get("absolute_url", "")
         if doc_url and not doc_url.startswith("http"):
             doc_url = f"https://www.courtlistener.com{doc_url}"
@@ -1376,7 +1381,8 @@ class CitationVerifier:
                             or doc.get("description")
                             or ""
                         ).lower()
-                        if not self._is_substantive_doc(desc):
+                        is_free = doc.get("is_free_on_pacer") is True
+                        if not self._is_substantive_doc(desc) and not is_free:
                             continue
                         has_date_match = True
                         break

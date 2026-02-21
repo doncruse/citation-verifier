@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Citation Verifier</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 20px;
+    color: #1a1a1a;
+    background: #f8f9fa;
+  }
+  h1 { margin: 0 0 4px; font-size: 1.5rem; }
+  .subtitle { color: #666; margin: 0 0 20px; font-size: 0.9rem; }
+  .subtitle a { color: #4a6fa5; }
+
+  /* Input area */
+  .input-section { margin-bottom: 20px; }
+  textarea {
+    width: 100%;
+    height: 160px;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+    font-size: 0.85rem;
+    resize: vertical;
+    line-height: 1.5;
+  }
+  textarea:focus { outline: none; border-color: #4a6fa5; box-shadow: 0 0 0 2px rgba(74,111,165,0.15); }
+  .input-controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 8px;
+  }
+  .cite-count { font-size: 0.85rem; color: #666; }
+  button {
+    padding: 8px 20px;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  #verify-btn {
+    background: #4a6fa5;
+    color: #fff;
+    font-weight: 600;
+  }
+  #verify-btn:hover:not(:disabled) { background: #3a5a8a; }
+  #verify-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+  #export-btn {
+    background: #e9ecef;
+    color: #333;
+  }
+  #export-btn:hover:not(:disabled) { background: #dde0e3; }
+  #export-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+  /* Progress bar */
+  .progress-container {
+    margin-bottom: 16px;
+    display: none;
+  }
+  .progress-container.active { display: block; }
+  .progress-bar-bg {
+    height: 6px;
+    background: #e9ecef;
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .progress-bar-fill {
+    height: 100%;
+    background: #4a6fa5;
+    width: 0%;
+    transition: width 0.3s ease;
+    border-radius: 3px;
+  }
+  .progress-text {
+    font-size: 0.8rem;
+    color: #666;
+    margin-top: 4px;
+  }
+
+  /* Results table */
+  .results-section { display: none; }
+  .results-section.active { display: block; }
+  .table-wrap { overflow-x: auto; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+  }
+  th {
+    text-align: left;
+    padding: 8px 10px;
+    background: #e9ecef;
+    border-bottom: 2px solid #ccc;
+    white-space: nowrap;
+    font-weight: 600;
+  }
+  td {
+    padding: 8px 10px;
+    border-bottom: 1px solid #eee;
+    vertical-align: top;
+  }
+  tr:hover td { background: #f0f4f8; }
+  td.citation-col { max-width: 240px; word-break: break-word; }
+  td.name-col { max-width: 260px; word-break: break-word; }
+
+  /* Status badges */
+  .badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .badge-verified { background: #d4edda; color: #155724; }
+  .badge-likely { background: #cce5ff; color: #004085; }
+  .badge-possible { background: #fff3cd; color: #856404; }
+  .badge-notfound { background: #f8d7da; color: #721c24; }
+  .badge-error { background: #e2e3e5; color: #383d41; }
+  .badge-pending { background: #e9ecef; color: #6c757d; }
+
+  /* Placeholder rows */
+  .placeholder td { color: #aaa; }
+
+  /* Link */
+  a.cl-link { color: #4a6fa5; text-decoration: none; }
+  a.cl-link:hover { text-decoration: underline; }
+
+  /* Error banner */
+  .error-banner {
+    background: #f8d7da;
+    color: #721c24;
+    padding: 10px 14px;
+    border-radius: 6px;
+    margin-bottom: 12px;
+    display: none;
+    font-size: 0.9rem;
+  }
+  .error-banner.active { display: block; }
+
+  /* Footer */
+  .footer {
+    margin-top: 30px;
+    padding-top: 16px;
+    border-top: 1px solid #dee2e6;
+    font-size: 0.8rem;
+    color: #888;
+  }
+  .footer a { color: #4a6fa5; }
+</style>
+</head>
+<body>
+
+<h1>Citation Verifier</h1>
+<p class="subtitle">
+  Check legal citations against
+  <a href="https://www.courtlistener.com/" target="_blank" rel="noopener">CourtListener</a>.
+  Paste one citation per line.
+</p>
+
+<div class="error-banner" id="error-banner"></div>
+
+<div class="input-section">
+  <textarea id="citations-input" placeholder="Obergefell v. Hodges, 576 U.S. 644 (2015)
+Miranda v. Arizona, 384 U.S. 436 (1966)
+Terry v. Ohio, 392 U.S. 1 (1968)"></textarea>
+  <div class="input-controls">
+    <button id="verify-btn">Verify</button>
+    <span class="cite-count" id="cite-count">0 citations</span>
+    <button id="export-btn" disabled>Export CSV</button>
+  </div>
+</div>
+
+<div class="progress-container" id="progress-container">
+  <div class="progress-bar-bg">
+    <div class="progress-bar-fill" id="progress-fill"></div>
+  </div>
+  <div class="progress-text" id="progress-text">Verifying...</div>
+</div>
+
+<div class="results-section" id="results-section">
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Citation</th>
+          <th>Status</th>
+          <th>Confidence</th>
+          <th>Matched Case</th>
+          <th>Link</th>
+        </tr>
+      </thead>
+      <tbody id="results-body">
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="footer">
+  Powered by <a href="https://www.courtlistener.com/" target="_blank" rel="noopener">CourtListener</a>
+  from the <a href="https://free.law/" target="_blank" rel="noopener">Free Law Project</a>.
+  <a href="https://github.com/rlfordon/citation-verifier" target="_blank" rel="noopener">Source</a>.
+</div>
+
+<script>
+(function() {
+  const textarea = document.getElementById('citations-input');
+  const verifyBtn = document.getElementById('verify-btn');
+  const exportBtn = document.getElementById('export-btn');
+  const citeCount = document.getElementById('cite-count');
+  const progressContainer = document.getElementById('progress-container');
+  const progressFill = document.getElementById('progress-fill');
+  const progressText = document.getElementById('progress-text');
+  const resultsSection = document.getElementById('results-section');
+  const resultsBody = document.getElementById('results-body');
+  const errorBanner = document.getElementById('error-banner');
+
+  let results = [];
+
+  function getCitations() {
+    return textarea.value.split('\n').map(s => s.trim()).filter(Boolean);
+  }
+
+  function updateCiteCount() {
+    const n = getCitations().length;
+    citeCount.textContent = n + ' citation' + (n !== 1 ? 's' : '');
+  }
+
+  textarea.addEventListener('input', updateCiteCount);
+  updateCiteCount();
+
+  function showError(msg) {
+    errorBanner.textContent = msg;
+    errorBanner.classList.add('active');
+  }
+
+  function hideError() {
+    errorBanner.classList.remove('active');
+  }
+
+  function badgeClass(status) {
+    switch (status) {
+      case 'VERIFIED': return 'badge-verified';
+      case 'LIKELY_REAL': return 'badge-likely';
+      case 'POSSIBLE_MATCH': return 'badge-possible';
+      case 'NOT_FOUND': return 'badge-notfound';
+      case 'ERROR': return 'badge-error';
+      default: return 'badge-pending';
+    }
+  }
+
+  function statusLabel(status) {
+    switch (status) {
+      case 'VERIFIED': return 'Verified';
+      case 'LIKELY_REAL': return 'Likely Real';
+      case 'POSSIBLE_MATCH': return 'Possible';
+      case 'NOT_FOUND': return 'Not Found';
+      case 'ERROR': return 'Error';
+      default: return 'Pending';
+    }
+  }
+
+  function createPlaceholderRow(index, citation) {
+    const tr = document.createElement('tr');
+    tr.className = 'placeholder';
+    tr.id = 'row-' + index;
+    tr.innerHTML =
+      '<td>' + (index + 1) + '</td>' +
+      '<td class="citation-col">' + escapeHtml(citation) + '</td>' +
+      '<td><span class="badge badge-pending">Pending</span></td>' +
+      '<td>--</td>' +
+      '<td class="name-col">--</td>' +
+      '<td>--</td>';
+    return tr;
+  }
+
+  function updateRow(index, data) {
+    const tr = document.getElementById('row-' + index);
+    if (!tr) return;
+    tr.className = '';
+    const conf = data.confidence != null ? (data.confidence * 100).toFixed(0) + '%' : '--';
+    const name = data.matched_case_name || '--';
+    let link = '--';
+    if (data.matched_url) {
+      link = '<a class="cl-link" href="' + escapeHtml(data.matched_url) +
+             '" target="_blank" rel="noopener">View</a>';
+    }
+    let title = '';
+    if (data.diagnostics && data.diagnostics.length) {
+      title = data.diagnostics.join('; ');
+    }
+    if (data.error) {
+      title = data.error;
+    }
+    tr.title = title;
+    tr.innerHTML =
+      '<td>' + (index + 1) + '</td>' +
+      '<td class="citation-col">' + escapeHtml(data.input_citation || '') + '</td>' +
+      '<td><span class="badge ' + badgeClass(data.status) + '">' + statusLabel(data.status) + '</span></td>' +
+      '<td>' + conf + '</td>' +
+      '<td class="name-col">' + escapeHtml(name) + '</td>' +
+      '<td>' + link + '</td>';
+  }
+
+  function escapeHtml(str) {
+    const div = document.createElement('div');
+    div.appendChild(document.createTextNode(str));
+    return div.innerHTML;
+  }
+
+  async function verify() {
+    hideError();
+    const citations = getCitations();
+    if (!citations.length) {
+      showError('Enter at least one citation.');
+      return;
+    }
+    if (citations.length > 50) {
+      showError('Maximum 50 citations per batch.');
+      return;
+    }
+
+    verifyBtn.disabled = true;
+    exportBtn.disabled = true;
+    results = [];
+
+    // Show placeholder rows
+    resultsBody.innerHTML = '';
+    citations.forEach(function(c, i) {
+      resultsBody.appendChild(createPlaceholderRow(i, c));
+    });
+    resultsSection.classList.add('active');
+
+    // Show progress
+    progressContainer.classList.add('active');
+    progressFill.style.width = '0%';
+    progressText.textContent = 'Verifying 0 / ' + citations.length + '...';
+
+    try {
+      const response = await fetch('/api/verify', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ citations: citations }),
+      });
+
+      if (!response.ok) {
+        const err = await response.json().catch(function() { return {}; });
+        throw new Error(err.error || 'Server error ' + response.status);
+      }
+
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder();
+      let buffer = '';
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+
+        buffer += decoder.decode(value, { stream: true });
+        const lines = buffer.split('\n');
+        buffer = lines.pop() || '';
+
+        let eventType = null;
+        for (const line of lines) {
+          if (line.startsWith('event:')) {
+            eventType = line.slice(6).trim();
+          } else if (line.startsWith('data:')) {
+            const dataStr = line.slice(5).trim();
+            if (!dataStr) continue;
+            try {
+              const data = JSON.parse(dataStr);
+              handleEvent(eventType || 'message', data, citations.length);
+            } catch (e) {
+              // ignore parse errors on partial chunks
+            }
+            eventType = null;
+          }
+        }
+      }
+    } catch (err) {
+      showError(err.message);
+    } finally {
+      verifyBtn.disabled = false;
+      progressContainer.classList.remove('active');
+      if (results.length) exportBtn.disabled = false;
+    }
+  }
+
+  function handleEvent(eventType, data, total) {
+    if (eventType === 'result') {
+      results[data.index] = data;
+      updateRow(data.index, data);
+    } else if (eventType === 'progress') {
+      const pct = (data.completed / data.total * 100).toFixed(0);
+      progressFill.style.width = pct + '%';
+      progressText.textContent = 'Verifying ' + data.completed + ' / ' + data.total + '...';
+    } else if (eventType === 'done') {
+      progressFill.style.width = '100%';
+      progressText.textContent = 'Done - ' + data.total + ' citations verified.';
+    } else if (eventType === 'error') {
+      showError(data.error || 'An unexpected error occurred.');
+    }
+  }
+
+  verifyBtn.addEventListener('click', verify);
+
+  // Allow Ctrl+Enter to submit
+  textarea.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) {
+      e.preventDefault();
+      verify();
+    }
+  });
+
+  // CSV export
+  exportBtn.addEventListener('click', function() {
+    if (!results.length) return;
+    const header = 'Citation,Status,Confidence,Matched Case,URL,Diagnostics\n';
+    const rows = results.map(function(r) {
+      if (!r) return ',,,,';
+      return [
+        csvEscape(r.input_citation || ''),
+        csvEscape(r.status || ''),
+        r.confidence != null ? r.confidence.toFixed(2) : '',
+        csvEscape(r.matched_case_name || ''),
+        csvEscape(r.matched_url || ''),
+        csvEscape((r.diagnostics || []).join('; ')),
+      ].join(',');
+    });
+    const blob = new Blob([header + rows.join('\n')], { type: 'text/csv' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'citation_verification_results.csv';
+    a.click();
+    URL.revokeObjectURL(url);
+  });
+
+  function csvEscape(str) {
+    if (!str) return '';
+    if (str.indexOf(',') !== -1 || str.indexOf('"') !== -1 || str.indexOf('\n') !== -1) {
+      return '"' + str.replace(/"/g, '""') + '"';
+    }
+    return str;
+  }
+})();
+</script>
+</body>
+</html>

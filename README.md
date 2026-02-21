@@ -49,7 +49,8 @@ When a citation isn't fully verified, the tool explains why:
 ## Installation
 
 ```bash
-pip install -e .
+pip install -e .          # core library + CLI
+pip install -e ".[web]"   # adds web app (FastAPI, uvicorn)
 ```
 
 ## Configuration
@@ -65,6 +66,20 @@ Get a free API token at https://www.courtlistener.com/ (Profile > API keys).
 The token is required for the Citation Lookup API (Step 1). The Search API (Steps 2-3) works without a token but is rate-limited.
 
 ## Usage
+
+### Web App
+
+The quickest way to verify citations — no installation required for end users.
+
+```bash
+pip install -e ".[web]"
+uvicorn web.app:app --reload
+# Open http://localhost:8000
+```
+
+Paste citations (one per line), click Verify, and watch results stream in with color-coded statuses and CourtListener links. Export results as CSV.
+
+The web app streams results via SSE as each citation completes, uses the file-based cache for instant repeats, and caps batches at 50 citations.
 
 ### Command Line
 
@@ -157,8 +172,13 @@ src/citation_verifier/
   text_cleaner.py    -- Contamination phrase removal from extracted names
   parser.py          -- Citation parsing (eyecite + regex fallbacks + eyecite factory)
   client.py          -- CourtListener API wrapper with rate limiting
+  cache.py           -- File-based verification result cache
   verifier.py        -- Core three-step verification pipeline
   __main__.py        -- CLI interface
+
+web/
+  app.py             -- FastAPI application (SSE streaming endpoint)
+  static/index.html  -- Single-page frontend (vanilla HTML/CSS/JS)
 
 tests/
   test_verifier.py             -- Unit tests (mocked API)

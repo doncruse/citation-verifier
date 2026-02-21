@@ -19,6 +19,11 @@ dev = [
     "pytest>=7.0",
     "pdfplumber>=0.11",
 ]
+web = [
+    "fastapi>=0.110",
+    "uvicorn[standard]>=0.27",
+    "sse-starlette>=2.0",
+]
 
 [project.scripts]
 citation-verifier = "citation_verifier.__main__:main"

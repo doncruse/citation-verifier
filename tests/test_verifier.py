@@ -365,6 +365,39 @@ class TestRecapFallback:
         # Score should be discounted: base ~0.7 * 0.6 = ~0.42
         assert result.confidence < 0.6
 
+    def test_recap_prefers_is_free_on_pacer(self):
+        """A doc with is_free_on_pacer=True should be preferred over one without,
+        even when descriptions are non-substantive."""
+        client = _make_client(
+            search_recap=[
+                {
+                    "caseName": "Smith v. Jones",
+                    "docket_id": 400,
+                    "court_id": "nysd",
+                    "docket_absolute_url": "/docket/400/",
+                    "recap_documents": [
+                        {
+                            "entry_date_filed": "2020-06-01",
+                            "short_description": "Attachment",
+                            "absolute_url": "/docket/400/10/smith-v-jones/",
+                            "is_free_on_pacer": False,
+                        },
+                        {
+                            "entry_date_filed": "2020-06-01",
+                            "short_description": "Attachment",
+                            "absolute_url": "/docket/400/11/smith-v-jones/",
+                            "is_free_on_pacer": True,
+                        },
+                    ],
+                }
+            ],
+        )
+        v = CitationVerifier(client)
+        result = v.verify("Smith v. Jones, 2020 WL 999999 (S.D.N.Y. June 1, 2020)")
+
+        # The free-on-PACER doc (entry 11) should be selected
+        assert "/11/" in result.matched_url
+
 
 # ---------------------------------------------------------------------------
 # Court corroboration requirement

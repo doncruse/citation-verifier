@@ -1,0 +1,1079 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QC Review - Citation Verifier</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 20px;
+    color: #1a1a1a;
+    background: #f8f9fa;
+  }
+  h1 { margin: 0 0 4px; font-size: 1.5rem; }
+  .subtitle { color: #666; margin: 0 0 16px; font-size: 0.9rem; }
+  .subtitle a { color: #4a6fa5; }
+
+  /* Top bar */
+  .top-bar { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-bottom: 12px; }
+  .top-bar select {
+    padding: 6px 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    min-width: 300px;
+  }
+  .run-info { font-size: 0.8rem; color: #666; }
+
+  /* Filter chips */
+  .filters { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+  .chip {
+    padding: 4px 12px;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    font-size: 0.78rem;
+    font-weight: 600;
+    cursor: pointer;
+    background: #fff;
+    transition: all 0.15s;
+    user-select: none;
+  }
+  .chip:hover { border-color: #999; }
+  .chip.active { background: #4a6fa5; color: #fff; border-color: #4a6fa5; }
+  .chip[data-filter="NOT_FOUND"].active { background: #dc3545; border-color: #dc3545; }
+  .chip[data-filter="POSSIBLE_MATCH"].active { background: #856404; border-color: #856404; }
+  .chip[data-filter="LIKELY_REAL"].active { background: #004085; border-color: #004085; }
+  .chip[data-filter="VERIFIED"].active { background: #155724; border-color: #155724; }
+  .chip[data-filter="SKIPPED"].active { background: #6c757d; border-color: #6c757d; }
+
+  /* Progress badges */
+  .progress-badges { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 14px; font-size: 0.8rem; }
+  .pbadge {
+    padding: 3px 10px;
+    border-radius: 4px;
+    font-weight: 600;
+  }
+  .pbadge-unreviewed { background: #fff3cd; color: #856404; }
+  .pbadge-investigate { background: #f8d7da; color: #721c24; }
+  .pbadge-approved { background: #d4edda; color: #155724; }
+  .pbadge-other { background: #e9ecef; color: #495057; }
+
+  /* Table */
+  .table-wrap { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+  th {
+    text-align: left;
+    padding: 7px 8px;
+    background: #e9ecef;
+    border-bottom: 2px solid #ccc;
+    white-space: nowrap;
+    font-weight: 600;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+  }
+  td { padding: 7px 8px; border-bottom: 1px solid #eee; vertical-align: top; }
+  tr.data-row { cursor: pointer; }
+  tr.data-row:hover td { background: #f0f4f8; }
+  tr.data-row.selected td { background: #e2e9f3; }
+  td.cite-col { max-width: 280px; word-break: break-word; }
+  td.name-col { max-width: 220px; word-break: break-word; }
+
+  /* Status badges */
+  .badge {
+    display: inline-block;
+    padding: 2px 7px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .badge-verified { background: #d4edda; color: #155724; }
+  .badge-likely { background: #cce5ff; color: #004085; }
+  .badge-possible { background: #fff3cd; color: #856404; }
+  .badge-notfound { background: #f8d7da; color: #721c24; }
+  .badge-skipped { background: #e9ecef; color: #6c757d; }
+
+  /* QC status badges (small) */
+  .qc-badge {
+    display: inline-block;
+    padding: 1px 6px;
+    border-radius: 3px;
+    font-size: 0.7rem;
+    font-weight: 600;
+  }
+  .qc-approved { background: #d4edda; color: #155724; }
+  .qc-rerun { background: #cce5ff; color: #004085; }
+  .qc-duplicate { background: #e9ecef; color: #495057; }
+  .qc-ignore { background: #e9ecef; color: #6c757d; }
+  .qc-investigate { background: #f8d7da; color: #721c24; }
+  .qc-data { background: #d1ecf1; color: #0c5460; }
+
+  /* Detail panel */
+  tr.detail-row td { padding: 0; border-bottom: 2px solid #4a6fa5; }
+  .detail-panel {
+    padding: 14px 16px;
+    background: #fff;
+    border-top: 1px solid #dee2e6;
+  }
+  .detail-panel h4 { margin: 0 0 8px; font-size: 0.9rem; }
+  .detail-section { margin-bottom: 12px; }
+  .detail-section label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #666;
+    margin-bottom: 3px;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+  .detail-context {
+    font-size: 0.82rem;
+    color: #333;
+    background: #f8f9fa;
+    padding: 8px 10px;
+    border-radius: 4px;
+    max-height: 100px;
+    overflow-y: auto;
+    line-height: 1.5;
+    word-break: break-word;
+  }
+  .detail-diagnostics {
+    font-size: 0.8rem;
+    color: #555;
+    list-style: disc;
+    padding-left: 18px;
+    margin: 0;
+  }
+  .detail-diagnostics li { margin-bottom: 2px; }
+
+  /* Duplicates */
+  .dupe-list { margin: 0; padding: 0; list-style: none; }
+  .dupe-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 5px 8px;
+    background: #f8f9fa;
+    border-radius: 4px;
+    margin-bottom: 4px;
+    font-size: 0.8rem;
+  }
+  .dupe-item .dupe-score {
+    font-weight: 600;
+    min-width: 40px;
+  }
+  .dupe-item .dupe-score.high { color: #dc3545; }
+  .dupe-item .dupe-score.possible { color: #856404; }
+  .dupe-item .dupe-cite { flex: 1; word-break: break-word; }
+  .dupe-item .dupe-btn {
+    padding: 2px 8px;
+    font-size: 0.72rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background: #fff;
+    cursor: pointer;
+  }
+  .dupe-item .dupe-btn:hover { background: #e9ecef; }
+
+  /* CL link button */
+  .cl-link-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    background: #4a6fa5;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .cl-link-btn:hover { background: #3a5a8a; color: #fff; }
+  .cl-link-btn .kbd-hint {
+    font-size: 0.68rem;
+    font-weight: normal;
+    opacity: 0.7;
+    background: rgba(255,255,255,0.2);
+    padding: 1px 5px;
+    border-radius: 3px;
+  }
+
+  /* Quick approve button */
+  .quick-approve {
+    padding: 2px 10px;
+    border: 1px solid #28a745;
+    border-radius: 4px;
+    background: #fff;
+    color: #28a745;
+    font-size: 0.72rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .quick-approve:hover { background: #28a745; color: #fff; }
+  .quick-approve:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  /* Opinion text preview */
+  .opinion-preview {
+    margin-top: 8px;
+    border: 1px solid #dee2e6;
+    border-radius: 6px;
+    overflow: hidden;
+    background: #fff;
+  }
+  .opinion-preview-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6px 10px;
+    background: #e9ecef;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: #495057;
+  }
+  .opinion-text {
+    padding: 10px 14px;
+    font-size: 0.82rem;
+    line-height: 1.6;
+    color: #333;
+    max-height: 350px;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    font-family: Georgia, "Times New Roman", serif;
+  }
+  .opinion-loading {
+    padding: 14px;
+    color: #888;
+    font-size: 0.82rem;
+    text-align: center;
+  }
+
+  /* QC controls */
+  .qc-controls {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: 12px;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid #eee;
+  }
+  .qc-controls .field { display: flex; flex-direction: column; gap: 3px; }
+  .qc-controls .field label { font-size: 0.75rem; font-weight: 600; color: #666; }
+  .qc-controls select {
+    padding: 5px 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 0.85rem;
+  }
+  .qc-controls input[type="text"] {
+    padding: 5px 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    width: 250px;
+  }
+  .save-btn {
+    padding: 6px 18px;
+    border: none;
+    border-radius: 6px;
+    background: #4a6fa5;
+    color: #fff;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .save-btn:hover { background: #3a5a8a; }
+  .save-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+  .save-msg {
+    font-size: 0.8rem;
+    padding: 2px 6px;
+    border-radius: 3px;
+  }
+  .save-msg.ok { color: #155724; background: #d4edda; }
+  .save-msg.err { color: #721c24; background: #f8d7da; }
+
+  /* Empty state */
+  .empty-state {
+    text-align: center;
+    padding: 40px 20px;
+    color: #888;
+    font-size: 0.9rem;
+  }
+
+  /* Keyboard help */
+  .kbd-help {
+    font-size: 0.75rem;
+    color: #888;
+    margin-top: 12px;
+    padding-top: 10px;
+    border-top: 1px solid #eee;
+  }
+  .kbd-help kbd {
+    background: #e9ecef;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    padding: 1px 5px;
+    font-family: monospace;
+    font-size: 0.75rem;
+  }
+
+  /* Footer */
+  .footer {
+    margin-top: 30px;
+    padding-top: 16px;
+    border-top: 1px solid #dee2e6;
+    font-size: 0.8rem;
+    color: #888;
+  }
+  .footer a { color: #4a6fa5; }
+
+  /* Loading */
+  .loading { text-align: center; padding: 20px; color: #666; }
+</style>
+</head>
+<body>
+
+<h1>QC Review</h1>
+<p class="subtitle">
+  Review verification results and assign QC status.
+  <a href="/">Back to verifier</a>
+</p>
+
+<div class="top-bar">
+  <select id="run-select">
+    <option value="">-- Select a verification run --</option>
+  </select>
+  <span class="run-info" id="run-info"></span>
+  <span style="margin-left:auto; display:flex; align-items:center; gap:6px; flex-wrap:wrap;">
+    <select id="batch-filter" style="padding:5px 6px; border:1px solid #ccc; border-radius:4px; font-size:0.82rem;" title="Citation filter">
+      <option value="all">All pending</option>
+      <option value="unpublished">Unpublished (WL)</option>
+      <option value="post2020">Post-2020</option>
+      <option value="hard" selected>Hard cases (WL + post-2020)</option>
+      <option value="rerun">Rerun only</option>
+    </select>
+    <input type="number" id="batch-size" value="10" min="1" max="100" style="width:50px; padding:5px 6px; border:1px solid #ccc; border-radius:4px; font-size:0.85rem;" title="Sample size">
+    <button id="run-batch-btn" style="padding:6px 14px; background:#28a745; color:#fff; border:none; border-radius:6px; font-size:0.82rem; font-weight:600; cursor:pointer;">Run Batch</button>
+    <span id="batch-status" style="font-size:0.8rem; color:#666;"></span>
+  </span>
+</div>
+
+<div class="filters" id="filters" style="display:none;">
+  <span class="chip active" data-filter="ALL">ALL</span>
+  <span class="chip active" data-filter="NOT_FOUND">NOT_FOUND</span>
+  <span class="chip active" data-filter="POSSIBLE_MATCH">POSSIBLE</span>
+  <span class="chip" data-filter="LIKELY_REAL">LIKELY_REAL</span>
+  <span class="chip" data-filter="VERIFIED">VERIFIED</span>
+  <span class="chip" data-filter="SKIPPED">SKIPPED</span>
+</div>
+
+<div class="progress-badges" id="progress-badges" style="display:none;"></div>
+
+<div id="content">
+  <div class="empty-state" id="empty-state">Select a verification run to begin review.</div>
+</div>
+
+<div class="kbd-help" id="kbd-help" style="display:none;">
+  <kbd>j</kbd>/<kbd>k</kbd> navigate |
+  <kbd>a</kbd> quick approve |
+  <kbd>Enter</kbd> expand/save |
+  <kbd>1</kbd>-<kbd>6</kbd> set status |
+  <kbd>n</kbd> next unreviewed |
+  <kbd>p</kbd> open CourtListener
+</div>
+
+<div class="footer">
+  Powered by <a href="https://www.courtlistener.com/" target="_blank" rel="noopener">CourtListener</a>
+  from the <a href="https://free.law/" target="_blank" rel="noopener">Free Law Project</a>.
+  <a href="/">Verify citations</a>.
+</div>
+
+<script>
+(function() {
+  var runSelect = document.getElementById('run-select');
+  var runInfo = document.getElementById('run-info');
+  var filtersEl = document.getElementById('filters');
+  var badgesEl = document.getElementById('progress-badges');
+  var contentEl = document.getElementById('content');
+  var emptyState = document.getElementById('empty-state');
+  var kbdHelp = document.getElementById('kbd-help');
+
+  var allResults = [];
+  var selectedIdx = -1;  // index into filteredResults
+  var expandedIdx = -1;
+  var activeFilters = new Set(['NOT_FOUND', 'POSSIBLE_MATCH']);
+  var allFilterActive = false;  // "ALL" chip toggles everything
+
+  // --- Utilities ---
+  function escapeHtml(str) {
+    if (!str) return '';
+    var div = document.createElement('div');
+    div.appendChild(document.createTextNode(str));
+    return div.innerHTML;
+  }
+
+  function badgeClass(status) {
+    switch (status) {
+      case 'VERIFIED': return 'badge-verified';
+      case 'LIKELY_REAL': return 'badge-likely';
+      case 'POSSIBLE_MATCH': return 'badge-possible';
+      case 'NOT_FOUND': return 'badge-notfound';
+      case 'SKIPPED': return 'badge-skipped';
+      default: return '';
+    }
+  }
+
+  function statusLabel(status) {
+    switch (status) {
+      case 'VERIFIED': return 'Verified';
+      case 'LIKELY_REAL': return 'Likely Real';
+      case 'POSSIBLE_MATCH': return 'Possible';
+      case 'NOT_FOUND': return 'Not Found';
+      case 'SKIPPED': return 'Skipped';
+      default: return status || '--';
+    }
+  }
+
+  function qcBadgeHtml(qc) {
+    if (!qc) return '';
+    return '<span class="qc-badge qc-' + escapeHtml(qc) + '">' + escapeHtml(qc) + '</span>';
+  }
+
+  // --- Load runs list ---
+  function loadRuns() {
+    fetch('/api/qc/runs')
+      .then(function(r) { return r.json(); })
+      .then(function(runs) {
+        runs.forEach(function(run) {
+          var opt = document.createElement('option');
+          opt.value = run.filename;
+          var date = run.generated_at ? run.generated_at.substring(0, 10) : '?';
+          opt.textContent = run.filename + ' (' + date + ', ' + run.result_count + ' results)';
+          runSelect.appendChild(opt);
+        });
+      });
+  }
+
+  // --- Load a specific run ---
+  function loadRun(filename) {
+    if (!filename) {
+      allResults = [];
+      renderTable();
+      filtersEl.style.display = 'none';
+      badgesEl.style.display = 'none';
+      kbdHelp.style.display = 'none';
+      emptyState.style.display = 'block';
+      runInfo.textContent = '';
+      return;
+    }
+    emptyState.style.display = 'none';
+    contentEl.innerHTML = '<div class="loading">Loading...</div>';
+    filtersEl.style.display = 'flex';
+    kbdHelp.style.display = 'block';
+
+    fetch('/api/qc/run/' + encodeURIComponent(filename))
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        if (data.error) {
+          contentEl.innerHTML = '<div class="empty-state">Error: ' + escapeHtml(data.error) + '</div>';
+          return;
+        }
+        allResults = data.results || [];
+        var meta = data.metadata || {};
+        runInfo.textContent = (meta.sample_size || allResults.length) + ' citations' +
+          (meta.git_hash ? ' @ ' + meta.git_hash : '') +
+          (meta.seed ? ' (seed ' + meta.seed + ')' : '');
+        selectedIdx = -1;
+        expandedIdx = -1;
+        updateBadges();
+        renderTable();
+      })
+      .catch(function(err) {
+        contentEl.innerHTML = '<div class="empty-state">Error loading run: ' + escapeHtml(err.message) + '</div>';
+      });
+  }
+
+  runSelect.addEventListener('change', function() { loadRun(this.value); });
+
+  // --- Filters ---
+  function getFilteredResults() {
+    if (allFilterActive) return allResults;
+    return allResults.filter(function(r) {
+      return activeFilters.has(r.status);
+    });
+  }
+
+  filtersEl.addEventListener('click', function(e) {
+    var chip = e.target.closest('.chip');
+    if (!chip) return;
+    var filter = chip.dataset.filter;
+
+    if (filter === 'ALL') {
+      if (allFilterActive) {
+        // Deactivate ALL, revert to default
+        allFilterActive = false;
+        chip.classList.remove('active');
+      } else {
+        allFilterActive = true;
+        chip.classList.add('active');
+      }
+    } else {
+      // Toggle individual filter
+      if (activeFilters.has(filter)) {
+        activeFilters.delete(filter);
+        chip.classList.remove('active');
+      } else {
+        activeFilters.add(filter);
+        chip.classList.add('active');
+      }
+      // Deactivate ALL chip when individual filters change
+      allFilterActive = false;
+      filtersEl.querySelector('[data-filter="ALL"]').classList.remove('active');
+    }
+    selectedIdx = -1;
+    expandedIdx = -1;
+    renderTable();
+  });
+
+  // --- Badges ---
+  function updateBadges() {
+    var unreviewed = 0, investigate = 0, approved = 0, other = 0;
+    allResults.forEach(function(r) {
+      var qc = r.qc_status;
+      if (!qc) { unreviewed++; }
+      else if (qc === 'investigate') { investigate++; }
+      else if (qc === 'approved') { approved++; }
+      else { other++; }
+    });
+    var html = '';
+    if (unreviewed) html += '<span class="pbadge pbadge-unreviewed">' + unreviewed + ' unreviewed</span>';
+    if (investigate) html += '<span class="pbadge pbadge-investigate">' + investigate + ' investigate</span>';
+    if (approved) html += '<span class="pbadge pbadge-approved">' + approved + ' approved</span>';
+    if (other) html += '<span class="pbadge pbadge-other">' + other + ' other</span>';
+    badgesEl.innerHTML = html;
+    badgesEl.style.display = allResults.length ? 'flex' : 'none';
+  }
+
+  // --- Table rendering ---
+  function renderTable() {
+    var filtered = getFilteredResults();
+    if (!filtered.length) {
+      contentEl.innerHTML = '<div class="empty-state">' +
+        (allResults.length ? 'No results match current filters.' : 'No results loaded.') +
+        '</div>';
+      return;
+    }
+
+    var html = '<div class="table-wrap"><table><thead><tr>' +
+      '<th>#</th><th>Citation</th><th>Status</th><th>Conf</th>' +
+      '<th>Matched Case</th><th>PDF</th><th>QC</th></tr></thead><tbody>';
+
+    filtered.forEach(function(r, i) {
+      var isSelected = (i === selectedIdx);
+      var conf = r.confidence != null ? (r.confidence * 100).toFixed(0) + '%' : '--';
+      var dupeCount = (r.duplicates && r.duplicates.length) ? ' <span title="' + r.duplicates.length + ' potential duplicate(s)" style="color:#856404;">*</span>' : '';
+
+      html += '<tr class="data-row' + (isSelected ? ' selected' : '') + '" data-idx="' + i + '">' +
+        '<td>' + (i + 1) + '</td>' +
+        '<td class="cite-col">' + escapeHtml(r.citation_text) + dupeCount + '</td>' +
+        '<td><span class="badge ' + badgeClass(r.status) + '">' + statusLabel(r.status) + '</span></td>' +
+        '<td>' + conf + '</td>' +
+        '<td class="name-col">' + escapeHtml(r.matched_case_name || '') + '</td>' +
+        '<td>' + escapeHtml(r.pdf || '') + '</td>' +
+        '<td>' + (r.qc_status
+          ? qcBadgeHtml(r.qc_status)
+          : '<button class="quick-approve" data-idx="' + i + '" onclick="event.stopPropagation(); window._quickApprove(' + i + ', this)">Approve</button>') +
+        '</td>' +
+        '</tr>';
+
+      // Detail row (expanded)
+      if (i === expandedIdx) {
+        html += '<tr class="detail-row"><td colspan="7">' + renderDetailPanel(r, i) + '</td></tr>';
+      }
+    });
+
+    html += '</tbody></table></div>';
+    contentEl.innerHTML = html;
+
+    // Attach row click handlers
+    contentEl.querySelectorAll('tr.data-row').forEach(function(tr) {
+      tr.addEventListener('click', function() {
+        var idx = parseInt(this.dataset.idx, 10);
+        toggleExpand(idx);
+      });
+    });
+
+    // Focus the QC select if panel is open
+    if (expandedIdx >= 0) {
+      var sel = document.getElementById('qc-select');
+      if (sel) sel.focus();
+    }
+  }
+
+  function renderDetailPanel(r, idx) {
+    var html = '<div class="detail-panel">';
+
+    // Context
+    if (r.context) {
+      html += '<div class="detail-section"><label>Context</label>' +
+        '<div class="detail-context">' + escapeHtml(r.context) + '</div></div>';
+    }
+
+    // Diagnostics
+    if (r.diagnostics && r.diagnostics.length) {
+      html += '<div class="detail-section"><label>Diagnostics</label><ul class="detail-diagnostics">';
+      r.diagnostics.forEach(function(d) {
+        html += '<li>' + escapeHtml(d) + '</li>';
+      });
+      html += '</ul></div>';
+    }
+
+    // CL link + opinion text preview
+    if (r.matched_url) {
+      html += '<div class="detail-section"><label>CourtListener</label>' +
+        '<a class="cl-link-btn" href="' + escapeHtml(r.matched_url) + '" target="_blank" rel="noopener" id="cl-link">' +
+        'Open in CourtListener <span class="kbd-hint">p</span></a>' +
+        '<div class="opinion-preview" id="opinion-preview">' +
+        '<div class="opinion-preview-header"><span>Opinion Text</span></div>' +
+        '<div class="opinion-loading" id="opinion-text">Loading opinion text...</div>' +
+        '</div></div>';
+    }
+
+    // Duplicates
+    if (r.duplicates && r.duplicates.length) {
+      html += '<div class="detail-section"><label>Potential Duplicates</label><ul class="dupe-list">';
+      r.duplicates.forEach(function(d) {
+        var scoreClass = d.tier === 'high' ? 'high' : 'possible';
+        var tierLabel = d.tier === 'high' ? '[HIGH]' : '[?]';
+        html += '<li class="dupe-item">' +
+          '<span class="dupe-score ' + scoreClass + '">' + (d.similarity * 100).toFixed(0) + '% ' + tierLabel + '</span>' +
+          '<span class="dupe-cite">' + escapeHtml(d.citation_text) + '</span>' +
+          (d.qc_status ? '<span class="qc-badge qc-' + escapeHtml(d.qc_status) + '">' + escapeHtml(d.qc_status) + '</span>' : '') +
+          (d.v_status ? '<span class="badge ' + badgeClass(d.v_status) + '" style="font-size:0.68rem;">' + statusLabel(d.v_status) + '</span>' : '') +
+          '<button class="dupe-btn" data-idx="' + idx + '" onclick="window._markDuplicate(' + idx + ')">Mark duplicate</button>' +
+          '</li>';
+      });
+      html += '</ul></div>';
+    }
+
+    // QC controls
+    var currentQc = r.qc_status || '';
+    var currentNotes = r.qc_notes || '';
+    html += '<div class="qc-controls">' +
+      '<div class="field"><label>QC Status</label>' +
+      '<select id="qc-select">' +
+      '<option value=""' + (!currentQc ? ' selected' : '') + '>(none)</option>' +
+      '<option value="approved"' + (currentQc === 'approved' ? ' selected' : '') + '>1 - approved</option>' +
+      '<option value="rerun"' + (currentQc === 'rerun' ? ' selected' : '') + '>2 - rerun</option>' +
+      '<option value="duplicate"' + (currentQc === 'duplicate' ? ' selected' : '') + '>3 - duplicate</option>' +
+      '<option value="ignore"' + (currentQc === 'ignore' ? ' selected' : '') + '>4 - ignore</option>' +
+      '<option value="investigate"' + (currentQc === 'investigate' ? ' selected' : '') + '>5 - investigate</option>' +
+      '<option value="data"' + (currentQc === 'data' ? ' selected' : '') + '>6 - data</option>' +
+      '</select></div>' +
+      '<div class="field"><label>Notes</label>' +
+      '<input type="text" id="qc-notes" value="' + escapeHtml(currentNotes) + '" placeholder="Optional notes..."></div>' +
+      '<button class="save-btn" id="save-btn" onclick="window._saveQc(' + idx + ')">Save</button>' +
+      '<span class="save-msg" id="save-msg"></span>' +
+      '</div>';
+
+    html += '</div>';
+    return html;
+  }
+
+  function toggleExpand(idx) {
+    if (expandedIdx === idx) {
+      expandedIdx = -1;
+      selectedIdx = -1;
+    } else {
+      expandedIdx = idx;
+      selectedIdx = idx;
+    }
+    renderTable();
+    // Fetch opinion text if panel is open and has a CL URL
+    if (expandedIdx >= 0) {
+      var filtered = getFilteredResults();
+      var r = filtered[expandedIdx];
+      if (r && r.matched_url) {
+        fetchOpinionText(r.matched_url);
+      }
+    }
+  }
+
+  function fetchOpinionText(url) {
+    var el = document.getElementById('opinion-text');
+    if (!el) return;
+    el.textContent = 'Loading opinion text...';
+    el.className = 'opinion-loading';
+    fetch('/api/qc/opinion-text?url=' + encodeURIComponent(url))
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        var el = document.getElementById('opinion-text');
+        if (!el) return;
+        if (data.error) {
+          el.textContent = 'Could not load: ' + data.error;
+          el.className = 'opinion-loading';
+        } else if (data.note) {
+          el.textContent = data.note;
+          el.className = 'opinion-loading';
+        } else if (!data.text) {
+          el.textContent = 'No opinion text available for this case.';
+          el.className = 'opinion-loading';
+        } else {
+          el.textContent = data.text;
+          el.className = 'opinion-text';
+        }
+      })
+      .catch(function(err) {
+        var el = document.getElementById('opinion-text');
+        if (el) {
+          el.textContent = 'Error: ' + err.message;
+          el.className = 'opinion-loading';
+        }
+      });
+  }
+
+  // --- Save QC ---
+  window._saveQc = function(idx) {
+    var filtered = getFilteredResults();
+    var r = filtered[idx];
+    if (!r) return;
+
+    var qcSelect = document.getElementById('qc-select');
+    var qcNotes = document.getElementById('qc-notes');
+    var saveMsg = document.getElementById('save-msg');
+    var saveBtn = document.getElementById('save-btn');
+
+    var qcStatus = qcSelect ? qcSelect.value : '';
+    var notes = qcNotes ? qcNotes.value : '';
+
+    saveBtn.disabled = true;
+    saveMsg.textContent = 'Saving...';
+    saveMsg.className = 'save-msg';
+
+    fetch('/api/qc/save', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        citation_text: r.citation_text,
+        qc_status: qcStatus,
+        qc_notes: notes,
+      }),
+    })
+    .then(function(resp) { return resp.json(); })
+    .then(function(data) {
+      saveBtn.disabled = false;
+      if (data.ok) {
+        // Update local state
+        r.qc_status = qcStatus;
+        r.qc_notes = notes;
+        // Also update in allResults
+        for (var i = 0; i < allResults.length; i++) {
+          if (allResults[i].citation_text === r.citation_text) {
+            allResults[i].qc_status = qcStatus;
+            allResults[i].qc_notes = notes;
+            break;
+          }
+        }
+        saveMsg.textContent = 'Saved!';
+        saveMsg.className = 'save-msg ok';
+        updateBadges();
+        // Advance to next row after brief delay
+        setTimeout(function() { advanceToNext(idx); }, 300);
+      } else {
+        saveMsg.textContent = data.error || 'Error';
+        saveMsg.className = 'save-msg err';
+      }
+    })
+    .catch(function(err) {
+      saveBtn.disabled = false;
+      saveMsg.textContent = err.message;
+      saveMsg.className = 'save-msg err';
+    });
+  };
+
+  // --- Quick approve from table row ---
+  window._quickApprove = function(idx, btn) {
+    var filtered = getFilteredResults();
+    var r = filtered[idx];
+    if (!r) return;
+    btn.disabled = true;
+    btn.textContent = '...';
+
+    fetch('/api/qc/save', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        citation_text: r.citation_text,
+        qc_status: 'approved',
+        qc_notes: '',
+      }),
+    })
+    .then(function(resp) { return resp.json(); })
+    .then(function(data) {
+      if (data.ok) {
+        r.qc_status = 'approved';
+        r.qc_notes = '';
+        for (var i = 0; i < allResults.length; i++) {
+          if (allResults[i].citation_text === r.citation_text) {
+            allResults[i].qc_status = 'approved';
+            allResults[i].qc_notes = '';
+            break;
+          }
+        }
+        updateBadges();
+        // Replace button with badge in place
+        var td = btn.parentElement;
+        td.innerHTML = qcBadgeHtml('approved');
+      } else {
+        btn.disabled = false;
+        btn.textContent = 'Error';
+      }
+    })
+    .catch(function() {
+      btn.disabled = false;
+      btn.textContent = 'Error';
+    });
+  };
+
+  // --- Mark duplicate shortcut ---
+  window._markDuplicate = function(idx) {
+    var qcSelect = document.getElementById('qc-select');
+    var qcNotes = document.getElementById('qc-notes');
+    if (qcSelect) qcSelect.value = 'duplicate';
+    if (qcNotes && !qcNotes.value) qcNotes.value = 'duplicate of prior citation';
+    // Don't auto-save -- let user confirm
+    if (qcSelect) qcSelect.focus();
+  };
+
+  // --- Navigation ---
+  function advanceToNext(currentIdx) {
+    var filtered = getFilteredResults();
+    // Try to go to next row
+    var nextIdx = currentIdx + 1;
+    if (nextIdx < filtered.length) {
+      expandedIdx = nextIdx;
+      selectedIdx = nextIdx;
+    } else {
+      expandedIdx = -1;
+      selectedIdx = -1;
+    }
+    renderTable();
+    scrollToSelected();
+  }
+
+  function jumpToNextUnreviewed() {
+    var filtered = getFilteredResults();
+    var start = selectedIdx >= 0 ? selectedIdx + 1 : 0;
+    for (var i = start; i < filtered.length; i++) {
+      if (!filtered[i].qc_status) {
+        expandedIdx = i;
+        selectedIdx = i;
+        renderTable();
+        scrollToSelected();
+        return;
+      }
+    }
+    // Wrap around
+    for (var i = 0; i < start; i++) {
+      if (!filtered[i].qc_status) {
+        expandedIdx = i;
+        selectedIdx = i;
+        renderTable();
+        scrollToSelected();
+        return;
+      }
+    }
+  }
+
+  function scrollToSelected() {
+    var row = contentEl.querySelector('tr.data-row.selected');
+    if (row) row.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  // --- Keyboard shortcuts ---
+  document.addEventListener('keydown', function(e) {
+    // Don't capture when typing in inputs
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT') {
+      // But allow Enter in the detail panel to save
+      if (e.key === 'Enter' && expandedIdx >= 0 && (e.target.id === 'qc-notes' || e.target.id === 'qc-select')) {
+        e.preventDefault();
+        window._saveQc(expandedIdx);
+      }
+      return;
+    }
+
+    if (!allResults.length) return;
+    var filtered = getFilteredResults();
+    if (!filtered.length) return;
+
+    if (e.key === 'j' || e.key === 'ArrowDown') {
+      e.preventDefault();
+      var next = Math.min((selectedIdx < 0 ? 0 : selectedIdx + 1), filtered.length - 1);
+      selectedIdx = next;
+      expandedIdx = next;
+      renderTable();
+      scrollToSelected();
+    } else if (e.key === 'k' || e.key === 'ArrowUp') {
+      e.preventDefault();
+      var prev = Math.max((selectedIdx <= 0 ? 0 : selectedIdx - 1), 0);
+      selectedIdx = prev;
+      expandedIdx = prev;
+      renderTable();
+      scrollToSelected();
+    } else if (e.key === 'Enter' && expandedIdx >= 0) {
+      e.preventDefault();
+      window._saveQc(expandedIdx);
+    } else if (e.key === 'n') {
+      e.preventDefault();
+      jumpToNextUnreviewed();
+    } else if (e.key === 'a' && selectedIdx >= 0 && expandedIdx < 0) {
+      // Quick approve selected row without expanding
+      var approveBtn = contentEl.querySelector('tr.data-row.selected .quick-approve');
+      if (approveBtn) {
+        e.preventDefault();
+        window._quickApprove(selectedIdx, approveBtn);
+        // Move to next row after brief delay
+        var curIdx = selectedIdx;
+        setTimeout(function() {
+          var filtered = getFilteredResults();
+          if (curIdx + 1 < filtered.length) {
+            selectedIdx = curIdx + 1;
+            renderTable();
+            scrollToSelected();
+          }
+        }, 300);
+      }
+    } else if (e.key === 'p' && expandedIdx >= 0) {
+      var clLink = document.getElementById('cl-link');
+      if (clLink) { window.open(clLink.href, '_blank'); }
+    } else if (e.key === 'Escape') {
+      expandedIdx = -1;
+      selectedIdx = -1;
+      renderTable();
+    } else if (e.key >= '1' && e.key <= '6' && expandedIdx >= 0) {
+      var statusMap = { '1': 'approved', '2': 'rerun', '3': 'duplicate', '4': 'ignore', '5': 'investigate', '6': 'data' };
+      var qcSelect = document.getElementById('qc-select');
+      if (qcSelect) {
+        qcSelect.value = statusMap[e.key];
+        // Visual feedback
+        qcSelect.style.background = '#e8f0fe';
+        setTimeout(function() { qcSelect.style.background = ''; }, 200);
+      }
+    }
+  });
+
+  // --- Run new batch ---
+  var runBatchBtn = document.getElementById('run-batch-btn');
+  var batchSizeInput = document.getElementById('batch-size');
+  var batchStatus = document.getElementById('batch-status');
+
+  var batchFilter = document.getElementById('batch-filter');
+
+  runBatchBtn.addEventListener('click', function() {
+    var size = parseInt(batchSizeInput.value, 10) || 10;
+    var filter = batchFilter.value;
+    runBatchBtn.disabled = true;
+    runBatchBtn.textContent = 'Running...';
+    batchStatus.textContent = 'Starting verification...';
+
+    fetch('/api/qc/run-batch', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ sample_size: size, filter: filter, rerun_only: filter === 'rerun' }),
+    }).then(function(response) {
+      if (!response.ok && response.headers.get('content-type').indexOf('json') >= 0) {
+        return response.json().then(function(data) {
+          throw new Error(data.error || 'Server error');
+        });
+      }
+
+      var reader = response.body.getReader();
+      var decoder = new TextDecoder();
+      var buffer = '';
+      var sidecarName = '';
+
+      function processChunk() {
+        return reader.read().then(function(result) {
+          if (result.done) {
+            finishBatch(sidecarName);
+            return;
+          }
+          buffer += decoder.decode(result.value, { stream: true });
+          var lines = buffer.split('\n');
+          buffer = lines.pop() || '';
+
+          var eventType = null;
+          for (var i = 0; i < lines.length; i++) {
+            var line = lines[i];
+            if (line.startsWith('event:')) {
+              eventType = line.slice(6).trim();
+            } else if (line.startsWith('data:')) {
+              var dataStr = line.slice(5).trim();
+              if (!dataStr) continue;
+              try {
+                var data = JSON.parse(dataStr);
+                if (eventType === 'start') {
+                  batchStatus.textContent = 'Verifying 0 / ' + data.total + ' (' + data.actionable + ' pending)...';
+                } else if (eventType === 'progress') {
+                  batchStatus.textContent = 'Verifying ' + data.completed + ' / ' + data.total + '...';
+                } else if (eventType === 'done') {
+                  sidecarName = data.sidecar || '';
+                  var parts = [];
+                  for (var s in data.by_status) {
+                    parts.push(data.by_status[s] + ' ' + s);
+                  }
+                  batchStatus.textContent = 'Done! ' + parts.join(', ') + ' (' + data.elapsed + 's)';
+                }
+              } catch(e) {}
+              eventType = null;
+            }
+          }
+          return processChunk();
+        });
+      }
+
+      return processChunk();
+    }).catch(function(err) {
+      batchStatus.textContent = 'Error: ' + err.message;
+    }).finally(function() {
+      runBatchBtn.disabled = false;
+      runBatchBtn.textContent = 'Run New Batch';
+    });
+
+    function finishBatch(sidecarName) {
+      // Refresh runs list and auto-select the new sidecar
+      while (runSelect.options.length > 1) runSelect.remove(1);
+      fetch('/api/qc/runs')
+        .then(function(r) { return r.json(); })
+        .then(function(runs) {
+          runs.forEach(function(run) {
+            var opt = document.createElement('option');
+            opt.value = run.filename;
+            var date = run.generated_at ? run.generated_at.substring(0, 10) : '?';
+            opt.textContent = run.filename + ' (' + date + ', ' + run.result_count + ' results)';
+            runSelect.appendChild(opt);
+          });
+          // Auto-select the new run
+          if (sidecarName) {
+            runSelect.value = sidecarName;
+            loadRun(sidecarName);
+          }
+        });
+    }
+  });
+
+  // --- Init ---
+  loadRuns();
+})();
+</script>
+</body>
+</html>

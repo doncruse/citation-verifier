@@ -326,6 +326,36 @@ CL's RECAP-to-opinions pipeline requires: federal district/bankruptcy, civil cas
 - **Lacey v. State Farm** — our tool bug (picked wrong document)
 - **O'Brien v. Flick (S.D. Fla.)** — order behind paywall
 
+### `is_free_on_pacer` check (2026-02-21)
+
+Checked all 16 reported documents via the recap-documents API. **13 of 16 have `is_free_on_pacer=True`** — PACER's Written Opinion Report flagged them as written opinions, so the `recap_into_opinions` pipeline should have seen them. **3 have `is_free_on_pacer=None`** (Button, HoosierVac, O'Brien) — these were never flagged by PACER as free written opinions.
+
+| Case | Docket | Doc # | `is_free_on_pacer` | `is_available` | `page_count` |
+|------|--------|-------|--------------------|----------------|--------------|
+| **Pre-sweep** | | | | | |
+| Fagundes v. Charter Builders (2008) | 5793562 | 104 | **True** | True | 12 |
+| Mali v. British Airways (2018) | 7378483 | 44 | **True** | True | 28 |
+| King v. Police & Fire FCU (2019) | 7632576 | 31 | **True** | True | 1 |
+| Ruggierlo v. Lancaster (2023) | 64925451 | 25 | **True** | True | 9 |
+| **Sweep-edge** | | | | | |
+| Dukuray v. Experian (2024) | 67881565 | 43 | **True** | True | 9 |
+| **Post-sweep** | | | | | |
+| Button v. Humphries (2025) | 69037800 | 148 | None | False | None |
+| Tercero v. Sacramento Logistics (2025) | 68387287 | 50 | **True** | True | 24 |
+| Oneto v. Watson (2025) | 65342301 | 93 | **True** | True | 7 |
+| Russomanno v. Comm'r of Soc. Sec. (2025) | 69146971 | 22 | **True** | True | 5 |
+| Glass v. Foley & Lardner (2025) | 69584955 | 32 | **True** | True | 7 |
+| Welfare Fund v. HoosierVac (2025) | 68879596 | 122 | None | True | 2 |
+| Thomas v. Pangburn (2024) | 67565382 | 64 | **True** | True | 1 |
+| Lahti v. Consensys (2025) | 68403961 | 44 | **True** | True | 17 |
+| Coronavirus Reporter v. Apple (2025) | 69434738 | 102 | **True** | True | 14 |
+| Davis v. Marion County (2025) | 69325037 | 71 | **True** | True | 10 |
+| O'Brien v. Flick (2025, 11th Cir.) | 69638127 | 30 | None | False | 2 |
+
+**Analysis:** The 3 `None` cases (Button, HoosierVac, O'Brien) may have a simpler explanation — PACER never flagged them, so the pipeline never saw them. But the 13 `True` cases (including all 4 pre-sweep cases) are the real mystery: PACER flagged them, the documents are available, yet they still didn't make it into the opinions DB. Possible explanations: (1) the pipeline's text-extraction step failed to find case law citations in the document text (a requirement), or (2) a processing error during the sweep.
+
+For comparison, the Section 6 "opinions not marked as free" cases (Himes, Neravetla) also have `is_free_on_pacer=None` — same pattern as Button/HoosierVac/O'Brien.
+
 ### Additional examples to add later
 
 As new RECAP-only cases are found in verification runs, add them here and consider commenting on #6963 with a batch update.
@@ -356,13 +386,19 @@ As we encounter data quality problems, document them here:
   5. **M.G. v. Bainbridge Island School District #303, 566 P.3d 132, 147 (Wash. Ct. App. 2025)** — Washington Court of Appeals. Not in CL.
   6. **Reinlasoder v. City of Billings, 455 P.3d 477 (Mont. 2020)** — Montana Supreme Court. Not in CL. Source: Thornton v. Flathead County PDF.
   7. **Mungo v. State, 486 Md. 158 (2023)** — Maryland Court of Appeals. Not in CL. Source: mezu_v_mezu PDF.
+  - **Arrowhead Capital Finance, Ltd. v. Picturepro, LLC, 2023 WL 109722 (9th Cir. Jan. 5, 2023)** — Available on 9th Circuit website (unpublished) 21-56063. Why not in opinions? (or RECAP?). Source: lacey_v_state_farm_general_insurance_co_5-6-2025_order.pdf. Verification: NOT_FOUND. Added automatically from QC review.
+  - **Grimshaw v. Metro. Life Ins. Co., No. 11-14165-CIV, 2011 WL 13319575 (S.D. Fla. Aug. 2, 2011)** — opinion not part of RECAP, docket here: https://www.courtlistener.com/docket/12835633/font-colorred-restricted-filer-font-grimshaw-v-metropolitan-life/. Source: Button_v._Mccawley_USA_4_February_2026.pdf. Verification: NOT_FOUND. Added automatically from QC review.
+  - **Kendrick v. Sec'y, Florida Dep't of Corr., 21-12686, 2022 WL 2388425 (11th Cir. July 1, 2022)** — 11th circuit nonpublished, should be in our data.. Source: caseDecisions_8629a673-c319-4961-8664-9671575f33c4_128338.pdf. Verification: NOT_FOUND. Added automatically from QC review.
+  - **Sabir v. Daud, No. 01-22-00956- CV, 2024 WL 3478110 (Tex. App. 2024)** — not great coverage for this court .. Source: maryvel_suday_and_the_estate_of_olga_tamez_de_suday_v._jesus_lozano_suday.pdf. Verification: NOT_FOUND. Added automatically from QC review.
+  - **Rogers v. City of Hobart, 996 F.3d 812 (7th Cir. 2021)** — we should have this!. Source: NAOC_v._Indiana_Imports_USA_15_January_2026.pdf. Verification: NOT_FOUND. Added automatically from QC review.
 - Action: Collect more examples before reporting. Known CL limitation (#5 in Known CL API Limitations). Washington state courts appear to be a systemic gap (3 of 7 examples). Montana also showing pattern (2 of 7).
 
 **Opinions not marked as free:**
-- Status: 2 cases exist in CL but opinions not accessible
+- Status: 2 cases exist in CL but opinions not accessible — **confirmed `is_free_on_pacer=None`**
 - Examples:
-  1. **Himes v. Provident Life & Accident Insurance Co., No. 3:19-CV-00215, 2020 WL 9935829 (M.D. Tenn. Mar. 3, 2020)** — federal opinion not marked as free.
-  2. **Neravetla v. Virginia Mason Med. Ctr., No. C13-1501-JCC, 2014 WL 12787876, *3-*4 (W.D. Wash. May 23, 2014)** — federal opinion not marked as free. Docket: https://www.courtlistener.com/docket/5262939/neravetla-v-virginia-mason-medical-center/
+  1. **Himes v. Provident Life & Accident Insurance Co., No. 3:19-CV-00215, 2020 WL 9935829 (M.D. Tenn. Mar. 3, 2020)** — federal opinion not marked as free. Docket 14749274, doc #20 (2020-03-03). `is_free_on_pacer=None`, `is_available=False`. Description: "Order on Motion to Dismiss for Failure to State a Claim".
+  2. **Neravetla v. Virginia Mason Med. Ctr., No. C13-1501-JCC, 2014 WL 12787876, *3-*4 (W.D. Wash. May 23, 2014)** — federal opinion not marked as free. Docket 5262939, entry #35 (2014-05-23). `is_free_on_pacer=None`, `is_available=False`. Description: "ORDER by Judge John C Coughenour... GRANTS Defendants' motion to dismiss".
+- **Analysis (2026-02-21):** These documents were never flagged by PACER's Written Opinion Report, so CL's `recap_into_opinions` pipeline never saw them. This is a PACER-side gap (courts didn't report them as written opinions), not a CL pipeline bug. Distinct from the #6963 cases where `is_free_on_pacer=True` but opinions still weren't ingested.
 - Action: Collect more examples. These are federal cases that should be available but aren't searchable via the opinions API.
 
 **Case name format variations:**
