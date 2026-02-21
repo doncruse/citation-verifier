@@ -34,20 +34,22 @@ CL supports semantic search via `semantic=true` (GET) or POST with embeddings. O
 - Best fit: new step between opinion search (Step 2) and RECAP search (Step 3), triggered only on failures
 - See: https://www.courtlistener.com/help/api/rest/search/#semantic-search
 
-### Bidirectional abbreviation normalization (Priority 1)
-Currently we normalize cited names → expanded form (Cnty. → County) to match CL. But CL also stores expanded forms that don't match our abbreviated citations. Confirmed correct matches scoring low due to abbreviation mismatches (from seed 42, 3193, and 5270 runs):
-- `Comm'r` vs `Commissioner` (Russomanno)
-- `&` vs `and` (King v. Police & Fire)
-- `Info. Sols.` vs `Information Solutions` (Dukuray)
-- `Fed.` vs `Federal` (King)
-- First names in CL but not in citation (Glass, Todd v. vs Glass v.)
-- `Gen. Ins. Co.` vs `General Insurance Company` (Lacey v. State Farm)
-- Truncated plaintiff: `Welfare Fund` vs `Mid Central Operating Engineers Health and Welfare Fund` (HoosierVac)
-- Reporter citation not confirmed when CL simply has no citations on file (Shahid v. Esaam)
-- `Nw.` vs `Northwest` + `Ass'n` vs `Assoc.` (Weatherly — scored 53% for correct match)
-- `Fin.` vs `Finance` + `Corp.` vs `Corporation` (Auto Fin. Corp. v. Liu — scored 59%)
+### ~~Bidirectional abbreviation normalization (Priority 1)~~ PARTIALLY FIXED
+Added missing abbreviations to both `name_matcher.py` (LEGAL_ABBREVIATIONS) and `parser.py` (`_normalize_case_name()`). The name_matcher now normalizes both the cited name AND the CL result name through the same expansion pipeline. New abbreviations: `comm'r` → commissioner, `info` → information, `sol`/`sols` → solution/solutions, `fin` → finance, `nw`/`sw` → northwest/southwest, `ass'n` → association, `coop` → cooperative. Also added `&` → `and` conversion in `_normalize()`.
 
-Fix: normalize both the cited name AND the CL result name before comparison. Either expand both or strip both to a canonical form. The name_matcher should handle this.
+Fixed abbreviation mismatches:
+- ~~`Comm'r` vs `Commissioner` (Russomanno)~~ ✓
+- ~~`&` vs `and` (King v. Police & Fire)~~ ✓
+- ~~`Info. Sols.` vs `Information Solutions` (Dukuray)~~ ✓
+- ~~`Fed.` vs `Federal` (King)~~ ✓ (was already handled)
+- ~~`Gen. Ins. Co.` vs `General Insurance Company` (Lacey v. State Farm)~~ ✓ (was already handled)
+- ~~`Nw.` vs `Northwest` + `Ass'n` vs `Assoc.` (Weatherly — scored 53%)~~ ✓
+- ~~`Fin.` vs `Finance` + `Corp.` vs `Corporation` (Auto Fin. Corp. v. Liu — scored 59%)~~ ✓
+
+Remaining (not abbreviation issues — different root causes):
+- First names in CL but not in citation (Glass, Todd v. vs Glass v.) — name length mismatch, not abbreviation
+- Truncated plaintiff: `Welfare Fund` vs `Mid Central Operating Engineers Health and Welfare Fund` (HoosierVac) — plaintiff truncation issue
+- Reporter citation not confirmed when CL simply has no citations on file (Shahid v. Esaam) — CL data gap
 
 ### RECAP document selection improvements (Priority 2)
 Negative patterns and expanded doc type priority implemented in ff0a91d. Rerun results (seed 814):

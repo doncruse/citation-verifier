@@ -27,7 +27,10 @@ class CaseNameMatcher:
         "llc": "limited liability company",
         "co": "company",
         "assoc": "association",
+        "ass'n": "association",
+        "coop": "cooperative",
         "bros": "brothers",
+        "comm'r": "commissioner",
         # Titles
         "dr": "doctor",
         "jr": "junior",
@@ -56,6 +59,8 @@ class CaseNameMatcher:
         "mfg": "manufacturing",
         "int'l": "international",
         "intl": "international",
+        "nw": "northwest",
+        "sw": "southwest",
         "dist": "district",
         "munic": "municipal",
         "town": "township",
@@ -73,6 +78,10 @@ class CaseNameMatcher:
         "atty": "attorney",
         "gen": "general",
         "ins": "insurance",
+        "info": "information",
+        "sol": "solution",
+        "sols": "solutions",
+        "fin": "finance",
         "serv": "service",
         "servs": "services",
         "transp": "transportation",
@@ -204,6 +213,10 @@ class CaseNameMatcher:
         # Map "u.s.", "us", "federal" → "united states"
         normalized = re.sub(r"\bu\.?s\.?\b", "united states", normalized)
         normalized = re.sub(r"\bfederal\b", "united states", normalized)
+
+        # Normalize "&" to "and" before abbreviation expansion and
+        # non-word character removal (which would strip "&" entirely)
+        normalized = re.sub(r"\s*&\s*", " and ", normalized)
 
         # Expand abbreviations
         for abbrev, expansion in self.LEGAL_ABBREVIATIONS.items():

@@ -98,6 +98,7 @@ def _normalize_case_name(case_name: str) -> str:
         r"\bDep't\b": "Department",
         r"\bDept\.?\b": "Department",
         r"\bComm'n\b": "Commission",
+        r"\bComm'r\b": "Commissioner",
         r"\bComm\.?\b": "Commission",
         r"\bBd\.?\b": "Board",
         r"\bDiv\.?\b": "Division",
@@ -112,6 +113,7 @@ def _normalize_case_name(case_name: str) -> str:
         # won't match CL's "2715 NMA LLC").
         r"\bAss'n\b": "Association",
         r"\bAssn\.?\b": "Association",
+        r"\bCoop\.?\b": "Cooperative",
 
         # Positions - SAFE
         r"\bAdm'r\b": "Administrator",
@@ -136,6 +138,10 @@ def _normalize_case_name(case_name: str) -> str:
 
         # Business/Services - SAFE
         r"\bIns\.?\b": "Insurance",
+        r"\bInfo\.?\b": "Information",
+        r"\bSols\.?\b": "Solutions",
+        r"\bSol\.?\b": "Solution",
+        r"\bFin\.?\b": "Finance",
         r"\bMfg\.?\b": "Manufacturing",
         r"\bServ\.?\b": "Service",
         r"\bServs\.?\b": "Services",
@@ -148,6 +154,8 @@ def _normalize_case_name(case_name: str) -> str:
         r"\bNatl\.?\b": "National",
         r"\bInt'l\b": "International",
         r"\bIntl\.?\b": "International",
+        r"\bNw\.?\b": "Northwest",
+        r"\bSw\.?\b": "Southwest",
 
         # Religious - SAFE
         r"\bCath\.?\b": "Catholic",
