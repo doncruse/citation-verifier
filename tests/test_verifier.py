@@ -398,6 +398,40 @@ class TestRecapFallback:
         # The free-on-PACER doc (entry 11) should be selected
         assert "/11/" in result.matched_url
 
+    def test_recap_date_proximity_beats_is_free_on_pacer(self):
+        """A doc with an exact date match should beat a free-on-PACER doc
+        that is months away from the cited date."""
+        client = _make_client(
+            search_recap=[
+                {
+                    "caseName": "Smith v. Jones",
+                    "docket_id": 500,
+                    "court_id": "nysd",
+                    "docket_absolute_url": "/docket/500/",
+                    "recap_documents": [
+                        {
+                            "entry_date_filed": "2020-02-15",
+                            "short_description": "Order",
+                            "absolute_url": "/docket/500/20/smith-v-jones/",
+                            "is_free_on_pacer": True,
+                        },
+                        {
+                            "entry_date_filed": "2020-06-01",
+                            "short_description": "Report and Recommendation",
+                            "absolute_url": "/docket/500/21/smith-v-jones/",
+                            "is_free_on_pacer": False,
+                        },
+                    ],
+                }
+            ],
+        )
+        v = CitationVerifier(client)
+        result = v.verify("Smith v. Jones, 2020 WL 999999 (S.D.N.Y. June 1, 2020)")
+
+        # The date-matching R&R (entry 21) should win over the free-on-PACER
+        # order that is 4 months away
+        assert "/21/" in result.matched_url
+
 
 # ---------------------------------------------------------------------------
 # Court corroboration requirement
@@ -733,6 +767,8 @@ class TestHelpers:
         assert s("memorandum")
         assert s("judgment")
         assert s("ruling on motion")
+        assert s("report and recommendation")
+        assert s("report and recommendations")
         assert not s("reply to response to motion")
         assert not s("motion - free")
         assert not s("extend - free")

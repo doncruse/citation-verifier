@@ -531,15 +531,18 @@ class CitationVerifier:
         # Pick best substantive doc; fall back to best overall.
         # is_free_on_pacer=True is a strong signal the doc is an opinion
         # (PACER's Written Opinion Report), so treat it as substantive.
-        # Tiebreakers (in order): score, is_free_on_pacer, date proximity, document type.
+        # Tiebreakers (in order): score, date proximity, is_free_on_pacer, document type.
+        # Date proximity ranks above is_free because a perfect date match
+        # is stronger evidence than the PACER free flag (which sometimes
+        # appears on non-opinion orders like memo endorsements).
         substantive = [d for d in scored_docs if d[4] or d[5]]
         pool = substantive or scored_docs
         best_doc = max(
             pool,
             key=lambda d: (
                 d[2],
-                d[5],  # is_free_on_pacer — strong opinion signal
                 self._date_proximity(parsed, d[1]),
+                d[5],  # is_free_on_pacer — tiebreaker after date
                 self._doc_type_priority(
                     f"{d[0].get('short_description') or d[0].get('description') or ''} "
                     f"{d[0].get('entry_description') or ''}"
@@ -697,6 +700,7 @@ class CitationVerifier:
             "decision",
             "decree",
             "findings of fact",
+            "report and recommendation",
         )
         # Reject docs whose primary type is non-substantive, even if they
         # contain a substantive keyword (e.g. "proposed order", "leave to file")
