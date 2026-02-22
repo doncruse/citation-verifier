@@ -51,6 +51,10 @@ _CAL_YEAR_PATTERN = re.compile(r"\((\d{4})\)\s+\d")
 # Trailing year parenthetical to strip from case names: "Inc. (2022)"
 _TRAILING_YEAR = re.compile(r"\s*\(\d{4}\)\s*$")
 
+# Slip opinion placeholder: ", -- F. Supp. 3d ----" or ", --- S.Ct. ---"
+# eyecite absorbs these into the defendant field when they follow the case name.
+_SLIP_OPINION_JUNK = re.compile(r",?\s*-{2,}\s+\S.*?-{2,}\s*$")
+
 # Docket number: "Case No. 24-cv-9429" or "No. 12-345" — extracted then stripped
 _DOCKET_NUMBER_PATTERN = re.compile(r"(?:Case\s+)?No\.\s+(\S+)", re.IGNORECASE)
 _DOCKET_JUNK = re.compile(r",?\s*(?:Case\s+)?No\.\s+\S+.*$", re.IGNORECASE)
@@ -305,10 +309,12 @@ def parse_citation(text: str) -> ParsedCitation:
 
     # Clean trailing year parentheticals from case name: "Inc. (2022)" → "Inc."
     if result.case_name:
+        result.case_name = _SLIP_OPINION_JUNK.sub("", result.case_name)
         result.case_name = _TRAILING_YEAR.sub("", result.case_name)
         result.case_name = _DOCKET_JUNK.sub("", result.case_name)
         result.case_name = _normalize_case_name(result.case_name)
     if result.defendant:
+        result.defendant = _SLIP_OPINION_JUNK.sub("", result.defendant)
         result.defendant = _TRAILING_YEAR.sub("", result.defendant)
         result.defendant = _DOCKET_JUNK.sub("", result.defendant)
         result.defendant = _normalize_case_name(result.defendant)
@@ -401,10 +407,12 @@ def parsed_citation_from_eyecite(
 
     # --- Clean names (same post-processing as parse_citation) ---
     if result.case_name:
+        result.case_name = _SLIP_OPINION_JUNK.sub("", result.case_name)
         result.case_name = _TRAILING_YEAR.sub("", result.case_name)
         result.case_name = _DOCKET_JUNK.sub("", result.case_name)
         result.case_name = _normalize_case_name(result.case_name)
     if result.defendant:
+        result.defendant = _SLIP_OPINION_JUNK.sub("", result.defendant)
         result.defendant = _TRAILING_YEAR.sub("", result.defendant)
         result.defendant = _DOCKET_JUNK.sub("", result.defendant)
         result.defendant = _normalize_case_name(result.defendant)

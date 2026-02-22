@@ -59,3 +59,21 @@ Source: melissa_wilcox_v._matthew_a._gingrich.pdf. Verification: POSSIBLE_MATCH 
 
 **Aikens v. Nw. Dodge, Inc., No. 03 C 7956, 2006 WL 59408 (N.D. Ill. Jan. 5, 2006)**
 Source: williams_v_capital_one_bank_na_3-18-2025_order.pdf. Verification: NOT_FOUND (0.2493). Matched: https://www.courtlistener.com/docket/4253280/1/1/rubloff-development-group-inc-v-kmart-corporation/. Notes: likely parser issues with case number.. Added 2026-02-21 from QC review.
+
+**Morgan v. Cmty. Against Violence, No. 23 Civ. 353-WPJ/JMR, 2023 WL 6976510 (D.N.M. Oct. 23, 2023)**
+Source: caseDecisions_8629a673-c319-4961-8664-9671575f33c4_128338.pdf. Verification: POSSIBLE_MATCH (0.4095). Matched: https://www.courtlistener.com/docket/13564443/farley-v-bearden/. Notes: wrong case name, wrong date.  match percent too high. Added 2026-02-22 from QC review.
+
+**Keaau Dev. P'ship LLC v. Lawrence, 571 P.3d 958 (2025)**
+Source: mezu_v_mezu_10-29-2025_order.pdf. Verification: NOT_FOUND (0.3689). Matched: https://www.courtlistener.com/docket/70619299/123/zen-jv-llc/. Notes: P.3d reporter doesn't return federal district court cases, so RECAp SHOULD NEVER HAVE BEEN RUN. Added 2026-02-22 from QC review.
+
+**Balt. Cotton Duck, LLC v. Ins. Comm'r of the State of Md., 486 Md. 396 (2024)**
+Source: mezu_v_mezu_10-29-2025_order.pdf. Verification: NOT_FOUND (0.0). Notes: possible abbreviation issues?. Added 2026-02-22 from QC review.
+
+**Avery v. Ward, 2014 WL 4748452 (S.D. Ala. Sept. 23, 2014)**
+Source: Button_v._Mccawley_USA_4_February_2026.pdf. Verification: POSSIBLE_MATCH (0.43). Matched: https://www.courtlistener.com/docket/5090915/18/langford-v-hale-county-al-commission/. Notes: name mismatch (very different!), should not have been so high.. Added 2026-02-22 from QC review.
+
+**Terwillinger v. Reyna, 4 F.4th 270 (5th Cir. 2021)**
+Source: Thornton_v._Flathead_County_USA_23_January_2026.pdf. Verification: NOT_FOUND (0.0). Notes: case exists but not found. Added 2026-02-22 from QC review.
+
+**In re Tenn. Dep't of Homeland Sec., 985 F3d 544 (6th Cir. 2021)**
+Source: gov.uscourts.mied.376829.74.0.pdf. Verification: POSSIBLE_MATCH (0.4877). Matched: https://www.courtlistener.com/docket/66755230/24/weatherford-us-lp-v-us-department-of-labor-arb/. Notes: confirmed hallucination. Added 2026-02-22 from QC review.

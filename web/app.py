@@ -793,13 +793,40 @@ async def qc_run_batch(request: Request):
             batch_parsed.append(_parsed_citation_from_row(row))
             batch_row_indices.append(seq)
 
-        # Verify batch
+        # Verify batch — run concurrently, stream results as they complete.
+        # The async client's semaphore (MAX_CONCURRENT=5) and rate limiter
+        # (MIN_REQUEST_INTERVAL=0.5s) keep CourtListener happy.
         if batch_citations:
+            queue: asyncio.Queue = asyncio.Queue()
+
+            async def _verify_one(
+                idx: int, cite_text: str, parsed: ParsedCitation,
+                client: AsyncCourtListenerClient,
+            ) -> None:
+                try:
+                    result = await _verifier.verify_async(client, cite_text, parsed=parsed)
+                    await queue.put(("ok", idx, cite_text, result, None))
+                except Exception as exc:
+                    logger.exception("Batch verify error: %s", cite_text)
+                    await queue.put(("error", idx, cite_text, None, exc))
+
             async with AsyncCourtListenerClient() as client:
-                for i, (cite_text, parsed) in enumerate(zip(batch_citations, batch_parsed)):
+                # Launch all verifications as concurrent tasks
+                tasks = [
+                    asyncio.create_task(
+                        _verify_one(i, cite_text, parsed, client)
+                    )
+                    for i, (cite_text, parsed) in enumerate(
+                        zip(batch_citations, batch_parsed)
+                    )
+                ]
+
+                # Stream results as they complete
+                for completed_n in range(1, len(tasks) + 1):
+                    status, i, cite_text, result, exc = await queue.get()
                     row = to_verify[batch_row_indices[i]]
-                    try:
-                        result = await _verifier.verify_async(client, cite_text, parsed=parsed)
+
+                    if status == "ok":
                         row["v_status"] = result.status.value
                         row["v_confidence"] = str(result.confidence)
                         row["v_url"] = result.matched_url or ""
@@ -831,8 +858,7 @@ async def qc_run_batch(request: Request):
                                 "matched_case_name": result.matched_case_name,
                             }),
                         }
-                    except Exception as exc:
-                        logger.exception("Batch verify error: %s", cite_text)
+                    else:
                         yield {
                             "event": "result",
                             "data": json.dumps({
@@ -846,10 +872,13 @@ async def qc_run_batch(request: Request):
                     yield {
                         "event": "progress",
                         "data": json.dumps({
-                            "completed": i + 1 + len(skipped),
+                            "completed": completed_n + len(skipped),
                             "total": len(to_verify),
                         }),
                     }
+
+                # Ensure all tasks are done (they should be)
+                await asyncio.gather(*tasks)
 
         # Write CSV back
         bak = csv_path.with_suffix(".csv.bak")

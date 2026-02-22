@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import asyncio
+import calendar
 import logging
 import re
 from difflib import SequenceMatcher
@@ -94,8 +95,9 @@ class CitationVerifier:
             # Citation lookup failed; fall through to search
             logger.debug("Citation lookup failed", exc_info=True)
 
-        # Step 1b: Try adjacent starting pages (off-by-one is common)
-        if parsed.volume and parsed.reporter and parsed.page:
+        # Step 1b: Try adjacent starting pages (off-by-one is common).
+        # Skip for WL citations — WL numbers aren't in the citation lookup API.
+        if parsed.volume and parsed.reporter and parsed.page and not parsed.is_westlaw:
             try:
                 base_page = int(parsed.page)
                 for offset in (-1, 1, -2, 2):
@@ -467,7 +469,32 @@ class CitationVerifier:
                     docket_id,
                     exc_info=True,
                 )
-        # Fall back to year range if exact date found nothing
+        # Fall back to month ± 1 if exact date found nothing and month is known
+        if not found_entries and parsed.month:
+            m_start = max(parsed.month - 1, 1)
+            m_end = min(parsed.month + 1, 12)
+            _, last_day = calendar.monthrange(parsed.year, m_end)
+            try:
+                entries = self.client.get_docket_entries(
+                    docket_id=docket_id,
+                    date_filed_after=f"{parsed.year}-{m_start:02d}-01",
+                    date_filed_before=f"{parsed.year}-{m_end:02d}-{last_day:02d}",
+                )
+                for entry in entries:
+                    entry_date = entry.get("date_filed", "")
+                    entry_desc = entry.get("description", "")
+                    for doc in entry.get("recap_documents", []):
+                        doc["entry_date_filed"] = entry_date
+                        doc["entry_description"] = entry_desc
+                        docs.append(doc)
+                        found_entries = True
+            except Exception:
+                logger.debug(
+                    "Docket entries query (month range) failed for docket %s",
+                    docket_id,
+                    exc_info=True,
+                )
+        # Fall back to year range if narrower queries found nothing
         if not found_entries:
             try:
                 entries = self.client.get_docket_entries(
@@ -526,31 +553,33 @@ class CitationVerifier:
             full_desc = f"{desc} {entry_desc}".lower()
             is_substantive = self._is_substantive_doc(full_desc)
             is_free = doc.get("is_free_on_pacer") is True
-            scored_docs.append((doc, entry_date, score, mismatches, is_substantive, is_free))
+            page_count = doc.get("page_count") or 0
+            scored_docs.append((doc, entry_date, score, mismatches, is_substantive, is_free, page_count))
 
         # Pick best substantive doc; fall back to best overall.
         # is_free_on_pacer=True is a strong signal the doc is an opinion
         # (PACER's Written Opinion Report), so treat it as substantive.
-        # Tiebreakers (in order): score, date proximity, is_free_on_pacer, document type.
-        # Date proximity ranks above is_free because a perfect date match
-        # is stronger evidence than the PACER free flag (which sometimes
-        # appears on non-opinion orders like memo endorsements).
+        # Tiebreakers (in order): score, date proximity, opinion likelihood
+        # (composite of doc-type keyword + is_free + page count).
+        # Date proximity ranks above opinion likelihood because a perfect
+        # date match is stronger evidence than the PACER free flag.
         substantive = [d for d in scored_docs if d[4] or d[5]]
         pool = substantive or scored_docs
         best_doc = max(
             pool,
             key=lambda d: (
-                d[2],
-                self._date_proximity(parsed, d[1]),
-                d[5],  # is_free_on_pacer — tiebreaker after date
-                self._doc_type_priority(
+                d[2],                                    # score
+                self._date_proximity(parsed, d[1]),      # date proximity
+                self._opinion_likelihood(                 # composite: tier + pages
                     f"{d[0].get('short_description') or d[0].get('description') or ''} "
-                    f"{d[0].get('entry_description') or ''}"
+                    f"{d[0].get('entry_description') or ''}",
+                    d[5],   # is_free
+                    d[6],   # page_count
                 ),
             ),
         )
 
-        doc, entry_date, score, mismatches, _, _ = best_doc
+        doc, entry_date, score, mismatches, _, _, _ = best_doc
         doc_url = doc.get("absolute_url", "")
         if doc_url and not doc_url.startswith("http"):
             doc_url = f"https://www.courtlistener.com{doc_url}"
@@ -737,24 +766,37 @@ class CitationVerifier:
         return 0.0
 
     @staticmethod
-    def _doc_type_priority(desc: str) -> int:
-        """Rank document types for tiebreaking when scores are equal.
+    def _opinion_likelihood(desc: str, is_free: bool, page_count: int) -> tuple[int, int]:
+        """Composite score for how likely a doc is an opinion.
 
-        Published reporter citations (F. Supp. 3d, F.3d, etc.) almost always
-        refer to opinions or memorandum opinions, not bare judgments. This
-        helps select the right document when multiple substantive docs from
-        the same docket score identically.
+        Returns (tier, page_count) for use as a sort key.
+        Tier values:
+          3 = opinion/memo/R&R/findings keyword + is_free_on_pacer
+          2 = opinion/memo/R&R/findings keyword (no free flag)
+              OR order/ruling keyword + is_free_on_pacer
+          1 = order/ruling keyword (no free flag)
+              OR is_free_on_pacer alone (no keyword match)
+          0 = none
         """
         desc = desc.lower()
-        if any(kw in desc for kw in (
-            "opinion", "memorandum",
-            "report and recommendation", "report & recommendation",
-            "findings of fact",
-        )):
-            return 2
-        if any(kw in desc for kw in ("order", "ruling", "decision", "decree")):
-            return 1
-        return 0
+        is_opinion = any(kw in desc for kw in (
+            "opinion", "memorandum", "report and recommendation",
+            "report & recommendation", "findings of fact",
+        ))
+        is_order = any(kw in desc for kw in (
+            "order", "ruling", "decision", "decree",
+        ))
+
+        if is_opinion:
+            tier = 3 if is_free else 2
+        elif is_order:
+            tier = 2 if is_free else 1
+        elif is_free:
+            tier = 1
+        else:
+            tier = 0
+
+        return (tier, min(page_count, 50))
 
     @staticmethod
     def _extract_surname(party_name: str) -> str:
@@ -1141,8 +1183,8 @@ class CitationVerifier:
         except Exception:
             logger.debug("Citation lookup failed", exc_info=True)
 
-        # Step 1b: Adjacent starting pages
-        if parsed.volume and parsed.reporter and parsed.page:
+        # Step 1b: Adjacent starting pages (skip for WL citations)
+        if parsed.volume and parsed.reporter and parsed.page and not parsed.is_westlaw:
             try:
                 base_page = int(parsed.page)
                 for offset in (-1, 1, -2, 2):
@@ -1442,6 +1484,32 @@ class CitationVerifier:
                     docket_id,
                     exc_info=True,
                 )
+        # Fall back to month ± 1 if exact date found nothing and month is known
+        if not found_entries and parsed.month:
+            m_start = max(parsed.month - 1, 1)
+            m_end = min(parsed.month + 1, 12)
+            _, last_day = calendar.monthrange(parsed.year, m_end)
+            try:
+                entries = await async_client.get_docket_entries(
+                    docket_id=docket_id,
+                    date_filed_after=f"{parsed.year}-{m_start:02d}-01",
+                    date_filed_before=f"{parsed.year}-{m_end:02d}-{last_day:02d}",
+                )
+                for entry in entries:
+                    entry_date = entry.get("date_filed", "")
+                    entry_desc = entry.get("description", "")
+                    for doc in entry.get("recap_documents", []):
+                        doc["entry_date_filed"] = entry_date
+                        doc["entry_description"] = entry_desc
+                        docs.append(doc)
+                        found_entries = True
+            except Exception:
+                logger.debug(
+                    "Docket entries query (month range) failed for docket %s",
+                    docket_id,
+                    exc_info=True,
+                )
+        # Fall back to year range if narrower queries found nothing
         if not found_entries:
             try:
                 entries = await async_client.get_docket_entries(

@@ -14,6 +14,7 @@ This document tracks potential contributions to FLP's projects (CourtListener, e
 | [6](#6-data-quality-issues) | Data Quality Issues | DRAFT | CL |
 | [7](#7-simpler-case-law-apis--feedback-from-citation-verification-consumer) | Simpler Case Law APIs — Consumer Feedback | DRAFT | CL [#6946](https://github.com/freelawproject/courtlistener/issues/6946) |
 | [8](#8-api-docs-blocked-by-bot-protection--llmstxt) | API Docs Blocked by Bot Protection / llms.txt | SUBMITTED | CL [#6040](https://github.com/freelawproject/courtlistener/issues/6040) |
+| [9](#9-eyecite-slip-opinion-placeholder-absorbed-into-case-name) | eyecite: Slip Opinion Placeholder Absorbed into Case Name | DRAFT | eyecite |
 
 ## Status Legend
 
@@ -600,6 +601,78 @@ An `llms.txt` file would help, but only if it's served without the same bot prot
 ### Draft
 
 See `scratch/drafts/cl-6040-api-docs-bot-protection.md` for the full comment text.
+
+---
+
+## 9. eyecite: Slip Opinion Placeholder Absorbed into Case Name
+
+**Status:** DRAFT
+**Target:** eyecite
+**Type:** Bug report
+
+### Summary
+
+When a citation uses slip opinion placeholders like `-- F. Supp. 3d ----` or `--- S.Ct. ---` (indicating the opinion hasn't been assigned final reporter pagination yet), eyecite absorbs the placeholder text into the defendant/case name field. This poisons downstream searches — CL's Solr index chokes on the `--` syntax and returns 500 errors.
+
+### Our Findings
+
+**Affected pattern:** Citations like:
+- `Johnson v. Dunn, -- F. Supp. 3d ----, 2025 WL 2086116 (N.D. Ala. July 23, 2025)`
+- `Smith v. Jones, --- S.Ct. ---, 2025 WL 123456 (2025)`
+
+**What eyecite does:** The `-- F. Supp. 3d ----` text is not recognized as a reporter citation (because `--` is not a valid volume number). Instead, the metadata extraction regex treats it as part of the case name, so `parsed.metadata.defendant` ends up containing `Dunn, -- F. Supp. 3d ----`.
+
+**Impact:**
+- Case name searches against CL fail with HTTP 500 (Solr can't parse `--` in query strings)
+- Even if the search didn't error, the polluted case name would prevent name matching
+- This is an increasingly common pattern as more slip opinions are cited before final pagination
+
+### Our Workaround
+
+Added a regex in `parser.py` to strip slip opinion junk before using the case name:
+
+```python
+_SLIP_OPINION_JUNK = re.compile(r",?\s*-{2,}\s+\S.*?-{2,}\s*$")
+```
+
+Applied to both `parse_citation()` and `parsed_citation_from_eyecite()` paths.
+
+### Evidence
+
+Test case: `Johnson v. Dunn, -- F. Supp. 3d ----, 2025 WL 2086116 (N.D. Ala. July 23, 2025)`
+- Without fix: 0% confidence, both opinion and RECAP search return 500 errors
+- With fix: 90% confidence, exact date match via RECAP
+
+### Proposed Fix (eyecite)
+
+The ideal fix would be in eyecite's metadata parsing — either:
+1. Recognize `--` / `---` as a placeholder volume number and parse `-- F. Supp. 3d ----` as a citation (with null volume/page), or
+2. Strip the placeholder pattern before metadata extraction so it doesn't pollute the case name
+
+Option 1 is more correct but more invasive. Option 2 is simpler and matches our workaround.
+
+### Decision Factors
+
+**Pros:**
+- Clear bug with concrete reproduction steps
+- Increasingly common as more slip opinions are cited
+- Causes cascading failures (500 errors, not just bad matches)
+- We have a working fix to offer
+
+**Cons:**
+- Our client-side workaround handles it fine
+- Slip opinion placeholders are somewhat niche
+- May require discussion about whether eyecite should parse placeholder citations
+
+**Recommendation:** File after gathering a few more real-world examples of slip opinion citations to demonstrate the pattern is common. Could pair with issues #296/#297 as a batch of metadata parsing improvements.
+
+### Submission Checklist
+
+- [ ] Collect 3-5 real-world examples of slip opinion placeholder citations
+- [ ] Check if eyecite already has an issue for this
+- [ ] Draft issue with reproduction steps
+- [ ] Submit issue
+- [ ] Update this doc with link
 
 ---
 

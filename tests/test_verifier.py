@@ -432,6 +432,97 @@ class TestRecapFallback:
         # order that is 4 months away
         assert "/21/" in result.matched_url
 
+    def test_opinion_keyword_beats_is_free_alone(self):
+        """An opinion doc without is_free beats a non-opinion doc with is_free
+        at the same score and date proximity."""
+        client = _make_client(
+            search_recap=[
+                {
+                    "caseName": "Smith v. Jones",
+                    "docket_id": 600,
+                    "court_id": "nysd",
+                    "docket_absolute_url": "/docket/600/",
+                    "recap_documents": [
+                        {
+                            "entry_date_filed": "2020-06-01",
+                            "short_description": "Attachment",
+                            "absolute_url": "/docket/600/10/smith-v-jones/",
+                            "is_free_on_pacer": True,
+                        },
+                        {
+                            "entry_date_filed": "2020-06-01",
+                            "short_description": "Opinion and Order",
+                            "absolute_url": "/docket/600/11/smith-v-jones/",
+                            "is_free_on_pacer": False,
+                        },
+                    ],
+                }
+            ],
+        )
+        v = CitationVerifier(client)
+        result = v.verify("Smith v. Jones, 2020 WL 999999 (S.D.N.Y. June 1, 2020)")
+
+        # Opinion (tier 2) should beat Attachment+is_free (tier 1)
+        assert "/11/" in result.matched_url
+
+    def test_progressive_date_widening(self):
+        """When exact date returns nothing, month ± 1 query should fire
+        before falling back to full year."""
+
+        call_count = {"n": 0}
+
+        def docket_entries_side_effect(**kwargs):
+            call_count["n"] += 1
+            after = kwargs.get("date_filed_after", "")
+            before = kwargs.get("date_filed_before", "")
+            # Exact date query: return nothing
+            if after == "2020-09-17" and before == "2020-09-17":
+                return []
+            # Month ± 1 query (Aug-Oct): return a doc
+            if after.startswith("2020-08") and before.startswith("2020-10"):
+                return [
+                    {
+                        "date_filed": "2020-09-20",
+                        "description": "Opinion",
+                        "recap_documents": [
+                            {
+                                "short_description": "Opinion",
+                                "absolute_url": "/docket/700/40/smith-v-jones/",
+                            }
+                        ],
+                    }
+                ]
+            # Year range: should NOT be reached
+            return []
+
+        client = _make_client(
+            search_recap=[
+                {
+                    "caseName": "Smith v. Jones",
+                    "docket_id": 700,
+                    "court_id": "nysd",
+                    "docket_absolute_url": "/docket/700/",
+                    "recap_documents": [
+                        {
+                            "entry_date_filed": "2020-01-15",
+                            "short_description": "Reply",
+                            "absolute_url": "/docket/700/5/",
+                        },
+                    ],
+                }
+            ],
+        )
+        client.get_docket_entries.side_effect = docket_entries_side_effect
+        v = CitationVerifier(client)
+        result = v.verify(
+            "Smith v. Jones, 2020 WL 555555 (S.D.N.Y. Sept. 17, 2020)"
+        )
+
+        # Month ± 1 query should have fired (2 calls: exact date + month range)
+        assert call_count["n"] == 2
+        # The opinion from the month range should be selected
+        assert "/40/" in result.matched_url
+
 
 # ---------------------------------------------------------------------------
 # Court corroboration requirement
@@ -789,24 +880,34 @@ class TestHelpers:
         assert s("order granting motion to dismiss")
         assert s("order on motion for summary judgment")
 
-    def test_doc_type_priority_rankings(self):
-        """Test expanded document type priority rankings."""
-        p = CitationVerifier._doc_type_priority
-        # Priority 2: opinions, memoranda, R&R, findings of fact
-        assert p("opinion") == 2
-        assert p("memorandum") == 2
-        assert p("report and recommendation") == 2
-        assert p("report & recommendation") == 2
-        assert p("findings of fact") == 2
-        # Priority 1: orders, rulings, decisions, decrees
-        assert p("order") == 1
-        assert p("ruling") == 1
-        assert p("decision") == 1
-        assert p("decree") == 1
-        # Priority 0: everything else
-        assert p("judgment") == 0
-        assert p("clerk's judgment") == 0
-        assert p("reply") == 0
+    def test_opinion_likelihood_rankings(self):
+        """Test composite opinion-likelihood scoring with keyword + is_free + page_count."""
+        ol = CitationVerifier._opinion_likelihood
+        # Tier 3: opinion keyword + is_free
+        assert ol("opinion", True, 10) == (3, 10)
+        assert ol("memorandum", True, 5) == (3, 5)
+        assert ol("report and recommendation", True, 20) == (3, 20)
+        assert ol("report & recommendation", True, 0) == (3, 0)
+        assert ol("findings of fact", True, 15) == (3, 15)
+        # Tier 2: opinion keyword without is_free, OR order keyword + is_free
+        assert ol("opinion", False, 10) == (2, 10)
+        assert ol("memorandum", False, 5) == (2, 5)
+        assert ol("order", True, 8) == (2, 8)
+        assert ol("ruling", True, 3) == (2, 3)
+        assert ol("decision", True, 12) == (2, 12)
+        assert ol("decree", True, 4) == (2, 4)
+        # Tier 1: order keyword without is_free, OR is_free alone
+        assert ol("order", False, 8) == (1, 8)
+        assert ol("ruling", False, 3) == (1, 3)
+        assert ol("attachment", True, 2) == (1, 2)
+        # Tier 0: nothing
+        assert ol("judgment", False, 0) == (0, 0)
+        assert ol("clerk's judgment", False, 0) == (0, 0)
+        assert ol("reply", False, 0) == (0, 0)
+        # Page count capped at 50
+        assert ol("opinion", True, 100) == (3, 50)
+        # Page count breaks ties within same tier
+        assert ol("opinion", False, 30) > ol("opinion", False, 10)
 
     def test_match_word_follows_status(self):
         """LIKELY_REAL says 'likely', POSSIBLE_MATCH says 'possible'."""
@@ -1015,6 +1116,27 @@ class TestCaseNameNormalization:
             "Weatherly v. Second Nw. Coop. Homes, 100 F.3d 200 (D.C. 2020)"
         )
         assert "Northwest" in parsed.case_name
+
+    def test_slip_opinion_placeholder_stripped(self):
+        """'-- F. Supp. 3d ----' should be stripped from case name and defendant."""
+        from citation_verifier.parser import parse_citation
+
+        parsed = parse_citation(
+            "Johnson v. Dunn, -- F. Supp. 3d ----, 2025 WL 2086116 "
+            "(N.D. Ala. July 23, 2025)"
+        )
+        assert parsed.case_name == "Johnson v. Dunn"
+        assert parsed.defendant == "Dunn"
+
+    def test_slip_opinion_triple_dash(self):
+        """'--- S.Ct. ---' variant should also be stripped."""
+        from citation_verifier.parser import parse_citation
+
+        parsed = parse_citation(
+            "Smith v. Jones, --- S.Ct. ---, 2025 WL 123456 (2025)"
+        )
+        assert parsed.case_name == "Smith v. Jones"
+        assert parsed.defendant == "Jones"
 
 
 # ---------------------------------------------------------------------------
