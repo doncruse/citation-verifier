@@ -391,6 +391,7 @@ As we encounter data quality problems, document them here:
   - **Kendrick v. Sec'y, Florida Dep't of Corr., 21-12686, 2022 WL 2388425 (11th Cir. July 1, 2022)** — 11th circuit nonpublished, should be in our data.. Source: caseDecisions_8629a673-c319-4961-8664-9671575f33c4_128338.pdf. Verification: NOT_FOUND. Added automatically from QC review.
   - **Sabir v. Daud, No. 01-22-00956- CV, 2024 WL 3478110 (Tex. App. 2024)** — not great coverage for this court .. Source: maryvel_suday_and_the_estate_of_olga_tamez_de_suday_v._jesus_lozano_suday.pdf. Verification: NOT_FOUND. Added automatically from QC review.
   - **Rogers v. City of Hobart, 996 F.3d 812 (7th Cir. 2021)** — we should have this!. Source: NAOC_v._Indiana_Imports_USA_15_January_2026.pdf. Verification: NOT_FOUND. Added automatically from QC review.
+  - **O'Brien v. Flick, No. 24-61529-CIV, 2025 WL 242924 (S.D. Fla. Jan. 10, 2025)** — write document, but not in RECAP. Source: Button_v._Mccawley_USA_4_February_2026.pdf. Verification: LIKELY_REAL. Added automatically from QC review.
 - Action: Collect more examples before reporting. Known CL limitation (#5 in Known CL API Limitations). Washington state courts appear to be a systemic gap (3 of 7 examples). Montana also showing pattern (2 of 7).
 
 **Opinions not marked as free:**

@@ -10,6 +10,7 @@ Usage:
     python tests/verify_from_csv.py --seed 43             # reproducible sample
     python tests/verify_from_csv.py --all                 # verify everything pending
     python tests/verify_from_csv.py --rerun-only          # only qc_status=rerun rows
+    python tests/verify_from_csv.py --investigate-only    # only qc_status=investigate rows
     python tests/verify_from_csv.py --dry-run             # preview without API calls
 """
 
@@ -189,6 +190,8 @@ def main() -> None:
                         help="Verify all pending rows (ignore --sample-size)")
     parser.add_argument("--rerun-only", action="store_true",
                         help="Only verify rows where qc_status=rerun")
+    parser.add_argument("--investigate-only", action="store_true",
+                        help="Only verify rows where qc_status=investigate")
     parser.add_argument("--dry-run", action="store_true",
                         help="Show what would be verified without calling the API")
     args = parser.parse_args()
@@ -202,6 +205,10 @@ def main() -> None:
     if args.seed is not None:
         random.seed(args.seed)
         seed_label = str(args.seed)
+    elif args.investigate_only:
+        seed_label = "investigate"
+    elif args.rerun_only:
+        seed_label = "rerun"
     else:
         seed_val = random.randrange(10000)
         random.seed(seed_val)
@@ -217,7 +224,10 @@ def main() -> None:
     print(f"Loaded {len(all_rows)} citations from {csv_path.name}")
 
     # Filter to actionable rows
-    if args.rerun_only:
+    if args.investigate_only:
+        actionable = [r for r in all_rows if r.get("qc_status") == "investigate"]
+        print(f"Found {len(actionable)} rows marked as investigate")
+    elif args.rerun_only:
         actionable = [r for r in all_rows if r.get("qc_status") == "rerun"]
         print(f"Found {len(actionable)} rows marked for re-run")
     else:
@@ -230,7 +240,7 @@ def main() -> None:
         return
 
     # Sample
-    if args.all:
+    if args.all or args.investigate_only or args.rerun_only:
         to_verify = actionable
     else:
         to_verify = _stratified_sample(actionable, args.sample_size)
@@ -281,7 +291,7 @@ def main() -> None:
             row["v_url"] = ""
             row["v_matched_name"] = ""
             row["v_git_hash"] = git_hash or ""
-            if row.get("qc_status") == "rerun":
+            if row.get("qc_status") in ("rerun", "investigate"):
                 row["qc_status"] = ""
                 row["qc_notes"] = ""
             results_for_sidecar.append({
@@ -327,7 +337,7 @@ def main() -> None:
         row["v_matched_name"] = result.matched_case_name or ""
         row["v_git_hash"] = git_hash or ""
 
-        if row.get("qc_status") == "rerun":
+        if row.get("qc_status") in ("rerun", "investigate"):
             row["qc_status"] = ""
             row["qc_notes"] = ""
 
