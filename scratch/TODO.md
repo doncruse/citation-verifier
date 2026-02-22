@@ -45,8 +45,14 @@ Root cause likely in eyecite's `_scan_for_case_boundaries()`.
 - `Grp.` -> `Group` (Smart v. Pro. Grp.)
 - Smart case: correct match found but scored only POSSIBLE_MATCH (0.60) because of these missing expansions.
 
-### `is_free_on_pacer` boost — manual testing
-Implemented `is_free_on_pacer=True` as a substantive signal in `_pick_best_recap_doc()` and the date-match loops. Unit tested but needs manual spot-checks with known RECAP-only citations (e.g., Fagundes v. Charter Builders, Mali v. British Airways) via the web app to confirm improved doc selection in practice.
+### Composite opinion-likelihood + progressive date widening + page count
+Full plan at `.claude/plans/woolly-nibbling-axolotl.md`. Three changes:
+1. **Composite `_opinion_likelihood(desc, is_free, page_count)`** replaces separate `is_free` and `_doc_type_priority` tiebreakers. Prevents `is_free` on a memo endorsement from beating a real opinion (Cohen fix). Tier: opinion+free=3, opinion=2, order+free=2, order=1, free-only=1, none=0. Page count breaks ties within tier.
+2. **Progressive date widening** in `_fetch_docs_for_docket`: exact date → month±1 → full year. Prevents year-range fallback from pulling docs 6 months away when we have month precision (HoosierVac fix).
+3. **Page count as final tiebreaker** — `page_count` from docket-entries API. Longer docs more likely to be opinions (13-page opinion > 2-page memo endorsement).
+
+### ~~`is_free_on_pacer` boost — manual testing~~ DONE
+Tested via investigate rerun. Dukuray fixed (doc 40, exact date match). Cohen and HoosierVac need composite opinion-likelihood (above).
 
 ### Post comment on CL #6963
 Draft ready at `scratch/drafts/cl-6963-is-free-on-pacer.md`. Post when ready.
