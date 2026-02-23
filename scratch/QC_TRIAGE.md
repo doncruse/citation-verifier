@@ -77,3 +77,6 @@ Source: Thornton_v._Flathead_County_USA_23_January_2026.pdf. Verification: NOT_F
 
 **In re Tenn. Dep't of Homeland Sec., 985 F3d 544 (6th Cir. 2021)**
 Source: gov.uscourts.mied.376829.74.0.pdf. Verification: POSSIBLE_MATCH (0.4877). Matched: https://www.courtlistener.com/docket/66755230/24/weatherford-us-lp-v-us-department-of-labor-arb/. Notes: confirmed hallucination. Added 2026-02-22 from QC review.
+
+**Johnson v. Mitchell, 2:20-cv-1882, 2020 WL 5649609 (S.D. Ohio Sept. 23, 2020)**
+Source: mardis_v_dealer_loyalty_protection_02-18-2026_opinion_and_order.pdf. Verification: POSSIBLE_MATCH (0.5776). Matched: https://www.courtlistener.com/docket/16105716/26/laile-v-mitchell/. Notes: confirmed hallucination.  mismatch docket, mismatch name, not exact date, should be much much lower.. Added 2026-02-22 from QC review.
