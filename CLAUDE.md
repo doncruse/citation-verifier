@@ -40,6 +40,14 @@ Three-step verification pipeline in `src/citation_verifier/verifier.py`:
 
 - **429 retry handling** (`client.py`): Parses `wait_until` ISO-8601 timestamp from CL response body, falls back to Retry-After header, retries up to 3 times.
 
+- **RECAP document ranking** (`_opinion_likelihood`): Composite tiebreaker `(tier, page_count)` for picking the best document from a docket. Tier combines doc-type keywords (opinion/memo/R&R = high, order/ruling = medium) with `is_free_on_pacer` flag. Prevents `is_free` from promoting across doc-type tiers. Replaces the old separate `_doc_type_priority` + `is_free` tiebreakers.
+
+- **Progressive date widening**: When fetching docket entries, uses 3-step fallback: exact date -> month +/- 1 -> full year. Prevents pulling documents months away when we have month precision.
+
+- **WL adjacent page skip**: Citation lookup step 1b (adjacent pages +/- 1, +/- 2) is skipped for WestLaw citations since WL numbers are never in the citation lookup API. Saves 4 wasted API calls per WL citation.
+
+- **Slip opinion placeholder stripping** (`parser.py`): `_SLIP_OPINION_JUNK` regex strips `-- F. Supp. 3d ----` and `--- S.Ct. ---` patterns from case names. eyecite absorbs these into the defendant field, poisoning CL searches (causes Solr 500 errors). Filed as potential eyecite contribution (#9 in `scratch/flp_contributions.md`).
+
 ## Files
 
 ### Core library (`src/citation_verifier/`)
@@ -60,7 +68,7 @@ Three-step verification pipeline in `src/citation_verifier/verifier.py`:
 
 | File | Purpose |
 |------|---------|
-| `test_verifier.py` | 62 unit tests (mocked API calls) |
+| `test_verifier.py` | 83 unit tests (mocked API calls) |
 | `test_false_negatives.py` | Regression tests against real CourtListener API |
 | `test_parser_diagnostics.py` | eyecite vs our parser comparison |
 | `test_cl_api_issues.py` | Documents and tests CL API limitations |
@@ -78,7 +86,7 @@ Three-step verification pipeline in `src/citation_verifier/verifier.py`:
 | File | Purpose |
 |------|---------|
 | `scratch/` | Working directory for iterative verification workflow (see `scratch/README.md`) |
-| `scratch/citations_for_review.csv` | Master CSV — 515 citations with verification results and QC status |
+| `scratch/citations_for_review.csv` | Master CSV — 525 citations with verification results and QC status |
 | `scratch/TODO.md` | Bug/feature tracking with prioritized items |
 | `scratch/flp_contributions.md` | Drafted contributions to Free Law Project (with submission checklists) |
 
@@ -87,7 +95,10 @@ Three-step verification pipeline in `src/citation_verifier/verifier.py`:
 **Always activate the virtual environment before running any commands.**
 
 ```bash
+# macOS/Linux
 source venv/bin/activate
+# Windows (Git Bash)
+source venv/Scripts/activate
 ```
 
 ### API Configuration
@@ -158,6 +169,18 @@ python tests/verify_from_csv.py [options]
   --dry-run           show what would be verified, don't call API
 ```
 
+## Adding a New Opinion for Verification
+
+To extract citations from a CourtListener opinion and run them through verification:
+
+1. **Fetch the document text** via CL API: `GET /api/rest/v4/recap-documents/{id}/` and read `plain_text`
+2. **Extract citations** using eyecite (`AhocorasickTokenizer` on Windows) + manual review of the text to catch citations eyecite misses
+3. **Append rows** to `scratch/citations_for_review.csv` with parsed citation fields, leaving `v_*` columns empty and `qc_status` set to `rerun`
+4. **Run verification**: `python tests/verify_from_csv.py --rerun-only`
+5. **QC review**: Start web app (`python web/app.py`), review at http://localhost:8000/qc
+
+The web app's batch loop is parallelized (asyncio.Queue with MAX_CONCURRENT=5). To start/stop: `python web/app.py` / `taskkill //PID <pid> //F`.
+
 ## Claude Code Skills
 
 - **`/file-issue`** — Interactive coach for filing effective GitHub issues. Guides through duplicate search, evidence gathering, repo norm study, and drafting. Use it when filing issues on FLP repos (or any repo). Catches the antipatterns that get issues ignored: tentative framing, insufficient examples, no methodology, no cross-references, no root cause theory. Lives at `~/.claude/skills/file-issue/SKILL.md`.
@@ -169,3 +192,6 @@ python tests/verify_from_csv.py [options]
 - **State courts**: The court map only covers federal courts. State court IDs from eyecite are compared via direct string match. Use `state_reporter_map.py` to infer state from regional reporters.
 - **RECAP docket param**: The `docket` parameter on the search API is unreliable. Use `q` with a quoted string + client-side filter instead.
 - **Windows console**: Avoid Unicode emoji in CLI output -- use ASCII status labels like `[OK]`, `[?]`, `[X]`.
+- **Windows Git Bash**: `head`, `tail`, `grep`, `cut` are not available. Use Python or dedicated tools instead. `taskkill` flags need `//` prefix (e.g. `taskkill //PID 1234 //F`) to avoid MSYS2 path conversion.
+- **eyecite on Windows**: `hyperscan` module is not available. Use `AhocorasickTokenizer` instead of `HyperscanTokenizer` for citation extraction.
+- **VerificationResult fields**: URL attribute is `matched_url` (not `court_listener_url`). Cluster ID is `matched_cluster_id`.
