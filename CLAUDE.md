@@ -14,7 +14,7 @@ Uses a forked [eyecite](https://github.com/freelawproject/eyecite) (rlfordon/eye
 
 Three-step verification pipeline in `src/citation_verifier/verifier.py`:
 
-1. **Citation Lookup API** (`/api/rest/v4/citation-lookup/`) - Resolves reporter citations (e.g. `576 U.S. 644`). If found, verifies case name matches before returning VERIFIED. If the citation exists but belongs to a different case, returns NOT_FOUND immediately.
+1. **Citation Lookup API** (`/api/rest/v4/citation-lookup/`) - Resolves reporter citations (e.g. `576 U.S. 644`). If found, verifies case name matches before returning VERIFIED. If the citation exists but belongs to a different case, returns POSSIBLE_MATCH with a name-mismatch diagnostic.
 
 2. **Opinion Search** (`/api/rest/v4/search/?type=o`) - Fuzzy search by case name, court, and date range (+/- 1 year). Retries without court filter if no results.
 
@@ -61,14 +61,15 @@ Three-step verification pipeline in `src/citation_verifier/verifier.py`:
 | `text_cleaner.py` | Contamination phrase removal (adapted from CaseStrainer) |
 | `parser.py` | Citation parsing (eyecite + regex + abbreviation normalization + eyecite factory) |
 | `client.py` | CourtListener API wrapper (rate limiting, 15s timeout, 429 retry) |
-| `verifier.py` | Core 3-step pipeline (with insufficient-data guard, RECAP state skip) |
+| `verifier.py` | Core 3-step pipeline (shared helpers + thin sync/async wrappers) |
 | `__main__.py` | CLI |
 
 ### Tests and tools (`tests/`)
 
 | File | Purpose |
 |------|---------|
-| `test_verifier.py` | 83 unit tests (mocked API calls) |
+| `test_verifier.py` | 103 unit tests (mocked API calls) |
+| `test_async_verifier.py` | 30 async parity tests (sync/async behavior equivalence) |
 | `test_false_negatives.py` | Regression tests against real CourtListener API |
 | `test_parser_diagnostics.py` | eyecite vs our parser comparison |
 | `test_cl_api_issues.py` | Documents and tests CL API limitations |
@@ -89,15 +90,15 @@ Three-step verification pipeline in `src/citation_verifier/verifier.py`:
 | `scratch/citations_for_review.csv` | Master CSV — 525 citations with verification results and QC status |
 | `scratch/TODO.md` | Bug/feature tracking with prioritized items |
 | `scratch/flp_contributions.md` | Drafted contributions to Free Law Project (with submission checklists) |
-| `scratch/flp_findings.csv` | Flagged results from verify page for CL issue evidence (auto-created) |
+| `scratch/flp_findings.csv` | Flagged results from Debug page for CL issue evidence (auto-created) |
 | `.replit` | Replit config (deployment, workflows, `MODE=public`) |
 | `replit.nix` | Nix dependencies for Replit (python311Full) |
 
 ## Replit Deployment (Public Mode)
 
-Set `MODE=public` to serve only the Get & Print page publicly. The verify page and QC page are blocked.
+Set `MODE=public` to serve only the Retrieve page publicly. The Debug page and QC page are blocked.
 
-- `/` serves `get.html` (nav hidden), `/get` redirects to `/`, `/qc`, `/api/qc/*`, and `/api/flag-for-flp` return 404
+- `/` serves `get.html` (Retrieve, nav hidden), `/get` redirects to `/`, `/debug`, `/qc`, `/api/qc/*`, and `/api/flag-for-flp` return 404
 - All shared API routes (`/api/verify`, downloads, health) remain available
 - One-way git flow: develop locally, push to GitHub, pull on Replit (`git fetch origin && git reset --hard origin/main`)
 - Redeploy after code changes: `git fetch origin && git reset --hard origin/main && rm -rf .venv`, then Run/Publish

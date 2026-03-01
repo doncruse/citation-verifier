@@ -19,12 +19,12 @@ Added checkboxes + "Download PDFs" button to main page (`localhost:8000`). Backe
 ### Files modified
 - `src/citation_verifier/client.py` — `get_pdf_url()`, `_first_recap_doc_url()` on `AsyncCourtListenerClient`
 - `web/app.py` — `POST /api/download-pdfs` endpoint, `_sanitize_filename()`
-- `web/static/index.html` — checkbox column, select-all, Download PDFs button + JS
+- `web/static/index.html` — checkbox column, select-all, Download PDFs button + JS (now the Debug page at `/debug`)
 
-## Priority 0 — Tech debt
+## ~~Priority 0 — Tech debt~~ DONE
 
-### Deduplicate verify() and verify_async()
-`verify_async()` in `verifier.py` is a full copy-paste of `verify()` with `await` added. Any logic change to one must be manually replicated in the other, and it's easy to miss (already caused a bug: citation lookup name-mismatch fix was applied to `verify()` but not `verify_async()`, so the web app silently ran stale logic). Refactor to share a single code path — e.g., have `verify()` call `verify_async()` via `asyncio.run()`, or extract the shared logic into a helper that both call.
+### ~~Deduplicate verify() and verify_async()~~ DONE
+Extracted 7 shared helpers (`_process_citation_lookup_hit`, `_check_adjacent_page_cluster`, `_build_search_params`, `_build_fallback_result`, `_docket_date_ranges`, `_extract_docket_entry_docs`, `_has_recap_date_match`). Sync/async methods are now thin I/O wrappers calling shared logic. 1682 -> 1496 lines. Fixed 2 async parity test failures caused by the prior drift.
 
 ## Priority 1 — Bugs (wrong results)
 

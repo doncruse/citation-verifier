@@ -17,7 +17,7 @@ Benefits:
 - Stronger pitch to security-conscious legal users
 
 Trade-offs:
-- Significant JS rework for the API call layer on the Get & Print page
+- Significant JS rework for the API call layer on the Retrieve page
 - Need to handle CL rate limiting (429s) client-side
 - Verification logic stays server-side (Python) — only the raw API calls move to the browser
 
