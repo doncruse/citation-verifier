@@ -302,6 +302,8 @@ async def verify(request: Request):
         )
 
     token = _get_api_token(request)
+    mode = body.get("mode", "full")
+    quick_only = mode == "quick"
 
     async def event_generator():
         yield {
@@ -311,8 +313,9 @@ async def verify(request: Request):
 
         async with AsyncCourtListenerClient(api_token=token) as client:
             for i, citation_text in enumerate(citations):
-                # Check cache first
-                cached = _cache.get(citation_text)
+                # Check cache first (skip cache for quick mode — a quick
+                # NOT_FOUND should not block a later deep search)
+                cached = _cache.get(citation_text) if not quick_only else None
                 if cached is not None:
                     result_dict = _result_to_dict(cached)
                     result_dict["index"] = i
@@ -324,9 +327,13 @@ async def verify(request: Request):
                 else:
                     try:
                         result = await _verifier.verify_async(
-                            client, citation_text
+                            client, citation_text, quick_only=quick_only
                         )
-                        _cache.put(citation_text, result)
+                        # Only cache when running full search, or when quick
+                        # search found the citation (no point caching a quick
+                        # NOT_FOUND — deep search should still try)
+                        if not quick_only or result.status != VerificationStatus.NOT_FOUND:
+                            _cache.put(citation_text, result)
                         result_dict = _result_to_dict(result)
                         result_dict["index"] = i
                         result_dict["cached"] = False

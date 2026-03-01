@@ -35,6 +35,7 @@ class CitationVerifier:
         self,
         citation_text: str,
         parsed: ParsedCitation | None = None,
+        quick_only: bool = False,
     ) -> VerificationResult:
         """Verify a citation string through the two-step pipeline.
 
@@ -51,6 +52,10 @@ class CitationVerifier:
             ``parse_citation()`` call is skipped, preserving fields
             (court, month, day) that would otherwise be lost in a
             text round-trip.
+        quick_only : bool
+            When True, only run Step 1 (citation lookup).  If the
+            citation is not found in the lookup API, return NOT_FOUND
+            immediately without falling through to Steps 1B/2/3.
         """
         citation_text = citation_text.strip()
 
@@ -96,6 +101,14 @@ class CitationVerifier:
         except Exception:
             # Citation lookup failed; fall through to search
             logger.debug("Citation lookup failed", exc_info=True)
+
+        if quick_only:
+            return VerificationResult(
+                input_citation=citation_text,
+                status=VerificationStatus.NOT_FOUND,
+                confidence=0.0,
+                diagnostics=["Quick search only: not in citation lookup API"],
+            )
 
         # Step 1b: Try adjacent starting pages (off-by-one is common).
         # Skip for WL citations — WL numbers aren't in the citation lookup API.
@@ -1149,6 +1162,7 @@ class CitationVerifier:
         async_client: AsyncCourtListenerClient,
         citation_text: str,
         parsed: ParsedCitation | None = None,
+        quick_only: bool = False,
     ) -> VerificationResult:
         """Async version of verify(). Requires an AsyncCourtListenerClient.
 
@@ -1197,6 +1211,14 @@ class CitationVerifier:
                     )
         except Exception:
             logger.debug("Citation lookup failed", exc_info=True)
+
+        if quick_only:
+            return VerificationResult(
+                input_citation=citation_text,
+                status=VerificationStatus.NOT_FOUND,
+                confidence=0.0,
+                diagnostics=["Quick search only: not in citation lookup API"],
+            )
 
         # Step 1b: Adjacent starting pages (skip for WL citations)
         if parsed.volume and parsed.reporter and parsed.page and not parsed.is_westlaw:
@@ -1556,6 +1578,7 @@ class CitationVerifier:
         citations: list[str],
         parsed_citations: list[ParsedCitation | None] | None = None,
         progress_callback: Callable[[int, int], None] | None = None,
+        quick_only: bool = False,
     ) -> list[VerificationResult]:
         """Verify multiple citations concurrently.
 
@@ -1571,6 +1594,8 @@ class CitationVerifier:
             When provided, skips internal parsing for non-None entries.
         progress_callback : callable, optional
             Called as progress_callback(completed, total) after each citation.
+        quick_only : bool
+            When True, only run Step 1 (citation lookup) for each citation.
 
         Returns results in the same order as the input citations.
         """
@@ -1585,7 +1610,7 @@ class CitationVerifier:
             parsed: ParsedCitation | None,
         ) -> VerificationResult:
             nonlocal completed
-            result = await self.verify_async(client, cite, parsed=parsed)
+            result = await self.verify_async(client, cite, parsed=parsed, quick_only=quick_only)
             completed += 1
             if progress_callback:
                 progress_callback(completed, len(citations))

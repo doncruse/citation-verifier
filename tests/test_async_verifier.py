@@ -303,6 +303,53 @@ class TestAsyncSyncParity:
         assert "Insufficient data" in sync_r.diagnostics[0]
         assert sync_r.diagnostics == async_r.diagnostics
 
+    def test_parity_quick_only_not_found(self):
+        """quick_only: both paths return NOT_FOUND with diagnostic when not in lookup."""
+        api = {}  # everything returns []
+        sync_client = _make_client(**api)
+        async_client = _make_async_client(**api)
+
+        citation = "Smith v. Jones, 100 F.3d 200 (2d Cir. 2020)"
+        v = CitationVerifier(sync_client)
+        sync_r = v.verify(citation, quick_only=True)
+        async_r = asyncio.run(
+            v.verify_async(async_client, citation, quick_only=True)
+        )
+
+        assert sync_r.status == async_r.status == VerificationStatus.NOT_FOUND
+        assert sync_r.confidence == async_r.confidence == 0.0
+        assert "Quick search only" in sync_r.diagnostics[0]
+        assert sync_r.diagnostics == async_r.diagnostics
+
+    def test_parity_quick_only_verified(self):
+        """quick_only: citation found in Step 1 -> VERIFIED in both paths."""
+        api = {
+            "citation_lookup": [
+                {
+                    "clusters": [
+                        {
+                            "case_name": "Obergefell v. Hodges",
+                            "id": 123,
+                            "absolute_url": "/opinion/123/obergefell-v-hodges/",
+                        }
+                    ]
+                }
+            ]
+        }
+        sync_client = _make_client(**api)
+        async_client = _make_async_client(**api)
+
+        citation = "Obergefell v. Hodges, 576 U.S. 644 (2015)"
+        v = CitationVerifier(sync_client)
+        sync_r = v.verify(citation, quick_only=True)
+        async_r = asyncio.run(
+            v.verify_async(async_client, citation, quick_only=True)
+        )
+
+        assert sync_r.status == async_r.status == VerificationStatus.VERIFIED
+        assert sync_r.confidence == async_r.confidence == 1.0
+        assert sync_r.matched_case_name == async_r.matched_case_name
+
     def test_parity_preparsed_citation(self):
         """Pre-parsed citation produces identical results in both paths."""
         api = {

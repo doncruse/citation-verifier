@@ -60,6 +60,14 @@
   }
   #search-btn:hover:not(:disabled) { background: #3a5a8a; }
   #search-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+  #deep-search-btn {
+    background: #e67e22;
+    color: #fff;
+    font-weight: 600;
+    display: none;
+  }
+  #deep-search-btn:hover:not(:disabled) { background: #cf6d17; }
+  #deep-search-btn:disabled { opacity: 0.5; cursor: not-allowed; }
   #download-btn {
     background: #28a745;
     color: #fff;
@@ -278,7 +286,8 @@
 Miranda v. Arizona, 384 U.S. 436 (1966)
 Terry v. Ohio, 392 U.S. 1 (1968)"></textarea>
   <div class="input-controls">
-    <button id="search-btn">Search</button>
+    <button id="search-btn">Quick Search</button>
+    <button id="deep-search-btn">Deep Search</button>
     <span class="cite-count" id="cite-count">0 citations</span>
     <button id="download-text-btn" disabled>Download Text</button>
     <button id="download-btn" disabled>Download PDFs</button>
@@ -322,6 +331,7 @@ Terry v. Ohio, 392 U.S. 1 (1968)"></textarea>
 (function() {
   const textarea = document.getElementById('citations-input');
   const searchBtn = document.getElementById('search-btn');
+  const deepSearchBtn = document.getElementById('deep-search-btn');
   const downloadBtn = document.getElementById('download-btn');
   const downloadTextBtn = document.getElementById('download-text-btn');
   const downloadStatus = document.getElementById('download-status');
@@ -396,6 +406,10 @@ Terry v. Ohio, 392 U.S. 1 (1968)"></textarea>
   refreshKeyUI();
 
   let results = [];
+  let allCitations = [];         // full list from textarea (set on Quick Search)
+  let quickNotFoundIndices = []; // indices into allCitations that got NOT_FOUND
+  let deepIndexMap = {};         // maps SSE response index -> original row index
+  let searchMode = 'idle';       // 'idle' | 'quick' | 'deep'
 
   function getCitations() {
     return textarea.value.split('\n').map(s => s.trim()).filter(Boolean);
@@ -511,6 +525,12 @@ Terry v. Ohio, 392 U.S. 1 (1968)"></textarea>
       return;
     }
 
+    // Reset all state for a new quick search
+    searchMode = 'quick';
+    allCitations = citations.slice();
+    quickNotFoundIndices = [];
+    deepIndexMap = {};
+    deepSearchBtn.style.display = 'none';
     searchBtn.disabled = true;
     results = [];
     selectAll.checked = false;
@@ -526,84 +546,171 @@ Terry v. Ohio, 392 U.S. 1 (1968)"></textarea>
     // Show progress
     progressContainer.classList.add('active');
     progressFill.style.width = '0%';
-    progressText.textContent = 'Searching 0 / ' + citations.length + '...';
+    progressText.textContent = 'Quick search 0 / ' + citations.length + '...';
 
     try {
-      const hdrs = { 'Content-Type': 'application/json' };
-      if (hasApiToken()) hdrs['X-CL-API-Token'] = getApiToken();
-
-      const response = await fetch('/api/verify', {
-        method: 'POST',
-        headers: hdrs,
-        body: JSON.stringify({ citations: citations }),
-      });
-
-      if (!response.ok) {
-        const err = await response.json().catch(function() { return {}; });
-        throw new Error(err.error || 'Server error ' + response.status);
-      }
-
-      const reader = response.body.getReader();
-      const decoder = new TextDecoder();
-      let buffer = '';
-
-      while (true) {
-        const { done, value } = await reader.read();
-        if (done) break;
-
-        buffer += decoder.decode(value, { stream: true });
-        const lines = buffer.split('\n');
-        buffer = lines.pop() || '';
-
-        let eventType = null;
-        for (const line of lines) {
-          if (line.startsWith('event:')) {
-            eventType = line.slice(6).trim();
-          } else if (line.startsWith('data:')) {
-            const dataStr = line.slice(5).trim();
-            if (!dataStr) continue;
-            try {
-              const data = JSON.parse(dataStr);
-              handleEvent(eventType || 'message', data, citations.length);
-            } catch (e) {
-              // ignore parse errors on partial chunks
-            }
-            eventType = null;
-          }
-        }
-      }
+      await runSSE(citations, 'quick');
     } catch (err) {
       showError(err.message);
     } finally {
       searchBtn.disabled = !hasApiToken();
       progressContainer.classList.remove('active');
-      // Auto-check select-all since all row checkboxes are checked by default
       if (document.querySelectorAll('.row-chk').length > 0) {
         selectAll.checked = true;
       }
       updateDownloadBtn();
+      searchMode = 'idle';
+
+      // Show Deep Search button if there are misses
+      if (quickNotFoundIndices.length > 0) {
+        deepSearchBtn.textContent = 'Deep Search ' + quickNotFoundIndices.length + ' not found';
+        deepSearchBtn.style.display = '';
+        deepSearchBtn.disabled = false;
+      }
+    }
+  }
+
+  async function deepSearch() {
+    hideError();
+    if (!quickNotFoundIndices.length) return;
+
+    searchMode = 'deep';
+    deepSearchBtn.disabled = true;
+    searchBtn.disabled = true;
+
+    // Build the subset of citations to re-search
+    var deepCitations = [];
+    deepIndexMap = {};
+    for (var di = 0; di < quickNotFoundIndices.length; di++) {
+      var origIdx = quickNotFoundIndices[di];
+      deepIndexMap[di] = origIdx;
+      deepCitations.push(allCitations[origIdx]);
+      // Reset row to searching state
+      var tr = document.getElementById('row-' + origIdx);
+      if (tr) {
+        tr.className = 'placeholder';
+        tr.innerHTML =
+          '<td class="chk-col"></td>' +
+          '<td>' + (origIdx + 1) + '</td>' +
+          '<td class="citation-col">' + escapeHtml(allCitations[origIdx]) + '</td>' +
+          '<td><span class="badge badge-pending">Searching...</span></td>' +
+          '<td class="name-col">--</td>' +
+          '<td>--</td>';
+      }
+    }
+
+    // Show progress
+    progressContainer.classList.add('active');
+    progressFill.style.width = '0%';
+    progressText.textContent = 'Deep search 0 / ' + deepCitations.length + '...';
+
+    try {
+      await runSSE(deepCitations, 'full');
+    } catch (err) {
+      showError(err.message);
+    } finally {
+      searchBtn.disabled = !hasApiToken();
+      progressContainer.classList.remove('active');
+      if (document.querySelectorAll('.row-chk').length > 0) {
+        selectAll.checked = true;
+      }
+      updateDownloadBtn();
+      searchMode = 'idle';
+
+      // Count remaining NOT_FOUND after deep search
+      var stillMissing = 0;
+      for (var si = 0; si < quickNotFoundIndices.length; si++) {
+        var idx = quickNotFoundIndices[si];
+        if (results[idx] && results[idx].status === 'NOT_FOUND') stillMissing++;
+      }
+      if (stillMissing > 0) {
+        deepSearchBtn.textContent = stillMissing + ' still not found';
+        deepSearchBtn.disabled = true;
+        deepSearchBtn.style.display = '';
+      } else {
+        deepSearchBtn.style.display = 'none';
+      }
+    }
+  }
+
+  async function runSSE(citations, mode) {
+    const hdrs = { 'Content-Type': 'application/json' };
+    if (hasApiToken()) hdrs['X-CL-API-Token'] = getApiToken();
+
+    const response = await fetch('/api/verify', {
+      method: 'POST',
+      headers: hdrs,
+      body: JSON.stringify({ citations: citations, mode: mode }),
+    });
+
+    if (!response.ok) {
+      const err = await response.json().catch(function() { return {}; });
+      throw new Error(err.error || 'Server error ' + response.status);
+    }
+
+    const reader = response.body.getReader();
+    const decoder = new TextDecoder();
+    let buffer = '';
+
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+
+      buffer += decoder.decode(value, { stream: true });
+      const lines = buffer.split('\n');
+      buffer = lines.pop() || '';
+
+      let eventType = null;
+      for (const line of lines) {
+        if (line.startsWith('event:')) {
+          eventType = line.slice(6).trim();
+        } else if (line.startsWith('data:')) {
+          const dataStr = line.slice(5).trim();
+          if (!dataStr) continue;
+          try {
+            const data = JSON.parse(dataStr);
+            handleEvent(eventType || 'message', data, citations.length);
+          } catch (e) {
+            // ignore parse errors on partial chunks
+          }
+          eventType = null;
+        }
+      }
     }
   }
 
   function handleEvent(eventType, data, total) {
     if (eventType === 'result') {
-      results[data.index] = data;
-      updateRow(data.index, data);
-      // Update download buttons as results stream in
+      // Map SSE index back to original row index during deep search
+      var rowIndex = data.index;
+      if (searchMode === 'deep' && deepIndexMap.hasOwnProperty(data.index)) {
+        rowIndex = deepIndexMap[data.index];
+      }
+      data.index = rowIndex;
+      results[rowIndex] = data;
+      updateRow(rowIndex, data);
+
+      // Track NOT_FOUND during quick search
+      if (searchMode === 'quick' && data.status === 'NOT_FOUND') {
+        quickNotFoundIndices.push(rowIndex);
+      }
       updateDownloadBtn();
     } else if (eventType === 'progress') {
       const pct = (data.completed / data.total * 100).toFixed(0);
       progressFill.style.width = pct + '%';
-      progressText.textContent = 'Searching ' + data.completed + ' / ' + data.total + '...';
+      var label = searchMode === 'deep' ? 'Deep search' : 'Quick search';
+      progressText.textContent = label + ' ' + data.completed + ' / ' + data.total + '...';
     } else if (eventType === 'done') {
       progressFill.style.width = '100%';
-      progressText.textContent = 'Done - ' + data.total + ' citations searched.';
+      var doneLabel = searchMode === 'deep' ? 'Deep search done' : 'Quick search done';
+      progressText.textContent = doneLabel + ' - ' + data.total + ' citations searched.';
     } else if (eventType === 'error') {
       showError(data.error || 'An unexpected error occurred.');
     }
   }
 
   searchBtn.addEventListener('click', search);
+  deepSearchBtn.addEventListener('click', deepSearch);
 
   // Allow Ctrl+Enter to submit
   textarea.addEventListener('keydown', function(e) {

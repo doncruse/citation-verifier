@@ -1608,3 +1608,85 @@ class TestVerifyWithParsedCitation:
         result = v.verify("Smith v. Jones, 100 F.3d 200 (2d Cir. 2020)")
 
         assert result.status == VerificationStatus.VERIFIED
+
+
+# ---------------------------------------------------------------------------
+# Quick-only mode (Step 1 only)
+# ---------------------------------------------------------------------------
+
+
+class TestQuickOnly:
+    """Tests for quick_only=True which limits verification to Step 1."""
+
+    def test_quick_found_returns_verified(self):
+        """Citation found in Step 1 with quick_only -> VERIFIED (same as full)."""
+        client = _make_client(
+            citation_lookup=[
+                {
+                    "clusters": [
+                        {
+                            "case_name": "Obergefell v. Hodges",
+                            "id": 123,
+                            "absolute_url": "/opinion/123/obergefell-v-hodges/",
+                        }
+                    ]
+                }
+            ]
+        )
+        v = CitationVerifier(client)
+        result = v.verify(
+            "Obergefell v. Hodges, 576 U.S. 644 (2015)", quick_only=True
+        )
+
+        assert result.status == VerificationStatus.VERIFIED
+        assert result.confidence == 1.0
+        assert result.matched_case_name == "Obergefell v. Hodges"
+
+    def test_quick_not_found_returns_not_found(self):
+        """Citation not in lookup API with quick_only -> NOT_FOUND, no further steps."""
+        client = _make_client()  # all APIs return empty
+        v = CitationVerifier(client)
+        result = v.verify(
+            "Smith v. Jones, 100 F.3d 200 (2d Cir. 2020)", quick_only=True
+        )
+
+        assert result.status == VerificationStatus.NOT_FOUND
+        assert result.confidence == 0.0
+        assert "Quick search only" in result.diagnostics[0]
+
+    def test_quick_does_not_call_step1b_or_search(self):
+        """quick_only must not call adjacent page lookup, opinion search, or RECAP."""
+        client = _make_client()
+        v = CitationVerifier(client)
+        v.verify(
+            "Smith v. Jones, 100 F.3d 200 (2d Cir. 2020)", quick_only=True
+        )
+
+        # Step 1 is called once (the initial lookup)
+        assert client.citation_lookup.call_count == 1
+        # Steps 2 and 3 are never called
+        assert client.search_opinions.call_count == 0
+        assert client.search_recap.call_count == 0
+
+    def test_quick_name_mismatch_returns_not_found(self):
+        """Citation exists but wrong case with quick_only -> NOT_FOUND (same as full)."""
+        client = _make_client(
+            citation_lookup=[
+                {
+                    "clusters": [
+                        {
+                            "case_name": "Totally Different v. Case",
+                            "id": 789,
+                            "absolute_url": "/opinion/789/",
+                        }
+                    ]
+                }
+            ]
+        )
+        v = CitationVerifier(client)
+        result = v.verify(
+            "Smith v. Jones, 100 F.3d 200 (2d Cir. 2020)", quick_only=True
+        )
+
+        assert result.status == VerificationStatus.NOT_FOUND
+        assert "different case" in result.diagnostics[0]
