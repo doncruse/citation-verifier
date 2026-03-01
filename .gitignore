@@ -13,3 +13,9 @@ tests/data/results/verification_*.json
 
 # Large PDFs — synced separately
 scratch/hallucination_opinions/
+
+# Replit auto-generated files
+replit.nix
+.upm/
+.cache/
+.config/
