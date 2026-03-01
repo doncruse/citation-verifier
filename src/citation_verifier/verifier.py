@@ -858,11 +858,21 @@ class CitationVerifier:
         # If we couldn't parse a case name, trust the citation lookup
         if not parsed.case_name:
             return True
-        if not parsed.plaintiff or parsed.plaintiff.lower() == "none":
-            # eyecite failed to parse plaintiff — don't reject on broken parse
-            return True
 
         cl_lower = cl_case_name.lower()
+
+        if not parsed.plaintiff or parsed.plaintiff.lower() == "none":
+            # No plaintiff parsed — could be "In re" case or other non-adversarial
+            # style. Fall back to distinctive-word check on full case name.
+            _skip = {"in", "re", "the", "matter", "of", "a", "an", "and", "for", "v", "v."}
+            words = [w.rstrip(",.") for w in parsed.case_name.lower().split() if len(w) > 2]
+            distinctive = [
+                w for w in words
+                if w not in _skip and w not in self._NONDISTINCTIVE_SURNAMES
+            ]
+            if not distinctive:
+                return True  # nothing to check, trust citation lookup
+            return any(w in cl_lower for w in distinctive)
 
         # For common-prefix cases (United States v. X, State v. X), compare defendants
         # since the plaintiff is not distinctive
