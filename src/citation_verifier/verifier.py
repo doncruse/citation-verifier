@@ -1242,11 +1242,16 @@ class CitationVerifier:
                         if not self._names_match_citation_lookup(parsed, case_name):
                             return VerificationResult(
                                 input_citation=citation_text,
-                                status=VerificationStatus.NOT_FOUND,
-                                confidence=0.0,
+                                status=VerificationStatus.POSSIBLE_MATCH,
+                                confidence=0.3,
+                                matched_case_name=case_name,
+                                matched_url=url,
+                                matched_cluster_id=cluster_id,
+                                matched_court=cluster.get("court") or cluster.get("court_id") or None,
+                                matched_date=cluster.get("date_filed") or None,
                                 diagnostics=[
-                                    f"Citation exists but belongs to a different case: "
-                                    f'"{case_name}"',
+                                    f'Name mismatch: citation exists at this reporter location '
+                                    f'but belongs to "{case_name}"',
                                 ],
                             )
 
