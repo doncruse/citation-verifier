@@ -713,20 +713,56 @@ class CitationVerifier:
     def _normalize_docket_number(dn: str) -> str:
         """Normalize a docket number for comparison.
 
-        Strips division prefix ('2:'), judge suffix ('-JCC'), and leading
-        zeros from numeric segments so that '17-cv-12676' and
-        '2:17-cv-00012676' compare as equal.
+        Strips division prefix ('2:'), judge suffixes ('-JCC', '-JPH-MJD'),
+        trailing hyphens, and leading zeros from numeric segments so that
+        '17-cv-12676' and '2:17-cv-00012676' compare as equal.
 
-        Also expands shorthand prefixes: 'C15-1228' → '15-cv-1228',
-        'CR15-1228' → '15-cr-1228'.
+        Expands shorthand prefixes and suffixes:
+        - 'C15-1228' / 'C-15-1228' / 'C 09-02727' → '15-cv-1228' etc.
+        - 'CR15-1228' → '15-cr-1228'
+        - '03 C 7956' → '3-cv-7956'
+        - '20-20720-Civ' / '24-61529-CIV' → '20-cv-20720' etc.
         """
         # Strip optional division prefix (e.g. "2:" or "4:")
         dn = re.sub(r"^\d+:", "", dn)
-        # Strip trailing judge initials (e.g. "-JCC", "-DCC", "-JHC")
-        dn = re.sub(r"-[A-Za-z]{2,4}$", "", dn)
-        # Expand shorthand: CR15-1228 → 15-cr-1228, C15-1228 → 15-cv-1228
-        dn = re.sub(r"^CR(\d+)", r"\1-cr", dn, flags=re.IGNORECASE)
-        dn = re.sub(r"^C(\d+)", r"\1-cv", dn, flags=re.IGNORECASE)
+        # Strip trailing hyphens (e.g. "24-cv-00953-DC-" → "24-cv-00953-DC")
+        dn = dn.rstrip("-").strip()
+        # Expand -CIV/-Civ/-CV suffix BEFORE judge-suffix stripping
+        # (otherwise "-CIV" gets consumed as a judge suffix)
+        # "20-20720-Civ" → "20-cv-20720", "24-61529-CIV" → "24-cv-61529"
+        m = re.match(
+            r"^(\d+)-(\d+)-(?:CIV|CV)$", dn, flags=re.IGNORECASE
+        )
+        if m:
+            dn = f"{m.group(1)}-cv-{m.group(2)}"
+        # Strip trailing space-separated alpha tokens (judge initials after
+        # space, e.g. "C 09-02727 WHA" → "C 09-02727")
+        dn = re.sub(r"\s+[A-Za-z]{2,4}$", "", dn)
+        # Strip all trailing hyphen-separated judge-initial segments
+        # (e.g. "-JPH-MJD", "-DC", "-WHO")
+        dn = re.sub(r"(-[A-Za-z]{2,4})+$", "", dn)
+        # Expand space-separated format: "03 C 7956" → "3-cv-7956"
+        m = re.match(
+            r"^(\d+)\s+C\s+(\d[\d-]*)$", dn, flags=re.IGNORECASE
+        )
+        if m:
+            dn = f"{m.group(1)}-cv-{m.group(2)}"
+        # Expand C/CV prefix with space: "C 09-02727" → "9-cv-2727"
+        m = re.match(
+            r"^C(?:V|R)?\s+(\d[\d-]*)$", dn, flags=re.IGNORECASE
+        )
+        if m:
+            prefix = "cr" if dn[1:2].upper() == "R" else "cv"
+            parts = m.group(1)
+            seg = re.match(r"^(\d+)-?(.*)", parts)
+            if seg:
+                rest = f"-{seg.group(2)}" if seg.group(2) else ""
+                dn = f"{seg.group(1)}-{prefix}{rest}"
+        # Expand shorthand prefix with optional hyphen:
+        # CR15-1228 / CR-15-1228 → 15-cr-1228
+        # C15-1228  / C-15-1228  → 15-cv-1228
+        dn = re.sub(r"^CR-?(\d+)", r"\1-cr", dn, flags=re.IGNORECASE)
+        dn = re.sub(r"^C-?(\d+)", r"\1-cv", dn, flags=re.IGNORECASE)
         # Strip leading zeros from numeric segments
         return re.sub(r"(?<!\d)0+(?=\d)", "", dn).lower()
 

@@ -10,6 +10,7 @@ from unittest.mock import MagicMock
 import pytest
 
 from citation_verifier.models import VerificationStatus
+from citation_verifier.parser import parse_citation
 from citation_verifier.verifier import CitationVerifier
 
 
@@ -1690,3 +1691,94 @@ class TestQuickOnly:
 
         assert result.status == VerificationStatus.NOT_FOUND
         assert "different case" in result.diagnostics[0]
+
+
+# ---------------------------------------------------------------------------
+# Docket Number Parsing and Normalization
+# ---------------------------------------------------------------------------
+
+
+class TestDocketParsing:
+    """Test that the parser extracts docket numbers with spaces correctly."""
+
+    def test_extract_c_space_number(self):
+        p = parse_citation(
+            "Chetal v. AmeriCredit Corp., No. C 09-02727 WHA, "
+            "2011 WL 2560243 (N.D. Cal. 2011)"
+        )
+        assert p.docket_number == "C 09-02727 WHA"
+
+    def test_extract_cv_space_number(self):
+        p = parse_citation(
+            "Riggs v. Twitter, Inc., No. CV 09-04302 LHK, "
+            "2011 WL 2182299 (N.D. Cal. 2011)"
+        )
+        assert p.docket_number == "CV 09-04302 LHK"
+
+    def test_extract_number_c_number(self):
+        p = parse_citation(
+            "Aikens v. Shalala, No. 03 C 7956, "
+            "2005 WL 1307020 (N.D. Ill. 2005)"
+        )
+        assert p.docket_number == "03 C 7956"
+
+
+class TestDocketNormalization:
+    """Test _normalize_docket_number() expansion and cleanup."""
+
+    @staticmethod
+    def _norm(dn):
+        return CitationVerifier._normalize_docket_number(dn)
+
+    # --- Already working (regression) ---
+    def test_division_prefix_and_leading_zeros(self):
+        assert self._norm("2:17-cv-00012676") == "17-cv-12676"
+
+    def test_cv_uppercase_who(self):
+        # 20-CV-00155-WHO → 20-cv-155
+        assert self._norm("20-CV-00155-WHO") == "20-cv-155"
+
+    def test_shorthand_c_prefix(self):
+        # C15-1228 → 15-cv-1228
+        assert self._norm("C15-1228") == "15-cv-1228"
+
+    def test_shorthand_cr_prefix(self):
+        # CR15-1228 → 15-cr-1228
+        assert self._norm("CR15-1228") == "15-cr-1228"
+
+    # --- New patterns ---
+    def test_c_space_number(self):
+        # C 09-02727 → 9-cv-2727  (after judge suffix stripped)
+        assert self._norm("C 09-02727 WHA") == "9-cv-2727"
+
+    def test_cv_space_number(self):
+        # CV 09-04302 → 9-cv-4302
+        assert self._norm("CV 09-04302 LHK") == "9-cv-4302"
+
+    def test_number_c_number(self):
+        # 03 C 7956 → 3-cv-7956
+        assert self._norm("03 C 7956") == "3-cv-7956"
+
+    def test_c_hyphen_number(self):
+        # C-12-6320 → 12-cv-6320
+        assert self._norm("C-12-6320") == "12-cv-6320"
+
+    def test_civ_suffix(self):
+        # 20-20720-Civ → 20-cv-20720
+        assert self._norm("20-20720-Civ") == "20-cv-20720"
+
+    def test_civ_suffix_uppercase(self):
+        # 24-61529-CIV → 24-cv-61529
+        assert self._norm("24-61529-CIV") == "24-cv-61529"
+
+    def test_civ_suffix_with_division_prefix(self):
+        # 1:10-23641-CIV → 10-cv-23641
+        assert self._norm("1:10-23641-CIV") == "10-cv-23641"
+
+    def test_multi_segment_judge_suffix(self):
+        # 2:24-CV-00326-JPH-MJD → 24-cv-326
+        assert self._norm("2:24-CV-00326-JPH-MJD") == "24-cv-326"
+
+    def test_trailing_hyphen(self):
+        # 24-cv-00953-DC- → 24-cv-953
+        assert self._norm("24-cv-00953-DC-") == "24-cv-953"

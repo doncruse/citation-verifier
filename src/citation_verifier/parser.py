@@ -55,9 +55,13 @@ _TRAILING_YEAR = re.compile(r"\s*\(\d{4}\)\s*$")
 # eyecite absorbs these into the defendant field when they follow the case name.
 _SLIP_OPINION_JUNK = re.compile(r",?\s*-{2,}\s+\S.*?-{2,}\s*$")
 
-# Docket number: "Case No. 24-cv-9429" or "No. 12-345" — extracted then stripped
-_DOCKET_NUMBER_PATTERN = re.compile(r"(?:Case\s+)?No\.\s+(\S+)", re.IGNORECASE)
-_DOCKET_JUNK = re.compile(r",?\s*(?:Case\s+)?No\.\s+\S+.*$", re.IGNORECASE)
+# Docket number: "Case No. 24-cv-9429" or "No. C 09-02727" — extracted then stripped
+# Captures everything up to the next comma or parenthetical to handle spaces
+# in docket numbers like "No. C 09-02727" or "No. 03 C 7956".
+_DOCKET_NUMBER_PATTERN = re.compile(
+    r"(?:Case\s+)?No\.\s+([^,()]+)", re.IGNORECASE
+)
+_DOCKET_JUNK = re.compile(r",?\s*(?:Case\s+)?No\.\s+[^,()]+", re.IGNORECASE)
 
 # Parenthetical with date before court: "(Feb. 5, 2026 SDNY)" or "(Mar. 2020 S.D.N.Y.)"
 _PAREN_DATE_COURT_PATTERN = re.compile(
@@ -305,7 +309,7 @@ def parse_citation(text: str) -> ParsedCitation:
     # Extract docket number before cleaning it from the case name
     docket_match = _DOCKET_NUMBER_PATTERN.search(text)
     if docket_match:
-        result.docket_number = docket_match.group(1).rstrip(",")
+        result.docket_number = docket_match.group(1).strip().rstrip(",")
 
     # Clean trailing year parentheticals from case name: "Inc. (2022)" → "Inc."
     if result.case_name:
@@ -403,7 +407,7 @@ def parsed_citation_from_eyecite(
     if raw_text:
         docket_match = _DOCKET_NUMBER_PATTERN.search(raw_text)
         if docket_match:
-            result.docket_number = docket_match.group(1).rstrip(",")
+            result.docket_number = docket_match.group(1).strip().rstrip(",")
 
     # --- Clean names (same post-processing as parse_citation) ---
     if result.case_name:
