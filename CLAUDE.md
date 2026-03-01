@@ -89,17 +89,18 @@ Three-step verification pipeline in `src/citation_verifier/verifier.py`:
 | `scratch/citations_for_review.csv` | Master CSV — 525 citations with verification results and QC status |
 | `scratch/TODO.md` | Bug/feature tracking with prioritized items |
 | `scratch/flp_contributions.md` | Drafted contributions to Free Law Project (with submission checklists) |
-| `.replit` | Replit run command (`MODE=public`, venv bootstrap) |
-| `replit.nix` | Nix dependencies for Replit (python310Full + libstdc++) |
+| `scratch/flp_findings.csv` | Flagged results from verify page for CL issue evidence (auto-created) |
+| `.replit` | Replit config (deployment, workflows, `MODE=public`) |
+| `replit.nix` | Nix dependencies for Replit (python311Full) |
 
 ## Replit Deployment (Public Mode)
 
 Set `MODE=public` to serve only the Get & Print page publicly. The verify page and QC page are blocked.
 
-- `/` serves `get.html` (nav hidden), `/get` redirects to `/`, `/qc` and `/api/qc/*` return 404
+- `/` serves `get.html` (nav hidden), `/get` redirects to `/`, `/qc`, `/api/qc/*`, and `/api/flag-for-flp` return 404
 - All shared API routes (`/api/verify`, downloads, health) remain available
 - One-way git flow: develop locally, push to GitHub, pull on Replit (`git fetch origin && git reset --hard origin/main`)
-- Redeploy after code changes: `rm -rf .venv`, pull, `kill 1`, then Run
+- Redeploy after code changes: `git fetch origin && git reset --hard origin/main && rm -rf .venv`, then Run/Publish
 - CL API key stored in Replit's `.env` (Secrets tab)
 
 ## Environment
