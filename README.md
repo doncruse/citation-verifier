@@ -204,12 +204,13 @@ tests/
 scratch/                       -- Working notes and utility scripts (not part of the tool)
 ```
 
-## Contributing
+## Acknowledgments
 
-This project is built on the [Free Law Project](https://free.law/)'s infrastructure:
+This project is built on:
 
-- [CourtListener](https://www.courtlistener.com/) -- the legal research platform and API we verify citations against
+- [CourtListener](https://www.courtlistener.com/) from the [Free Law Project](https://free.law/) -- the legal research platform and API we verify citations against
 - [eyecite](https://github.com/freelawproject/eyecite) -- the citation extraction library that powers our parser
+- [CaseStrainer](https://github.com/jafrank88/CaseStrainer) by James Frank -- our case name matching algorithm (`name_matcher.py`), contamination phrase removal (`text_cleaner.py`), and state reporter mapping (`state_reporter_map.py`) are adapted from CaseStrainer's approach to detecting hallucinated legal citations
 
 ## Scoring
 
