@@ -2,6 +2,10 @@
 
 Verify legal citations against [CourtListener](https://www.courtlistener.com/). Catches hallucinated case citations from AI tools by checking whether a citation actually exists and belongs to the case it claims to.
 
+## Try It
+
+**[Get and Print](https://citation-verifier.replit.app/)** -- paste citations, verify them against CourtListener, and download the opinion text or PDFs. No installation needed.
+
 ## How It Works
 
 ```
@@ -69,17 +73,23 @@ The token is required for the Citation Lookup API (Step 1). The Search API (Step
 
 ### Web App
 
-The quickest way to verify citations — no installation required for end users.
+The quickest way to use the tool — no installation required for end users.
 
 ```bash
 pip install -e ".[web]"
-uvicorn web.app:app --reload
+python web/app.py
 # Open http://localhost:8000
 ```
 
-Paste citations (one per line), click Verify, and watch results stream in with color-coded statuses and CourtListener links. Export results as CSV.
+The app has three pages:
 
-The web app streams results via SSE as each citation completes, uses the file-based cache for instant repeats, and caps batches at 50 citations.
+- **Verify** (`/`) -- Paste citations, verify against CourtListener, see color-coded results with diagnostics. Export as CSV.
+- **Get and Print** (`/get`) -- Verify citations, then download the matched opinion text or PDFs from CourtListener.
+- **QC** (`/qc`) -- Review verification batches and assign QC status (internal use).
+
+Results stream via SSE as each citation completes. Batches capped at 50 citations.
+
+**Public mode:** Set `MODE=public` to expose only the Get and Print page (used for the hosted Replit deployment). QC routes return 404.
 
 ### Command Line
 
@@ -157,7 +167,7 @@ pytest tests/test_parser_diagnostics.py -v
 pytest tests/test_cl_api_issues.py -v
 ```
 
-`test_verifier.py` has 62 unit tests covering the full pipeline: citation lookup, name matching, adjacent page fallback, opinion search, RECAP search, court corroboration, scoring and weight redistribution, docket number normalization, abbreviation expansion, surname matching, the eyecite factory function, and the pre-parsed citation path. All API calls are mocked.
+`test_verifier.py` has 83 unit tests covering the full pipeline: citation lookup, name matching, adjacent page fallback, opinion search, RECAP search, court corroboration, scoring and weight redistribution, docket number normalization, abbreviation expansion, surname matching, the eyecite factory function, and the pre-parsed citation path. All API calls are mocked.
 
 `test_false_negatives.py` runs against the real CourtListener API using the corpus in `tests/data/known_real_citations.json` (5 cases). `tests/data/known_fake_citations.json` contains 8 confirmed hallucinations for reference.
 
@@ -177,8 +187,10 @@ src/citation_verifier/
   __main__.py        -- CLI interface
 
 web/
-  app.py             -- FastAPI application (SSE streaming endpoint)
-  static/index.html  -- Single-page frontend (vanilla HTML/CSS/JS)
+  app.py             -- FastAPI application (SSE streaming, public mode)
+  static/index.html  -- Verify page (vanilla HTML/CSS/JS)
+  static/get.html    -- Get and Print page
+  static/qc.html     -- QC review page
 
 tests/
   test_verifier.py             -- Unit tests (mocked API)
