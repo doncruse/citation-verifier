@@ -1,2 +1,2 @@
-run = "test -d .venv || python -m venv .venv; .venv/bin/pip install -e '.[web]' && MODE=public .venv/bin/uvicorn web.app:app --host 0.0.0.0 --port 8080"
+run = "test -d .venv || (python -m venv .venv && .venv/bin/pip install --upgrade pip); .venv/bin/pip install -e '.[web]' && MODE=public .venv/bin/uvicorn web.app:app --host 0.0.0.0 --port 8080"
 entrypoint = "web/app.py"
