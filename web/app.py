@@ -361,74 +361,80 @@ async def download_pdfs(request: Request):
             {"error": "Maximum 50 PDFs per download"}, status_code=400
         )
 
-    # Resolve matched_urls to PDF download URLs
-    resolved: list[dict[str, str | None]] = []
-    async with AsyncCourtListenerClient() as client:
-        for item in items:
-            matched_url = item.get("matched_url", "")
-            case_name = item.get("case_name", "document")
-            pdf_url = await client.get_pdf_url(matched_url)
-            logger.info(
-                "PDF resolve: %s -> %s",
-                matched_url, pdf_url or "NO PDF URL",
-            )
-            resolved.append({
-                "pdf_url": pdf_url,
-                "case_name": case_name,
-                "matched_url": matched_url,
-            })
+    # Phase 1: Resolve matched_urls to PDF download URLs (parallel, rate-limited)
+    async def _resolve_one(
+        client: AsyncCourtListenerClient, item: dict,
+    ) -> dict[str, str | None]:
+        matched_url = item.get("matched_url", "")
+        case_name = item.get("case_name", "document")
+        pdf_url = await client.get_pdf_url(matched_url)
+        logger.info(
+            "PDF resolve: %s -> %s",
+            matched_url, pdf_url or "NO PDF URL",
+        )
+        return {"pdf_url": pdf_url, "case_name": case_name, "matched_url": matched_url}
 
-    # Download PDFs (opinion /pdf/ URLs are on courtlistener.com,
-    # RECAP storage URLs are on storage.courtlistener.com — both public)
-    buf = io.BytesIO()
+    async with AsyncCourtListenerClient() as client:
+        resolved = await asyncio.gather(
+            *[_resolve_one(client, item) for item in items]
+        )
+
+    # Phase 2: Download PDFs in parallel (storage.courtlistener.com, not CL API)
+    download_sem = asyncio.Semaphore(5)
     ssl_ctx = _ssl.create_default_context(cafile=certifi.where())
     connector = aiohttp.TCPConnector(ssl=ssl_ctx)
+
+    async def _download_one(
+        session: aiohttp.ClientSession, entry: dict,
+    ) -> tuple[str, bytes | None]:
+        """Return (case_name, pdf_bytes or None)."""
+        case_name = entry["case_name"] or "document"
+        pdf_url = entry["pdf_url"]
+        if not pdf_url:
+            return (case_name, None)
+        async with download_sem:
+            try:
+                async with session.get(
+                    pdf_url,
+                    timeout=aiohttp.ClientTimeout(total=30),
+                    allow_redirects=True,
+                ) as resp:
+                    if resp.status != 200:
+                        logger.info("PDF download %s: HTTP %s", pdf_url, resp.status)
+                        return (case_name, None)
+                    content_type = resp.content_type or ""
+                    if "html" in content_type:
+                        logger.info("PDF download %s: got HTML instead of PDF", pdf_url)
+                        return (case_name, None)
+                    return (case_name, await resp.read())
+            except Exception as exc:
+                logger.info("PDF download %s: %s", pdf_url, exc)
+                return (case_name, None)
+
+    buf = io.BytesIO()
     downloaded = 0
     skipped_names: list[str] = []
 
     async with aiohttp.ClientSession(connector=connector) as session:
-        with zipfile.ZipFile(buf, "w", zipfile.ZIP_DEFLATED) as zf:
-            seen_filenames: set[str] = set()
-            for entry in resolved:
-                pdf_url = entry["pdf_url"]
-                case_name = entry["case_name"] or "document"
-                if not pdf_url:
-                    skipped_names.append(case_name)
-                    continue
+        results = await asyncio.gather(
+            *[_download_one(session, entry) for entry in resolved]
+        )
 
-                try:
-                    async with session.get(
-                        pdf_url,
-                        timeout=aiohttp.ClientTimeout(total=30),
-                        allow_redirects=True,
-                    ) as resp:
-                        if resp.status != 200:
-                            logger.info("PDF download %s: HTTP %s", pdf_url, resp.status)
-                            skipped_names.append(case_name)
-                            continue
-                        # Verify we got a PDF, not an HTML error page
-                        content_type = resp.content_type or ""
-                        if "html" in content_type:
-                            logger.info("PDF download %s: got HTML instead of PDF", pdf_url)
-                            skipped_names.append(case_name)
-                            continue
-                        pdf_bytes = await resp.read()
-                except Exception as exc:
-                    logger.info("PDF download %s: %s", pdf_url, exc)
-                    skipped_names.append(case_name)
-                    continue
-
-                # Build unique filename
-                base = _sanitize_filename(case_name)
-                filename = f"{base}.pdf"
-                counter = 2
-                while filename in seen_filenames:
-                    filename = f"{base} ({counter}).pdf"
-                    counter += 1
-                seen_filenames.add(filename)
-
-                zf.writestr(filename, pdf_bytes)
-                downloaded += 1
+    with zipfile.ZipFile(buf, "w", zipfile.ZIP_DEFLATED) as zf:
+        seen_filenames: set[str] = set()
+        for case_name, pdf_bytes in results:
+            if pdf_bytes is None:
+                skipped_names.append(case_name)
+                continue
+            base = _sanitize_filename(case_name)
+            filename = f"{base}.pdf"
+            counter = 2
+            while filename in seen_filenames:
+                filename = f"{base} ({counter}).pdf"
+                counter += 1
+            seen_filenames.add(filename)
+            zf.writestr(filename, pdf_bytes)
+            downloaded += 1
 
     if downloaded == 0:
         return JSONResponse(
@@ -439,6 +445,101 @@ async def download_pdfs(request: Request):
     buf.seek(0)
     headers = {
         "Content-Disposition": 'attachment; filename="citation_pdfs.zip"',
+        "x-downloaded": str(downloaded),
+        "x-skipped": str(len(skipped_names)),
+        "Access-Control-Expose-Headers": "x-downloaded, x-skipped",
+    }
+    return StreamingResponse(
+        buf,
+        media_type="application/zip",
+        headers=headers,
+    )
+
+
+# ---------------------------------------------------------------------------
+# Text download endpoint
+# ---------------------------------------------------------------------------
+
+@app.post("/api/download-texts")
+async def download_texts(request: Request):
+    """Download opinion texts for the given matched_urls, returned as a zip of .txt files.
+
+    Accepts JSON body: {"urls": [{"matched_url": "...", "case_name": "..."}, ...]}
+    """
+    try:
+        body = await request.json()
+    except Exception:
+        return JSONResponse({"error": "Invalid JSON body"}, status_code=400)
+
+    items = body.get("urls", [])
+    if not isinstance(items, list) or not items:
+        return JSONResponse({"error": "No URLs provided"}, status_code=400)
+
+    if len(items) > 50:
+        return JSONResponse(
+            {"error": "Maximum 50 texts per download"}, status_code=400
+        )
+
+    # Fetch opinion text for each URL (parallel, rate-limited by client)
+    async def _fetch_one(
+        client: AsyncCourtListenerClient, item: dict,
+    ) -> dict[str, str | None]:
+        matched_url = item.get("matched_url", "")
+        case_name = item.get("case_name", "document")
+        text = await client.get_opinion_text(matched_url)
+        logger.info(
+            "Text resolve: %s -> %s chars",
+            matched_url, len(text) if text else 0,
+        )
+        return {"text": text, "case_name": case_name, "matched_url": matched_url}
+
+    async with AsyncCourtListenerClient() as client:
+        fetched = await asyncio.gather(
+            *[_fetch_one(client, item) for item in items]
+        )
+
+    # Assemble zip of .txt files
+    buf = io.BytesIO()
+    downloaded = 0
+    skipped_names: list[str] = []
+
+    with zipfile.ZipFile(buf, "w", zipfile.ZIP_DEFLATED) as zf:
+        seen_filenames: set[str] = set()
+        for entry in fetched:
+            case_name = entry["case_name"] or "document"
+            text = entry["text"]
+            if not text:
+                skipped_names.append(case_name)
+                continue
+
+            # Build file content with metadata header
+            header = f"Case: {case_name}\n"
+            header += f"Source: {entry['matched_url']}\n"
+            header += "-" * 60 + "\n\n"
+            content = header + text
+
+            base = _sanitize_filename(case_name)
+            filename = f"{base}.txt"
+            counter = 2
+            while filename in seen_filenames:
+                filename = f"{base} ({counter}).txt"
+                counter += 1
+            seen_filenames.add(filename)
+            zf.writestr(filename, content)
+            downloaded += 1
+
+    if downloaded == 0:
+        return JSONResponse(
+            {"error": f"No text available for the selected citations ({len(skipped_names)} skipped -- no text on CourtListener)"},
+            status_code=404,
+        )
+
+    buf.seek(0)
+    headers = {
+        "Content-Disposition": 'attachment; filename="citation_texts.zip"',
+        "x-downloaded": str(downloaded),
+        "x-skipped": str(len(skipped_names)),
+        "Access-Control-Expose-Headers": "x-downloaded, x-skipped",
     }
     return StreamingResponse(
         buf,

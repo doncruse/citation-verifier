@@ -401,23 +401,130 @@ class AsyncCourtListenerClient:
 
     STORAGE_BASE = "https://storage.courtlistener.com/"
 
+    async def get_opinion_text(self, matched_url: str) -> str | None:
+        """Fetch the plain text of an opinion or RECAP document.
+
+        For opinions: cluster API -> sub_opinions -> opinion API -> plain_text
+        (falls back to stripped html_with_citations if plain_text is empty).
+        For RECAP dockets: docket-entries API -> recap_documents -> recap-document
+        API -> plain_text.
+
+        Returns None if no text is available.
+        """
+        if not matched_url:
+            return None
+
+        if "/opinion/" in matched_url:
+            return await self._resolve_opinion_text(matched_url)
+
+        docket_match = re.search(r"/docket/(\d+)/", matched_url)
+        if not docket_match:
+            return None
+
+        docket_id = docket_match.group(1)
+        docket_entry_match = re.search(r"/docket/\d+/(\d+)/", matched_url)
+
+        try:
+            if docket_entry_match:
+                entry_number = docket_entry_match.group(1)
+                entry_data = await self._request_with_retry(
+                    "GET",
+                    f"{self.BASE_URL}/docket-entries/",
+                    params={"docket": docket_id, "entry_number": entry_number},
+                )
+                for entry in entry_data.get("results", []):
+                    for doc in entry.get("recap_documents", []):
+                        doc_id = doc.get("id")
+                        if not doc_id:
+                            continue
+                        doc_detail = await self._request_with_retry(
+                            "GET",
+                            f"{self.BASE_URL}/recap-documents/{doc_id}/",
+                        )
+                        text = doc_detail.get("plain_text", "")
+                        if text and text.strip():
+                            return text
+
+            # Fallback: fetch recent entries
+            entry_data = await self._request_with_retry(
+                "GET",
+                f"{self.BASE_URL}/docket-entries/",
+                params={"docket": docket_id, "page_size": "5"},
+            )
+            for entry in entry_data.get("results", []):
+                for doc in entry.get("recap_documents", []):
+                    doc_id = doc.get("id")
+                    if not doc_id:
+                        continue
+                    doc_detail = await self._request_with_retry(
+                        "GET",
+                        f"{self.BASE_URL}/recap-documents/{doc_id}/",
+                    )
+                    text = doc_detail.get("plain_text", "")
+                    if text and text.strip():
+                        return text
+
+        except Exception:
+            pass
+
+        return None
+
+    async def _resolve_opinion_text(self, matched_url: str) -> str | None:
+        """Resolve an opinion URL to its plain text content.
+
+        Strategy: cluster API -> sub_opinions -> opinion API, then:
+        1. plain_text (preferred)
+        2. html_with_citations with HTML tags stripped (fallback)
+        """
+        cluster_match = re.search(r"/opinion/(\d+)/", matched_url)
+        if not cluster_match:
+            return None
+
+        cluster_id = cluster_match.group(1)
+
+        try:
+            cluster = await self._request_with_retry(
+                "GET", f"{self.BASE_URL}/clusters/{cluster_id}/"
+            )
+            for op_url in cluster.get("sub_opinions", []):
+                op_id = op_url.rstrip("/").split("/")[-1]
+                opinion = await self._request_with_retry(
+                    "GET", f"{self.BASE_URL}/opinions/{op_id}/"
+                )
+
+                text = opinion.get("plain_text", "")
+                if text and text.strip():
+                    return text
+
+                # Fall back to stripped HTML
+                html = opinion.get("html_with_citations", "") or opinion.get("html", "")
+                if html:
+                    stripped = re.sub(r"<[^>]+>", " ", html)
+                    stripped = re.sub(r"\s+", " ", stripped).strip()
+                    if stripped:
+                        return stripped
+
+        except Exception:
+            pass
+
+        return None
+
     async def get_pdf_url(self, matched_url: str) -> str | None:
         """Resolve a CL matched_url to a PDF download URL.
 
-        For opinions: CL serves PDFs at {opinion_url}pdf/ — no API call needed.
+        For opinions: resolves via cluster API -> sub_opinions -> opinion API
+        to find local_path (storage.courtlistener.com) or download_url.
         For RECAP dockets: fetches docket-entries via API to find
         recap_documents with filepath_local.
 
-        The caller should verify the URL actually returns a PDF
-        (check content-type) since not all opinions have PDFs.
+        Returns None if no PDF is available (HTML-only opinions, etc.).
         """
         if not matched_url:
             return None
 
         # Opinion URL: https://www.courtlistener.com/opinion/12345/slug/
         if "/opinion/" in matched_url:
-            url = matched_url.rstrip("/")
-            return f"{url}/pdf/"
+            return await self._resolve_opinion_pdf(matched_url)
 
         # RECAP docket URL: /docket/12345/...
         docket_match = re.search(r"/docket/(\d+)/", matched_url)
@@ -464,4 +571,51 @@ class AsyncCourtListenerClient:
             filepath = doc.get("filepath_local") or ""
             if filepath:
                 return f"{self.STORAGE_BASE}{filepath}"
+        return None
+
+    async def _resolve_opinion_pdf(self, matched_url: str) -> str | None:
+        """Resolve an opinion URL to a downloadable PDF URL via the API.
+
+        Strategy: cluster API -> sub_opinions -> opinion API, then:
+        1. local_path starting with "pdf/" -> storage.courtlistener.com/{path}
+        2. download_url (external court site PDF link, skip .html/.xml)
+        3. filepath_pdf_harvard on cluster -> storage (Harvard CAP scan)
+        """
+        # Extract cluster ID from /opinion/{cluster_id}/slug/
+        cluster_match = re.search(r"/opinion/(\d+)/", matched_url)
+        if not cluster_match:
+            return None
+
+        cluster_id = cluster_match.group(1)
+
+        try:
+            cluster = await self._request_with_retry(
+                "GET", f"{self.BASE_URL}/clusters/{cluster_id}/"
+            )
+            for op_url in cluster.get("sub_opinions", []):
+                op_id = op_url.rstrip("/").split("/")[-1]
+                opinion = await self._request_with_retry(
+                    "GET", f"{self.BASE_URL}/opinions/{op_id}/"
+                )
+
+                # Prefer local_path on storage (reliable, fast)
+                local_path = opinion.get("local_path") or ""
+                if local_path.startswith("pdf/"):
+                    return f"{self.STORAGE_BASE}{local_path}"
+
+                # Fall back to external download_url (skip obvious non-PDFs)
+                download_url = opinion.get("download_url") or ""
+                if download_url and not download_url.endswith(
+                    (".html", ".htm", ".xml")
+                ):
+                    return download_url
+
+            # Fall back to Harvard CAP PDF scan (cluster-level field)
+            harvard_pdf = cluster.get("filepath_pdf_harvard") or ""
+            if harvard_pdf:
+                return f"{self.STORAGE_BASE}{harvard_pdf}"
+
+        except Exception:
+            pass
+
         return None

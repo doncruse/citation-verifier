@@ -67,6 +67,13 @@
   }
   #download-btn:hover:not(:disabled) { background: #218838; }
   #download-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+  #download-text-btn {
+    background: #17a2b8;
+    color: #fff;
+    font-weight: 600;
+  }
+  #download-text-btn:hover:not(:disabled) { background: #138496; }
+  #download-text-btn:disabled { opacity: 0.4; cursor: not-allowed; }
   .download-status {
     font-size: 0.8rem;
     color: #666;
@@ -198,6 +205,7 @@ Terry v. Ohio, 392 U.S. 1 (1968)"></textarea>
     <span class="cite-count" id="cite-count">0 citations</span>
     <button id="export-btn" disabled>Export CSV</button>
     <button id="download-btn" disabled>Download PDFs</button>
+    <button id="download-text-btn" disabled>Download Text</button>
     <span class="download-status" id="download-status"></span>
   </div>
 </div>
@@ -241,6 +249,7 @@ Terry v. Ohio, 392 U.S. 1 (1968)"></textarea>
   const verifyBtn = document.getElementById('verify-btn');
   const exportBtn = document.getElementById('export-btn');
   const downloadBtn = document.getElementById('download-btn');
+  const downloadTextBtn = document.getElementById('download-text-btn');
   const downloadStatus = document.getElementById('download-status');
   const selectAll = document.getElementById('select-all');
   const citeCount = document.getElementById('cite-count');
@@ -530,9 +539,13 @@ Terry v. Ohio, 392 U.S. 1 (1968)"></textarea>
     if (count > 0) {
       downloadBtn.disabled = false;
       downloadBtn.textContent = 'Download ' + count + ' PDF' + (count !== 1 ? 's' : '');
+      downloadTextBtn.disabled = false;
+      downloadTextBtn.textContent = 'Download ' + count + ' Text';
     } else {
       downloadBtn.disabled = true;
       downloadBtn.textContent = 'Download PDFs';
+      downloadTextBtn.disabled = true;
+      downloadTextBtn.textContent = 'Download Text';
     }
     downloadStatus.textContent = '';
   }
@@ -559,6 +572,8 @@ Terry v. Ohio, 392 U.S. 1 (1968)"></textarea>
       }
 
       // Trigger browser download
+      const downloaded = parseInt(response.headers.get('x-downloaded') || '0', 10);
+      const skipped = parseInt(response.headers.get('x-skipped') || '0', 10);
       const blob = await response.blob();
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
@@ -566,7 +581,53 @@ Terry v. Ohio, 392 U.S. 1 (1968)"></textarea>
       a.download = 'citation_pdfs.zip';
       a.click();
       URL.revokeObjectURL(url);
-      downloadStatus.textContent = 'Downloaded ' + items.length + ' PDF' + (items.length !== 1 ? 's' : '') + '.';
+      var msg = 'Downloaded ' + downloaded + ' PDF' + (downloaded !== 1 ? 's' : '');
+      if (skipped > 0) {
+        msg += ' (' + skipped + ' skipped -- no PDF available)';
+      }
+      downloadStatus.textContent = msg + '.';
+    } catch (err) {
+      downloadStatus.textContent = '';
+      showError(err.message);
+    } finally {
+      updateDownloadBtn();
+    }
+  });
+
+  // --- Download Text ---
+  downloadTextBtn.addEventListener('click', async function() {
+    const items = getSelectedItems();
+    if (!items.length) return;
+
+    downloadTextBtn.disabled = true;
+    downloadStatus.textContent = 'Fetching text for ' + items.length + ' opinion' + (items.length !== 1 ? 's' : '') + '...';
+
+    try {
+      const response = await fetch('/api/download-texts', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ urls: items }),
+      });
+
+      if (!response.ok) {
+        const err = await response.json().catch(function() { return {}; });
+        throw new Error(err.error || 'Download failed (' + response.status + ')');
+      }
+
+      const downloaded = parseInt(response.headers.get('x-downloaded') || '0', 10);
+      const skipped = parseInt(response.headers.get('x-skipped') || '0', 10);
+      const blob = await response.blob();
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'citation_texts.zip';
+      a.click();
+      URL.revokeObjectURL(url);
+      var msg = 'Downloaded ' + downloaded + ' text file' + (downloaded !== 1 ? 's' : '');
+      if (skipped > 0) {
+        msg += ' (' + skipped + ' skipped -- no text available)';
+      }
+      downloadStatus.textContent = msg + '.';
     } catch (err) {
       downloadStatus.textContent = '';
       showError(err.message);
