@@ -21,6 +21,11 @@ Added checkboxes + "Download PDFs" button to main page (`localhost:8000`). Backe
 - `web/app.py` — `POST /api/download-pdfs` endpoint, `_sanitize_filename()`
 - `web/static/index.html` — checkbox column, select-all, Download PDFs button + JS
 
+## Priority 0 — Tech debt
+
+### Deduplicate verify() and verify_async()
+`verify_async()` in `verifier.py` is a full copy-paste of `verify()` with `await` added. Any logic change to one must be manually replicated in the other, and it's easy to miss (already caused a bug: citation lookup name-mismatch fix was applied to `verify()` but not `verify_async()`, so the web app silently ran stale logic). Refactor to share a single code path — e.g., have `verify()` call `verify_async()` via `asyncio.run()`, or extract the shared logic into a helper that both call.
+
 ## Priority 1 — Bugs (wrong results)
 
 ### Citation mismatch detection ("Check Cite" status)
