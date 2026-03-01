@@ -174,6 +174,47 @@
   }
   .error-banner.active { display: block; }
 
+  /* Info dot */
+  .info-dot {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: #adb5bd;
+    color: #fff;
+    font-size: 0.65rem;
+    font-weight: 700;
+    cursor: default;
+    margin-left: 4px;
+    vertical-align: middle;
+    position: relative;
+  }
+  .info-dot:hover { background: #6c757d; }
+
+  /* Flag button */
+  .flag-btn {
+    padding: 2px 8px;
+    font-size: 0.78rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background: #fff;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .flag-btn:hover { background: #f0f0f0; }
+  .flag-btn.flagged {
+    background: #d4edda;
+    color: #155724;
+    border-color: #b1dfbb;
+    cursor: default;
+  }
+  .flag-btn.recap-hint {
+    border-color: #ffc107;
+    background: #fff8e1;
+  }
+
   /* Footer */
   .footer {
     margin-top: 30px;
@@ -212,8 +253,8 @@ Terry v. Ohio, 392 U.S. 1 (1968)"></textarea>
     <button id="verify-btn">Verify</button>
     <span class="cite-count" id="cite-count">0 citations</span>
     <button id="export-btn" disabled>Export CSV</button>
-    <button id="download-btn" disabled>Download PDFs</button>
-    <button id="download-text-btn" disabled>Download Text</button>
+    <button id="download-btn" disabled>Download PDFs</button><span class="info-dot" title="Best for human reading and printing">i</span>
+    <button id="download-text-btn" disabled>Download Text</button><span class="info-dot" title="Best for passing to an LLM">i</span>
     <span class="download-status" id="download-status"></span>
   </div>
 </div>
@@ -237,6 +278,7 @@ Terry v. Ohio, 392 U.S. 1 (1968)"></textarea>
           <th>Confidence</th>
           <th>Matched Case</th>
           <th>Link</th>
+          <th>Flag</th>
         </tr>
       </thead>
       <tbody id="results-body">
@@ -324,7 +366,8 @@ Terry v. Ohio, 392 U.S. 1 (1968)"></textarea>
       '<td><span class="badge badge-pending">Pending</span></td>' +
       '<td>--</td>' +
       '<td class="name-col">--</td>' +
-      '<td>--</td>';
+      '<td>--</td>' +
+      '<td></td>';
     return tr;
   }
 
@@ -366,6 +409,16 @@ Terry v. Ohio, 392 U.S. 1 (1968)"></textarea>
       chkHtml = '<input type="checkbox" class="row-chk" data-index="' + index + '" onchange="window._updateDownloadBtn()">';
     }
 
+    // Flag button — show on all completed rows (not pending/error)
+    let flagHtml = '';
+    if (data.status && data.status !== 'ERROR') {
+      const isRecap = data.diagnostics && data.diagnostics.some(function(d) {
+        return d.indexOf('Found in RECAP') !== -1;
+      });
+      const extraClass = isRecap ? ' recap-hint' : '';
+      flagHtml = '<button class="flag-btn' + extraClass + '" data-index="' + index + '" onclick="window._flagForFlp(this)">Flag</button>';
+    }
+
     tr.innerHTML =
       '<td class="chk-col">' + chkHtml + '</td>' +
       '<td>' + (index + 1) + '</td>' +
@@ -373,7 +426,8 @@ Terry v. Ohio, 392 U.S. 1 (1968)"></textarea>
       '<td><span class="badge ' + badgeClass(data.status) + '">' + statusLabel(data.status) + '</span></td>' +
       '<td>' + conf + '</td>' +
       '<td class="name-col">' + nameHtml + '</td>' +
-      '<td>' + link + '</td>';
+      '<td>' + link + '</td>' +
+      '<td>' + flagHtml + '</td>';
   }
 
   function escapeHtml(str) {
@@ -603,6 +657,40 @@ Terry v. Ohio, 392 U.S. 1 (1968)"></textarea>
       updateDownloadBtn();
     }
   });
+
+  // --- Flag for FLP ---
+  window._flagForFlp = async function(btn) {
+    const idx = parseInt(btn.getAttribute('data-index'), 10);
+    const r = results[idx];
+    if (!r) return;
+    btn.disabled = true;
+    btn.textContent = '...';
+    try {
+      const resp = await fetch('/api/flag-for-flp', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          citation: r.input_citation || '',
+          status: r.status || '',
+          confidence: r.confidence != null ? r.confidence.toFixed(2) : '',
+          matched_url: r.matched_url || '',
+          matched_case_name: r.matched_case_name || '',
+          matched_court: r.matched_court || '',
+          matched_date: r.matched_date || '',
+          matched_description: r.matched_description || '',
+          diagnostics: (r.diagnostics || []).join('; '),
+        }),
+      });
+      if (!resp.ok) throw new Error('Flag failed');
+      btn.textContent = 'Flagged';
+      btn.classList.add('flagged');
+      btn.classList.remove('recap-hint');
+    } catch (e) {
+      btn.textContent = 'Flag';
+      btn.disabled = false;
+      showError('Failed to flag citation.');
+    }
+  };
 
   // --- Download Text ---
   downloadTextBtn.addEventListener('click', async function() {

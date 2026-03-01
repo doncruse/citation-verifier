@@ -198,7 +198,7 @@ if _public_mode:
     class _BlockQCMiddleware(BaseHTTPMiddleware):
         async def dispatch(self, request, call_next):
             path = request.url.path
-            if path == "/qc" or path.startswith("/api/qc"):
+            if path == "/qc" or path.startswith("/api/qc") or path == "/api/flag-for-flp":
                 return StarletteResponse("Not Found", status_code=404)
             return await call_next(request)
 
@@ -624,6 +624,49 @@ async def download_texts(request: Request):
         media_type="application/zip",
         headers=headers,
     )
+
+
+# ---------------------------------------------------------------------------
+# Flag for FLP — save results for CourtListener issue evidence
+# ---------------------------------------------------------------------------
+
+_flp_csv = _project_root / "scratch" / "flp_findings.csv"
+_FLP_COLUMNS = [
+    "timestamp", "citation", "status", "confidence", "matched_url",
+    "matched_case_name", "matched_court", "matched_date",
+    "matched_description", "diagnostics",
+]
+
+
+@app.post("/api/flag-for-flp")
+async def flag_for_flp(request: Request):
+    """Append a flagged result to scratch/flp_findings.csv."""
+    try:
+        body = await request.json()
+    except Exception:
+        return JSONResponse({"error": "Invalid JSON"}, status_code=400)
+
+    # Create CSV with headers if it doesn't exist
+    write_header = not _flp_csv.exists()
+    with open(_flp_csv, "a", newline="", encoding="utf-8") as f:
+        writer = csv.DictWriter(f, fieldnames=_FLP_COLUMNS)
+        if write_header:
+            writer.writeheader()
+        row = {
+            "timestamp": datetime.now(timezone.utc).isoformat(),
+            "citation": body.get("citation", ""),
+            "status": body.get("status", ""),
+            "confidence": body.get("confidence", ""),
+            "matched_url": body.get("matched_url", ""),
+            "matched_case_name": body.get("matched_case_name", ""),
+            "matched_court": body.get("matched_court", ""),
+            "matched_date": body.get("matched_date", ""),
+            "matched_description": body.get("matched_description", ""),
+            "diagnostics": body.get("diagnostics", ""),
+        }
+        writer.writerow(row)
+
+    return JSONResponse({"ok": True})
 
 
 # ---------------------------------------------------------------------------
