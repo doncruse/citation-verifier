@@ -411,11 +411,22 @@ class AsyncCourtListenerClient:
 
         Returns None if no text is available.
         """
+        result = await self.get_opinion_text_with_metadata(matched_url)
+        return result.get("text") if result else None
+
+    async def get_opinion_text_with_metadata(
+        self, matched_url: str,
+    ) -> dict[str, Any] | None:
+        """Fetch opinion text along with metadata (case name, court, date, etc.).
+
+        Returns a dict with keys: text, case_name, court, date_filed,
+        docket_number, citations, source_url.  Returns None if no text found.
+        """
         if not matched_url:
             return None
 
         if "/opinion/" in matched_url:
-            return await self._resolve_opinion_text(matched_url)
+            return await self._resolve_opinion_text_with_metadata(matched_url)
 
         docket_match = re.search(r"/docket/(\d+)/", matched_url)
         if not docket_match:
@@ -425,6 +436,8 @@ class AsyncCourtListenerClient:
         docket_entry_match = re.search(r"/docket/\d+/(\d+)/", matched_url)
 
         try:
+            text = None
+
             if docket_entry_match:
                 entry_number = docket_entry_match.group(1)
                 entry_data = await self._request_with_retry(
@@ -441,41 +454,74 @@ class AsyncCourtListenerClient:
                             "GET",
                             f"{self.BASE_URL}/recap-documents/{doc_id}/",
                         )
-                        text = doc_detail.get("plain_text", "")
-                        if text and text.strip():
-                            return text
+                        t = doc_detail.get("plain_text", "")
+                        if t and t.strip():
+                            text = t
+                            break
+                    if text:
+                        break
 
-            # Fallback: fetch recent entries
-            entry_data = await self._request_with_retry(
-                "GET",
-                f"{self.BASE_URL}/docket-entries/",
-                params={"docket": docket_id, "page_size": "5"},
+            if not text:
+                # Fallback: fetch recent entries
+                entry_data = await self._request_with_retry(
+                    "GET",
+                    f"{self.BASE_URL}/docket-entries/",
+                    params={"docket": docket_id, "page_size": "5"},
+                )
+                for entry in entry_data.get("results", []):
+                    for doc in entry.get("recap_documents", []):
+                        doc_id = doc.get("id")
+                        if not doc_id:
+                            continue
+                        doc_detail = await self._request_with_retry(
+                            "GET",
+                            f"{self.BASE_URL}/recap-documents/{doc_id}/",
+                        )
+                        t = doc_detail.get("plain_text", "")
+                        if t and t.strip():
+                            text = t
+                            break
+                    if text:
+                        break
+
+            if not text:
+                return None
+
+            # Fetch docket metadata
+            docket = await self._request_with_retry(
+                "GET", f"{self.BASE_URL}/dockets/{docket_id}/",
             )
-            for entry in entry_data.get("results", []):
-                for doc in entry.get("recap_documents", []):
-                    doc_id = doc.get("id")
-                    if not doc_id:
-                        continue
-                    doc_detail = await self._request_with_retry(
-                        "GET",
-                        f"{self.BASE_URL}/recap-documents/{doc_id}/",
+            court_url = docket.get("court", "")
+            court_name = ""
+            if court_url:
+                court_id = court_url.rstrip("/").split("/")[-1]
+                try:
+                    court_data = await self._request_with_retry(
+                        "GET", f"{self.BASE_URL}/courts/{court_id}/",
                     )
-                    text = doc_detail.get("plain_text", "")
-                    if text and text.strip():
-                        return text
+                    court_name = court_data.get("full_name", "")
+                except Exception:
+                    pass
+
+            return {
+                "text": text,
+                "case_name": docket.get("case_name", ""),
+                "court": court_name,
+                "date_filed": docket.get("date_filed", ""),
+                "docket_number": docket.get("docket_number", ""),
+                "citations": [],
+                "source_url": matched_url,
+            }
 
         except Exception:
             pass
 
         return None
 
-    async def _resolve_opinion_text(self, matched_url: str) -> str | None:
-        """Resolve an opinion URL to its plain text content.
-
-        Strategy: cluster API -> sub_opinions -> opinion API, then:
-        1. plain_text (preferred)
-        2. html_with_citations with HTML tags stripped (fallback)
-        """
+    async def _resolve_opinion_text_with_metadata(
+        self, matched_url: str,
+    ) -> dict[str, Any] | None:
+        """Resolve an opinion URL to its plain text content plus metadata."""
         cluster_match = re.search(r"/opinion/(\d+)/", matched_url)
         if not cluster_match:
             return None
@@ -486,15 +532,18 @@ class AsyncCourtListenerClient:
             cluster = await self._request_with_retry(
                 "GET", f"{self.BASE_URL}/clusters/{cluster_id}/"
             )
+
+            text = None
             for op_url in cluster.get("sub_opinions", []):
                 op_id = op_url.rstrip("/").split("/")[-1]
                 opinion = await self._request_with_retry(
                     "GET", f"{self.BASE_URL}/opinions/{op_id}/"
                 )
 
-                text = opinion.get("plain_text", "")
-                if text and text.strip():
-                    return text
+                t = opinion.get("plain_text", "")
+                if t and t.strip():
+                    text = t
+                    break
 
                 # Fall back to stripped HTML
                 html = opinion.get("html_with_citations", "") or opinion.get("html", "")
@@ -502,7 +551,56 @@ class AsyncCourtListenerClient:
                     stripped = re.sub(r"<[^>]+>", " ", html)
                     stripped = re.sub(r"\s+", " ", stripped).strip()
                     if stripped:
-                        return stripped
+                        text = stripped
+                        break
+
+            if not text:
+                return None
+
+            # Extract citations from cluster
+            citations = []
+            for cite in cluster.get("citations", []):
+                if isinstance(cite, str):
+                    # URL reference — skip
+                    continue
+                # cite may be a dict with "volume", "reporter", "page"
+                if isinstance(cite, dict):
+                    vol = cite.get("volume", "")
+                    rep = cite.get("reporter", "")
+                    pg = cite.get("page", "")
+                    if vol and rep and pg:
+                        citations.append(f"{vol} {rep} {pg}")
+
+            # Resolve court name from docket
+            court_name = ""
+            docket_number = ""
+            docket_url = cluster.get("docket", "")
+            if docket_url:
+                docket_id = docket_url.rstrip("/").split("/")[-1]
+                try:
+                    docket = await self._request_with_retry(
+                        "GET", f"{self.BASE_URL}/dockets/{docket_id}/",
+                    )
+                    docket_number = docket.get("docket_number", "")
+                    court_url = docket.get("court", "")
+                    if court_url:
+                        court_id = court_url.rstrip("/").split("/")[-1]
+                        court_data = await self._request_with_retry(
+                            "GET", f"{self.BASE_URL}/courts/{court_id}/",
+                        )
+                        court_name = court_data.get("full_name", "")
+                except Exception:
+                    pass
+
+            return {
+                "text": text,
+                "case_name": cluster.get("case_name", ""),
+                "court": court_name,
+                "date_filed": cluster.get("date_filed", ""),
+                "docket_number": docket_number,
+                "citations": citations,
+                "source_url": matched_url,
+            }
 
         except Exception:
             pass

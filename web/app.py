@@ -215,6 +215,13 @@ async def index():
     return HTMLResponse(html_path.read_text(encoding="utf-8"))
 
 
+@app.get("/get", response_class=HTMLResponse)
+async def get_and_print():
+    """Serve the Get and Print page."""
+    html_path = _static_dir / "get.html"
+    return HTMLResponse(html_path.read_text(encoding="utf-8"))
+
+
 @app.get("/api/health")
 async def health():
     """Health check — reports token presence and cache size."""
@@ -480,18 +487,25 @@ async def download_texts(request: Request):
             {"error": "Maximum 50 texts per download"}, status_code=400
         )
 
-    # Fetch opinion text for each URL (parallel, rate-limited by client)
+    # Fetch opinion text + metadata for each URL (parallel)
     async def _fetch_one(
         client: AsyncCourtListenerClient, item: dict,
-    ) -> dict[str, str | None]:
+    ) -> dict[str, Any]:
         matched_url = item.get("matched_url", "")
         case_name = item.get("case_name", "document")
-        text = await client.get_opinion_text(matched_url)
+        result = await client.get_opinion_text_with_metadata(matched_url)
         logger.info(
             "Text resolve: %s -> %s chars",
-            matched_url, len(text) if text else 0,
+            matched_url, len(result["text"]) if result else 0,
         )
-        return {"text": text, "case_name": case_name, "matched_url": matched_url}
+        if result:
+            # Prefer the caller's case_name if the API didn't return one
+            if not result.get("case_name"):
+                result["case_name"] = case_name
+            result["matched_url"] = matched_url
+        else:
+            result = {"text": None, "case_name": case_name, "matched_url": matched_url}
+        return result
 
     async with AsyncCourtListenerClient() as client:
         fetched = await asyncio.gather(
@@ -506,16 +520,31 @@ async def download_texts(request: Request):
     with zipfile.ZipFile(buf, "w", zipfile.ZIP_DEFLATED) as zf:
         seen_filenames: set[str] = set()
         for entry in fetched:
-            case_name = entry["case_name"] or "document"
-            text = entry["text"]
+            case_name = entry.get("case_name") or "document"
+            text = entry.get("text")
             if not text:
                 skipped_names.append(case_name)
                 continue
 
-            # Build file content with metadata header
-            header = f"Case: {case_name}\n"
-            header += f"Source: {entry['matched_url']}\n"
-            header += "-" * 60 + "\n\n"
+            # Build file content with rich metadata header
+            lines = []
+            lines.append(case_name)
+            citations = entry.get("citations", [])
+            if citations:
+                lines.append(", ".join(citations))
+            court = entry.get("court", "")
+            if court:
+                lines.append(court)
+            date_filed = entry.get("date_filed", "")
+            if date_filed:
+                lines.append(f"Filed: {date_filed}")
+            docket_number = entry.get("docket_number", "")
+            if docket_number:
+                lines.append(f"Docket No. {docket_number}")
+            lines.append(f"Source: {entry.get('matched_url', '')}")
+            lines.append("-" * 60)
+            lines.append("")
+            header = "\n".join(lines) + "\n"
             content = header + text
 
             base = _sanitize_filename(case_name)

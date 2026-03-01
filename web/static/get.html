@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Citation Verifier</title>
+<title>Get and Print - CourtListener</title>
 <style>
   *, *::before, *::after { box-sizing: border-box; }
   body {
@@ -14,6 +14,11 @@
     color: #1a1a1a;
     background: #f8f9fa;
   }
+  nav { font-size: 0.85rem; margin-bottom: 12px; color: #666; }
+  nav a { color: #4a6fa5; text-decoration: none; }
+  nav a:hover { text-decoration: underline; }
+  nav .sep { margin: 0 6px; }
+  nav .current { font-weight: 600; color: #1a1a1a; }
   h1 { margin: 0 0 4px; font-size: 1.5rem; }
   .subtitle { color: #666; margin: 0 0 20px; font-size: 0.9rem; }
   .subtitle a { color: #4a6fa5; }
@@ -37,6 +42,7 @@
     align-items: center;
     gap: 12px;
     margin-top: 8px;
+    flex-wrap: wrap;
   }
   .cite-count { font-size: 0.85rem; color: #666; }
   button {
@@ -47,19 +53,13 @@
     cursor: pointer;
     transition: background 0.15s;
   }
-  #verify-btn {
+  #search-btn {
     background: #4a6fa5;
     color: #fff;
     font-weight: 600;
   }
-  #verify-btn:hover:not(:disabled) { background: #3a5a8a; }
-  #verify-btn:disabled { opacity: 0.5; cursor: not-allowed; }
-  #export-btn {
-    background: #e9ecef;
-    color: #333;
-  }
-  #export-btn:hover:not(:disabled) { background: #dde0e3; }
-  #export-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+  #search-btn:hover:not(:disabled) { background: #3a5a8a; }
+  #search-btn:disabled { opacity: 0.5; cursor: not-allowed; }
   #download-btn {
     background: #28a745;
     color: #fff;
@@ -148,9 +148,8 @@
     font-weight: 600;
     white-space: nowrap;
   }
-  .badge-verified { background: #d4edda; color: #155724; }
-  .badge-likely { background: #cce5ff; color: #004085; }
-  .badge-possible { background: #fff3cd; color: #856404; }
+  .badge-ready { background: #d4edda; color: #155724; }
+  .badge-review { background: #fff3cd; color: #856404; }
   .badge-notfound { background: #f8d7da; color: #721c24; }
   .badge-error { background: #e2e3e5; color: #383d41; }
   .badge-pending { background: #e9ecef; color: #6c757d; }
@@ -187,15 +186,15 @@
 </head>
 <body>
 
-<nav style="font-size:0.85rem;margin-bottom:12px;color:#666;">
-  <span style="font-weight:600;color:#1a1a1a;">Verify</span>
-  <span style="margin:0 6px;">|</span>
-  <a href="/get" style="color:#4a6fa5;text-decoration:none;">Get and Print</a>
+<nav>
+  <a href="/">Verify</a>
+  <span class="sep">|</span>
+  <span class="current">Get and Print</span>
 </nav>
 
-<h1>Citation Verifier</h1>
+<h1>Get and Print</h1>
 <p class="subtitle">
-  Check legal citations against
+  Retrieve opinion text and PDFs from
   <a href="https://www.courtlistener.com/" target="_blank" rel="noopener">CourtListener</a>.
   Paste one citation per line.
 </p>
@@ -207,11 +206,10 @@
 Miranda v. Arizona, 384 U.S. 436 (1966)
 Terry v. Ohio, 392 U.S. 1 (1968)"></textarea>
   <div class="input-controls">
-    <button id="verify-btn">Verify</button>
+    <button id="search-btn">Search</button>
     <span class="cite-count" id="cite-count">0 citations</span>
-    <button id="export-btn" disabled>Export CSV</button>
-    <button id="download-btn" disabled>Download PDFs</button>
     <button id="download-text-btn" disabled>Download Text</button>
+    <button id="download-btn" disabled>Download PDFs</button>
     <span class="download-status" id="download-status"></span>
   </div>
 </div>
@@ -220,7 +218,7 @@ Terry v. Ohio, 392 U.S. 1 (1968)"></textarea>
   <div class="progress-bar-bg">
     <div class="progress-bar-fill" id="progress-fill"></div>
   </div>
-  <div class="progress-text" id="progress-text">Verifying...</div>
+  <div class="progress-text" id="progress-text">Searching...</div>
 </div>
 
 <div class="results-section" id="results-section">
@@ -228,11 +226,10 @@ Terry v. Ohio, 392 U.S. 1 (1968)"></textarea>
     <table>
       <thead>
         <tr>
-          <th class="chk-col"><input type="checkbox" id="select-all" title="Select all with matches"></th>
+          <th class="chk-col"><input type="checkbox" id="select-all" title="Select/deselect all"></th>
           <th>#</th>
           <th>Citation</th>
           <th>Status</th>
-          <th>Confidence</th>
           <th>Matched Case</th>
           <th>Link</th>
         </tr>
@@ -252,8 +249,7 @@ Terry v. Ohio, 392 U.S. 1 (1968)"></textarea>
 <script>
 (function() {
   const textarea = document.getElementById('citations-input');
-  const verifyBtn = document.getElementById('verify-btn');
-  const exportBtn = document.getElementById('export-btn');
+  const searchBtn = document.getElementById('search-btn');
   const downloadBtn = document.getElementById('download-btn');
   const downloadTextBtn = document.getElementById('download-text-btn');
   const downloadStatus = document.getElementById('download-status');
@@ -289,25 +285,20 @@ Terry v. Ohio, 392 U.S. 1 (1968)"></textarea>
     errorBanner.classList.remove('active');
   }
 
-  function badgeClass(status) {
+  // Map verification statuses to Get & Print labels
+  function statusInfo(status) {
     switch (status) {
-      case 'VERIFIED': return 'badge-verified';
-      case 'LIKELY_REAL': return 'badge-likely';
-      case 'POSSIBLE_MATCH': return 'badge-possible';
-      case 'NOT_FOUND': return 'badge-notfound';
-      case 'ERROR': return 'badge-error';
-      default: return 'badge-pending';
-    }
-  }
-
-  function statusLabel(status) {
-    switch (status) {
-      case 'VERIFIED': return 'Verified';
-      case 'LIKELY_REAL': return 'Likely Real';
-      case 'POSSIBLE_MATCH': return 'Possible';
-      case 'NOT_FOUND': return 'Not Found';
-      case 'ERROR': return 'Error';
-      default: return 'Pending';
+      case 'VERIFIED':
+      case 'LIKELY_REAL':
+        return { label: 'Ready', cls: 'badge-ready' };
+      case 'POSSIBLE_MATCH':
+        return { label: 'Review Name', cls: 'badge-review' };
+      case 'NOT_FOUND':
+        return { label: 'Not Found', cls: 'badge-notfound' };
+      case 'ERROR':
+        return { label: 'Error', cls: 'badge-error' };
+      default:
+        return { label: 'Searching...', cls: 'badge-pending' };
     }
   }
 
@@ -319,8 +310,7 @@ Terry v. Ohio, 392 U.S. 1 (1968)"></textarea>
       '<td class="chk-col"></td>' +
       '<td>' + (index + 1) + '</td>' +
       '<td class="citation-col">' + escapeHtml(citation) + '</td>' +
-      '<td><span class="badge badge-pending">Pending</span></td>' +
-      '<td>--</td>' +
+      '<td><span class="badge badge-pending">Searching...</span></td>' +
       '<td class="name-col">--</td>' +
       '<td>--</td>';
     return tr;
@@ -330,21 +320,12 @@ Terry v. Ohio, 392 U.S. 1 (1968)"></textarea>
     const tr = document.getElementById('row-' + index);
     if (!tr) return;
     tr.className = '';
-    const conf = data.confidence != null ? (data.confidence * 100).toFixed(0) + '%' : '--';
     const name = data.matched_case_name || '--';
     let link = '--';
     if (data.matched_url) {
       link = '<a class="cl-link" href="' + escapeHtml(data.matched_url) +
              '" target="_blank" rel="noopener">View</a>';
     }
-    let title = '';
-    if (data.diagnostics && data.diagnostics.length) {
-      title = data.diagnostics.join('; ');
-    }
-    if (data.error) {
-      title = data.error;
-    }
-    tr.title = title;
 
     // Build matched case cell with court, date, and RECAP description
     let nameHtml = escapeHtml(name);
@@ -358,18 +339,19 @@ Terry v. Ohio, 392 U.S. 1 (1968)"></textarea>
       nameHtml += '<br><span style="font-size:0.75rem;color:#888;font-style:italic;">' + escapeHtml(data.matched_description) + '</span>';
     }
 
-    // Show checkbox only if there's a matched_url
+    // Show checkbox for all rows with a matched_url (auto-checked)
     let chkHtml = '';
     if (data.matched_url) {
-      chkHtml = '<input type="checkbox" class="row-chk" data-index="' + index + '" onchange="window._updateDownloadBtn()">';
+      chkHtml = '<input type="checkbox" class="row-chk" data-index="' + index + '" checked onchange="window._updateDownloadBtn()">';
     }
+
+    const info = statusInfo(data.status);
 
     tr.innerHTML =
       '<td class="chk-col">' + chkHtml + '</td>' +
       '<td>' + (index + 1) + '</td>' +
       '<td class="citation-col">' + escapeHtml(data.input_citation || '') + '</td>' +
-      '<td><span class="badge ' + badgeClass(data.status) + '">' + statusLabel(data.status) + '</span></td>' +
-      '<td>' + conf + '</td>' +
+      '<td><span class="badge ' + info.cls + '">' + info.label + '</span></td>' +
       '<td class="name-col">' + nameHtml + '</td>' +
       '<td>' + link + '</td>';
   }
@@ -380,7 +362,7 @@ Terry v. Ohio, 392 U.S. 1 (1968)"></textarea>
     return div.innerHTML;
   }
 
-  async function verify() {
+  async function search() {
     hideError();
     const citations = getCitations();
     if (!citations.length) {
@@ -392,8 +374,7 @@ Terry v. Ohio, 392 U.S. 1 (1968)"></textarea>
       return;
     }
 
-    verifyBtn.disabled = true;
-    exportBtn.disabled = true;
+    searchBtn.disabled = true;
     results = [];
     selectAll.checked = false;
     updateDownloadBtn();
@@ -408,7 +389,7 @@ Terry v. Ohio, 392 U.S. 1 (1968)"></textarea>
     // Show progress
     progressContainer.classList.add('active');
     progressFill.style.width = '0%';
-    progressText.textContent = 'Verifying 0 / ' + citations.length + '...';
+    progressText.textContent = 'Searching 0 / ' + citations.length + '...';
 
     try {
       const response = await fetch('/api/verify', {
@@ -454,9 +435,13 @@ Terry v. Ohio, 392 U.S. 1 (1968)"></textarea>
     } catch (err) {
       showError(err.message);
     } finally {
-      verifyBtn.disabled = false;
+      searchBtn.disabled = false;
       progressContainer.classList.remove('active');
-      if (results.length) exportBtn.disabled = false;
+      // Auto-check select-all since all row checkboxes are checked by default
+      if (document.querySelectorAll('.row-chk').length > 0) {
+        selectAll.checked = true;
+      }
+      updateDownloadBtn();
     }
   }
 
@@ -464,59 +449,29 @@ Terry v. Ohio, 392 U.S. 1 (1968)"></textarea>
     if (eventType === 'result') {
       results[data.index] = data;
       updateRow(data.index, data);
+      // Update download buttons as results stream in
+      updateDownloadBtn();
     } else if (eventType === 'progress') {
       const pct = (data.completed / data.total * 100).toFixed(0);
       progressFill.style.width = pct + '%';
-      progressText.textContent = 'Verifying ' + data.completed + ' / ' + data.total + '...';
+      progressText.textContent = 'Searching ' + data.completed + ' / ' + data.total + '...';
     } else if (eventType === 'done') {
       progressFill.style.width = '100%';
-      progressText.textContent = 'Done - ' + data.total + ' citations verified.';
+      progressText.textContent = 'Done - ' + data.total + ' citations searched.';
     } else if (eventType === 'error') {
       showError(data.error || 'An unexpected error occurred.');
     }
   }
 
-  verifyBtn.addEventListener('click', verify);
+  searchBtn.addEventListener('click', search);
 
   // Allow Ctrl+Enter to submit
   textarea.addEventListener('keydown', function(e) {
     if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) {
       e.preventDefault();
-      verify();
+      search();
     }
   });
-
-  // CSV export
-  exportBtn.addEventListener('click', function() {
-    if (!results.length) return;
-    const header = 'Citation,Status,Confidence,Matched Case,URL,Diagnostics\n';
-    const rows = results.map(function(r) {
-      if (!r) return ',,,,';
-      return [
-        csvEscape(r.input_citation || ''),
-        csvEscape(r.status || ''),
-        r.confidence != null ? r.confidence.toFixed(2) : '',
-        csvEscape(r.matched_case_name || ''),
-        csvEscape(r.matched_url || ''),
-        csvEscape((r.diagnostics || []).join('; ')),
-      ].join(',');
-    });
-    const blob = new Blob([header + rows.join('\n')], { type: 'text/csv' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'citation_verification_results.csv';
-    a.click();
-    URL.revokeObjectURL(url);
-  });
-
-  function csvEscape(str) {
-    if (!str) return '';
-    if (str.indexOf(',') !== -1 || str.indexOf('"') !== -1 || str.indexOf('\n') !== -1) {
-      return '"' + str.replace(/"/g, '""') + '"';
-    }
-    return str;
-  }
 
   // --- Select-all checkbox ---
   selectAll.addEventListener('change', function() {
@@ -579,7 +534,6 @@ Terry v. Ohio, 392 U.S. 1 (1968)"></textarea>
         throw new Error(err.error || 'Download failed (' + response.status + ')');
       }
 
-      // Trigger browser download
       const downloaded = parseInt(response.headers.get('x-downloaded') || '0', 10);
       const skipped = parseInt(response.headers.get('x-skipped') || '0', 10);
       const blob = await response.blob();
