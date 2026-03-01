@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Get and Print - CourtListener</title>
+<title>Retrieve - Verify and Retrieve</title>
 <style>
   *, *::before, *::after { box-sizing: border-box; }
   body {
@@ -264,15 +264,16 @@
 <nav id="main-nav">
   <a href="/">Verify</a>
   <span class="sep">|</span>
-  <span class="current">Get and Print</span>
+  <span class="current">Retrieve</span>
   <span class="sep">|</span>
   <a href="/qc">QC</a>
 </nav>
 <script>if (location.pathname === '/') document.getElementById('main-nav').style.display = 'none';</script>
 
-<h1>Get and Print</h1>
+<h1>Verify and Retrieve</h1>
 <p class="subtitle">
-  Retrieve opinion text and PDFs from
+  Don't trust. Verify. And then retrieve the source.
+  <br>Get opinion text and PDFs from
   <a href="https://www.courtlistener.com/" target="_blank" rel="noopener">CourtListener</a>.
   Paste one citation per line.
 </p>
@@ -463,20 +464,39 @@ Terry v. Ohio, 392 U.S. 1 (1968)"></textarea>
     errorBanner.classList.remove('active');
   }
 
-  // Map verification statuses to Get & Print labels
-  function statusInfo(status) {
+  // Map verification statuses to Get & Print badge(s)
+  function statusBadges(status, diagnostics) {
     switch (status) {
       case 'VERIFIED':
       case 'LIKELY_REAL':
-        return { label: 'Ready', cls: 'badge-ready' };
-      case 'POSSIBLE_MATCH':
-        return { label: 'Review Name', cls: 'badge-review' };
+        return [{ label: 'Ready', cls: 'badge-ready' }];
+      case 'POSSIBLE_MATCH': {
+        var badges = [];
+        if (diagnostics && diagnostics.length) {
+          for (var i = 0; i < diagnostics.length; i++) {
+            var d = diagnostics[i];
+            if (/^Name (mismatch|differs)/i.test(d)) {
+              badges.push({ label: 'Check Name', cls: 'badge-review' });
+            } else if (/^Court mismatch/i.test(d)) {
+              badges.push({ label: 'Check Court', cls: 'badge-review' });
+            } else if (/^Date mismatch/i.test(d)) {
+              badges.push({ label: 'Check Date', cls: 'badge-review' });
+            } else if (/^Docket mismatch/i.test(d)) {
+              badges.push({ label: 'Check Docket', cls: 'badge-review' });
+            } else if (/^Citation mismatch/i.test(d)) {
+              badges.push({ label: 'Check Cite', cls: 'badge-review' });
+            }
+          }
+        }
+        if (!badges.length) badges.push({ label: 'Review', cls: 'badge-review' });
+        return badges;
+      }
       case 'NOT_FOUND':
-        return { label: 'Not Found', cls: 'badge-notfound' };
+        return [{ label: 'Not Found', cls: 'badge-notfound' }];
       case 'ERROR':
-        return { label: 'Error', cls: 'badge-error' };
+        return [{ label: 'Error', cls: 'badge-error' }];
       default:
-        return { label: 'Searching...', cls: 'badge-pending' };
+        return [{ label: 'Searching...', cls: 'badge-pending' }];
     }
   }
 
@@ -523,15 +543,22 @@ Terry v. Ohio, 392 U.S. 1 (1968)"></textarea>
       chkHtml = '<input type="checkbox" class="row-chk" data-index="' + index + '" checked onchange="window._updateDownloadBtn()">';
     }
 
-    const info = statusInfo(data.status);
+    var badges = statusBadges(data.status, data.diagnostics);
+    var badgeHtml = badges.map(function(b) {
+      return '<span class="badge ' + b.cls + '">' + b.label + '</span>';
+    }).join(' ');
 
     tr.innerHTML =
       '<td class="chk-col">' + chkHtml + '</td>' +
       '<td>' + (index + 1) + '</td>' +
       '<td class="citation-col">' + escapeHtml(data.input_citation || '') + '</td>' +
-      '<td><span class="badge ' + info.cls + '">' + info.label + '</span></td>' +
+      '<td>' + badgeHtml + '</td>' +
       '<td class="name-col">' + nameHtml + '</td>' +
       '<td>' + link + '</td>';
+
+    if (data.diagnostics && data.diagnostics.length) {
+      tr.title = data.diagnostics.join('; ');
+    }
   }
 
   function escapeHtml(str) {

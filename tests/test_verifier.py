@@ -97,7 +97,7 @@ class TestStep1Verified:
 
 
 class TestStep1NameMismatch:
-    def test_not_found_when_citation_belongs_to_different_case(self):
+    def test_possible_match_when_citation_belongs_to_different_case(self):
         client = _make_client(
             citation_lookup=[
                 {
@@ -114,12 +114,14 @@ class TestStep1NameMismatch:
         v = CitationVerifier(client)
         result = v.verify("Smith v. Jones, 100 F.3d 200 (2d Cir. 2020)")
 
-        assert result.status == VerificationStatus.NOT_FOUND
-        assert result.confidence == 0.0
-        assert "different case" in result.diagnostics[0].lower()
+        assert result.status == VerificationStatus.POSSIBLE_MATCH
+        assert result.confidence == 0.3
+        assert result.matched_case_name == "Totally Different v. Case"
+        assert result.matched_cluster_id == 789
+        assert "Name mismatch" in result.diagnostics[0]
 
-    def test_not_found_different_defendant_same_prefix(self):
-        """'United States v. Smith' should not match 'United States v. Johnson'."""
+    def test_possible_match_different_defendant_same_prefix(self):
+        """'United States v. Smith' should not verify as 'United States v. Johnson'."""
         client = _make_client(
             citation_lookup=[
                 {
@@ -136,7 +138,9 @@ class TestStep1NameMismatch:
         v = CitationVerifier(client)
         result = v.verify("United States v. Smith, 500 F.3d 100 (9th Cir. 2018)")
 
-        assert result.status == VerificationStatus.NOT_FOUND
+        assert result.status == VerificationStatus.POSSIBLE_MATCH
+        assert result.confidence == 0.3
+        assert "Name mismatch" in result.diagnostics[0]
 
 
 # ---------------------------------------------------------------------------
@@ -1260,8 +1264,8 @@ class TestCitationLookupNameMatching:
 
         assert result.status == VerificationStatus.VERIFIED
 
-    def test_completely_wrong_name_still_rejected(self):
-        """Fabricated name + real citation should still be NOT_FOUND."""
+    def test_completely_wrong_name_returns_possible_match(self):
+        """Fabricated name + real citation should return POSSIBLE_MATCH with the actual case."""
         client = _make_client(
             citation_lookup=[
                 {
@@ -1278,7 +1282,11 @@ class TestCitationLookupNameMatching:
         v = CitationVerifier(client)
         result = v.verify("Johnson v. Microsoft Corp., 239 F.3d 989 (9th Cir. 2001)")
 
-        assert result.status == VerificationStatus.NOT_FOUND
+        assert result.status == VerificationStatus.POSSIBLE_MATCH
+        assert result.confidence == 0.3
+        assert result.matched_case_name == "David M. Fink v. James H. Gomez, Director"
+        assert result.matched_cluster_id == 772039
+        assert "Name mismatch" in result.diagnostics[0]
 
     def test_common_word_surname_rejected(self):
         """'American' as a defendant surname should not match an unrelated 'American National Insurance'."""
@@ -1301,7 +1309,9 @@ class TestCitationLookupNameMatching:
             "(N.D. Ala. 1961)"
         )
         # "American" is nondistinctive; "Pettway" is distinctive but not in CL name
-        assert result.status == VerificationStatus.NOT_FOUND
+        assert result.status == VerificationStatus.POSSIBLE_MATCH
+        assert result.confidence == 0.3
+        assert "Name mismatch" in result.diagnostics[0]
 
     def test_distinctive_org_name_still_matches(self):
         """Non-generic org names like 'Costco' should still match."""
@@ -1669,8 +1679,8 @@ class TestQuickOnly:
         assert client.search_opinions.call_count == 0
         assert client.search_recap.call_count == 0
 
-    def test_quick_name_mismatch_returns_not_found(self):
-        """Citation exists but wrong case with quick_only -> NOT_FOUND (same as full)."""
+    def test_quick_name_mismatch_returns_possible_match(self):
+        """Citation exists but wrong case with quick_only -> POSSIBLE_MATCH."""
         client = _make_client(
             citation_lookup=[
                 {
@@ -1689,8 +1699,9 @@ class TestQuickOnly:
             "Smith v. Jones, 100 F.3d 200 (2d Cir. 2020)", quick_only=True
         )
 
-        assert result.status == VerificationStatus.NOT_FOUND
-        assert "different case" in result.diagnostics[0]
+        assert result.status == VerificationStatus.POSSIBLE_MATCH
+        assert result.confidence == 0.3
+        assert "Name mismatch" in result.diagnostics[0]
 
 
 # ---------------------------------------------------------------------------
