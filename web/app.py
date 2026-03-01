@@ -313,9 +313,11 @@ async def verify(request: Request):
 
         async with AsyncCourtListenerClient(api_token=token) as client:
             for i, citation_text in enumerate(citations):
-                # Check cache first (skip cache for quick mode — a quick
-                # NOT_FOUND should not block a later deep search)
-                cached = _cache.get(citation_text) if not quick_only else None
+                # Skip cache reads for all web UI searches:
+                # - Quick mode: a quick NOT_FOUND shouldn't block deep search
+                # - Full/deep mode: user explicitly wants fresh results;
+                #   file cache may have stale entries from before code fixes
+                cached = None
                 if cached is not None:
                     result_dict = _result_to_dict(cached)
                     result_dict["index"] = i

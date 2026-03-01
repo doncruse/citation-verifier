@@ -23,6 +23,16 @@ Added checkboxes + "Download PDFs" button to main page (`localhost:8000`). Backe
 
 ## Priority 1 — Bugs (wrong results)
 
+### Citation mismatch detection ("Check Cite" status)
+When the opinion search (step 2) finds a case by name but the reporter citation doesn't match (e.g., searched for `742 F. Supp. 2d 672` but CL has `759 F. Supp. 2d 822`), the result currently shows as VERIFIED/LIKELY_REAL. A wrong volume/page is a big deal — it means the citation in the brief is incorrect even though the case is real.
+
+Proposed fix: after the opinion search finds a match, compare the matched case's citations against the searched citation. If the reporter citation doesn't match, flag it with a new status or a `citation_mismatch` field so the UI can show "Check Cite" instead of "Ready." This distinguishes three cases:
+- **Ready**: case found, citation confirmed
+- **Check Cite**: case found by name, but cited reporter/volume/page is wrong
+- **Review Name**: something found, but case name doesn't match well
+
+Example: `In re Chinese-Manufactured Drywall Products Liability Litigation, 742 F. Supp. 2d 672 (E.D. La. 2010)` — case exists at `759 F. Supp. 2d 822` but not at the cited location.
+
 ### INSUFFICIENT_DATA: skip verification entirely
 When both court and date are missing, return a new `INSUFFICIENT_DATA` status immediately — no API calls. Court-only-missing is also borderline ("In re Wright" with just a year is too weak). WL citation "years" come from the volume number, not a court parenthetical — weaker evidence.
 - Example: In re Marriage of Schultz, 2019 WL 5089859 (2015) — parser dropped court and case number, got year wrong (2015 vs actual). Matched wrong case in wrong court (0.59).
