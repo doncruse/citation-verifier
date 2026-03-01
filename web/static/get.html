@@ -173,6 +173,55 @@
   }
   .error-banner.active { display: block; }
 
+  /* API Key section */
+  .api-key-section {
+    background: #fff;
+    border: 1px solid #dee2e6;
+    border-radius: 6px;
+    padding: 14px 16px;
+    margin-bottom: 16px;
+  }
+  .api-key-section.collapsed { padding: 8px 16px; }
+  .api-key-setup label {
+    font-weight: 600;
+    font-size: 0.9rem;
+    display: block;
+    margin-bottom: 6px;
+  }
+  .api-key-row {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+  .api-key-row input {
+    flex: 1;
+    padding: 6px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-family: monospace;
+  }
+  .api-key-row input:focus { outline: none; border-color: #4a6fa5; }
+  .api-key-row button {
+    padding: 6px 14px;
+    font-size: 0.85rem;
+  }
+  #toggle-vis-btn { background: #e9ecef; color: #333; }
+  #save-key-btn { background: #4a6fa5; color: #fff; font-weight: 600; }
+  .api-key-privacy {
+    font-size: 0.78rem;
+    color: #888;
+    line-height: 1.4;
+  }
+  .api-key-privacy a { color: #4a6fa5; }
+  .api-key-status {
+    font-size: 0.85rem;
+    color: #555;
+  }
+  .api-key-status a { color: #4a6fa5; cursor: pointer; text-decoration: none; }
+  .api-key-status a:hover { text-decoration: underline; }
+
   /* Footer */
   .footer {
     margin-top: 30px;
@@ -203,6 +252,26 @@
 </p>
 
 <div class="error-banner" id="error-banner"></div>
+
+<div class="api-key-section" id="api-key-section">
+  <div class="api-key-setup" id="api-key-setup">
+    <label for="api-key-input">CourtListener API Key</label>
+    <div class="api-key-row">
+      <input type="password" id="api-key-input" placeholder="Paste your API token here">
+      <button id="toggle-vis-btn" type="button">Show</button>
+      <button id="save-key-btn" type="button">Save</button>
+    </div>
+    <p class="api-key-privacy">
+      Your API key is stored in your browser only and sent to this server to forward to the CourtListener API.
+      It is never logged or stored on the server.
+      Get a free key at <a href="https://www.courtlistener.com/" target="_blank" rel="noopener">courtlistener.com</a>
+      (Profile &rarr; API Keys).
+    </p>
+  </div>
+  <div class="api-key-status" id="api-key-status" style="display:none;">
+    API Key: configured &nbsp; <a id="change-key-link">Change</a>
+  </div>
+</div>
 
 <div class="input-section">
   <textarea id="citations-input" placeholder="Obergefell v. Hodges, 576 U.S. 644 (2015)
@@ -264,6 +333,67 @@ Terry v. Ohio, 392 U.S. 1 (1968)"></textarea>
   const resultsSection = document.getElementById('results-section');
   const resultsBody = document.getElementById('results-body');
   const errorBanner = document.getElementById('error-banner');
+
+  // --- API Key management ---
+  const apiKeySection = document.getElementById('api-key-section');
+  const apiKeySetup = document.getElementById('api-key-setup');
+  const apiKeyStatus = document.getElementById('api-key-status');
+  const apiKeyInput = document.getElementById('api-key-input');
+  const toggleVisBtn = document.getElementById('toggle-vis-btn');
+  const saveKeyBtn = document.getElementById('save-key-btn');
+  const changeKeyLink = document.getElementById('change-key-link');
+
+  function getApiToken() {
+    return localStorage.getItem('cl_api_token') || '';
+  }
+
+  function hasApiToken() {
+    return getApiToken().length > 0;
+  }
+
+  function refreshKeyUI() {
+    if (hasApiToken()) {
+      apiKeySetup.style.display = 'none';
+      apiKeyStatus.style.display = 'block';
+      apiKeySection.classList.add('collapsed');
+      searchBtn.disabled = false;
+    } else {
+      apiKeySetup.style.display = 'block';
+      apiKeyStatus.style.display = 'none';
+      apiKeySection.classList.remove('collapsed');
+      searchBtn.disabled = true;
+    }
+  }
+
+  saveKeyBtn.addEventListener('click', function() {
+    var val = apiKeyInput.value.trim();
+    if (!val) return;
+    localStorage.setItem('cl_api_token', val);
+    apiKeyInput.value = '';
+    refreshKeyUI();
+  });
+
+  apiKeyInput.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') { e.preventDefault(); saveKeyBtn.click(); }
+  });
+
+  toggleVisBtn.addEventListener('click', function() {
+    if (apiKeyInput.type === 'password') {
+      apiKeyInput.type = 'text';
+      toggleVisBtn.textContent = 'Hide';
+    } else {
+      apiKeyInput.type = 'password';
+      toggleVisBtn.textContent = 'Show';
+    }
+  });
+
+  changeKeyLink.addEventListener('click', function() {
+    localStorage.removeItem('cl_api_token');
+    refreshKeyUI();
+    apiKeyInput.focus();
+  });
+
+  refreshKeyUI();
 
   let results = [];
 
@@ -367,6 +497,10 @@ Terry v. Ohio, 392 U.S. 1 (1968)"></textarea>
 
   async function search() {
     hideError();
+    if (!hasApiToken()) {
+      showError('Please save your CourtListener API key first.');
+      return;
+    }
     const citations = getCitations();
     if (!citations.length) {
       showError('Enter at least one citation.');
@@ -395,9 +529,12 @@ Terry v. Ohio, 392 U.S. 1 (1968)"></textarea>
     progressText.textContent = 'Searching 0 / ' + citations.length + '...';
 
     try {
+      const hdrs = { 'Content-Type': 'application/json' };
+      if (hasApiToken()) hdrs['X-CL-API-Token'] = getApiToken();
+
       const response = await fetch('/api/verify', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: hdrs,
         body: JSON.stringify({ citations: citations }),
       });
 
@@ -438,7 +575,7 @@ Terry v. Ohio, 392 U.S. 1 (1968)"></textarea>
     } catch (err) {
       showError(err.message);
     } finally {
-      searchBtn.disabled = false;
+      searchBtn.disabled = !hasApiToken();
       progressContainer.classList.remove('active');
       // Auto-check select-all since all row checkboxes are checked by default
       if (document.querySelectorAll('.row-chk').length > 0) {
@@ -526,9 +663,12 @@ Terry v. Ohio, 392 U.S. 1 (1968)"></textarea>
     downloadStatus.textContent = 'Preparing ' + items.length + ' PDF' + (items.length !== 1 ? 's' : '') + '...';
 
     try {
+      var pdfHdrs = { 'Content-Type': 'application/json' };
+      if (hasApiToken()) pdfHdrs['X-CL-API-Token'] = getApiToken();
+
       const response = await fetch('/api/download-pdfs', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: pdfHdrs,
         body: JSON.stringify({ urls: items }),
       });
 
@@ -568,9 +708,12 @@ Terry v. Ohio, 392 U.S. 1 (1968)"></textarea>
     downloadStatus.textContent = 'Fetching text for ' + items.length + ' opinion' + (items.length !== 1 ? 's' : '') + '...';
 
     try {
+      var txtHdrs = { 'Content-Type': 'application/json' };
+      if (hasApiToken()) txtHdrs['X-CL-API-Token'] = getApiToken();
+
       const response = await fetch('/api/download-texts', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: txtHdrs,
         body: JSON.stringify({ urls: items }),
       });
 

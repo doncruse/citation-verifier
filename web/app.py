@@ -36,6 +36,11 @@ logger = logging.getLogger(__name__)
 
 MAX_CITATIONS = 50
 
+
+def _get_api_token(request: Request) -> str | None:
+    """Extract CourtListener API token from request header (BYOK)."""
+    return request.headers.get("X-CL-API-Token") or None
+
 # Paths
 _project_root = Path(__file__).parent.parent
 _results_dir = _project_root / "tests" / "data" / "results"
@@ -296,13 +301,15 @@ async def verify(request: Request):
             status_code=400,
         )
 
+    token = _get_api_token(request)
+
     async def event_generator():
         yield {
             "event": "start",
             "data": json.dumps({"total": len(citations)}),
         }
 
-        async with AsyncCourtListenerClient() as client:
+        async with AsyncCourtListenerClient(api_token=token) as client:
             for i, citation_text in enumerate(citations):
                 # Check cache first
                 cached = _cache.get(citation_text)
@@ -410,7 +417,9 @@ async def download_pdfs(request: Request):
         )
         return {"pdf_url": pdf_url, "case_name": case_name, "matched_url": matched_url}
 
-    async with AsyncCourtListenerClient() as client:
+    token = _get_api_token(request)
+
+    async with AsyncCourtListenerClient(api_token=token) as client:
         resolved = await asyncio.gather(
             *[_resolve_one(client, item) for item in items]
         )
@@ -536,7 +545,9 @@ async def download_texts(request: Request):
             result = {"text": None, "case_name": case_name, "matched_url": matched_url}
         return result
 
-    async with AsyncCourtListenerClient() as client:
+    token = _get_api_token(request)
+
+    async with AsyncCourtListenerClient(api_token=token) as client:
         fetched = await asyncio.gather(
             *[_fetch_one(client, item) for item in items]
         )
