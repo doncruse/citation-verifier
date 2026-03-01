@@ -15,7 +15,6 @@ tests/data/results/verification_*.json
 scratch/hallucination_opinions/
 
 # Replit auto-generated files
-replit.nix
 .upm/
 .cache/
 .config/

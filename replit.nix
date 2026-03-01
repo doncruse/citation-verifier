@@ -1,1 +1,1 @@
-{ pkgs }: { deps = [ pkgs.python310 ]; }
+{ pkgs }: { deps = [ pkgs.python310Full ]; }
