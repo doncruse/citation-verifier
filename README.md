@@ -4,7 +4,7 @@ Verify legal citations against [CourtListener](https://www.courtlistener.com/). 
 
 ## Try It
 
-**[Verify and Retrieve](https://citation-verifier.replit.app/)** -- paste citations, verify them against CourtListener, and download the opinion text or PDFs. No installation needed.
+**[Verify and Retrieve](https://verify-and-retrieve.replit.app/)** -- paste citations, verify them against CourtListener, and download the opinion text or PDFs. No installation needed.
 
 ## How It Works
 
