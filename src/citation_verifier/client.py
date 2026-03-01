@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import asyncio
 import os
+import re
 import ssl
 import time
 from datetime import datetime, timezone
@@ -397,3 +398,70 @@ class AsyncCourtListenerClient:
             url = data.get("next")
             params = {}
         return results
+
+    STORAGE_BASE = "https://storage.courtlistener.com/"
+
+    async def get_pdf_url(self, matched_url: str) -> str | None:
+        """Resolve a CL matched_url to a PDF download URL.
+
+        For opinions: CL serves PDFs at {opinion_url}pdf/ — no API call needed.
+        For RECAP dockets: fetches docket-entries via API to find
+        recap_documents with filepath_local.
+
+        The caller should verify the URL actually returns a PDF
+        (check content-type) since not all opinions have PDFs.
+        """
+        if not matched_url:
+            return None
+
+        # Opinion URL: https://www.courtlistener.com/opinion/12345/slug/
+        if "/opinion/" in matched_url:
+            url = matched_url.rstrip("/")
+            return f"{url}/pdf/"
+
+        # RECAP docket URL: /docket/12345/...
+        docket_match = re.search(r"/docket/(\d+)/", matched_url)
+        if not docket_match:
+            return None
+
+        docket_id = docket_match.group(1)
+
+        # Check for entry number (second digit group): /docket/12345/67/
+        docket_entry_match = re.search(r"/docket/\d+/(\d+)/", matched_url)
+
+        try:
+            if docket_entry_match:
+                entry_number = docket_entry_match.group(1)
+                entry_data = await self._request_with_retry(
+                    "GET",
+                    f"{self.BASE_URL}/docket-entries/",
+                    params={"docket": docket_id, "entry_number": entry_number},
+                )
+                for entry in entry_data.get("results", []):
+                    url = self._first_recap_doc_url(entry)
+                    if url:
+                        return url
+
+            # Fallback: fetch recent entries for this docket
+            entry_data = await self._request_with_retry(
+                "GET",
+                f"{self.BASE_URL}/docket-entries/",
+                params={"docket": docket_id, "page_size": "5"},
+            )
+            for entry in entry_data.get("results", []):
+                url = self._first_recap_doc_url(entry)
+                if url:
+                    return url
+
+        except Exception:
+            pass
+
+        return None
+
+    def _first_recap_doc_url(self, entry: dict[str, Any]) -> str | None:
+        """Extract the PDF URL from the first recap_document in a docket entry."""
+        for doc in entry.get("recap_documents", []):
+            filepath = doc.get("filepath_local") or ""
+            if filepath:
+                return f"{self.STORAGE_BASE}{filepath}"
+        return None

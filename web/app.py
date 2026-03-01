@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import asyncio
 import csv
+import io
 import json
 import logging
 import os
@@ -12,12 +13,16 @@ import re
 import shutil
 import subprocess
 import time
+import zipfile
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
+import aiohttp
+import certifi
+import ssl as _ssl
 from fastapi import FastAPI, Request
-from fastapi.responses import HTMLResponse, JSONResponse
+from fastapi.responses import HTMLResponse, JSONResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from sse_starlette.sse import EventSourceResponse
 
@@ -195,6 +200,9 @@ def _result_to_dict(result: VerificationResult) -> dict[str, Any]:
         "confidence": result.confidence,
         "matched_case_name": result.matched_case_name,
         "matched_url": result.matched_url,
+        "matched_court": result.matched_court,
+        "matched_date": result.matched_date,
+        "matched_description": result.matched_description,
         "diagnostics": result.diagnostics,
         "error": result.error,
     }
@@ -313,6 +321,130 @@ async def verify(request: Request):
         yield {"event": "done", "data": json.dumps({"total": len(citations)})}
 
     return EventSourceResponse(event_generator())
+
+
+# ---------------------------------------------------------------------------
+# PDF download endpoints
+# ---------------------------------------------------------------------------
+
+def _sanitize_filename(name: str) -> str:
+    """Turn a case name into a safe filename (ASCII, no special chars)."""
+    # Replace common legal abbreviations
+    name = name.replace("/", " v ")
+    # Keep only alphanumeric, spaces, hyphens, periods
+    name = re.sub(r"[^\w\s\-.]", "", name)
+    # Collapse whitespace
+    name = re.sub(r"\s+", " ", name).strip()
+    # Truncate
+    if len(name) > 80:
+        name = name[:80].rsplit(" ", 1)[0]
+    return name or "document"
+
+
+@app.post("/api/download-pdfs")
+async def download_pdfs(request: Request):
+    """Download PDFs for the given matched_urls, returned as a zip file.
+
+    Accepts JSON body: {"urls": [{"matched_url": "...", "case_name": "..."}, ...]}
+    """
+    try:
+        body = await request.json()
+    except Exception:
+        return JSONResponse({"error": "Invalid JSON body"}, status_code=400)
+
+    items = body.get("urls", [])
+    if not isinstance(items, list) or not items:
+        return JSONResponse({"error": "No URLs provided"}, status_code=400)
+
+    if len(items) > 50:
+        return JSONResponse(
+            {"error": "Maximum 50 PDFs per download"}, status_code=400
+        )
+
+    # Resolve matched_urls to PDF download URLs
+    resolved: list[dict[str, str | None]] = []
+    async with AsyncCourtListenerClient() as client:
+        for item in items:
+            matched_url = item.get("matched_url", "")
+            case_name = item.get("case_name", "document")
+            pdf_url = await client.get_pdf_url(matched_url)
+            logger.info(
+                "PDF resolve: %s -> %s",
+                matched_url, pdf_url or "NO PDF URL",
+            )
+            resolved.append({
+                "pdf_url": pdf_url,
+                "case_name": case_name,
+                "matched_url": matched_url,
+            })
+
+    # Download PDFs (opinion /pdf/ URLs are on courtlistener.com,
+    # RECAP storage URLs are on storage.courtlistener.com — both public)
+    buf = io.BytesIO()
+    ssl_ctx = _ssl.create_default_context(cafile=certifi.where())
+    connector = aiohttp.TCPConnector(ssl=ssl_ctx)
+    downloaded = 0
+    skipped_names: list[str] = []
+
+    async with aiohttp.ClientSession(connector=connector) as session:
+        with zipfile.ZipFile(buf, "w", zipfile.ZIP_DEFLATED) as zf:
+            seen_filenames: set[str] = set()
+            for entry in resolved:
+                pdf_url = entry["pdf_url"]
+                case_name = entry["case_name"] or "document"
+                if not pdf_url:
+                    skipped_names.append(case_name)
+                    continue
+
+                try:
+                    async with session.get(
+                        pdf_url,
+                        timeout=aiohttp.ClientTimeout(total=30),
+                        allow_redirects=True,
+                    ) as resp:
+                        if resp.status != 200:
+                            logger.info("PDF download %s: HTTP %s", pdf_url, resp.status)
+                            skipped_names.append(case_name)
+                            continue
+                        # Verify we got a PDF, not an HTML error page
+                        content_type = resp.content_type or ""
+                        if "html" in content_type:
+                            logger.info("PDF download %s: got HTML instead of PDF", pdf_url)
+                            skipped_names.append(case_name)
+                            continue
+                        pdf_bytes = await resp.read()
+                except Exception as exc:
+                    logger.info("PDF download %s: %s", pdf_url, exc)
+                    skipped_names.append(case_name)
+                    continue
+
+                # Build unique filename
+                base = _sanitize_filename(case_name)
+                filename = f"{base}.pdf"
+                counter = 2
+                while filename in seen_filenames:
+                    filename = f"{base} ({counter}).pdf"
+                    counter += 1
+                seen_filenames.add(filename)
+
+                zf.writestr(filename, pdf_bytes)
+                downloaded += 1
+
+    if downloaded == 0:
+        return JSONResponse(
+            {"error": f"No PDFs available for the selected citations ({len(skipped_names)} skipped — opinions may be HTML-only, dockets may lack documents)"},
+            status_code=404,
+        )
+
+    buf.seek(0)
+    headers = {
+        "Content-Disposition": 'attachment; filename="citation_pdfs.zip"',
+    }
+    return StreamingResponse(
+        buf,
+        media_type="application/zip",
+        headers=headers,
+    )
 
 
 # ---------------------------------------------------------------------------
@@ -844,6 +976,9 @@ async def qc_run_batch(request: Request):
                             "confidence": result.confidence,
                             "matched_case_name": result.matched_case_name,
                             "matched_url": result.matched_url,
+                            "matched_court": result.matched_court,
+                            "matched_date": result.matched_date,
+                            "matched_description": result.matched_description,
                             "diagnostics": result.diagnostics,
                         }
                         results_for_sidecar.append(sidecar_entry)

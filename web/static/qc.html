@@ -582,12 +582,21 @@
       var conf = r.confidence != null ? (r.confidence * 100).toFixed(0) + '%' : '--';
       var dupeCount = (r.duplicates && r.duplicates.length) ? ' <span title="' + r.duplicates.length + ' potential duplicate(s)" style="color:#856404;">*</span>' : '';
 
+      // Build matched case cell with court and date
+      var matchedHtml = escapeHtml(r.matched_case_name || '');
+      var matchMeta = [];
+      if (r.matched_court) matchMeta.push(escapeHtml(r.matched_court));
+      if (r.matched_date) matchMeta.push(escapeHtml(r.matched_date));
+      if (matchMeta.length) {
+        matchedHtml += '<br><span style="font-size:0.72rem;color:#666;">' + matchMeta.join(' | ') + '</span>';
+      }
+
       html += '<tr class="data-row' + (isSelected ? ' selected' : '') + '" data-idx="' + i + '">' +
         '<td>' + (i + 1) + '</td>' +
         '<td class="cite-col">' + escapeHtml(r.citation_text) + dupeCount + '</td>' +
         '<td><span class="badge ' + badgeClass(r.status) + '">' + statusLabel(r.status) + '</span></td>' +
         '<td>' + conf + '</td>' +
-        '<td class="name-col">' + escapeHtml(r.matched_case_name || '') + '</td>' +
+        '<td class="name-col">' + matchedHtml + '</td>' +
         '<td>' + escapeHtml(r.pdf || '') + '</td>' +
         '<td>' + (r.qc_status
           ? qcBadgeHtml(r.qc_status)
@@ -626,6 +635,12 @@
     if (r.context) {
       html += '<div class="detail-section"><label>Context</label>' +
         '<div class="detail-context">' + escapeHtml(r.context) + '</div></div>';
+    }
+
+    // RECAP docket description
+    if (r.matched_description) {
+      html += '<div class="detail-section"><label>RECAP Document</label>' +
+        '<div class="detail-context">' + escapeHtml(r.matched_description) + '</div></div>';
     }
 
     // Diagnostics

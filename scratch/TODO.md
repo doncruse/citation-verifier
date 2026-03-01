@@ -1,5 +1,25 @@
 # TODO
 
+## PDF Download Feature (in progress)
+
+Added checkboxes + "Download PDFs" button to main page (`localhost:8000`). Backend resolves `matched_url` to downloadable PDF, bundles into zip.
+
+### What works
+- Frontend: checkboxes, select-all, download button with count, progress status
+- RECAP documents: API -> `filepath_local` -> `storage.courtlistener.com` download (works)
+- Opinion PDFs: partially working
+
+### Remaining issues
+1. **CloudFront WAF blocks server-side opinion PDF downloads.** The direct URL pattern (`courtlistener.com/opinion/{id}/slug/pdf/`) returns HTTP 202 + JS challenge to non-browser clients (curl, aiohttp). Must resolve opinion PDFs through the API instead.
+2. **Opinion API resolution needs work.** Current approach: cluster API -> `sub_opinions[0]` -> opinion API -> `local_path` or `download_url` -> `storage.courtlistener.com/{path}`. But many opinions have empty `local_path` and `download_url`. Need to investigate which CL opinion API fields reliably point to PDF files. Test with known-good cases: Gonzalez v. Google (4893729), Kitchen v. Herbert (8727208), MacPherson v. Buick (3616523), Youngstown (105018).
+3. **Rate limiting for PDF resolution.** The `get_pdf_url()` calls go through the async client's rate limiter for RECAP, but should verify this is sufficient. Got throttled during testing (API timeouts, not even 429s).
+4. **No user feedback when PDFs are skipped.** If some PDFs are unavailable, the zip silently omits them. Should show which ones were skipped in the UI (e.g., "Downloaded 3 of 5 — 2 had no PDF available").
+
+### Files modified
+- `src/citation_verifier/client.py` — `get_pdf_url()`, `_first_recap_doc_url()` on `AsyncCourtListenerClient`
+- `web/app.py` — `POST /api/download-pdfs` endpoint, `_sanitize_filename()`
+- `web/static/index.html` — checkbox column, select-all, Download PDFs button + JS
+
 ## Priority 1 — Bugs (wrong results)
 
 ### INSUFFICIENT_DATA: skip verification entirely

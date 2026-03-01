@@ -90,6 +90,8 @@ class CitationVerifier:
                         matched_case_name=case_name,
                         matched_url=url,
                         matched_cluster_id=cluster_id,
+                        matched_court=cluster.get("court") or cluster.get("court_id") or None,
+                        matched_date=cluster.get("date_filed") or None,
                     )
         except Exception:
             # Citation lookup failed; fall through to search
@@ -149,6 +151,8 @@ class CitationVerifier:
                                 matched_case_name=case_name,
                                 matched_url=url,
                                 matched_cluster_id=cluster_id,
+                                matched_court=cluster.get("court") or cluster.get("court_id") or None,
+                                matched_date=cluster.get("date_filed") or None,
                                 diagnostics=[
                                     f"Matched via adjacent page: cited page {parsed.page}, "
                                     f"case starts at page {alt_page}",
@@ -320,6 +324,9 @@ class CitationVerifier:
             matched_case_name=best.case_name,
             matched_url=best.url,
             matched_cluster_id=best.cluster_id,
+            matched_court=best.court_id or None,
+            matched_date=best.date_filed or None,
+            matched_description=best.description,
             candidates=candidates[:5],
             diagnostics=diagnostics,
         )
@@ -584,14 +591,19 @@ class CitationVerifier:
         if doc_url and not doc_url.startswith("http"):
             doc_url = f"https://www.courtlistener.com{doc_url}"
         desc = doc.get("short_description") or doc.get("description", "")
-        if desc and len(desc) > 80:
-            desc = desc[:80] + "..."
+        entry_desc = doc.get("entry_description") or ""
+        # Full description for display (entry-level description is richer)
+        full_desc = entry_desc or desc
+        # Truncated description for diagnostic note
+        diag_desc = desc
+        if diag_desc and len(diag_desc) > 80:
+            diag_desc = diag_desc[:80] + "..."
 
         recap_note = "Found in RECAP (not in opinions database)"
         if entry_date:
             recap_note += f". Document dated {entry_date}"
-        if desc:
-            recap_note += f": {desc}"
+        if diag_desc:
+            recap_note += f": {diag_desc}"
         mismatches.insert(0, recap_note)
 
         return CandidateMatch(
@@ -601,6 +613,7 @@ class CitationVerifier:
             date_filed=entry_date,
             court_id=court_id,
             score=score,
+            description=full_desc or None,
             mismatches=mismatches,
         )
 
@@ -1179,6 +1192,8 @@ class CitationVerifier:
                         matched_case_name=case_name,
                         matched_url=url,
                         matched_cluster_id=cluster_id,
+                        matched_court=cluster.get("court") or cluster.get("court_id") or None,
+                        matched_date=cluster.get("date_filed") or None,
                     )
         except Exception:
             logger.debug("Citation lookup failed", exc_info=True)
@@ -1234,6 +1249,8 @@ class CitationVerifier:
                                 matched_case_name=case_name,
                                 matched_url=url,
                                 matched_cluster_id=cluster_id,
+                                matched_court=cluster.get("court") or cluster.get("court_id") or None,
+                                matched_date=cluster.get("date_filed") or None,
                                 diagnostics=[
                                     f"Matched via adjacent page: cited page {parsed.page}, "
                                     f"case starts at page {alt_page}",
@@ -1379,6 +1396,9 @@ class CitationVerifier:
             matched_case_name=best.case_name,
             matched_url=best.url,
             matched_cluster_id=best.cluster_id,
+            matched_court=best.court_id or None,
+            matched_date=best.date_filed or None,
+            matched_description=best.description,
             candidates=candidates[:5],
             diagnostics=diagnostics,
         )

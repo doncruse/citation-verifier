@@ -39,6 +39,7 @@ class CandidateMatch:
     date_filed: str
     court_id: str
     score: float = 0.0
+    description: str | None = None
     mismatches: list[str] = field(default_factory=list)
 
 
@@ -50,6 +51,9 @@ class VerificationResult:
     matched_case_name: str | None = None
     matched_url: str | None = None
     matched_cluster_id: int | None = None
+    matched_court: str | None = None
+    matched_date: str | None = None
+    matched_description: str | None = None
     candidates: list[CandidateMatch] = field(default_factory=list)
     diagnostics: list[str] = field(default_factory=list)
     error: str | None = None

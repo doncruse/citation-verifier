@@ -60,6 +60,26 @@
   }
   #export-btn:hover:not(:disabled) { background: #dde0e3; }
   #export-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+  #download-btn {
+    background: #28a745;
+    color: #fff;
+    font-weight: 600;
+  }
+  #download-btn:hover:not(:disabled) { background: #218838; }
+  #download-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+  .download-status {
+    font-size: 0.8rem;
+    color: #666;
+    margin-left: 4px;
+  }
+
+  /* Checkbox column */
+  th.chk-col, td.chk-col {
+    width: 32px;
+    text-align: center;
+    padding: 8px 4px;
+  }
+  th.chk-col input, td.chk-col input { cursor: pointer; }
 
   /* Progress bar */
   .progress-container {
@@ -177,6 +197,8 @@ Terry v. Ohio, 392 U.S. 1 (1968)"></textarea>
     <button id="verify-btn">Verify</button>
     <span class="cite-count" id="cite-count">0 citations</span>
     <button id="export-btn" disabled>Export CSV</button>
+    <button id="download-btn" disabled>Download PDFs</button>
+    <span class="download-status" id="download-status"></span>
   </div>
 </div>
 
@@ -192,6 +214,7 @@ Terry v. Ohio, 392 U.S. 1 (1968)"></textarea>
     <table>
       <thead>
         <tr>
+          <th class="chk-col"><input type="checkbox" id="select-all" title="Select all with matches"></th>
           <th>#</th>
           <th>Citation</th>
           <th>Status</th>
@@ -217,6 +240,9 @@ Terry v. Ohio, 392 U.S. 1 (1968)"></textarea>
   const textarea = document.getElementById('citations-input');
   const verifyBtn = document.getElementById('verify-btn');
   const exportBtn = document.getElementById('export-btn');
+  const downloadBtn = document.getElementById('download-btn');
+  const downloadStatus = document.getElementById('download-status');
+  const selectAll = document.getElementById('select-all');
   const citeCount = document.getElementById('cite-count');
   const progressContainer = document.getElementById('progress-container');
   const progressFill = document.getElementById('progress-fill');
@@ -275,6 +301,7 @@ Terry v. Ohio, 392 U.S. 1 (1968)"></textarea>
     tr.className = 'placeholder';
     tr.id = 'row-' + index;
     tr.innerHTML =
+      '<td class="chk-col"></td>' +
       '<td>' + (index + 1) + '</td>' +
       '<td class="citation-col">' + escapeHtml(citation) + '</td>' +
       '<td><span class="badge badge-pending">Pending</span></td>' +
@@ -303,12 +330,32 @@ Terry v. Ohio, 392 U.S. 1 (1968)"></textarea>
       title = data.error;
     }
     tr.title = title;
+
+    // Build matched case cell with court, date, and RECAP description
+    let nameHtml = escapeHtml(name);
+    let meta = [];
+    if (data.matched_court) meta.push(escapeHtml(data.matched_court));
+    if (data.matched_date) meta.push(escapeHtml(data.matched_date));
+    if (meta.length) {
+      nameHtml += '<br><span style="font-size:0.78rem;color:#666;">' + meta.join(' | ') + '</span>';
+    }
+    if (data.matched_description) {
+      nameHtml += '<br><span style="font-size:0.75rem;color:#888;font-style:italic;">' + escapeHtml(data.matched_description) + '</span>';
+    }
+
+    // Show checkbox only if there's a matched_url
+    let chkHtml = '';
+    if (data.matched_url) {
+      chkHtml = '<input type="checkbox" class="row-chk" data-index="' + index + '" onchange="window._updateDownloadBtn()">';
+    }
+
     tr.innerHTML =
+      '<td class="chk-col">' + chkHtml + '</td>' +
       '<td>' + (index + 1) + '</td>' +
       '<td class="citation-col">' + escapeHtml(data.input_citation || '') + '</td>' +
       '<td><span class="badge ' + badgeClass(data.status) + '">' + statusLabel(data.status) + '</span></td>' +
       '<td>' + conf + '</td>' +
-      '<td class="name-col">' + escapeHtml(name) + '</td>' +
+      '<td class="name-col">' + nameHtml + '</td>' +
       '<td>' + link + '</td>';
   }
 
@@ -453,6 +500,80 @@ Terry v. Ohio, 392 U.S. 1 (1968)"></textarea>
     }
     return str;
   }
+
+  // --- Select-all checkbox ---
+  selectAll.addEventListener('change', function() {
+    const checkboxes = document.querySelectorAll('.row-chk');
+    checkboxes.forEach(function(cb) { cb.checked = selectAll.checked; });
+    updateDownloadBtn();
+  });
+
+  // --- Download button state ---
+  function getSelectedItems() {
+    const selected = [];
+    const checkboxes = document.querySelectorAll('.row-chk:checked');
+    checkboxes.forEach(function(cb) {
+      const idx = parseInt(cb.getAttribute('data-index'), 10);
+      const r = results[idx];
+      if (r && r.matched_url) {
+        selected.push({
+          matched_url: r.matched_url,
+          case_name: r.matched_case_name || r.input_citation || 'document',
+        });
+      }
+    });
+    return selected;
+  }
+
+  function updateDownloadBtn() {
+    const count = document.querySelectorAll('.row-chk:checked').length;
+    if (count > 0) {
+      downloadBtn.disabled = false;
+      downloadBtn.textContent = 'Download ' + count + ' PDF' + (count !== 1 ? 's' : '');
+    } else {
+      downloadBtn.disabled = true;
+      downloadBtn.textContent = 'Download PDFs';
+    }
+    downloadStatus.textContent = '';
+  }
+  window._updateDownloadBtn = updateDownloadBtn;
+
+  // --- Download PDFs ---
+  downloadBtn.addEventListener('click', async function() {
+    const items = getSelectedItems();
+    if (!items.length) return;
+
+    downloadBtn.disabled = true;
+    downloadStatus.textContent = 'Preparing ' + items.length + ' PDF' + (items.length !== 1 ? 's' : '') + '...';
+
+    try {
+      const response = await fetch('/api/download-pdfs', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ urls: items }),
+      });
+
+      if (!response.ok) {
+        const err = await response.json().catch(function() { return {}; });
+        throw new Error(err.error || 'Download failed (' + response.status + ')');
+      }
+
+      // Trigger browser download
+      const blob = await response.blob();
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'citation_pdfs.zip';
+      a.click();
+      URL.revokeObjectURL(url);
+      downloadStatus.textContent = 'Downloaded ' + items.length + ' PDF' + (items.length !== 1 ? 's' : '') + '.';
+    } catch (err) {
+      downloadStatus.textContent = '';
+      showError(err.message);
+    } finally {
+      updateDownloadBtn();
+    }
+  });
 })();
 </script>
 </body>
