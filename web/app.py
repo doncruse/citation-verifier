@@ -198,7 +198,7 @@ if _public_mode:
     class _BlockQCMiddleware(BaseHTTPMiddleware):
         async def dispatch(self, request, call_next):
             path = request.url.path
-            if path == "/qc" or path.startswith("/api/qc") or path == "/api/flag-for-flp":
+            if path in ("/qc", "/debug", "/api/flag-for-flp") or path.startswith("/api/qc"):
                 return StarletteResponse("Not Found", status_code=404)
             return await call_next(request)
 
@@ -229,30 +229,27 @@ def _result_to_dict(result: VerificationResult) -> dict[str, Any]:
     }
 
 
-if _public_mode:
-    # Public mode: Get & Print is the homepage; /get redirects to /.
-    @app.get("/", response_class=HTMLResponse)
-    async def index():
-        """Serve Get & Print as the homepage in public mode."""
-        html_path = _static_dir / "get.html"
-        return HTMLResponse(html_path.read_text(encoding="utf-8"))
+from fastapi.responses import RedirectResponse
 
-    from fastapi.responses import RedirectResponse
 
-    @app.get("/get")
-    async def get_redirect():
-        return RedirectResponse("/")
-else:
-    @app.get("/", response_class=HTMLResponse)
-    async def index():
-        """Serve the single-page frontend."""
+@app.get("/", response_class=HTMLResponse)
+async def index():
+    """Serve the Retrieve page as the homepage."""
+    html_path = _static_dir / "get.html"
+    return HTMLResponse(html_path.read_text(encoding="utf-8"))
+
+
+@app.get("/get")
+async def get_redirect():
+    """Legacy /get URL redirects to /."""
+    return RedirectResponse("/")
+
+
+if not _public_mode:
+    @app.get("/debug", response_class=HTMLResponse)
+    async def debug_page():
+        """Serve the Debug (detailed verification) page."""
         html_path = _static_dir / "index.html"
-        return HTMLResponse(html_path.read_text(encoding="utf-8"))
-
-    @app.get("/get", response_class=HTMLResponse)
-    async def get_and_print():
-        """Serve the Get and Print page."""
-        html_path = _static_dir / "get.html"
         return HTMLResponse(html_path.read_text(encoding="utf-8"))
 
 

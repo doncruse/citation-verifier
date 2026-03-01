@@ -31,170 +31,124 @@ class CitationVerifier:
         self.client = client or CourtListenerClient()
         self.name_matcher = CaseNameMatcher()
 
-    def verify(
+    # ------------------------------------------------------------------
+    # Shared helpers (pure logic, no I/O)
+    # ------------------------------------------------------------------
+
+    def _process_citation_lookup_hit(
         self,
         citation_text: str,
-        parsed: ParsedCitation | None = None,
-        quick_only: bool = False,
+        parsed: ParsedCitation,
+        cluster: dict[str, Any],
     ) -> VerificationResult:
-        """Verify a citation string through the two-step pipeline.
+        """Process a single cluster from the Citation Lookup API (Step 1).
 
-        Step 1: Try the Citation Lookup API (fast, precise).
-        Step 2: Parse and fuzzy-search as fallback.
-
-        Parameters
-        ----------
-        citation_text : str
-            Raw citation string used for the citation-lookup API call
-            and stored in ``VerificationResult.input_citation``.
-        parsed : ParsedCitation | None
-            Pre-parsed citation metadata.  When provided the internal
-            ``parse_citation()`` call is skipped, preserving fields
-            (court, month, day) that would otherwise be lost in a
-            text round-trip.
-        quick_only : bool
-            When True, only run Step 1 (citation lookup).  If the
-            citation is not found in the lookup API, return NOT_FOUND
-            immediately without falling through to Steps 1B/2/3.
+        Returns VERIFIED or POSSIBLE_MATCH depending on name matching.
         """
-        citation_text = citation_text.strip()
+        case_name = cluster.get("case_name", "")
+        cluster_id = cluster.get("id")
+        url = cluster.get("absolute_url", "")
+        if url and not url.startswith("http"):
+            url = f"https://www.courtlistener.com{url}"
+        elif cluster_id and not url:
+            url = f"https://www.courtlistener.com/opinion/{cluster_id}/"
 
-        # Step 1: Citation Lookup API
-        if parsed is None:
-            parsed = parse_citation(citation_text)
-        try:
-            lookup_results = self.client.citation_lookup(citation_text)
-            for lr in lookup_results:
-                clusters = lr.get("clusters", [])
-                for cluster in clusters:
-                    case_name = cluster.get("case_name", "")
-                    cluster_id = cluster.get("id")
-                    url = cluster.get("absolute_url", "")
-                    if url and not url.startswith("http"):
-                        url = f"https://www.courtlistener.com{url}"
-                    elif cluster_id and not url:
-                        url = f"https://www.courtlistener.com/opinion/{cluster_id}/"
+        # Verify the case name actually matches before calling it VERIFIED
+        if parsed.case_name and case_name:
+            if not self._names_match_citation_lookup(parsed, case_name):
+                return VerificationResult(
+                    input_citation=citation_text,
+                    status=VerificationStatus.POSSIBLE_MATCH,
+                    confidence=0.3,
+                    matched_case_name=case_name,
+                    matched_url=url,
+                    matched_cluster_id=cluster_id,
+                    matched_court=cluster.get("court") or cluster.get("court_id") or None,
+                    matched_date=cluster.get("date_filed") or None,
+                    diagnostics=[
+                        f'Name mismatch: citation exists at this reporter location '
+                        f'but belongs to "{case_name}"',
+                    ],
+                )
 
-                    # Verify the case name actually matches before calling it VERIFIED
-                    if parsed.case_name and case_name:
-                        if not self._names_match_citation_lookup(parsed, case_name):
-                            return VerificationResult(
-                                input_citation=citation_text,
-                                status=VerificationStatus.POSSIBLE_MATCH,
-                                confidence=0.3,
-                                matched_case_name=case_name,
-                                matched_url=url,
-                                matched_cluster_id=cluster_id,
-                                matched_court=cluster.get("court") or cluster.get("court_id") or None,
-                                matched_date=cluster.get("date_filed") or None,
-                                diagnostics=[
-                                    f'Name mismatch: citation exists at this reporter location '
-                                    f'but belongs to "{case_name}"',
-                                ],
-                            )
+        return VerificationResult(
+            input_citation=citation_text,
+            status=VerificationStatus.VERIFIED,
+            confidence=1.0,
+            matched_case_name=case_name,
+            matched_url=url,
+            matched_cluster_id=cluster_id,
+            matched_court=cluster.get("court") or cluster.get("court_id") or None,
+            matched_date=cluster.get("date_filed") or None,
+        )
 
-                    return VerificationResult(
-                        input_citation=citation_text,
-                        status=VerificationStatus.VERIFIED,
-                        confidence=1.0,
-                        matched_case_name=case_name,
-                        matched_url=url,
-                        matched_cluster_id=cluster_id,
-                        matched_court=cluster.get("court") or cluster.get("court_id") or None,
-                        matched_date=cluster.get("date_filed") or None,
-                    )
-        except Exception:
-            # Citation lookup failed; fall through to search
-            logger.debug("Citation lookup failed", exc_info=True)
+    def _check_adjacent_page_cluster(
+        self,
+        citation_text: str,
+        parsed: ParsedCitation,
+        cluster: dict[str, Any],
+        alt_page: str,
+    ) -> VerificationResult | None:
+        """Check one cluster from an adjacent-page lookup (Step 1b).
 
-        if quick_only:
-            return VerificationResult(
-                input_citation=citation_text,
-                status=VerificationStatus.NOT_FOUND,
-                confidence=0.0,
-                diagnostics=["Quick search only: not in citation lookup API"],
-            )
+        Returns a VERIFIED result if name matches, None otherwise.
+        Stricter than Step 1: requires defendant similarity >= 0.7.
+        """
+        case_name = cluster.get("case_name", "")
+        cluster_id = cluster.get("id")
+        url = cluster.get("absolute_url", "")
+        if url and not url.startswith("http"):
+            url = f"https://www.courtlistener.com{url}"
+        elif cluster_id and not url:
+            url = f"https://www.courtlistener.com/opinion/{cluster_id}/"
+        if not (parsed.case_name and case_name):
+            return None
+        # Stricter name check for adjacent-page matches:
+        # require defendant similarity >= 0.7
+        result_lower = case_name.lower()
+        result_def = ""
+        if " v. " in result_lower:
+            result_def = result_lower.split(" v. ", 1)[1].strip()
+        elif " v " in result_lower:
+            result_def = result_lower.split(" v ", 1)[1].strip()
+        if parsed.defendant and result_def:
+            def_sim = SequenceMatcher(
+                None,
+                parsed.defendant.lower(),
+                result_def,
+            ).ratio()
+            if def_sim < 0.7:
+                return None
+        elif not self._names_match(parsed, case_name):
+            return None
+        return VerificationResult(
+            input_citation=citation_text,
+            status=VerificationStatus.VERIFIED,
+            confidence=1.0,
+            matched_case_name=case_name,
+            matched_url=url,
+            matched_cluster_id=cluster_id,
+            matched_court=cluster.get("court") or cluster.get("court_id") or None,
+            matched_date=cluster.get("date_filed") or None,
+            diagnostics=[
+                f"Matched via adjacent page: cited page {parsed.page}, "
+                f"case starts at page {alt_page}",
+            ],
+        )
 
-        # Step 1b: Try adjacent starting pages (off-by-one is common).
-        # Skip for WL citations — WL numbers aren't in the citation lookup API.
-        if parsed.volume and parsed.reporter and parsed.page and not parsed.is_westlaw:
-            try:
-                base_page = int(parsed.page)
-                for offset in (-1, 1, -2, 2):
-                    alt_page = str(base_page + offset)
-                    alt_cite = f"{parsed.volume} {parsed.reporter} {alt_page}"
-                    try:
-                        lookup_results = self.client.citation_lookup(alt_cite)
-                    except Exception:
-                        logger.debug(
-                            "Adjacent page lookup failed for %s",
-                            alt_cite,
-                            exc_info=True,
-                        )
-                        continue
-                    for lr in lookup_results:
-                        clusters = lr.get("clusters", [])
-                        for cluster in clusters:
-                            case_name = cluster.get("case_name", "")
-                            cluster_id = cluster.get("id")
-                            url = cluster.get("absolute_url", "")
-                            if url and not url.startswith("http"):
-                                url = f"https://www.courtlistener.com{url}"
-                            elif cluster_id and not url:
-                                url = f"https://www.courtlistener.com/opinion/{cluster_id}/"
-                            if not (parsed.case_name and case_name):
-                                continue
-                            # Stricter name check for adjacent-page matches:
-                            # require defendant similarity >= 0.7
-                            result_lower = case_name.lower()
-                            result_def = ""
-                            if " v. " in result_lower:
-                                result_def = result_lower.split(" v. ", 1)[1].strip()
-                            elif " v " in result_lower:
-                                result_def = result_lower.split(" v ", 1)[1].strip()
-                            if parsed.defendant and result_def:
-                                def_sim = SequenceMatcher(
-                                    None,
-                                    parsed.defendant.lower(),
-                                    result_def,
-                                ).ratio()
-                                if def_sim < 0.7:
-                                    continue
-                            elif not self._names_match(parsed, case_name):
-                                continue
-                            return VerificationResult(
-                                input_citation=citation_text,
-                                status=VerificationStatus.VERIFIED,
-                                confidence=1.0,
-                                matched_case_name=case_name,
-                                matched_url=url,
-                                matched_cluster_id=cluster_id,
-                                matched_court=cluster.get("court") or cluster.get("court_id") or None,
-                                matched_date=cluster.get("date_filed") or None,
-                                diagnostics=[
-                                    f"Matched via adjacent page: cited page {parsed.page}, "
-                                    f"case starts at page {alt_page}",
-                                ],
-                            )
-            except (ValueError, TypeError):
-                pass
+    def _build_search_params(
+        self, parsed: ParsedCitation
+    ) -> tuple[str | None, str | None, str | None]:
+        """Infer court ID and build date range for fuzzy search.
 
-        # Step 2: Fuzzy search fallback
-        return self._search_fallback(citation_text, parsed)
-
-    def _search_fallback(
-        self, citation_text: str, parsed: ParsedCitation
-    ) -> VerificationResult:
-        """Search CourtListener using parsed citation metadata."""
+        Returns (court_id, filed_after, filed_before).
+        """
         court_id = lookup_court_id(parsed.court) if parsed.court else None
 
         # If no court was parsed but we have a reporter, we can infer possible
-        # states from regional/state-specific reporters. This helps with state
-        # court citations where eyecite doesn't return a court ID.
-        possible_states = []
+        # states from regional/state-specific reporters.
         if not court_id and parsed.reporter:
             possible_states = get_states_for_reporter(parsed.reporter)
-            # For single-state reporters, use as court filter
             if len(possible_states) == 1:
                 court_id = possible_states[0]
                 logger.debug(
@@ -213,67 +167,20 @@ class CitationVerifier:
             filed_after = f"{parsed.year - 1}-01-01"
             filed_before = f"{parsed.year + 1}-12-31"
 
-        candidates: list[CandidateMatch] = []
+        return court_id, filed_after, filed_before
 
-        # First search: with court filter (from parsed court or inferred from reporter)
-        if parsed.case_name:
-            try:
-                results = self.client.search_opinions(
-                    q=parsed.case_name,
-                    court=court_id,
-                    filed_after=filed_after,
-                    filed_before=filed_before,
-                )
-                candidates = self._process_results(results, parsed)
-            except Exception:
-                logger.debug("Opinion search failed", exc_info=True)
+    def _build_fallback_result(
+        self,
+        citation_text: str,
+        parsed: ParsedCitation,
+        candidates: list[CandidateMatch],
+        court_id: str | None,
+    ) -> VerificationResult:
+        """Build the final result from search fallback candidates.
 
-        # Step 3: RECAP fallback (docket entries, orders, PACER documents)
-        # Note: RECAP dateFiled is the case filing date, not the opinion date,
-        # so we skip date filtering here and rely on name/court matching.
-
-        # Skip RECAP for state courts — RECAP is federal PACER data only.
-        is_state_court = court_id and not is_federal_court(court_id)
-
-        # Only skip RECAP if we have a credible opinion match (score >= 0.5).
-        # Full-text search (q=) can return junk results that score low but block
-        # RECAP from firing. By checking score quality, we ensure RECAP runs when
-        # opinion search returns only noise.
-        has_credible_match = any(c.score >= 0.5 for c in candidates)
-
-        # If docket number is available, try searching by it first (without court
-        # filter since docket numbers are court-specific). This handles cases where
-        # the case name differs significantly (e.g., "Estate of X" vs "X").
-        if not has_credible_match and not is_state_court and parsed.docket_number:
-            try:
-                results = self.client.search_recap(docket_number=parsed.docket_number)
-                # API does fuzzy matching, so filter to actual docket matches
-                cited_dn = self._normalize_docket_number(parsed.docket_number)
-                results = [
-                    r
-                    for r in results
-                    if self._normalize_docket_number(
-                        r.get("docketNumber") or r.get("docket_number") or ""
-                    )
-                    == cited_dn
-                ]
-                recap_candidates = self._process_recap_results(results, parsed)
-                candidates.extend(recap_candidates)
-            except Exception:
-                logger.debug("RECAP search by docket number failed", exc_info=True)
-
-        # Fall back to case name search if docket search didn't work
-        if not has_credible_match and not is_state_court and parsed.case_name:
-            try:
-                results = self.client.search_recap(
-                    q=parsed.case_name,
-                    court=court_id,
-                )
-                recap_candidates = self._process_recap_results(results, parsed)
-                candidates.extend(recap_candidates)
-            except Exception:
-                logger.debug("RECAP search failed", exc_info=True)
-
+        Handles: empty candidates, sorting, court-mismatch guard,
+        insufficient-data guard, threshold logic, and diagnostics.
+        """
         if not candidates:
             return VerificationResult(
                 input_citation=citation_text,
@@ -290,7 +197,6 @@ class CitationVerifier:
 
         # When a reporter/WL citation was given but couldn't be verified
         # via lookup, require court corroboration before calling it a match.
-        # A name-only hit in the wrong court is likely a coincidence.
         has_unverified_cite = bool(
             (parsed.volume and parsed.reporter and parsed.page) or parsed.wl_number
         )
@@ -307,11 +213,7 @@ class CitationVerifier:
             )
 
         # When both court and date are missing from the parsed citation,
-        # we don't have enough signal to verify reliably — any match is
-        # essentially name-only, which is too weak (especially for generic
-        # names like "In re Wright"). Return NOT_FOUND with a clear
-        # diagnostic so the user knows this is a data issue, not
-        # necessarily a fake citation.
+        # we don't have enough signal to verify reliably.
         if not parsed.court and not parsed.year:
             return VerificationResult(
                 input_citation=citation_text,
@@ -349,6 +251,297 @@ class CitationVerifier:
             diagnostics=diagnostics,
         )
 
+    def _docket_date_ranges(
+        self, parsed: ParsedCitation
+    ) -> list[tuple[str, str, str]]:
+        """Return progressive date ranges for docket-entry queries.
+
+        Returns list of (label, after, before) tuples for the 3-step
+        fallback: exact date -> month +/- 1 -> full year.
+        """
+        ranges: list[tuple[str, str, str]] = []
+        if parsed.month and parsed.day:
+            exact = f"{parsed.year}-{parsed.month:02d}-{parsed.day:02d}"
+            ranges.append(("exact date", exact, exact))
+        if parsed.month:
+            m_start = max(parsed.month - 1, 1)
+            m_end = min(parsed.month + 1, 12)
+            _, last_day = calendar.monthrange(parsed.year, m_end)
+            ranges.append((
+                "month range",
+                f"{parsed.year}-{m_start:02d}-01",
+                f"{parsed.year}-{m_end:02d}-{last_day:02d}",
+            ))
+        ranges.append((
+            "year range",
+            f"{parsed.year}-01-01",
+            f"{parsed.year}-12-31",
+        ))
+        return ranges
+
+    @staticmethod
+    def _extract_docket_entry_docs(
+        entries: list[dict[str, Any]], docs: list[dict[str, Any]]
+    ) -> bool:
+        """Flatten docket entries into docs list (mutates in place).
+
+        Returns True if any documents were found.
+        """
+        found = False
+        for entry in entries:
+            entry_date = entry.get("date_filed", "")
+            entry_desc = entry.get("description", "")
+            for doc in entry.get("recap_documents", []):
+                doc["entry_date_filed"] = entry_date
+                doc["entry_description"] = entry_desc
+                docs.append(doc)
+                found = True
+        return found
+
+    def _has_recap_date_match(
+        self, parsed: ParsedCitation, docs: list[dict[str, Any]]
+    ) -> bool:
+        """Check if any substantive doc in docs matches the cited date."""
+        if not (parsed.year and docs):
+            return False
+        for doc in docs:
+            entry_date = doc.get("entry_date_filed") or doc.get("date_filed", "")
+            try:
+                if not entry_date or int(entry_date[:4]) != parsed.year:
+                    continue
+                if parsed.month and len(entry_date) >= 7:
+                    if int(entry_date[5:7]) != parsed.month:
+                        continue
+                desc = (
+                    doc.get("short_description")
+                    or doc.get("description")
+                    or ""
+                ).lower()
+                is_free = doc.get("is_free_on_pacer") is True
+                if not self._is_substantive_doc(desc) and not is_free:
+                    continue
+                return True
+            except (ValueError, IndexError):
+                pass
+        return False
+
+    # ------------------------------------------------------------------
+    # Sync verification
+    # ------------------------------------------------------------------
+
+    def verify(
+        self,
+        citation_text: str,
+        parsed: ParsedCitation | None = None,
+        quick_only: bool = False,
+    ) -> VerificationResult:
+        """Verify a citation string through the two-step pipeline.
+
+        Step 1: Try the Citation Lookup API (fast, precise).
+        Step 2: Parse and fuzzy-search as fallback.
+
+        Parameters
+        ----------
+        citation_text : str
+            Raw citation string used for the citation-lookup API call
+            and stored in ``VerificationResult.input_citation``.
+        parsed : ParsedCitation | None
+            Pre-parsed citation metadata.  When provided the internal
+            ``parse_citation()`` call is skipped, preserving fields
+            (court, month, day) that would otherwise be lost in a
+            text round-trip.
+        quick_only : bool
+            When True, only run Step 1 (citation lookup).  If the
+            citation is not found in the lookup API, return NOT_FOUND
+            immediately without falling through to Steps 1B/2/3.
+        """
+        citation_text = citation_text.strip()
+
+        # Step 1: Citation Lookup API
+        if parsed is None:
+            parsed = parse_citation(citation_text)
+        try:
+            lookup_results = self.client.citation_lookup(citation_text)
+            for lr in lookup_results:
+                clusters = lr.get("clusters", [])
+                for cluster in clusters:
+                    return self._process_citation_lookup_hit(
+                        citation_text, parsed, cluster
+                    )
+        except Exception:
+            # Citation lookup failed; fall through to search
+            logger.debug("Citation lookup failed", exc_info=True)
+
+        if quick_only:
+            return VerificationResult(
+                input_citation=citation_text,
+                status=VerificationStatus.NOT_FOUND,
+                confidence=0.0,
+                diagnostics=["Quick search only: not in citation lookup API"],
+            )
+
+        # Step 1b: Try adjacent starting pages (off-by-one is common).
+        # Skip for WL citations — WL numbers aren't in the citation lookup API.
+        if parsed.volume and parsed.reporter and parsed.page and not parsed.is_westlaw:
+            try:
+                base_page = int(parsed.page)
+                for offset in (-1, 1, -2, 2):
+                    alt_page = str(base_page + offset)
+                    alt_cite = f"{parsed.volume} {parsed.reporter} {alt_page}"
+                    try:
+                        lookup_results = self.client.citation_lookup(alt_cite)
+                    except Exception:
+                        logger.debug(
+                            "Adjacent page lookup failed for %s",
+                            alt_cite,
+                            exc_info=True,
+                        )
+                        continue
+                    for lr in lookup_results:
+                        clusters = lr.get("clusters", [])
+                        for cluster in clusters:
+                            result = self._check_adjacent_page_cluster(
+                                citation_text, parsed, cluster, alt_page
+                            )
+                            if result is not None:
+                                return result
+            except (ValueError, TypeError):
+                pass
+
+        # Step 2: Fuzzy search fallback
+        return self._search_fallback(citation_text, parsed)
+
+    def _search_fallback(
+        self, citation_text: str, parsed: ParsedCitation
+    ) -> VerificationResult:
+        """Search CourtListener using parsed citation metadata."""
+        court_id, filed_after, filed_before = self._build_search_params(parsed)
+
+        candidates: list[CandidateMatch] = []
+
+        # First search: with court filter (from parsed court or inferred from reporter)
+        if parsed.case_name:
+            try:
+                results = self.client.search_opinions(
+                    q=parsed.case_name,
+                    court=court_id,
+                    filed_after=filed_after,
+                    filed_before=filed_before,
+                )
+                candidates = self._process_results(results, parsed)
+            except Exception:
+                logger.debug("Opinion search failed", exc_info=True)
+
+        # Step 3: RECAP fallback (docket entries, orders, PACER documents)
+        # Skip RECAP for state courts — RECAP is federal PACER data only.
+        is_state_court = court_id and not is_federal_court(court_id)
+        has_credible_match = any(c.score >= 0.5 for c in candidates)
+
+        if not has_credible_match and not is_state_court and parsed.docket_number:
+            try:
+                results = self.client.search_recap(docket_number=parsed.docket_number)
+                cited_dn = self._normalize_docket_number(parsed.docket_number)
+                results = [
+                    r
+                    for r in results
+                    if self._normalize_docket_number(
+                        r.get("docketNumber") or r.get("docket_number") or ""
+                    )
+                    == cited_dn
+                ]
+                recap_candidates = self._process_recap_results(results, parsed)
+                candidates.extend(recap_candidates)
+            except Exception:
+                logger.debug("RECAP search by docket number failed", exc_info=True)
+
+        if not has_credible_match and not is_state_court and parsed.case_name:
+            try:
+                results = self.client.search_recap(
+                    q=parsed.case_name,
+                    court=court_id,
+                )
+                recap_candidates = self._process_recap_results(results, parsed)
+                candidates.extend(recap_candidates)
+            except Exception:
+                logger.debug("RECAP search failed", exc_info=True)
+
+        return self._build_fallback_result(citation_text, parsed, candidates, court_id)
+
+    def _process_recap_results(
+        self, results: list[dict[str, Any]], parsed: ParsedCitation
+    ) -> list[CandidateMatch]:
+        """Convert RECAP search results to scored CandidateMatch objects.
+
+        The RECAP search only returns a few documents per docket. When the
+        cited date doesn't match any returned documents, we query the
+        docket-entries API to look for entries near the cited date.
+        """
+        candidates = []
+        seen_dockets: set[int] = set()
+        for r in results:
+            case_name = r.get("caseName") or r.get("case_name", "")
+            docket_id = r.get("docket_id") or r.get("id")
+            court_id = r.get("court_id") or r.get("court", "")
+            docket_url = r.get("docket_absolute_url") or r.get("absolute_url", "")
+            if docket_url and not docket_url.startswith("http"):
+                docket_url = f"https://www.courtlistener.com{docket_url}"
+            elif docket_id and not docket_url:
+                docket_url = f"https://www.courtlistener.com/docket/{docket_id}/"
+
+            if docket_id is None:
+                continue
+            if docket_id in seen_dockets:
+                continue
+            seen_dockets.add(docket_id)
+
+            docs = r.get("recap_documents", [])
+
+            if not self._has_recap_date_match(parsed, docs):
+                if parsed.year and docket_id:
+                    self._fetch_docs_for_docket(docket_id, parsed, docs)
+
+            if docs:
+                candidate = self._pick_best_recap_doc(
+                    docs, parsed, case_name, court_id, docket_url, docket_id, r
+                )
+                if candidate:
+                    candidates.append(candidate)
+            else:
+                candidate = self._build_docket_only_candidate(
+                    parsed, case_name, court_id, docket_url, docket_id, r
+                )
+                candidates.append(candidate)
+        return candidates
+
+    def _fetch_docs_for_docket(
+        self, docket_id: int, parsed: ParsedCitation, docs: list[dict[str, Any]]
+    ) -> None:
+        """Query docket-entries API for documents matching the cited date.
+
+        Tries progressive date ranges: exact -> month +/- 1 -> year.
+        Appends found documents to the *docs* list (mutates in place).
+        """
+        for label, after, before in self._docket_date_ranges(parsed):
+            try:
+                entries = self.client.get_docket_entries(
+                    docket_id=docket_id,
+                    date_filed_after=after,
+                    date_filed_before=before,
+                )
+                if self._extract_docket_entry_docs(entries, docs):
+                    return
+            except Exception:
+                logger.debug(
+                    "Docket entries query (%s) failed for docket %s",
+                    label,
+                    docket_id,
+                    exc_info=True,
+                )
+
+    # ------------------------------------------------------------------
+    # Shared result processing (used by both sync and async)
+    # ------------------------------------------------------------------
+
     def _process_results(
         self, results: list[dict[str, Any]], parsed: ParsedCitation
     ) -> list[CandidateMatch]:
@@ -382,164 +575,6 @@ class CitationVerifier:
                 )
             )
         return candidates
-
-    def _process_recap_results(
-        self, results: list[dict[str, Any]], parsed: ParsedCitation
-    ) -> list[CandidateMatch]:
-        """Convert RECAP search results to scored CandidateMatch objects.
-
-        The RECAP search only returns a few documents per docket. When the
-        cited date doesn't match any returned documents, we query the
-        docket-entries API to look for entries near the cited date.
-        """
-        candidates = []
-        seen_dockets: set[int] = set()
-        for r in results:
-            case_name = r.get("caseName") or r.get("case_name", "")
-            docket_id = r.get("docket_id") or r.get("id")
-            court_id = r.get("court_id") or r.get("court", "")
-            docket_url = r.get("docket_absolute_url") or r.get("absolute_url", "")
-            if docket_url and not docket_url.startswith("http"):
-                docket_url = f"https://www.courtlistener.com{docket_url}"
-            elif docket_id and not docket_url:
-                docket_url = f"https://www.courtlistener.com/docket/{docket_id}/"
-
-            if docket_id is None:
-                continue
-            if docket_id in seen_dockets:
-                continue
-            seen_dockets.add(docket_id)
-
-            # Collect documents from search results
-            docs = r.get("recap_documents", [])
-
-            # Check if any substantive doc matches the cited date closely
-            # enough to skip the more targeted docket-entries query.
-            # Only substantive docs (opinions, orders, etc.) qualify —
-            # procedural filings like writs or motions shouldn't prevent
-            # us from querying for the actual opinion document.
-            has_date_match = False
-            if parsed.year and docs:
-                for doc in docs:
-                    entry_date = doc.get("entry_date_filed") or doc.get(
-                        "date_filed", ""
-                    )
-                    try:
-                        if not entry_date or int(entry_date[:4]) != parsed.year:
-                            continue
-                        if parsed.month and len(entry_date) >= 7:
-                            if int(entry_date[5:7]) != parsed.month:
-                                continue
-                        desc = (
-                            doc.get("short_description")
-                            or doc.get("description")
-                            or ""
-                        ).lower()
-                        is_free = doc.get("is_free_on_pacer") is True
-                        if not self._is_substantive_doc(desc) and not is_free:
-                            continue
-                        has_date_match = True
-                        break
-                    except (ValueError, IndexError):
-                        pass
-
-            # If no matching docs, query docket-entries API for the cited date
-            if not has_date_match and parsed.year and docket_id:
-                self._fetch_docs_for_docket(docket_id, parsed, docs)
-
-            # Build candidates from individual documents
-            if docs:
-                candidate = self._pick_best_recap_doc(
-                    docs, parsed, case_name, court_id, docket_url, docket_id, r
-                )
-                if candidate:
-                    candidates.append(candidate)
-            else:
-                # No documents at all — docket-level fallback
-                candidate = self._build_docket_only_candidate(
-                    parsed, case_name, court_id, docket_url, docket_id, r
-                )
-                candidates.append(candidate)
-        return candidates
-
-    def _fetch_docs_for_docket(
-        self, docket_id: int, parsed: ParsedCitation, docs: list[dict[str, Any]]
-    ) -> None:
-        """Query docket-entries API for documents matching the cited date.
-
-        Tries exact date first (when month/day available), then year range.
-        Appends found documents to the *docs* list (mutates in place).
-        """
-        found_entries = False
-        # Exact date query when we have month and day
-        if parsed.month and parsed.day:
-            exact = f"{parsed.year}-{parsed.month:02d}-{parsed.day:02d}"
-            try:
-                entries = self.client.get_docket_entries(
-                    docket_id=docket_id,
-                    date_filed_after=exact,
-                    date_filed_before=exact,
-                )
-                for entry in entries:
-                    entry_date = entry.get("date_filed", "")
-                    entry_desc = entry.get("description", "")
-                    for doc in entry.get("recap_documents", []):
-                        doc["entry_date_filed"] = entry_date
-                        doc["entry_description"] = entry_desc
-                        docs.append(doc)
-                        found_entries = True
-            except Exception:
-                logger.debug(
-                    "Docket entries query (exact date) failed for docket %s",
-                    docket_id,
-                    exc_info=True,
-                )
-        # Fall back to month ± 1 if exact date found nothing and month is known
-        if not found_entries and parsed.month:
-            m_start = max(parsed.month - 1, 1)
-            m_end = min(parsed.month + 1, 12)
-            _, last_day = calendar.monthrange(parsed.year, m_end)
-            try:
-                entries = self.client.get_docket_entries(
-                    docket_id=docket_id,
-                    date_filed_after=f"{parsed.year}-{m_start:02d}-01",
-                    date_filed_before=f"{parsed.year}-{m_end:02d}-{last_day:02d}",
-                )
-                for entry in entries:
-                    entry_date = entry.get("date_filed", "")
-                    entry_desc = entry.get("description", "")
-                    for doc in entry.get("recap_documents", []):
-                        doc["entry_date_filed"] = entry_date
-                        doc["entry_description"] = entry_desc
-                        docs.append(doc)
-                        found_entries = True
-            except Exception:
-                logger.debug(
-                    "Docket entries query (month range) failed for docket %s",
-                    docket_id,
-                    exc_info=True,
-                )
-        # Fall back to year range if narrower queries found nothing
-        if not found_entries:
-            try:
-                entries = self.client.get_docket_entries(
-                    docket_id=docket_id,
-                    date_filed_after=f"{parsed.year}-01-01",
-                    date_filed_before=f"{parsed.year}-12-31",
-                )
-                for entry in entries:
-                    entry_date = entry.get("date_filed", "")
-                    entry_desc = entry.get("description", "")
-                    for doc in entry.get("recap_documents", []):
-                        doc["entry_date_filed"] = entry_date
-                        doc["entry_description"] = entry_desc
-                        docs.append(doc)
-            except Exception:
-                logger.debug(
-                    "Docket entries query (year range) failed for docket %s",
-                    docket_id,
-                    exc_info=True,
-                )
 
     def _pick_best_recap_doc(
         self,
@@ -1230,40 +1265,8 @@ class CitationVerifier:
             for lr in lookup_results:
                 clusters = lr.get("clusters", [])
                 for cluster in clusters:
-                    case_name = cluster.get("case_name", "")
-                    cluster_id = cluster.get("id")
-                    url = cluster.get("absolute_url", "")
-                    if url and not url.startswith("http"):
-                        url = f"https://www.courtlistener.com{url}"
-                    elif cluster_id and not url:
-                        url = f"https://www.courtlistener.com/opinion/{cluster_id}/"
-
-                    if parsed.case_name and case_name:
-                        if not self._names_match_citation_lookup(parsed, case_name):
-                            return VerificationResult(
-                                input_citation=citation_text,
-                                status=VerificationStatus.POSSIBLE_MATCH,
-                                confidence=0.3,
-                                matched_case_name=case_name,
-                                matched_url=url,
-                                matched_cluster_id=cluster_id,
-                                matched_court=cluster.get("court") or cluster.get("court_id") or None,
-                                matched_date=cluster.get("date_filed") or None,
-                                diagnostics=[
-                                    f'Name mismatch: citation exists at this reporter location '
-                                    f'but belongs to "{case_name}"',
-                                ],
-                            )
-
-                    return VerificationResult(
-                        input_citation=citation_text,
-                        status=VerificationStatus.VERIFIED,
-                        confidence=1.0,
-                        matched_case_name=case_name,
-                        matched_url=url,
-                        matched_cluster_id=cluster_id,
-                        matched_court=cluster.get("court") or cluster.get("court_id") or None,
-                        matched_date=cluster.get("date_filed") or None,
+                    return self._process_citation_lookup_hit(
+                        citation_text, parsed, cluster
                     )
         except Exception:
             logger.debug("Citation lookup failed", exc_info=True)
@@ -1295,45 +1298,11 @@ class CitationVerifier:
                     for lr in lookup_results:
                         clusters = lr.get("clusters", [])
                         for cluster in clusters:
-                            case_name = cluster.get("case_name", "")
-                            cluster_id = cluster.get("id")
-                            url = cluster.get("absolute_url", "")
-                            if url and not url.startswith("http"):
-                                url = f"https://www.courtlistener.com{url}"
-                            elif cluster_id and not url:
-                                url = f"https://www.courtlistener.com/opinion/{cluster_id}/"
-                            if not (parsed.case_name and case_name):
-                                continue
-                            result_lower = case_name.lower()
-                            result_def = ""
-                            if " v. " in result_lower:
-                                result_def = result_lower.split(" v. ", 1)[1].strip()
-                            elif " v " in result_lower:
-                                result_def = result_lower.split(" v ", 1)[1].strip()
-                            if parsed.defendant and result_def:
-                                def_sim = SequenceMatcher(
-                                    None,
-                                    parsed.defendant.lower(),
-                                    result_def,
-                                ).ratio()
-                                if def_sim < 0.7:
-                                    continue
-                            elif not self._names_match(parsed, case_name):
-                                continue
-                            return VerificationResult(
-                                input_citation=citation_text,
-                                status=VerificationStatus.VERIFIED,
-                                confidence=1.0,
-                                matched_case_name=case_name,
-                                matched_url=url,
-                                matched_cluster_id=cluster_id,
-                                matched_court=cluster.get("court") or cluster.get("court_id") or None,
-                                matched_date=cluster.get("date_filed") or None,
-                                diagnostics=[
-                                    f"Matched via adjacent page: cited page {parsed.page}, "
-                                    f"case starts at page {alt_page}",
-                                ],
+                            result = self._check_adjacent_page_cluster(
+                                citation_text, parsed, cluster, alt_page
                             )
+                            if result is not None:
+                                return result
             except (ValueError, TypeError):
                 pass
 
@@ -1347,22 +1316,7 @@ class CitationVerifier:
         parsed: ParsedCitation,
     ) -> VerificationResult:
         """Async version of _search_fallback()."""
-        court_id = lookup_court_id(parsed.court) if parsed.court else None
-
-        possible_states = []
-        if not court_id and parsed.reporter:
-            possible_states = get_states_for_reporter(parsed.reporter)
-            if len(possible_states) == 1:
-                court_id = possible_states[0]
-                logger.debug(
-                    f"Inferred court {court_id} from reporter {parsed.reporter}"
-                )
-
-        filed_after = None
-        filed_before = None
-        if parsed.year:
-            filed_after = f"{parsed.year - 1}-01-01"
-            filed_before = f"{parsed.year + 1}-12-31"
+        court_id, filed_after, filed_before = self._build_search_params(parsed)
 
         candidates: list[CandidateMatch] = []
 
@@ -1416,70 +1370,7 @@ class CitationVerifier:
             except Exception:
                 logger.debug("RECAP search failed", exc_info=True)
 
-        if not candidates:
-            return VerificationResult(
-                input_citation=citation_text,
-                status=VerificationStatus.NOT_FOUND,
-                confidence=0.0,
-                diagnostics=[
-                    "No matching cases found in CourtListener opinions or RECAP"
-                ],
-            )
-
-        candidates.sort(key=lambda c: c.score, reverse=True)
-        best = candidates[0]
-
-        has_unverified_cite = bool(
-            (parsed.volume and parsed.reporter and parsed.page) or parsed.wl_number
-        )
-        if has_unverified_cite and court_id and best.court_id != court_id:
-            return VerificationResult(
-                input_citation=citation_text,
-                status=VerificationStatus.NOT_FOUND,
-                confidence=0.0,
-                candidates=candidates[:5],
-                diagnostics=[
-                    f"Reporter citation could not be verified, and no matching "
-                    f"cases were found in {parsed.court}",
-                ],
-            )
-
-        if not parsed.court and not parsed.year:
-            return VerificationResult(
-                input_citation=citation_text,
-                status=VerificationStatus.NOT_FOUND,
-                confidence=0.0,
-                candidates=candidates[:5],
-                diagnostics=[
-                    "Insufficient data to verify: citation text is missing "
-                    "both court and date. A match cannot be confirmed with "
-                    "name alone. Try adding the court and year parenthetical "
-                    "(e.g. '(E.D. Tenn. 2020)') to the citation text.",
-                ],
-            )
-
-        if best.score >= 0.85:
-            status = VerificationStatus.LIKELY_REAL
-        elif best.score >= 0.40:
-            status = VerificationStatus.POSSIBLE_MATCH
-        else:
-            status = VerificationStatus.NOT_FOUND
-
-        diagnostics = self._finalize_diagnostics(best.mismatches, best.score, status)
-
-        return VerificationResult(
-            input_citation=citation_text,
-            status=status,
-            confidence=best.score,
-            matched_case_name=best.case_name,
-            matched_url=best.url,
-            matched_cluster_id=best.cluster_id,
-            matched_court=best.court_id or None,
-            matched_date=best.date_filed or None,
-            matched_description=best.description,
-            candidates=candidates[:5],
-            diagnostics=diagnostics,
-        )
+        return self._build_fallback_result(citation_text, parsed, candidates, court_id)
 
     async def _process_recap_results_async(
         self,
@@ -1508,35 +1399,11 @@ class CitationVerifier:
 
             docs = r.get("recap_documents", [])
 
-            has_date_match = False
-            if parsed.year and docs:
-                for doc in docs:
-                    entry_date = doc.get("entry_date_filed") or doc.get(
-                        "date_filed", ""
+            if not self._has_recap_date_match(parsed, docs):
+                if parsed.year and docket_id:
+                    await self._fetch_docs_for_docket_async(
+                        async_client, docket_id, parsed, docs
                     )
-                    try:
-                        if not entry_date or int(entry_date[:4]) != parsed.year:
-                            continue
-                        if parsed.month and len(entry_date) >= 7:
-                            if int(entry_date[5:7]) != parsed.month:
-                                continue
-                        desc = (
-                            doc.get("short_description")
-                            or doc.get("description")
-                            or ""
-                        ).lower()
-                        is_free = doc.get("is_free_on_pacer") is True
-                        if not self._is_substantive_doc(desc) and not is_free:
-                            continue
-                        has_date_match = True
-                        break
-                    except (ValueError, IndexError):
-                        pass
-
-            if not has_date_match and parsed.year and docket_id:
-                await self._fetch_docs_for_docket_async(
-                    async_client, docket_id, parsed, docs
-                )
 
             if docs:
                 candidate = self._pick_best_recap_doc(
@@ -1559,72 +1426,19 @@ class CitationVerifier:
         docs: list[dict[str, Any]],
     ) -> None:
         """Async version of _fetch_docs_for_docket()."""
-        found_entries = False
-        if parsed.month and parsed.day:
-            exact = f"{parsed.year}-{parsed.month:02d}-{parsed.day:02d}"
+        for label, after, before in self._docket_date_ranges(parsed):
             try:
                 entries = await async_client.get_docket_entries(
                     docket_id=docket_id,
-                    date_filed_after=exact,
-                    date_filed_before=exact,
+                    date_filed_after=after,
+                    date_filed_before=before,
                 )
-                for entry in entries:
-                    entry_date = entry.get("date_filed", "")
-                    entry_desc = entry.get("description", "")
-                    for doc in entry.get("recap_documents", []):
-                        doc["entry_date_filed"] = entry_date
-                        doc["entry_description"] = entry_desc
-                        docs.append(doc)
-                        found_entries = True
+                if self._extract_docket_entry_docs(entries, docs):
+                    return
             except Exception:
                 logger.debug(
-                    "Docket entries query (exact date) failed for docket %s",
-                    docket_id,
-                    exc_info=True,
-                )
-        # Fall back to month ± 1 if exact date found nothing and month is known
-        if not found_entries and parsed.month:
-            m_start = max(parsed.month - 1, 1)
-            m_end = min(parsed.month + 1, 12)
-            _, last_day = calendar.monthrange(parsed.year, m_end)
-            try:
-                entries = await async_client.get_docket_entries(
-                    docket_id=docket_id,
-                    date_filed_after=f"{parsed.year}-{m_start:02d}-01",
-                    date_filed_before=f"{parsed.year}-{m_end:02d}-{last_day:02d}",
-                )
-                for entry in entries:
-                    entry_date = entry.get("date_filed", "")
-                    entry_desc = entry.get("description", "")
-                    for doc in entry.get("recap_documents", []):
-                        doc["entry_date_filed"] = entry_date
-                        doc["entry_description"] = entry_desc
-                        docs.append(doc)
-                        found_entries = True
-            except Exception:
-                logger.debug(
-                    "Docket entries query (month range) failed for docket %s",
-                    docket_id,
-                    exc_info=True,
-                )
-        # Fall back to year range if narrower queries found nothing
-        if not found_entries:
-            try:
-                entries = await async_client.get_docket_entries(
-                    docket_id=docket_id,
-                    date_filed_after=f"{parsed.year}-01-01",
-                    date_filed_before=f"{parsed.year}-12-31",
-                )
-                for entry in entries:
-                    entry_date = entry.get("date_filed", "")
-                    entry_desc = entry.get("description", "")
-                    for doc in entry.get("recap_documents", []):
-                        doc["entry_date_filed"] = entry_date
-                        doc["entry_description"] = entry_desc
-                        docs.append(doc)
-            except Exception:
-                logger.debug(
-                    "Docket entries query (year range) failed for docket %s",
+                    "Docket entries query (%s) failed for docket %s",
+                    label,
                     docket_id,
                     exc_info=True,
                 )

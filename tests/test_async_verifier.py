@@ -93,7 +93,7 @@ class TestAsyncSyncParity:
         assert sync_r.matched_url == async_r.matched_url
 
     def test_parity_citation_lookup_name_mismatch(self):
-        """Step 1: Citation exists but wrong case → NOT_FOUND in both paths."""
+        """Step 1: Citation exists but wrong case → POSSIBLE_MATCH in both paths."""
         api = {
             "citation_lookup": [
                 {
@@ -111,8 +111,8 @@ class TestAsyncSyncParity:
             api, "Smith v. Jones, 100 F.3d 200 (2d Cir. 2020)"
         )
 
-        assert sync_r.status == async_r.status == VerificationStatus.NOT_FOUND
-        assert sync_r.confidence == async_r.confidence == 0.0
+        assert sync_r.status == async_r.status == VerificationStatus.POSSIBLE_MATCH
+        assert sync_r.confidence == async_r.confidence == 0.3
         assert sync_r.diagnostics == async_r.diagnostics
 
     def test_parity_adjacent_page_match(self):
@@ -181,8 +181,8 @@ class TestAsyncSyncParity:
         assert sync_r.status == async_r.status == VerificationStatus.NOT_FOUND
         assert sync_r.confidence == async_r.confidence == 0.0
 
-    def test_parity_retries_without_court_filter(self):
-        """Both paths retry opinion search without court filter when first attempt is empty."""
+    def test_parity_opinion_search_call_count(self):
+        """Both paths call opinion search the same number of times."""
         sync_client = _make_client()
         async_client = _make_async_client()
 
@@ -191,8 +191,8 @@ class TestAsyncSyncParity:
         v.verify(citation)
         asyncio.run(v.verify_async(async_client, citation))
 
-        assert sync_client.search_opinions.call_count == 2
-        assert async_client.search_opinions.call_count == 2
+        assert sync_client.search_opinions.call_count == 1
+        assert async_client.search_opinions.call_count == 1
 
     def test_parity_recap_match_with_substantive_doc(self):
         """Step 3: RECAP finds docket with substantive doc → same result both paths."""
