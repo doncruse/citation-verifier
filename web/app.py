@@ -183,6 +183,22 @@ class MasterCSV:
 
 app = FastAPI(title="Citation Verifier", version="0.1.0")
 
+# Public mode: when MODE=public, only serve the Get & Print page (for Replit).
+_public_mode = os.environ.get("MODE", "").lower() == "public"
+
+if _public_mode:
+    from starlette.middleware.base import BaseHTTPMiddleware
+    from starlette.responses import Response as StarletteResponse
+
+    class _BlockQCMiddleware(BaseHTTPMiddleware):
+        async def dispatch(self, request, call_next):
+            path = request.url.path
+            if path == "/qc" or path.startswith("/api/qc"):
+                return StarletteResponse("Not Found", status_code=404)
+            return await call_next(request)
+
+    app.add_middleware(_BlockQCMiddleware)
+
 # Mount static files
 _static_dir = Path(__file__).parent / "static"
 app.mount("/static", StaticFiles(directory=str(_static_dir)), name="static")
@@ -208,18 +224,31 @@ def _result_to_dict(result: VerificationResult) -> dict[str, Any]:
     }
 
 
-@app.get("/", response_class=HTMLResponse)
-async def index():
-    """Serve the single-page frontend."""
-    html_path = _static_dir / "index.html"
-    return HTMLResponse(html_path.read_text(encoding="utf-8"))
+if _public_mode:
+    # Public mode: Get & Print is the homepage; /get redirects to /.
+    @app.get("/", response_class=HTMLResponse)
+    async def index():
+        """Serve Get & Print as the homepage in public mode."""
+        html_path = _static_dir / "get.html"
+        return HTMLResponse(html_path.read_text(encoding="utf-8"))
 
+    from fastapi.responses import RedirectResponse
 
-@app.get("/get", response_class=HTMLResponse)
-async def get_and_print():
-    """Serve the Get and Print page."""
-    html_path = _static_dir / "get.html"
-    return HTMLResponse(html_path.read_text(encoding="utf-8"))
+    @app.get("/get")
+    async def get_redirect():
+        return RedirectResponse("/")
+else:
+    @app.get("/", response_class=HTMLResponse)
+    async def index():
+        """Serve the single-page frontend."""
+        html_path = _static_dir / "index.html"
+        return HTMLResponse(html_path.read_text(encoding="utf-8"))
+
+    @app.get("/get", response_class=HTMLResponse)
+    async def get_and_print():
+        """Serve the Get and Print page."""
+        html_path = _static_dir / "get.html"
+        return HTMLResponse(html_path.read_text(encoding="utf-8"))
 
 
 @app.get("/api/health")

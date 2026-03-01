@@ -186,11 +186,14 @@
 </head>
 <body>
 
-<nav>
+<nav id="main-nav">
   <a href="/">Verify</a>
   <span class="sep">|</span>
   <span class="current">Get and Print</span>
+  <span class="sep">|</span>
+  <a href="/qc">QC</a>
 </nav>
+<script>if (location.pathname === '/') document.getElementById('main-nav').style.display = 'none';</script>
 
 <h1>Get and Print</h1>
 <p class="subtitle">
