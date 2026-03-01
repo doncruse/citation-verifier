@@ -389,6 +389,8 @@ Terry v. Ohio, 392 U.S. 1 (1968)"></textarea>
     verifyBtn.disabled = true;
     exportBtn.disabled = true;
     results = [];
+    selectAll.checked = false;
+    updateDownloadBtn();
 
     // Show placeholder rows
     resultsBody.innerHTML = '';
