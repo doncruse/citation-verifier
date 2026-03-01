@@ -191,7 +191,4 @@ One-off script to compare NOT_FOUND citations against Justia to distinguish: rea
 
 ## Future Ideas
 
-### Contribute WL/Lexis citation strings for confirmed cases to FLP
-When our tool confirms a citation is real, we know the WL/Lexis citation string corresponds to a real opinion. CL often doesn't have these proprietary citations on file. We could collect confirmed WL/Lexis strings and contribute them as metadata — something like "cluster X / docket Y corresponds to 2018 WL 01581301."
-
-Would need to figure out: whether FLP wants this, what format to submit, how to batch up, whether WL/Lexis citation strings have IP concerns.
+Moved to `scratch/ROADMAP.md` — covers client-side BYOK, WL/Lexis data contributions, semantic search, and more.
