@@ -320,9 +320,10 @@ Terry v. Ohio, 392 U.S. 1 (1968)"></textarea>
   <div class="results-toolbar" id="results-toolbar">
     <span class="results-summary" id="results-summary"></span>
     <button id="deep-search-btn">Deep Search</button>
-    <button id="download-text-btn" disabled>Download Text</button>
-    <button id="download-btn" disabled>Download PDFs</button>
-    <span class="download-status" id="download-status"></span>
+    <span style="display:inline-block;">
+      <span style="display:flex;align-items:center;gap:8px;"><button id="download-text-btn" disabled>Download Text</button><button id="download-btn" disabled>Download PDFs</button><span class="download-status" id="download-status"></span></span>
+      <div style="font-size:0.75rem;color:#999;margin-top:2px;">Text = best for LLMs &nbsp;|&nbsp; PDF = best for reading and printing</div>
+    </span>
   </div>
   <div class="table-wrap">
     <table>

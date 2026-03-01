@@ -174,25 +174,6 @@
   }
   .error-banner.active { display: block; }
 
-  /* Info dot */
-  .info-dot {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 15px;
-    height: 15px;
-    border-radius: 50%;
-    background: #adb5bd;
-    color: #fff;
-    font-size: 0.65rem;
-    font-weight: 700;
-    cursor: default;
-    margin-left: 4px;
-    vertical-align: middle;
-    position: relative;
-  }
-  .info-dot:hover { background: #6c757d; }
-
   /* Flag button */
   .flag-btn {
     padding: 2px 8px;
@@ -253,10 +234,10 @@ Terry v. Ohio, 392 U.S. 1 (1968)"></textarea>
     <button id="verify-btn">Verify</button>
     <span class="cite-count" id="cite-count">0 citations</span>
     <button id="export-btn" disabled>Export CSV</button>
-    <button id="download-btn" disabled>Download PDFs</button><span class="info-dot" title="Best for human reading and printing">i</span>
-    <button id="download-text-btn" disabled>Download Text</button><span class="info-dot" title="Best for passing to an LLM">i</span>
-    <span class="download-status" id="download-status"></span>
-  </div>
+    <span style="display:inline-block;">
+      <span style="display:flex;align-items:center;gap:8px;"><button id="download-btn" disabled>Download PDFs</button><button id="download-text-btn" disabled>Download Text</button><span class="download-status" id="download-status"></span></span>
+      <div style="font-size:0.75rem;color:#999;margin-top:2px;">Text = best for LLMs &nbsp;|&nbsp; PDF = best for reading and printing</div>
+    </span>
 </div>
 
 <div class="progress-container" id="progress-container">
