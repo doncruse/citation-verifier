@@ -127,7 +127,8 @@ def main(argv: list[str] | None = None) -> int:
     if cache and len(citations) > len(to_verify) and to_verify:
         print(
             f"  Cache: {len(citations) - len(to_verify)} cached, "
-            f"{len(to_verify)} to verify"
+            f"{len(to_verify)} to verify",
+            file=sys.stderr if args.json_mode else sys.stdout,
         )
 
     if to_verify:
@@ -143,7 +144,11 @@ def main(argv: list[str] | None = None) -> int:
             uncached_cites = [cite for _, cite in to_verify]
 
             def _progress(done: int, total: int) -> None:
-                print(f"  Verifying {done}/{total}...", flush=True)
+                print(
+                    f"  Verifying {done}/{total}...",
+                    file=sys.stderr if args.json_mode else sys.stdout,
+                    flush=True,
+                )
 
             batch_results = asyncio.run(
                 verifier.verify_batch(uncached_cites, progress_callback=_progress)
