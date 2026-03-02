@@ -194,6 +194,23 @@ One-off script to compare NOT_FOUND citations against Justia to distinguish: rea
 ### Expand fake citations corpus
 `tests/data/known_fake_citations.json` has 8 entries. Categories planned: hallucinated_case_name, wrong_name_real_citation, wrong_court, future_date, invalid_reporter, out_of_range_page. See `tests/data/README.md`.
 
+## verify-brief Skill
+
+### Baseline test (RED phase)
+Run the brief verification task WITHOUT the skill loaded to establish what Claude does naturally. Steps:
+1. Rename `~/.claude/skills/verify-brief/SKILL.md` → `SKILL.md.bak`
+2. Open fresh Claude Code session in this folder
+3. Give it the Kettering brief: "verify the citations in this brief" (same input as first test)
+4. Observe: Does it use `citation_verifier`? Read opinions? Assess claims? What structure does it use?
+5. Rename skill back when done
+6. Compare to skill-guided run — document what the skill improves
+
+### Word doc support
+Not tested yet. Options: python-docx dependency, or just have user paste text.
+
+### Second test run
+Re-run `/verify-brief` on Kettering brief with iteration 1 fixes. Document results in `briefs/kettering-v-collier/skill-test-2-feedback.md`.
+
 ## Future Ideas
 
 Moved to `scratch/ROADMAP.md` — covers client-side BYOK, WL/Lexis data contributions, semantic search, and more.
