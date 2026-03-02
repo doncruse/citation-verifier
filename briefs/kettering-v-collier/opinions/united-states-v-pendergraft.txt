@@ -1,0 +1,1334 @@
+                                                                   [PUBLISH]
+
+
+              IN THE UNITED STATES COURT OF APPEALS
+
+                       FOR THE ELEVENTH CIRCUIT                  FILED
+                        ________________________        U.S. COURT OF APPEALS
+                                                          ELEVENTH CIRCUIT
+                                                              JULY 16, 2002
+                                 No. 01-13057
+                                                           THOMAS K. KAHN
+                          ________________________              CLERK
+                      D. C. Docket No. 00-00021 CR-0C-10
+
+UNITED STATES OF AMERICA,
+
+                                                      Plaintiff-Appellee,
+
+                                    versus
+
+JAMES SCOTT PENDERGRAFT,
+MICHAEL SPIELVOGEL,
+
+                                                      Defendants-Appellants.
+
+                         ________________________
+
+                 Appeal from the United States District Court
+                     for the Middle District of Florida
+                      _________________________
+                              (July 16, 2002)
+
+
+Before TJOFLAT, RONEY and COX, Circuit Judges.
+
+COX, Circuit Judge:
+      James Scott Pendergraft and Michael Spielvogel were convicted, following a
+
+jury trial, for (1) attempted extortion, in violation of the Hobbs Act, 18 U.S.C. § 1951,
+
+(2) mail fraud, in violation of 18 U.S.C. § 1341, and (3) conspiracy to commit
+
+extortion, mail fraud, and perjury, in violation of 18 U.S.C. § 371. Spielvogel was
+
+also convicted of filing a false affidavit, in violation of 18 U.S.C. § 1623, and making
+
+a false statement to the Federal Bureau of Investigation, in violation of 18 U.S.C. §
+
+1001. Pendergraft and Spielvogel appeal, challenging their convictions and sentences.
+
+      The charges against Pendergraft and Spielvogel arose out of their threat to seek
+
+damages in a lawsuit against Marion County, Florida, and to use false evidence in
+
+support of the lawsuit. Because we conclude that their threat was neither “wrongful”
+
+within the meaning of the Hobbs Act nor a “scheme to defraud” within the meaning
+
+of the mail-fraud statute, we reverse the attempted extortion and mail-fraud
+
+convictions, and we vacate the conspiracy convictions.           However, we affirm
+
+Spielvogel’s convictions for perjury and making false statements.
+
+
+
+
+                                           2
+                                I. BACKGROUND
+
+                                      A. FACTS
+
+      Pendergraft is a physician specializing in maternal-fetal medicine.1 As part of
+
+his practice, he performs abortions, including late-term, or “partial-birth,” abortions.
+
+He opened the Orlando Women’s Center in Orlando, Florida, in 1996. In 1997,
+
+seeking to expand his Florida practice, Pendergraft purchased a medical building in
+
+Ocala, Florida, for about $200,000.
+
+      Ocala is the county seat of Marion County. In 1989, an abortion clinic in Ocala,
+
+the All Women’s Health Center, was destroyed by an arsonist, and Ocala had not had
+
+an abortion clinic since. Pendergraft had performed many abortions on Ocala
+
+residents in his Orlando clinic and believed he could profit by opening a clinic in
+
+Ocala.
+
+      Pendergraft’s presence in Ocala sparked a lot of controversy. During a meeting
+
+of the Marion County Board of Commissioners in October 1997, Steve Klein, a
+
+resident of Ocala, proposed that the Board write a letter to Pendergraft asking him to
+
+reconsider opening his Ocala clinic. The Board unanimously supported Klein’s
+
+proposal, and Larry Cretul, the Chairman of the Board, wrote and signed the letter and
+
+
+      1
+        Because we are determining whether the actions of Pendergraft and
+Spielvogel are legally sufficient to support their convictions, we state the evidence
+in the light most favorable to the Government.
+                                           3
+sent it to Pendergraft. The letter asked Pendergraft to reconsider his plans because of
+
+the controversy the clinic would bring to Ocala. Pendergraft received many other
+
+letters from concerned citizens of Marion County.
+
+      Pendergraft received the Board’s letter and, after a few days, showed it to
+
+Michael Spielvogel, a business associate whose wife, Mary, worked for Pendergraft
+
+as an office administrator. In late October, Spielvogel called Cretul to discuss the
+
+possibility of Pendergraft withdrawing from Ocala if the County would purchase the
+
+clinic building for a good price.
+
+      Immediately after his discussion with Spielvogel, Cretul called the county
+
+sheriff’s office and expressed some concern that he was being asked to pay for peace.
+
+The sheriff’s office relayed Cretul’s concern to FBI Special Agent Pamela Piersanti,
+
+and the FBI opened an investigation. As part of the investigation, the FBI recorded
+
+Cretul’s subsequent conversations with Spielvogel. During one of the conversations,
+
+Spielvogel implied that Pendergraft would sell the clinic building for between
+
+$350,000 and $500,000.
+
+      On January 29, 1998, a bomb exploded at the New Woman All Women Health
+
+Care Center, an abortion clinic in Birmingham, Alabama, killing an off-duty police
+
+officer and injuring a chief nurse. That evening, Cretul and Spielvogel spoke by
+
+telephone. Following their conversation, Spielvogel called the FBI and reported that
+
+
+                                          4
+Cretul had threatened him. Specifically, Spielvogel reported that Cretul had said that
+
+the Alabama bombing was nothing compared to what would happen to the Ocala
+
+clinic. Because the FBI was monitoring Cretul’s conversations with Spielvogel, it
+
+knew that Spielvogel’s allegation was false. The FBI declined to investigate the
+
+alleged threat and told Spielvogel of its declination in late February.
+
+       On February 24, Pendergraft wrote identical letters to Cretul and several other
+
+Ocala citizens who had previously written letters to Pendergraft. In this letter,
+
+Pendergraft articulated his reasons for opening the Ocala clinic and acknowledged that
+
+he would perform abortions. At the end of his letter, he intimated that he would
+
+entertain other plans for the facility, including a sale of it, and asked potential offerors
+
+to contact Spielvogel.
+
+       At the FBI’s request, Cretul called Pendergraft and finally got in touch with him
+
+on March 26, 1998. Cretul told Pendergraft that he was worried about the potential
+
+controversy and violence that the Ocala clinic would bring, but Pendergraft denied
+
+that he wanted or caused violence. Cretul asked Pendergraft how much money it
+
+would take to keep him out of Ocala. Pendergraft said that he would stay away three
+
+years for $550,000, five years for $750,000, and forever for $1,000,000. Cretul told
+
+Pendergraft that his offer felt like extortion, but Pendergraft denied any such intent
+
+
+
+
+                                             5
+and offered to cease negotiations. On April 8, the FBI told Cretul to call off
+
+negotiations, and thereafter the investigation of Pendergraft was closed.
+
+      In July 1998, the Ocala clinic opened amid much controversy. Protestors
+
+consistently blocked the driveway to the clinic and harassed those who entered the
+
+building. Pendergraft asked the City of Ocala and the Marion County Sheriff’s
+
+Department if he could hire off-duty law enforcement officers to protect his clinic.
+
+Though such requests were routinely granted to other businesses, Pendergraft’s
+
+request was denied.
+
+      Pendergraft and the Ocala Women’s Center filed a federal lawsuit in December
+
+1998, naming Marion County, the City of Ocala, and several individual protestors as
+
+defendants. It sought injunctive relief against Marion County that would permit
+
+Pendergraft to hire off-duty law enforcement officers.
+
+      Marion County retained Virgil Wright to defend the suit. Wright contacted Roy
+
+Lucas, Pendergraft’s lawyer, and told Lucas that, since the Sheriff’s Department was
+
+not controlled by Marion County, Marion County should not be a party to the suit.
+
+Lucas responded on March 15, 1999, with a letter stating that Cretul’s threats, as
+
+reported by Spielvogel, violated the Freedom of Access to Clinic Entrances Act, 18
+
+U.S.C. § 248, and exposed the County to actual and punitive damages as well as
+
+litigation fees and expenses. Lucas threatened to file an amended complaint that
+
+
+                                          6
+would seek damages against the County and add Spielvogel, Spielvogel’s wife, and
+
+the Ocala clinic administrator as plaintiffs. Attached to the letter were two unsigned
+
+affidavits, one by Spielvogel and one by Pendergraft.
+
+      Spielvogel’s affidavit reported Cretul’s threat and said that Pendergraft
+
+witnessed Spielvogel’s reaction to the threat when it was made. Pendergraft’s
+
+affidavit said that he believed Spielvogel’s report that Cretul made threats because of
+
+Spielvogel’s reaction when he was on the phone with Cretul.
+
+      When Wright received Lucas’s letter, he contacted Cretul, who told Wright that
+
+the FBI taped the phone call during which Cretul was alleged to have made the threat.
+
+Wright agreed to assist the FBI in the investigation of Pendergraft and Spielvogel by
+
+holding a settlement conference with them. Wright and Lucas agreed to hold a
+
+settlement conference on March 22. In a letter confirming the time the conference
+
+was scheduled, Lucas said that he would bring a copy of a proposed amended
+
+complaint but that he might not need to file it, depending on the discussion.
+
+      On March 19, Pendergraft and Spielvogel filed a motion for partial summary
+
+judgment in their federal lawsuit. The motion sought to enjoin the protestors from
+
+harming clinic workers and to allow Pendergraft to hire off-duty officers. In support
+
+of the motion, Pendergraft and Spielvogel filed, among other things, the affidavits
+
+
+
+
+                                          7
+they sent to Wright regarding Cretul’s threats. These affidavits were signed, dated,
+
+and notarized. Pendergraft and Spielvogel mailed a copy of this motion to Wright.
+
+      On March 22, Wright, Lucas, Spielvogel, and Pendergraft attended the
+
+settlement conference, and the FBI captured it on videotape. At the conference,
+
+Spielvogel again asserted that Cretul had threatened him, and Pendergraft claimed that
+
+he was present when Spielvogel received the threatening phone call.            While
+
+Spielvogel expressed his desire for an immediate settlement, Pendergraft made it clear
+
+that he wanted to go to trial. Lucas and Pendergraft informed Wright that the lawsuit
+
+could bankrupt Marion County based on prior verdicts in similar cases. Wright told
+
+them he would report to Marion County and ask the county what it would like to do.
+
+      On April 12, Piersanti, the FBI agent, confronted Spielvogel with evidence that
+
+his allegations against Cretul were false, and she asked Spielvogel to cooperate in an
+
+investigation of Pendergraft. Spielvogel declined this offer and instead informed
+
+Pendergraft of the investigation.
+
+      On August 4, 1999, an amended complaint was filed in Pendergraft’s lawsuit.
+
+It did not add Spielvogel or his wife as plaintiffs. It did not add Larry Cretul as a
+
+defendant. Instead of adding a claim for damages against Marion County, it dropped
+
+Marion County from the suit entirely. Nevertheless, a grand jury investigation of
+
+Pendergraft and Spielvogel was initiated.
+
+
+                                            8
+                          B. PROCEDURAL HISTORY
+
+                                 1. The Indictment
+
+      On June 13, 2000, the grand jury indicted Pendergraft and Spielvogel. Count
+
+One charges that they conspired to commit extortion under 18 U.S.C. § 1951, perjury
+
+under 18 U.S.C. § 1623, and mail fraud under 18 U.S.C. § 1341.
+
+      Count Two charges Pendergraft and Spielvogel with the substantive offense of
+
+attempted extortion for using false affidavits and statements in an attempt to obtain
+
+a monetary settlement from Marion County. The indictment alleges that Pendergraft
+
+and Spielvogel authored false affidavits accusing Cretul of threatening them and
+
+attached these affidavits to a letter sent to Wright. Based on these false affidavits,
+
+they threatened, in the letter, to file an amended complaint seeking damages against
+
+Marion County. According to the indictment, they then arranged a settlement
+
+conference with Wright during which they threatened a multi-million dollar suit
+
+unless Marion County settled.
+
+      In Count Three, Pendergraft and Spielvogel are charged with mail fraud. Their
+
+alleged scheme to defraud was the use of false statements about Cretul’s threats to
+
+obtain a settlement from Marion County. In furtherance of this scheme, they mailed
+
+copies of their motion for partial summary judgment, to which the allegedly false
+
+affidavits were attached, to Wright and other lawyers in the civil case.
+
+
+                                          9
+      Counts Four and Five charge only Spielvogel with perjury and making a false
+
+statement to the FBI. These charges arose out of Spielvogel’s accusation, which he
+
+included both in his affidavit and in his report to the FBI, that Cretul threatened the
+
+Ocala clinic while on the phone with him.
+
+                        2. Motion to Dismiss the Indictment
+
+      Pendergraft and Spielvogel filed a consolidated motion to dismiss the
+
+indictment on several grounds. (R.1-26.) They argued, among other things, that
+
+Counts One, Two, and Three of the indictment violated Pendergraft’s First and
+
+Fourteenth Amendment rights. Because he had a right to assert claims against the
+
+government, he and Spielvogel could not be charged with extortion for their actions
+
+in connection with a lawsuit against the government. Furthermore, they argued, the
+
+indictment imperiled the privacy rights of Pendergraft and his patients because it
+
+endangered Pendergraft’s ability to provide abortions.
+
+      Pendergraft and Spielvogel further argued that Counts One, Two, and Three
+
+were legally insufficient because a threat to file a lawsuit could never amount to
+
+extortion. They relied primarily on I.S. Joseph Co. v. J. Lauritzen A/S, 751 F.2d 265
+
+(8th Cir. 1984), where the Eighth Circuit held that a threat to sue, even if groundless
+
+and in bad faith, could not constitute extortion.
+
+
+
+
+                                          10
+      The district court declined to dismiss any of the counts, noting that the
+
+indictment tracked the statutory language. (R.1-32.)
+
+                        3. Motions for Judgment of Acquittal
+
+      The case ultimately went to trial. At the close of the Government’s case,
+
+Pendergraft and Spielvogel made an oral motion for judgment of acquittal. (R.25 at
+
+128-71.) They argued, among other things, that their litigation activities did not
+
+constitute extortion for purposes of the Hobbs Act, that the evidence failed to
+
+demonstrate a conspiratorial agreement between Pendergraft and Spielvogel, and that
+
+there was no “scheme to defraud” for purposes of the mail-fraud statute. The court
+
+denied the motion, and Pendergraft filed a renewed motion in written form. (R.3-99.)
+
+      Both Pendergraft and Spielvogel testified in their own defense. Spielvogel
+
+admitted, on the stand, that he lied, both in his affidavit and to the FBI, about the
+
+content of Cretul’s threats. (R.18 at 76-77.) He also testified that he staged the phone
+
+call about which Pendergraft testified in his affidavit and that Pendergraft did not find
+
+out about it until just before the trial. (R.18 at 78-82.) Pendergraft testified that he
+
+witnessed the staged phone call but did not, at that time, know it was staged. (R.17
+
+at 145-46; R.15 at 8-10.) On cross-examination, the Government elicited testimony
+
+suggesting that Pendergraft did not, in fact, witness the staged phone call when he said
+
+he did. (R.15 at 70-76.) At the close of all the evidence, the court deemed as restated
+
+
+                                           11
+all motions for judgment of acquittal made during the trial and denied them all. (R.19
+
+at 401-06.)
+
+      During closing argument, the Government focused on the credibility of
+
+Pendergraft and Spielvogel. It argued that, because Pendergraft and Spielvogel were
+
+liars, the jury could conclude that they engaged in the conduct alleged in the
+
+indictment. The jury convicted them as charged on every count.
+
+      After the verdict, Pendergraft and Spielvogel filed separate renewed motions
+
+for judgment of acquittal or, in the alternative, for a new trial. In addition to the
+
+grounds raised previously, they argued that the prosecutor had made improper
+
+statements in his closing arguments, including his statement that Pendergraft “shucked
+
+and jived” on the witness stand.
+
+      The district court summarily denied the renewed motions for judgment of
+
+acquittal and refused to grant a new trial. (R.4-140.) Pendergraft was sentenced to
+
+46 months in prison and two years of supervised release. He was also fined $25,000.
+
+Spielvogel was sentenced to 41 months in prison and three years of supervised release.
+
+He was not fined.
+
+
+
+
+                                         12
+                             II. ISSUES ON APPEAL
+
+      Pendergraft and Spielvogel raise the following issues on appeal:2 (1) whether
+
+the district court erred by denying their motion to dismiss the indictment and their
+
+motions for judgment of acquittal because the conduct at issue was legally insufficient
+
+to support convictions for extortion or mail fraud; (2) whether the district court erred
+
+by denying their motions for judgment of acquittal because there was insufficient
+
+evidence of an illegal conspiracy; (3) whether the district court erred by denying their
+
+motions for a new trial because the prosecutor introduced racial prejudice by accusing
+
+Pendergraft of “shucking and jiving.”3
+
+                         III. STANDARDS OF REVIEW
+
+
+
+
+      2
+       We have recharacterized some of the issues to focus on the rulings we are
+asked to review.
+      3
+        Pendergraft also raises the following issues on appeal: (1) whether the
+district court erred by denying his motion for a judgment of acquittal because there
+was evidence that he believed he had a valid claim-of-right against Marion County;
+(2) whether the district court abused its discretion by admitting a tape of a civil-suit
+settlement conference; (3) whether the prosecutor improperly vouched for
+Government witnesses during closing argument; (4) whether the district court erred
+by enhancing his sentence for extortion based on a monetary demand that was
+outside the scope of the charged acts; and (5) whether, if a new trial is granted, the
+trial should be held outside of Ocala. Spielvogel also raises one additional issue:
+whether the district court erred by precluding his diminished capacity defense. We
+review each of these issues as well.
+                                          13
+      We review the district court’s denial of a motion to dismiss the indictment for
+
+abuse of discretion, see United States v. Pielago, 135 F.3d 703, 707 (11th Cir. 1998),
+
+but the sufficiency of an indictment is a legal question that we review de novo. See
+
+United States v. Steele, 178 F.3d 1230, 1233 (11th Cir. 1999). We review the denial
+
+of a motion for judgment of acquittal de novo. See United States v. Hansen, 262 F.3d
+
+1217, 1236 (11th Cir. 2001). In the absence of a contemporaneous objection, we
+
+review the district court’s failure to correct an improper closing argument for plain
+
+error. See United States v. Newton, 44 F.3d 913, 920-21 (11th Cir. 1995). We review
+
+the denial of a motion for a new trial for abuse of discretion. See United States v.
+
+Ward, 274 F.3d 1320, 1323 (11th Cir. 2001).
+
+                                IV. DISCUSSION
+
+               A. LEGAL SUFFICIENCY OF THE INDICTMENT
+
+      Pendergraft and Spielvogel assert error in the district court’s denial of their
+
+motion to dismiss the indictment and their motions for judgment of acquittal. In their
+
+motions and on appeal, they challenge Counts One, Two, and Three on the ground that
+
+the extortion and mail-fraud charges are legally insufficient and that the Government
+
+failed to offer sufficient evidence of an illegal conspiracy. Because we conclude that
+
+there was evidence to support the extortion and mail-fraud allegations in the
+
+
+
+
+                                         14
+indictment, we will examine those allegations to determine whether they are legally
+
+sufficient to charge an offense.4
+
+                          1. Extortion (Counts One & Two)
+
+       The Hobbs Act imposes criminal sanctions on those who affect interstate
+
+commerce by extortion. See 18 U.S.C. § 1951(a) (2000). Extortion is defined as “the
+
+obtaining of property from another, with his consent, induced by wrongful use of
+
+actual or threatened force, violence, or fear, or under color of official right.” Id. §
+
+1951(b)(2). In this case, the indictment alleges that Pendergraft and Spielvogel
+
+conspired to extort money from Marion County by threatening to file an amended
+
+complaint, supported by false affidavits, unless Marion County settled with them.
+
+Pendergraft and Spielvogel argue that such threats are not criminal under the Hobbs
+
+Act.
+
+       Several courts have held that a threat to file a lawsuit, even if made in bad faith,
+
+is not “wrongful” within the meaning of the Hobbs Act. See Vemco, Inc. v.
+
+Camardella, 23 F.3d 129, 134 (6th Cir. 1994); First Pacific Bancorp, Inc. v. Bro, 847
+
+F.2d 542, 547 (9th Cir. 1988); I.S. Joseph Co. v. J. Lauritzen A/S, 751 F.2d 265, 267-
+
+68 (8th Cir. 1984); G-I Holdings, Inc. v. Baron & Budd, 179 F. Supp. 2d 233, 259
+
+
+
+       4
+       Only Spielvogel was charged in Counts Four and Five, and he does not
+challenge the legal sufficiency of these substantive counts.
+                                            15
+(S.D.N.Y. 2001); Heights Cmty. Cong. v. Smythe, Cramer Co., 862 F. Supp. 204, 207
+
+(N.D. Ohio 1994); Am. Nursing Care of Toledo, Inc. v. Leisure, 609 F. Supp. 419, 430
+
+(N.D. Ohio 1984). All of these cases have arisen in the civil RICO5 context where
+
+litigants have included a threat to file a lawsuit as the predicate act of extortion. By
+
+rejecting such threats as predicate acts, these courts have implicitly held that threats
+
+to sue cannot constitute criminal extortion. Most of these courts have recharacterized
+
+the extortion charges as actions for malicious prosecution and have held that malicious
+
+prosecution is not a RICO predicate act.
+
+      Because an action for malicious prosecution is a civil matter, we are reluctant
+
+to recharacterize the criminal extortion charges in this case as actions for malicious
+
+prosecution. Instead, we must analyze the Hobbs Act to determine whether it
+
+criminalizes the bad-faith threat to sue that is alleged in this case.
+
+      We begin, of course, by examining the text of the statute. See Adams v. Fla.
+
+Power Corp., 255 F.3d 1322, 1324 (11th Cir. 2001). To commit extortion, a person’s
+
+actions must, in some sense, be “wrongful.” See 18 U.S.C. § 1951(a) (2000). In
+
+United States v. Enmons, 410 U.S. 396, 93 S. Ct. 1007 (1973), the Supreme Court
+
+interpreted “wrongful,” within the meaning of the Hobbs Act, to consist of using a
+
+
+
+      5
+      RICO is an acronym for the Racketeer Influenced and Corrupt
+Organizations Act, codified at 18 U.S.C. § 1961 et seq.
+                                           16
+wrongful means to achieve a wrongful objective. See id. at 399-400, 93 S. Ct. at
+
+1009.
+
+        To show a wrongful objective, the Government must show that Pendergraft and
+
+Spielvogel had no lawful claim to the money they sought. See id. at 400, 93 S. Ct. at
+
+1009-10; United States v. Nell, 570 F.2d 1251, 1258 (5th Cir. 1978). Pendergraft and
+
+Spielvogel sought settlement money from Marion County based on threats allegedly
+
+made to Spielvogel by a county commissioner. The indictment alleges that these
+
+threats never actually occurred. This allegation, if true, shows that Pendergraft and
+
+Spielvogel had no lawful claim to the settlement money they sought. The wrongful-
+
+objective element of extortion is therefore satisfied.6
+
+        Regarding the wrongful-means element, the question presented is whether their
+
+threat to file the lawsuit was “wrongful.” The indictment alleges that the defendants
+
+unlawfully used false affidavits and made false statements “in an effort to induce the
+
+payment of money by the Marion County government through the fear of economic
+
+loss.” (R.1-1 at 7.) The use of fear can be a wrongful means under the Hobbs Act,
+
+and fear includes the fear of economic loss. But the fear of economic loss is an
+
+“animating force of our economic system,” United States v. Sturm, 671 F. Supp. 79,
+
+
+        6
+       Because the jury, from evidence introduced at trial, could have rejected
+Pendergraft’s claim-of-right defense, he was not entitled to judgment of acquittal
+on the basis of his claim-of-right defense.
+                                          17
+84 (D. Mass. 1987), vacated and remanded, 870 F.2d 769 (1st Cir. 1989), and,
+
+therefore, is not inherently wrongful. See Hall Am. Ctr. Assocs. Ltd. P’ship v. Dick,
+
+726 F. Supp. 1083, 1095 (E.D. Mich. 1989). We must determine whether the use of
+
+economic fear in this case was “wrongful” within the meaning of the Hobbs Act.
+
+      The indictment alleges that Pendergraft and Spielvogel produced perjured
+
+affidavits that described threats by Larry Cretul, the Chairman of the Marion County
+
+Board of Commissioners. Based on the information in these affidavits, Pendergraft
+
+and Spielvogel threatened to amend an existing legitimate lawsuit to include a claim
+
+for damages against Marion County. The threat of this additional claim, backed by
+
+fabricated evidence, put Marion County in fear of economic loss, and Pendergraft and
+
+Spielvogel sought to exploit this fear by obtaining a settlement from Marion County.
+
+The bad-faith threat of litigation, according to the indictment, was reasonably
+
+calculated to cause fear of economic loss and therefore “wrongful.”
+
+      A threat to litigate, by itself, is not necessarily “wrongful” within the meaning
+
+of the Hobbs Act. After all, under our system, parties are encouraged to resort to
+
+courts for the redress of wrongs and the enforcement of rights. See Boothby Realty
+
+Co. v. Haygood, 114 So. 2d 555, 559 (Ala. 1959); 54 C.J.S. Malicious Prosecution §
+
+4 at 525 (1987). For this reason, litigants may be sanctioned for only the most
+
+frivolous of actions. These sanctions include tort actions for malicious prosecution
+
+
+                                          18
+and abuse of process, and in some cases recovery of attorney’s fees, but even these
+
+remedies are heavily disfavored because they discourage the resort to courts. See
+
+Alyeska Pipeline Serv. Co. v. Wilderness Soc’y, 421 U.S. 240, 247, 95 S. Ct. 1612,
+
+1617 (1975); Kelly v. Serna, 87 F.3d 1235, 1241 (11th Cir. 1996); Mims v. Teamsters
+
+Local No. 78, 821 F.2d 1568, 1570 (11th Cir. 1987); Delchamps, Inc. v. Bryant, 738
+
+So. 2d 824, 832 (Ala. 1999); Cate v. Oldham, 450 So. 2d 224, 225-26 (Fla. 1984);
+
+Day Realty Assocs., Inc. v. McMillan, 277 S.E.2d 663, 664 (Ga. 1981).
+
+      History has taught us that, if people take the law into their own hands, an
+
+endless cycle of violence can erupt, and we therefore encourage people to take their
+
+problems to court. We trust the courts, and their time-tested procedures, to produce
+
+reliable results, separating validity from invalidity, honesty from dishonesty. While
+
+our process is sometimes expensive, and occasionally inaccurate, we have confidence
+
+in it. When a citizen avails himself of this process, his doing so is not inherently
+
+“wrongful.”
+
+      Moreover, in this case, we are not dealing with a typical threat to litigate.
+
+Instead, we are dealing with a threat to litigate against a county government. The right
+
+of citizens to petition their government for the redress of grievances is fundamental
+
+
+
+
+                                          19
+to our constitutional structure. See U.S. Const. amend. I.7 A threat to file suit against
+
+a government, then, cannot be “wrongful” in itself.
+
+      But, in this case, we have an allegation that Pendergraft and Spielvogel
+
+fabricated evidence to support their suit. The fabrication of evidence is certainly not
+
+“rightful.” The question is whether the fabrication of evidence makes a threat to sue
+
+a government “wrongful.”
+
+      We recognize that the fabrication of evidence is criminalized by the perjury
+
+statute. While the same conduct can violate several statutes, we do not think that
+
+Pendergraft and Spielvogel’s conduct does. The law jealously guards witnesses who
+
+participate in judicial proceedings; witnesses should be “unafraid to testify fully and
+
+openly.” See Charles v. Wade, 665 F.2d 661, 667 (5th Cir. Unit B 1982). Because
+
+the rigors of cross-examination and the penalty of perjury sufficiently protect the
+
+reliability of witnesses, see Butz v. Economou, 438 U.S. 478, 512, 98 S. Ct. 2894,
+
+2914 (1978); Charles, 665 F.2d at 667, courts have been unwilling to expand the
+
+
+
+      7
+        The State of Florida provides extra security for this right by forbidding state
+officials or state entities from suing citizens for malicious prosecution. See Cate v.
+Oldham, 450 So. 2d 224, 225-26 (Fla. 1984). In Florida’s view, such suits “can
+only result in self-censorship. Potential critics of official conduct would be
+foreclosed from bringing suit because of doubt that they would be permitted to, or
+could prove the facts, or for fear of the expense for having failed to do so.” Id. at
+227 (quoting Board of Education v. Marting, 217 N.E.2d 712, 717 (Ohio Ct. Com.
+Pl. 1966)).
+                                           20
+scope of witness liability, since, by doing so, “‘the risk of self-censorship becomes too
+
+great.’” Charles, 665 F.2d at 667 (quoting Imbler v. Pachtman, 424 U.S. 409, 440,
+
+96 S. Ct. 984, 999 (1976) (White, J., concurring).
+
+       Criminalizing false testimony via the Hobbs Act would expand the scope of
+
+witness liability. Witnesses might decline to provide affidavits in questionable
+
+lawsuits against a government, fearing that they could be charged with conspiracy to
+
+commit extortion if the lawsuit fails. Such a possibility is unsettling, and we do not
+
+believe that Congress intended to expand the scope of witness liability in this way.
+
+The fabrication of evidence, then, does not make a threat to sue a government
+
+“wrongful” within the meaning of the Hobbs Act.
+
+       While the case before us involves a threat to sue a government, we are troubled
+
+by any use of this federal criminal statute to punish civil litigants. Sanctions for filing
+
+lawsuits, such as malicious prosecution, lead to collateral disputes and “a piling of
+
+litigation on litigation without end.” Boothby Realty Co., 114 So. 2d at 559.
+
+Allowing litigants to be charged with extortion would open yet another collateral way
+
+for litigants to attack one another. The reality is that litigating parties often accuse
+
+each other of bad faith. The prospect of such civil cases ending as criminal
+
+prosecutions gives us pause.
+
+
+
+
+                                            21
+      Moreover, this addition to the federal criminal arsenal would have other
+
+disconcerting implications in the civil arena. As we have noted, the cases rejecting
+
+extortion for threats to litigate arise in the civil RICO context when parties attempt to
+
+graft a RICO claim on their claims for malicious prosecution. In those cases, the
+
+courts express concern about transforming a state common-law action into a federal
+
+crime. We share this concern.
+
+      Nevertheless, our holding is a narrow one. We hold that Pendergraft and
+
+Spielvogel’s threat to file litigation against Marion County, even if made in bad faith
+
+and supported by false affidavits, was not “wrongful” within the meaning of the
+
+Hobbs Act. Thus, we conclude that the allegations in the indictment for conspiracy
+
+to commit extortion and for the substantive offense of attempted extortion fail to
+
+charge offenses as a matter of law.
+
+                        2. Mail Fraud (Counts One & Three)
+
+      The indictment also charges Pendergraft and Spielvogel with mail fraud and
+
+conspiracy to commit mail fraud. When Pendergraft and Spielvogel filed their motion
+
+for a preliminary injunction with the district court, they attached their false affidavits
+
+in support. A copy of the motion was served by mail on Marion County’s attorney,
+
+Virgil Wright, and two other lawyers in the case. To commit mail fraud, a person
+
+must (1) intentionally participate in a scheme to defraud and (2) use the mails in
+
+
+                                           22
+furtherance of the scheme. See 18 U.S.C. § 1341 (2000); United States v. Smith, 934
+
+F.2d 270, 274 (11th Cir. 1991). The indictment alleges that Pendergraft and
+
+Spielvogel intentionally participated in a scheme to extort a monetary settlement from
+
+Marion County and mailed the motion with the attached false affidavits in furtherance
+
+of that scheme. Pendergraft and Spielvogel argue that their alleged scheme to obtain
+
+a settlement did not constitute a “scheme to defraud” for purposes of the mail fraud
+
+statute.
+
+       Serving a motion by mail is an ordinary litigation practice. A number of courts
+
+have considered whether serving litigation documents by mail can constitute mail
+
+fraud, and all have rejected that possibility. See Daddona v. Gaudio, 156 F. Supp. 2d
+
+153, 162-64 (D. Conn. 2000); Auburn Med. Ctr., Inc. v. Andrus, 9 F. Supp. 2d 1291,
+
+1300 (M.D. Ala. 1998); Von Bulow v. Von Bulow, 657 F. Supp. 1134, 1142-47
+
+(S.D.N.Y. 1987); Paul S. Mullin & Assocs., Inc. v. Bassett, 632 F. Supp. 532, 540 (D.
+
+Del. 1986); Am. Nursing Care of Toledo, Inc. v. Leisure, 609 F. Supp. 419, 430 (N.D.
+
+Ohio 1984). As in the Hobbs Act context, these courts have rejected this mail-fraud
+
+theory on policy grounds, recognizing that such charges are merely “artfully pleaded
+
+claims for malicious prosecution.” Auburn Med. Ctr., Inc., 9 F. Supp. 2d at 1297.
+
+Again, prosecuting litigation activities as federal crimes would undermine the policies
+
+of access and finality that animate our legal system. Moreover, allowing such charges
+
+
+                                          23
+would arguably turn many state-law actions for malicious prosecution into federal
+
+RICO actions.
+
+      But, as always, we are primarily concerned with the language of the statute, not
+
+its policy implications. While both the mail-fraud and wire-fraud statutes use the
+
+phrase “scheme to defraud,” neither statute defines what a “scheme to defraud” is. See
+
+Weiss v. United States, 122 F.2d 675, 681 (5th Cir. 1941); United States v. Lemire,
+
+720 F.2d 1327, 1335 (D.C. Cir. 1983). Instead, the meaning of “scheme to defraud”
+
+has been judicially defined. See Lemire, 720 F.2d at 1335. Courts have defined the
+
+phrase broadly, allowing it to encompass deceptive schemes that do not fit the
+
+common-law definition of fraud. See Hammerschmidt v. United States, 265 U.S. 182,
+
+188, 44 S. Ct. 511, 512 (1924); United States v. Brown, 79 F.3d 1550, 1557 (11th Cir.
+
+1996). Nevertheless, Congress did not strip the word “defraud” of all its meaning, see
+
+Brown, 79 F.3d at 1557; the word still signifies “the deprivation of something of value
+
+by trick, deceit, chicane, or overreaching.” See Hammerschmidt, 265 U.S. at 188, 44
+
+S. Ct. at 512.
+
+      There are limits to the types of schemes that the mail-fraud statute encompasses.
+
+See Brown, 79 F.3d at 1556. Indeed, it has long been recognized that, “broad as are
+
+the words ‘to defraud,’ they do not include threat and coercion through fear or force.”
+
+Fasulo v. United States, 272 U.S. 620, 628, 47 S. Ct. 200, 202 (1926); see also
+
+
+                                          24
+Hammerschmidt, 265 U.S. at 188, 44 S. Ct. at 512 (“[The words ‘to defraud’] do not
+
+extend to theft by violence.”); Naponiello v. United States, 291 F. 1008, 1010 (7th Cir.
+
+1923) (“[T]hreats which the victim believes will be carried into execution unless he
+
+acquiesces in the demands are not deceits.”); United States v. McKay, 45 F. Supp.
+
+1007, 1011 (E.D. Mich. 1942) (“[R]egardless of how broad an interpretation is put
+
+upon the words ‘to defraud’ they do not include threats and coercion through fear or
+
+force.”)
+
+      In this case, the indictment alleges that Pendergraft and Spielvogel sought to
+
+extort money from Marion County by exploiting their fear of economic loss. This fear
+
+was caused by Pendergraft and Spielvogel’s threat to sue and was aggravated by their
+
+production of false affidavits. Once Pendergraft and Spielvogel filed these documents
+
+with the court, as attachments to their motion for a preliminary injunction, and served
+
+Marion County with the motion, Marion County knew that their threats to lie were
+
+serious. The possibility of an unfavorable verdict, based on perjurious testimony, may
+
+have caused Marion County to fear the lawsuit. But fear is different from fraud. A
+
+scheme to frighten is simply not criminalized by the mail-fraud statute.
+
+      However, the use of fear does not immunize particular actions from mail-fraud
+
+charges; if deceit, as well as fear, is intended, then the actions may be criminal. See
+
+Huff v. United States, 301 F.2d 760, 765 (5th Cir. 1962). In support of their suit
+
+
+                                          25
+against Marion County, Pendergraft and Spielvogel authored affidavits that falsely
+
+accused Cretul of making threats. Such falsity might have deceived some, but it could
+
+not deceive Marion County. Cretul, after all, was the Chairman of the Marion County
+
+Board of Commissioners, and Pendergraft and Spielvogel were aware of Cretul’s
+
+position. They knew that Cretul would deny making these threats, and they knew that
+
+their affidavits would not trick Cretul into admitting otherwise. If they knew that they
+
+could not deceive Marion County, then they could not have had an intent to deceive.
+
+See Pelletier v. Zweifel, 921 F.2d 1465, 1499 (11th Cir. 1991) (“A defendant cannot
+
+possibly intend to deceive someone if he does not believe that his intended ‘victim’
+
+will act on his deception.”); Norton v. United States, 92 F.2d 753, 755 (9th Cir. 1937)
+
+(“There can be no intent to deceive where it is known to the party making the
+
+representations that no deception can result.”).
+
+      Since there was no intent to deceive, there was no “scheme to defraud,” and we
+
+hold that Pendergraft and Spielvogel’s mailing of litigation documents, even
+
+perjurious ones, did not violate the mail-fraud statute. The allegations in the
+
+indictment for conspiracy to commit mail fraud and for the substantive offense of mail
+
+fraud therefore fail to charge offenses as a matter of law.
+
+                    3. Multiple-Object Conspiracy (Count One)
+
+
+
+
+                                          26
+      The indictment also alleges, in Count One, that Pendergraft and Spielvogel
+
+agreed to author perjured affidavits testifying to threats made by Cretul. They both,
+
+in fact, submitted affidavits: Spielvogel’s claims that he received a threatening phone
+
+call in Pendergraft’s presence, and Pendergraft’s claims that he witnessed Spielvogel
+
+receiving the phone call. The indictment alleges that this threatening phone call never,
+
+in fact, occurred. These allegations, if true, can support a conviction for conspiracy
+
+to commit perjury.
+
+      However, in Count One, the indictment charges conspiracy to commit extortion
+
+and mail fraud along with conspiracy to commit perjury, and the jury returned a
+
+general verdict of guilty. When a jury returns a general verdict of guilty in a multiple-
+
+object conspiracy, the verdict may be set aside if one of the conspiracy theories is
+
+contrary to law. See Griffin v. United States, 502 U.S. 46, 59, 112 S. Ct. 466, 474
+
+(1991); Yates v. United States, 354 U.S. 298, 312, 77 S. Ct. 1064, 1073 (1957).
+
+Therefore, because two of the theories asserted in Count One, conspiracy to commit
+
+extortion and conspiracy to commit mail fraud, were legally insufficient, we vacate
+
+the conviction on Count One.
+
+      We must nevertheless determine what the disposition of Count One should be.
+
+If the Government presented sufficient evidence of a conspiracy to commit perjury,
+
+we must remand this charge for a new trial. However, if the Government failed to
+
+
+                                           27
+present sufficient evidence, the constitutional prohibition against double jeopardy
+
+prevents a retrial on this charge.    Therefore, we must determine whether the
+
+Government presented sufficient evidence of a conspiracy to commit perjury to
+
+support a conviction.
+
+      To prove a conspiracy, the Government must show (1) the existence of an
+
+agreement among two or more persons, (2) that the defendant knew the general
+
+purpose of the agreement; and (3) that the defendant knowingly and voluntarily
+
+participated in the agreement. See United States v. Simpson, 228 F.3d 1294, 1298
+
+(11th Cir. 2000).    In this case, the Government’s conspiracy theory was that
+
+Pendergraft and Spielvogel agreed to author perjured affidavits to provide evidence
+
+in pursuit of a settlement with Marion County. These affidavits would state that
+
+Spielvogel received threats from Cretul over the telephone and that Pendergraft was
+
+present and observed Spielvogel’s fear after receiving these threats.
+
+      When reviewing the sufficiency of the evidence, we are obligated to draw
+
+inferences in the Government’s favor. See United States v. Perez-Tosta, 36 F.3d
+
+1552, 1556 (11th Cir. 1994). While the Government presented no direct evidence of
+
+an agreement, there was circumstantial evidence from which a jury could infer an
+
+agreement.
+
+
+
+
+                                         28
+      During the Government’s case, it introduced the affidavits and statements of
+
+Spielvogel and Pendergraft. These statements indicated that Cretul threatened
+
+Spielvogel on January 29 and that Pendergraft observed Spielvogel receiving these
+
+threats. The Government offered evidence that Cretul did not, in fact, make the
+
+threats on January 29. Cretul testified that he never made the threats asserted by
+
+Spielvogel, and, on the FBI tapes of Cretul’s conversations with Spielvogel, Cretul
+
+never made the threats that Spielvogel asserted in his affidavit. This demonstrated that
+
+Spielvogel’s statements were false. Furthermore, Spielvogel was at home when he
+
+spoke with Cretul on January 29. The Government and Pendergraft stipulated that
+
+Pendergraft was not at Spielvogel’s home during Spielvogel’s conversation with
+
+Cretul on January 29. This was evidence that Pendergraft did not observe what he
+
+said he observed. From this circumstantial evidence, the jury could infer that
+
+Pendergraft and Spielvogel agreed to fabricate the threats and Pendergraft’s
+
+observation of the threats.
+
+      And there was further evidence from which a jury could infer an agreement.
+
+Spielvogel testified that he staged the phone call with Cretul and pretended to be
+
+afraid so that Pendergraft would believe that Cretul made the threats. Pendergraft
+
+testified that he witnessed Spielvogel’s fear and did not know that the phone call was
+
+staged. During cross-examination, the Government raised some doubt regarding
+
+
+                                          29
+whether Pendergraft could have observed Spielvogel’s staged phone call when he said
+
+he did. Furthermore, both Pendergraft and Spielvogel testified that there was no
+
+agreement. When a defendant testifies, the jury is allowed to disbelieve him and to
+
+infer that the opposite of his testimony is true. See United States v. Allison, 908 F.2d
+
+1531, 1535 (11th Cir. 1990). There was sufficient evidence to support a conviction
+
+on the conspiracy to commit perjury charge.
+
+      Since there was sufficient evidence to support a conviction for conspiracy to
+
+commit perjury, this part of Count One is remanded for a new trial.8
+
+                                 B. SHUCK & JIVE
+
+      Pendergraft and Spielvogel also argue that the prosecutor injected racial
+
+prejudice into his closing argument by twice stating that Pendergraft, who is black,
+
+
+
+
+      8
+          Pendergraft and Spielvogel assert that the district court abused its discretion
+by admitting a videotape of the settlement negotiation in which they participated.
+Though this issue is moot with regard to the extortion and mail-fraud convictions,
+it is likely to arise again on the conspiracy-to-commit-perjury charge. Rule 408
+makes evidence of settlement negotiations inadmissible only when it is offered to
+prove liability for, invalidity of, or amount of a claim. See Fed. R. Evid. 408; CNA
+Fin. Corp. v. Brown, 162 F.3d 1334, 1338 (11th Cir. 1998). Since the videotape
+was offered as evidence of Pendergraft and Spielvogel’s cooperation, and not for a
+purpose forbidden by Rule 408, the district court did not abuse its discretion by
+admitting it.
+         Furthermore, Pendergraft and Spielvogel request, on appeal, a prospective
+transfer of their proceedings from Ocala. This is an issue properly addressed to the
+district court on remand. See Fed. R. Civ. P. 21.
+                                           30
+“shucked and jived” on the witness stand.9 (R.25 at 472 & 486.) Since Pendergraft
+
+was convicted on legally insufficient charges, this issue is moot regarding his
+
+convictions. However, since Spielvogel was also convicted on Counts Four and Five,
+
+and these charges were not legally insufficient, we must determine whether this
+
+comment entitles him to a new trial on these counts.
+
+      Since neither party made a contemporaneous objection to the “shuck and jive”
+
+statements, we review this issue for plain error. To constitute plain error, the
+
+comment must be an error that is plain and affects substantial rights. See United
+
+States v. Olano, 507 U.S. 725, 732, 113 S. Ct. 1770, 1776 (1993). We have discretion
+
+to correct such errors only when the error seriously affects the fairness, integrity, or
+
+public reputation of the judicial proceeding. See id.
+
+      We believe there may have been error. “Shuck and jive” is a phrase with racial
+
+origins. See Smith v. Farley, 59 F.3d 659, 664 (7th Cir. 1995). It began as slang
+
+adopted by American blacks to describe a situation where blacks lie to whites to stay
+
+out of trouble. See 15 Oxford English Dictionary 388 (2d ed. 1989). There is some
+
+debate regarding whether this slang has crossed over into mainstream usage. See
+
+Smith, 59 F.3d at 664. However, even if the phrase is not entirely of a racist character,
+
+
+      9
+       Pendergraft and Spielvogel further claim that the prosecutor vouched for the
+credibility of Government witnesses. We do not think these comments, read in
+context, rise to the level of plain error.
+                                           31
+it is not the sort of characterization that should be employed by an assistant United
+
+States Attorney, whose interest is not that he “shall win a case, but that justice shall
+
+be done.” Berger v. United States, 295 U.S. 78, 88, 55 S. Ct. 629, 633 (1935); see
+
+also Handford v. United States, 249 F.2d 295, 296 (5th Cir. 1958).
+
+      Nevertheless, despite the unsettling nature of the comment, we conclude that
+
+it did not affect Spielvogel’s substantial rights. First, it was used in reference only to
+
+Pendergraft, not to Spielvogel, who is white. Pendergraft was not charged in Counts
+
+Four and Five, and any prejudice towards him would not have affected the jury’s
+
+verdict on these counts. Second, Spielvogel admitted, on the stand, that he lied to the
+
+FBI and in his affidavit, and these lies provided the factual basis for the charges in
+
+Counts Four and Five. We find no plain error and no abuse of discretion in the denial
+
+of Spielvogel’s motion for a new trial on Counts Four and Five.10
+
+                             C. SENTENCING ERRORS
+
+
+
+
+      10
+         Spielvogel also contends that he should have been allowed to introduce
+evidence of his diminished capacity to negate his mens rea. Spielvogel offered the
+testimony of Dr. Glenn Ross Caddy, a forensic psychologist, to show that
+Spielvogel suffered from a personality disorder that made him easily intimidated.
+However, even if Spielvogel was truly afraid after his conversations with Cretul,
+this fear in no way shows that Spielvogel did not intend to lie when he made up
+details about Cretul’s threats and reported them to the FBI and in his affidavit. The
+district court, then, did not abuse its discretion by barring Caddy’s testimony. See
+United States v. Cameron, 907 F.2d 1051, 1067 (11th Cir. 1990).
+                                           32
+      Pendergraft and Spielvogel also contend that the district court erred in
+
+sentencing on extortion by finding a demand amount from an event that occurred prior
+
+to the charged conspiracy. See United States Sentencing Commission, Guidelines
+
+Manual, §2B3.3 (Nov. 2000). Because we set aside the sentences, we do not need to
+
+reach this issue.
+
+      However, we do note a technical error in the sentencing of Pendergraft and
+
+Spielvogel. Instead of imposing sentence on each count of conviction, the district
+
+court gave Pendergraft a single sentence of 46 months (R.21 at 91; R.5-151 at 2);
+
+similarly, the district court gave Spielvogel a single sentence of 41 months (R.21 at
+
+91; R.5-152 at 2). When sentencing on multiple counts, the Sentencing Guidelines
+
+require the district court to divide the sentence among the counts and to specify
+
+whether the sentences on each count are to run consecutively or concurrently. See
+
+USSG §5G1.2. This technical error is now moot with regards to Pendergraft, but the
+
+district court should re-sentence Spielvogel on Counts Four and Five once the
+
+conspiracy to commit perjury charge is finally resolved.
+
+                                V. CONCLUSION
+
+      Pendergraft and Spielvogel were found guilty of conspiring to commit
+
+extortion, mail fraud, and perjury. Since both the extortion and mail-fraud charges
+
+were legally insufficient, we reverse the district court’s denial of their motion for
+
+
+                                         33
+judgment of acquittal and vacate the Count One conspiracy convictions. We acquit
+
+Pendergraft and Spielvogel on the charges of conspiracy to commit extortion and mail
+
+fraud but remand the charge of conspiracy to commit perjury for a new trial.
+
+      Counts Two and Three charged Pendergraft and Spielvogel with attempted
+
+extortion and mail fraud respectively, and they were found guilty. Again, because
+
+these charges are legally insufficient, we reverse the district court’s denial of their
+
+motions for judgment of acquittal, reverse the convictions, and enter a judgment of
+
+acquittal.
+
+      In Counts Four and Five, only Spielvogel was charged with perjury and making
+
+a false report to the FBI. We affirm Spielvogel’s convictions on these counts.
+
+However, because Spielvogel was not properly sentenced on these counts, we remand
+
+them for re-sentencing.
+
+      AFFIRMED IN PART; REVERSED AND RENDERED IN PART;
+
+VACATED AND REMANDED IN PART.
+
+
+
+
+                                          34
+

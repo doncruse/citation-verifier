@@ -1,0 +1,250 @@
+[
+  {
+    "input_citation": "Simpson v. Voiture Nationale La Societe des Quarante Hommes et Huit Chevaux, 2021-Ohio-2131 (2d Dist.)",
+    "status": "NOT_FOUND",
+    "confidence": 0.0,
+    "matched_case_name": null,
+    "matched_url": null,
+    "matched_cluster_id": null,
+    "matched_court": null,
+    "matched_date": null,
+    "diagnostics": [
+      "No matching cases found in CourtListener opinions or RECAP"
+    ],
+    "error": null
+  },
+  {
+    "input_citation": "First Fed. Bank of Ohio v. Angelini, 2012-Ohio-2136 (3d Dist.)",
+    "status": "VERIFIED",
+    "confidence": 1.0,
+    "matched_case_name": "First Fed. Bank of Ohio v. Angelini",
+    "matched_url": "https://www.courtlistener.com/opinion/2696528/first-fed-bank-of-ohio-v-angelini/",
+    "matched_cluster_id": 2696528,
+    "matched_court": null,
+    "matched_date": "2012-05-14",
+    "diagnostics": [],
+    "error": null
+  },
+  {
+    "input_citation": "Heskett v. Van Horn Title Agency, Inc., 2006-Ohio-6900 (10th Dist.)",
+    "status": "VERIFIED",
+    "confidence": 1.0,
+    "matched_case_name": "Heskett v. Van Horn Title Agency, Unpublished Decision (12-26-2006)",
+    "matched_url": "https://www.courtlistener.com/opinion/3941929/heskett-v-van-horn-title-agency-unpublished-decision-12-26-2006/",
+    "matched_cluster_id": 3941929,
+    "matched_court": null,
+    "matched_date": "2006-12-26",
+    "diagnostics": [],
+    "error": null
+  },
+  {
+    "input_citation": "Ashcroft v. Iqbal, 556 U.S. 662 (2009)",
+    "status": "VERIFIED",
+    "confidence": 1.0,
+    "matched_case_name": "Ashcroft v. Iqbal",
+    "matched_url": "https://www.courtlistener.com/opinion/145875/ashcroft-v-iqbal/",
+    "matched_cluster_id": 145875,
+    "matched_court": null,
+    "matched_date": "2009-05-18",
+    "diagnostics": [],
+    "error": null
+  },
+  {
+    "input_citation": "Bell Atl. Corp. v. Twombly, 550 U.S. 544 (2007)",
+    "status": "VERIFIED",
+    "confidence": 1.0,
+    "matched_case_name": "Bell Atlantic Corp. v. Twombly",
+    "matched_url": "https://www.courtlistener.com/opinion/145730/bell-atlantic-corp-v-twombly/",
+    "matched_cluster_id": 145730,
+    "matched_court": null,
+    "matched_date": "2007-05-21",
+    "diagnostics": [],
+    "error": null
+  },
+  {
+    "input_citation": "Hecht v. Levin, 66 Ohio St. 3d 458, 613 N.E.2d 585 (1993)",
+    "status": "VERIFIED",
+    "confidence": 1.0,
+    "matched_case_name": "Hecht v. Levin",
+    "matched_url": "https://www.courtlistener.com/opinion/10680926/hecht-v-levin/",
+    "matched_cluster_id": 10680926,
+    "matched_court": null,
+    "matched_date": "1993-06-23",
+    "diagnostics": [],
+    "error": null
+  },
+  {
+    "input_citation": "Surace v. Willer, 25 Ohio St. 3d 229, 495 N.E.2d 939 (1986)",
+    "status": "VERIFIED",
+    "confidence": 1.0,
+    "matched_case_name": "Surace v. Wuliger",
+    "matched_url": "https://www.courtlistener.com/opinion/6868174/surace-v-wuliger/",
+    "matched_cluster_id": 6868174,
+    "matched_court": null,
+    "matched_date": "1986-08-06",
+    "diagnostics": [],
+    "error": null
+  },
+  {
+    "input_citation": "State v. Carter, 72 Ohio App.3d 553 (2d Dist. 1991)",
+    "status": "POSSIBLE_MATCH",
+    "confidence": 0.3,
+    "matched_case_name": "Stull v. Combustion Engineering, Inc.",
+    "matched_url": "https://www.courtlistener.com/opinion/3935804/stull-v-combustion-engineering-inc/",
+    "matched_cluster_id": 3935804,
+    "matched_court": null,
+    "matched_date": "1991-02-19",
+    "diagnostics": [
+      "Name mismatch: citation exists at this reporter location but belongs to \"Stull v. Combustion Engineering, Inc.\""
+    ],
+    "error": null
+  },
+  {
+    "input_citation": "State v. Milam, 2022-Ohio-3965 (10th Dist.)",
+    "status": "POSSIBLE_MATCH",
+    "confidence": 0.3,
+    "matched_case_name": "State v. Eddy",
+    "matched_url": "https://www.courtlistener.com/opinion/8509675/state-v-eddy/",
+    "matched_cluster_id": 8509675,
+    "matched_court": null,
+    "matched_date": "2022-11-07",
+    "diagnostics": [
+      "Name mismatch: citation exists at this reporter location but belongs to \"State v. Eddy\""
+    ],
+    "error": null
+  },
+  {
+    "input_citation": "Kenty v. Transamerica Premium Ins. Co., 72 Ohio St.3d 415 (1995)",
+    "status": "VERIFIED",
+    "confidence": 1.0,
+    "matched_case_name": "Kenty v. Transamerica Premium Ins. Co.",
+    "matched_url": "https://www.courtlistener.com/opinion/10683282/kenty-v-transamerica-premium-ins-co/",
+    "matched_cluster_id": 10683282,
+    "matched_court": null,
+    "matched_date": "1995-07-05",
+    "diagnostics": [],
+    "error": null
+  },
+  {
+    "input_citation": "United States v. Pendergraft, 297 F.3d 1198 (11th Cir. 2002)",
+    "status": "VERIFIED",
+    "confidence": 1.0,
+    "matched_case_name": "United States v. James Scott Pendergraft",
+    "matched_url": "https://www.courtlistener.com/opinion/75917/united-states-v-james-scott-pendergraft/",
+    "matched_cluster_id": 75917,
+    "matched_court": null,
+    "matched_date": "2002-07-16",
+    "diagnostics": [],
+    "error": null
+  },
+  {
+    "input_citation": "United States v. Jackson, 180 F.3d 55 (2d Cir. 1999)",
+    "status": "VERIFIED",
+    "confidence": 1.0,
+    "matched_case_name": "United States v. Autumn Jackson, Boris Sabas, Also Known as Boris Shmulevich, and Jose Medina, Also Known as Yosi Medina",
+    "matched_url": "https://www.courtlistener.com/opinion/764769/united-states-v-autumn-jackson-boris-sabas-also-known-as-boris/",
+    "matched_cluster_id": 764769,
+    "matched_court": null,
+    "matched_date": "1999-06-09",
+    "diagnostics": [],
+    "error": null
+  },
+  {
+    "input_citation": "Flatley v. Mauro, 39 Cal.4th 299 (2006)",
+    "status": "VERIFIED",
+    "confidence": 1.0,
+    "matched_case_name": "Flatley v. Mauro",
+    "matched_url": "https://www.courtlistener.com/opinion/2600567/flatley-v-mauro/",
+    "matched_cluster_id": 2600567,
+    "matched_court": null,
+    "matched_date": "2006-07-27",
+    "diagnostics": [],
+    "error": null
+  },
+  {
+    "input_citation": "Kulch v. Structural Fibers, Inc., 78 Ohio St.3d 134 (1997)",
+    "status": "VERIFIED",
+    "confidence": 1.0,
+    "matched_case_name": "Kulch v. Structural Fibers, Inc.",
+    "matched_url": "https://www.courtlistener.com/opinion/10683856/kulch-v-structural-fibers-inc/",
+    "matched_cluster_id": 10683856,
+    "matched_court": null,
+    "matched_date": "1997-04-16",
+    "diagnostics": [],
+    "error": null
+  },
+  {
+    "input_citation": "Office Depot, Inc. v. Impact Off. Prods., LLC, 821 F. Supp. 2d 912 (N.D. Ohio 2011)",
+    "status": "VERIFIED",
+    "confidence": 1.0,
+    "matched_case_name": "Office Depot, Inc. v. Impact Office Products, LLC",
+    "matched_url": "https://www.courtlistener.com/opinion/8710614/office-depot-inc-v-impact-office-products-llc/",
+    "matched_cluster_id": 8710614,
+    "matched_court": null,
+    "matched_date": "2011-09-26",
+    "diagnostics": [],
+    "error": null
+  },
+  {
+    "input_citation": "In re Protech Indus., 51 F.4th 714 (6th Cir. 2022)",
+    "status": "NOT_FOUND",
+    "confidence": 0.0,
+    "matched_case_name": null,
+    "matched_url": null,
+    "matched_cluster_id": null,
+    "matched_court": null,
+    "matched_date": null,
+    "diagnostics": [
+      "No matching cases found in CourtListener opinions or RECAP"
+    ],
+    "error": null
+  },
+  {
+    "input_citation": "Stolle Mach. Co. v. RAM Precision Indus., 605 F. App'x 473 (6th Cir. 2015)",
+    "status": "VERIFIED",
+    "confidence": 1.0,
+    "matched_case_name": "Stolle Machinery Company, LLC v. Ram Precision Industries",
+    "matched_url": "https://www.courtlistener.com/opinion/2786363/stolle-machinery-company-llc-v-ram-precision-industries/",
+    "matched_cluster_id": 2786363,
+    "matched_court": null,
+    "matched_date": "2015-03-16",
+    "diagnostics": [],
+    "error": null
+  },
+  {
+    "input_citation": "Van Buren v. United States, 593 U.S. 374 (2021)",
+    "status": "VERIFIED",
+    "confidence": 1.0,
+    "matched_case_name": "Van Buren v. United States",
+    "matched_url": "https://www.courtlistener.com/opinion/4888668/van-buren-v-united-states/",
+    "matched_cluster_id": 4888668,
+    "matched_court": null,
+    "matched_date": "2021-06-03",
+    "diagnostics": [],
+    "error": null
+  },
+  {
+    "input_citation": "Royal Truck & Trailer Sales & Serv., Inc. v. Kraft, 974 F.3d 756 (6th Cir. 2020)",
+    "status": "VERIFIED",
+    "confidence": 1.0,
+    "matched_case_name": "Royal Truck & Trailer Sales v. Mike Kraft",
+    "matched_url": "https://www.courtlistener.com/opinion/4783709/royal-truck-trailer-sales-v-mike-kraft/",
+    "matched_cluster_id": 4783709,
+    "matched_court": null,
+    "matched_date": "2020-09-09",
+    "diagnostics": [],
+    "error": null
+  },
+  {
+    "input_citation": "Wilson v. Collins, 517 F.3d 421 (6th Cir. 2008)",
+    "status": "VERIFIED",
+    "confidence": 1.0,
+    "matched_case_name": "Wilson v. Collins",
+    "matched_url": "https://www.courtlistener.com/opinion/1462522/wilson-v-collins/",
+    "matched_cluster_id": 1462522,
+    "matched_court": null,
+    "matched_date": "2008-02-22",
+    "diagnostics": [],
+    "error": null
+  }
+]

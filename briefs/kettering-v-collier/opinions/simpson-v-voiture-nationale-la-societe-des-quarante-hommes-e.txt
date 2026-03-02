@@ -1,0 +1,578 @@
+[Cite as Simpson v. Voiture Nationale La Societe Des Quarante Hommes, 2021-Ohio-2131.]
+
+
+
+
+                            IN THE COURT OF APPEALS OF OHIO
+                               SECOND APPELLATE DISTRICT
+                                   MONTGOMERY COUNTY
+
+ CHARLES SIMPSON                                    :
+                                                    :
+         Plaintiff-Appellant                        :    Appellate Case No. 29016
+                                                    :
+ v.                                                 :    Trial Court Case No. 2020-CV-2123
+                                                    :
+ VOITURE NATIONALE LA SOCIETE                       :    (Civil Appeal from
+ DES QUARANTE HOMMES, et al.                        :    Common Pleas Court)
+                                                    :
+         Defendants-Appellees                       :
+
+
+                                             ...........
+
+                                            OPINION
+
+                            Rendered on the 25th day of June, 2021.
+
+                                             ...........
+
+CHARLES SIMPSON, Atty. Reg. No. 0007339, 157 Lammes Lane, New Carlisle, Ohio
+45344
+      Plaintiff-Appellant, Pro Se
+
+KEVIN A. BOWMAN, Atty. Reg. No. 0068223, 130 West Second Street, Suite 900,
+Dayton, Ohio 45402
+      Attorney for Defendants-Appellees, Brannon & Associates and Plaintiffs-
+      Appellees, Grande Voiture D’Ohio La Societe Des 40 Hommes Et 8 Chevaux
+
+EDWARD J. DOWD, Atty. Reg. No. 0018681 and CHRISTOPHER T. HERMAN, Atty.
+Reg. No. 0076894, 8163 Old Yankee Street, Suite C, Dayton, Ohio 45458
+      Attorneys for Defendants-Appellees, Voiture Nationale La Societe Des Quarante
+      Hommes
+
+                                            .............
+
+TUCKER, P.J.
+                                                                                        -2-
+
+
+       {¶ 1} Charles Simpson appeals from the Montgomery County Court of Common
+
+Pleas’ entry of judgment on the pleadings against him on several causes of action in his
+
+complaint and its dismissal of those claims with prejudice. The judgment dismissed an
+
+additional cause of action without prejudice. For the reasons that follow, we affirm.
+
+
+
+                          I.     Facts and Procedural Background
+
+       {¶ 2} Simpson is a licensed attorney in Ohio. According to the complaint, he is
+
+“an officer and director of the corporation previously known as Montgomery County
+
+Voiture No. 34, La Societe des 40 Hommes et 8 Chevaux (hereinafter “Voiture 34”) now
+
+known as Huber Heights Veterans Club, Inc.,” and he “serves the corporation as its legal
+
+counsel and represents the corporation in legal transactions and litigation."
+
+       {¶ 3} In May 2020, Simpson filed a complaint for “Violations of Civil Rights,
+
+Defamation, Injuries and Damages” against Grande Voiture D'Ohio La Societe des 40
+
+Hommes et 8 Chevaux (“Ohio Voiture”), Voiture Nationale, La Societe des Quarante
+
+Hommes et Huit Chevaux (Voiture Nationale), and Brannon & Associates.1
+
+       {¶ 4} The defendants filed answers and, subsequently, motions for judgment on
+
+the pleadings. Simpson filed responses opposing the motions.
+
+       {¶ 5} On January 7, 2021, the trial court granted the motions for judgment on the
+
+pleadings. The court stated:
+
+
+
+1
+ Voiture Nationale and Ohio Voiture are the national-level and state-level organizations
+of a veterans’ charitable organization known as the “40 and 8.” Amended Answer, p. 1.
+Both are charitable, non-profit organizations comprised of current and former members
+of the United States Armed Services. Id. Voiture 34 was the local-level arm thereof.
+Brannon & Associates is a Dayton law firm that represents Ohio Voiture.
+                                                                                            -3-
+
+
+       With respect to Mr. Simpson’s claims of defamation, civil rights violations
+
+       under 42 U.S.C. 1983, and his stand-alone claims of identity fraud,
+
+       extortion, coercion, and interfering with civil rights, the Court finds that there
+
+       is no conceivable set of facts under which Mr. Simpson could recover and
+
+       that these claims cannot be pled in another way; thus, dismissal of these
+
+       claims is with prejudice. However, with respect to Mr. Simpson’s claim of
+
+       civil recovery for criminal acts under R.C. 2307.60 and/or R.C. 2307.611,
+
+       the Court finds that these claims could be pled in such a way that Mr.
+
+       Simpson may be entitled to relief, and thus the dismissal of this claim is
+
+       without prejudice.
+
+Order Granting Judgment on the Pleadings (Jan. 7, 2021). 2
+
+       {¶ 6} Simpson appeals.
+
+
+
+                                          II.     Analysis
+
+       {¶ 7} The sole assignment of error asserted by Simpson is:
+
+       THE TRIAL COURT ERRED IN GRANTING DEFENDANTS’ MOTIONS
+
+       FOR JUDGMENT ON THE PLEADINGS.
+
+       {¶ 8} Simpson contends the trial court had no basis for rendering judgment against
+
+him.
+
+       {¶ 9} Civ.R. 12(C) provides: “After the pleadings are closed but within such time
+
+as not to delay the trial, any party may move for judgment on the pleadings.”
+
+
+2
+  The court noted its decision did not address whether the claims for civil recovery for
+criminal acts would be barred by the doctrine of res judicata or the applicable statute of
+limitations.
+                                                                                           -4-
+
+
+“Determination of a motion for judgment on the pleadings is restricted solely to the
+
+allegations in the pleadings and any writings attached to the complaint.” Offill v. State
+
+Farm Fire & Cas. Co., 2d Dist. Montgomery No. 25079, 2012-Ohio-6225, ¶ 14, citing
+
+Peterson v. Teodosio, 34 Ohio St.2d 161, 165, 297 N.E.2d 113 (1973). “The trial court
+
+may grant a judgment on the pleadings where no material factual issue exists and one
+
+party is entitled to a judgment in his favor as a matter of law.” (Citations omitted.) Vaught
+
+v. Vaught, 2 Ohio App.3d 264, 265, 441 N.E.2d 811 (12th Dist.1981). We review the trial
+
+court’s decision to grant judgment on the pleadings de novo. Inskeep v. Burton, 2d Dist.
+
+Champaign No. 2007-CA-11, 2008-Ohio-1982, ¶ 7, citing Dearth v. Stanley, 2d Dist.
+
+Montgomery No. 22180, 2008-Ohio-487.
+
+       {¶ 10} With this standard in mind, we turn first to the trial court’s decision to enter
+
+judgment on the pleadings and dismiss Simpson’s claim of identity fraud. Simpson’s
+
+complaint asserted that the defendants committed identity fraud in violation of R.C.
+
+2313.49, which provides, in pertinent part, that “[n]o person, without the express or
+
+implied consent of the other person, shall use, obtain, or possess any personal identifying
+
+information of another person with intent to * * * [h]old the person out to be the other
+
+person [or] [r]epresent the other person's personal identifying information as the person's
+
+own personal identifying information.” R.C. 2313.49(B)(1-2)
+
+       {¶ 11} The allegations set forth in the complaint relevant to this cause of action
+
+stated:
+
+       [Voiture 34] was previously affiliated with the 40 & 8 organization but
+
+       terminated that affiliation on June 1, 2015. The Defendants, through their
+
+       agents and representatives, on multiple occasions, have used the personal
+                                                                                           -5-
+
+
+         identifying information of the corporation and have held [Ohio Voiture] out
+
+         to be the corporation and represent that the name of the corporation is [Ohio
+
+         Voiture’s] name. Such actions constitute identity fraud and are prohibited
+
+         by ORC 2913.49.      Plaintiff is a person injured by defendant’s acts of
+
+         identity fraud.
+
+         {¶ 12} Taking this allegation as true, Simpson has, at most, alleged that the
+
+defendants improperly misappropriated the name of Voiture 34. However, Simpson did
+
+not allege any basis for bringing an action in his name rather than that of the corporation.
+
+He did not cite any statute which would have provided him with standing to bring such an
+
+action, nor did he allege he was a shareholder in the corporation so as to give him the
+
+right to bring a shareholder’s derivative action. Also, there was no allegation that the
+
+corporation had authorized him to bring such an action on its behalf or in his name.
+
+Further, there was no allegation the defendants, in any manner, obtained, possessed or
+
+used Simpson’s personal information. Other than a conclusory statement, Simpson also
+
+did not make any allegation to indicate how the alleged fraud caused him damages. In
+
+other words, there was no basis to find that Simpson had standing to bring an action on
+
+behalf of Voiture 34 or that he personally suffered any injury capable of redress for identity
+
+fraud.    Thus, we conclude the trial court did not err in rendering judgment against
+
+Simpson on this claim.
+
+         {¶ 13} We next address the claim of defamation.           “Defamation is a false
+
+publication causing injury to a person's reputation, or exposing the person to public
+
+hatred, contempt, ridicule, shame or disgrace or affecting him adversely in his trade or
+
+business.” Harsh v. Franklin, 2d Dist. Montgomery No. 24331, 2011-Ohio-2428, ¶ 17,
+                                                                                       -6-
+
+
+quoting Matalka v. Lagemann, 21 Ohio App.3d 134, 136, 486 N.E.2d 1220 (10th
+
+Dist.1985). “The essential elements of a defamation action * * * are that the defendant
+
+made a false statement of fact, that the false statement was defamatory, that the false
+
+defamatory statement was published, that the plaintiff was injured, and that the defendant
+
+acted with the required degree of fault.” Id., citing Celebrezze v. Dayton Newspapers,
+
+Inc., 41 Ohio App.3d 343, 346-347, 535 N.E.2d 755 (8th Dist.1988).
+
+      {¶ 14} Simpson’s claim of defamation centers solely on his allegation that the
+
+defendants, during the course of four legal proceedings filed by Simpson, represented
+
+that Simpson was “not authorized to bring those actions on behalf of Voiture 34.” In
+
+relation thereto, Simpson further alleged:
+
+      4. * * * Each action was filed by Plaintiff on behalf of Voiture 34 as its
+
+      attorney. Fraudulent representations that Plaintiff did not have authority to
+
+      bring the actions, made in each action by Defendants, interfered with and
+
+      prevented Plaintiff from performing and completing his rights, privileges and
+
+      duties as an attorney at law.
+
+      5. Defendants have sought to invalidate various legal documents, acts and
+
+      proceedings performed by Plaintiff and have acted, by intimidation and
+
+      threat to deter, prevent and deprive Plaintiff from exercising his rights,
+
+      privileges and duties as an attorney at law.
+
+      6. Defendants’ [sic] have, with purpose of obtaining a valuable benefit,
+
+      uttered and threatened calumny against the Plaintiff[.] Defendants have
+
+      exposed Plaintiff to contempt and ridicule and have damaged Plaintiff’s
+
+      personal and business reputations and have subjected Plaintiff to
+                                                                                          -7-
+
+
+       deprivation of his, [sic] rights, privileges and duties as a licensed attorney
+
+       at law. Defendants have caused Plaintiff substantial injury and loss in time,
+
+       effort, stress and monetary expenses.
+
+       {¶ 15} The trial court found the defamation claim barred by absolute privilege. We
+
+agree. “Statements made ‘in a written pleading or brief, or in an oral statement to a judge
+
+or jury in open court, [are] absolutely privileged if [they have] some reasonable relation to
+
+the judicial proceeding in which [they] appea[r].’” Morrison v. Gugle, 142 Ohio App.3d
+
+244, 259, 755 N.E.2d 404 (10th Dist.2001), quoting Michaels v. Berliner, 119 Ohio App.3d
+
+82, 87, 694 N.E.2d 519 (9th Dist.1997). Accord Harsh v. Franklin, 2d Dist. Montgomery
+
+No. 24331, 2011-Ohio-2428, ¶ 18. In Newman v. Univ. of Dayton, 2d Dist. Montgomery
+
+No. 28815, 2021-Ohio-1609, this court stated:
+
+              As a matter of public policy, the doctrine of absolute privilege in a
+
+       judicial proceeding protects parties from defamation claims based upon any
+
+       statement that “bears some reasonable relation to the judicial proceeding in
+
+       which it appears.” Surace v. Wuliger, 25 Ohio St.3d 229, 495 N.E.2d 939,
+
+       940 (1986), paragraph one of the syllabus.           Alternatively termed a
+
+       “litigation privilege,” that form of protection “provides absolute immunity to
+
+       parties, witnesses, lawyers, and judges from future lawsuits for statements
+
+       made during and relevant to judicial proceedings.” (Emphasis sic.) Reister
+
+       v. Gardner, Ohio Slip Opinion No. 2020-Ohio-5484, __ N.E.3d __ , ¶ 8. For
+
+       the privilege to apply, the statement at issue “must be pertinent and material
+
+       to the matter in hand,” meaning that “it must tend to prove or disprove the
+
+       point to be established, and have substantial importance or influence in
+                                                                                         -8-
+
+
+       producing the proper result.” Surace at 231, quoting Mauk v. Brundage, 68
+
+       Ohio St. 89, 97, 67 N.E. 152 (1903). “Whether or not the occasion gives the
+
+       privilege is a question of law for the court.” Id., quoting Mauk at 97-98; see
+
+       also Modler v. Modler, 2d Dist. Montgomery No. 18206, 2000 WL 1162033,
+
+       *3 (Aug. 18, 2000).
+
+(Footnote omitted.) Id. at ¶ 38.
+
+       {¶ 16} There is no allegation that any statements made by the defendants
+
+regarding Simpson’s authority to file or prosecute the four legal proceedings were not
+
+reasonably related to issues in those proceedings.         Thus, we find no error in the
+
+dismissal of this claim with prejudice.
+
+       {¶ 17} Next, we address Simpson’s claim that the defendants violated his civil
+
+rights. The entirety of Simpson’s allegations regarding this claim state:
+
+       7. Defendants actions are prohibited by 42 U.S.C. 1983 * * * and ORC
+
+       2921.45.
+
+       ***
+
+       9. Plaintiff says that his civil rights have been violated by Defendants * * *.
+
+       {¶ 18} 42 U.S.C. 1983 provides remedies for persons whose federal rights have
+
+been violated by governmental officials. Morrison v. Horseshoe Casino, 2020-Ohio-
+
+4131, 157 N.E.3d 406 (8th Dist.). “To prevail on a claim under Section 1983, a plaintiff
+
+must prove two essential elements: (1) that he or she was deprived of a right, privilege,
+
+or immunity secured by the United States Constitution or federal law and (2) the
+
+deprivation was caused by a person acting under color of state law.”            Id., quoting
+
+Meekins v. Oberlin, 8th Dist. Cuyahoga No. 107636, 2019-Ohio-2825, ¶ 39.
+                                                                                          -9-
+
+
+      {¶ 19} In their motions for judgment on the pleadings, the defendants argued that
+
+Simpson’s claim failed because none of the defendants were public actors operating
+
+under color of state law.    In response, Simpson argued that the defendants were
+
+“persons acting under color of state law” based upon their statuses as licensed attorneys,
+
+which made them “officers of the court.”
+
+      {¶ 20} We first note that the pleadings in this action identify Ohio Voiture and
+
+Voiture Nationale as corporations and/or charitable organizations.            Neither were
+
+identified as attorneys, and Simpson made no allegation to support a finding that they
+
+were attorneys. Simpson’s pleadings also fail to establish how they may have otherwise
+
+acted under color of state law. Thus, we conclude the trial court did not err in dismissing
+
+this claim with prejudice as to Ohio Voiture and Voiture Nationale.
+
+      {¶ 21} Further, as noted by the trial court, “[l]awyers who participate in the trial of
+
+private state court litigation are not state functionaries acting under color of state law
+
+within the meaning of the Federal Civil Rights Acts.” See Skolnick v. Martin, 317 F.2d
+
+855, 857 (7th Cir.1963), citing Cooper v. Wilson, 309 F.2d 153 (6th Cir.1962). As stated
+
+by the Supreme Court of the United States in Cammer v. United States, 350 U.S. 399, 76
+
+S.Ct. 456, 100 L.Ed. 474 (1956):
+
+      It has been stated many times that lawyers are “officers of the court.” One
+
+      of the most frequently repeated statements to this effect appears in Ex parte
+
+      Garland,[ 71 U.S. 333, 378, 18 L.Ed. 366 (1866)]. The Court pointed out
+
+      there, however, that an attorney was not an “officer” within the ordinary
+
+      meaning of that term. Certainly nothing that was said in Ex parte Garland or
+
+      in any other case decided by this Court places attorneys in the same
+                                                                                         -10-
+
+
+       category as marshals, bailiffs, court clerks or judges. Unlike these officials
+
+       a lawyer is engaged in a private profession, important though it be to our
+
+       system of justice. In general he makes his own decisions, follows his own
+
+       best judgment, collects his own fees and runs his own business. The word
+
+       “officer” as it has always been applied to lawyers conveys quite a different
+
+       meaning from the word “officer” as applied to people serving as officers
+
+       within the conventional meaning of that term.
+
+(Footnote omitted.) Id. at 405.
+
+       {¶ 22} Based upon this reasoning, we find the trial court did not err in dismissing
+
+the claim for violation of 42 U.S.C. 1983 made against Brannon & Associates.
+
+       {¶ 23} R.C. 2921.45(A) provides, “[n]o public servant, under color of the public
+
+servant's office, employment, or authority, shall knowingly deprive, or conspire or attempt
+
+to deprive any person of a constitutional or statutory right.” However, as noted by the
+
+trial court, this statute does not create a private cause of action. Thus, we find no error
+
+in the trial court’s decision to dismiss with prejudice any claims made under this statute.
+
+       {¶ 24} Next, Simpson alleged “Defendants’ actions are prohibited by * * * O.R.C.
+
+2905.11, O.R.C. 2905.12, [and] ORC 2913.19 * * *.” We first note that R.C. 2913.19
+
+does not exist, thus, the trial court did not err in rendering judgment on this claim.
+
+       {¶ 25} R.C. 2905.11 and R.C. 2905.12 are criminal statutes prohibiting extortion
+
+and coercion, respectively. The trial court cited George v. State, 10th Dist. Franklin No.
+
+10AP-4, 2010-Ohio-5262, for the proposition that, “[i]n absence of a specific provision to
+
+the contrary, criminal statutes generally do not create a private cause of action, but give
+
+rise only to a right of prosecution by the state.” (Citations omitted.) Id. at ¶ 32. The
+                                                                                        -11-
+
+
+trial court also cited First Fed. Bank of Ohio v. Angelini, 3d Dist. Crawford No. 3-11-16,
+
+2012-Ohio-2136, ¶ 6, which states, “Ohio law does not recognize a civil action for
+
+extortion[,]” and Heskett v. Van Horn Title Agency, Inc., 10th Dist. Franklin No. 06AP-549,
+
+2006-Ohio-6900, ¶ 26, which states that a claim of coercion is not a “cognizable civil
+
+cause of action.” Based upon the cited cases, we agree with the trial court’s decision to
+
+dismiss these claims with prejudice.
+
+       {¶ 26} Finally, we address Simpson’s claims for recovery under R.C. 2307.60 and
+
+R.C. 2307.611. He alleged those statutes permitted him to recover damages for his
+
+claims of identity fraud, interference with civil rights, coercion and extortion.
+
+       {¶ 27} R.C. 2307.60 states: “Anyone injured in person or property by a criminal act
+
+has, and may recover full damages in, a civil action unless specifically excepted by law,
+
+may recover the costs of maintaining the civil action and attorney's fees if authorized by
+
+any provision of the Rules of Civil Procedure or another section of the Revised Code or
+
+under the common law of this state, and may recover punitive or exemplary damages if
+
+authorized by section 2315.21 or another section of the Revised Code.” R.C. 2307.611
+
+provides that a person who brings a civil action under R.C. 2307.60 for violations of the
+
+crime of identity fraud may recover damages.
+
+       {¶ 28} The trial court dismissed Simpson’s claims under R.C. 2307.60 and R.C.
+
+2307.661, finding that he failed “to allege sufficient facts” to support his claims that he
+
+suffered damages for defendants’ alleged criminal acts of identity fraud, extortion,
+
+coercion, and interfering with civil rights. The trial court dismissed these claims without
+
+prejudice.
+
+       {¶ 29} Actions dismissed without prejudice are not final, appealable orders
+                                                                                       -12-
+
+
+because “a dismissal ‘other than on the merits' does not prevent a party from refiling[.]”
+
+(Citation omitted.)     State ex rel. DeDonno v. Mason, 128 Ohio St.3d 412, 2011-Ohio-
+
+1445, 945 N.E.2d 511, ¶ 2. Accord Ebbets Partners, Ltd. v. Day, 171 Ohio App.3d 20,
+
+2007-Ohio-1667, 869 N.E.2d 110, ¶ 12 (2d Dist.). Thus, we have no jurisdiction to review
+
+this issue on appeal.
+
+       {¶ 30} Based upon our review of the record herein, we conclude the trial court did
+
+not err, as a matter of law, in granting judgment on the pleadings on several of Simpson’s
+
+claims and dismissing them with prejudice. To the extent some of his claims were
+
+dismissed without prejudice, we have no basis for addressing them in this appeal.
+
+Accordingly, the sole assignment of error is overruled.
+
+
+
+                                       III.   Conclusion
+
+       {¶ 31} Simpson’s assignment of error being overruled, the judgment of the trial
+
+court is affirmed.
+
+
+
+                                      .............
+
+
+
+WELBAUM, J. and EPLEY, J., concur.
+
+
+
+Copies sent to:
+
+Charles Simpson
+Kevin A. Bowman
+Edward J. Dowd
+Christopher T. Herman
+Hon. Mary Lynn Wiseman
+

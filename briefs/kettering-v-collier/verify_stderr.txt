@@ -1,0 +1,603 @@
+  Verifying 1/21...
+  Verifying 2/21...
+  Verifying 3/21...
+  Verifying 4/21...
+  Verifying 5/21...
+  Verifying 6/21...
+  Verifying 7/21...
+  Verifying 8/21...
+  Verifying 9/21...
+  Verifying 10/21...
+  Verifying 11/21...
+  Verifying 12/21...
+  Verifying 13/21...
+  Verifying 14/21...
+  Verifying 15/21...
+  Verifying 16/21...
+  Verifying 17/21...
+  Verifying 18/21...
+  Verifying 19/21...
+  Verifying 20/21...
+  Verifying 21/21...
+{
+  "input_citation": "2",
+  "status": "NOT_FOUND",
+  "confidence": 0.0,
+  "matched_case_name": null,
+  "matched_url": null,
+  "matched_cluster_id": null,
+  "matched_court": null,
+  "matched_date": null,
+  "matched_description": null,
+  "candidates": [],
+  "diagnostics": [
+    "No matching cases found in CourtListener opinions or RECAP"
+  ],
+  "error": null
+}
+{
+  "input_citation": "Simpson v. Voiture Nationale La Societe des Quarante Hommes et Huit Chevaux, 2021-Ohio-2131 (2d Dist.)",
+  "status": "NOT_FOUND",
+  "confidence": 0.0,
+  "matched_case_name": null,
+  "matched_url": null,
+  "matched_cluster_id": null,
+  "matched_court": null,
+  "matched_date": null,
+  "matched_description": null,
+  "candidates": [],
+  "diagnostics": [
+    "No matching cases found in CourtListener opinions or RECAP"
+  ],
+  "error": null
+}
+{
+  "input_citation": "First Fed. Bank of Ohio v. Angelini, 2012-Ohio-2136 (3d Dist.)",
+  "status": "VERIFIED",
+  "confidence": 1.0,
+  "matched_case_name": "First Fed. Bank of Ohio v. Angelini",
+  "matched_url": "https://www.courtlistener.com/opinion/2696528/first-fed-bank-of-ohio-v-angelini/",
+  "matched_cluster_id": 2696528,
+  "matched_court": null,
+  "matched_date": "2012-05-14",
+  "matched_description": null,
+  "candidates": [],
+  "diagnostics": [],
+  "error": null
+}
+{
+  "input_citation": "Heskett v. Van Horn Title Agency, Inc., 2006-Ohio-6900 (10th Dist.)",
+  "status": "VERIFIED",
+  "confidence": 1.0,
+  "matched_case_name": "Heskett v. Van Horn Title Agency, Unpublished Decision (12-26-2006)",
+  "matched_url": "https://www.courtlistener.com/opinion/3941929/heskett-v-van-horn-title-agency-unpublished-decision-12-26-2006/",
+  "matched_cluster_id": 3941929,
+  "matched_court": null,
+  "matched_date": "2006-12-26",
+  "matched_description": null,
+  "candidates": [],
+  "diagnostics": [],
+  "error": null
+}
+{
+  "input_citation": "Ashcroft v. Iqbal, 556 U.S. 662 (2009)",
+  "status": "VERIFIED",
+  "confidence": 1.0,
+  "matched_case_name": "Ashcroft v. Iqbal",
+  "matched_url": "https://www.courtlistener.com/opinion/145875/ashcroft-v-iqbal/",
+  "matched_cluster_id": 145875,
+  "matched_court": null,
+  "matched_date": "2009-05-18",
+  "matched_description": null,
+  "candidates": [],
+  "diagnostics": [],
+  "error": null
+}
+{
+  "input_citation": "Bell Atl. Corp. v. Twombly, 550 U.S. 544 (2007)",
+  "status": "VERIFIED",
+  "confidence": 1.0,
+  "matched_case_name": "Bell Atlantic Corp. v. Twombly",
+  "matched_url": "https://www.courtlistener.com/opinion/145730/bell-atlantic-corp-v-twombly/",
+  "matched_cluster_id": 145730,
+  "matched_court": null,
+  "matched_date": "2007-05-21",
+  "matched_description": null,
+  "candidates": [],
+  "diagnostics": [],
+  "error": null
+}
+{
+  "input_citation": "Hecht v. Levin, 66 Ohio St. 3d 458, 613 N.E.2d 585 (1993)",
+  "status": "LIKELY_REAL",
+  "confidence": 0.9333,
+  "matched_case_name": "Hecht v. Levin",
+  "matched_url": "https://www.courtlistener.com/opinion/6874872/hecht-v-levin/",
+  "matched_cluster_id": 6874872,
+  "matched_court": "ohio",
+  "matched_date": "1993-06-23",
+  "matched_description": null,
+  "candidates": [
+    {
+      "case_name": "Hecht v. Levin",
+      "url": "https://www.courtlistener.com/opinion/6874872/hecht-v-levin/",
+      "cluster_id": 6874872,
+      "date_filed": "1993-06-23",
+      "court_id": "ohio",
+      "score": 0.9333,
+      "description": null,
+      "mismatches": [
+        "Low confidence: court not available in citation text"
+      ]
+    },
+    {
+      "case_name": "Hecht v. Levin",
+      "url": "https://www.courtlistener.com/opinion/10680926/hecht-v-levin/",
+      "cluster_id": 10680926,
+      "date_filed": "1993-06-23",
+      "court_id": "ohio",
+      "score": 0.9333,
+      "description": null,
+      "mismatches": [
+        "Low confidence: court not available in citation text"
+      ]
+    },
+    {
+      "case_name": "Hecht v. Levin",
+      "url": "https://www.courtlistener.com/opinion/6873801/hecht-v-levin/",
+      "cluster_id": 6873801,
+      "date_filed": "1992-09-23",
+      "court_id": "ohio",
+      "score": 0.7667,
+      "description": null,
+      "mismatches": [
+        "Low confidence: court not available in citation text",
+        "Date close: cited 1993 vs filed 1992-09-23",
+        "Citation mismatch: cited 66 Ohio St. 3d 458 but CourtListener has 65 Ohio St. 3d 1409 598 N.E.2d 1162"
+      ]
+    },
+    {
+      "case_name": "Hecht v. Levin",
+      "url": "https://www.courtlistener.com/opinion/6872865/hecht-v-levin/",
+      "cluster_id": 6872865,
+      "date_filed": "1992-05-06",
+      "court_id": "ohio",
+      "score": 0.7667,
+      "description": null,
+      "mismatches": [
+        "Low confidence: court not available in citation text",
+        "Date close: cited 1993 vs filed 1992-05-06",
+        "Citation mismatch: cited 66 Ohio St. 3d 458 but CourtListener has 63 Ohio St. 3d 1457 590 N.E.2d 751"
+      ]
+    },
+    {
+      "case_name": "Hecht v. Levin",
+      "url": "https://www.courtlistener.com/opinion/6872657/hecht-v-levin/",
+      "cluster_id": 6872657,
+      "date_filed": "1992-03-25",
+      "court_id": "ohio",
+      "score": 0.7667,
+      "description": null,
+      "mismatches": [
+        "Low confidence: court not available in citation text",
+        "Date close: cited 1993 vs filed 1992-03-25",
+        "Citation mismatch: cited 66 Ohio St. 3d 458 but CourtListener has 63 Ohio St. 3d 1430 588 N.E.2d 130"
+      ]
+    }
+  ],
+  "diagnostics": [
+    "Low confidence: court not available in citation text, but we identified a likely match."
+  ],
+  "error": null
+}
+{
+  "input_citation": "Surace v. Willer, 25 Ohio St. 3d 229, 495 N.E.2d 939 (1986)",
+  "status": "VERIFIED",
+  "confidence": 1.0,
+  "matched_case_name": "Surace v. Wuliger",
+  "matched_url": "https://www.courtlistener.com/opinion/6868174/surace-v-wuliger/",
+  "matched_cluster_id": 6868174,
+  "matched_court": null,
+  "matched_date": "1986-08-06",
+  "matched_description": null,
+  "candidates": [],
+  "diagnostics": [],
+  "error": null
+}
+{
+  "input_citation": "State v. Carter, 72 Ohio App.3d 553 (2d Dist. 1991)",
+  "status": "POSSIBLE_MATCH",
+  "confidence": 0.725,
+  "matched_case_name": "Carter v. Carter",
+  "matched_url": "https://www.courtlistener.com/opinion/6825223/carter-v-carter/",
+  "matched_cluster_id": 6825223,
+  "matched_court": "ohioctapp",
+  "matched_date": "1990-09-28",
+  "matched_description": null,
+  "candidates": [
+    {
+      "case_name": "Carter v. Carter",
+      "url": "https://www.courtlistener.com/opinion/6825223/carter-v-carter/",
+      "cluster_id": 6825223,
+      "date_filed": "1990-09-28",
+      "court_id": "ohioctapp",
+      "score": 0.725,
+      "description": null,
+      "mismatches": [
+        "Date close: cited 1991 vs filed 1990-09-28",
+        "Citation mismatch: cited 72 Ohio App. 3d 553 but CourtListener has 7 Ohio App. Unrep. 488"
+      ]
+    },
+    {
+      "case_name": "State v. Caudill",
+      "url": "https://www.courtlistener.com/opinion/3993669/state-v-caudill/",
+      "cluster_id": 3993669,
+      "date_filed": "1991-07-30",
+      "court_id": "ohioctapp",
+      "score": 0.6029,
+      "description": null,
+      "mismatches": [
+        "Name mismatch: cited \"State v. Carter\" vs found \"State v. Caudill\"",
+        "Citation mismatch: cited 72 Ohio App. 3d 553 but CourtListener has 599 N.E.2d 395 75 Ohio App. 3d 322 1991 Ohio App. LEXIS 3668"
+      ]
+    },
+    {
+      "case_name": "State v. Calvillo",
+      "url": "https://www.courtlistener.com/opinion/4004416/state-v-calvillo/",
+      "cluster_id": 4004416,
+      "date_filed": "1991-11-25",
+      "court_id": "ohioctapp",
+      "score": 0.6,
+      "description": null,
+      "mismatches": [
+        "Name mismatch: cited \"State v. Carter\" vs found \"State v. Calvillo\"",
+        "Citation mismatch: cited 72 Ohio App. 3d 553 but CourtListener has 603 N.E.2d 325 76 Ohio App. 3d 714 1991 Ohio App. LEXIS 5424"
+      ]
+    },
+    {
+      "case_name": "State v. Henderson",
+      "url": "https://www.courtlistener.com/opinion/4011843/state-v-henderson/",
+      "cluster_id": 4011843,
+      "date_filed": "1991-11-12",
+      "court_id": "ohioctapp",
+      "score": 0.5973,
+      "description": null,
+      "mismatches": [
+        "Name mismatch: cited \"State v. Carter\" vs found \"State v. Henderson\"",
+        "Citation mismatch: cited 72 Ohio App. 3d 553 but CourtListener has 601 N.E.2d 596 76 Ohio App. 3d 290 1991 Ohio App. LEXIS 5395"
+      ]
+    },
+    {
+      "case_name": "State v. Williams",
+      "url": "https://www.courtlistener.com/opinion/3943333/state-v-williams/",
+      "cluster_id": 3943333,
+      "date_filed": "1991-07-01",
+      "court_id": "ohioctapp",
+      "score": 0.5917,
+      "description": null,
+      "mismatches": [
+        "Name mismatch: cited \"State v. Carter\" vs found \"State v. Williams\"",
+        "Citation mismatch: cited 72 Ohio App. 3d 553 but CourtListener has 600 N.E.2d 298 74 Ohio App. 3d 686 1991 Ohio App. LEXIS 3062"
+      ]
+    }
+  ],
+  "diagnostics": [
+    "Date close: cited 1991 vs filed 1990-09-28",
+    "Citation mismatch: cited 72 Ohio App. 3d 553 but CourtListener has 7 Ohio App. Unrep. 488, but we identified a possible match."
+  ],
+  "error": null
+}
+{
+  "input_citation": "State v. Milam, 2022-Ohio-3965 (10th Dist.)",
+  "status": "POSSIBLE_MATCH",
+  "confidence": 0.4667,
+  "matched_case_name": "State v. Darrah",
+  "matched_url": "https://www.courtlistener.com/opinion/6866642/state-v-darrah/",
+  "matched_cluster_id": 6866642,
+  "matched_court": "ohio",
+  "matched_date": "1980-11-19",
+  "matched_description": null,
+  "candidates": [
+    {
+      "case_name": "State v. Darrah",
+      "url": "https://www.courtlistener.com/opinion/6866642/state-v-darrah/",
+      "cluster_id": 6866642,
+      "date_filed": "1980-11-19",
+      "court_id": "ohio",
+      "score": 0.4667,
+      "description": null,
+      "mismatches": [
+        "Low confidence: date not available in citation text",
+        "Name mismatch: cited \"State v. Milam\" vs found \"State v. Darrah\"",
+        "Citation mismatch: cited 2022 Ohio 3965 but CourtListener has 64 Ohio St. 2d 22 412 N.E.2d 1328 18 Ohio Op. 3d 193 1980 Ohio LEXIS 895"
+      ]
+    },
+    {
+      "case_name": "State v. Barker",
+      "url": "https://www.courtlistener.com/opinion/6866021/state-v-barker/",
+      "cluster_id": 6866021,
+      "date_filed": "1978-02-22",
+      "court_id": "ohio",
+      "score": 0.4667,
+      "description": null,
+      "mismatches": [
+        "Low confidence: date not available in citation text",
+        "Name mismatch: cited \"State v. Milam\" vs found \"State v. Barker\"",
+        "Citation mismatch: cited 2022 Ohio 3965 but CourtListener has 53 Ohio St. 2d 135 372 N.E.2d 1324 7 Ohio Op. 3d 213 1978 Ohio LEXIS 505"
+      ]
+    },
+    {
+      "case_name": "State v. Pearson",
+      "url": "https://www.courtlistener.com/opinion/6866549/state-v-pearson/",
+      "cluster_id": 6866549,
+      "date_filed": "1980-06-04",
+      "court_id": "ohio",
+      "score": 0.4627,
+      "description": null,
+      "mismatches": [
+        "Low confidence: date not available in citation text",
+        "Name mismatch: cited \"State v. Milam\" vs found \"State v. Pearson\"",
+        "Citation mismatch: cited 2022 Ohio 3965 but CourtListener has 62 Ohio St. 2d 291 405 N.E.2d 296 16 Ohio Op. 3d 332 1980 Ohio LEXIS 741"
+      ]
+    },
+    {
+      "case_name": "State v. Cross",
+      "url": "https://www.courtlistener.com/opinion/6866342/state-v-cross/",
+      "cluster_id": 6866342,
+      "date_filed": "1979-06-27",
+      "court_id": "ohio",
+      "score": 0.4581,
+      "description": null,
+      "mismatches": [
+        "Low confidence: date not available in citation text",
+        "Name mismatch: cited \"State v. Milam\" vs found \"State v. Cross\"",
+        "Citation mismatch: cited 2022 Ohio 3965 but CourtListener has 58 Ohio St. 2d 482 391 N.E.2d 319 12 Ohio Op. 3d 396 1979 Ohio LEXIS 462"
+      ]
+    },
+    {
+      "case_name": "Ferguson v. State (Slip Opinion)",
+      "url": "https://www.courtlistener.com/opinion/4429709/ferguson-v-state-slip-opinion/",
+      "cluster_id": 4429709,
+      "date_filed": "2017-09-28",
+      "court_id": "ohio",
+      "score": 0.3635,
+      "description": null,
+      "mismatches": [
+        "Low confidence: date not available in citation text",
+        "Name mismatch: cited \"State v. Milam\" vs found \"Ferguson v. State (Slip Opinion)\"",
+        "Citation mismatch: cited 2022 Ohio 3965 but CourtListener has 2017 Ohio 7844"
+      ]
+    }
+  ],
+  "diagnostics": [
+    "Low confidence: date not available in citation text",
+    "Name mismatch: cited \"State v. Milam\" vs found \"State v. Darrah\"",
+    "Citation mismatch: cited 2022 Ohio 3965 but CourtListener has 64 Ohio St. 2d 22 412 N.E.2d 1328 18 Ohio Op. 3d 193 1980 Ohio LEXIS 895, but we identified a possible match."
+  ],
+  "error": null
+}
+{
+  "input_citation": "Kenty v. Transamerica Premium Ins. Co., 72 Ohio St.3d 415 (1995)",
+  "status": "VERIFIED",
+  "confidence": 1.0,
+  "matched_case_name": "Kenty v. Transamerica Premium Ins. Co.",
+  "matched_url": "https://www.courtlistener.com/opinion/10683282/kenty-v-transamerica-premium-ins-co/",
+  "matched_cluster_id": 10683282,
+  "matched_court": null,
+  "matched_date": "1995-07-05",
+  "matched_description": null,
+  "candidates": [],
+  "diagnostics": [],
+  "error": null
+}
+{
+  "input_citation": "United States v. Pendergraft, 297 F.3d 1198 (11th Cir. 2002)",
+  "status": "LIKELY_REAL",
+  "confidence": 0.875,
+  "matched_case_name": "United States v. James Scott Pendergraft",
+  "matched_url": "https://www.courtlistener.com/opinion/75917/united-states-v-james-scott-pendergraft/",
+  "matched_cluster_id": 75917,
+  "matched_court": "ca11",
+  "matched_date": "2002-07-16",
+  "matched_description": null,
+  "candidates": [
+    {
+      "case_name": "United States v. James Scott Pendergraft",
+      "url": "https://www.courtlistener.com/opinion/75917/united-states-v-james-scott-pendergraft/",
+      "cluster_id": 75917,
+      "date_filed": "2002-07-16",
+      "court_id": "ca11",
+      "score": 0.875,
+      "description": null,
+      "mismatches": []
+    },
+    {
+      "case_name": "United States v. Bobo",
+      "url": "https://www.courtlistener.com/opinion/76271/united-states-v-bobo/",
+      "cluster_id": 76271,
+      "date_filed": "2003-08-26",
+      "court_id": "ca11",
+      "score": 0.5376,
+      "description": null,
+      "mismatches": [
+        "Name mismatch: cited \"United States v. Pendergraft\" vs found \"United States v. Bobo\"",
+        "Date close: cited 2002 vs filed 2003-08-26",
+        "Citation mismatch: cited 297 F.3d 1198 but CourtListener has 344 F.3d 1076 2003 WL 22006279"
+      ]
+    },
+    {
+      "case_name": "United States v. Albert Jordan",
+      "url": "https://www.courtlistener.com/opinion/76082/united-states-v-albert-jordan/",
+      "cluster_id": 76082,
+      "date_filed": "2003-01-06",
+      "court_id": "ca11",
+      "score": 0.5143,
+      "description": null,
+      "mismatches": [
+        "Name mismatch: cited \"United States v. Pendergraft\" vs found \"United States v. Albert Jordan\"",
+        "Date close: cited 2002 vs filed 2003-01-06",
+        "Citation mismatch: cited 297 F.3d 1198 but CourtListener has 316 F.3d 1215 60 Fed. R. Serv. 663 2003 U.S. App. LEXIS 117 2003 WL 40658"
+      ]
+    },
+    {
+      "case_name": "United States v. Elmore Roy Anderson",
+      "url": "https://www.courtlistener.com/opinion/76149/united-states-v-elmore-roy-anderson/",
+      "cluster_id": 76149,
+      "date_filed": "2003-04-11",
+      "court_id": "ca11",
+      "score": 0.4907,
+      "description": null,
+      "mismatches": [
+        "Name mismatch: cited \"United States v. Pendergraft\" vs found \"United States v. Elmore Roy Anderson\"",
+        "Date close: cited 2002 vs filed 2003-04-11",
+        "Citation mismatch: cited 297 F.3d 1198 but CourtListener has 326 F.3d 1319 2003 U.S. App. LEXIS 6945 2003 WL 1860516"
+      ]
+    },
+    {
+      "case_name": "United States v. Richard Poirier, Jr.",
+      "url": "https://www.courtlistener.com/opinion/76089/united-states-v-richard-poirier-jr/",
+      "cluster_id": 76089,
+      "date_filed": "2003-02-13",
+      "court_id": "ca11",
+      "score": 0.4829,
+      "description": null,
+      "mismatches": [
+        "Name mismatch: cited \"United States v. Pendergraft\" vs found \"United States v. Richard Poirier, Jr.\"",
+        "Date close: cited 2002 vs filed 2003-02-13",
+        "Citation mismatch: cited 297 F.3d 1198 but CourtListener has 321 F.3d 1024 2003 WL 302262"
+      ]
+    }
+  ],
+  "diagnostics": [
+    "We identified a likely match."
+  ],
+  "error": null
+}
+{
+  "input_citation": "United States v. Jackson, 180 F.3d 55 (2d Cir. 1999)",
+  "status": "VERIFIED",
+  "confidence": 1.0,
+  "matched_case_name": "United States v. Autumn Jackson, Boris Sabas, Also Known as Boris Shmulevich, and Jose Medina, Also Known as Yosi Medina",
+  "matched_url": "https://www.courtlistener.com/opinion/764769/united-states-v-autumn-jackson-boris-sabas-also-known-as-boris/",
+  "matched_cluster_id": 764769,
+  "matched_court": null,
+  "matched_date": "1999-06-09",
+  "matched_description": null,
+  "candidates": [],
+  "diagnostics": [],
+  "error": null
+}
+{
+  "input_citation": "Flatley v. Mauro, 39 Cal.4th 299 (2006)",
+  "status": "VERIFIED",
+  "confidence": 1.0,
+  "matched_case_name": "Flatley v. Mauro",
+  "matched_url": "https://www.courtlistener.com/opinion/2600567/flatley-v-mauro/",
+  "matched_cluster_id": 2600567,
+  "matched_court": null,
+  "matched_date": "2006-07-27",
+  "matched_description": null,
+  "candidates": [],
+  "diagnostics": [],
+  "error": null
+}
+{
+  "input_citation": "Kulch v. Structural Fibers, Inc., 78 Ohio St.3d 134 (1997)",
+  "status": "VERIFIED",
+  "confidence": 1.0,
+  "matched_case_name": "Kulch v. Structural Fibers, Inc.",
+  "matched_url": "https://www.courtlistener.com/opinion/10683856/kulch-v-structural-fibers-inc/",
+  "matched_cluster_id": 10683856,
+  "matched_court": null,
+  "matched_date": "1997-04-16",
+  "matched_description": null,
+  "candidates": [],
+  "diagnostics": [],
+  "error": null
+}
+{
+  "input_citation": "Office Depot, Inc. v. Impact Off. Prods., LLC, 821 F. Supp. 2d 912 (N.D. Ohio 2011)",
+  "status": "VERIFIED",
+  "confidence": 1.0,
+  "matched_case_name": "Office Depot, Inc. v. Impact Office Products, LLC",
+  "matched_url": "https://www.courtlistener.com/opinion/8710614/office-depot-inc-v-impact-office-products-llc/",
+  "matched_cluster_id": 8710614,
+  "matched_court": null,
+  "matched_date": "2011-09-26",
+  "matched_description": null,
+  "candidates": [],
+  "diagnostics": [],
+  "error": null
+}
+{
+  "input_citation": "In re Protech Indus., 51 F.4th 714 (6th Cir. 2022)",
+  "status": "NOT_FOUND",
+  "confidence": 0.0,
+  "matched_case_name": null,
+  "matched_url": null,
+  "matched_cluster_id": null,
+  "matched_court": null,
+  "matched_date": null,
+  "matched_description": null,
+  "candidates": [],
+  "diagnostics": [
+    "No matching cases found in CourtListener opinions or RECAP"
+  ],
+  "error": null
+}
+{
+  "input_citation": "Stolle Mach. Co. v. RAM Precision Indus., 605 F. App'x 473 (6th Cir. 2015)",
+  "status": "VERIFIED",
+  "confidence": 1.0,
+  "matched_case_name": "Stolle Machinery Company, LLC v. Ram Precision Industries",
+  "matched_url": "https://www.courtlistener.com/opinion/2786363/stolle-machinery-company-llc-v-ram-precision-industries/",
+  "matched_cluster_id": 2786363,
+  "matched_court": null,
+  "matched_date": "2015-03-16",
+  "matched_description": null,
+  "candidates": [],
+  "diagnostics": [],
+  "error": null
+}
+{
+  "input_citation": "Van Buren v. United States, 593 U.S. 374 (2021)",
+  "status": "VERIFIED",
+  "confidence": 1.0,
+  "matched_case_name": "Van Buren v. United States",
+  "matched_url": "https://www.courtlistener.com/opinion/4888668/van-buren-v-united-states/",
+  "matched_cluster_id": 4888668,
+  "matched_court": null,
+  "matched_date": "2021-06-03",
+  "matched_description": null,
+  "candidates": [],
+  "diagnostics": [],
+  "error": null
+}
+{
+  "input_citation": "Royal Truck & Trailer Sales & Serv., Inc. v. Kraft, 974 F.3d 756 (6th Cir. 2020)",
+  "status": "VERIFIED",
+  "confidence": 1.0,
+  "matched_case_name": "Royal Truck & Trailer Sales v. Mike Kraft",
+  "matched_url": "https://www.courtlistener.com/opinion/4783709/royal-truck-trailer-sales-v-mike-kraft/",
+  "matched_cluster_id": 4783709,
+  "matched_court": null,
+  "matched_date": "2020-09-09",
+  "matched_description": null,
+  "candidates": [],
+  "diagnostics": [],
+  "error": null
+}
+{
+  "input_citation": "Wilson v. Collins, 517 F.3d 421 (6th Cir. 2008)",
+  "status": "VERIFIED",
+  "confidence": 1.0,
+  "matched_case_name": "Wilson v. Collins",
+  "matched_url": "https://www.courtlistener.com/opinion/1462522/wilson-v-collins/",
+  "matched_cluster_id": 1462522,
+  "matched_court": null,
+  "matched_date": "2008-02-22",
+  "matched_description": null,
+  "candidates": [],
+  "diagnostics": [],
+  "error": null
+}
