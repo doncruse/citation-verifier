@@ -60,7 +60,7 @@ Three-step verification pipeline in `src/citation_verifier/verifier.py`:
 | `name_matcher.py` | Multi-factor case name similarity (adapted from CaseStrainer) |
 | `text_cleaner.py` | Contamination phrase removal (adapted from CaseStrainer) |
 | `parser.py` | Citation parsing (eyecite + regex + abbreviation normalization + eyecite factory) |
-| `client.py` | CourtListener API wrapper (rate limiting, 15s timeout, 429 retry) |
+| `client.py` | CourtListener API wrapper (rate limiting, 15s timeout, 429 retry). Both sync (`CourtListenerClient`) and async (`AsyncCourtListenerClient`) have `get_opinion_text()` and `get_opinion_text_with_metadata()` for fetching full opinion/RECAP text + metadata. |
 | `verifier.py` | Core 3-step pipeline (shared helpers + thin sync/async wrappers) |
 | `__main__.py` | CLI |
 
@@ -91,6 +91,8 @@ Three-step verification pipeline in `src/citation_verifier/verifier.py`:
 | `scratch/TODO.md` | Bug/feature tracking with prioritized items |
 | `scratch/flp_contributions.md` | Drafted contributions to Free Law Project (with submission checklists) |
 | `scratch/flp_findings.csv` | Flagged results from Debug page for CL issue evidence (auto-created) |
+| `briefs/` | Working directories for `/verify-brief` skill runs. Each brief gets `<name>/claims.csv`, `opinions/`, `report.html`. |
+| `docs/plans/` | Implementation plans and design docs |
 | `.replit` | Replit config (deployment, workflows, `MODE=public`) |
 | `replit.nix` | Nix dependencies for Replit (python311Full) |
 
@@ -196,6 +198,8 @@ To extract citations from a CourtListener opinion and run them through verificat
 The web app's batch loop is parallelized (asyncio.Queue with MAX_CONCURRENT=5). To start/stop: `python web/app.py` / `taskkill //PID <pid> //F`.
 
 ## Claude Code Skills
+
+- **`/verify-brief`** — Multi-phase legal brief citation verifier. Extracts proposition-case pairs, verifies via CourtListener, downloads opinion texts, reads them to assess whether each citation supports what it's cited for. Output: `claims.csv` + `report.html` in `briefs/<name>/`. Design: `docs/plans/2026-03-02-verify-brief-skill-design.md`. Lives at `~/.claude/skills/verify-brief/SKILL.md`.
 
 - **`/file-issue`** — Interactive coach for filing effective GitHub issues. Guides through duplicate search, evidence gathering, repo norm study, and drafting. Use it when filing issues on FLP repos (or any repo). Catches the antipatterns that get issues ignored: tentative framing, insufficient examples, no methodology, no cross-references, no root cause theory. Lives at `~/.claude/skills/file-issue/SKILL.md`.
 
