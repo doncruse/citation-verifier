@@ -144,64 +144,6 @@ class TestStep1NameMismatch:
 
 
 # ---------------------------------------------------------------------------
-# Step 1b: Adjacent page fallback
-# ---------------------------------------------------------------------------
-
-
-class TestAdjacentPage:
-    def test_finds_case_on_adjacent_page(self):
-        """If page 560 returns nothing but page 559 has the right case, VERIFIED."""
-
-        def lookup_side_effect(text):
-            if "559" in text:
-                return [
-                    {
-                        "clusters": [
-                            {
-                                "case_name": "Smith v. Jones",
-                                "id": 100,
-                                "absolute_url": "/opinion/100/",
-                            }
-                        ]
-                    }
-                ]
-            return []
-
-        client = _make_client()
-        client.citation_lookup.side_effect = lookup_side_effect
-        v = CitationVerifier(client)
-        result = v.verify("Smith v. Jones, 500 F.3d 560 (2d Cir. 2020)")
-
-        assert result.status == VerificationStatus.VERIFIED
-        assert "adjacent page" in result.diagnostics[0].lower()
-
-    def test_rejects_different_case_on_adjacent_page(self):
-        """Adjacent page match must have defendant similarity >= 0.7."""
-
-        def lookup_side_effect(text):
-            if "561" in text:
-                return [
-                    {
-                        "clusters": [
-                            {
-                                "case_name": "United States v. Carlos Escobar",
-                                "id": 200,
-                                "absolute_url": "/opinion/200/",
-                            }
-                        ]
-                    }
-                ]
-            return []
-
-        client = _make_client()
-        client.citation_lookup.side_effect = lookup_side_effect
-        v = CitationVerifier(client)
-        result = v.verify("United States v. Craner, 652 F.3d 560 (9th Cir. 2016)")
-
-        assert result.status != VerificationStatus.VERIFIED
-
-
-# ---------------------------------------------------------------------------
 # Step 2: Opinion search fallback
 # ---------------------------------------------------------------------------
 
@@ -1665,8 +1607,8 @@ class TestQuickOnly:
         assert result.confidence == 0.0
         assert "Quick search only" in result.diagnostics[0]
 
-    def test_quick_does_not_call_step1b_or_search(self):
-        """quick_only must not call adjacent page lookup, opinion search, or RECAP."""
+    def test_quick_does_not_call_search(self):
+        """quick_only must not call opinion search or RECAP."""
         client = _make_client()
         v = CitationVerifier(client)
         v.verify(

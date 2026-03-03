@@ -82,60 +82,6 @@ class CitationVerifier:
             matched_date=cluster.get("date_filed") or None,
         )
 
-    def _check_adjacent_page_cluster(
-        self,
-        citation_text: str,
-        parsed: ParsedCitation,
-        cluster: dict[str, Any],
-        alt_page: str,
-    ) -> VerificationResult | None:
-        """Check one cluster from an adjacent-page lookup (Step 1b).
-
-        Returns a VERIFIED result if name matches, None otherwise.
-        Stricter than Step 1: requires defendant similarity >= 0.7.
-        """
-        case_name = cluster.get("case_name", "")
-        cluster_id = cluster.get("id")
-        url = cluster.get("absolute_url", "")
-        if url and not url.startswith("http"):
-            url = f"https://www.courtlistener.com{url}"
-        elif cluster_id and not url:
-            url = f"https://www.courtlistener.com/opinion/{cluster_id}/"
-        if not (parsed.case_name and case_name):
-            return None
-        # Stricter name check for adjacent-page matches:
-        # require defendant similarity >= 0.7
-        result_lower = case_name.lower()
-        result_def = ""
-        if " v. " in result_lower:
-            result_def = result_lower.split(" v. ", 1)[1].strip()
-        elif " v " in result_lower:
-            result_def = result_lower.split(" v ", 1)[1].strip()
-        if parsed.defendant and result_def:
-            def_sim = SequenceMatcher(
-                None,
-                parsed.defendant.lower(),
-                result_def,
-            ).ratio()
-            if def_sim < 0.7:
-                return None
-        elif not self._names_match(parsed, case_name):
-            return None
-        return VerificationResult(
-            input_citation=citation_text,
-            status=VerificationStatus.VERIFIED,
-            confidence=1.0,
-            matched_case_name=case_name,
-            matched_url=url,
-            matched_cluster_id=cluster_id,
-            matched_court=cluster.get("court") or cluster.get("court_id") or None,
-            matched_date=cluster.get("date_filed") or None,
-            diagnostics=[
-                f"Matched via adjacent page: cited page {parsed.page}, "
-                f"case starts at page {alt_page}",
-            ],
-        )
-
     def _build_search_params(
         self, parsed: ParsedCitation
     ) -> tuple[str | None, str | None, str | None]:
@@ -379,34 +325,6 @@ class CitationVerifier:
                 confidence=0.0,
                 diagnostics=["Quick search only: not in citation lookup API"],
             )
-
-        # Step 1b: Try adjacent starting pages (off-by-one is common).
-        # Skip for WL citations — WL numbers aren't in the citation lookup API.
-        if parsed.volume and parsed.reporter and parsed.page and not parsed.is_westlaw:
-            try:
-                base_page = int(parsed.page)
-                for offset in (-1, 1, -2, 2):
-                    alt_page = str(base_page + offset)
-                    alt_cite = f"{parsed.volume} {parsed.reporter} {alt_page}"
-                    try:
-                        lookup_results = self.client.citation_lookup(alt_cite)
-                    except Exception:
-                        logger.debug(
-                            "Adjacent page lookup failed for %s",
-                            alt_cite,
-                            exc_info=True,
-                        )
-                        continue
-                    for lr in lookup_results:
-                        clusters = lr.get("clusters", [])
-                        for cluster in clusters:
-                            result = self._check_adjacent_page_cluster(
-                                citation_text, parsed, cluster, alt_page
-                            )
-                            if result is not None:
-                                return result
-            except (ValueError, TypeError):
-                pass
 
         # Step 2: Fuzzy search fallback
         return self._search_fallback(citation_text, parsed)
@@ -1278,33 +1196,6 @@ class CitationVerifier:
                 confidence=0.0,
                 diagnostics=["Quick search only: not in citation lookup API"],
             )
-
-        # Step 1b: Adjacent starting pages (skip for WL citations)
-        if parsed.volume and parsed.reporter and parsed.page and not parsed.is_westlaw:
-            try:
-                base_page = int(parsed.page)
-                for offset in (-1, 1, -2, 2):
-                    alt_page = str(base_page + offset)
-                    alt_cite = f"{parsed.volume} {parsed.reporter} {alt_page}"
-                    try:
-                        lookup_results = await async_client.citation_lookup(alt_cite)
-                    except Exception:
-                        logger.debug(
-                            "Adjacent page lookup failed for %s",
-                            alt_cite,
-                            exc_info=True,
-                        )
-                        continue
-                    for lr in lookup_results:
-                        clusters = lr.get("clusters", [])
-                        for cluster in clusters:
-                            result = self._check_adjacent_page_cluster(
-                                citation_text, parsed, cluster, alt_page
-                            )
-                            if result is not None:
-                                return result
-            except (ValueError, TypeError):
-                pass
 
         # Step 2: Fuzzy search fallback
         return await self._search_fallback_async(async_client, citation_text, parsed)

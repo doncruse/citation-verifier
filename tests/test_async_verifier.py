@@ -115,39 +115,6 @@ class TestAsyncSyncParity:
         assert sync_r.confidence == async_r.confidence == 0.3
         assert sync_r.diagnostics == async_r.diagnostics
 
-    def test_parity_adjacent_page_match(self):
-        """Step 1b: Found on adjacent page → VERIFIED in both paths."""
-
-        def lookup_side_effect(text):
-            if "559" in text:
-                return [
-                    {
-                        "clusters": [
-                            {
-                                "case_name": "Smith v. Jones",
-                                "id": 100,
-                                "absolute_url": "/opinion/100/",
-                            }
-                        ]
-                    }
-                ]
-            return []
-
-        sync_client = _make_client()
-        sync_client.citation_lookup.side_effect = lookup_side_effect
-
-        async_client = _make_async_client()
-        async_client.citation_lookup.side_effect = lookup_side_effect
-
-        citation = "Smith v. Jones, 500 F.3d 560 (2d Cir. 2020)"
-        v = CitationVerifier(sync_client)
-        sync_r = v.verify(citation)
-        async_r = asyncio.run(v.verify_async(async_client, citation))
-
-        assert sync_r.status == async_r.status == VerificationStatus.VERIFIED
-        assert sync_r.confidence == async_r.confidence
-        assert sync_r.matched_case_name == async_r.matched_case_name
-
     def test_parity_opinion_search_likely_real(self):
         """Step 2: Fuzzy opinion search finds good match → LIKELY_REAL in both paths."""
         api = {
