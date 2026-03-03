@@ -4,6 +4,7 @@ __pycache__/
 *.egg-info/
 .claude/
 venv/
+.venv/
 .DS_Store
 .citation_cache.json
 

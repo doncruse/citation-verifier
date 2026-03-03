@@ -44,8 +44,6 @@ Three-step verification pipeline in `src/citation_verifier/verifier.py`:
 
 - **Progressive date widening**: When fetching docket entries, uses 3-step fallback: exact date -> month +/- 1 -> full year. Prevents pulling documents months away when we have month precision.
 
-- **WL adjacent page skip**: Citation lookup step 1b (adjacent pages +/- 1, +/- 2) is skipped for WestLaw citations since WL numbers are never in the citation lookup API. Saves 4 wasted API calls per WL citation.
-
 - **Slip opinion placeholder stripping** (`parser.py`): `_SLIP_OPINION_JUNK` regex strips `-- F. Supp. 3d ----` and `--- S.Ct. ---` patterns from case names. eyecite absorbs these into the defendant field, poisoning CL searches (causes Solr 500 errors). Filed as potential eyecite contribution (#9 in `scratch/flp_contributions.md`).
 
 ## Files
@@ -68,8 +66,8 @@ Three-step verification pipeline in `src/citation_verifier/verifier.py`:
 
 | File | Purpose |
 |------|---------|
-| `test_verifier.py` | 103 unit tests (mocked API calls) |
-| `test_async_verifier.py` | 30 async parity tests (sync/async behavior equivalence) |
+| `test_verifier.py` | 101 unit tests (mocked API calls) |
+| `test_async_verifier.py` | 29 async parity tests (sync/async behavior equivalence) |
 | `test_false_negatives.py` | Regression tests against real CourtListener API |
 | `test_parser_diagnostics.py` | eyecite vs our parser comparison |
 | `test_cl_api_issues.py` | Documents and tests CL API limitations |

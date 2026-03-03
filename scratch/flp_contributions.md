@@ -446,13 +446,12 @@ Hi -- great to see this issue opened. I've been building a citation verification
 
 ### The verification pipeline today
 
-To verify a single citation like `Obergefell v. Hodges, 576 U.S. 644 (2015)`, my tool makes up to **5-8 API calls**:
+To verify a single citation like `Obergefell v. Hodges, 576 U.S. 644 (2015)`, my tool makes up to **4-7 API calls**:
 
 1. `POST /citation-lookup/` — exact reporter match
-2. Up to 4 more citation lookups trying adjacent pages (off-by-one is common in briefs)
-3. `GET /search/?type=o` — fuzzy opinion search as fallback
-4. `GET /search/?type=r` — RECAP search as second fallback
-5. `GET /docket-entries/` — paginated follow-up to find the actual opinion document within a docket
+2. `GET /search/?type=o` — fuzzy opinion search as fallback
+3. `GET /search/?type=r` — RECAP search as second fallback
+4. `GET /docket-entries/` — paginated follow-up to find the actual opinion document within a docket
 
 Each step exists because the previous one lacks something. A lot of this could collapse into fewer round trips with some structural changes.
 
