@@ -117,7 +117,15 @@ class CourtListenerClient:
 
         Returns a list of search result dicts.
         """
-        params: dict[str, str] = {"type": "o"}
+        params: dict[str, str] = {
+            "type": "o",
+            # Include all precedential statuses -- the default only returns
+            # Published, hiding the many district-court opinions ingested from
+            # RECAP that are classified as Unknown.
+            "stat_Published": "on",
+            "stat_Unpublished": "on",
+            "stat_Unknown": "on",
+        }
         if q:
             params["q"] = q
         if court:
@@ -534,7 +542,12 @@ class AsyncCourtListenerClient:
         case_name: str | None = None,
     ) -> list[dict[str, Any]]:
         """Search opinions using the CourtListener Search API."""
-        params: dict[str, str] = {"type": "o"}
+        params: dict[str, str] = {
+            "type": "o",
+            "stat_Published": "on",
+            "stat_Unpublished": "on",
+            "stat_Unknown": "on",
+        }
         if q:
             params["q"] = q
         if court:
