@@ -10,11 +10,12 @@ This document tracks potential contributions to FLP's projects (CourtListener, e
 | [2](#2-docket-parameter-unreliability) | Docket Parameter Unreliability | DECLINED | CL |
 | [3](#3-eyecite-newline-breaks-metadata-parsing-paragraphtoken-boundary) | eyecite: Newline Breaks Metadata Parsing | SUBMITTED | eyecite [#297](https://github.com/freelawproject/eyecite/issues/297) |
 | [4](#4-eyecite-apostrophe-truncates-case-name-words) | eyecite: Apostrophe Truncates Case Names | SUBMITTED | eyecite [#296](https://github.com/freelawproject/eyecite/issues/296) |
-| [5](#5-federal-district-court-opinions-only-in-recap-not-in-opinions-db) | Federal Court Opinions Only in RECAP | SUBMITTED | CL [#6963](https://github.com/freelawproject/courtlistener/issues/6963) |
+| [5](#5-federal-district-court-opinions-only-in-recap-not-in-opinions-db) | Federal Court Opinions Only in RECAP | UPDATED | CL [#6963](https://github.com/freelawproject/courtlistener/issues/6963) |
 | [6](#6-data-quality-issues) | Data Quality Issues | DRAFT | CL |
 | [7](#7-simpler-case-law-apis--feedback-from-citation-verification-consumer) | Simpler Case Law APIs — Consumer Feedback | DRAFT | CL [#6946](https://github.com/freelawproject/courtlistener/issues/6946) |
 | [8](#8-api-docs-blocked-by-bot-protection--llmstxt) | API Docs Blocked by Bot Protection / llms.txt | SUBMITTED | CL [#6040](https://github.com/freelawproject/courtlistener/issues/6040) |
 | [9](#9-eyecite-slip-opinion-placeholder-absorbed-into-case-name) | eyecite: Slip Opinion Placeholder Absorbed into Case Name | DRAFT | eyecite |
+| [10](#10-search-api-defaults-to-published-only-stat_-filters-undocumented) | Search API Defaults to Published Only; stat_ Filters Undocumented | SUBMITTED | CL [#7049](https://github.com/freelawproject/courtlistener/issues/7049) |
 
 ## Status Legend
 
@@ -300,14 +301,15 @@ See `scratch/drafts/eyecite-apostrophe-truncation.md` for the full issue text as
 
 ## 5. Federal District Court Opinions Only in RECAP (Not in Opinions DB)
 
-**Status:** SUBMITTED
+**Status:** UPDATED
 **Target:** CourtListener [#6963](https://github.com/freelawproject/courtlistener/issues/6963) (related to closed #3790)
-**Type:** Bug report — 16 civil federal cases in RECAP but not in opinions DB
+**Type:** Bug report — originally 16 cases, corrected to 7
 **Filed:** 2026-02-16
+**Updated:** 2026-03-02 — 9 of 16 were actually in the opinions DB with `precedential_status: Unknown`, invisible to our searches because the search API defaults to Published-only. See [#7049](https://github.com/freelawproject/courtlistener/issues/7049) and [correction comment](https://github.com/freelawproject/courtlistener/issues/6963#issuecomment-3988354356).
 
 ### Summary
 
-16 federal civil cases where the opinion/order document exists in a RECAP docket but is not in the opinions database. 4 pre-sweep cases (2008–2023) are strongest evidence of a pipeline gap. All pre-sweep/edge cases re-verified absent from opinions DB on 2026-02-16.
+Originally reported 16 federal civil cases in RECAP but not in the opinions database. After discovering the `stat_Unknown` filter (see #10 below), 9 were found to be present with Unknown status. **7 cases remain genuinely missing.** 4 pre-sweep (2008–2023), 3 post-sweep (2024–2025).
 
 ### Background
 
@@ -673,6 +675,37 @@ Option 1 is more correct but more invasive. Option 2 is simpler and matches our 
 - [ ] Draft issue with reproduction steps
 - [ ] Submit issue
 - [ ] Update this doc with link
+
+---
+
+## 10. Search API Defaults to Published Only; stat_ Filters Undocumented
+
+**Status:** SUBMITTED
+**Target:** CourtListener [#7049](https://github.com/freelawproject/courtlistener/issues/7049)
+**Type:** Documentation / API behavior
+**Filed:** 2026-03-02
+
+### Summary
+
+The opinion search API (`/api/rest/v4/search/?type=o`) defaults to returning only Published opinions when no `stat_` parameters are provided. The API help page mentions this in passing but doesn't document the `stat_` parameter names or values — they're only discoverable by inspecting URL parameters on the courtlistener.com website.
+
+The core problem is that `recap_into_opinions` classifies ingested opinions as `precedential_status: Unknown`, and the search default hides Unknown. These two choices work against each other — CL ingests district court opinions from RECAP, then the search defaults make them invisible.
+
+### Impact
+
+For S.D. Ohio (`ohsd`):
+- `type=o&court=ohsd` (default, Published only): 4,923
+- `type=o&court=ohsd&stat_Unknown=on`: 14,518
+
+Nearly 3x as many opinions hidden by default. Directly caused us to misreport 9 cases as missing in #6963.
+
+### Our Fix
+
+Added `stat_Published=on`, `stat_Unpublished=on`, `stat_Unknown=on` to both sync and async `search_opinions()` in `client.py`. Commit [753e2df](https://github.com/rlfordon/citation-verifier/commit/753e2df).
+
+### Draft
+
+See `scratch/drafts/cl-stat-unknown-default.md` for the full issue text as filed.
 
 ---
 
