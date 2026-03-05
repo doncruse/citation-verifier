@@ -1,0 +1,772 @@
+John Crowley v. Bruce Bannister
+734 F.3d 967, 2013 WL 5813178, 2013 U.S. App. LEXIS 22087
+Court of Appeals for the Ninth Circuit
+Filed: 2013-10-30
+Docket No. 12-15804
+Source: https://www.courtlistener.com/opinion/2620509/john-crowley-v-bruce-bannister/
+------------------------------------------------------------
+
+                      FOR PUBLICATION
+
+    UNITED STATES COURT OF APPEALS
+         FOR THE NINTH CIRCUIT
+
+
+ JOHN CROWLEY,                                       No. 12-15804
+                       Plaintiff-Appellant,
+                                                       D.C. No.
+                      v.                            2:10-cv-00150-
+                                                       KJD-VCF
+ ROBERT BANNISTER, DR.; DWIGHT
+ NEVEN, Warden; TAMIIA GRISHAM;
+ JANE BALAO-CLEDERA; DANIEL                            OPINION
+ SUSSMAN; PAT DILIDDO,
+             Defendants-Appellees.
+
+
+         Appeal from the United States District Court
+                  for the District of Nevada
+          Kent J. Dawson, District Judge, Presiding
+
+                  Argued and Submitted
+       September 11, 2013—San Francisco, California
+
+                      Filed October 30, 2013
+
+      Before: Arthur L. Alarcón and Marsha S. Berzon,
+      Circuit Judges, and Jack Zouhary, District Judge.*
+
+                    Opinion by Judge Alarcón
+
+
+ *
+   The Honorable Jack Zouhary, District Judge for the U.S. District Court
+for the Northern District of Ohio, sitting by designation.
+2                    CROWLEY V. BANNISTER
+
+                           SUMMARY**
+
+
+                      Prisoner Civil Rights
+
+    The panel affirmed in part and vacated in part the district
+court’s summary judgment in an action brought under
+42 U.S.C. § 1983 by a Nevada state prisoner alleging
+deliberate indifference to his medical needs in the
+administration of his medication.
+
+    The panel held that plaintiff failed to submit evidence
+raising a genuine issue of material fact that his injury could
+have been avoided had Dr. Bannister implemented a policy
+allowing for the administration of three pill calls per day. The
+district court therefore did not err in granting summary
+judgment in favor of Dr. Bannister.
+
+    The panel affirmed the district court’s grant of summary
+judgment in favor of Warden Neven and nurses Grisham,
+Diliddo, and Balao-Cledera because Crowley expressly
+waived his appeal against them in his reply brief.
+
+    The panel vacated the clerk’s entry of judgment in favor
+of Dr. Sussman because the district court abused its discretion
+in failing to comply with Rule 4(m). The panel held that
+because the record did not reflect that the district court
+provided the required Rule 4(m) notice prior to the clerk’s
+entry of judgment in favor of Dr. Sussman, plaintiff was
+“precluded from attempting to show good cause” or excusable
+
+
+  **
+     This summary constitutes no part of the opinion of the court. It has
+been prepared by court staff for the convenience of the reader.
+                 CROWLEY V. BANNISTER                      3
+
+neglect for his failure to serve Dr. Sussman in a timely
+manner.
+
+    The panel also vacated the district court’s decision
+denying plaintiff’s request for leave to amend his second
+amended complaint to name additional defendants and to
+discover whether any delays on their part in providing
+medical treatment caused or exacerbated his Lithium toxicity.
+The panel remanded with instructions to comply with Rule
+4(m) with respect to Dr. Sussman and to allow plaintiff leave
+to amend his second amended complaint.
+
+
+                        COUNSEL
+
+Francis Gerald Fanning, Tempe, Arizona, for Plaintiff-
+Appellant.
+
+Clark G. Leslie, Senior Deputy Attorney General, Office of
+the Nevada Attorney General, Appellate Division, Carson
+City, Nevada, for Defendants-Appellees.
+
+
+                        OPINION
+
+ALARCÓN, Senior Circuit Judge:
+
+    John Crowley appeals from the district court’s decision
+granting summary judgment and dismissing his pro se claim
+that his civil rights were violated because the named
+defendants, Dr. Robert Bannister, Dr. Daniel Sussman,
+Dwight Neven, Pat Diliddo, Tamiia Grisham, and Jane Balao-
+Cledera, were deliberately indifferent to his serious medical
+4                  CROWLEY V. BANNISTER
+
+needs, in violation of the Eighth Amendment of the United
+States Constitution. Crowley, now represented by counsel,
+raises the following issues on appeal: (1) whether we have
+jurisdiction to hear this appeal under 28 U.S.C. § 1291;
+(2) whether the district court abused its discretion in failing to
+comply with Rule 4(m) of the Federal Rules of Civil
+Procedure in dismissing the complaint against Dr. Sussman;
+(3) whether the district court erred in granting summary
+judgment on the merits in favor of Dr. Bannister; (4) whether
+the district court abused its discretion in denying his request
+for leave to amend his second amended complaint; and
+(5) whether the district court should have been required to
+advise him of his rights under Rule 56(d) of the Federal Rules
+of Civil Procedure.
+
+     We conclude that we have jurisdiction over this appeal.
+We affirm the district court’s grant of summary judgment in
+favor of Dr. Bannister because Crowley failed to submit
+evidence raising a genuine issue of material fact regarding
+whether Dr. Bannister was deliberately indifferent to his
+serious medical needs. We also affirm the district court’s
+grant of summary judgment in favor of Warden Neven and
+nurses Grisham, Diliddo, and Balao-Cledera because Crowley
+expressly waived his appeal against them in his reply brief.
+We vacate the clerk’s entry of judgment in favor of Dr.
+Sussman because the district court abused its discretion in
+failing to comply with Rule 4(m). We also vacate the district
+court’s decision denying Crowley’s request for leave to
+amend his second amended complaint to name additional
+defendants. We remand with instructions to comply with
+Rule 4(m) with respect to Dr. Sussman and to allow Crowley
+leave to amend his second amended complaint.
+                  CROWLEY V. BANNISTER                       5
+
+                               I
+
+    Crowley, acting pro se, filed his initial complaint in the
+district court on February 3, 2010. The district court
+dismissed the complaint without prejudice following its initial
+review under 28 U.S.C. § 1915A. Crowley then filed his first
+amended complaint. Before any action was taken by the
+defendants or the district court with respect to the first
+amended complaint, he filed a second amended complaint, in
+which he alleged a § 1983 action for deliberate indifference
+of a serious medical need against Dr. Sussman; Dr. Bannister,
+the director of the medical department at the Nevada
+Department of Corrections’ (“NDOC”) High Desert State
+Prison (“HDSP”); Warden Neven, the warden at HDSP; and
+three nurses, Grisham, Diliddo, and Balao-Cledera.
+
+    In his second amended complaint, Crowley set forth the
+following allegations: Nurse Grisham was the intake nurse
+upon his arrival at HDSP. She informed him there were only
+two pill calls at the facility and changed his Lithium
+prescription from three doses to two without the prior
+approval of a doctor. Dr. Sussman never met with him and
+did not properly screen his medical file or review Nurse
+Grisham’s alteration to his prescription. His cellmate
+informed Nurse Diliddo of his “bizarre behavior” and
+unresponsiveness on May 10, 2009, but she refused to treat
+him. Nurse Balao-Cledera delayed six hours in providing him
+medical care after his cellmate informed her of his behavior
+on May 14, 2009, even though she knew he was suffering
+from an overdose. Dr. Bannister and Warden Neven were
+responsible for the operation of HDSP’s medical unit and
+knew that the nurses regularly changed the patient’s
+6                  CROWLEY V. BANNISTER
+
+prescriptions, even though they were not qualified to do so
+and had not received prior approval from a doctor.
+
+   Crowley claimed that these alleged actions resulted in his
+hospitalization and ongoing mental and physical side effects.
+He also requested leave to amend the second amended
+complaint “with names of Defendants when they are learned.”
+
+    On April 25, 2011, the district court issued a screening
+order based on its initial review of the second amended
+complaint under 28 U.S.C. § 1915A. It directed Nevada’s
+Attorney General to advise the court within 21 days whether
+she could accept service for the named defendants. With
+respect to any defendant for whom she could not accept
+service, the district court ordered her to “file, under seal, the
+last known address(es) of those defendant(s);” and also
+directed Crowley to “file a motion requesting the issuance of
+a summons and specifying a full name and address” for such
+defendant. It further ordered that “[s]ervice must be
+completed within one hundred twenty (120) days from the
+Attorney General’s service of a statement that she will not be
+able to accept service for the defendant.”
+
+    Crowley’s copy of the screening order was returned to the
+district court as undeliverable on May 2, 2011. The district
+court’s docket indicates that the order was “not remailed,” as
+“[n]o other address was available” for Crowley at that time.
+
+    Seven days later, on May 9, 2011, Crowley notified the
+district court that he was now residing at the Lovelock
+Correctional Center (“LCC”). The notice was dated May 6,
+2011. The district court docket does not reflect that its
+screening order was thereafter mailed to the LCC address.
+                  CROWLEY V. BANNISTER                       7
+
+    The Attorney General accepted service on behalf of all
+defendants except for Dr. Sussman. She declined to accept
+service on behalf of Dr. Sussman because “Daniel Sussman
+is not an employee nor has he ever been an employee of the
+NDOC.” The Attorney General did not provide Dr.
+Sussman’s last known address.
+
+   The Attorney General filed a motion to dismiss the second
+amended complaint and, in the alternative, a motion for
+summary judgment on behalf of all defendants, except for Dr.
+Sussman. In support of the motion, the Attorney General
+provided Crowley’s medical records, as well as declarations
+from defendants and other NDOC staff.
+
+    Crowley’s medical records reveal the following facts:
+Crowley is an inmate who has a history of bipolar disorder,
+delusions, Parkinson’s disease, and hypertension. During
+Crowley’s initial imprisonment at LCC, he was administered
+900 milligrams of Lithium in the morning and afternoon and
+600 milligrams of Lithium in the evening. On April 16, 2009,
+he was transferred to HDSP. During intake, Nurse Richard
+Orden reviewed his chart and referred him to psychological
+services. That same day, Dr. Sussman changed Crowley’s
+prescription for Lithium to be administered twice daily in
+1,200-milligram doses. Although the frequency of the doses
+was altered from three to two doses per day, the total daily
+amount of 2,400 milligrams stayed the same.
+
+    On May 16, 2009, a floor officer notified the medical staff
+regarding Crowley’s unusual behavior. When Nurse Cordero
+responded, she was advised by his cellmate that Crowley had
+eaten soap the night before and had no appetite for food. She
+noted that he was verbally responsive, but was also slow in
+8                 CROWLEY V. BANNISTER
+
+his response, confused, staring blankly, jerking, and eating
+tissue paper. She determined he should be admitted to the
+infirmary and that his Lithium level should be checked.
+
+   Crowley was admitted to the infirmary by the telephone
+order of Dr. Holmes. When admitted, he responded to
+questions and obeyed simple commands, but was shaking.
+His blood was drawn to test his Lithium level.
+
+    Crowley spent the following day in the infirmary and was
+attended to by nurses Grisham and Balao-Cledera. Upon
+examining Crowley on May 18, a doctor ordered that he be
+transferred to the emergency room at Valley Hospital based
+on a diagnosis of probable Lithium toxicity. At the hospital,
+“he was treated for Lithium toxicity and dehydration
+secondary most likely due to Lithium-induced Nephrogenic
+Diabetes Insipidus, a concentrating defect which can produce
+polyuria, an excessive or abnormally large production and/or
+passage of urine.” He was discharged three weeks later.
+
+    Defendants argue that Warden Neven and Dr. Bannister
+were not liable under § 1983 because their declarations and
+Crowley’s medical records reflected that his medication was
+changed by a doctor, not a nurse, and that, even if nurses were
+allowed to change a patient’s medications at HDSP, neither
+directed, approved, or knew of such a policy. Regarding
+nurses Grisham, Diliddo, and Balao-Cledera, Defendants
+argue that the medical records and other evidence established
+that Crowley had incorrectly identified their roles in his
+medical care and that the medical care they did provide
+Crowley did not reflect willful indifference.
+                  CROWLEY V. BANNISTER                       9
+
+    The district court issued a minute order informing
+Crowley of his rights under Rules 12 and 56 of the Federal
+Rules of Civil Procedure, as required by this Court’s
+decisions in Klingele v. Eikenberry, 849 F.2d 409 (9th Cir.
+1988), and Rand v. Rowland, 154 F.3d 952 (9th Cir. 1998) (en
+banc). The court’s order advised Crowley, inter alia, that “if
+evidence is submitted with a motion to dismiss and
+considered by the court, then the motion will be treated as a
+motion for summary judgment” and that “if the court grants
+summary judgment, then judgment may be entered against
+[him] and this lawsuit will end without trial.” In addition, it
+instructed Crowley that to oppose a motion for summary
+judgment:
+
+       [He] must set out specific facts in the form of
+       admissible evidence (such as affidavits,
+       declarations, depositions, answers to
+       interrogatories, or properly authenticated
+       documents as provided in Rule 56(e)), that
+       contradict the facts shown in the defendant’s
+       declarations and documents and show that
+       there is a genuine issue of fact for trial.
+
+     Crowley opposed the motion for summary judgment,
+contending that “[e]ven if his recollection of who did what on
+what day is impaired, the facts remain that he suffered severe
+lithium toxicity and he had to be hospitalized.” He did not
+submit any evidence in support of his opposition. Instead, he
+requested the opportunity to amend any issue the district court
+deemed unclear or in dispute.
+
+    The district court granted summary judgment with respect
+to all defendants, except for Dr. Sussman. It concluded that
+10                CROWLEY V. BANNISTER
+
+Crowley failed to produce any admissible evidence raising a
+genuine issue of material fact that Dr. Bannister knew of the
+alleged constitutional violations. Regarding his claims
+against nurses Grisham, Diliddo, and Balao-Cledera, it
+concluded that Crowley failed to raise a genuine issue of
+material fact regarding their alleged liability because the
+“uncontroverted evidence” and “undisputed facts” reflected
+that he had improperly identified them in his second amended
+complaint as the persons responsible for a deliberate
+indifference to his serious medical needs, and that the level of
+care they did provide him, as evidenced by the medical
+records, “cannot state a claim for deliberate indifference to
+[Crowley’s] serious medical needs.” With respect to all
+defendants, except for Dr. Sussman who was not a party to
+the motion, the district court also concluded, alternatively,
+that these defendants were entitled to qualified immunity
+because there was no clearly established law that would have
+put them on notice that their conduct was unlawful.
+
+    The same day the district court issued its order granting
+summary judgment in favor of Dr. Bannister, Warden Neven,
+and nurses Diliddo, Grisham, and Balao-Cledera, the clerk
+entered judgment also dismissing this action against Dr.
+Sussman. Crowley timely appealed. In addition to filing his
+notice of appeal, Crowley lodged a proposed third amended
+complaint against Dr. Bannister, Dr. Holmes, Ms. Walsh, and
+nurses Orden and Cordero.
+
+                               II
+
+    Represented by counsel on appeal, Crowley argues that
+the district court erred in granting summary judgment because
+(1) “the evidence would allow a reasonable jury to conclude
+                  CROWLEY V. BANNISTER                       11
+
+that [Dr. Sussman and Dr. Bannister] acted with deliberate
+indifference to [his] medical needs,” (2) the district court
+abused its discretion in denying his request for leave to amend
+his second amended complaint, and (3) the district court
+failed to advise him that he could request that it defer
+considering defendants’ motions until after discovery. He
+expressly waived any challenge to the district court’s grant of
+summary judgment in favor of Warden Neven and nurses
+Diliddo, Grisham, and Balao-Cledera in his reply brief.
+
+                               A
+
+    Crowley filed a timely notice of appeal. We have
+jurisdiction to review final decisions of the district court
+under 28 U.S.C. § 1291. Neither party addressed our
+jurisdiction in view of the fact that the district court granted
+summary judgment to fewer than all the named defendants.
+Nor did the parties address whether a district court is
+empowered to enter judgment against a party that was never
+served. Because we are required to raise issues concerning
+our appellate jurisdiction sua sponte, United States ex rel.
+Shutt v. Cmty. Home & Health Care Servs., Inc., 550 F.3d
+764, 766 (9th Cir. 2008), we asked the parties to file
+supplemental briefs regarding our jurisdiction to hear this
+appeal. In response to our request, Crowley now asks that we
+dismiss his appeal and remand because the district court’s
+decision was not final for purposes of conferring jurisdiction
+under 28 U.S.C. § 1291. We disagree.
+
+    “If an action is dismissed as to all of the defendants who
+have been served and only unserved defendants remain, the
+district court’s order may be considered final under Section
+1291 for the purpose of perfecting an appeal.” Patchick v.
+12                CROWLEY V. BANNISTER
+
+Kensington Publ’g Corp., 743 F.2d 675, 677 (9th Cir. 1984)
+(per curiam). This Court has recognized a limited exception
+where “it is clear from the course of proceedings that further
+adjudication is contemplated.” Disabled Rights Action
+Comm. v. Las Vegas Events, Inc., 375 F.3d 861, 872 (9th Cir.
+2004).
+
+    In Patchick, 743 F.2d at 676, the district court granted a
+dismissal requested by some, but not all defendants. Because
+plaintiff had attempted to serve the remaining defendants and
+had not conceded that service was improper, this Court
+dismissed the appeal for lack of jurisdiction, holding that
+“[t]he action cannot be final until the service dispute is
+resolved by the district court in favor of [those] defendants or
+until the action is dismissed as to those defendants.” Id. at
+677.
+
+    The district court’s order granted summary judgment in
+favor of the defendants who had been served, and the parties
+do not dispute that the only remaining defendant, Dr.
+Sussman, was never served. Nothing in the district court’s
+order suggests that further adjudication was contemplated,
+and the clerk entered judgment in favor of all defendants that
+same day, finally disposing of the action against all
+defendants. See Nat’l Distrib. Agency v. Nationwide Mut. Ins.
+Co., 117 F.3d 432, 434 (9th Cir. 1997) (“Had the court
+entered a separate final judgment subsequent to the dismissal
+order, we would be confident the court intended no further
+action in this case.”). Crowley’s subsequent lodging of a
+proposed third amended complaint occurred at the same time
+that he filed a notice of appeal; he did not name Dr. Sussman
+as a defendant in that complaint. We are persuaded that we
+have jurisdiction to review this appeal.
+                  CROWLEY V. BANNISTER                      13
+
+                              B
+
+    Even though the district court’s grant of summary
+judgment was a final order, we cannot reach the merits of
+Crowley’s claims against Dr. Sussman, as he was never
+served with the complaint and summons. “‘A federal court is
+without personal jurisdiction over a defendant unless the
+defendant has been served in accordance with Fed. R. Civ. P.
+4.’” Travelers Cas. & Sur. Co. of Am. v. Brenneke, 551 F.3d
+1132, 1135 (9th Cir. 2009) (quoting Benny v. Pipes, 799 F.2d
+489, 492 (9th Cir. 1986)). “[W]hether personal jurisdiction
+can be exercised is a question of law reviewable de novo
+when the underlying facts are undisputed.” Id. (citing FDIC
+v. British-Am. Ins. Co., 828 F.2d 1439, 1441 (9th Cir. 1987)).
+
+    “‘Rule 4 is a flexible rule that should be liberally
+construed so long as a party receives sufficient notice of the
+complaint.’” Benny, 799 F.2d at 492 (quoting United Food &
+Commercial Workers Union v. Alpha Beta Co., 736 F.2d
+1371, 1382 (9th Cir. 1984)). However, “[n]either actual
+notice, nor simply naming the person in the caption of the
+complaint, will subject defendants to personal jurisdiction if
+service was not made in substantial compliance with Rule 4.”
+Jackson v. Hayakawa, 682 F.2d 1344, 1347 (9th Cir. 1982)
+(internal citations omitted).
+
+    The parties do not dispute that Crowley failed to serve Dr.
+Sussman; therefore, the district court lacked personal
+jurisdiction over Dr. Sussman and should have proceeded
+under Rule 4(m) to dismiss the complaint against Dr.
+Sussman without prejudice. Rule 4(m) provides that:
+14                 CROWLEY V. BANNISTER
+
+        If a defendant is not served within 120 days
+        after the complaint is filed, the court—on
+        motion or on its own after notice to the
+        plaintiff—must dismiss the action without
+        prejudice against that defendant or order that
+        service be made within a specified time. But
+        if the plaintiff shows good cause for the
+        failure, the court must extend the time for
+        service for an appropriate period.
+
+Fed. R. Civ. P. 4(m) (emphasis added). “As indicated by the
+plain language of Rule 4(m), notice to the plaintiff must be
+given prior to sua sponte dismissal.” Thompson v.
+Maldonado, 309 F.3d 107, 110 (2d Cir. 2002) (per curiam).
+“[A] district court abuses its discretion when . . . it dismisses
+a complaint sua sponte for lack of service without first giving
+notice to the plaintiff and providing an opportunity for [him]
+to show good cause for the failure to effect timely service.”
+Meilleur v. Strong, 682 F.3d 56, 61 (2d Cir.) (citing Famous
+Horse Inc. v. 5th Ave. Photo Inc., 624 F.3d 106, 115 (2d Cir.
+2010)), cert. denied, 133 S. Ct. 655 (2012).
+
+    The Seventh Circuit analyzed Rule 4(m) in Brengettcy v.
+Horton, 423 F.3d 674, 683 (7th Cir. 2005). In that matter, the
+district court dismissed on its own motion plaintiff’s claims
+against certain defendants for failure to perfect service
+consistent with Rule 4. Id. On appeal, the Seventh Circuit
+held that the district court erred because it did not “giv[e the
+plaintiff] notice, an opportunity to show good cause, and an
+opportunity to request an extension of time . . . .” Id. It
+remanded to the district court with instructions to reinstate the
+plaintiff’s suit allowing plaintiff “an opportunity to show
+either that there was good cause to explain his earlier failure
+                      CROWLEY V. BANNISTER                              15
+
+to effect service or that he is otherwise entitled to an
+extension of time.” Id.
+
+    In its April 25, 2011, screening order, the district court
+instructed Crowley to complete service within 120 days from
+the Attorney General’s service of a statement that she would
+not be able to accept service for a defendant. The parties
+dispute whether Crowley received this order. The district
+court’s docket indicates that the notice was “[r]eturned as
+[u]ndeliverable” and was “not remailed,” as “[n]o other
+address [was] available.” No further entries appear on the
+docket to reflect whether the order was resent to Crowley
+after he advised the district court of his new address the
+following week.1
+
+    Because the record does not reflect that the district court
+provided the required Rule 4(m) notice prior to the clerk’s
+entry of judgment in favor of Dr. Sussman, plaintiff was
+“precluded from attempting to show good cause” or excusable
+neglect for his failure to serve Dr. Sussman in a timely
+manner. Thompson, 309 F.3d at 110. This Court has
+explained that
+
+
+
+   1
+      In a letter submitted after oral argument, the Attorney General
+maintains that the order was resent to Crowley’s correct address on May
+10, 2011, and points to an alleged “note” on the district court’s docket in
+support of his contention. This note does not appear in the public docket;
+nor does it appear in the record. Because this unsworn factual statement
+is not properly before us, we cannot consider it. Barcamerica Int’l USA
+Trust v. Tyfield Imps., Inc., 289 F.3d 589, 593 n.4 (9th Cir. 2002) (holding
+that “arguments and statements of counsel ‘are not evidence . . . .’”
+(quoting Smith v. Mack Trucks, 505 F.2d 1248, 1249 (9th Cir. 1974) (per
+curiam))).
+16                CROWLEY V. BANNISTER
+
+       Rule 4(m) provides two avenues for relief.
+       The first is mandatory: the district court must
+       extend time for service upon a showing of
+       good cause. The second is discretionary: if
+       good cause is not established, the district court
+       may extend time for service upon a showing
+       of excusable neglect. Exercise of discretion to
+       extend time to complete service is appropriate
+       when, for example, a statute-of-limitations bar
+       would operate to prevent re-filing of the
+       action.
+
+Lemoge v. United States, 587 F.3d 1188, 1198 (9th Cir. 2009)
+(internal citations omitted). The Attorney General concedes
+Crowley may have had valid grounds for requesting an
+extension of the time to serve Dr. Sussman under Rule 4(m)
+because the statute of limitations “ran on or about May 18,
+2011—the same day the [Notice of Acceptance of Service]
+was sent to Crowley.” The district court abused its discretion
+in failing to provide Crowley with the opportunity to show
+good cause or excusable neglect. In addition, the clerk also
+violated Rule 4(m) by entering judgment in favor of Dr.
+Sussman when it should have dismissed the complaint against
+him without prejudice.
+
+   In view of the district court’s failure to comply with Rule
+4(m), we vacate the entry of judgment in favor of Dr.
+Sussman and remand for further proceedings.
+
+                              C
+
+    The district court granted summary judgment in favor of
+Dr. Bannister because Crowley failed to produce evidence
+                   CROWLEY V. BANNISTER                       17
+
+raising a genuine issue of material fact that Dr. Bannister
+knew of the alleged constitutional violations. Crowley does
+not contest this determination on appeal, but instead argues
+that Dr. Bannister is liable as a supervisor because he was in
+charge of implementing a drug distribution policy that
+resulted in harm. He argues that Dr. Bannister “adhere[d] to
+a ‘two pill call’ policy” despite the medical risks.
+
+    Even though the district court did not consider this theory
+of liability in its order, “[w]e may affirm on any ground
+present in the record.” O’Guinn v. Lovelock Corr. Ctr.,
+502 F.3d 1056, 1059 (9th Cir. 2007) (citing In re Harbin,
+486 F.3d 510, 520 (9th Cir. 2007)). “We review a grant of
+summary judgment de novo and must determine, viewing the
+facts in the light most favorable to the nonmoving party,
+whether there are any genuine issues of material fact and
+whether the district court correctly applied the relevant
+substantive law.” Snow v. McDaniel, 681 F.3d 978, 985 (9th
+Cir. 2012) (citing Lopez v. Smith, 203 F.3d 1122, 1131 (9th
+Cir. 2000) (en banc)).
+
+    “‘Under Section 1983, supervisory officials are not liable
+for actions of subordinates on any theory of vicarious
+liability.’” Id. at 989 (quoting Hansen v. Black, 885 F.2d 642,
+645–46 (9th Cir. 1989)). “A supervisor may be liable only if
+(1) he or she is personally involved in the constitutional
+deprivation, or (2) there is ‘a sufficient causal connection
+between the supervisor’s wrongful conduct and the
+constitutional violation.’” Id. (quoting Hansen, 885 F.2d at
+646). Under the latter theory, “[s]upervisory liability exists
+even without overt personal participation in the offensive act
+if supervisory officials implement a policy so deficient that
+the policy ‘itself is a repudiation of constitutional rights’ and
+18                CROWLEY V. BANNISTER
+
+is ‘the moving force of a constitutional violation.’” Hansen,
+885 F.2d at 646 (quoting Thompkins v. Belt, 828 F.2d 298,
+304 (5th Cir. 1987)).
+
+    Crowley failed to raise a genuine issue of material fact as
+to causation. See OSU Student Alliance v. Ray, 699 F.3d
+1053, 1076 (9th Cir. 2012) (“Advancing a policy that requires
+subordinates to commit constitutional violations is always
+enough for § 1983 liability . . . so long as the policy
+proximately causes the harm—that is, so long as the
+plaintiff’s constitutional injury in fact occurs pursuant to the
+policy.”), cert. denied, No. 12-1296, 2013 WL 1808554 (Oct.
+7, 2013). Dr. Bannister’s declaration states that the change in
+dosage had either no effect or benefitted Crowley and that his
+Lithium toxicity was attributable to other causes, likely
+dehydration resulting from polyuria or his diet. Crowley
+presented no evidence that the change from three to two daily
+doses, without increasing the total amount of Lithium
+prescribed, could have caused his Lithium toxicity.
+
+     In view of Dr. Bannister’s uncontradicted declaration,
+Crowley has failed to raise a genuine issue of material fact
+that his injury could have been avoided had Dr. Bannister
+implemented a policy allowing for the administration of three
+pill calls per day. The district court did not err in granting
+summary judgment in favor of Dr. Bannister.
+
+                               D
+
+    Crowley contends further that the district court should
+have granted him leave to amend his second amended
+complaint because his failure to identify the correct
+defendants was understandable based on his incapacitation at
+                  CROWLEY V. BANNISTER                       19
+
+the time of the incident. He requested leave to amend in his
+second amended complaint and in his opposition to the
+Attorney General’s motions.
+
+    Even though the district court did not expressly rule on
+Crowley’s requests, its order granting summary judgment
+“necessarily entailed a denial of the alternative request for
+leave to amend and a determination . . . ‘that the pleading
+could not possibly be cured by the allegation of other facts.’”
+Knevelbaard Dairies v. Kraft Foods, Inc., 232 F.3d 979, 983
+(9th Cir. 2000) (quoting Lopez, 203 F.3d at 1127). We
+review for abuse of discretion the denial of a motion to amend
+the complaint. Hall v. City of Los Angeles, 697 F.3d 1059,
+1072 (9th Cir. 2012).
+
+    “Federal Rule of Civil Procedure 15(a) provides that a
+party may amend its pleading once as a matter of course
+within certain time limits, or, in all other instances, with the
+court’s leave.” Id. (citing Fed. R. Civ. P. 15(a)). “‘[L]eave to
+amend should be granted if it appears at all possible that the
+plaintiff can correct the defect.’” Lopez, 203 F.3d at 1130
+(emphasis added) (quoting Balistreri v. Pacifica Police Dep’t,
+901 F.2d 696, 701 (9th Cir. 1990)). “[T]he ‘rule favoring
+liberality in amendments to pleadings is particularly important
+for the pro se litigant. Presumably unskilled in the law, the
+pro se litigant is far more prone to make errors in pleading
+than the person who benefits from the representation of
+counsel.’” Id. at 1131 (quoting Noll v. Carlson, 809 F.2d
+1446, 1448 (9th Cir. 1987)).
+
+   A district court abuses its discretion by denying leave to
+amend where the complaint’s deficiencies could be cured by
+naming the correct defendant. See, e.g., id. at 1130–31
+20                CROWLEY V. BANNISTER
+
+(complaint named the wrong defendant); Lucas v. Dep’t of
+Corr., 66 F.3d 245, 248–49 (9th Cir. 1995) (complaint failed
+to name individual defendants). If the identity of any
+defendant is unknown, “the plaintiff should be given an
+opportunity through discovery to identify the unknown
+defendants, unless it is clear that discovery would not uncover
+the identities, or that the complaint would be dismissed on
+other grounds.” Gillespie v. Civiletti, 629 F.2d 637, 642 (9th
+Cir. 1980).
+
+    Crowley also alleged that his cellmate requested medical
+assistance on his behalf on May 10, 2009, but that Nurse
+Diliddo ignored the request and refused to treat him; and that
+his cellmate again requested medical assistance several days
+later on May 14, but that he had to wait six hours after Nurse
+Balao-Cledera responded to the request before he was
+admitted to the infirmary. Crowley misidentified nurses
+Diliddo and Balao-Cledera as responsible for this conduct.
+The medical records show that Nurse Cordero was the nurse
+who responded to a cellmate’s request on May 16, the day he
+was actually admitted to the infirmary. The present record
+does not identify the individual who allegedly failed to
+respond on May 10.
+
+    “A prison official violates the Eighth Amendment when
+he acts with ‘deliberate indifference’ to the serious medical
+needs of an inmate.” Snow, 681 F.3d at 985 (quoting Farmer
+v. Brennan, 511 U.S. 825, 828 (1994)). “Indifference ‘may
+appear when prison officials deny, delay or intentionally
+interfere with medical treatment, or it may be shown by the
+way in which prison officials provide medical care.’” Jett v.
+Penner, 439 F.3d 1091, 1096 (9th Cir. 2006) (quoting
+McGuckin v. Smith, 974 F.2d 1050, 1059 (9th Cir. 1992),
+                   CROWLEY V. BANNISTER                       21
+
+overruled on other grounds by WMX Techs., Inc. v. Miller,
+104 F.3d 1133 (9th Cir. 1997) (en banc)).
+
+    We conclude that the district court abused its discretion in
+denying Crowley leave to amend his second amended
+complaint to name the correct defendants and to discover
+whether any delays on their part in providing medical
+treatment caused or exacerbated his Lithium toxicity
+constituting indifference to his medical needs.
+
+                               E
+
+     The district court issued a notice to Crowley pursuant to
+Klingele and Rand. Crowley concedes that the notice he
+received complies with the law of this Circuit. He invites us,
+however, to expand the required notice to advise pro se
+litigants of their right under Rule 56(d) to seek additional time
+to conduct discovery before facing a dispositive motion.
+
+    This Court adopted the notice requirement because “it
+effectuates the purpose of the Federal Rules to eliminate
+‘procedural booby traps’ which could prevent
+‘unsophisticated litigants from ever having their day in
+court.’” Rand, 154 F.3d at 958–59 (quoting Surowitz v.
+Hilton Hotels Corp., 383 U.S. 363, 373 (1966)). Under the
+law of this Circuit, where, as here, a plaintiff does not know
+the identity of a defendant prior to the filing of a complaint,
+he “should be given an opportunity through discovery to
+identify the unknown defendants . . . .” Gillespie, 629 F.2d at
+642. Accordingly, Crowley will have the opportunity on
+remand to attempt to name the proper parties, after any
+discovery opportunity the district court permits. We decline
+22                    CROWLEY V. BANNISTER
+
+Crowley’s invitation to expand the required contents of the
+notice to pro se litigants at this time.2
+
+                             CONCLUSION
+
+    We vacate and remand the entry of judgment in favor of
+Dr. Sussman because the district court failed to comply with
+Rule 4(m), and we also vacate and remand its denial of
+Crowley’s request for leave to amend. We affirm the district
+court’s grant of summary judgment in favor of Dr. Bannister,
+Warden Neven, and nurses Grisham, Diliddo, and Balao-
+Cledera.
+
+  VACATED               in    part;      AFFIRMED            in     part;
+REMANDED.
+
+  EACH PARTY SHALL BEAR ITS OWN COSTS ON
+APPEAL.
+
+
+
+
+  2
+    We decline at present to require an expansion of the Rand/Klingele
+notice. However, district courts could be well served by refraining from
+converting motions to dismiss into motions for summary judgment, or,
+when doing so, advising pro se plaintiffs of their rights under Rule 56(d).
+

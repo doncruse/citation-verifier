@@ -1,0 +1,952 @@
+Sundance, Inc. v. DeMonte Fabricating Ltd.
+550 F.3d 1356, 89 U.S.P.Q. 2d (BNA) 1535, 78 Fed. R. Serv. 320, 2008 U.S. App. LEXIS 26082, 2008 WL 5351734
+Court of Appeals for the Federal Circuit
+Filed: 2008-12-24
+Docket No. 2008-1068, 2008-1115
+Source: https://www.courtlistener.com/opinion/209411/sundance-inc-v-demonte-fabricating-ltd/
+------------------------------------------------------------
+
+ United States Court of Appeals for the Federal Circuit
+
+
+                                   2008-1068, -1115
+
+
+
+                        SUNDANCE, INC. and
+     MERLOT TARPAULIN AND SIDEKIT MANUFACTURING COMPANY, INC.,
+
+                                                       Plaintiffs-Cross Appellants,
+
+                                            v.
+
+                           DEMONTE FABRICATING LTD.
+                    and QUICKDRAW TARPAULIN SYSTEMS INC.,
+
+                                                       Defendants-Appellants.
+
+
+
+
+        Thomas C. Wettach, Cohen & Grigsby, P.C., of Pittsburgh, Pennsylvania, argued
+for plaintiffs-cross-appellants. Of counsel on the brief were Kevin J. Heinl and Robert C.
+Brandenburg, Brooks Kushman P.C., of Southfield, Michigan.
+
+      Richard L. Rainey, Covington & Burling LLP, of Washington, DC, argued for
+defendants-appellants. With him on the brief were Roderick R. McKelvie, Scott C.
+Weidenfeller, and Roger A. Ford.
+
+Appealed from: United States District Court for the Eastern District of Michigan
+
+Senior Judge Avern Cohn
+ United States Court of Appeals for the Federal Circuit
+
+                                    2008-1068, -1115
+
+                         SUNDANCE, INC. and
+      MERLOT TARPAULIN AND SIDEKIT MANUFACTURING COMPANY, INC.,
+
+                                                               Plaintiffs-Cross Appellants,
+
+                                            v.
+
+                          DEMONTE FABRICATING LTD.
+                   and QUICKDRAW TARPAULIN SYSTEMS, INC.,
+
+                                                               Defendants-Appellants.
+
+
+Appeals from the United States District Court for the Eastern District of Michigan in
+Case No. 02-CV-73543, Senior Judge Avern Cohn.
+
+
+                           ____________________________
+
+                           DECIDED: December 24, 2008
+                           ____________________________
+
+Before DYK, PROST, and MOORE, Circuit Judges.
+
+MOORE, Circuit Judge.
+
+      Plaintiffs-Cross Appellants Sundance, Inc. and Merlot Tarpaulin and Sidekit
+
+Manufacturing Co., Inc. (collectively, Sundance) sued Defendants-Appellants DeMonte
+
+Fabricating Ltd. and Quick Draw Tarpaulin Systems, Inc. (collectively, DeMonte) in the
+
+United States District Court for the Eastern District of Michigan for infringement of claim
+
+1 of U.S. Patent No. 5,026,109 (the ’109 patent). A jury concluded that claim 1 was
+
+infringed but invalid for obviousness under 35 U.S.C. § 103.
+
+      Following the jury verdict, Sundance moved for judgment as a matter of law
+
+(JMOL) that the ’109 patent was not invalid. The court granted Sundance’s motion, and
+denied DeMonte’s motion asking for reconsideration in light of KSR International Co. v.
+
+Teleflex Inc., 127 S. Ct. 1727 (2007).             DeMonte also moved for JMOL of
+
+noninfringement, which the court denied. DeMonte appeals both rulings. Sundance
+
+cross-appeals the district court’s denial of prejudgment interest for infringing sales made
+
+prior to the date it filed suit. For the reasons set forth below, we reverse the district
+
+court’s judgment that the asserted claims are nonobvious as a matter of law, thereby
+
+resolving all issues between the parties.
+
+                                      BACKGROUND
+
+       The ’109 patent is directed to retractable segmented covering systems for
+
+“almost any structure or container,” such as truck trailers, swimming pools, porches, and
+
+patios. ’109 patent col.2 ll.35-43. Independent claim 1, the only asserted claim in this
+
+suit, reads as follows:
+
+       A retractable segmented cover system used with a truck trailer comprising
+       a plurality of flexible cover sections with a plurality of substantially parallel
+       supporting bows spaced therebetween and a drive assembly, wherein
+       each cover section is detachably connected between substantially parallel
+       supporting bows, the bows are slideably supported on the truck trailer and
+       at least one bow is fixedly connected to the drive assembly such that the
+       cover system can be extended or retracted by the drive assembly and
+       wherein a cover section can be removed from the cover system
+       independent of the other cover sections.
+
+       At trial, relevant to this appeal, DeMonte presented two prior art references to the
+
+jury as a basis for a determination of obviousness—U.S. Patent Nos. 4,189,178
+
+(Cramaro) and 3,415,260 (Hall).        Cramaro discloses a retractable tarpaulin cover
+
+system for use in trucks. The parties agree that the difference between the cover
+
+system disclosed in claim 1 of the ’109 patent and the Cramaro cover system is that
+
+Cramaro does not include “segmented tarps.” Sundance’s Br. at 26. The parties further
+
+
+
+2008-1068,-1115                               2
+agree that Hall discloses a cover system divided into a number of “flexible screen
+
+members.” Id. at 27. Hall indicates that its system “may be used as a truck cover.” Hall
+
+col.6 l.48. Demonte’s patent law expert, Daniel Bliss, opined that one of ordinary skill in
+
+the art would be motivated to combine Cramaro and Hall. 1 The jury determined that
+
+claim 1 of the ’109 patent was obvious.
+
+       In a decision rendered before the Supreme Court’s holding in KSR, the district
+
+court granted Sundance’s motion for JMOL, ruling that “there was not sufficient
+
+evidence for the jury to conclude that one skilled in the art would have combined Hall
+
+and Cramaro so as to arrive at the invention—a segmented tarp used for truck covers.”
+
+Sundance, Inc. v. DeMonte Fabricating Ltd., No. 02-73543, 2006 WL 2708541, at *5
+
+(E.D. Mich. Sept. 20, 2006). In particular, the district court concluded that Hall was
+
+“prior art outside of the truck environment which used segmented tarps,” “a segmented
+
+pool cover,” and “a segmented non truck cover.” Id. at *3-4.
+
+       In its ruling, the court also noted that Mr. Bliss “did not cite any references in
+
+either [Hall or Cramaro] to support his conclusion” that a person of ordinary skill in the
+
+art would have a motivation to combine the references. Id. at *5. Nor did the court find
+
+any “suggestion in the art to combine” Cramaro—which the court characterized as a
+
+truck cover—with Hall—which the court characterized as a non truck cover. Id. The
+
+court reasoned that its conclusion—that DeMonte failed to adduce sufficient evidence
+
+for the jury to conclude that one skilled in the art would have combined Hall and
+
+Cramaro—was “especially true in light of the fact that the level of skill in the art is low
+
+       1
+             Sundance objected to the admission of the testimony of Mr. Bliss on the
+issues of invalidity and noninfringement, arguing that Mr. Bliss was not qualified as a
+technical expert, but merely a patent law expert. As explained below, the district court
+erroneously admitted the testimony over Sundance’s objection.
+2008-1068,-1115                             3
+and focuses on tarps used for truck covers.” Id. (emphasis added). The district court
+
+further stated that “secondary considerations . . . support[] a finding of nonobviousness,”
+
+including “long-felt but unresolved need” and “copying.” Id. After the Supreme Court
+
+decided KSR, DeMonte moved for reconsideration, which the district court denied,
+
+stating that it had not rigidly applied the teaching, suggestion, and motivation test in its
+
+original analysis.
+
+       DeMonte has timely appealed, and Sundance has timely cross-appealed. We
+
+have jurisdiction pursuant to 28 U.S.C. § 1295(a)(1).
+
+                                       DISCUSSION
+
+                                                I.
+
+       We first consider the district court’s admission of testimony from DeMonte’s
+
+patent law expert, Mr. Bliss. Federal Rule of Evidence 702 provides that:
+
+       [i]f scientific, technical, or other specialized knowledge will assist the trier
+       of fact to understand the evidence or to determine a fact in issue, a
+       witness qualified as an expert by knowledge, skill, experience, training, or
+       education may testify thereto in the form of an opinion or otherwise, if
+       (1) the testimony is based upon sufficient facts or data, (2) the testimony is
+       the product of reliable principles and methods, and (3) the witness has
+       applied the principles and methods reliably to the facts.
+
+Under Daubert v. Merrill Dow Pharmaceuticals, Inc., 509 U.S. 579, 597 (1993), and
+
+Rule 702, courts are charged with a “gatekeeping role,” the objective of which is to
+
+ensure that expert testimony admitted into evidence is both reliable and relevant. See
+
+also Kumho Tire Co. v. Carmichael, 526 U.S. 137, 149 (1999) (holding that Rule 702
+
+applies not only to “scientific” testimony, but to all expert testimony). Patent cases, like
+
+all other cases, are governed by Rule 702. There is, of course, no basis for carving out
+
+a special rule as to experts in patent cases.
+
+
+
+2008-1068,-1115                                 4
+       We note that “[a]dmission of expert testimony is within the discretion of the trial
+
+court.” Acoustical Design, Inc. v. Control Elecs. Co., 932 F.2d 939, 942 (Fed. Cir. 1991)
+
+(citing Salem v. U.S. Lines Co., 370 U.S. 31, 35 (1962)). We review the admission of
+
+expert testimony for an abuse of discretion. Id. (citing Seattle Box Co. v. Indus. Crating
+
+& Packing, Inc., 731 F.2d 818, 826 (Fed. Cir. 1984)); see also Kumho Tire Co., 526 U.S.
+
+at 152 (“[A] court of appeals is to apply an abuse-of-discretion standard when it reviews
+
+a trial court’s decision to admit or exclude expert testimony.”).
+
+       DeMonte submitted the expert report of Mr. Bliss to the district court, indicating
+
+that Mr. Bliss would opine on: USPTO practices and procedures (eight pages explaining
+
+prosecution and reexamination); claim construction (four pages interpreting the claim
+
+construction ruling); noninfringement (seven pages concluding that the claims of the
+
+’109 patent are not infringed); invalidity, including anticipation and obviousness (thirteen
+
+pages concluding that the claims of the ’109 patent are invalid); and inequitable conduct
+
+(six pages concluding that the ’109 patent is unenforceable due to inequitable conduct).
+
+Expert Report of Daniel H. Bliss (Docket No. 99-4, Mar. 28, 2006) (Report). Sundance
+
+objected, filing a motion in limine to preclude Mr. Bliss from testifying at trial. Sundance
+
+argued that Mr. Bliss “lacks appropriate technical background in the field of the
+
+invention.” Sundance also argued that Mr. Bliss was not qualified to testify about “his
+
+interpretation of the law governing invalidity, infringement,” or ultimate legal conclusions.
+
+       Opposing the motion, DeMonte argued that Mr. Bliss was qualified because he
+
+“is a patent attorney with extensive experience in patent law and procedure,” and that
+
+his testimony was admissible because courts may allow patent law experts to testify on
+
+“general procedures involved in the patent application process,” citing Bausch & Lomb,
+
+
+
+2008-1068,-1115                              5
+Inc. v. Alcon Laboratories, Inc., 79 F. Supp. 2d 252, 254-55 (W.D.N.Y. 2000). DeMonte
+
+further argued that Mr. Bliss’s testimony should be admitted even though “Mr. Bliss may
+
+not have experience specifically with segmented tarpaulin systems” because his
+
+qualifications are “an appropriate subject for cross examination, but would go more to
+
+the weight to be given his testimony,” citing Cameco Industries, Inc. v. Louisiana Cane
+
+Manufacturing, Inc., No. 92-3158, 1995 U.S. Dist. LEXIS 11294, at *10-11 (E.D. La. July
+
+27, 1995). The district court denied the motion in limine without comment, thereby
+
+permitting Mr. Bliss to testify before the jury on all of the issues submitted in his expert
+
+report.
+
+          Although the motion in limine was denied in its entirety, Mr. Bliss did not actually
+
+testify as to all of the matters contained in his report. Mr. Bliss “was not asked to testify
+
+in general on patent office practice and procedure.” Oral Arg. 1:23-1:27, available at
+
+http://oralarguments.cafc.uscourts.gov/mp3/2008-1068.mp3. 2           Rather, his testimony
+
+focused on the issues of noninfringement and invalidity, including the factual predicates
+
+underlying obviousness as well as his conclusion that claim 1 of the ’109 patent would
+
+have been obvious.
+
+          In their appellate briefs and during oral argument, the parties disputed whether
+
+the district court properly admitted the testimony of Mr. Bliss on the issues of
+
+noninfringement and invalidity. Sundance argues that “[a]lthough DeMonte refers to Mr.
+
+Bliss as a technical expert, he has no technical experience in the field of truck[s] or
+
+tarps and practiced as an engineer for but a year and a half in unrelated areas. He was
+
+          2
+              We have no reason to doubt that Mr. Bliss—an experienced patent
+attorney—is qualified to testify as to patent office procedure generally. See Bausch &
+Lomb, Inc., 79 F. Supp. 2d at 254-55 (allowing testimony directed to general procedures
+involved in the patent application process).
+2008-1068,-1115                                6
+not qualified at trial as a technical expert.”      Sundance’s Br. at 14 n.4.      DeMonte
+
+responded that “reliance on a ‘patent expert’ for ‘an opinion on the ultimate question,’
+
+such as infringement or invalidity, is entirely appropriate.” DeMonte’s Reply Br. at 5 n.1
+
+(citing Snellman v. Ricoh Co., 862 F.2d 283, 287 (Fed. Cir. 1988)).
+
+       We conclude that the district court abused its discretion in denying Sundance’s
+
+motion in limine; Mr. Bliss is not qualified to testify as an expert witness on the issues of
+
+infringement or validity. These issues are analyzed in great part from the perspective of
+
+a person of ordinary skill in the art, and testimony explaining the technical evidence
+
+from that perspective may be of great utility to the factfinder. 3
+
+       Despite the absence of any suggestion of relevant technical expertise, Mr. Bliss
+
+offered expert testimony on several issues which are exclusively determined from the
+
+perspective of ordinary skill in the art. In elaborate technical detail, Mr. Bliss opined on
+
+how the disclosed invention, accused system, and prior art operate, including his
+
+opinions as to the noninfringement and invalidity of claim 1 of the ’109 patent.
+
+
+
+       3
+                Patent claims are construed from the perspective of one of ordinary skill in
+the art. See Phillips v. AWH Corp., 415 F.3d 1303, 1313 (Fed. Cir. 2005). For the
+purposes of the doctrine of equivalents, identification of the claim elements as well as
+the determination of infringement itself are done from the perspective of one of ordinary
+skill in the art. See AquaTex Indus., Inc. v. Techniche Solutions, 479 F.3d 1320, 1329
+(Fed. Cir. 2007) (citing Graver Tank & Mfg. Co. v. Linde Air Prods. Co., 339 U.S. 605,
+609 (1950)). What a prior art reference discloses or teaches is determined from the
+perspective of one of ordinary skill in the art. Scripps Clinic & Research Found. v.
+Genentech, Inc., 927 F.2d 1565, 1576 (Fed. Cir. 1991) (“There must be no difference
+between the claimed invention and the reference disclosure, as viewed by a person of
+ordinary skill in the field of the invention.”). Whether a patent claim would have been
+obvious in light of prior art references is determined from the perspective of one of
+ordinary skill in the art. See KSR, 127 S. Ct. at 1742 (2007) (emphasizing that, in
+determining whether a patent combining known elements would have been obvious, the
+focal question is whether the combination was obvious to a person with ordinary skill in
+the art).
+
+
+2008-1068,-1115                                7
+       DeMonte failed to explain how Mr. Bliss possesses the relevant expertise in the
+
+pertinent art. 4 Mr. Bliss has no experience whatsoever in “the field of tarps or covers.”
+
+Nor does DeMonte purport that Mr. Bliss’s experience with engines and the like is
+
+sufficiently related to covers. See Cameco Indus., 1995 U.S. Dist. LEXIS 11294, at *10-
+
+11 (finding that expert’s education and experience were “sufficiently related to the
+
+subject matter of plaintiff’s patent to allow him to speak with authority on the issues of
+
+validity and infringement”). Mr. Bliss is not “qualified as an expert by knowledge, skill,
+
+experience, training, or education” in the pertinent art; we therefore fail to see how he
+
+could “assist the trier of fact to understand the evidence or to determine a fact in issue.”
+
+Fed. R. Evid. 702.
+
+
+
+       4
+               In its opening brief, DeMonte described Mr. Bliss as its “technical expert.”
+DeMonte’s Br. at 24. Nonetheless, the record clearly indicates that DeMonte at all
+times proffered Mr. Bliss as a patent law expert, and not as a technical expert. In
+response to Sundance’s interrogatories, DeMonte stated: “As to Daniel H. Bliss, the
+witness will be called to testify as a patent expert.” Def.’s Fourth Supp. Resp. to Pls.’
+First Set of Interrogs. to Defs. at 3 (emphasis added). DeMonte’s response to
+Sundance’s motion in limine presents Mr. Bliss as “a patent attorney with extensive
+experience in patent law and procedure,” without any reference to his technical
+background. DeMonte did not suggest that Mr. Bliss was one of ordinary skill in the art
+or a technical expert. Rather it relied upon examples where patent law experts have
+been permitted in district courts to offer testimony on claim construction, infringement
+and validity, citing Bausch & Lomb and Cameco.
+       Mr. Bliss’s pre-trial expert report details his years of experience as a patent
+attorney, including preparation of opinions on invalidity and knowledge of USPTO
+practice and procedure. Report at 3. The report does not present Mr. Bliss as having
+any personal technical experience, or skills in the field of mechanics, much less covers.
+Although Mr. Bliss also stated in his report that he has experience in “the vehicle field,”
+support for this statement was only in the context of preparing and prosecuting patent
+applications for inventions in the vehicle field and in testifying “as an expert on patent
+law and patent office procedure” in connection with a separate suit also related to the
+vehicle field. Id. at 3. Nor does his appended curriculum vitae reveal any relevant
+technical experience with vehicle or other cover systems. Id. at 50. Indeed, his report
+opines that the level of ordinary skill in the art “would be someone with a high school
+education and one or more years of experience in the field of tarps or covers”—
+experience that he himself lacks. Id. at 40.
+2008-1068,-1115                              8
+       Admitting testimony from a person such as Mr. Bliss, with no skill in the pertinent
+
+art, serves only to cause mischief and confuse the factfinder. Unless a patent lawyer is
+
+also a qualified technical expert, his testimony on these kinds of technical issues is
+
+improper and thus inadmissible. Because Mr. Bliss was never offered as a technical
+
+expert, and in fact was not qualified as a technical expert, it was an abuse of discretion
+
+for the district court to permit him to testify as an expert on the issues of
+
+noninfringement or invalidity.
+
+       DeMonte relies on Snellman, 862 F.2d at 287, for the proposition that we
+
+previously allowed patent law experts to testify on the meaning of technical terms in
+
+claims and to give opinions on ultimate questions of infringement and invalidity.
+
+DeMonte mischaracterizes our holding in Snellman. In Snellman, we acknowledged
+
+that there was substantial evidence to uphold the jury verdict which included testimony
+
+from a patent law expert. Neither party raised the admissibility of the patent lawyer’s
+
+testimony nor did we address this issue. The opinion mentions the patent lawyer’s
+
+testimony in just two sentences without any analysis of the propriety of such testimony.
+
+See United States v. L.A. Tucker Truck Lines, Inc., 344 U.S. 33, 38 (1952) (holding that
+
+an issue neither “raised in briefs or argument nor discussed in the opinion of the Court”
+
+cannot be taken as “a binding precedent on this point”).
+
+       We have on several occasions upheld a district court’s exclusion of testimony by
+
+a patent law expert. See, e.g., Medtronic Inc. v. Intermedics, Inc., 799 F.2d 734, 741
+
+(Fed. Cir. 1986) (determining no abuse of discretion where trial court excluded patent
+
+law expert’s testimony relating to the infringement of the asserted claims); see also
+
+Union Carbide Corp. v. Am. Can Co., 724 F.2d 1567, 1572 (Fed. Cir. 1984) (agreeing
+
+
+
+2008-1068,-1115                             9
+with a district court that gave little weight to the opinion of a former patent attorney with
+
+no “expertise as to the scope of the field of endeavor of the inventions of the patents in
+
+suit or as to what other fields are analogous art”); Endress + Hauser, Inc. v. Hawk
+
+Measurement Sys. Pty. Ltd., 122 F.3d 1040, 1042 (Fed. Cir. 1997) (“Indeed, this court
+
+has on numerous occasions noted the impropriety of patent lawyers testifying as expert
+
+witnesses and giving their opinion regarding the proper interpretation of a claim as a
+
+matter of law, the ultimate issue for the court to decide.”). In light of all the contrary
+
+precedent and the non-existent analysis in Snellman, we conclude that Snellman does
+
+not control the disposition in this case.
+
+       We hold that it is an abuse of discretion to permit a witness to testify as an expert
+
+on the issues of noninfringement or invalidity unless that witness is qualified as an
+
+expert in the pertinent art.     Testimony proffered by a witness lacking the relevant
+
+technical expertise fails the standard of admissibility under Fed. R. Evid. 702. Indeed,
+
+where an issue calls for consideration of evidence from the perspective of one of
+
+ordinary skill in the art, it is contradictory to Rule 702 to allow a witness to testify on the
+
+issue who is not qualified as a technical expert in that art. We understand that patent
+
+lawyers are often qualified to testify as technical experts, but such a qualification must
+
+derive from a lawyer’s technical qualifications in the pertinent art.
+
+       We do not, of course, suggest that being a person of ordinary skill in the art
+
+automatically entitles a witness to testify as an expert on these or other matters. On the
+
+other hand, our opinion should not be read as suggesting that Rule 702 requires a
+
+witness to possess something more than ordinary skill in the art to testify as an expert.
+
+A witness possessing merely ordinary skill will often be qualified to present expert
+
+
+
+2008-1068,-1115                               10
+testimony both in patent trials and more generally. See Fed. R. Evid. 702; see also
+
+United States v. Wilson, 484 F.3d 267, 275-77 (4th Cir. 2007) (district court did not
+
+abuse discretion under Rule 702 by permitting police officer to testify as to the meaning
+
+of coded drug language); United States v. Marler, 614 F.2d 47, 49-50 (5th Cir. 1980)
+
+(district court did not err by permitting deputy fire marshal to offer expert testimony on
+
+cause of fire). Admission of expert testimony remains subject to the Rules of Evidence
+
+and is committed to the discretion of the district court. Fed. R. Evid. 702; Acoustical
+
+Design, 932 F.2d at 942. 5
+
+       With regard to invalidity, for example, a witness not qualified in the pertinent art
+
+may not testify as an expert as to anticipation, or any of the underlying questions, such
+
+as the nature of the claimed invention, what a prior art references discloses, or whether
+
+the asserted claims read on the prior art reference. See Acoustical Design, 932 F.2d at
+
+942 (sustaining trial court’s preclusion of patent expert from testifying about the drafting
+
+of claims to avoid prior art and that the claims in suit read on the prior art, as it would
+
+not have been of any benefit to the jury).
+
+       Nor may a witness not qualified in the pertinent art testify as an expert on
+
+obviousness, 6 or any of the underlying technical questions, such as the nature of the
+
+
+       5
+               Those of ordinary skill (or those of extraordinary skill) in the particular art
+are not, of course, the only witnesses who may testify as experts in a patent trial. For
+example, patent lawyers might offer testimony in contexts other than noninfringement
+and invalidity, such as patent office practice and procedure; a chemist not skilled in the
+particular art at issue might nevertheless appropriately testify as an expert as to the
+consequences of reacting two chemicals in a particular environment.
+       6
+              Our holding that it was an abuse of discretion to allow Mr. Bliss to testify
+on several issues including his opinion on the legal question of obviousness is not a
+general proclamation as to the admissibility of expert testimony on legal questions. The
+error here arises from Mr. Bliss’s lack of appropriate technical qualifications. Whether a
+qualified technical expert can testify as to the ultimate question of obviousness is of
+2008-1068,-1115                              11
+claimed invention, the scope and content of prior art, the differences between the
+
+claimed invention and the prior art, or the motivation of one of ordinary skill in the art to
+
+combine these references to achieve the claimed invention. See Medtronic, 799 F.2d at
+
+741; In re Deters, 515 F.2d 1152, 1155 (CCPA 1975) (rejecting patent expert testimony
+
+on nonobviousness where patent expert was not a person ordinarily skilled in the art
+
+and thus his opinion was “not evidence entitled to any weight in resolving the issue”).
+
+       DeMonte has failed to demonstrate any possible relevancy or reliability of Mr.
+
+Bliss’s testimony as to technical matters in light of his lack of relevant technical
+
+expertise. 7 Mr. Bliss lacks the necessary expertise to be of assistance to the court or
+
+the jury on the technical aspects of this case. The court, in its role as gatekeeper, must
+
+exclude expert testimony that is not reliable and not specialized, and which invades the
+
+
+
+course left to the discretion of the district court. We note, however, that our court has
+held that allowing a witness to testify before the jury on claim construction would be
+improper. See Cytologix Corp. v. Ventana Med. Sys., Inc., 424 F.3d 1168, 1172 (Fed.
+Cir. 2005) (noting that “[t]he risk of confusing the jury is high when experts opine on
+claim construction” before the jury); see also Endress + Hauser, 122 F.3d at 1042.
+       7
+                Notably, the District of Delaware has issued guidelines restricting the
+scope of patent law expert testimony to practice and procedure in the Patent and
+Trademark Office rather than legal issues and conclusions in an effort to prevent overly
+expansive expert testimony that may usurp the jury and judge’s roles. See Guidelines:
+Legal            Expert           Testimony           in        Patent           Cases,
+http://www.ded.uscourts.gov/SLR/Misc/Guidelines.pdf (last visited Dec. 9, 2008); John
+E. Kidd & Keeto H. Sabharwal, The District of Delaware: An Ideal Venue for Patent
+Litigators, 18 Del. Law. 16, 17 (Winter 2000); see also Nisus Corp. v. Perma-Chink Sys,
+Inc., No. 3:03-CV-120, 2005 U.S. Dist. LEXIS 41068, at *10 (E.D. Tenn. May 27, 2005)
+(limiting patent expert’s testimony just to USPTO practice and procedures); Minn.
+Mining & Mfg. Co. v. Appleton Papers, Inc., No. 4-95-786, 1998 U.S. Dist. LEXIS 22597,
+at *4-5 (D. Minn. June 25, 2008) (allowing a former patent examiner with a degree in
+electrical engineering to testify as to USPTO procedure, but not as to claim
+construction, infringement, or validity, because he had “not shown that he [wa]s
+qualified to offer opinions from the perspective of a person of ordinary skill in the
+relevant art”).
+
+
+2008-1068,-1115                              12
+province of the jury to find facts and that of the court to make ultimate legal conclusions.
+
+Allowing a patent law expert without any technical expertise to testify on the issues of
+
+infringement and validity amounts to nothing more than advocacy from the witness
+
+stand. 8 The district court’s denial of the motion in limine to exclude the testimony of Mr.
+
+Bliss, a person not skilled in the pertinent art, was an abuse of discretion.
+
+
+
+                                             II.
+
+       We now consider the district court’s entry of JMOL overturning the jury verdict of
+
+obviousness. Under Sixth Circuit law, we review a grant of a motion for JMOL de novo,
+
+using the same standard of review required of the district court. Johnson Controls, Inc.
+
+v. Jay Indus. Inc., 459 F.3d 717, 722 (6th Cir. 2006). JMOL is appropriate when viewing
+
+the evidence in a light most favorable to the non-moving party—giving that party the
+
+benefit of all reasonable inferences—there is no genuine issue of material fact for the
+
+jury, and reasonable minds could come to but one conclusion in favor of the moving
+
+party. Barnes v. City of Cincinnati, 401 F.3d 729, 736 (6th Cir. 2005) (citations omitted).
+
+       The consequence of our holding that the testimony of Mr. Bliss should have been
+
+excluded is that there was no expert testimony supporting a holding of obviousness; we
+
+conclude, however, that no such testimony was required because there are no
+
+       8
+               “Expert evidence can be both powerful and quite misleading because of
+the difficulty in evaluating it.” Daubert, 509 U.S. at 595. This concern is further
+compounded where the purported witness is an attorney. It is already difficult enough
+for courts to separate intricate questions of fact in patent cases from equally intricate
+questions of law. A technically unqualified patent attorney can do much mischief by
+leading the jury to seemingly sound conclusions without ever providing a well-grounded
+factual basis in the pertinent art. See Bausch & Lomb, Inc., 79 F. Supp. 2d at 255
+(“Simply put, testimony that is designed to instruct the jury on the applicable law is not
+admissible because, by purporting to do what lies with the exclusive province of the
+court, it cannot be helpful to the jury.”).
+2008-1068,-1115                              13
+underlying factual issues in dispute as to obviousness. The technology is simple and
+
+neither party claims that expert testimony is required to support such a holding. See
+
+Union Carbide, 724 F.2d at 1573 (“[T]he references and appellant’s invention are easily
+
+understandable without the need for expert explanatory testimony.”); see also Centricut,
+
+LLC v. Esab Group, Inc., 390 F.3d 1361, 1369-70 (Fed. Cir. 2004); Iron Grip Barbell
+
+Co., v. USA Sports, Inc., 392 F.3d 1317, 1323 n.3 (Fed. Cir. 2004). We reverse the
+
+district court’s grant of JMOL and conclude as a matter of law that claim 1 of the ’109
+
+patent would have been obvious and is therefore invalid. See KSR, 127 S. Ct. at 1745-
+
+46 (“The ultimate judgment of obviousness is a legal determination.”).         The factual
+
+inquiries underlying our determination of obviousness are not in material dispute
+
+regardless of the admissibility of the testimony of Mr. Bliss. See id. (“Where, as here,
+
+the content of the prior art, the scope of the patent claim, and the level of ordinary skill
+
+in the art are not in material dispute, and the obviousness of the claim is apparent in
+
+light of these factors, summary judgment is appropriate.”).
+
+                                            A.
+
+       On appeal, Sundance argues that the combination of Cramaro and Hall does not
+
+disclose every limitation of claim 1 of the ’109 patent. There is no dispute that Cramaro
+
+discloses a truck cover including every limitation of claim 1 except “a cover section [that]
+
+can be removed from the cover system independent of the other cover sections.” The
+
+district court construed the word “independent” to mean that “any one cover section can
+
+be removed from the cover system without removing any other cover section,” a
+
+definition that neither party challenges. The parties do not dispute that Hall discloses a
+
+cover made up of a number of cover sections. Rather, Sundance argues that any
+
+
+
+2008-1068,-1115                             14
+particular cover section of Hall cannot be removed “without removing any other cover
+
+section.” Sundance contends that, in order to remove one of the cover sections in Hall,
+
+a face plate must be completely removed such that the adjoining edge of adjacent
+
+sections will drape and that they will no longer be part of the cover. In other words, the
+
+process of removing one cover section of the Hall invention requires releasing one edge
+
+of the adjacent cover sections, and these adjacent cover sections are then left hanging
+
+from the cover frame. Oral Arg. at 22:10-23:15. According to Sundance, these hanging
+
+cover sections are no longer part of the cover, and thus the section that had been
+
+between the two hanging sections could not have been removed “without removing any
+
+other cover section.”
+
+       Even accepting Sundance’s explanation of how the cover in Hall operates, there
+
+is no serious dispute that in Hall, a cover section can be removed independent of the
+
+other cover sections. The question is not whether the hanging sections are part of the
+
+cover; the question is whether the hanging sections have been removed. After a first
+
+section is removed, the two cover sections adjacent to the first section are still attached
+
+to the cover—they have not been removed. Thus, a combination of Hall and Cramaro
+
+satisfies every limitation of claim 1 of the ’109 patent. We next turn to whether the
+
+combination would have been obvious at the time of the invention.
+
+                                            B.
+
+       The district court’s decision to overturn the jury verdict was based upon its
+
+misunderstanding of Hall as “prior art outside of the truck environment which used
+
+segmented tarps.”       Sundance, 2006 WL 2708541 at *3-4 (describing Hall as “a
+
+segmented pool cover” and “a segmented non truck cover”).            Sundance does not
+
+
+
+2008-1068,-1115                             15
+dispute that this determination was an error, doubtless because Hall explicitly and
+
+repeatedly suggests that its cover system may be used as a truck covering. In the “field
+
+of the invention” section of the specification, the patent states that a “field of art to which
+
+this invention might pertain is the general class of land vehicles, bodies and tops and in
+
+particular to the general subclass of tops and more particularly to load covers and
+
+collapsible standing tops.” Hall col.1 ll.29-34.     The specification also describes one
+
+preferred embodiment of the Hall invention as being “used as a truck cover which may
+
+be moved to the cab or toward the end of the truck as desired.” Id. at col.6 ll.48-50.
+
+The specification further notes that “[i]t is, of course, realized that this type of structure
+
+may be used to provide an expandable cover for trucks.” Id. at col.6 ll.66-67. 9 The
+
+district court based its grant of JMOL on a lack of motivation to combine Cramaro and
+
+Hall, a conclusion which itself was based on the district court’s misunderstanding of Hall
+
+as not within the scope of the relevant art.
+
+       “[I]n many cases a person of ordinary skill will be able to fit the teachings of
+
+multiple patents together like pieces of a puzzle.” KSR, 127 S. Ct. at 1742. Such a
+
+combination is more likely to be obvious where it “‘simply arranges old elements with
+
+each performing the same function it had been known to perform’ and yields no more
+
+than one would expect from such an arrangement.” Id. at 1740 (quoting Sakraida v. AG
+
+Pro, Inc., 425 U.S. 273, 282 (1976)). The truck cover of claim 1 of the ’109 patent is the
+
+result of precisely such an obvious combination.
+
+
+
+
+       9
+               In addition, the ’109 patent itself clearly discloses that its invention is not
+limited for use in truck environments and can be used with swimming pools, just like the
+Hall invention. See ’109 patent col.2 ll.29-40 (“For example, the present cover system
+could be used as an awning over a porch or patio, or as a cover for a swimming pool.”).
+2008-1068,-1115                                16
+       In combination with each other, the cover system of Cramaro performs exactly
+
+the function that it performs independent of Hall, and the removable cover sections of
+
+Hall perform exactly the function that they perform independent of Cramaro.           The
+
+elements of the cover system of Cramaro perform several functions, including protection
+
+of the cargo, containment of the cargo, and retraction of the cover. None of these
+
+functions changes upon the simple act of replacing the one-piece cover of Cramaro with
+
+the segmented cover of Hall. The segmented cover of Hall performs the function of
+
+allowing individual replacement of the cover sections. This function does not change
+
+upon incorporation into the Cramaro cover system.              The combination simply
+
+mechanizes Hall’s segmented cover or segments Cramaro’s mechanized cover.
+
+       In KSR, the Court considered the obviousness of a claim directed to an
+
+adjustable automobile throttle pedal combined with an electronic sensor. The relevant
+
+prior art included a patent that disclosed an adjustable pedal and another that disclosed
+
+an electronic sensor. The Court held that it saw “little difference between the teachings
+
+of [the relevant prior art] and the adjustable electronic pedal disclosed in [the claim]. A
+
+person having ordinary skill in the art could have combined [the adjustable pedal] with a
+
+pedal position sensor in a fashion encompassed by [the claim], and would have seen
+
+the benefits of doing so.” KSR, 127 S. Ct. at 1743.
+
+       Just as with the claim at issue in KSR, the segmented truck cover claimed in the
+
+’109 patent represents the “mere application of a known technique to a piece of prior art
+
+ready for the improvement.” Id. at 1740. It would have been obvious to replace the
+
+one-piece cover in Cramaro with the segmented cover of Hall. Indeed, the benefits of
+
+combining Hall and Cramaro would have been inescapably obvious to a person of
+
+
+
+2008-1068,-1115                             17
+ordinary skill in the art at the time of the invention of the truck cover claimed in the ’109
+
+patent.    Adding the removable cover sections of Hall to Cramaro would give the
+
+resulting design exactly the same benefit as Hall—individually replaceable cover
+
+sections. Neither party has suggested that the combination of the removable cover
+
+sections of Hall with the cover system of Cramaro yields anything “more than one would
+
+expect from such an arrangement,” nor is any such result apparent. Sakraida, 425 U.S.
+
+at 282.
+
+       The ’109 patent explains that “it would be desirable to have a retractable cover
+
+system wherein only the damaged portion could easily be removed and replaced
+
+without replacing or disassembling the entire cover system.” ’109 patent col.2 ll.12-17.
+
+Hall explained that its segmented cover “can be prefabricated for ready assembly and
+
+that replacement and repair is easily provided for.” Hall col.6 ll.28-32. The remaining
+
+work to incorporate the replaceable cover sections of Hall into the design of Cramaro is
+
+“the work of the skillful mechanic, not that of the inventor.” Sakraida, 425 U.S. at 282
+
+(quoting Hotchkiss v. Greenwood, 52 U.S. (11 How.) 248, 267 (1851)). We conclude
+
+that a cover designer of ordinary skill, at the time of the invention, would have found it
+
+obvious to incorporate the removable cover sections of Hall into the cover system of
+
+Cramaro.
+
+       Secondary considerations of nonobviousness—considered here by the district
+
+court—simply cannot overcome this strong prima facie case of obviousness. Agrizap,
+
+Inc. v. Woodstream Corp., 520 F.3d 1337, 1344 (Fed. Cir. 2008); see also Anderson’s-
+
+Black Rock, Inc. v. Pavement Salvage Co., 396 U.S. 57, 61 (1969) (considering
+
+argument of secondary considerations but holding that “those matters without invention
+
+
+
+2008-1068,-1115                              18
+will not make patentability”); Leapfrog Enters., Inc. v. Fisher-Price, Inc., 485 F.3d 1157,
+
+1162 (Fed. Cir. 2007) (holding that the objective considerations of nonobviousness
+
+presented, including substantial evidence of commercial success, praise, and long-felt
+
+need, were inadequate to overcome a strong showing of primary considerations that
+
+rendered the claims at issue invalid); Dystar Textilfarben GMBH & Co. Deutschland KG
+
+v. C.H. Patrick Co., 464 F.3d 1356, 1371 (Fed. Cir. 2006) (“The presence of certain
+
+secondary considerations of nonobviousness are insufficient as a matter of law to
+
+overcome our conclusion that the evidence only supports a legal conclusion that claim 1
+
+would have been obvious.”). Based on the foregoing, we reverse the district court’s
+
+holding that the asserted claims are nonobvious as a matter of law.
+
+                                     CONCLUSION
+
+       Because we hold as a matter of law that claim 1 of the ’109 patent is invalid for
+
+obviousness, we need not address the issues of infringement or prejudgment interest.
+
+The judgment below is
+
+                                      REVERSED.
+
+
+
+
+2008-1068,-1115                             19
+

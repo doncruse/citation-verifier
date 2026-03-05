@@ -1,0 +1,1081 @@
+Ellis v. Costco Wholesale Corp.
+657 F.3d 970, 80 Fed. R. Serv. 3d 832, 2011 U.S. App. LEXIS 19060, 94 Empl. Prac. Dec. (CCH) 44,282, 113 Fair Empl. Prac. Cas. (BNA) 496, 2011 WL 4336668
+Court of Appeals for the Ninth Circuit
+Filed: 2011-09-16
+Docket No. 07-15838
+Source: https://www.courtlistener.com/opinion/613772/ellis-v-costco-wholesale-corp/
+------------------------------------------------------------
+
+                   FOR PUBLICATION
+  UNITED STATES COURT OF APPEALS
+       FOR THE NINTH CIRCUIT
+
+SHIRLEY “RAE” ELLIS; LEAH                
+HORSTMAN; ELAINE SASAKI, on
+behalf of themselves and all others            No. 07-15838
+similarly situated,
+                 Plaintiffs-Appellees,          D.C. No.
+                                             CV-04-03341-MHP
+                  v.                             OPINION
+COSTCO WHOLESALE CORPORATION,
+               Defendant-Appellant.
+                                         
+        Appeal from the United States District Court
+          for the Northern District of California
+         Marilyn H. Patel, District Judge, Presiding
+
+               Argued on April 14, 2008 and
+             Resubmitted on September 9, 2011
+                 San Francisco, California
+
+                  Filed September 16, 2011
+
+     Before: Ronald M. Gould, Richard R. Clifton, and
+             N. Randy Smith, Circuit Judges.
+
+                Opinion by Judge N.R. Smith
+
+
+
+
+                             17693
+               ELLIS v. COSTCO WHOLESALE CORP.             17697
+                          COUNSEL
+
+Kenwood C. Youmans, David D. Kadue, David B. Ross, Ger-
+lad L. Maatman, & Thomas J. Wybenga, Seyfarth Shaw LLP,
+New York, New York, for defendant-appellant Costco
+Wholesale Corporation.
+
+Brad Seligman & Jocelyn D. Larkin, The Impact Fund,
+Berkeley, California; Steve Stemerman, Elizabeth A. Law-
+rence, & Sarah Varela, Davis, Cowell & Bowe, San Fran-
+cisco, California; Bill Lann Lee, Lindsay Nako, & Julia
+Campins, Lewis, Feinberg, Lee, Renaker & Jackson, P.C.,
+Oakland, California, for plaintiffs-appellees Shirley “Rae”
+Ellis, Leah Horstman, & Elaine Sasaki.
+
+
+                           OPINION
+
+N.R. Smith, Circuit Judge:
+
+   Costco Wholesale Corporation appeals the district court’s
+order granting class certification in a class action brought by
+Shirley “Rae” Ellis, Leah Horstman, and Elaine Sasaki (col-
+lectively Plaintiffs). In the class action, Plaintiffs allege that
+Costco’s promotional practices discriminate based on gender.
+Because we granted Costco permission to file an interlocutory
+appeal, our jurisdiction arises under 28 U.S.C. § 1292(e). We
+affirm in part, vacate in part, and remand.
+
+   This complicated case requires us to consider a number of
+issues relating to class certification. Several of these issues
+have recently been clarified by the Supreme Court’s decision
+in Wal-Mart Stores, Inc. v. Dukes, 131 S. Ct. 2541, 2551
+(2011). Given this new precedent altering existing case law,
+we must remand to the district court. See Associated Builders
+& Contractors, Inc. v. Curry, 68 F.3d 342, 343 (9th Cir.
+1995). Specifically, we take the following actions: (1)
+17698          ELLIS v. COSTCO WHOLESALE CORP.
+Because at least one named Plaintiff (Sasaki) alleges a con-
+crete injury that is both directly traceable to Costco’s alleg-
+edly discriminatory practices and is redressable by both
+injunctive relief and monetary damages, see Bates v. United
+Parcel Serv., Inc., 511 F.3d 974, 985 (9th Cir. 2007) (en
+banc), we affirm the district court’s ruling on standing. (2) We
+vacate and remand the district court’s ruling as to “common-
+ality” under Rule 23(a) of the Federal Rules of Civil Proce-
+dure. The district court failed to conduct the required
+“rigorous analysis” to determine whether there were common
+questions of law or fact among the class members’ claims.
+Gen. Tel. Co. of the Sw. v. Falcon, 457 U.S. 147, 161 (1982).
+Instead it relied on the admissibility of Plaintiffs’ evidence to
+reach its conclusion on commonality. (3) We vacate the dis-
+trict court’s ruling as to “typicality” under Rule 23(a), because
+the district court failed to consider the effect that defenses
+unique to the named Plaintiffs’ claims have on that question.
+Hanon v. Dataproducts Corp., 976 F.2d 497, 508 (9th Cir.
+1992). (4) We affirm the district court’s ruling that Sasaki is
+an adequate class representative under Rule 23(a). As a cur-
+rent employee who continues to be denied promotion, Sasaki
+has incentive to vigorously pursue injunctive relief as well as
+monetary damages on behalf of all the class members. Hanlon
+v. Chrysler Corp., 150 F.3d 1011, 1020 (9th Cir. 1998). How-
+ever, we vacate the district court’s finding that Ellis and
+Horstman could adequately represent the class, because they
+were former employees and had no incentive to pursue
+injunctive relief. (5) In light of Wal-Mart’s rejection of the
+“predominance” test, 131 S. Ct. at 2557-59, the district court
+must consider whether the claims for various forms of mone-
+tary relief will require individual determinations and are
+therefore only appropriate for a Rule 23(b)(3) class. Thus, we
+vacate the district court’s certification of the class under Rule
+23(b)(2).
+                    ELLIS v. COSTCO WHOLESALE CORP.            17699
+                    FACTUAL BACKGROUND
+
+I.       The Parties
+
+     A.    Costco
+
+   Costco is a corporation headquartered in Issaquah, Wash-
+ington. Costco operates over 350 warehouse-style retail estab-
+lishments (warehouses). These warehouses sell items ranging
+from groceries to electronics. Within each Costco warehouse,
+the management structure consists of a General Manager
+(GM), two to three Assistant General Managers (AGM), and
+three to four Senior Staff Managers. A Costco GM is respon-
+sible for the entire operation of his or her respective ware-
+house and earns an average salary of approximately $116,000,
+plus stock and bonuses. Costco AGMs are second in com-
+mand within each warehouse and earn an average salary of
+approximately $73,000, plus stock and bonuses. Costco’s
+Senior Staff Managers are divided into four categories: Front
+End Managers, Administration Managers, Receiving Manag-
+ers, and Merchandise Managers.1 Front End Managers over-
+see cashiers, membership/marketing personnel, cart staff, and
+other employees who deal directly with Costco members.
+Administration Managers manage administrative functions
+such as payroll and human resources. Receiving Managers
+oversee stocking of all incoming items from the receiving
+dock to the shelves. Merchandising Managers oversee lower
+level managers and are responsible for planning floor displays
+to maximize sales.
+
+   Costco promotes almost entirely from within its organiza-
+tion. Only current Costco AGMs are eligible for GM posi-
+tions. Costco does not have any written policy explaining to
+employees the criteria to be considered for promotion to GM
+     1
+   Most warehouses employ four Senior Staff Managers—one for each of
+the four Senior Staff Manager positions. However, in some larger ware-
+houses, one of the AGMs assumes the role of Administration Manager.
+17700           ELLIS v. COSTCO WHOLESALE CORP.
+or AGM, though candidates are promoted from a list of pro-
+motable candidates. Costco does not have written guidelines
+explaining how candidates should be selected for the promot-
+able lists and does not regularly inform employees about the
+existence of such lists. Costco does not require that more than
+one candidate be considered for any particular opening or that
+a performance evaluation or any other documents be reviewed
+before a recommended candidate is approved. Costco also
+lacks a consistent practice for interviewing potential candi-
+dates for GM and AGM openings. Costco does not keep
+records regarding the selection process.
+
+   Costco employs a different promotion procedure for Senior
+Staff Managers. Costco fills the majority of Senior Staff open-
+ings by rotating managers among the four Senior Staff posi-
+tions. This rotation is part of Costco’s philosophy and, in
+Costco’s opinion, trains and develops managers for future
+advancement by exposing them to different aspects of Cost-
+co’s operations. Like the GM and AGM promotion proce-
+dures, Costco has no written guidelines regarding rotation of
+Senior Staff Managers.
+
+  B.    Ellis
+
+   Costco hired Shirley Ellis as an AGM in 1998. Prior to
+joining Costco, Ellis worked for nearly 20 years in retail man-
+agement, including five years as a general manager for Sam’s
+Club (Costco’s chief competitor). According to Ellis, she left
+Sam’s Club, because she was actively recruited by Costco and
+promised promotion to GM within a year. On the other hand,
+Costco claims that it recruited Ellis because she misrepre-
+sented herself as a star at Sam’s Club, when she had, in fact,
+lost her job for poor performance.
+
+   In Ellis’s first year with Costco, she transferred locations
+twice in order to further her goal of promotion to GM. During
+this time, several GM positions became available, but she did
+not learn of the openings until after they were filled. In 2000,
+               ELLIS v. COSTCO WHOLESALE CORP.            17701
+Ellis transferred to Colorado to assist her sick mother.
+According to Ellis, a supervisor told her that it would not hurt
+her chances for promotion. After six months, Ellis notified
+Costco that she was again able to relocate anywhere as a GM.
+In 2002, Ellis sent a letter to her supervisors expressing a
+“burning desire” to help Costco be successful and advance
+within the company, asking how the GM selection process
+worked, where she stood as a candidate for promotion, and
+what she needed to do to become a GM.
+
+  In October 2002, Ellis, while still employed with Costco as
+an AGM, filed a gender discrimination charge with the Equal
+Employment Opportunity Commission (EEOC), alleging that
+she had been passed over for promotion to GM because she
+was female. Ellis left Costco in November 2004.
+
+  C.   Horstman
+
+  Leah Horstman worked for Costco for more than 23 years
+beginning in 1981. In 1996, after 15 years with Costco, Horst-
+man was promoted to be a Senior Staff Manager. By 2000,
+Horstman had rotated through the Administrative Manager,
+Merchandise Manager, and Receiving Manager positions. She
+had earlier worked as an Assistant Front End Manager, but
+did not rotate to the Front End Manager position because of
+scheduling conflicts and her duties as a single mother with
+two young daughters.
+
+   Throughout her career with Costco, Horstman repeatedly
+expressed her interest in advancing to AGM and GM and
+questioned supervisors about the requirements for both posi-
+tions. Heeding the advice of a supervisor, Horstman also
+transferred to a high-volume store and expressed a willingness
+to move from California to Texas in order to become an
+AGM. However, in her final three annual self-performance
+reviews, Horstman indicated that her goal was to stay in a
+position similar to that which she held at the time for three to
+five years so that she could balance her family life and then
+17702            ELLIS v. COSTCO WHOLESALE CORP.
+to continue her advancement to AGM and GM. Horstman
+filed a discrimination charge with the EEOC in October 2003
+and resigned in June 2004.
+
+  D.    Sasaki
+
+   Elaine Sasaki began working for Costco in 1985. Sasaki
+advanced to become a Senior Staff Manager within four
+years. She received consistently high performance reviews,
+and her GM first indicated that she was ready to be promoted
+to AGM in 1993. Although Sasaki offered to transfer to
+places as far away as Hong Kong, she was not promoted to
+AGM until 1996. Sasaki is currently an AGM in Visalia, Cali-
+fornia.
+
+   Since Sasaki was promoted to AGM in 1996, she has not
+been selected for at least eight GM positions. She claims she
+was not aware of any of these openings until after they were
+filled. Sasaki has relocated four times to improve her chances
+of promotion to GM. In September 2003, Sasaki wrote to
+Costco’s director of human resources expressing her concern
+that she had not been promoted because of her gender. At
+least some of her concern stems from an incident in which she
+claimed to rebuff the advances of her regional Senior Vice
+President in a hotel elevator and was later told by him that he
+holds her to higher standards than other AGMs. According to
+Costco, Sasaki has not been promoted because both her per-
+formance appraisals and her self-evaluations identify areas for
+improvement. Further, she has never ranked high on Costco’s
+GM promotable list. Sasaki filed a gender discrimination
+charge with the EEOC on March 1, 2005. She remains
+employed as an AGM at Costco.
+
+II.    Procedural History
+
+   The EEOC dismissed Ellis’s charge of gender discrimina-
+tion, after which Ellis filed suit in federal district court “on
+behalf of a Title VII class of all women employed by Costco
+               ELLIS v. COSTCO WHOLESALE CORP.             17703
+in the United States denied promotion to [AGM] and/or [GM]
+positions.” Ellis’s complaint sought class-wide injunctive
+relief, lost pay, and compensatory and punitive damages. Her
+second amended complaint included Horstman and Sasaki as
+named Plaintiffs. In August 2006, Plaintiffs filed a motion for
+class certification under Rule 23(b)(2) and (b)(3) of the Fed-
+eral Rules of Civil Procedure supported by numerous declara-
+tions, deposition transcripts, and Costco company documents.
+Plaintiffs also submitted the declarations of three experts in
+support of their class certification motion: statistician Dr.
+Richard Drogin; labor economist Dr. Marc Bendick; and soci-
+ologist Dr. Barbara Reskin. Dr. Drogin concluded that female
+employees are promoted at a slower rate and are under-
+represented at the AGM and GM levels relative to their male
+peers. Dr. Bendick concluded that female Costco employees
+are under-represented in the Senior Staff Manager, AGM, and
+GM positions relative to female employees in similar posi-
+tions at comparable companies. Dr. Reskin concluded that
+Costco has a pervasive culture of gender stereotyping and
+paternalism.
+
+   Costco opposed class certification and filed 200 employee
+declarations in support. Costco additionally submitted decla-
+rations of its own experts, most notably, Dr. Ali Saad, a statis-
+tician and labor economist. Dr. Saad concluded that women
+are not under-represented at Costco and that any gender dis-
+parities, if they exist, are confined to two regions. Costco
+offered additional expert declarations concluding that gender
+disparities, if they exist, are based upon factors such as
+women’s lack of interest in jobs requiring early morning
+hours. Costco also filed three separate motions to strike Plain-
+tiffs’ experts, supported by Costco’s expert declarations chal-
+lenging the relevance and reliability of Plantiffs’ experts’
+analysis and conclusions.
+
+  On January 11, 2007, the district court filed a 37-page order
+granting Plaintiffs’ motion to certify a class. The district court
+certified a class that “consists of all current and former female
+17704             ELLIS v. COSTCO WHOLESALE CORP.
+Costco employees nationwide who have been denied promo-
+tion to GM or AGM or denied promotion to Senior Staff posi-
+tions since January 3, 2002.” Ellis v. Costco Wholesale Corp.,
+240 F.R.D. 627, 652 (N.D. Cal. 2007). Because the district
+court certified a class broader than the class requested by Plain-
+tiffs,2 the parties stipulated to a narrower class definition that
+consists of “all women employed by Costco on or after Janu-
+ary 3, 2002 in a U.S. warehouse (including Puerto Rico) who,
+at any time, have been employed at Costco as a Senior Staff
+Manager . . . or [AGM]. The class includes women who have
+been promoted to [GM] or [AGM] since January 3, 2002.”3
+Stipulation and Order Regarding Class Definition, Class
+Notice and For Regulation of Costco’s Communications 2.
+
+   The district court found that all of the requirements of Rule
+23(a)—numerosity, commonality, typicality, and adequacy—
+had been satisfied. Id. at 638-42. It further found that Rule
+23(b)(2)4 was satisfied, ruling that signed statements from the
+Plaintiffs proved their predominant intent in filing suit was to
+recover injunctive relief. Id. at 642-43. It dismissed Costco’s
+arguments that Plaintiffs’ claims for punitive and compensa-
+tory damages precluded such a finding. Id. at 643. It did not
+consider the fact that two of the named Plaintiffs—Ellis and
+Horstman—were no longer employees of Costco at the time
+of the filing of the complaint in making its determination.
+
+ As part of its order, the district court ruled on Costco’s
+motions to strike Plaintiffs’ experts. Id. at 644-51. The district
+   2
+     The class certified by the district court was broader than that sought by
+Plaintiffs because it included those employees who had been denied pro-
+motion to Senior Staff positions.
+   3
+     Costco did not stipulate to certification of the class, only to narrowing
+the district court’s description of the class assuming that it was properly
+certified.
+   4
+     Although Plaintiffs requested certification under both Rule 23(b)(2)
+and (b)(3), the district court did not address certifying the class under
+(b)(3).
+                ELLIS v. COSTCO WHOLESALE CORP.              17705
+court granted in part and denied in part Costco’s motion
+regarding Dr. Drogin, striking Dr. Drogin’s conclusion
+regarding the average number of years required to reach
+AGM because of the dates Dr. Drogin used to conduct his
+analysis. Id. at 648-49. The district court denied Costco’s
+motions regarding Dr. Bendick and Dr. Reskin. Id. at 651.
+
+   Costco then sought leave to file an interlocutory appeal,
+alleging that the district court committed numerous errors by
+certifying the class. On May 14, 2007, we granted permission
+to appeal.
+
+                           ANALYSIS
+
+I.   Standing
+
+   Costco argues that the district court abused its discretion by
+certifying the class, because Plaintiffs lack standing to seek
+injunctive relief. “Standing is a threshold matter central to our
+subject matter jurisdiction.” Bates, 511 F.3d at 985. We
+review the district court’s factual findings under the clearly
+erroneous standard and review the district court’s determina-
+tion of standing de novo. Lozano v. AT&T Wireless Servs.,
+Inc., 504 F.3d 718, 725 (9th Cir. 2007). In a class action, the
+plaintiff class bears the burden of showing that Article III
+standing exists. Bates, 511 F.3d at 985. “[S]tanding requires
+that (1) the plaintiff suffered an injury in fact, i.e., one that is
+sufficiently concrete and particularized and actual or immi-
+nent, not conjectural or hypothetical, (2) the injury is fairly
+traceable to the challenged conduct, and (3) the injury is
+likely to be redressed by a favorable decision.” Id. (quoting
+Lujan v. Defenders of Wildlife, 504 U.S. 555, 560-61 (1992))
+(internal quotation marks omitted). Plaintiffs must show
+standing with respect to each form of relief sought. Id. Stand-
+ing exists if at least one named plaintiff meets the require-
+ments. Id.
+
+   [1] In order to satisfy the Lujan requirements, “[t]he plain-
+tiff must demonstrate that he has suffered or is threatened
+17706            ELLIS v. COSTCO WHOLESALE CORP.
+with a concrete and particularized legal harm, coupled with a
+sufficient likelihood that he will again be wronged in a similar
+way.” Id. (internal citations and quotation marks omitted).
+“Past wrongs do not in themselves amount to a real and
+immediate threat of injury necessary to make out a case or
+controversy” but “are evidence bearing on whether there is a
+real and immediate threat of repeated injury.” Id. (internal
+citations, alterations, and quotation marks omitted). For Plain-
+tiffs to have standing here, the claimed threat of injury must
+be likely to be redressed by the prospective injunctive relief.
+Id.
+
+   [2] Sasaki satisfies all aspects of the standing require-
+ments. The parties’ stipulated class description includes
+female Costco employees who have been denied promotion to
+AGM or GM. Sasaki has been denied promotion to GM. Cost-
+co’s failure to promote Sasaki (a current AGM) to GM is a
+“concrete and particularized” harm, because the injury affects
+her “in a personal and individual way.” Lujan, 504 U.S. at
+560 n.1. Additionally, the “crux” of Plaintiffs’ lawsuit is that
+the “harm alleged is directly traceable” to Costco’s promotion
+practices and general corporate culture, which Plaintiffs allege
+are discriminatory to women. See Bates, 511 F.3d at 986
+(citation omitted). Sasaki can also show that there is a signifi-
+cant likelihood that she will be wronged again in a similar
+way. See id. at 985. Sasaki has been employed as an AGM for
+twelve years. Despite her expressed interest in becoming a
+GM, coupled with numerous relocations to avail herself of
+that opportunity, Sasaki has been passed over for promotion
+at least eight times. Because Costco’s challenged promotion
+practices for GM and AGM positions have not changed,5 there
+  5
+    Costco’s adoption of the Rothman Workplan does not change this
+result. The Workplan was adopted in response to criticisms that Costco’s
+inconsistent promotion practices allowed for favoritism and individual
+biases. However, it appears the Rothman Workplan only changed promo-
+tion practices as to the four Senior Staff jobs, but not as to AGM or GM
+positions.
+               ELLIS v. COSTCO WHOLESALE CORP.             17707
+is a likelihood that Costco will continue to fail to promote
+Sasaki. Finally, if Costco’s allegedly discriminatory policies
+are enjoined, Sasaki’s claimed threat of being passed over for
+promotion due to her gender is likely to be redressed. See
+Bates, 511 F.3d at 985.
+
+  [3] Costco, nevertheless, argues that Sasaki lacks standing
+because, as a current AGM, she cannot challenge the denial
+of AGM promotions. This argument more appropriately
+addresses whether Sasaki’s claim is typical of other class
+members, which we address below. Sasaki’s status as a cur-
+rent AGM does not preclude her from meeting Lujan’s stand-
+ing requirements, given that the purported class also includes
+women denied promotion to GM. Because only one named
+Plaintiff must meet the standing requirements, the district
+court did not err in finding that Plaintiffs have standing.
+
+II.   Rule 23(a)
+
+   [4] The district court held that Plaintiffs established all
+four Rule 23(a) factors necessary for class certification.
+Costco argues that the district court abused its discretion by
+finding that Plaintiffs established commonality, typicality, and
+adequacy of representation. However, Costco does not contest
+the district court’s holding that Plaintiffs established numero-
+sity.
+
+  Parties seeking class certification bear the burden of dem-
+onstrating that they have met each of the four requirements of
+Federal Rule of Civil Procedure 23(a) and at least one of the
+requirements of Rule 23(b). Zinser v. Accufix Research Inst.,
+Inc., 253 F.3d 1180, 1186 (9th Cir.), amended by 273 F.3d
+1266 (9th Cir. 2001). Here, the district court certified the class
+under Rule 23(b)(2).
+
+   Rule 23(a) requires parties seeking class certification to
+establish: (1) that the class is so large that joinder of all mem-
+bers is impracticable (numerosity); (2) that there are one or
+17708          ELLIS v. COSTCO WHOLESALE CORP.
+more questions of law or fact common to the class (common-
+ality); (3) that the named parties’ claims are typical of the
+class (typicality); and (4) that the class representatives will
+fairly and adequately protect the interests of other members of
+the class (adequacy of representation). Fed. R. Civ. P. 23(a).
+
+   We review the district court’s decision regarding class cer-
+tification for abuse of discretion. Lozano, 504 F.3d at 725.
+“The district court abuses its discretion if its certification
+order is premised on impermissible legal criteria.” Id. (citing
+Moore v. Hughes Helicopters, Inc., 708 F.2d 475, 479 (9th
+Cir. 1983)).
+
+   The United States Supreme Court requires district courts to
+engage in a “rigorous analysis” of each Rule 23(a) factor
+when determining whether plaintiffs seeking class certifica-
+tion have met the requirements of Rule 23. Falcon, 457 U.S.
+at 161. The Supreme Court has also noted that the
+“[e]valuation of many of the questions entering into determi-
+nation of class action questions is intimately involved with the
+merits of the claims. The typicality of the representative’s
+claims or defenses, the adequacy of the representative, and the
+presence of common questions of law or fact are obvious
+examples.” Coopers & Lybrand v. Livesay, 437 U.S. 463, 469
+n.12 (1978) (internal citation and quotation marks omitted).
+When considering class certification under Rule 23, district
+courts are not only at liberty to, but must perform “a rigorous
+analysis [to ensure] that the prerequisites of Rule 23(a) have
+been satisfied.” Wal-Mart, 131 S. Ct. at 2551 (internal citation
+and quotation marks omitted). In many cases, “that ‘rigorous
+analysis’ will entail some overlap with the merits of the plain-
+tiff ’s underlying claim. That cannot be helped.” Id. Here, the
+question of commonality overlaps with Plaintiffs’ claim that
+Costco’s system of promotion and corporate culture consti-
+tutes a pattern or practice of discrimination.
+                  ELLIS v. COSTCO WHOLESALE CORP.                    17709
+  A.    Commonality
+
+   Costco challenges the district court’s finding of commonal-
+ity, arguing primarily that the district court failed to conduct
+the required “rigorous analysis” and impermissibly declined
+to resolve numerous disputed issues of law and fact necessary
+to determine whether Plaintiffs established commonality.
+Costco argues that the district court erred by relying on the
+declarations of Plaintiffs’ experts to establish commonality.6
+We agree. Because the district court premised its certification
+order on improper legal criteria, Lozano, 504 F.3d at 725, the
+district court abused its discretion. We vacate its order as to
+commonality and remand for the district court to reconsider
+this issue consistent with our holding today.
+
+   [5] To show commonality, Plaintiffs must demonstrate that
+there are questions of fact and law that are common to the
+class. Fed. R. Civ. P. 23(a)(2). The requirements of Rule
+23(a)(2) have “been construed permissively,” and “[a]ll ques-
+tions of fact and law need not be common to satisfy the rule.”
+Hanlon, 150 F.3d at 1019. However, it is insufficient to
+  6
+    In the district court, Costco moved to strike the entirety of Plaintiffs’
+three expert declarations. With the exception of Dr. Drogin’s conclusion
+regarding the average number of years required to reach AGM, the district
+court held that Plaintiffs’ experts’ declarations were admissible. It noted
+that, while Costco’s arguments may eventually render the declarations
+unconvincing at trial, they did not render the declarations inadmissible. On
+appeal, Costco does not argue that the district court abused its discretion
+by failing to strike Plaintiffs’ experts’ declarations. Instead, it devotes a
+substantial portion of its opening brief to arguments challenging the valid-
+ity of the conclusions in Plaintiffs’ experts’ declarations, but only in the
+context of challenging the district court’s conclusion that Plaintiffs had
+established commonality under Rule 23(a). We “will not ordinarily con-
+sider matters on appeal that are not specifically and distinctly argued in
+appellant’s opening brief . . . .” Miller v. Fairchild Indus., Inc., 797 F.2d
+727, 738 (9th Cir. 1986). Therefore, we affirm the district court’s decision
+to not strike Plaintiffs’ experts’ declarations and consider Costco’s chal-
+lenges to Plaintiffs’ experts only in our review of the district court’s Rule
+23(a) analysis.
+17710           ELLIS v. COSTCO WHOLESALE CORP.
+merely allege any common question, for example, “Were
+Plaintiffs passed over for promotion?” See Wal-Mart, 131 S.
+Ct. at 2551-52. Instead, they must pose a question that “will
+produce a common answer to the crucial question why was I
+disfavored.” Id. at 2552; see also id. at 2551 (“What matters
+to class certification is not the raising of common ‘questions’
+. . . but, rather the capacity of a classwide proceeding to gen-
+erate common answers apt to drive the resolution of the litiga-
+tion.” (internal citation, alteration, and quotation marks
+omitted)). In other words, Plaintiffs must have a common
+question that will connect many individual promotional deci-
+sions to their claim for class relief.
+
+   The precise standard the district court used to evaluate
+commonality is difficult to discern from its order. The district
+court began by citing Blackie v. Barrack, 524 F.2d 891, 901
+n.17 (9th Cir. 1975), for the proposition that “in adjudicating
+a motion for class certification, the court accepts the allega-
+tions in the complaint as true so long as those allegations are
+sufficiently specific to permit an informed assessment as to
+whether the requirements of Rule 23 have been satisfied.”
+Ellis, 240 F.R.D. at 635. It proceeded to note, relying on
+Eisen v. Carlisle & Jacquelin, 417 U.S. 156, 177-78 (1974),
+that the merits of the class members’ substantive claims were
+generally irrelevant to its inquiry and that it should not inquire
+into the merits of the suit during the certification process. Id.
+However, later in its order, the district court seemed to qualify
+its position by noting that it may consider the merits to the
+extent that they overlap with class certification issues, relying
+on In re Initial Public Offering Securities Litigation, 471 F.3d
+24 (2d Cir. 2006). Id. After all this, the district court stated in
+its analysis of commonality, that “[t]o the extent that the par-
+ties’ commonality arguments overlap with the merits, the
+court has evaluated all relevant evidence to determine whether
+commonality has been established.” Id. at 638. This statement
+mitigates the district court’s earlier erroneous suggestions that
+it may (but not must) consider the merits to the extent they
+overlap with the commonality issue.
+               ELLIS v. COSTCO WHOLESALE CORP.             17711
+   [6] At best, it was unclear what standard the district court
+used. Regardless of whether the district court applied an erro-
+neous standard, we take this opportunity to clarify the correct
+standard. As we explained above, the merits of the class mem-
+bers’ substantive claims are often highly relevant when deter-
+mining whether to certify a class. More importantly, it is not
+correct to say a district court may consider the merits to the
+extent that they overlap with class certification issues; rather,
+a district court must consider the merits if they overlap with
+the Rule 23(a) requirements. Wal-Mart, 131 S. Ct. at 2551-52;
+Hanon, 976 F.2d at 509.
+
+   In Wal-Mart, for example, the Supreme Court considered
+whether the statistical and sociological studies cited by the
+plaintiffs were sufficient to link the alleged discriminatory
+practice to harm suffered by the entire class. 131 S. Ct. at
+2553-55. In that case, the alleged discriminatory practice was
+the exercise of discretion by thousands of individual managers
+throughout the country. Id. The only evidence of a nationwide
+practice of discrimination was Wal-Mart’s “strong corporate
+culture that makes it vulnerable to gender bias.” Id. (internal
+quotation marks omitted). However, plaintiffs’ expert was
+unable to show to what extent this was true—it was unclear
+whether “0.5 percent or 95 percent of the employment deci-
+sions” were based on this alleged bias. Id. at 2554. Without
+some evidence of the extent of the bias, no “common mode
+of exercising discretion that pervades the entire company”
+(and thus no common question) had been shown. See id. at
+2554-55.
+
+   Part of the confusion over the standard applied by the dis-
+trict court in this case stems from the fact that the district
+court addressed Costco’s objections to Plaintiffs’ experts in
+both its commonality analysis and its analysis of Costco’s
+motions to strike. As the district court noted, the parties
+staged a battle of the experts over the issue of commonality.
+In its analysis of Costco’s motions to strike, the district court
+correctly applied the evidentiary standard set forth in Daubert
+17712          ELLIS v. COSTCO WHOLESALE CORP.
+v. Merrell Dow Pharms., Inc., 509 U.S. 579, 597 (1993). Cf.
+Wal-Mart, 131 S. Ct. at 2553-54 (doubting proposition that
+Daubert did not apply to the certification stage). Under Dau-
+bert, the trial court must act as a “gatekeeper” to exclude junk
+science that does not meet Federal Rule of Evidence 702’s
+reliability standards by making a preliminary determination
+that the expert’s testimony is reliable. Kumho Tire Co. v. Car-
+michael, 526 U.S. 137, 145, 147-49 (1999). Daubert does not
+require a court to admit or to exclude evidence based on its
+persuasiveness; rather it requires a court to admit or exclude
+evidence based on its scientific reliability and relevance. 509
+U.S. at 589-90. Thus, an expert’s “inference or assertion must
+be derived by the scientific method” to be admissible. Id. at
+590. A trial court has broad latitude not only in determining
+whether an expert’s testimony is reliable, but also in deciding
+how to determine the testimony’s reliability. Kumho Tire, 526
+U.S. at 152.
+
+   [7] However, the district court seems to have confused the
+Daubert standard it correctly applied to Costco’s motions to
+strike with the “rigorous analysis” standard to be applied
+when analyzing commonality. Instead of judging the persua-
+siveness of the evidence presented, the district court seemed
+to end its analysis of the plaintiffs’ evidence after determining
+such evidence was merely admissible. For example, the dis-
+trict court stated that, although “Costco challenges the propri-
+ety of using aggregate data,” such “arguments attack the
+weight of the evidence and not its admissibility.” Ellis, 240
+F.R.D. at 639. Therefore, to the extent the district court lim-
+ited its analysis of whether there was commonality to a deter-
+mination of whether Plaintiffs’ evidence on that point was
+admissible, it did so in error.
+
+   Plaintiffs introduced expert declarations to establish that:
+(1) female employees are promoted at a slower rate and are
+underrepresented at the AGM and GM levels relative to their
+male peers; (2) female Costco employees are under-
+represented in the Senior Staff Manager, AGM, and GM posi-
+                 ELLIS v. COSTCO WHOLESALE CORP.                   17713
+tions relative to female employees in similar positions at com-
+parable companies; and (3) Costco has a pervasive culture of
+gender stereotyping and paternalism. Costco offered its own
+evidence to show that: (1) “women are not underrepresented
+at Costco and that any gender disparities, if they exist, are
+confined to two regions of Costco;” and (2) “gender dispari-
+ties, if they exist, are based upon factors, such as women’s
+lack of interest in jobs requiring early morning hours, which
+are unrelated to Costco’s culture and promotion processes.”
+Id. at 638.
+
+   [8] As an initial matter, we agree that the district court was
+not required to resolve factual disputes regarding: (1) whether
+women were in fact discriminated against in relevant manage-
+rial positions at Costco, or (2) whether Costco does in fact
+have a culture of gender stereotyping and paternalism. How-
+ever, the district court was required to resolve any factual dis-
+putes necessary to determine whether there was a common
+pattern and practice that could affect the class as a whole.7 If
+there is no evidence that the entire class was subject to the
+same allegedly discriminatory practice, there is no question
+common to the class. In other words, the district court must
+determine whether there was “significant proof that [Costco]
+operated under a general policy of discrimination.” Wal-Mart,
+131 S. Ct. at 2553 (alteration omitted).8
+  7
+     For example, the parties dispute whether promotional decisions for
+AGMs were made by the GM of the local warehouse, or were made or
+strongly influenced by upper management at Costco headquarters. If the
+decisions were made at the local warehouse, Plaintiffs likely cannot show
+this decisionmaking process affected the class as a whole, since “demon-
+strating the invalidity of one manager’s use of discretion will do nothing
+to demonstrate the invalidity of another’s. A party seeking to certify a
+nationwide class will be unable to show that all the employees’ Title VII
+claims will in fact depend on the answers to common questions.” Wal-
+Mart, 131 S. Ct. at 2554.
+   8
+     Accordingly, we dispose of most of Costco’s arguments on this point.
+Costco seems to equate a “rigorous analysis” with an in-depth examination
+of the underlying merits—i.e., whether Costco was in fact discriminating
+17714             ELLIS v. COSTCO WHOLESALE CORP.
+   Whether gender disparities are confined to only two regions
+of Costco’s eight regions, for example, addresses precisely the
+question of whether there are common questions of law and
+fact among the putative class members. If, as Plaintiffs allege,
+promotion decisions are based on the biased attitudes of the
+CEO and upper management, one would expect disparities in
+all, or at least most, regions. A disparity in only 25% of the
+regions, however, would not show that “discrimination mani-
+fested itself in . . . promotion practices in the same general
+fashion,” Wal-Mart, 131 S. Ct. at 2553, throughout Costco—
+which is necessary to show commonality in a nationwide
+class. If no such nationwide discrimination exists, Plaintiffs
+would face an exceedingly difficult challenge in proving that
+there are questions of fact and law common to the nationwide
+class.
+
+   [9] The district court failed to engage in a “rigorous analy-
+sis” on this point. For example, Dr. Saad, Costco’s expert,
+concluded that any gender disparities, if they exist, are con-
+fined to two regions. The district court concluded that Dr.
+Saad’s analysis was “relevant and reliable for the purposes of
+
+against women. See, e.g., Costco’s Opening Br. 21 (“[T]here is no com-
+monality absent (a) statistical proof of under-promotion of women and (b)
+a plausible link between the practice and the impact.”). This is incorrect.
+The district court is required to examine the merits of the underlying claim
+in this context, only inasmuch as it must determine whether common ques-
+tions exist; not to determine whether class members could actually prevail
+on the merits of their claims. See Dukes v. Wal-Mart Stores, Inc., 603 F.3d
+571, 592 (9th Cir. 2010) (en banc), reversed Wal-Mart, 131 S. Ct. 2541
+(“[P]laintiffs and defendants disagree on whose statistical findings and
+observations are more credible, but this disagreement is relevant only to
+the merits of plaintiffs’ claim—whether plaintiffs actually suffered dispa-
+rate treatment—and not to whether plaintiffs have asserted common ques-
+tions of fact or law . . . .’ ” (citation omitted)); see also Wal-Mart, 131 S.
+Ct. at 2552 n.6 (clarifying that Rule 23 does not authorize a preliminary
+inquiry into the merits of the suit for purposes other than determining
+whether certification was proper (citing Eisen, 417 U.S. at 177). To hold
+otherwise would turn class certification into a mini-trial.
+               ELLIS v. COSTCO WHOLESALE CORP.            17715
+commonality and . . . that plaintiffs [had] not raised any sig-
+nificant challenges in this regard.” Ellis, 240 F.R.D. at 639.
+The district court ultimately denied Costco’s challenge on this
+point, however, stating that “Dr. Saad’s analysis has presented
+an alternative approach but it has not discredited Dr. Drogin’s
+results or methods [the evidence proffered by Plaintiffs].” Id.
+Instead of examining the merits to decide this issue, it appears
+the district court merely concluded that, because both Plain-
+tiffs’ and Costco’s evidence was admissible, a finding of com-
+monality was appropriate.
+
+   [10] The district court applied an impermissible legal
+criteria, see Lozano, 504 F.3d at 725, and failed to resolve the
+critical factual disputes centering around the national versus
+regional nature of the alleged discrimination. Accordingly, we
+vacate the district court’s finding of commonality and remand
+for application of the appropriate legal standard. Because we
+vacate and remand, rather than reverse, the district court’s
+commonality determination, we also address the other Rule
+23(a) factors.
+
+  B.   Typicality
+
+   [11] To demonstrate typicality, Plaintiffs must show that
+the named parties’ claims are typical of the class. Fed. R. Civ.
+P. 23(a)(3). “The test of typicality ‘is whether other members
+have the same or similar injury, whether the action is based
+on conduct which is not unique to the named plaintiffs, and
+whether other class members have been injured by the same
+course of conduct.’ ” Hanon, 976 F.2d at 508 (citation omit-
+ted). “Typicality refers to the nature of the claim or defense
+of the class representative, and not to the specific facts from
+which it arose or the relief sought.” Id. (internal citation and
+quotation marks omitted).
+
+   Costco argues that Plaintiffs cannot satisfy the typicality
+requirement, because each of the named Plaintiffs’ respective
+discrimination claims are subject to unique defenses. The dis-
+17716             ELLIS v. COSTCO WHOLESALE CORP.
+trict court, citing Hanon, rejected this argument and held that
+“as a general matter, individualized defenses do not defeat
+typicality.” Ellis, 240 F.R.D. at 641.
+
+   [12] Hanon, however, supports Costco’s position. In
+Hanon, we stated that “a named plaintiff ’s motion for class
+certification should not be granted if ‘there is a danger that
+absent class members will suffer if their representative is pre-
+occupied with defenses unique to it.’ ” 976 F.2d at 508 (quot-
+ing Gary Plastic Packaging Corp. v. Merrill Lynch, Pierce,
+Fenner & Smith, Inc., 903 F.2d 176, 180 (2d Cir. 1990)). We
+found that the named plaintiff did not satisfy Rule 23(a)’s typ-
+icality requirement because his “unique background and fac-
+tual situation require[d] him to prepare to meet defenses that
+[were] not typical of the defenses which may be raised against
+other members of the proposed class.” Id.
+
+   Costco asserts that it has unique defenses against each of
+the named Plaintiffs. Specifically, as to Horstman, Costco’s
+claimed defense is that, due to family reasons, Horstman
+rejected rotation to Front End Manager and stated several
+times that she wished to defer her pursuit of promotion for
+three to five years. As to Ellis, Costco’s claimed defense is
+that Ellis misrepresented her way into Costco, lacked the
+Costco experience of other AGMs, transferred to a market
+with limited promotional opportunities, and was disciplined
+for abusing subordinates. As to Sasaki, Costco’s claimed
+defense is that Sasaki is not an outstanding performer and that
+Costco’s expert has concluded that there is no statistical evi-
+dence supporting a claim that females are promoted to GM at
+a lesser rate in Sasaki’s region.
+
+   [13] We decline to express an opinion, in the first instance,
+about whether these defenses are typical of those that Costco
+may raise against other members of the class or whether they
+are unique such that Plaintiffs cannot satisfy Rule 23(a)’s typ-
+icality requirement.9 Instead, we hold that the district court
+  9
+    Costco also argues that Plaintiffs’ claims are not typical because expe-
+rience as a Merchandise Manager is essential to promotion and, though
+                 ELLIS v. COSTCO WHOLESALE CORP.                   17717
+misapplied Hanon, and thus abused its discretion by basing its
+typicality determination on impermissible legal criteria. See
+Lozano, 504 F.3d at 725. We vacate the district court’s typi-
+cality finding and remand so that the district court may apply
+the appropriate legal standard.
+
+  C.    Adequacy
+
+   [14] The named Plaintiffs must fairly and adequately pro-
+tect the interests of the class. Fed. R. Civ. P. 23(a)(4). To
+determine whether named plaintiffs will adequately represent
+a class, courts must resolve two questions: “(1) do the named
+plaintiffs and their counsel have any conflicts of interest with
+other class members and (2) will the named plaintiffs and
+their counsel prosecute the action vigorously on behalf of the
+class?” Hanlon, 150 F.3d at 1020. Adequate representation
+depends on, among other factors, an absence of antagonism
+between representatives and absentees, and a sharing of inter-
+est between representatives and absentees. Molski v. Gleich,
+318 F.3d 937, 955 (9th Cir. 2003), overruled on other
+grounds by Dukes, 603 F.3d at 617.
+
+   Costco argues that the district court abused its discretion by
+holding that the named Plaintiffs are adequate representatives.
+Specifically, Costco argues that Ellis and Horstman have little
+incentive to vigorously pursue injunctive relief on behalf of
+
+some plaintiffs may lack such experience, the named Plaintiffs do not. We
+reject this argument. Plaintiffs do not challenge whether Costco’s unoffi-
+cial requirement that a person have experience as a Merchandise Manager
+to be eligible for promotion is, by itself, a discriminatory promotion
+requirement. Unique defenses aside, all three Plaintiffs allege that they
+were not promoted because of their gender. Differing factual scenarios
+resulting in a claim of the same nature as other class members does not
+defeat typicality. Hanon, 976 F.2d at 508. Thus, the fact that the named
+Plaintiffs had Merchandise Manager experience does not mean that Plain-
+tiffs’ claims of gender discrimination are not typical of those of absent
+class members, even though other class members may lack experience as
+a Merchandise Manager.
+17718          ELLIS v. COSTCO WHOLESALE CORP.
+the class, because they are former employees. Costco also
+argues that Sasaki has little incentive to vigorously pursue
+relief for those denied promotion to AGM, because she has
+already reached the level of AGM.
+
+   [15] Sasaki is an adequate class representative. Costco’s
+argument, that she does not have an incentive to vigorously
+represent employees who have been denied a promotion to
+AGM, misses the point of the litigation. The purported class
+is composed of women who have been denied promotion to
+either AGM or GM. The Costco policies and culture chal-
+lenged by Plaintiffs apply equally to AGM and GM promo-
+tion decisions. Sasaki, although a current AGM, claims she
+has been wrongly denied promotion to GM and thus shares an
+interest with all class members. Nothing in the record sug-
+gests that Sasaki would not vigorously pursue injunctive relief
+on behalf of the entire class. Thus, we hold that the district
+court did not abuse its discretion by finding that Sasaki is an
+adequate representative.
+
+   [16] Whether Ellis and Horstman adequately represent the
+class, however, depends entirely on how the district court
+chooses to manage the class on remand. Currently, the certi-
+fied class includes both current and former employees of
+Costco. Ellis and Horstman, as former Costco employees,
+would share an interest with many class members who are
+former Costco employees. However, as we discuss infra,
+Plaintiffs not employed by Costco throughout this case do not
+have standing to seek injunctive relief. As former employees,
+Ellis and Horstman would not share an interest with class
+members whose primary goal is to obtain injunctive relief.
+Thus, as the class currently stands, Ellis and Horstman will
+not adequately protect the interests of the class as a whole. If,
+however, the district court decides on remand to certify a
+class of employees under Rule 23(b)(3), pursuant to our
+instructions in Part III of this opinion, it will need to consider
+in the first instance whether Ellis and Horstman can ade-
+               ELLIS v. COSTCO WHOLESALE CORP.             17719
+quately represent the interests of the second class—i.e., those
+seeking monetary damages.
+
+III.   Rule 23(b)
+
+   [17] Turning to Rule 23(b), Costco argues that the district
+court abused its discretion by certifying the class pursuant to
+Rule 23(b)(2), because Plaintiffs do not primarily seek injunc-
+tive relief. Rule 23(b)(2) permits class actions for declaratory
+or injunctive relief if “the party opposing the class has acted
+or refused to act on grounds that apply generally to the class,
+so that final injunctive relief or corresponding declaratory
+relief is appropriate respecting the class as a whole . . . .” Id.
+We agree that certification under Rule 23(b)(2) was improper,
+although on another basis.
+
+   Relying primarily on our decision in Molski v. Gleich, 318
+F.3d at 950, the district court examined the Plaintiffs’ subjec-
+tive intent and held that injunctive relief was the predominant
+form of relief sought. Ellis, 240 F.R.D. at 642-43. Specifi-
+cally, the district court relied on declarations submitted by the
+named Plaintiffs stating that their primary objective was
+obtaining injunctive relief and noted that Costco had not
+offered any alternative method of discerning Plaintiffs’ sub-
+jective intent in bringing the suit. Id. Having so concluded,
+the district court easily found that Plaintiffs’ claims for com-
+pensatory and punitive damages were merely incidental to the
+claim for injunctive relief.
+
+    “Class certification under Rule 23(b)(2) is appropriate only
+where the primary relief sought is declaratory or injunctive.”
+Zinser, 253 F.3d at 1195. Although we have previously held
+that in “Rule 23(b)(2) cases, monetary damage requests are
+generally allowable only if they are merely incidental to the
+litigation,” Kanter v. Warner-Lambert Co., 265 F.3d 853, 860
+(9th Cir. 2001), this standard has been called into doubt by the
+Supreme Court. Wal-Mart, 131 S. Ct. at 2560 (“We need not
+decide in this case whether there are any forms of ‘incidental’
+17720          ELLIS v. COSTCO WHOLESALE CORP.
+monetary relief that are consistent with the interpretation of
+Rule 23(b)(2) we have announced and that comply with the
+Due Process Clause.”).
+
+   The Supreme Court recently rejected the “predominance”
+test for determining whether monetary damages may be
+included in a 23(b)(2) class certification. Id. at 2559. Instead
+of considering the amount of the damages sought or the sub-
+jective intent of the class members seeking relief to determine
+if injunctive relief “predominates,” the relevant inquiry is
+what procedural safeguards are required by the Due Process
+Clause for the type of relief sought. Id. at 2557-58.
+
+   The Advisory Committee, in amending the Rules to include
+a (b)(3) class, noted that it was created for situations where
+“class-action treatment is not as clearly called for.” Id. at 2558
+(citation omitted). While expanding the breadth of possible
+class actions, it also expanded the procedural protections
+afforded the class. Id. Unlike classes certified under Rule
+23(b)(1) or (b)(2), a (b)(3) class is not mandatory. Id. Instead,
+putative class members are afforded the right to be notified of
+the action and to opt out of the class. Id. (citing Rule
+23(c)(2)(B)). The absence of these protections in a class
+action predominantly for monetary damages violates due pro-
+cess. Phillips Petroleum Co. v. Shutts, 472 U.S. 797, 812
+(1985). The Wal-Mart court later opined: “We fail to see why
+the Rule should be read to nullify these protections whenever
+a plaintiff class, at its option, combines its monetary claims
+with a request—even a ‘predominating request’—for an
+injunction.” 131 S. Ct. at 2559.
+
+   [18] The Court relatedly held that “claims for individual-
+ized relief (like the backpay at issue here) do not satisfy [Rule
+23(b)(2)],” noting that the “key to the (b)(2) class is the ‘indi-
+visible nature of the injunctive or declaratory remedy warrant-
+ed.’ ” Id. at 2557 (citation omitted). Rule 23(b)(2) “does not
+authorize class certification when each class member would
+be entitled to an individualized award of monetary damages.”
+                   ELLIS v. COSTCO WHOLESALE CORP.                      17721
+Id. The district court erred, therefore, by focusing on evidence
+of Plaintiffs’ subjective intent, instead of on whether the mon-
+etary relief could be granted absent “individualized determi-
+nations of each employee’s eligibility for [monetary
+damages].” Id. at 2560.
+
+   [19] We vacate the district court’s order finding that Plain-
+tiffs had satisfied Rule 23(b)(2) and remand for the district
+court to apply the legal standard established in Wal-Mart. On
+remand, we highlight several factors for the district court to
+consider.
+
+   First, if the district court determines that a (b)(2) class may
+be certified consistent with this opinion, it may consider
+whether Plaintiffs’ claim for punitive damages may properly
+be sought by a (b)(2) class.10 The district court earlier found
+that claims for punitive damages are suitable for certification
+under 23(b)(2), “because such . . . claim[s] focus[ ] on the
+conduct of the defendant and not the individual characteristics
+of the plaintiffs.” Ellis, 240 F.R.D. at 643; see also Dukes,
+603 F.3d at 622 (noting that plaintiffs’ claim for punitive
+damages did “not require individualized punitive damages
+determinations”); Kolstad v. Am. Dental Assoc., 527 U.S. 526,
+535 (1999) (noting that whether punitive damages are war-
+ranted is based on the employer’s state of mind, i.e., if “[t]he
+employer [acted] with ‘malice or with reckless indifference to
+the plaintiff ’s federally protected rights.’ ” (quoting 42
+U.S.C. § 1981a(b)(1)) (emphasis and alterations omitted)).
+The court may consider whether punitive damages are an
+allowable “form[ ] of ‘incidental’ monetary relief” consistent
+with the Court’s interpretation of 23(b)(2) because they do not
+require an individual determination.” See Wal-Mart, 131 S.
+Ct. at 2560.
+  10
+     In the alternative, if the district court certifies a (b)(3) class in place
+of, or in addition to a (b)(2) class, it may determine that the punitive dam-
+ages claim is more appropriate to a (b)(3) class.
+17722          ELLIS v. COSTCO WHOLESALE CORP.
+   Second, the district court must consider whether a class
+may be certified under (b)(3) to address Plaintiffs’ compensa-
+tory damages and backpay claims. As the court properly rec-
+ognized, compensatory damages require individual
+determinations. Ellis, 240 F.R.D. at 643. We remand, there-
+fore, for the district court to consider whether the class may
+properly be certified under Rule 23(b)(3). The district court
+must also consider whether the named Plaintiffs are adequate
+representatives of the putative (b)(3) class.
+
+   Finally, if the district court determines that a class may be
+certified, it must consider anew how to manage those mem-
+bers of the proposed class who are no longer Costco employ-
+ees. As the Supreme Court explained, only current employees
+have standing to seek injunctive relief. Wal-Mart, 131 S. Ct.
+at 2559-60. Therefore, the district court must consider how
+best to define the class(es) to ensure that all class members
+have standing to seek the requested relief. See, e.g., Dukes,
+603 F.3d at 620 (suggesting the court certify a “Rule 23(b)(2)
+class for equitable relief and a separate Rule 23(b)(3) class for
+damages”).
+
+IV.     Manageability
+
+   Finally, Costco argues that certification of the class would
+either be unmanageable or violate its constitutional rights.
+Although the district court declined to formally adopt a trial
+plan at this stage, it did indicate that it could accommodate the
+need for individualized determinations of compensatory dam-
+ages by bifurcating the trial into different phases. Costco,
+relying on International Brotherhood of Teamsters v. United
+States, 431 U.S. 324 (1977), argues that such a plan is unman-
+ageable and violates both its due process and Seventh Amend-
+ment rights.
+
+   Because the district court has not actually adopted a trial
+plan yet and in light of our holding today to vacate the district
+               ELLIS v. COSTCO WHOLESALE CORP.             17723
+court’s certification of the class under Rule 23, it is premature
+for us to address these arguments now.
+
+                       CONCLUSION
+
+   To summarize, we hold that at least one named Plaintiff
+(Sasaki) has standing to bring suit. We hold that the district
+court abused its discretion by applying the wrong legal stan-
+dard in its analyses of commonality and typicality under Rule
+23(a). Accordingly, we vacate the district court’s findings on
+those issues and remand for application of the correct stan-
+dard. Although we hold that the district court correctly deter-
+mined that Sasaki is an adequate class representative, we hold
+that Ellis and Horstman are inadequate representatives for
+pursuing injunctive relief, given that they are former employ-
+ees, and remand for the district court to consider whether they
+are adequate representatives if a (b)(3) class is certified. We
+vacate the district court’s certification of a class pursuant to
+Rule 23(b)(2) and remand for reconsideration in light of this
+opinion.
+
+  AFFIRMED in part; VACATED in part; REMANDED.
+
+  Parties shall bear their own costs on appeal.
+

@@ -1,0 +1,1612 @@
+Cordis Corp. v. Boston Scientific Corp.
+561 F.3d 1319, 90 U.S.P.Q. 2d (BNA) 1401, 2009 U.S. App. LEXIS 6937, 2009 WL 819055
+Court of Appeals for the Federal Circuit
+Filed: 2009-03-31
+Docket No. 2008-1003, 2008-1072
+Source: https://www.courtlistener.com/opinion/209037/cordis-corp-v-boston-scientific-corp/
+------------------------------------------------------------
+
+ United States Court of Appeals for the Federal Circuit
+
+                                   2008-1003, -1072
+
+                               CORDIS CORPORATION,
+
+                                                      Plaintiff-Appellant,
+
+                                           v.
+
+                        BOSTON SCIENTIFIC CORPORATION
+                         and SCIMED LIFE SYSTEMS, INC.,
+
+                                                      Defendants-Cross Appellants.
+
+
+       Gregory L. Diskant, Patterson, Belknap Webb & Tyler LLP, of New York, New
+York, argued for plaintiff-appellant. With him on the brief were Eugene M. Gelernter,
+Thomas W. Pippert, Kathleen M. Crotty, Scott W. Parker and Scott B. Howard. Of
+counsel was Michael J. Timmons. Of counsel on the brief was Constantine L. Trela, Jr.,
+Sidley Austin LLP, of Chicago, Illinois.
+
+      John M. Desmarais, Kirkland & Ellis LLP, of New York, New York, argued for
+defendants-cross appellants. With him on the brief were Peter J. Armenio, Young J.
+Park and Timothy K. Gilman.
+
+Appealed from: United States District Court for the District of Delaware
+
+Judge Sue L. Robinson
+ United States Court of Appeals for the Federal Circuit
+
+                                    2008-1003, -1072
+
+                               CORDIS CORPORATION,
+
+                                                       Plaintiff-Appellant,
+
+                                            v.
+
+                        BOSTON SCIENTIFIC CORPORATION
+                         and SCIMED LIFE SYSTEMS, INC.,
+
+                                                       Defendants-Cross Appellants.
+
+
+Appeals from the United States District Court for the District of Delaware
+in case no. 03-CV-027, Judge Sue L. Robinson.
+                          ___________________________
+
+                           DECIDED:    March 31, 2009
+                           ___________________________
+
+
+Before MAYER and DYK, Circuit Judges, and HUFF, District Judge. *
+
+DYK, Circuit Judge.
+
+      Cordis Corporation (“Cordis”) appeals, and Boston Scientific Corporation and
+
+Scimed Life Systems, Inc. (“Boston Scientific”) cross-appeal, from a final judgment of
+
+the United States District Court for the District of Delaware. The judgment was based
+
+on two separate jury verdicts of infringement: (1) infringement by Boston Scientific of
+
+claims 1 and 23 of U.S. Patent No. 4,739,762 (“the ’762 patent”) and claim 2 of U.S.
+
+Patent No. 5,895,406 (“the ’406 patent”), and (2) infringement by Cordis of claim 36 of
+
+U.S. Patent No. 5,922,021 (“the ’021 patent”). The judgment also determined that those
+
+
+      *
+             Honorable Marilyn L. Huff, District Judge, United States District Court for
+the Southern District of California, sitting by designation.
+claims were not invalid. Cordis Corp. v. Boston Scientific Corp., Civ. No. 03-027-SLR
+
+(D. Del. Sept. 24, 2007) (judgment). With one minor exception, we affirm.
+
+                                     BACKGROUND
+
+       Cordis and Boston Scientific own patents relating to intravascular stents, which
+
+are cylindrical lattice-like scaffolds inserted into a blood vessel and then expanded,
+
+often by using a balloon catheter, in order to hold the vessel open. Cordis owns the
+
+’762 patent and the ’406 patent, and Boston Scientific owns the ’021 patent.
+
+       In January 2003, Cordis filed suit against Boston Scientific, alleging that several
+
+of Boston Scientific’s stents infringe various claims of the ’762 patent and the ’406
+
+patent.   Boston Scientific counterclaimed, alleging that several of Cordis’s stents
+
+infringe various claims of the ’021 patent. The district court denied Cordis’s motion for a
+
+preliminary injunction against sales of one of Boston Scientific’s stents, and we affirmed.
+
+Cordis Corp. v. Boston Scientific Corp., 99 F. App’x 928 (Fed. Cir. 2004).
+
+       We treat the Cordis claims and the Boston Scientific claims separately. Since
+
+Cordis is the appellant, we first discuss Boston Scientific’s claims against Cordis that
+
+are the subject of the Cordis appeal.
+
+       The Boston Scientific claims:     The jury returned a verdict in July 2005 that
+
+(a) Cordis’s Cypher, BX Velocity, BX Sonic, and Genesis stents do not literally infringe
+
+claim 36 of the ’021 patent; (b) “the Cypher, BX Velocity, BX Sonic and Genesis stents
+
+infringe the ‘corners’ limitation of claim 36 of the ’021 patent under the doctrine of
+
+equivalents”; and (c) claim 36 of the ’021 patent is not invalid for obviousness. Cordis
+
+Corp. v. Boston Scientific Corp., Civ. No. 03-027-SLR, 2006 WL 1305227, at *1 (D. Del.
+
+
+
+
+2008-1003, -1072                         2
+May 11, 2006) (“Memorandum Opinion”). The district court denied Cordis’s motion for
+
+judgment as a matter of law or, in the alternative, a new trial.
+
+       The Cordis claims: On summary judgment, the district court determined that
+
+claims 1 and 23 of the ’762 patent were not invalid. A separate jury returned a verdict in
+
+favor of Cordis in June 2005 that (a) Boston Scientific’s Express, Taxus Express,
+
+Express Biliary, and Liberté stents literally infringe claim 23 of the ’762 patent; (b)
+
+Boston Scientific induced literal infringement of claim 1 of the ’762 patent with respect to
+
+these stents; (c) the Liberté stent literally infringes claim 2 of the ’406 patent; and (d)
+
+claim 2 of the ’406 patent is neither anticipated nor rendered obvious by the prior art.
+
+The district court denied Boston Scientific’s motion for judgment as a matter of law or, in
+
+the alternative, a new trial.
+
+       After the district court entered judgment, Cordis and Boston Scientific both timely
+
+appealed. We have jurisdiction under 28 U.S.C. §§ 1291, 1292(c)(2), and 1295(a)(1).
+
+                                       DISCUSSION
+
+       We review the denial of a motion for judgment as a matter of law without
+
+deference, and we review the denial of a motion for a new trial for abuse of discretion.
+
+Hewlett-Packard Co. v. Mustek Sys., Inc., 340 F.3d 1314, 1318 (Fed. Cir. 2003). Each
+
+party raises issues that have little merit. We dispose of those arguments summarily,
+
+reserving more extended discussion for the few issues that merit attention.
+
+
+
+
+2008-1003, -1072                          3
+                                                  I
+
+          We first address Cordis’s appeal.
+
+                               A. “Wherein” clause construction
+
+          Cordis challenges the judgment that its BX Velocity stent infringes claim 36 of the
+
+’021 patent. Claim 36 depends from claim 24, which in turn depends from claim 23.
+
+’021 patent col.22 l.42, col.21 l.16.
+
+          The procedural posture of this issue is unclear. The jury found that the accused
+
+Cordis stents do not literally infringe claim 36 of the ’021 patent. Instead of addressing
+
+whether Cordis’s stents infringed claim 36 under the doctrine of equivalents, the jury
+
+was asked only to determine whether Cordis’s stents “infringe the ‘corners’ limitation of
+
+claim 36 of the ’021 patent under the doctrine of equivalents.” J.A. at 11,238. The jury
+
+found that the “corners” limitation was infringed under the doctrine of equivalents.
+
+Apparently the parties agreed that the BX Velocity stent infringes all limitations of claim
+
+36 (if properly construed by the district court) except the “corners” limitation, but the
+
+parties provided no reference in the record reflecting this agreement. However, the
+
+district court entered judgment of infringement of claim 36, and we assume that the
+
+judgment rests upon such an agreement.
+
+          Cordis first argues that the district court erred in construing the “wherein” clause
+
+of claim 23, and that under a proper construction of this clause Cordis’s BX Velocity
+
+stent does not infringe claim 36. 1 The “wherein” clause of claim 23 describes how the
+
+
+
+
+          1
+                 This argument does not apply to Cordis’s Cypher, BX Sonic, and Genesis
+stents.
+
+
+
+2008-1003, -1072                              4
+struts within one expansion column or ring of a stent are connected to the struts of
+
+another column or ring,
+
+             wherein the first expansion strut of the first expansion strut
+             pair in the first expansion column has a longitudinal axis
+             offset from a longitudinal axis of the first expansion strut of
+             the second expansion strut pair in the second expansion
+             column.
+
+’021 patent col.21 ll.11-15 (emphasis added). The district court construed this “wherein”
+
+clause in claim 23 to mean “the first expansion strut in the first column does not share a
+
+longitudinal axis with the second expansion strut in the second column.” Cordis Corp. v.
+
+Boston Scientific Corp., Civ. No. 03-027-SLR, 2005 WL 1322966, at *2 (D. Del. June 3,
+
+2005) (“Claim Construction”). The district court refused to construe the “wherein” clause
+
+in claim 23 to exclude so-called “180 degrees out of phase” stent designs.
+
+      Claim construction is an issue of law, Markman v. Westview Instruments, Inc., 52
+
+F.3d 967, 970-71 (Fed. Cir. 1995) (en banc), aff’d, 517 U.S. 370 (1996), that we review
+
+without deference, Cybor Corp. v. FAS Technologies Inc., 138 F.3d 1448, 1456 (Fed.
+
+Cir. 1998) (en banc).
+
+      Cordis urges that the district court’s construction improperly failed to exclude
+
+stents whose strut pairs are arranged “180 degrees out of phase,” a phrase that both
+
+parties agree is in common usage in stent design. In such a 180-degree out-of-phase
+
+arrangement, the struts within each expansion column or ring are connected to form
+
+pairs, and the connected ends of the pairs in one ring face the connected ends of the
+
+pairs in the next ring, forming a mirror-image pattern. Cordis argues that if claim 23
+
+excludes such 180-degree out-of-phase designs, then Cordis’s BX Velocity stent (which
+
+
+
+
+2008-1003, -1072                        5
+uses a 180-degree out-of-phase design) would not infringe claim 36. Cordis illustrated
+
+the 180-degree out-of-phase design with a diagram:
+
+
+
+
+Br. for Pl.-Appellant Cordis Corp. 3.
+
+       Cordis argues that the same “wherein” clause appears in both claim 1 and claim
+
+23; that the clauses must have the same meaning; and that the prosecution history
+
+shows that the “wherein” clause excludes 180-degree out-of-phase designs. Cordis’s
+
+argument is a bit confusing. The issue is not the meaning of the “wherein” clause.
+
+Rather, the problem stems from the fact that claim 23 and claim 1 use different
+
+numbering systems, so that, for example, the “first expansion strut of the second
+
+expansion strut pair in the second expansion column” is not the same strut in claim 23
+
+as in claim 1.
+
+       Under the numbering system of claim 1, each strut in a column or ring is either
+
+the “first” or “second” strut of a pair, each pair in the first ring is a “first . . . pair,” and
+
+each pair in the second ring is a “second . . . pair.” 2 Thus in claim 1, the “wherein”
+
+
+       2
+                 Claim 1 of the ’021 patent states:
+
+       1. A stent in a non-expanded state, comprising:
+             a first expansion strut pair including a first expansion strut
+                 positioned adjacent to a second expansion strut and a joining
+                 strut of the first expansion strut pair that couples the first and
+
+
+2008-1003, -1072                            6
+clause requires the first strut of every strut pair in the first ring to be offset from the first
+
+strut of every strut pair in the second ring, which would not be possible in a 180-degree
+
+out-of-phase design. However, under the numbering system of claim 23, each strut in a
+
+ring is individually numbered “first . . . second . . . third . . . fourth . . . ,” each pair in the
+
+first ring is individually numbered “first . . . second . . . third . . . fourth . . . ,” and each
+
+pair in the second ring is individually numbered “first . . . second . . . third . . . fourth
+
+
+
+
+                  second expansion struts at a distal end of the first expansion
+                  strut pair, a plurality of the first expansion strut pair forming a
+                  first expansion column;
+               a second expansion strut pair including a first expansion strut
+                  positioned adjacent to a second expansion strut and a joining
+                  strut of the second expansion strut pair that couples the first and
+                  second expansion struts of the second expansion strut pair at a
+                  proximal end of the second expansion strut pair, a plurality of the
+                  second expansion strut pair forming a second expansion column;
+               a first connecting strut including a first connecting strut proximal
+                  section, a first connecting strut distal section and a first
+                  connecting strut intermediate section, the first connecting strut
+                  proximal section being coupled to the distal end of the first
+                  expansion strut pair in the first expansion column and the first
+                  connecting strut distal section being coupled to the proximal end
+                  of the second expansion strut pair of the second expansion
+                  column, a plurality of the first connecting strut forming a first
+                  connecting strut column that couples the first expansion column
+                  to the second expansion column, the first connecting strut
+                  intermediate section being non-parallel to the first connecting strut
+                  proximal and distal sections, wherein the first expansion strut of
+                  the first expansion strut pair in the first expansion column has a
+                  longitudinal axis offset from a longitudinal axis of the first
+                  expansion strut of the second expansion strut pair in the second
+                  expansion column.
+
+’021 patent col.18 ll.9-41 (emphases added).
+
+
+
+2008-1003, -1072                             7
+. . . .” 3 Thus in claim 23, the “wherein” clause requires only one specific strut (the first
+
+
+
+       3
+              Claim 23 of the ’021 patent states:
+
+       23. A stent in a non-expanded state, comprising:
+              a first expansion column formed of a plurality of first expansion
+                  column strut pairs, a first expansion strut pair including a first
+                  expansion strut adjacent to a second expansion strut and a first
+                  joining strut that couples the first and second expansion struts at
+                  a proximal end of the first expansion strut pair, a second
+                  expansion strut pair including a third expansion strut adjacent to
+                  the second expansion strut and a second joining strut that
+                  couples the second and third expansion struts at a distal end of
+                  the second expansion strut pair, a third expansion strut pair
+                  including a fourth expansion strut adjacent to the third
+                  expansion strut and a third joining strut that couples the third
+                  and fourth expansion struts at a proximal end of the third
+                  expansion strut pair, a fourth expansion strut pair including a
+                  fifth expansion strut adjacent to the fourth expansion strut and a
+                  fourth joining strut that couples the fourth and fifth expansion
+                  struts at a distal end of the fourth expansion strut pair, a first
+                  expansion strut pair first corner formed where the first joining
+                  strut is coupled to the first expansion strut, and a first expansion
+                  strut pair second corner formed where the first joining strut is
+                  coupled to the second expansion strut, and a second expansion
+                  strut pair first corner formed where the second joining strut is
+                  coupled to the second expansion strut, and a second expansion
+                  strut pair second corner formed where the second joining strut is
+                  coupled to the third expansion strut, and a third expansion strut
+                  pair first corner formed where the third joining strut is coupled to
+                  the third expansion strut, and a third expansion strut pair second
+                  corner formed where the third joining strut is coupled to the
+                  fourth expansion strut, and a fourth expansion strut pair first
+                  corner formed where the fourth joining strut is coupled to the
+                  fourth expansion strut, and a fourth expansion strut pair second
+                  corner formed where the fourth joining strut is coupled to the
+                  fifth expansion strut;
+              a second expansion column formed of a plurality of second
+                  expansion column strut pairs, a first expansion strut pair
+                  including a first expansion strut adjacent to a second expansion
+                  strut and a first joining strut that couples the first and second
+                  expansion struts at a proximal end of the first expansion strut
+                  pair, a second expansion strut pair including a third expansion
+                  strut adjacent to the second expansion strut and a second
+                  joining strut that couples the second and third expansion struts
+
+
+2008-1003, -1072                          8
+                at a distal end of the second expansion strut pair, a third
+                expansion strut pair including a fourth expansion strut adjacent
+                to the third expansion strut and a third joining strut that couples
+                the third and fourth expansion struts at a proximal end of the
+                third expansion strut pair, a fourth expansion strut pair including
+                a fifth expansion strut adjacent to the fourth expansion strut and
+                a fourth joining strut that couples the fourth and fifth expansion
+                struts at a distal end of the fourth expansion strut pair, a first
+                expansion strut pair first corner formed where the first joining
+                strut is coupled to the first expansion strut, and a first expansion
+                strut pair second corner formed where the first joining strut is
+                coupled to the second expansion strut, and a second expansion
+                strut pair first corner formed where the second joining strut is
+                coupled to the second expansion strut, and a second expansion
+                strut pair second corner formed where the second joining strut is
+                coupled to the third expansion strut, and a third expansion strut
+                pair first corner formed where the third joining strut is coupled to
+                the third expansion strut, and a third expansion strut pair second
+                corner formed where the third joining strut is coupled to the
+                fourth expansion strut, and a fourth expansion strut pair first
+                corner formed where the fourth joining strut is coupled to the
+                fourth expansion strut, and a fourth expansion strut pair second
+                corner formed where the fourth joining strut is coupled to the
+                fifth expansion strut; and
+             a first connecting strut column formed of a plurality of first
+                connecting struts, each connecting strut of the first connecting
+                strut column including a connecting strut proximal section, a
+                connecting strut distal section and a connecting strut
+                intermediate section, a first connecting strut proximal section is
+                coupled to the joining strut of the second expansion strut pair of
+                the first expansion strut column, and a first connecting strut
+                distal section is coupled to the joining strut of the first expansion
+                strut pair of the second expansion strut column, and a second
+                connecting strut proximal section is coupled to the joining strut
+                of the fourth expansion strut pair of the first expansion strut
+                column, and a second connecting strut distal section is coupled
+                to the joining strut of the third expansion strut pair of the second
+                expansion strut column, the first connecting strut intermediate
+                section being non-parallel to the first connecting strut proximal
+                and distal sections wherein the first expansion strut of the first
+                expansion strut pair in the first expansion column has a
+                longitudinal axis offset from a longitudinal axis of the first
+                expansion strut of the second expansion strut pair in the second
+                expansion column.
+’021 patent col.19 l.53 – col.21 l.15 (emphases added).
+
+
+2008-1003, -1072                         9
+strut of the first pair in the first ring) to be offset from one other specific strut (the “first
+
+expansion strut of the second expansion strut pair” in the second ring).                 Cordis
+
+numbered a figure from the ’021 patent (also known as the Jang patent) to illustrate
+
+these different numbering systems:
+
+
+
+
+Br. for Pl.-Appellant Cordis Corp. 40. Because these two specific struts could be offset
+
+from each other but yet aligned with other struts to form a 180-degree out-of-phase
+
+pattern, the language of claim 23 includes 180-degree out-of-phase designs. Indeed,
+
+the parties appear to agree that on their face claim 1 and claim 23 each use a different
+
+
+
+2008-1003, -1072                           10
+numbering system to describe the relative arrangement of a stent’s struts, with the
+
+result that the claim 23 “wherein” clause does not exclude 180-degree out-of-phase
+
+designs. The question is whether the prosecution history requires that, despite its plain
+
+language, the “wherein” clause of claim 23 be construed to use the same numbering
+
+system as claim 1. Cordis argues that the prosecution history reflects such a “clear and
+
+unmistakable” disclaimer. Free Motion Fitness, Inc. v. Cybex Int’l, Inc., 423 F.3d 1343,
+
+1353 (Fed. Cir. 2005); see also Omega Eng’g, Inc., v. Raytek Corp., 334 F.3d 1314,
+
+1325-26 (Fed. Cir. 2003). We cannot agree.
+
+      The “wherein” clause was added to claims 1 and 23 during the prosecution of the
+
+’021 patent after the examiner rejected both claims as anticipated by European Patent
+
+Application No. 95307687.4, Pub. No. 0 709 067 A2 (“Pinchasik”). Pinchasik discloses
+
+a stent whose struts are arranged in a 180-degree out-of-phase design but whose struts
+
+are not numbered. During the first office action, the examiner rejected claims 1 and 23
+
+as anticipated by Pinchasik, coloring one of Pinchasik’s stent design figures and
+
+numbering parts of the figure (labeled “Figure 2”) according to the numbering system of
+
+claim 1 of the ’021 patent. 4 The examiner’s numbering system is, however, different
+
+than claim 23’s numbering system. The examiner’s rejection in light of Pinchasik made
+
+no reference to 180-degree out-of-phase designs, but simply stated that claim 1, claim
+
+23, and other claims “are rejected under 35 U.S.C. § 102(b) as being anticipated by
+
+Pinchasik” and that “[w]ith respect to [these claims] . . . refer to the modified Figure 2
+
+
+
+      4
+             The exhibit included at page 7994 of the Joint Appendix shows that the
+examiner colored in and labeled the figure from Pinchasik, but does not disclose
+numbering of the figure by the examiner. The parties appear not to dispute that the
+examiner did number the figure according to the numbering system of claim 1 of the
+’021 patent.
+
+
+2008-1003, -1072                        11
+attached to this office action.” J.A. at 1705. After the “wherein” clause was added to
+
+claims 1 and 23, the examiner allowed both claims. Cordis argues that the examiner
+
+used only the numbering system of claim 1 when allowing both claim 1 and claim 23,
+
+and that the examiner necessarily assumed that claim 23 used the same numbering
+
+system as claim 1.     However, the examiner did not say so, and we cannot simply
+
+suppose that the claims were allowed based on an assumed identity of numbering
+
+systems. We note that Cordis does not argue that Pinchasik anticipates claim 23 of the
+
+’021 patent under the district court’s claim construction, which suggests that the
+
+examiner could have allowed the claim on other grounds. Cordis also argues that both
+
+the applicant and the examiner referred to stent pairs as “longitudinally offset,” but these
+
+references simply repeat the “wherein” clause and say nothing about different
+
+numbering systems.      Finally, on the disclaimer issue, Cordis argues that the ’021
+
+patent’s provisional application described the invention as consisting of stents whose
+
+flexibility depended on connections between “split level” (and thus offset) strut pairs, but
+
+again this language in the provisional application did not discuss the system for
+
+numbering these connected strut pairs. A disclaimer must be “clear and unmistakable,”
+
+and unclear prosecution history cannot be used to limit claims. Free Motion Fitness,
+
+423 F.3d at 1352-53; see also Inverness Med. Switz. GmbH v. Warner Lambert Co.,
+
+309 F.3d 1373, 1381-82 (Fed. Cir. 2002). The plain language of claim 23 cannot be
+
+overcome by such unclear prosecution history. Although Cordis urges that no figure in
+
+the ’021 patent uses a 180-degree out-of-phase design, a patent is not confined to its
+
+disclosed embodiments. See Phillips v. AWH Corp., 415 F.3d 1303, 1323 (Fed. Cir.
+
+2005) (en banc).
+
+
+
+
+2008-1003, -1072                         12
+      We affirm the district court’s construction of the “wherein” clause in claim 23 of
+
+the ’021 patent.
+
+                                  B. Corners limitation
+
+      Alternatively, Cordis argues that the judgment of infringement of claim 36 of the
+
+’021 patent by the BX Velocity stent should be set aside, because the jury erred in
+
+concluding that the “corners” limitation of claim 36 was satisfied under the doctrine of
+
+equivalents, and because the district court erred in denying judgment as a matter of law
+
+on this ground. The “corners” limitation appears both in the language of claim 36 itself
+
+and in claim 23, on which claim 36 depends. 5       Cordis does not dispute the district
+
+court’s construction of “corners” as “a place where two surfaces meet to form an angle.”
+
+Claim Construction, 2005 WL 1322966, at *1.
+
+      First, Cordis argues that the evidence did not support the jury’s verdict of
+
+infringement of this limitation under the doctrine of equivalents. A jury’s determination
+
+of infringement is a question of fact that we review to consider whether it is supported
+
+by substantial evidence. B. Braun Med., Inc. v. Abbott Labs., 124 F.3d 1419, 1423
+
+(Fed. Cir. 1997).
+
+
+      5
+             Claim 36 of the ’021 patent states:
+
+          36. The stent of claim 24, wherein the first connecting strut proximal
+              section is coupled to the second corner of the second expansion
+              strut pair of the first expansion strut column, and the first
+              connecting strut distal section is coupled to the first corner of the
+              first expansion strut pair of the second expansion strut column,
+              and the second connecting strut proximal section is coupled to
+              the second corner of the fourth expansion strut pair of the first
+              expansion strut column, and the second connecting strut distal
+              section is coupled to the first corner of the third expansion strut
+              pair of the second expansion strut column.
+
+      ’021 patent col.22 ll.42-52 (emphases added).
+
+
+2008-1003, -1072                       13
+       The district court properly found that Boston Scientific presented sufficient expert
+
+testimony that Cordis’s BX Velocity stent meets the “corners” limitation of claim 36
+
+under the doctrine of equivalents under the function-way-result test of Graver Tank &
+
+Manufacturing Co. v. Linde Air Products Co., 339 U.S. 605, 608 (1950), a test that is still
+
+useful under Warner-Jenkinson Co. v. Hilton-Davis Chemical Co., 520 U.S. 17, 39-40
+
+(1997), particularly for mechanical inventions.    Boston Scientific’s expert Dr. Moore
+
+testified that the “corners” in claim 36 and the circular arcs or rounded corners of the BX
+
+Velocity stent both function as actual and potential reference points for joining adjacent
+
+stent rings, fulfill this function through their similar locations, and can or do result in
+
+offset connections between stent rings.       Such testimony fulfills Boston Scientific’s
+
+obligation to “provide particularized testimony and linking argument . . . with respect to
+
+the function, way, result test when such evidence is presented to support a finding of
+
+infringement under the doctrine of equivalents.”      Tex. Instruments Inc. v. Cypress
+
+Semiconductor Corp., 90 F.3d 1558, 1567 (Fed. Cir. 1996).
+
+       Cordis next argues that the doctrine of equivalents should not be applied in this
+
+case because the jury’s finding of infringement vitiated the “corners” limitation. 6 Cordis
+
+asserts that the circular arcs of the BX Velocity stent cannot “form an angle” as required
+
+by the district court’s claim construction. Whether the doctrine of equivalents vitiated a
+
+patent claim is a question of law we review de novo. Pfizer, Inc. v. Teva Pharms. USA,
+
+Inc., 429 F.3d 1364, 1379 (Fed. Cir. 2005).
+
+
+
+
+       6
+                Cordis also argues that circular arcs were disclaimed. We find no basis
+for this in the prosecution history of the ’021 patent.
+
+
+
+2008-1003, -1072                        14
+       The district court properly found that vitiation did not bar a doctrine of equivalents
+
+analysis here. Although we have “refused to apply the doctrine [of equivalents] . . .
+
+where the accused device contained the antithesis of the claimed structure,” Planet
+
+Bingo, LLC v. GameTech International, Inc., 472 F.3d 1338, 1345 (Fed. Cir. 2006), the
+
+circular arcs of the BX Velocity are not antithetical to the “corners” limitation in claim 36
+
+of the ’021 patent. Boston Scientific’s theory that the circular arcs of the BX Velocity
+
+stent are equivalent to the “corners” in claim 36 does not vitiate the “corners” limitation,
+
+because it does not “render[ ] the pertinent limitation meaningless,” Freedman Seating
+
+Co. v. Am. Seating Co., 420 F.3d 1350, 1359 (Fed. Cir. 2005), or “effectively eliminate
+
+that element in its entirety,” Warner-Jenkinson, 520 U.S. at 29. See Primos, Inc. v.
+
+Hunter’s Specialties, Inc., 451 F.3d 841, 850 (Fed. Cir. 2006).
+
+       We affirm the district court’s denial of Cordis’s motions for judgment as a matter
+
+of law or, in the alternative, a new trial on infringement of the ’021 patent.
+
+                          C. New claim construction arguments
+
+       Cordis argues that the district court improperly declined after trial to adopt a new
+
+construction of “expansion columns” and “connecting strut columns” in the claims of the
+
+’021 patent. In a motion for judgment as a matter of law on infringement of the ’021
+
+patent, Cordis raised for the first time the argument that the district court should adopt
+
+the construction of these terms that Boston Scientific had advocated in a different case
+
+relating to the ’021 patent. 7 The district court declined to do so. Cordis Corp. v. Boston
+
+
+
+
+       7
+              The claim construction Cordis urged the district court to adopt was
+appealed to this court and has since been vacated and remanded. Jang v. Boston
+Scientific Corp., 532 F.3d 1330, 1331 (Fed. Cir. 2008).
+
+
+2008-1003, -1072                          15
+Scientific Corp., Civ. Nos. 03-027-SLR, 03-283-SLR, 2007 WL 2775087, at *1 (D. Del.
+
+Sept. 24, 2007).
+
+       Raising this argument for the first time in a motion for judgment as a matter of
+
+law more than a year after the jury’s infringement verdict was too late. “[L]itigants waive
+
+their right to present new claim construction disputes if they are raised for the first time
+
+after trial.” Conoco, Inc. v. Energy & Envtl. Int’l, L.C., 460 F.3d 1349, 1359 (Fed. Cir.
+
+2006); see also Abbott Labs. v. Syntron Bioresearch, Inc. 334 F.3d 1343, 1357 (Fed.
+
+Cir. 2003).   The district court properly declined to revise its claim construction in
+
+response to Cordis’s argument.
+
+                                      D. Indefiniteness
+
+       Cordis asserts that the district court erred in finding that claim 23 of the ’021
+
+patent is not indefinite. Cordis argues that claim 36, and claim 23 on which it depends,
+
+are invalid unless claim 23’s “wherein” clause is construed to exclude 180-degree out-
+
+of-phase designs.     Indefiniteness under 35 U.S.C. § 112 ¶ 2 is an issue of claim
+
+construction and a question of law that we review de novo. Praxair, Inc. v. ATMI, Inc.,
+
+543 F.3d 1306, 1319 (Fed. Cir. 2008). We see no basis for Cordis’s argument. Claim
+
+23 as construed by the district court is not indefinite.
+
+                                      E. Obviousness
+
+       Cordis argues that the jury erred in finding that claim 36 of the ’021 patent was
+
+not invalid for obviousness, and that the district court erred in denying Cordis’s motion
+
+for judgment as a matter of law of obviousness.
+
+       The ’021 patent claims priority to its provisional application. ’021 patent col.1 ll.6-
+
+8. Cordis first argues that the district court should have ruled as a matter of law that the
+
+
+
+
+2008-1003, -1072                          16
+’021 patent was not entitled to a priority date of April 26, 1996 (when the ’021 patent’s
+
+provisional application was filed), and that the correct priority date is April 25, 1997
+
+(when the ’021 patent’s non-provisional application was filed). Cordis asserts that the
+
+priority date is important because after April 26, 1996, and before April 25, 1997,
+
+inventors had created stents that demonstrated that claim 36 of the ’021 patent was
+
+invalid as obvious under 35 U.S.C. § 103. Cordis’s basis for challenging the priority
+
+date is its theory that the ’021 patent’s April 1996 provisional application did not provide
+
+a sufficient written description of the patent’s limitations, namely the limitation of claim
+
+36 requiring connecting struts to be attached on one end at a “second” or bottom corner
+
+of a strut pair and on the other end at a “first” or top corner.
+
+       The written description requirement of 35 U.S.C. § 112 ¶ 1 is a question of fact,
+
+and we review a jury’s findings of fact relating to the written description requirement for
+
+substantial evidence. PIN/NIP, Inc. v. Platte Chem. Co., 304 F.3d 1235, 1243 (Fed. Cir.
+
+2002). To comply with the written description requirement, an applicant must “convey
+
+with reasonable clarity to those skilled in the art that, as of the filing date sought, he or
+
+she was in possession of the invention,” New Railhead Mfg., L.L.C. v. Vermeer Mfg.
+
+Co., 298 F.3d 1290, 1295 (Fed. Cir. 2002) (quoting Vas-Cath Inc. v. Mahurkar, 935 F.2d
+
+1555, 1563-64 (Fed. Cir. 1991) (emphasis omitted)), namely that he or she “had
+
+invented each feature that is included as a claim limitation,” New Railhead, 298 F.3d at
+
+1295. The district court cited uncontradicted testimony from Boston Scientific’s expert
+
+Dr. Moore that the ’021 patent’s provisional application provided a sufficient written
+
+description of the limitations of claim 36. We conclude that the jury could properly find
+
+that the ’021 patent was entitled to an April 1996 priority date.
+
+
+
+
+2008-1003, -1072                          17
+       Cordis alternatively argues that regardless of whether the ’021 patent has a
+
+priority date of April 1996 or April 1997, several earlier patents 8 were prior art rendering
+
+claim 36 obvious. Cordis asserts that it would have been obvious to one of ordinary skill
+
+in the art to combine features of these patents to create stents with the bottom-corner-
+
+to-top-corner connecting struts disclosed in claim 36 of the ’021 patent.
+
+       “We review ‘[the] jury’s conclusions on obviousness, a question of law, without
+
+deference, and the underlying findings of fact . . . for substantial evidence.’” Johns
+
+Hopkins Univ. v. Datascope Corp., 543 F.3d 1342, 1345 (Fed. Cir. 2008) (quoting LNP
+
+Eng'g Plastics, Inc. v. Miller Waste Mills, Inc., 275 F.3d 1347, 1353 (Fed. Cir. 2001)).
+
+The district court cited uncontradicted testimony from Boston Scientific’s expert Dr.
+
+Moore that the prior art patents cited by Cordis would be unlikely to be combined to
+
+create the connectors of claim 36 of the ’021 patent, and that these prior art patents
+
+taught away from the bottom-to-top connectors described in claim 36 by describing
+
+features of such connectors as potentially harmful. The district court properly concluded
+
+there was substantial evidence that these prior art patents did not render claim 36
+
+obvious.
+
+       We affirm the district court’s denial of Cordis’s motion for judgment as a matter of
+
+law or, in the alternative, a new trial on invalidity of the ’021 patent.
+
+
+
+
+       8
+              U.S. Patent Nos. 5,102,417; 5,449,373; 5,643,312; 5,733,303; and
+6,348,065.
+
+
+
+2008-1003, -1072                           18
+                                             II
+
+      We next address Boston Scientific’s cross-appeal.
+
+                                     A. Monographs
+
+      Boston Scientific argues that the district court erred in holding that two
+
+monographs prepared by the inventor of the ’762 patent are not prior art, and erred in
+
+granting Cordis’s motion for summary judgment that the asserted claims of the ’762
+
+patent are not invalid “as to the asserted claims being invalidated by the Palmaz
+
+Monographs.” Cordis Corp. v. Boston Scientific Corp., Civ. No. 03-027-SLR (D. Del.
+
+June 3, 2005) (summary judgment order).
+
+       If there are no facts in dispute, whether a reference is a prior art “printed
+
+publication” within the meaning of 35 U.S.C. § 102(b) is a question of law. 9        In re
+
+Klopfenstein, 380 F.3d 1345, 1347 (Fed. Cir. 2004).           Because the facts of the
+
+distribution of Dr. Palmaz’s monographs are not in dispute, we review de novo the issue
+
+of whether the monographs are prior art printed publications.
+
+      In 1980 the inventor of the ’762 patent, Dr. Palmaz, prepared a ten-page paper
+
+describing his work on stents. This paper is the “1980 monograph.” At that time he was
+
+a resident at a hospital in California. His name was not on the paper. He gave copies
+
+of the paper to approximately six of his teachers at an oral presentation of his work to
+
+these physicians and several other colleagues. Pursuant to agreements, Palmaz later
+
+gave copies of the monograph to two companies (Vascor, Inc., and Shiley, Inc.) while
+
+
+
+      9
+              Under 35 U.S.C. § 102, “[a] person shall be entitled to a patent unless . . .
+(b) the invention was patented or described in a printed publication in this or a foreign
+country or in public use or on sale in this country, more than one year prior to the date
+of the application for patent in the United States.”
+
+
+
+2008-1003, -1072                        19
+attempting to commercialize his stent technology. 10         Neither agreement required
+
+confidentiality, and the Shiley agreement specifically stated that Shiley “shall not be
+
+committed to keep secret any idea or material submitted.” J.A. at 19,473. In 1983 Dr.
+
+Palmaz revised the paper; the revised paper became the “1983 monograph.” In 1983
+
+he also gave a copy of both monographs to Werner Schultz, a technician from whom
+
+Dr. Palmaz was seeking fabrication assistance. When Dr. Palmaz joined the faculty in
+
+1983 at the University of Texas, San Antonio, he gave a copy of the 1983 monograph to
+
+a doctor there (who then gave it to the technician setting up Dr. Palmaz’s laboratory)
+
+and to the university as part of a research proposal. Dr. Palmaz applied for the patent
+
+that became the ’762 patent in 1985.
+
+       A document is publicly accessible if it “has been disseminated or otherwise made
+
+available to the extent that persons interested and ordinarily skilled in the subject matter
+
+or art, exercising reasonable diligence, can locate it and recognize and comprehend
+
+therefrom the essentials of the claimed invention without need of further research or
+
+experimentation.” In re Wyer, 655 F.2d 221, 226 (CCPA 1981) (quoting I.C.E. Corp. v.
+
+Armco Steel Corp., 250 F. Supp. 738, 743 (S.D.N.Y.1966)). In general, “[a]ccessibility
+
+goes to the issue of whether interested members of the relevant public could obtain the
+
+information if they wanted to.” Constant v. Advanced Micro-Devices, Inc., 848 F.2d
+
+1560, 1569 (Fed. Cir. 1988).        Many of our cases in this area have concerned
+
+publications available in libraries, and the question has been whether the publication
+
+has been sufficiently indexed to be publicly accessible. See, e.g., In re Cronyn, 890
+
+
+
+       10
+              The parties here agree that there is no evidence that copies of the
+monographs were given to a third commercial entity, Cook Inc., before the critical date
+of the ’021 patent.
+
+
+2008-1003, -1072                         20
+F.2d 1158, 1161 (Fed. Cir. 1989); In re Hall, 781 F.2d 897, 899 (Fed. Cir. 1986); In re
+
+Wyer, 655 F.2d at 226. Other cases have involved widespread distribution so that the
+
+public could easily obtain copies of the publication. See, e.g., Kyocera Wireless Corp.
+
+v. Int’l Trade Comm’n, 545 F.3d 1340, 1350-51 (Fed. Cir. 2008).
+
+       Here we have a somewhat different question: whether the distribution to a limited
+
+number of entities without a legal obligation of confidentiality renders the monographs
+
+printed publications under § 102(b). We have held that where a distribution is made to
+
+a limited number of entities, a binding agreement of confidentiality may defeat a finding
+
+of public accessibility. But we have also held that such a binding legal obligation is not
+
+essential. Klopfenstein, 380 F.3d at 1351. We have noted that “[w]here professional
+
+and behavioral norms entitle a party to a reasonable expectation” that information will
+
+not be copied or further distributed, “we are more reluctant to find something a ‘printed
+
+publication.’” 11 Id. at 1350-51.
+
+       We first discuss Dr. Palmaz’s distribution of copies of his monographs to his
+
+university and hospital colleagues. We have recognized the importance of “preserv[ing]
+
+the incentive for inventors to participate in academic presentations or discussions” by
+
+noting that professional norms may support expectations of confidentiality. Id. at 1351.
+
+The record here contains clear evidence that such academic norms gave rise to an
+
+
+
+       11
+             In the public use context of § 102(b), we have similarly noted that a lack of
+an express promise of confidentiality is not determinative of public use, but is instead
+“one factor to be considered in assessing all the evidence.” Bernhardt, L.L.C. v.
+Collezione Europa USA, Inc., 386 F.3d 1371, 1379 (Fed. Cir. 2004) (quoting Moleculon
+Research Corp. v. CBS, Inc., 793 F.2d 1261, 1266 (Fed. Cir. 1986)), abrogated on other
+grounds by Egyptian Goddess, Inc. v. Swisa, Inc., 543 F.3d 665 (Fed. Cir. 2008) (en
+banc); see also Invitrogen Corp. v. Biocrest Mfg., L.P., 424 F.3d 1374, 1382 (Fed. Cir.
+2005).
+
+
+
+2008-1003, -1072                        21
+expectation that disclosures will remain confidential. 12     Cordis’s expert Dr. Buller
+
+testified that the “code of practice which occurs worldwide in academic circles, in
+
+departments, in medicine” includes treating a document describing scientific research in
+
+the “same confidential manner as you would if you had been given it directly by the
+
+author.”   J.A. at 8540-41.   The district court properly concluded that Dr. Palmaz’s
+
+distribution of the monographs to his academic and research colleagues did not render
+
+the monographs prior art printed publications.
+
+      However, Boston Scientific urges that, even if the academic and hospital
+
+distributions did not create public accessibility, the distribution of monographs to two
+
+commercial entities did so. These distributions occurred during attempts to interest the
+
+two companies in development of Dr. Palmaz’s stent designs. There is no claim here
+
+that the two commercial entities provided any express agreement to keep the document
+
+confidential; indeed, one entity’s disclosure agreement did not discuss the entity’s
+
+confidentiality obligations, and the other entity’s disclosure agreement specifically
+
+disclaimed such obligations (most likely to avoid a lawsuit resulting from inadvertent
+
+disclosure). Boston Scientific argues that under the decision of our predecessor court,
+
+the Court of Claims, in Garrett Corp. v. United States, “[w]hile distribution [of a
+
+government report] to government agencies and personnel alone may not constitute
+
+publication, distribution to commercial companies without restriction on use clearly
+
+does.” 422 F.2d 874, 878 (Ct. Cl. 1970) (citation omitted).
+
+
+
+      12
+              The only potentially contrary testimony is a statement in a report by
+Boston Scientific’s expert that a “colleague, faculty member or other recipient [of the
+monographs] . . . would be under no obligation to maintain the disclosure in confidence.”
+J.A. at 19,386. As we have discussed, whether or not recipients have a legal obligation
+to maintain confidentiality is not determinative.
+
+
+2008-1003, -1072                        22
+       However, the evidence here was sufficient to support a conclusion that there was
+
+an expectation of confidentiality between Dr. Palmaz and each of the two commercial
+
+entities. While the Shiley legal agreement executed before development discussions
+
+disclaimed a confidentiality requirement, Dr. Palmaz testified that he requested
+
+confidentiality during subsequent discussions and was “surprise[d]” when he was shown
+
+the language of the Shiley agreement.         J.A. at 8517; id. at 19,354.     There is no
+
+suggestion that the request for confidentiality was not, in fact, honored. Dr. Palmaz
+
+confirmed that the entities kept their copies of the monograph confidential, whether or
+
+not they were legally obligated to do so. J.A. at 8502. The district court noted that
+
+“there is no evidence that [the commercial entities] would have distributed, or in fact did
+
+distribute, the 1980 Monograph outside of the company.”           Cordis Corp. v. Boston
+
+Scientific Corp., Civ. No. 03-027-SLR, 2005 WL 1331172, at *4 (D. Del. June 3, 2005).
+
+There was no showing that similar documents in the past became available to the public
+
+as a result of disclosure by these or similar commercial entities, that these or similar
+
+commercial entities typically would make the existence of such documents known and
+
+would honor requests for public access, or that these or similar commercial entities had
+
+an incentive to make the document available, etc. The mere fact that there was no legal
+
+obligation of confidentiality—all that was shown here—is not in and of itself sufficient to
+
+show that Dr. Palmaz’s expectation of confidentiality was not reasonable. 13
+
+
+
+
+       13
+              Boston Scientific asserted that the district court improperly did not allow it
+to argue that the monographs were prior art in light of the result of a different litigation
+involving the ’762 patent. We do not need to reach the question of whether the earlier
+determination that the ’762 patent was “valid” precluded further litigation of the validity
+determination in this case.
+
+
+
+2008-1003, -1072                         23
+         We affirm the district court’s holding that Dr. Palmaz’s 1980 and 1983
+
+monographs were not prior art printed publications under § 102(b), and we affirm the
+
+district court’s grant of Cordis’s summary judgment motion that the claims of the ’762
+
+patent are not invalidated by the Palmaz monographs.
+
+                                        B. Anticipation
+
+         Boston Scientific argues that the jury erred in finding that claim 2 of the ’406
+
+patent is not invalid, and that the district court erred in not granting judgment as a matter
+
+of law on grounds of anticipation. Anticipation is a question of fact; we review the jury’s
+
+verdict for substantial evidence. Voda v. Cordis Corp., 536 F.3d 1311, 1321 (Fed. Cir.
+
+2008).
+
+         Boston Scientific’s theory is that Cordis’s ’762 patent anticipates claim 2 of
+
+Cordis’s ’406 patent. The parties agree that the ’762 patent includes all elements of
+
+claim 2 of the ’406 patent, save for the functional language in claim 1 of the ’406 patent
+
+(on which claim 2 of the ’406 patent depends). This functional language states, “such
+
+that the links and bands define an expandable structure having axial flexibility in an
+
+unexpanded configuration.” ’406 patent col.5 ll.35-39 (emphases added). 14
+
+
+
+         14
+                 Claims 1 and 2 of the ’406 patent state:
+
+              1. A stent having first and second ends with an intermediate section
+                 therebetween, and a longitudinal axis, comprising:
+                    a plurality of longitudinally disposed bands, wherein each band
+                       defines a generally continuous wave having a spatial
+                       frequency along a line segment parallel to the longitudinal
+                       axis; and
+                    a plurality of links for maintaining the bands in a tubular
+                       structure, wherein the links are so disposed that any single
+                       circumferential path formed by the links is discontinuous;
+                    such that the links and bands define an expandable structure
+                       having axial flexibility in an unexpanded configuration.
+
+
+2008-1003, -1072                           24
+       Boston Scientific argues that this “such that” claim language cannot operate as a
+
+claim limitation to distinguish the ’406 patent over the prior art. Contrary to Boston
+
+Scientific’s argument, we have held that functional language can be a claim limitation.
+
+See Microprocessor Enhancement Corp. v. Tex. Instruments Inc., 520 F.3d 1367, 1375
+
+(Fed. Cir. 2008). We conclude that the jury could properly find that the “such that” claim
+
+language is a limitation of claim 1 of the ’406 patent that barred a finding of anticipation.
+
+       Boston Scientific alternatively argues that even if the “such that” functional
+
+language limits claim 2 to stents “having axial flexibility,” the evidence demonstrated that
+
+the ’762 patent disclosed such axial flexibility.        The district court, citing both the
+
+testimony of Boston Scientific’s expert Dr. Moore and the presumption of a patent’s
+
+validity, held that the evidence presented was sufficient for the jury to find that the ’762
+
+patent did not anticipate claim 2 of the ’406 patent.           The district court properly
+
+concluded that substantial evidence supported the jury’s verdict that claim 2 of Cordis’s
+
+’406 patent was not invalid.
+
+       We affirm the district court’s denial of Boston Scientific’s motion for judgment as
+
+a matter of law that claim 2 of the ’406 patent is anticipated and invalid.
+
+                                      C. “Thin-walled”
+
+       Boston Scientific argues that the jury erred in finding that Boston Scientific’s
+
+Express and Taxus Express stents literally infringe claim 23 of the ’762 patent, and in
+
+finding that Boston Scientific induced literal infringement of claim 1 of the ’762 patent
+
+
+
+          2. A stent according to claim 1, wherein each link is axially displaced
+             from any circumferentially adjacent link.
+
+’406 patent col.5 ll.26-41 (emphases added).
+
+
+
+2008-1003, -1072                         25
+with respect to these stents. 15 Claim 23 of the ’762 patent depends from claim 13. ’762
+
+patent col.12 ll.55-60.    Boston Scientific also argues that the district court erred in
+
+
+
+
+      15
+                Claims 1, 13, and 23 of the ’762 patent state:
+
+           1.   A method for implanting a prosthesis within a body passageway
+                comprising the steps of:
+                  utilizing a thin-walled, tubular member as the prosthesis, the
+                       tubular member having a plurality of slots formed therein, the
+                       slots being disposed substantially parallel to the longitudinal
+                       axis of the tubular member;
+                  disposing the prosthesis upon a catheter;
+                  inserting the prosthesis and catheter within the body passageway
+                       by catheterization of said body passageway; and
+                  expanding and deforming the prosthesis at a desired location
+                       within the body passageway by expanding a portion of the
+                       catheter associated with the prosthesis to force the
+                       prosthesis radially outwardly into contact with the body
+                       passageway, the prosthesis being deformed beyond its
+                       elastic limit.
+
+           13. An expandable intraluminal vascular graft, comprising:
+                a thin-walled tubular member having first and second ends and
+                    a wall surface disposed between the first and second ends,
+                    the wall surface having a substantially uniform thickness and
+                    a plurality of slots formed therein, the slots being disposed
+                    substantially parallel to the longitudinal axis of the tubular
+                    member;
+                the tubular member having a first diameter which permits
+                    intraluminal delivery of the tubular member into a body
+                    passageway having a lumen; and
+                the tubular member having a second, expanded and deformed
+                    diameter, upon the application from the interior of the tubular
+                    member of a radially, outwardly extending force, which
+                    second diameter is variable and dependent upon the amount
+                    of force applied to the tubular member, whereby the tubular
+                    member may be expanded and deformed to expand the
+                    lumen of the body passageway.
+
+
+
+2008-1003, -1072                          26
+denying its motion for judgment as a matter of law of noninfringement under the “thin-
+
+walled” limitation of claim 1 and claim 13.
+
+       First, Boston Scientific argues that the district court construed the term “thin-
+
+walled” improperly. The district court construed “thin-walled” in claim 1 and claim 13 of
+
+the ’762 patent as “the wall of the tubular member must have little extent from one
+
+surface to its opposite at both its first and second diameters.” Claim Construction, 2005
+
+WL 1322966, at *2. The district court’s claim construction was proper, and the district
+
+court was not obligated, as Boston Scientific urges, to construe “thin-walled” to exclude
+
+stent walls whose struts are thicker than they are wide.
+
+       Second, Boston Scientific complains that the district court refused to allow
+
+Boston Scientific to argue the prosecution history of the ’762 patent to the jury, and that
+
+the district court’s exclusion of this argument prejudiced Boston Scientific’s
+
+noninfringement case. Boston Scientific had sought to use the prosecution history of
+
+the ’762 patent to show that Cordis had admitted that stents whose thicknesses were
+
+within a particular numerical range were not “thin-walled.” 16 In effect, Boston Scientific
+
+sought to argue claim construction to the jury. We have held that it is improper to argue
+
+claim construction to the jury because the “risk of confusing the jury is high when
+
+
+            23. The expandable intraluminal vascular graft of claim 13, wherein
+                the outside of the wall surface of the tubular member is a smooth
+                surface, when the tubular member has the first diameter.
+
+’762 patent col.10 l.6–col.11 l.9; col.11 l.62–col.12 l.15; col.12 ll.55-60
+(emphases added).
+       16
+             When affirming the district court’s denial of Cordis’s preliminary injunction
+motion in this case, we found no error in the district court’s conclusion that the
+prosecution history did not limit “thin-walled” to “thicknesses no greater than 0.0045
+inches.” Cordis Corp., 99 F. App’x at 933.
+
+
+
+2008-1003, -1072                          27
+experts opine on claim construction.” CytoLogix Corp. v. Ventana Med. Sys., Inc., 424
+
+F.3d 1168, 1172-73 (Fed. Cir. 2005); see Sundance, Inc. v. DeMonte Fabricating Ltd.,
+
+550 F.3d 1356, 1364 n.6 (Fed. Cir. 2008). The district court thus properly excluded
+
+Boston Scientific’s claim construction argument before the jury, and properly held that
+
+its exclusion of this argument did not entitle Boston Scientific to a new trial.
+
+       Third, Boston Scientific argues that even under the district court’s claim
+
+construction, Cordis did not present sufficient evidence that the Express and Taxus
+
+Express stents meet the “thin-walled” limitations of claim 1 and claim 13 (on which claim
+
+23 depends). The district court cited testimony by Cordis’s expert Dr. Buller describing
+
+how the Express and Taxus Express stents meet the “thin-walled” limitation of claims 1
+
+and 23 under the district court’s construction of this limitation. Memorandum Opinion,
+
+2006 WL 1305227, at *12.        We conclude that the district court properly found that
+
+Cordis presented substantial evidence to support the jury’s infringement verdict.
+
+       We affirm the district court’s denial of Boston Scientific’s motion for judgment as
+
+a matter of law that the Express and Taxus Express stents do not infringe claims 1 and
+
+23 of the ’762 patent under the “thin-walled” limitation of these claims.
+
+                                 D. “Substantially parallel”
+
+       Boston Scientific argues that the jury erred in finding that Boston Scientific’s
+
+Liberté stent infringes claims 1 and 23 of the ’762 patent, and that the district court erred
+
+in denying Boston Scientific’s motion for judgment as a matter of law of noninfringement
+
+under the “substantially parallel” limitations of claim 1 and claim 13 (on which claim 23
+
+depends). Both claim 1 and claim 13 describe stents whose slots (spaces or openings
+
+within a stent’s lattice design) are “disposed substantially parallel to the longitudinal
+
+
+
+
+2008-1003, -1072                          28
+axis” of the stent. ’762 patent col.10 l.61–col.11 l.9; col.11 l.62–col.12 l.15 (emphasis
+
+added).
+
+       Boston Scientific first contends that the district court erred by not construing the
+
+term “parallel” in claim 1 and claim 13 of the ’762 patent. This argument was not timely
+
+raised before the district court and has been waived. Conoco, 460 F.3d at 1359.
+
+       Next, Boston Scientific argues that Cordis did not present substantial evidence
+
+that the Liberté stent meets the “substantially parallel” limitation in claims 1 and 23.
+
+Boston Scientific asserts that the Liberté stent’s banana-shaped slots are not
+
+substantially parallel to the stent’s longitudinal axis. The district court cited testimony of
+
+both parties’ experts to support its finding that Cordis provided sufficient evidence to
+
+support the jury’s infringement verdict under the “substantially parallel” limitation.
+
+Memorandum Opinion, 2006 WL 1305227, at *10.                We conclude that substantial
+
+evidence supported the jury’s verdict.
+
+       Boston Scientific further asserts that the district court’s exclusion of the
+
+deposition testimony about the Liberté stent by Dr. Palmaz, the inventor of the ’762
+
+patent, warrants a new trial. Dr. Palmaz testified during a deposition that the slots of the
+
+Liberté stent “deviate from the longitudinal axis” of the stent. J.A. at 11,520. The district
+
+court excluded this testimony, finding that Dr. Palmaz was not an expert on the Liberté
+
+stent and that his testimony did not provide relevant evidence of infringement and
+
+created a risk of prejudice. Memorandum Opinion, 2006 WL 1305227, at *14. Boston
+
+Scientific argues that this testimony of Dr. Palmaz was important in defining the
+
+meaning of the claim term “substantially parallel” and in rebutting Cordis’s evidence that
+
+the Liberté stent infringed claims 1 and 23 of the ’762 patent. As noted earlier, claim
+
+
+
+
+2008-1003, -1072                          29
+construction cannot be argued to the jury. CytoLogix Corp., 424 F.3d at 1172-73; see
+
+also Sundance, 550 F.3d at 1364 n.6.           “[I]nventor testimony as to the inventor's
+
+subjective intent is irrelevant to the issue of claim construction,” and as the inventor of
+
+the ’762 patent, Dr. Palmaz also had no special expertise regarding the alleged
+
+infringement of the patent by the Liberté stent. Howmedica Osteonics Corp. v. Wright
+
+Med. Tech., Inc., 540 F.3d 1337, 1346-47 (Fed. Cir. 2008); see also Air Turbine Tech.,
+
+Inc. v. Atlas Copco AB, 410 F.3d 701, 714 (Fed. Cir. 2005).              The district court’s
+
+exclusion of the Liberté stent portion of Dr. Palmaz’s deposition testimony was within its
+
+discretion.
+
+       We affirm the district court’s denial of Boston Scientific’s motion for judgment as
+
+a matter of law or a new trial that the Liberté stent does not infringe claims 1 and 23 of
+
+the ’762 patent under the “substantially parallel” limitation of these claims.
+
+                                         E. “Wave”
+
+       Boston Scientific contends that the jury erred in finding that the Liberté stent
+
+infringes claim 2 of the ’406 patent, and that the district court erred in denying Boston
+
+Scientific’s motion for judgment as a matter of law of noninfringement. Claim 2 of the
+
+’406 patent depends from claim 1. ’406 patent col.5 ll.39-41. The parties agree that the
+
+Liberté stent infringes all limitations of claim 2, except the limitation in claim 1 (on which
+
+claim 2 depends) describing “a plurality of longitudinally disposed bands, wherein each
+
+band defines a generally continuous wave having a spatial frequency along a line
+
+segment parallel to the longitudinal axis.” ’406 patent col.5 ll.29-32 (emphasis added).
+
+       First, Boston Scientific argues that the district court improperly refused to
+
+construe the term “wave” in claim 1. In fact, the district court did construe the claim
+
+
+
+
+2008-1003, -1072                          30
+language “longitudinally disposed bands, wherein each band defines a generally
+
+continuous wave having a spatial frequency along a line segment parallel to the
+
+longitudinal axis” as “the stent has multiple elongated surfaces that run parallel to the
+
+stent’s long axis, each of these surfaces having the undulating appearance of a
+
+continuous wave,” though it did not separately construe the term “wave.”               Claim
+
+Construction, 2005 WL 1322966, at *1.
+
+       As the district court pointed out, Boston Scientific did not suggest until after the
+
+close of the trial that the district court was required to construe the term “wave” in any
+
+other respect. Memorandum Opinion, 2006 WL 1305227, at *6. Under Conoco, this
+
+argument thus was not timely raised before the district court and has been waived. 460
+
+F.3d at 1359.
+
+       Alternatively, Boston Scientific argues that even under the district court’s claim
+
+construction, the evidence did not sufficiently support the jury’s infringement verdict.
+
+This contention is without merit. The district court cited testimony by Cordis’s expert Dr.
+
+Buller applying the court’s claim construction and describing how the Liberté stent
+
+meets the limitations of claim 2 of the ’406 patent. Memorandum Opinion, 2006 WL
+
+1305227, at *4. We conclude that Cordis presented substantial evidence to support the
+
+jury’s infringement verdict.
+
+       We affirm the district court’s denial of Boston Scientific’s motion for judgment as
+
+a matter of law that the Liberté stent does not infringe claim 2 of the ’406 patent.
+
+                               F. Dismissal without prejudice
+
+       The district court granted Boston Scientific’s motion for judgment as a matter of
+
+law that its Taxus Liberté stent (not to be confused with its Liberté stent or its Taxus
+
+
+
+
+2008-1003, -1072                         31
+Express stent) did not infringe the asserted claims of Cordis’s ’762 and ’406 patents.
+
+The district court held that it did not have jurisdiction to consider infringement claims
+
+relating to the Taxus Liberté stent because that stent had “no nexus to the United
+
+States.” Memorandum Opinion, 2006 WL 1305227, at *24.
+
+       However, Boston Scientific argues that the district court erred in dismissing
+
+Cordis’s infringement claims against the Taxus Liberté stent without prejudice, rather
+
+than with prejudice, and asserts that Cordis failed to prove that the Taxus Liberté stent
+
+infringed the asserted claims of the ’762 and ’406 patents. Cordis asserts that it did not
+
+present evidence at trial that the Taxus Liberté stent infringed the asserted claims of the
+
+’762 and ’406 patents under 35 U.S.C. § 271(f) because it believed such evidence
+
+related only to damages rather than to infringement liability. 17
+
+       “Congress has not clearly stated in 35 U.S.C. § 271 or in any other statute that
+
+§ 271’s requirement that the infringing act happen within the United States is a
+
+threshold jurisdictional requirement as opposed to an element of the claim.” Litecubes,
+
+LLC v. N. Light Prods., Inc., 523 F.3d 1353, 1363 (Fed. Cir. 2008), cert. denied sub
+
+nom. GlowProducts.com v. Litecubes, LLC, 129 S. Ct. 578 (2008). Thus, the question
+
+of whether the Taxus Liberté stent had a nexus to the United States was an element of
+
+Cordis’s liability claims, rather than a jurisdictional requirement. Because “a failure to
+
+prove the allegations alleged in a complaint requires a decision on the merits, not a
+
+dismissal for lack of subject matter jurisdiction,” id. at 1361, the district court’s dismissal
+
+
+
+
+       17
+              Cordis argues that the Taxus Liberté stent has the same structure as the
+Liberté stent. We see no error in the district court’s determination that the Taxus Liberté
+stent and the Liberté stent are different products.
+
+
+2008-1003, -1072                          32
+of Cordis’s infringement claims regarding the Taxus Liberté stent should have been with
+
+prejudice.
+
+       We reverse the district court’s dismissal without prejudice of Cordis’s claims that
+
+the Taxus Liberté stent infringed the asserted claims of the ’762 and ’406 patents, and
+
+remand with instructions to dismiss the claims with prejudice.
+
+                                              III
+
+       We affirm the district court’s judgment in all respects save one. We reverse the
+
+district court’s dismissal without prejudice of Cordis’s claims that the Taxus Liberté stent
+
+infringed the asserted claims of the ’762 and ’406 patents, and remand with instructions
+
+to dismiss the claims with prejudice.
+
+               AFFIRMED-IN-PART, REVERSED-IN-PART, REMANDED
+
+                                         COSTS
+
+       No costs.
+
+
+
+
+2008-1003, -1072                         33
+

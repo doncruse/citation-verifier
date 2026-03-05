@@ -197,9 +197,9 @@ The web app's batch loop is parallelized (asyncio.Queue with MAX_CONCURRENT=5). 
 
 ## Claude Code Skills
 
-- **`/verify-brief`** — Multi-phase legal brief citation verifier. Extracts proposition-case pairs, verifies via CourtListener, downloads opinion texts, reads them to assess whether each citation supports what it's cited for. Output: `claims.csv` + `report.html` in `briefs/<name>/`. Design: `docs/plans/2026-03-02-verify-brief-skill-design.md`. Lives at `~/.claude/skills/verify-brief/SKILL.md`.
+- **`/verify-brief`** — Multi-phase legal brief citation verifier. Extracts proposition-case pairs, verifies via CourtListener, downloads opinion texts, reads them to assess whether each citation supports what it's cited for. Output: `claims.csv` + `report.html` in `briefs/<name>/`. Design: `docs/plans/2026-03-02-verify-brief-skill-design.md`. Lives at `.claude/skills/verify-brief/SKILL.md`. Real-world tested on Valve v. Rothschild Daubert motion (2026-03-04, 63 claims, 25 cases). Known issue: AskUserQuestion in Phase 2.5 returns empty — auto-accept for now. Retrospective: `.claude/projects/.../memory/verify-brief-retrospective.md`.
 
-- **`/file-issue`** — Interactive coach for filing effective GitHub issues. Guides through duplicate search, evidence gathering, repo norm study, and drafting. Use it when filing issues on FLP repos (or any repo). Catches the antipatterns that get issues ignored: tentative framing, insufficient examples, no methodology, no cross-references, no root cause theory. Lives at `~/.claude/skills/file-issue/SKILL.md`.
+- **`/file-issue`** — Interactive coach for filing effective GitHub issues. Guides through duplicate search, evidence gathering, repo norm study, and drafting. Use it when filing issues on FLP repos (or any repo). Catches the antipatterns that get issues ignored: tentative framing, insufficient examples, no methodology, no cross-references, no root cause theory. Lives at `.claude/skills/file-issue/SKILL.md`.
 
 ## Common Pitfalls
 
@@ -210,4 +210,4 @@ The web app's batch loop is parallelized (asyncio.Queue with MAX_CONCURRENT=5). 
 - **Windows console**: Avoid Unicode emoji in CLI output -- use ASCII status labels like `[OK]`, `[?]`, `[X]`.
 - **Windows Git Bash**: `head`, `tail`, `grep`, `cut` are not available. Use Python or dedicated tools instead. `taskkill` flags need `//` prefix (e.g. `taskkill //PID 1234 //F`) to avoid MSYS2 path conversion.
 - **eyecite on Windows**: `hyperscan` module is not available. Use `AhocorasickTokenizer` instead of `HyperscanTokenizer` for citation extraction.
-- **VerificationResult fields**: URL attribute is `matched_url` (not `court_listener_url`). Cluster ID is `matched_cluster_id`.
+- **VerificationResult fields**: URL attribute is `matched_url` (not `court_listener_url`). Cluster ID is `matched_cluster_id`. `diagnostics` is `List[str]`, not `str` — join with `"; "` when displaying as a single string.

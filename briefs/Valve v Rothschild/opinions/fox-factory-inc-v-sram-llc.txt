@@ -1,0 +1,878 @@
+Fox Factory, Inc. v. Sram, LLC
+Court of Appeals for the Federal Circuit
+Filed: 2019-12-18
+Docket No. 18-2024
+Source: https://www.courtlistener.com/opinion/4688009/fox-factory-inc-v-sram-llc/
+------------------------------------------------------------
+
+  United States Court of Appeals
+      for the Federal Circuit
+                ______________________
+
+                FOX FACTORY, INC.,
+                     Appellant
+
+                           v.
+
+                     SRAM, LLC,
+                       Appellee
+                ______________________
+
+                 2018-2024, 2018-2025
+                ______________________
+
+    Appeals from the United States Patent and Trademark
+Office, Patent Trial and Appeal Board in Nos. IPR2017-
+00118, IPR2017-00472.
+                 ______________________
+
+              Decided: December 18, 2019
+                ______________________
+
+    ERIK R. PUKNYS, Finnegan, Henderson, Farabow, Gar-
+rett & Dunner, LLP, Palo Alto, CA, argued for appellant.
+Also represented by ARPITA BHATTACHARYYA, ROBERT F.
+MCCAULEY; JOSHUA GOLDBERG, DANIEL FRANCIS
+KLODOWSKI, Washington, DC.
+
+   RICHARD BENNETT WALSH, JR., Lewis Rice LLC, St.
+Louis, MO, argued for appellee. Also represented by
+MICHAEL HENRY DURBIN, MICHAEL JOHN HICKEY.
+               ______________________
+2                                FOX FACTORY, INC. v. SRAM, LLC
+
+
+
+
+    Before PROST, Chief Judge, WALLACH and HUGHES,
+                     Circuit Judges.
+PROST, Chief Judge.
+    Appellant FOX Factory, Inc. (“FOX”) appeals the deci-
+sions of the Patent Trial and Appeal Board (“Board”) in two
+inter partes reviews (“IPRs”) of claims 1–6 and 13–19 (“the
+challenged claims”) of U.S. Patent No. 9,182,027 (“the ’027
+patent”). The Board found that the prior art references as-
+serted by FOX disclose all the limitations of the ’027 pa-
+tent’s independent claims and that a skilled artisan would
+have been motivated to combine the asserted prior art. The
+Board nevertheless concluded, based on its analysis of sec-
+ondary considerations, that FOX had not shown that the
+challenged claims would have been obvious. We have ju-
+risdiction pursuant to 28 U.S.C. § 1295(a)(4)(A) (2012). For
+the reasons below, we vacate and remand for further pro-
+ceedings.
+                             I
+                             A
+    Bicycle chainrings are the toothed disks to which the
+bicycle crankarms are attached, collectively forming the
+crankset. Pedaling the crankarms rotates the chainring,
+which engages with and rotates the chain. Chains can be
+susceptible to disengaging from the chainring. This prob-
+lem is especially prevalent with geared bicycles, which can
+experience severe changes in chain tension and energy mo-
+tion of the chain, particularly when riding over rough ter-
+rain. Bicycles have employed extraneous structures, such
+as chain guides, to improve chain retention.
+    SRAM, LLC (“SRAM”) owns the ’027 patent, which
+generally covers an improved chainring structure that bet-
+ter maintains the chain, obviating the need for extraneous
+structures. For instance, the ’027 patent discloses a chain-
+ring with alternating narrow and wide tooth tips, which al-
+legedly improves chain retention because the narrow and
+FOX FACTORY, INC. v. SRAM, LLC                               3
+
+
+
+wide teeth better fit inside the inner and outer chain links,
+respectively. In addition, the ’027 patent discloses teeth
+offset from the center of the chainring, which also purport-
+edly improves chain retention by providing “better guiding
+of the chain to one side of the chainring.” Appellee’s Br. 8
+(quoting ’027 patent col. 6 ll. 8–13).
+    The independent claims of the ’027 patent—claims 1,
+7, 13, and 20—recite a chainring with alternating narrow
+and wide tooth tips and teeth offset from the center of the
+chainring. Claims 7–12 and 20–26 generally cover tooth
+tips offset toward the body of the bicycle (“inboard offsets”),
+and claims 1–6 and 13–19 require teeth offset away from
+the body of the bicycle (“outboard offsets”). Claim 1 is rep-
+resentative of the “outboard offset” independent claims:
+    1. A bicycle chainring for engagement with a
+    drivetrain, comprising:
+    a plurality of teeth formed about a periphery of the
+    chainring, the plurality of teeth including a first
+    group of teeth and a second group of teeth, each of
+    the first group of teeth wider than each of the sec-
+    ond group of teeth and at least some of the second
+    group of teeth arranged alternatingly and adja-
+    cently between the first group of teeth, wherein
+    each of the plurality of teeth includes a tooth tip;
+    wherein a plane bisects the chainring into an out-
+    board side and an inboard side opposite the out-
+    board side; and
+    wherein at least the majority of the tooth tip of at
+    least one of each of the first and second groups of
+    teeth is offset from the plane in a direction toward
+    the outboard side of the chainring.
+’027 patent claim 1. Claim 7 is representative of the “in-
+board offset” independent claims:
+4                               FOX FACTORY, INC. v. SRAM, LLC
+
+
+
+
+    7. A bicycle chainring for engagement with a drive
+    chain, comprising:
+    a plurality of teeth formed about a periphery of the
+    chainring, the plurality of teeth including a first
+    group of teeth and a second group of teeth, each of
+    the first group of teeth wider than each of the sec-
+    ond group of teeth and at least some of the second
+    group of teeth arranged alternatingly and adja-
+    cently between the first group of teeth, wherein
+    each of the plurality of teeth includes a tooth tip;
+    wherein a plane bisects the chainring into an out-
+    board side and an inboard side opposite the out-
+    board side; and
+    wherein at least the majority of the tooth tip of at
+    least one of each of the first and second groups of
+    teeth is offset from the plane in a direction toward
+    the inboard side of the chainring.
+Id. at claim 7.
+    The ’027 patent specification discloses additional
+chainring features that are not recited by the independent
+claims. Like the features claimed, each of the disclosed but
+non-claimed features contribute to improving chain reten-
+tion. For example, the specification discloses forwardly
+protruding tip portions that “function[] to engage a chain
+link earlier than a chain lacking the tip portion and pro-
+vide[] better guiding of the chain.” ’027 patent col. 5 ll. 47–
+51; see also id. at fig.5. The specification also discloses a
+“hook feature 78 . . . that may be formed on the rear flank
+70 of each” tooth and “may cooperate with the tip portion
+76 to provide better guiding of the chain.” Id. at col. 5 ll.
+52–55; see also id. at fig.5. The specification further dis-
+closes “inner link-receiving recesses.” Id. at col. 5 ll. 26–44;
+see also id. at figs.5, 7. Furthermore, the ’027 patent ex-
+plains that the narrow and wide teeth preferably fill at
+FOX FACTORY, INC. v. SRAM, LLC                                5
+
+
+
+least 80% of the axial distance of the corresponding space
+in the chain link (“>80% gap filling”). Id. at col. 4 ll. 19–41.
+    SRAM also owns U.S. Patent 9,291,250 (“the ’250 pa-
+tent”), which is a continuation of the ’027 patent and in-
+cludes claims reciting a chainring with alternating narrow
+and wide teeth and wide teeth with >80% gap filling. ’250
+patent claim 1; see also J.A. 5270, 5282. In separate IPR
+proceedings, SRAM stated that this “combination of fea-
+tures” claimed in the ’250 patent, “amongst several others
+disclosed in the ’250 patent, leads to a chainring that will
+retain a chain in even the worst conditions.” J.A. 5282–83.
+SRAM also explained that the >80% gap filling feature “al-
+lows the inventive chainring to better retain the chain un-
+der many conditions and amounts to the ‘heart’ of the
+challenged ’250 patent claims combined with the narrow
+and wide tooth configuration.” J.A. 5284. SRAM further
+described the >80% gap filling limitation as “critical.” J.A.
+5289.
+    SRAM sells thirteen different versions of its “X-Sync”
+chainrings. It is undisputed that twelve of the thirteen ver-
+sions embody the inboard offset claims and the thirteenth
+version embodies the outboard offset claims.
+                               B
+    FOX filed two petitions collectively requesting inter
+partes review of claims 1–26 of the ’027 patent. One peti-
+tion requested inter partes review of the outboard offset
+claims, and the other requested review of the inboard offset
+claims. Here, we discuss the Board’s findings in IPR 2017-
+00472, which relate to the outboard offset claims. We note,
+however, that the Board made similar findings in IPR
+2017-00118 with respect to the inboard offset claims, in-
+cluding with respect to secondary considerations. See FOX
+Factory, Inc. v. SRAM, LLC, IPR2017-00118, 2018 WL
+1633537, at *3–18 (P.T.A.B. Apr. 2, 2018).
+6                              FOX FACTORY, INC. v. SRAM, LLC
+
+
+
+
+    The Board found that Japanese Utility Model No. S56-
+42489 (“JP-Shimano”) and U.S. Patent No. 5,285,701
+(“Parachinni”) together disclose every limitation of the out-
+board offset independent claims and that a skilled artisan
+would have been motivated to combine the references.
+FOX Factory, Inc. v. SRAM, LLC, IPR2017-00472, 2018
+WL 1889561, at *3–7 (P.T.A.B. Apr. 18, 2018) (J.A. 1–70)
+(“Board Decision 472”). The Board determined that JP-
+Shimano discloses the claimed narrow and wide teeth, and
+Parachinni discloses the claimed outboard offset. Id. at *3–
+5. The Board also found that a skilled artisan would have
+been motivated to combine the references because the
+skilled artisan would have recognized that the combination
+of the two features would improve chain retention better
+than either feature alone. Id. at *5–7.
+    Nevertheless, the Board determined, based on its anal-
+ysis of secondary considerations, that FOX had not shown
+that the challenged claims would have been obvious. Id. at
+*21. SRAM submitted secondary considerations evidence
+pertaining to its X-Sync products. The Board determined
+that SRAM was entitled to a presumption of nexus between
+the challenged outboard offset claims and secondary con-
+siderations evidence pertaining to SRAM’s X-Sync prod-
+ucts, subject to two limitations. Id. at *7–10.
+    First, the Board stated that evidence of secondary con-
+siderations “specifically directed” to either an inboard or
+outboard offset X-Sync product is only entitled to a pre-
+sumption of nexus with the claims reciting the same type
+of offset. Id. Second, the Board explained that the pre-
+sumption of nexus only applies when a product is “coexten-
+sive” with a patent claim. Id. at *7. The Board interpreted
+the coextensiveness requirement to mean only that the
+claims must broadly cover the product that is the subject of
+the secondary considerations evidence. Id. at *9–10.
+Through that lens, the Board explained that SRAM’s sec-
+ondary considerations evidence pertaining to a specific X-
+Sync product or component (chainring, crankset, or
+FOX FACTORY, INC. v. SRAM, LLC                            7
+
+
+
+drivetrain) is only coextensive with the claims broadly cov-
+ering that particular component. Id. at *10–11. For in-
+stance, in the Board’s view, SRAM’s independent claims,
+which cover a chainring, are only coextensive with sales or
+industry praise of X-Sync chainrings, not sales or industry
+praise of X-Sync cranksets or drivetrains. Id. at *11.
+    FOX argued that SRAM’s products are not coextensive
+with the challenged claims because the products include
+numerous unclaimed features. Id. at *9. The Board re-
+jected this argument, reasoning that “[u]nclaimed features
+do not prevent the presumption of nexus, but they may be
+the basis for rebutting the presumption.” Id.
+    FOX also argued that, under this court’s decision in
+Therasense, Inc. v. Becton, Dickinson & Co., 593 F.3d 1289
+(Fed. Cir. 2010), vacated on other grounds, 374 F. App’x 35
+(2010), SRAM’s products are not coextensive with the inde-
+pendent claims because the X-Sync products also embody
+the claims of additional patents that cover a different in-
+vention than the claims of the ’027 patent. Board Decision
+472, at *9. The Board also rejected this argument. The
+Board reasoned that, under Therasense, presuming nexus
+is only inappropriate if the products also embody one or
+more claims of a prior art patent. Id. However, the Board
+observed that FOX relied only on continuations of the ’027
+patent.
+    Weighing the evidence, the Board determined that
+FOX could not rebut the nexus presumption, and due to
+SRAM’s “extremely strong overall showing of objective in-
+dicia of non-obviousness,” FOX had not shown by a prepon-
+derance of the evidence that the challenged claims would
+have been obvious. Id. at *21. FOX appealed the Board’s
+obviousness determinations.
+                             II
+    “We review the PTAB’s factual findings for substantial
+evidence and its legal conclusions de novo.” Redline
+8                                 FOX FACTORY, INC. v. SRAM, LLC
+
+
+
+
+Detection, LLC v. Star Envirotech, Inc., 811 F.3d 435, 449
+(Fed. Cir. 2015) (citation omitted). “Substantial evidence
+is something less than the weight of the evidence but more
+than a mere scintilla of evidence,” meaning that “[i]t is such
+relevant evidence as a reasonable mind might accept as ad-
+equate to support a conclusion.” In re NuVasive, Inc., 842
+F.3d 1376, 1379–80 (Fed. Cir. 2016) (internal quotation
+marks and citations omitted). “If two inconsistent conclu-
+sions may reasonably be drawn from the evidence in rec-
+ord, the PTAB’s decision to favor one conclusion over the
+other is the epitome of a decision that must be sustained
+upon review for substantial evidence.” Elbit Sys. of Am.,
+LLC v. Thales Visionix, Inc., 881 F.3d 1354, 1356 (Fed. Cir.
+2018) (internal quotation marks, brackets, and citation
+omitted). Obviousness is a legal question based on under-
+lying fact findings. In re DBC, 545 F.3d 1373, 1377 (Fed.
+Cir. 2008).
+                              A
+    On appeal, FOX contends that the Board applied the
+wrong standard for determining whether SRAM was enti-
+tled to a presumption of nexus between the challenged
+claims and SRAM’s evidence of secondary considerations.
+We agree.
+                              1
+    A patent claim is invalid “if the differences between the
+claimed invention and the prior art are such that the
+claimed invention as a whole would have been obvious be-
+fore the effective filing date of the claimed invention to a
+person having ordinary skill in the art to which the claimed
+invention pertains.” 35 U.S.C. § 103 (2012). 1 Obviousness
+
+
+
+    1   Congress amended § 103 when it enacted the
+Leahy-Smith America Invents Act (“AIA”). Pub. L. No.
+112-29, § 3(c), 125 Stat. 284, 287 (2011). Because the ’027
+FOX FACTORY, INC. v. SRAM, LLC                               9
+
+
+
+“is a question of law based on underlying findings of fact.”
+In re Gartside, 203 F.3d 1305, 1316 (Fed. Cir. 2000). Those
+underlying findings of fact include: (1) “the scope and con-
+tent of the prior art,” (2) “differences between the prior art
+and the claims at issue,” (3) “the level of ordinary skill in
+the pertinent art,” and (4) the presence of evidence of sec-
+ondary considerations, such “as commercial success, long
+felt but unsolved needs, failure of others,” and unexpected
+results. Graham v. John Deere Co. of Kan. City, 383 U.S.
+1, 17 (1966); see United States v. Adams, 383 U.S. 39, 50–
+52 (1966). In assessing the prior art, the PTAB also “con-
+sider[s] whether a [skilled artisan] would have been moti-
+vated to combine the prior art to achieve the claimed
+invention and whether there would have been a reasonable
+expectation of success in doing so.” In re Warsaw Orthope-
+dic, Inc., 832 F.3d 1327, 1333 (Fed. Cir. 2016) (internal quo-
+tation marks, brackets, and citation omitted).
+      In order to accord substantial weight to secondary con-
+siderations in an obviousness analysis, “the evidence of sec-
+ondary considerations must have a ‘nexus’ to the claims,
+i.e., there must be ‘a legally and factually sufficient connec-
+tion’ between the evidence and the patented invention.”
+Henny Penny Corp. v. Frymaster LLC, 938 F.3d 1324, 1332
+(Fed. Cir. 2019) (quoting Demaco Corp. v. F. Von Lang-
+sdorff Licensing Ltd., 851 F.2d 1387, 1392 (Fed. Cir. 1988)).
+“The patentee bears the burden of showing that a nexus
+exists.” WMS Gaming Inc. v. Int’l Game Tech., 184 F.3d
+1339, 1359 (Fed. Cir. 1999). “To determine whether the
+patentee has met that burden, we consider the correspond-
+ence between the objective evidence and the claim scope.”
+Henny Penny, 938 F.3d at 1332.
+    As first recognized in Demaco Corp. v. F. Von Lang-
+sdorff Licensing Ltd., a patentee is entitled to a rebuttable
+
+
+patent has an effective filing date after March 16, 2013, the
+AIA applies. See id. § 3(n)(1), 125 Stat. at 293.
+10                            FOX FACTORY, INC. v. SRAM, LLC
+
+
+
+
+presumption of nexus between the asserted evidence of sec-
+ondary considerations and a patent claim if the patentee
+shows that the asserted evidence is tied to a specific prod-
+uct and that the product “is the invention disclosed and
+claimed.” 851 F.2d at 1392 (emphasis added). That is, pre-
+suming nexus is appropriate “when the patentee shows
+that the asserted objective evidence is tied to a specific
+product and that product ‘embodies the claimed features,
+and is coextensive with them.’” Polaris Indus., Inc. v. Arc-
+tic Cat, Inc., 882 F.3d 1056, 1072 (Fed. Cir. 2018) (quoting
+Brown & Williamson Tobacco Corp. v. Philip Morris Inc.,
+229 F.3d 1120, 1130 (Fed. Cir. 2000)). Conversely, “[w]hen
+the thing that is commercially successful is not coextensive
+with the patented invention—for example, if the patented
+invention is only a component of a commercially successful
+machine or process,” the patentee is not entitled to a pre-
+sumption of nexus. Demaco, 851 F.2d at 1392.
+    We have reaffirmed the importance of the “coextensive-
+ness” requirement in subsequent opinions. See, e.g.,
+SightSound Techs., LLC v. Apple Inc., 809 F.3d 1307, 1319
+(Fed. Cir. 2015) (“If a product both embodies the claimed
+features and is coextensive with the claims at issue, a
+nexus is presumed. In other words, a nexus exists if the
+commercial success of a product is limited to the features
+of the claimed invention.” (citation and quotation marks
+omitted)); Therasense, 593 F.3d at 1299. 2 Whether a prod-
+uct is coextensive with the patented invention, and there-
+fore whether a presumption of nexus is appropriate in a
+given case, is a question of fact.
+
+
+
+     2  Although the panel opinion in Therasense was va-
+cated by an order granting appellants’ petition for rehear-
+ing en banc on the issue of inequitable conduct, 374 F.
+App’x 35, the portions of Therasense addressing obvious-
+ness—which are the portions we rely on in this case—were
+reinstated. 649 F.3d 1276, 1276 (Fed. Cir. 2011) (en banc).
+FOX FACTORY, INC. v. SRAM, LLC                            11
+
+
+
+     A finding that a presumption of nexus is inappropriate
+does not end the inquiry into secondary considerations. See
+In re Huang, 100 F.3d 135, 140 (Fed. Cir. 1996). To the
+contrary, the patent owner is still afforded an opportunity
+to prove nexus by showing that the evidence of secondary
+considerations is the “direct result of the unique character-
+istics of the claimed invention.” Id.
+                                 2
+    The parties dispute whether the X-Sync chainrings are
+coextensive with the independent claims. 3 In finding that
+the independent claims would not have been obvious, the
+Board did not address the dependent claims in its obvious-
+ness analysis. Board Decision 472, at *20. Accordingly, we
+only address the Board’s application of the presumption of
+nexus to the independent claims. Because no reasonable
+fact finder could find otherwise, we conclude that SRAM’s
+X-Sync chainrings are not coextensive with the independ-
+ent claims.
+    The independent claims cover a chainring that includes
+wide and narrow teeth and either inboard or outboard off-
+set teeth. It is undisputed that the X-Sync chainrings in-
+clude unclaimed features. See generally Appellant’s Br.;
+Appellee’s Br. 24–25. For example, SRAM does not dispute
+that its X-Sync chainrings embody the independent claim
+
+
+
+    3   Because neither party disputes the Board’s finding
+that the X-Sync cranksets and drivetrains are not coexten-
+sive with the independent claims, the only issue before us
+is whether the X-Sync chainrings are coextensive with the
+independent claims. See Appellee’s Br. 24. In any event,
+because the X-Sync cranksets and drivetrains each include
+an X-Sync chainring, our conclusions as to whether nexus
+can be presumed between the independent claims and the
+X-Sync chainrings also extend to the X-Sync cranksets and
+drivetrains.
+12                             FOX FACTORY, INC. v. SRAM, LLC
+
+
+
+
+of a different patent—the ’250 patent—which, as explained
+previously, covers a chainring with both wide and narrow
+teeth and wide teeth with >80% gap filling. See J.A. 5282–
+85 (Preliminary Patent Owner Response). As discussed in
+more detail below, because the independent claims of the
+’027 patent do not recite this >80% gap filling feature, the
+independent claims are not coextensive with the X-Sync
+chainrings.
+     To be sure, we have never held that the existence of one
+or more unclaimed features, standing alone, means nexus
+may not be presumed. Indeed, there is rarely a perfect cor-
+respondence between the claimed invention and the prod-
+uct. As we explained, the purpose of the coextensiveness
+requirement is to ensure that nexus is only presumed when
+the product tied to the evidence of secondary considerations
+“is the invention disclosed and claimed.” Demaco, 851 F.2d
+at 1392 (emphasis added). Thus, if the unclaimed features
+amount to nothing more than additional insignificant fea-
+tures, presuming nexus may nevertheless be appropriate.
+    Put differently, the degree of correspondence between
+a product and a patent claim falls along a spectrum. At one
+end of the spectrum lies perfect or near perfect correspond-
+ence. At the other end lies no or very little correspondence,
+such as where “the patented invention is only a component
+of a commercially successful machine or process.” Id. Alt-
+hough we do not require the patentee to prove perfect cor-
+respondence to meet the coextensiveness requirement,
+what we do require is that the patentee demonstrate that
+the product is essentially the claimed invention. See id.
+While coextensiveness is an issue of fact that should ordi-
+narily be decided by the fact finder in the first instance, no
+reasonable fact finder could conclude, under the proper
+standard, that the X-Sync chainrings are coextensive with
+the patent claims.
+    It is undisputed that the X-Sync chainrings include un-
+claimed features that the patentee describes as “critical” to
+FOX FACTORY, INC. v. SRAM, LLC                             13
+
+
+
+the product’s ability to “better retain the chain under many
+conditions” and that go to the “heart” of another one of
+SRMA’s patents. See J.A. 5284, 5289. In light of the pa-
+tentee’s own assertions about the significance of the un-
+claimed features, no reasonable fact finder could conclude
+that these features are insignificant. As an initial matter,
+the fact that SRAM obtained the ’250 patent covering the
+combination of wide and narrow teeth and >80% gap filling
+leads us to conclude that this combination of features
+amounts to more than an insignificant feature not claimed
+by the ’027 patent. See Therasense, 593 F.3d at 1299 (find-
+ing that the patentee was not entitled to a presumption of
+nexus because the product embodied at least two patented
+inventions, and the burden thus remained on the patentee
+to show that the product’s success was due to the invention
+claimed in the patent asserted in the case). Moreover, in a
+separate IPR proceeding pertaining to the ’250 patent,
+SRAM touted this “combination of features” as, “amongst
+several others disclosed in the ’250 patent,” one that “leads
+to a chainring that will retain a chain in even the worst
+conditions.” J.A. 5282–83. SRAM further described this
+gap filling feature as “critical” and one that “allows the in-
+ventive chainring to better retain the chain under many
+conditions and amounts to the ‘heart’ of the challenged ’250
+patent claims combined with the narrow and wide tooth
+configuration.” J.A. 5284, 5289. A patent claim is not co-
+extensive with a product that includes a “critical” un-
+claimed feature that is claimed by a different patent and
+that materially impacts the product’s functionality by
+“lead[ing] to a chainring that will retain a chain in even the
+worst conditions.” See J.A. 5282–84, 5289.
+    In short, because the independent claims do not include
+the >80% gap filling feature, we cannot say that the X-Sync
+chainrings are the invention claimed by the independent
+claims. Accordingly, the Board erred in presuming nexus
+between the independent claims of the ’027 patent and
+14                              FOX FACTORY, INC. v. SRAM, LLC
+
+
+
+
+secondary considerations evidence pertaining to SRAM’s
+X-Sync chainrings.
+     The lack of coextensiveness between the independent
+claims of the ’027 patent and SRAM’s X-Sync chainrings
+appears to extend far beyond the gap filling feature to ad-
+ditional unclaimed features. More specifically, FOX con-
+tends, and SRAM does not contest, that the X-Sync
+chainrings further include the following unclaimed fea-
+tures: (1) forwardly protruding tooth tips, Appellant’s Br.
+22–26; see also ’027 patent col. 5 ll. 45–51, fig.5; (2) hook
+features on the teeth, Appellant’s Br. 22–26; see also ’027
+patent col. 5 ll. 52–55, fig.5; and (3) mud-clearing recesses,
+Appellant’s Br. 22–26. As to the first, the ’027 patent spec-
+ification explains that forwardly protruding tooth tips
+“function[] to engage a chain link earlier than a chain lack-
+ing the tip portion and provide[] better guiding of the
+chain.” ’027 patent col. 5 ll. 45–51; see also id. at fig.5. As
+to the second, the ’027 patent specification explains that
+such hook features “cooperate with the [forwardly protrud-
+ing tips] 76 to provide better guiding of the chain.” Id. at
+col. 5 ll. 52–55; see also id. at fig.5. As to the third, SRAM’s
+marketing materials explain that these recesses “get rid of
+mud so the chain remains in place no matter what condi-
+tions you’re up against.” J.A. 5316. 4 In sum, the ’027 pa-
+tent and SRAM’s marketing materials confirm that the
+forwardly protruding tooth tips, hook features, and mud
+clearing recesses each materially impacts the functioning
+
+
+
+     4  FOX further contends that these recesses appear to
+be the same as the inner link-receiving recesses discussed
+in the ’027 patent. It is unclear on this record whether
+FOX’s contention is correct. If these features are different,
+SRAM’s chain links further appear to include inner link-
+receiving recesses. Appellant’s Br. 22–26; see also J.A. 219
+(’027 patent col. 5, ll. 26–44). Compare J.A. 5344 with J.A.
+211–12 (’027 patent figs.5, 7).
+FOX FACTORY, INC. v. SRAM, LLC                                15
+
+
+
+of a chainring. For each of these features that the Board
+confirms is included in the X-Sync chainrings, nexus can
+only be presumed between the X-Sync chainrings and a pa-
+tent claim if the claim includes limitations relating to these
+features.
+                                 3
+    SRAM’s counterarguments are unpersuasive. First,
+SRAM argues that the existence of unclaimed features in a
+commercial product is irrelevant to the question of whether
+nexus can be presumed between that product and a patent
+claim. 5 Rather, according to both SRAM and the Board,
+unclaimed features are only relevant on rebuttal, 6 and the
+coextensiveness requirement is met if the patent claim
+
+
+    5    For this position, both the Board and SRAM rely on
+our decision in PPC Broadband, Inc. v. Corning Optical
+Communications RF, LLC, 815 F.3d 734, 747 (Fed. Cir.
+2016).
+     6   In addition to challenging whether the Board erred
+by presuming nexus in this case, FOX also contends that
+the Board imposed too high a burden on FOX to rebut the
+presumption of nexus by requiring FOX to show that the
+claimed invention had absolutely no relevance to SRAM’s
+evidence of secondary considerations. Appellant’s Br. 51–
+53; see, e.g., Board Decision 472, at *14 (“Petitioner fails to
+direct us to where the industry praise is directed only to
+the inboard-offset feature.”); id. at *15 (“Moreover, none of
+the articles that include the references to the ‘tall,’ ‘hooked,’
+and ‘asymmetric’ teeth purport to attribute all of the bene-
+fits of the X-Sync chainring to those attributes.”); id. (“As
+for the fact that some of the articles only mention wide nar-
+row teeth, we do not agree with Petitioner that this estab-
+lishes that the praise was only directed to the features
+found in the prior art.”). Because we determine that the
+Board erroneously presumed nexus, we do not reach this
+issue.
+16                            FOX FACTORY, INC. v. SRAM, LLC
+
+
+
+
+broadly covers the product that is the subject of the evi-
+dence of secondary considerations. See, e.g., Appellee’s Br.
+50–56. As previously explained, we agree with both the
+Board and SRAM that the mere existence of one or more
+unclaimed features does not necessarily mean presuming
+nexus is inappropriate. In this case, however, because
+there are one or more features not claimed by the ’027 pa-
+tent that materially impact the functionality of the X-Sync
+products, including the >80% gap filling feature claimed in
+the ’250 patent, nexus may not be presumed.
+    On a broader note, if we were to agree with the posi-
+tions taken by both SRAM and the Board—i.e., that the co-
+extensiveness requirement is met so long as the patent
+claim broadly covers the product that is the subject of the
+secondary considerations evidence, irrespective of the na-
+ture of any unclaimed features—then the coextensiveness
+requirement would rest entirely on minor variations in
+claim drafting. For instance, suppose a patent includes
+some claims specifically covering novel “brake pads” and
+others directed to an “automobile” in which the body of the
+claim recites little more than the novel brake pads. It is
+beyond dispute that the “brake pad” claims would not be
+entitled to a nexus presumption with any secondary con-
+siderations evidence tied to commercially sold automobiles
+containing those brake pads (e.g., commercial success or
+praise of the automobiles). In SRAM and the Board’s view,
+the “automobile” claims would be entitled to a nexus pre-
+sumption with such secondary considerations evidence.
+They reach this view even though the automobiles sold con-
+tain hundreds if not thousands of different components be-
+yond just the novel aspect of the claimed brake pads, and
+even though only minor variations in patent claim lan-
+guage (i.e., whether the word “automobile” is included in
+the claims) differentiate the “brake pad” claims and the
+“automobile” claims. Resting the coextensiveness inquiry
+on nothing more than minor variations in patent claim
+FOX FACTORY, INC. v. SRAM, LLC                            17
+
+
+
+language would turn the inquiry into one of form over sub-
+stance.
+    We reject SRAM’s attempt to reduce the coextensive-
+ness requirement to an inquiry into whether the patent
+claims broadly cover the product that is the subject of the
+evidence of secondary considerations. Such an interpreta-
+tion is inconsistent with Demaco’s requirement that nexus
+can only be presumed where the evidence of secondary con-
+siderations is tied to a specific product that “is the inven-
+tion disclosed and claimed.” Demaco, 851 F.2d at 1392
+(emphasis added). Nor is such an interpretation consistent
+with Demaco’s explanation that nexus cannot be presumed
+where, for example, “the patented invention is only a com-
+ponent of a commercially successful machine or process.”
+Id. We are bound by Demaco and decline to depart from it.
+     Second, SRAM also argues that because the ’250 patent
+is a continuation of the ’027 patent, failing to presume
+nexus in this case “would result in the absurd situation
+that multiple continuations on a patent would prohibit a
+presumption of nexus.” Appellee’s Br. 50. SRAM continues
+that “[t]his Court has recognized time and again that re-
+lated patents can share a presumption of nexus.” Id. at 53.
+Where a product embodies claims from two patents, a pre-
+sumption of nexus can be appropriate only if the claims of
+both patents generally cover the same invention. In each
+of the cases SRAM cites for the proposition that the claims
+of multiple patents can share a presumption of nexus with
+the same product, the claims of each of the patents covered
+essentially the same invention. See, e.g., WBIP, LLC v.
+Kohler Co., 829 F.3d 1317, 1324–25 (Fed. Cir. 2016) (pre-
+suming nexus between a product and the asserted claims
+of two related patents where the patents covered essen-
+tially the same invention, and the court identified a single
+claim as representative of both patents); PPC Broadband,
+815 F.3d at 737–39 (presuming nexus between a product
+and the asserted claims of three patents where the asserted
+claims of all three patents recited the same essential
+18                             FOX FACTORY, INC. v. SRAM, LLC
+
+
+
+
+features); Gator Tail, LLC v. Mud Buddy LLC, 618 F. App’x
+992, 995, 999–1000 (Fed. Cir. 2015) (presuming nexus be-
+tween a product and all of the asserted claims where “the
+[related] patents essentially claim the same invention”);
+Media Techs. Licensing, LLC v. Upper Deck Co., 596 F.3d
+1334, 1336–39 (Fed. Cir. 2010) (unclear as to whether
+nexus was presumed, and in any event the related patents
+were drawn to the same invention). 7 Conversely, here, the
+independent claims of the ’250 patent and ’027 patent do
+not cover the same invention. In particular, these patents
+cover different combinations of chainring features.
+    In addition, although the fact that SRAM separately
+sought patent protection for the combination of wide and
+narrow teeth with this >80% gap filling feature is alone
+probative of whether this combination of features adds up
+to more than an insignificant additional feature, see The-
+rasense, 593 F.3d at 1299, a presumption of nexus might
+well be inappropriate in this case even if SRAM never
+sought such patent protection. In particular, the X-Sync
+products are not coextensive with the independent claims
+of the ’027 patent because the products include a “critical”
+unclaimed feature not covered by the independent claims
+of the ’027 patent that materially impacts the product’s
+functionality by “lead[ing] to a chainring that will retain a
+chain in even the worst conditions.” See J.A. 5282–84,
+5289. This is true regardless of whether SRAM included
+these unclaimed features in other patents.
+
+
+
+     7  The additional cases on which SRAM relies do not
+address the presumption of nexus at all. See Acorda Ther-
+apeutics, Inc. v. Roxane Labs., Inc., 903 F.3d 1310 (Fed. Cir.
+2018); Merck Sharp & Dohme Corp. v. Hospira, Inc., 874
+F.3d 724, 730–31 (Fed. Cir. 2017); Transocean Offshore
+Deepwater Drilling, Inc. v. Maersk Drilling USA, Inc., 699
+F.3d 1340, 1354–55 (Fed. Cir. 2012); Star Sci., Inc. v. R.J.
+Reynolds Tobacco Co., 655 F.3d 1364, 1368 (Fed. Cir. 2011).
+FOX FACTORY, INC. v. SRAM, LLC                            19
+
+
+
+    We note that the Board’s determinations in these IPR
+proceedings on the ’027 patent and the IPR proceedings on
+the ’250 patent highlight one reason why nexus may not be
+presumed under these circumstances. Between these two
+proceedings, the Board presumed nexus between the inde-
+pendent claims of both patents and the secondary consid-
+erations evidence submitted by SRAM, see J.A. 6458–62,
+even though (a) SRAM relies on essentially the same evi-
+dence of secondary considerations in both proceedings; J.A.
+5455–76, 6363–88; see also J.A. 5282–84, 5289; and (b) the
+’027 and ’250 patent claims cover different inventions. The
+same evidence of secondary considerations cannot be pre-
+sumed to be attributable to two different combinations of
+features. See Therasense, 593 F.3d at 1299. In such situa-
+tions, the patentee retains the burden of proving the degree
+to which evidence of secondary considerations tied to a
+product is attributable to a particular claimed invention.
+See, e.g., WMS Gaming, 184 F.3d at 1359.
+                                 4
+    Because the Board erroneously presumed nexus be-
+tween the evidence of secondary considerations and the in-
+dependent claims, we vacate the Board’s obviousness
+determination and remand for further proceedings. On re-
+mand, SRAM will have the opportunity to prove nexus be-
+tween the challenged independent claims and the evidence
+of secondary considerations. More specifically, SRAM will
+bear the burden of proving that the evidence of secondary
+considerations is attributable to the claimed combination
+of wide and narrow teeth with inboard or outboard offset
+teeth, as opposed to, for example, prior art features in iso-
+lation or unclaimed features. See, e.g., Ethicon Endo-Sur-
+gery, Inc. v. Covidien LP, 812 F.3d 1023, 1034 (Fed. Cir.
+2016) (for patent claims covering a combination of prior art
+features, to establish nexus, patentee must show that the
+evidence of secondary considerations is attributable to “the
+combination of the two prior art features . . . that is the
+purportedly inventive aspect of the [challenged] patent” as
+20                             FOX FACTORY, INC. v. SRAM, LLC
+
+
+
+
+opposed to unclaimed features or either prior art feature in
+isolation).
+                              B
+    Separate from the issue of nexus, in its response to
+FOX’s statement of the case, SRAM briefly contends that
+we can enter judgment in favor of SRAM on an alternative
+ground: that substantial evidence does not support the
+Board’s conclusions that a skilled artisan would have been
+motivated to combine the asserted prior art to arrive at the
+independent claims. Appellee’s Br. 20–23. Notably, SRAM
+does not mention this argument in its summary of the ar-
+gument or argument sections of the brief. See generally
+Appellant’s Br. We have previously declined to address ar-
+guments that appear in the statement of facts but not the
+summary of the argument or argument sections of the
+brief. See Kao Corp. v. Unilever U.S., Inc., 441 F.3d 963,
+973 n.4 (Fed. Cir. 2006) (declining to consider appellee’s ar-
+gument that only “appear[ed] in the appellee’s brief’s sec-
+tions ‘Statement of the Facts’ and ‘Standard of Review,’”
+but not the “statement of issues presented, nor the sum-
+mary of argument, nor the argument section” of the brief);
+see also SmithKline Beecham Corp. v. Apotex Corp., 439
+F.3d 1312, 1319 (Fed. Cir. 2006) (“Our law is well estab-
+lished that arguments not raised in the opening brief are
+waived.”); Becton Dickinson & Co. v. C.R. Bard, Inc., 922
+F.2d 792, 800 (Fed. Cir. 1990) (holding we have discretion
+to consider arguments that are not properly raised in the
+opening brief).
+     Even if this argument is properly preserved, it is mer-
+itless. Substantial evidence—including the declarations
+submitted by FOX’s expert—supports the Board’s conclu-
+sion that a skilled artisan would have been motivated to
+combine the asserted prior art because the skilled artisan
+would have recognized that the combination of prior art
+features would better address chain drop than either fea-
+ture in isolation. See, e.g., J.A. 4492–4513, 5219–27, 5762–
+FOX FACTORY, INC. v. SRAM, LLC                           21
+
+
+
+89, 6099–6106. Therefore, we affirm the Board’s determi-
+nation that a skilled artisan would have been motivated to
+combine the asserted prior art.
+                             III
+     FOX also raises a SAS-based remand request. In one
+of the underlying inter partes review proceedings, IPR
+2017-00118, the Board instituted review of only two of the
+eight grounds of unpatentability raised by FOX. Three
+weeks after the Board’s final written decision, the Supreme
+Court issued its decision in SAS Institute v. Iancu, 138 S.
+Ct. 1348 (2018). Shortly after this appeal was docketed,
+and before any briefs were filed, FOX moved to terminate
+the appeal as to IPR2017-00118 on the ground that the
+Board failed to follow the requirements set forth in SAS by
+failing to institute review of all eight grounds FOX raised.
+Motion of Appellant FOX Factory, Inc., for Remand of Ap-
+peal No. 2018-2024 (IPR2017-00118) in View of Interven-
+ing Authority at 1–2 (Sept. 28, 2018), ECF No. 22
+(“Motion”). Although we chose not to terminate the appeal
+as to IPR No. 2017-00118, we now remand to the Board to
+consider the non-instituted grounds.
+     SRAM contends that FOX waived its right to a remand
+(and to terminate the appeal) pursuant to SAS because
+FOX failed to raise its SAS objection before the Board. Ap-
+pellee SRAM, LLC’s Opposition to Appellant’s Motion to
+Remand at 2 (Oct. 2, 2018), ECF No. 24. This argument,
+however, is unavailing because SAS issued after the
+Board’s final written decision, and we have not required
+filing a request for reconsideration to preserve a SAS-based
+remand. See BioDelivery Scis. Int’l, Inc. v. Aquestive Ther-
+apeutics, Inc., 898 F.3d 1205, 1208 (Fed. Cir. 2018) (“We
+also declined to find that a party waived its right to seek
+SAS-based relief due to failure to argue against partial in-
+stitution before the PTAB.”).
+   SRAM also argues that FOX waived its right to a re-
+mand because FOX failed to explicitly raise its SAS
+22                             FOX FACTORY, INC. v. SRAM, LLC
+
+
+
+
+objection in its Notice of Appeal. We have found that a pa-
+tent challenger can properly preserve an SAS objection by
+requesting remand in its opening brief. See Google LLC v.
+Ji-Soo Lee, 759 F. App’x 998, 1002 n.2 (Fed. Cir. 2019).
+Here, FOX did more than that: it filed a motion to remand
+even before its opening brief was due. See Motion. Accord-
+ingly, we conclude that FOX did not waive its right to a
+remand.
+                             IV
+    We vacate the Board’s obviousness determinations in
+IPR 2017-00118 and IPR 2017-00472 and remand for it to
+reevaluate the import of the evidence of secondary consid-
+erations with the burden of proving nexus placed on the
+correct party. We also remand IPR 2017-00118 for the
+Board to consider the non-instituted grounds.
+              VACATED AND REMANDED
+                           COSTS
+     The parties shall bear their own costs.
+

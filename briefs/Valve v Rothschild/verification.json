@@ -1,0 +1,605 @@
+{
+  "Moore v. Ashland Chem. Inc., 151 F.3d 269 (5th Cir. 1998)": {
+    "input_citation": "Moore v. Ashland Chem. Inc., 151 F.3d 269 (5th Cir. 1998)",
+    "status": "VERIFIED",
+    "confidence": 1.0,
+    "matched_case_name": "Moore v. Ashland Chemical Inc.",
+    "matched_url": "https://www.courtlistener.com/opinion/15627/moore-v-ashland-chemical-inc/",
+    "matched_cluster_id": 15627,
+    "matched_court": null,
+    "matched_date": "1998-09-16",
+    "matched_description": null,
+    "candidates": [],
+    "diagnostics": [],
+    "error": null
+  },
+  "Kumho Tire Co. v. Carmichael, 526 U.S. 137 (1999)": {
+    "input_citation": "Kumho Tire Co. v. Carmichael, 526 U.S. 137 (1999)",
+    "status": "VERIFIED",
+    "confidence": 1.0,
+    "matched_case_name": "Kumho Tire Co. v. Carmichael",
+    "matched_url": "https://www.courtlistener.com/opinion/118271/kumho-tire-co-v-carmichael/",
+    "matched_cluster_id": 118271,
+    "matched_court": null,
+    "matched_date": "1999-03-23",
+    "matched_description": null,
+    "candidates": [],
+    "diagnostics": [],
+    "error": null
+  },
+  "Daubert v. Merrell Dow Pharmaceuticals, Inc., 509 U.S. 579 (1993)": {
+    "input_citation": "Daubert v. Merrell Dow Pharmaceuticals, Inc., 509 U.S. 579 (1993)",
+    "status": "VERIFIED",
+    "confidence": 1.0,
+    "matched_case_name": "Daubert v. Merrell Dow Pharmaceuticals, Inc.",
+    "matched_url": "https://www.courtlistener.com/opinion/112903/daubert-v-merrell-dow-pharmaceuticals-inc/",
+    "matched_cluster_id": 112903,
+    "matched_court": null,
+    "matched_date": "1993-06-28",
+    "matched_description": null,
+    "candidates": [],
+    "diagnostics": [],
+    "error": null
+  },
+  "Sundance, Inc. v. DeMonte Fabricating Ltd., 550 F.3d 1356 (Fed. Cir. 2008)": {
+    "input_citation": "Sundance, Inc. v. DeMonte Fabricating Ltd., 550 F.3d 1356 (Fed. Cir. 2008)",
+    "status": "VERIFIED",
+    "confidence": 1.0,
+    "matched_case_name": "Sundance, Inc. v. DeMonte Fabricating Ltd.",
+    "matched_url": "https://www.courtlistener.com/opinion/209411/sundance-inc-v-demonte-fabricating-ltd/",
+    "matched_cluster_id": 209411,
+    "matched_court": null,
+    "matched_date": "2008-12-24",
+    "matched_description": null,
+    "candidates": [],
+    "diagnostics": [],
+    "error": null
+  },
+  "Nieves-Villanueva v. Soto-Rivera, 133 F.3d 92 (1st Cir. 1997)": {
+    "input_citation": "Nieves-Villanueva v. Soto-Rivera, 133 F.3d 92 (1st Cir. 1997)",
+    "status": "VERIFIED",
+    "confidence": 1.0,
+    "matched_case_name": "Nieves-Villanueva v. Soto-Rivera",
+    "matched_url": "https://www.courtlistener.com/opinion/197702/nieves-villanueva-v-soto-rivera/",
+    "matched_cluster_id": 197702,
+    "matched_court": null,
+    "matched_date": "1997-12-22",
+    "matched_description": null,
+    "candidates": [],
+    "diagnostics": [],
+    "error": null
+  },
+  "Crow Tribe of Indians v. Racicot, 87 F.3d 1039 (9th Cir. 1996)": {
+    "input_citation": "Crow Tribe of Indians v. Racicot, 87 F.3d 1039 (9th Cir. 1996)",
+    "status": "VERIFIED",
+    "confidence": 1.0,
+    "matched_case_name": "Crow Tribe of Indians v. Racicot",
+    "matched_url": "https://www.courtlistener.com/opinion/7036888/crow-tribe-of-indians-v-racicot/",
+    "matched_cluster_id": 7036888,
+    "matched_court": null,
+    "matched_date": "1996-06-14",
+    "matched_description": null,
+    "candidates": [],
+    "diagnostics": [],
+    "error": null
+  },
+  "PacTool Int'l v. Kett Tool Co., No. C06-5367BHS, 2009 WL 10705131 (W.D. Wash. Sept. 15, 2009)": {
+    "input_citation": "PacTool Int'l v. Kett Tool Co., No. C06-5367BHS, 2009 WL 10705131 (W.D. Wash. Sept. 15, 2009)",
+    "status": "POSSIBLE_MATCH",
+    "confidence": 0.5429,
+    "matched_case_name": "Pactool International Ltd v. Dewalt Industrial Tool Co",
+    "matched_url": "https://www.courtlistener.com/docket/4410019/95/pactool-international-ltd-v-dewalt-industrial-tool-co/",
+    "matched_cluster_id": 4410019,
+    "matched_court": "wawd",
+    "matched_date": "2010-07-14",
+    "matched_description": "ANSWER to 63 Amended Complaint, COUNTERCLAIM against plaintiff Pactool International Ltd by Kett Tool Company Inc.(Davis, John) (Entered: 07/14/2010)",
+    "candidates": [
+      {
+        "case_name": "Pactool International Ltd v. Dewalt Industrial Tool Co",
+        "url": "https://www.courtlistener.com/docket/4410019/95/pactool-international-ltd-v-dewalt-industrial-tool-co/",
+        "cluster_id": 4410019,
+        "date_filed": "2010-07-14",
+        "court_id": "wawd",
+        "score": 0.5429,
+        "description": "ANSWER to 63 Amended Complaint, COUNTERCLAIM against plaintiff Pactool International Ltd by Kett Tool Company Inc.(Davis, John) (Entered: 07/14/2010)",
+        "mismatches": [
+          "Found in RECAP (not in opinions database). Document dated 2010-07-14: ANSWER to 63 Amended Complaint, COUNTERCLAIM against plaintiff Pactool Internati...",
+          "Name mismatch: cited \"PacTool International v. Kett Tool Co.\" vs found \"Pactool International Ltd v. Dewalt Industrial Tool Co\"",
+          "Date close: cited 2009 vs filed 2010-07-14",
+          "Docket mismatch: cited C06-5367BHS vs found 3:06-cv-05367",
+          "Reporter citation 2009 WL 10705131 could not be confirmed (CourtListener has no reporter citations on file for this case)"
+        ]
+      },
+      {
+        "case_name": "Jack v. Borg-Warner Morse Tec LLC",
+        "url": "https://www.courtlistener.com/docket/6100500/628/jack-v-borg-warner-morse-tec-llc/",
+        "cluster_id": 6100500,
+        "date_filed": "2018-08-10",
+        "court_id": "wawd",
+        "score": 0.2782,
+        "description": "Order on Motion for Leave",
+        "mismatches": [
+          "Found in RECAP (not in opinions database). Document dated 2018-08-10: Order on Motion for Leave",
+          "Name mismatch: cited \"PacTool International v. Kett Tool Co.\" vs found \"Jack v. Borg-Warner Morse Tec LLC\"",
+          "Date mismatch: cited 2009 vs filed 2018-08-10",
+          "Docket mismatch: cited C06-5367BHS vs found 2:17-cv-00537",
+          "Reporter citation 2009 WL 10705131 could not be confirmed (CourtListener has no reporter citations on file for this case)"
+        ]
+      },
+      {
+        "case_name": "Valve Corporation v. Rothschild",
+        "url": "https://www.courtlistener.com/docket/67569388/136/valve-corporation-v-rothschild/",
+        "cluster_id": 67569388,
+        "date_filed": "2025-10-27",
+        "court_id": "wawd",
+        "score": 0.2625,
+        "description": "Motion to Exclude",
+        "mismatches": [
+          "Found in RECAP (not in opinions database). Document dated 2025-10-27: Motion to Exclude",
+          "Name mismatch: cited \"PacTool International v. Kett Tool Co.\" vs found \"Valve Corporation v. Rothschild\"",
+          "Date mismatch: cited 2009 vs filed 2025-10-27",
+          "Docket mismatch: cited C06-5367BHS vs found 2:23-cv-01016",
+          "Reporter citation 2009 WL 10705131 could not be confirmed (CourtListener has no reporter citations on file for this case)"
+        ]
+      },
+      {
+        "case_name": "Houserman v. Comtech Telecommunications Corporation",
+        "url": "https://www.courtlistener.com/docket/15039836/112/houserman-v-comtech-telecommunications-corporation/",
+        "cluster_id": 15039836,
+        "date_filed": "2020-11-03",
+        "court_id": "wawd",
+        "score": 0.2617,
+        "description": "Motion to Exclude",
+        "mismatches": [
+          "Found in RECAP (not in opinions database). Document dated 2020-11-03: Motion to Exclude",
+          "Name mismatch: cited \"PacTool International v. Kett Tool Co.\" vs found \"Houserman v. Comtech Telecommunications Corporation\"",
+          "Date mismatch: cited 2009 vs filed 2020-11-03",
+          "Docket mismatch: cited C06-5367BHS vs found 2:19-cv-00644",
+          "Reporter citation 2009 WL 10705131 could not be confirmed (CourtListener has no reporter citations on file for this case)"
+        ]
+      },
+      {
+        "case_name": "Corker v. Costco Wholesale Corporation",
+        "url": "https://www.courtlistener.com/docket/14580300/606/corker-v-costco-wholesale-corporation/",
+        "cluster_id": 14580300,
+        "date_filed": "2022-02-14",
+        "court_id": "wawd",
+        "score": 0.2535,
+        "description": "Order on Motion to Dismiss Party",
+        "mismatches": [
+          "Found in RECAP (not in opinions database). Document dated 2022-02-14: Order on Motion to Dismiss Party",
+          "Name mismatch: cited \"PacTool International v. Kett Tool Co.\" vs found \"Corker v. Costco Wholesale Corporation\"",
+          "Date mismatch: cited 2009 vs filed 2022-02-14",
+          "Docket mismatch: cited C06-5367BHS vs found 2:19-cv-00290",
+          "Reporter citation 2009 WL 10705131 could not be confirmed (CourtListener has no reporter citations on file for this case)"
+        ]
+      }
+    ],
+    "diagnostics": [
+      "Found in RECAP (not in opinions database). Document dated 2010-07-14: ANSWER to 63 Amended Complaint, COUNTERCLAIM against plaintiff Pactool Internati...",
+      "Name mismatch: cited \"PacTool International v. Kett Tool Co.\" vs found \"Pactool International Ltd v. Dewalt Industrial Tool Co\"",
+      "Date close: cited 2009 vs filed 2010-07-14",
+      "Docket mismatch: cited C06-5367BHS vs found 3:06-cv-05367",
+      "Reporter citation 2009 WL 10705131 could not be confirmed (CourtListener has no reporter citations on file for this case), but we identified a possible match."
+    ],
+    "error": null
+  },
+  "Cordis v. Boston Scientific Corp., 561 F.3d 1319 (Fed. Cir. 2009)": {
+    "input_citation": "Cordis v. Boston Scientific Corp., 561 F.3d 1319 (Fed. Cir. 2009)",
+    "status": "VERIFIED",
+    "confidence": 1.0,
+    "matched_case_name": "Cordis Corp. v. Boston Scientific Corp.",
+    "matched_url": "https://www.courtlistener.com/opinion/209037/cordis-corp-v-boston-scientific-corp/",
+    "matched_cluster_id": 209037,
+    "matched_court": null,
+    "matched_date": "2009-03-31",
+    "matched_description": null,
+    "candidates": [],
+    "diagnostics": [],
+    "error": null
+  },
+  "United States v. Bilzerian, 926 F.2d 1285 (2d Cir. 1991)": {
+    "input_citation": "United States v. Bilzerian, 926 F.2d 1285 (2d Cir. 1991)",
+    "status": "VERIFIED",
+    "confidence": 1.0,
+    "matched_case_name": "United States v. Paul A. Bilzerian",
+    "matched_url": "https://www.courtlistener.com/opinion/556608/united-states-v-paul-a-bilzerian/",
+    "matched_cluster_id": 556608,
+    "matched_court": null,
+    "matched_date": "1991-01-03",
+    "matched_description": null,
+    "candidates": [],
+    "diagnostics": [],
+    "error": null
+  },
+  "Marx & Co. v. Diners Club Inc., 550 F.2d 505 (2d Cir. 1977)": {
+    "input_citation": "Marx & Co. v. Diners Club Inc., 550 F.2d 505 (2d Cir. 1977)",
+    "status": "VERIFIED",
+    "confidence": 1.0,
+    "matched_case_name": "Marx & Co. v. Diners' Club, Inc.",
+    "matched_url": "https://www.courtlistener.com/opinion/8913205/marx-co-v-diners-club-inc/",
+    "matched_cluster_id": 8913205,
+    "matched_court": null,
+    "matched_date": "1977-02-25",
+    "matched_description": null,
+    "candidates": [],
+    "diagnostics": [],
+    "error": null
+  },
+  "Micro Chem., Inc. v. Lextron, Inc., 317 F.3d 1387 (Fed. Cir. 2003)": {
+    "input_citation": "Micro Chem., Inc. v. Lextron, Inc., 317 F.3d 1387 (Fed. Cir. 2003)",
+    "status": "VERIFIED",
+    "confidence": 1.0,
+    "matched_case_name": "Micro Chemical, Inc. v. Lextron, Inc. And Turnkey Computer Systems, Inc.",
+    "matched_url": "https://www.courtlistener.com/opinion/780692/micro-chemical-inc-v-lextron-inc-and-turnkey-computer-systems-inc/",
+    "matched_cluster_id": 780692,
+    "matched_court": null,
+    "matched_date": "2003-01-24",
+    "matched_description": null,
+    "candidates": [],
+    "diagnostics": [],
+    "error": null
+  },
+  "Burkhart v. WMATA, 112 F.3d 1207 (D.C. Cir. 1997)": {
+    "input_citation": "Burkhart v. WMATA, 112 F.3d 1207 (D.C. Cir. 1997)",
+    "status": "VERIFIED",
+    "confidence": 1.0,
+    "matched_case_name": "Eduardo Burkhart v. Washington Metropolitan Area Transit Authority",
+    "matched_url": "https://www.courtlistener.com/opinion/740391/eduardo-burkhart-v-washington-metropolitan-area-transit-authority/",
+    "matched_cluster_id": 740391,
+    "matched_court": null,
+    "matched_date": "1997-05-16",
+    "matched_description": null,
+    "candidates": [],
+    "diagnostics": [],
+    "error": null
+  },
+  "Amazon.com, Inc. v. Personal Web Technologies, LLC, No. C14-01375 BLW, 2020 WL 3515051 (W.D. Wash. June 29, 2020)": {
+    "input_citation": "Amazon.com, Inc. v. Personal Web Technologies, LLC, No. C14-01375 BLW, 2020 WL 3515051 (W.D. Wash. June 29, 2020)",
+    "status": "POSSIBLE_MATCH",
+    "confidence": 0.6073,
+    "matched_case_name": "Amazon.com, Inc. v. Robojap Technologies LLC",
+    "matched_url": "https://www.courtlistener.com/docket/17136064/21/amazoncom-inc-v-robojap-technologies-llc/",
+    "matched_cluster_id": 17136064,
+    "matched_court": "wawd",
+    "matched_date": "2020-07-27",
+    "matched_description": "ORDER REGARDING INITIAL DISCLOSURES AND JOINT STATUS REPORT Joint Status Report due by 9/8/2020, FRCP 26(f) Conference Deadline is 8/24/2020, Initial Disclosure Deadline is 8/31/2020. Signed by Judge Marsha J. Pechman. (GC) (Entered: 07/27/2020)",
+    "candidates": [
+      {
+        "case_name": "Amazon.com, Inc. v. Robojap Technologies LLC",
+        "url": "https://www.courtlistener.com/docket/17136064/21/amazoncom-inc-v-robojap-technologies-llc/",
+        "cluster_id": 17136064,
+        "date_filed": "2020-07-27",
+        "court_id": "wawd",
+        "score": 0.6073,
+        "description": "ORDER REGARDING INITIAL DISCLOSURES AND JOINT STATUS REPORT Joint Status Report due by 9/8/2020, FRCP 26(f) Conference Deadline is 8/24/2020, Initial Disclosure Deadline is 8/31/2020. Signed by Judge Marsha J. Pechman. (GC) (Entered: 07/27/2020)",
+        "mismatches": [
+          "Found in RECAP (not in opinions database). Document dated 2020-07-27: Joint Status Report Order Form for District Judges",
+          "Name mismatch: cited \"Amazon.com, Inc. v. Personal Web Technologies, LLC\" vs found \"Amazon.com, Inc. v. Robojap Technologies LLC\"",
+          "Date close: cited 2020-06-29 vs filed 2020-07-27",
+          "Docket mismatch: cited C14-01375 BLW vs found 2:20-cv-00694",
+          "Reporter citation 2020 WL 3515051 could not be confirmed (CourtListener has no reporter citations on file for this case)"
+        ]
+      },
+      {
+        "case_name": "Amazon.com Inc v. FBA Stores, LLC",
+        "url": "https://www.courtlistener.com/docket/6237593/49/amazoncom-inc-v-fba-stores-llc/",
+        "cluster_id": 6237593,
+        "date_filed": "2019-04-26",
+        "court_id": "wawd",
+        "score": 0.4955,
+        "description": "Declaration",
+        "mismatches": [
+          "Found in RECAP (not in opinions database). Document dated 2019-04-26: Declaration",
+          "Name mismatch: cited \"Amazon.com, Inc. v. Personal Web Technologies, LLC\" vs found \"Amazon.com Inc v. FBA Stores, LLC\"",
+          "Date close: cited 2020 vs filed 2019-04-26",
+          "Docket mismatch: cited C14-01375 BLW vs found 2:17-cv-01830",
+          "Reporter citation 2020 WL 3515051 could not be confirmed (CourtListener has no reporter citations on file for this case)"
+        ]
+      },
+      {
+        "case_name": "Mirabile v. Amazon.com Inc",
+        "url": "https://www.courtlistener.com/docket/60012762/1/mirabile-v-amazoncom-inc/",
+        "cluster_id": 60012762,
+        "date_filed": "2021-06-24",
+        "court_id": "wawd",
+        "score": 0.4172,
+        "description": "Complaint",
+        "mismatches": [
+          "Found in RECAP (not in opinions database). Document dated 2021-06-24: Complaint",
+          "Name mismatch: cited \"Amazon.com, Inc. v. Personal Web Technologies, LLC\" vs found \"Mirabile v. Amazon.com Inc\"",
+          "Date close: cited 2020 vs filed 2021-06-24",
+          "Docket mismatch: cited C14-01375 BLW vs found 2:21-cv-00854",
+          "Reporter citation 2020 WL 3515051 could not be confirmed (CourtListener has no reporter citations on file for this case)"
+        ]
+      },
+      {
+        "case_name": "Appistry, LLC v. Amazon.com, Inc.",
+        "url": "https://www.courtlistener.com/docket/4411549/213/appistry-llc-v-amazoncom-inc/",
+        "cluster_id": 4411549,
+        "date_filed": "2015-07-09",
+        "court_id": "wawd",
+        "score": 0.4011,
+        "description": "Order on Motion for Judgment on the Pleadings",
+        "mismatches": [
+          "Found in RECAP (not in opinions database). Document dated 2015-07-09: Order on Motion for Judgment on the Pleadings",
+          "Name mismatch: cited \"Amazon.com, Inc. v. Personal Web Technologies, LLC\" vs found \"Appistry, LLC v. Amazon.com, Inc.\"",
+          "Date mismatch: cited 2020 vs filed 2015-07-09",
+          "Docket mismatch: cited C14-01375 BLW vs found 2:15-cv-00311",
+          "Reporter citation 2020 WL 3515051 could not be confirmed (CourtListener has no reporter citations on file for this case)"
+        ]
+      },
+      {
+        "case_name": "Telebuyer, LLC v. Amazon.com, Inc",
+        "url": "https://www.courtlistener.com/docket/5230479/220/telebuyer-llc-v-amazoncom-inc/",
+        "cluster_id": 5230479,
+        "date_filed": "2015-07-23",
+        "court_id": "wawd",
+        "score": 0.3979,
+        "description": "ORDER granting  202   Motion for Summary Judgment  by Judge Barbara J. Rothstein.(HR)",
+        "mismatches": [
+          "Found in RECAP (not in opinions database). Document dated 2015-07-23: ORDER granting  202   Motion for Summary Judgment  by Judge Barbara J. Rothstein...",
+          "Name mismatch: cited \"Amazon.com, Inc. v. Personal Web Technologies, LLC\" vs found \"Telebuyer, LLC v. Amazon.com, Inc\"",
+          "Date mismatch: cited 2020 vs filed 2015-07-23",
+          "Docket mismatch: cited C14-01375 BLW vs found 2:13-cv-01677",
+          "Reporter citation 2020 WL 3515051 could not be confirmed (CourtListener has no reporter citations on file for this case)"
+        ]
+      }
+    ],
+    "diagnostics": [
+      "Found in RECAP (not in opinions database). Document dated 2020-07-27: Joint Status Report Order Form for District Judges",
+      "Name mismatch: cited \"Amazon.com, Inc. v. Personal Web Technologies, LLC\" vs found \"Amazon.com, Inc. v. Robojap Technologies LLC\"",
+      "Date close: cited 2020-06-29 vs filed 2020-07-27",
+      "Docket mismatch: cited C14-01375 BLW vs found 2:20-cv-00694",
+      "Reporter citation 2020 WL 3515051 could not be confirmed (CourtListener has no reporter citations on file for this case), but we identified a possible match."
+    ],
+    "error": null
+  },
+  "Bausch & Lomb, Inc. v. Alcon Labs, Inc., 79 F. Supp 2d 252 (W.D.N.Y. 2000)": {
+    "input_citation": "Bausch & Lomb, Inc. v. Alcon Labs, Inc., 79 F. Supp 2d 252 (W.D.N.Y. 2000)",
+    "status": "POSSIBLE_MATCH",
+    "confidence": 0.5915,
+    "matched_case_name": "Bausch & Lomb, Inc. v. Alcon Laboratories, Inc.",
+    "matched_url": "https://www.courtlistener.com/opinion/2522973/bausch-lomb-inc-v-alcon-laboratories-inc/",
+    "matched_cluster_id": 2522973,
+    "matched_court": "nywd",
+    "matched_date": "1999-12-22",
+    "matched_description": null,
+    "candidates": [
+      {
+        "case_name": "Bausch & Lomb, Inc. v. Alcon Laboratories, Inc.",
+        "url": "https://www.courtlistener.com/opinion/2522973/bausch-lomb-inc-v-alcon-laboratories-inc/",
+        "cluster_id": 2522973,
+        "date_filed": "1999-12-22",
+        "court_id": "nywd",
+        "score": 0.5915,
+        "description": null,
+        "mismatches": [
+          "Name mismatch: cited \"Bausch & Lomb, Inc. v. Alcon Labs, Inc.\" vs found \"Bausch & Lomb, Inc. v. Alcon Laboratories, Inc.\"",
+          "Date close: cited 2000 vs filed 1999-12-22",
+          "Citation mismatch: cited 79 F. Supp 2d 252 but CourtListener has 79 F. Supp. 2d 243 53 U.S.P.Q. 2d (BNA) 1353 1999 U.S. Dist. LEXIS 19594 1999 WL 1249807"
+        ]
+      },
+      {
+        "case_name": "Bausch & Lomb Inc. v. Alcon Laboratories, Inc.",
+        "url": "https://www.courtlistener.com/opinion/2578509/bausch-lomb-inc-v-alcon-laboratories-inc/",
+        "cluster_id": 2578509,
+        "date_filed": "1999-09-16",
+        "court_id": "nywd",
+        "score": 0.5472,
+        "description": null,
+        "mismatches": [
+          "Name mismatch: cited \"Bausch & Lomb, Inc. v. Alcon Labs, Inc.\" vs found \"Bausch & Lomb Inc. v. Alcon Laboratories, Inc.\"",
+          "Date close: cited 2000 vs filed 1999-09-16",
+          "Citation mismatch: cited 79 F. Supp 2d 252 but CourtListener has 64 F. Supp. 2d 233 52 U.S.P.Q. 2d (BNA) 1385 1999 U.S. Dist. LEXIS 14424 1999 WL 728064"
+        ]
+      }
+    ],
+    "diagnostics": [
+      "Name mismatch: cited \"Bausch & Lomb, Inc. v. Alcon Labs, Inc.\" vs found \"Bausch & Lomb, Inc. v. Alcon Laboratories, Inc.\"",
+      "Date close: cited 2000 vs filed 1999-12-22",
+      "Citation mismatch: cited 79 F. Supp 2d 252 but CourtListener has 79 F. Supp. 2d 243 53 U.S.P.Q. 2d (BNA) 1353 1999 U.S. Dist. LEXIS 19594 1999 WL 1249807, but we identified a possible match."
+    ],
+    "error": null
+  },
+  "Diamondback Industries, Inc. v. Repeat Precision, LLC, No. 6:19-cv-00034-ADA (W.D. Tex. June 27, 2019)": {
+    "input_citation": "Diamondback Industries, Inc. v. Repeat Precision, LLC, No. 6:19-cv-00034-ADA (W.D. Tex. June 27, 2019)",
+    "status": "POSSIBLE_MATCH",
+    "confidence": 0.8298,
+    "matched_case_name": "Diamondback Industries, Inc. v. Repeat Precision, LLC",
+    "matched_url": "https://www.courtlistener.com/docket/14534075/68/diamondback-industries-inc-v-repeat-precision-llc/",
+    "matched_cluster_id": 14534075,
+    "matched_court": "txwd",
+    "matched_date": "2019-06-27",
+    "matched_description": "Opposed MOTION to Exclude the Report and Opinions of Bryan Garner by Repeat Precision, LLC. (Attachments: # 1 Appendix, # 2 Proposed Order)(Hastings, William) (Entered: 06/27/2019)",
+    "candidates": [
+      {
+        "case_name": "Diamondback Industries, Inc. v. Repeat Precision, LLC",
+        "url": "https://www.courtlistener.com/docket/14534075/68/diamondback-industries-inc-v-repeat-precision-llc/",
+        "cluster_id": 14534075,
+        "date_filed": "2019-06-27",
+        "court_id": "txwd",
+        "score": 0.8298,
+        "description": "Opposed MOTION to Exclude the Report and Opinions of Bryan Garner by Repeat Precision, LLC. (Attachments: # 1 Appendix, # 2 Proposed Order)(Hastings, William) (Entered: 06/27/2019)",
+        "mismatches": [
+          "Found in RECAP (not in opinions database). Document dated 2019-06-27: Exclude",
+          "Name differs: cited \"Diamondback Industries, Inc. v. Repeat Precision, LLC(W.D. Tex. June 27\" ~ found \"Diamondback Industries, Inc. v. Repeat Precision, LLC\" (76% similar)"
+        ]
+      }
+    ],
+    "diagnostics": [
+      "Found in RECAP (not in opinions database). Document dated 2019-06-27: Exclude",
+      "Name differs: cited \"Diamondback Industries, Inc. v. Repeat Precision, LLC(W.D. Tex. June 27\" ~ found \"Diamondback Industries, Inc. v. Repeat Precision, LLC\" (76% similar), but we identified a possible match."
+    ],
+    "error": null
+  },
+  "Primiano v. Cook, 598 F.3d 558 (9th Cir. 2010)": {
+    "input_citation": "Primiano v. Cook, 598 F.3d 558 (9th Cir. 2010)",
+    "status": "VERIFIED",
+    "confidence": 1.0,
+    "matched_case_name": "Primiano v. Cook",
+    "matched_url": "https://www.courtlistener.com/opinion/78691/primiano-v-cook/",
+    "matched_cluster_id": 78691,
+    "matched_court": null,
+    "matched_date": "2010-04-27",
+    "matched_description": null,
+    "candidates": [],
+    "diagnostics": [],
+    "error": null
+  },
+  "Fortune Dynamic, Inc. v. Victoria's Secret Stores Brand Mgmt., Inc., 618 F.3d 1025 (9th Cir. 2010)": {
+    "input_citation": "Fortune Dynamic, Inc. v. Victoria's Secret Stores Brand Mgmt., Inc., 618 F.3d 1025 (9th Cir. 2010)",
+    "status": "VERIFIED",
+    "confidence": 1.0,
+    "matched_case_name": "Fortune Dynamic v. Victoria's Secret Stores Brand",
+    "matched_url": "https://www.courtlistener.com/opinion/221114/fortune-dynamic-v-victorias-secret-stores-brand/",
+    "matched_cluster_id": 221114,
+    "matched_court": null,
+    "matched_date": "2011-07-15",
+    "matched_description": null,
+    "candidates": [],
+    "diagnostics": [],
+    "error": null
+  },
+  "Hangarter v. Provident Life & Accident Ins. Co., 373 F.3d 998 (9th Cir. 2004)": {
+    "input_citation": "Hangarter v. Provident Life & Accident Ins. Co., 373 F.3d 998 (9th Cir. 2004)",
+    "status": "VERIFIED",
+    "confidence": 1.0,
+    "matched_case_name": "Joan Hangarter v. Provident Life and Accident Insurance Company, and the Paul Revere Life Insurance Company Unumprovident Corp.",
+    "matched_url": "https://www.courtlistener.com/opinion/786763/joan-hangarter-v-provident-life-and-accident-insurance-company-and-the/",
+    "matched_cluster_id": 786763,
+    "matched_court": null,
+    "matched_date": "2004-06-25",
+    "matched_description": null,
+    "candidates": [],
+    "diagnostics": [],
+    "error": null
+  },
+  "General Elec. Co. v. Joiner, 522 U.S. 136 (1997)": {
+    "input_citation": "General Elec. Co. v. Joiner, 522 U.S. 136 (1997)",
+    "status": "VERIFIED",
+    "confidence": 1.0,
+    "matched_case_name": "General Electric Co. v. Joiner",
+    "matched_url": "https://www.courtlistener.com/opinion/118157/general-electric-co-v-joiner/",
+    "matched_cluster_id": 118157,
+    "matched_court": null,
+    "matched_date": "1997-12-15",
+    "matched_description": null,
+    "candidates": [],
+    "diagnostics": [],
+    "error": null
+  },
+  "Ellis v. Costco Wholesale Corp., 657 F.3d 970 (9th Cir. 2011)": {
+    "input_citation": "Ellis v. Costco Wholesale Corp., 657 F.3d 970 (9th Cir. 2011)",
+    "status": "VERIFIED",
+    "confidence": 1.0,
+    "matched_case_name": "Ellis v. Costco Wholesale Corp.",
+    "matched_url": "https://www.courtlistener.com/opinion/613772/ellis-v-costco-wholesale-corp/",
+    "matched_cluster_id": 613772,
+    "matched_court": null,
+    "matched_date": "2011-09-16",
+    "matched_description": null,
+    "candidates": [],
+    "diagnostics": [],
+    "error": null
+  },
+  "Mukhtar v. Cal. State Univ., Hayward, 299 F.3d 1053 (9th Cir. 2002)": {
+    "input_citation": "Mukhtar v. Cal. State Univ., Hayward, 299 F.3d 1053 (9th Cir. 2002)",
+    "status": "VERIFIED",
+    "confidence": 1.0,
+    "matched_case_name": "Elsayed Mukhtar v. California State University",
+    "matched_url": "https://www.courtlistener.com/opinion/7106921/elsayed-mukhtar-v-california-state-university/",
+    "matched_cluster_id": 7106921,
+    "matched_court": null,
+    "matched_date": "2002-08-07",
+    "matched_description": null,
+    "candidates": [],
+    "diagnostics": [],
+    "error": null
+  },
+  "Crowley v. Bannister, 734 F.3d 967 (9th Cir. 2013)": {
+    "input_citation": "Crowley v. Bannister, 734 F.3d 967 (9th Cir. 2013)",
+    "status": "VERIFIED",
+    "confidence": 1.0,
+    "matched_case_name": "John Crowley v. Bruce Bannister",
+    "matched_url": "https://www.courtlistener.com/opinion/2620509/john-crowley-v-bruce-bannister/",
+    "matched_cluster_id": 2620509,
+    "matched_court": null,
+    "matched_date": "2013-10-30",
+    "matched_description": null,
+    "candidates": [],
+    "diagnostics": [],
+    "error": null
+  },
+  "United States v. Finley, 301 F.3d 1000 (9th Cir. 2002)": {
+    "input_citation": "United States v. Finley, 301 F.3d 1000 (9th Cir. 2002)",
+    "status": "VERIFIED",
+    "confidence": 1.0,
+    "matched_case_name": "United States v. Richard Joseph Finley",
+    "matched_url": "https://www.courtlistener.com/opinion/778954/united-states-v-richard-joseph-finley/",
+    "matched_cluster_id": 778954,
+    "matched_court": null,
+    "matched_date": "2002-08-20",
+    "matched_description": null,
+    "candidates": [],
+    "diagnostics": [],
+    "error": null
+  },
+  "WBIP, LLC v. Kohler Co., 829 F.3d 1317 (Fed. Cir. 2016)": {
+    "input_citation": "WBIP, LLC v. Kohler Co., 829 F.3d 1317 (Fed. Cir. 2016)",
+    "status": "VERIFIED",
+    "confidence": 1.0,
+    "matched_case_name": "Wbip, LLC v. Kohler Co.",
+    "matched_url": "https://www.courtlistener.com/opinion/4239781/wbip-llc-v-kohler-co/",
+    "matched_cluster_id": 4239781,
+    "matched_court": null,
+    "matched_date": "2016-07-19",
+    "matched_description": null,
+    "candidates": [],
+    "diagnostics": [],
+    "error": null
+  },
+  "Fox Factory, Inc. v. SRAM, LLC, 944 F.3d 1366 (Fed. Cir. 2019)": {
+    "input_citation": "Fox Factory, Inc. v. SRAM, LLC, 944 F.3d 1366 (Fed. Cir. 2019)",
+    "status": "LIKELY_REAL",
+    "confidence": 0.9,
+    "matched_case_name": "Fox Factory, Inc. v. Sram, LLC",
+    "matched_url": "https://www.courtlistener.com/opinion/4688009/fox-factory-inc-v-sram-llc/",
+    "matched_cluster_id": 4688009,
+    "matched_court": "cafc",
+    "matched_date": "2019-12-18",
+    "matched_description": null,
+    "candidates": [
+      {
+        "case_name": "Fox Factory, Inc. v. Sram, LLC",
+        "url": "https://www.courtlistener.com/opinion/4688009/fox-factory-inc-v-sram-llc/",
+        "cluster_id": 4688009,
+        "date_filed": "2019-12-18",
+        "court_id": "cafc",
+        "score": 0.9,
+        "description": null,
+        "mismatches": [
+          "Reporter citation 944 F.3d 1366 could not be confirmed (CourtListener has no reporter citations on file for this case)"
+        ]
+      },
+      {
+        "case_name": "Donner Technology, LLC v. Pro Stage Gear, LLC",
+        "url": "https://www.courtlistener.com/opinion/4804595/donner-technology-llc-v-pro-stage-gear-llc/",
+        "cluster_id": 4804595,
+        "date_filed": "2020-11-09",
+        "court_id": "cafc",
+        "score": 0.4202,
+        "description": null,
+        "mismatches": [
+          "Name mismatch: cited \"Fox Factory, Inc. v. SRAM, LLC\" vs found \"Donner Technology, LLC v. Pro Stage Gear, LLC\"",
+          "Date close: cited 2019 vs filed 2020-11-09",
+          "Citation mismatch: cited 944 F.3d 1366 but CourtListener has 979 F.3d 1353"
+        ]
+      }
+    ],
+    "diagnostics": [
+      "Reporter citation 944 F.3d 1366 could not be confirmed (CourtListener has no reporter citations on file for this case), but we identified a likely match."
+    ],
+    "error": null
+  }
+}

@@ -211,6 +211,14 @@ Not tested yet. Options: python-docx dependency, or just have user paste text.
 ### Second test run
 Re-run `/verify-brief` on Kettering brief with iteration 1 fixes. Document results in `briefs/kettering-v-collier/skill-test-2-feedback.md`.
 
+### Valve v. Rothschild run retrospective (2026-03-04)
+Full retrospective at `.claude/projects/-Users-fordon-4-Projects-citation-verifier/memory/verify-brief-retrospective.md`. Key takeaways:
+- **AskUserQuestion broken** — remove from skill; auto-accept high-confidence, always generate HTML report.
+- **Phase 2 needs async batch mode** — run all citation lookups (step 1) concurrently first, then steps 2-3 only for unresolved. Mirrors the web app approach. Could cut Phase 2 time significantly. Requires new `AsyncCitationVerifier` or batch method in the library.
+- **Phase 1 CSV writing is slow** — Opus extraction is needed, but CSV writing from structured data could be Haiku.
+- **Fortune Dynamic wrong text** — CL opinion page had Arthur v. Torres attached. Add sanity check: compare downloaded case name to expected.
+- **Brief had 51% Red citations** — fabricated quotes, cases cited for opposite holdings, inapposite cases. Patterns consistent with AI-generated legal writing.
+
 ## Future Ideas
 
 Moved to `scratch/ROADMAP.md` — covers client-side BYOK, WL/Lexis data contributions, semantic search, and more.

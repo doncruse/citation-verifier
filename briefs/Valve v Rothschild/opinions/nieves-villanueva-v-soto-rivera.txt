@@ -1,0 +1,1585 @@
+Nieves-Villanueva v. Soto-Rivera
+133 F.3d 92, 48 Fed. R. Serv. 368, 1997 U.S. App. LEXIS 35975, 1997 WL 775545
+Court of Appeals for the First Circuit
+Filed: 1997-12-22
+Docket No. 96-1285
+Source: https://www.courtlistener.com/opinion/197702/nieves-villanueva-v-soto-rivera/
+------------------------------------------------------------
+
+
+
+                United States Court of Appeals                            United States Court of Appeals
+                    For the First Circuit                                For the First Circuit
+                                         
+
+No. 96-1285
+
+             CARLOS J. NIEVES-VILLANUEVA, et al.,
+
+                   Plaintiffs, Appellants,
+
+                              v.
+
+          JOSE R. SOTO-RIVERA, Individually and as 
+       Mayor of the Municipality of Canovanas, et al.,
+
+                    Defendants, Appellees.
+
+                                         
+
+         APPEAL FROM THE UNITED STATES DISTRICT COURT
+
+               FOR THE DISTRICT OF PUERTO RICO
+
+        [Hon. Hector M. Laffitte, U.S. District Judge]                                                                 
+
+                                         
+
+                            Before
+
+                    Stahl, Circuit Judge,                                                    
+
+                  Cyr, Senior Circuit Judge,                                                       
+
+                  and Lynch, Circuit Judge.                                                      
+                                         
+
+   Carlos A. del Valle Cruz for appellants.                                       
+
+   Miguel  Pagan, with  whom Pagan  &amp; Pagan  was on  brief, for                                                       
+appellees.
+
+                                         
+
+                      December 22, 1997
+                                         
+
+          LYNCH,  Circuit Judge.    Plaintiffs are  fifty-one                      LYNCH,  Circuit Judge.                                           
+
+former  "transitory"   or  non-permanent  employees   of  the
+
+municipality of Canovanas, Puerto Rico.  A jury found against
+
+their  claims that the  incoming New Progressive  Party (NPP)
+
+administration  failed to renew their contracts of employment
+
+in various municipal jobs because they were supporters of the
+
+prior Popular  Democratic Party  (PDP) administration  and so
+
+violated their rights under the First Amendment.1
+
+          The  important  question  raised  by this  case  is
+
+whether the district  court committed error in  admitting the
+
+testimony of an expert witness.   The witness testified as to
+
+what the law required and that her examination of plaintiffs'
+
+personnel records led  to the conclusion that  plaintiffs had
+
+been   improperly  hired  or  renewed  in  the  first  place.
+
+Defendants did not testify this  was their reason at the time
+
+of  their  decision  not  to   renew  plaintiffs'  contracts.
+
+Although   such  expert  testimony   should  not   have  been
+
+permitted,  we  consider any  alleged error  in light  of the
+
+                                                    
+
+1.  This  court has  reviewed  numerous  claims of  political
+firings or demotions from Puerto  Rico.  In November of 1984,
+the  PDP won  the  gubernatorial  election  in  Puerto  Rico.
+Before that,  the governor's office  was held by a  member of
+the NPP.  A first wave of cases involved outright dismissals;
+the second wave  involved adverse actions less  than outright
+dismissals.   That history is  recited in Agosto-de-Feliciano                                                                         
+v. Aponte-Roque,  889 F.2d  1209 (1st Cir.  1989).   In 1992,                           
+control   of  the  governor's   office  and  of   some  local
+governments switched, and  the NPP came back to  power.  Now,
+this  court  is faced  with  another wave  of  litigation (we
+hesitate to count  which wave this is), brought  this time by
+PDP members.
+
+                             -2-                                          2
+
+evidence as a whole, and particularly in light of the judge's
+
+instructions to the jury.  In the circumstances of this case,
+
+we consider  the alleged errors harmless and  affirm the jury
+
+verdicts.
+
+                              I.                                          I
+
+          Plaintiffs  sued,  inter alios,2  Jose  Soto-Rivera
+
+("Soto") and the Municipality of Canovanas under  42 U.S.C.  
+
+1983, alleging  that they  had been  dismissed  due to  their
+
+political  beliefs  and  in violation  of  their  due process
+
+rights.    The  complaint  sought  reinstatement,  injunctive
+
+relief,  compensatory and  punitive  damages, and  attorney's
+
+fees.
+
+          On  defendants' motion  for  summary judgment,  the
+
+district court  dismissed  plaintiffs'  due  process  claims,
+
+noting  that, under First  Circuit precedent and  Puerto Rico
+
+law,  transitory employees generally  do not have  a property
+
+interest in continued employment beyond their yearly terms of
+
+appointment.  See Caro v.  Aponte-Roque, 878 F.2d 1, 4-5 (1st                                                   
+
+Cir.  1989); see  also Mel ndez  v.  Municipio de  Arroyo, 96                                                                     
+
+J.T.S. Case No. 68, at p.  1077 (P.R. Sup. Ct. May 15,  1996)
+
+(reaffirming that, as a matter of Puerto Rico law, transitory
+
+employees  generally have  no "legitimate  expectation" to  a
+
+                                                    
+
+2.  The district  court dismissed plaintiffs'  claims against
+the other municipal defendants prior to trial.
+
+                             -3-                                          3
+
+renewal  of   their  contracts);  Departamento   de  Recursos                                                                         
+
+Naturales v. Correa, 118 D.P.R. 689, 697 (1987) (same).3                               
+
+          Before trial,  defendants retained  Blanca Santiago
+
+as an expert in governmental personnel matters to examine the
+
+plaintiffs' personnel  records.  Santiago's  report concluded
+
+that  plaintiffs' initial  appointments and,  in  some cases,
+
+renewal appointments  were contrary to Puerto  Rico municipal
+
+law,  and that  the previous  administration  had employed  a
+
+"subterfuge"  to  renew the  plaintiffs' appointments  and to
+
+evade  a prohibition on making personnel decisions within two
+
+months of  a general election.   The report also  opined that
+
+plaintiffs  did  not   have  "a  legitimate   expectation  of
+
+retaining employment."  Finally,  the report concluded  that,
+
+under the law of Puerto Rico, "the Municipality  of Canovanas
+
+could not continue extending said transitory appointments."
+
+          Upon receiving Santiago's report, plaintiffs made a
+
+motion   in   limine   to   exclude   Santiago's   testimony.
+
+Plaintiffs' principal objection was that the expert witness's
+
+opinion concerning the  propriety of plaintiffs' appointments
+
+                                                    
+
+3.  Defendants also moved  for summary judgment on the claims
+for  damages on  qualified immunity grounds.     The district
+court  denied defendants'  motion,  holding  that before  the
+events in  1993, the  First Circuit  had clearly  established
+that First  Amendment protection  extended to  political non-
+renewals of employment.  See  Caro, 878 F.2d at 2-4; Figueroa                                                                         
+v.  Aponte-Roque, 864  F.2d 947,  951 (1st  Cir. 1989).   The                            
+district  court determined that there existed a genuine issue
+of material fact concerning defendants' motives  in declining
+to renew plaintiffs' transitory appointments.  
+
+                             -4-                                          4
+
+was not relevant  to liability.  Defendants did  not maintain
+
+that  Soto  did  not renew  plaintiffs'  appointments  due to
+
+irregularities  in how  they were  appointed.   The  district
+
+court denied plaintiffs' motion.
+
+                             II.                                         II
+
+          We state  the facts  as the  jury could have  found
+
+them,  in  the context  of  the  evidence  as a  whole,  with
+
+particular  emphasis on  the evidence  allegedly admitted  in
+
+error.
+
+          Plaintiffs said they were affiliated with  the PDP,
+
+one of Puerto Rico's major  political parties.  In 1992, Soto
+
+was elected Mayor  of Canovanas as the candidate  of the NPP,
+
+the main rival of the PDP.  Soto was the first  NPP candidate
+
+elected as Mayor of Canovanas in several decades.
+
+          Plaintiffs  had been  appointed  by  the prior  PDP
+
+mayor, Esteban Melendez-Rivera, to various  municipal jobs as
+
+transitory  employees.  Those  jobs included manual  labor in
+
+the  Public Works  Department,  janitorial work  in municipal
+
+offices,  clerical  work,  and other  lower  level  jobs with
+
+minimal   salaries.      Under   Puerto   Rico's   Autonomous
+
+Municipalities Act, 21 L.P.R.A.    4554, transitory employees
+
+may be appointed for a  limited term, generally not to exceed
+
+one year.   Although plaintiffs, unlike other  civil servants
+
+in Puerto Rico, had no  formal tenure in their jobs following
+
+the  expiration of their contracts, many had been reappointed
+
+                             -5-                                          5
+
+for  several one-year  terms as  a matter  of course.   Other
+
+plaintiffs were in their first annual term of employment.
+
+          On January 15, 1993, three days after taking office
+
+as Mayor of  Canovanas, Soto informed most  of the plaintiffs
+
+that  their positions as transitory employees had expired and
+
+that he would  not renew their  appointments.  The  remaining
+
+plaintiffs'  appointments  were   temporarily  extended,  but
+
+eventually their appointments expired as well.
+
+          Plaintiffs  testified  that   they  campaigned  for
+
+Esteban   Melendez-Rivera,  the PDP  candidate,  in the  1992
+
+mayoral election.  Plaintiffs testified that they had engaged
+
+in  various PDP political  activities on behalf  of Melendez,
+
+including  attending political meetings or taking part in the
+
+campaign  rallies known  as caravanas  ("caravans") that  are                                                 
+
+typical of mayoral campaigning in  Puerto Rico.  Many of them
+
+testified that Soto  solicited their support, and,  when they
+
+said they would support the incumbent PDP mayor instead, Soto
+
+threatened  to  leave  them  without  employment  after   the
+
+election.  Many plaintiffs also testified that they observed,
+
+after their non-renewals, NPP  members performing the  duties
+
+of the jobs they had performed as transitory employees.
+
+          In  support   of  their  First   Amendment  claims,
+
+plaintiffs  put  in evidence  their personnel  files, arguing
+
+that  there  was nothing  in  them that  would  indicate poor
+
+performance.   Plaintiffs also presented an expert witness in
+
+                             -6-                                          6
+
+personnel administration to bolster their claims of political
+
+discrimination.4
+
+          Defendants'  position   was  that   Soto  had   not
+
+considered plaintiffs' political  affiliation in his decision
+
+to allow  their contracts to  expire.   They presented  three
+
+witnesses:  Mayor  Soto,  Vice-Mayor  Miguel  Jimenez-Carrion
+
+("Jimenez"),  and Blanca  Santiago, their  expert witness  on
+
+government  personnel  administration.    Soto  categorically
+
+denied  the  plaintiffs' allegations  that he  had threatened
+
+their jobs if they supported the incumbent.  He noted that he
+
+had  retained or  hired PDP  members to  municipal jobs.   He
+
+testified that he had allowed plaintiffs' contracts to expire
+
+because their services  were no longer needed.   Jimenez gave
+
+essentially  the same version  of events.   Neither testified
+
+that they had  not renewed the contracts  because plaintiffs'
+
+appointments had been irregular.
+
+Defendants' Expert                              
+
+          Defendants'   expert   witness,   Blanca  Santiago,
+
+testified that the plaintiffs' personnel records demonstrated
+
+that,  in many  cases, their  appointments  were contrary  to
+
+Puerto Rico law.  In particular, Santiago testified that many
+
+employees  had been  on the  payroll in  excess of  one year,
+
+                                                    
+
+4.   The  plaintiffs did  not  order the  transcript of  that
+portion of  the trial  that included  their expert  witness's
+testimony.   That omission  complicates our  analysis, as  we
+explain below.
+
+                             -7-                                          7
+
+sometimes  without any  documented reappointment,  and opined
+
+that this violated  the Autonomous Municipalities Act,  which
+
+provides  that  the  appointment  of "[t]ransitory  employees
+
+shall not  exceed  one  (1) year  . . .  ."   21  L.P.R.A.   
+
+4554(c).  Santiago also testified that many of the plaintiffs
+
+had  been illegally appointed within  two months of a general
+
+election,  in  violation  of a  prophylactic  prohibition  on
+
+government  personnel   decisions  commonly   known  as   the
+
+"electoral ban."  See 21 L.P.R.A.   4564; 3 L.P.R.A.    1337.                                 
+
+Santiago testified further that, in some cases, the personnel
+
+records had been manipulated in  order to make it appear that
+
+plaintiffs'  appointments were  not within the  electoral ban
+
+period.
+
+          Defense counsel then questioned Santiago to  elicit
+
+testimony to the effect that courts have held that transitory
+
+employees  do  not have  a  right  to  the renewal  of  their
+
+contracts.   Defense counsel  accomplished this  objective by
+
+reading passages from court decisions holding that transitory
+
+employees in  Puerto Rico  have no  reasonable or  legitimate
+
+expectation  of  continued  renewal of  their  contracts that
+
+would entitle them to  administrative due process protections
+
+before  allowing their contracts  to expire, and  then asking
+
+Santiago to comment.  This  was done although the due process
+
+claims had been dismissed.
+
+                             -8-                                          8
+
+          Santiago  testified  that, under  court  decisions,
+
+"[o]nce  [a  transitory  employee's]  appointment  ends   the
+
+transitory employee . . . doesn't have any . . . other right,
+
+regardless of the fact that his appointment has been extended
+
+for a  period of time  that we may call  'excessively long.'"
+
+Plaintiffs'  counsel objected to this testimony on the ground
+
+that it misstated the law.  That objection was overruled.
+
+          Soon   afterwards,   defense    counsel   continued
+
+questioning  Santiago  on  the  legal  status  of  transitory
+
+employees:
+
+          Q. I am going to review . . . the case of
+          Fermin  Orta  et   al.  versus  Pedro  A.                                                               
+          Padilla, Municipality of  Trujillio Alto,                                                               
+          et al. .  . . .  I'm going to read to you                            
+          from  the  translation  of  that  opinion
+          . . . .
+
+At this  point, plaintiffs  again objected,  noting that  the
+
+case   concerned  the   due  process  rights   of  transitory
+
+employees, and  that the  sole claim on  trial was  the First
+
+Amendment  claim.    Again,   the  district  court  overruled
+
+plaintiffs' objection.   Defendants  resumed questioning  the
+
+witness about the  law articulated in that case.5  Plaintiffs
+
+                                                    
+
+5.   Defense  Counsel:   "[I]t  says, the  opinion:   After a
+careful examination of the service and  appointment contracts
+of  these 23  appellees,  we  find  that  the  only  contract
+terminated before the expiration date was that of Juana Cruz.
+The other 22 employees were notified that the contracts would
+be terminated at the expiration  date of the same.  In  light
+of  the  prevailing  principles, we  must  conclude  that the
+termination  of the contract of those 22 transitory employees
+was valid  at law  because the municipality  did not  have to
+provide them with the  regulatory guarantees mentioned above.
+
+                             -9-                                          9
+
+objected  again,  noting,  "She's testifying  [to]  what  are
+
+basically jury  instructions." The  district court  initially
+
+sustained plaintiffs' objection,  but then permitted  defense
+
+counsel to continue  questioning the witness in  this manner.
+
+Defense counsel proceeded  to read excerpts from  the Supreme
+
+Court  of Puerto  Rico's decision  in Correa,  and  from this                                                        
+
+court's decision in  Cheveras-Pacheco v. Rivera-Gonzalez, 809                                                                    
+
+F.2d  125, 129  (1st  Cir.  1987)  (holding  that  transitory
+
+employees  do not  have  a  property  interest  in  continued
+
+employment).   Plaintiffs'  counsel again  protested,  and  a
+
+conference  was  held  outside  the  presence  of  the  jury.
+
+Plaintiffs'  counsel  asked the  judge  to strike  Santiago's
+
+testimony or  give a curative instruction, stating explicitly
+
+that it is against the law for a  municipal government to let
+
+a transitory employee's contract expire if the primary reason
+
+is  the employee's political affiliation.  The district court
+
+refused, saying plaintiffs had opened the door with their own
+
+                                                    
+
+The trial  court erred  in  ruling that  the termination  was
+unlawful."
+    Santiago:  "The interesting thing about that case is that
+there  were --  there  were  22  transitory  employees  whose
+appointments  were to  end,  and there  was another  group of
+employees  in  which  --  in  which  case  the  decision  was
+different,  and the  matter of  discrimination  was approved.
+But in the case of the transitory ones their appointments had
+ended."
+
+                             -10-                                          10
+
+expert  witness and that they could cross-examine Santiago on
+
+the illegality of firing employees for political reasons.6
+
+          On  cross-examination,  Santiago  stated  that  the
+
+legal opinions she provided on direct examination  concerning
+
+the  status   of  transitory   employees   and  the   alleged
+
+illegalities in plaintiffs' original  appointments were based
+
+solely on Commonwealth law, not federal law.  When questioned
+
+about  the case  law  of this  court which  has  held that  a
+
+decision  not to renew  a transitory employees'  contract may
+
+not be  primarily based  on political  affiliation under  the
+
+First  Amendment,  the  witness was  evasive.    Although she
+
+agreed  that transitory employees could not be discharged for
+
+political reasons, she insisted that  this did not apply when
+
+                                                    
+
+6.  The  Court:  "Counsel, the  problem with you is  that you
+don't   make  a  distinction  between  the  --  the  witness'
+credibility  and  what  is  admissible.    She --  Mr.  Pagan
+[defense  counsel]  read  to her  certain  passages  of cases
+saying  that -- concerning transitory employees.  I'm certain
+you're  going  to  read  her a  part  saying  if  you  take a
+transitory employee  and discharge him for  political reasons
+it's illegal, and she has to  agree with that.  See?   That's
+the way you neutralize that.  I'm not going to teach  you how
+to practice  law."   (At oral  argument, plaintiff's  counsel
+argued that this last sentence  was particularly prejudicial.
+However, as this admonition did  not occur in the presence of
+the jury, we examine only  the impact of the district court's
+ruling itself.)  
+     The judge continued,  "[T]he Orta case was  brought [in]                                                  
+by  your  [expert]  witness, and  that  opened  the door  for
+[defense counsel] to bring [in] the Orta case. . . . Once you                                                    
+open  the door then you can't complain. . . . I will instruct
+the jury on  the law  at the  proper time, and  they have  to
+follow the law as I tell them, not as what counsel tells them
+the law is."
+
+                             -11-                                          11
+
+a  contract expired because,  she said, such  an employee was
+
+not discharged.
+
+Closing Arguments                             
+
+          In  closing arguments,  plaintiffs' counsel  argued
+
+that the  witnesses' testimony, principally  the plaintiffs',
+
+established that the incoming NPP administration's motive for
+
+refusing  to renew  plaintiffs'  contracts  was reprisal  for
+
+their  support of  the previous  PDP mayor.   Defense counsel
+
+strongly contested  the plaintiffs'  credibility, and  argued
+
+that Soto never  considered plaintiffs' political affiliation
+
+in his decision not to renew plaintiffs' contracts.
+
+          Defense counsel also  made reference to  Santiago's
+
+testimony,  arguing that  the employees  were  transitory and
+
+that their appointments had been in violation of  Puerto Rico
+
+municipal law.    Defense counsel also argued  that the Mayor
+
+would have  been in violation of  that law if he  had renewed
+
+their  appointments.    Defense  counsel  made  reference  to
+
+Santiago's  testimony that transitory employees do not have a
+
+reasonable  expectation of  retaining their jobs  after their
+
+contracts  expire,   arguing  that  plaintiffs'   expert  had
+
+distorted the law  in suggesting otherwise.   Defense counsel
+
+asked  rhetorically, "[A]fter  the appointment  expired . . .
+
+what are  their [sic]  rights of those  employees?   And that                                
+
+Your Honor is  going to tell you, see,  in the instructions."
+
+Defense  counsel   noted  that,  unlike   plaintiffs'  expert
+
+                             -12-                                          12
+
+witness,   "She  never  . . .  tell  [sic]  us  whether  [the                                                     
+
+plaintiffs]   were    dismissed   or   not    for   political
+
+discriminatory reasons.  That is for you to decide."  Defense
+
+counsel did not  argue that the reasons  for the non-renewals
+
+were that plaintiffs' appointments were irregular.
+
+Instructions                        
+
+          The judge instructed the jury that its duty was "to
+
+follow the law as I shall state it to you" and that it should
+
+not "base  [its] verdict upon any view  of the law other than
+
+that given in  the instructions of the Court."  The court did
+
+not otherwise specifically instruct the jury to disregard the
+
+expert witnesses' opinions concerning the applicable law, but
+
+rather  said expert  testimony  should  be  treated  just  as
+
+testimony from any other witness.
+
+          Significantly,  however, the  judge instructed  the
+
+jury  that  any  irregularities in  the  appointments  of the
+
+plaintiffs could not be used as a pretext for violating their
+
+First Amendment rights:
+
+               Now, conduct purportedly  engaged in
+          consonance   with    the   Puerto    Rico
+          personnel's law and regulation [sic] does                                                         
+          not control a  claim alleging a violation
+          of the  employees' First  Amendment right
+          of political affiliation.
+               A new administration  cannot use the
+          doctrine of compliance with  state law or
+          nullity under state  law as  a cover  for
+          discharges, transfers  and discrimination
+          based solely on political affiliation.
+               Similarly,   a  new   administration
+          cannot use the  fact that plaintiffs were
+          hired  during  the  electoral prohibition
+
+                         13  -13-
+
+          period  or   "veda"  as  a   pretext  for                                        
+          political discrimination.   In  the final
+          analysis, the question of motivation is a
+          question of fact.
+
+The court also instructed:
+
+               If   you   find   that   plaintiffs'
+          political affiliation was  the motivating
+          factor  for  the   non-renewal  of  their
+          appointments, then you  may find for  the
+          plaintiffs.
+
+The court also gave this instruction:
+
+               However,    if    you    find   that
+          plaintiffs' appointments were not renewed
+          because they  had been  appointed by  the
+          former administration in violation of the
+          personnel  and  electoral  laws  and  not
+          because    of    plaintiffs'    political
+          affiliation,  then you  may find  for the
+          defendants.
+
+The  judge  further   instructed  that,  although  transitory
+
+employees  do not have tenure in  their jobs, their contracts
+
+may   not  be  allowed  to  expire  for  political  reasons.7
+Finally,  in response to  a request from  plaintiffs' counsel
+
+                                                    
+
+7.  The  Court: "Transitory -- the plaintiffs  in this action
+were  transitory employees of  the Municipality of Canovanas.
+Puerto  Rico   law  permits  the  employment   of  transitory
+employees appointed for  a fixed term.  The  duration of this
+designation  shall correspond  to the  period  for which  the
+position was created.
+          "The  law   provides   that   once   a   transitory
+appointment expires,  defendant may terminate  the transitory
+employee . . . for any reason  except if that reason is based
+on political affiliation.   Defendant . . .  asserts that the
+reason for not renewing plaintiffs' appointments or contracts
+was that plaintiffs' contracts had expired and that they were
+not   renewed  for   valid  reasons  wholly   independent  of
+plaintiffs' political affiliation.
+          "Plaintiffs  claims  [sic] that  their  position as                                               
+transitory  employees  were  not  renewed  because  of  their
+political affiliation.  So that is the issue."
+
+                             -14-                                          14
+
+for a  curative instruction,  the judge  instructed that  the
+
+jury was  to consider  only evidence  that they  believed was
+
+known to the decisionmakers at the time plaintiffs' contracts
+
+were not renewed.8
+
+Verdict                   
+
+          The  verdict  form   asked,  as  to  each   of  the
+
+plaintiffs, "Do you find by  a preponderance of the  evidence
+
+that the motivating  factor for not renewing  the appointment
+
+of [plaintiff] was [his or her]  political affiliation?"  The
+
+jury answered no in each case.
+
+                             III.                                         III
+
+          We review the district court's decision to admit or
+
+exclude  evidence for  abuse  of  discretion.    See  General                                                                         
+
+Electric Co. v. Joiner, 1997 WL 764563, at  *3 (U.S. Dec. 15,                                  
+
+1997); Knowlton v. Deseret Med.  Inc., 930 F.2d 116, 124 (1st                                                 
+
+Cir. 1991).
+
+Legal Principles                            
+
+          Because  the  parties exhibit  some  confusion over
+
+long-established legal  principles in  this  area, we  repeat
+
+them.   In  Elrod v. Burns,  427 U.S.  347 (1976),  a divided                                      
+
+                                                    
+
+8.   The  Court:  "In   determining  whether  the  defendants
+discriminated or not, you  are not to consider any  testimony
+or  evidence that you believe was not  present at the time of
+[sic]  the  decision  not  to  renew  plaintiffs'  transitory                
+appointment  was taken, for if the irregularity or misconduct
+was  not discovered until  after the employee's  contract was
+not renewed, the  employer could not  have been motivated  by
+knowledge of it, and he  cannot now claim that the employee's
+contract was not renewed for that reason."
+
+                             -15-                                          15
+
+Supreme  Court granted  some  First  Amendment protection  to
+
+employees terminated  because of their  political affiliation
+
+where political affiliation was not a  reasonably appropriate
+
+requirement for the job.  See id. at 359 (plurality opinion).                                             
+
+As  Justice Stewart,  concurring,  said, a  "nonpolicymaking,
+
+nonconfidential government employee [cannot] be discharged or
+
+threatened   with   discharge   from  a   job   that   he  is
+
+satisfactorily  performing  upon  the   sole  ground  of  his
+
+political beliefs."  Id.  at 375 (Stewart, J.,  concurring in                                    
+
+judgment).   In Branti  v. Finkel, 445  U.S. 507  (1980), the                                             
+
+Supreme  Court reaffirmed Elrod, and explained that the First                                           
+
+Amendment prohibits termination  of public employees  because
+
+of their political affiliation  unless "the hiring  authority
+
+can  demonstrate that  party  affiliation  is an  appropriate
+
+requirement  for  the  effective performance  of  the  public
+
+office involved."  Branti, 445 U.S. at 518.9                                     
+
+          This court has held that the  Elrod-Branti doctrine                                                                
+
+applies to a local government's decision whether to renew the
+
+contract of a  transitory employee.  See  Cheveras-Pacheco v.                                                                      
+
+Rivera-Gonzalez,  809   F.2d  125   (1st  Cir.   1987).     A                           
+
+municipality may not allow transitory employees' contracts to
+
+expire  if the  primary motive  is to  punish them  for their
+
+political  affiliation.   See id.  at 127-29.   This  is true                                             
+
+                                                    
+
+9.  Defendants have  never  suggested  that  political  party
+affiliation was  an appropriate  requirement for  any of  the
+jobs that were held by the plaintiffs.
+
+                             -16-                                          16
+
+regardless  of whether the  employees have been  renewed on a
+
+regular basis prior to their dismissal or, as is true of some
+
+of plaintiffs here, have served  only one term.  See Figueroa                                                                         
+
+v. Aponte-Roque,  864 F.2d 947,  951 (1st Cir. 1989).   Thus,                           
+
+the  fact  that  a  transitory  employee  does  not   have  a
+
+reasonable  expectation of renewal  in his or  her employment
+
+that would require due process protections does  not defeat a
+
+First Amendment claim.
+
+          In Rutan v. Republican  Party of Ill., 497  U.S. 62                                                           
+
+(1990),   the  Supreme  Court   held  that  the  Elrod-Branti                                                                         
+
+prohibition  against  political   affiliation  discrimination
+
+applied  not  only  to discharges,  but  also  to significant
+
+personnel  decisions such  as whether  to hire  or promote  a
+
+public employee.   See Rutan, 487 U.S. at 79.  Hence, even if                                        
+
+the  decision  not  to renew  a  transitory  appointment10 is
+
+considered a hiring decision rather than a  discharge,  Rutan                                                                         
+
+reinforces our rule announced in Cheveras-Pacheco.                                                               
+
+                                                    
+
+10.   As a practical  matter, given the Commonwealth's merit-
+based  system  for  hiring  and   discharging  civil  service
+employees, the risk is greater that transitory employees, who
+may be more  easily hired and fired, may  suffer from the use
+of unlawful patronage practices.  See 21 L.P.R.A.   4554.  It                                                 
+has   been    said   that   "invidious    political   [party]
+discrimination  is  mainly  directed  against  humble  public
+employees  or [those]  with scarce  resources."   Casiano  v.                                                                     
+Departamento de Educacion,  97 J.T.S. Case No. 33,  at p. 718                                     
+(P.R.  Sup.  Ct.  March  19,  1997)  (Fuster-Berlingeri,  J.,
+dissenting from denial of certiorari).
+
+                             -17-                                          17
+
+          And  the  Elrod-Branti-Rutan   principle  has  been                                                  
+
+reinforced recently by the Supreme Court.  In Board of County                                                                         
+
+Comm'rs v.  Umbehr, 116 S.  Ct. 2342 (1996) and  O'Hare Truck                                                                         
+
+Serv., Inc. v. City of Northlake, 116 S. Ct. 2353 (1996), the                                            
+
+Supreme  Court  held   that  the  First   Amendment  provides
+
+protection  to  independent  contractors   similar  to  those
+
+afforded  government employees.   See Umbehr,  116 S.  Ct. at                                                        
+
+2345-46   (termination  of   a  contract   in  reprisal   for
+
+contractor's criticism of county government);  O'Hare, 116 S.                                                                 
+
+Ct. at 2355-56  (removal of an independent contractor  from a
+
+list of towing  services employed by the  city in retaliation
+
+for supporting opposing political party).  
+
+Expert Testimony on the Law                                       
+
+          Aspects of Santiago's testimony are very troubling.
+
+Certain parts  of her  testimony --  for example,  concerning
+
+actual personnel practices, the various  categories of public
+
+employees and  the like -- are unobjectionable.  But Santiago
+
+also testified as to the  holdings of various opinions of the
+
+Supreme Court of Puerto Rico  and by reference, of this court
+
+(over  objection), and  to the  legal  conclusion that  these
+
+appointments were  in violation  of law  (without objection).
+
+To  exacerbate  matters,  her  testimony  may  be  charitably
+
+described  as  misleading  at  best  as  to  the   rights  of
+
+transitory employees as a matter of federal law.
+
+                             -18-                                          18
+
+          It  is black-letter  law  that  "[i]t  is  not  for
+
+witnesses to instruct the jury as to applicable principles of
+
+law, but for the judge."  United States v. Newman, 49 F.3d 1,                                                             
+
+7  (1st Cir. 1995) (quoting Marx &amp; Co. v. Diners' Club, Inc.,                                                                        
+
+550 F.2d  505, 512 (2d Cir.  1977)).  At least  seven circuit
+
+courts have held  that the Federal Rules of Evidence prohibit
+
+such testimony,  and we now join them as to the general rule.
+
+See Burkhart  v. Washington  Metro. Area  Transit Auth.,  112                                                                   
+
+F.3d  1207, 1212-14  (D.C. Cir.  1997)  (reversible error  to
+
+allow an  expert  in police  practices  to opine  on  whether
+
+police  officers'  efforts  in  communicating  with  a   deaf
+
+plaintiff   were   enough  to   satisfy   federal  disability
+
+statutes);  Snap-Drape, Inc.  v. Commissioner,  98  F.3d 194,                                                         
+
+197-98  (5th  Cir.  1996)   (trial  court  properly  excluded
+
+taxpayer's  expert reports  as containing  nothing more  than
+
+legal  arguments  concerning  the  tax treatment  of  certain
+
+dividends); Berry v. City  of Detroit, 25 F.3d 1342,  1353-54                                                 
+
+(6th  Cir. 1994)  (finding inadmissible  the  comments of  an
+
+expert in police  practices on the meaning of  the legal term
+
+"deliberate indifference" in a civil rights case); Aguilar v.                                                                      
+
+International Longshoreman's Union, Local  #10, 966 F.2d 443,                                                          
+
+447  (9th  Cir.  1992) (testimony  of  purported  expert that
+
+workers reasonably  and  foreseeably  relied  on  defendants'
+
+promises  addressed   "matters   of  law   for  the   court's
+
+determination" that  were "inappropriate subjects  for expert
+
+                             -19-                                          19
+
+testimony");  Specht v. Jensen, 853 F.2d 805 (10th Cir. 1988)                                          
+
+(en banc)  (reversible error to  allow an expert  witness who
+
+was an attorney to give his opinions on  what was required to
+
+make consent to a search  effective); Adalman v. Baker, Watts                                                                         
+
+&amp;  Co.,   807  F.2d  359,   366  (4th  Cir.   1986)  (finding                  
+
+inadmissible  proffered  expert opinion  concerning  whether,
+
+under  securities laws, disclosure  of a particular  fact was
+
+required in  the course of negotiating a transaction); Marx &amp;                                                                         
+
+Co.  v. Diners'  Club,  Inc.,  550 F.2d  505  (2d Cir.  1977)                                        
+
+(securities lawyer, called as an expert, could not testify to
+
+the legal  obligations created under  a contract).   To state
+
+the general  rule is not  to decide the far  more complicated
+
+and measured question of when there is a transgression of the
+
+rule.   We outline some  of the  considerations and  conclude
+
+that the rule has been transgressed here.  We leave to future
+
+cases  the defining of  the contours  of application  of this
+
+rule.
+
+          In  our legal  system,  purely legal  questions and
+
+instructions to  the jury  on the  law to  be applied  to the
+
+resolution  of the  dispute before  them  is exclusively  the
+
+domain of  the judge.  Accordingly, expert  testimony on such
+
+purely  legal issues  is rarely  admissible.   As the  Second
+
+Circuit has  noted, "The  danger is that  the jury  may think
+
+that the 'expert'  in the particular branch of  the law knows
+
+                             -20-                                          20
+
+more than the judge   -- surely an impermissible inference in
+
+our system of law."  Marx &amp; Co., 550 F.2d at 512.                                           
+
+          The one well-recognized exception  is for questions
+
+of  foreign law, where the judge may be aided by the expert's
+
+assistance.   See Adalman, 807 F.2d  at 366; Marx &amp;  Co., 550                                                                    
+
+F.2d at 510;  1 McCormick on  Evidence   12,  at 50 (John  W.                                                  
+
+Strong,  ed., 4th  ed. 1992);  7 Wigmore  on Evidence    1953                                                                 
+
+(Chadbourne rev.  1978).   Even in the  case of  foreign law,
+
+under modern practice the testimony is generally given to the
+
+judge, outside of the presence of  the jury, and is meant  to
+
+assist the judge in determining the appropriate instructions.
+
+See Adalman, 807 F.2d  at 366; 9  Wigmore on Evidence    2558                                                                 
+
+(Chadbourne rev. 1978).  Here,  the testimony was plainly not
+
+offered to assist the judge,  who has presided over many such
+
+political discharge cases, and was presented to the jury.
+
+          Because  the  jury   does  not  decide  such   pure
+
+questions of law,  such testimony is not helpful  to the jury
+
+and so  does not  fall within  the literal terms  of Fed.  R.
+
+Evid.  702, which  allows expert testimony  "[i]f scientific,
+
+technical  or  other  specialized knowledge  will  assist the
+
+trier of  fact to understand  the evidence or to  determine a
+
+fact in  issue . . . ."   As the D.C. Circuit  noted, "Expert
+
+testimony that consists of legal  conclusions cannot properly
+
+assist the trier of fact in either respect . . . ." Burkhart,                                                                        
+
+112 F.3d at 1212; see  also Aguilar, 966 F.2d at 447  (expert                                               
+
+                             -21-                                          21
+
+legal opinion does not assist the factfinder under Rule 702).
+
+This is because the judge's expert knowledge of the law makes
+
+any   such  assistance  at  best  cumulative,  and  at  worst
+
+prejudicial.  See Burkhart, 112 F.3d at 1213 ("Each courtroom                                      
+
+comes equipped with a 'legal  expert,' called a judge, and it
+
+is his  or her province  alone to  instruct the  jury on  the
+
+relevant legal  standards."); 7  Wigmore on  Evidence    1952                                                                 
+
+(Chadbourne rev.  1978) ("It is  not the common  knowledge of
+
+the  jury which renders the witness' opinion unnecessary, but
+
+the special legal knowledge of the judge.")
+
+          Similarly, Fed. R. Evid. 704(a), which removes  the
+
+common-law  bar  on  "otherwise  admissible"  testimony  that
+
+"embraces an  ultimate issue  to be decided  by the  trier of
+
+fact," does  not vitiate the  rule against expert  opinion on
+
+questions of  law.  The  common law did  not allow an  expert
+
+witness to inform  the jury of his or  her factual conclusion
+
+concerning the "ultimate issue" in the case, because this was
+
+thought to invade the province of the jury.  The abolition in
+
+Rule 704(a) of  this "ultimate issue" rule allows  the expert
+
+witness to  offer his or  her factual conclusion in  order to
+
+aid the jury,  which properly can choose to  accept or reject
+
+it.  However, questions of law are not "to be decided  by the
+
+trier of fact";  rather it is for the  judge, not the lawyers
+
+or the witnesses, to inform the jury of the law applicable in
+
+                             -22-                                          22
+
+the case and  to decide any purely legal  issue.11  Recently,
+
+this court  has cautioned that  the abolition of the  "bar on
+
+'ultimate issue' opinions  . . . is not  a carte blanche  for
+
+experts." Dincov. Dylex,Ltd.,111 F.3d964,973 (1stCir.1997).12                                        
+
+          While  the testimony  by  Santiago described  above
+
+clearly transgressed the general rule, we acknowledge that it
+
+is  often  difficult  to  draw  the  line  between  what  are
+
+questions of  law, what are  questions of fact, and  what are
+
+mixed questions.  See, e.g., In re Air Disaster at Lockerbie,                                                                         
+
+Scotland on December  21, 1998, 37 F.3d 804,  826-27 (2d Cir.                                          
+
+1994) (regarding  expert's testimony that  defendants engaged
+
+in "fraud"  and "deceit"  admissible because  the terms  were
+
+used  in layman's  sense, while  finding  expert's conclusion
+
+                                                    
+
+11.   For similar  reasons, the question  of whether  a legal
+rule  has  been clearly  established,  in  the  context of  a
+qualified immunity defense to a    1983 action, is a question
+decided by the  court, not the jury.  See St. Hilaire v. City                                                                         
+of Laconia, 71 F.3d 20, 24 (1st Cir. 1995).  Thus, the Eighth                      
+Circuit  found  reversible  error in  allowing  a  witness to
+espouse views concerning the  reasonableness of an  officer's
+conduct in light of prevailing "Fourth  Amendment standards."
+Peterson  v. City  of Plymouth,  60 F.3d  469, 475  (8th Cir.                                          
+1995).   The jury's role  was only to  decide what facts were
+known to the  officer at the time of the arrest, not whether,
+in light of those facts, the officer's conduct was reasonable
+under the applicable  legal standard and therefore  protected
+by qualified immunity.  See id.                                             
+
+12.  Santiago  was  competent  to  testify  that  plaintiffs'
+appointments were  irregular in the  sense that they  did not
+conform  to   normal  personnel   practice,  but   her  legal
+conclusion that the appointments were in violation of the law
+was improper.    Because  there  was  no  objection  to  such
+conclusions,   our  review  is  for  plain  error,  a  burden
+plaintiffs  cannot  sustain  in  light  of  our  harmlessness
+analysis.
+
+                             -23-                                          23
+
+that  defendants  violated   FAA  regulations  inadmissible);
+
+Specht,  853  F.2d  805,  809 (discussing  the  distinction).                  
+
+Indeed, the definition of what is law and what is application
+
+or  practice may  be difficult  to  ascertain.   This may  be
+
+particularly so   when the issues involve not  only a statute
+
+and formally  promulgated regulations,  but also  guidelines,
+
+handbooks, advisory rulings,  interpretive bulletins, general
+
+counsel's letter opinions, informational notices and  similar
+
+accoutrements  of  the modern  bureaucratic state.   Further,
+
+there   may  be  particular  areas  of  law,  such  as  legal
+
+malpractice,  where  expert  testimony  on  legal  matters is
+
+admissible where it would normally  be excluded.  We can also
+
+hypothesize instances in rare,  highly complex and  technical
+
+matters where a trial judge, utilizing limited and controlled
+
+mechanisms, and as a matter of trial management, permits some
+
+testimony seemingly at variance with the general rule.13  But
+
+none of  those instances  are before us.   The  issues raised
+
+here  are  routinely  before  the  federal  courts,  are  not
+
+complex, and the use of such testimony was egregious.
+
+Testimony Re After-Acquired Evidence                                                
+
+                                                    
+
+13.   Such  an instance  may be  patent litigation,  in which
+technical experts  are generally  allowed to  comment on  the
+scope  of a patent's  coverage and give  their conclusions on
+the issue  of infringement.   See Snellman v. Rioch  Co., 862                                                                    
+F.2d 283, 287 (Fed. Cir. 1988); Stearns Co. v. United States,                                                                        
+324 Fed. Cl. 264, 268-69 (1995).  
+
+                             -24-                                          24
+
+          There  is   a  second   reason  the   admission  of
+
+Santiago's testimony is very troubling.   That has to do with
+
+application  of the after-acquired  evidence doctrine.14   In
+
+McKennon  v. Nashville  Banner  Publ'g Co.,  115  S. Ct.  879                                                      
+
+(1995),  the Supreme  Court considered whether  an employee's
+
+wrongdoing, discovered after  the termination of  employment,
+
+which would have been sufficient to justify the decision, but
+
+which  was not  known  to the  employer at  the  time of  the
+
+decision  and so  could  not  have  motivated  the  decision,
+
+foreclosed a  claim of age  discrimination.  See id.  at 882.                                                               
+
+The Supreme Court held that such evidence was not relevant to                                                             
+
+the employer's liability for age discrimination, but would be
+
+relevant in determining what remedy was appropriate.  See id.                                                                         
+
+at  885.  If  the evidence would  have led  to the employee's
+
+discharge  at some later date,  that would affect the measure
+
+                                                    
+
+14.    A question  may  be  raised  whether the  evidence  of
+irregularities that Santiago  described meets the  definition
+of after-acquired evidence under McKennon v. Nashville Banner                                                                         
+Publ'g  Co.,  116 S.  Ct.  879  (1995).   McKennon  concerned                                                              
+employee wrongdoing that would  normally cause termination of
+employment.  We do not  know if the irregularities alleged in
+this case would in fact  normally lead to termination or non-
+renewal of  employment.    In  addition,  McKennon  expressly                                                              
+considered  the  equitable  doctrine  of   unclean  hands  in
+determining  that "the  employee's wrongdoing  must  be taken
+into account,  lest  the employer's  legitimate  concerns  be
+ignored."   Id. at 360.  Here, as the evidence was presented,                           
+it  was   apparently  the  former   administration,  not  the
+employees, who made the appointments allegedly against normal
+procedures.   If  the  employees were  blameless,  it may  be
+difficult to import  wholesale the McKennon doctrine.   Given                                                       
+the desultory treatment  of this aspect of the McKennon issue                                                                   
+by the parties and our disposition  of the case, we think  it
+wiser to address the issue in some future case.
+
+                             -25-                                          25
+
+of  damages  and  the  appropriateness  of  reinstatement  as
+
+equitable relief.  See id. at 885-86.  In Umbehr, the Supreme                                                            
+
+Court adopted the McKennon approach in First Amendment claims                                      
+
+brought by public employees or  contractors.  See Umbehr, 116                                                                    
+
+S. Ct.  at 2352  ("[I]f [plaintiff]  prevails, evidence  that
+
+[defendants] discovered  facts after  termination that  would
+
+have  led  to  a  later  termination  anyway . . .  would  be
+
+relevant in assessing what remedy is appropriate.").
+
+          Thus,  such  after-acquired  evidence  is  normally
+
+admissible  only as  to remedy,  and not  on liability.   Yet
+
+here,  it was seemingly offered, over objection, as pertinent
+
+to  liability.   Those  portions  of    Santiago's  testimony
+
+concerning  the  irregularities in  plaintiffs'  appointments
+
+which  did not  consist of  legal  conclusions were  arguably
+
+relevant  to damages,  but normally,  not to  liability.   On
+
+appeal, plaintiffs only argue the issue of admissibility, and
+
+the evidence was arguably admissible on damages.15
+
+          To   prevail,   plaintiffs  must   show   abuse  of
+
+discretion  in  admission of  the  evidence.    Any abuse  of
+
+discretion  analysis is  complicated by  the  actions of  the
+
+                                                    
+
+15.  The trial  court erred in  failing to instruct the  jury
+that  Santiago's testimony  was not  relevant in  determining
+liability.  Although  the judge properly instructed  the jury
+that it should not consider  evidence that it did not believe
+was before  the decision maker  at the time of  the decision,
+the risk  of prejudice  was such that  the judge  should have
+stated  explicitly   that  Santiago's   testimony  concerning
+irregularities was  not to  be considered in  any way  on the
+question of liability.
+
+                             -26-                                          26
+
+parties  here.    While much  of  Santiago's  testimony would
+
+normally  be   inadmissible,  plaintiffs  may   have  invited
+
+defendants to respond in kind.  It was apparently  plaintiffs
+
+who first  introduced the  topic of  legal conclusions  to be
+
+drawn  from review of plaintiffs' personnel  files and of the
+
+law about rights of public employees.  Plaintiffs argued that
+
+the files showed no disciplinary warnings or other actions by
+
+the employers which  provided cause for termination  of their
+
+employment,   and   their   expert   may  have   engaged   in
+
+inappropriate legal commentary. Defendants apparently did not
+
+object, perhaps because they wanted to respond in kind.
+
+          The trial judge evidently felt that this opened the
+
+door to  the defendants'  expert.  "Opening  the door"  is an
+
+evidentiary concept  which requires  careful weighing  of the
+
+unfairness of allowing one  party's objectionable evidence to
+
+remain  unanswered  against  the  danger of  compounding  the
+
+problem with further inadmissible and potentially prejudicial
+
+testimony.  See 1 McCormack on Evidence   57 (John W. Strong,                                                   
+
+ed.,  4th ed.  1992).   The  judge may  well  have felt  that
+
+plaintiffs created the problem about which they now complain.
+
+As plaintiffs did not provide this court with a transcript of
+
+their own expert's testimony, we do not reach the question of
+
+whether  the  judge   abused  his   discretion  in   allowing
+
+Santiago's problematic testimony under an "opening  the door"
+
+theory.
+
+                             -27-                                          27
+
+          To overcome the jury  verdict, plaintiffs must show
+
+not only that there were errors under the abuse of discretion
+
+standard,  but also  that the  district  court's errors  were
+
+harmful.  "Only  if we answer both questions  in the positive
+
+will [plaintiffs']  argument on  appeal prevail."   Ahern  v.                                                                     
+
+Scholz, 85 F.3d 774, 786 (1st Cir. 1996).                  
+
+Harmless Error                          
+
+          In  a civil case,  the party asserting  error bears
+
+the burden of demonstrating that the error was harmful, i.e.,
+
+that it affected  that party's substantial rights.   See Fed.                                                                    
+
+R. Civ. P.  61; Fed. R. Evid.  103; Federico v. Order  of St.                                                                         
+
+Benedict  in R.I., 64  F.3d 1, 3  (1st Cir. 1995)  (burden of                             
+
+showing harmful error  in a civil case is  on party asserting
+
+error); Hygh v.  Jacobs, 961 F.2d 359, 364-65  (2d Cir. 1992)                                   
+
+(holding  that objecting party had  not met burden of showing
+
+that  admission  of  improper  legal  opinion  testimony  had
+
+prejudicial  effect).    "In  determining  whether  an  error
+
+affected a party's substantial right[s], the central question
+
+is whether this court can  say with fair assurance . . . that
+
+the  judgment was  not substantially  swayed  by the  error."
+
+Ahern,  85 F.3d at  786 (citations, internal  quotation marks                 
+
+and original alterations omitted).
+
+          Factors  considered in  determining the  likelihood
+
+that  the  jury's  verdict was  substantially  swayed  by the
+
+evidentiary error include both the centrality of the evidence
+
+                             -28-                                          28
+
+and the  prejudicial effect  of its  inclusion or  exclusion.
+
+See id.   "We weigh these  factors in the context of the case                   
+
+as  gleaned from the  record as a whole."   Id. (citation and                                                           
+
+internal quotation marks omitted).   Ultimately, if we are in
+
+"grave doubt"  concerning the likely  effect of the  error on
+
+the verdict,  we treat the  error as if  it had  affected the
+
+verdict.  See id.                             
+
+          Although normally  testimony such as  Santiago's as
+
+to legal conclusions is  clearly wrong and such  testimony as
+
+was proper  is limited,  at best, to  damages, we  cannot say
+
+that the  testimony affected  the outcome  of the  trial, and
+
+therefore, we consider it harmless.16 
+
+          The  district court's  instructions here  reinforce
+
+the  conclusion that Santiago's testimony was not central nor
+
+did it  actually prejudice  the jury's  decision.  The  judge
+
+properly  instructed  that  "once  a  transitory  appointment
+
+expires, defendant  may  terminate  the  transitory  employee
+
+. . .  for any  reason  except  if that  reason  is based  on                                                                         
+
+political   affiliation."  (emphasis   added)     The   judge                                   
+
+instructed,  not once  but several  times,  that the  central
+
+issue  for the  jury to  decide  was whether  the motive  for
+
+                                                    
+
+16.  That plaintiffs  apparently  opened  the  door  to  such
+testimony also bears  on the  harmless error  analysis.   The
+jury may have had two  "experts" each opining on the law  and
+may have disregarded  both experts as not helpful  on the key
+question of motive.  In this case, the question of motive was
+a straightforward  question of  whom the  jury believed,  the
+Mayor or the plaintiffs.
+
+                             -29-                                          29
+
+plaintiffs'  non-renewals  was their  political  affiliation.
+
+Finally, the verdict form itself  posed the question, "Do you
+
+find by  a preponderance of the evidence  that the motivating
+
+factor  for not renewing  the appointment of  [plaintiff] was
+
+[his or her] political affiliation?"
+
+          The judge did  expressly caution the jury  that the
+
+municipal  defendants could not use compliance with state law
+
+as  a pretext  for political  discrimination.   The  district
+
+court instructed the jury that  they were not to consider any
+
+facts that were not known  to the relevant decision makers at
+
+the  time plaintiffs'  contracts were  allowed  to expire  in
+
+deciding  whether  Soto's  administration  let plaintiffs  go
+
+because  of their political  affiliation.17  As  the district
+
+court explained, "if  the irregularity or misconduct  was not
+
+discovered  until  after  the  employee's  contract  was  not
+
+renewed,  the employer  could  not  have  been  motivated  by
+
+knowledge of it, and he  cannot now claim that the employee's
+
+contract was not renewed for that reason."
+
+          Thus,  we do not find it likely, despite Santiago's
+
+testimony, that  the jury  was confused  about the  rights of
+
+                                                    
+
+17.   In  finding  any  error harmless,  we  need not  decide
+whether the  admission of the  evidence was erroneous  in the
+first  instance.   Plaintiffs  themselves represented  to the
+court that Soto's knowledge of the  illegalities was a viable
+factual  issue  for  the  jury.    Plaintiffs  asked for  and
+received  an instruction, which they said "would be curative"
+of  the McKennon problem, that  the jury should disregard the                            
+illegality evidence "if they believed that [the illegalities]
+were discovered after the fact."  
+
+                             -30-                                          30
+
+transitory  employees under the First Amendment.  As in Caro,                                                                        
+
+the  issue in  this  case  was "the  factual  matter of  [the
+
+municipality's]  reason for dismissing  the plaintiffs.   Was
+
+[its]  motive political?"   Caro,  878 F.2d at  2.   The jury                                            
+
+answered that question.   As we harbor no  "grave doubt," the
+
+judgment  of  the district  court  is  affirmed.    Costs  to                                                           
+
+appellees.
+
+                             -31-                                          31

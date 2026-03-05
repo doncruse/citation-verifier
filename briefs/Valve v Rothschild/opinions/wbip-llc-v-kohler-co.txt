@@ -1,0 +1,1630 @@
+Wbip, LLC v. Kohler Co.
+829 F.3d 1317, 119 U.S.P.Q. 2d (BNA) 1301, 2016 U.S. App. LEXIS 13136, 2016 WL 3902668
+Court of Appeals for the Federal Circuit
+Filed: 2016-07-19
+Docket No. 2015-1038; 2015-1044
+Source: https://www.courtlistener.com/opinion/4239781/wbip-llc-v-kohler-co/
+------------------------------------------------------------
+
+  United States Court of Appeals
+      for the Federal Circuit
+                ______________________
+
+                      WBIP, LLC,
+                Plaintiff-Cross-Appellant
+
+                           v.
+
+                    KOHLER CO.,
+                 Defendant-Appellant
+                ______________________
+
+                 2015-1038, 2015-1044
+                ______________________
+
+    Appeals from the United States District Court for the
+District of Massachusetts in No. 1:11-cv-10374-NMG,
+Judge Nathaniel M. Gorton.
+                ______________________
+
+                Decided: July 19, 2016
+                ______________________
+
+   DAVID ANDREW SIMONS, K&L Gates LLP, Boston, MA,
+argued for plaintiff-cross-appellant. Also represented by
+ANDREA B. REED; MICHAEL E. ZELIGER, Palo Alto, CA.
+
+     E. JOSHUA ROSENKRANZ, Orrick, Herrington & Sut-
+cliffe LLP, New York, NY, argued for defendant-
+appellant. Also represented by RACHEL WAINER APTER;
+BRIAN PHILIP GOLDMAN, San Francisco, CA; KATHERINE
+M. KOPP, T. VANN PEARCE, JR., ERIC SHUMSKY, Washing-
+ton, DC; STEVEN M. BAUER, WILLIAM DAVID DALSEN,
+SAFRAZ ISHMAEL, Proskauer Rose LLP, Boston, MA.
+                ______________________
+2                                    WBIP, LLC   v. KOHLER CO.
+
+
+
+
+    Before MOORE, O’MALLEY, and CHEN, Circuit Judges.
+MOORE, Circuit Judge.
+     Kohler Co. appeals from the United States District
+Court for the District of Massachusetts’ denial of judg-
+ment as a matter of law that claims 1–6, 8, and 10–12 of
+U.S. Patent No. 7,314,044 and claims 26 and 28 of U.S.
+Patent No. 7,832,196 (collectively “asserted claims”)
+would have been obvious and lack sufficient written
+description and the determination that Kohler willfully
+infringed the asserted claims. WBIP, LLC cross-appeals
+the court’s denial of its post-trial motion for a permanent
+injunction. We affirm the court’s denial of judgment as a
+matter of law on all issues raised by Kohler and its willful
+infringement determination, vacate the court’s denial of
+WBIP’s motion for a permanent injunction, and remand
+for further consideration.
+                       BACKGROUND
+    Westerbeke Corporation 1 and Kohler are competitors
+who manufacture and sell marine generators (“gen-sets”)
+that are used on houseboats to create electrical power for
+appliances such as refrigerators and air conditioners.
+Gen-sets have two main parts, an engine and a generator.
+The exhaust from a typical engine in a gen-set, like any
+gasoline-powered engine, contains carbon monoxide,
+which can cause asphyxiation at certain concentrations.
+Carbon monoxide is particularly dangerous on boats,
+where the living quarters are confined in close proximity
+to the engine. Prior to the invention of the patents in
+suit, the exhaust pipes of prior art marine gen-sets were
+
+
+     1   John Westerbeke, the sole inventor of the patents
+in suit, majority-owns Westerbeke Corporation and whol-
+ly owns the assignee of the patents in suit, WBIP, which
+stands for “Westerbeke Intellectual Property.”
+WBIP, LLC   v. KOHLER CO.                                 3
+
+
+
+vented out of the boat into a safe location to reduce poten-
+tial exposure to carbon monoxide. In the early 2000s, the
+National Institute for Occupational Safety and Health
+(“NIOSH”) investigated concerns about carbon-monoxide-
+related poisonings and deaths on houseboats. NIOSH
+found that, for houseboats with gen-sets that discharged
+exhaust around the swim platform, carbon monoxide
+levels in the swim area were at or above levels that are
+immediately dangerous to life and health.
+    The ’044 and ’196 patents, which claim priority to
+2003 and have similar specifications, are directed to
+marine engine exhaust systems that reduce the amount of
+carbon monoxide released in the exhaust. See ’044 patent
+at Abstract, 1:13–14, 1:47–58, 2:12–30. The Background
+sections of the patents discuss the use of chemical cata-
+lysts as “[s]ome of the most effective and cost-efficient
+emissions controls” and discuss that it was generally
+known that these catalysts work better at higher temper-
+atures. Id. at 1:21–27. They note that most of the devel-
+opment work for exhaust catalysts focused on catalytic
+converters in automotive applications. But they explain
+that marine gen-sets are subject to different regulations
+than automotive engines, including regulations for emis-
+sions and safety. Id. at 1:27–32. One such regulation
+requires that exposed engine and exhaust system surface
+temperatures be kept low to reduce fire hazard potential.
+Id. at 1:32–35. The specifications explain that typical
+marine engines inject seawater into exhaust flows to cool
+exhaust gases and frequently circulate seawater through
+exhaust system components to keep surface temperatures
+low. Id. at 1:35–39.
+    Claim 1 of the ’044 patent is representative of the as-
+serted claims, and recites:
+   1. A marine engine comprising:
+   [A] an exhaust system including
+4                                    WBIP, LLC   v. KOHLER CO.
+
+
+
+       [B] a catalyst cooled by a flow of coolant, [C]
+         the catalyst arranged to intercept a flow of
+         exhaust;
+       [D] a coolant injector that injects coolant into
+         the flow of exhaust at a point downstream of
+         the catalyst; and
+       [E] a sensor arranged to sense a characteristic
+         of the flow of exhaust; and
+    [F] an engine controller configured to control an
+        air/fuel ratio of the engine as a function of the
+        sensed exhaust flow characteristic;
+    [G] wherein the engine controller is also config-
+       ured to govern engine speed with respect to a
+       constant speed while maintaining the air/fuel
+       ratio.
+’044 patent, 7:4–17 (emphases and bracketed letters
+added).
+    Westerbeke makes a low–carbon monoxide gen-set
+(“Safe-CO”) that incorporates the technology of the pa-
+tents in suit. It introduced the Safe-CO gen-sets at a boat
+show in 2004.           Two Kohler employees visited
+Westerbeke’s trailer at that show and asked how the low
+carbon monoxide levels were achieved.          Westerbeke
+explained the technology to them and in particular how
+the Safe-CO gen-set used a catalyst and electronic fuel
+injection. About one year later, Kohler launched its own
+low–carbon monoxide gen-sets.
+     The ’044 and ’196 patents issued in 2008 and 2010,
+respectively. In 2011, WBIP, the assignee of the patents
+in suit, sued Kohler for patent infringement, asserting
+that Kohler’s low–carbon monoxide gen-sets infringed the
+asserted claims. Following a six-day trial in May 2013, a
+jury ruled in favor of WBIP, finding that Kohler infringed
+all the asserted claims and that Kohler had failed to prove
+WBIP, LLC   v. KOHLER CO.                                 5
+
+
+
+that any of the asserted claims were invalid either for
+obviousness or for lack of written description. The jury
+also set a reasonable royalty rate, calculated a damages
+award of $9,641,206, and found that WBIP had proven by
+clear and convincing evidence that Kohler’s infringement
+was willful. After the jury verdict, WBIP moved for a
+permanent injunction. The district court denied the
+motion. It also denied Kohler’s renewed motion for judg-
+ment as a matter of law that the asserted claims were
+invalid for obviousness and for lack of written description.
+The district court granted Kohler remittitur, reducing the
+damages from $9,641,206 to $3,775,418. It granted
+WBIP’s motion for enhanced damages under 35 U.S.C.
+§ 284. It applied the factors from Read Corp. v. Portec,
+Inc., 970 F.2d 816 (Fed. Cir. 1992), and concluded it was
+appropriate to enhance the damages by 50%. It found the
+case exceptional under 35 U.S.C. § 285 on account of
+Kohler’s willful infringement and awarded reasonable
+attorney fees to WBIP. It denied WBIP’s motion to recon-
+sider the denial of a permanent injunction. Kohler ap-
+peals; WBIP cross-appeals. We have jurisdiction under 28
+U.S.C. § 1295(a)(1).
+                            DISCUSSION
+    We review a district court’s denial of judgment as a
+matter of law under the law of the regional circuit. Ma-
+rine Polymer Techs., Inc. v. HemCon, Inc., 672 F.3d 1350,
+1357 (Fed. Cir. 2012). The First Circuit reviews such
+denials de novo, explaining “a jury’s verdict must be
+upheld unless the facts and inferences, viewed in the light
+most favorable to the verdict, point so strongly and over-
+whelmingly in favor of the movant that a reasonable jury
+could not have reached the verdict.” Id. at 1357–58
+(quoting Astro-Med, Inc. v. Nihon Kohden Am., Inc., 591
+F.3d 1, 13 (1st Cir. 2009)).
+6                                    WBIP, LLC   v. KOHLER CO.
+
+
+
+                    I.   Obviousness
+    Obviousness is a question of law based on underlying
+facts. Kinetic Concepts, Inc. v. Smith & Nephew, Inc., 688
+F.3d 1342, 1360 (Fed. Cir. 2012). When reviewing a
+denial of judgment as a matter of law of obviousness,
+where there is a black box jury verdict, as is the case here,
+we presume the jury resolved underlying factual disputes
+in favor of the verdict winner and leave those presumed
+findings undisturbed if supported by substantial evidence.
+Spectralytics, Inc. v. Cordis Corp., 649 F.3d 1336, 1342
+(Fed. Cir. 2011). We then examine the legal conclusion de
+novo in light of those facts. Id.
+    Kohler argues that the district court erred in refusing
+to grant it judgment as a matter of law that the asserted
+claims would have been obvious in light of U.S. Patent
+No. 5,832,896 (“Phipps”) and standard elements that
+would have been known to an ordinarily skilled artisan.2
+
+
+
+    2   At trial, Kohler argued specific combinations of
+prior art would have rendered the claims obvious. See,
+e.g., J.A. 15,873–74 (Kohler’s expert testifying that “it
+would have been obvious to include” Phipps’ constant
+speed engine in the control system described in another
+reference (“Fujimoto”)). On appeal, Kohler argues that it
+would have been obvious to a skilled artisan to adapt
+Phipps with “standard coolant elements” that “also exist-
+ed in the prior art,” identifying two references that pur-
+portedly describe these “standard elements.” Appellant’s
+Br. 27, 30–31. To facilitate appellate review, parties
+should make explicit their analysis as to the combination
+of references on which they rely, as well as the asserted
+reason(s) to combine them. See KSR Int’l Co. v. Teleflex
+Inc., 550 U.S. 398, 418 (2007). This is especially true
+here, where Kohler bears the burden on appeal to prove
+the evidence points so strongly and overwhelmingly in its
+WBIP, LLC   v. KOHLER CO.                                 7
+
+
+
+It also argues that WBIP’s objective evidence of non-
+obviousness cannot overcome the prima facie case and
+that WBIP failed to establish a nexus between the objec-
+tive evidence and the merits of the claimed invention. We
+disagree on both points.
+        A. Obviousness and Motivation to Modify
+     Kohler argues, and WBIP does not dispute, that
+Phipps teaches every element of claim 1 of the ’044 patent
+except elements [B] and [D] (identified above). And it is
+not disputed that these elements [B] and [D] existed in
+other prior art. Citing KSR, Kohler argues that because
+each of the elements was known in the prior art, the
+question is whether a skilled artisan starting with Phipps
+would have found it obvious to add the conventional
+coolant features to Phipps to produce the claimed inven-
+tion. At trial, Kohler presented evidence that a skilled
+artisan could do so if asked. See, e.g., J.A. 15,858 (“Basi-
+cally, one of ordinary skill, if they had [Phipps’] system
+and they were asked to apply that to -- in a marine envi-
+ronment, they would have known that the Coast Guard
+requires the exhaust system surface to be cooled.”);
+J.A. 14,873 (“[I]f someone said, Well, now you need to put
+[Phipps’ engine] in a marine environment, they would
+expect that by -- you know, No. 1, the Coast Guard tells
+them what they need to do.”). Kohler’s expert testified
+that if an ordinarily skilled artisan was told to put
+Phipps’ system in a marine engine, that artisan would
+have been “very confident that [he] would get predictable
+results.” J.A. 15,873. Kohler argues that combining
+Phipps’ land-based engine with the known coolant related
+elements necessary for marine engines would yield pre-
+dictable results and that there were “design incentives
+
+
+
+
+favor that a reasonable jury could not have found facts in
+favor of WBIP.
+8                                    WBIP, LLC   v. KOHLER CO.
+
+
+
+and other market forces” prompting one of skill in the art
+to adapt Phipps to boats. Appellant’s Br. 33.
+    At trial, Kohler offered evidence that the government
+was encouraging marine gen-set manufacturers to look to
+automotive engines that successfully controlled exhaust
+emissions and adapt them into marine engines,
+J.A. 19,445, including by evaluating the efficacy of using
+catalytic converters, J.A. 18,897. And Kohler’s expert
+testified that “people would have been motivated to in-
+clude technology of reducing emissions even with a ‘wet’
+exhaust system” like that in marine engines. J.A. 15,881.
+Kohler provided evidence that skilled artisans looking to
+manufacture marine engines would look to land engines
+generally. And Kohler argued that Phipps emphasizes
+that its invention is “particularly useful” in “low emission”
+engines. J.A. 19,049 at 9:42–46.
+    Whether an ordinarily skilled artisan would have
+been motivated to modify the teachings of a reference is a
+question of fact. Kinetic Concepts, 688 F.3d at 1366–67;
+Belden Inc. v. Berk-Tek LLC, 805 F.3d 1064, 1073 (Fed.
+Cir. 2015); see also Wyers v. Master Lock Co., 616 F.3d
+1231, 1238–39 (Fed. Cir. 2010) (noting that KSR “did not
+change th[e] rule” that “motivation to combine prior art
+references [i]s a question of fact”). We presume that the
+jury found that an ordinarily skilled artisan would not
+have been motivated to modify the teachings of Phipps. If
+such a fact finding is supported by substantial evidence,
+we may not reverse it.
+    WBIP’s primary argument is that one of skill in the
+art would not have been motivated to convert Phipps into
+a marine engine. WBIP criticizes Kohler’s expert testi-
+mony on the ground that it focuses on whether one of skill
+in the art could convert Phipps to a marine engine, not
+whether one of skill in the art would have been motivated
+to do so. WBIP’s main argument is that one of skill would
+not have started with Phipps because of concerns over
+WBIP, LLC   v. KOHLER CO.                                 9
+
+
+
+whether Phipps would even work for its intended purpose.
+WBIP’s expert testified that Phipps discloses an “exhaust,
+gas, recirculation” control system for land, not marine,
+generators that is not only atypical, but “totally reverse”
+from any control system he had ever seen or read about.
+J.A. 16,026–28. He explained how an ordinarily skilled
+artisan would have viewed Phipps’ reverse control system
+at the time of WBIP’s invention:
+   [I]f I can equate this one to kind of a simple anal-
+   ogy, if you’re trying to build a piece of furniture.
+   What’s a typical thing? You put on a piece of
+   wood. You take a nail, and you hit the nail with a
+   hammer. In control terms, what Mr. Phipps is
+   suggesting is that you put the hammer on the
+   workbench, pick up the piece of furniture and
+   bash the piece of furniture onto the hammer. It’s
+   totally backwards from what I believe one of skill
+   in the art would even attempt to make an engine
+   run, much less try to gain some secondary control
+   like carbon monoxide.
+J.A. 16,027 (emphasis added). He further explained that
+modifying Phipps’ land engine to make a marine engine
+would require a number of conversions, including adding
+a water jacket around the exhaust, adding ignition protec-
+tion for any electrical component that could accidentally
+cause a spark, and scaling down the engine parts in order
+to fit within the smaller-sized marine engine. And he
+explained that, given that modifying Phipps to make it a
+marine engine would be “a lot of work,” an ordinarily
+skilled artisan would not have seen the point in making
+such a modification because he would not have expected it
+to result in a gen-set that produced low amounts of carbon
+monoxide. J.A. 16,030. The expert explained that there
+was a “catch up” problem with Phipps which would prove
+particularly     problematic    in    marine   conditions.
+J.A. 16,027; see J.A. 15,197. WBIP argued that based on
+this evidence, a skilled artisan would not have had a
+10                                   WBIP, LLC   v. KOHLER CO.
+
+
+
+reasonable expectation the significant changes to Phipps
+would be successful.
+    WBIP argues that it presented evidence upon which a
+jury could have found that Phipps is “somehow so flawed
+that there was no reason to upgrade it, or [devices] like it,
+to be compatible with modern [devices]” and that this
+evidence may be sufficient to show that an ordinarily
+skilled artisan would not have modified that reference or
+combined it with others. Cf. KSR, 550 U.S. at 418. Thus,
+there is evidence of record from both sides regarding the
+presence or absence of a motivation to convert Phipps into
+a marine-based environment. As the ultimate question of
+obviousness is one of law which must consider all four
+Graham factors including objective indicia, we turn next
+to those factors, which can be powerful, real-world indica-
+tors of what would have been obvious.
+               B. Objective Considerations
+    The objective indicia of non-obviousness play an im-
+portant role as a guard against the statutorily proscribed
+hindsight reasoning in the obviousness analysis. Indeed,
+we have held that “evidence of secondary considerations
+may often be the most probative and cogent evidence in
+the record.” Stratoflex, Inc. v. Aeroquip Corp., 713 F.2d
+1530, 1538 (Fed. Cir. 1983); see also Truswal Sys. Corp. v.
+Hydro-Air Eng’g, Inc., 813 F.2d 1207, 1212 (Fed. Cir.
+1987) (“That evidence is ‘secondary’ in time does not mean
+that it is secondary in importance.”); Graham v. John
+Deere Co. of Kan. City, 383 U.S. 1, 36 (1966) (“[Objective
+indicia] may also serve to guard against slipping into use
+of hindsight, and to resist the temptation to read into the
+prior art the teachings of the invention in issue.” (internal
+quotation marks and citation omitted)).
+    Kohler asserts on appeal that objective considerations
+of non-obviousness can never overcome a strong prima
+facie case of obviousness. Kohler misperceives the obvi-
+ousness inquiry. A determination of whether a patent
+WBIP, LLC   v. KOHLER CO.                                11
+
+
+
+claim is invalid as obvious under § 103 requires consider-
+ation of all four Graham factors, and it is error to reach a
+conclusion of obviousness until all those factors are con-
+sidered. In re Cyclobenzaprine Hydrochloride Extended-
+Release Capsule Patent Litig., 676 F.3d 1063, 1075 (Fed.
+Cir. 2012) (citing Richardson-Vicks Inc. v. Upjohn Co.,
+122 F.3d 1476, 1483 (Fed. Cir. 1997)); see also Asyst
+Techs., Inc. v. Emtak, Inc., 544 F.3d 1310, 1313–16 (Fed.
+Cir. 2008) (considering, e.g., both the scope and content of
+the prior art and the objective considerations of non-
+obviousness before affirming the district court’s judgment
+as a matter of law). Indeed, we have repeatedly stressed
+that objective considerations of non-obviousness must be
+considered in every case. Transocean Offshore Deepwater
+Drilling Inc. v. Maersk Drilling USA, Inc., 699 F.3d 1340,
+1349 (Fed. Cir. 2012) (“[E]vidence rising out of the so-
+called ‘secondary considerations’ must always when
+present be considered en route to a determination of
+obviousness.” (quoting Stratoflex, 713 F.2d at 1538)). This
+requirement is in recognition of the fact that each of the
+Graham factors helps to inform the ultimate obviousness
+determination. Kinetic Concepts, 688 F.3d at 1360; Nike,
+Inc. v. Adidas, 812 F.3d 1326, 1340 (Fed. Cir. 2016)
+(holding that evidence of secondary considerations must
+be examined to determine its impact on the first three
+Graham factors). Thus, the strength of each of the Gra-
+ham factors must be weighed in every case and must be
+weighted en route to the final determination of obvious-
+ness or non-obviousness.
+    Kohler also argues that the objective evidence of non-
+obviousness is so weak in this particular case that it does
+not support a finding of non-obviousness. As explained
+below, we disagree with Kohler’s argument that the
+objective evidence of non-obviousness is entitled to little
+or no weight in this case. In fact, we find substantial
+evidence for the jury’s fact findings as to each of the
+12                                   WBIP, LLC   v. KOHLER CO.
+
+
+
+objective considerations of non-obviousness, which we
+conclude collectively support the jury verdict.
+                        1. Nexus
+    On appeal, Kohler argues that the objective evidence
+of non-obviousness WBIP presented to the jury should not
+be considered because WBIP failed to prove there is a
+nexus between the presented evidence and the merits of
+the claimed invention. Kohler’s argument is that, in
+order to prove a nexus exists, WBIP must show that what
+is “novel in the claim,” which Kohler asserts are elements
+[B] and [D] of the claimed invention that are not disclosed
+by Phipps, is tied to the asserted objective evidence.
+    As WBIP correctly argues, there is a presumption of
+nexus for objective considerations when the patentee
+shows that the asserted objective evidence is tied to a
+specific product and that product “is the invention dis-
+closed and claimed in the patent.” 3 J.T. Eaton & Co. v.
+Atl. Paste & Glue Co., 106 F.3d 1563, 1571 (Fed. Cir.
+1997); Crocs, Inc. v. Int’l Trade Comm’n, 598 F.3d 1294,
+
+
+
+     3  A limited exception to the presumption of nexus
+exists where the patented invention is only a component
+of the product to which the asserted objective considera-
+tions are tied. Demaco Corp. v. F. Von Langsdorff Licens-
+ing Ltd., 851 F.2d 1387, 1392 (Fed. Cir. 1988). Kohler
+does not argue that this exception applies in this case, nor
+could it. The asserted claims are drawn to a “marine
+engine” (’044 patent claims 1–6, 8, 10–11) or to a “method
+of controlling emissions from an internal combustion
+engine configured for marine application” (’044 patent
+claim 12 and ’196 patent claims 26 and 28). The
+Westerbeke and Kohler low–carbon monoxide gen-sets are
+the identical type of device, marine engines, as that of the
+asserted claims and practice the claimed methods in order
+to control their emissions.
+WBIP, LLC   v. KOHLER CO.                                13
+
+
+
+1310–11 (Fed. Cir. 2010); Brown & Williamson Tobacco
+Corp. v. Philip Morris, Inc., 229 F.3d 1120, 1130 (Fed. Cir.
+2000); Demaco, 851 F.2d at 1392–93.
+    The presumption of nexus is rebuttable: a patent chal-
+lenger may respond by presenting evidence that shows
+the proffered objective evidence was “due to extraneous
+factors other than the patented invention.” Demaco, 851
+F.2d at 1393. Such extraneous factors include additional
+unclaimed features and external factors, such as im-
+provements in marketing. See, e.g., Ecolochem, Inc. v. S.
+Cal. Edison Co., 227 F.3d 1361, 1378 (Fed. Cir. 2000)
+(applying presumption even though commercial embodi-
+ment had unclaimed mobility feature); Ormco Corp. v.
+Align Tech., Inc., 463 F.3d 1299, 1312 (Fed. Cir. 2006)
+(holding that evidence that commercial success was due to
+unclaimed or non-novel features of device “clearly rebuts
+the presumption that [the commercial product’s] success
+was due to the claimed and novel features”). However, a
+patent challenger cannot successfully rebut the presump-
+tion with argument alone—it must present evidence.
+Brown & Williamson, 229 F.3d at 1130 (citing Demaco,
+851 F.2d at 1393).
+    At trial, WBIP presented evidence that specific prod-
+ucts (i.e., Westerbeke’s Safe-CO gen-sets and Kohler’s
+accused products) are embodiments of the invention as
+claimed in the asserted claims. See Cross-Appellant’s Br.
+45–47 (citing J.A. 15,191–92, 15,195–200, 15,821–22,
+17,279, 17,283, 17,287, 17,291, 17,295, 17,299, 17,303,
+17,307, 17,253). And its proffered objective evidence
+relates to these specific products. As Kohler agrees,
+WBIP presented evidence on five types of objective evi-
+dence of non-obviousness, all of which are tied to the
+claimed gen-sets achieving safe carbon monoxide levels.
+This evidence was: 1) the long-felt need for reducing
+carbon monoxide poisonings from marine gen-sets, Cross-
+Appellant’s Br. 34–35 (citing J.A. 17,915, 17,742, 17,204,
+15,371–72, 15,478, 15,500–01, 15,448–52, 15,996–97);
+14                                 WBIP, LLC   v. KOHLER CO.
+
+
+
+2) industry skepticism that gen-sets producing exhaust
+substantially free of carbon monoxide could be produced,
+id. at 39–40 (citing J.A. 17,213–15, 15,373–75, 15,489–
+90); 3) industry praise of Westerbeke’s Safe-CO gen-sets,
+including winning the National Marine Manufacturers
+Association Innovation Award in 2004, id. at 40–41 (citing
+J.A. 15,562–68, 17,915, 17,252, 17,254–55); 4) Kohler’s
+copying of Westerbeke’s Safe-CO gen-sets following a
+2004 boat show, id. at 41–43 (citing J.A. 15,375–77,
+17,784–88, 17,813); and 5) the commercial success of low–
+carbon monoxide gen-sets, including Kohler’s gen-sets,
+that incorporate the patented technology, id. at 43–45
+(citing J.A. 17,899, 16,003, 15,592–601, 17,785, 17,915,
+17,780, 17,782, 15,493–94, 15,569–70, 17,892).        This
+showing—that the specific products are embodiments of
+the claimed invention and that the proffered objective
+evidence relates to these products—is sufficient to estab-
+lish the presumption of nexus for the objective considera-
+tions at issue in this case. 4
+
+
+
+     4   Kohler does not dispute the applicability of the
+presumption of nexus to commercial success. Kohler
+responds to WBIP’s argument that it is entitled to a
+presumption of nexus only in a footnote in its Response
+and Reply Brief, which asserts, without further explana-
+tion or citation, that “Crocs’ prima facie case of nexus
+applies only to evidence of commercial success, not to any
+other secondary-considerations evidence.” Resp. & Reply
+Br. 24–25 n.8. We do not read Crocs as so limited. Crocs
+first discusses the presumption of nexus with respect to
+commercial success, but continues on to discuss the
+concept with respect to praise and copying. 598 F.3d at
+1311. In so doing, it recognizes that the prima facie case
+of nexus for any of the three objective considerations at
+issue was not rebutted, stating “[i]n the absence of any
+record evidence attributing these secondary considerations
+WBIP, LLC   v. KOHLER CO.                                15
+
+
+
+    We review Kohler’s remaining arguments to ascertain
+whether they rebut the presumption of nexus. Kohler
+argues that all of WBIP’s proffered objective considera-
+tions are irrelevant because they are tied to a reduction in
+carbon monoxide emissions and Phipps discloses an
+engine that controls emissions inherently, Appellant’s
+Brief 46, or expressly, Response and Reply Brief 31–32.
+Thus, according to Kohler, WBIP had to show that the
+objective evidence was tied to the two coolant-related
+features ([B] and [D] in claim 1 of the ’044 patent) that
+Phipps does not disclose.
+    Kohler’s argument relies on an incorrect interpreta-
+tion of our case law. We have held that “[w]hile objective
+evidence of nonobviousness lacks a nexus if it exclusively
+relates to a feature that was ‘known in the prior art,’ the
+obviousness inquiry centers on whether ‘the claimed
+invention as a whole’ would have been obvious.” Rambus
+Inc. v. Rea, 731 F.3d 1248, 1257 (Fed. Cir. 2013) (citation
+omitted). Where the allegedly obvious patent claim is a
+combination of prior art elements, we have explained that
+the patent owner can show that it is the claimed combina-
+tion as a whole that serves as a nexus for the objective
+evidence; proof of nexus is not limited to only when objec-
+tive evidence is tied to the supposedly “new” feature(s).
+Id. at 1258 (remanding to the Board to determine whether
+objective evidence “relate[d] only to prior art functionali-
+ty” or to “Rambus’s patented design as a whole”). In such
+a case, the fact that an isolated feature may be present in
+the prior art may not render irrelevant objective evidence
+
+
+
+to causes other than the claimed invention, Crocs may
+rely on this added support for non-obviousness.” Id.
+(emphasis added). Thus, WBIP was entitled to rely upon
+the presumption of nexus for the objective considerations
+at issue and the burden of production shifted to Kohler to
+rebut that presumption if it sought to challenge nexus.
+16                                   WBIP, LLC   v. KOHLER CO.
+
+
+
+of non-obviousness of that feature in the claimed combi-
+nation.
+    WBIP was entitled to the presumption of nexus for its
+objective evidence of non-obviousness because it estab-
+lished that the specific products (Westerbeke’s Safe-CO
+gen-sets and Kohler’s accused products) are embodiments
+of the invention in the asserted claims. Attempting to
+rebut the presumption, Kohler argues that “[n]one of it
+bears any relationship to the asserted novelty of the
+claims.” Appellant’s Br. 37. It is certainly true that there
+must be “a nexus between the evidence and the merits of
+the claimed invention.” In re GPAC Inc., 57 F.3d 1573,
+1580 (Fed. Cir. 1995). Kohler argues that no such nexus
+exists here because the objective indicia evidence is not
+tied to the elements in the claims that were missing from
+Phipps. Kohler starts with Phipps, which is the prior art
+land-based design, and argues that since only elements
+[B] and [D] of the claims are not present in Phipps, there
+is no nexus unless the objective indicia is linked to these
+elements. Kohler has failed to rebut the presumption of
+nexus. WBIP argues that it is the claimed combination
+which results in a low–carbon monoxide emission marine
+gen-set which is the “merits of the claimed invention.”
+According to WBIP, this combination overcame a specific
+problem in the marine environment. We conclude that
+this record contains substantial evidence upon which a
+jury could conclude that nexus exists between the objec-
+tive evidence of non-obviousness and the claimed combi-
+nation.
+    For example, WBIP’s expert testified that each of the
+claimed catalyst, controller, and oxygen sensor were
+necessary to gain the requisite reduction in carbon mon-
+oxide emissions. J.A. 15,199 (“So you need all three of
+those components. You need the catalyst, a controller to
+control the air-to-fuel ratio, and the oxygen sensor to let
+the controller know how good of a job it’s been doing.”).
+He confirmed that those features disclosed in Phipps—
+WBIP, LLC   v. KOHLER CO.                                17
+
+
+
+i.e., the controller and oxygen sensor—could not reduce
+carbon monoxide emissions without the addition of a
+catalyst:
+   Q. If you took away the cooled catalyst, would
+   there be low carbon monoxide output?
+   A. No, there wouldn’t.
+   Q. So you need all of this together in order to get
+   the result of the invention?
+   A. Yes, you do.
+J.A. 15,198–99.
+    Questions of nexus are highly fact-dependent and, as
+such are not resolvable by appellate-created categorical
+rules and hierarchies as to the relative weight or signifi-
+cance of proffered evidence. Rather, “[i]t is within the
+province of the fact-finder to resolve these factual dis-
+putes regarding whether a nexus exists between commer-
+cial success of the product and its patented features, and
+to determine the probative value of evidence of secondary
+considerations.” Pro-Mold & Tool Co. v. Great Lakes
+Plastics, Inc., 75 F.3d 1568, 1574 (Fed. Cir. 1996). The
+jury reviewed Kohler’s and WBIP’s competing objective
+evidence of non-obviousness, as well as evidence for the
+driving forces that established that objective evidence. Its
+resolution of the dispute in favor of WBIP is supported by
+substantial evidence.
+     We further reject Kohler’s categorical claim that ob-
+jective evidence must be tied exclusively to claim ele-
+ments that are not disclosed in a particular prior art
+reference in order for that evidence to carry substantial
+weight. Requiring patentees to prove that objective
+evidence is tied to a specific claim element—and only that
+claim element—runs counter to the statutory instruction
+that the obviousness analysis involves determining
+whether “the claimed invention as a whole would have
+18                                  WBIP, LLC   v. KOHLER CO.
+
+
+
+been obvious.” 35 U.S.C. § 103 (emphasis added); see
+Rambus, 731 F.3d at 1257–58. This is especially true for
+situations like those at issue here, where the claimed
+invention is, admittedly, a combination of elements that
+were known individually in the prior art. Commercial
+success, for example, may be linked to an individual
+element or, in other circumstances, it could be linked to
+the inventive combination of known elements. And these
+are fact questions to which we must give deference on
+appeal. The jury’s presumed factual findings relating to
+nexus are supported by substantial evidence.
+                   2. Long-Felt Need
+    Evidence of a long felt but unresolved need tends to
+show non-obviousness because it is reasonable to infer
+that the need would have not persisted had the solution
+been obvious. See, e.g., Iron Grip Barbell Co. v. USA
+Sports, Inc., 392 F.3d 1317, 1325 (Fed. Cir. 2004) (“Absent
+a showing of long-felt need or the failure of others, the
+mere passage of time without the claimed invention is not
+evidence of nonobviousness.”).
+    Kohler argues that substantial evidence does not sup-
+port the jury’s presumed factual finding that the claimed
+invention solved the problem of carbon monoxide poison-
+ings from marine gen-sets, a problem that was long
+known in the marine gen-set field. Specifically, Kohler
+argues that the evidence that WBIP relied upon to show a
+long-felt need in the industry—third-party product liabil-
+ity suits against Kohler involving carbon monoxide poi-
+sonings from older generation gen-sets—is not relevant to
+a long-felt need for low–carbon monoxide emitting gen-
+sets. Kohler argues that the evidence shows that it
+resolved the carbon monoxide poisonings at issue in these
+lawsuits by changing the material it used for the exhaust
+pipes, from black iron (which corroded from the inside
+out) to stainless steel. Thus, Kohler argues that there is
+no nexus between the problems at issue in these product
+WBIP, LLC   v. KOHLER CO.                                 19
+
+
+
+liability suits and the problem solved by the asserted
+claims. Kohler argues that, when this irrelevant evidence
+is not considered, the evidence of record shows that the
+industry was not aware of the dimensions of the carbon
+monoxide problem on boats until 2000. Because this date
+is only a few years before the priority date of the patents
+in suit, Kohler argues that substantial evidence does not
+support a finding of long-felt need.
+    We have already rejected Kohler’s argument that the
+objective considerations lack nexus because they are not
+tied specifically to the coolant elements of the asserted
+claims. We similarly reject Kohler’s argument that the
+product liability suits are irrelevant to whether there was
+a long-felt need for a solution to carbon monoxide poison-
+ings on boats and whether this need was met by the
+claimed invention. The evidence concerning the product
+liability suits undoubtedly establishes that there was a
+known problem in the industry regarding carbon monox-
+ide poisonings. It also shows that Kohler was aware of
+this problem prior to 2000, as many of the lawsuits Kohler
+faced were the result of incidents that occurred in the
+1990s. See J.A. 15,448–52, 15,996–97. And, although
+Kohler argues that it solved the problem underlying the
+product liability suits by switching the exhaust pipe
+material that it used, other Kohler documents suggest
+that Kohler itself thought the carbon monoxide poisoning
+problem was solved by low–carbon monoxide emitting
+gen-sets. For example, a 2005 Kohler slide presentation
+that accompanied Kohler’s launch of its low–carbon
+monoxide emitting gen-set, titled “Create the right at-
+mosphere: Kohler Marine Generators helping make
+boating safer,” J.A. 17,741, states that “The need is clear!”
+above a bar chart of fatal and non-fatal boat-related
+carbon monoxide poisonings for the years 1984–2004,
+J.A. 17,742. The slides immediately following this bar
+chart describe the carbon monoxide problem and how the
+technology in Kohler’s low–carbon monoxide gen-sets
+20                                   WBIP, LLC   v. KOHLER CO.
+
+
+
+solve this problem. J.A. 17,742–47. Kohler may be cor-
+rect that switching from cast iron to stainless steel ex-
+haust pipes helped to resolve the product liability suits,
+but Kohler’s own documents show that even Kohler
+recognized the carbon monoxide poisoning problem per-
+sisted despite switching pipe materials. And Kohler’s
+expert testified that low–carbon monoxide emitting gen-
+sets are not nearly as susceptible to the exhaust system
+integrity issues (i.e., corrosion and subsequent leak of
+carbon monoxide) that were the basis of the product
+liability suits. J.A. 16,012. He explained that, for the
+low–carbon monoxide emitting gen-sets, “if you had a leak
+right at the entrance to the catalyst, you know, it would
+be possible to have a [carbon monoxide] problem there.
+But that’s part of the engine, and it’s a very robust joint
+there.” Id. Presented with this conflicting evidence, the
+jury was entitled to find that the claimed invention, as
+opposed to switching the exhaust pipe material, solved
+the carbon monoxide poisoning problem. Given the ver-
+dict, we presume it did so in WBIP’s favor. Substantial
+evidence, in the form of the testimony and documents
+WBIP presented, supports this finding.
+    Kohler also challenges the evidence of product liabil-
+ity suits against it as “grossly prejudicial” and that the
+inclusion of this evidence entitles it to a new trial. Appel-
+lant’s Br. 39. Prior to trial, the district court granted-in-
+part and denied-in-part Kohler’s motion in limine to
+exclude this evidence, explaining that it “notes that such
+evidence will be relevant to both non-obviousness and
+damages but cautions plaintiff that references to specific
+lawsuits will be limited so as to reduce any risk of undue
+prejudice to the defendant.” J.A. 15,005 (emphasis add-
+ed). The parties agreed on “a limiting instruction as to
+the product liability suits in general,” J.A. 15,397–98, and
+this instruction was read to the jurors prior to the testi-
+mony that Kohler challenges on appeal, see, e.g.,
+J.A. 15,447, 15,453. After the jury rendered its verdict,
+WBIP, LLC   v. KOHLER CO.                                 21
+
+
+
+Kohler moved for a new trial based, in part, on its conten-
+tion that introduction of this evidence was unfairly preju-
+dicial, as evidenced by the jury’s damages verdict. The
+district court denied Kohler’s motion for a new trial on
+this ground, explaining that it rejected Kohler’s pre-trial
+arguments for exclusion and that “Kohler has presented
+no new arguments to dissuade it.” WBIP, LLC v. Kohler
+Co., No. 11-10374-NMG, 2014 WL 585854, at *3 (D. Mass.
+Feb. 12, 2014). But the district court determined that
+part of the jury’s damages verdict was not supported by
+substantial evidence and granted Kohler’s motion for
+remittitur, reducing the awarded damages from
+$9,641,206 to $3,775,418. 5 Id. at *1–3, 9.
+    We review a district court’s decision regarding wheth-
+er to exclude evidence pursuant to Federal Rule of Evi-
+dence 403 under the law of the regional circuit. SSL
+Servs., LLC v. Citrix Sys., Inc., 769 F.3d 1073, 1092 (Fed.
+Cir. 2014). The First Circuit reviews such decisions for
+abuse of discretion, and cautions that “[o]nly rarely—and
+in extraordinarily compelling circumstances—will [it],
+from the vista of a cold appellate record, reverse a district
+court’s on-the-spot judgment concerning the relative
+weighing of probative value and unfair effect.” United
+States v. Whitney, 524 F.3d 134, 143 (1st Cir. 2008) (quot-
+ing United States v. Li, 206 F.3d 78, 84–85 (1st Cir.
+2000)).
+    Kohler argues that the challenged evidence was gross-
+ly prejudicial “as evidenced by the runaway damages
+verdict.” Appellant’s Br. 43–44. But Kohler never ex-
+plains how the mitigating and remedial steps taken by
+
+
+    5  The district court offered WBIP a choice: either
+accept the remittitur or have a new trial on damages.
+WBIP, 2014 WL 585854, at *9. WBIP chose remittitur
+and neither party has appealed the amount of damages
+awarded.
+22                                   WBIP, LLC   v. KOHLER CO.
+
+
+
+the district court (i.e., its order that the parties’ agreed-
+upon limiting instruction be read to jurors prior to any of
+the challenged testimony and its grant of remittitur)
+failed to redress any prejudice that may have affected
+Kohler. The First Circuit has held that “within wide
+margins, the potential for prejudice . . . can be satisfacto-
+rily dispelled by appropriate curative instructions” and
+that “[j]urors are presumed to follow such instructions,
+except in extreme cases.” United States v. Richardson,
+421 F.3d 17, 41 (1st Cir. 2005) (quoting United States v.
+Freeman, 208 F.3d 332, 345–46 (1st Cir. 2000)). Kohler
+does not address the limiting instructions, nor does it
+mention the district court’s grant of remittitur. Consid-
+ered in context, we cannot say that these are extraordi-
+narily compelling circumstances that warrant reversing
+the district court’s evidentiary decision and remanding for
+a new trial.
+    We also reject Kohler’s argument that substantial ev-
+idence does not support a finding of long-felt need because
+the record evidence establishes that “the Coast Guard and
+NIOSH first investigated [carbon-monoxide]-related
+poisonings on houseboats in 2000” and “there was no
+evidence of any efforts to limit [carbon monoxide] emis-
+sions from marine generators before 2000.” Resp. &
+Reply Br. 35. As Kohler correctly notes, whether there is
+a “long-felt need is analyzed as of the date of an articulat-
+ed identified problem and evidence of efforts to solve that
+problem.” Texas Instruments, Inc. v. U.S. Int’l Trade
+Comm’n, 988 F.2d 1165, 1178 (Fed. Cir. 1993). WBIP
+presented evidence that the problem of carbon monoxide
+poisoning from houseboat gen-sets was known prior to
+2000 in the form of the product liability suits against
+Kohler.     WBIP also presented testimony from Mr.
+Westerbeke that carbon monoxide had been a known
+problem in the houseboat industry since his company first
+started selling gasoline marine gen-sets in 1983.
+J.A. 15,478, 15,500–01.     And Kohler itself presented
+WBIP, LLC   v. KOHLER CO.                                23
+
+
+
+evidence that it was making efforts to solve the carbon
+monoxide poisoning problem by replacing the exhaust
+pipes in its older generation gen-sets with stainless steel
+pipes. This constitutes substantial evidence to support
+the jury’s presumed factual finding that the claimed
+invention solved a long-felt need in the industry.
+                            3. Praise
+      Evidence that the industry praised a claimed inven-
+tion or a product which embodies the patent claims
+weighs against an assertion that the same claim would
+have been obvious. Industry participants, especially
+competitors, are not likely to praise an obvious advance
+over the known art. Thus, if there is evidence of industry
+praise in the record, it weighs in favor of the non-
+obviousness of the claimed invention. See, e.g., Institut
+Pasteur & Universite Pierre Et Marie Curie v. Focarino,
+738 F.3d 1337, 1347 (Fed. Cir. 2013) (“[I]ndustry praise
+. . . provides probative and cogent evidence that one of
+ordinary skill in the art would not have reasonably ex-
+pected [the claimed invention].”).
+    Kohler argues that WBIP’s evidence of praise was on-
+ly a “few snippets” that “fell far off target” because they
+relate to WBIP’s Safe-CO, low–carbon monoxide gen-set
+products, not solely to the coolant elements [B] and [D]
+not disclosed in Phipps. Appellant’s Br. 45–46. This
+argument is primarily one of nexus. As discussed above,
+WBIP established its entitlement to a presumption of
+nexus for each type of objective evidence that it presented.
+Moreover, the jury’s presumed finding of industry praise
+of the claimed invention is supported by substantial
+evidence.
+   WBIP’s evidence of praise includes the fact that
+Westerbeke received the National Marine Manufacturers
+Association Innovation Award in 2004 for its Safe-CO
+gen-sets. And the evidence includes an internal Kohler
+document regarding “Carbon Monoxide and Low [carbon
+24                                   WBIP, LLC   v. KOHLER CO.
+
+
+
+monoxide products]” which recognizes that Westerbeke
+won the Innovation Award at a 2004 trade show.
+J.A. 17,915. Other record evidence of praise includes an
+award from Houseboating Adventures Magazine, an
+article positively mentioning Westerbeke’s Safe-CO gen-
+sets in Popular Mechanics magazine, and an email from
+an Industrial Hygienist at the U.S. Department of the
+Interior, thanking Westerbeke for developing its Safe-CO
+gen-sets and stating that “[h]opefully this will set new
+industry standards for generators and we will eventually
+be rid of this life threatening hazard” and that the Safe-
+CO “generators will save lives.” J.A. 17,255. Contrary to
+Kohler’s argument, this constitutes substantial evidence
+to support the jury’s presumed factual finding. This
+strong evidence of industry recognition of the significance
+and value of the claimed invention weighs in favor of non-
+obviousness.
+                      4. Skepticism
+     Evidence of industry skepticism weighs in favor of
+non-obviousness.     If industry participants or skilled
+artisans are skeptical about whether or how a problem
+could be solved or the workability of the claimed solution,
+it favors non-obviousness. Doubt or disbelief by skilled
+artisans regarding the likely success of a combination or
+solution weighs against the notion that one would com-
+bine elements in references to achieve the claimed inven-
+tion. See, e.g., Gillette Co. v. S.C. Johnson & Son, Inc.,
+919 F.2d 720, 726 (Fed. Cir. 1990) (“[The infringer’s]
+skepticism is relevant and persuasive evidence of the
+nonobviousness of [the] invention.”); Envtl. Designs, Inc.
+v. Union Oil Co., 713 F.2d 693, 697–98 (Fed. Cir. 1983)
+(“Before learning of the [claimed] process, and with
+knowledge of earlier failed efforts, both [parties’ experts]
+stated unequivocally that they believed the [claimed
+process] would not adequately solve the problem. Expres-
+sions of disbelief by experts constitute strong evidence of
+WBIP, LLC   v. KOHLER CO.                              25
+
+
+
+nonobviousness.” (citing United States v. Adams, 383 U.S.
+39, 52 (1966))).
+    Kohler’s arguments regarding skepticism are similar
+to its arguments regarding praise, and fail for similar
+reasons. The jury’s presumed factual finding that there
+was skepticism that low–carbon monoxide gen-sets could
+be produced is supported by substantial evidence. WBIP
+presented evidence that an audience of over 200 people at
+an industry workshop on carbon monoxide poisonings,
+sponsored by the U.S. Coast Guard Office of Boating
+Safety and NIOSH and held at a 2003 boat show, ex-
+pressed shock when Mr. Westerbeke announced that
+Westerbeke “would have low [carbon monoxide] -- actually
+zero percentage PPM [carbon monoxide] generators
+within one to two years.” J.A. 15,374, 15,369–70, 17,202.
+The same witness explained that, at the time, Westerbeke
+had a prototype gen-set that produced between zero and
+nine ppm of carbon monoxide and that, at the end of this
+session of the workshop, two individuals from Kohler told
+Mr. Westerbeke that “it was impossible to produce a
+generator with zero PPM of [carbon monoxide].”
+J.A. 15,374. Supporting this testimony, WBIP admitted
+the minutes from this workshop into evidence, which
+state that “[t]here was a prediction that generators with
+substantially [carbon monoxide] free exhaust will become
+available within a couple of years.” J.A. 17,213.
+    Kohler argues that this evidence shows that the only
+thing “shocking” or “impossible” was manufacturing a
+gen-set that produces zero ppm of carbon monoxide in the
+exhaust, not exhaust substantially free of carbon monox-
+ide, and that, even now, no gen-set exists that produces
+zero ppm of carbon monoxide. WBIP produced more than
+a mere scintilla of evidence here—it produced witness
+testimony that was corroborated by the official minutes of
+the workshop. And, drawing reasonable inferences in
+favor of WBIP, the verdict winner, we cannot say that a
+jury would be unreasonable if it found, based on this
+26                                  WBIP, LLC   v. KOHLER CO.
+
+
+
+evidence, that the boating industry expressed skepticism
+that low–carbon monoxide producing gen-sets could be
+made.
+                       5. Copying
+    “Copying may indeed be another form of flattering
+praise for inventive features,” Crocs, 598 F.3d at 1311,
+and thus evidence of copying tends to show non-
+obviousness. See also Windsurfing Int’l, Inc. v. AMF, Inc.,
+782 F.2d 995, 1000 (Fed. Cir. 1986) (“[C]opying the
+claimed invention, rather than one within the public
+domain, is indicative of non-obviousness.”). The fact that
+a competitor copied technology suggests it would not have
+been obvious.
+    The parties dispute whether substantial evidence
+supports a finding that Kohler copied Westerbeke’s Safe-
+CO gen-sets, which are an embodiment of the claimed
+invention. WBIP argues it presented evidence that it
+demonstrated its Safe-CO gen-sets in a trailer at a 2004
+boat show and that, in response to a question from two
+Kohler employees who visited this trailer, a Westerbeke
+engineer explained that the low–carbon monoxide emis-
+sions were achieved through use of a catalyst and elec-
+tronic fuel injection. WBIP also presented evidence that,
+shortly after this show, an internal Kohler document
+requesting funding for development of Kohler’s own low–
+carbon monoxide gen-sets explained that low–carbon
+monoxide exhaust would be achieved through the same
+two features that the Westerbeke engineer had described:
+“a precise electronically-controlled engine management
+system and exhaust after-treatment with a catalyst.”
+J.A. 17,785. In fact, this document specifically mentions
+Westerbeke’s “‘Safe-CO’ line” of gen-sets and the fact that
+Westerbeke had “patented their concept” (albeit citing an
+earlier-issued Westerbeke patent, not the patents in suit,
+which had yet to issue). J.A. 17,785.
+WBIP, LLC   v. KOHLER CO.                                27
+
+
+
+    Kohler counters that it produced testimony and doc-
+umentary evidence contradicting WBIP’s evidence of
+copying. Kohler argues that its engineer testified that he
+had already decided to use an electronic control unit in its
+low–carbon monoxide gen-sets a month prior to
+Westerbeke’s demonstration at the 2004 boat show, and
+that this testimony is supported by documentary evi-
+dence.
+     Copying is a question of fact and, as with any question
+of fact, the fact-finder (here, the jury) was entitled to
+credit WBIP’s evidence over Kohler’s. See Kinetic Con-
+cepts, 688 F.3d at 1362. And we will not substitute our
+view of the conflicting evidence for that of the jury. SIBIA
+Neurosciences, Inc. v. Cadus Pharm. Corp., 225 F.3d 1349,
+1355 (Fed. Cir. 2000). Based on the evidence presented,
+i.e., that Kohler engineers were aware of and had access
+to Westerbeke’s Safe-CO gen-set and shortly thereafter
+with express reference to the Westerbeke Safe-CO gen-
+sets adopted the same features in developing Kohler’s
+own low–carbon monoxide gen-set, we cannot say that a
+jury would be unreasonable in finding that Kohler copied
+the claimed invention.
+                   6. Commercial Success
+    When “a product attains a high degree of commercial
+success, there is a basis for inferring that [attempts to a
+solution] have been made and have failed.” Merck & Co.
+v. Teva Pharm. USA, Inc., 395 F.3d 1364, 1376 (Fed. Cir.
+2005). See also Magowan v. N.Y. Belting & Packing Co.,
+141 U.S. 332, 343, 12 S. Ct. 71, 76, 35 L. Ed. 781 (1891)
+(“[S]uch an extensive public use [of the patented inven-
+tion] as almost to supersede all packings made under
+other methods . . . was pregnant evidence of its novelty,
+value, and usefulness.”). Demonstrating that an inven-
+tion has commercial value, that it is commercially suc-
+cessful, weighs in favor of its non-obviousness.
+28                                   WBIP, LLC   v. KOHLER CO.
+
+
+
+     On appeal, Kohler’s primary argument regarding
+commercial success of the claimed invention is that WBIP
+failed to establish nexus. As discussed above, WBIP was
+entitled to a presumption of nexus, which Kohler
+acknowledged in its reply brief. Kohler did not rebut that
+presumption. WBIP presented the jury with evidence of
+the immediate and high level of success of the Kohler
+Low–carbon monoxide generator which was found to
+infringe. We see no basis to disturb the jury’s presumed
+factual findings of commercial success underlying its
+verdict on obviousness.
+    Finally, Kohler reiterates its view that, even if we as-
+sume there was evidence of multiple objective considera-
+tions of non-obviousness, that evidence is not strong
+enough to overcome its own evidence of obviousness based
+on Phipps. We do not agree. The objective considerations
+in this case, commercial success, long-felt need, industry
+praise, skepticism, and copying, each weigh in favor of a
+conclusion that using conventional coolant components to
+convert the land-based Phipps engine into a low–carbon
+monoxide emission marine gen-set would not have been
+obvious to one of skill in the art at the relevant time. Too
+often the obviousness analysis is framed as an inquiry
+into whether a person of skill, with two (and only two)
+references sitting on the table in front of him, would have
+been motivated to combine (or, in Kohler’s view, could
+have combined) the references in a way that renders the
+claimed invention obvious. The real question is whether
+that skilled artisan would have plucked one reference out
+of the sea of prior art (Phipps) and combined it with
+conventional coolant elements to address some need
+present in the field (the need for low–carbon monoxide
+emission marine gen-sets). Whether a skilled artisan
+would be motivated to make a combination includes
+whether he would select particular references in order to
+combine their elements. This is part of the fact question
+and we must give deference to the jury’s findings on this
+WBIP, LLC   v. KOHLER CO.                                29
+
+
+
+point. Objective indicia minimize hindsight’s impact.
+And in this case, the objective indicia point to the non-
+obviousness of the claimed combination. They are sub-
+stantial evidence that one of skill would not have found
+the claimed combination obvious. We see no legal error in
+the ultimate conclusion that Kohler failed to prove that
+the asserted claims would have been obvious by clear and
+convincing evidence.
+                 II.   Written Description
+    Written description is a question of fact, which we re-
+view for substantial evidence. 6 Ariad Pharm., Inc. v. Eli
+Lilly & Co., 598 F.3d 1336, 1351, 1355 (Fed. Cir. 2010) (en
+banc). On appeal, Kohler argues it should have prevailed
+on written description as a matter of law and presents to
+this court a detailed argument regarding a lack of written
+description support for the claimed “compound control
+scheme.” See Appellant’s Br. 51–64. In support of its
+argument, it cites passages in both the ’044 and ’196
+patents and the prosecution history. Id. This detailed
+argument was not presented to the jury. Before the jury,
+Kohler asked its expert three questions on written de-
+scription:
+   Q. All right. Last couple questions. Within the
+   patent, the patent itself, does the patent describe
+   -- provide any description of how the engine con-
+   troller works?
+   A. It just described what I described on that first
+   slide. That was the extent of it, that there’s oxy-
+
+
+   6    Kohler recognizes that written description is a
+question of fact, reviewed for substantial evidence. Appel-
+lant’s Br. 52. It nonetheless argues written description
+should be treated as a question of law. Id. (“Kohler re-
+serves the right to seek further review on this issue if
+necessary.”).
+30                                   WBIP, LLC   v. KOHLER CO.
+
+
+
+     gen sensor feedback. Air/fuel ratio is kept at a
+     target.
+     Q. Was there any other technical description sug-
+     gesting there was any technical innovation or im-
+     provement or anything not trivial in how the
+     Westerbeke people were doing that?
+     A. There was not.
+     [Two questions, to which the court sustained ob-
+     jections, omitted.]
+     Q. Was there any written description in the pa-
+     tent on how to do this?
+     A. There was not sufficient written description.
+J.A. 15,890–91. Following this, Kohler admitted the
+prosecution history of the ’044 patent into evidence. 7
+J.A. 15,891–92. In its closing argument to the jury,
+Kohler’s counsel stated:
+     Just a couple of other things that are going to pop
+     up on the verdict form. You’re going to see a ques-
+     tion about written description. What that issue is
+     -- because there hasn’t been argument about it.
+
+
+
+     7  Kohler disputes that this is the only evidence it
+presented to support its written description argument,
+arguing “Kohler elicited testimony from WBIP’s own
+expert showing the lack of written description.” Resp. &
+Reply Br. 52 (first emphasis added) (citing J.A. 15,196–97,
+15,364–65). The cited appendix pages are from WBIP’s
+direct (J.A. 15,196–97) and redirect (J.A. 15,364–65)
+examination of its expert, not Kohler’s cross-examination.
+While it does not matter which party elicited the relied-
+upon testimony, it is not clear from the cited testimony
+how it shows the lack of written description and Kohler
+offers no such explanation in its briefs.
+WBIP, LLC   v. KOHLER CO.                                  31
+
+
+
+    The evidence is in. The question is does the pa-
+    tent adequately describe in the -- does it describe
+    what the invention was as it relates to the control,
+    because, since we’ve heard, this is where they say
+    the invention is now. This is where it’s all differ-
+    ent. And so there’s a question to you, do you be-
+    lieve this patent adequately describes the written
+    -- the inventor adequately describes the written
+    invention. You’ll hear the instruction from the
+    Judge. But you’ll see that in there.
+J.A. 16,093. The jury found that Kohler failed to prove by
+clear and convincing evidence that the asserted claims
+were invalid for lack of written description. J.A. 8099.
+    Nowhere in these quoted passages did Kohler present
+the jury with the detailed argument it provides to us in
+this appeal, despite the fact that Kohler, as the party
+challenging validity, had the burden to prove by clear and
+convincing evidence that the written description require-
+ment was not met. Abbott Labs. v. Syntron Bioresearch,
+Inc., 334 F.3d 1343, 1356 (Fed. Cir. 2003). On appeal, we
+limit ourselves to the arguments raised by the parties and
+review jury findings on the record presented below.
+Based on what was presented to the jury in this case, the
+jury’s verdict is clearly supported by substantial evidence.
+    Under our precedent, “[g]eneral and conclusory testi-
+mony . . . does not suffice as substantial evidence of
+invalidity.” Koito Mfg. Co. v. Turn-Key-Tech, LLC, 381
+F.3d 1142, 1152 (Fed. Cir. 2004). This is precisely the
+type of evidence that Kohler submitted to the jury in this
+case. If such evidence fails to meet even the substantial
+evidence standard, it does not rise to the level of clear and
+convincing evidence, nor does it “point so strongly and
+overwhelmingly in favor of [Kohler] that a reasonable jury
+could not have reached the verdict” in favor of WBIP,
+which is what Kohler has to show to be entitled to judg-
+ment as a matter of law. Marine Polymer Techs., 672
+32                                    WBIP, LLC   v. KOHLER CO.
+
+
+
+F.3d at 1357–58. We see no error in the district court’s
+denial of judgment as a matter of law that the asserted
+claims lack written description. 8
+              III.    Willful Infringement
+    This case was decided by the district court under the
+then-applicable willful infringement standard. At the
+time of this decision, proof of willful infringement re-
+quired “clear and convincing evidence that the infringer
+acted despite an objectively high likelihood that its ac-
+tions constituted infringement of a valid patent” and that
+“this objectively-defined risk . . . was either known or so
+obvious that it should have been known.” In re Seagate
+Tech., LLC, 497 F.3d 1360, 1371 (Fed. Cir. 2007). The
+jury found that WBIP had proven by clear and convincing
+evidence that Kohler’s infringement was willful.
+J.A. 8100. And the district court concluded that Kohler’s
+defenses at trial were objectively unreasonable. WBIP,
+2014 WL 585854, at *5–6.
+     Kohler argues that the judgment of willful infringe-
+ment must be reversed for two independent reasons.
+First, it argues that, contrary to the district court’s de-
+termination, its obviousness and written description
+defenses are objectively reasonable under Halo Electron-
+ics, Inc. v. Pulse Electronics, Inc., 769 F.3d 1371 (Fed. Cir.
+2014), cert. granted, 136 S. Ct. 356 (Oct. 19, 2015) (No. 14-
+1513), and Bard Peripheral Vascular, Inc. v. W.L. Gore &
+Associates, Inc., 682 F.3d 1003 (Fed. Cir. 2012). Second, it
+
+
+
+     8  It would not matter if we reviewed written de-
+scription as a question of law or a question of fact in this
+case because Kohler introduced no detailed argument and
+nothing but a conclusory statement about written descrip-
+tion. As such, under either standard, the evidence Kohler
+presented would be insufficient to establish a written
+description violation by clear and convincing evidence.
+WBIP, LLC   v. KOHLER CO.                                33
+
+
+
+argues that WBIP did not present evidence to the jury
+that Kohler was aware of the patents in suit, which is an
+element of the subjective prong of the willfulness test,
+such that the jury’s verdict that Kohler willfully infringed
+cannot stand. After this case was argued on appeal, the
+Supreme Court decided Halo Electronics, Inc. v. Pulse
+Electronics, Inc., 136 S. Ct. 1923 (2016) (“Halo”).
+    Under Halo, we review the district court’s determina-
+tion to award enhanced damages under 35 U.S.C. § 284
+for abuse of discretion. Halo, 136 S. Ct. at 1934. 9 As with
+awards of attorney’s fees under 35 U.S.C. § 285, a party
+seeking enhanced damages under § 284 bears the burden
+of proof by a preponderance of the evidence. 10 Id. (citing
+Octane Fitness, LLC v. ICON Health & Fitness Inc., 134
+S. Ct. 1749, 1758 (2014)). Although “[t]he Seagate test
+reflects, in many respects, a sound recognition that en-
+hanced damages are generally appropriate under § 284
+only in egregious cases,” the Supreme Court rejected that
+test as “unduly rigid” and as “impermissibly encum-
+ber[ing] the statutory grant of discretion to district
+courts.” Id. at 1932.
+
+
+
+   9     Even Kohler admits WBIP “preserved a challenge
+to the standard of review” by asserting that the district
+“court’s willfulness determination should be reviewed only
+for abuse of discretion following Highmark Inc. v. Allcare
+Health Management System, Inc., 134 S. Ct. 1744 (2014).”
+Resp. & Reply Br. 54 n.11 (citing Cross-Appellant’s Br.
+19).
+
+   10  This is a lower burden of proof than clear and
+convincing evidence, which the jury found that WBIP had
+met. This change in the law provides no basis for re-
+mand. If the jury found willfulness under the clear and
+convincing standard, the lower standard could not have
+helped Kohler.
+34                                   WBIP, LLC   v. KOHLER CO.
+
+
+
+    As to Kohler’s first argument—that its defenses were
+objectively reasonable—the Supreme Court’s decision in
+Halo expressly rejected the notion that objective reckless-
+ness must be found in every case involving enhanced
+damages for willful infringement. The Court cited the
+objective recklessness requirement as the “principal
+problem with Seagate’s two-part test,” explaining that
+“[s]uch a threshold requirement excludes from discretion-
+ary punishment many of the most culpable offenders,”
+including those “who intentionally infringe[] another’s
+patent.” Halo, 136 S. Ct. at 1932. Applying reasoning
+similar to Octane Fitness, the Court explained that an
+infringer’s subjective bad faith alone may support an
+award of enhanced damages. Id. at 1933 (“The subjective
+willfulness of a patent infringer, intentional or knowing,
+may warrant enhanced damages, without regard to
+whether his infringement was objectively reckless.”). And
+it explained that the appropriate time frame for consider-
+ing culpability is by assessing the infringer’s knowledge at
+the time of the challenged conduct. Id. This is a depar-
+ture from our Seagate line of cases, which permitted
+infringers to escape liability for enhanced damages pro-
+vided that they were able “to muster a reasonable (even
+though unsuccessful) defense at the infringement trial.”
+Id.
+   In this case, the district court determined that Kohler
+was objectively reckless under Seagate, as its litigation-
+developed obviousness and non-infringement defenses
+were unreasonable. 11 WBIP, 2014 WL 585854, at *5. On
+
+
+
+     11It does not appear that Kohler argued that its
+written description defense was reasonable to the district
+court. On appeal, Kohler’s argument on this point is a
+single paragraph, asserting its defense was reasonable
+because there was countervailing evidence to support its
+theory such that it could have realistically expected its
+WBIP, LLC   v. KOHLER CO.                                35
+
+
+
+appeal, WBIP argues that the district court correctly
+determined that Kohler was objectively reckless, and that
+“Kohler’s obviousness defense was a litigation-contrived,
+hindsight reconstruction.”       Cross-Appellant’s Br. 67.
+Kohler does not dispute that its obviousness defense was
+created during litigation, years after it began engaging in
+culpable conduct. Instead, Kohler argues that it “is no
+answer to characterize” its obviousness defense as litiga-
+tion-contrived because Seagate’s objective recklessness
+prong “‘requires analysis of all of the infringer’s non-
+infringement and invalidity defenses, even if those defens-
+es were developed for litigation.’” Resp. & Reply Br. 57
+(quoting Global Traffic Techs. LLC v. Morgan, 620
+F. App’x 895, 904 (Fed. Cir. 2015) (unpublished)) (empha-
+sis added by Kohler). 12 But as the Supreme Court ex-
+plained in Halo, timing does matter. Kohler cannot
+insulate itself from liability for enhanced damages by
+creating an (ultimately unsuccessful) invalidity defense
+for trial after engaging in the culpable conduct of copying,
+or “plundering,” WBIP’s patented technology prior to
+litigation. See Halo, 136 S. Ct. at 1933. Proof of an
+objectively reasonable litigation-inspired defense to
+infringement is no longer a defense to willful infringe-
+ment. Thus, Kohler’s arguments on appeal that the
+district court erred in concluding that its obviousness
+defense was objectively unreasonable is not a basis for
+concluding that the district court abused its discretion in
+enhancing damages.
+
+
+
+
+argument to succeed. Kohler does not argue that its non-
+infringement defense was reasonable on appeal.
+    12  Notably, Global Traffic Technologies cites the
+Federal Circuit opinion in Halo, now vacated by the
+Supreme Court, for the proposition quoted in Kohler’s
+brief.
+36                                   WBIP, LLC   v. KOHLER CO.
+
+
+
+    Kohler also argues that the jury’s verdict that Kohler
+willfully infringed should be overturned because the
+record did not contain substantial evidence that Kohler
+knew about the patents at the time it was infringing.
+Knowledge of the patent alleged to be willfully infringed
+continues to be a prerequisite to enhanced damages. See
+Halo, 136 S. Ct. at 1932–33 (discussing knowledge re-
+quirement for intent). We do not interpret Halo as chang-
+ing the established law that the factual components of the
+willfulness question should be resolved by the jury. 13 See
+
+
+     13  Judge O’Malley’s concurrence raised the Seventh
+Amendment question and multiple briefs filed to the
+Supreme Court in Halo invited the Court to determine
+whether there was a Seventh Amendment right to a jury
+trial of the willfulness issue in Halo. Halo Elecs., Inc. v.
+Pulse Elecs., Inc., 769 F.3d 1371, 1386 (Fed. Cir. 2014)
+(O’Malley, J., concurring); Brief of Mentor Graphics Corp.
+et al. as Amici Curiae in Support of Neither Party at 20–
+27, Halo, 136 S. Ct. 1923 (2016) (No. 14-1513), 2015 WL
+9292300; Brief of EMC Corp. as Amicus Curiae in Support
+of Respondents at 28–30, Halo, 136 S. Ct. 1923 (2016)
+(No. 14-1513), 2016 WL 322586; Brief of Amicus Curiae
+Askeladden LLC in Support of Neither Party at 31 n.8,
+Halo, 136 S. Ct. 1923 (2016) (No. 14-1513), 2015 WL
+9245656. The Court chose not to decide the Seventh
+Amendment question. This leaves in place our prior
+precedent that there is a right to a jury trial on the will-
+fulness question. Our case law is clear that in the ab-
+sence of the Court overturning our established precedent
+that precedent remains in effect. See, e.g., Masias v. Sec’y
+of Health & Human Servs., 634 F.3d 1283, 1288 (Fed. Cir.
+2011) (citing Barclay v. United States, 443 F.3d 1368,
+1373 (Fed. Cir. 2006)). Of course, this is not to say that a
+jury verdict of willful infringement ought to result in
+enhanced damages. Whether the conduct is sufficiently
+egregious as to warrant enhancement and the amount of
+WBIP, LLC   v. KOHLER CO.                                 37
+
+
+
+Richardson v. Suzuki Motor Co., 868 F.2d 1226, 1250
+(Fed. Cir. 1989) (“Absent sufficient basis for directing the
+verdict, Richardson has the right of jury determination of
+this factual question. Willfulness of behavior is a classical
+jury question of intent. When trial is had to a jury, the
+issue should be decided by the jury.” (citations omitted));
+Halo Elecs., Inc. v. Pulse Elecs., Inc., 769 F.3d 1371, 1386
+(Fed. Cir. 2014) (O’Malley, J., concurring) (“[W]e have
+long held that a willfulness determination contains issues
+of fact that should be submitted to a jury.”).
+     Kohler does not contest that it, in fact, had pre-suit
+knowledge of the patents in suit. And in fact, Kohler
+admitted in its Undisputed Statement of Facts in support
+of its Motion for Summary Judgment of Non-Infringement
+that it “first became aware of the ’044 Patent at the latest
+by August 20, 2010” when it received an inquiry “regard-
+ing its knowledge of any WBIP patents on low carbon
+emission marine generator products.” J.A. 2880. Despite
+this admission, Kohler argues that no evidence of its
+knowledge was presented to the jury and thus the jury’s
+finding of willfulness should be rejected because “there
+was no basis to find—or even infer—that Kohler knew or
+should have known of an objectively high risk of patent
+infringement.” Appellant’s Br. 70–71.
+    We conclude that there was substantial evidence for
+the jury’s finding that Kohler had knowledge of the pa-
+tents in suit at the time of infringement. At trial, WBIP
+presented testimony from John (“Jack”) Westerbeke, the
+inventor and majority-owner of Westerbeke Corporation,
+that Westerbeke’s low–carbon monoxide gen-sets have
+been marked with the patents in suit since their issuance.
+Supporting this testimony, WBIP submitted an email
+Mr. Westerbeke sent the day after the ’044 patent issued
+
+
+the enhancement that is appropriate are committed to the
+sound discretion of the district court.
+38                                   WBIP, LLC   v. KOHLER CO.
+
+
+
+in 2008, which states “I have to get a patent label on all
+gas EFI products immediately” and that the label would
+say “U.S. Pat. No. 7,314,044; Other patents pending.”
+J.A. 17,192. WBIP submitted representative photographs
+of Westerbeke’s low–carbon monoxide gen-sets that are
+clearly marked with both patents in suit. J.A. 17,261. It
+also presented testimony that Westerbeke and Kohler
+were the only two companies in the market that provide
+low–carbon monoxide gen-sets, and documentary evi-
+dence, such as Kohler’s November 2004 internal request
+for funding to develop low–carbon monoxide gen-sets,
+demonstrating that Kohler was aware of Westerbeke
+patents covering Westerbeke’s Safe-CO gen-sets. The
+district court also had before it Kohler’s admission in its
+Statement of Undisputed Facts in support of its Motion
+for Summary Judgment of Non-Infringement that Kohler
+“first became aware of the ’044 Patent at the latest by
+August 20, 2010” when it received an inquiry “regarding
+its knowledge of any WBIP patents on low carbon emis-
+sion marine generator products.” J.A. 2880. The jury had
+record evidence upon which it could have inferred that
+Kohler had knowledge of the patents at issue, and thus its
+finding is supported by substantial evidence.
+    Consistent with Halo, the district court, exercising its
+discretion, decided not to treble damages, but rather to
+enhance damages by 50%.        The district court has the
+discretion to decide whether the case is sufficiently egre-
+gious to warrant enhancing damages and to decide the
+amount of enhancement that is warranted (up to the
+statutory limit of treble damages). And the Court ex-
+plained, “none of this is to say that enhanced damages
+must follow a finding of egregious misconduct.” Halo, 136
+S. Ct. at 1933. We review the district court’s decision to
+enhance damages under an abuse of discretion standard.
+Id. at 1934.
+WBIP, LLC   v. KOHLER CO.                                  39
+
+
+
+    We cannot say that the district court abused its dis-
+cretion in enhancing damages for Kohler’s willful in-
+fringement.
+                IV.    WBIP’s Cross-Appeal
+    WBIP cross-appeals the district court’s denial of a
+permanent injunction. The district court originally de-
+nied WBIP’s motion for a permanent injunction, reason-
+ing the public interest factor weighed against an
+injunction because, as WBIP was a much smaller produc-
+er of low–carbon monoxide gen-sets than Kohler, it “would
+deprive the consuming public of access to a potentially life
+saving product.” J.A. 10,381–82. It determined that,
+based on its public interest finding, it need not address
+the remaining factors identified in eBay Inc.
+v. MercExchange, LLC, 547 U.S. 388, 391 (2006). WBIP
+moved for reconsideration, arguing that the district court
+misunderstood WBIP’s manufacturing capacity, which
+was sufficient to manufacture generators for Kohler’s
+customers. The district court declined to reconsider its
+denial of a permanent injunction, stating that “[e]ven if
+[WBIP] has a larger manufacturing capability than
+previously estimated, the Court is persuaded that it is in
+the public interest to have more than one company manu-
+facture low–carbon monoxide generators” such that an
+ongoing royalty was a “more appropriate solution.”
+J.A. 10,671.
+     On appeal, WBIP argues that the district court erred
+in its consideration of the eBay factors. We agree that the
+district court’s analysis is sufficiently flawed to constitute
+an abuse of discretion warranting vacating the judgment.
+Before the district court WBIP argued, inter alia, that
+there is a “public interest to uphold patent rights.”
+J.A. 8127. But the district court did not explain how this
+public interest was outweighed by the public interest of
+having more than one manufacturer of gen-sets that
+produce low–carbon monoxide in their exhaust, especially
+40                                    WBIP, LLC   v. KOHLER CO.
+
+
+
+if WBIP does have the manufacturing capacity to meet
+the industry’s needs. The district court’s decision is based
+on its reasoning that having more manufacturers of a life-
+saving good in the market is better for the public interest.
+But this reasoning is true in nearly every situation involv-
+ing such goods, such that, if it alone is sufficient, it would
+create a categorical rule denying permanent injunctions
+for life-saving goods, such as many patented pharmaceu-
+tical products. As the Supreme Court has warned, cate-
+gorical rules regarding permanent injunctions are
+disfavored. See eBay, 547 U.S. at 394 (“Just as the Dis-
+trict Court erred in its categorical denial of injunctive
+relief, the Court of Appeals erred in its categorical grant
+of such relief.”). And Congress has expressly indicated
+that injunctions may be granted in cases involving life-
+saving goods, such as pharmaceutical drugs. See 35
+U.S.C. § 271(e)(4)(B) (“[I]njunctive relief may be granted
+against an infringer to prevent the commercial manufac-
+ture, use, offer to sell, or sale within the United States or
+importation into the United States of an approved drug,
+veterinary biological product, or biological product.”). In
+denying WBIP a permanent injunction on these grounds,
+the district court abused its discretion. We note that the
+district court limited its analysis to the public interest
+factor alone and that its decision to deny an injunction
+cannot be affirmed on this basis in light of this record.
+We vacate its judgment and remand for the district court
+to conduct a more thorough analysis of the eBay factors in
+the first instance.
+                        CONCLUSION
+     For the foregoing reasons, we affirm the district
+court’s denial of judgment as a matter of law that the
+asserted claims would have been obvious and lack suffi-
+cient written description and the willful infringement
+determination. We vacate the district court’s denial of
+WBIP’s motion for a permanent injunction, and remand
+for further consideration.
+WBIP, LLC   v. KOHLER CO.              41
+
+
+
+  AFFIRMED-IN-PART, VACATED-IN-PART, AND
+                REMANDED
+                            COSTS
+   Costs to WBIP.
+

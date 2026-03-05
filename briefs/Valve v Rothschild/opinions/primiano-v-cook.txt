@@ -1,0 +1,632 @@
+Primiano v. Cook
+598 F.3d 558
+Court of Appeals for the Ninth Circuit
+Filed: 2010-04-27
+Docket No. 06-15563
+Source: https://www.courtlistener.com/opinion/78691/primiano-v-cook/
+------------------------------------------------------------
+
+                  FOR PUBLICATION
+  UNITED STATES COURT OF APPEALS
+       FOR THE NINTH CIRCUIT
+
+MARYLOU PRIMIANO; CHARLES              
+PRIMIANO,                                   No. 06-15563
+              Plaintiffs-Appellants,           D.C. No.
+                v.                          CV-03-00373-
+                                              JCM/PAL
+YAN COOK; STRYKER CORPORATION;
+ROBERT J. TAIT M.D.,
+                                              ORDER
+                         Defendant,         AMENDING
+                                           OPINION AND
+HOWMEDICA OSTEONICS                          AMENDED
+CORPORATION,                                  OPINION
+              Defendant-Appellee.
+                                       
+        Appeal from the United States District Court
+                 for the District of Nevada
+         James C. Mahan, District Judge, Presiding
+
+        Argued and Submitted February 13, 2008
+     Submission Withdrawn and Supplemental Briefing
+                Requested March 3, 2008
+                Resubmitted July 15, 2009
+                San Francisco, California
+
+                   Filed March 10, 2010
+                  Amended April 27, 2010
+
+   Before: Dorothy W. Nelson, Andrew J. Kleinfeld, and
+          Michael Daly Hawkins, Circuit Judges.
+
+                Opinion by Judge Kleinfeld
+
+
+
+
+                            6281
+6284          PRIMIANO v. HOWMEDICA OSTEONICS
+
+
+
+
+                       COUNSEL
+
+Peter C. Wetherall, Las Vegas, Nevada, for plaintiffs-
+appellants Marylou and Charles Primiano.
+
+Frederick D. Baker (argued), Wayne A. Wolff, San Francisco,
+California; Ralph A. Campillo, Los Angeles, California, for
+defendant-appellee Howmedica Osteonics Corporation.
+
+
+                         ORDER
+
+  The opinion filed on March 10, 2010, and appearing at 598
+F.3d 558 (9th Cir. 2010), is amended as follows:
+
+    1.   At page 563, after the sentence “We review
+         summary judgment de novo.” and footnote 5,
+                 PRIMIANO v. HOWMEDICA OSTEONICS                   6285
+           add the sentence “We review rulings on the
+           admissibility of expert testimony under Federal
+           Rule of Evidence 702 for abuse of discretion.”
+
+      2.   At page 563, at the end of the newly added sen-
+           tence, append a new footnote 6 with the follow-
+           ing text in the footnote: “Cabrera v. Cordis
+           Corp., 134 F.3d 1418, 1420 (9th Cir. 1998).”
+           Renumber the remaining footnotes accordingly.
+
+  With this amendment, the panel has unanimously voted to
+deny the petition for rehearing. Judge Kleinfeld has voted to
+deny the petition for rehearing en banc, and Judges D.W. Nel-
+son and Hawkins so recommend. No further petitions for
+rehearing will be entertained.
+
+  The full court has been advised of the petition for rehearing
+en banc and no judge of the court has requested a vote on the
+petition for rehearing en banc. Fed. R. App. P. 35.
+
+  The petition for panel rehearing and the petition for rehear-
+ing en banc are DENIED.
+
+
+                              OPINION
+
+KLEINFELD, Circuit Judge:
+
+ We address admissibility under Daubert1 of medical testi-
+mony.
+
+                              I.   Facts
+
+  Marylou Primiano has suffered a miserable ordeal since she
+had elbow surgery. The question raised by her litigation2 is
+  1
+    Daubert v. Merrell Dow Pharm., Inc., 509 U.S. 579 (1993).
+  2
+    The complaint also names Mr. Primiano as a plaintiff, for his deriva-
+tive claim for loss of consortium etc., and names Stryker Corporation as
+6286             PRIMIANO v. HOWMEDICA OSTEONICS
+whether her ordeal resulted from a defective product, the arti-
+ficial elbow Howmedica Osteonics Corporation manufac-
+tured. The district court granted summary judgment against
+her and dismissed her case, but that result could not have
+occurred had her medical expert’s testimony been considered.
+His testimony would have established a genuine issue of
+material fact, because he thought the plastic bearing between
+the metal parts of the artificial elbow wore out so quickly that
+it must have been defective. The district court ruled that his
+testimony was inadmissible, leaving Primiano with inade-
+quate evidence to establish a genuine issue of fact. The ques-
+tion before us is whether excluding Primiano’s expert’s
+testimony was an abuse of discretion.
+
+   Ms. Primiano, an active 36-year-old woman, fell in her
+kitchen and broke her elbow. The injury, serious for anyone,
+was especially serious for her, because she has had rheuma-
+toid arthritis for years. Unlike osteoarthritis, a degenerative
+process of wear and tear on the joints, rheumatoid arthritis is
+a chronic inflammatory disease of the connective tissue in the
+joints.3 Her physician, Robert J. Tait, M.D., performed sur-
+gery April 18, 2000, two days after her fall. He replaced her
+elbow joint with a device made by the defendant, How-
+medica, consisting of titanium pieces to replace the bone and
+polyethylene components to prevent the metal from rubbing
+against metal.
+
+   Two thirds of the way through surgery, Dr. Tait discovered
+that Howmedica had made a mistake in the packing and ship-
+ping, so even though he was replacing Ms. Primiano’s right
+elbow, the humeral component (the humerus is the arm bone
+
+owner of Howmedica Osteonics Corporation, Robert J. Tait M.D., the sur-
+geon who operated on Ms. Primiano, and Yan Cook, a Howmedica sales
+representative. Only the Primianos’ appeal challenging the summary judg-
+ment and exclusion of evidence in favor of Howmedica is before us.
+  3
+    Blakiston’s Gould Medical Dictionary 1353 (3d ed. 1972).
+               PRIMIANO v. HOWMEDICA OSTEONICS            6287
+running from the elbow to the shoulder) sent to him was
+labeled for the left arm. He consulted Howmedica’s represen-
+tative (“Did I kill him? No, I didn’t.”) with Ms. Primiano’s
+arm open on the table and was told that the components are
+symmetrical, identical in every respect except that the locking
+pin goes in the opposite side of the left humeral component,
+so the component he had could be used. The hole had to be
+drilled in Ms. Primiano’s bone from the inside instead of the
+outside, but the artificial joint would be equally functional.
+Dr. Tait completed the operation, and it appeared to be a suc-
+cess.
+
+   But by July, Ms. Primiano’s elbow squeaked, and by
+December, Dr. Tait could hear the metal-on-metal contact,
+which he confirmed in an x-ray. In February, Dr. Tait per-
+formed a second surgery addressing the evident failure of the
+implant and risk of metallosis (a destructive immune response
+of the body to flecks of metal shaved off by metal-on-metal
+contact), replacing the humeral component with a longer one.
+He used Howmedica’s left arm humeral component again,
+though the long instead of the standard, to avoid having to
+redrill the remaining bone. He observed massive metallosis
+and “severe polyethylene wear” on the bearing surrounding
+the pin. Again, the surgery appeared to go fine. But the next
+month, Ms. Primiano was having trouble controlling her arm
+and the joint had a “cracking” sound. She obtained a second
+opinion from an orthopedic surgeon who concluded that the
+components appeared “to be adequately fixed and in good
+position.” But in June her problems with the joint had not
+gone away, so she consulted a third orthopedic surgeon, who
+recommended a third surgery. In July this surgeon replaced
+her Howmedica device with one from its competitor, Zimmer.
+That surgeon performed a fourth surgery the next April to cor-
+rect loosening. A pin backed out of position, so she needed
+yet another surgery, her fifth, in September.
+
+  Primiano sued Howmedica, Dr. Tait, and others in state
+court for negligence, strict liability, breach of warranty, and
+6288             PRIMIANO v. HOWMEDICA OSTEONICS
+loss of consortium.4 Howmedica removed the case to federal
+court based on diversity. All that is before us now is the prod-
+ucts liability case.
+
+   In the summary judgment papers, Howmedica’s experts, an
+orthopedic surgeon and a chemist, provided opinions that the
+polyethylene was as it should be, and the rapid failure of the
+prosthesis and excessive wear on the polyethylene compo-
+nents resulted from “malalignment of the prosthesis” along
+with increased risk of complication because of Ms. Primi-
+ano’s rheumatoid arhtritis and her age. The product literature
+distributed to physicians said that the prosthesis would not
+restore function to the level expected with normal healthy
+bone, and was vulnerable to excessive loading from activity.
+Evidently, younger patients such as Ms. Primiano may do
+worse because they are more active. The manufacturer’s liter-
+ature says “[w]hile the expected life of the total elbow
+replacement components is difficult to estimate, it is finite.”
+
+   Primiano’s expert witness, Arnold-Peter Weiss, M.D.,
+declared that the polyethylene bushing had worn through in
+less than eight months, “not a usual or expected circum-
+stance.” Though finite, the typical lifespan of elbow prosthe-
+ses “far exceeds” how long this one lasted. Dr. Weiss testified
+in his deposition that although wear starts immediately, elbow
+prostheses last as long as ten or fifteen years, even twenty,
+and the earliest he had seen them wear out was around five
+to eight years, varying with the patient’s activity level.
+Though misalignment could cause excessive wear, he had
+looked at the x-rays and found no significant misalignment.
+Nor would ordinary daily activity produce such extraordinar-
+ily rapid wear. Nor could he find technically inappropriate use
+of the prosthesis by Dr. Tait. His opinion was that the extraor-
+dinarily rapid wear was caused by abrasive wear and genera-
+tion of debris from movement of the titanium against the
+  4
+    Primiano’s complaint says that she is not suing Dr. Tait for malprac-
+tice, just as an agent of Howmedica in selling the prosthesis.
+                 PRIMIANO v. HOWMEDICA OSTEONICS                     6289
+polyethylene. And he concluded that the prosthesis failed to
+perform in a manner reasonably to be expected by a surgeon
+using it, because it failed too early.
+
+   The district court granted defendants’ motion to exclude
+Dr. Weiss’s testimony as not meeting the Daubert standard
+and granted summary judgment. The court concluded that Dr.
+Weiss’s testimony would not be helpful to the jury. The judge
+reasoned: “Well, I mean it’s like res ipsa loquitur, the elbow
+failed. Now, why did it fail? Maybe it was malpractice,
+maybe it was Dr. Tait.” The evidence of rapid wear “doesn’t
+make it defective.” “I think [Dr. Tait’s] opinion is weakened
+by the fact that he didn’t see the plaintiff. He didn’t examine
+her. He didn’t talk to her.” “[T]here’s no peer review . . . no
+publication . . . there’s got to be an objective source that he
+relies on.” The court rejected plaintiff’s argument, that testi-
+mony that the premature failure was not attributable to over-
+use, medical malpractice, “her physiology,” or other factors
+external to the device, would assist the jury.
+
+                             II.   Analysis
+
+   We review summary judgment de novo.5 We review rulings
+on the admissibility of expert testimony under Federal Rule of
+Evidence 702 for abuse of discretion.6 The substantive ques-
+tion the jury would have to answer, in this diversity case aris-
+ing out of state tort law, is established by Nevada law. The
+question whether evidence is admissible, though, is governed
+by federal law. The Federal Rules of Evidence “govern pro-
+ceedings in the courts of the United States.”7 That is generally
+true in diversity cases because the Federal Rules of Evidence
+are statutes enacted by Congress.8 Though there are excep-
+  5
+    Carmen v. San Francisco Unified Sch. Dist., 237 F.3d 1026, 1029 (9th
+Cir. 2001).
+  6
+    Cabrera v. Cordis Corp., 134 F.3d 1418, 1420 (9th Cir. 1998).
+  7
+    Fed. R. Evid. 101.
+  8
+    Sims v. Great Am. Life Ins. Co., 469 F.3d 870, 878-79 (10th Cir. 2006).
+6290             PRIMIANO v. HOWMEDICA OSTEONICS
+tions, such as state substantive law in the guise of an evidenti-
+ary rule,9 no exception applies here.
+
+   [1] Ms. Primiano’s burden was to establish a defect in the
+manufacture of the artificial elbow. In Nevada, “those prod-
+ucts are defective which are dangerous because they fail to
+perform in the manner reasonably to be expected in light of
+their nature and intended function.”10 A plaintiff need not
+“produce direct evidence of a specific product defect [or]
+negate any alternative causes of the accident.”11 An “unex-
+pected, dangerous malfunction” suffices.12
+
+   [2] Federal Rule of Evidence 702 controlled admissibility
+of Dr. Weiss’s opinion. That rule establishes several require-
+ments for admissibility: (1) the evidence has to “assist the
+trier of fact” either “to understand the evidence” or “to deter-
+mine a fact in issue”; (2) the witness has to be sufficiently
+qualified to render the opinion:
+
+      If scientific, technical, or other specialized knowl-
+      edge will assist the trier of fact to understand the evi-
+      dence or to determine a fact in issue, a witness
+      qualified as an expert by knowledge, skill, experi-
+      ence, training, or education, may testify thereto in
+      the form of an opinion or otherwise, if (1) the testi-
+      mony is based upon sufficient facts or data, (2) the
+      testimony is the product of reliable principles and
+  9
+    See Feldman v. Allstate Ins. Co., 322 F.3d 660, 666 (9th Cir. 2003);
+Wray v. Gregory, 61 F.3d 1414, 1417 (9th Cir. 1995) (per curiam).
+   10
+      Allison v. Merck & Co., 878 P.2d 948, 952 (Nev. 1994) (internal quo-
+tation marks omitted); Ginnis v. Mapes Hotel Corp., 470 P.2d 135, 138
+(Nev. 1970) (internal quotation marks omitted).
+   11
+      Stackiewicz v. Nissan Motor Corp., USA, 686 P.2d 925, 927 (Nev.
+1984).
+   12
+      Id. at 928.
+                  PRIMIANO v. HOWMEDICA OSTEONICS                     6291
+       methods, and (3) the witness has applied the princi-
+       ples and methods reliably to the facts of the case.13
+
+Though Daubert is sometimes loosely spoken of as though it
+established the court’s “gatekeeping” function, that is not
+quite right. Trial courts have always had a gatekeeping func-
+tion for opinion evidence. Daubert held that Federal Rule of
+Evidence 702 replaces the old Frye14 gatekeeping test, “gen-
+eral acceptance in the particular field,” with a different test
+which is, in some respects, more open to opinion evidence.15
+
+   [3] The requirement that the opinion testimony “assist the
+trier of fact” “goes primarily to relevance.”16 For scientific
+opinion, the court must assess the reasoning or methodology,
+using as appropriate such criteria as testability, publication in
+peer reviewed literature, and general acceptance, but the
+inquiry is a flexible one.17 Shaky but admissible evidence is
+to be attacked by cross examination, contrary evidence, and
+attention to the burden of proof, not exclusion.18 In sum, the
+trial court must assure that the expert testimony “both rests on
+a reliable foundation and is relevant to the task at hand.”19
+Kumho Tire Co. v Carmichael holds that the Daubert frame-
+work applies not only to scientific testimony but to all expert
+testimony.20 It emphasizes, though, that the “test of reliability
+is ‘flexible’ and Daubert’s list of specific factors neither nec-
+  13
+      Fed. R. Evid. 702.
+  14
+      Frye v. United States, 293 F. 1013 (D.C. Cir. 1923).
+   15
+      Daubert, 509 U.S. at 588 (“Nothing in the text of [Rule 702] estab-
+lishes ‘general acceptance’ as an absolute prerequisite to admissibility.”);
+id. at 589 (“That austere standard, absent from, and incompatible with, the
+Federal Rules of Evidence, should not be applied in federal trials.”).
+   16
+      Id. at 591.
+   17
+      Id. at 592-4.
+   18
+      Id. at 596.
+   19
+      Id. at 597.
+   20
+      Kumho Tire Co. v. Carmichael, 526 U.S. 137, 147 (1999); see also
+White v. Ford Motor Co., 312 F.3d 998, 1007 (9th Cir. 2002).
+6292             PRIMIANO v. HOWMEDICA OSTEONICS
+essarily nor exclusively applies to all experts or in every case.”21
+The “list of factors was meant to be helpful, not definitive,”22
+and the trial court has discretion to decide how to test an
+expert’s reliability as well as whether the testimony is reliable,23
+based on “the particular circumstances of the particular case.”24
+
+   [4] We further interpreted Daubert on remand.25 In that
+case, the evidence proffered was scientific epidemiological
+evidence, of insufficient reliability for admissibility. We took
+pains to point out that the problem was methodology, not the
+conclusion to which the evidence would lead. “[T]he test
+under Daubert is not the correctness of the expert’s conclu-
+sions but the soundness of his methodology.”26 Under
+Daubert, the district judge is “a gatekeeper, not a fact finder.”27
+When an expert meets the threshold established by Rule 702
+as explained in Daubert, the expert may testify and the jury
+decides how much weight to give that testimony.
+
+  Testimony by physicians may or may not be scientific evi-
+dence like the epidemiologic testimony at issue in Daubert.
+The classic medical school texts,28 Cecil29 and Harrison,30
+explain that medicine is scientific, but not entirely a science.
+  21
+      Kumho Tire, 526 U.S. at 141.
+  22
+      Id. at 151.
+   23
+      Id. at 152.
+   24
+      Id. at 150.
+   25
+      Daubert v. Merrell Dow Pharmaceuticals, Inc., 43 F.3d 1311, 1313
+(9th Cir. 1995).
+   26
+      Id. at 1318.
+   27
+      United States v. Sandoval-Mendoza, 472 F.3d 645, 654 (9th Cir.
+2006).
+   28
+      Jock Murray, Neurology Texts for Internists, 123 Annals of Internal
+Med. 477, 477-79 (1995).
+   29
+      Cecil Textbook of Medicine 1 (James B. Wyngaarden & Lloyd H.
+Smith Jr. eds., 17th ed. 1985).
+   30
+      Harrison’s Principles of Internal Medicine 3 (Dennis L. Kasper et al.
+eds., 16th ed. 2005).
+                 PRIMIANO v. HOWMEDICA OSTEONICS                     6293
+“[M]edicine is not a science but a learned profession, deeply
+rooted in a number of sciences and charged with the obliga-
+tion to apply them for man’s benefit.”31 “Evidence-based
+medicine” is “the conscientious, explicit and judicious use of
+current best evidence in making decisions about the care of
+individual patients.”32 “Despite the importance of evidence-
+based medicine, much of medical decision-making relies on
+judgment—a process that is difficult to quantify or even to
+assess qualitatively. Especially when a relevant experience
+base is unavailable, physicians must use their knowledge and
+experience as a basis for weighing known factors along with
+the inevitable uncertainties” to “mak[e] a sound judgment.”33
+
+   When considering the applicability of Daubert criteria to
+the particular case before the court, the inquiry must be flexi-
+ble. Peer reviewed scientific literature may be unavailable
+because the issue may be too particular, new, or of insuffi-
+ciently broad interest, to be in the literature.34 Lack of cer-
+tainty is not, for a qualified expert, the same thing as
+guesswork.35 “Expert opinion testimony is relevant if the
+knowledge underlying it has a valid connection to the perti-
+nent inquiry. And it is reliable if the knowledge underlying it
+has a reliable basis in the knowledge and experience of the
+relevant discipline.”36 “[T]he factors identified in Daubert
+may or may not be pertinent in assessing reliability, depend-
+ing on the nature of the issue, the expert’s particular expertise,
+and the subject of his testimony.”37 Reliable expert testimony
+  31
+      Cecil Textbook of Medicine, supra, at 1.
+  32
+      Harrison’s Principles of Internal Medicine, supra, at 3.
+   33
+      Id.
+   34
+      Clausen v. M/V New Carissa, 339 F.3d 1049, 1056, 1060 (9th Cir.
+2003).
+   35
+      Id. at 1059.
+   36
+      Sandoval-Mendoza, 472 F.3d at 654 (internal quotation marks and
+citation omitted).
+   37
+      White v. Ford Motor Co., 312 F.3d 998, 1007 (9th Cir. 2002) (internal
+quotation marks omitted).
+6294             PRIMIANO v. HOWMEDICA OSTEONICS
+need only be relevant, and need not establish every element
+that the plaintiff must prove, in order to be admissible.38
+
+   [5] We have some guidance in the cases for applying Dau-
+bert to physicians’ testimony. “A trial court should admit
+medical expert testimony if physicians would accept it as use-
+ful and reliable,” but it need not be conclusive because “medi-
+cal knowledge is often uncertain.”39 “The human body is
+complex, etiology is often uncertain, and ethical concerns
+often prevent double-blind studies calculated to establish sta-
+tistical proof.”40 Where the foundation is sufficient, the liti-
+gant is “entitled to have the jury decide upon [the experts’]
+credibility, rather than the judge.”41 We held in United States
+v. Smith that even a physician’s assistant was qualified based
+on experience to offer his opinion.42
+
+  [6] Other circuits have taken similar approaches focusing
+especially on experience. The Sixth Circuit held that a district
+court abused its discretion by excluding a physician’s testi-
+mony based on extensive, relevant experience even though he
+had not cited medical literature supporting his view.43 Like-
+wise the Third Circuit pointed out that a doctor’s experience
+might be good reason to admit his testimony.44 Thus under our
+precedents and those of other circuits, the district court in this
+case was pushing against the current, but that alone does not
+imply an abuse of discretion.
+  38
+     See Stilwell v. Smith & Nephew, Inc., 482 F.3d 1187, 1192 (9th Cir.
+2007).
+  39
+     Sandoval-Mendoza, 472 F.3d at 655.
+  40
+     Id.
+  41
+     Id. at 656.
+  42
+     520 F.3d 1097, 1105 (9th Cir. 2008).
+  43
+     Dickenson v. Cardiac & Thoracic Surgery of E. Tenn., 388 F.3d 976,
+982 (6th Cir. 2004).
+  44
+     Schneider ex rel. Estate of Schneider v. Fried, 320 F.3d 396, 406-07
+(3d Cir. 2003).
+                 PRIMIANO v. HOWMEDICA OSTEONICS                  6295
+   [7] A close look at the foundation for Dr. Weiss’s opinion,
+the nature of medical opinion, and the question posed by
+Nevada law does. Dr. Weiss is a board certified orthopedic
+surgeon and a professor at Brown University School of Medi-
+cine in the Division of Hand, Upper Extremity and
+Microvascular Surgery, department of Orthopedics. He has
+published over a hundred articles in peer-reviewed medical
+journals including several specifically on the elbow and at
+least one somewhat related to this case, “Capitellocondylar
+Total Elbow Replacement: A Long-Term Follow-up Study.”45
+He has years of experience implanting various elbow pros-
+thetics and has performed five to ten revisions of total elbow
+replacements that had been performed by other physicians. He
+has examined the various types of prosthetics available, and
+has maintained familiarity with the peer-reviewed literature.
+He testified that the very short lifespan of Ms. Primiano’s arti-
+fical elbow is “outside of my review of the known literature.”
+He conceded on cross examination that there was “no pub-
+lished peer-reviewed article that [I’m] aware of that states a
+strict minimum lifespan of a polyethylene component in a
+total elbow system,” but explained that “I wouldn’t expect
+any literature, because you don’t see it. It’s hard to write a
+paper about something that doesn’t occur. I mean, this is
+really bizarre.”
+
+   [8] A court would have to find that Dr. Weiss is “qualified
+as an expert by knowledge, skill, experience, training, or educa-
+tion”46 to render an opinion on elbow replacements. The dis-
+trict court appears to have rejected the opinion based in part
+on two elements of Rule 702, whether his opinion would
+assist the trier of fact, and whether it was based upon suffi-
+cient facts or data.
+  45
+      Andrew J. Weiland, Arnold-Peter C.Weiss, Robert P. Wills & J. Rus-
+sell Moore, Capitellocondylar Total Elbow Replacement: A Long-Term
+Follow-up Study, 71 J. of Bone & Joint Surgery, 217, 217-22 (1989).
+   46
+      Fed. R. Evid. 702.
+6296             PRIMIANO v. HOWMEDICA OSTEONICS
+   [9] The district court thought Dr. Weiss’s opinion would
+not assist the jury because Dr. Weiss could not say why the
+plastic part of the artificial elbow failed so quickly. The “will
+assist” requirement, under Daubert, “goes primarily to rele-
+vance.”47 What is relevant depends on what must be proved,
+and that is controlled by Nevada law. Nevada law establishes
+that “those products are defective which are dangerous
+because they fail to perform in the manner reasonably to be
+expected in light of their nature and intended function.”48 In
+Nevada, a plaintiff need not “produce direct evidence of a
+specific product defect [or] negate any alternative causes of
+the accident.”49 An “unexpected, dangerous malfunction” suf-
+fices.50 Since Dr. Weiss, with a sufficient basis in education
+and experience, testified that the artificial joint “fail[ed] to
+perform in the manner reasonably to be expected in light of
+[its] nature and intended function,” that was enough to assist
+the trier of fact. He did not have to know why it failed.
+
+  [10] The district court’s other concerns, that Dr. Weiss
+never saw or talked to Ms. Primiano, and there was no publi-
+cation supporting his opinion that the device failed extraordi-
+narily early, both might be useful to the jury as impeachment,
+but neither furnished an adequate basis for excluding his opin-
+ion. What he most needed to see was what was inside her arm,
+not outside it, and he did. He saw the x-rays. He also saw the
+polyethylene from the implant installed in Primiano’s first
+surgery. As for lack of a publication backing his opinion up,
+Daubert offers several reasons why an opinion unsupported
+by peer-reviewed publication may be admissible,51 and Dr.
+  47
+      Daubert, 509 U.S. at 591.
+  48
+      Allison v. Merck & Co., 878 P.2d 948, 952 (Nev. 1994) (internal quo-
+tation marks omitted); Ginnis v. Mapes Hotel Corp., 470 P.2d 135, 138
+(Nev. 1970) (internal quotation marks omitted).
+   49
+      Stackiewicz v. Nissan Motor Corp., USA, 686 P.2d 925, 927 (Nev.
+1984).
+   50
+      Id. at 928.
+   51
+      Daubert, 509 U.S. at 593.
+                 PRIMIANO v. HOWMEDICA OSTEONICS                    6297
+Weiss furnished another one, that the phenomenon is so
+extraordinary that the specialists who publish articles do not
+see it in their practices.
+
+   [11] Dr. Weiss’s background and experience, and his
+explanation of his opinion, leave room for only one conclu-
+sion regarding its admissibility. It had to be admitted. Once
+admitted, the opinion precluded summary judgment, because
+if the jury accepted it, then the Howmedica prosthesis “fail-
+[ed] to perform in the manner reasonably to be expected.”52
+His methodology, essentially comparison of what happened
+with Ms. Primiano’s artificial elbow with what surgeons who
+use artificial elbows ordinarily see, against a background of
+peer-reviewed literature, is the ordinary methodology of evi-
+dence based medicine: “not a science but a learned profession
+deeply rooted in a number of sciences,”53 “the conscientious,
+explicit and judicious use of current best evidence in making
+decisions about the care of individual patients”54 and “rel[y-
+ing] on judgment—a process that is difficult to quantify or
+even to assess qualitatively. Especially when a relevant expe-
+rience base is unavailable, physicians must use their knowl-
+edge and experience as a basis for weighing known factors
+along with the inevitable uncertainties” to “mak[e] a sound judg-
+ment.”55
+
+   [12] The jury may reject Dr. Weiss’s opinion. It may con-
+clude that Ms. Primiano’s level of activity, or error by Dr.
+Tait in performing the surgery, caused the failure. Or it may
+conclude that the negligence that matters was in the packing
+and shipping department of Howmedica, when they sent the
+wrong pieces to the hospital. But those possibilities bear on
+  52
+     Allison, 878 P.2d at 952.
+  53
+     Cecil Textbook of Medicine 1 (James B. Wyngaarden & Lloyd H.
+Smith Jr. eds., 17th ed. 1985).
+  54
+     Harrison’s Principles of Internal Medicine 3 (Dennis L. Kasper et al.
+eds., 16th ed. 2005).
+  55
+     Id.
+6298            PRIMIANO v. HOWMEDICA OSTEONICS
+the merits of Ms. Primiano’s claim, not the admissibility of
+Dr. Weiss’s opinion. Given that the judge is “a gatekeeper,
+not a fact finder,”56 the gate could not be closed to this rele-
+vant opinion offered with sufficient foundation by one quali-
+fied to give it.
+
+  REVERSED.
+
+
+
+
+  56
+    Sandoval-Mendoza, 472 F.3d at 654.
+
