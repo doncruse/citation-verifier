@@ -712,17 +712,21 @@ See `scratch/drafts/cl-stat-unknown-default.md` for the full issue text as filed
 ## 11. Batch Citation Verification Endpoint
 
 **Status:** DRAFT
-**Target:** CourtListener (new feature proposal)
+**Target:** CourtListener / Foresight (new feature proposal)
 **Type:** Feature request
-**Related:** [#6946](https://github.com/freelawproject/courtlistener/issues/6946) (Simpler Case Law APIs)
+**Related:**
+- Foresight [#24](https://github.com/freelawproject/foresight/issues/24) — Extend citation lookup page (batch text analysis UI — already designed, has wireframes)
+- Foresight [#27](https://github.com/freelawproject/foresight/issues/27) — Lookup multiple citations and export text as PDF (our issue)
+- CL [#3960](https://github.com/freelawproject/courtlistener/issues/3960) — Trawl RECAP Archive for hallucinated citations
+- CL [#6946](https://github.com/freelawproject/courtlistener/issues/6946) — Simpler Case Law APIs
 
 ### Summary
 
-Propose a new CL API endpoint that accepts a block of text, extracts citations (using eyecite), and verifies each one against CL's citation-lookup data — all in a single API call. Returns structured results with case name, date, URL, and match confidence. This is the highest-impact "simpler API" CL could offer for the growing AI hallucination detection use case.
+Propose adding a **name-matching layer** and **API endpoint** to the batch citation analysis feature already designed in Foresight #24. The UI wireframes and basic architecture exist — what's missing is (1) name verification to catch hallucinated citations that reuse real reporter locations with fabricated case names, and (2) a programmatic API endpoint alongside the UI page. Third-party wrappers (case.dev) are already filling this gap with CL's own data, but doing it poorly.
 
 ### Why This Matters Now
 
-Third parties are already building this. [case.dev](https://case.dev) offers a `verify()` endpoint that wraps CL's citation-lookup API: one call, returns all citations found in a text block, free tier. It works — in my testing it resolved 75% of citations instantly (20/27 for one brief, 24/32 for another). But:
+Foresight #24 designed a batch citation analysis UI in April 2024 (wireframes complete, mlissner approved the design) but it hasn't been built yet. Meanwhile, third parties are filling the gap. [case.dev](https://case.dev) offers a `verify()` endpoint that wraps CL's citation-lookup API: one call, returns all citations found in a text block, free tier. It works — in my testing it resolved 75% of citations instantly (20/27 for one brief, 24/32 for another). But:
 
 1. **It silently drops citations on large batches** — I tested hundreds of citations and got silent failures with no error reporting.
 2. **It doesn't do name matching** — it verifies the reporter location exists but doesn't check whether the case name matches. Citations like "State v. Carter, 72 Ohio App.3d 553" come back "verified" even though that reporter location belongs to "Stull v. Combustion Engineering." For hallucination detection, this is a critical gap.
@@ -800,12 +804,14 @@ Key design points:
 
 ### Why CL Should Own This
 
-1. **eyecite is FLP's project** — the extraction layer already exists
-2. **Server-side name matching** — CL has direct access to cluster case names, enabling matching that API consumers can't do efficiently
-3. **Demand is proven** — case.dev built a wrapper, I built a verification pipeline, others are likely doing similar work
-4. **AI hallucination detection is a growth use case** — courts, law firms, and legal tech are all looking for this capability. CL is the natural home for it.
-5. **Keeps value in the ecosystem** — API usage metrics stay with CL, which matters for grants and sustainability
-6. **case.dev's reliability gap is an opportunity** — CL can offer something more robust
+1. **The UI design already exists** — Foresight #24 has approved wireframes from April 2024. Adding name matching and an API endpoint is incremental, not greenfield.
+2. **eyecite is FLP's project** — the extraction layer already exists
+3. **Server-side name matching** — CL has direct access to cluster case names, enabling matching that API consumers can't do efficiently
+4. **Demand is proven** — case.dev built a wrapper, I built a verification pipeline, others are likely doing similar work. #3960 shows FLP is already thinking about hallucination detection.
+5. **AI hallucination detection is a growth use case** — courts, law firms, and legal tech are all looking for this capability. CL is the natural home for it.
+6. **Keeps value in the ecosystem** — API usage metrics stay with CL, which matters for grants and sustainability
+7. **case.dev's reliability gap is an opportunity** — CL can offer something more robust
+8. **Complements a future MCP** — if CL builds an MCP server for LLM tool use, a batch verify endpoint becomes a natural high-level tool. Without it, an MCP would need to make N sequential citation-lookup calls, which is slower, noisier, and more error-prone. The endpoint simplifies both human API consumers and LLM agents.
 
 ### Decision Factors
 
@@ -823,7 +829,7 @@ Key design points:
 - Could be seen as scope creep ("just add an endpoint")
 - case.dev may iterate and fix reliability issues
 
-**Recommendation:** Draft as a board-level proposal rather than a GitHub issue. This is a product direction decision, not a bug report. Present the evidence (case.dev testing, waterfall results, name-matching gap) and frame it as: "there's unmet demand for batch citation verification, a third party is already wrapping the CL API to provide it, and we can do it better."
+**Recommendation:** Frame as an extension of Foresight #24 (already designed) rather than a brand new proposal. The pitch: "We designed this in 2024, a third party has since built a wrapper around our API to fill the gap, and the wrapper is unreliable and lacks name matching. Let's build what we already designed, add name verification, and expose it as an API endpoint."
 
 ### Next Steps
 
