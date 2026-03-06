@@ -9,6 +9,8 @@ Uses a forked [eyecite](https://github.com/freelawproject/eyecite) (rlfordon/eye
 ## Workflow Preferences
 
 - **Always commit and push all changes** (not just code). Working data in `scratch/`, CSV files, etc. should all be committed and pushed unless gitignored. The user works across multiple computers and uses git to sync everything.
+- **Never write important information only to Claude memory.** Memory files are per-machine and per-project-path — they don't sync across computers. Anything that should persist (retrospectives, test feedback, design decisions, session notes) must be written to a file in the repo so it gets committed and pushed. Memory is fine for caching preferences and shortcuts, but not for unique artifacts.
+- **"Save this somewhere"** means write it to a file in the repo (e.g., `scratch/`, `briefs/`, `docs/`), never to memory. Ask where if the right location isn't obvious.
 
 ## Architecture
 
