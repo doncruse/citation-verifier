@@ -1,0 +1,11 @@
+{
+  "brief": "valve",
+  "total": 32,
+  "resolved_by_casedev": 24,
+  "casedev_possible_match": 0,
+  "fallback_needed": 8,
+  "status_matches": 32,
+  "url_matches": 29,
+  "casedev_time_s": 8.41,
+  "fallback_time_s": 91.17
+}

@@ -1,0 +1,11 @@
+{
+  "brief": "kettering",
+  "total": 27,
+  "resolved_by_casedev": 17,
+  "casedev_possible_match": 2,
+  "fallback_needed": 8,
+  "status_matches": 25,
+  "url_matches": 24,
+  "casedev_time_s": 1.61,
+  "fallback_time_s": 11.31
+}
