@@ -1,0 +1,312 @@
+{
+  "citations": [
+    {
+      "original": "2021-Ohio-2131",
+      "span": {
+        "start": 77,
+        "end": 91
+      },
+      "components": {
+        "caseName": "Simpson v. Voiture Nationale La Societe Des Quarante Hommes",
+        "year": 2021
+      },
+      "normalized": "2021 Ohio 2131",
+      "found": true
+    },
+    {
+      "original": "2012-Ohio-2136",
+      "span": {
+        "start": 150,
+        "end": 164
+      },
+      "components": {
+        "caseName": "First Fed. Bank of Ohio v. Angelini",
+        "year": 2012
+      },
+      "normalized": "2012 Ohio 2136",
+      "found": true
+    },
+    {
+      "original": "2006-Ohio-6900",
+      "span": {
+        "start": 221,
+        "end": 235
+      },
+      "components": {
+        "caseName": "Heskett v. Van Horn Title Agency, Unpublished Decision (12-26-2006)",
+        "year": 2006
+      },
+      "normalized": "2006 Ohio 6900",
+      "found": true
+    },
+    {
+      "original": "556 U.S. 662",
+      "span": {
+        "start": 274,
+        "end": 286
+      },
+      "components": {
+        "caseName": "Ashcroft v. Iqbal",
+        "volume": 556,
+        "reporter": "U.S.",
+        "page": 662,
+        "year": 2009
+      },
+      "normalized": "556 U.S. 662",
+      "found": true
+    },
+    {
+      "original": "550 U.S. 544",
+      "span": {
+        "start": 327,
+        "end": 339
+      },
+      "components": {
+        "caseName": "Bell Atlantic Corp. v. Twombly",
+        "volume": 550,
+        "reporter": "U.S.",
+        "page": 544,
+        "year": 2007
+      },
+      "normalized": "550 U.S. 544",
+      "found": true
+    },
+    {
+      "original": "66 Ohio St. 3d 458",
+      "span": {
+        "start": 368,
+        "end": 386
+      },
+      "components": null,
+      "normalized": "66 Ohio St. 3d 458",
+      "found": false
+    },
+    {
+      "original": "613 N.E.2d 585",
+      "span": {
+        "start": 396,
+        "end": 410
+      },
+      "components": {
+        "caseName": "Hecht v. Levin",
+        "volume": 613,
+        "reporter": "N.E.2d",
+        "page": 585,
+        "year": 1993
+      },
+      "normalized": "613 N.E.2d 585",
+      "found": true
+    },
+    {
+      "original": "25 Ohio St. 3d 229",
+      "span": {
+        "start": 436,
+        "end": 454
+      },
+      "components": {
+        "caseName": "Surace v. Wuliger",
+        "year": 1986
+      },
+      "normalized": "25 Ohio St. 3d 229",
+      "found": true
+    },
+    {
+      "original": "495 N.E.2d 939",
+      "span": {
+        "start": 464,
+        "end": 478
+      },
+      "components": {
+        "caseName": "Surace v. Wuliger",
+        "volume": 495,
+        "reporter": "N.E.2d",
+        "page": 939,
+        "year": 1986
+      },
+      "normalized": "495 N.E.2d 939",
+      "found": true
+    },
+    {
+      "original": "72 Ohio App.3d 553",
+      "span": {
+        "start": 503,
+        "end": 521
+      },
+      "components": {
+        "caseName": "Stull v. Combustion Engineering, Inc.",
+        "year": 1991
+      },
+      "normalized": "72 Ohio App. 3d 553",
+      "found": true
+    },
+    {
+      "original": "2022-Ohio-3965",
+      "span": {
+        "start": 554,
+        "end": 568
+      },
+      "components": {
+        "caseName": "State v. Eddy",
+        "year": 2022
+      },
+      "normalized": "2022 Ohio 3965",
+      "found": true
+    },
+    {
+      "original": "72 Ohio St.3d 415",
+      "span": {
+        "start": 622,
+        "end": 639
+      },
+      "components": null,
+      "normalized": "72 Ohio St. 3d 415",
+      "found": false
+    },
+    {
+      "original": "297 F.3d 1198",
+      "span": {
+        "start": 682,
+        "end": 695
+      },
+      "components": {
+        "caseName": "United States v. James Scott Pendergraft",
+        "volume": 297,
+        "reporter": "F.3d",
+        "page": 1198,
+        "year": 2002
+      },
+      "normalized": "297 F.3d 1198",
+      "found": true
+    },
+    {
+      "original": "180 F.3d 55",
+      "span": {
+        "start": 745,
+        "end": 756
+      },
+      "components": {
+        "caseName": "United States v. Autumn Jackson, Boris Sabas, Also Known as Boris Shmulevich, and Jose Medina, Also Known as Yosi Medina",
+        "volume": 180,
+        "reporter": "F.3d",
+        "page": 55,
+        "year": 1999
+      },
+      "normalized": "180 F.3d 55",
+      "found": true
+    },
+    {
+      "original": "39 Cal.4th 299",
+      "span": {
+        "start": 794,
+        "end": 808
+      },
+      "components": {
+        "caseName": "Flatley v. Mauro",
+        "year": 2006
+      },
+      "normalized": "39 Cal. 4th 299",
+      "found": true
+    },
+    {
+      "original": "78 Ohio St.3d 134",
+      "span": {
+        "start": 855,
+        "end": 872
+      },
+      "components": null,
+      "normalized": "78 Ohio St. 3d 134",
+      "found": false
+    },
+    {
+      "original": "821 F. Supp. 2d 912",
+      "span": {
+        "start": 932,
+        "end": 951
+      },
+      "components": {
+        "caseName": "Office Depot, Inc. v. Impact Office Products, LLC",
+        "volume": 821,
+        "reporter": "F. Supp. 2d",
+        "page": 912,
+        "year": 2011
+      },
+      "normalized": "821 F. Supp. 2d 912",
+      "found": true
+    },
+    {
+      "original": "51 F.4th 714",
+      "span": {
+        "start": 999,
+        "end": 1011
+      },
+      "components": {
+        "volume": 51,
+        "reporter": "F.4th",
+        "page": 714
+      },
+      "normalized": "51 F.4th 714",
+      "found": false
+    },
+    {
+      "original": "605 F. App'x 473",
+      "span": {
+        "start": 1078,
+        "end": 1094
+      },
+      "components": {
+        "caseName": "Stolle Machinery Company, LLC v. Ram Precision Industries",
+        "year": 2015
+      },
+      "normalized": "605 F. App'x 473",
+      "found": true
+    },
+    {
+      "original": "593 U.S. 374",
+      "span": {
+        "start": 1144,
+        "end": 1156
+      },
+      "components": {
+        "caseName": "Van Buren v. United States",
+        "volume": 593,
+        "reporter": "U.S.",
+        "page": 374,
+        "year": 2021
+      },
+      "normalized": "593 U.S. 374",
+      "found": true
+    },
+    {
+      "original": "974 F.3d 756",
+      "span": {
+        "start": 1224,
+        "end": 1236
+      },
+      "components": {
+        "caseName": "Royal Truck & Trailer Sales v. Mike Kraft",
+        "volume": 974,
+        "reporter": "F.3d",
+        "page": 756,
+        "year": 2020
+      },
+      "normalized": "974 F.3d 756",
+      "found": true
+    },
+    {
+      "original": "517 F.3d 421",
+      "span": {
+        "start": 1280,
+        "end": 1292
+      },
+      "components": {
+        "caseName": "Wilson v. Collins",
+        "volume": 517,
+        "reporter": "F.3d",
+        "page": 421,
+        "year": 2008
+      },
+      "normalized": "517 F.3d 421",
+      "found": true
+    }
+  ]
+}
