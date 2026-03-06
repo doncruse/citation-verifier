@@ -16,6 +16,7 @@ This document tracks potential contributions to FLP's projects (CourtListener, e
 | [8](#8-api-docs-blocked-by-bot-protection--llmstxt) | API Docs Blocked by Bot Protection / llms.txt | SUBMITTED | CL [#6040](https://github.com/freelawproject/courtlistener/issues/6040) |
 | [9](#9-eyecite-slip-opinion-placeholder-absorbed-into-case-name) | eyecite: Slip Opinion Placeholder Absorbed into Case Name | DRAFT | eyecite |
 | [10](#10-search-api-defaults-to-published-only-stat_-filters-undocumented) | Search API Defaults to Published Only; stat_ Filters Undocumented | SUBMITTED | CL [#7049](https://github.com/freelawproject/courtlistener/issues/7049) |
+| [11](#11-batch-citation-verification-endpoint) | Batch Citation Verification Endpoint | DRAFT | CL |
 
 ## Status Legend
 
@@ -705,6 +706,132 @@ Added `stat_Published=on`, `stat_Unpublished=on`, `stat_Unknown=on` to both sync
 ### Draft
 
 See `scratch/drafts/cl-stat-unknown-default.md` for the full issue text as filed.
+
+---
+
+## 11. Batch Citation Verification Endpoint
+
+**Status:** DRAFT
+**Target:** CourtListener (new feature proposal)
+**Type:** Feature request
+**Related:** [#6946](https://github.com/freelawproject/courtlistener/issues/6946) (Simpler Case Law APIs)
+
+### Summary
+
+Propose a new CL API endpoint that accepts a block of text, extracts citations (using eyecite), and verifies each one against CL's citation-lookup data — all in a single API call. Returns structured results with case name, date, URL, and match confidence. This is the highest-impact "simpler API" CL could offer for the growing AI hallucination detection use case.
+
+### Why This Matters Now
+
+Third parties are already building this. [case.dev](https://case.dev) offers a `verify()` endpoint that wraps CL's citation-lookup API: one call, returns all citations found in a text block, free tier. It works — in my testing it resolved 75% of citations instantly (20/27 for one brief, 24/32 for another). But:
+
+1. **It silently drops citations on large batches** — I tested hundreds of citations and got silent failures with no error reporting.
+2. **It doesn't do name matching** — it verifies the reporter location exists but doesn't check whether the case name matches. Citations like "State v. Carter, 72 Ohio App.3d 553" come back "verified" even though that reporter location belongs to "Stull v. Combustion Engineering." For hallucination detection, this is a critical gap.
+3. **CL's data is doing the work** — case.dev is a thin wrapper. The value and the cost sit with CL.
+
+CL could do this better because it has server-side access to the full cluster data, enabling name matching, court verification, and richer metadata in the response.
+
+### My Evidence
+
+**Waterfall test results (2026-03-06):**
+
+I tested a pipeline that uses case.dev `verify()` as a first pass, then falls back to my full CL pipeline (citation-lookup → opinion search → RECAP) for anything unresolved:
+
+| Brief | Unique citations | Resolved by case.dev | CL fallback needed | Status match vs. ground truth |
+|-------|-----------------|---------------------|-------------------|------------------------------|
+| Kettering v. Collier | 27 | 17 (63%) | 8 | 25/27 (93%) |
+| Valve v. Rothschild | 32 | 24 (75%) | 8 | 32/32 (100%) |
+
+The 2 Kettering mismatches are short-form "at" citations (e.g., "72 Ohio St.3d at 419") that neither case.dev nor my fallback can resolve — a pre-existing limitation.
+
+**Name matching gap:**
+
+case.dev returned "verified" for 2 citations where the case name was wrong:
+- "State v. Carter, 72 Ohio App.3d 553" → verified as "Stull v. Combustion Engineering, Inc." (wrong case)
+- "State v. Milam, 2022-Ohio-3965" → verified as "State v. Eddy" (wrong case)
+
+My name-matching layer caught both. A CL-native endpoint could do this server-side.
+
+**case.dev reliability issues:**
+
+In separate testing with hundreds of citations, case.dev silently failed — returning partial results with no error indication. A production hallucination-detection pipeline can't rely on an endpoint that silently drops citations.
+
+### Proposed Endpoint
+
+```
+POST /api/rest/v4/verify-text/
+Content-Type: application/json
+
+{
+  "text": "The court held in Ashcroft v. Iqbal, 556 U.S. 662 (2009), that...",
+  "check_names": true  // optional, default true — verify case names match
+}
+```
+
+Response:
+```json
+{
+  "citations_found": 1,
+  "citations": [
+    {
+      "original": "556 U.S. 662",
+      "span": {"start": 42, "end": 54},
+      "status": "verified",           // verified | name_mismatch | not_found
+      "confidence": 1.0,
+      "case": {
+        "id": 145875,
+        "name": "Ashcroft v. Iqbal",
+        "date_filed": "2009-05-18",
+        "url": "https://www.courtlistener.com/opinion/145875/ashcroft-v-iqbal/",
+        "court": "scotus"
+      },
+      "cited_name": "Ashcroft v. Iqbal",  // extracted from input text
+      "name_match": true
+    }
+  ]
+}
+```
+
+Key design points:
+- Uses eyecite for extraction (FLP's own project)
+- Server-side name matching against cluster data
+- Returns `name_mismatch` status (not just verified/not_found) — critical for hallucination detection
+- Span offsets for mapping back to source text
+- Single call replaces N citation-lookup calls
+
+### Why CL Should Own This
+
+1. **eyecite is FLP's project** — the extraction layer already exists
+2. **Server-side name matching** — CL has direct access to cluster case names, enabling matching that API consumers can't do efficiently
+3. **Demand is proven** — case.dev built a wrapper, I built a verification pipeline, others are likely doing similar work
+4. **AI hallucination detection is a growth use case** — courts, law firms, and legal tech are all looking for this capability. CL is the natural home for it.
+5. **Keeps value in the ecosystem** — API usage metrics stay with CL, which matters for grants and sustainability
+6. **case.dev's reliability gap is an opportunity** — CL can offer something more robust
+
+### Decision Factors
+
+**Pros:**
+- Concrete data from real testing (not theoretical)
+- Demonstrates demand via case.dev's existence
+- Aligns with #6946 (simpler APIs)
+- FLP owns all the ingredients (eyecite + citation-lookup + cluster data)
+- AI hallucination detection is timely and high-visibility
+- Author is on FLP board — can champion internally
+
+**Cons:**
+- Engineering bandwidth — FLP is volunteer-driven, this is a new endpoint
+- May overlap with planned #6946 work
+- Could be seen as scope creep ("just add an endpoint")
+- case.dev may iterate and fix reliability issues
+
+**Recommendation:** Draft as a board-level proposal rather than a GitHub issue. This is a product direction decision, not a bug report. Present the evidence (case.dev testing, waterfall results, name-matching gap) and frame it as: "there's unmet demand for batch citation verification, a third party is already wrapping the CL API to provide it, and we can do it better."
+
+### Next Steps
+
+- [ ] Pull full retrospective from other machine's Claude memory
+- [ ] Review case.dev's API stability over time (more batch tests)
+- [ ] Consider whether this fits in the #6946 discussion or needs its own proposal
+- [ ] Draft board-level pitch (shorter than GitHub issue — focus on strategic angle)
+- [ ] Discuss with Mike (mlissner) informally before formal proposal
 
 ---
 
