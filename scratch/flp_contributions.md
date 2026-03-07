@@ -766,7 +766,9 @@ Content-Type: application/json
 
 {
   "cluster_ids": [145875, 2812209, 4976543],
-  "fields": ["plain_text", "case_name", "date_filed", "court"]  // optional
+  "format": "plain_text",  // optional, default "plain_text"
+                            // also: "html_with_citations", "html", "best"
+  "fields": ["text", "case_name", "date_filed", "court"]  // optional
 }
 ```
 
@@ -779,13 +781,15 @@ Response:
       "case_name": "Ashcroft v. Iqbal",
       "date_filed": "2009-05-18",
       "court": "Supreme Court of the United States",
-      "plain_text": "SUPREME COURT OF THE UNITED STATES...",
+      "text": "SUPREME COURT OF THE UNITED STATES...",
+      "format_returned": "plain_text",
       "source": "opinion"
     },
     {
       "cluster_id": 2812209,
       "case_name": "...",
-      "plain_text": "...",
+      "text": "...",
+      "format_returned": "html_with_citations",
       "source": "opinion"
     },
     {
@@ -798,7 +802,13 @@ Response:
 
 Key design points:
 - Accepts cluster IDs (the natural output of citation-lookup, which already returns cluster IDs)
-- Returns plain text + basic metadata in one call
+- Returns text + basic metadata in one call
+- **`format` parameter** controls the text format:
+  - `plain_text` — stripped text (default, smallest payload)
+  - `html_with_citations` — HTML with hyperlinked cross-references to other CL opinions (useful for research tools)
+  - `html` — raw HTML without citation links
+  - `best` — return whichever format is available, preferring `plain_text` > `html_with_citations` > `html` (mirrors what consumers already do as a fallback chain)
+- `format_returned` in the response indicates what was actually served (not all opinions have all formats)
 - Handles the cluster → sub_opinions → opinion text resolution server-side
 - Reports errors per-item rather than failing the whole batch
 - Optional `fields` parameter to limit response size when you only need text
