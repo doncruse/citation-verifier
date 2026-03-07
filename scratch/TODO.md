@@ -219,6 +219,51 @@ Full retrospective at `.claude/projects/-Users-fordon-4-Projects-citation-verifi
 - **Fortune Dynamic wrong text** — CL opinion page had Arthur v. Torres attached. Add sanity check: compare downloaded case name to expected.
 - **Brief had 51% Red citations** — fabricated quotes, cases cited for opposite holdings, inapposite cases. Patterns consistent with AI-generated legal writing.
 
+## Bankruptcy Court — Known Hard Problem
+
+Basic parsing support landed (Bankr. prefix → CL court IDs like `nysb`, `deb`, `txsb`; judge initials stripped; In re case names parsed correctly). But RECAP document selection is fundamentally harder for bankruptcy dockets:
+
+- **Volume**: Dozens of entries per day (Cineworld had 19 entries across Sept 8-9, 2022 alone). Progressive date widening pulls back massive result sets.
+- **Document types**: Substantive documents are "Orders Authorizing..." not "Opinions" — the current `_opinion_likelihood` ranker was tuned for regular federal litigation. Orders are medium-tier but in bankruptcy they're the main event.
+- **Noise**: Audio files (MP3), courtroom minutes, pro hac vice orders, notices of appearance, transcript requests — document types that barely exist in regular federal dockets.
+- **No clear opinion document**: The operative filing is usually just an "Order," indistinguishable from dozens of other procedural orders on the same day.
+
+### Approach: case-type-dependent ranking
+
+The current `_opinion_likelihood` assumes we're looking for something labeled "opinion" — wrong for bankruptcy (and possibly other case types like patent, habeas). Ranking should adapt based on court/case type.
+
+**Bankruptcy substantive document hierarchy** (rough):
+1. Findings of Fact / Conclusions of Law — closest to an "opinion"
+2. Order Confirming Plan / Order Approving [Settlement/Sale/DIP Financing] — the substantive rulings
+3. Memorandum of Decision — rare but exists
+4. Generic "Order" — could be anything, need description matching
+
+**Bankruptcy noise floor** (deprioritize heavily):
+- Audio files / MP3s
+- Courtroom minutes
+- Pro hac vice orders
+- BNC certificates of mailing/service
+- Notices of appearance
+- Transcript requests (AO 435)
+- Notices (unless "Notice of" + substantive topic)
+
+This case-type-dependent approach could also help other case types: patent (Claim Construction Orders), habeas (R&Rs), etc.
+
+### CL docket entry classifier (active FLP project)
+
+FLP is actively building this: [#6689 — Docket entry classifier](https://github.com/freelawproject/courtlistener/issues/6689) (grandparent issue, open). Goal: label docket entries as `Complaint`, `Motion`, `Order`, `Judgment`, `Claim Construction Order`, etc. — exactly what we need. Would become search facets and filters.
+
+Related issues:
+- [#5288 — Identify FLP categories](https://github.com/freelawproject/courtlistener/issues/5288) (open) — Phase 1: high-level classes (complaint, motion, notice, judgment, etc.)
+- [#5294 — Modeling baseline](https://github.com/freelawproject/courtlistener/issues/5294) (closed) — baseline ML model established
+- [#5123 — Study filing categorizing ontologies](https://github.com/freelawproject/courtlistener/issues/5123) (closed)
+
+If/when this ships, we could consume the classification labels via API to dramatically improve RECAP document selection, especially for bankruptcy. In the meantime, we'd need our own heuristic ranking. Worth monitoring and potentially contributing training data from our bankruptcy verification experience.
+
+### Other open questions
+- Do bankruptcy courts label orders as "opinions" less frequently than district courts? If so, the opinion-keyword tier is systematically biased against bankruptcy results.
+- Could we match the cited order's subject matter against docket entry descriptions? e.g., if the citation context mentions "settlement with Prime Trust," match against entries containing those terms.
+
 ## Future Ideas
 
 Moved to `scratch/ROADMAP.md` — covers client-side BYOK, WL/Lexis data contributions, semantic search, and more.
