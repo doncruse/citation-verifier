@@ -1334,6 +1334,118 @@ class CitationVerifier:
                     exc_info=True,
                 )
 
+    async def _batch_citation_lookup(
+        self,
+        async_client: AsyncCourtListenerClient,
+        citations: list[str],
+    ) -> dict[int, dict]:
+        """Batch citation lookup via CL's citation-lookup API.
+
+        Joins citations into a text block, POSTs to the API, and maps
+        results back to citation indices using start_index/end_index.
+
+        Chunks the text block at ~50K characters to stay under the 64K
+        API limit.  Each chunk is retried up to 3 times; on total failure
+        the chunk falls back to individual citation_lookup() calls.
+
+        Returns ``{index: cluster}`` for citations with hits.
+        """
+        if not citations:
+            return {}
+
+        CHUNK_SIZE = 50_000
+        MAX_ATTEMPTS = 3
+
+        # Build text block and track per-citation offsets
+        lines: list[str] = []
+        offsets: list[tuple[int, int, int]] = []  # (orig_index, start, end)
+        pos = 0
+        for i, cite in enumerate(citations):
+            start = pos
+            lines.append(cite)
+            pos += len(cite)
+            end = pos
+            offsets.append((i, start, end))
+            lines.append("\n")
+            pos += 1  # newline
+
+        full_text = "".join(lines)
+
+        # Split into chunks on newline boundaries
+        chunks: list[tuple[str, list[tuple[int, int, int]]]] = []
+        if len(full_text) <= CHUNK_SIZE:
+            chunks.append((full_text, offsets))
+        else:
+            chunk_text = ""
+            chunk_offsets: list[tuple[int, int, int]] = []
+            chunk_base = 0
+            for i, cite in enumerate(citations):
+                line = cite + "\n"
+                if chunk_text and len(chunk_text) + len(line) > CHUNK_SIZE:
+                    chunks.append((chunk_text, chunk_offsets))
+                    chunk_base += len(chunk_text)
+                    chunk_text = ""
+                    chunk_offsets = []
+                start = len(chunk_text)
+                chunk_text += line
+                end = start + len(cite)
+                chunk_offsets.append((offsets[i][0], start, end))
+            if chunk_text:
+                chunks.append((chunk_text, chunk_offsets))
+
+        results: dict[int, dict] = {}
+
+        for chunk_text, chunk_offsets in chunks:
+            response = None
+            for attempt in range(MAX_ATTEMPTS):
+                try:
+                    response = await async_client.citation_lookup(chunk_text)
+                    break
+                except Exception:
+                    logger.debug(
+                        "Batch citation lookup attempt %d failed",
+                        attempt + 1,
+                        exc_info=True,
+                    )
+                    if attempt < MAX_ATTEMPTS - 1:
+                        await asyncio.sleep(1.0 * (2 ** attempt))
+
+            if response is None:
+                # Fallback: individual citation_lookup for this chunk
+                for orig_idx, _, _ in chunk_offsets:
+                    try:
+                        individual = await async_client.citation_lookup(
+                            citations[orig_idx]
+                        )
+                        for lr in individual:
+                            clusters = lr.get("clusters", [])
+                            if clusters:
+                                results[orig_idx] = clusters[0]
+                                break
+                    except Exception:
+                        logger.debug(
+                            "Individual citation lookup fallback failed "
+                            "for index %d",
+                            orig_idx,
+                            exc_info=True,
+                        )
+                continue
+
+            # Map results back using start_index / end_index
+            for entry in response:
+                start_idx = entry.get("start_index", -1)
+                clusters = entry.get("clusters", [])
+                if not clusters or start_idx < 0:
+                    continue
+                # Find which citation this start_index falls within
+                for orig_idx, offset_start, offset_end in chunk_offsets:
+                    if offset_start <= start_idx < offset_end:
+                        if orig_idx not in results:
+                            results[orig_idx] = clusters[0]
+                        break
+
+        return results
+
     async def verify_batch(
         self,
         citations: list[str],
@@ -1343,8 +1455,11 @@ class CitationVerifier:
     ) -> list[VerificationResult]:
         """Verify multiple citations concurrently.
 
-        Creates an async client, runs all citations through verify_async
-        with concurrency limited by the client's semaphore.
+        Uses a batch citation-lookup call to resolve most citations in
+        a single API request.  Citations with a batch hit go directly
+        to ``_process_citation_lookup_hit()`` (no per-citation API call).
+        Citations without a hit fall through to the search fallback
+        pipeline (opinion search + RECAP).
 
         Parameters
         ----------
@@ -1356,32 +1471,69 @@ class CitationVerifier:
         progress_callback : callable, optional
             Called as progress_callback(completed, total) after each citation.
         quick_only : bool
-            When True, only run Step 1 (citation lookup) for each citation.
+            When True, only run the citation lookup.  Citations without
+            a batch hit return NOT_FOUND immediately.
 
         Returns results in the same order as the input citations.
         """
         if parsed_citations is None:
             parsed_citations = [None] * len(citations)
 
-        completed = 0
+        total = len(citations)
 
-        async def _verify_one(
-            client: AsyncCourtListenerClient,
-            cite: str,
-            parsed: ParsedCitation | None,
-        ) -> VerificationResult:
-            nonlocal completed
-            result = await self.verify_async(client, cite, parsed=parsed, quick_only=quick_only)
-            completed += 1
-            if progress_callback:
-                progress_callback(completed, len(citations))
-            return result
+        # Parse all citations upfront
+        parsed_list: list[ParsedCitation] = []
+        stripped: list[str] = []
+        for cite, pre_parsed in zip(citations, parsed_citations):
+            s = cite.strip()
+            stripped.append(s)
+            parsed_list.append(pre_parsed if pre_parsed is not None else parse_citation(s))
+
+        completed = 0
+        results: list[VerificationResult | None] = [None] * total
 
         async with AsyncCourtListenerClient() as client:
-            tasks = [
-                _verify_one(client, cite, parsed)
-                for cite, parsed in zip(citations, parsed_citations)
-            ]
-            results = await asyncio.gather(*tasks)
+            # Batch citation lookup (single API call for all citations)
+            batch_hits = await self._batch_citation_lookup(client, stripped)
 
-        return list(results)
+            # Process batch hits immediately (no API call needed)
+            for idx, cluster in batch_hits.items():
+                results[idx] = self._process_citation_lookup_hit(
+                    stripped[idx], parsed_list[idx], cluster
+                )
+                completed += 1
+                if progress_callback:
+                    progress_callback(completed, total)
+
+            # Identify misses
+            miss_indices = [i for i in range(total) if i not in batch_hits]
+
+            if quick_only:
+                # No fallback — return NOT_FOUND for misses
+                for idx in miss_indices:
+                    results[idx] = VerificationResult(
+                        input_citation=stripped[idx],
+                        status=VerificationStatus.NOT_FOUND,
+                        confidence=0.0,
+                        diagnostics=[
+                            "Quick search only: not in citation lookup API"
+                        ],
+                    )
+                    completed += 1
+                    if progress_callback:
+                        progress_callback(completed, total)
+            else:
+                # Search fallback for misses (opinion search + RECAP)
+                async def _fallback(idx: int) -> None:
+                    nonlocal completed
+                    results[idx] = await self._search_fallback_async(
+                        client, stripped[idx], parsed_list[idx]
+                    )
+                    completed += 1
+                    if progress_callback:
+                        progress_callback(completed, total)
+
+                tasks = [_fallback(idx) for idx in miss_indices]
+                await asyncio.gather(*tasks)
+
+        return list(results)  # type: ignore[arg-type]

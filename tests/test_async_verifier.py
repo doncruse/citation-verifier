@@ -415,17 +415,22 @@ class TestVerifyBatch:
             "Smith v. Jones, 100 F.3d 200 (2d Cir. 2020)",
         ]
 
+        # Batch citation_lookup returns start_index-based results
         def mock_citation_lookup(text):
-            if "576" in text:
+            # Batch call: text contains all citations joined by newlines.
+            # Return a hit for the first citation only.
+            if "\n" in text and "576" in text:
                 return [
                     {
+                        "start_index": 0,
+                        "end_index": len(citations[0]),
                         "clusters": [
                             {
                                 "case_name": "Obergefell v. Hodges",
                                 "id": 123,
                                 "absolute_url": "/opinion/123/",
                             }
-                        ]
+                        ],
                     }
                 ]
             return []
@@ -473,7 +478,7 @@ class TestVerifyBatch:
         assert sorted(done for done, _ in progress_calls) == [1, 2]
 
     def test_batch_with_preparsed_citations(self):
-        """Pre-parsed citations are forwarded to verify_async."""
+        """Pre-parsed citations are forwarded through batch lookup."""
         citation = "Obergefell v. Hodges, 576 U.S. 644 (2015)"
         parsed = ParsedCitation(
             raw_text=citation,
@@ -489,13 +494,15 @@ class TestVerifyBatch:
         mock_client = _mock_batch_client(
             citation_lookup=[
                 {
+                    "start_index": 0,
+                    "end_index": len(citation),
                     "clusters": [
                         {
                             "case_name": "Obergefell v. Hodges",
                             "id": 123,
                             "absolute_url": "/opinion/123/",
                         }
-                    ]
+                    ],
                 }
             ]
         )
@@ -544,6 +551,382 @@ class TestVerifyBatch:
         assert len(results) == n
         # All should complete (NOT_FOUND since mocks return empty)
         assert all(r.status == VerificationStatus.NOT_FOUND for r in results)
+
+
+# ---------------------------------------------------------------------------
+# _batch_citation_lookup unit tests
+# ---------------------------------------------------------------------------
+
+
+class TestBatchCitationLookup:
+    """Tests for the _batch_citation_lookup() method."""
+
+    def test_text_block_construction_and_offset_mapping(self):
+        """Citations are joined with newlines; results map back via start_index."""
+        citations = [
+            "Obergefell v. Hodges, 576 U.S. 644 (2015)",
+            "Roe v. Wade, 410 U.S. 113 (1973)",
+        ]
+        # start_index for first citation = 0
+        # start_index for second = len(citations[0]) + 1 (newline)
+        second_start = len(citations[0]) + 1
+
+        mock_client = _mock_batch_client(
+            citation_lookup=[
+                {
+                    "start_index": 0,
+                    "end_index": len(citations[0]),
+                    "clusters": [
+                        {"case_name": "Obergefell v. Hodges", "id": 1}
+                    ],
+                },
+                {
+                    "start_index": second_start,
+                    "end_index": second_start + len(citations[1]),
+                    "clusters": [
+                        {"case_name": "Roe v. Wade", "id": 2}
+                    ],
+                },
+            ]
+        )
+
+        v = CitationVerifier()
+        result = asyncio.run(v._batch_citation_lookup(mock_client, citations))
+
+        assert len(result) == 2
+        assert result[0]["case_name"] == "Obergefell v. Hodges"
+        assert result[1]["case_name"] == "Roe v. Wade"
+
+    def test_empty_input(self):
+        """Empty citation list returns empty dict."""
+        mock_client = _mock_batch_client()
+        v = CitationVerifier()
+        result = asyncio.run(v._batch_citation_lookup(mock_client, []))
+        assert result == {}
+
+    def test_no_hits_returns_empty(self):
+        """When API returns no clusters, result dict is empty."""
+        mock_client = _mock_batch_client(
+            citation_lookup=[
+                {"start_index": 0, "end_index": 10, "clusters": []},
+            ]
+        )
+        v = CitationVerifier()
+        result = asyncio.run(
+            v._batch_citation_lookup(mock_client, ["Fake v. Case, 999 F.3d 1 (2025)"])
+        )
+        assert result == {}
+
+    def test_retry_on_failure_then_success(self):
+        """Retries up to 3 times; succeeds on second attempt."""
+        citation = "Obergefell v. Hodges, 576 U.S. 644 (2015)"
+        success_response = [
+            {
+                "start_index": 0,
+                "end_index": len(citation),
+                "clusters": [{"case_name": "Obergefell v. Hodges", "id": 1}],
+            }
+        ]
+
+        mock_client = _mock_batch_client()
+        # First call raises, second succeeds
+        mock_client.citation_lookup.side_effect = [
+            Exception("Server error"),
+            success_response,
+        ]
+
+        v = CitationVerifier()
+        result = asyncio.run(v._batch_citation_lookup(mock_client, [citation]))
+        assert 0 in result
+        assert result[0]["case_name"] == "Obergefell v. Hodges"
+        assert mock_client.citation_lookup.call_count == 2
+
+    def test_fallback_to_individual_after_3_failures(self):
+        """After 3 batch failures, falls back to individual calls."""
+        citations = [
+            "Obergefell v. Hodges, 576 U.S. 644 (2015)",
+            "Roe v. Wade, 410 U.S. 113 (1973)",
+        ]
+
+        call_count = 0
+
+        async def mock_lookup(text):
+            nonlocal call_count
+            call_count += 1
+            # First 3 calls are batch attempts (all fail)
+            if call_count <= 3:
+                raise Exception("Server error")
+            # Individual fallback calls
+            if "576" in text:
+                return [
+                    {
+                        "clusters": [
+                            {"case_name": "Obergefell v. Hodges", "id": 1}
+                        ]
+                    }
+                ]
+            return []
+
+        mock_client = _mock_batch_client()
+        mock_client.citation_lookup.side_effect = mock_lookup
+
+        v = CitationVerifier()
+        result = asyncio.run(v._batch_citation_lookup(mock_client, citations))
+
+        # Should have found Obergefell via individual fallback
+        assert 0 in result
+        assert result[0]["case_name"] == "Obergefell v. Hodges"
+        # Roe not found individually either (mock returns [])
+        assert 1 not in result
+        # 3 batch attempts + 2 individual fallbacks = 5 calls
+        assert call_count == 5
+
+    def test_first_cluster_per_citation_wins(self):
+        """If CL returns multiple entries for the same citation range,
+        only the first cluster is kept."""
+        citation = "576 U.S. 644"
+        mock_client = _mock_batch_client(
+            citation_lookup=[
+                {
+                    "start_index": 0,
+                    "end_index": len(citation),
+                    "clusters": [
+                        {"case_name": "Obergefell v. Hodges", "id": 1},
+                        {"case_name": "Some Parallel", "id": 2},
+                    ],
+                },
+            ]
+        )
+
+        v = CitationVerifier()
+        result = asyncio.run(v._batch_citation_lookup(mock_client, [citation]))
+        assert result[0]["case_name"] == "Obergefell v. Hodges"
+
+    def test_duplicate_entries_for_same_citation(self):
+        """Multiple response entries mapping to the same citation: first wins."""
+        citation = "576 U.S. 644"
+        mock_client = _mock_batch_client(
+            citation_lookup=[
+                {
+                    "start_index": 0,
+                    "end_index": len(citation),
+                    "clusters": [{"case_name": "First Match", "id": 1}],
+                },
+                {
+                    "start_index": 2,
+                    "end_index": len(citation),
+                    "clusters": [{"case_name": "Second Match", "id": 2}],
+                },
+            ]
+        )
+
+        v = CitationVerifier()
+        result = asyncio.run(v._batch_citation_lookup(mock_client, [citation]))
+        assert result[0]["case_name"] == "First Match"
+
+
+# ---------------------------------------------------------------------------
+# verify_batch integration with batch lookup
+# ---------------------------------------------------------------------------
+
+
+class TestVerifyBatchIntegration:
+    """Tests for verify_batch's interaction with _batch_citation_lookup."""
+
+    def test_batch_hit_uses_process_citation_lookup_hit(self):
+        """Citations resolved by batch lookup go through
+        _process_citation_lookup_hit, not verify_async."""
+        citation = "Obergefell v. Hodges, 576 U.S. 644 (2015)"
+        mock_client = _mock_batch_client(
+            citation_lookup=[
+                {
+                    "start_index": 0,
+                    "end_index": len(citation),
+                    "clusters": [
+                        {
+                            "case_name": "Obergefell v. Hodges",
+                            "id": 123,
+                            "absolute_url": "/opinion/123/obergefell/",
+                        }
+                    ],
+                }
+            ]
+        )
+
+        v = CitationVerifier()
+        with patch(
+            "citation_verifier.verifier.AsyncCourtListenerClient",
+            return_value=mock_client,
+        ):
+            results = asyncio.run(v.verify_batch([citation]))
+
+        assert results[0].status == VerificationStatus.VERIFIED
+        assert results[0].matched_cluster_id == 123
+        # Only one citation_lookup call (the batch), no search calls
+        assert mock_client.citation_lookup.call_count == 1
+        mock_client.search_opinions.assert_not_called()
+
+    def test_no_hit_falls_through_to_search(self):
+        """Citations without batch hits go through search fallback."""
+        citation = "Smith v. Jones, 100 F.3d 200 (2d Cir. 2020)"
+        mock_client = _mock_batch_client(
+            citation_lookup=[],  # no batch hits
+            search_opinions=[
+                {
+                    "caseName": "Smith v. Jones",
+                    "absolute_url": "/opinion/456/smith/",
+                    "cluster_id": 456,
+                    "court_id": "ca2",
+                    "dateFiled": "2020-05-15",
+                }
+            ],
+        )
+
+        v = CitationVerifier()
+        with patch(
+            "citation_verifier.verifier.AsyncCourtListenerClient",
+            return_value=mock_client,
+        ):
+            results = asyncio.run(v.verify_batch([citation]))
+
+        assert results[0].status == VerificationStatus.LIKELY_REAL
+        mock_client.search_opinions.assert_called()
+
+    def test_mixed_hits_and_misses_in_order(self):
+        """Some hits, some misses; results returned in input order."""
+        citations = [
+            "Obergefell v. Hodges, 576 U.S. 644 (2015)",  # will hit
+            "Fake v. Nobody, 999 F.3d 1 (2025)",           # will miss
+            "Roe v. Wade, 410 U.S. 113 (1973)",            # will hit
+        ]
+
+        second_start = len(citations[0]) + 1
+        third_start = second_start + len(citations[1]) + 1
+
+        def mock_citation_lookup(text):
+            # Batch call: return hits for first and third citations
+            if "\n" in text:
+                return [
+                    {
+                        "start_index": 0,
+                        "end_index": len(citations[0]),
+                        "clusters": [
+                            {
+                                "case_name": "Obergefell v. Hodges",
+                                "id": 1,
+                                "absolute_url": "/opinion/1/",
+                            }
+                        ],
+                    },
+                    {
+                        "start_index": third_start,
+                        "end_index": third_start + len(citations[2]),
+                        "clusters": [
+                            {
+                                "case_name": "Roe v. Wade",
+                                "id": 2,
+                                "absolute_url": "/opinion/2/",
+                            }
+                        ],
+                    },
+                ]
+            return []
+
+        mock_client = _mock_batch_client()
+        mock_client.citation_lookup.side_effect = mock_citation_lookup
+
+        v = CitationVerifier()
+        with patch(
+            "citation_verifier.verifier.AsyncCourtListenerClient",
+            return_value=mock_client,
+        ):
+            results = asyncio.run(v.verify_batch(citations))
+
+        assert len(results) == 3
+        assert results[0].status == VerificationStatus.VERIFIED
+        assert results[0].matched_cluster_id == 1
+        assert results[1].status == VerificationStatus.NOT_FOUND
+        assert results[2].status == VerificationStatus.VERIFIED
+        assert results[2].matched_cluster_id == 2
+
+    def test_quick_only_batch_misses_return_not_found(self):
+        """With quick_only, batch misses return NOT_FOUND without fallback."""
+        citations = [
+            "Obergefell v. Hodges, 576 U.S. 644 (2015)",  # will hit
+            "Fake v. Nobody, 999 F.3d 1 (2025)",           # will miss
+        ]
+
+        mock_client = _mock_batch_client(
+            citation_lookup=[
+                {
+                    "start_index": 0,
+                    "end_index": len(citations[0]),
+                    "clusters": [
+                        {
+                            "case_name": "Obergefell v. Hodges",
+                            "id": 123,
+                            "absolute_url": "/opinion/123/",
+                        }
+                    ],
+                }
+            ]
+        )
+
+        v = CitationVerifier()
+        with patch(
+            "citation_verifier.verifier.AsyncCourtListenerClient",
+            return_value=mock_client,
+        ):
+            results = asyncio.run(
+                v.verify_batch(citations, quick_only=True)
+            )
+
+        assert results[0].status == VerificationStatus.VERIFIED
+        assert results[1].status == VerificationStatus.NOT_FOUND
+        # No search calls should have been made
+        mock_client.search_opinions.assert_not_called()
+        mock_client.search_recap.assert_not_called()
+
+    def test_progress_callback_with_batch_hits(self):
+        """Progress callback fires for both batch hits and fallback results."""
+        citations = [
+            "Obergefell v. Hodges, 576 U.S. 644 (2015)",
+            "Fake v. Nobody, 999 F.3d 1 (2025)",
+        ]
+        mock_client = _mock_batch_client(
+            citation_lookup=[
+                {
+                    "start_index": 0,
+                    "end_index": len(citations[0]),
+                    "clusters": [
+                        {
+                            "case_name": "Obergefell v. Hodges",
+                            "id": 123,
+                            "absolute_url": "/opinion/123/",
+                        }
+                    ],
+                }
+            ]
+        )
+
+        progress_calls = []
+        v = CitationVerifier()
+        with patch(
+            "citation_verifier.verifier.AsyncCourtListenerClient",
+            return_value=mock_client,
+        ):
+            asyncio.run(
+                v.verify_batch(
+                    citations,
+                    progress_callback=lambda done, total: progress_calls.append(
+                        (done, total)
+                    ),
+                )
+            )
+
+        assert len(progress_calls) == 2
+        assert all(total == 2 for _, total in progress_calls)
+        assert sorted(done for done, _ in progress_calls) == [1, 2]
 
 
 # ---------------------------------------------------------------------------

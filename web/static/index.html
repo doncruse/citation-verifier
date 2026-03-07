@@ -337,6 +337,42 @@ Terry v. Ohio, 392 U.S. 1 (1968)"></textarea>
     }
   }
 
+  function statusBadges(status, diagnostics) {
+    switch (status) {
+      case 'VERIFIED':
+        return [{ label: 'Verified', cls: 'badge-verified' }];
+      case 'LIKELY_REAL':
+        return [{ label: 'Likely Real', cls: 'badge-likely' }];
+      case 'POSSIBLE_MATCH': {
+        var badges = [];
+        if (diagnostics && diagnostics.length) {
+          for (var i = 0; i < diagnostics.length; i++) {
+            var d = diagnostics[i];
+            if (/^Name (mismatch|differs)/i.test(d)) {
+              badges.push({ label: 'Check Name', cls: 'badge-possible' });
+            } else if (/^Court mismatch/i.test(d)) {
+              badges.push({ label: 'Check Court', cls: 'badge-possible' });
+            } else if (/^Date (mismatch|close)/i.test(d)) {
+              badges.push({ label: 'Check Date', cls: 'badge-possible' });
+            } else if (/^Docket mismatch/i.test(d)) {
+              badges.push({ label: 'Check Docket', cls: 'badge-possible' });
+            } else if (/^(Citation mismatch|Reporter citation|WL number)/i.test(d)) {
+              badges.push({ label: 'Check Cite', cls: 'badge-possible' });
+            }
+          }
+        }
+        if (!badges.length) badges.push({ label: 'Review', cls: 'badge-possible' });
+        return badges;
+      }
+      case 'NOT_FOUND':
+        return [{ label: 'Not Found', cls: 'badge-notfound' }];
+      case 'ERROR':
+        return [{ label: 'Error', cls: 'badge-error' }];
+      default:
+        return [{ label: 'Pending', cls: 'badge-pending' }];
+    }
+  }
+
   function createPlaceholderRow(index, citation) {
     const tr = document.createElement('tr');
     tr.className = 'placeholder';
@@ -401,11 +437,16 @@ Terry v. Ohio, 392 U.S. 1 (1968)"></textarea>
       flagHtml = '<button class="flag-btn' + extraClass + '" data-index="' + index + '" onclick="window._flagForFlp(this)">Flag</button>';
     }
 
+    var badges = statusBadges(data.status, data.diagnostics);
+    var badgesHtml = badges.map(function(b) {
+      return '<span class="badge ' + b.cls + '">' + b.label + '</span>';
+    }).join(' ');
+
     tr.innerHTML =
       '<td class="chk-col">' + chkHtml + '</td>' +
       '<td>' + (index + 1) + '</td>' +
       '<td class="citation-col">' + escapeHtml(data.input_citation || '') + '</td>' +
-      '<td><span class="badge ' + badgeClass(data.status) + '">' + statusLabel(data.status) + '</span></td>' +
+      '<td>' + badgesHtml + '</td>' +
       '<td>' + conf + '</td>' +
       '<td class="name-col">' + nameHtml + '</td>' +
       '<td>' + link + '</td>' +

@@ -34,3 +34,9 @@ citation-verifier = "citation_verifier.__main__:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
+[tool.pytest.ini_options]
+markers = [
+    "live_api: tests that hit the real CourtListener API (deselect with -m 'not live_api')",
+]
+addopts = "-m 'not live_api'"
