@@ -28,14 +28,13 @@ from sse_starlette.sse import EventSourceResponse
 
 from citation_verifier.cache import VerificationCache
 from citation_verifier.client import AsyncCourtListenerClient
-from citation_verifier.models import ParsedCitation, VerificationResult, VerificationStatus
+from citation_verifier.models import Diagnostic, ParsedCitation, VerificationResult, VerificationStatus
 from citation_verifier.name_matcher import CaseNameMatcher
 from citation_verifier.parser import parse_citation
 from citation_verifier.verifier import CitationVerifier
 
 logger = logging.getLogger(__name__)
 
-MAX_CITATIONS = 50
 
 
 def _get_api_token(request: Request) -> str | None:
@@ -191,6 +190,7 @@ app = FastAPI(title="Citation Verifier", version="0.1.0")
 
 # Public mode: when MODE=public, only serve the Get & Print page (for Replit).
 _public_mode = os.environ.get("MODE", "").lower() == "public"
+MAX_CITATIONS = 500 if _public_mode else 0  # 0 = no limit
 
 if _public_mode:
     from starlette.middleware.base import BaseHTTPMiddleware
@@ -227,6 +227,7 @@ def _result_to_dict(result: VerificationResult) -> dict[str, Any]:
         "matched_description": result.matched_description,
         "diagnostics": [
             {"category": d.category, "message": d.message}
+            if hasattr(d, "category") else {"category": "info", "message": str(d)}
             for d in result.diagnostics
         ],
         "error": result.error,
@@ -296,7 +297,7 @@ async def verify(request: Request):
             {"error": "No citations provided"}, status_code=400
         )
 
-    if len(citations) > MAX_CITATIONS:
+    if MAX_CITATIONS and len(citations) > MAX_CITATIONS:
         return JSONResponse(
             {"error": f"Maximum {MAX_CITATIONS} citations per request"},
             status_code=400,
@@ -359,7 +360,7 @@ async def verify(request: Request):
                         input_citation=citation_text,
                         status=VerificationStatus.NOT_FOUND,
                         confidence=0.0,
-                        diagnostics=["Quick search only: not in citation lookup API"],
+                        diagnostics=[Diagnostic("info", "Quick search only: not in citation lookup API")],
                     )
                     result_dict = _result_to_dict(result)
                     result_dict["index"] = i

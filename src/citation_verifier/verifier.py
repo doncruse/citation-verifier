@@ -1535,7 +1535,7 @@ class CitationVerifier:
                         status=VerificationStatus.NOT_FOUND,
                         confidence=0.0,
                         diagnostics=[
-                            "Quick search only: not in citation lookup API"
+                            Diagnostic("info", "Quick search only: not in citation lookup API")
                         ],
                     )
                     completed += 1
