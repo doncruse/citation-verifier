@@ -210,6 +210,6 @@ The web app's batch loop is parallelized (asyncio.Queue with MAX_CONCURRENT=5). 
 - **State courts**: The court map only covers federal courts. State court IDs from eyecite are compared via direct string match. Use `state_reporter_map.py` to infer state from regional reporters.
 - **RECAP docket param**: The `docket` parameter on the search API is unreliable. Use `q` with a quoted string + client-side filter instead.
 - **Windows console**: Avoid Unicode emoji in CLI output -- use ASCII status labels like `[OK]`, `[?]`, `[X]`.
-- **Windows Git Bash**: `head`, `tail`, `grep`, `cut` are not available. Use Python or dedicated tools instead. `taskkill` flags need `//` prefix (e.g. `taskkill //PID 1234 //F`) to avoid MSYS2 path conversion.
+- **Windows Git Bash**: `head`, `tail`, `grep`, `cut` are not available. Use Python or dedicated tools instead. `taskkill` flags need `//` prefix (e.g. `taskkill //PID 1234 //F`) to avoid MSYS2 path conversion. The Python executable is `venv/Scripts/python.exe` (not `python` or `python3`).
 - **eyecite on Windows**: `hyperscan` module is not available. Use `AhocorasickTokenizer` instead of `HyperscanTokenizer` for citation extraction.
 - **VerificationResult fields**: URL attribute is `matched_url` (not `court_listener_url`). Cluster ID is `matched_cluster_id`. `diagnostics` is `List[Diagnostic]` — each has `.category` (name/court/date/docket/cite/recap/info) and `.message` (human-readable text). `__str__` returns `.message` for backwards compatibility. Join `.message` with `"; "` when displaying as a single string.

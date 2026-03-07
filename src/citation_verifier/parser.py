@@ -29,12 +29,14 @@ _MONTH_MAP = {
 _WL_PATTERN = re.compile(r"(\d{4})\s+WL\s+(\d+)")
 
 # Regex for parenthetical court/date: "(S.D.N.Y. Mar. 5, 2018)" or "(S.D.N.Y. 2018)"
+# or "(Bankr. D. Del. Mar. 2020)" (month without day)
 _PAREN_PATTERN = re.compile(
     r"\(\s*"
     r"([A-Za-z][A-Za-z.\s]*?)"  # court abbreviation
     r"(?:\s+"
     r"(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z.]*"  # month
-    r"\s+(\d{1,2}),?\s*)?"  # day
+    r"(?:\s+(\d{1,2}),?)?"  # day (optional)
+    r"\s*)?"
     r"\s*(\d{4})"  # year
     r"\s*\)"
 )
@@ -54,6 +56,14 @@ _TRAILING_YEAR = re.compile(r"\s*\(\d{4}\)\s*$")
 # Slip opinion placeholder: ", -- F. Supp. 3d ----" or ", --- S.Ct. ---"
 # eyecite absorbs these into the defendant field when they follow the case name.
 _SLIP_OPINION_JUNK = re.compile(r",?\s*-{2,}\s+\S.*?-{2,}\s*$")
+
+# Judge initials in parentheses after docket number: "(MG)", "(KBO)", "(CML)", "(JTD)"
+# These are 2-4 uppercase letters, sometimes with hyphens: "(CSS)", "(ARP)"
+_JUDGE_INITIALS = re.compile(r"\s*\([A-Z]{2,4}\)")
+
+# Trailing court/date parenthetical absorbed into case name:
+# "(Bankr. S.D.N.Y. Nov. 30" or "(S.D. Tex. Sept. 25"
+_TRAILING_PAREN_JUNK = re.compile(r"\s*\([^)]*$")
 
 # Docket number: "Case No. 24-cv-9429" or "No. C 09-02727" — extracted then stripped
 # Captures everything up to the next comma or parenthetical to handle spaces
@@ -297,9 +307,10 @@ def parse_citation(text: str) -> ParsedCitation:
                     result.case_name = f"{plaintiff} v. {defendant}"
 
     # Fallback for "In re" / "Ex parte" / "Matter of" cases (no "v.")
+    # Stop at ", <digit>" (reporter volume) or ", No." / ", Case No." (docket number)
     if result.case_name is None:
         in_re_match = re.match(
-            r"^((?:In\s+re|Ex\s+parte|Matter\s+of)\s+.+?),\s+\d",
+            r"^((?:In\s+re|Ex\s+parte|Matter\s+of)\s+.+?)(?:,\s+(?:\d|(?:Case\s+)?No\.))",
             text,
             re.IGNORECASE,
         )
@@ -316,6 +327,8 @@ def parse_citation(text: str) -> ParsedCitation:
         result.case_name = _SLIP_OPINION_JUNK.sub("", result.case_name)
         result.case_name = _TRAILING_YEAR.sub("", result.case_name)
         result.case_name = _DOCKET_JUNK.sub("", result.case_name)
+        result.case_name = _JUDGE_INITIALS.sub("", result.case_name)
+        result.case_name = _TRAILING_PAREN_JUNK.sub("", result.case_name)
         result.case_name = _normalize_case_name(result.case_name)
     if result.defendant:
         result.defendant = _SLIP_OPINION_JUNK.sub("", result.defendant)
@@ -414,6 +427,8 @@ def parsed_citation_from_eyecite(
         result.case_name = _SLIP_OPINION_JUNK.sub("", result.case_name)
         result.case_name = _TRAILING_YEAR.sub("", result.case_name)
         result.case_name = _DOCKET_JUNK.sub("", result.case_name)
+        result.case_name = _JUDGE_INITIALS.sub("", result.case_name)
+        result.case_name = _TRAILING_PAREN_JUNK.sub("", result.case_name)
         result.case_name = _normalize_case_name(result.case_name)
     if result.defendant:
         result.defendant = _SLIP_OPINION_JUNK.sub("", result.defendant)

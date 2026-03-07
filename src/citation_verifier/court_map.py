@@ -153,9 +153,16 @@ def is_federal_court(court_id: str) -> bool:
     """Return True if the court ID is a known federal court.
 
     COURT_MAP only covers federal courts, so any ID in _KNOWN_IDS is federal.
+    Bankruptcy court IDs (ending in 'b') are also federal if their corresponding
+    district court ID (ending in 'd') is known.
     Used to skip RECAP searches for state courts (RECAP is PACER data only).
     """
-    return court_id in _KNOWN_IDS
+    if court_id in _KNOWN_IDS:
+        return True
+    # Bankruptcy courts: 'nysb' → check if 'nysd' is known
+    if court_id.endswith("b"):
+        return (court_id[:-1] + "d") in _KNOWN_IDS
+    return False
 
 
 def lookup_court_abbrev(court_id: str) -> str | None:
@@ -172,6 +179,7 @@ def lookup_court_id(court_str: str) -> str | None:
 
     Handles variations like "S.D.N.Y.", "SDNY", "S.D. N.Y." etc.
     Also accepts CL court IDs directly (e.g. "almd", "nysd").
+    Handles "Bankr." prefix: "Bankr. S.D.N.Y." → "nysb".
     """
     if not court_str:
         return None
@@ -179,6 +187,16 @@ def lookup_court_id(court_str: str) -> str | None:
     # If it's already a known CL court ID, return it directly
     if court_str in _KNOWN_IDS:
         return court_str
+
+    # Handle "Bankr." prefix — strip it, look up the district court,
+    # then convert district ID to bankruptcy ID (trailing 'd' → 'b').
+    bankr_match = re.match(r"Bankr\.?\s+(.+)", court_str, re.IGNORECASE)
+    if bankr_match:
+        district_str = bankr_match.group(1)
+        district_id = lookup_court_id(district_str)
+        if district_id and district_id.endswith("d"):
+            return district_id[:-1] + "b"
+        return None
 
     # Try exact match first
     if court_str in COURT_MAP:
