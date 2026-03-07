@@ -350,19 +350,17 @@ Terry v. Ohio, 392 U.S. 1 (1968)"></textarea>
         if (diagnostics && diagnostics.length) {
           for (var i = 0; i < diagnostics.length; i++) {
             var d = diagnostics[i];
-            if (/^Name (mismatch|differs)/i.test(d)) {
+            if (d.category === 'name') {
               badges.push({ label: 'Check Name', cls: 'badge-possible' });
-            } else if (/^Court mismatch/i.test(d)) {
+            } else if (d.category === 'court') {
               badges.push({ label: 'Check Court', cls: 'badge-possible' });
-            } else if (/^Date (mismatch|close)/i.test(d)) {
+            } else if (d.category === 'date') {
               badges.push({ label: 'Check Date', cls: 'badge-possible' });
-            } else if (/^Docket mismatch/i.test(d)) {
+            } else if (d.category === 'docket') {
               badges.push({ label: 'Check Docket', cls: 'badge-possible' });
-            } else if (/^Citation mismatch/i.test(d)) {
-              badges.push({ label: 'Check Cite', cls: 'badge-possible' });
-            } else if (/^(Reporter citation|WL number).*could not be confirmed/i.test(d)) {
+            } else if (d.category === 'cite' && /could not be confirmed/i.test(d.message)) {
               badges.push({ label: 'WL Cite', cls: 'badge-info', tip: 'CourtListener does not track Westlaw citation numbers' });
-            } else if (/^(Reporter citation|WL number)/i.test(d)) {
+            } else if (d.category === 'cite') {
               badges.push({ label: 'Check Cite', cls: 'badge-possible' });
             }
           }
@@ -408,7 +406,7 @@ Terry v. Ohio, 392 U.S. 1 (1968)"></textarea>
     }
     let title = '';
     if (data.diagnostics && data.diagnostics.length) {
-      title = data.diagnostics.join('; ');
+      title = data.diagnostics.map(function(d) { return d.message; }).join('; ');
     }
     if (data.error) {
       title = data.error;
@@ -437,7 +435,7 @@ Terry v. Ohio, 392 U.S. 1 (1968)"></textarea>
     let flagHtml = '';
     if (data.status && data.status !== 'ERROR') {
       const isRecap = data.diagnostics && data.diagnostics.some(function(d) {
-        return d.indexOf('Found in RECAP') !== -1;
+        return d.category === 'recap';
       });
       const extraClass = isRecap ? ' recap-hint' : '';
       flagHtml = '<button class="flag-btn' + extraClass + '" data-index="' + index + '" onclick="window._flagForFlp(this)">Flag</button>';
@@ -584,7 +582,7 @@ Terry v. Ohio, 392 U.S. 1 (1968)"></textarea>
         r.confidence != null ? r.confidence.toFixed(2) : '',
         csvEscape(r.matched_case_name || ''),
         csvEscape(r.matched_url || ''),
-        csvEscape((r.diagnostics || []).join('; ')),
+        csvEscape((r.diagnostics || []).map(function(d) { return d.message; }).join('; ')),
       ].join(',');
     });
     const blob = new Blob([header + rows.join('\n')], { type: 'text/csv' });
@@ -708,7 +706,7 @@ Terry v. Ohio, 392 U.S. 1 (1968)"></textarea>
           matched_court: r.matched_court || '',
           matched_date: r.matched_date || '',
           matched_description: r.matched_description || '',
-          diagnostics: (r.diagnostics || []).join('; '),
+          diagnostics: (r.diagnostics || []).map(function(d) { return d.message; }).join('; '),
         }),
       });
       if (!resp.ok) throw new Error('Flag failed');

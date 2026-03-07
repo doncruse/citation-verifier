@@ -14,6 +14,15 @@ class VerificationStatus(Enum):
 
 
 @dataclass
+class Diagnostic:
+    category: str   # name, court, date, docket, cite, recap, info
+    message: str    # human-readable detail
+
+    def __str__(self) -> str:
+        return self.message
+
+
+@dataclass
 class ParsedCitation:
     raw_text: str
     case_name: str | None = None
@@ -40,7 +49,7 @@ class CandidateMatch:
     court_id: str
     score: float = 0.0
     description: str | None = None
-    mismatches: list[str] = field(default_factory=list)
+    mismatches: list[Diagnostic] = field(default_factory=list)
 
 
 @dataclass
@@ -55,5 +64,5 @@ class VerificationResult:
     matched_date: str | None = None
     matched_description: str | None = None
     candidates: list[CandidateMatch] = field(default_factory=list)
-    diagnostics: list[str] = field(default_factory=list)
+    diagnostics: list[Diagnostic] = field(default_factory=list)
     error: str | None = None

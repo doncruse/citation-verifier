@@ -136,7 +136,7 @@ Replace `WORKDIR` with the actual brief working directory path.
 | POSSIBLE_MATCH (no specific diagnostic) | **Review** | Needs manual review |
 | NOT_FOUND | **Not Found** | Could not locate |
 
-Parse diagnostics for "Check" labels: match on `name (mismatch|differs)`, `court mismatch`, `date mismatch` (case-insensitive). Multiple flags can appear together.
+Parse diagnostics for "Check" labels: each diagnostic is a `Diagnostic` object with `.category` (`name`, `court`, `date`, `docket`, `cite`, `recap`, `info`) and `.message` (human-readable text). Use `.category` to determine badge type. Multiple flags can appear together.
 
 4. Save raw JSON to `verification.json`
 5. Report: "X Ready, Y need review, Z not found"

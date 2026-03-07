@@ -267,7 +267,7 @@ class TestAsyncSyncParity:
 
         assert sync_r.status == async_r.status == VerificationStatus.NOT_FOUND
         assert sync_r.confidence == async_r.confidence == 0.0
-        assert "Insufficient data" in sync_r.diagnostics[0]
+        assert "Insufficient data" in sync_r.diagnostics[0].message
         assert sync_r.diagnostics == async_r.diagnostics
 
     def test_parity_quick_only_not_found(self):
@@ -285,7 +285,7 @@ class TestAsyncSyncParity:
 
         assert sync_r.status == async_r.status == VerificationStatus.NOT_FOUND
         assert sync_r.confidence == async_r.confidence == 0.0
-        assert "Quick search only" in sync_r.diagnostics[0]
+        assert "Quick search only" in sync_r.diagnostics[0].message
         assert sync_r.diagnostics == async_r.diagnostics
 
     def test_parity_quick_only_verified(self):

@@ -118,7 +118,8 @@ class TestStep1NameMismatch:
         assert result.confidence == 0.3
         assert result.matched_case_name == "Totally Different v. Case"
         assert result.matched_cluster_id == 789
-        assert "Name mismatch" in result.diagnostics[0]
+        assert result.diagnostics[0].category == "name"
+        assert "Name mismatch" in result.diagnostics[0].message
 
     def test_possible_match_different_defendant_same_prefix(self):
         """'United States v. Smith' should not verify as 'United States v. Johnson'."""
@@ -140,7 +141,8 @@ class TestStep1NameMismatch:
 
         assert result.status == VerificationStatus.POSSIBLE_MATCH
         assert result.confidence == 0.3
-        assert "Name mismatch" in result.diagnostics[0]
+        assert result.diagnostics[0].category == "name"
+        assert "Name mismatch" in result.diagnostics[0].message
 
 
 # ---------------------------------------------------------------------------
@@ -251,8 +253,8 @@ class TestRecapFallback:
         v = CitationVerifier(client)
         result = v.verify("Smith v. Jones, 2020 WL 999999 (E.D. Mich. June 1, 2020)")
 
-        assert "Order" in result.diagnostics[0]
-        assert "Reply" not in result.diagnostics[0]
+        assert "Order" in result.diagnostics[0].message
+        assert "Reply" not in result.diagnostics[0].message
 
     def test_recap_queries_exact_date_first(self):
         """When month/day are known and initial docs don't match, queries exact date."""
@@ -308,7 +310,8 @@ class TestRecapFallback:
         v = CitationVerifier(client)
         result = v.verify("Smith v. Jones, 2020 WL 111111 (S.D.N.Y. 2020)")
 
-        assert "possible docket match" in result.diagnostics[0].lower()
+        assert result.diagnostics[0].category == "recap"
+        assert "possible docket match" in result.diagnostics[0].message.lower()
         # Score should be discounted: base ~0.7 * 0.6 = ~0.42
         assert result.confidence < 0.6
 
@@ -500,7 +503,7 @@ class TestCourtCorroboration:
         result = v.verify("United States v. Craner, 652 F.3d 560, 562 (9th Cir. 2016)")
 
         assert result.status == VerificationStatus.NOT_FOUND
-        assert "could not be verified" in result.diagnostics[0].lower()
+        assert "could not be verified" in result.diagnostics[0].message.lower()
 
     def test_match_allowed_when_court_matches(self):
         """Unverified citation + correct court = still a valid match."""
@@ -585,7 +588,7 @@ class TestScoring:
     def test_name_mismatch_flagged(self):
         score, mismatches = self._score(result_case_name="Totally Different v. Case")
         assert score < 0.4
-        assert any("name mismatch" in m.lower() for m in mismatches)
+        assert any(m.category == "name" for m in mismatches)
 
     def test_court_match_adds_20_percent(self):
         """Court match adds 20% when base weights apply (year also provided)."""
@@ -606,7 +609,7 @@ class TestScoring:
             parsed_overrides={"court": "S.D.N.Y."},
             result_court="ca9",
         )
-        assert any("court mismatch" in m.lower() for m in mismatches)
+        assert any(m.category == "court" for m in mismatches)
 
     def test_exact_year_adds_20_percent(self):
         """Year match adds 20% when base weights apply (court also provided)."""
@@ -626,7 +629,7 @@ class TestScoring:
         )
         # name (0.5) + court (0.2) + date (0.2 * 0.5 = 0.1)
         assert score == pytest.approx(0.8, abs=0.01)
-        assert any("date close" in m.lower() for m in mismatches)
+        assert any(m.category == "date" for m in mismatches)
 
     def test_date_mismatch_adds_nothing(self):
         score, mismatches = self._score(
@@ -636,7 +639,7 @@ class TestScoring:
         )
         # name (0.5) + court (0.2) + date (0)
         assert score == pytest.approx(0.7, abs=0.01)
-        assert any("date mismatch" in m.lower() for m in mismatches)
+        assert any(m.category == "date" for m in mismatches)
 
     def test_exact_date_scores_higher_than_same_year_wrong_month(self):
         score_exact, _ = self._score(
@@ -682,7 +685,7 @@ class TestScoring:
             parsed_overrides={"docket_number": "17-cv-12676"},
             result={"docketNumber": "99-cv-99999"},
         )
-        assert any("docket mismatch" in m.lower() for m in mismatches)
+        assert any(m.category == "docket" for m in mismatches)
 
     def test_reporter_citation_match_adds_points(self):
         """Reporter match adds to score (weight may be redistributed)."""
@@ -874,7 +877,7 @@ class TestHelpers:
         v = CitationVerifier(client)
         result = v.verify("Smith v. Jones, 500 F.3d 200 (S.D.N.Y. 2020)")
         assert result.status == VerificationStatus.LIKELY_REAL
-        assert any("likely match" in d for d in result.diagnostics)
+        assert any("likely match" in d.message for d in result.diagnostics)
 
     def test_match_word_possible_for_lower_score(self):
         """Lower confidence → POSSIBLE_MATCH → 'possible'."""
@@ -894,7 +897,7 @@ class TestHelpers:
         # Wrong court, wrong date → lower score
         result = v.verify("Smith v. Jones, 500 F.3d 200 (S.D.N.Y. 2020)")
         if result.status == VerificationStatus.POSSIBLE_MATCH:
-            assert any("possible match" in d for d in result.diagnostics)
+            assert any("possible match" in d.message for d in result.diagnostics)
 
 
 # ---------------------------------------------------------------------------
@@ -1228,7 +1231,8 @@ class TestCitationLookupNameMatching:
         assert result.confidence == 0.3
         assert result.matched_case_name == "David M. Fink v. James H. Gomez, Director"
         assert result.matched_cluster_id == 772039
-        assert "Name mismatch" in result.diagnostics[0]
+        assert result.diagnostics[0].category == "name"
+        assert "Name mismatch" in result.diagnostics[0].message
 
     def test_common_word_surname_rejected(self):
         """'American' as a defendant surname should not match an unrelated 'American National Insurance'."""
@@ -1253,7 +1257,8 @@ class TestCitationLookupNameMatching:
         # "American" is nondistinctive; "Pettway" is distinctive but not in CL name
         assert result.status == VerificationStatus.POSSIBLE_MATCH
         assert result.confidence == 0.3
-        assert "Name mismatch" in result.diagnostics[0]
+        assert result.diagnostics[0].category == "name"
+        assert "Name mismatch" in result.diagnostics[0].message
 
     def test_distinctive_org_name_still_matches(self):
         """Non-generic org names like 'Costco' should still match."""
@@ -1605,7 +1610,7 @@ class TestQuickOnly:
 
         assert result.status == VerificationStatus.NOT_FOUND
         assert result.confidence == 0.0
-        assert "Quick search only" in result.diagnostics[0]
+        assert "Quick search only" in result.diagnostics[0].message
 
     def test_quick_does_not_call_search(self):
         """quick_only must not call opinion search or RECAP."""
@@ -1643,7 +1648,8 @@ class TestQuickOnly:
 
         assert result.status == VerificationStatus.POSSIBLE_MATCH
         assert result.confidence == 0.3
-        assert "Name mismatch" in result.diagnostics[0]
+        assert result.diagnostics[0].category == "name"
+        assert "Name mismatch" in result.diagnostics[0].message
 
 
 # ---------------------------------------------------------------------------

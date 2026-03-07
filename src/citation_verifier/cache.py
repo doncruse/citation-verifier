@@ -8,7 +8,7 @@ from dataclasses import asdict
 from pathlib import Path
 from typing import Any
 
-from .models import CandidateMatch, VerificationResult, VerificationStatus
+from .models import CandidateMatch, Diagnostic, VerificationResult, VerificationStatus
 
 logger = logging.getLogger(__name__)
 
@@ -45,8 +45,17 @@ class VerificationCache:
         if entry is None:
             return None
         try:
-            candidates = [
-                CandidateMatch(**c) for c in entry.get("candidates", [])
+            candidates = []
+            for c in entry.get("candidates", []):
+                c = dict(c)
+                c["mismatches"] = [
+                    Diagnostic(**m) if isinstance(m, dict) else Diagnostic("info", m)
+                    for m in c.get("mismatches", [])
+                ]
+                candidates.append(CandidateMatch(**c))
+            diagnostics = [
+                Diagnostic(**d) if isinstance(d, dict) else Diagnostic("info", d)
+                for d in entry.get("diagnostics", [])
             ]
             return VerificationResult(
                 input_citation=entry["input_citation"],
@@ -56,7 +65,7 @@ class VerificationCache:
                 matched_url=entry.get("matched_url"),
                 matched_cluster_id=entry.get("matched_cluster_id"),
                 candidates=candidates,
-                diagnostics=entry.get("diagnostics", []),
+                diagnostics=diagnostics,
                 error=entry.get("error"),
             )
         except (KeyError, ValueError):

@@ -655,7 +655,8 @@
     if (r.diagnostics && r.diagnostics.length) {
       html += '<div class="detail-section"><label>Diagnostics</label><ul class="detail-diagnostics">';
       r.diagnostics.forEach(function(d) {
-        html += '<li>' + escapeHtml(d) + '</li>';
+        var msg = (typeof d === 'string') ? d : d.message;
+        html += '<li>' + escapeHtml(msg) + '</li>';
       });
       html += '</ul></div>';
     }

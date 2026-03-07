@@ -225,7 +225,10 @@ def _result_to_dict(result: VerificationResult) -> dict[str, Any]:
         "matched_court": result.matched_court,
         "matched_date": result.matched_date,
         "matched_description": result.matched_description,
-        "diagnostics": result.diagnostics,
+        "diagnostics": [
+            {"category": d.category, "message": d.message}
+            for d in result.diagnostics
+        ],
         "error": result.error,
     }
 
@@ -1164,7 +1167,7 @@ async def qc_run_batch(request: Request):
                     "confidence": 0.0,
                     "matched_case_name": None,
                     "matched_url": None,
-                    "diagnostics": ["Short cite with no case name"],
+                    "diagnostics": [{"category": "info", "message": "Short cite with no case name"}],
                 }
                 results_for_sidecar.append(sidecar_entry)
                 skipped.append((seq, row))
@@ -1225,7 +1228,7 @@ async def qc_run_batch(request: Request):
                             "matched_court": result.matched_court,
                             "matched_date": result.matched_date,
                             "matched_description": result.matched_description,
-                            "diagnostics": result.diagnostics,
+                            "diagnostics": [{"category": d.category, "message": d.message} for d in result.diagnostics],
                         }
                         results_for_sidecar.append(sidecar_entry)
 
@@ -1301,7 +1304,7 @@ async def qc_run_batch(request: Request):
                                 "matched_court": result.matched_court,
                                 "matched_date": result.matched_date,
                                 "matched_description": result.matched_description,
-                                "diagnostics": result.diagnostics,
+                                "diagnostics": [{"category": d.category, "message": d.message} for d in result.diagnostics],
                             }
                             results_for_sidecar.append(sidecar_entry)
 

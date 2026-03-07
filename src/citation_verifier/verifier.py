@@ -13,6 +13,7 @@ from .client import AsyncCourtListenerClient, CourtListenerClient
 from .court_map import is_federal_court, lookup_court_id
 from .models import (
     CandidateMatch,
+    Diagnostic,
     ParsedCitation,
     VerificationResult,
     VerificationStatus,
@@ -65,10 +66,11 @@ class CitationVerifier:
                     matched_cluster_id=cluster_id,
                     matched_court=cluster.get("court") or cluster.get("court_id") or None,
                     matched_date=cluster.get("date_filed") or None,
-                    diagnostics=[
+                    diagnostics=[Diagnostic(
+                        "name",
                         f'Name mismatch: citation exists at this reporter location '
                         f'but belongs to "{case_name}"',
-                    ],
+                    )],
                 )
 
         return VerificationResult(
@@ -132,9 +134,10 @@ class CitationVerifier:
                 input_citation=citation_text,
                 status=VerificationStatus.NOT_FOUND,
                 confidence=0.0,
-                diagnostics=[
-                    "No matching cases found in CourtListener opinions or RECAP"
-                ],
+                diagnostics=[Diagnostic(
+                    "info",
+                    "No matching cases found in CourtListener opinions or RECAP",
+                )],
             )
 
         # Sort by score descending
@@ -152,10 +155,11 @@ class CitationVerifier:
                 status=VerificationStatus.NOT_FOUND,
                 confidence=0.0,
                 candidates=candidates[:5],
-                diagnostics=[
+                diagnostics=[Diagnostic(
+                    "cite",
                     f"Reporter citation could not be verified, and no matching "
                     f"cases were found in {parsed.court}",
-                ],
+                )],
             )
 
         # When both court and date are missing from the parsed citation,
@@ -166,12 +170,13 @@ class CitationVerifier:
                 status=VerificationStatus.NOT_FOUND,
                 confidence=0.0,
                 candidates=candidates[:5],
-                diagnostics=[
+                diagnostics=[Diagnostic(
+                    "info",
                     "Insufficient data to verify: citation text is missing "
                     "both court and date. A match cannot be confirmed with "
                     "name alone. Try adding the court and year parenthetical "
                     "(e.g. '(E.D. Tenn. 2020)') to the citation text.",
-                ],
+                )],
             )
 
         if best.score >= 0.85:
@@ -323,7 +328,7 @@ class CitationVerifier:
                 input_citation=citation_text,
                 status=VerificationStatus.NOT_FOUND,
                 confidence=0.0,
-                diagnostics=["Quick search only: not in citation lookup API"],
+                diagnostics=[Diagnostic("info", "Quick search only: not in citation lookup API")],
             )
 
         # Step 2: Fuzzy search fallback
@@ -575,7 +580,7 @@ class CitationVerifier:
             recap_note += f". Document dated {entry_date}"
         if diag_desc:
             recap_note += f": {diag_desc}"
-        mismatches.insert(0, recap_note)
+        mismatches.insert(0, Diagnostic("recap", recap_note))
 
         return CandidateMatch(
             case_name=case_name,
@@ -609,23 +614,22 @@ class CitationVerifier:
             result,
         )
         score = round(score * 0.6, 4)
-        # Remove date/citation diagnostics — they're redundant when
-        # we already can't verify a specific document.
+        # Remove date/citation/name-missing diagnostics — they're redundant
+        # when we already can't verify a specific document.
         # Keep court/name diagnostics — those are still useful.
-        _date_cite_prefixes = (
-            "Year ",
-            "Date close",
-            "Date mismatch",
-            "Reporter citation ",
-            "WL number ",
-            "Citation mismatch",
-            "Case name not returned",
-        )
-        mismatches = [m for m in mismatches if not m.startswith(_date_cite_prefixes)]
+        _drop_categories = {"date", "cite"}
+        mismatches = [
+            m for m in mismatches
+            if m.category not in _drop_categories
+            and m.message != "Case name not returned by API"
+        ]
         mismatches.insert(
             0,
-            "We found a possible docket match in RECAP, "
-            "but no specific document could be verified",
+            Diagnostic(
+                "recap",
+                "We found a possible docket match in RECAP, "
+                "but no specific document could be verified",
+            ),
         )
         return CandidateMatch(
             case_name=case_name,
@@ -639,10 +643,10 @@ class CitationVerifier:
 
     @staticmethod
     def _finalize_diagnostics(
-        mismatches: list[str],
+        mismatches: list[Diagnostic],
         score: float,
         status: VerificationStatus,
-    ) -> list[str]:
+    ) -> list[Diagnostic]:
         """Finalize diagnostics by appending match language for non-verified results.
 
         When score >= 0.40, appends "However, we identified a likely/possible match"
@@ -655,16 +659,18 @@ class CitationVerifier:
             )
             if diagnostics:
                 last = diagnostics[-1]
-                if last.endswith("could be verified"):
-                    diagnostics[-1] = (
-                        last + f". However, we identified a {match_word} match."
+                if last.message.endswith("could be verified"):
+                    diagnostics[-1] = Diagnostic(
+                        last.category,
+                        last.message + f". However, we identified a {match_word} match.",
                     )
                 else:
-                    diagnostics[-1] = (
-                        last + f", but we identified a {match_word} match."
+                    diagnostics[-1] = Diagnostic(
+                        last.category,
+                        last.message + f", but we identified a {match_word} match.",
                     )
             else:
-                diagnostics.append(f"We identified a {match_word} match.")
+                diagnostics.append(Diagnostic("info", f"We identified a {match_word} match."))
         return diagnostics
 
     @staticmethod
@@ -951,7 +957,7 @@ class CitationVerifier:
         result_court: str,
         result_date: str,
         result: dict[str, Any],
-    ) -> tuple[float, list[str]]:
+    ) -> tuple[float, list[Diagnostic]]:
         """Score how well a search result matches the parsed citation.
 
         Base weights: case name (50%), court (20%), date (20%),
@@ -965,9 +971,9 @@ class CitationVerifier:
         parenthetical) from being capped at 0.80 even when everything
         else matches perfectly.
 
-        Returns (score, list of mismatch descriptions).
+        Returns (score, list of mismatch Diagnostics).
         """
-        mismatches: list[str] = []
+        mismatches: list[Diagnostic] = []
 
         # --- Determine which components are evaluable ---
         can_eval_court = bool(parsed.court)
@@ -1008,10 +1014,11 @@ class CitationVerifier:
         if not can_eval_date:
             missing.append("date")
         if missing:
-            mismatches.append(
+            mismatches.append(Diagnostic(
+                "info",
                 f"Low confidence: {' and '.join(missing)} not available "
-                f"in citation text"
-            )
+                f"in citation text",
+            ))
 
         # --- Score each component ---
         score = 0.0
@@ -1025,17 +1032,19 @@ class CitationVerifier:
             score += w_name * name_sim
 
             if name_sim < 0.6:
-                mismatches.append(
+                mismatches.append(Diagnostic(
+                    "name",
                     f'Name mismatch: cited "{parsed.case_name}" '
-                    f'vs found "{result_case_name}"'
-                )
+                    f'vs found "{result_case_name}"',
+                ))
             elif name_sim < 0.85:
-                mismatches.append(
+                mismatches.append(Diagnostic(
+                    "name",
                     f'Name differs: cited "{parsed.case_name}" '
-                    f'~ found "{result_case_name}" ({name_sim:.0%} similar)'
-                )
+                    f'~ found "{result_case_name}" ({name_sim:.0%} similar)',
+                ))
         elif parsed.case_name:
-            mismatches.append("Case name not returned by API")
+            mismatches.append(Diagnostic("name", "Case name not returned by API"))
 
         # Court match
         if can_eval_court and result_court:
@@ -1043,19 +1052,21 @@ class CitationVerifier:
             if expected_court and expected_court == result_court:
                 score += w_court
             elif expected_court:
-                mismatches.append(
+                mismatches.append(Diagnostic(
+                    "court",
                     f"Court mismatch: cited {parsed.court} ({expected_court}) "
-                    f"vs found {result_court}"
-                )
+                    f"vs found {result_court}",
+                ))
             elif parsed.court.lower() == result_court.lower():
                 # Direct match on raw court string (e.g. state courts)
                 score += w_court
             else:
-                mismatches.append(
-                    f"Court mismatch: cited {parsed.court} vs found {result_court}"
-                )
+                mismatches.append(Diagnostic(
+                    "court",
+                    f"Court mismatch: cited {parsed.court} vs found {result_court}",
+                ))
         elif parsed.court:
-            mismatches.append(f"Court {parsed.court} could not be verified")
+            mismatches.append(Diagnostic("court", f"Court {parsed.court} could not be verified"))
 
         # Date match — with month/day granularity when available
         if can_eval_date and result_date:
@@ -1080,24 +1091,27 @@ class CitationVerifier:
                             cited_date = f"{parsed.year}-{parsed.month:02d}"
                             if parsed.day:
                                 cited_date += f"-{parsed.day:02d}"
-                            mismatches.append(
-                                f"Date close: cited {cited_date} vs filed {result_date}"
-                            )
+                            mismatches.append(Diagnostic(
+                                "date",
+                                f"Date close: cited {cited_date} vs filed {result_date}",
+                            ))
                     else:
                         score += w_date  # same year, no month info to compare
                 elif year_diff == 1:
                     score += w_date * 0.5
-                    mismatches.append(
-                        f"Date close: cited {parsed.year} vs filed {result_date}"
-                    )
+                    mismatches.append(Diagnostic(
+                        "date",
+                        f"Date close: cited {parsed.year} vs filed {result_date}",
+                    ))
                 else:
-                    mismatches.append(
-                        f"Date mismatch: cited {parsed.year} vs filed {result_date}"
-                    )
+                    mismatches.append(Diagnostic(
+                        "date",
+                        f"Date mismatch: cited {parsed.year} vs filed {result_date}",
+                    ))
             except (ValueError, IndexError):
                 pass
         elif parsed.year:
-            mismatches.append(f"Year {parsed.year} could not be verified")
+            mismatches.append(Diagnostic("date", f"Year {parsed.year} could not be verified"))
 
         # Docket number match
         if parsed.docket_number:
@@ -1110,10 +1124,11 @@ class CitationVerifier:
                 if cited_dn == found_dn:
                     score += w_docket
                 else:
-                    mismatches.append(
+                    mismatches.append(Diagnostic(
+                        "docket",
                         f"Docket mismatch: cited {parsed.docket_number} "
-                        f"vs found {result_docket}"
-                    )
+                        f"vs found {result_docket}",
+                    ))
 
         # Reporter/WL citation match
         result_citation = result.get("citation", [])
@@ -1132,28 +1147,32 @@ class CitationVerifier:
                     or cite_normalized in result_normalized):
                 score += w_cite
             elif not result_citation.strip():
-                mismatches.append(
+                mismatches.append(Diagnostic(
+                    "cite",
                     f"Reporter citation {cite_str} could not be confirmed "
-                    f"(CourtListener has no reporter citations on file for this case)"
-                )
+                    f"(CourtListener has no reporter citations on file for this case)",
+                ))
             else:
-                mismatches.append(
+                mismatches.append(Diagnostic(
+                    "cite",
                     f"Citation mismatch: cited {cite_str} "
-                    f"but CourtListener has {result_citation}"
-                )
+                    f"but CourtListener has {result_citation}",
+                ))
         elif parsed.wl_number:
             if parsed.wl_number in result_citation:
                 score += w_cite
             elif not result_citation.strip():
-                mismatches.append(
+                mismatches.append(Diagnostic(
+                    "cite",
                     f"WL number {parsed.wl_number} could not be confirmed "
-                    f"(CourtListener has no citations on file for this case)"
-                )
+                    f"(CourtListener has no citations on file for this case)",
+                ))
             else:
-                mismatches.append(
+                mismatches.append(Diagnostic(
+                    "cite",
                     f"WL number {parsed.wl_number} not found "
-                    f"in CourtListener citations: {result_citation}"
-                )
+                    f"in CourtListener citations: {result_citation}",
+                ))
 
         return round(score, 4), mismatches
 
@@ -1194,7 +1213,7 @@ class CitationVerifier:
                 input_citation=citation_text,
                 status=VerificationStatus.NOT_FOUND,
                 confidence=0.0,
-                diagnostics=["Quick search only: not in citation lookup API"],
+                diagnostics=[Diagnostic("info", "Quick search only: not in citation lookup API")],
             )
 
         # Step 2: Fuzzy search fallback
