@@ -1,0 +1,480 @@
+{
+  "total": 50,
+  "resolved_by_casedev": 44,
+  "name_mismatches": 3,
+  "fallback_needed": 3,
+  "status_counts": {
+    "POSSIBLE_MATCH": 4,
+    "VERIFIED": 44,
+    "NOT_FOUND": 1,
+    "LIKELY_REAL": 1
+  },
+  "details": [
+    {
+      "citation": "Townsend v. Meyer, 129 Md. App. 598 (2000)",
+      "status": "POSSIBLE_MATCH",
+      "confidence": 0.3,
+      "source": "case.dev (name mismatch)",
+      "matched_name": "State Department of Assessments & Taxation v. North Baltimore Center, Inc.",
+      "matched_url": "https://www.courtlistener.com/opinion/1435950/state-department-of-assessments-taxation-v-north-baltimore-center-inc/",
+      "diagnostics": [
+        "Name mismatch: citation exists at this reporter location but belongs to \"State Department of Assessments & Taxation v. North Baltimore Center, Inc.\""
+      ]
+    },
+    {
+      "citation": "Furr v. Furr, 199 Md. App. 1 (2011)",
+      "status": "POSSIBLE_MATCH",
+      "confidence": 0.3,
+      "source": "case.dev (name mismatch)",
+      "matched_name": "People's Insurance Counsel Division v. Allstate Insurance",
+      "matched_url": "https://www.courtlistener.com/opinion/2558146/peoples-insurance-counsel-division-v-allstate-insurance/",
+      "diagnostics": [
+        "Name mismatch: citation exists at this reporter location but belongs to \"People's Insurance Counsel Division v. Allstate Insurance\""
+      ]
+    },
+    {
+      "citation": "Kaplan v. DaimlerChrysler, A.G., 331 F.3d 1251 (11th Cir. 2003)",
+      "status": "VERIFIED",
+      "confidence": 1.0,
+      "source": "case.dev (multiple)",
+      "matched_name": "Kaplan v. DaimlerChrysler, A.G.",
+      "matched_url": "https://www.courtlistener.com/opinion/8437509/kaplan-v-daimlerchrysler-ag/",
+      "diagnostics": []
+    },
+    {
+      "citation": "Williams v. McNeil, 557 F.3d 1287 (11th Cir. 2009)",
+      "status": "VERIFIED",
+      "confidence": 1.0,
+      "source": "case.dev",
+      "matched_name": "Williams v. McNeil",
+      "matched_url": "https://www.courtlistener.com/opinion/78267/williams-v-mcneil/",
+      "diagnostics": []
+    },
+    {
+      "citation": "Macort v. Prem, Inc., 208 F. App'x 781 (11th Cir. 2006)",
+      "status": "VERIFIED",
+      "confidence": 1.0,
+      "source": "case.dev",
+      "matched_name": "Colleen Macort v. Prem, Inc.",
+      "matched_url": "https://www.courtlistener.com/opinion/44762/colleen-macort-v-prem-inc/",
+      "diagnostics": []
+    },
+    {
+      "citation": "Meidinger v. Healthcare Indus. Oligopoly, 391 F. App'x 777 (11th Cir. 2010)",
+      "status": "VERIFIED",
+      "confidence": 1.0,
+      "source": "case.dev",
+      "matched_name": "Roy J. Meidinger v. Healthcare Industry Oligopoly",
+      "matched_url": "https://www.courtlistener.com/opinion/152510/roy-j-meidinger-v-healthcare-industry-oligopoly/",
+      "diagnostics": []
+    },
+    {
+      "citation": "Link v. Wabash R. Co., 370 U.S. 626 (U.S. 2006)",
+      "status": "VERIFIED",
+      "confidence": 1.0,
+      "source": "case.dev",
+      "matched_name": "Link v. Wabash Railroad",
+      "matched_url": "https://www.courtlistener.com/opinion/106449/link-v-wabash-railroad/",
+      "diagnostics": []
+    },
+    {
+      "citation": "Malautea v. Suzuki Motor Co. Ltd., 987 F.2d 1536 (11th Cir. 1993)",
+      "status": "VERIFIED",
+      "confidence": 1.0,
+      "source": "case.dev (multiple)",
+      "matched_name": "Malautea v. Suzuki Motor Co.",
+      "matched_url": "https://www.courtlistener.com/opinion/9014171/malautea-v-suzuki-motor-co/",
+      "diagnostics": []
+    },
+    {
+      "citation": "In re Shell Oil Refinery, 152 F.R.D. 526 (E.D. La. 1989)",
+      "status": "VERIFIED",
+      "confidence": 1.0,
+      "source": "case.dev",
+      "matched_name": "In re Shell Oil Refinery",
+      "matched_url": "https://www.courtlistener.com/opinion/9044790/in-re-shell-oil-refinery/",
+      "diagnostics": []
+    },
+    {
+      "citation": "Ricci v. DeStefano, 557 U.S. 557 (U.S. 2009)",
+      "status": "VERIFIED",
+      "confidence": 1.0,
+      "source": "case.dev",
+      "matched_name": "Ricci v. DeStefano",
+      "matched_url": "https://www.courtlistener.com/opinion/145848/ricci-v-destefano/",
+      "diagnostics": []
+    },
+    {
+      "citation": "O'Brien v. Caterpillar Inc., 900 F.3d 923 (7th Cir. 2018)",
+      "status": "VERIFIED",
+      "confidence": 1.0,
+      "source": "case.dev",
+      "matched_name": "Timothy O'Brien v. Caterpillar Inc.",
+      "matched_url": "https://www.courtlistener.com/opinion/4528080/timothy-obrien-v-caterpillar-inc/",
+      "diagnostics": []
+    },
+    {
+      "citation": "Bloch v. Frischholz, 587 F.3d 771 (7th Cir. 2009)",
+      "status": "VERIFIED",
+      "confidence": 1.0,
+      "source": "case.dev",
+      "matched_name": "Bloch v. Frischholz",
+      "matched_url": "https://www.courtlistener.com/opinion/1345471/bloch-v-frischholz/",
+      "diagnostics": []
+    },
+    {
+      "citation": "Hemisphere Bldg. Co., Inc. v. Vill. of Richton Park, 171 F.3d 437 (7th Cir. 1999)",
+      "status": "VERIFIED",
+      "confidence": 1.0,
+      "source": "case.dev",
+      "matched_name": "Hemisphere Building Company, Inc. v. Village of Richton Park",
+      "matched_url": "https://www.courtlistener.com/opinion/762567/hemisphere-building-company-inc-v-village-of-richton-park/",
+      "diagnostics": []
+    },
+    {
+      "citation": "Good Shepherd Manor Found., Inc. v. City of Momence, 323 F.3d 557 (7th Cir. 2003)",
+      "status": "VERIFIED",
+      "confidence": 1.0,
+      "source": "case.dev",
+      "matched_name": "Good Shepherd Manor Foundation, Inc. v. City of Momence",
+      "matched_url": "https://www.courtlistener.com/opinion/2996275/good-shepherd-manor-foundation-inc-v-city-of-momence/",
+      "diagnostics": []
+    },
+    {
+      "citation": "Daimler AG v. Bauman, 571 U.S. 117 (U.S. 2014)",
+      "status": "VERIFIED",
+      "confidence": 1.0,
+      "source": "case.dev",
+      "matched_name": "Daimler AG v. Bauman",
+      "matched_url": "https://www.courtlistener.com/opinion/2649076/daimler-ag-v-bauman/",
+      "diagnostics": []
+    },
+    {
+      "citation": "Advanced Tactical Ordnance Sys., LLC v. Real Action Paintball, Inc., 751 F.3d 796 (7th Cir. 2014)",
+      "status": "VERIFIED",
+      "confidence": 1.0,
+      "source": "case.dev",
+      "matched_name": "Advanced Tactical Ordnance Systems, LLC v. Real Action Paintball, Inc.",
+      "matched_url": "https://www.courtlistener.com/opinion/2708652/advanced-tactical-ordnance-systems-llc-v-real-action-paintball-inc/",
+      "diagnostics": []
+    },
+    {
+      "citation": "Bristol-Myers Squibb Co. v. Superior Ct., 137 S.Ct. 1773 (U.S. 2017)",
+      "status": "VERIFIED",
+      "confidence": 1.0,
+      "source": "case.dev",
+      "matched_name": "Bristol-Myers Squibb Co. v. Superior Court of Cal., San Francisco Cty.",
+      "matched_url": "https://www.courtlistener.com/opinion/4403809/bristol-myers-squibb-co-v-superior-court-of-cal-san-francisco-cty/",
+      "diagnostics": []
+    },
+    {
+      "citation": "Bristol-Myers Squibb Co. v. Superior Ct., 198 L.Ed.2d 395 (2017)",
+      "status": "VERIFIED",
+      "confidence": 1.0,
+      "source": "case.dev",
+      "matched_name": "Bristol-Myers Squibb Co. v. Superior Court of Cal., San Francisco Cty.",
+      "matched_url": "https://www.courtlistener.com/opinion/4403809/bristol-myers-squibb-co-v-superior-court-of-cal-san-francisco-cty/",
+      "diagnostics": []
+    },
+    {
+      "citation": "Tamburo v. Dworkin, 601 F.3d 693 (7th Cir. 2010)",
+      "status": "VERIFIED",
+      "confidence": 1.0,
+      "source": "case.dev",
+      "matched_name": "Tamburo v. Dworkin",
+      "matched_url": "https://www.courtlistener.com/opinion/1428/tamburo-v-dworkin/",
+      "diagnostics": []
+    },
+    {
+      "citation": "Bus. Guides, Inc. v. Chromatic Commc'ns. Enters., Inc., 498 U.S. 533 (U.S. 1991)",
+      "status": "VERIFIED",
+      "confidence": 1.0,
+      "source": "case.dev",
+      "matched_name": "Business Guides, Inc. v. Chromatic Communications Enterprises, Inc.",
+      "matched_url": "https://www.courtlistener.com/opinion/112539/business-guides-inc-v-chromatic-communications-enterprises-inc/",
+      "diagnostics": []
+    },
+    {
+      "citation": "United States v. Smith, 629 F.3d 1082 (9th Cir. 2011)",
+      "status": "POSSIBLE_MATCH",
+      "confidence": 0.3,
+      "source": "case.dev (name mismatch)",
+      "matched_name": "Lands Council v. McNair",
+      "matched_url": "https://www.courtlistener.com/opinion/181860/lands-council-v-mcnair/",
+      "diagnostics": [
+        "Name mismatch: citation exists at this reporter location but belongs to \"Lands Council v. McNair\""
+      ]
+    },
+    {
+      "citation": "Gonzaga Univ. v. 15 Doe, 536 U.S. 273 (U.S. 2002)",
+      "status": "VERIFIED",
+      "confidence": 1.0,
+      "source": "case.dev",
+      "matched_name": "Gonzaga University v. Doe",
+      "matched_url": "https://www.courtlistener.com/opinion/121157/gonzaga-university-v-doe/",
+      "diagnostics": []
+    },
+    {
+      "citation": "Renenger v. State, 426 P.3d 559 (mont 2018)",
+      "status": "VERIFIED",
+      "confidence": 1.0,
+      "source": "case.dev",
+      "matched_name": "Renenger v. State",
+      "matched_url": "https://www.courtlistener.com/opinion/6657223/renenger-v-state/",
+      "diagnostics": []
+    },
+    {
+      "citation": "Monell v. Dep't of Soc. Servs. of the City of N.Y.,436 U.S. 658 (U.S. 1978)",
+      "status": "VERIFIED",
+      "confidence": 1.0,
+      "source": "case.dev",
+      "matched_name": "Monell v. New York City Dept. of Social Servs.",
+      "matched_url": "https://www.courtlistener.com/opinion/109881/monell-v-new-york-city-dept-of-social-servs/",
+      "diagnostics": []
+    },
+    {
+      "citation": "Ashcroft v. Iqbal, 556 U.S. 662 (U.S. 2009)",
+      "status": "VERIFIED",
+      "confidence": 1.0,
+      "source": "case.dev",
+      "matched_name": "Ashcroft v. Iqbal",
+      "matched_url": "https://www.courtlistener.com/opinion/145875/ashcroft-v-iqbal/",
+      "diagnostics": []
+    },
+    {
+      "citation": "Bell Atl. Corp. v. Twombly, 550 U.S. 544 (U.S. 2007)",
+      "status": "VERIFIED",
+      "confidence": 1.0,
+      "source": "case.dev",
+      "matched_name": "Bell Atlantic Corp. v. Twombly",
+      "matched_url": "https://www.courtlistener.com/opinion/145730/bell-atlantic-corp-v-twombly/",
+      "diagnostics": []
+    },
+    {
+      "citation": "L.A. Lakers, Inc. v. Fed. Ins. Co., 869 F.3d 795 (9th Cir. 2017)",
+      "status": "VERIFIED",
+      "confidence": 1.0,
+      "source": "case.dev",
+      "matched_name": "Los Angeles Lakers, Inc. v. Federal Insurance Co.",
+      "matched_url": "https://www.courtlistener.com/opinion/4421063/los-angeles-lakers-inc-v-federal-insurance-co/",
+      "diagnostics": []
+    },
+    {
+      "citation": "Lopez v. Smith, 203 F.3d 1122 (9th Cir. 2000)",
+      "status": "VERIFIED",
+      "confidence": 1.0,
+      "source": "case.dev (multiple)",
+      "matched_name": "Lopez v. Smith",
+      "matched_url": "https://www.courtlistener.com/opinion/7079981/lopez-v-smith/",
+      "diagnostics": []
+    },
+    {
+      "citation": "Genzler v. Longanbach, 410 F.3d 630 (9th Cir. 2005)",
+      "status": "VERIFIED",
+      "confidence": 1.0,
+      "source": "case.dev (multiple)",
+      "matched_name": "Genzler v. Longanbach",
+      "matched_url": "https://www.courtlistener.com/opinion/3032094/genzler-v-longanbach/",
+      "diagnostics": []
+    },
+    {
+      "citation": "Horton v. City of Santa Maria, 915 F.3d 592 (9th Cir. 2019)",
+      "status": "VERIFIED",
+      "confidence": 1.0,
+      "source": "case.dev",
+      "matched_name": "Shane Horton v. City of Santa Maria",
+      "matched_url": "https://www.courtlistener.com/opinion/4586718/shane-horton-v-city-of-santa-maria/",
+      "diagnostics": []
+    },
+    {
+      "citation": "Polk Cnty. v. Dodson, 454 U.S. 312 (U.S. 1981)",
+      "status": "VERIFIED",
+      "confidence": 1.0,
+      "source": "case.dev",
+      "matched_name": "Polk County v. Dodson",
+      "matched_url": "https://www.courtlistener.com/opinion/110589/polk-county-v-dodson/",
+      "diagnostics": []
+    },
+    {
+      "citation": "Hernandez v. Cnty. of Tulare, 666 F.3d 631 (9th Cir. 2012)",
+      "status": "VERIFIED",
+      "confidence": 1.0,
+      "source": "case.dev",
+      "matched_name": "AE Ex Rel. Hernandez v. County of Tulare",
+      "matched_url": "https://www.courtlistener.com/opinion/621643/ae-ex-rel-hernandez-v-county-of-tulare/",
+      "diagnostics": []
+    },
+    {
+      "citation": "Weiner v. San Diego 17 Cnty., 210 F.3d 1025 (9th Cir. 2000)",
+      "status": "VERIFIED",
+      "confidence": 1.0,
+      "source": "case.dev",
+      "matched_name": "Murray Weiner,plaintiff-Appellant v. San Diego County",
+      "matched_url": "https://www.courtlistener.com/opinion/768521/murray-weinerplaintiff-appellant-v-san-diego-county/",
+      "diagnostics": []
+    },
+    {
+      "citation": "In re Jettv. Dallas Independ. Sch. Dist., 491 U.S. 701 (U.S. 1989)",
+      "status": "VERIFIED",
+      "confidence": 1.0,
+      "source": "case.dev",
+      "matched_name": "Jett v. Dallas Independent School District",
+      "matched_url": "https://www.courtlistener.com/opinion/112313/jett-v-dallas-independent-school-district/",
+      "diagnostics": []
+    },
+    {
+      "citation": "Taylor v. Cnty. of Pima, 913 F.3d 930 (9th Cir. 2019)",
+      "status": "VERIFIED",
+      "confidence": 1.0,
+      "source": "case.dev (multiple)",
+      "matched_name": "Louis Taylor v. County of Pima",
+      "matched_url": "https://www.courtlistener.com/opinion/4582577/louis-taylor-v-county-of-pima/",
+      "diagnostics": []
+    },
+    {
+      "citation": "McMillian v. Monroe Cnty., 520 U.S. 781 (U.S. 2013)",
+      "status": "VERIFIED",
+      "confidence": 1.0,
+      "source": "case.dev",
+      "matched_name": "McMillian v. Monroe County",
+      "matched_url": "https://www.courtlistener.com/opinion/118118/mcmillian-v-monroe-county/",
+      "diagnostics": []
+    },
+    {
+      "citation": "Goldstein v. City of Long Beach, 715 F.3d 750 (9th Cir. 2013)",
+      "status": "VERIFIED",
+      "confidence": 1.0,
+      "source": "case.dev",
+      "matched_name": "Thomas Goldstein v. City of Long Beach",
+      "matched_url": "https://www.courtlistener.com/opinion/867050/thomas-goldstein-v-city-of-long-beach/",
+      "diagnostics": []
+    },
+    {
+      "citation": "Willy v. Coastal Corp., 855 F.2d 1160 (5th Cir. 1988)",
+      "status": "VERIFIED",
+      "confidence": 1.0,
+      "source": "case.dev",
+      "matched_name": "Donald J. Willy, and George A. Young v. The Coastal Corp., Coastal States Management Co., Inc., Defendants",
+      "matched_url": "https://www.courtlistener.com/opinion/510980/donald-j-willy-and-george-a-young-v-the-coastal-corp-coastal-states/",
+      "diagnostics": []
+    },
+    {
+      "citation": "Zaldivar v. City of Los Angeles, 780 F.2d 823 (1986)",
+      "status": "VERIFIED",
+      "confidence": 1.0,
+      "source": "case.dev",
+      "matched_name": "Richard L. Zaldivar v. City of Los Angeles, and Margaret Salazar, Intervenors-Appellees",
+      "matched_url": "https://www.courtlistener.com/opinion/462717/richard-l-zaldivar-v-city-of-los-angeles-and-margaret-salazar/",
+      "diagnostics": []
+    },
+    {
+      "citation": "Mars Steel Corp. v. Continental 27 Bank N.A., 880 F.2d 928 (7th Cir. 1989)",
+      "status": "VERIFIED",
+      "confidence": 1.0,
+      "source": "case.dev (multiple)",
+      "matched_name": "Mars Steel Corp. v. Continental Bank N.A.",
+      "matched_url": "https://www.courtlistener.com/opinion/8980246/mars-steel-corp-v-continental-bank-na/",
+      "diagnostics": []
+    },
+    {
+      "citation": "Weissman v. Quail Lodge, Inc., 179 F.3d 1194 (1999)",
+      "status": "VERIFIED",
+      "confidence": 1.0,
+      "source": "case.dev",
+      "matched_name": "Weissman v. Quail Lodge Inc.",
+      "matched_url": "https://www.courtlistener.com/opinion/7077720/weissman-v-quail-lodge-inc/",
+      "diagnostics": []
+    },
+    {
+      "citation": "Trust Corp. v. Dabney, 73 F.3d 262 (10th Cir. 1995)",
+      "status": "VERIFIED",
+      "confidence": 1.0,
+      "source": "case.dev (multiple)",
+      "matched_name": "Resolution Trust Corp. v. Dabney",
+      "matched_url": "https://www.courtlistener.com/opinion/7034765/resolution-trust-corp-v-dabney/",
+      "diagnostics": []
+    },
+    {
+      "citation": "Bias v. 2 Moynihan, 508 F.3d 1212 (9th Cir. 2007)",
+      "status": "VERIFIED",
+      "confidence": 1.0,
+      "source": "case.dev",
+      "matched_name": "Bias v. Moynihan",
+      "matched_url": "https://www.courtlistener.com/opinion/1228180/bias-v-moynihan/",
+      "diagnostics": []
+    },
+    {
+      "citation": "Crane v. State Bar of Cal., 19, 30 Cal. 3d 117 (1981)",
+      "status": "VERIFIED",
+      "confidence": 1.0,
+      "source": "case.dev",
+      "matched_name": "Crane v. State Bar",
+      "matched_url": "https://www.courtlistener.com/opinion/1188453/crane-v-state-bar/",
+      "diagnostics": []
+    },
+    {
+      "citation": "Gadda v. State Bar, 50 Cal. 3d 344 (1990)",
+      "status": "VERIFIED",
+      "confidence": 1.0,
+      "source": "case.dev",
+      "matched_name": "Gadda v. State Bar",
+      "matched_url": "https://www.courtlistener.com/opinion/1442616/gadda-v-state-bar/",
+      "diagnostics": []
+    },
+    {
+      "citation": "Zambrano v. 25 City of Tustin, 885 F.2d 1473 (9th Cir. 1989)",
+      "status": "VERIFIED",
+      "confidence": 1.0,
+      "source": "case.dev",
+      "matched_name": "Linda Marie Zambrano, and Jose E. Tafolla, Esq. Philip W. Orr, Esq., Claimants-Appellants v. City of Tustin David Kreyling",
+      "matched_url": "https://www.courtlistener.com/opinion/529755/linda-marie-zambrano-and-jose-e-tafolla-esq-philip-w-orr-esq/",
+      "diagnostics": []
+    },
+    {
+      "citation": "Hanlon v. Chrysler Corp., 150 F.3d 1011 (9th Cir. 1998)",
+      "status": "VERIFIED",
+      "confidence": 1.0,
+      "source": "case.dev (multiple)",
+      "matched_name": "Hanlon v. Chrysler Corp.",
+      "matched_url": "https://www.courtlistener.com/opinion/7067938/hanlon-v-chrysler-corp/",
+      "diagnostics": []
+    },
+    {
+      "citation": "Parekh v. CBS Corp., 820 F. App'x 827 (11th Cir. 2020)",
+      "status": "POSSIBLE_MATCH",
+      "confidence": 0.825,
+      "source": "CL fallback",
+      "matched_name": "Niklesh Parekh v. CBS Corporation",
+      "matched_url": "https://www.courtlistener.com/opinion/4762359/niklesh-parekh-v-cbs-corporation/",
+      "diagnostics": [
+        "Reporter citation 820 F. App'x 827 could not be confirmed (CourtListener has no reporter citations on file for this case), but we identified a possible match."
+      ]
+    },
+    {
+      "citation": "Monell v. Dep 't of Soc. Servs. of the City of New York, 436 U.S. 659 (U.S. 1978)",
+      "status": "NOT_FOUND",
+      "confidence": 0.2013,
+      "source": "CL fallback",
+      "matched_name": "McDaniel v. The City of New York",
+      "matched_url": "https://www.courtlistener.com/docket/18513916/10/mcdaniel-v-the-city-of-new-york/",
+      "diagnostics": [
+        "Found in RECAP (not in opinions database). Document dated 2021-02-26: Order of Dismissal",
+        "Name mismatch: cited \"Monell v. Dep 't of Soc. Services. of the City of New York\" vs found \"McDaniel v. The City of New York\"",
+        "Court mismatch: cited usjc vs found nysd",
+        "Date mismatch: cited 1978 vs filed 2021-02-26",
+        "Reporter citation 436 U.S. 659 could not be confirmed (CourtListener has no reporter citations on file for this case)"
+      ]
+    },
+    {
+      "citation": "Brown v. Federation of State Med. Boards of the U.S., 830, 26 F.2d 1429 (7th Cir. 1987)",
+      "status": "LIKELY_REAL",
+      "confidence": 0.9,
+      "source": "CL fallback",
+      "matched_name": "Brown v. Federation of State Medical Boards of the United States",
+      "matched_url": "https://www.courtlistener.com/opinion/495453/brown-v-federation-of-state-medical-boards-of-the-united-states/",
+      "diagnostics": [
+        "Citation mismatch: cited 26 F.2d 1429 but CourtListener has 830 F.2d 1429, but we identified a likely match."
+      ]
+    }
+  ]
+}

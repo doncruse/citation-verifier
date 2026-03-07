@@ -6,6 +6,6 @@
   "fallback_needed": 8,
   "status_matches": 32,
   "url_matches": 29,
-  "casedev_time_s": 8.41,
-  "fallback_time_s": 91.17
+  "casedev_time_s": 10.13,
+  "fallback_time_s": 81.25
 }

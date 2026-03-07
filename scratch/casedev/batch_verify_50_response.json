@@ -1,0 +1,968 @@
+{
+  "summary": {
+    "total": 50,
+    "verified": 39,
+    "notFound": 3,
+    "multipleMatches": 8
+  },
+  "citations": [
+    {
+      "original": "129 Md. App. 598",
+      "span": {
+        "start": 19,
+        "end": 35
+      },
+      "status": "verified",
+      "verificationSource": "courtlistener",
+      "confidence": 1,
+      "normalized": "129 Md. App. 598",
+      "case": {
+        "id": 1435950,
+        "name": "State Department of Assessments & Taxation v. North Baltimore Center, Inc.",
+        "shortName": "",
+        "dateDecided": "2000-01-04",
+        "parallelCitations": [],
+        "url": "https://www.courtlistener.com/opinion/1435950/state-department-of-assessments-taxation-v-north-baltimore-center-inc/"
+      }
+    },
+    {
+      "original": "199 Md. App. 1",
+      "span": {
+        "start": 57,
+        "end": 71
+      },
+      "status": "verified",
+      "verificationSource": "courtlistener",
+      "confidence": 1,
+      "normalized": "199 Md. App. 1",
+      "case": {
+        "id": 2558146,
+        "name": "People's Insurance Counsel Division v. Allstate Insurance",
+        "shortName": "Allstate",
+        "dateDecided": "2011-05-10",
+        "parallelCitations": [],
+        "url": "https://www.courtlistener.com/opinion/2558146/peoples-insurance-counsel-division-v-allstate-insurance/"
+      }
+    },
+    {
+      "original": "331 F.3d 1251",
+      "span": {
+        "start": 112,
+        "end": 125
+      },
+      "status": "multiple_matches",
+      "verificationSource": "courtlistener",
+      "confidence": 1,
+      "normalized": "331 F.3d 1251",
+      "candidates": [
+        {
+          "name": "Kaplan v. DaimlerChrysler, A.G.",
+          "dateDecided": "2003-05-30",
+          "url": "https://www.courtlistener.com/opinion/8437509/kaplan-v-daimlerchrysler-ag/"
+        },
+        {
+          "name": "Kaplan v. Daimlerchrysler",
+          "dateDecided": "2003-05-30",
+          "url": "https://www.courtlistener.com/opinion/76161/kaplan-v-daimlerchrysler/"
+        }
+      ]
+    },
+    {
+      "original": "557 F.3d 1287",
+      "span": {
+        "start": 163,
+        "end": 176
+      },
+      "status": "verified",
+      "verificationSource": "courtlistener",
+      "confidence": 1,
+      "normalized": "557 F.3d 1287",
+      "case": {
+        "id": 78267,
+        "name": "Williams v. McNeil",
+        "shortName": "McNeil",
+        "dateDecided": "2009-02-10",
+        "parallelCitations": [],
+        "url": "https://www.courtlistener.com/opinion/78267/williams-v-mcneil/"
+      }
+    },
+    {
+      "original": "208 F. App'x 781",
+      "span": {
+        "start": 216,
+        "end": 232
+      },
+      "status": "verified",
+      "verificationSource": "courtlistener",
+      "confidence": 1,
+      "normalized": "208 F. App'x 781",
+      "case": {
+        "id": 44762,
+        "name": "Colleen Macort v. Prem, Inc.",
+        "shortName": "",
+        "dateDecided": "2006-11-30",
+        "parallelCitations": [],
+        "url": "https://www.courtlistener.com/opinion/44762/colleen-macort-v-prem-inc/"
+      }
+    },
+    {
+      "original": "391 F. App'x 777",
+      "span": {
+        "start": 292,
+        "end": 308
+      },
+      "status": "verified",
+      "verificationSource": "courtlistener",
+      "confidence": 1,
+      "normalized": "391 F. App'x 777",
+      "case": {
+        "id": 152510,
+        "name": "Roy J. Meidinger v. Healthcare Industry Oligopoly",
+        "shortName": "",
+        "dateDecided": "2010-08-09",
+        "parallelCitations": [],
+        "url": "https://www.courtlistener.com/opinion/152510/roy-j-meidinger-v-healthcare-industry-oligopoly/"
+      }
+    },
+    {
+      "original": "370 U.S. 626",
+      "span": {
+        "start": 349,
+        "end": 361
+      },
+      "status": "verified",
+      "verificationSource": "courtlistener",
+      "confidence": 1,
+      "normalized": "370 U.S. 626",
+      "case": {
+        "id": 106449,
+        "name": "Link v. Wabash Railroad",
+        "shortName": "Link",
+        "dateDecided": "1962-06-25",
+        "parallelCitations": [],
+        "url": "https://www.courtlistener.com/opinion/106449/link-v-wabash-railroad/"
+      }
+    },
+    {
+      "original": "987 F.2d 1536",
+      "span": {
+        "start": 409,
+        "end": 422
+      },
+      "status": "multiple_matches",
+      "verificationSource": "courtlistener",
+      "confidence": 1,
+      "normalized": "987 F.2d 1536",
+      "candidates": [
+        {
+          "name": "Malautea v. Suzuki Motor Co.",
+          "dateDecided": "1993-04-09",
+          "url": "https://www.courtlistener.com/opinion/9014171/malautea-v-suzuki-motor-co/"
+        },
+        {
+          "name": "White Malautea v. Suzuki Motor Company, Ltd.",
+          "dateDecided": "1993-04-09",
+          "url": "https://www.courtlistener.com/opinion/601876/white-malautea-v-suzuki-motor-company-ltd/"
+        }
+      ]
+    },
+    {
+      "original": "820 F. App'x 827",
+      "span": {
+        "start": 461,
+        "end": 477
+      },
+      "status": "not_found",
+      "verificationSource": "heuristic",
+      "confidence": 0.1,
+      "normalized": "820 F. App'x 827"
+    },
+    {
+      "original": "152 F.R.D. 526",
+      "span": {
+        "start": 521,
+        "end": 535
+      },
+      "status": "verified",
+      "verificationSource": "courtlistener",
+      "confidence": 1,
+      "normalized": "152 F.R.D. 526",
+      "case": {
+        "id": 9044790,
+        "name": "In re Shell Oil Refinery",
+        "shortName": "",
+        "dateDecided": "1989-03-23",
+        "parallelCitations": [],
+        "url": "https://www.courtlistener.com/opinion/9044790/in-re-shell-oil-refinery/"
+      }
+    },
+    {
+      "original": "557 U.S. 557",
+      "span": {
+        "start": 572,
+        "end": 584
+      },
+      "status": "verified",
+      "verificationSource": "courtlistener",
+      "confidence": 1,
+      "normalized": "557 U.S. 557",
+      "case": {
+        "id": 145848,
+        "name": "Ricci v. DeStefano",
+        "shortName": "Ricci",
+        "dateDecided": "2009-06-29",
+        "parallelCitations": [],
+        "url": "https://www.courtlistener.com/opinion/145848/ricci-v-destefano/"
+      }
+    },
+    {
+      "original": "900 F.3d 923",
+      "span": {
+        "start": 626,
+        "end": 638
+      },
+      "status": "verified",
+      "verificationSource": "courtlistener",
+      "confidence": 1,
+      "normalized": "900 F.3d 923",
+      "case": {
+        "id": 4528080,
+        "name": "Timothy O'Brien v. Caterpillar Inc.",
+        "shortName": "",
+        "dateDecided": "2018-08-20",
+        "parallelCitations": [],
+        "url": "https://www.courtlistener.com/opinion/4528080/timothy-obrien-v-caterpillar-inc/"
+      }
+    },
+    {
+      "original": "587 F.3d 771",
+      "span": {
+        "start": 676,
+        "end": 688
+      },
+      "status": "verified",
+      "verificationSource": "courtlistener",
+      "confidence": 1,
+      "normalized": "587 F.3d 771",
+      "case": {
+        "id": 1345471,
+        "name": "Bloch v. Frischholz",
+        "shortName": "Bloch",
+        "dateDecided": "2009-11-13",
+        "parallelCitations": [],
+        "url": "https://www.courtlistener.com/opinion/1345471/bloch-v-frischholz/"
+      }
+    },
+    {
+      "original": "171 F.3d 437",
+      "span": {
+        "start": 758,
+        "end": 770
+      },
+      "status": "verified",
+      "verificationSource": "courtlistener",
+      "confidence": 1,
+      "normalized": "171 F.3d 437",
+      "case": {
+        "id": 762567,
+        "name": "Hemisphere Building Company, Inc. v. Village of Richton Park",
+        "shortName": "",
+        "dateDecided": "1999-03-10",
+        "parallelCitations": [],
+        "url": "https://www.courtlistener.com/opinion/762567/hemisphere-building-company-inc-v-village-of-richton-park/"
+      }
+    },
+    {
+      "original": "323 F.3d 557",
+      "span": {
+        "start": 840,
+        "end": 852
+      },
+      "status": "verified",
+      "verificationSource": "courtlistener",
+      "confidence": 1,
+      "normalized": "323 F.3d 557",
+      "case": {
+        "id": 2996275,
+        "name": "Good Shepherd Manor Foundation, Inc. v. City of Momence",
+        "shortName": "",
+        "dateDecided": "2003-03-24",
+        "parallelCitations": [],
+        "url": "https://www.courtlistener.com/opinion/2996275/good-shepherd-manor-foundation-inc-v-city-of-momence/"
+      }
+    },
+    {
+      "original": "571 U.S. 117",
+      "span": {
+        "start": 891,
+        "end": 903
+      },
+      "status": "verified",
+      "verificationSource": "courtlistener",
+      "confidence": 1,
+      "normalized": "571 U.S. 117",
+      "case": {
+        "id": 2649076,
+        "name": "Daimler AG v. Bauman",
+        "shortName": "Bauman",
+        "dateDecided": "2014-01-14",
+        "parallelCitations": [],
+        "url": "https://www.courtlistener.com/opinion/2649076/daimler-ag-v-bauman/"
+      }
+    },
+    {
+      "original": "751 F.3d 796",
+      "span": {
+        "start": 985,
+        "end": 997
+      },
+      "status": "verified",
+      "verificationSource": "courtlistener",
+      "confidence": 1,
+      "normalized": "751 F.3d 796",
+      "case": {
+        "id": 2708652,
+        "name": "Advanced Tactical Ordnance Systems, LLC v. Real Action Paintball, Inc.",
+        "shortName": "",
+        "dateDecided": "2014-05-09",
+        "parallelCitations": [],
+        "url": "https://www.courtlistener.com/opinion/2708652/advanced-tactical-ordnance-systems-llc-v-real-action-paintball-inc/"
+      }
+    },
+    {
+      "original": "137 S.Ct. 1773",
+      "span": {
+        "start": 1056,
+        "end": 1070
+      },
+      "status": "verified",
+      "verificationSource": "courtlistener",
+      "confidence": 1,
+      "normalized": "137 S. Ct. 1773",
+      "case": {
+        "id": 4403809,
+        "name": "Bristol-Myers Squibb Co. v. Superior Court of Cal., San Francisco Cty.",
+        "shortName": "",
+        "dateDecided": "2017-06-19",
+        "parallelCitations": [],
+        "url": "https://www.courtlistener.com/opinion/4403809/bristol-myers-squibb-co-v-superior-court-of-cal-san-francisco-cty/"
+      }
+    },
+    {
+      "original": "198 L.Ed.2d 395",
+      "span": {
+        "start": 1125,
+        "end": 1140
+      },
+      "status": "verified",
+      "verificationSource": "courtlistener",
+      "confidence": 1,
+      "normalized": "198 L. Ed. 2d 395",
+      "case": {
+        "id": 4403809,
+        "name": "Bristol-Myers Squibb Co. v. Superior Court of Cal., San Francisco Cty.",
+        "shortName": "",
+        "dateDecided": "2017-06-19",
+        "parallelCitations": [],
+        "url": "https://www.courtlistener.com/opinion/4403809/bristol-myers-squibb-co-v-superior-court-of-cal-san-francisco-cty/"
+      }
+    },
+    {
+      "original": "601 F.3d 693",
+      "span": {
+        "start": 1168,
+        "end": 1180
+      },
+      "status": "verified",
+      "verificationSource": "courtlistener",
+      "confidence": 1,
+      "normalized": "601 F.3d 693",
+      "case": {
+        "id": 1428,
+        "name": "Tamburo v. Dworkin",
+        "shortName": "Tamburo",
+        "dateDecided": "2010-04-08",
+        "parallelCitations": [],
+        "url": "https://www.courtlistener.com/opinion/1428/tamburo-v-dworkin/"
+      }
+    },
+    {
+      "original": "498 U.S. 533",
+      "span": {
+        "start": 1253,
+        "end": 1265
+      },
+      "status": "verified",
+      "verificationSource": "courtlistener",
+      "confidence": 1,
+      "normalized": "498 U.S. 533",
+      "case": {
+        "id": 112539,
+        "name": "Business Guides, Inc. v. Chromatic Communications Enterprises, Inc.",
+        "shortName": "Business Guides",
+        "dateDecided": "1991-02-26",
+        "parallelCitations": [],
+        "url": "https://www.courtlistener.com/opinion/112539/business-guides-inc-v-chromatic-communications-enterprises-inc/"
+      }
+    },
+    {
+      "original": "629 F.3d 1082",
+      "span": {
+        "start": 1302,
+        "end": 1315
+      },
+      "status": "verified",
+      "verificationSource": "courtlistener",
+      "confidence": 1,
+      "normalized": "629 F.3d 1082",
+      "case": {
+        "id": 181860,
+        "name": "Lands Council v. McNair",
+        "shortName": "McNair",
+        "dateDecided": "2010-12-28",
+        "parallelCitations": [],
+        "url": "https://www.courtlistener.com/opinion/181860/lands-council-v-mcnair/"
+      }
+    },
+    {
+      "original": "536 U.S. 273",
+      "span": {
+        "start": 1357,
+        "end": 1369
+      },
+      "status": "verified",
+      "verificationSource": "courtlistener",
+      "confidence": 1,
+      "normalized": "536 U.S. 273",
+      "case": {
+        "id": 121157,
+        "name": "Gonzaga University v. Doe",
+        "shortName": "Doe",
+        "dateDecided": "2002-06-20",
+        "parallelCitations": [],
+        "url": "https://www.courtlistener.com/opinion/121157/gonzaga-university-v-doe/"
+      }
+    },
+    {
+      "original": "426 P.3d 559",
+      "span": {
+        "start": 1401,
+        "end": 1413
+      },
+      "status": "verified",
+      "verificationSource": "courtlistener",
+      "confidence": 1,
+      "normalized": "426 P.3d 559",
+      "case": {
+        "id": 6657223,
+        "name": "Renenger v. State",
+        "shortName": "Renenger",
+        "dateDecided": "2018-09-12",
+        "parallelCitations": [],
+        "url": "https://www.courtlistener.com/opinion/6657223/renenger-v-state/"
+      }
+    },
+    {
+      "original": "436 U.S. 658",
+      "span": {
+        "start": 1477,
+        "end": 1489
+      },
+      "status": "verified",
+      "verificationSource": "courtlistener",
+      "confidence": 1,
+      "normalized": "436 U.S. 658",
+      "case": {
+        "id": 109881,
+        "name": "Monell v. New York City Dept. of Social Servs.",
+        "shortName": "Monell",
+        "dateDecided": "1978-06-06",
+        "parallelCitations": [],
+        "url": "https://www.courtlistener.com/opinion/109881/monell-v-new-york-city-dept-of-social-servs/"
+      }
+    },
+    {
+      "original": "556 U.S. 662",
+      "span": {
+        "start": 1521,
+        "end": 1533
+      },
+      "status": "verified",
+      "verificationSource": "courtlistener",
+      "confidence": 1,
+      "normalized": "556 U.S. 662",
+      "case": {
+        "id": 145875,
+        "name": "Ashcroft v. Iqbal",
+        "shortName": "Iqbal",
+        "dateDecided": "2009-05-18",
+        "parallelCitations": [],
+        "url": "https://www.courtlistener.com/opinion/145875/ashcroft-v-iqbal/"
+      }
+    },
+    {
+      "original": "550 U.S. 544",
+      "span": {
+        "start": 1574,
+        "end": 1586
+      },
+      "status": "verified",
+      "verificationSource": "courtlistener",
+      "confidence": 1,
+      "normalized": "550 U.S. 544",
+      "case": {
+        "id": 145730,
+        "name": "Bell Atlantic Corp. v. Twombly",
+        "shortName": "Twombly",
+        "dateDecided": "2007-05-21",
+        "parallelCitations": [],
+        "url": "https://www.courtlistener.com/opinion/145730/bell-atlantic-corp-v-twombly/"
+      }
+    },
+    {
+      "original": "869 F.3d 795",
+      "span": {
+        "start": 1635,
+        "end": 1647
+      },
+      "status": "verified",
+      "verificationSource": "courtlistener",
+      "confidence": 1,
+      "normalized": "869 F.3d 795",
+      "case": {
+        "id": 4421063,
+        "name": "Los Angeles Lakers, Inc. v. Federal Insurance Co.",
+        "shortName": "",
+        "dateDecided": "2017-08-23",
+        "parallelCitations": [],
+        "url": "https://www.courtlistener.com/opinion/4421063/los-angeles-lakers-inc-v-federal-insurance-co/"
+      }
+    },
+    {
+      "original": "203 F.3d 1122",
+      "span": {
+        "start": 1680,
+        "end": 1693
+      },
+      "status": "multiple_matches",
+      "verificationSource": "courtlistener",
+      "confidence": 1,
+      "normalized": "203 F.3d 1122",
+      "candidates": [
+        {
+          "name": "Lopez v. Smith",
+          "dateDecided": "2000-02-10",
+          "url": "https://www.courtlistener.com/opinion/7079981/lopez-v-smith/"
+        },
+        {
+          "name": "Max Lopez, Jr. v. G.A. Smith",
+          "dateDecided": "2000-02-10",
+          "url": "https://www.courtlistener.com/opinion/767677/max-lopez-jr-v-ga-smith/"
+        }
+      ]
+    },
+    {
+      "original": "410 F.3d 630",
+      "span": {
+        "start": 1733,
+        "end": 1745
+      },
+      "status": "multiple_matches",
+      "verificationSource": "courtlistener",
+      "confidence": 1,
+      "normalized": "410 F.3d 630",
+      "candidates": [
+        {
+          "name": "Genzler v. Longanbach",
+          "dateDecided": "2005-06-07",
+          "url": "https://www.courtlistener.com/opinion/3032094/genzler-v-longanbach/"
+        },
+        {
+          "name": "",
+          "dateDecided": "2005-06-07",
+          "url": "https://www.courtlistener.com/opinion/790524/david-genzler-v-peter-j-longanbach-and-jeffrey-obrien-county-of-san/"
+        }
+      ]
+    },
+    {
+      "original": "436 U.S. 659",
+      "span": {
+        "start": 1819,
+        "end": 1831
+      },
+      "status": "not_found",
+      "verificationSource": "heuristic",
+      "confidence": 0.5,
+      "normalized": "436 U.S. 659"
+    },
+    {
+      "original": "915 F.3d 592",
+      "span": {
+        "start": 1875,
+        "end": 1887
+      },
+      "status": "verified",
+      "verificationSource": "courtlistener",
+      "confidence": 1,
+      "normalized": "915 F.3d 592",
+      "case": {
+        "id": 4586718,
+        "name": "Shane Horton v. City of Santa Maria",
+        "shortName": "",
+        "dateDecided": "2019-02-01",
+        "parallelCitations": [],
+        "url": "https://www.courtlistener.com/opinion/4586718/shane-horton-v-city-of-santa-maria/"
+      }
+    },
+    {
+      "original": "454 U.S. 312",
+      "span": {
+        "start": 1926,
+        "end": 1938
+      },
+      "status": "verified",
+      "verificationSource": "courtlistener",
+      "confidence": 1,
+      "normalized": "454 U.S. 312",
+      "case": {
+        "id": 110589,
+        "name": "Polk County v. Dodson",
+        "shortName": "Dodson",
+        "dateDecided": "1981-12-14",
+        "parallelCitations": [],
+        "url": "https://www.courtlistener.com/opinion/110589/polk-county-v-dodson/"
+      }
+    },
+    {
+      "original": "666 F.3d 631",
+      "span": {
+        "start": 1981,
+        "end": 1993
+      },
+      "status": "verified",
+      "verificationSource": "courtlistener",
+      "confidence": 1,
+      "normalized": "666 F.3d 631",
+      "case": {
+        "id": 621643,
+        "name": "AE Ex Rel. Hernandez v. County of Tulare",
+        "shortName": "",
+        "dateDecided": "2012-01-27",
+        "parallelCitations": [],
+        "url": "https://www.courtlistener.com/opinion/621643/ae-ex-rel-hernandez-v-county-of-tulare/"
+      }
+    },
+    {
+      "original": "210 F.3d 1025",
+      "span": {
+        "start": 2040,
+        "end": 2053
+      },
+      "status": "verified",
+      "verificationSource": "courtlistener",
+      "confidence": 1,
+      "normalized": "210 F.3d 1025",
+      "case": {
+        "id": 768521,
+        "name": "Murray Weiner,plaintiff-Appellant v. San Diego County",
+        "shortName": "",
+        "dateDecided": "2000-04-27",
+        "parallelCitations": [],
+        "url": "https://www.courtlistener.com/opinion/768521/murray-weinerplaintiff-appellant-v-san-diego-county/"
+      }
+    },
+    {
+      "original": "491 U.S. 701",
+      "span": {
+        "start": 2112,
+        "end": 2124
+      },
+      "status": "verified",
+      "verificationSource": "courtlistener",
+      "confidence": 1,
+      "normalized": "491 U.S. 701",
+      "case": {
+        "id": 112313,
+        "name": "Jett v. Dallas Independent School District",
+        "shortName": "Jett",
+        "dateDecided": "1989-06-22",
+        "parallelCitations": [],
+        "url": "https://www.courtlistener.com/opinion/112313/jett-v-dallas-independent-school-district/"
+      }
+    },
+    {
+      "original": "913 F.3d 930",
+      "span": {
+        "start": 2162,
+        "end": 2174
+      },
+      "status": "multiple_matches",
+      "verificationSource": "courtlistener",
+      "confidence": 1,
+      "normalized": "913 F.3d 930",
+      "candidates": [
+        {
+          "name": "Elisio Atenia Lorenzo v. Matthew G. Whitaker",
+          "dateDecided": "2019-01-17",
+          "url": "https://www.courtlistener.com/opinion/4582578/elisio-atenia-lorenzo-v-matthew-g-whitaker/"
+        },
+        {
+          "name": "Louis Taylor v. County of Pima",
+          "dateDecided": "2019-01-17",
+          "url": "https://www.courtlistener.com/opinion/4582577/louis-taylor-v-county-of-pima/"
+        }
+      ]
+    },
+    {
+      "original": "520 U.S. 781",
+      "span": {
+        "start": 2218,
+        "end": 2230
+      },
+      "status": "verified",
+      "verificationSource": "courtlistener",
+      "confidence": 1,
+      "normalized": "520 U.S. 781",
+      "case": {
+        "id": 118118,
+        "name": "McMillian v. Monroe County",
+        "shortName": "McMillian",
+        "dateDecided": "1997-06-02",
+        "parallelCitations": [],
+        "url": "https://www.courtlistener.com/opinion/118118/mcmillian-v-monroe-county/"
+      }
+    },
+    {
+      "original": "715 F.3d 750",
+      "span": {
+        "start": 2276,
+        "end": 2288
+      },
+      "status": "verified",
+      "verificationSource": "courtlistener",
+      "confidence": 1,
+      "normalized": "715 F.3d 750",
+      "case": {
+        "id": 867050,
+        "name": "Thomas Goldstein v. City of Long Beach",
+        "shortName": "",
+        "dateDecided": "2013-05-08",
+        "parallelCitations": [],
+        "url": "https://www.courtlistener.com/opinion/867050/thomas-goldstein-v-city-of-long-beach/"
+      }
+    },
+    {
+      "original": "855 F.2d 1160",
+      "span": {
+        "start": 2329,
+        "end": 2342
+      },
+      "status": "verified",
+      "verificationSource": "courtlistener",
+      "confidence": 1,
+      "normalized": "855 F.2d 1160",
+      "case": {
+        "id": 510980,
+        "name": "Donald J. Willy, and George A. Young v. The Coastal Corp., Coastal States Management Co., Inc., Defendants",
+        "shortName": "",
+        "dateDecided": "1988-09-29",
+        "parallelCitations": [],
+        "url": "https://www.courtlistener.com/opinion/510980/donald-j-willy-and-george-a-young-v-the-coastal-corp-coastal-states/"
+      }
+    },
+    {
+      "original": "780 F.2d 823",
+      "span": {
+        "start": 2392,
+        "end": 2404
+      },
+      "status": "verified",
+      "verificationSource": "courtlistener",
+      "confidence": 1,
+      "normalized": "780 F.2d 823",
+      "case": {
+        "id": 462717,
+        "name": "Richard L. Zaldivar v. City of Los Angeles, and Margaret Salazar, Intervenors-Appellees",
+        "shortName": "",
+        "dateDecided": "1986-01-16",
+        "parallelCitations": [],
+        "url": "https://www.courtlistener.com/opinion/462717/richard-l-zaldivar-v-city-of-los-angeles-and-margaret-salazar/"
+      }
+    },
+    {
+      "original": "26 F.2d 1429",
+      "span": {
+        "start": 2471,
+        "end": 2483
+      },
+      "status": "not_found",
+      "verificationSource": "heuristic",
+      "confidence": 0.1,
+      "normalized": "26 F.2d 1429"
+    },
+    {
+      "original": "880 F.2d 928",
+      "span": {
+        "start": 2546,
+        "end": 2558
+      },
+      "status": "multiple_matches",
+      "verificationSource": "courtlistener",
+      "confidence": 1,
+      "normalized": "880 F.2d 928",
+      "candidates": [
+        {
+          "name": "Mars Steel Corp. v. Continental Bank N.A.",
+          "dateDecided": "1989-07-20",
+          "url": "https://www.courtlistener.com/opinion/8980246/mars-steel-corp-v-continental-bank-na/"
+        },
+        {
+          "name": "Mars Steel Corporation v. Continental Bank N.A.",
+          "dateDecided": "1989-07-20",
+          "url": "https://www.courtlistener.com/opinion/526778/mars-steel-corporation-v-continental-bank-na/"
+        }
+      ]
+    },
+    {
+      "original": "179 F.3d 1194",
+      "span": {
+        "start": 2606,
+        "end": 2619
+      },
+      "status": "verified",
+      "verificationSource": "courtlistener",
+      "confidence": 1,
+      "normalized": "179 F.3d 1194",
+      "case": {
+        "id": 7077720,
+        "name": "Weissman v. Quail Lodge Inc.",
+        "shortName": "Weissman",
+        "dateDecided": "1999-06-10",
+        "parallelCitations": [],
+        "url": "https://www.courtlistener.com/opinion/7077720/weissman-v-quail-lodge-inc/"
+      }
+    },
+    {
+      "original": "73 F.3d 262",
+      "span": {
+        "start": 2650,
+        "end": 2661
+      },
+      "status": "multiple_matches",
+      "verificationSource": "courtlistener",
+      "confidence": 1,
+      "normalized": "73 F.3d 262",
+      "candidates": [
+        {
+          "name": "Resolution Trust Corp. v. Dabney",
+          "dateDecided": "1995-12-22",
+          "url": "https://www.courtlistener.com/opinion/7034765/resolution-trust-corp-v-dabney/"
+        },
+        {
+          "name": "Resolution Trust Corporation v. Dabney",
+          "dateDecided": "1995-12-22",
+          "url": "https://www.courtlistener.com/opinion/710325/resolution-trust-corporation-v-dabney/"
+        }
+      ]
+    },
+    {
+      "original": "508 F.3d 1212",
+      "span": {
+        "start": 2699,
+        "end": 2712
+      },
+      "status": "verified",
+      "verificationSource": "courtlistener",
+      "confidence": 1,
+      "normalized": "508 F.3d 1212",
+      "case": {
+        "id": 1228180,
+        "name": "Bias v. Moynihan",
+        "shortName": "Bias",
+        "dateDecided": "2007-11-29",
+        "parallelCitations": [],
+        "url": "https://www.courtlistener.com/opinion/1228180/bias-v-moynihan/"
+      }
+    },
+    {
+      "original": "30 Cal. 3d 117",
+      "span": {
+        "start": 2761,
+        "end": 2775
+      },
+      "status": "verified",
+      "verificationSource": "courtlistener",
+      "confidence": 1,
+      "normalized": "30 Cal. 3d 117",
+      "case": {
+        "id": 1188453,
+        "name": "Crane v. State Bar",
+        "shortName": "Crane",
+        "dateDecided": "1981-10-29",
+        "parallelCitations": [],
+        "url": "https://www.courtlistener.com/opinion/1188453/crane-v-state-bar/"
+      }
+    },
+    {
+      "original": "885 F.2d 1473",
+      "span": {
+        "start": 2856,
+        "end": 2869
+      },
+      "status": "verified",
+      "verificationSource": "courtlistener",
+      "confidence": 1,
+      "normalized": "885 F.2d 1473",
+      "case": {
+        "id": 529755,
+        "name": "Linda Marie Zambrano, and Jose E. Tafolla, Esq. Philip W. Orr, Esq., Claimants-Appellants v. City of Tustin David Kreyling",
+        "shortName": "",
+        "dateDecided": "1989-09-21",
+        "parallelCitations": [],
+        "url": "https://www.courtlistener.com/opinion/529755/linda-marie-zambrano-and-jose-e-tafolla-esq-philip-w-orr-esq/"
+      }
+    },
+    {
+      "original": "50 Cal. 3d 344",
+      "span": {
+        "start": 2803,
+        "end": 2817
+      },
+      "status": "verified",
+      "verificationSource": "courtlistener",
+      "confidence": 1,
+      "normalized": "50 Cal. 3d 344",
+      "case": {
+        "id": 1442616,
+        "name": "Gadda v. State Bar",
+        "shortName": "Gadda",
+        "dateDecided": "1990-03-15",
+        "parallelCitations": [],
+        "url": "https://www.courtlistener.com/opinion/1442616/gadda-v-state-bar/"
+      }
+    },
+    {
+      "original": "150 F.3d 1011",
+      "span": {
+        "start": 2912,
+        "end": 2925
+      },
+      "status": "multiple_matches",
+      "verificationSource": "courtlistener",
+      "confidence": 1,
+      "normalized": "150 F.3d 1011",
+      "candidates": [
+        {
+          "name": "Hanlon v. Chrysler Corp.",
+          "dateDecided": "1998-06-09",
+          "url": "https://www.courtlistener.com/opinion/7067938/hanlon-v-chrysler-corp/"
+        },
+        {
+          "name": "",
+          "dateDecided": "1998-07-24",
+          "url": "https://www.courtlistener.com/opinion/756552/stuart-hanlon-and-kenneth-edwards-nancy-edwards-kathy-hancock-michael/"
+        }
+      ]
+    }
+  ]
+}

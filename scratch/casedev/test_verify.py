@@ -44,6 +44,22 @@ citation_block = "\n".join(CITATIONS)
 OUTPUT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 
+def log_rate_limit_headers(resp, endpoint_name=""):
+    """Log any rate-limit or quota headers from the response."""
+    prefix = f"[{endpoint_name}] " if endpoint_name else ""
+    rate_limit_keys = ["x-ratelimit", "ratelimit", "x-rate-limit", "retry-after",
+                       "x-quota", "x-remaining", "x-limit"]
+    found = False
+    for key, value in resp.headers.items():
+        if any(rl in key.lower() for rl in rate_limit_keys):
+            print(f"  {prefix}Header: {key}: {value}")
+            found = True
+    if not found:
+        print(f"  {prefix}No rate-limit headers found. All response headers:")
+        for key, value in resp.headers.items():
+            print(f"    {key}: {value}")
+
+
 def test_verify():
     """Test verify() with full citation block."""
     print("=" * 60)
@@ -56,6 +72,7 @@ def test_verify():
         json={"text": citation_block},
     )
     print(f"\nStatus: {resp.status_code}")
+    log_rate_limit_headers(resp, "verify")
 
     if resp.status_code != 200:
         print(f"Error: {resp.text}")
@@ -90,6 +107,7 @@ def test_citations():
         json={"text": citation_block},
     )
     print(f"\nStatus: {resp.status_code}")
+    log_rate_limit_headers(resp, "citations")
 
     if resp.status_code != 200:
         print(f"Error: {resp.text}")
