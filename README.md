@@ -119,7 +119,7 @@ result = verifier.verify("Obergefell v. Hodges, 576 U.S. 644 (2015)")
 
 print(result.status)          # VerificationStatus.VERIFIED
 print(result.matched_url)     # https://www.courtlistener.com/opinion/2812209/...
-print(result.diagnostics)     # []
+print(result.diagnostics)     # [] (List[Diagnostic], each with .category and .message)
 ```
 
 #### Pre-parsed citations (batch pipelines)

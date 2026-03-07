@@ -56,7 +56,7 @@ briefs/<brief-name>/
 |--------|-------------|
 | **cl_url** | CourtListener match URL |
 | **cl_status** | Raw verification status (VERIFIED, LIKELY_REAL, POSSIBLE_MATCH, NOT_FOUND) |
-| **diagnostics** | Verification diagnostics from the pipeline |
+| **diagnostics** | Verification diagnostics (List[Diagnostic] with .category and .message) |
 | **user_action** | User override: "accepted", "rejected", "uploaded", "fake", "inapplicable" |
 | **opinion_file** | Path to downloaded opinion text file |
 
@@ -81,7 +81,7 @@ briefs/<brief-name>/
    - `retrieved_case`: matched case name + date + display status
    - `cl_url`: CourtListener URL
    - `cl_status`: raw verification status
-   - `diagnostics`: diagnostic messages
+   - `diagnostics`: Diagnostic objects (each with .category and .message)
 
 **Display status mapping** (aligned with web app Retrieve page):
 

@@ -1,7 +1,7 @@
 # Structured Diagnostics Refactor — Design Doc
 
 **Date:** 2026-03-07
-**Status:** Approved
+**Status:** Implemented (7bcee6b, 2026-03-07)
 
 ## Problem
 
