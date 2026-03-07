@@ -151,6 +151,8 @@
   .badge-verified { background: #d4edda; color: #155724; }
   .badge-likely { background: #cce5ff; color: #004085; }
   .badge-possible { background: #fff3cd; color: #856404; }
+  .badge-info { background: #e2e3e5; color: #495057; }
+  .badge[title] { cursor: help; }
   .badge-notfound { background: #f8d7da; color: #721c24; }
   .badge-error { background: #e2e3e5; color: #383d41; }
   .badge-pending { background: #e9ecef; color: #6c757d; }
@@ -356,7 +358,11 @@ Terry v. Ohio, 392 U.S. 1 (1968)"></textarea>
               badges.push({ label: 'Check Date', cls: 'badge-possible' });
             } else if (/^Docket mismatch/i.test(d)) {
               badges.push({ label: 'Check Docket', cls: 'badge-possible' });
-            } else if (/^(Citation mismatch|Reporter citation|WL number)/i.test(d)) {
+            } else if (/^Citation mismatch/i.test(d)) {
+              badges.push({ label: 'Check Cite', cls: 'badge-possible' });
+            } else if (/^(Reporter citation|WL number).*could not be confirmed/i.test(d)) {
+              badges.push({ label: 'WL Cite', cls: 'badge-info', tip: 'CourtListener does not track Westlaw citation numbers' });
+            } else if (/^(Reporter citation|WL number)/i.test(d)) {
               badges.push({ label: 'Check Cite', cls: 'badge-possible' });
             }
           }
@@ -439,7 +445,8 @@ Terry v. Ohio, 392 U.S. 1 (1968)"></textarea>
 
     var badges = statusBadges(data.status, data.diagnostics);
     var badgesHtml = badges.map(function(b) {
-      return '<span class="badge ' + b.cls + '">' + b.label + '</span>';
+      var tip = b.tip ? ' title="' + escapeHtml(b.tip) + '"' : '';
+      return '<span class="badge ' + b.cls + '"' + tip + '>' + b.label + '</span>';
     }).join(' ');
 
     tr.innerHTML =
