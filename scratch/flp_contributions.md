@@ -16,7 +16,7 @@ This document tracks potential contributions to FLP's projects (CourtListener, e
 | [8](#8-api-docs-blocked-by-bot-protection--llmstxt) | API Docs Blocked by Bot Protection / llms.txt | SUBMITTED | CL [#6040](https://github.com/freelawproject/courtlistener/issues/6040) |
 | [9](#9-eyecite-slip-opinion-placeholder-absorbed-into-case-name) | eyecite: Slip Opinion Placeholder Absorbed into Case Name | DRAFT | eyecite |
 | [10](#10-search-api-defaults-to-published-only-stat_-filters-undocumented) | Search API Defaults to Published Only; stat_ Filters Undocumented | SUBMITTED | CL [#7049](https://github.com/freelawproject/courtlistener/issues/7049) |
-| [11](#11-batch-citation-verification-endpoint) | Batch Citation Verification Endpoint | DRAFT | CL |
+| [11](#11-batch-document-text-retrieval) | Batch Document Text Retrieval | DRAFT | CL |
 
 ## Status Legend
 
@@ -709,135 +709,139 @@ See `scratch/drafts/cl-stat-unknown-default.md` for the full issue text as filed
 
 ---
 
-## 11. Batch Citation Verification Endpoint
+## 11. Batch Document Text Retrieval
 
 **Status:** DRAFT
-**Target:** CourtListener / Foresight (new feature proposal)
+**Target:** CourtListener (new endpoint or enhancement to existing APIs)
 **Type:** Feature request
 **Related:**
-- Foresight [#24](https://github.com/freelawproject/foresight/issues/24) — Extend citation lookup page (batch text analysis UI — already designed, has wireframes)
 - Foresight [#27](https://github.com/freelawproject/foresight/issues/27) — Lookup multiple citations and export text as PDF (our issue)
-- CL [#3960](https://github.com/freelawproject/courtlistener/issues/3960) — Trawl RECAP Archive for hallucinated citations
 - CL [#6946](https://github.com/freelawproject/courtlistener/issues/6946) — Simpler Case Law APIs
 
 ### Summary
 
-Propose adding a **name-matching layer** and **API endpoint** to the batch citation analysis feature already designed in Foresight #24. The UI wireframes and basic architecture exist — what's missing is (1) name verification to catch hallucinated citations that reuse real reporter locations with fabricated case names, and (2) a programmatic API endpoint alongside the UI page. Third-party wrappers (case.dev) are already filling this gap with CL's own data, but doing it poorly.
+After resolving citations via the batch citation-lookup API (one call, very efficient), the next step — actually reading the opinion text — requires **2-5 individual API calls per document**. For a brief with 25 cited cases, that's 50-125 sequential API calls just to download the text. There's no way to say "give me the plain text for these 25 cluster IDs."
 
-### Why This Matters Now
+Propose a **batch document text endpoint** that accepts a list of cluster IDs (or opinion URLs) and returns the plain text for each in a single response.
 
-Foresight #24 designed a batch citation analysis UI in April 2024 (wireframes complete, mlissner approved the design) but it hasn't been built yet. Meanwhile, third parties are filling the gap. [case.dev](https://case.dev) offers a `verify()` endpoint that wraps CL's citation-lookup API: one call, returns all citations found in a text block, free tier. It works — in my testing it resolved 75% of citations instantly (20/27 for one brief, 24/32 for another). But:
+### The Problem
 
-1. **It silently drops citations on large batches** — I tested hundreds of citations and got silent failures with no error reporting.
-2. **It doesn't do name matching** — it verifies the reporter location exists but doesn't check whether the case name matches. Citations like "State v. Carter, 72 Ohio App.3d 553" come back "verified" even though that reporter location belongs to "Stull v. Combustion Engineering." For hallucination detection, this is a critical gap.
-3. **CL's data is doing the work** — case.dev is a thin wrapper. The value and the cost sit with CL.
+Fetching a single opinion's text currently requires a multi-step chain:
 
-CL could do this better because it has server-side access to the full cluster data, enabling name matching, court verification, and richer metadata in the response.
+**For opinions (cluster URL):**
+1. `GET /clusters/{id}/` — get cluster metadata and `sub_opinions` list
+2. `GET /opinions/{id}/` — for each sub_opinion, fetch the actual text (`plain_text` or `html_with_citations`)
+3. `GET /dockets/{id}/` — fetch docket metadata (case name, court, date)
+4. `GET /courts/{id}/` — resolve court name
 
-### My Evidence
+= **3-4 API calls per opinion**
 
-**Waterfall test results (2026-03-06):**
+**For RECAP documents (docket URL):**
+1. `GET /docket-entries/?docket={id}` — find the entry
+2. `GET /recap-documents/{id}/` — for each document in the entry, fetch `plain_text`
+3. `GET /dockets/{id}/` — docket metadata
+4. `GET /courts/{id}/` — court name
 
-I tested a pipeline that uses case.dev `verify()` as a first pass, then falls back to my full CL pipeline (citation-lookup → opinion search → RECAP) for anything unresolved:
+= **3-5 API calls per RECAP document**
 
-| Brief | Unique citations | Resolved by case.dev | CL fallback needed | Status match vs. ground truth |
-|-------|-----------------|---------------------|-------------------|------------------------------|
-| Kettering v. Collier | 27 | 17 (63%) | 8 | 25/27 (93%) |
-| Valve v. Rothschild | 32 | 24 (75%) | 8 | 32/32 (100%) |
+With rate limiting (1 req/sec for free tier), downloading text for 25 cases takes 1-2 minutes of pure API overhead. Our web app (`/api/download-texts`) and `/verify-brief` skill both hit this bottleneck — it's the slowest part of the pipeline by far.
 
-The 2 Kettering mismatches are short-form "at" citations (e.g., "72 Ohio St.3d at 419") that neither case.dev nor my fallback can resolve — a pre-existing limitation.
+### Our Workaround
 
-**Name matching gap:**
+We parallelize with `asyncio.gather` and a concurrency semaphore, but this just shifts the bottleneck to rate limiting. Each document still requires its own chain of dependent calls.
 
-case.dev returned "verified" for 2 citations where the case name was wrong:
-- "State v. Carter, 72 Ohio App.3d 553" → verified as "Stull v. Combustion Engineering, Inc." (wrong case)
-- "State v. Milam, 2022-Ohio-3965" → verified as "State v. Eddy" (wrong case)
-
-My name-matching layer caught both. A CL-native endpoint could do this server-side.
-
-**case.dev reliability issues:**
-
-In separate testing with hundreds of citations, case.dev silently failed — returning partial results with no error indication. A production hallucination-detection pipeline can't rely on an endpoint that silently drops citations.
+```python
+# web/app.py — current approach: N parallel chains, each 2-4 calls deep
+async with AsyncCourtListenerClient(api_token=token) as client:
+    fetched = await asyncio.gather(
+        *[_fetch_one(client, item) for item in items]  # each is 2-4 API calls
+    )
+```
 
 ### Proposed Endpoint
 
 ```
-POST /api/rest/v4/verify-text/
+POST /api/rest/v4/bulk-text/
 Content-Type: application/json
 
 {
-  "text": "The court held in Ashcroft v. Iqbal, 556 U.S. 662 (2009), that...",
-  "check_names": true  // optional, default true — verify case names match
+  "cluster_ids": [145875, 2812209, 4976543],
+  "fields": ["plain_text", "case_name", "date_filed", "court"]  // optional
 }
 ```
 
 Response:
 ```json
 {
-  "citations_found": 1,
-  "citations": [
+  "results": [
     {
-      "original": "556 U.S. 662",
-      "span": {"start": 42, "end": 54},
-      "status": "verified",           // verified | name_mismatch | not_found
-      "confidence": 1.0,
-      "case": {
-        "id": 145875,
-        "name": "Ashcroft v. Iqbal",
-        "date_filed": "2009-05-18",
-        "url": "https://www.courtlistener.com/opinion/145875/ashcroft-v-iqbal/",
-        "court": "scotus"
-      },
-      "cited_name": "Ashcroft v. Iqbal",  // extracted from input text
-      "name_match": true
+      "cluster_id": 145875,
+      "case_name": "Ashcroft v. Iqbal",
+      "date_filed": "2009-05-18",
+      "court": "Supreme Court of the United States",
+      "plain_text": "SUPREME COURT OF THE UNITED STATES...",
+      "source": "opinion"
+    },
+    {
+      "cluster_id": 2812209,
+      "case_name": "...",
+      "plain_text": "...",
+      "source": "opinion"
+    },
+    {
+      "cluster_id": 4976543,
+      "error": "no_text_available"
     }
   ]
 }
 ```
 
 Key design points:
-- Uses eyecite for extraction (FLP's own project)
-- Server-side name matching against cluster data
-- Returns `name_mismatch` status (not just verified/not_found) — critical for hallucination detection
-- Span offsets for mapping back to source text
-- Single call replaces N citation-lookup calls
+- Accepts cluster IDs (the natural output of citation-lookup, which already returns cluster IDs)
+- Returns plain text + basic metadata in one call
+- Handles the cluster → sub_opinions → opinion text resolution server-side
+- Reports errors per-item rather than failing the whole batch
+- Optional `fields` parameter to limit response size when you only need text
 
-### Why CL Should Own This
+### Use Cases
 
-1. **The UI design already exists** — Foresight #24 has approved wireframes from April 2024. Adding name matching and an API endpoint is incremental, not greenfield.
-2. **eyecite is FLP's project** — the extraction layer already exists
-3. **Server-side name matching** — CL has direct access to cluster case names, enabling matching that API consumers can't do efficiently
-4. **Demand is proven** — case.dev built a wrapper, I built a verification pipeline, others are likely doing similar work. #3960 shows FLP is already thinking about hallucination detection.
-5. **AI hallucination detection is a growth use case** — courts, law firms, and legal tech are all looking for this capability. CL is the natural home for it.
-6. **Keeps value in the ecosystem** — API usage metrics stay with CL, which matters for grants and sustainability
-7. **case.dev's reliability gap is an opportunity** — CL can offer something more robust
-8. **Complements a future MCP** — if CL builds an MCP server for LLM tool use, a batch verify endpoint becomes a natural high-level tool. Without it, an MCP would need to make N sequential citation-lookup calls, which is slower, noisier, and more error-prone. The endpoint simplifies both human API consumers and LLM agents.
+1. **Citation verification pipelines** — after batch citation-lookup resolves 25 citations, fetch all 25 opinion texts to check whether they actually support what they're cited for (our `/verify-brief` workflow)
+2. **Foresight citation lookup page** (Foresight #24/#27) — the designed UI shows citation matches and lets users export the text. Batch text retrieval would make this practical at scale.
+3. **Legal research tools** — any tool that needs to read multiple opinions (brief analysis, case comparison, research assistants)
+4. **LLM/MCP integrations** — an MCP tool that retrieves opinions for an AI agent. One batch call is far more practical than N sequential chains.
+
+### Why This Matters
+
+The citation-lookup batch API was a huge improvement — it collapsed N lookup calls into one. But it created an asymmetry: you can *find* 25 cases in one call, but *reading* them still takes 50-125 calls. The bottleneck just moved downstream.
+
+This is especially visible in the hallucination-detection use case (#3960). Verifying that a citation exists is step one. Step two — confirming the cited case actually says what the brief claims — requires reading the opinion. That step is now the dominant cost.
 
 ### Decision Factors
 
 **Pros:**
-- Concrete data from real testing (not theoretical)
-- Demonstrates demand via case.dev's existence
-- Aligns with #6946 (simpler APIs)
-- FLP owns all the ingredients (eyecite + citation-lookup + cluster data)
-- AI hallucination detection is timely and high-visibility
-- Author is on FLP board — can champion internally
+- Eliminates the biggest remaining API bottleneck for multi-citation workflows
+- Natural companion to the existing batch citation-lookup
+- Server-side resolution of the cluster → sub_opinions → text chain is simpler and faster than having every consumer reimplement it
+- Aligns with #6946 (simpler APIs) and Foresight #24/#27
 
 **Cons:**
-- Engineering bandwidth — FLP is volunteer-driven, this is a new endpoint
-- May overlap with planned #6946 work
-- Could be seen as scope creep ("just add an endpoint")
-- case.dev may iterate and fix reliability issues
+- Response payloads could be large (opinion texts are long). May need streaming or pagination.
+- Server-side cost — resolving text for many opinions in one request is more resource-intensive than individual calls
+- Could be implemented as a simpler enhancement: just include `plain_text` in the cluster data returned by citation-lookup (though this would bloat the citation-lookup response for consumers who don't need it)
 
-**Recommendation:** Frame as an extension of Foresight #24 (already designed) rather than a brand new proposal. The pitch: "We designed this in 2024, a third party has since built a wrapper around our API to fill the gap, and the wrapper is unreliable and lacks name matching. Let's build what we already designed, add name verification, and expose it as an API endpoint."
+**Alternatives considered:**
+- **Include text in citation-lookup response** — simpler but bloats the response and couples two different use cases (finding citations vs. reading them)
+- **GraphQL-style field selection on existing endpoints** — more flexible but much larger engineering effort
+- **Just document the multi-step chain** — shifts the burden to consumers, which is where it is today
+
+**Recommendation:** Propose as a standalone endpoint. Frame it as the natural next step after batch citation-lookup: "You gave us a great way to find cases in bulk. Now we need a way to read them in bulk."
 
 ### Next Steps
 
-- [ ] Pull full retrospective from other machine's Claude memory
-- [ ] Review case.dev's API stability over time (more batch tests)
+- [ ] Find prior GitHub comment where we mentioned wanting this (Foresight #27?)
+- [ ] Quantify the API call reduction with real numbers from `/verify-brief` runs
 - [ ] Consider whether this fits in the #6946 discussion or needs its own proposal
-- [ ] Draft board-level pitch (shorter than GitHub issue — focus on strategic angle)
-- [ ] Discuss with Mike (mlissner) informally before formal proposal
+- [ ] Discuss with Mike informally before formal proposal
 
 ---
 
