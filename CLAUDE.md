@@ -34,6 +34,8 @@ Three-step verification pipeline in `src/citation_verifier/verifier.py`:
 
 - **Pre-parsed citation path**: `verify()` accepts an optional `parsed: ParsedCitation` parameter. When provided, the internal `parse_citation()` call is skipped. This lets batch pipelines pass eyecite-extracted metadata (court, month, day) without information loss. All existing callers (CLI, tests) are unaffected.
 
+- **Batch verification** (`verify_batch()`): Async method on `CitationVerifier` that verifies multiple citations efficiently. Sends all citations in a **single** citation-lookup API call, then only falls back to opinion search + RECAP for misses. Much faster than calling `verify()` in a loop (which does 1-3 API calls per citation). Supports `progress_callback(completed, total)`, optional `parsed_citations` list, and `quick_only=True` to skip fallback. Always prefer `verify_batch()` over looping `verify()` when verifying multiple citations. Usage: `results = await verifier.verify_batch(citations)`.
+
 - **Abbreviation normalization**: 47 Indigo Book terms expanded client-side in `parser.py:_normalize_case_name()` to work around CL search not matching abbreviations. Smart apostrophes normalized to straight before matching.
 
 - **Docket number normalization**: Strips division prefix (`2:`), judge suffix (`-JCC`), expands shorthand (`C15` -> `15-cv`), strips leading zeros.
@@ -93,6 +95,7 @@ Three-step verification pipeline in `src/citation_verifier/verifier.py`:
 | `scratch/flp_findings.csv` | Flagged results from Debug page for CL issue evidence (auto-created) |
 | `briefs/` | Working directories for `/verify-brief` skill runs. Each brief gets `<name>/claims.csv`, `opinions/`, `report.html`. |
 | `docs/plans/` | Implementation plans and design docs |
+| `docs/retrospectives/` | Post-run retrospectives and skill test feedback (date-prefixed, e.g. `2026-03-04-verify-brief-valve-v-rothschild.md`) |
 | `.replit` | Replit config (deployment, workflows, `MODE=public`) |
 | `replit.nix` | Nix dependencies for Replit (python311Full) |
 
@@ -199,7 +202,7 @@ The web app's batch loop is parallelized (asyncio.Queue with MAX_CONCURRENT=5). 
 
 ## Claude Code Skills
 
-- **`/verify-brief`** — Multi-phase legal brief citation verifier. Extracts proposition-case pairs, verifies via CourtListener, downloads opinion texts, reads them to assess whether each citation supports what it's cited for. Output: `claims.csv` + `report.html` in `briefs/<name>/`. Design: `docs/plans/2026-03-02-verify-brief-skill-design.md`. Lives at `.claude/skills/verify-brief/SKILL.md`. Real-world tested on Valve v. Rothschild Daubert motion (2026-03-04, 63 claims, 25 cases). Known issue: AskUserQuestion in Phase 2.5 returns empty — auto-accept for now. Retrospective: `.claude/projects/.../memory/verify-brief-retrospective.md`.
+- **`/verify-brief`** — Multi-phase legal brief citation verifier. Extracts proposition-case pairs, verifies via CourtListener, downloads opinion texts, reads them to assess whether each citation supports what it's cited for. Output: `claims.csv` + `report.html` in `briefs/<name>/`. Design: `docs/plans/2026-03-02-verify-brief-skill-design.md`. Lives at `.claude/skills/verify-brief/SKILL.md`. Real-world tested on Valve v. Rothschild Daubert motion (2026-03-04, 63 claims, 25 cases). Known issue: AskUserQuestion in Phase 2.5 returns empty — auto-accept for now. Retrospectives: `docs/retrospectives/`.
 
 - **`/file-issue`** — Interactive coach for filing effective GitHub issues. Guides through duplicate search, evidence gathering, repo norm study, and drafting. Use it when filing issues on FLP repos (or any repo). Catches the antipatterns that get issues ignored: tentative framing, insufficient examples, no methodology, no cross-references, no root cause theory. Lives at `.claude/skills/file-issue/SKILL.md`.
 

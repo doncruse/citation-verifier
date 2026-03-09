@@ -1,0 +1,560 @@
+{
+  "Abbott Lab'ys v. Gardner, 387 U.S. 136 (1967)": {
+    "citation": "Abbott Lab'ys v. Gardner, 387 U.S. 136 (1967)",
+    "status": "NOT_FOUND",
+    "confidence": "0.0",
+    "cluster_id": "",
+    "url": "",
+    "matched_name": "",
+    "diagnostics": "No matching cases found in CourtListener opinions or RECAP"
+  },
+  "Califano v. Sanders, 430 U.S. 99 (1977)": {
+    "citation": "Califano v. Sanders, 430 U.S. 99 (1977)",
+    "status": "NOT_FOUND",
+    "confidence": "0.0",
+    "cluster_id": "",
+    "url": "",
+    "matched_name": "",
+    "diagnostics": "No matching cases found in CourtListener opinions or RECAP"
+  },
+  "Am. Petrol. Inst. v. EPA, 683 F.3d 382 (D.C. Cir. 2012)": {
+    "citation": "Am. Petrol. Inst. v. EPA, 683 F.3d 382 (D.C. Cir. 2012)",
+    "status": "NOT_FOUND",
+    "confidence": "0.3509",
+    "cluster_id": "4155572",
+    "url": "https://www.courtlistener.com/docket/4155572/01207623774/american-petroleum-institute-v-epa/",
+    "matched_name": "American Petroleum Institute v. EPA",
+    "diagnostics": "Found in RECAP (not in opinions database); Name mismatch: cited \"Am. Petrol. Inst. v. EPA\" vs found \"American Petroleum Institute v. EPA\"; Year 2012 could not be verified; Reporter citation 683 F.3d 382 could not be confirmed (CourtListener has no reporter citations on file for this case)"
+  },
+  "Amgen Inc. v. Smith, 357 F.3d 103 (D.C. Cir. 2004)": {
+    "citation": "Amgen Inc. v. Smith, 357 F.3d 103 (D.C. Cir. 2004)",
+    "status": "POSSIBLE_MATCH",
+    "confidence": "0.675",
+    "cluster_id": "186143",
+    "url": "https://www.courtlistener.com/opinion/186143/amgen-inc-v-scully-thomas/",
+    "matched_name": "Amgen Inc. v. Scully, Thomas",
+    "diagnostics": "Name mismatch: cited \"Amgen Inc. v. Smith\" vs found \"Amgen Inc. v. Scully, Thomas\", but we identified a possible match."
+  },
+  "Ams. for Prosperity Found. v. Bonta, 594 U.S. 595 (2021)": {
+    "citation": "Ams. for Prosperity Found. v. Bonta, 594 U.S. 595 (2021)",
+    "status": "VERIFIED",
+    "confidence": "1.0",
+    "cluster_id": "4896549",
+    "url": "https://www.courtlistener.com/opinion/4896549/americans-for-prosperity-foundation-v-bonta/",
+    "matched_name": "Americans for Prosperity Foundation v. Bonta",
+    "diagnostics": ""
+  },
+  "Aref v. Lynch, 833 F.3d 242 (D.C. Cir. 2016)": {
+    "citation": "Aref v. Lynch, 833 F.3d 242 (D.C. Cir. 2016)",
+    "status": "VERIFIED",
+    "confidence": "1.0",
+    "cluster_id": "4249286",
+    "url": "https://www.courtlistener.com/opinion/4249286/yassin-aref-v-loretta-lynch/",
+    "matched_name": "Yassin Aref v. Loretta Lynch",
+    "diagnostics": ""
+  },
+  "Barr v. Am. Ass'n of Pol. Consultants, Inc., 591 U.S. 610 (2020)": {
+    "citation": "Barr v. Am. Ass'n of Pol. Consultants, Inc., 591 U.S. 610 (2020)",
+    "status": "NOT_FOUND",
+    "confidence": "0.3484",
+    "cluster_id": "4878495",
+    "url": "https://www.courtlistener.com/opinion/4878495/niz-chavez-v-garland/",
+    "matched_name": "Niz-Chavez v. Garland",
+    "diagnostics": "Name mismatch: cited \"Barr v. Am. Association of Pol. Consultants, Inc.\" vs found \"Niz-Chavez v. Garland\"; Date close: cited 2020 vs filed 2021-04-29; Citation mismatch: cited 591 U.S. 610 but CourtListener has 593 U.S. 155"
+  },
+  "Bd. of Regents of Univ. of Wis. Sys. v. Southworth, 529 U.S. 217 (2000)": {
+    "citation": "Bd. of Regents of Univ. of Wis. Sys. v. Southworth, 529 U.S. 217 (2000)",
+    "status": "NOT_FOUND",
+    "confidence": "0.0",
+    "cluster_id": "",
+    "url": "",
+    "matched_name": "",
+    "diagnostics": "No matching cases found in CourtListener opinions or RECAP"
+  },
+  "Becerra v. Dalton, 94 F.3d 145 (4th Cir. 1996)": {
+    "citation": "Becerra v. Dalton, 94 F.3d 145 (4th Cir. 1996)",
+    "status": "LIKELY_REAL",
+    "confidence": "0.95",
+    "cluster_id": "7038884",
+    "url": "https://www.courtlistener.com/opinion/7038884/becerra-v-dalton/",
+    "matched_name": "Becerra v. Dalton",
+    "diagnostics": "We identified a likely match."
+  },
+  "Bennett v. Chertoff, 425 F.3d 999 (D.C. Cir. 2005)": {
+    "citation": "Bennett v. Chertoff, 425 F.3d 999 (D.C. Cir. 2005)",
+    "status": "LIKELY_REAL",
+    "confidence": "0.875",
+    "cluster_id": "186535",
+    "url": "https://www.courtlistener.com/opinion/186535/bennett-patsy-f-v-chertoff-michael/",
+    "matched_name": "Bennett, Patsy F. v. Chertoff, Michael",
+    "diagnostics": "We identified a likely match."
+  },
+  "Bill Johnson's Rests., Inc. v. NLRB, 461 U.S. 731 (1983)": {
+    "citation": "Bill Johnson's Rests., Inc. v. NLRB, 461 U.S. 731 (1983)",
+    "status": "VERIFIED",
+    "confidence": "1.0",
+    "cluster_id": "110943",
+    "url": "https://www.courtlistener.com/opinion/110943/bill-johnsons-restaurants-inc-v-national-labor-relations-board/",
+    "matched_name": "Bill Johnson's Restaurants, Inc. v. National Labor Relations Board",
+    "diagnostics": ""
+  },
+  "Bldg. & Constr. Trades Dep't v. Allbaugh, 295 F.3d 28 (D.C. Cir. 2002)": {
+    "citation": "Bldg. & Constr. Trades Dep't v. Allbaugh, 295 F.3d 28 (D.C. Cir. 2002)",
+    "status": "VERIFIED",
+    "confidence": "1.0",
+    "cluster_id": "185756",
+    "url": "https://www.courtlistener.com/opinion/185756/building-construction-trades-department-v-allbaugh/",
+    "matched_name": "Building & Construction Trades Department v. Allbaugh",
+    "diagnostics": ""
+  },
+  "Brady v. Off. of Sergeant at Arms, 520 F.3d 490 (D.C. Cir. 2008)": {
+    "citation": "Brady v. Off. of Sergeant at Arms, 520 F.3d 490 (D.C. Cir. 2008)",
+    "status": "POSSIBLE_MATCH",
+    "confidence": "0.8243",
+    "cluster_id": "187112",
+    "url": "https://www.courtlistener.com/opinion/187112/brady-v-office-of-the-sergeant-at-arms/",
+    "matched_name": "Brady v. Office of the Sergeant at Arms",
+    "diagnostics": "Name differs: cited \"Brady v. Office. of Sergeant at Arms\" ~ found \"Brady v. Office of the Sergeant at Arms\" (75% similar), but we identified a possible match."
+  },
+  "Cause of Action Inst. v. U.S. Dep't of Just., 330 F. Supp. 3d 336 (D.D.C. 2018)": {
+    "citation": "Cause of Action Inst. v. U.S. Dep't of Just., 330 F. Supp. 3d 336 (D.D.C. 2018)",
+    "status": "POSSIBLE_MATCH",
+    "confidence": "0.6901",
+    "cluster_id": "4534873",
+    "url": "https://www.courtlistener.com/opinion/4534873/cause-of-action-institute-v-us-department-of-justice/",
+    "matched_name": "Cause of Action Institute v. U.S. Department of Justice",
+    "diagnostics": "Name mismatch: cited \"Cause of Action Inst. v. U.S. Department of Just.\" vs found \"Cause of Action Institute v. U.S. Department of Justice\"; Reporter citation 330 F. Supp. 3d 336 could not be confirmed (CourtListener has no reporter citations on file for this case), but we identified a possible match."
+  },
+  "Chennareddy v. Bowsher, 935 F.2d 315 (D.C. Cir. 1991)": {
+    "citation": "Chennareddy v. Bowsher, 935 F.2d 315 (D.C. Cir. 1991)",
+    "status": "VERIFIED",
+    "confidence": "1.0",
+    "cluster_id": "7912656",
+    "url": "https://www.courtlistener.com/opinion/7912656/chennareddy-v-bowsher/",
+    "matched_name": "Chennareddy v. Bowsher",
+    "diagnostics": ""
+  },
+  "Common Cause v. Trump, 506 F. Supp. 3d 39 (D.D.C. 2020)": {
+    "citation": "Common Cause v. Trump, 506 F. Supp. 3d 39 (D.D.C. 2020)",
+    "status": "POSSIBLE_MATCH",
+    "confidence": "0.5746",
+    "cluster_id": "4762879",
+    "url": "https://www.courtlistener.com/opinion/4762879/gomez-v-trump/",
+    "matched_name": "Gomez v. Trump",
+    "diagnostics": "Name mismatch: cited \"Common Cause v. Trump\" vs found \"Gomez v. Trump\"; Reporter citation 506 F. Supp. 3d 39 could not be confirmed (CourtListener has no reporter citations on file for this case), but we identified a possible match."
+  },
+  "Contractors Ass'n of E. Pa. v. Sec'y of Lab., 442 F.2d 159 (3d Cir. 1971)": {
+    "citation": "Contractors Ass'n of E. Pa. v. Sec'y of Lab., 442 F.2d 159 (3d Cir. 1971)",
+    "status": "VERIFIED",
+    "confidence": "1.0",
+    "cluster_id": "8898660",
+    "url": "https://www.courtlistener.com/opinion/8898660/contractors-assn-of-eastern-pennsylvania-v-secretary-of-labor/",
+    "matched_name": "Contractors Ass'n of Eastern Pennsylvania v. Secretary of Labor",
+    "diagnostics": ""
+  },
+  "DCH Reg'l Med. Ctr. v. Azar, 925 F.3d 503 (D.C. Cir. 2019)": {
+    "citation": "DCH Reg'l Med. Ctr. v. Azar, 925 F.3d 503 (D.C. Cir. 2019)",
+    "status": "VERIFIED",
+    "confidence": "1.0",
+    "cluster_id": "4625828",
+    "url": "https://www.courtlistener.com/opinion/4625828/dch-regional-medical-center-v-alex-m-azar-ii/",
+    "matched_name": "DCH Regional Medical Center v. Alex M. Azar II",
+    "diagnostics": ""
+  },
+  "Dep't of Navy v. Egan, 484 U.S. 518 (1988)": {
+    "citation": "Dep't of Navy v. Egan, 484 U.S. 518 (1988)",
+    "status": "VERIFIED",
+    "confidence": "1.0",
+    "cluster_id": "111990",
+    "url": "https://www.courtlistener.com/opinion/111990/department-of-the-navy-v-egan/",
+    "matched_name": "Department of the Navy v. Egan",
+    "diagnostics": ""
+  },
+  "El-Ganayni v. U.S. Dep't of Energy, 591 F.3d 176 (3d Cir. 2010)": {
+    "citation": "El-Ganayni v. U.S. Dep't of Energy, 591 F.3d 176 (3d Cir. 2010)",
+    "status": "VERIFIED",
+    "confidence": "1.0",
+    "cluster_id": "1464441",
+    "url": "https://www.courtlistener.com/opinion/1464441/el-ganayni-v-united-states-department-of-energy/",
+    "matched_name": "El-Ganayni v. United States Department of Energy",
+    "diagnostics": ""
+  },
+  "Foote v. Moniz, 751 F.3d 656 (D.C. Cir. 2014)": {
+    "citation": "Foote v. Moniz, 751 F.3d 656 (D.C. Cir. 2014)",
+    "status": "LIKELY_REAL",
+    "confidence": "0.875",
+    "cluster_id": "2674020",
+    "url": "https://www.courtlistener.com/opinion/2674020/ronnie-foote-v-ernest-moniz/",
+    "matched_name": "Ronnie Foote v. Ernest Moniz",
+    "diagnostics": "We identified a likely match."
+  },
+  "Free Enter. Fund v. Pub. Co. Acct. Oversight Bd., 561 U.S. 477 (2010)": {
+    "citation": "Free Enter. Fund v. Pub. Co. Acct. Oversight Bd., 561 U.S. 477 (2010)",
+    "status": "VERIFIED",
+    "confidence": "1.0",
+    "cluster_id": "9054281",
+    "url": "https://www.courtlistener.com/opinion/9054281/free-enterprise-fund-v-public-co-accounting-oversight-board/",
+    "matched_name": "Free Enterprise Fund v. Public Co. Accounting Oversight Board",
+    "diagnostics": ""
+  },
+  "Garcetti v. Ceballos, 547 U.S. 410 (2006)": {
+    "citation": "Garcetti v. Ceballos, 547 U.S. 410 (2006)",
+    "status": "VERIFIED",
+    "confidence": "1.0",
+    "cluster_id": "145653",
+    "url": "https://www.courtlistener.com/opinion/145653/garcetti-v-ceballos/",
+    "matched_name": "Garcetti v. Ceballos",
+    "diagnostics": ""
+  },
+  "Hill v. White, 321 F.3d 1334 (11th Cir. 2003)": {
+    "citation": "Hill v. White, 321 F.3d 1334 (11th Cir. 2003)",
+    "status": "VERIFIED",
+    "confidence": "1.0",
+    "cluster_id": "781146",
+    "url": "https://www.courtlistener.com/opinion/781146/lonnie-j-hill-v-thomas-e-white-secretary-of-the-army/",
+    "matched_name": "Lonnie J. Hill v. Thomas E. White, Secretary of the Army",
+    "diagnostics": ""
+  },
+  "Hishon v. King & Spalding, 467 U.S. 69 (1984)": {
+    "citation": "Hishon v. King & Spalding, 467 U.S. 69 (1984)",
+    "status": "LIKELY_REAL",
+    "confidence": "0.95",
+    "cluster_id": "111188",
+    "url": "https://www.courtlistener.com/opinion/111188/hishon-v-king-spalding/",
+    "matched_name": "Hishon v. King & Spalding",
+    "diagnostics": "We identified a likely match."
+  },
+  "Holder v. Humanitarian L. Project, 561 U.S. 1 (2010)": {
+    "citation": "Holder v. Humanitarian L. Project, 561 U.S. 1 (2010)",
+    "status": "VERIFIED",
+    "confidence": "1.0",
+    "cluster_id": "6797285",
+    "url": "https://www.courtlistener.com/opinion/6797285/holder-v-humanitarian-law-project/",
+    "matched_name": "Holder v. Humanitarian Law Project",
+    "diagnostics": ""
+  },
+  "Hous. Cmty. Coll. Sys. v. Wilson, 595 U.S. 468 (2022)": {
+    "citation": "Hous. Cmty. Coll. Sys. v. Wilson, 595 U.S. 468 (2022)",
+    "status": "VERIFIED",
+    "confidence": "1.0",
+    "cluster_id": "6454239",
+    "url": "https://www.courtlistener.com/opinion/6454239/houston-community-college-system-v-wilson/",
+    "matched_name": "Houston Community College System v. Wilson",
+    "diagnostics": ""
+  },
+  "Johanns v. Livestock Mktg. Ass'n, 544 U.S. 550 (2005)": {
+    "citation": "Johanns v. Livestock Mktg. Ass'n, 544 U.S. 550 (2005)",
+    "status": "VERIFIED",
+    "confidence": "1.0",
+    "cluster_id": "142895",
+    "url": "https://www.courtlistener.com/opinion/142895/johanns-v-livestock-marketing-assn/",
+    "matched_name": "Johanns v. Livestock Marketing Assn.",
+    "diagnostics": ""
+  },
+  "Keller v. State Bar of Cal., 496 U.S. 1 (1990)": {
+    "citation": "Keller v. State Bar of Cal., 496 U.S. 1 (1990)",
+    "status": "VERIFIED",
+    "confidence": "1.0",
+    "cluster_id": "112443",
+    "url": "https://www.courtlistener.com/opinion/112443/keller-v-state-bar-of-california/",
+    "matched_name": "Keller v. State Bar of California",
+    "diagnostics": ""
+  },
+  "Lee v. Garland, 120 F.4th 880 (D.C. Cir. 2024)": {
+    "citation": "Lee v. Garland, 120 F.4th 880 (D.C. Cir. 2024)",
+    "status": "POSSIBLE_MATCH",
+    "confidence": "0.825",
+    "cluster_id": "10162300",
+    "url": "https://www.courtlistener.com/opinion/10162300/an-opinion-was-released-in-case-20-5221-jason-lee-v-merrick-garland/",
+    "matched_name": "An opinion was released in case 20-5221, Jason Lee v. Merrick Garland",
+    "diagnostics": "Reporter citation 120 F.4th 880 could not be confirmed (CourtListener has no reporter citations on file for this case), but we identified a possible match."
+  },
+  "Matal v. Tam, 582 U.S. 218 (2017)": {
+    "citation": "Matal v. Tam, 582 U.S. 218 (2017)",
+    "status": "VERIFIED",
+    "confidence": "1.0",
+    "cluster_id": "4403807",
+    "url": "https://www.courtlistener.com/opinion/4403807/matal-v-tam/",
+    "matched_name": "Matal v. Tam",
+    "diagnostics": ""
+  },
+  "Minn. State Bd. for Cmty. Colls. v. Knight, 465 U.S. 271 (1984)": {
+    "citation": "Minn. State Bd. for Cmty. Colls. v. Knight, 465 U.S. 271 (1984)",
+    "status": "VERIFIED",
+    "confidence": "1.0",
+    "cluster_id": "111100",
+    "url": "https://www.courtlistener.com/opinion/111100/minnesota-state-board-for-community-colleges-v-knight/",
+    "matched_name": "Minnesota State Board for Community Colleges v. Knight",
+    "diagnostics": ""
+  },
+  "Moody v. NetChoice, LLC, 603 U.S. 707 (2024)": {
+    "citation": "Moody v. NetChoice, LLC, 603 U.S. 707 (2024)",
+    "status": "VERIFIED",
+    "confidence": "1.0",
+    "cluster_id": "10600039",
+    "url": "https://www.courtlistener.com/opinion/10600039/moody-v-netchoice-llc/",
+    "matched_name": "Moody v. NetChoice, LLC",
+    "diagnostics": ""
+  },
+  "Myers v. United States, 272 U.S. 52 (1926)": {
+    "citation": "Myers v. United States, 272 U.S. 52 (1926)",
+    "status": "VERIFIED",
+    "confidence": "1.0",
+    "cluster_id": "100926",
+    "url": "https://www.courtlistener.com/opinion/100926/myers-v-united-states/",
+    "matched_name": "Myers v. United States",
+    "diagnostics": ""
+  },
+  "Nat'l Endowment of the Arts v. Finley, 524 U.S. 569 (1998)": {
+    "citation": "Nat'l Endowment of the Arts v. Finley, 524 U.S. 569 (1998)",
+    "status": "VERIFIED",
+    "confidence": "1.0",
+    "cluster_id": "118240",
+    "url": "https://www.courtlistener.com/opinion/118240/national-endowment-for-the-arts-v-finley/",
+    "matched_name": "National Endowment for the Arts v. Finley",
+    "diagnostics": ""
+  },
+  "Nat'l Fed'n of Fed. Emps. v. Greenberg, 983 F.2d 286 (D.C. Cir. 1993)": {
+    "citation": "Nat'l Fed'n of Fed. Emps. v. Greenberg, 983 F.2d 286 (D.C. Cir. 1993)",
+    "status": "VERIFIED",
+    "confidence": "1.0",
+    "cluster_id": "597782",
+    "url": "https://www.courtlistener.com/opinion/597782/national-federation-of-federal-employees-v-paul-greenberg-major-general/",
+    "matched_name": "National Federation of Federal Employees v. Paul Greenberg, Major General, Commander, Headquarters, Army, Armament, Munitions & Chemical Command",
+    "diagnostics": ""
+  },
+  "Nat'l Rifle Ass'n of Am. v. Vullo, 602 U.S. 175 (2024)": {
+    "citation": "Nat'l Rifle Ass'n of Am. v. Vullo, 602 U.S. 175 (2024)",
+    "status": "POSSIBLE_MATCH",
+    "confidence": "0.7802",
+    "cluster_id": "9508919",
+    "url": "https://www.courtlistener.com/opinion/9508919/national-rifle-association-of-america-v-vullo/",
+    "matched_name": "National Rifle Association of America v. Vullo",
+    "diagnostics": "Name differs: cited \"National Rifle Association of Am. v. Vullo\" ~ found \"National Rifle Association of America v. Vullo\" (66% similar), but we identified a possible match."
+  },
+  "Norwood v. Harrison, 413 U.S. 455 (1973)": {
+    "citation": "Norwood v. Harrison, 413 U.S. 455 (1973)",
+    "status": "VERIFIED",
+    "confidence": "1.0",
+    "cluster_id": "108851",
+    "url": "https://www.courtlistener.com/opinion/108851/norwood-v-harrison/",
+    "matched_name": "Norwood v. Harrison",
+    "diagnostics": ""
+  },
+  "N.Y. State Ophthalmological Soc'y v. Bowen, 854 F.2d 1379 (D.C. Cir. 1988)": {
+    "citation": "N.Y. State Ophthalmological Soc'y v. Bowen, 854 F.2d 1379 (D.C. Cir. 1988)",
+    "status": "VERIFIED",
+    "confidence": "1.0",
+    "cluster_id": "510614",
+    "url": "https://www.courtlistener.com/opinion/510614/new-york-state-ophthalmological-society-v-otis-r-bowen-secretary-health/",
+    "matched_name": "New York State Ophthalmological Society v. Otis R. Bowen, Secretary, Health and Human Services",
+    "diagnostics": ""
+  },
+  "O'Bannon v. Town Ct. Nursing Ctr., 447 U.S. 773 (1980)": {
+    "citation": "O'Bannon v. Town Ct. Nursing Ctr., 447 U.S. 773 (1980)",
+    "status": "VERIFIED",
+    "confidence": "1.0",
+    "cluster_id": "110319",
+    "url": "https://www.courtlistener.com/opinion/110319/obannon-v-town-court-nursing-center/",
+    "matched_name": "O'Bannon v. Town Court Nursing Center",
+    "diagnostics": ""
+  },
+  "O'Donnel v. Barry, 148 F.3d 1126 (D.C. Cir. 1998)": {
+    "citation": "O'Donnel v. Barry, 148 F.3d 1126 (D.C. Cir. 1998)",
+    "status": "VERIFIED",
+    "confidence": "1.0",
+    "cluster_id": "184593",
+    "url": "https://www.courtlistener.com/opinion/184593/odonnell-philip-v-barry-marion-s/",
+    "matched_name": "O'Donnell, Philip v. Barry, Marion S.",
+    "diagnostics": ""
+  },
+  "Ohio Forestry Ass'n v. Sierra Club, 523 U.S. 726 (1998)": {
+    "citation": "Ohio Forestry Ass'n v. Sierra Club, 523 U.S. 726 (1998)",
+    "status": "POSSIBLE_MATCH",
+    "confidence": "0.7531",
+    "cluster_id": "118210",
+    "url": "https://www.courtlistener.com/opinion/118210/ohio-forestry-assn-inc-v-sierra-club/",
+    "matched_name": "Ohio Forestry Assn., Inc. v. Sierra Club",
+    "diagnostics": "Name differs: cited \"Ohio Forestry Association v. Sierra Club\" ~ found \"Ohio Forestry Assn., Inc. v. Sierra Club\" (61% similar), but we identified a possible match."
+  },
+  "Oryszak v. Sullivan, 576 F.3d 522 (D.C. Cir. 2009)": {
+    "citation": "Oryszak v. Sullivan, 576 F.3d 522 (D.C. Cir. 2009)",
+    "status": "LIKELY_REAL",
+    "confidence": "0.95",
+    "cluster_id": "187446",
+    "url": "https://www.courtlistener.com/opinion/187446/oryszak-v-sullivan/",
+    "matched_name": "Oryszak v. Sullivan",
+    "diagnostics": "We identified a likely match."
+  },
+  "Palmieri v. United States, 896 F.3d 579 (D.C. Cir. 2018)": {
+    "citation": "Palmieri v. United States, 896 F.3d 579 (D.C. Cir. 2018)",
+    "status": "VERIFIED",
+    "confidence": "1.0",
+    "cluster_id": "4519717",
+    "url": "https://www.courtlistener.com/opinion/4519717/matthew-palmieri-v-united-states/",
+    "matched_name": "Matthew Palmieri v. United States",
+    "diagnostics": ""
+  },
+  "Perez v. FBI, 71 F.3d 513 (5th Cir. 1995)": {
+    "citation": "Perez v. FBI, 71 F.3d 513 (5th Cir. 1995)",
+    "status": "POSSIBLE_MATCH",
+    "confidence": "0.553",
+    "cluster_id": "8282",
+    "url": "https://www.courtlistener.com/opinion/8282/perez-v-federal-bureau-of-investigation/",
+    "matched_name": "Perez v. Federal Bureau of Investigation",
+    "diagnostics": "Name mismatch: cited \"Perez v. FBI\" vs found \"Perez v. Federal Bureau of Investigation\", but we identified a possible match."
+  },
+  "Pleasant Grove City v. Summum, 555 U.S. 460 (2009)": {
+    "citation": "Pleasant Grove City v. Summum, 555 U.S. 460 (2009)",
+    "status": "VERIFIED",
+    "confidence": "1.0",
+    "cluster_id": "145905",
+    "url": "https://www.courtlistener.com/opinion/145905/pleasant-grove-city-v-summum/",
+    "matched_name": "Pleasant Grove City v. Summum",
+    "diagnostics": ""
+  },
+  "Rattigan v. Holder, 689 F.3d 764 (D.C. Cir. 2012)": {
+    "citation": "Rattigan v. Holder, 689 F.3d 764 (D.C. Cir. 2012)",
+    "status": "VERIFIED",
+    "confidence": "1.0",
+    "cluster_id": "803949",
+    "url": "https://www.courtlistener.com/opinion/803949/wilfred-rattigan-v-eric-holder-jr/",
+    "matched_name": "Wilfred Rattigan v. Eric Holder, Jr.",
+    "diagnostics": ""
+  },
+  "Rattigan v. Holder, 780 F.3d 413 (D.C. Cir. 2015)": {
+    "citation": "Rattigan v. Holder, 780 F.3d 413 (D.C. Cir. 2015)",
+    "status": "VERIFIED",
+    "confidence": "1.0",
+    "cluster_id": "2786006",
+    "url": "https://www.courtlistener.com/opinion/2786006/wilfred-rattigan-v-eric-holder-jr/",
+    "matched_name": "Wilfred Rattigan v. Eric Holder, Jr.",
+    "diagnostics": ""
+  },
+  "Rumsfeld v. Forum for Acad. & Inst. Rts., Inc., 547 U.S. 47 (2006)": {
+    "citation": "Rumsfeld v. Forum for Acad. & Inst. Rts., Inc., 547 U.S. 47 (2006)",
+    "status": "NOT_FOUND",
+    "confidence": "0.0",
+    "cluster_id": "",
+    "url": "",
+    "matched_name": "",
+    "diagnostics": "No matching cases found in CourtListener opinions or RECAP"
+  },
+  "Rutan v. Republican Party of Ill., 497 U.S. 62 (1990)": {
+    "citation": "Rutan v. Republican Party of Ill., 497 U.S. 62 (1990)",
+    "status": "POSSIBLE_MATCH",
+    "confidence": "0.8339",
+    "cluster_id": "112472",
+    "url": "https://www.courtlistener.com/opinion/112472/rutan-v-republican-party-of-illinois/",
+    "matched_name": "Rutan v. Republican Party of Illinois",
+    "diagnostics": "Name differs: cited \"Rutan v. Republican Party of Ill.\" ~ found \"Rutan v. Republican Party of Illinois\" (77% similar), but we identified a possible match."
+  },
+  "Ryan v. Reno, 168 F.3d 520 (D.C. Cir. 1999)": {
+    "citation": "Ryan v. Reno, 168 F.3d 520 (D.C. Cir. 1999)",
+    "status": "VERIFIED",
+    "confidence": "1.0",
+    "cluster_id": "184768",
+    "url": "https://www.courtlistener.com/opinion/184768/ryan-john-clement-v-reno-janet/",
+    "matched_name": "Ryan, John Clement v. Reno, Janet",
+    "diagnostics": ""
+  },
+  "Seila L. LLC v. Consumer Fin. Prot. Bureau, 591 U.S. 197 (2020)": {
+    "citation": "Seila L. LLC v. Consumer Fin. Prot. Bureau, 591 U.S. 197 (2020)",
+    "status": "VERIFIED",
+    "confidence": "1.0",
+    "cluster_id": "4764603",
+    "url": "https://www.courtlistener.com/opinion/4764603/seila-law-llc-v-consumer-financial-protection-bureau/",
+    "matched_name": "Seila Law LLC v. Consumer Financial Protection Bureau",
+    "diagnostics": ""
+  },
+  "Shurtleff v. City of Boston, 596 U.S. 243 (2022)": {
+    "citation": "Shurtleff v. City of Boston, 596 U.S. 243 (2022)",
+    "status": "VERIFIED",
+    "confidence": "1.0",
+    "cluster_id": "6468902",
+    "url": "https://www.courtlistener.com/opinion/6468902/shurtleff-v-boston/",
+    "matched_name": "Shurtleff v. Boston",
+    "diagnostics": ""
+  },
+  "Sierra Club v. Costle, 657 F.2d 298 (D.C. Cir. 1981)": {
+    "citation": "Sierra Club v. Costle, 657 F.2d 298 (D.C. Cir. 1981)",
+    "status": "LIKELY_REAL",
+    "confidence": "0.875",
+    "cluster_id": "393674",
+    "url": "https://www.courtlistener.com/opinion/393674/sierra-club-v-douglas-m-costle-administrator-of-the-environmental/",
+    "matched_name": "Sierra Club v. Douglas M. Costle, Administrator of the Environmental Protection Agency, National Coal Association, Alabama Power Company, Intervenors",
+    "diagnostics": "We identified a likely match."
+  },
+  "TikTok Inc. v. Garland, 604 U.S. 56 (2025)": {
+    "citation": "TikTok Inc. v. Garland, 604 U.S. 56 (2025)",
+    "status": "LIKELY_REAL",
+    "confidence": "0.95",
+    "cluster_id": "10776875",
+    "url": "https://www.courtlistener.com/opinion/10776875/tiktok-inc-v-garland/",
+    "matched_name": "TikTok Inc. v. Garland",
+    "diagnostics": "We identified a likely match."
+  },
+  "United States v. Regenerative Scis., LLC, 741 F.3d 1314 (D.C. Cir. 2014)": {
+    "citation": "United States v. Regenerative Scis., LLC, 741 F.3d 1314 (D.C. Cir. 2014)",
+    "status": "VERIFIED",
+    "confidence": "1.0",
+    "cluster_id": "2652122",
+    "url": "https://www.courtlistener.com/opinion/2652122/united-states-v-regenerative-sciences-llc/",
+    "matched_name": "United States v. Regenerative Sciences, LLC",
+    "diagnostics": ""
+  },
+  "United States v. Salerno, 481 U.S. 739 (1987)": {
+    "citation": "United States v. Salerno, 481 U.S. 739 (1987)",
+    "status": "VERIFIED",
+    "confidence": "1.0",
+    "cluster_id": "111891",
+    "url": "https://www.courtlistener.com/opinion/111891/united-states-v-salerno/",
+    "matched_name": "United States v. Salerno",
+    "diagnostics": ""
+  },
+  "Vill. of Willowbrook v. Olech, 528 U.S. 562 (2000)": {
+    "citation": "Vill. of Willowbrook v. Olech, 528 U.S. 562 (2000)",
+    "status": "VERIFIED",
+    "confidence": "1.0",
+    "cluster_id": "1855348",
+    "url": "https://www.courtlistener.com/opinion/1855348/village-of-willowbrook-v-olech/",
+    "matched_name": "Village of Willowbrook v. Olech",
+    "diagnostics": ""
+  },
+  "Walker v. Tex. Div., Sons of Confederate Veterans, Inc., 576 U.S. 200 (2015)": {
+    "citation": "Walker v. Tex. Div., Sons of Confederate Veterans, Inc., 576 U.S. 200 (2015)",
+    "status": "VERIFIED",
+    "confidence": "1.0",
+    "cluster_id": "2809762",
+    "url": "https://www.courtlistener.com/opinion/2809762/walker-v-texas-div-sons-of-confederate-veterans-inc/",
+    "matched_name": "Walker v. Texas Div., Sons of Confederate Veterans, Inc.",
+    "diagnostics": ""
+  },
+  "Wheat v. United States, 486 U.S. 153 (1988)": {
+    "citation": "Wheat v. United States, 486 U.S. 153 (1988)",
+    "status": "VERIFIED",
+    "confidence": "1.0",
+    "cluster_id": "112074",
+    "url": "https://www.courtlistener.com/opinion/112074/wheat-v-united-states/",
+    "matched_name": "Wheat v. United States",
+    "diagnostics": ""
+  },
+  "Wyo. Outdoor Council v. U.S. Forest Serv., 165 F.3d 43 (D.C. Cir. 1999)": {
+    "citation": "Wyo. Outdoor Council v. U.S. Forest Serv., 165 F.3d 43 (D.C. Cir. 1999)",
+    "status": "POSSIBLE_MATCH",
+    "confidence": "0.7806",
+    "cluster_id": "184751",
+    "url": "https://www.courtlistener.com/opinion/184751/wyoming-outdoor-council-v-united-states-forest-service/",
+    "matched_name": "Wyoming Outdoor Council v. United States Forest Service",
+    "diagnostics": "Name differs: cited \"Wyo. Outdoor Council v. U.S. Forest Service.\" ~ found \"Wyoming Outdoor Council v. United States Forest Service\" (66% similar), but we identified a possible match."
+  },
+  "Zivotofsky ex rel. Zivotofsky v. Kerry, 576 U.S. 1 (2015)": {
+    "citation": "Zivotofsky ex rel. Zivotofsky v. Kerry, 576 U.S. 1 (2015)",
+    "status": "VERIFIED",
+    "confidence": "1.0",
+    "cluster_id": "2808294",
+    "url": "https://www.courtlistener.com/opinion/2808294/zivotofsky-v-kerry/",
+    "matched_name": "Zivotofsky v. Kerry",
+    "diagnostics": ""
+  }
+}

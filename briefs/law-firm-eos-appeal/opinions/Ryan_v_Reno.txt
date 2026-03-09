@@ -1,0 +1,356 @@
+                        United States Court of Appeals
+
+
+                     FOR THE DISTRICT OF COLUMBIA CIRCUIT
+
+
+             Argued December 7, 1998   Decided February 26, 1999 
+
+
+                                 No. 98-5036
+
+
+                      John Clement Ryan, Eugene Glynn, 
+
+                      Francis Reale and Joseph Halvey, 
+
+                                  Appellants
+
+
+                                      v.
+
+
+                 Janet Reno, United States Attorney General, 
+
+                   United States Department of Justice and 
+
+             United States Immigration & Naturalization Service, 
+
+                                  Appellees
+
+
+                Appeal from the United States District Court 
+
+                        for the District of Columbia 
+
+                               (No. 96cv01015)
+
+
+     William F. Causey argued the cause for the appellants.  
+Harry J. Kelly, III was on brief for the appellants.
+
+     Diane M. Sullivan, Assistant United States Attorney, ar-
+gued the cause for the appellees.  Wilma A. Lewis, United 
+
+
+
+States Attorney, and R. Craig Lawrence, Assistant United 
+States Attorney, were on brief for the appellees.
+
+     Before:  Ginsburg, Henderson and Rogers, Circuit Judges.
+
+     Opinion for the court filed by Circuit Judge Henderson.
+
+     Karen LeCraft Henderson, Circuit Judge:  Appellants 
+John C. Ryan, Eugene Glynn, Francis Reale and Joseph 
+Halvey challenge the district court's dismissal of their em-
+ployment discrimination suit.  In their complaint the appel-
+lants, who are of Irish birth and of dual Irish and American 
+citizenship, alleged that the United States Department of 
+Justice (DOJ) and the United States Immigration and Natu-
+ralization Service (INS) denied them security clearances and 
+withdrew offers of employment contingent on the clearances 
+on account of national origin and citizenship in violation of 
+Title VII of the Civil Rights Act of 1964, 42 U.S.C. s 2000e-
+2.1  The district court dismissed the action, concluding it 
+lacked jurisdiction to review the reason given for withdrawing 
+the offers-that because of the length of time the appellants 
+had lived abroad, DOJ could not conduct adequate back-
+ground investigations to grant them the required clearances.  
+We review the district court's dismissal for lack of jurisdiction 
+de novo, taking as true the facts alleged in the complaint.  
+Moore v. Valder, 65 F.3d 189, 196 (D.C. Cir. 1995), cert. 
+denied, 117 S. Ct. 75 (1996).  Applying this standard, we 
+conclude that the district court's dismissal should be affirmed.
+
+                                      I.
+
+
+     The material facts are undisputed.  In April 1998 INS 
+announced openings for Immigration Inspectors at Shannon 
+
+__________
+     1 Subsection (a)(1) of section 2000e-2 makes it "an unlawful 
+employment practice for an employer ... to fail or refuse to hire or 
+to discharge any individual, or otherwise to discriminate against any 
+individual with respect to his compensation, terms, conditions, or 
+privileges of employment, because of such individual's race, color, 
+religion, sex, or national origin."  42 U.S.C. s 2000e-2(a)(1).  The 
+complaint also alleged violation of the Civil Rights Act of 1866, as 
+amended, 42 U.S.C. s 1981, but the appellants have not pursued the 
+claim on appeal.
+
+
+International Airport in Shannon, Ireland and published an 
+advertisement in Irish newspapers soliciting applicants.  The 
+Immigration Inspector position is a "sensitive" one requiring 
+background investigations and security clearance of appli-
+cants.  The appellants, then residents of Ireland, applied for 
+the openings.  In letters dated July 7, 1988 Robert A. Cleary, 
+Chief of the Operations Services Branch of the INS Person-
+nel and Training Division, informed each of the applicants 
+that each had been "tentatively selected" for the positions 
+"pending satisfactory completion of security requirements" 
+and requested that each notify INS of his "acceptance or 
+declination" and complete and return enclosed security forms.  
+Joint Appendix (JA) 97-100.  Each appellant accepted the 
+offer and returned the forms as requested.  To expedite the 
+applicants' hiring, INS sent "waiver packages" to DOJ's 
+Office of Security and Emergency Planning Staff (SEPS).  A 
+memorandum in each package requested "a waiver of the 
+preappointment full-field investigation" of each applicant and 
+asserted:  "The individual will not have access to classified 
+information until after the requisite full-field background 
+investigation has been completed and an appropriate security 
+clearance granted pursuant to applicable Departmental regu-
+lations.  Access to sensitive Department of Justice informa-
+tion will be kept to a minimum."  See, e.g., JA 185, 186.  The 
+waiver requests were "disapproved" on June 27, 1989.  In a 
+memorandum to INS of the same date, SEPS Director Jerry 
+Rubino explained the disapproval:
+
+     Since these applicants have lived in Ireland for a period 
+     of years and cannot be adequately investigated for the 
+     purpose of determining their trustworthiness, and there-
+     fore their eligibility to occupy sensitive positions, I have 
+     decided to disapprove your waiver request.
+
+     ... I recommend that full-field [background investiga-
+     tions] should not be conducted on these individuals.  Due 
+     to the sensitivity of these positions, I believe that INS 
+     should find candidates that have lived in the United 
+     States for the last several years so that an adequate full-
+     field [background investigation] can be conducted.
+
+
+
+JA 301.  Accordingly, INS personnel chief Cleary informed 
+each applicant in a letter dated August 15, 1989:  "The 
+Department of Justice Security Office has determined that, 
+since you have lived in Ireland for an extended period of time, 
+an adequate background investigation cannot be conducted to 
+determine your eligibility to occupy a sensitive position.  
+Therefore, we must withdraw our previous appointment of-
+fer."  See, e.g, JA 361-63.  Later that year DOJ promulgated 
+a policy requiring that an Immigration Inspector applicant 
+"have for three of the five years immediately prior to apply-
+ing for this position:  1) resided in the United States;  2) 
+worked for the United States overseas in a Federal or 
+military capacity;  or 3) be [sic] a dependent of a Federal or 
+military employee serving overseas."  JA 358.
+
+     In May and June 1990 the four unsuccessful applicants filed 
+discrimination complaints with DOJ.  In a decision dated 
+September 29, 1993 an administrative law judge (ALJ) found 
+that "the Agency discriminated against Complainants on the 
+basis of their national origin, Irish American, when their 
+offers of tentative employment for the position of Immigra-
+tion Inspector at Shannon Airport in Ireland were withdrawn 
+on August 15, 1989."  JA 563.  In a final agency decision 
+dated December 2, 1993 the DOJ Complaint Adjudication 
+Office rejected the ALJ's finding of discrimination both for 
+lack of evidentiary support and because the decision not to 
+issue a security clearance was unreviewable under Egan v. 
+Department of Navy, 484 U.S. 518 (1988).
+
+     On September 9, 1994 the four complainants appealed the 
+DOJ decision to the United States Equal Employment Oppor-
+tunity Commission (EEOC), which affirmed DOJ on the sole 
+ground that the complainants had failed to prove discrimina-
+tion.  The EEOC rejected DOJ's conclusion that review of 
+the security clearance denial was barred, stating:  "The Com-
+mission has repeatedly held that it has no authority to review 
+the substance of security clearance determinations or the 
+validity of the employer's requirement of a security clearance, 
+but that it does have the authority to determine whether the 
+grant, denial, or revocation of a security clearance was con-
+ducted in a nondiscriminatory manner."  JA 606 (citations 
+
+
+
+omitted).  On February 1, 1996 the EEOC denied the com-
+plainants' request for reconsideration.
+
+     Ryan filed this action in the district court on May 2, 1996 
+and the three other plaintiffs were joined in December 1996.  
+On September 30, 1997 the government filed a motion to 
+dismiss or for summary judgment on the grounds that (1) 
+only one plaintiff (Ryan) had timely filed suit and (2) the 
+court lacked jurisdiction to review the security clearance 
+decision.  In a memorandum opinion and order dated Janu-
+ary 28, 1998 the district court dismissed the action for lack of 
+jurisdiction concluding it could not assess the sufficiency of 
+the plaintiffs' claims without reviewing Rubino's decision not 
+to grant security clearances-a review that was foreclosed 
+under Egan.  The four plaintiffs appealed the dismissal.
+
+                                     II.
+
+
+     The outcome here is controlled, as DOJ and the district 
+court concluded, by the Supreme Court's decision in Egan v. 
+Department of Navy, 484 U.S. 518 (1988).  The respondent in 
+Egan had been hired to work at the Navy's Trident Naval 
+Refit Facility in Bremerton, Washington contingent on "satis-
+factory completion of security and medical reports."  484 U.S. 
+at 520.  When the Director of the Naval Civilian Personnel 
+Command denied him a security clearance, Egan was dis-
+charged as ineligible to work at the facility.  Egan appealed 
+his discharge to the Merit Systems Protection Board (Board) 
+which concluded it was without authority to review the clear-
+ance.  Egan then appealed to the Federal Circuit Court of 
+Appeals, which reversed the Board and remanded for review 
+of the clearance decision.  The Supreme Court granted cer-
+tiorari and reversed the Federal Circuit, holding that the 
+Board lacked authority "to review the substance of an under-
+lying decision to deny or revoke a security clearance in the 
+course of reviewing an adverse action."  Egan, 484 U.S. at 
+520.  The Court explained:
+
+     For "reasons ... too obvious to call for enlarged discus-
+     sion," CIA v. Sims, 471 U.S. 159, 170, 105 S.Ct. 1881, 
+
+
+     1888, 85 L.Ed.2d 173 (1985), the protection of classified 
+     information must be committed to the broad discretion of 
+     the agency responsible, and this must include broad 
+     discretion to determine who may have access to it.  Cer-
+     tainly, it is not reasonably possible for an outside nonex-
+     pert body to review the substance of such a judgment 
+     and to decide whether the agency should have been able 
+     to make the necessary affirmative prediction with confi-
+     dence.  Nor can such a body determine what constitutes 
+     an acceptable margin of error in assessing the potential 
+     risk.
+
+484 U.S. at 529.  Three other circuits have held that Egan 
+applies in a Title VII action to preclude a "nonexpert body"--
+whether administrative or judicial--from resolving a discrimi-
+nation claim based on an adverse employment action resulting 
+from an agency security clearance decision.  See Becerra v. 
+Dalton, 94 F.3d 145, 149 (4th Cir. 1996), cert. denied, 117 
+S. Ct. 1087 (1997);  Perez v. FBI, 71 F.3d 513 (5th Cir. 1995), 
+cert. denied, 517 U.S. 1234 (1996);  Brazil v. United States 
+Dep't of Navy, 66 F.3d 193, 195 (9th Cir. 1995), cert. denied, 
+517 U.S. 1103 (1996).  We now join those courts.
+
+     To determine the merits of the appellants' Title VII claims, 
+it is necessary to apply the burden allocation scheme first 
+announced in McDonnell-Douglas Corp. v. Green, 411 U.S. 
+792 (1973):
+
+     Under the first step of McDonnell-Douglas the complain-
+     ant must establish a prima facie case of discrimination.  
+     ...  If the complainant succeeds in establishing a prima 
+     facie case, the second step of the McDonnell-Douglas 
+     framework shifts the burden to the defendant employer 
+     to articulate a legitimate, nondiscriminatory reason for 
+     its adverse employment action.  If the defendant does so, 
+     then under the third step of McDonnell-Douglas the 
+     complainant must produce evidence showing that the 
+     defendant's proffered reason is but a pretext for discrim-
+     ination.
+
+Paquin v. Federal Nat'l Mortgage Ass'n, 119 F.3d 23, 26 
+(D.C. Cir. 1997).  In a case such as this, however, a court 
+
+
+
+cannot clear the second step of McDonnell-Douglas without 
+running smack up against Egan.  The nondiscriminatory 
+reason proffered below for withdrawing the employment of-
+fers was that the applicants' long residence abroad prevented 
+DOJ from conducting an adequate security clearance back-
+ground investigation.  The appellants could not challenge the 
+proffered reason's authenticity without also challenging its 
+validity-as their arguments before the district court made 
+manifest.  See District Court Opinion at 19 (JA 26) n.12 
+("Plaintiffs repeatedly claim that the fact that the State 
+Department may have been able to conduct the investigation 
+abroad acts to undermine Mr. Rubino's decision that no 
+investigation adequately could assess the Plaintiffs' trustwor-
+thiness.").  As the Ninth Circuit explained:
+
+     The more valid a reason appears upon evaluation, the 
+     less likely a court will be to find that reason pretextual;  
+     the converse is also true.  Even when the court faces 
+     independent evidence of a discriminatory motive, it is 
+     still necessary to weigh the validity of the defendant's 
+     proffered reasons when deciding if they are pretextual.  
+     In short, the merit of such decisions simply cannot be 
+     wholly divorced from a determination of whether they 
+     are legitimate or pretextual.
+
+Brazil v. United States Dep't of Navy, 66 F.3d at 197.  
+Because the district court below could not proceed with the 
+appellants' discrimination action without reviewing the merits 
+of DOJ's decision not to grant a clearance, the court was 
+foreclosed from proceeding at all.
+
+     The appellants attempt to circumvent Egan by characteriz-
+ing the challenged employment actions as procedural, di-
+vorced from any substantive security determination.  Accord-
+ing to the appellants:  "The focus of the district court would 
+be on the procedure used by DOJ to consider the waiver 
+requests and the reason why DOJ denied the waivers, and not 
+on whether the appellants should or should not receive actual 
+security clearances."  Br. of Appellants at 36.  But DOJ 
+denied the waivers because it concluded no clearances should 
+be granted without more extensive investigations than were 
+
+
+
+possible here.  Thus, the waiver denials were tantamount to 
+clearance denials and were based on the same sort of "pre-
+dictive judgment" that Egan tells us "must be made by those 
+with the necessary expertise in protecting classified informa-
+tion," without interference from the courts.  Egan, 484 U.S. 
+at 529.2
+
+     For the preceding reasons we hold that under Egan an 
+adverse employment action based on denial or revocation of a 
+security clearance is not actionable under Title VII.3  We 
+emphasize that our holding is limited to Title VII discrimina-
+tion actions and does not apply to actions alleging deprivation 
+of constitutional rights.  See Webster v. Doe, 486 U.S. 592, 603 
+(1988) ("[W]here Congress intends to preclude judicial review 
+of constitutional claims its intent to do so must be clear....  
+We require this heightened showing in part to avoid the 
+'serious constitutional question' that would arise if a federal 
+statute were construed to deny any judicial forum for a 
+colorable constitutional claim.") (citations omitted);  National 
+Federation of Fed. Employees v. Greenberg, 983 F.2d 286, 289 
+(D.C. Cir. 1993);  United States Information Agency v. Krc, 
+905 F.2d 389, 400 (D.C. Cir. 1990).  The district court's 
+dismissal is
+
+Affirmed.
+
+
+__________
+     2 In fact, to support their "procedural" argument the appellants 
+expressly assert the feasibility of adequate investigations.  See Br. 
+of Appellants at 41-43.
+
+     3 In Egan the Supreme Court noted its holding was "fortified" by 
+the fact that the Civil Service Reform Act of 1978 "by its terms 
+does not confer broad authority on the Board to review a security-
+clearance determination."  484 U.S. at 530.  Our decision is fortified 
+by Title VII's express language exempting employment actions 
+based on security clearance possession vel non.  See 42 U.S.C. 
+s 2000e-2(g);  see also Becerra v. Dalton, 94 F.3d 145, 149 (4th Cir. 
+1996) ("We agree that there is no unmistakable expression of 
+purpose by Congress in Title VII to subject the decision of the 
+Navy to revoke Becerra's security clearance to judicial scrutiny.").
+
+                                              

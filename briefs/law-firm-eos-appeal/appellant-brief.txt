@@ -1,0 +1,3619 @@
+ [ORAL ARGUMENT NOT YET SCHEDULED]
+
+     Nos. 25-5241, 25-5265, 25-5277, 25-5310
+
+
+IN THE UNITED STATES COURT OF APPEALS
+ FOR THE DISTRICT OF COLUMBIA CIRCUIT
+
+
+             PERKINS COIE LLP,
+                       Plaintiff-Appellee,
+                    v.
+     U.S. DEPARTMENT OF JUSTICE, et al.,
+                       Defendants-Appellant.
+
+
+            JENNER & BLOCK LLP,
+                       Plaintiff-Appellee,
+                    v.
+     U.S. DEPARTMENT OF JUSTICE, et al.,
+                       Defendants-Appellant.
+
+
+WILMER CUTLER PICKERING HALE & DORR LLP,
+                      Plaintiff-Appellee,
+                   v.
+ EXECUTIVE OFFICE OF THE PRESIDENT, et al.,
+                      Defendants-Appellant.
+
+
+       SUSMAN GODFREY LLP, et al.,
+                      Plaintiff-Appellee,
+                   v.
+ EXECUTIVE OFFICE OF THE PRESIDENT, et al.,
+                      Defendants-Appellant.
+
+
+  On Appeal from the United States District Court
+           for the District of Columbia
+
+
+          BRIEF FOR APPELLANTS
+STANLEY E. WOODWARD, JR.
+  Associate Attorney General
+
+ABHISHEK S. KAMBLI
+  Deputy Associate Attorney
+     General
+  U.S. Department of Justice
+  950 Pennsylvania Avenue NW
+  Washington, DC 20530
+  (202) 514-6993
+  Abhishek.kambli@usdoj.gov
+             CERTIFICATE AS TO PARTIES, RULINGS,
+                     AND RELATED CASES
+
+      Pursuant to D.C. Circuit Rule 28(a)(1), the undersigned counsel
+
+certifies as follows:
+
+      A.    Parties and Amici
+
+      In case no. 25-5241, Plaintiff-Appellee is Perkins Coie LLP;
+
+Defendants-Appellants the U.S. Department of Justice, et al., are listed
+
+at Doc. 2128291, Ex. A (filed August 1, 2025) (listing 351 entities); amici
+
+curiae in the district court are listed at Doc. 2128291, Ex. B (filed August
+
+1, 2025) (listing 37 entities).
+
+      In case no. 25-5265, Plaintiff-Appellee is Jenner & Block LLP;
+
+Defendants-Appellants the U.S. Department of Justice, et al., are listed
+
+at Doc. 2131319, Ex. A (filed August 21, 2025) (listing 48 entities); amici
+
+curiae in the district court are listed at Doc. 2131319, Ex. B (filed August
+
+21, 2025) (listing 35 entities).
+
+      In case no. 25-5277, Plaintiff-Appellee is Wilmer Cutler Picking
+
+Hale & Dorr LLP; Defendants-Appellants the Executive Office of the
+
+President, et al., are listed at Doc. 2132227, Ex. A (filed August 27, 2025)
+
+(listing 52 entities); amici curiae in the district court are listed at Doc.
+
+2132227, Ex. B (filed August 27, 2025) (listing 31 entities).
+     In case no. 25-5310, Plaintiff-Appellee is Susman Godfrey LLP;
+
+Defendants-Appellants the Executive Office of the President, et al., are
+
+listed at Doc. 2137099, Ex. A (filed September 25, 2025) (listing 353
+
+entities); amici curiae at the district court are listed at Doc. 2137099, Ex.
+
+B (filed September 25, 2025) (listing 44 entities).
+
+     B.    Rulings Under Review
+
+     The following rulings are under review in these consolidated cases:
+
+(1) Perkins, No. 25-cv-716 (D.D.C.), by the Honorable Beryl A. Howell,
+
+dated May 2, 2025, granting plaintiff’s motion for summary judgment
+
+and denying the Government’s renewed motion to dismiss, and published
+
+at 783 F. Supp. 3d 105; (2) Jenner & Block, No. 25-cv-916 (D.D.C.), by the
+
+Honorable John D. Bates, dated May 23, 2025, granting plaintiff’s motion
+
+for summary judgment and denying defendants’ motion to dismiss, and
+
+published at 784 F. Supp. 3d 76; (3) WilmerHale, No. 25-cv-917 (D.D.C.),
+
+by the Honorable Richard J. Leon, dated May 27, 2025, granting in part
+
+and denying in part plaintiff’s motion for summary judgment and
+
+defendants’ motion to dismiss, and published at 784 F. Supp. 3d 127; and
+
+(4) Susman Godfrey, No. 25-1107 (D.D.C.), by the Honorable Loren L.
+
+AliKhan, dated June 27, 2025, and published at 789 F. Supp. 3d 15.
+
+
+                                     ii
+     C.    Related Cases
+
+     The following case is currently pending before the D.C. Circuit:
+
+Zaid v. Executive Office of the President, No. 26-5009.
+
+
+
+                                           /s/ Abhishek S. Kambli
+                                          ABHISHEK S. KAMBLI
+
+
+
+
+                                    iii
+                                 TABLE OF CONTENTS
+
+                                                                                                    Page
+
+INTRODUCTION ...................................................................................... 1
+
+STATEMENT OF JURISDICTION .......................................................... 5
+
+STATEMENT OF THE ISSUES ............................................................... 5
+
+PERTINENT STATUTES AND REGULATIONS ................................... 6
+
+STATEMENT OF THE CASE .................................................................. 6
+
+       A.      Factual Background ................................................................ 6
+
+       B.      Procedural Background......................................................... 14
+
+SUMMARY OF ARGUMENT ................................................................. 17
+
+STANDARD OF REVIEW....................................................................... 19
+
+ARGUMENT ........................................................................................... 20
+
+I.     Plaintiffs’ Claims Challenging the President’s Revocation of
+       Their Security Clearances Are Not Justiciable. ............................ 20
+
+II.    The District Courts Erred in Enjoining Section 4,
+       Concerning Review of Discriminatory Employment
+       Practices. ........................................................................................ 41
+
+III.   The District Courts Erred in Enjoining Section 3,
+       Concerning Contractors, and Section 5, Concerning
+       Guidance on Access to Buildings. .................................................. 48
+
+IV.    The District Courts Erred in Finding Section 1 Non-
+       Severable and Enjoining Future Actions....................................... 60
+
+
+                                                    iv
+CONCLUSION ........................................................................................ 65
+
+CERTIFICATE OF COMPLIANCE
+
+CERTIFICATE OF SERVICE
+
+ADDENDUM
+
+
+
+
+                                                  v
+                              TABLE OF AUTHORITIES
+
+Cases:                                                                                    Page(s)
+
+Abbott Lab’ys v. Gardner,
+ 387 U.S. 136 (1967), abrogated on other grounds by
+ Califano v. Sanders, 430 U.S. 99 (1977) .............................................. 49
+
+Am. Petrol. Inst. v. EPA,
+ 683 F.3d 382 (D.C. Cir. 2012)............................................................... 49
+
+Amgen Inc. v. Smith,
+ 357 F.3d 103 (D.C. Cir. 2004)............................................................... 33
+
+Ams. for Prosperity Found. v. Bonta,
+ 594 U.S. 595 (2021) .............................................................................. 51
+
+Aref v. Lynch,
+ 833 F.3d 242 (D.C. Cir. 2016)............................................................... 47
+
+Barr v. Am. Ass’n of Pol. Consultants, Inc.,
+ 591 U.S. 610 (2020) .............................................................................. 63
+
+Bd. of Regents of Univ. of Wis. Sys. v. Southworth,
+ 529 U.S. 217 (2000) .............................................................................. 61
+
+Becerra v. Dalton,
+ 94 F.3d 145 (4th Cir. 1996) ............................................................ 24, 35
+
+Bennett v. Chertoff,
+ 425 F.3d 999 (D.C. Cir. 2005)............................................................... 22
+
+Bill Johnson’s Rests., Inc. v. NLRB,
+ 461 U.S. 731 (1983) .............................................................................. 54
+
+Bldg. & Constr. Trades Dep’t v. Allbaugh,
+ 295 F.3d 28 (D.C. Cir. 2002) .......................................................... 42, 43
+
+Brady v. Off. of Sergeant at Arms,
+ 520 F.3d 490 (D.C. Cir. 2008)............................................................... 53
+
+                                                 vi
+Cause of Action Inst. v. U.S. Dep’t of Just.,
+ 330 F. Supp. 3d 336 (D.D.C. 2018)....................................................... 57
+
+Chennareddy v. Bowsher,
+ 935 F.2d 315 (D.C. Cir. 1991)............................................................... 43
+
+Common Cause v. Trump,
+ 506 F. Supp. 3d 39 (D.D.C. 2020)................................................... 49, 50
+
+Contractors Ass’n of E. Pa. v. Sec’y of Lab.,
+ 442 F.2d 159 (3d Cir. 1971) .................................................................. 53
+
+DCH Reg’l Med. Ctr. v. Azar,
+ 925 F.3d 503 (D.C. Cir. 2019)............................................................... 33
+
+Dep’t of Navy v. Egan,
+ 484 U.S. 518 (1988) .................................................................. 21, 22, 35
+
+El-Ganayni v. U.S. Dep’t of Energy,
+ 591 F.3d 176 (3d Cir. 2010) .................................................................. 36
+
+Foote v. Moniz,
+ 751 F.3d 656 (D.C. Cir. 2014)......................................................... 25, 39
+
+Free Enter. Fund v. Pub. Co. Acct. Oversight Bd.,
+ 561 U.S. 477 (2010) .............................................................................. 64
+
+Garcetti v. Ceballos,
+ 547 U.S. 410 (2006) .............................................................................. 54
+
+Hill v. White,
+ 321 F.3d 1334 (11th Cir. 2003) ............................................................ 25
+
+Hishon v. King & Spalding,
+ 467 U.S. 69 (1984) .......................................................................... 53, 54
+
+Holder v. Humanitarian L. Project,
+ 561 U.S. 1 (2010) .................................................................................. 58
+
+
+
+                                                  vii
+Hous. Cmty. Coll. Sys. v. Wilson,
+ 595 U.S. 468 (2022) .............................................................................. 47
+
+Johanns v. Livestock Mktg. Ass’n,
+  544 U.S. 550 (2005) .............................................................................. 61
+
+Keller v. State Bar of Cal.,
+ 496 U.S. 1 (1990) .................................................................................. 61
+
+Lee v. Garland,
+ 120 F.4th 880 (D.C. Cir. 2024) ......................... 23, 24, 26, 27, 29, 31, 34
+
+Matal v. Tam,
+ 582 U.S. 218 (2017) .............................................................................. 61
+
+Minn. State Bd. for Cmty. Colls. v. Knight,
+ 465 U.S. 271 (1984) ........................................................................ 58–59
+
+Moody v. NetChoice, LLC,
+ 603 U.S. 707 (2024) .............................................................................. 51
+
+Myers v. United States,
+ 272 U.S. 52 (1926) ................................................................................ 43
+
+Nat’l Endowment of the Arts v. Finley,
+ 524 U.S. 569 (1998) .............................................................................. 61
+
+Nat’l Fed’n of Fed. Emps. v. Greenberg,
+ 983 F.2d 286 (D.C. Cir. 1993)................................................... 27, 28, 35
+
+Nat’l Rifle Ass’n of Am. v. Vullo,
+ 602 U.S. 175 (2024) .............................................................................. 63
+
+Norwood v. Harrison,
+ 413 U.S. 455 (1973) .............................................................................. 53
+
+N.Y. State Ophthalmological Soc’y v. Bowen,
+ 854 F.2d 1379 (D.C. Cir. 1988)............................................................. 50
+
+
+
+                                                 viii
+O’Bannon v. Town Ct. Nursing Ctr.,
+ 447 U.S. 773 (1980) .............................................................................. 55
+
+O’Donnel v. Barry,
+ 148 F.3d 1126 (D.C. Cir. 1998)............................................................. 57
+
+Ohio Forestry Ass’n v. Sierra Club,
+ 523 U.S. 726 (1998) .............................................................................. 48
+
+Oryszak v. Sullivan,
+ 576 F.3d 522 (D.C. Cir. 2009)............................................................... 23
+
+Palmieri v. United States,
+ 896 F.3d 579 (D.C. Cir. 2018)............................................................... 23
+
+Perez v. FBI,
+ 71 F.3d 513 (5th Cir. 1995) .................................................................. 24
+
+Pleasant Grove City v. Summum,
+  555 U.S. 460 (2009) .................................................................. 61, 62–63
+
+Rattigan v. Holder,
+ 689 F.3d 764 (D.C. Cir. 2012)......................................................... 38, 39
+
+Rattigan v. Holder,
+ 780 F.3d 413 (D.C. Cir. 2015)............................................................... 39
+
+Rumsfeld v. Forum for Acad. & Inst. Rts., Inc.,
+ 547 U.S. 47 (2006) ................................................................................ 54
+
+Rutan v. Republican Party of Ill.,
+ 497 U.S. 62 (1990) ................................................................................ 64
+
+Ryan v. Reno,
+ 168 F.3d 520 (D.C. Cir. 1999)....................................... 22, 23, 34, 36–37
+
+Seila L. LLC v. Consumer Fin. Prot. Bureau,
+ 591 U.S. 197 (2020) .............................................................................. 64
+
+
+
+                                                  ix
+Shurtleff v. City of Boston,
+ 596 U.S. 243 (2022) .............................................................................. 62
+
+Sierra Club v. Costle,
+  657 F.2d 298 (D.C. Cir. 1981)............................................................... 43
+
+TikTok Inc. v. Garland,
+  604 U.S. 56 (2025) ................................................................................ 55
+
+United States v. Regenerative Scis., LLC,
+ 741 F.3d 1314 (D.C. Cir. 2014)............................................................. 19
+
+United States v. Salerno,
+ 481 U.S. 739 (1987) .............................................................................. 51
+
+Vill. of Willowbrook v. Olech,
+  528 U.S. 562 (2000) .............................................................................. 58
+
+Walker v. Tex. Div., Sons of Confederate Veterans, Inc.,
+ 576 U.S. 200 (2015) .............................................................................. 62
+
+Wheat v. United States,
+ 486 U.S. 153 (1988) .............................................................................. 59
+
+Wyo. Outdoor Council v. U.S. Forest Serv.,
+ 165 F.3d 43 (D.C. Cir. 1999) ................................................................ 50
+
+Zivotofsky ex rel. Zivotofsky v. Kerry,
+  576 U.S. 1 (2015) .................................................................................. 62
+
+U.S. Constitution:
+
+Art. II, § 1 ................................................................................................ 43
+
+Amend. V ................................................................................................. 55
+
+Statutes:
+
+28 U.S.C. § 1291 ........................................................................................ 5
+
+28 U.S.C. § 1331 ........................................................................................ 5
+                                               x
+42 U.S.C. § 2000e-4(e) ............................................................................. 42
+
+42 U.S.C. § 2000e-5 ................................................................................. 44
+
+42 U.S.C. § 2000e-5(a) ............................................................................. 42
+
+42 U.S.C. § 2000e-5(b) ....................................................................... 42, 44
+
+Regulatory Materials:
+
+29 C.F.R. § 1601.11(a) ............................................................................. 44
+
+EO 12968, Access to Classified Information,
+ 60 Fed. Reg. 40245 (Aug. 7, 1995) ................................................. 26–27
+
+EO 14173, Ending Illegal Discrimination and Restoring Merit-Based
+ Opportunity, 90 Fed. Reg. 8633 (Jan. 31, 2025) .................................. 47
+
+EO 14230, Addressing Risks from Perkins Coie LLP,
+ 90 Fed. Reg. 11781 (Mar. 11, 2025) .......................... 6–7, 11, 12, 13, 14,
+                                                            42, 51–52, 53, 54, 60
+
+EO 14246, Addressing Risks from Jenner & Block,
+ 90 Fed. Reg. 13997 (Mar. 28, 2025) .......... 7, 8, 11, 12, 13, 14, 54, 57, 60
+
+EO 14250, Addressing Risks From WilmerHale,
+ 90 Fed. Reg. 14549 (Apr. 3, 2025) .................. 8, 9, 11, 12, 13, 14, 16, 60
+
+EO 14263, Addressing Risks from Susman Godfrey,
+ 90 Fed. Reg. 15615 (Apr. 15, 2025) .......................... 9, 10, 11, 12, 13, 14
+
+Rule:
+
+Fed. R. Civ. P. 56(a)................................................................................. 19
+
+Other Authorities:
+
+EEOC,
+ President Appoints Andrea R. Lucas EEOC Acting Chair
+ (Jan. 21, 2025), https://www.eeoc.gov/newsroom/president-appoints-
+ andrea-r-lucas-eeoc-acting-chair.......................................................... 48
+                                   xi
+Memorandum from Attorney General,
+ Re: Ending Illegal DEI and DEIA Discrimination and Preferences
+ (Feb. 5, 2025),
+ https://www.justice.gov/ag/media/1388501/dl?inline........................... 48
+
+2 Richard J. Pierce Jr.,
+  Administrative Law Treatise (5th ed. 2010) ........................................ 56
+
+The Federalist No. 72 .............................................................................. 43
+
+
+
+
+                                                 xii
+              GLOSSARY
+
+DOJ          Department of Justice
+
+EEOC         Equal Employment Opportunity
+               Commission
+
+EO           Executive Order
+
+Jenner       Jenner & Block LLP
+
+OMB          Office of Management and Budget
+
+Perkins      Perkins Coie LLP
+
+Susman       Susman Godfrey LLP
+
+WilmerHale   Wilmer Cutler Pickering Hale & Dorr LLP
+                           INTRODUCTION
+
+     Courts cannot tell the President what to say. Courts cannot tell the
+
+President what not to say. They cannot tell the President how to handle
+
+national security clearances. And they cannot interfere with Presidential
+
+directives instructing agencies to investigate racial discrimination that
+
+violates federal civil rights laws. Nor can they interfere with Presidential
+
+directives instructing agencies to review contracts or regulate
+
+government building access based on those same racial-discrimination
+
+and national-security concerns—especially where such directives have
+
+not yet been implemented.
+
+     Ignoring those constraints, the district courts below bent over
+
+backwards to facially invalidate every section of four Executive Orders
+
+without considering their plainly constitutional aspects and applications.
+
+This appeal of those sweeping decisions is not about the sanctity of the
+
+American law firm; it is about lower courts encroaching on the
+
+constitutional power of the President to discuss and address invidious
+
+racial discrimination, national security risks, and other problems with
+
+certain law firms.
+
+
+
+
+                                     1
+     In recognition of those problems, many law firms agreed to address
+
+their practices and commit to providing pro bono work in the public
+
+interest. 1 These consolidated appeals concern four Executive Orders
+
+(“EOs”) through which the President addressed risks from four other law
+
+firms: Perkins Coie LLP (“Perkins”), Jenner & Block LLP (“Jenner”),
+
+Wilmer Cutler Pickering Hale & Dorr LLP (“WilmerHale”), and Susman
+
+Godfrey LLP (“Susman”).      The substantially similar EOs directed a
+
+review of plaintiffs to ensure that the Federal Government’s dealings
+
+with them are consistent with our Nation’s civil rights laws, national
+
+security, and other public interests. In response, plaintiffs raised facial
+
+challenges under the First, Fifth, and Sixth Amendments. Four district
+
+courts issued permanent injunctions against the four EOs. That was
+
+error, because the EOs are well within the Presidential prerogative.
+
+     To begin, it was grave error for the district courts to enjoin Section
+
+2 of the EOs, which directs agencies to “review” whether “active security
+
+clearances” held by plaintiffs’ employees “are consistent with the national
+
+
+     1 Allen Overy Shearman Sterling LLP; Cadwalader, Wickersham &
+
+Taft LLP; Kirkland & Ellis LLP; Latham & Watkins LLP; Milbank LLP;
+Paul, Weiss, Rifkind, Wharton & Garrison LLP; Simpson Thacher &
+Bartlett LLP; Skadden, Arps, Slate, Meagher & Flom LLP; and Wilkie
+Farr & Gallagher LLP.
+                                  2
+interest.” It is well established that courts may not police the President’s
+
+adjudication of security clearance decisions. Such Presidential actions
+
+are plainly not justiciable. Further, plaintiffs have not and could not
+
+argue that their employees should enjoy unfettered security clearance
+
+privileges even if the President determines that such privileges are
+
+contrary to the national interest.
+
+     The district courts also erred with respect to Section 4 of the EOs,
+
+which merely requires the Equal Opportunity Commission (“EEOC”) to
+
+review whether large law firms are in compliance with anti-
+
+discrimination laws—which the Commission is statutorily obligated to do
+
+anyway. Section 4 further directs the Attorney General, in coordination
+
+with the EEOC, to investigate such compliance. That sort of instruction
+
+is in the heartland of the President’s discretion to set priorities for the
+
+enforcement of federal law.
+
+     There was no basis for the district courts to hold Sections 3 and 5
+
+unconstitutional, either. Section 3 requires federal agencies to review
+
+government contracts and take any appropriate lawful steps to terminate
+
+contracts for which plaintiffs have been hired to perform services. And
+
+Section 5 requires federal agencies to provide guidance limiting access to
+
+
+                                     3
+government buildings by plaintiffs’ employees where such access would
+
+threaten national security or the interests of the United States. Neither
+
+Section has been implemented, so plaintiffs’ abstract challenges to these
+
+instructions are not ripe. At any rate, Sections 3 and 5 do not violate the
+
+First Amendment because they are expressly motivated by plaintiffs’
+
+unprotected conduct (e.g., race-based employment practices and hiring of
+
+persons who engaged in inappropriate conduct while working for the
+
+government, and related national security risks). Nor do Sections 3 and
+
+5 violate the Fifth or Sixth Amendments. Among other reasons, they do
+
+not deprive plaintiffs of any cognizable liberty or property interest under
+
+the Due Process Clause. And they do not impose any cognizable burden
+
+on third parties’ right to counsel.
+
+     Finally, even assuming that the district courts identified any
+
+justiciable constitutional problems with the EOs, the courts erred in
+
+treating Section 1’s precatory language as non-severable and the basis
+
+for future injunctive relief. Section 1 of the EOs provides background
+
+discussing how certain law firms have taken actions that threaten public
+
+safety and national security, limit constitutional freedoms, degrade the
+
+quality of American elections, and undermine bedrock American
+
+
+                                      4
+principles. This is simply the President’s speech. Plaintiffs have no First
+
+Amendment right, and the Judiciary has no authority, to silence him.
+
+Yet several (but not all) of the district courts below purported to hold
+
+Section 1 unconstitutional. That too was error.
+
+     The Court should therefore reverse the district courts’ orders
+
+granting plaintiffs’ motions for summary judgment.
+
+                  STATEMENT OF JURISDICTION
+
+     Plaintiffs invoked the district courts’ jurisdiction under 28 U.S.C.
+
+§ 1331 because the causes of action pleaded arise under the Constitution
+
+and laws of the United States.          The district courts entered final
+
+judgments on May 2, May 23, May 27, and July 29, 2025, in Perkins,
+
+Jenner, WilmerHale, and Susman, respectively. And the Government
+
+respectively filed timely notices of appeal on June 30, July 21, July 25,
+
+and August 22, 2025. This Court has jurisdiction over these appeals
+
+under 28 U.S.C. § 1291.
+
+                   STATEMENT OF THE ISSUES
+
+     The issues presented are:
+
+
+
+
+                                    5
+      1. Whether plaintiffs’ constitutional challenges to Section 2 of the
+
+EOs, concerning the President’s temporary suspension of security
+
+clearances and direction for further review, are justiciable;
+
+      2. Whether the district courts erred in finding unconstitutional
+
+Section 4 of the EOs, concerning the review and investigation of
+
+discriminatory employment practices by large law firms;
+
+      3. Whether    the    district   courts   erred   in   finding   facially
+
+unconstitutional Sections 3 and 5 of the EOs, concerning the
+
+government’s contracting practices and future guidance on building
+
+access; and
+
+      4. Whether three of the district courts erred in finding
+
+unconstitutional and non-severable Section 1 of the EOs, which contains
+
+only precatory language.
+
+           PERTINENT STATUTES AND REGULATIONS
+
+      Pertinent statutes and regulations are reproduced in the addendum
+
+to this brief.
+
+                     STATEMENT OF THE CASE
+
+      A.    Factual Background
+
+      1.   On March 6, 2025, President Trump issued EO 14230,
+
+Addressing Risks from Perkins Coie LLP, 90 Fed. Reg. 11781 (Mar. 11,
+                                      6
+2025). The EO recounted the “dishonest and dangerous activity of the
+
+law firm Perkins Coie LLP,” including its “egregious activity” of “hir[ing]
+
+Fusion GPS, which then manufactured a false ‘dossier’ designed to steal
+
+an election.” Id. §1. Perkins has also “worked with activist donors
+
+including George Soros to judicially overturn popular, necessary, and
+
+democratically enacted election laws, including those requiring voter
+
+identification,” and “[i]n one such case, a court was forced to sanction
+
+Perkins Coie attorneys for an unethical lack of candor before the court.”
+
+Id. Further, Perkins “racially discriminates against its own attorneys
+
+and staff, and against applicants.”     Id.   The EO clarified that the
+
+President’s “Administration is committed to ending discrimination under
+
+‘diversity, equity, and inclusion’ policies and ensuring that Federal
+
+benefits support the laws and policies of the United States.” Id. In
+
+addition, “[t]hose who engage in blatant race-based and sex-based
+
+discrimination” shows a “disrespect for the bedrock principle of equality”
+
+that “represents good cause to conclude that they neither have access to
+
+our Nation’s secrets nor be deemed responsible stewards of any Federal
+
+funds.” Id.
+
+
+
+
+                                    7
+     2.      On March 25, 2025, the President issued EO 14246,
+
+Addressing Risks from Jenner & Block, 90 Fed. Reg. 13997 (Mar. 28,
+
+2025).     This EO reaffirmed that the President’s “Administration is
+
+committed to addressing the significant risks associated with law firms,
+
+particularly so-called ‘Big Law’ firms, that engage in conduct detrimental
+
+to critical American interests.”        Id. §1.   It identified Jenner as “yet
+
+another law firm that has abandoned the profession's highest ideals,
+
+condoned partisan ‘lawfare,’ and abused its pro bono practice to engage
+
+in activities that undermine justice and the interests of the United
+
+States.”    Id.        In particular, “Jenner engages in obvious partisan
+
+representations to achieve political ends, supports attacks against
+
+women and children based on a refusal to accept the biological reality of
+
+sex, and backs the obstruction of efforts to prevent illegal aliens from
+
+committing horrific crimes and trafficking deadly drugs within our
+
+borders.” Id. Further, “Jenner discriminates against its employees based
+
+on race and other categories prohibited by civil rights laws, including
+
+through the use of race-based ‘targets.’” Id. Finally, Jenner “re-hire[d]
+
+the unethical Andrew Weissmann after his time engaging in partisan
+
+prosecution       as     part   of   Robert   Mueller’s   entirely   unjustified
+
+
+                                         8
+investigation,” despite the fact that Weissmann’s “career has been rooted
+
+in weaponized government and abuse of power.” Id.
+
+     3.    On March 27, 2025, the President issued EO 14250,
+
+Addressing Risks From WilmerHale, 90 Fed. Reg. 14549 (Apr. 3, 2025).
+
+This EO explained that “WilmerHale engages in obvious partisan
+
+representations to achieve political ends, supports efforts to discriminate
+
+on the basis of race, backs the obstruction of efforts to prevent illegal
+
+aliens from committing horrific crimes and trafficking deadly drugs
+
+within our borders, and furthers the degradation of the quality of
+
+American elections, including by supporting efforts designed to enable
+
+noncitizens to vote.” Id. §1. Further, “WilmerHale itself discriminates
+
+against its employees based on race and other categories prohibited by
+
+civil rights laws, including through the use of race-based ‘targets.’” Id.
+
+And “WilmerHale is also bent on employing lawyers who weaponize the
+
+prosecutorial power to upend the democratic process and distort justice,”
+
+such as by “reward[ing] Robert Mueller and his colleagues—Aaron
+
+Zebley, Mueller’s ‘top aide’ and ‘closest associate,’ and James Quarles—
+
+by welcoming them to the firm after they wielded the power of the
+
+
+
+
+                                    9
+Federal Government to lead one of the most partisan investigations in
+
+American history.” Id.
+
+      4.    On April 9, 2025, the President issued EO 14263, Addressing
+
+Risks from Susman Godfrey, 90 Fed. Reg. 15615 (Apr. 15, 2025). This
+
+EO explained the need for action “to address the significant risks,
+
+egregious conduct, and conflicts of interest associated with Susman.” Id.
+
+§1. “Susman spearheads efforts to weaponize the American legal system
+
+and degrade the quality of American elections.” Id. “Susman also funds
+
+groups that engage in dangerous efforts to undermine the effectiveness
+
+of the United States military through the injection of political and radical
+
+ideology, and it supports efforts to discriminate on the basis of race.” Id.
+
+Finally, “Susman itself engages in unlawful discrimination, including
+
+discrimination on the basis of race” and even “administers a program
+
+where it offers financial awards and employment opportunities only to
+
+‘students of color.’” Id.
+
+      5.    The President determined that it was necessary to take action
+
+to address the significant risks, egregious conduct, and conflicts of
+
+interest described as to each plaintiff. Id. The substance of the four EOs
+
+was identical. For each, Section 2 provided for security clearance review:
+
+
+                                    10
+     (a) The Attorney General, the Director of National
+     Intelligence, and all other relevant heads of executive
+     departments and agencies (agencies) shall immediately take
+     steps consistent with applicable law to suspend any active
+     security clearances held by individuals at Perkins Coie,
+     pending a review of whether such clearances are consistent
+     with the national interest.
+
+     (b) The Office of Management and Budget shall identify all
+     Government goods, property, material, and services,
+     including Sensitive Compartmented Information Facilities,
+     provided for the benefit of Perkins Coie. The heads of all
+     agencies providing such material or services shall, to the
+     extent permitted by law, expeditiously cease such provision.
+
+Perkins EO, § 2; accord Jenner EO, § 2; WilmerHale EO, § 2; Susman
+
+EO, § 2.
+
+     For each EO, Section 3 addressed contracting:
+
+     (a) To prevent the transfer of taxpayer dollars to Federal
+     contractors whose earnings subsidize, among other things,
+     racial discrimination, falsified documents designed to
+     weaponize the Government against candidates for office, and
+     anti-democratic election changes that invite fraud and
+     distrust, Government contracting agencies shall, to the extent
+     permissible by law, require Government contractors to
+     disclose any business they do with Perkins Coie and whether
+     that business is related to the subject of the Government
+     contract.
+
+     (b) The heads of all agencies shall review all contracts with
+     Perkins Coie or with entities that disclose doing business with
+     Perkins Coie under subsection (a) of this section. To the extent
+     permitted by law, the heads of agencies shall:
+
+
+
+                                   11
+           (i) take appropriate steps to terminate any contract, to
+           the maximum extent permitted by applicable law,
+           including the Federal Acquisition Regulation, for which
+           Perkins Coie has been hired to perform any service; (ii)
+           otherwise align their agency funding decisions with the
+           interests of the citizens of the United States; with the
+           goals and priorities of my Administration as expressed
+           in executive actions, especially Executive Order 14147
+           of January 20, 2025 (Ending the Weaponization of the
+           Federal Government); and as heads of agencies deem
+           appropriate. Within 30 days of the date of this order, all
+           agencies shall submit to the Director of the Office of
+           Management and Budget an assessment of contracts
+           with Perkins Coie or with entities that do business with
+           Perkins Coie effective as of the date of this order and
+           any actions taken with respect to those contracts in
+           accordance with this order.
+
+Perkins EO, § 3; accord Jenner EO, § 3; WilmerHale EO, § 3; Susman
+
+EO, § 3.
+
+     Section 4 of each EO addressed racial discrimination. Section 4 of
+
+the Perkins EO provided:
+
+     (a) The Chair of the Equal Employment Opportunity
+     Commission shall review the practices of representative large,
+     influential, or industry leading law firms for consistency with
+     Title VII of the Civil Rights Act of 1964, including whether
+     large law firms: reserve certain positions, such as summer
+     associate spots, for individuals of preferred races; promote
+     individuals on a discriminatory basis; permit client access on
+     a discriminatory basis; or provide access to events, trainings,
+     or travel on a discriminatory basis.
+
+     (b) The Attorney General, in coordination with the Chair of
+     the Equal Employment Opportunity Commission and in
+                                   12
+     consultation with State Attorneys General as appropriate,
+     shall investigate the practices of large law firms as described
+     in subsection (a) of this section who do business with Federal
+     entities for compliance with race-based and sex-based non-
+     discrimination laws and take any additional actions the
+     Attorney General deems appropriate in light of the evidence
+     uncovered.
+
+Section 4 of the other three EOs cross-referenced Section 4 of the Perkins
+
+EO and clarified that “[n]othing in this order shall be construed to limit
+
+the action authorized by section 4 of Executive Order 14230 of March 6,
+
+2025 (Addressing Risks from Perkins Coie LLP).”         Jenner EO, § 4;
+
+WilmerHale EO, § 4; Susman EO, § 4.
+
+     Section 5 of each EO addressed building access and personnel:
+
+     (a) The heads of all agencies shall, to the extent permitted by
+     law, provide guidance limiting official access from Federal
+     Government buildings to employees of Perkins Coie when
+     such access would threaten the national security of or
+     otherwise be inconsistent with the interests of the United
+     States. In addition, the heads of all agencies shall provide
+     guidance limiting Government employees acting in their
+     official capacity from engaging with Perkins Coie employees
+     to ensure consistency with the national security and other
+     interests of the United States.
+
+     (b) Agency officials shall, to the extent permitted by law,
+     refrain from hiring employees of Perkins Coie, absent a
+     waiver from the head of the agency, made in consultation with
+     the Director of the Office of Personnel Management, that such
+     hire will not threaten the national security of the United
+     States.
+
+
+                                   13
+Perkins EO, § 5; accord Jenner EO, § 5; WilmerHale EO, § 5; Susman
+
+EO, § 5.
+
+     Finally, Section 6 included general provisions requiring, among
+
+other things, that the EOs “shall be implemented consistent with
+
+applicable law.” Perkins EO, § 6; Jenner EO, § 6; WilmerHale EO, § 6;
+
+Susman EO, § 6.
+
+     6. The President also issued (or considered issuing) EOs addressing
+
+risks and practices from other law firms not parties to this appeal. In
+
+fact, many law firms agreed to address their practices and commit to
+
+providing pro bono work in the public interest: Allen Overy Shearman
+
+Sterling LLP; Cadwalader, Wickersham & Taft LLP; Kirkland & Ellis
+
+LLP; Latham & Watkins LLP; Milbank LLP; Paul, Weiss, Rifkind,
+
+Wharton & Garrison LLP; Simpson Thacher & Bartlett LLP; Skadden,
+
+Arps, Slate, Meagher & Flom LLP; and Wilkie Farr & Gallagher LLP.
+
+The four plaintiff law firms instead filed suit.
+
+     B.    Procedural Background
+
+     1. Perkins filed its complaint on March 11, 2025, alleging that its
+
+EO was ultra vires (Count I) and violated the Fifth Amendment (Count
+
+II–IV, IX), First Amendment (Count V–VII), and Sixth Amendment
+
+
+                                     14
+(Count VIII). JA60–77. On May 2, 2025, the district court issued a
+
+memorandum opinion, JA1628–1729, and order granting plaintiff’s
+
+motion for summary judgment and declaratory and permanent injunctive
+
+relief. JA1623–27. On June 30, 2025, defendants timely filed a notice of
+
+appeal. JA1730.
+
+     2. Jenner filed its complaint on March 28, 2025, alleging that its
+
+EO violated the First Amendment (Counts I–VI), the Fifth Amendment
+
+(Counts VII–X, XII), the Sixth Amendment (Count X), and separation of
+
+powers (Count XIII). JA1799–1821. On May 23, 2025, the district court
+
+issued a memorandum opinion, JA2157–2208, and order granting
+
+plaintiff’s motion for summary judgment and permanent injunction and
+
+denying defendants’ motion to dismiss. JA2209–13. The court clarified
+
+that its order did “not enjoin future actions taken pursuant to Section 1”
+
+of the EO. JA2205. Defendants timely filed a notice of appeal on July
+
+21, 2025. JA2240.
+
+     3. WilmerHale filed its complaint on March 28, 2025, alleging that
+
+its EO violated the First Amendment (Counts I–IV), separation of powers
+
+(Count V), the Fifth Amendment (Counts VI–IX), the Sixth Amendment
+
+(Count X), and the spending power (Count VI). JA2305–28. On May 27,
+
+
+                                   15
+2025, the district court issued a memorandum opinion, JA2804–76, and
+
+order granting in part and denying in part plaintiff’s motion for summary
+
+judgment. JA2877–79. Specifically, the order granted relief on Counts I
+
+through VII and X but denied as moot Counts VIII, IX, and XI. JA2877.
+
+The court declared that the WilmerHale EO violated “the First, Fifth,
+
+and Sixth Amendments” and permanently enjoined defendants “from
+
+implementing or giving effect” to it, “including by relying on or
+
+considering any of the statements in § 1 of” the order. JA2878.     On July
+
+25, 2025, defendants timely filed their notice of appeal. JA2892.
+
+     4. Susman filed its original complaint on April 11, 2025.          Cf.
+
+JA3362–3481 (amended complaint). On June 27, 2025, the district court
+
+issued a memorandum opinion, JA3482–3534, and order denying
+
+defendants’ motion to dismiss, granting plaintiff’s motion for summary
+
+judgment, and entering judgment for plaintiffs on Counts I through IV
+
+and VI through IX of the amended complaint, and granting plaintiff
+
+declaratory and permanent injunctive relief. JA3535–39. Defendants
+
+timely filed their notice of appeal on August 22, 2025. JA3541.
+
+
+
+
+                                   16
+                     SUMMARY OF ARGUMENT
+
+     I.    Plaintiffs’ claims challenging the President’s revocation of
+
+security clearances are not justiciable. The Supreme Court and this
+
+Court have made clear that claims challenging Presidential directives
+
+concerning security clearance reviews—whether styled as constitutional,
+
+statutory, or process-based claims—are not justiciable. In any event,
+
+plaintiffs cannot cast their claims as merely asserting a lack of process
+
+because, for relief, they sought the restoration of security clearances
+
+(rather than more process). And the district courts improperly granted
+
+that relief based primarily on the underlying merits of the security
+
+clearance determinations. The district courts even enjoined the security
+
+clearance review provisions of the EO, which could not possibly give rise
+
+to any process-related defect.
+
+     II.   The district courts erred in enjoining Section 4 of the EOs,
+
+concerning review of discriminatory employment practices, without
+
+clearly explaining why. This section merely directs the EEOC to review
+
+and the Attorney General to investigate invidious (and illegal)
+
+discrimination by large law firms. Plaintiffs lack standing to raise a pre-
+
+enforcement challenge based on Section 4, especially given that the EO
+
+
+                                    17
+just directed the EEOC to review the employment practices of large law
+
+firms generally, without requiring enforcement against any particular
+
+entity.   The same logic applies to Section 4’s instructions to DOJ.
+
+Plaintiffs cannot establish retaliation where rooting out unlawful
+
+discrimination has been an EEOC and DOJ priority since well before the
+
+EOs were released.
+
+     III. The district courts erred in enjoining Section 3, concerning
+
+contractors, and Section 5, concerning guidance on access to buildings.
+
+Plaintiffs’ challenges are unripe because Sections 3 and 5 have not yet
+
+been implemented.      And plaintiffs cannot demonstrate that these
+
+sections are facially unconstitutional. Contrary to the opinions below,
+
+Sections 3 and 5 do not constitute impermissible retaliation or viewpoint
+
+discrimination because they are expressly motivated by non-protected
+
+conduct. Nor does plaintiffs’ kitchen sink of other constitutional theories
+
+justify facially invalidating these sections. Sections 3 and 5 (and the EOs
+
+more generally) do not deprive plaintiffs of “life, liberty, or property”
+
+within the meaning of the Due Process Clause; do not violate the Equal
+
+Protection Clause; are not void for vagueness; do not run afoul any Fifth
+
+
+
+
+                                    18
+or Sixth Amendment right-to-counsel guarantees; and do not otherwise
+
+violate the Constitution or the separation of powers.
+
+     IV.   Finally, the district courts erred in finding Section 1 non-
+
+severable and enjoining future actions. As one district court correctly
+
+recognized, Section 1 is simply government speech, and it would be
+
+improper to grant a permanent injunction against every future
+
+hypothetical action based on Section 1. In any event, the EOs’ individual
+
+sections are severable.
+
+                       STANDARD OF REVIEW
+
+     This Court will “review the grant of summary judgment . . . de
+
+novo . . . affirming only if ‘there is no genuine dispute as to any material
+
+fact and the movant is entitled to judgment as a matter of law.’” United
+
+States v. Regenerative Scis., LLC, 741 F.3d 1314, 1318 (D.C. Cir. 2014)
+
+(quoting Fed. R. Civ. P. 56(a)). This Court will “review the district court’s
+
+entry of a permanent injunction for abuse of discretion and its factual
+
+findings for clear error.” Id.
+
+
+
+
+                                     19
+                              ARGUMENT
+
+I.   Plaintiffs’ Claims Challenging the President’s
+     Revocation of Their Security Clearances Are Not
+     Justiciable.
+
+     Plaintiffs’ challenges to Section 2 of the EOs are not justiciable
+
+because plaintiffs are seeking the restoration of their security clearances,
+
+not just more process. In fact, the district courts in this case took the
+
+step of reversing any suspension of active security clearances and
+
+enjoining even any clearance review made pursuant to the EOs. JA1623–
+
+27 (Perkins), 2209–12 (Jenner), 2877–79 (WilmerHale), 3535–39
+
+(Susman). This type of remedy is plainly foreclosed. The provisions at
+
+issue direct the heads of Executive Branch agencies to “take steps
+
+consistent with applicable law to suspend any active security clearances
+
+held by individuals” at plaintiff firms “pending a review of whether such
+
+clearances are consistent with the national interest.” The President thus
+
+personally adjudicated the merits of suspending these individuals’ access
+
+to national security information, during the interim period when their
+
+clearances were subject to further review. The Supreme Court and this
+
+Court have made clear that such actions are not justiciable.
+
+
+
+
+                                    20
+     a. In Department of Navy v. Egan, the Supreme Court held that
+
+outside, non-expert bodies cannot review Executive Branch judgments
+
+about whether specific individuals pose a risk to national security. 484
+
+U.S. 518 (1988). Grounding that rule in separation-of-powers concerns,
+
+the Court emphasized that the duty to control access to classified
+
+information rests with the Executive Branch agency responsible for the
+
+information and derives from the President’s authority under Article II
+
+of the Constitution.   Id. at 527–29.    The Court stressed that such
+
+determinations are an “inexact science,” involving the exercise of
+
+“[p]redictive judgment” about security risks that “must be made by those
+
+with the necessary expertise in protecting classified information,” and
+
+held that such judgments are “committed to the broad discretion of the
+
+agency responsible.” Id. at 529. As the Court summarized, “it is not
+
+reasonably possible for an outside nonexpert body to review the
+
+substance of such a judgment and to decide whether the agency should
+
+have been able to make the necessary affirmative prediction with
+
+confidence.” Id. “Nor can such a body determine what constitutes an
+
+acceptable margin of error in assessing the potential risk.” Id.
+
+
+
+
+                                   21
+     Applying Egan, this Court has repeatedly held that federal courts
+
+may not adjudicate claims that would require a factfinder to second-guess
+
+the merits of an Executive Branch agency’s denial of a security clearance
+
+or similar decisions. This is the case for all such challenges, whether
+
+styled as statutory, constitutional, or process-based. For example, in
+
+Ryan v. Reno, this Court held that Egan precluded Title VII claims
+
+challenging a decision by the Immigration and Naturalization Service
+
+refusing to waive background checks for foreign nationals seeking federal
+
+employment because “the waiver denials were tantamount to clearance
+
+denials and were based on the same sort of ‘predictive judgment’ that
+
+Egan tells us ‘must be made by those with the necessary expertise in
+
+protecting classified information,’ without interference from the courts.”
+
+168 F.3d 520, 524 (D.C. Cir. 1999) (quoting Egan, 484 U.S. at 529).
+
+     Likewise, in Bennett v. Chertoff, this Court held that “employment
+
+actions based on denial of security clearance are not subject to judicial
+
+review, including under Title VII.” 425 F.3d 999, 1001 (D.C. Cir. 2005).
+
+In recognition of the need to give the Executive Branch meaningful
+
+latitude to safeguard sensitive information, this Court held that Egan
+
+precludes review of not only the formal denial or revocation of a security
+
+
+                                   22
+clearance, but also any related claim that would require a “trier of
+
+fact . . . to consider the merits of” a security determination. Id. at 1000.
+
+Along the same lines, in Oryszak v. Sullivan, this Court affirmed the
+
+dismissal of a claim brought by a Secret Service employee challenging the
+
+revocation of her security clearance under the Administrative Procedure
+
+Act. 576 F.3d 522 (D.C. Cir. 2009). Relying on Ryan, Bennett, and Egan
+
+itself, this Court explained that “actions based upon denial of security
+
+clearance are committed to agency discretion by law.” Id. at 526.
+
+     Finally, this Court recently held that Egan precludes judicial
+
+review of constitutional claims challenging the denial or revocation of a
+
+security clearance because “the Constitution commits that decision to the
+
+Executive.” Lee v. Garland, 120 F.4th 880, 891 (D.C. Cir. 2024). Having
+
+previously reserved the question whether Egan bars review of
+
+constitutional claims in several prior cases, see, e.g., Ryan, 168 F.3d at
+
+524; Palmieri v. United States, 896 F.3d 579, 590 (D.C. Cir. 2018), the
+
+Court undertook a comprehensive analysis and grounded its conclusion
+
+that plaintiff’s claims were non-justiciable in the political question
+
+doctrine. Lee, 120 F.4th at 891.
+
+
+
+
+                                    23
+      Significantly, Lee expressly rejected a First Amendment and Fifth
+
+Amendment challenge to the withdrawal of a security clearance as non-
+
+justiciable.    As to his due process claim, Lee alleged “that
+
+the . . . revocation   decision   rested   on   pretextual   and   untrue
+
+statements . . . and that the revocation harmed his reputation and future
+
+job prospects.” 120 F.4th at 894. As to his First Amendment claim, Lee
+
+alleged that his security clearance was revoked in “retaliation for [his]
+
+assertedly protected speech to media outlets.” Id. at 895. But because
+
+the claims “rest[ed] on injuries arising from the revocation and
+
+challenge[d] its substantive basis,” they were “barred by Egan.” Id.
+
+      Other courts of appeals have similarly held that Egan bars judicial
+
+review of claims challenging security clearance revocations because any
+
+inquiry “would of necessity require some judicial scrutiny of the merits of
+
+the revocation decision.” Perez v. FBI, 71 F.3d 513, 514 (5th Cir. 1995).
+
+Courts have also repeatedly rejected attempts by plaintiffs to circumvent
+
+Egan by purporting to challenge the process used to make security
+
+clearance determinations, including the adequacy or propriety of
+
+investigations leading to the denial or revocation of a security clearance.
+
+See, e.g., Becerra v. Dalton, 94 F.3d 145, 149 (4th Cir. 1996) (“[T]he
+
+
+                                     24
+distinction between the initiation of a security investigation and the
+
+denial of a security clearance is a distinction without a difference[.]”); Hill
+
+v. White, 321 F.3d 1334, 1336 (11th Cir. 2003) (“To review the initial
+
+stages of a security clearance determination is to review the basis of the
+
+determination itself regardless of how the issue is characterized.”).
+
+      This Court has also held that Egan is not limited solely to security
+
+clearance decisions, but also bars claims challenging other types of
+
+security-related decisions. Thus, in Foote v. Moniz, this Court held that
+
+Egan foreclosed a claim of race discrimination brought by a Department
+
+of Energy employee challenging his termination after the agency revoked
+
+his certification to work around nuclear materials. 751 F.3d 656, 659
+
+(D.C. Cir. 2014). The Court reasoned that determinations about who
+
+should be cleared to have access to nuclear weapons and materials
+
+involve the same types of predictive judgments as security clearance
+
+decisions and are thus not subject to review under Egan. Id.
+
+      b. Taken as whole, binding precedent makes clear that plaintiffs’
+
+challenge to the President’s suspension of security clearances pending
+
+further review is non-justiciable.      Lee helps show why.        There, the
+
+plaintiff—an FBI employee for ten years—failed two polygraph exams
+
+
+                                      25
+and subsequently had his security clearance revoked. 120 F.4th at 884–
+
+85. In Lee’s telling, that revocation was unlawful because it “rested on a
+
+pretextual justification and harmed his reputation and employment
+
+prospects.” Id. at 885. Lee also claimed that the underlying polygraph
+
+exams were “tainted by unlawful discrimination and retaliation” against
+
+Lee’s exercise of his First Amendment rights, and that he did not receive
+
+adequate process because the reviewer “fail[ed] to investigate the cause
+
+of his failed polygraph exams.” Id. He thus brought claims that the
+
+revocation of his security clearance “was based on race, national origin
+
+and protected speech” in violation of the First Amendment, the Fifth
+
+Amendment, and Title VII. Id. at 883.
+
+     In holding that Lee’s claims were non-justiciable under Egan, this
+
+Court made a number of observations that apply equally to plaintiffs’
+
+claims here.    First, the Court emphasized that adjudicating Lee’s
+
+constitutional challenges would present “unmanageable questions.” Id.
+
+at 893.   Clearance decisions, after all, “involve an assessment of
+
+intangible qualities such as ‘loyalty to the United States, strength of
+
+character, trustworthiness, honesty, reliability, discretion, and sound
+
+judgment.’” Id. (quoting EO 12968, Access to Classified Information, 60
+
+
+                                   26
+Fed. Reg. 40245 (Aug. 7, 1995)).           The “predictive judgment[s]” and
+
+“inexact science” implicated by those decisions “defy judicial application.”
+
+Id.
+
+      Second,   Lee   distinguished    National     Federation   of   Federal
+
+Employees v. Greenberg, 983 F.2d 286 (D.C. Cir. 1993), and rejected
+
+plaintiff’s contention that it broadly authorized process-based challenges
+
+to security clearance determinations. As the Court explained, Greenberg
+
+“allowed judicial review of (but rejected on the merits) claims that the
+
+Fifth Amendment prohibited asking clearance applicants about their use
+
+of illegal drugs or their mental health.” Lee, 120 F.4th at 892. But the
+
+Greenberg plaintiffs’ challenge to those questions and procedures did not
+
+arise in the context of any particular security clearance determination or
+
+seek the granting or reinstating of security clearances. The individual
+
+plaintiffs all held active security clearances, and they sued alongside
+
+unions representing federal employees to seek only prospective
+
+injunctive relief as “agency employees likely to be asked those questions
+
+in future clearance adjudications.” Id. Their injuries “existed regardless
+
+of how the government might have resolved any particular application.”
+
+Id. at 893. As Lee explained, this Court had “stressed that the Greenberg
+
+
+                                      27
+plaintiffs did not seek review of ‘discretionary judgments’ regarding the
+
+merits of any ‘particular employee’s security clearance.’” Id. at 893
+
+(quoting Greenberg, 983 F.2d at 290).
+
+     Unlike the plaintiffs in Greenberg, plaintiffs here directly challenge
+
+the suspensions/revocations of security clearances.      They specifically
+
+requested—and the district courts granted—relief that directed the
+
+federal government to reverse any suspension or revocation. JA1623–27
+
+(Perkins), 2209–12 (Jenner), 2877–79 (WilmerHale), 2 3535–39 (Susman).
+
+Lee makes clear that plaintiffs cannot circumvent Egan’s bar by
+
+pretending that their claims do not challenge the merits of the
+
+President’s decision. As in Lee, plaintiffs argue that they did not receive
+
+enough process.      See, e.g., JA2831 (“WilmerHale challenges the
+
+President’s process—or lack thereof—in suspending the firm’s employees’
+
+security clearances.”). But they also claim that any reference to national
+
+security is pretextual and that the suspensions were done to retaliate
+
+against constitutionally protected activity. See e.g., JA73 (“Section 1 of
+
+the Order falsely asserts that Perkins Coie, by espousing views
+
+
+     2While the WilmerHale order did not explicitly state the same
+remedies as the other district courts, the effect is still the same as it
+permanently enjoined the entire EO. JA2887–88.
+                                  28
+supportive of diversity and inclusion, has ‘disrespect[ed] . . . the bedrock
+
+principle of equality’ and concludes that good cause therefore exists to
+
+terminate Perkins Coie’s national security clearances and access to any
+
+federal funds. Such allegations are bad faith, pretextual, and lack any
+
+basis in fact.”).   Plaintiffs’ complaints thus expressly invite judicial
+
+second-guessing of the President’s security clearance determinations.
+
+They also invite the district court to evaluate whether the purpose of the
+
+revocation decision was to retaliate against constitutionally protected
+
+activity. Precedent requires rejecting these invitations.
+
+     In sum, plaintiffs’ complaints make clear that they want the courts
+
+to opine on “whether Executive Branch officials had good enough reasons
+
+to revoke” or suspend their clearances. Lee, 120 F.4th at 895. But Egan
+
+forecloses this sort of judicial second-guessing of security clearance
+
+determinations. Put simply, “[t]he Constitution commits the question
+
+whether to deny or revoke a security clearance to the Executive Branch.”
+
+Id. at 891. Neither plaintiffs nor the district courts have identified any
+
+plausible basis for reaching a different conclusion in this case.
+
+     c. The district courts barely paid lip service to the separation-of-
+
+powers issues that make these reviews non-justiciable and instead
+
+
+                                    29
+focused on irrelevant distinctions within the case law. For instance, in
+
+Susman the court held that “Susman’s alleged constitutional injuries
+
+exist independent of any final decision on whether to reinstate any
+
+individual employee’s security clearance.” JA3499–3500. But in the very
+
+next sentence the court stated that “Susman is not seeking to review any
+
+discretionary judgment about an individual security clearance but is
+
+instead raising a constitutional challenge to President Trump’s blanket
+
+policy of revoking all its employees’ clearances.”       JA3500 (emphasis
+
+added). This is a distinction without a difference. Either way, the court
+
+is addressing a substantive decision by the President to suspend or
+
+revoke security clearances.
+
+       The rest of the lower court orders are equally problematic. For
+
+example, in Jenner, the court stated that “[r]eviewing this process raises
+
+none    of   the   concerns   that   make   individual   security-clearance
+
+determinations nonjusticiable. The immediate and blanket suspension
+
+involves no predictive judgment[s] about an individual[’s] threat to
+
+national security.” JA2178 (emphasis added). In WilmerHale, the court
+
+relied primarily on “the President’s process—or lack thereof—in
+
+suspending the firm’s employees’ security clearances” and stated that
+
+
+                                     30
+“the Order does not invoke the national security concerns which barred
+
+judicial review of the security clearance revocation in Lee.” JA2831.
+
+Finally, in Perkins, the court relied on (1) its review of “general policy”
+
+rather than “any individual security clearance decision, (2) that the
+
+plaintiff’s challenge “would not require a court to wade into the issues
+
+animating the decision in Lee,” (3) that the decision here was not made
+
+by “expert agency examiners,” and (4) the lack of the explicit use of the
+
+words “national security” in Section 2. JA1666–67.
+
+     None of these rationales overcome the binding precedent that
+
+demonstrates these actions by the President are not reviewable—and in
+
+some instances the rationales directly transgress that precedent. Lee did
+
+not distinguish whether a merits adjudication affected one person or
+
+multiple.     And Lee’s rationale applies equally to policies concerning
+
+clearances.    120 F.4th at 888–95 (explaining textual commitment to
+
+Executive Branch and lack of judicially manageable standards).
+
+Whether a security-clearance decision applies to one or many, someone
+
+has to weigh the risks and benefits of allowing plaintiffs’ employees to
+
+access national security information pending further review. Here, the
+
+President (whose prerogative in this area obviously far exceeds that of
+
+
+                                    31
+“expert agency examiners”) made that determination. Courts are not
+
+well positioned to second-guess the President’s determinations.
+
+     The orders on relief remove any doubt that all the district court
+
+decisions were ultimately focused on the substance of the President’s
+
+security clearance determinations. The district courts did not order the
+
+President to, for instance, conduct an individualized review before
+
+suspending or revoking any security clearance. Instead, they required
+
+immediate restoration of any security clearance revocation or suspension
+
+pursuant to the EOs.       JA1623–27 (Perkins); JA2209–12 (Jenner);
+
+JA2877–79 (WilmerHale); JA3535–39 (Susman). In fact, in three of the
+
+four cases, the district courts even required defendants “to cease any
+
+security clearance review, made pursuant to Sections 1 or 2(a) of
+
+Executive Order 14230.” JA1625 (Perkins); JA2210 (Jenner); JA3538
+
+(Susman).3 The case cannot possibly be about the process or lack of
+
+individual review when the orders require ceasing even the security
+
+clearance reviews themselves. How the courts framed their reasoning
+
+hardly matters given that they ultimately overrode the President’s
+
+
+     3While the WilmerHale order did not explicitly state the same
+remedies as the other district courts, the effect is still the same as it
+permanently enjoined the entire EO. JA2887–88.
+                                  32
+decision on the suspensions and revocations and thus intruded on his
+
+authority to control access to classified information.
+
+     Even if plaintiffs’ claims did challenge the “means” of revoking their
+
+clearances and not the substance of the President’s security clearance
+
+determinations, their claims would still be barred under Egan and Lee,
+
+and the district courts fundamentally erred in concluding otherwise. In
+
+the context of these cases, the difference between the method and the
+
+substance of the revocation is illusory. This Court and others have long
+
+recognized that claims challenging the process by which security
+
+clearances are revoked, such as challenges to the sufficiency of security
+
+investigations, are barred under Egan so long as they arise in the context
+
+of clearance adjudications or the relief sought would set aside the
+
+revocation of a security clearance.
+
+     It is well settled that, when an administrative decision is
+
+unreviewable, a court “may not inquire” whether it is “procedurally
+
+defective” either. Amgen Inc. v. Smith, 357 F.3d 103, 113 (D.C. Cir. 2004).
+
+If it were otherwise, “almost any challenge to an [unreviewable
+
+determination] could be recast as a challenge to its underlying
+
+methodology.” DCH Reg’l Med. Ctr. v. Azar, 925 F.3d 503, 506 (D.C. Cir.
+
+
+                                      33
+2019). The same goes for security-clearance decisions. Any claim of
+
+inadequate process ultimately hinges on “what constitutes an acceptable
+
+margin of error in assessing the potential risk of granting or renewing a
+
+clearance.” Lee, 120 F.4th at 894 (internal quotation marks omitted).
+
+That sort of determination belongs exclusively to the Executive Branch.
+
+       This Court’s precedents have thus consistently rejected process-
+
+based challenges to security-clearance decisions. In Ryan, for example,
+
+this   Court   rejected   plaintiffs’    attempt   to   “circumvent Egan by
+
+characterizing the challenged employment actions as procedural,
+
+divorced from any substantive security determination.” 168 F.3d at 524.
+
+And in Lee, whether officials should have “investigate[d] further” or
+
+whether they should have used better polygraph methods all went to
+
+“whether Executive Branch officials had good enough reasons to revoke”
+
+a clearance—a decision far outside the judicial role. Lee, 120 F.4th at
+
+894.    As explained above, Greenberg allowed a claim that sought
+
+prospective relief concerning the questions that might be asked in future
+
+clearance investigations—not one that sought retrospective relief seeking
+
+to reverse a security clearance decision based on alleged defects in the
+
+process used to make that determination. See id. at 892–93. Indeed, as
+
+
+                                        34
+to the latter type of claim—at issue here—Greenberg itself reaffirmed
+
+that “[t]he President has unlimited and judicially unreviewable
+
+constitutional power to determine” who “will be given access to the
+
+nation’s secrets.” 983 F.2d at 290.
+
+     Other courts have also rejected attempts to challenge security-
+
+clearance determinations by objecting to the processes used. In Dalton,
+
+for example, the Fourth Circuit rejected a plaintiff’s attempt to challenge
+
+the initiation of an investigation that ultimately led to the revocation of
+
+the plaintiff’s clearance. 94 F.3d at 149. The court explained that “the
+
+distinction between the initiation of a security investigation and the
+
+denial of a security clearance is a distinction without a difference,” and
+
+the “question of whether the Navy had sufficient reasons to investigate
+
+the plaintiff as a potential security risk goes to the very heart of the
+
+‘protection of classified information [that] must be committed to the
+
+broad discretion of the agency responsible.’” Id. (quoting Egan, 484 U.S.
+
+at 529) (alteration in original). Similarly, in El-Ganayni v. United States
+
+Department of Energy, the Third Circuit held that claims alleging that
+
+constitutional violations occurred in the process of revoking a plaintiff’s
+
+security clearance should be dismissed for failure to state a claim upon
+
+
+                                      35
+which relief can be granted because review of those claims “would
+
+inevitably involve scrutiny of the merits of the [agency’s] decision to
+
+revoke [the plaintiff’s] clearance”—an inquiry that “Egan forbids.” 591
+
+F.3d 176, 186 (3d Cir. 2010).
+
+     The    district courts’ own descriptions of        plaintiffs’   claims
+
+demonstrates the lack of any meaningful distinction between a challenge
+
+to the process of a clearance revocation and a challenge to the revocation
+
+itself, and the danger of reviewing any purported process claims in the
+
+context of a particular adjudication. For example, in WilmerHale, the
+
+court stated: “the alleged constitutional injuries include the lack of
+
+individualized review (in violation of the Due Process Clause), and the
+
+targeting of WilmerHale employees for suspension as a form of
+
+retaliation for protected speech (in violation of the First Amendment).”
+
+JA2831. But there is plainly no way to determine whether the process of
+
+revoking a plaintiff’s clearance was “a form of retaliation” and whether it
+
+involved an adequately “individualized review” without inquiring into
+
+the process that was afforded and second-guessing the conclusions
+
+reached during that process. As this Court recognized in Ryan, a court
+
+cannot review the adequacy of a process “without also challenging its
+
+
+                                    36
+validity.” 168 F.3d at 524. In short, plaintiffs’ claims would require the
+
+district court to consider whether the process that was afforded was
+
+adequate to sustain the revocation of their security clearances, and
+
+adjudicating such a claim would require the district court to review the
+
+merits of the President’s revocation determination, which “run[s] smack
+
+up against Egan.” Id.
+
+     Indeed, in concluding that the law firms’ cases were justiciable each
+
+district court focused on the lack of an individualized determination.
+
+JA1667; JA2178; JA2829; JA3513. But to make that finding, the courts
+
+necessarily probed the reasons for the revocation of plaintiffs’ clearances
+
+and evaluated their sufficiency—determinations that are committed to
+
+the discretion of the Executive Branch and for which there are no
+
+judicially manageable standards.
+
+     The district courts’ analysis of the merits of plaintiffs’ claims
+
+underscores the error in their Egan analysis. For example, in Perkins,
+
+the district court held, “[t]he record demonstrates that retaliation is the
+
+only plausible motive for the ‘Security Clearance Review’ ordered in
+
+Section 2.” JA1691. In WilmerHale, the district court held, “The Order
+
+goes on to impose a kitchen sink of severe sanctions on WilmerHale for
+
+
+                                    37
+this protected conduct . . . it suspends WilmerHale employees’ security
+
+clearances, with a looming threat of full revocation of those clearances.
+
+WilmerHale Order § 2(a).” JA2835 (emphasis in original). In Jenner, the
+
+district court held, “there’s no doubt that the President ordered the
+
+Jenner-specific process in retaliation for Jenner’s protected speech.”
+
+JA2179. And in Susman, the district court held, “[t]he presence of nearly
+
+identical clauses in several executive orders targeting other law firms
+
+further confirms that the security-clearance provision is intended as a
+
+retaliatory measure.” JA3512 (footnote omitted). All of these statements
+
+second-guess the merits of the President’s determinations rather than
+
+any ancillary process.
+
+     The Jenner and Perkins district courts’ reliance on Rattigan v.
+
+Holder, 689 F.3d 764 (D.C. Cir. 2012), JA1666–67; JA2177–79, is just as
+
+flawed as any reliance on Greenberg. Rattigan likewise was a case where
+
+the plaintiff sought relief only against a collateral aspect of the clearance
+
+process, without seeking to set aside any clearance decision.             In
+
+particular, Rattigan concerned allegations that “FBI officials retaliated”
+
+against an employee “in violation of Title VII” by “reporting unfounded
+
+security concerns to the Bureau’s Security Division,” which “prompted an
+
+
+                                     38
+investigation into [the plaintiff’s] continued eligibility for a security
+
+clearance.” 689 F.3d at 765. The D.C. Circuit “held that Egan’s bar on
+
+judicial review extends only to security clearance-related decisions made
+
+by the Security Division itself and not to decisions by other FBI employees
+
+to report their concerns to the Division.” Id. at 767 (emphasis added).4
+
+The Court thus created only a narrow opening for a plaintiff to establish
+
+liability based on the actions of an employee not involved in the security
+
+clearance determination (based on that employee knowingly reporting
+
+false information that results in a security clearance investigation). Id.
+
+at 770. And in applying Rattigan, the D.C. Circuit has consistently
+
+looked to whether the relevant actor was “within the category of
+
+individuals authorized under Rattigan to make a judgment” call about
+
+an individual’s suitability to access classified information. Foote, 751
+
+F.3d at 659 (holding that agency psychologist fell within this category).
+
+     These cases are unlike Rattigan in every relevant way.          Most
+
+importantly, plaintiffs challenge the suspensions/revocation of security
+
+
+
+
+     4 Upon a motion for reconsideration, the panel narrowed its holding
+
+to only permit judicial review of “Title VII claims based on knowingly
+false reporting.” 689 F.3d at 770. The plaintiff was ultimately unable to
+make this showing. Rattigan v. Holder, 780 F.3d 413 (D.C. Cir. 2015).
+                                    39
+clearances. Plaintiffs do not challenge the actions of government officials
+
+or employees outside the security clearance process; instead, they
+
+challenge the actions of officials specifically charged with making
+
+security clearance determinations, including the President, who made
+
+the determination to suspend security clearances pending further review.
+
+     As a matter of both law and fact, the President is the ultimate
+
+arbiter of who may have access to classified information. Article II vests
+
+the President with discretion over whether to entrust plaintiffs with
+
+access to classified information, and the President directly exercised this
+
+authority through the respective EOs.
+
+       Finally, to the extent the district courts relied on the fact that
+
+Section 2 of the EOs did not say the magic words “national security,”
+
+JA1688, Section 1 and the rest of the EOs repeatedly speak of national
+
+security concerns. Regardless, “magic words” (or lack thereof) should not
+
+determine whether courts can review national security decisions that
+
+this Court has already ruled are not justiciable.
+
+
+
+
+                                    40
+II.   The District Courts Erred in Enjoining Section 4,
+      Concerning Review of Discriminatory Employment
+      Practices.
+
+      Section 4 is mostly an afterthought in the district courts’ analysis,
+
+to the point that it is difficult to identify the district courts’ reasoning.
+
+For example, in the WilmerHale case, the court stated that “§ 4 targets
+
+WilmerHale for investigation by the EEOC and the Attorney
+
+General . . . This is the President, in essence, wielding investigative and
+
+prosecutorial powers of the State to punish and suppress WilmerHale’s
+
+advocacy.” JA2839. Beyond that there is little analysis of Section 4 in
+
+the WilmerHale order. The rest of the district court opinions are similar.
+
+But when viewed in its proper context, there is nothing unlawful about
+
+Section 4.
+
+      Section 4 of the EOs directs the EEOC and Attorney General to
+
+investigate invidious discrimination by large law firms generally. The
+
+district courts erred in interpreting Section 4 as a command for the EEOC
+
+to investigate firms outside of the usual EEOC process. In fact, the EOs
+
+provide that the EEOC should review their practices while the DOJ, in
+
+coordination with the EEOC, investigates any law firm that does
+
+business with federal entities for compliance with existing anti-
+
+
+                                     41
+discrimination laws. Given that plaintiffs brought a facial challenge to
+
+the EOs, and that each of them contains a clause (Section 6(b)) directing
+
+that they be implemented “consistent with applicable law,” the EOs
+
+should be upheld if there is a constitutional way to read and apply them.
+
+See Bldg. & Constr. Trades Dep’t v. Allbaugh, 295 F.3d 28, 33 (D.C. Cir.
+
+2002).
+
+     Section 4 merely references the “review” and “investigat[ion]” of
+
+“the practices of representative large, influential, or industry leading law
+
+firms” for consistency with the civil rights laws. Perkins EO, § 4. That
+
+is already what the EEOC is supposed to be doing. Congress empowered
+
+the EEOC “to prevent any person from engaging in any unlawful
+
+employment practice” under the civil rights laws. 42 U.S.C. § 2000e-5(a).
+
+Congress also already requires the EEOC to make “report[s] . . . to the
+
+President . . . on the cause of and means of eliminating discrimination,”
+
+including in any industry the President directs the EEOC to review. Id.
+
+§ 2000e-4(e). Further, members of the EEOC are already statutorily
+
+authorized to file charges against “employer[s] . . . engaged in an
+
+unlawful employment practice.” Id. § 2000e-5(b). In other words, even if
+
+
+
+
+                                    42
+the President never issued the EOs, plaintiffs would still be subject to
+
+inquiries by the EEOC—just like any other employer in the country.
+
+     But the district courts discounted that logic, finding the President’s
+
+investigative direction to the EEOC problematic and supported by “no
+
+authority.” JA1674. The Constitution says otherwise. All “executive
+
+Power shall be vested in a President of the United States of America,”
+
+U.S. Const. art. II, § 1. That necessarily includes the President’s “general
+
+administrative control of those executing the laws.” Myers v. United
+
+States, 272 U.S. 52, 164 (1926); see also Sierra Club v. Costle, 657 F.2d
+
+298, 406 n. 524 (D.C. Cir. 1981). Providing direction, “guidance[,] and
+
+supervision to his subordinates” is part and parcel of the “faithful
+
+execution of the laws enacted by Congress.” Allbaugh, 295 F.3d at 32.
+
+And the Executive’s subordinates are “duty-bound” to abide by his
+
+direction. Id. (“[O]fficers are duty-bound to give effect to the policies
+
+embodied in the President’s direction, to the extent allowed by the law.”);
+
+The Federalist No. 72, at 487 (explaining federal officers and agencies
+
+will be “subject to [the President’s] superintendence”). The EEOC is such
+
+an “executive branch agency.” Chennareddy v. Bowsher, 935 F.2d 315,
+
+318 (D.C. Cir. 1991).     Thus, there is nothing untoward, much less
+
+
+                                    43
+unlawful, about the EOs directing the EEOC in the exercise of their
+
+applicable statutory duties.
+
+      The concerns that at least one court had regarding letters sent to
+
+law firms, and the supposed necessity of specific enforcement charges,
+
+are unfounded. JA1626. The EEOC is responsible for enforcing Title VII
+
+with respect to, among other covered entities, private sector employers.
+
+42 U.S.C. § 2000e-5.      Such enforcement efforts include receiving,
+
+investigating, and resolving charges of discrimination. Id. Individual
+
+EEOC Commissioners, including the Chair, also have the authority to
+
+file charges of discrimination, often called “Commissioner’s Charges.” 42
+
+U.S.C. § 2000e-5(b) (referring to charges “filed by or on behalf of a person
+
+claiming to be aggrieved, or by a member of the Commission”); 29 C.F.R.
+
+§ 1601.11(a) (“Any member of the Commission may file a charge with the
+
+Commission.”). A Commissioner’s Charge is signed by a Commissioner
+
+under penalty of perjury and the existence of such charge is subject to
+
+Title VII confidentiality. 29 C.F.R. § 1601.11(a) (“Such charge shall be in
+
+writing and signed and shall be verified.”).      While not necessary to
+
+initiate a charge, in some instances a Commissioner may receive a
+
+
+
+
+                                    44
+request for issuance of a Commissioner’s Charge from a member of the
+
+public or an organization. Often these requests are public.
+
+     Contrary to the district courts’ holdings, the EOs did not
+
+automatically necessitate issuance of such a charge, and the discretion
+
+whether to ultimately issue a Commissioner’s Charge lies with the
+
+individual Commissioner. The law firm letter distribution referenced in
+
+at least one of the district court decisions was the EEOC engaging in
+
+informal information gathering (a tool contemplated by the EEOC’s
+
+compliance manual) by sending letters requesting voluntary disclosures
+
+regarding potentially discriminatory conduct the firms publicly touted.
+
+See Stipulation of Dismissal, Doe 1 v. EEOC, Case No. 1:25-cv-01124,
+
+Doc. 43 (D.D.C. Feb. 9, 2026) (explaining that responding to letters to law
+
+firms “was voluntary” and “compliance was not mandatory”); see also id.,
+
+Declaration of Mary Katherine Littlejohn, Doc. 38-3 (July 31, 2025). The
+
+letters were not a Commissioner’s Charge nor an investigation resulting
+
+from a charge as evidenced by their public disclosure, their lack of
+
+verification, and their invitation for voluntary cooperation. Rather, the
+
+letters asked recipients to share information about their employment
+
+practices with the EEOC to assist with its review as then-Acting Chair
+
+
+                                    45
+Lucas contemplated whether to issue a Commissioner’s Charge,
+
+whereupon an investigation would commence. While some firms reached
+
+settlements with the EEOC, most firms did not provide a response.
+
+Littlejohn Declaration, Doe 1 v. EEOC, Case No. 1:25-cv-01124, Doc. 38-
+
+3, at 3–4.
+
+     The DOJ provision merely directs investigations if there are
+
+Federal funding recipients discriminating on the basis of protected
+
+characteristics under civil rights statutes. This is what DOJ already
+
+does, even in the absence of any specific directive. In addition, the federal
+
+government has broad discretion to investigate discrimination; the fact
+
+that a referral came from the President does not change that.
+
+     Notably, none of the law firms were singled out in Section 4 of the
+
+EOs. Section 4 only references large law firms generally. Plaintiffs
+
+therefore lack standing to bring this type of pre-enforcement challenge,
+
+especially given that at least one of the firms, Susman, did not even
+
+receive a letter from the EEOC.
+
+     Plaintiffs’ retaliation claim also fails on the merits, because the
+
+firms cannot show the requisite causal link.            First Amendment
+
+retaliation claims require a plaintiff to show that (1) the plaintiff engaged
+
+
+                                     46
+in conduct protected by the First Amendment; (2) the defendant took
+
+retaliatory action against the plaintiff, sufficient to deter an individual
+
+in plaintiff’s position from speaking again; and (3) a causal connection
+
+between the speech and the retaliation. Aref v. Lynch, 833 F.3d 242, 258
+
+(D.C. Cir. 2016). First Amendment retaliation claims are analyzed under
+
+a but-for causation standard. Hous. Cmty. Coll. Sys. v. Wilson, 595 U.S.
+
+468, 477 (2022). Even before the EOs were issued, this Administration
+
+had begun taking steps consistent with the view that certain DEI
+
+practices could constitute a violation of Title VII. See EO 14173, Ending
+
+Illegal Discrimination and Restoring Merit-Based Opportunity, 90 Fed.
+
+Reg. 8633 (Jan. 31, 2025). EO 14173, issued more than two months before
+
+the challenged Executive Orders, directed, among other things, federal
+
+agencies to take appropriate action to “advance in the private sector”
+
+merit-based opportunity, id. § 4(a), and to enforce civil rights laws and
+
+combat illegal private-sector DEI policies and practices, id. § 2; see also
+
+id. § 4(b) (requiring plan for compliance investigations going after illegal
+
+discrimination by large, private entities). The subjects at the focus of
+
+that EO extended beyond plaintiffs, negating any assertion that EEOC’s
+
+investigation is retaliatory. In fact, the inquiry is in line with EEOC and
+
+
+                                    47
+DOJ priorities pre-dating the EOs at issue here, as both agencies
+
+announced in the early days of the Administration that “rooting out
+
+unlawful DEI-motivated race and sex discrimination” was among their
+
+top concerns. See EEOC, President Appoints Andrea R. Lucas EEOC
+
+Acting Chair (Jan. 21, 2025);5 Memorandum from Attorney General, Re:
+
+Ending Illegal DEI and DEIA Discrimination and Preferences (Feb. 5,
+
+2025).6
+
+III. The District Courts Erred in Enjoining Section 3,
+     Concerning Contractors, and Section 5, Concerning
+     Guidance on Access to Buildings.
+
+      a. Plaintiffs’ facial claims challenging Sections 3 and 5 of the EOs
+
+are unripe—and cannot demonstrate that those Sections are facially
+
+unconstitutional in any event.
+
+      As an initial matter, plaintiffs’ facial challenges are not ripe. A
+
+“dispute is not justiciable” if “it is not ripe for court review.” Ohio Forestry
+
+Ass’n v. Sierra Club, 523 U.S. 726, 732 (1998). Ripeness doctrine protects
+
+the Executive Branch “from judicial interference until a[] . . . decision has
+
+been formalized and its effects felt in a concrete way by the challenging
+
+
+
+      5 Available at https://www.eeoc.gov/newsroom/president-appoints-
+
+andrea-r-lucas-eeoc-acting-chair.
+     6 Available at https://www.justice.gov/ag/media/1388501/dl?inline.
+
+                                   48
+parties.”   Abbott Lab’ys v. Gardner, 387 U.S. 136, 148–49 (1967),
+
+abrogated on other grounds by Califano v. Sanders, 430 U.S. 99 (1977).
+
+Whereas constitutional ripeness is subsumed into the Article III standing
+
+inquiry that turns on whether the plaintiff has established “an injury-in-
+
+fact that is imminent or certainly impending,” Am. Petrol. Inst. v. EPA,
+
+683 F.3d 382, 386 (D.C. Cir. 2012), prudential ripeness balances “the
+
+fitness of the issues for judicial decision” against “the hardship to the
+
+parties of withholding court consideration.” Abbott Lab’ys, 387 U.S. at
+
+148-49.     Where “[j]udicial intervention . . . would inappropriately
+
+interfere with ongoing action within the Executive Branch,” a case is not
+
+ripe. Common Cause v. Trump, 506 F. Supp. 3d 39, 46 (D.D.C. 2020)
+
+(Katsas, J.).   The Executive Branch should not be prevented from
+
+“crystallizing its policy before that policy is subjected to judicial review.”
+
+Id. (quoting Am. Petrol. Inst., 683 F.3d at 387).
+
+      Here, Sections 3 and 5 contemplate future implementation by
+
+agencies that has not yet occurred.       Section 3(b) orders agencies to
+
+conduct a review of contracts and future disclosures.             Only after
+
+completion of that review, and subject to the agency’s future findings, are
+
+the agencies to take action. And such action must be aligned “with the
+
+
+                                     49
+interests of the citizens of the United States,” “as heads of agencies deem
+
+appropriate.”     None of that has occurred, so it is unclear what the
+
+agencies will determine is in the public interest or appropriate, let alone
+
+how that will concretely impact Plaintiffs. Similarly, Section 5(a) directs
+
+agencies to “provide guidance” regarding access to federal government
+
+buildings to preserve “national security” and “the interests of the United
+
+States.” No agency has issued such guidance. Accordingly, there has not
+
+been adequate “development of facts needed by the court to decide the
+
+question it is asked to consider.” N.Y. State Ophthalmological Soc’y v.
+
+Bowen, 854 F.2d 1379, 1386 (D.C. Cir. 1988).         There is not only a
+
+“possibility that further consideration will actually occur before
+
+implementation is not theoretical, but real.” Wyo. Outdoor Council v.
+
+U.S. Forest Serv., 165 F.3d 43, 50 (D.C. Cir. 1999). The plain text of
+
+Sections 3 and 5 require further action before implementation. In these
+
+circumstances, the district courts should not have “interfere[d] with
+
+ongoing action within the Executive Branch.” Common Cause, 506 F.
+
+Supp. 3d at 45.
+
+       The district courts’ failure to properly analyze plaintiffs’ facial
+
+challenges underscores those ripeness problems (and constitutes
+
+
+                                    50
+reversible error in its own right). Generally, “a plaintiff cannot succeed
+
+on a facial challenge unless he ‘establish[es] that no set of circumstances
+
+exists under which the [law] would be valid,’ or he shows that the law
+
+lacks a ‘plainly legitimate sweep.’” Moody v. NetChoice, LLC, 603 U.S.
+
+707, 723, (2024) (quoting United States v. Salerno, 481 U.S. 739, 745
+
+(1987)). In the First Amendment context, plaintiffs can prevail only if
+
+they establish that “a substantial number of [the EO’s] applications are
+
+unconstitutional, judged in relation to the [EO’s] plainly legitimate
+
+sweep.” Id. (quoting Ams. for Prosperity Found. v. Bonta, 594 U.S. 595,
+
+615 (2021)). Lower courts cannot sidestep this framework by focusing on
+
+only unconstitutional applications. Moody, 603 U.S. at 723–24. Instead,
+
+they must address “the full range of activities the laws cover” and only
+
+then    “measure    the   constitutional   against   the   unconstitutional
+
+applications.” Id. at 724. Indeed, because the President directed that
+
+each of the EOs is to be applied “consistent with applicable law,” e.g.,
+
+Perkins EO, §§ 2, 3(b)(i), 6(b), they would, by their terms, have no effect
+
+to the extent all applications of them are unlawful.
+
+       When a case is not ripe because a particular directive has not been
+
+implemented, it may be difficult for courts to evaluate whether there are
+
+
+                                    51
+circumstances in which the challenged action is valid (or to compare the
+
+action’s legitimate sweep to any unconstitutional applications). Here, the
+
+district courts failed to perform that analysis entirely. For example, they
+
+did not acknowledge that federal agencies could determine that it is
+
+appropriate to terminate contracts or limit official access to government
+
+buildings if they found that the firms in question had engaged in racial
+
+discrimination or based on particularized national security concerns.
+
+Instead, they analyzed the most extreme possible implementations of the
+
+EOs in the abstract. In other words, the district courts not only short-
+
+circuited the Executive Branch’s implementation process but also
+
+leveraged that lack of implementation to wipe out Sections 3 and 5
+
+without considering their potential legitimate sweep.
+
+     b. Regardless, Sections 3 and 5 do not violate plaintiffs’
+
+constitutional rights (facially or otherwise). The district courts primarily
+
+held that those Sections (and in some cases, the entire EOs) constituted
+
+impermissible retaliation and viewpoint discrimination for speech and
+
+petitioning protected by the First Amendment. But that is incorrect.
+
+Importantly, much of the conduct about plaintiffs identified in Section 1
+
+of the EOs is unprotected speech. For example, the EOs target racial
+
+
+                                    52
+discrimination in employment by plaintiffs. See, e.g., Perkins EO, §§ 1,
+
+3(a), 4. And as the Supreme Court has recognized in the specific context
+
+of law firms, “invidious private discrimination . . . has never been
+
+accorded affirmative constitutional protections.”     Hishon v. King &
+
+Spalding, 467 U.S. 69, 78 (1984) (quoting Norwood v. Harrison, 413 U.S.
+
+455, 470 (1973)). The use of the procurement power to combat racial
+
+discrimination or otherwise implement social policies has been a feature
+
+of executive orders since at least the 1940s. Contractors Ass’n of E. Pa.
+
+v. Sec’y of Lab., 442 F.2d 159, 168–71 (3d Cir. 1971) (discussing “non-
+
+discrimination contract provisions” that were “required in all federal
+
+procurement contracts”). Any doubts about whether plaintiffs engaged
+
+in illegal racial discrimination are irrelevant: even if the President were
+
+mistaken about whether plaintiffs had engaged in constitutionally
+
+unprotected discrimination, that still would not constitute discrimination
+
+against constitutionally protected speech. Cf. Brady v. Off. of Sergeant
+
+at Arms, 520 F.3d 490, 496 (D.C. Cir. 2008) (Kavanaugh, J.) (in the Title
+
+VII context, the question is not whether non-discriminatory reason for
+
+action was based on facts that actually occurred, but whether the actor
+
+“honestly and reasonably believed” that such facts had occurred).
+
+
+                                    53
+      In addition, the EOs repeatedly emphasize past official conduct by
+
+government lawyers who were then hired by Plaintiffs. See, e.g., Jenner
+
+EO, §§ 1, 5. Those individuals’ actions “pursuant to their official duties”
+
+are likewise not protected by the First Amendment. Garcetti v. Ceballos,
+
+547 U.S. 410, 421 (2006). And because the First Amendment protects
+
+“conduct” only to the extent the conduct “is inherently expressive,”
+
+Rumsfeld v. Forum for Acad. & Inst. Rts., Inc., 547 U.S. 47, 66 (2006),
+
+neither are plaintiffs’ non-expressive decisions to “discriminate in the
+
+selection” of who they hire as attorneys in their for-profit businesses,
+
+Hishon, 467 U.S. at 78. The same logic applies to the EOs’ accusations
+
+that plaintiffs engaged in litigation misconduct. See, e.g., Perkins EO,
+
+§ 1; Bill Johnson’s Rests., Inc. v. NLRB, 461 U.S. 731, 743 (1983)
+
+(“[B]aseless litigation is not immunized by the First Amendment right to
+
+petition.”).
+
+      To the extent the district courts below held on a murky “separation
+
+of powers rationale,” JA2854, that the President lacks authority to act on
+
+abuses of the judicial process (or to issue the EO more generally), JA3528,
+
+they simply ignored the discretion that the President retains in the areas
+
+
+
+
+                                    54
+addressed by the EO (even if the judiciary also has power to respond to
+
+abuses of judicial process).
+
+      Given all that, it is immaterial whether all of the conduct identified
+
+in Section 1 of the EOs is constitutionally unprotected. Regardless, it is
+
+clear that the President would have issued the EOs based on the
+
+unprotected conduct repeatedly emphasized in the EOs. That motive is
+
+“sufficient to sustain” the EOs regardless of any other justification.
+
+TikTok Inc. v. Garland, 604 U.S. 56, 79 (2025) (in putative mixed-motive
+
+scenario, where “Congress would have passed the challenged provisions
+
+based on [a valid] justification alone,” that “justification [is] sufficient to
+
+sustain the challenged provisions”).
+
+      c. There are no other constitutional theories that could justify
+
+facially invalidating Sections 3 and 5.
+
+      Section 3 does not deprive plaintiffs of any “life, liberty, or property”
+
+within the meaning of the Due Process Clause. U.S. Const. amend. V.
+
+As an initial matter, “action that is directed against a third party and
+
+affects the citizen only indirectly or incidentally” does not implicate the
+
+Due Process Clause. O’Bannon v. Town Ct. Nursing Ctr., 447 U.S. 773,
+
+788 (1980); see also id. at 789 (“Over a century ago this Court recognized
+
+
+                                      55
+the principle that the due process provision of the Fifth Amendment does
+
+not apply to the indirect adverse effects of government action.”). So any
+
+action vis-à-vis third-party contracts cannot violate plaintiffs’ due
+
+process rights. Additionally, plaintiffs have no property interest in their
+
+commercial relationships with government contractors.         Indeed, the
+
+Supreme Court “has never held that government contracts for goods and
+
+services create property interests protected by due process.” 2 Richard J.
+
+Pierce Jr., Administrative Law Treatise 764 (5th ed. 2010) (“With scores
+
+of millions of government contracts in effect at any point in time, it is
+
+unimaginable that all government agencies would be required to provide
+
+a hearing before they take any action that is arguably inconsistent with
+
+a contract.”). It follows that plaintiffs’ more attenuated contracts-with-
+
+contractors, and vague assertions of nebulous impacts on client
+
+relationships more generally, cannot establish such an interest, either.
+
+Finally, plaintiffs have not established any deprivation of liberty and
+
+property based on any “stigma” or “reputation” theory.        JA3520–21.
+
+Nothing in the EO excludes anyone from working as an attorney, whether
+
+“formally or automatically” or based on a “showing of reputational harm”
+
+
+
+
+                                    56
+that would prevent them from “find[ing] employment in [their] chosen
+
+field.” O’Donnel v. Barry, 148 F.3d 1126, 1141 (D.C. Cir. 1998).
+
+       Plaintiffs cannot claim that Section 3 burdens any associational
+
+rights either. Plaintiffs are not engaged in any expressive association
+
+when serving as government contractors or sub-contractors.         To the
+
+extent plaintiffs believe they should be able to associate anonymously
+
+with government contractors (i.e., without disclosure), such contractors
+
+are already subject to substantial disclosure requirements as a condition
+
+of doing business with the federal government—and Section 3 is narrowly
+
+tailored to the EOs’ stated goal of facilitating agency review of contracts
+
+to ensure that, inter alia, federal funds are not flowing to entities that
+
+have engaged in racial discrimination.      See, e.g., Jenner EO, § 3(a).
+
+Section 3 also does not implicate the attorney-client privilege, which
+
+“does not protect from disclosure the identity of the client . . . and the
+
+general purpose of the work performed.” Cause of Action Inst. v. U.S.
+
+Dep’t of Just., 330 F. Supp. 3d 336, 350 (D.D.C. 2018) (internal citation
+
+omitted).
+
+     Nor can plaintiffs claim that Section 3 (or the EO more broadly)
+
+violates the Equal Protection Clause. A “class of one” equal protection
+
+
+                                    57
+claim would require each plaintiff to show that it “has been intentionally
+
+treated differently from others similarly situated and that there is no
+
+rational basis for the difference in treatment.” Vill. of Willowbrook v.
+
+Olech, 528 U.S. 562, 564 (2000) (per curiam). But, as one of the district
+
+courts below explained, plaintiffs have “failed to plausibly allege a group
+
+of ‘similarly situated’ firms”—or explain how any plaintiff “could have
+
+been ‘singled out’” when EOs have issued as to “multiple other firms.”
+
+JA2864.
+
+     Similarly, plaintiffs cannot establish that Sections 3 and 5 (or the
+
+EO more broadly) are void for vagueness. That doctrine applies when a
+
+law describes “conduct that is . . . proscribed” in a manner so vague that
+
+regulated parties lack guidance as to what is prohibited.       Holder v.
+
+Humanitarian L. Project, 561 U.S. 1, 19 (2010). Here, Sections 3 and 5(a)
+
+do not proscribe any conduct (or even directly impose any consequences
+
+for past conduct, given that they leave implementation to agencies).
+
+     As for Section 5, the prohibition on building entry does not violate
+
+any First Amendment right to petition (or corresponding Due Process
+
+Clause liberty interest in such a right). “The Constitution does not grant
+
+to members of the public generally a right to be heard by public bodies[.]”
+
+
+                                    58
+Minn. State Bd. for Cmty. Colls. v. Knight, 465 U.S. 271, 283 (1984). Both
+
+plaintiffs and their clients remain free “to advocate ideas” by bringing
+
+and pursuing lawsuits. Id. at 286. If anything, the petition theory
+
+adopted by some of the district courts below reinforces the ripeness
+
+problems with plaintiffs’ facial challenge. If plaintiffs were ever actually
+
+inhibited from petitioning the government, they could bring an as-
+
+applied challenge for that specific inhibition.
+
+     Nor does Section 5 run afoul of any Fifth or Sixth Amendment right-
+
+to-counsel guarantees. With respect to the Fifth Amendment, as one of
+
+the district courts below explained, any theory fails because plaintiffs
+
+cannot allege that their “clients are unable to obtain alternative qualified
+
+counsel.” JA2867. With respect to the Sixth Amendment, the “right to
+
+choose one’s own counsel is circumscribed in several important respects.”
+
+Wheat v. United States, 486 U.S. 153, 159 (1988). Courts have thus
+
+upheld a wide range of incidental burdens based on neutral rules, such
+
+as bar admission requirements.       Id.   Section 5 merely contemplates
+
+future guidance that provides some limits for certain personnel in their
+
+access to federal buildings based on conduct that impairs national
+
+security and other interests of the United States.        How that would
+
+
+                                    59
+actually play out was never determined given that the relevant agencies
+
+had not fully implemented the EOs’ directives—which only reinforces the
+
+ripeness problems with plaintiffs’ claims.
+
+IV.   The District Courts Erred in Finding Section 1 Non-
+      Severable and Enjoining Future Actions.
+
+      Finally, even if the district courts were correct in finding one or
+
+more merits violations, it was error to treat those orders as non-severable
+
+and to enjoin future actions based on the mere findings in Section 1.
+
+      Section 1 of the EOs is precatory language describing plaintiffs’
+
+activities as both law firms and employers. It also contains the Executive
+
+Branch’s policies to end illegal racial discrimination. The respective
+
+orders identified specific conduct by each firm that raised national
+
+security or other public interest concerns. All four EOs raised concerns
+
+with the firms’ discriminatory employment practices. The Perkins EO
+
+raised additional concerns about the firm’s “unethical lack of candor
+
+before the court.” Perkins EO, § 1. The Jenner and WilmerHale EOs
+
+cited the firms’ decisions to hire attorneys whose conduct in government
+
+raised questions.    Jenner EO, § 1 (hiring of Andrew Weissmann);
+
+WilmerHale EO, § 1 (hiring of Robert Mueller, Aaron Zebley, and James
+
+Quarles). The President is allowed to make statements about this.
+
+                                    60
+     Section 1 of the EOs is nothing other than a textbook example of
+
+government speech.      The Supreme Court has made clear that “the
+
+Government’s own speech . . . is exempt from First Amendment
+
+scrutiny.” Johanns v. Livestock Mktg. Ass’n, 544 U.S. 550, 553 (2005).
+
+Like other governmental entities, the Executive Branch has the right to
+
+“speak for itself.” Bd. of Regents of Univ. of Wis. Sys. v. Southworth, 529
+
+U.S. 217, 229 (2000). “When a government entity embarks on a course of
+
+action, it necessarily takes a particular viewpoint and rejects others.”
+
+Matal v. Tam, 582 U.S. 218, 234 (2017). “Indeed, it is not easy to imagine
+
+how government could function if it lacked this freedom.” Pleasant Grove
+
+City v. Summum, 555 U.S. 460, 468 (2009). “It is the very business of
+
+government to favor and disfavor points of view.” Nat’l Endowment of
+
+the Arts v. Finley, 524 U.S. 569, 598 (1998) (Scalia, J., concurring). But
+
+“[i]f every citizen were to have a right to insist that no one paid by public
+
+funds express a view with which he disagreed, debate over issues of great
+
+concern to the public would be limited to those in private sector, and the
+
+process of government as we know it radically transformed.” Keller v.
+
+State Bar of Cal., 496 U.S. 1, 12–13 (1990).
+
+
+
+
+                                     61
+     Courts identify government speech by looking to history, the
+
+objective expectations of observers, and who exercises control over the
+
+message. Walker v. Tex. Div., Sons of Confederate Veterans, Inc., 576 U.S.
+
+200, 210 (2015). Presidents have long used the preambles of Executive
+
+Orders to express their own views.       Everyone recognizes this is the
+
+President’s own speech. That is because the President alone controls the
+
+content of his Executive Orders, which he publicly signs. Section 1 of the
+
+EO is a paradigmatic example of government speech.
+
+     When individuals disagree with government speech, there is a
+
+prescribed remedy. “The Constitution . . . relies first and foremost on the
+
+ballot box . . . to check the government when it speaks.” Shurtleff v. City
+
+of Boston, 596 U.S. 243, 252 (2022). But courts are on dangerous ground
+
+when enjoining the speech of co-equal branches of government. See, e.g.,
+
+Zivotofsky ex rel. Zivotofsky v. Kerry, 576 U.S. 1, 30 (2015) (coordinate
+
+branch of government “may not force the President himself to contradict
+
+his earlier statement”). The government is “ultimately accountable to
+
+the electorate and the political process for its advocacy,” and “[i]f the
+
+citizenry objects, newly elected officials later could espouse some
+
+different or contrary position.”   Pleasant Grove, 555 U.S. at 468–69
+
+
+                                    62
+(internal citation omitted). This Court should reject plaintiff’s attempt
+
+to short-circuit the democratic process by lawsuit.
+
+     Significantly, even the district court in Jenner recognized this.
+
+That court declined to “enjoin future actions taken pursuant to Section
+
+1,” because “Section 1 does not direct any action.” JA2205–06. But
+
+“shorn of its enforcement mechanisms, Section 1 is nothing more than
+
+the Executive Branch ‘saying what it wishes.’” Id. (quoting Nat’l Rifle
+
+Ass’n of Am. v. Vullo, 602 U.S. 175, 187 (2024)). “Jenner has no more
+
+right to silence the Executive Branch than the Executive Branch has to
+
+silence Jenner.” Id. That is because Section 1 is “government speech.”
+
+Id. Despite Jenner’s repeated request to enjoin Section 1 in the abstract,
+
+the district court correctly recognized that “[n]either standing doctrine
+
+nor equity generally permits such judicial prophylaxis.” JA2207. Thus,
+
+“[w]hether best viewed as a shortcoming of standing, ripeness, or” the
+
+lack of any basis in equity, “the guesswork entailed in enjoining all future
+
+uses of the sentiments expressed in Section 1 would exceed the Court’s
+
+proper role.” Id.
+
+     At the very least, Section 1 is severable.        There is “a strong
+
+presumption of severability.” Barr v. Am. Ass’n of Pol. Consultants, Inc.,
+
+
+                                    63
+591 U.S. 610, 625 (2020).         “Generally speaking, when confronting a
+
+constitutional flaw in a statute, we try to limit the solution to the
+
+problem, severing any problematic portions while leaving the remainder
+
+intact.” Free Enter. Fund v. Pub. Co. Acct. Oversight Bd., 561 U.S. 477,
+
+508 (2010). Courts ask whether the “provisions are capable of functioning
+
+independently.” Seila L. LLC v. Consumer Fin. Prot. Bureau, 591 U.S.
+
+197, 235 (2020). Here, Section 1 is rife with government speech and
+
+opinions that can stand alone. A court may not take something the
+
+President has said and forever enjoin actions based in the abstract.
+
+     To be sure, if in the future defendants take concrete actions based
+
+on Section 1, courts could review those actions at the time and enjoin
+
+them if appropriate.     But courts may not enjoin all future actions
+
+predicated on Section 1, without evening knowing what those actions are.
+
+To   take   one   illustration,    even     if   Sections   2   through   5   are
+
+unconstitutional, surely Cabinet Secretaries can remain free to decide
+
+not to appoint attorneys from plaintiff firms to high-ranking policy
+
+making positions. See Rutan v. Republican Party of Ill., 497 U.S. 62, 71
+
+n.5 (1990) (Stevens, J., concurring) (recognizing that the government can
+
+consider viewpoints when making such appointments). Yet the three
+
+
+                                       64
+district courts’ orders, read literally, would forbid even this. This too was
+
+error.
+
+     Additionally, all other individual sections should be viewed as
+
+severable from one another. As noted in the Jenner decision, the orders
+
+direct a number of discrete actions that are not dependent on one another
+
+for their operation. JA2171 n.9. Therefore, if this Court decides that
+
+some of the sections are lawful while others are not, it should allow those
+
+lawful ones to take effect.
+
+                              CONCLUSION
+
+     For the foregoing reasons, the judgments of the district courts
+
+should be reversed.
+
+Dated:      March 6, 2026         Respectfully submitted,
+            Washington, D.C.
+
+                                  STANLEY E. WOODWARD, JR.
+                                  Associate Attorney General
+
+                                  /s/ Abhishek Kambli
+                                  ABHISHEK KAMBLI
+                                  Deputy Associate Attorney General
+                                  950 Pennsylvania Avenue, NW
+                                  Washington, DC 20530
+                                  Telephone: (202) 514-9500
+
+                                  Counsel for Defendants-Appellants
+
+
+
+                                     65
+                 CERTIFICATE OF COMPLIANCE
+
+     This brief complies with the word limit prescribed by this Court’s
+
+February 6, 2026, Order (Doc. #2157928) because it contains 13,902
+
+words.    This brief also complies with the typeface and type-style
+
+requirements of Federal Rule of Appellate Procedure 32(a)(5)–(6) because
+
+it was prepared using Word for Microsoft 365 in Century Schoolbook 14-
+
+point font.
+
+
+
+                                        /s/ Abhishek S. Kambli
+                                       ABHISHEK S. KAMBLI
+
+
+
+
+                                  66
+                    CERTIFICATE OF SERVICE
+
+     I hereby certify that on March 6, 2026, I electronically filed the
+
+foregoing brief with the Clerk of the Court for the United States Court of
+
+Appeals for the District of Columbia Circuit by using the appellate
+
+CM/ECF system. Service will be accomplished by the appellate CM/ECF
+
+system.
+
+
+                                         /s/ Abhishek S. Kambli
+                                        ABHISHEK S. KAMBLI
+
+
+
+
+                                   67
+ADDENDUM
+
+
+
+
+   1
+                                TABLE OF CONTENTS
+
+U.S. Const. art. I, Sec. 8, Cl. 1................................................................ A1
+
+U.S. Const. amend I. .............................................................................. A1
+
+U.S. Const. amend. V ............................................................................. A1
+
+U.S. Const. amend. VI. ........................................................................... A1
+
+Executive Order 14230, Addressing Risks From Perkins Coie LLP,
+     90 Fed. Reg. 11781 (March 6, 2025) ............................................. A1
+
+Executive Order 14246, Addressing Risks from Jenner & Block, 90
+     Fed. Reg. 13997 (March 25, 2025) ................................................ A5
+
+Executive Order 14246, Addressing Risks from Jenner & Block, 90
+     Fed. Reg. 13997 (March 25, 2025). ............................................... A8
+
+Executive Order 14263, Addressing Risks from Susman Godfrey, 90
+     Fed. Reg. 15615 (April 9, 2025). .................................................. A11
+U.S. Const. art. I, sec. 8, cl. 1:
+The Congress shall have Power To lay and collect Taxes, Duties, Imposts
+and Excises, to pay the Debts and provide for the common Defence and
+general Welfare of the United States; but all Duties, Imposts and Excises
+shall be uniform throughout the United States
+U.S. Const. amend I:
+Congress shall make no law respecting an establishment of religion, or
+prohibiting the free exercise thereof; or abridging the freedom of speech,
+or of the press; or the right of the people peaceably to assemble, and to
+petition the Government for a redress of grievances.
+U.S. Const. amend. V:
+No person shall be held to answer for a capital, or otherwise infamous
+crime, unless on a presentment or indictment of a Grand Jury, except in
+cases arising in the land or naval forces, or in the Militia, when in actual
+service in time of War or public danger; nor shall any person be subject
+for the same offence to be twice put in jeopardy of life or limb; nor shall
+be compelled in any criminal case to be a witness against himself, nor be
+deprived of life, liberty, or property, without due process of law; nor shall
+private property be taken for public use, without just compensation.
+U.S. Const. amend. VI:
+In all criminal prosecutions, the accused shall enjoy the right to a speedy
+and public trial, by an impartial jury of the State and district wherein
+the crime shall have been committed, which district shall have been
+previously ascertained by law, and to be informed of the nature and cause
+of the accusation; to be confronted with the witnesses against him; to
+have compulsory process for obtaining witnesses in his favor, and to have
+the Assistance of Counsel for his defence.
+Executive Order 14230, Addressing Risks From Perkins Coie
+LLP, 90 Fed. Reg. 11781 (March 6, 2025):
+By the authority vested in me as President by the Constitution and the
+laws of the United States of America, it is hereby ordered:
+Section 1. Purpose. The dishonest and dangerous activity of the law firm
+Perkins Coie LLP (“Perkins Coie”) has affected this country for decades.
+                                     A1
+Notably, in 2016 while representing failed Presidential candidate Hillary
+Clinton, Perkins Coie hired Fusion GPS, which then manufactured a
+false “dossier” designed to steal an election. This egregious activity is part
+of a pattern. Perkins Coie has worked with activist donors including
+George Soros to judicially overturn popular, necessary, and
+democratically enacted election laws, including those requiring voter
+identification. In one such case, a court was forced to sanction Perkins
+Coie attorneys for an unethical lack of candor before the court.
+In addition to undermining democratic elections, the integrity of our
+courts, and honest law enforcement, Perkins Coie racially discriminates
+against its own attorneys and staff, and against applicants. Perkins Coie
+publicly announced percentage quotas in 2019 for hiring and promotion
+on the basis of race and other categories prohibited by civil rights laws.
+It proudly excluded applicants on the basis of race for its fellowships, and
+it maintained these discriminatory practices until applicants harmed by
+them finally sued to enforce change.
+My Administration is committed to ending discrimination under
+“diversity, equity, and inclusion” policies and ensuring that Federal
+benefits support the laws and policies of the United States, including
+those laws and policies promoting our national security and respecting
+the democratic process. Those who engage in blatant race-based and sex-
+based discrimination, including quotas, but purposefully hide the nature
+of such discrimination through deceiving language, have engaged in a
+serious violation of the public trust. Their disrespect for the bedrock
+principle of equality represents good cause to conclude that they neither
+have access to our Nation's secrets nor be deemed responsible stewards
+of any Federal funds.
+Sec. 2. Security Clearance Review. (a) The Attorney General, the Director
+of National Intelligence, and all other relevant heads of executive
+departments and agencies (agencies) shall immediately take steps
+consistent with applicable law to suspend any active security clearances
+held by individuals at Perkins Coie, pending a review of whether such
+clearances are consistent with the national interest.
+(b) The Office of Management and Budget shall identify all Government
+goods, property, material, and services, including Sensitive
+Compartmented Information Facilities, provided for the benefit of
+
+                                     A2
+Perkins Coie. The heads of all agencies providing such material or
+services shall, to the extent permitted by law, expeditiously cease such
+provision.
+Sec. 3. Contracting. (a) To prevent the transfer of taxpayer dollars to
+Federal contractors whose earnings subsidize, among other things, racial
+discrimination, falsified documents designed to weaponize the
+Government against candidates for office, and anti-democratic election
+changes that invite fraud and distrust, Government contracting agencies
+shall, to the extent permissible by law, require Government contractors
+to disclose any business they do with Perkins Coie and whether that
+business is related to the subject of the Government contract.
+(b) The heads of all agencies shall review all contracts with Perkins Coie
+or with entities that disclose doing business with Perkins Coie under
+subsection (a) of this section. To the extent permitted by law, the heads
+of agencies shall:
+(i) take appropriate steps to terminate any contract, to the maximum
+extent permitted by applicable law, including the Federal Acquisition
+Regulation, for which Perkins Coie has been hired to perform any service;
+(ii) otherwise align their agency funding decisions with the interests of
+the citizens of the United States; with the goals and priorities of my
+Administration as expressed in executive actions, especially Executive
+Order 14147 of January 20, 2025 (Ending the Weaponization of the
+Federal Government); and as heads of agencies deem appropriate. Within
+30 days of the date of this order, all agencies shall submit to the Director
+of the Office of Management and Budget an assessment of contracts with
+Perkins Coie or with entities that do business with Perkins Coie effective
+as of the date of this order and any actions taken with respect to those
+contracts in accordance with this order.
+Sec. 4. Racial Discrimination. (a) The Chair of the Equal Employment
+Opportunity Commission shall review the practices of representative
+large, influential, or industry leading law firms for consistency with Title
+VII of the Civil Rights Act of 1964, including whether large law firms:
+reserve certain positions, such as summer associate spots, for individuals
+of preferred races; promote individuals on a discriminatory basis; permit
+client access on a discriminatory basis; or provide access to events,
+trainings, or travel on a discriminatory basis.
+                                    A3
+(b) The Attorney General, in coordination with the Chair of the Equal
+Employment Opportunity Commission and in consultation with State
+Attorneys General as appropriate, shall investigate the practices of large
+law firms as described in subsection (a) of this section who do business
+with Federal entities for compliance with race-based and sex-based non-
+discrimination laws and take any additional actions the Attorney
+General deems appropriate in light of the evidence uncovered.
+Sec. 5. Personnel. (a) The heads of all agencies shall, to the extent
+permitted by law, provide guidance limiting official access from Federal
+Government buildings to employees of Perkins Coie when such access
+would threaten the national security of or otherwise be inconsistent with
+the interests of the United States. In addition, the heads of all agencies
+shall provide guidance limiting Government employees acting in their
+official capacity from engaging with Perkins Coie employees to ensure
+consistency with the national security and other interests of the United
+States.
+(b) Agency officials shall, to the extent permitted by law, refrain from
+hiring employees of Perkins Coie, absent a waiver from the head of the
+agency, made in consultation with the Director of the Office of Personnel
+Management, that such hire will not threaten the national security of the
+United States.
+Sec. 6. General Provisions. (a) Nothing in this order shall be construed to
+impair or otherwise affect:
+(i) the authority granted by law to an executive department or agency, or
+the head thereof; or
+(ii) the functions of the Director of the Office of Management and Budget
+relating to budgetary, administrative, or legislative proposals.
+(b) This order shall be implemented consistent with applicable law and
+subject to the availability of appropriations.
+(c) This order is not intended to, and does not, create any right or benefit,
+substantive or procedural, enforceable at law or in equity by any party
+against the United States, its departments, agencies, or entities, its
+officers, employees, or agents, or any other person.
+
+
+
+                                     A4
+Executive Order 14246, Addressing Risks from Jenner & Block,
+90 Fed. Reg. 13997 (March 25, 2025):
+By the authority vested in me as President by the Constitution and the
+laws of the United States of America, it is hereby ordered:
+Section 1. Background. My Administration is committed to addressing
+the significant risks associated with law firms, particularly so-called “Big
+Law” firms, that engage in conduct detrimental to critical American
+interests. Many firms take actions that threaten public safety and
+national security, limit constitutional freedoms, degrade the quality of
+American elections, or undermine bedrock American principles.
+Moreover, law firms regularly conduct this harmful activity through their
+powerful pro bono practices, earmarking hundreds of millions of their
+clients' dollars for destructive causes, that often directly or indirectly
+harm their own clients. Lawyers and law firms that engage in such
+egregious conduct should not have access to our Nation's secrets, nor
+should such conduct be subsidized by Federal taxpayer funds or
+contracts.
+Jenner & Block LLP (Jenner) is yet another law firm that has abandoned
+the profession's highest ideals, condoned partisan “lawfare,” and abused
+its pro bono practice to engage in activities that undermine justice and
+the interests of the United States. For example, Jenner engages in
+obvious partisan representations to achieve political ends, supports
+attacks against women and children based on a refusal to accept the
+biological reality of sex, and backs the obstruction of efforts to prevent
+illegal aliens from committing horrific crimes and trafficking deadly
+drugs within our borders. Moreover, Jenner discriminates against its
+employees based on race and other categories prohibited by civil rights
+laws, including through the use of race-based “targets.”
+In addition, Jenner was “thrilled” to re-hire the unethical Andrew
+Weissmann after his time engaging in partisan prosecution as part of
+Robert Mueller's entirely unjustified investigation. Andrew Weissmann's
+career has been rooted in weaponized government and abuse of power,
+including devastating tens of thousands of American families who
+worked for the now defunct Arthur Andersen LLP, only to have his
+unlawfully aggressive prosecution overturned by the Supreme Court. The
+numerous reports of Weissmann's dishonesty, including pursuit of
+
+                                    A5
+nonexistent crimes, bribery to foreign nationals, and overt demand that
+the Federal Government pursue a political agenda against me, is a
+concerning indictment of Jenner's values and priorities.
+Sec. 2. Security Clearance Review. (a) The Attorney General, the Director
+of National Intelligence, and all other relevant heads of executive
+departments and agencies (agencies) shall immediately take steps
+consistent with applicable law to suspend any active security clearances
+held by individuals at Jenner pending a review of whether such
+clearances are consistent with the national interest.
+(b) The Office of Management and Budget shall identify all Government
+goods, property, material, and services, including Sensitive
+Compartmented Information Facilities, provided for the benefit of
+Jenner. The heads of agencies providing such material or services shall,
+to the extent permitted by law, expeditiously cease such provision.
+Sec. 3. Contracting. (a) To prevent the transfer of taxpayer dollars to
+Federal contractors whose earnings subsidize, among other things,
+activities that are not aligned with American interests, including racial
+discrimination, Government contracting agencies shall, to the extent
+permissible by law, require Government contractors to disclose any
+business they do with Jenner and whether that business is related to the
+subject of the Government contract.
+(b) The heads of agencies shall review all contracts with Jenner or with
+entities that disclose doing business with Jenner under subsection (a) of
+this section. To the extent permitted by law, the heads of agencies shall:
+(i) take appropriate steps to terminate any contract, to the maximum
+extent permitted by applicable law, including the Federal Acquisition
+Regulation, for which Jenner has been hired to perform any service; and
+(ii) otherwise align their agency funding decisions with the interests of
+the citizens of the United States; with the goals and priorities of my
+Administration as expressed in executive actions, especially Executive
+Order 14147 of January 20, 2025 (Ending the Weaponization of the
+Federal Government); and as heads of agencies deem appropriate. Within
+30 days of the date of this order, agencies shall submit to the Director of
+the Office of Management and Budget an assessment of contracts with
+Jenner or with entities that do business with Jenner effective as of the
+
+                                    A6
+date of this order and any actions taken with respect to those contracts
+in accordance with this order.
+Sec. 4. Racial Discrimination. Nothing in this order shall be construed to
+limit the action authorized by section 4 of Executive Order 14230of March
+6, 2025 (Addressing Risks from Perkins Coie LLP).
+Sec. 5. Personnel. (a) The heads of agencies shall, to the extent permitted
+by law, provide guidance limiting official access from Federal
+Government buildings to employees of Jenner when such access would
+threaten the national security of or otherwise be inconsistent with the
+interests of the United States. In addition, the heads of agencies shall
+provide guidance limiting Government employees acting in their official
+capacity from engaging with Jenner employees, including but not limited
+to Andrew Weissmann, to ensure consistency with the national security
+and other interests of the United States.
+(b) Agency officials shall, to the extent permitted by law, refrain from
+hiring employees of Jenner, including but not limited to Andrew
+Weissmann, absent a waiver from the head of the agency, made in
+consultation with the Director of the Office of Personnel Management,
+that such hire will not threaten the national security of the United
+States.
+Sec. 6. General Provisions. (a) Nothing in this order shall be construed to
+impair or otherwise affect:
+(i) the authority granted by law to an executive department or agency, or
+the head thereof; or
+(ii) the functions of the Director of the Office of Management and Budget
+relating to budgetary, administrative, or legislative proposals.
+(b) This order shall be implemented consistent with applicable law and
+subject to the availability of appropriations.
+(c) This order is not intended to, and does not, create any right or benefit,
+substantive or procedural, enforceable at law or in equity by any party
+against the United States, its departments, agencies, or entities, its
+officers, employees, or agents, or any other person.
+
+
+
+
+                                     A7
+Executive Order 14250, Addressing Risks From WilmerHale, 90
+Fed. Reg. 14549 (March 27, 2025):
+By the authority vested in me as President by the Constitution and the
+laws of the United States of America, it is hereby ordered:
+Section 1. Background. My Administration is committed to addressing
+the significant risks associated with law firms, particularly so-called “Big
+Law” firms, that engage in conduct detrimental to critical American
+interests. Many firms take actions that threaten public safety and
+national security, limit constitutional freedoms, degrade the quality of
+American elections, or undermine bedrock American principles.
+Moreover, law firms regularly conduct this harmful activity through their
+powerful pro bono practices, earmarking hundreds of millions of their
+clients' dollars for destructive causes, that often directly or indirectly
+harm their own clients. Lawyers and law firms that engage in such
+egregious conduct should not have access to our Nation's secrets, nor
+should such conduct be subsidized by Federal taxpayer funds or
+contracts.
+Wilmer Cutler Pickering Hale and Dorr LLP (WilmerHale) is yet another
+law firm that has abandoned the profession's highest ideals and abused
+its pro bono practice to engage in activities that undermine justice and
+the interests of the United States. For example, WilmerHale engages in
+obvious partisan representations to achieve political ends, supports
+efforts to discriminate on the basis of race, backs the obstruction of efforts
+to prevent illegal aliens from committing horrific crimes and trafficking
+deadly drugs within our borders, and furthers the degradation of the
+quality of American elections, including by supporting efforts designed to
+enable noncitizens to vote. Moreover, WilmerHale itself discriminates
+against its employees based on race and other categories prohibited by
+civil rights laws, including through the use of race-based “targets.”
+WilmerHale is also bent on employing lawyers who weaponize the
+prosecutorial power to upend the democratic process and distort justice.
+For example, WilmerHale rewarded Robert Mueller and his colleagues—
+Aaron Zebley, Mueller's “top aide” and “closest associate,” and James
+Quarles—by welcoming them to the firm after they wielded the power of
+the Federal Government to lead one of the most partisan investigations
+in American history. Mueller's investigation epitomizes the
+
+                                     A8
+weaponization of government, yet WilmerHale claimed he “embodies the
+highest value of our firm and profession.” Mueller's “investigation”
+upended the lives of public servants in my Administration who were
+summoned before “prosecutors” with the effect of interfering in their
+ability to fulfill the mandates of my first term agenda. This
+weaponization of the justice system must not be rewarded, let alone
+condoned.
+Sec. 2. Security Clearance Review. (a) The Attorney General, the Director
+of National Intelligence, and all other relevant heads of executive
+departments and agencies (agencies) shall immediately take steps
+consistent with applicable law to suspend any active security clearances
+held by individuals at WilmerHale, pending a review of whether such
+clearances are consistent with the national interest.
+(b) The Office of Management and Budget shall identify all Government
+goods, property, material, and services, including Sensitive
+Compartmented Information Facilities, provided for the benefit of
+WilmerHale. The heads of agencies providing such material or services
+shall, to the extent permitted by law, expeditiously cease such provision.
+Sec. 3. Contracting. (a) To prevent the transfer of taxpayer dollars to
+Federal contractors whose earnings subsidize, among other things,
+activities that are not aligned with American interests, including racial
+discrimination, Government contracting agencies shall, to the extent
+permissible by law, require Government contractors to disclose any
+business they do with WilmerHale and whether that business is related
+to the subject of the Government contract.
+(b) The heads of agencies shall review all contracts with WilmerHale or
+with entities that disclose doing business with WilmerHale under
+subsection (a) of this section. To the extent permitted by law, the heads
+of agencies shall:
+(i) take appropriate steps to terminate any contract, to the maximum
+extent permitted by applicable law, including the Federal Acquisition
+Regulation, for which WilmerHale has been hired to perform any service;
+and
+(ii) otherwise align their agency funding decisions with the interests of
+the citizens of the United States; with the goals and priorities of my
+Administration as expressed in executive actions, especially Executive
+                                    A9
+Order 14147 of January 20, 2025 (Ending the Weaponization of the
+Federal Government); and as heads of agencies deem appropriate. Within
+30 days of the date of this order, agencies shall submit to the Director of
+the Office of Management and Budget an assessment of contracts with
+WilmerHale or with entities that do business with WilmerHale effective
+as of the date of this order and any actions taken with respect to those
+contracts in accordance with this order.
+Sec. 4. Racial Discrimination. Nothing in this order shall be construed to
+limit the action authorized by section 4 of Executive Order 14230 of
+March 6, 2025 (Addressing Risks from Perkins Coie LLP).
+Sec. 5. Personnel. (a) The heads of agencies shall, to the extent permitted
+by law, provide guidance limiting official access from Federal
+Government buildings to employees of WilmerHale when such access
+would threaten the national security of or otherwise be inconsistent with
+the interests of the United States. In addition, the heads of agencies shall
+provide guidance limiting Government employees acting in their official
+capacity from engaging with WilmerHale employees to ensure
+consistency with the national security and other interests of the United
+States.
+(b) Agency officials shall, to the extent permitted by law, refrain from
+hiring employees of WilmerHale, absent a waiver from the head of the
+agency, made in consultation with the Director of the Office of Personnel
+Management, that such hire will not threaten the national security of the
+United States.
+Sec. 6. General Provisions. (a) Nothing in this order shall be construed to
+impair or otherwise affect:
+(i) the authority granted by law to an executive department or agency, or
+the head thereof; or
+(ii) the functions of the Director of the Office of Management and Budget
+relating to budgetary, administrative, or legislative proposals.
+(b) This order shall be implemented consistent with applicable law and
+subject to the availability of appropriations.
+(c) This order is not intended to, and does not, create any right or benefit,
+substantive or procedural, enforceable at law or in equity by any party
+
+                                    A10
+against the United States, its departments, agencies, or entities, its
+officers, employees, or agents, or any other person.
+Executive Order 14263, Addressing Risks from Susman Godfrey,
+90 Fed. Reg. 15615 (April 9, 2025):
+By the authority vested in me as President by the Constitution and the
+laws of the United States of America, it is hereby ordered:
+Section 1. Background. Lawyers and law firms that engage in activities
+detrimental to critical American interests should not have access to our
+Nation's secrets, nor should their conduct be subsidized by Federal
+taxpayer funds or contracts. My Administration must also take
+appropriate and necessary measures to guard against the actual,
+potential, or perceived conflicts of interest that arise when the
+Government funds, engages with, or otherwise devotes resources to law
+firms and their clients that engage in conduct undermining critical
+American interests and priorities.
+I have determined that action is necessary to address the significant
+risks, egregious conduct, and conflicts of interest associated with Susman
+Godfrey LLP (Susman). Susman spearheads efforts to weaponize the
+American legal system and degrade the quality of American elections.
+Susman also funds groups that engage in dangerous efforts to undermine
+the effectiveness of the United States military through the injection of
+political and radical ideology, and it supports efforts to discriminate on
+the basis of race.
+Susman itself engages in unlawful discrimination, including
+discrimination on the basis of race. For example, Susman administers a
+program where it offers financial awards and employment opportunities
+only to “students of color.” My Administration is committed to ending
+such unlawful discrimination perpetrated in the name of “diversity,
+equity, and inclusion” policies and ensuring that Federal benefits support
+the laws and policies of the United States, including those laws and
+policies promoting our national security and respecting the democratic
+process. Those who engage in blatant discrimination and other activities
+inconsistent with the interests of the United States should not have
+access to our Nation's secrets nor be deemed responsible stewards of any
+Federal funds.
+
+
+                                   A11
+Sec. 2. Security Clearance Review. (a) The Attorney General, the Director
+of National Intelligence, and all other relevant heads of executive
+departments and agencies (agencies) shall immediately take steps
+consistent with applicable law to suspend any active security clearances
+held by individuals at Susman, pending a review of whether such
+clearances are consistent with the national interest.
+(b) The Office of Management and Budget shall identify all Government
+goods, property, material, and services, including Sensitive
+Compartmented Information Facilities, provided for the benefit of
+Susman. The heads of agencies providing such material or services shall,
+to the extent permitted by law, expeditiously cease such provision.
+Sec. 3. Contracting. (a) To prevent the transfer of taxpayer dollars to
+Federal contractors whose earnings subsidize, among other things,
+activities that are not aligned with American interests, including racial
+discrimination, Government contracting agencies shall, to the extent
+permissible by law, require Government contractors to disclose any
+business they do with Susman and whether that business is related to
+the subject of the Government contract.
+(b) The heads of agencies shall review all contracts with Susman or with
+entities that disclose doing business with Susman under subsection (a) of
+this section. To the extent permitted by law, the heads of agencies shall:
+(i) take appropriate steps to terminate any contract, to the maximum
+extent permitted by applicable law, including the Federal Acquisition
+Regulation, for which Susman has been hired to perform any service; and
+(ii) otherwise align their agency funding decisions with the interests of
+the citizens of the United States; with the goals and priorities of my
+Administration as expressed in executive actions, especially Executive
+Order 14147 of January 20, 2025 (Ending the Weaponization of the
+Federal Government); and as heads of agencies deem appropriate. Within
+30 days of the date of this order, agencies shall submit to the Director of
+the Office of Management and Budget an assessment of contracts with
+Susman or with entities that do business with Susman effective as of the
+date of this order and any actions taken with respect to those contracts
+in accordance with this order.
+
+
+
+                                   A12
+Sec. 4. Racial Discrimination. Nothing in this order shall be construed to
+limit the action authorized by section 4 of Executive Order 14230 of
+March 6, 2025 (Addressing Risks from Perkins Coie LLP).
+Sec. 5. Personnel. (a) The heads of agencies shall, to the extent permitted
+by law, provide guidance limiting official access from Federal
+Government buildings to employees of Susman when such access would
+threaten the national security of or otherwise be inconsistent with the
+interests of the United States. In addition, the heads of agencies shall
+provide guidance limiting Government employees acting in their official
+capacity from engaging with Susman employees to ensure consistency
+with the national security and other interests of the United States.
+(b) Agency officials shall, to the extent permitted by law, refrain from
+hiring employees of Susman, absent a waiver from the head of the
+agency, made in consultation with the Director of the Office of Personnel
+Management, that such hire will not threaten the national security of the
+United States.
+Sec. 6. General Provisions. (a) Nothing in this order shall be construed to
+impair or otherwise affect:
+(i) the authority granted by law to an executive department or agency, or
+the head thereof; or
+(ii) the functions of the Director of the Office of Management and Budget
+relating to budgetary, administrative, or legislative proposals.
+(b) This order shall be implemented consistent with applicable law and
+subject to the availability of appropriations.
+(c) This order is not intended to, and does not, create any right or benefit,
+substantive or procedural, enforceable at law or in equity by any party
+against the United States, its departments, agencies, or entities, its
+officers, employees, or agents, or any other person.
+
+
+
+
+                                    A13
+

@@ -1,0 +1,542 @@
+                  United States Court of Appeals
+
+               FOR THE DISTRICT OF COLUMBIA CIRCUIT
+
+          Argued May 10, 2002     Decided July 12, 2002 
+
+                           No. 01-5436
+
+          Building and Construction Trades Department, 
+                        AFL-CIO, et al., 
+                            Appellees
+
+                                v.
+
+                     Joe Allbaugh, Director, 
+          Federal Emergency Management Agency, et al., 
+                            Appellants
+
+          Appeal from the United States District Court 
+                  for the District of Columbia 
+                         (No. 01cv00902)
+
+     Mark B. Stern, Attorney, U.S. Department of Justice, 
+argued the cause for appellants.  With him on the briefs were 
+Roscoe C. Howard Jr., U.S. Attorney, Gregory G. Katsas, 
+Deputy Assistant Attorney General, U.S. Department of Jus-
+tice, Alisa B. Klein and Ara B. Gershengorn, Attorneys.
+
+     Jerry W. Kilgore, Attorney General, State of Virginia, 
+Roger L. Chaffe, Senior Assistant Attorney General and 
+Chief, and William E. Thro, Special Assistant Attorney Gen-
+eral, were on the brief for amicus curiae Commonwealth of 
+Virginia in support of appellants
+
+     Stephen A. Bokat, Maurice Baskin and Glenn Taubman 
+were on the brief for amici curiae Chamber of Commerce of 
+the United States, et al. in support of appellants.
+
+     Victoria L. Bor argued the cause for appellees.  With her 
+on the brief were Laurence J. Cohen, Terry R. Yellig, Mi-
+chael B. Roger and Sandra Benson.
+
+     John Gaal and Arnon D. Siegel were on the brief for 
+amicus curiae New York Thruway Authority in support of 
+appellees.
+
+     Albert H. Meyerhoff, Stanley S. Mallison, Stephen J. Bur-
+ton, David L. Hashmall, Gary L. Lieber, Katherine Brewer 
+and Jonathan Cuneo were on the brief for amici curiae 
+Sierra Club, et al. in support of appellees.
+
+     Eliot Spitzer, Attorney General, State of New York, Seth 
+Kupferberg, Assistant Attorney General, Bill Lockyer, Attor-
+ney General, State of California, Manuel M. Medeiros, State 
+Solicitor General, J. Joseph Curran Jr., Attorney General, 
+State of Maryland, Thomas F. Reilly, Attorney General, 
+Commonwealth of Massachusetts, were on the brief for amici 
+curiae State of New York, et al. in support of appellees.
+
+     Before:  Ginsburg, Chief Judge, and Randolph and Tatel, 
+Circuit Judges.
+
+       Opinion for the Court filed by Chief Judge Ginsburg.
+
+     Ginsburg, Chief Judge:  Executive Order No. 13,202 pro-
+vides that, to the extent permitted by law, no federal agency, 
+and no entity that receives federal assistance for a construc-
+tion project, may either require bidders or contractors to 
+enter, or prohibit them from entering, into a project labor 
+agreement (PLA).  The plaintiffs -- the Building and Con-
+struction Trades Department of the AFL-CIO (BCTD), the 
+Contra Costa Building and Construction Trades Council 
+
+(BCTC), and the City of Richmond, California -- brought this 
+suit to challenge the validity of the Executive Order.  The 
+district court held the Executive Order invalid and enjoined 
+its enforcement.
+
+     We hold that the President had authority under Article II 
+of the Constitution of the United States to issue Executive 
+Order No. 13,202, and that the Executive Order is not 
+preempted by the National Labor Relations Act.  Therefore, 
+we reverse the judgment of the district court and vacate the 
+injunction.
+
+                          I. Background
+
+     A PLA is a multi-employer, multi-union pre-hire agreement 
+designed to systemize labor relations at a construction site.  
+It typically requires that all contractors and subcontractors 
+who will work on a project subscribe to the agreement;  that 
+all contractors and subcontractors agree in advance to abide 
+by a master collective bargaining agreement for all work on 
+the project;  and that wages, hours, and other terms of 
+employment be coordinated or standardized pursuant to the 
+PLA across the many different unions and companies work-
+ing on the project.  The implementation of a PLA on a 
+project underwritten by the Government almost always is 
+accomplished by making agreement to the PLA a bid specifi-
+cation, thereby allowing the contracting authority to ensure 
+that firms at every level -- from the general contractor to the 
+lowest level of subcontractor -- comply with the terms of the 
+PLA.
+
+     President George W. Bush issued Executive Order No. 
+13,202 on February 17, 2001, establishing the policy of the 
+Government with regard to the use of PLAs in federal and 
+federally funded construction contracts.  See Preservation of 
+Open Competition and Government Neutrality Towards Gov-
+ernment Contractors' Labor Relations on Federal and Feder-
+ally Funded Construction Projects, 66 Fed. Reg. 11,225 (Feb. 
+22, 2001) (Executive Order).  The Executive Order provides 
+that the Government will neither require nor prohibit the use 
+of a PLA on any federal or federally funded construction 
+
+project.  Section 1(a) provides that, "[t]o the extent permitted 
+by law," no federal agency or construction manager acting on 
+its behalf shall "in its bid specifications, project agreements, 
+or other controlling documents" for a construction project 
+"[r]equire or prohibit bidders, offerors, contractors, or sub-
+contractors to enter into or adhere to agreements with one or 
+more labor organizations, on the same or other related pro-
+ject(s)."  Section 3 applies the same prohibition to "any 
+executive agency issuing grants, providing financial assis-
+tance, or entering into cooperative agreements for construc-
+tion projects."  The Executive Order makes clear that it does 
+not prohibit a contractor or a subcontractor from entering 
+into a PLA, see id. s 1(c);  it merely prevents the contracting 
+authority from either requiring or forbidding the use of a 
+PLA for a project.  The result in practice is to leave to the 
+contractors working on a project the choice whether to enter 
+into, and to require their subcontractors to enter into, a PLA, 
+presumably depending upon whether it is likely to increase or 
+to decrease their costs.  See, e.g., United States General 
+Accounting Office, Project Labor Agreements, The Extent of 
+Their Use and Related Information, GAO/GGD-98-82 (May 
+1998) 9 (describing instructions for bidders issued by Depart-
+ment of Labor allowing, but not requiring, "a responsive 
+bidder [to] have a Project Labor Agreement (PLA) with its 
+contractors" because a "PLA is one possible method of meet-
+ing th[e] goal" of ensuring good labor relations).
+
+     The plaintiffs brought suit in the district court to enjoin 
+enforcement of the Executive Order, naming as defendants 
+the Director of the Federal Emergency Management Agency, 
+the Secretary of Housing and Urban Development, the Secre-
+tary of Transportation, and the members of the Federal 
+Acquisition Regulatory Council.  The BCTD, which consists 
+of 14 national labor organizations representing workers in the 
+construction industry, averred that it and its affiliates had 
+entered into and intended to negotiate many PLAs, the future 
+availability of which would be affected directly by the Execu-
+tive Order.  The City of Richmond alleged that the Executive 
+Order prevented it from requiring the use of PLAs on several 
+federally funded construction contracts lest it lose its access 
+
+to federal funds.  The BCTC, which consists of 27 local labor 
+unions representing construction workers in Contra Costa 
+County, California, claimed in turn that but for the Executive 
+Order it would negotiate PLAs with respect to work on 
+federally funded projects put out for bid by the City of 
+Richmond.
+
+     One of the projects for which the BCTD had negotiated a 
+PLA was the Woodrow Wilson Bridge Construction Project, 
+the purpose of which is to replace a drawbridge over the 
+Potomac River.  The Congress, after transferring ownership 
+of the existing bridge to an interstate authority established by 
+the District of Columbia, the State of Maryland, and the 
+Commonwealth of Virginia, appropriated more than $1.5 bil-
+lion for the project.  See Woodrow Wilson Memorial Bridge 
+Authority Act of 1995, Pub. L. No. 104-59, tit. IV, ss 405, 
+410, 109 Stat. 568, 629, 633-34 (1995).  Maryland took respon-
+sibility for building the structures crossing the Potomac River 
+and the highways and interchanges on the Maryland side, and 
+Virginia agreed to build the highways and interchanges on 
+the Virginia side of the River.  Before the President issued 
+Executive Order No. 13,202 affiliates of the BCTD and the 
+construction manager for the Maryland State Highway Ad-
+ministration entered into an agreement to set terms for the 
+construction of Maryland's share of the project.
+
+     The agreement provided that Maryland would incorporate 
+a PLA into its bid specifications and that the successful 
+bidder for the project would be bound by the PLA regardless 
+whether the contractor's employees were members of a union.  
+As required by federal regulations, see 23 C.F.R. 
+ss 630.205(e), 635.104(a), 635.112(a), Maryland submitted the 
+bid specifications to the Federal Highway Administration 
+(FHWA) for approval, but the FHWA rejected them because 
+the newly issued Executive Order prohibited the State from 
+requiring adherence to a PLA.  Maryland later awarded the 
+contract without requiring that the awardee enter into a PLA, 
+which left the BCTD no role in the project.
+
+     Upon application of the BCTD, the district court issued a 
+preliminary injunction "prohibiting the defendants from en-
+
+forcing the Executive Order against the Wilson Bridge PLA."  
+Bldg. & Constr. Trades Dep't v. Allbaugh, 172 F. Supp. 2d 67, 
+79 (2001).  The court held that the Executive Order conflicts 
+with the National Labor Relations Act, 29 U.S.C. s 151 et 
+seq., and that without an injunction the BCTD would suffer 
+irreparable harm because "before the Executive Order was 
+put in place ... [the] BCTD had negotiated an agreement, 
+binding on Maryland, and Maryland was using its best efforts 
+to implement it," 172 F. Supp. 2d at 79.
+
+     A few weeks later the district court issued a permanent 
+injunction against enforcement of the Executive Order.  The 
+court held first that, pursuant to the reasoning of the Su-
+preme Court in Youngstown Sheet & Tube Co. v. Sawyer, 343 
+U.S. 579 (1952), the President could not impose the conditions 
+in s 3 of the Executive Order upon the administration of 
+federal funds without the express authorization of the Con-
+gress, See Bldg. & Constr. Trades Dep't v. Allbaugh, 172
+F. Supp. 2d 138, 160 (2001), and that neither the Federal 
+Property and Administrative Services Act, 40 U.S.C. s 471 et 
+seq. (Procurement Act), nor any other statute authorizes the 
+President to do so, see id. at 162.  The district court next 
+concluded that the Executive Order was preempted in its 
+entirety by the NLRA because the Executive Order would 
+abridge rights granted in s 8 of the Act to employers in the 
+construction industry and would "alter the delicate balance of 
+bargaining and economic power that the NLRA establishes."  
+See id. at 167, 169 (quoting Chamber of Commerce v. Reich, 
+74 F.3d 1322, 1337 (D.C. Cir. 1996)).
+
+                           II. Analysis
+
+     The Government appeals, contending that under Article II 
+of the Constitution the President has authority to impose the 
+conditions in s 3 of the Executive Order, and that the Execu-
+tive Order is a proprietary rather than a regulatory act and 
+therefore not subject to preemption by the NLRA.  We 
+address these questions of law de novo.  See Time Warner 
+Entm't Co. v. United States, 211 F.3d 1313, 1316 (D.C. Cir. 
+2000).
+
+A.   The Constitution and the Executive Order
+
+     The President's authority to act "must stem either from an 
+act of Congress or from the Constitution itself."  Youngs-
+town, 343 U.S. at 585.  In this case the district court assumed 
+without deciding (because the plaintiffs had not argued to the 
+contrary) that s 1 of the Executive Order, which section 
+"involves contracting by federal agencies, ... is arguably 
+authorized by the Procurement Act," 172 F. Supp. 2d at 159 
+& n.9, but the court went on to "invalidate s 3 of EO 13202 as 
+an action beyond the scope of the President's authority," id. 
+at 162.  The Government contends on appeal that in so ruling, 
+"the district court fundamentally misunderstood the Presi-
+dent's authority as head of the executive branch."  The first 
+question before us, therefore, is whether the President had 
+constitutional authority to issue s 3 of the Executive Order, 
+which section applies to "any agency issuing grants, providing 
+financial assistance, or entering into cooperative agreements 
+for construction projects."
+
+     Article II, s 1 of the Constitution provides that the "execu-
+tive Power shall be vested in a President of the United States 
+of America."  As the Government observes, the President's 
+power necessarily encompasses "general administrative con-
+trol of those executing the laws," Myers v. United States, 272 
+U.S. 52, 164 (1926), throughout the Executive Branch of 
+government, of which he is the head.  The authority of the 
+President is not without limits, of course:  "the President's 
+power [under Article II, s 3] to see that the laws are faithful-
+ly executed refutes the idea that he is to be a lawmaker."  
+Youngstown, 343 U.S. at 587.  His faithful execution of the 
+laws enacted by the Congress, however, ordinarily allows and 
+frequently requires the President to provide guidance and 
+supervision to his subordinates.  As we previously have had 
+occasion to observe:
+
+     The ordinary duties of officers prescribed by statute 
+     come under the general administrative control of the 
+     President by virtue of the general grant to him of the 
+     executive power, and he may properly supervise and 
+     guide their construction of the statutes under which they 
+     
+     act in order to secure that unitary and uniform execution 
+     of the law which Article II of the Constitution evidently 
+     contemplated in vesting general executive power in the 
+     President alone.
+     
+Sierra Club v. Costle, 657 F.2d 298, 406 n.524 (D.C. Cir. 1981).  
+Those officers are duty-bound to give effect to the policies 
+embodied in the President's direction, to the extent allowed 
+by the law.  See  The Federalist No. 72, at 463 (Alexander 
+Hamilton) (Benjamin F. Wright ed., 1961) ("The persons, 
+therefore, to whose immediate management these different 
+matters are committed, ought to be considered as the assis-
+tants or deputies of the chief magistrate ... and ought to be 
+subject to his superintendence").
+
+     Section 3 of Executive Order No. 13,202 is such an exercise 
+of the President's supervisory authority over the Executive 
+Branch.  In the Executive Order, the President directs his 
+subordinates how to proceed in administering federally fund-
+ed projects, but only "[t]o the extent permitted by law."  
+Thus, if an executive agency, such as the FEMA, may lawful-
+ly implement the Executive Order, then it must do so;  if the 
+agency is prohibited, by statute or other law, from imple-
+menting the Executive Order, then the Executive Order itself 
+instructs the agency to follow the law.
+
+     The district court's comparison of Executive Order No. 
+13,202 to the executive order by which President Truman 
+purported to seize privately owned steel mills, and which the 
+Supreme Court declared unlawful in Youngstown, is mis-
+placed because the present Executive Order is not self-
+executing.  As the Government says, the question in the 
+earlier case was whether the President had constitutional 
+authority to seize the mills and not, as here, whether he could 
+direct Executive Branch officials in their implementation of 
+statutory authority.  Indeed, had President Truman merely 
+instructed the Secretary of Commerce to secure the Govern-
+ment's access to steel "[t]o the extent permitted by law," 
+Youngstown would have been a rather mundane dispute over 
+whether the Secretary had statutory authority to act as he 
+did.
+
+     The plaintiffs raise the prospect that, notwithstanding the 
+President's instruction that the Executive Order be applied 
+only "[t]o the extent permitted by law," a particular agency 
+may try to give effect to the Executive Order when to do so is 
+inconsistent with the relevant funding statute.  We express 
+no opinion upon whether this may come to pass.  The mere 
+possibility that some agency might make a legally suspect 
+decision to award a contract or to deny funding for a project 
+does not justify an injunction against enforcement of a policy 
+that, so far as the present record reveals, is above suspicion 
+in the ordinary course of administration.  See Reno v. Flores, 
+507 U.S. 292, 301 (1993) (to prevail in facial attack, complain-
+ant must "establish that no set of circumstances exists under 
+which the [regulation] would be valid") (brackets in original).  
+In the event that an agency does contravene the law in a 
+particular instance, an aggrieved party may seek redress 
+through any of the procedures ordinarily available to it:  a bid 
+protest, a motion for administrative reconsideration, or an 
+action in the district court challenging that specific decision.
+
+     Nonetheless, the plaintiffs complain that it is "untenable to 
+require each federal grantee or other potential party to a 
+PLA to challenge a threatened denial of funds based on the 
+Executive Order" because "projects are planned and conduct-
+ed on tight and critical timeframes."  That concern, however, 
+provides us with no warrant to relieve the plaintiffs of their 
+burden in this facial challenge to show that s 3 of the Order 
+is without any valid application.  See Flores, 507 U.S. at 301.  
+Nor is there reason to be concerned for "each federal grant-
+ee";  a single judicial determination that an agency lacks 
+authority to implement the Executive Order in its administra-
+tion of a particular statute is likely to settle any questions 
+about the application of the Executive Order to later grants 
+of federal funds pursuant to that statute.  Insofar as the 
+plaintiffs are concerned that "there is rarely time to litigate 
+an agency's rejection of a bid specification, or to challenge a 
+threat that funding will be withheld," the Government cor-
+rectly points out that the plaintiffs "offer no reason to think 
+that the usual mechanisms for seeking expedited review 
+would be inadequate" to provide redress where appropriate.  
+
+See, e.g., 4 C.F.R. s 21.10 (2002) (Comptroller General may 
+resolve dispute "using an express option" or other "flexible 
+alternative procedures").
+
+B.   The Executive Order and the NLRA
+
+     The district court held that because "[p]rivate entities are 
+being prohibited ... from requiring PLAs that are expressly 
+allowed by the NLRA," the NLRA preempts s 3 of the 
+Executive Order insofar as it applies to "private recipients of 
+federal funding who act as employers in construction pro-
+jects," 172 F. Supp. 2d at 167 (citing San Diego Bldg. Trades 
+Council v. Garmon, 359 U.S. 236 (1959)).  In that case, the 
+Supreme Court held that when "the activities which a State 
+purports to regulate are protected by s 7 of the [NLRA], or 
+constitute an unfair labor practice under s 8, due regard for 
+the federal enactment requires that state jurisdiction must 
+yield."  Id. at 244.  The district court also held that because 
+the Executive Order "impermissibly attempts to create an 
+ideally balanced state of bargaining according to the Presi-
+dent's conception of open competition among labor and man-
+agement," BCTD, 172 F. Supp. 2d at 167, the NLRA 
+preempts the Executive Order under the teaching of Interna-
+tional Association of Machinists & Aerospace Workers v. 
+Wisconsin Employment Relations Commission, 427 U.S. 132 
+(1976).  In that case the Court held that neither a state 
+government nor the National Labor Relations Board may 
+regulate an aspect of labor relations that the Congress in-
+tended "be controlled by the free play of economic forces."  
+Id. at 140.*
+
+__________
+     * The Government contends that the "legal principles developed 
+to govern federal-state relations are ill-suited to cases such as this, 
+which involve relations between two branches of the federal govern-
+ment."  Whatever the merit of that argument, this court on at least 
+one occasion has applied the doctrine "to federal government behav-
+ior that is thought similarly to encroach into the NLRA's regulatory 
+territory," and specifically to an executive order.  Chamber of 
+Commerce, 74 F.3d at 1335.  As the Government recognizes, the 
+panel is bound to abide by that precedent until it is overturned by 
+the court sitting en banc or by the Supreme Court.
+
+     The Government argues that we need not determine 
+whether the Executive Order runs afoul of the principles 
+established in Garmon and Machinists because "Executive 
+Order 13202 clearly constitutes proprietary action rather than 
+regulation."  We agree.
+
+     As the plaintiffs expressly recognize, the principles of 
+NLRA preemption come into play only when the Government 
+is "regulating within a protected zone," and not when it is 
+acting as a proprietor, "interact[ing] with private participants 
+in the marketplace."  Bldg. & Constr. Trades Council v. 
+Associated Builders & Contractors, 507 U.S. 218, 227 (1993) 
+(Boston Harbor).  The relevant distinction is whether, in 
+placing a labor-related condition upon its award either of a 
+construction contract or of funds to another entity that will 
+award the construction contract, the Government "acts just 
+[as] a private contractor would act, and conditions its pur-
+chasing upon the very sort of labor agreement that Congress 
+explicitly authorized and expected frequently to find," id. at 
+233, or instead seeks to affect conduct "unrelated to the 
+employer's performance of contractual obligations to the 
+[Government]," id. at 229;  accord, Chamber of Commerce, 74 
+F.3d at 1335.
+
+     As the Government maintains, s 1 of the Executive Order 
+embodies just "the type of decision regarding the use of labor 
+agreements that a private project owner would be free to 
+make."  The construction proviso of the NLRA, 29 U.S.C. 
+s 158(f), "explicitly permits employers in the construction 
+industry ... to enter into pre-hire agreements," Boston 
+Harbor, 507 U.S. at 230, but nothing in that proviso prevents 
+an employer from refusing to enter into such agreements.  
+Thus, s 1 leaves contractors free to determine whether they 
+will use PLAs on government contracts, just as they may 
+determine whether to use PLAs on projects for private 
+owner-developers that neither require nor prohibit their use.
+
+     The plaintiffs argue that at least s 3 of the Executive 
+Order is regulatory rather than proprietary because it applies 
+only to federally funded rather than to Government-owned 
+projects;  but that argument proceeds from too crabbed an 
+
+understanding of proprietorship.  First, the Government un-
+questionably is the proprietor of its own funds, and when it 
+acts to ensure the most effective use of those funds, it is 
+acting in a proprietary capacity.  Second, that the Govern-
+ment is a lender to or a benefactor of, rather than the owner 
+of, a project is not inconsistent with its acting just as would a 
+private entity;  a private lender or benefactor also would be 
+concerned that its financial backing be used efficiently.  In 
+sum, the distinction between federally owned and federally 
+funded projects is not relevant here.
+
+     The plaintiffs also contend that "when the Government acts 
+through blanket, across-the-board rules that 'flatly prohibit' 
+... certain actions on the part of its contractors and recipi-
+ents of its financial assistance, its conduct is clearly regulato-
+ry," whereas it acts in a proprietary capacity when it makes 
+an "ad hoc" contracting decision.  According to the plaintiffs, 
+this distinction finds support in Chamber of Commerce, 74 
+F.3d at 1337 (observing Executive Order No. 12,954 "cannot 
+be equated to the ad hoc contracting decision made by [the 
+State] in seeking to clean up Boston Harbor");  but the 
+plaintiffs misread that case, as did the district court, see 
+BCTD, 172 F. Supp. 2d at 170 ("EO 13202 sets a blanket rule 
+and does not require government agencies to act on a project-
+by-project basis, as was the case in Boston Harbor").  In 
+Chamber of Commerce, we held that Executive Order No. 
+12,954 was regulatory not because it decreed a policy of 
+general application, as opposed to a case-by-case regime, but 
+because it disqualified companies from contracting with the 
+Government on the basis of conduct unrelated to any work 
+they were doing for the Government.  See 74 F.3d at 1338 
+(executive order "ha[d] the effect of forcing corporations 
+wishing to do business with the federal government not to 
+hire permanent replacements even if the strikers are not the 
+employees who provide the goods or services to the govern-
+ment").  It is not surprising, therefore, that neither the 
+district court nor the plaintiffs offer any good explanation 
+why a "blanket rule" -- applicable to all government con-
+tracts, but not to the non-government contracts of those who 
+do business with the Government -- is somehow inconsistent 
+with the action of a proprietor.  We agree with the Govern-
+
+ment that there simply is "no logical justification" for holding 
+that "if an executive order establishes a consistent practice 
+regarding the use of PLAs, it is regulatory even though the 
+only decisions governed by the executive order are those that 
+the federal government makes as [a] market participant."  
+See Kahn, 618 F.2d at 789 (under Procurement Act, President 
+may exercise "authority over those larger administrative and 
+management issues that involve the Government as a whole").
+
+     A condition that the Government imposes in awarding a 
+contract or in funding a project is regulatory only when, as 
+the Supreme Court explained in Boston Harbor, it "ad-
+dresse[s] employer conduct unrelated to the employer's per-
+formance of contractual obligations to the [Government]."  
+507 U.S. at 228-29.  Here the Government correctly notes 
+that "the impact of [the] procurement policy [expressed in 
+Executive Order No. 13,202] extends only to work on projects 
+funded by the government."  Because the Executive Order 
+does not address the use of PLAs on projects unrelated to 
+those in which the Government has a proprietary interest, the 
+Executive Order establishes no condition that can be charac-
+terized as "regulatory."
+
+     Finally, the plaintiffs point out that s 1(a) of the Executive 
+Order could be read to prohibit any recipient of federal funds 
+from using a PLA for work on "related construction pro-
+ject(s)" that are not funded by the Government.  The mean-
+ing of the word "related" in s 1(a) is indeed unclear.  The 
+plaintiffs argue that as a result the Executive Order "cannot 
+fairly be characterized as affecting only the particular con-
+tract in which the Government has a financial interest."  
+When confronted with this reading, however, the Government 
+disavowed any construction of the Executive Order that 
+would prohibit an entity that uses a PLA in a non-federally 
+funded project from receiving federal funds.  We have no 
+reason to doubt, and every reason to hold the Government to, 
+that interpretation of s 1(a).
+
+                         III. Conclusion
+
+     For the foregoing reasons, we conclude that the President 
+acted within his constitutional authority in issuing Executive 
+
+Order No. 13,202 and that the Executive Order expresses a 
+proprietary policy that is not subject to preemption by the 
+NLRA.  Therefore, the judgment of the district court is 
+reversed and its injunction is vacated.
+
+                                        So ordered.
+
+                                                              

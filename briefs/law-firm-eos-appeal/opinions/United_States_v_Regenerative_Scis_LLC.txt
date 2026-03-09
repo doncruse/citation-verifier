@@ -1,0 +1,702 @@
+ United States Court of Appeals
+         FOR THE DISTRICT OF COLUMBIA CIRCUIT
+
+
+
+Argued October 21, 2013            Decided February 4, 2014
+
+                       No. 12-5254
+
+               UNITED STATES OF AMERICA,
+                       APPELLEE
+
+                             v.
+
+  REGENERATIVE SCIENCES, LLC, A CORPORATION, ET AL.,
+                    APPELLANTS
+
+
+        Appeal from the United States District Court
+                for the District of Columbia
+                    (No. 1:10-cv-01327)
+
+
+    Andrew S. Ittleman argued the cause for appellants. With
+him on the briefs was Mitchell S. Fuerst.
+
+    Jonathan W. Emord was on the brief for amicus curiae
+American Association of Orthopaedic Medicine in support of
+appellants.
+
+    Lawrence J. Joseph was on the brief for amicus curiae
+Association of American Physicians and Surgeons, Inc., in
+support of appellants.
+
+   James S. Turner was on the brief for amicus curiae Tim
+Moore in support of appellants.
+                              2
+
+    Abby C. Wright, Attorney, U.S. Department of Justice,
+argued the cause for appellee. With her on the brief were
+Stuart F. Delery, Principal Deputy Assistant Attorney
+General, Ronald C. Machen, Jr., U.S. Attorney, Mark B.
+Stern, Attorney, William B. Shultz, Acting General Counsel,
+Food and Drug Administration, and Eric M. Blumberg,
+Deputy Chief Counsel. Alisa B. Klein, Attorney, U.S.
+Department of Justice, entered an appearance.
+
+   Before: GRIFFITH and SRINIVASAN, Circuit Judges, and
+EDWARDS, Senior Circuit Judge.
+
+    Opinion for the court filed by Circuit Judge GRIFFITH.
+
+     GRIFFITH, Circuit Judge: In this civil enforcement action,
+we must decide whether the appellants—three individuals and
+a related corporate entity—violated federal laws regulating
+the manufacture and labeling of drugs and biological products
+by producing, as part of their medical practice, a substance
+consisting of a mixture of a patient’s stem cells and the
+antibiotic doxycycline. Because we conclude that they did, we
+affirm the district court’s judgment and the permanent
+injunction it entered against appellants.
+
+                               I
+
+                              A
+
+     This case involves two statutes under which the Food and
+Drug Administration (FDA) regulates the healthcare industry:
+the Federal Food, Drug & Cosmetic Act (FDCA), 21 U.S.C.
+§ 301 et seq., and the Public Health Service Act (PHSA), 42
+U.S.C. § 201 et seq. Those statutes promote the safety of
+drugs and biological products, respectively, by setting forth
+detailed requirements for how such substances are to be
+                              3
+
+manufactured and labeled. See 21 U.S.C. §§ 351 (FDCA
+manufacturing requirements), 352 (FDCA labeling
+requirements); 42 U.S.C. § 262(j) (incorporating by reference
+most of the FDCA’s provisions, including its manufacturing
+and labeling requirements, into the PHSA). Drugs and
+biological products not satisfying those requirements are
+deemed “adulterated” or “misbranded,” see 21 U.S.C. §§ 351,
+352, 353(b)(4); 42 U.S.C. § 262(j), and doing any act that
+causes a drug or biological product to be adulterated or
+misbranded is a violation of federal law, 21 U.S.C. § 331(k);
+42 U.S.C. § 262(j). The FDA may seek an injunction to
+prohibit such violations. 21 U.S.C. § 332(a); 42 U.S.C.
+§ 262(j).
+
+                              B
+
+     The substance at issue in this case is produced by
+appellants Dr. Christopher Centeno, Dr. John Schultz,
+Michelle Cheever, and Regenerative Sciences, LLC, as part of
+a medical therapy that they market as the “Cultured Regenexx
+Procedure” (the Procedure). Drs. Centeno and Schultz, who
+practice medicine together at the Centeno-Schultz Clinic in
+Colorado, jointly developed the Procedure to treat patients’
+orthopedic conditions. They are the majority shareholders of
+Regenerative Sciences, which they founded and which, in
+turn, owns the Procedure and licenses it exclusively to the
+Centeno-Schultz Clinic. Michelle Cheever is the laboratory
+director for Regenerative Sciences.
+
+     The Procedure begins with the extraction of a sample of a
+patient’s bone marrow or synovial fluid. From that sample,
+Regenerative Sciences isolates mesenchymal stem cells
+(MSCs), which are capable of differentiating into bone and
+cartilage cells. The MSCs are then placed in a solution to
+culture them—that is, to cause them to divide and proliferate.
+                               4
+
+Other substances are sometimes added to the solution that
+affect the MSCs’ differentiation. The culturing process
+determines the growth and biological characteristics of the
+resulting cell population. When the MSCs are sufficiently
+numerous for re-injection, they are combined with
+doxycycline, an antibiotic obtained in interstate commerce
+and used to prevent bacterial contamination of the MSCs. The
+resulting mixture (the Mixture) is injected into the patient
+from whom the stem cell sample was initially taken, at the site
+of the damaged tissue.
+
+     Appellants promote the Procedure as an alternative to
+surgery for various orthopedic conditions and diseases. In
+court filings, they have described the Procedure as a
+“treatment [for] orthopedic injuries and arthritis” and for
+“musculoskeletal and spinal injury.” Their promotional
+materials recommend the Procedure for treatment of
+osteoarthritis, non-healing bone fractures, chronic bulging
+lumbar discs, and soft tissue injuries.
+
+      In August 2010, the government filed this action for a
+permanent injunction against appellants, alleging that the
+Mixture is both a drug and a biological product that is
+adulterated and misbranded in violation of § 331(k) of the
+FDCA and § 262(j) of the PHSA, which incorporates § 331(k)
+by reference. Appellants counterclaimed, asserting that the
+Mixture is not subject to federal regulation and that, even if it
+is, the FDA’s effort to regulate the Mixture is defective under
+both the PHSA and the Administrative Procedure Act (APA),
+5 U.S.C. § 706(2).
+
+    The district court granted the government’s motion for
+summary judgment and dismissed appellants’ counterclaims,
+holding that they had violated the FDCA and the PHSA.
+United States v. Regenerative Scis., LLC, 878 F. Supp. 2d
+                               5
+
+248, 263 (D.D.C. 2012). Then, finding a “cognizable danger
+of a recurrent violation,” the district court entered a
+permanent injunction prohibiting appellants from committing
+further violations of the FDCA’s adulteration and
+misbranding restrictions. Id. at 262-63 (internal quotation
+marks omitted). Appellants timely appealed both orders.
+
+     We have jurisdiction to review the district court’s orders
+under 28 U.S.C. § 1291. We review the grant of summary
+judgment and dismissal of appellants’ counterclaims de novo,
+“drawing all reasonable inferences from the evidence in the
+light most favorable to the nonmoving party,” Geleta v. Gray,
+645 F.3d 408, 410 (D.C. Cir. 2011), and affirming only if
+“there is no genuine dispute as to any material fact and the
+movant is entitled to judgment as a matter of law,” FED. R.
+CIV. P. 56(a). We review the district court’s entry of a
+permanent injunction for abuse of discretion and its factual
+findings for clear error. United States v. Philip Morris USA
+Inc., 566 F.3d 1095, 1110 (D.C. Cir. 2009) (per curiam).
+
+                               II
+
+     Appellants’ principal argument is that the Mixture is not
+subject to regulation under the FDCA or PHSA because it is
+neither a drug nor a biological product but is, rather, a
+medical procedure. The text of those statutes forecloses this
+argument.
+
+     The FDCA defines a “drug” as any “article[] intended for
+use in the diagnosis, cure, mitigation, treatment, or prevention
+of disease” or “intended to affect the structure or any function
+of the body.” 21 U.S.C. § 321(g)(1); see also 21 C.F.R.
+§ 201.128 (providing that a drug’s intended use is shown by
+“the objective intent of the persons legally responsible for the
+labeling of [the] drug[],” which “may . . . be shown by
+                               6
+
+labeling claims, advertising matter, or oral or written
+statements by such persons or their representatives”). The
+PHSA defines “biological product” in similarly broad terms
+as any “virus, therapeutic serum, toxin, antitoxin, vaccine,
+blood, blood component or derivative . . . or analogous
+product . . . applicable to the prevention, treatment, or cure of
+a disease or condition of human beings.” 42 U.S.C.
+§ 262(i)(1). Both of these wide-ranging definitions clearly
+apply to the Mixture, an article derived mainly from human
+tissue and intended to treat orthopedic diseases and to affect
+musculoskeletal function. Indeed, appellants do not actually
+dispute that the plain language of the statutes compels this
+conclusion.
+
+     Rather, appellants urge us to construe the FDCA in light
+of purported federalism concerns. 1 But appellants’ concerns
+lack merit. They boil down to the following syllogism: the
+FDCA was not intended to infringe on states’ traditional role
+in regulating the practice of medicine; the Procedure fits
+Colorado’s statutory definition of the “practice of medicine”;
+therefore, the FDA’s regulation of the Procedure exceeds the
+FDA’s authority under the FDCA. This syllogism is flawed
+twice over.
+
+   First, it misapprehends what this case is about.
+Notwithstanding appellants’ attempt to characterize this case
+
+    1
+        Because the PHSA simply incorporates the FDCA’s
+substantive provisions by reference, the scope of the FDCA’s
+provisions is determinative of the reach of the PHSA’s provisions
+as well. Thus, the parties’ arguments and our discussion focus on
+the scope and application of the FDCA—keeping in mind that to
+adulterate and misbrand a substance that is both a drug and a
+biological product violates the PHSA as well as the FDCA.
+                                 7
+
+as an effort by the FDA to “restrict[] the use of an autologous
+stem cell procedure,” 2 Appellants’ Br. 8 (emphasis added),
+the focus of the FDA’s regulation is the Mixture. That is, the
+FDA does not claim that the procedures used to administer the
+Mixture are unsafe; it claims that the Mixture itself is unsafe.
+Appellants’ arguments about the practice-of-medicine
+exemption are therefore wide of the mark.
+
+       Second, appellants are wrong to suggest that the scope of
+the FDCA depends on state-by-state definitions of the
+“practice of medicine.” The FDCA enacts a comprehensive,
+uniform regulatory scheme for the distribution of drugs. The
+scheme’s breadth—and, more specifically, its applicability to
+doctors—is evident in the fact that the FDCA carves out
+certain exceptions from its requirements for doctors who
+manufacture and administer drugs in the course of their
+professional practice. See, e.g., 21 U.S.C. § 360(g)(2)
+(exempting licensed healthcare practitioners engaged in
+certain activities from the FDCA’s registration requirements);
+id. § 374(a)(2)(B) (narrowing the FDA’s ability to review the
+records of licensed healthcare practitioners “who
+manufacture, prepare, propagate, compound, or process drugs
+. . . solely for use in the course of their professional practice”).
+Those exceptions would be unnecessary if the FDCA did not
+otherwise regulate the distribution of drugs by licensed
+physicians. See United States v. Evers, 643 F.2d 1043, 1048
+(5th Cir. 1981) (“[W]hile the [FDCA] was not intended to
+regulate the practice of medicine, it was obviously intended to
+control the availability of drugs for prescribing by
+physicians.”). Appellants’ construction of the FDCA, by
+contrast, would allow states to gut the FDCA’s regulation of
+
+     2
+        An “autologous” stem cell procedure is one in which cells
+are implanted back into the individual from whom they were
+initially taken. See 21 C.F.R. § 1271.3(a).
+                               8
+
+doctors, and thereby create an enormous gap in the FDCA’s
+coverage, by classifying the distribution of drugs by doctors
+as the practice of medicine. Given Congress’s intent that the
+FDCA’s “coverage be as broad as its literal language
+indicates,” United States v. An Article of Drug . . . Bacto-
+Unidisk, 394 U.S. 784, 798 (1969), such a construction is not
+tenable.
+
+     Equally untenable is appellants’ contention that because
+the Procedure occurs entirely within the state of Colorado, the
+Mixture lacks a sufficient connection to interstate commerce
+to permit federal regulation under the Commerce Clause. It is
+simply impossible to square this argument with the last
+seventy years of Commerce Clause jurisprudence, which, in
+recognition of Congress’s authority to regulate even “purely
+local activities that are part of an economic ‘class of
+activities’ that have a substantial effect on interstate
+commerce,” Gonzales v. Raich, 545 U.S. 1, 17 (2005), has
+upheld federal laws prohibiting the possession of home-grown
+marijuana intended solely for personal use, id. at 32-33, and
+restricting the amount of wheat a farmer can grow purely for
+his farm’s consumption, Wickard v. Filburn, 317 U.S. 111,
+128-29 (1942). Here, not only does the Mixture undoubtedly
+have effects on interstate markets for orthopedic care, but it
+actually includes an article shipped in interstate commerce,
+namely, doxycycline. Cf. Raich, 545 U.S. at 17 (noting that
+when Congress concludes that a class of activities
+substantially affects interstate commerce, “the de minimis
+character of individual instances [of those activities] is of no
+consequence” (internal quotation marks omitted)). The
+Commerce Clause poses no obstacle to regulating the Mixture
+under the FDCA.
+
+    Nor can appellants prevail on their argument that even if
+the Mixture may be federally regulated in principle, it falls
+                                  9
+
+outside the scope of the statute appellants are charged with
+violating, 21 U.S.C. § 331(k). That provision prohibits “the
+doing of any . . . act with respect to[] a . . . drug . . . if such act
+is done while such [drug] is held for sale . . . after shipment in
+interstate commerce and results in such [drug] being
+adulterated or misbranded.” Id. (emphasis added). Appellants
+read § 331(k) to require that the entire Mixture have been
+shipped in interstate commerce. They contend that merely
+using an ingredient that travelled in interstate commerce—
+here, doxycycline—is insufficient to trigger the bar. We
+disagree. Not only does the FDCA define the term “drug” to
+include a drug’s components, but to interpret § 331(k) as
+appellants suggest would severely narrow a statutory scheme
+designed to regulate the safety of drugs at every stage of their
+distribution. See Evers, 643 F.2d at 1049 (explaining that
+§ 331 is “designed to prevent misbranding at each stage of the
+distribution process”); id. at 1050 (“Doctors holding drugs for
+use in their practice are clearly one part of the distribution
+process . . . .”). The two circuits to have considered this issue
+have reached the same conclusion. In United States v.
+Dianovin Pharmaceuticals, Inc., which involved a
+pharmaceutical company that used raw vitamin K purchased
+in interstate commerce to manufacture injectable vitamin K,
+the First Circuit held that the company’s “use of components
+shipped in interstate commerce . . . brought their activities
+within § 331(k).” 475 F.2d 100, 102-03 (1st Cir. 1973); see
+also United States v. Cassaro, Inc., 443 F.2d 153, 156 (1st
+Cir. 1971) (explaining that, under the Supreme Court’s
+decision in United States v. Sullivan, 332 U.S. 689 (1948),
+“interstate commerce in drugs continue[s] even after the first
+purely intrastate sale”). Similarly, in Baker v. United States,
+the Ninth Circuit held that § 331(k)’s “‘shipment in interstate
+commerce’ requirement is satisfied even when only an
+ingredient is transported interstate.” 932 F.2d 813, 814 (9th
+Cir. 1991). We therefore hold that, by virtue of its use of
+                               10
+
+doxycycline, the Mixture is within the scope of drugs—and,
+by extension, biological products, see 42 U.S.C. § 262(j)—
+regulated by § 331(k).
+
+                               III
+
+    Appellants next advance two arguments why the Mixture
+is exempt from the FDCA’s manufacturing and labeling
+requirements even if it is otherwise subject to federal
+regulation. Each argument fails.
+
+                               A
+
+     In addition to regulating biological products directly, the
+PHSA gives the FDA authority to issue regulations to prevent
+the interstate spread of communicable disease. See 42 U.S.C.
+§ 264(a). Pursuant to that authority, in 2001 the FDA
+promulgated regulations to ensure the safety of human cells,
+tissues, and cellular or tissue-based products (HCT/Ps) used
+for therapeutic purposes. Those regulations, which appear at
+21 C.F.R. part 1271, define HCT/Ps, in relevant part, as
+“articles containing or consisting of human cells or tissues
+that are intended for implantation, transplantation, infusion, or
+transfer into a human recipient.” 21 C.F.R. § 1271.3(d).
+HCT/Ps may qualify as drugs or biological products, and
+when they do, the FDA generally regulates them accordingly
+under the FDCA, PHSA, and corresponding regulations. See
+id. § 1271.20; see also Application of Current Statutory
+Authorities to Human Somatic Cell Therapy Products and
+Gene Therapy Products, 58 Fed. Reg. 53,248, 53,249 (Oct.
+14, 1993) (“Cellular products intended for use as somatic cell
+therapy are biological products subject to regulation pursuant
+to the [PHSA] and also fall within the definition of drugs in
+the [FDCA].”). The Part 1271 Regulations, however, create a
+regulatory exemption from the manufacturing and labeling
+                               11
+
+requirements that normally apply to drugs and biological
+products for any HCT/P that is no more than “minimally
+manipulated.” 3 See 21 C.F.R. § 1271.10(a). “Minimal
+manipulation” of cells means “processing that does not alter
+the relevant biological characteristics.” Id. § 1271.3(f)(2).
+Appellants claim this exemption applies to the Mixture, but
+the government offers several reasons why appellants’
+culturing process alters the MSCs’ relevant biological
+characteristics and is therefore more than minimal
+manipulation. As to some of those reasons, such as the
+government’s claim that culturing MSCs alters the genes and
+proteins they express, appellants have created genuine issues
+of fact by submitting expert affidavits arguing that the
+government’s views are based on scientific studies that are
+inapplicable to appellants’ culturing process. But appellants
+give no response to other reasons offered by the government.
+For example, appellants admit that the culturing process is
+designed to “determine the growth and biological
+characteristics of the resulting cell population.” It is also
+undisputed that, in at least some cases, appellants add
+substances to the cell culture that affect the differentiation of
+bone marrow cells.
+
+     These concessions are fatal to appellants’ attempt to
+claim refuge under § 1271.10(a). Given that § 1271.10(a) is
+an exemption from the otherwise applicable provisions of the
+FDCA, appellants ultimately bear the burden of establishing
+that it applies to the Mixture. See United States v. First City
+Nat’l Bank of Houston, 386 U.S. 361, 366 (1967) (stating the
+
+    3
+       To qualify for this regulatory exemption, an HCT/P must
+meet several other criteria as well, pertaining to its method of
+manufacture and intended use. See 21 C.F.R. § 1271.10(a). The
+government does not claim, however, that the Mixture fails to meet
+any of those additional criteria.
+                              12
+
+“general rule” of statutory construction that the party who
+“claims the benefits of an exception to the prohibition of a
+statute” carries the burden of establishing that the exception
+applies); FTC v. Morton Salt Co., 334 U.S. 37, 44-45 (1948).
+Because appellants concede that culturing MSCs affects their
+characteristics and offer no evidence that those effects
+constitute only minimal manipulation, they fail to carry that
+burden as a matter of law.
+
+     We emphasize that we reach this conclusion based on the
+evidence in the record, and not merely by deferring to the
+FDA’s statement in the preamble to the Part 1271 Regulations
+that expansion of MSCs in culture automatically constitutes
+more than minimal manipulation. See Human Cells, Tissues,
+and Cellular and Tissue-Based Products; Establishment
+Registration and Listing, 66 Fed. Reg. 5447, 5457 (Jan. 19,
+2001) (“We do not agree that the expansion of mesenchymal
+cells in culture . . . [is] minimal manipulation.”). Appellants
+devote considerable energy to challenging that statement as an
+invalid legislative rule that the FDA now seeks to enforce
+against them. That is, they claim that the FDA seeks to give
+legal effect to a statement that was not promulgated through
+formal rule-making procedures, which the APA forbids. Our
+decision, however, is based on, and gives effect to, the Part
+1271 Regulations, not the preamble. Appellants’ procedural
+challenge to the preamble is therefore irrelevant.
+
+     Surprisingly, appellants also challenge the Part 1271
+Regulations as ultra vires if applied to autologous stem cell
+procedures because, they argue, such procedures do not carry
+the risk of spreading communicable disease and thus are not
+subject to regulation under 42 U.S.C. § 264. It is unclear what
+appellants hope to achieve with this claim; to prevail would
+only mean invalidating the very exemption from the FDCA in
+which they hope to take refuge. In any case, the FDA’s
+                              13
+
+findings, which appellants do not challenge, undercut
+appellants’ argument. In promulgating the Part 1271
+Regulations, the FDA noted that any procedure involving
+HCT/Ps risks spreading disease through, for example,
+“[e]rrors in labeling, mixups of testing records, failure to
+adequately clean work areas, and faulty packaging.” Current
+Good Tissue Practice for Human Cell, Tissue, and Cellular
+and Tissue-Based Product Establishments; Inspection and
+Enforcement, 69 Fed. Reg. 68,612, 68,613 (Nov. 24, 2004).
+Indeed, Regenerative Sciences’ own standard operating
+procedure takes a similar view, recognizing the risk of
+“[c]ontamination” as a “major problem in tissue culture” and
+stressing the need for “good tissue practices” to “prevent the
+introduction, transmission, or spread of communicable
+diseases.” Appellants thus offer no basis to conclude that the
+Part 1271 Regulations exceed the FDA’s authority to issue
+regulations “to prevent the introduction, transmission, or
+spread of communicable diseases” between states. 42 U.S.C.
+§ 264(a).
+
+                              B
+
+     Alternatively, appellants contend that the Mixture is
+exempt from the FDCA’s manufacturing and labeling
+requirements because it is a compounded drug. See 21 U.S.C.
+§ 353a(a). A compounded drug must be produced using
+certain types of “bulk drug substances,” one of which is “bulk
+drug substances . . . that . . . are components of drugs
+approved by the [government].” Id. § 353a(b)(1)(A).
+Appellants assert that the Mixture meets this definition
+because cultured MSCs are a component of the FDA-
+approved drug Carticel. But even if that were the case—and
+the affidavits appellants cite only suggest that it might be—it
+would not be enough to bring the Mixture within § 353a. To
+qualify as a “bulk drug substance,” an item must be
+                                14
+
+“represented for use in a drug,” 21 C.F.R. § 207.3(a)(4), and
+appellants point to no evidence in the record even suggesting
+that MSCs are held out for use in Carticel, or any other drug
+for that matter. Appellants therefore fail to establish that the
+Mixture is exempt from the FDCA’s manufacturing and
+labeling requirements, and we proceed to consider whether
+the Mixture violated them.
+
+                                IV
+
+                                 A
+
+     The FDCA provides that a drug “shall be deemed to be
+adulterated . . . if . . . the methods used in, or the facilities or
+controls used for, its manufacture, processing, packing, or
+holding do not conform to or are not operated or administered
+in conformity with current good manufacturing practice.” 21
+U.S.C. § 351(a) (emphasis added). The FDA has established
+the specific elements of current good manufacturing practice
+at 21 C.F.R. parts 210-211. Here, it is undisputed that
+appellants’ facilities, methods, and controls for processing the
+Mixture violated federal manufacturing standards in
+numerous respects. Therefore, the Mixture is per se
+adulterated, regardless of any other safety protocols appellants
+happen to use. See John D. Copanos & Sons, Inc. v. FDA, 854
+F.2d 510, 514 (D.C. Cir. 1988) (“Drugs produced in violation
+of [federal manufacturing] regulations are deemed to be
+adulterated without the agency having to show that they are
+actually contaminated.”).
+
+                                 B
+
+     The FDCA also provides that a drug “shall be deemed to
+be misbranded” if its label omits certain information. As
+relevant here, the FDCA requires that a drug’s label provide
+                               15
+
+“adequate directions for use,” 21 U.S.C. § 352(f)(1), and, in
+the case of prescription drugs, bear the symbol “Rx only,” id.
+§ 353(b)(4)(A). Appellants admit that the Mixture’s labeling
+satisfies neither of these requirements. 4
+
+      Appellants nevertheless argue that it is inappropriate to
+hold them liable for not providing adequate directions because
+they produced the Mixture only for their own use. This
+argument, however, misunderstands how the FDCA’s labeling
+scheme applies to prescription drugs. To satisfy § 352(f)’s
+requirement of providing “adequate directions for use,” a
+drug’s label must provide “directions under which the layman
+can use a drug safely and for the purposes for which it is
+intended.” 21 C.F.R. § 201.5 (emphasis added). A
+prescription drug, however, is by definition “not safe for use
+except under the supervision of a practitioner licensed by law
+to administer such drug.” 21 U.S.C. § 353(b)(1)(A) (emphasis
+added). It is thus impossible to provide “adequate directions
+for use” for prescription drugs. As the Seventh Circuit has
+observed, this means that prescription drugs are
+“presumptively misbranded.” United States v. An Article of
+Device, 731 F.2d 1253, 1261 (7th Cir. 1984); see United
+States v. Articles of Drug, 625 F.2d 665, 673 (5th Cir. 1980)
+(holding that § 352(f)(1) requires a drug’s labeling to “contain
+adequate directions for a consumer to engage in self-
+medication” and noting that a “prescription drug by definition
+. . . is unsuitable for self-medication”). A prescription drug
+can avoid being actually misbranded only by qualifying for
+
+    4
+       The Mixture’s label would have to bear the symbol “Rx
+only” even if the Mixture were a compounded drug. See 21 U.S.C.
+§ 353a(a) (exempting compounded drugs from the labeling
+requirements of § 352(f)(1) but not § 353(b)(4)). Thus, even if we
+were to accept appellants’ compounding argument, the Mixture still
+would be misbranded. See id. § 353(b)(4).
+                               16
+
+either of two exemptions from § 352(f): the statutory
+exemption, which applies when licensed practitioners
+distribute drugs to patients via prescriptions, see 21 U.S.C.
+§ 353(b)(2), or the regulatory exemption, which applies to
+prescription drugs at any stage of distribution, see 21 C.F.R.
+§ 201.100; Articles of Drug, 625 F.2d at 673. A prescription
+drug’s label must contain specific information in order for
+either exemption to apply. If the label does not contain every
+piece of required information, the prescription drug will
+remain subject to the impossible mandate of § 352(f) and will
+be misbranded.
+
+     Here, there is no doubt that the Mixture qualifies as a
+prescription drug. Before the Mixture can be injected into a
+patient, a physician must review the cultured MSCs to ensure
+that there are no visible signs of bacterial contamination or
+genetic mutation. Then, if the MSCs are safe, appellants inject
+the Mixture using sophisticated imaging devices to ensure that
+it reaches the right spot on a patient’s bone or tissue so that it
+has the intended therapeutic effect. Because the Mixture can
+be safely administered only under a physician’s supervision,
+the question for us is whether the Mixture qualifies for either
+§ 352(f) exemption. The answer is clear. Both exemptions
+require that the label bear the symbol “Rx only,” see 21
+U.S.C. § 353(b)(4)(A); 21 C.F.R. § 201.l00(b)(1), and it is
+undisputed that the Mixture’s label does not. Because its label
+fails to provide the minimum information necessary to qualify
+for either exemption from § 352(f), the Mixture is
+misbranded.
+
+    In reaching this conclusion, we reject appellants’ broad
+reading of United States v. Evers, in which the Fifth Circuit
+held that a doctor was not liable for violating § 352(f)(1) by
+advertising his off-label use of a prescription drug without
+providing adequate directions for that use. See Evers, 643
+                              17
+
+F.2d at 1053-54. Appellants read Evers for the proposition
+that doctors need not comply with the FDCA’s labeling
+requirements when they prescribe drugs only within their own
+practices. But Evers cannot bear the weight of this
+interpretation, which is inconsistent with the fact that the
+FDCA does not exempt doctors in such a categorical manner.
+As the Fifth Circuit made clear, the “object of the
+government’s case” in Evers was not the off-label
+“prescription” of the drug at issue, but rather the “promotion
+and advertising” of such off-label use. Id. at 1049 (emphases
+added). Evers thus differs from this case in two important
+ways: the drug at issue in Evers was FDA approved, and the
+FDA did not question Evers’s right to prescribe that drug to
+his patients. Neither of those circumstances is present here.
+The FDA has not approved the Mixture as safe for any use
+and hence challenges appellants’ right to prescribe the
+Mixture at all. We will not broaden Evers to vitiate the
+FDCA’s labeling requirements in these circumstances. The
+strict exemption criteria presumably reflect the judgment of
+both Congress and the FDA about the minimum information
+necessary to safely distribute prescription drugs. Because
+appellants did not meet those criteria, they misbranded their
+drug.
+
+                               V
+
+     Having found that the government is entitled to summary
+judgment that appellants adulterated and misbranded the
+Mixture, we review the district court’s entry of a permanent
+injunction. Appellants attack the injunction on two fronts.
+They contend that in entering the injunction, the district court
+failed to make the necessary findings and that, in any event,
+the facts do not warrant injunctive relief.
+                                18
+
+     The FDCA gives courts jurisdiction to enjoin violations
+of 21 U.S.C. § 331(k). See 21 U.S.C. § 332(a). To obtain
+injunctive relief, the government “must demonstrate a
+‘reasonable likelihood of further violation[s] in the future.’”
+United States v. Philip Morris USA Inc., 566 F.3d 1095, 1132
+(D.C. Cir. 2009) (per curiam) (quoting SEC v. Savoy Indus.,
+Inc., 587 F.2d 1149, 1168 (D.C. Cir. 1978)) (alteration in
+original). A district court should consider three factors in
+determining whether a reasonable likelihood exists:
+“‘[1] whether a defendant’s violation was isolated or part of a
+pattern, [2] whether the violation was flagrant and deliberate
+or merely technical in nature, and [3] whether the defendant’s
+business will present opportunities to violate the law in the
+future.’” Id. (quoting SEC v. First City Fin. Corp., 890 F.2d
+1215, 1228 (D.C. Cir. 1989)).
+
+     Appellants argue that the district court failed to make
+findings regarding these three factors. Though it is true that
+the district court did not explicitly list the factors, there can be
+no serious dispute that its factual findings implicate them. In
+justifying the injunction, the district court stated:
+
+        [The] FDA notified [appellants] that their RegenexxTM
+        Procedure may be in violation of the [FDCA]. It then
+        twice inspected [appellants’] laboratories and found a
+        number of [current good manufacturing practice]
+        violations. [Appellants] maintained that the FDA
+        could not regulate their cell product and did not bring
+        their processes into compliance with [current good
+        manufacturing practice]. Although [appellants] agreed
+        to stop using their RegenexxTM Procedure during the
+        pendency of this lawsuit, there remains a “cognizable
+        danger of recurrent violation.”
+                                19
+
+Regenerative Scis., 878 F. Supp. 2d at 262-63. These findings
+speak to the existence of each relevant factor. The fact that the
+FDA found violations on two separate occasions and that
+appellants refused to take corrective action even after multiple
+FDA notices suggests a pattern of deliberate, even flagrant
+violations. And, of course, these violations were inextricably
+linked to the operation of appellants’ business.
+
+     Even so, appellants maintain that the district court abused
+its discretion. They insist that they have shown “the utmost
+respect for the judicial system” by discontinuing use of the
+Procedure during the pendency of this litigation and that the
+Procedure employed robust safety protocols, albeit not those
+federal regulations required. These facts, however, do not
+establish an abuse of discretion. That appellants suspended
+use of the Procedure does not in itself preclude injunctive
+relief. See United States v. Article of Drug Designated B-
+Complex Cholinos Capsules, 362 F.2d 923, 928 (3d Cir.
+1966) (“It is well settled that the cessation of activities, either
+before or after suit is begun, does not in itself bar issuance of
+the injunction.”). Furthermore, appellants have admitted to
+over a dozen violations of federal manufacturing regulations,
+and evidence in the record supports the serious nature of those
+violations. Appellants also admit that they did not improve
+their manufacturing process even after receiving FDA
+warnings. Such conduct is sufficient to warrant the permanent
+injunction.
+
+                                VI
+
+    For the foregoing reasons, we affirm the district court’s
+orders granting summary judgment to the government,
+dismissing appellants’ counterclaims, and permanently
+enjoining appellants from committing future violations of the
+FDCA’s manufacturing and labeling provisions.
+

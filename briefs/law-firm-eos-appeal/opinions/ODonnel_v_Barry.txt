@@ -1,0 +1,1105 @@
+                        United States Court of Appeals
+
+
+                     FOR THE DISTRICT OF COLUMBIA CIRCUIT
+
+
+              Argued April 9, 1998        Decided July 28, 1998
+
+
+                                 No. 97-7129
+
+
+                            Philip A. O'Donnell, 
+
+                                  Appellant
+
+
+                                      v.
+
+
+                       Marion S. Barry, Jr., et al.,  
+
+                                  Appellees
+
+
+                Appeal from the United States District Court 
+
+                        for the District of Columbia 
+
+                               (No. 96cv02195)
+
+
+     Robert C. Seldon, argued the cause for appellant, with 
+whom Joanne Royce was on the briefs.  Sarah L. Levitt 
+entered an appearance.
+
+     Donna M. Murasky, Assistant Corporation Counsel, ar-
+gued the cause for appellees, with whom John M. Ferren, 
+Corporation Counsel, and Charles L. Reischel, Deputy Corpo-
+
+
+
+ration Counsel, were on the brief.  Jo Anne Robinson, Princi-
+pal Deputy, entered an appearance.
+
+     Before:  Wald, Sentelle and Randolph, Circuit Judges.
+
+     Opinion for the Court filed by Circuit Judge Wald.
+
+     Wald, Circuit Judge:  Philip O'Donnell, a career officer in 
+the District of Columbia's Metropolitan Police Department, 
+has brought suit against the District of Columbia, the Mayor, 
+and the Chief of Police.  O'Donnell claims that his transfer 
+from the job of Deputy Chief of Police for Investigative 
+Services to the (less desirable) job of head of the Depart-
+ment's Property Division, followed by his demotion to the 
+rank of captain and the position of district patrol supervisor, 
+violated his free speech and due process rights under the 
+Constitution.  The district court dismissed all of O'Donnell's 
+claims, except for one of the due process claims, as to which it 
+granted summary judgment;  O'Donnell has appealed.  We 
+affirm, except as to one element of O'Donnell's First Amend-
+ment claim, which we believe requires further factual develop-
+ment.
+
+                                I.  Background
+
+
+     O'Donnell's account of the events surrounding his transfer 
+and demotion is set out below.  Many of the facts he recounts 
+are fiercely contested by the defendants;  however, because 
+the plaintiff's claims must be taken as true on a motion to 
+dismiss, and the facts on the basis of which the district court 
+granted summary judgment are not contested, we assume 
+them to be true for purposes of the appeal as well.
+
+     O'Donnell began his career with the Police Department 
+almost three decades ago, in 1969.  Over the years, he rose 
+through the ranks, until, in January 1995, he was appointed 
+D.C. Deputy Chief of Police for the Investigative Services 
+Bureau of the D.C. Police Department.  This was a very 
+senior position;  O'Donnell had authority over offices special-
+izing in a range of high-profile criminal matters, including the 
+Homicide Branch (a fact whose importance will soon become 
+clear).  In his new position, O'Donnell reported to the then 
+
+
+Assistant Chief of Police for the Patrol Services Bureau, 
+Larry Soulsby;  Soulsby, in turn, reported directly to the 
+Chief of Police.  O'Donnell avers in his complaint that he did 
+an excellent job during his tenure, making a number of 
+important reforms in the work of the offices under his 
+command.
+
+     The first signs of trouble came in May of 1995, when 
+Soulsby called O'Donnell into his office to discuss a newspa-
+per article that reported that the Police Department had 
+failed to resolve a total of 123 unexplained deaths of African-
+American women over a ten-year period.  The article had 
+caused considerable public controversy, and Soulsby was "in-
+censed" because he believed that the story had been leaked 
+by sources within the Police Department--specifically, by 
+Captain William J. Hennessy, the head of the Homicide 
+Branch, who was O'Donnell's immediate subordinate.  O'Don-
+nell denied that Hennessy was the source of the news report, 
+and added that the Homicide Branch was aware of the 
+unsolved homicides and was already conducting an investiga-
+tion.  According to O'Donnell, Soulsby "responded angrily 
+that the article was untrue and ordered that nothing should 
+be done to investigate the allegations."  O'Donnell strongly 
+disagreed, noting that a serial killer might be involved;  at a 
+routine staff meeting later in the day, the Chief of Police, 
+Fred Thomas, ordered an investigation.
+
+     Two months later, Thomas retired and Soulsby was ap-
+pointed interim chief of police.  The week after his appoint-
+ment, O'Donnell sent him a long memorandum, titled "Setting 
+Priorities for the Metropolitan Police Department," which 
+ranked crime-related issues and proposed solutions.  Soulsby 
+did not respond;  O'Donnell claims that this was because 
+Soulsby wished to keep things quiet pending his confirmation 
+as Chief of Police by the D.C. City Council.
+
+     Soon afterwards, Soulsby told O'Donnell that Mayor Mar-
+ion Barry was blocking O'Donnell's promotion to Assistant 
+Chief of Police (a promotion Soulsby had promised to secure).  
+Soulsby said that the Mayor believed that O'Donnell was a 
+
+
+
+racist;  there was, O'Donnell avers, no reason that anyone 
+should believe that this was true.  O'Donnell then spent 
+several months off the job because of a heart condition.  
+When he returned, in September 1995, he learned that he was 
+to be transferred to a less responsible position, that of 
+Commander of the Property Division.  (O'Donnell did, howev-
+er, retain his rank as Deputy Chief of Police.)  Once again, 
+Soulsby said that the transfer was because Barry thought 
+O'Donnell was a racist.
+
+     Soulsby also reassigned Captain Hennessy to a less respon-
+sible job, that of Night Supervisor.  According to O'Donnell, 
+Soulsby then told the media in an off-the-record statement 
+that Hennessy had been transferred because he was under 
+investigation and likely to be indicted for violating the civil 
+rights of a black suspect.  O'Donnell says that when Hennes-
+sy learned of this claim he confronted Soulsby, who admitted 
+he had lied.  Hennessy apparently taped this conversation, 
+and later told Soulsby that he had done so.  As a result, the 
+two allegedly entered into a pact (which O'Donnell refers to 
+as the "Soulsby-Hennessy agreement") under which Hennes-
+sy got a better job (but not in the Homicide Branch), in 
+exchange for silence, especially at Soulsby's pending confir-
+mation hearing.  Soulsby was confirmed as Chief of Police in 
+December of 1995.
+
+     In the meantime, according to O'Donnell, he was doing an 
+exemplary job of running the Property Division.  In his new 
+position, he was in charge of the Department's facilities for 
+storing property and automobiles, and supervised personnel 
+at a police drug laboratory.  O'Donnell wrote a number of 
+reports about problems at the Division, which Soulsby again 
+ignored;  O'Donnell nevertheless implemented a number of 
+the suggestions that they contained.
+
+     On May 9, 1996, Soulsby made a speech at the District's 
+Ballou High School in which he claimed that the backlog of 
+123 unsolved cases involving African-American women had 
+only been discovered after O'Donnell and Hennessy had been 
+transferred out of their jobs.  O'Donnell protested to Soulsby 
+orally and in writing, and ultimately said that he would retire.  
+
+
+Shortly thereafter, the news media learned about the 
+Soulsby-Hennessy agreement, and Hennessy's tape of his 
+conversation with Soulsby;  subsequent news reports were 
+highly critical of the alleged agreement, and of Soulsby's 
+performance as Chief of Police.  For example, on July 14, 
+1996, the CBS television program 60 Minutes ran a report 
+that said that the Police Department had performed poorly 
+under Soulsby and that (in O'Donnell's words) Soulsby had 
+"low credibility."  The report also criticized the Mayor's poor 
+response to the scandal surrounding the Soulsby-Hennessy 
+agreement, and said that senior executives in the Homicide 
+Branch believed that the reassignment of Captain Hennessy 
+was unjustified and had damaged the Police Department.  
+There were many demands for Hennessy and Soulsby to 
+release the tape.  Soulsby called on Hennessy to release the 
+tape, and Hennessy, somewhat inexplicably, declined to do so 
+until Soulsby released him from their agreement.  Senior 
+D.C. officials (including a D.C. Council member and the 
+Corporation Counsel) eventually criticized Soulsby for enter-
+ing into the claimed agreement with Hennessy, and Soulsby 
+publicly apologized.
+
+     On July 18, 1996, in the midst of these events, the Wash-
+ington Post published a letter to the editor by O'Donnell, 
+which said:
+
+          I am writing to confirm the credibility of Capt. William 
+     L. Hennessy of the Metropolitan Police Department.  I 
+     currently am employed by the Metropolitan Police De-
+     partment as a deputy chief of police assigned to the 
+     technical services bureau as director of the property 
+     division. 
+
+          I was Capt. Hennessy's bureau chief during the better 
+     part of the two years he spent as the commander of the 
+     homicide branch.  During this time, I observed Capt. 
+     Hennessy to be a very loyal and extremely knowledge-
+     able and hard-working individual--one who clearly is 
+     dedicated to the Metropolitan Police Department and the 
+     citizens of the District of Columbia.  Capt. Hennessy is a 
+     "cop's cop";  he is a true leader. 
+
+
+
+          I did not support Capt. Hennessy's transfer to a "non-
+     descriptive" assignment.  It is my opinion that Capt. 
+     Hennessy's transfer from the homicide branch not only 
+     was a tragic loss to the Metropolitan Police Department 
+     but a disservice to the citizens of the District. 
+
+          Capt. Hennessy is an extremely credible person--
+     unlike the chief of police. 
+
+The following day, Soulsby and Barry demoted O'Donnell to 
+the rank of captain, and ordered him to a comparatively low 
+position as district patrol supervisor.
+
+     O'Donnell retired two weeks later, on July 31, 1996.  As a 
+result of the fact that he was demoted before he retired, his 
+severance pay and payments for unused annual leave were 
+reduced by an amount that he estimates as $11,250.  O'Don-
+nell also says that he had intended to seek out a job as chief 
+of police of a large city, but that his demotion "irreparably 
+stigmatized" him in "the close-knit world of chiefs of police of 
+large cities and municipalities and eliminated him from any 
+real consideration for positions such as these."  O'Donnell 
+ended up with a job as Chief of Police of Brunswick, Mary-
+land.
+
+     On September 23, 1996, O'Donnell brought suit against the 
+District of Columbia, against Police Chief Soulsby and Mayor 
+Barry in their official capacities, and against Soulsby in his 
+individual capacity.  O'Donnell's complaint claimed that the 
+foregoing events (1) violated his First Amendment rights;  (2) 
+deprived him of a liberty interest in his good name and 
+professional reputation in violation of the due process clause;  
+and (3) deprived him of "his ability to pursue his chosen 
+occupational field," also in violation of the due process clause.  
+The defendants moved to dismiss or in the alternative for 
+summary judgment.  The district court granted the motion to 
+dismiss as to the first two counts, and the motion for sum-
+mary judgment as to the third.  O'Donnell now appeals this 
+order.
+
+     The District also argued before the district court that 
+Soulsby was entitled to qualified immunity.  The district 
+
+
+
+court did not reach this issue;  the District presses it again on 
+this appeal.
+
+                                II.  Analysis
+
+
+     A.The First Amendment Claim
+
+     O'Donnell claims his transfer from the position of Deputy 
+Chief for the Investigative Services Bureau to the job at the 
+Property Division, and subsequent demotion to the rank of 
+captain and reassignment to a job as district patrol supervi-
+sor, both occurred in retaliation for exercises of his right to 
+free speech.  He cites five events that prompted the retalia-
+tion against him:  (1) his memo to Soulsby ranking crime 
+issues in the District;  (2) his discussions with Soulsby about 
+the need to investigate the deaths of the 123 women;  (3) his 
+criticism of Soulsby's claim in the Ballou High School speech 
+that the unsolved deaths were only discovered after O'Donnell 
+and Hennessy were transferred;  (4) his memos on improve-
+ments in the function of the Property Division;  and (5) his 
+letter to the Washington Post.
+
+     The speech of public employees like O'Donnell enjoys con-
+siderable First Amendment protection;  the Supreme Court 
+has "unequivocally rejected" the proposition that public em-
+ployees "may constitutionally be compelled to relinquish the 
+First Amendment rights they would otherwise enjoy as citi-
+zens to comment on matters of public interest."  Pickering v. 
+Board of Educ., 391 U.S. 563, 568 (1968).  However, the reach 
+of this protection is not unlimited.  A public official seeking to 
+make out a claim of retaliation in violation of her First 
+Amendment rights must meet a four-factor test.  See Hall v. 
+Ford, 856 F.2d 255, 258 (D.C. Cir. 1988).  "First, the public 
+employee must have been speaking on a matter of public 
+concern.  If the speech is not of public concern, it is unneces-
+sary to scrutinize the basis for the adverse action absent the 
+most unusual circumstances."  Tao v. Freeh, 27 F.3d 635, 
+638-39 (D.C. Cir. 1994) (citations omitted).  Second, the court 
+must consider whether the governmental interest in "promot-
+ing the efficiency of the public services it performs through 
+its employees" without disruption, Pickering, 391 U.S. at 568, 
+outweighs the employee's interest, "as a citizen, in comment-
+ing upon matters of public concern," id., and the interest of 
+
+
+potential audiences in hearing what the employee has to say, 
+United States v. National Treasury Employees Union, 513 
+U.S. 454, 468 (1995).  Third, the employee must show that her 
+speech was a substantial or motivating factor in prompting 
+the retaliatory or punitive act of which she complains.  See 
+Mt. Healthy City School Board of Education v. Doyle, 429 
+U.S. 274, 287 (1977).  And finally, the employer should have 
+an opportunity to show "by a preponderance of the evidence 
+that it would have reached the same decision even in the 
+absence of the protected conduct."  Id.  "The first two fac-
+tors under the Pickering test are questions of law for the 
+court to resolve, while the latter are questions of fact ordi-
+narily for the jury."  Tao, 27 F.3d at 639.
+
+     The District asserts that the first two elements of this test 
+are not satisfied here:  it claims that O'Donnell's speech was 
+not on an issue of public concern, and asserts that, even if it 
+was, the city's interest in the efficient operation of the Police 
+Department far outweighed O'Donnell's interest in speaking 
+out.  We address these two issues in that order.
+
+     1. Public Concern
+
+     The district court concluded that O'Donnell's memos to and 
+discussions with Soulsby were all on topics of public concern, 
+but that the letter to the editor was not.  We agree with the 
+first finding, but disagree with the second;  we find that all of 
+the communications at issue in this case were on topics of 
+public concern.
+
+     "Speech that concerns issues about which information is 
+needed or appropriate to enable members of society to make 
+informed decisions about the operation of their government 
+merits the highest degree of first amendment protection."  
+Hall v. Ford, 856 F.2d 255, 259 (D.C. Cir. 1988).  All of the 
+speech at issue here falls into this category.  Each of O'Don-
+nell's memos to Soulsby involved important issues of Police 
+Department policy--questions of how to rank the Depart-
+ment's law-enforcement priorities, and how to reform the 
+operations of the Property Division (which were, O'Donnell 
+claims, later shown by news reports to be in some need of 
+reform).  His conversation with Soulsby about what priority 
+
+
+
+to give an investigation of over a hundred unsolved murders 
+was also obviously of great public concern;  indeed, the con-
+versation was itself prompted by a newspaper article critical 
+of Police Department ineptitude.
+
+     The district court concluded that O'Donnell's letter to the 
+editor was not on a subject of public concern because it 
+"related to long-standing internal disputes among O'Donnell, 
+Hennessy, and Soulsby, and not to matters of public concern 
+about the structure, management, or policies of the Depart-
+ment," and did not contain any "information to educate or 
+inform the public about the operation of the MPD other than 
+to air Plaintiff's personal grievances."  O'Donnell's conversa-
+tion with Soulsby about the Ballou High School speech also 
+seems to have been motivated at least in part by personal 
+grievances.
+
+     In Connick v. Myers, 461 U.S. 138 (1983), the Court 
+considered the case of an employee of the New Orleans 
+District Attorney's office, who, dissatisfied with her impend-
+ing transfer, circulated a questionnaire that asked a series of 
+general questions about levels of office morale and the confi-
+dence employees had in their supervisors.  The Court con-
+cluded that (with one exception not relevant here) the "ques-
+tions reflect[ed] one employee's dissatisfaction with a transfer 
+and an attempt to turn that displeasure into a cause clbre" 
+and hence did not raise issues of public concern.  Id. at 148.
+
+     Connick emphasized, however, that "[w]hether an employ-
+ee's speech addresses a matter of public concern must be 
+determined by the content, form, and context of a given 
+statement, as revealed by the whole record."  Id. at 147-48.  
+Moreover, it is clear that the presence of a personal motiva-
+tion for an employee's speech, although certainly a factor in 
+the public-concern analysis, need not destroy the character of 
+a communication as one of public concern.  See Tao, 27 F.3d 
+at 639 ("The motivation of the employee is only one factor to 
+be considered in assessing whether a statement is one of 
+public concern.").  Even a disgruntled employee can raise a 
+matter that is of considerable concern to the public.  See, e.g., 
+Connick, 461 U.S. at 148;  Tao, 27 F.3d at 640;  Stroman v. 
+
+
+
+Colleton County School Dist., 981 F.2d 152, 157-58 (4th Cir. 
+1992) (finding that although a letter circulated by a teacher to 
+fellow teachers was prompted by a "personal grievance," and 
+the letter's substance, "in large part, seems to be limited to 
+this grievance," the letter raised questions of budget misman-
+agement, and hence was arguably on a subject of public 
+concern);  Zamboni v. Stamler, 847 F.2d 73, 77-78 (3d Cir. 
+1988) (finding that a police detective's objections to a revised 
+promotion scheme were on a subject of public concern, even 
+though the employee was partly motivated by a desire to 
+improve his own chances for a promotion).  Indeed, it may be 
+that those employees who are dissatisfied with their work-
+places are precisely those who are likeliest to notice malfea-
+sance, and be willing to speak up about it.
+
+     We find that there was a substantial public concern with 
+the subject matter of both the letter to the editor and the 
+conversation about the Ballou High School speech, and that 
+the fact that O'Donnell may have acted partly on the basis of 
+personal motivations makes no difference.  O'Donnell's letter 
+to the editor raised two broad issues.  First, by saying that 
+Hennessy's "transfer from the homicide branch not only was 
+a tragic loss to the Metropolitan Police Department but a 
+disservice to the citizens of the District," it indicated that the 
+Homicide Branch's work had been impaired by Hennessy's 
+loss.  There had already been some public debate about the 
+effectiveness of the Homicide Branch (in the 60 Minutes 
+broadcast);  O'Donnell's letter contributed to this debate, and 
+thus was on a subject of public concern.
+
+     Second, and more importantly, the letter contributed to the 
+public's knowledge of the Soulsby-Hennessy agreement, and 
+thus of Soulsby's fitness for office.  The pact involved an 
+attempt by Soulsby to prevent information that might have 
+damaged his chances of confirmation from coming to light;  
+members of the public might legitimately see this agreement 
+as improper, or worse.  Although, as we discuss below, there 
+remain questions about precisely what information the letter 
+contributed about the pact, it made at least an evaluative 
+contribution.  It was therefore on a subject of public concern.  
+A communication that provides information that might help 
+
+
+
+the public to "make informed decisions about the operation of 
+their government merits the highest degree of first amend-
+ment protection,"  Hall, 856 F.2d at 259;  there are few more 
+fundamental decisions that the public can make about its 
+government than assessing the probity of a public official.  
+See Foster v. Ripley, 645 F.2d 1142, 1148 (D.C. Cir. 1981) 
+(observing that an employee's interest in speaking out is 
+"entitled to more weight when the employee is ... acting as a 
+whistleblower exposing corruption among public officials");  
+cf. Connick, 461 U.S. at 148 (noting that the plaintiff had not 
+claimed "that the District Attorney's Office was not discharg-
+ing its governmental responsibilities," or sought "to bring to 
+light actual or potential wrongdoing or breach of public 
+trust").
+
+     Turning to O'Donnell's exchange with Soulsby after the 
+Ballou High School speech, O'Donnell says that he told 
+Soulsby that it was not true that the 123 unsolved murders 
+only came to light after O'Donnell and Hennessy were trans-
+ferred, and reminded him that Soulsby himself had opposed 
+an investigation.  This conversation implicated a number of 
+broader policy issues, including questions about whether 
+Soulsby had been right to transfer Hennessy and O'Donnell 
+to less responsible positions and about what caused the 
+backlog and how it was detected.  Thus, this conversation, 
+too, was on a topic of public concern.
+
+     2. Governmental Interest
+
+     In the second step of the Pickering analysis, we consider 
+whether the government's interest in "promoting the efficien-
+cy of the public services it performs through its employees," 
+Pickering, 391 U.S. at 568, outweighs the employee's interest 
+in speaking out and the public's interest in hearing what he 
+has to say--or, in the case of speech made in private (like 
+some of the speech here), the public's interest in having the 
+employee make himself heard within his organization.
+
+     We have already outlined the nature of the interests on the 
+employee's side of the equation.  As to those on the govern-
+ment's side, the Court explained in Rankin v. McPherson, 
+483 U.S. 378, 388 (1987), that we must consider "whether the 
+
+
+
+statement impairs discipline by superiors or harmony among 
+co-workers, has a detrimental impact on close working rela-
+tionships for which personal loyalty and confidence are neces-
+sary, or impedes the performance of the speaker's duties or 
+interferes with the regular operation of the enterprise."  And, 
+just as we consider the content, manner, time and place of the 
+speech in deciding whether it is of public concern at all, we 
+take these factors into account in weighing the governmental 
+interest in regulating the speech.  See Connick, 461 U.S. at 
+152-53.
+
+     Before we launch into the governmental-interest analysis, 
+we will dispose of two preliminary issues.  First, the District 
+rightly argues, and the district court correctly agreed, that 
+because of the special degree of trust and discipline required 
+in a police force there may be a stronger governmental 
+interest in regulating the speech of police officers than in 
+regulating the speech of other governmental employees.  The 
+Supreme Court has found that a police department may 
+legitimately regulate its officers' personal grooming in order 
+to make its officers readily recognizable and promote "esprit 
+de corps," Kelley v. Johnson, 425 U.S. 238, 248 (1976), and a 
+number of courts of appeals have extended this principle to 
+regulation of speech.  See, e.g., Tyler v. City of Mountain 
+Home, 72 F.3d 568, 570 (8th Cir. 1995) (finding that a police 
+department permissibly demoted a sergeant for sending a 
+confrontational letter to another police department on official 
+letterhead without first clearing the letter with the chief of 
+police, as required by police department policy).  We note, 
+however, that the right to regulate an officer's speech is not 
+absolute, see Biggs v. Village of Dupo, 892 F.2d 1298, 1303 
+(7th Cir. 1990) ("[F]reedom of speech is not traded for an 
+officer's badge");  in particular, when a police officer speaks 
+out on an issue that he is uniquely qualified to address, we 
+must be cautious in accepting the claim that the public 
+interest demands that he be silent.  See id. (citing Pickering, 
+391 U.S. at 572).
+
+     The District also observes that it is especially disruptive for 
+the high-level employees of a governmental agency to express 
+public disagreement with the agency's policies.  This is true;  
+
+
+
+as we said in Hall, "[h]igh-level officials must be permitted to 
+accomplish their organizational objectives through key depu-
+ties who are loyal, cooperative, willing to carry out their 
+superior's policies, and perceived by the public as sharing 
+their superiors' aims."  856 F.2d at 263.  An employee may 
+be dismissed who "expresses views on matters within the core 
+of his responsibilities that reflect[ ] a policy disagreement 
+with his superiors such that they could not expect him to 
+carry out their policy choices vigorously."  Id. at 265.  In 
+Hall, for example, the athletic director at the University of 
+the District of Columbia was dismissed after repeatedly and 
+publicly disagreeing with his superiors about the proper 
+response to violations of university and National College 
+Athletic Association rules.
+
+     In order to decide whether a public employee is within the 
+"narrow band" of "key deputies" who are subject to this 
+analysis, id. at 263, we consider whether the employee's job 
+relates to policy matters, and whether the employee has 
+"broad responsibilities with respect to policy formulation, 
+implementation, or enunciation."  Id. at 264.  It is quite clear 
+that O'Donnell's initial position as head of the Investigative 
+Services Bureau was in this category;  in that position, he was 
+in charge of numerous key operational offices of the Police 
+Department, and one of seven members of the Police Depart-
+ment's Executive Committee, its principal policymaking body.
+
+     But when O'Donnell was transferred to the Property Divi-
+sion, he moved outside of the "narrow band" we discussed in 
+Hall.  His job seems to have had some policy responsibilities;  
+he was in charge of a number of Police Department facilities, 
+and his complaint describes several reforms he instituted in 
+their operations, seemingly on his own initiative.  But we 
+doubt that O'Donnell's policy responsibilities were broad 
+enough, or sufficiently central to the Department's mandate, 
+to make him one of the "key deputies" discussed in Hall.  
+O'Donnell's work, although important, primarily involved sup-
+port functions.  And, as he describes his status within the 
+Department, his policymaking role was decidedly marginal.  
+Soulsby could safely dispense with answering his memos, and 
+O'Donnell was relegated to the audience at meetings of high-
+
+
+
+level Police Department officials.  On these facts, O'Donnell 
+cannot be labeled a "key deputy." 1
+
+     With these principles in mind, we turn to an analysis of the 
+speech in this case.
+
+     a. Memoranda. O'Donnell claims that after he wrote 
+Soulsby a memo about crime-fighting policy in the District, 
+Soulsby transferred him to the Property Division to block 
+discussion of crime in the District until after Soulsby was 
+confirmed.  He also avers that Soulsby ignored his memos 
+about policy changes at the Property Division in order to 
+discourage him from uncovering problems at the Department, 
+and that these memos later helped prompt his demotion.
+
+     From their descriptions in the record, O'Donnell's memos 
+consisted entirely of innocuous, practical suggestions about 
+Police Department policy.  If O'Donnell's memos played any 
+role in his transfer to the Property Division (and we do not 
+know for sure what led to that transfer), it might have been 
+in revealing policy differences between O'Donnell and Soulsby 
+of a kind that, under Hall, could legitimately prompt a high-
+level deputy's transfer out of the inner circle.  The same is 
+true of the memos O'Donnell wrote while at the Property 
+Division;  it is hard to see how routine policy memoranda 
+could have prompted any adverse response from Soulsby, but, 
+if they did, it would have been the result of disagreements 
+about policy.2
+
+__________
+     1 The District notes that O'Donnell remained very senior in rank 
+even after his transfer to the Property Division, and that he was a 
+long-serving and experienced officer whose words would be taken 
+seriously within the Department.  It claims that this renders him a 
+"key deputy" under Hall.  But Hall turns on a functional analysis 
+of the employee's responsibilities and whether they demand the 
+employee's unwavering fealty, not on an employee's length of 
+service or nominal rank.
+
+     2 O'Donnell's brief suggests that these memos were about issues 
+that did later make a big media splash, like "lost evidence" and an 
+"unguarded property warehouse."  But his complaint mentions 
+
+
+
+     b. Conversations.  O'Donnell also avers that Soulsby 
+transferred him to the Property Division in retaliation for the 
+conversation in which O'Donnell argued that the 123 deaths 
+should be investigated further, and that his demotion was 
+partially prompted by the later conversation in which O'Don-
+nell reprimanded Soulsby for misleading the public about the 
+investigation of those same deaths.
+
+     We begin with the first of these conversations.  The Dis-
+trict argues that, under Hall, Soulsby was entitled to transfer 
+O'Donnell on the basis of the policy differences this (asserted) 
+conversation revealed.  Hall gives employers considerable 
+leeway to ensure that high-level officials toe the party line, 
+but it does not give them unchecked power to silence them.  
+In some cases, the public interest in a high-level official's 
+speech will outweigh any interest in that official's bureaucrat-
+ic loyalty.  Hall permits adverse action on the basis of speech 
+that implicates "the government interest in accomplishing its 
+organizational objectives through compatible policy level dep-
+uties," 856 F.2d at 264;  but sometimes what an employee has 
+to say will signal not policy differences but potential serious 
+violations of the public trust.  For instance, had the athletic 
+director in Hall been punished merely for suggesting to the 
+university's board of directors that one of his subordinates 
+had committed a grave act of embezzlement, the result in that 
+case might have been different.
+
+     At first glance, O'Donnell's account of his conversation with 
+Soulsby seems troubling.  Supposedly, O'Donnell was pun-
+ished for disagreeing with Soulsby's order that nothing 
+should be done to investigate allegations that 123 murders of 
+African-American women had gone unsolved, even though a 
+serial killer might be at large--suggesting that O'Donnell was 
+challenging a severe breach of the public trust.  A closer 
+examination, though, reveals the matter is more complicated.  
+O'Donnell gives only the vaguest account of Soulsby's reasons 
+for opposing an investigation.  His complaint does not attrib-
+ute any dishonorable motive to Soulsby (such as a desire to 
+
+__________
+nothing of the kind, and indeed suggests that O'Donnell eventually 
+solved all of the problems he described in his memos.
+
+
+
+cover up the Department's errors), and on this appeal O'Don-
+nell cites no reason to believe that Soulsby had any such 
+motivation.  Moreover, O'Donnell says that Soulsby called the 
+article about the backlog "untrue";  although it is unclear 
+what this means, one reading would be that Soulsby believed 
+that there was no unusual backlog because the number of 
+unsolved murders of African-American women was no larger 
+(taking populations into account) than the backlog of unsolved 
+murders generally.  If so, the conversation turned on a 
+legitimate disagreement about statistics, rather than on a 
+potential dereliction of duty.
+
+     The vagueness of O'Donnell's complaint, however, renders 
+this reading, and any other, speculative.  If it is O'Donnell's 
+claim that Soulsby retaliated against him for seeking to 
+dissuade Soulsby from committing a grave breach of the 
+public trust (or for some other impermissible reason) he 
+should make that claim more explicitly.  In the absence of 
+any such allegation, we must assume that any adverse action 
+taken against him as a result of his conversation with Soulsby 
+occurred because of a legitimate disagreement about policy, 
+and so was permitted by Hall.  We thus affirm the district 
+court's dismissal of this element of O'Donnell's claim.3 
+
+     As to O'Donnell's later conversation with Soulsby about the 
+Ballou High School press conference, this incident merits 
+little discussion.  There is little evidence of any causal link 
+between this conversation and O'Donnell's later demotion, 
+which was tied much more closely to O'Donnell's letter to the 
+editor.  And, although the conversation raised some issues 
+about Soulsby's veracity, it did not touch on the more serious 
+issues surrounding the Soulsby-Hennessy pact.  Finally, 
+
+__________
+     3 We note, however, that "a dismissal under Rule 12(b)(6) gener-
+ally is not final or on the merits and the court normally will give 
+plaintiff leave to file an amended complaint."  Charles A. Wright &  
+Arthur R. Miller, 5A Federal Practice and Procedure s 1357 at 
+360-61 (1990).  This opinion does not foreclose O'Donnell from 
+seeking to file an amended complaint, especially given that neither 
+the district court nor the parties previously focused on the com-
+plaint's inadequacies.
+
+
+
+O'Donnell's personal motivations for this conversation were 
+especially strong, as he was responding to a speech in which 
+Soulsby had blamed him for the failure to detect the backlog 
+of unsolved murders.
+
+     c. The Letter to the Editor.  We now turn to O'Donnell's 
+letter to the editor.  The letter appears to be in that small 
+category of speech by public employees that has a high 
+potential both to cause disruption and to inform the public.  
+Because both elements of the governmental-interest analysis 
+are thus at their height, we must perform our analysis with 
+especial caution, to avoid shortchanging the interests on 
+either side of the equation.
+
+     We begin with the governmental interests.  As the District 
+points out, O'Donnell's letter presented a substantial risk of 
+harming his relationship with Soulsby and injuring Police 
+Department morale and discipline.  And, although (as we 
+have found) O'Donnell was not in Soulsby's inner circle when 
+he wrote the letter, he was a fairly senior police official, so 
+that it was of some importance that he appear loyal to his 
+superiors.  But the circumstances of this case also weaken 
+the governmental interests to some extent.  Although it no 
+doubt would have been difficult for Soulsby and O'Donnell to 
+work together after O'Donnell's letter was written, on the 
+record as it stands their working relationship seems to have 
+been very limited in any case:  O'Donnell occasionally wrote 
+Soulsby memoranda (and received no response), and the two 
+occasionally saw each other at meetings, but there appears to 
+have been little other working relationship.  See Rode v. 
+Dellarciprete, 845 F.2d 1195, 1202 (3d Cir. 1988) (noting that 
+the plaintiff and the supervisor she criticized did not work 
+closely together).  And, as to the discipline and morale of the 
+Police Department, the frequent media criticism of the De-
+partment's (and Soulsby's) performance in the weeks preced-
+ing O'Donnell's letter had doubtless already taken its toll.  
+Although this did not leave O'Donnell entirely free to kick the 
+Department while it was down, the fact that his criticism was 
+cumulative does diminish the harm it caused.  Moreover, 
+O'Donnell's letter followed a 60 Minutes broadcast which, 
+according to O'Donnell, "documented that senior detectives in 
+
+
+
+the Homicide Branch were firmly convinced that defendant 
+Soulsby's reassignment of Capt. Hennessy was unjustified 
+and had damaged the MPD," and in which Hennessy ac-
+knowledged the existence of a tape of his confrontation with 
+Soulsby.  There is no indication on the present record that 
+either the "senior detectives" or Hennessy were ever pun-
+ished for these statements, which were presumably also quite 
+injurious to Department discipline and morale;  this weakens 
+the District's claim that O'Donnell's letter could not safely be 
+left unpunished.
+
+     To turn to the public-concern side of the equation, O'Don-
+nell's letter makes two principal points:  it observes that 
+Hennessy's transfer out of the Homicide Branch hurt the 
+Branch, and it endorses the credibility of Hennessy and 
+questions that of Soulsby.  The second comment overshadows 
+the first both in its potential value to the public and in its 
+potential disruptiveness;  we will therefore focus our analysis 
+of that aspect of the letter.
+
+     As we have said, information about the pact was clearly of 
+great concern to the public;  concrete additional information 
+about the circumstances of the pact might well have overcome 
+any governmental interest in silencing O'Donnell.  But it is 
+unclear on the present record what O'Donnell's letter really 
+contributed to the public's knowledge about the Soulsby-
+Hennessy pact.  The value of a communication to the public 
+hinges on the extent to which a reasonable member of the 
+public would give it weight in deciding issues of public 
+importance.  For instance, the public would reasonably give 
+little or no weight to expressions of personal animus or 
+spleen, but great weight to highly probative evidence bearing 
+on problems of public importance.
+
+     The Federal Rules of Evidence provide a useful guidepost 
+for assessing the probative value of O'Donnell's comments.  
+(We emphasize that we use these rules only as a framework 
+for our analysis;  by no means do we purport to import the 
+rules of evidence wholesale into the First Amendment.)  
+O'Donnell's letter is cast in terms of "credibility," but it is 
+unclear how the public would have interpreted this term (or 
+
+
+
+indeed what he meant by it).  If he meant merely to comment 
+generally on the character of Hennessy and Soulsby, then the 
+letter is of little value to the public.  As the Advisory 
+Committee Note to Federal Rule 404 observes, "[c]haracter 
+evidence is of slight probative value and may be very prejudi-
+cial," as it "tends to distract the trier of fact from the main 
+question of what actually happened on the particular occa-
+sion."  But if the letter is read as a commentary on the 
+believability of recent statements by Hennessy and Soulsby, 
+it might have more significance.  As Rule of Evidence 608 
+indicates, evidence as to the credibility of a witness can at 
+times have substantial probative value.
+
+     We do not know which reading a reasonable member of the 
+public would have adopted, or to what extent the credibility of 
+statement by Hennessy and Soulsby was important in the 
+public's mind when O'Donnell wrote his letter.  It is unclear 
+on the present record to what extent Soulsby contested 
+Hennessy's account of the pact.  O'Donnell says that Soulsby 
+at some point publicly apologized for entering into his pact 
+with Hennessy, but we do not know whether this apology 
+occurred before or after O'Donnell wrote his letter.  It may 
+also be that the state of the debate was such that an informed 
+reader would infer from O'Donnell's letter that his comments 
+on Hennessy's and Soulsby's veracity were based not only on 
+a general knowledge of their character, but also on personal 
+knowledge of some of the events surrounding the Soulsby-
+Hennessy agreement.  The allegations surrounding the pact 
+are exceptionally intricate (one expects a Maltese falcon to 
+enter into the story at any moment).  In the eyes of an 
+informed reader, some of the statements in O'Donnell's letter, 
+such as his discussion of Hennessy's illustrious service at the 
+Homicide Branch, might have taken on a significance that is 
+invisible to us now.
+
+     The district court dismissed O'Donnell's First Amendment 
+claims before any record had been developed, and indeed 
+before the District filed an answer.  We conclude that it is 
+not possible to decide what value O'Donnell's letter would 
+have had to the public without a more complete record as to 
+the state of the public debate at the time the letter was 
+
+
+
+written.  If the public's view of the Soulsby-Hennessy pact 
+would reasonably have been influenced by evidence as to 
+Hennessy's (and Soulsby's) credibility, and if O'Donnell's 
+words on that subject would have carried weight, then O'Don-
+nell's comments might have made a sufficient contribution to 
+the public debate to outweigh the governmental interest in his 
+silence.  There are also some uncertainties in our analysis of 
+the nature of the governmental interest;  it is unclear, for 
+instance, whether we are correct to assume that a number of 
+other Police Department officials had criticized Soulsby in 
+public with impunity.  The district court should permit the 
+parties to develop these issues further on remand.
+
+     B.Due Process Clause
+
+     O'Donnell's complaint attempts to plead two distinct due 
+process claims.  His first is based upon the stigma and loss of 
+"rank, status and pay" associated with the District's reassign-
+ing him to the Property Division, blaming him for the failings 
+of the Department, and then demoting him.  His second is 
+based upon the harm to O'Donnell's employment opportuni-
+ties associated with these acts.
+
+     These claims are not really distinct under applicable due 
+process law, and they are in any event too broad.  A loss of 
+rank, status and pay alone is not actionable under the Due 
+Process Clause.  The Supreme Court found in Board of 
+Regents v. Roth, 408 U.S. 564, 573-78 (1972), that an at-will 
+employee has no liberty or property interest in continued 
+employment, and it is clear that D.C. law creates no such 
+interest.  See D.C. Code s 4-104 (permitting the Mayor to 
+return Deputy Chiefs to the ranks of captain "when the 
+Mayor so determines").  Nor may O'Donnell sue purely on 
+the basis of the stigma associated with being fired;  the Court 
+found in Paul v. Davis, 424 U.S. 693 (1976), that stigma alone 
+is not actionable, without a showing that a "right or status 
+previously recognized by state law" has been "distinctly al-
+tered or extinguished."  Id. at 711.
+
+     The Roth Court did cite two circumstances in which a 
+governmental employment decision might be actionable.  
+First, it observed that, although the plaintiff could not sue for 
+
+
+
+the nonrenewal of his contract alone, "[t]he State . . . did not 
+make any charge against [the employee] that might seriously 
+damage his standing and associations in the community," and 
+that "[i]t did not base the nonrenewal of his contract on a 
+charge, for example, that he had been guilty of dishonesty, or 
+immorality."  Roth, 408 U.S. at 573.  Second, the Court noted 
+that "there is no suggestion that the State, in declining to re-
+employ the respondent, imposed on him a stigma or other 
+disability that foreclosed his freedom to take advantage of 
+other employment opportunities," and that it did not, for 
+instance, "invoke any regulations to bar the respondent from 
+all other public employment in state universities."  Id.  
+O'Donnell argues that his claim fits within each of these two 
+exceptions.4
+
+     1. Reputation-Plus
+
+     The first category of claim, in which the plaintiff points to 
+the conjunction of official defamation and adverse employ-
+ment action, is usually termed a "reputation-plus" claim.  
+Paul explained this passage of Roth as meaning that defama-
+tion alone is not actionable under the due process clause, but 
+that defamation "in the course of the termination of employ-
+ment" is.  424 U.S. at 710.  This circuit has since said that a 
+demotion may also suffice to trigger a due process claim.  
+"For a defamation to give rise to a right to procedural due 
+process, it is necessary--we need not say when it is suffi-
+cient--that the defamation be accompanied by a discharge 
+from government employment or at least a demotion in rank 
+and pay."  Mosrie v. Barry, 718 F.2d 1151, 1161 (D.C. Cir. 
+1983) (emphasis added).  Although the conceptual basis for 
+reputation-plus claims is not fully clear, it presumably rests 
+on the fact that official criticism will carry much more weight 
+if the person criticized is at the same time demoted or fired.  
+Requiring a demotion or firing to trigger a defamation claim 
+
+__________
+     4 We reject the District's claim that O'Donnell's due process 
+claims should be denied because he did not expressly seek a name-
+clearing hearing.  There is no need for a plaintiff to make such a 
+request explicitly, so long as it is reasonably clear that what the 
+plaintiff complains of includes the lack of a hearing.  Doe v. United 
+States Department of Justice, 753 F.2d 1092, 1103 (D.C. Cir. 1985).
+
+
+
+also helps to limit the scope of permissible due process claims 
+to a small set of truly serious claims, thus limiting the 
+constitutionalization of tort law.
+
+     Although O'Donnell can point to isolated defamatory state-
+ments and to a demotion, he cannot demonstrate that the two 
+occurred together;  only defamation that is "accompanied by 
+a discharge from government employment or at least a 
+demotion in rank and pay" is actionable.  Mosrie, 718 F.2d at 
+1161 (emphasis added).  First, O'Donnell's transfer to the 
+Property Division did not involve any loss of rank.  A lateral 
+transfer, even to a job that is regarded as a "dumping 
+ground," cannot form the basis of a reputation-plus claim.  
+Miller, 718 F.2d at 1156, 1161-62.  O'Donnell also cites 
+Soulsby's criticism of him in the Ballou High School speech;  
+but O'Donnell's demotion was clearly triggered by his letter 
+to the editor, and had no obvious link, temporal or logical, to 
+the speech.  Finally, on the record as it stands, there is no 
+sign that the District made any defamatory statements about 
+O'Donnell at the time of his demotion.  See Orange v. District 
+of Columbia, 59 F.3d 1267, 1274 (D.C. Cir. 1995) (concluding 
+that a firing without any associated public statements is not 
+actionable).
+
+     2. Stigma or Disability
+
+     The second Roth exception turns on the combination of an 
+adverse employment action and "a stigma or other disability 
+that foreclosed [the plaintiff's] freedom to take advantage of 
+other employment opportunities," Roth, 408 U.S. at 573;  it 
+differs from the first in that it does not depend on official 
+speech, but on a continuing stigma or disability arising from 
+official action.  We applied this exception in Kartseva v. 
+Department of State, 37 F.3d 1524 (D.C. Cir. 1994).  In that 
+case, the plaintiff was a Russian translator who had been 
+denied a security clearance by the State Department, and 
+therefore fired by the consulting company that employed her.  
+We distinguished two ways in which this denial could effect a 
+"stigma or other disability" within the meaning of Roth.  
+First, it might have "formally or automatically exclude[d] 
+Kartseva from work on some category of future State con-
+
+
+
+tracts or from other government employment opportunities."  
+Id. at 1528.  Second, it might, without this "binding effect," 
+still have "the broad effect of largely precluding Kartseva 
+from pursuing her chosen career as a Russian translator."  
+Id. (emphasis omitted).  O'Donnell claims that the various 
+measures that the District took against him effectively pre-
+cluded him from pursuing his profession, and so bring him 
+within the second prong of Kartseva.
+
+     The Constitution protects an individual's "right to follow a 
+chosen trade or profession" without governmental interfer-
+ence.  Kartseva, 37 F.3d at 1529 (quoting Cafeteria Workers 
+v. McElroy, 367 U.S. 886, 895-96 (1961)).  Government action 
+that has the effect of "seriously affect[ing], if not de-
+stroy[ing]" a plaintiff's ability to pursue his chosen profession, 
+Kartseva, 37 F.3d at 1529 (quoting Greene v. McElroy, 360 
+U.S. 474, 492 (1959)), or "substantially reduc[ing] the value of 
+his human capital," Taylor v. Resolution Trust Corp., 56 F.3d 
+1497, 1506 (D.C. Cir. 1995), thus infringes a liberty interest.  
+There are, however, some limitations on this principle.  As 
+the Court made clear in Siegert v. Gilley, 500 U.S. 226 (1991), 
+a showing of reputational harm alone cannot suffice to demon-
+strate that a liberty interest has been infringed.  Thus, a 
+plaintiff who (like O'Donnell) seeks to make out a claim of 
+interference with the right to follow a chosen trade or profes-
+sion that is based exclusively on reputational harm must show 
+that the harm occurred in conjunction with, or flowed from, 
+some tangible change in status.  One such change in status, 
+of course, is an adverse employment action.
+
+     O'Donnell claims that after his demotion he was unable to 
+find employment in his chosen field, as a chief of police in a 
+major city or municipality.  After his complaint was filed, he 
+became police chief in Brunswick, Maryland, whose popula-
+tion is 6,000.  (Because this fact did not appear in O'Donnell's 
+complaint, the district court could not consider it in ruling on 
+the District's motion to dismiss;  it therefore granted sum-
+mary judgment as to Count III of O'Donnell's complaint.)
+
+     O'Donnell may well have suffered some stigma in the job 
+market as a result of his demotion.  We conclude, however, 
+that the evidence in this case falls short of that required to 
+
+
+
+make out a claim under Roth and Kartseva.  To begin with, 
+the stigma associated with O'Donnell's demotion was less 
+severe than that attached to Kartseva's disqualification.  
+Kartseva was disqualified, for unknown but potentially seri-
+ous reasons, from an uncertain and perhaps broad range of 
+government employment;  we found this to be potentially 
+sufficiently stigmatic to render her unemployable in much of 
+her field.  By contrast, the reason for O'Donnell's demotion 
+was fairly clear, and the stigma itself less severe.  Although it 
+is difficult to put a good face on the denial of a security 
+clearance, it may be that some employers would welcome a 
+police official who (as they might see it) places the public's 
+interest above bureaucratic pressures.
+
+     Furthermore, O'Donnell's new job demonstrates that the 
+stigma he suffered cannot have been too disabling.  Although 
+he has moved from a large city to a town (Washington's 
+population is over 500,000, as against Brunswick's population 
+of 6,000), he has moved up in the ranks;  he is now chief of 
+police.  O'Donnell's overall responsibilities have certainly 
+dwindled (for instance, he supervises far fewer officers), and a 
+still greater diminution in his employment opportunities 
+might well have sufficed to show that the value of his "human 
+capital," Taylor, 56 F.3d at 1506, has dropped enough to 
+infringe his liberty interest in his chosen profession.  But 
+O'Donnell has presented no concrete evidence (and the cir-
+cumstances do not demonstrate) that he would have done 
+dramatically better on the job market in the absence of his 
+demotion.  Certainly, we cannot be sure that he could have 
+obtained, as was his stated wish, a job as chief of police in a 
+"major city or municipality."  Even if the demotion did set 
+him back a step on his career path (which may or may not be 
+true), that would fall markedly short of showing that his 
+ability to pursue his chosen profession has been "seriously 
+affected, if not destroyed."  Kartseva, 37 F.3d at 1529 (quot-
+ing Greene, 360 U.S. at 492).  Summary judgment as to this 
+claim was therefore appropriate.
+
+C.Qualified Immunity
+
+     The District argued below, and argues again here, that 
+Soulsby, the only individual defendant (Barry was sued only 
+
+
+
+in his official capacity), is entitled to qualified immunity.  The 
+district court did not reach this question;  we do, and we 
+agree with the District.  An official is entitled to qualified 
+immunity unless she has violated a clearly established right.  
+"The contours of the right must be sufficiently clear that a 
+reasonable officer would understand that what he is doing 
+violates that right.  This is not to say that an official action is 
+protected by qualified immunity unless the very action in 
+question has been held unlawful ... but it is to say that in the 
+light of preexisting law the unlawfulness must be apparent."  
+Anderson v. Creighton, 483 U.S. 635, 639-40 (1987).  As our 
+analysis of the status of O'Donnell's letter demonstrates, it is 
+by no means clear whether that letter is legally protected, so 
+that any unlawfulness in Soulsby's acts in (allegedly) securing 
+O'Donnell's demotion was not "apparent."  Soulsby is thus 
+entitled to qualified immunity.
+
+                               III.  Conclusion
+
+
+     In summary, we affirm the district court's dismissal of 
+O'Donnell's First Amendment claims, except for its dismissal 
+of his claim based on the letter to the editor.  As to this 
+claim, we remand to permit the district court to determine, on 
+the basis of a more complete record, what the significance of 
+O'Donnell's references to the "credibility" of Hennessy and 
+Soulsby would have been to an informed member of the 
+public at the time O'Donnell wrote his letter, and in turn to 
+decide to what degree the letter touched on a topic of public 
+concern and hence weighed against the government's interest 
+in O'Donnell's silence.  We affirm the district court's disposi-
+tion (by dismissal and summary judgment) of O'Donnell's due 
+process claims.  Finally, we find that Soulsby is entitled to 
+qualified immunity in the proceedings on remand.
+
+                                                                               So ordered.
+
+
+                                 

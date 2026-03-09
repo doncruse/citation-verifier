@@ -1,0 +1,363 @@
+  Notice: This opinion is subject to formal revision before publication in the
+Federal Reporter or U.S.App.D.C. Reports. Users are requested to notify the
+Clerk of any formal errors in order that corrections may be made before the
+bound volumes go to press.
+
+
+ United States Court of Appeals
+            FOR THE DISTRICT OF COLUMBIA CIRCUIT
+
+
+
+Argued September 13, 2005                    Decided October 18, 2005
+
+                               No. 04-5281
+
+                          PATSY F. BENNETT,
+                             APPELLANT
+
+                                     v.
+
+                    MICHAEL CHERTOFF,
+            SECRETARY OF HOMELAND SECURITY AND
+                   DONALD H. RUMSFELD,
+                         APPELLEES
+
+
+           Appeal from the United States District Court
+                   for the District of Columbia
+                         (No. 03cv02176)
+
+
+
+    Robert C. Seldon argued the cause and filed the briefs for
+appellant. Molly E. Buie entered an appearance.
+
+    Deborah Goldstock Ringel argued the cause for amici
+curiae National Organization of Black Law Enforcement
+Executives, et al. in support of appellant. With her on the brief
+were Kenneth L. Adams and Bradley D. Wine.
+                                2
+
+    Peter D. Blumberg, Assistant U.S. Attorney, argued the
+cause for appellees. With him on the brief were Kenneth L.
+Wainstein, U.S. Attorney, and R. Craig Lawrence, Assistant
+U.S. Attorney. Michael J. Ryan, Assistant U.S. Attorney,
+entered an appearance.
+
+   Before: RANDOLPH and ROGERS, Circuit Judges, and
+WILLIAMS, Senior Circuit Judge.
+
+    Opinion for the Court filed by Circuit Judge ROGERS.
+
+     ROGERS, Circuit Judge: In Ryan v. Reno, 168 F.3d 520, 524
+(D.C. Cir. 1999), the court held that an adverse employment
+action based on the denial or revocation of a security clearance
+is not actionable under Title VII of the Civil Rights Act of 1964,
+42 U.S.C. § 2000e-2. This followed, the court concluded, from
+Department of Navy v. Egan, 484 U.S. 518 (1988), in which the
+Supreme Court held that the Merit Systems Protection Board
+lacked authority to review the substance of a decision to deny or
+revoke a security clearance in the course of reviewing an
+adverse employment action, because that “sensitive and
+inherently discretionary judgment call . . . is committed by law
+to the appropriate agency of the Executive Branch.” Id. at 527.
+Appellant Patsy Bennett contends that the termination of her
+employment was predicated on a determination of her
+unsuitability for the position rather than a revocation of her
+security clearance. Hence, she maintains that the district court
+erred in dismissing her complaint under Title VII, 42 U.S.C. §
+2000e-16, for lack of jurisdiction. In her view, the court retains
+jurisdiction to determine whether her employment was actually
+terminated because of national security concerns even if the
+court cannot review the underlying merits of that determination.
+Bennett thus implicitly rejects the notion that the official reason
+given by the agency for her termination encompassed national
+security concerns. Because the implicit premise of her
+                                  3
+
+contention is flawed and because the agency interposed the
+defense of her inability to sustain a security clearance in
+response to her allegations of discrimination and retaliation, the
+trier of fact would be required to consider the merits of that
+defense. Accordingly, in light of the substantial evidence in the
+record that the agency’s action was premised on Bennett’s
+inability to maintain a security clearance, we hold that Ryan is
+dispositive and affirm the dismissal of the complaint.
+
+                                 I.
+     Patsy Bennett was a criminal investigator employed by the
+Office of the Inspector General of the Department of Defense
+(“DoD”). In August 2000, Bennett asked an investigative
+assistant to search public records for the address of an individual
+in a personal matter. The investigative assistant referred the
+request to another researcher, who searched records limited to
+official government investigations. In February 2001, DoD
+proposed to terminate Bennett’s employment on the ground that
+she had improperly asked the investigative assistant to search
+records limited to official government investigations for a non-
+official purpose. Bennett challenged the proposal by filing an
+administrative complaint of discrimination within DoD. In May
+2001, Bennett and DoD entered into a Mediation Agreement in
+which Bennett agreed to withdraw the complaint and resign
+from DoD in a “clean paper” resignation, while DoD agreed to
+expunge its proposal and decision to remove Bennett and to
+refrain from disclosing them, except upon inquiry about Giglio1
+
+
+
+        1
+           Giglio v. United States, 405 U.S. 150 (1972), requires
+prosecutors to disclose evidence affecting the credibility of a witness
+when that witness’s reliability is likely to determine guilt or
+innocence. As interpreted by DoD in the instant case, this exception
+would allow DoD to disclose evidence of Bennett’s untrustworthiness
+to a new employer that might have to rely on her as a witness.
+                                 4
+
+issues by a prospective federal law enforcement employer.
+Bennett retained her security clearance after her resignation.
+
+     Bennett thereafter applied for a job as a criminal
+investigator with the Transportation Security Administration
+(“TSA”). During a job interview in April 2002, Bennett
+disclosed the incident that led DoD to take action against her
+and cited this incident as the reason she resigned from DoD.
+However, in her signed and certified Declaration for Federal
+Employment, she represented that she had not, during the last
+five years, “quit [a job] after being told that [she] would be
+fired” or “[left] any job by mutual agreement because of specific
+problems.” After hiring Bennett subject to completion of a
+suitability determination, TSA solicited information from DoD
+about her employment there as part of a background check for
+a security clearance. In response, DoD indicated that Bennett
+had Top Secret security clearance and provided TSA with a
+copy of its proposal and decision to remove Bennett. In August
+2002, TSA terminated Bennett’s employment as a criminal
+investigator for falsifying her Declaration for Federal
+Employment, stating in a letter that the termination was “based
+on [her] unsuitability for [her] position.” The letter stated that
+she did not have appeal or grievance rights, but if she believed
+her discharge resulted from discrimination or harassment, she
+could file a report with the Office of Civil Rights. In its official
+Notification of Personnel Action (“SF-50"), TSA cited a
+“negative suitability determination” as the reason for
+termination.
+
+     After exhausting her administrative remedies, Bennett filed
+suit against TSA and DoD under Title VII, 42 U.S.C. § 2000e-
+16. The complaint alleged that TSA’s stated reason for
+terminating her was a pretext and that the real reasons were
+discrimination and retaliation against her for filing an
+administrative complaint against DoD. It also alleged that
+                                5
+
+DoD’s disclosures to TSA were retaliatory and in breach of the
+Mediation Agreement. TSA filed a motion to dismiss the
+complaint for lack of jurisdiction on the ground that its
+termination of Bennett was based on her ineligibility for a
+security clearance and thus was not subject to judicial review
+under Title VII. Attached to the motion was the affidavit of
+David Holmes, a TSA administrator who had interviewed
+Bennett, stating that Bennett’s termination “was based solely on
+the fact she could not sustain a security clearance.” The district
+court, citing Ryan, 168 F.3d at 523-24, granted the motion upon
+concluding that TSA’s decision to terminate Bennett was based
+in part on denial of a security clearance. See Bennett v. Ridge,
+321 F. Supp. 2d 49, 54-55 (D.D.C. 2004).
+
+                               II.
+     TSA requires its criminal investigators to obtain a Top
+Secret security clearance. Because the authority to issue a
+security clearance is a discretionary function of the Executive
+Branch and involves the complex area of foreign relations and
+national security, employment actions based on denial of
+security clearance are not subject to judicial review, including
+under Title VII. See Ryan, 168 F.3d at 523; see also Egan, 484
+U.S. at 527-31. Bennett does not dispute this legal principle, but
+rather contends that the district court erred in dismissing her
+complaint because the stated ground for her termination was a
+negative suitability determination, not a denial of a security
+clearance. Both parties agree that TSA’s proffered reason for
+terminating Bennett was her falsification of her Declaration of
+Federal Employment. Their principal dispute is over whether
+this alleged falsification formed the basis of a negative
+suitability determination or a denial of security clearance.
+
+     Bennett emphasizes that determinations of eligibility for
+security clearance are distinct from determinations of suitability
+for federal employment. Under Executive Order 12,968, section
+                                6
+
+2.1(a), 60 Fed. Reg. 40,245, 40,248 (Aug. 7, 1995),
+“[d]eterminations of eligibility for access to classified
+information . . . are separate from suitability determinations with
+respect to the hiring or retention of persons for employment by
+the government or any other personnel actions.” This distinction
+is also made in the Code of Federal Regulations. See 5 C.F.R.
+§ 731.101(a) (2005). As Bennett points out, the two
+determinations are subject to different processes of review:
+whereas suitability determinations are subject to appeals to the
+Merit Systems Protection Board and subsequent judicial review,
+see 5 C.F.R. § 731.501(a), security clearance denials are subject
+to appeal within the agency, see Exec. Order No. 12,968, §
+5.2(a), 60 Fed. Reg. at 40,252. Indeed, “[a] suitability
+determination shall not be used for the purpose of denying an
+applicant or employee the review proceedings of [section 5.2]
+where there has been a denial or revocation of eligibility for
+access to classified information.” Id. § 5.2(f)(3), 60 Fed. Reg.
+at 40,253.
+
+     Nonetheless, the distinction between determinations of
+eligibility for security clearances and determinations of
+suitability offers no support for Bennett’s contention that the
+district court erred in dismissing her complaint. First, while
+Bennett maintains that her prior security clearance from DoD
+must be “mutually and reciprocally accepted” by TSA, this
+requirement, as TSA points out, does not apply if “an agency
+has substantial information indicating that an employee may not
+satisfy the standards” for a security clearance, including
+“trustworthiness, honesty, [and] reliability.” Id. § 2.4(a), 60
+Fed. Reg. at 40,249; id. § 3.1(b), 60 Fed. Reg. at 40,250. TSA
+maintains that, based on the information provided by DoD and
+Bennett’s Declaration of Federal Employment, it concluded that
+Bennett could not meet its standards for a security clearance.
+Thus, the fact that Bennett retained her DoD security clearance
+does not refute the contention that she could not sustain a
+                                 7
+
+security clearance from TSA because of the information that
+TSA obtained about her dishonesty after she resigned from
+DoD.
+
+     Second, Bennett’s contention that suitability and national
+security considerations are mutually exclusive is refuted by
+authority she cites. She contends that she was terminated based
+on a negative suitability determination, maintaining that a
+“[m]aterial, intentional false statement or deception or fraud in
+examination or appointment” is a basis for determining that an
+individual is unsuitable for federal employment, citing 5 C.F.R.
+§ 731.202(b)(3). Such misrepresentation, however, is also a
+basis for denying security clearance. Executive Order 12,968,
+section 3.1(b), 60 Fed. Reg. at 40,250, states that “eligibility for
+access to classified information shall be granted only to
+employees . . . whose personal and professional history
+affirmatively indicates loyalty to the United States, strength of
+character, trustworthiness, honesty, reliability, discretion, and
+sound judgment . . . .” Thus, as TSA points out, Bennett was
+unsuitable for a criminal investigator position for the same
+reasons she was ineligible for a TSA security clearance. In other
+words, Bennett’s alleged dishonesty could render her both
+unsuitable for federal employment and ineligible for a security
+clearance, even if the two determinations are distinct. In any
+event, lack of “suitability” in ordinary language can encompass
+lack of suitability because of ineligibility for a security
+clearance, which is an additional reason for rejecting the strong
+inference that Bennett would draw from the termination letter
+and the SF-50. Hence, the fact that the termination letter and the
+SF-50 stated unsuitability as the reason for Bennett’s
+termination is not inconsistent with termination on the basis that
+Bennett could not sustain a security clearance.
+
+    Third, whether TSA followed the proper procedures to deny
+or revoke Bennett’s security clearance is separate from the
+                                8
+
+question of the effect of TSA’s invocation of a security defense
+to her Title VII complaint. Bennett contends that the
+termination letter and the SF-50 are the only formal documents
+in the record with legal force that can serve as evidence of the
+basis of her termination, and that TSA did not formally deny or
+revoke her security clearance pursuant to the procedures in
+Executive Order 12,968. By contrast, the cases cited by TSA
+involved formal revocations or denials of security clearance,
+such that there was no dispute over the basis of the employment
+action. See Egan, 484 U.S. at 521-22; Ryan, 168 F.3d at 522;
+Becerra v. Dalton, 94 F.3d 145, 148 (4th Cir. 1996); Perez v.
+FBI, 71 F.3d 513, 514 (5th Cir. 1995); Brazil v. U.S. Dep’t of the
+Navy, 66 F.3d 193, 195 (9th Cir. 1995). On the other hand, the
+two cases Bennett cites -- Jones v. Ashcroft, 321 F. Supp. 2d 1,
+3-4 (D.D.C. 2004), and Delgado v. Ashcroft, Civ. A. No. 99-
+2311, 2003 WL 24051558, at *1-3 & n.3 (D.D.C. May 29,
+2003), involving the national security exemption in 42 U.S.C. §
+2000e-2(g) -- are distinguishable, assuming that they are correct
+applications of law, because in one there was no record
+evidence of national security being considered prior to litigation,
+see Jones, 321 F. Supp.2d at 8, and in the other there was
+evidence specifically suggesting that national security was not
+an issue, see Delgado, 2003 WL 24051558, at *6.
+
+     There was sufficient evidence in the record of the basis for
+TSA’s action even though it was not announced to Bennett at the
+time of the termination of her employment. First, TSA’s letter
+to DoD sought information that was relevant to determining
+whether Bennett could sustain a security clearance while
+employed as a criminal investigator in TSA. As a result of
+DoD’s response, TSA learned that Bennett had not been truthful
+in her employment application. Second, as the district court
+noted, David Holmes’ sworn statement to an EEO investigator
+was that Bennett’s termination was “due to her inability to
+‘sustain a security clearance.’” Bennett, 321 F. Supp. 2d at 57.
+                                9
+
+The district court recognized, however, that the affidavit is
+questionable because “it was first offered during the course of
+an EEO investigation and thus in anticipation of litigation.” Id.
+An affidavit sworn years after taking a certain action is evidence
+of why the action was initially taken. The trier of fact may
+credit or reject that explanation. If other evidence supports the
+affidavit, it becomes more credible.
+
+     While Bennett claims that TSA’s security clearance
+explanation is pretextual, under Ryan, 168 F.3d at 522, a court
+cannot adjudicate the credibility of that claim. To do so would
+require the trier of fact to evaluate the validity of the agency’s
+security determination. Bennett could not challenge the
+authenticity of TSA’s proffered reason — her inability to
+maintain a security clearance — without also challenging the
+validity of the reason, which is what Ryan prohibits. The
+impossibility of proving pretext under Title VII without testing
+the merits of the Executive’s decision was emphasized by the
+court in joining three other circuits in Ryan, 168 F.3d at 523-24,
+a case largely ignored in Bennett’s briefs on appeal. The
+countervailing concern, expressed by the amici curiae, that
+judicial acceptance of such explanations will allow agencies to
+“immunize” themselves from Title VII actions simply by
+“raising the ‘national security’ flag” at the time of litigation,
+Amicus Br. at 4, ignores that “suitability”can encompass
+national security and that where there is substantial evidence
+that the latter was a contemporaneous reason for the agency’s
+action, the interests have been resolved by this court’s precedent
+in favor of executive discretion.
+
+    Contrary to the suggestions of Bennett and amici curiae, the
+Supreme Court’s decision in Hamdi v. Rumsfeld, 124 S. Ct.
+2633 (2004), does not unsettle that precedent. The Court in
+Hamdi held that the government’s invocation of national
+security authority – an assertion that Hamdi was an “enemy
+                               10
+
+combatant” – could not preclude judicial review of the
+lawfulness of his detention. Id. at 2650-51. Hamdi is inapposite
+for two reasons. First, the Court emphasized that physical
+liberty is a fundamental right that must be accorded great
+weight. See id. at 2646-47. It is far from clear that the Court
+would strike the same balance in the context of employment
+termination. Second, Executive Order 12,968 provides
+procedural protections to individuals determined ineligible for
+security clearance. See Exec. Order No. 12,968, § 5.2(a), 60
+Fed. Reg. at 40,252. While Bennett now challenges TSA’s
+failure to follow those procedures, although access to
+administrative review is not the relief sought in her complaint,
+counsel for TSA appropriately acknowledged during oral
+argument that equitable tolling may apply to the statute of
+limitations for administratively challenging the denial of her
+security clearance because TSA’s termination letter identified
+Bennett’s only possible appeal as a report to the Office of Civil
+Rights and did not state that she could appeal the decision
+internally under 49 C.F.R. § 8.25. Cf. Irwin v. Dep’t of Veterans
+Affairs, 498 U.S. 89, 96 (1990).
+
+   Accordingly, in light of Ryan, we affirm the dismissal of the
+complaint.
+

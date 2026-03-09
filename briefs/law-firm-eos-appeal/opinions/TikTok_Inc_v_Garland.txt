@@ -1,0 +1,1280 @@
+                   PRELIMINARY PRINT
+
+              Volume 604 U. S. Part 1
+                               Pages 56–85
+
+
+
+
+       OFFICIAL REPORTS
+                                     OF
+
+
+   THE SUPREME COURT
+                              January 17, 2025
+
+
+Page Proof Pending Publication
+
+
+                    REBECCA A. WOMELDORF
+                           reporter of decisions
+
+
+
+
+    NOTICE: This preliminary print is subject to formal revision before
+  the bound volume is published. Users are requested to notify the Reporter
+  of Decisions, Supreme Court of the United States, Washington, D. C. 20543,
+  pio@supremecourt.gov, of any typographical or other formal errors.
+56                      OCTOBER TERM, 2025
+
+                                 Syllabus
+
+
+      TIKTOK INC. et al. v. GARLAND, ATTORNEY
+                      GENERAL
+
+certiorari to the united states court of appeals for
+          the district of columbia circuit
+     No. 24–656. Argued January 10, 2025—Decided January 17, 2025*
+TikTok is a social media platform with more than 170 million U. S. users.
+  While TikTok Inc. operates the platform in the United States, its ulti-
+  mate parent company is ByteDance Ltd., a privately held company with
+  operations in China. ByteDance Ltd. owns, develops, and maintains
+  the proprietary algorithm TikTok uses to generate a personalized con-
+  tent feed for each TikTok user. Under Chinese law, ByteDance Ltd. is
+  required to “assist or cooperate” with the Chinese Government's “intel-
+  ligence work,” and the Chinese Government has “the power to access
+  and control private data” the company holds. H. R. Rep. No. 118–417,
+  p. 4 (2024).
+     Government offcials in the United States have taken repeated actions
+  to address national security concerns regarding the relationship be-
+Page Proof Pending Publication
+  tween China and TikTok. Against that backdrop, Congress enacted—
+  with broad bipartisan support—the Protecting Americans from Foreign
+  Adversary Controlled Applications Act, 138 Stat. 955. The Act makes
+  it unlawful for any entity to provide certain services to “distribute,
+  maintain, or update” a “foreign adversary controlled application” in the
+  United States. § 2(a)(1). Such applications expressly include any ap-
+  plication that is “operated, directly or indirectly,” by “ByteDance Ltd.”
+  or “TikTok.” § 2(g)(3)(A). The Act's prohibitions as to those applica-
+  tions are effective beginning January 19, 2025. See § 2(a)(2). The Act
+  provides, however, that TikTok can avoid the Act's prohibitions by un-
+  dergoing a “qualifed divestiture”—one the President determines will
+  result, among other things, in the application “no longer being controlled
+  by a foreign adversary.” § 2(g)(6)(A).
+     ByteDance Ltd. and TikTok Inc.—along with two sets of TikTok users
+  and creators (creator petitioners)—fled petitions for review in the D. C.
+  Circuit, challenging the constitutionality of the Act. As relevant here,
+  petitioners argued that the Act's prohibitions, TikTok-specific for-
+  eign adversary controlled application designation, and divestiture re-
+
+  *Together with No. 24–657, Firebaugh et al. v. Garland, Attorney Gen-
+eral, also on certiorari to the same court.
+                       Cite as: 604 U. S. 56 (2025)                     57
+
+                                 Syllabus
+
+ quirement violate the First Amendment. The D. C. Circuit denied the
+ petitions, holding that the Act does not violate petitioners' First Amend-
+ ment rights. The Court granted certiorari to consider petitioners'
+ First Amendment challenges on an expedited basis.
+Held: The challenged provisions do not violate petitioners' First Amend-
+ ment rights. Pp. 67–80.
+    (a) The Court frst considers whether the challenged provisions are
+ subject to First Amendment scrutiny. Laws that directly regulate ex-
+ pressive conduct can, but do not necessarily, trigger such review. See
+ R. A. V. v. St. Paul, 505 U. S. 377, 382–386. The Court has also applied
+ First Amendment scrutiny in “cases involving governmental regulation
+ of conduct that has an expressive element,” and to “some statutes which,
+ although directed at activity with no expressive component, impose a
+ disproportionate burden upon those engaged in protected First Amend-
+ ment activities.” Arcara v. Cloud Books, Inc., 478 U. S. 697, 703–704.
+    The Court assumes without deciding that the challenged provisions
+ are subject to First Amendment scrutiny. It is not clear whether the
+ Act directly regulates protected expressive activity, or conduct with an
+ expressive component. Indeed, the Act directly regulates ByteDance
+ and TikTok only through the divestiture requirement, and it does not
+
+Page Proof Pending Publication
+ regulate the creator petitioners at all. In any event, petitioners'
+ arguments more closely approximate a claim that the challenged provi-
+ sions, which in effect will ban TikTok in the United States, dispropor-
+ tionately burden petitioners' First Amendment activities. The Court
+ has not previously articulated a clear framework for determining
+ whether a regulation of non-expressive activity that disproportionately
+ burdens those engaged in expressive activity triggers heightened re-
+ view, and does not do so in these cases. The Court instead assumes
+ without deciding that the challenged provisions fall within this category.
+ Pp. 67–69.
+    (b) The challenged provisions trigger only intermediate scrutiny.
+ Pp. 70–73.
+       (1) “Content-based laws—those that target speech based on its
+ communicative content—are presumptively unconstitutional and may be
+ justifed only if the government proves that they are narrowly tailored
+ to serve compelling state interests.” Reed v. Town of Gilbert, 576 U. S.
+ 155, 163. Content-neutral laws, in contrast, are subject only to inter-
+ mediate scrutiny because they generally “pose a less substantial risk of
+ excising certain ideas or viewpoints from the public dialogue.” Turner
+ Broadcasting System, Inc. v. FCC, 512 U. S. 622, 642. Under that
+ standard, the Court will sustain a content-neutral law “if it advances
+58                     TIKTOK INC. v. GARLAND
+
+                                  Syllabus
+
+  important governmental interests unrelated to the suppression of free
+  speech and does not burden substantially more speech than necessary
+  to further those interests.” Turner Broadcasting System, Inc. v. FCC,
+  520 U. S. 180, 189.
+     The Court has identifed two forms of content-based speech regula-
+  tion. First, a law is content based on its face if it “applies to particular
+  speech because of the topic discussed or the idea or message expressed.”
+  Reed, 576 U. S., at 163. Second, a facially content-neutral law is none-
+  theless treated as a content-based regulation of speech if it “cannot be
+  justifed without reference to the content of the regulated speech” or
+  was “adopted by the government because of disagreement with the mes-
+  sage the speech conveys.” Id., at 164 (internal quotation marks omit-
+  ted). Pp. 70–71.
+       (2) The challenged provisions are facially content neutral. They
+  impose TikTok-specifc prohibitions due to a foreign adversary's control
+  over the platform and make divestiture a prerequisite for the platform's
+  continued operation in the United States. They do not target speech
+  based upon its content, or regulate speech based on its function or pur-
+  pose. Nor do they impose a content-based restriction, penalty, or
+  burden.
+     Petitioners argue that the Act is content based on its face because it
+Page Proof Pending Publication
+  excludes from the defnition of “covered company” any company that
+  operates an application “whose primary purpose is to allow users to post
+  product reviews, business reviews, or travel information and reviews.”
+  § 2(g)(2)(B). But that exclusion does not apply to the Act's specifc des-
+  ignation of TikTok as a covered application. §§ 2(g)(3)(A)–(B). As
+  such, the exclusion is not within the scope of petitioners' as-applied chal-
+  lenge. Pp. 71–72.
+       (3) The Government also supports the challenged provisions with a
+  content-neutral justifcation: preventing China from collecting sensitive
+  data from 170 million U. S. TikTok users. That data collection justif-
+  cation neither references the content of speech on TikTok nor refects
+  disagreement with the message such speech conveys. Because the jus-
+  tifcation refects a “purpos[e] unrelated to the content of expression,”
+  it is content neutral. Ward v. Rock Against Racism, 491 U. S. 781,
+  791. P. 72.
+       (4) The Act's TikTok-specifc distinctions, moreover, do not trigger
+  strict scrutiny. While “laws favoring some speakers over others de-
+  mand strict scrutiny when the legislature's speaker preference refects
+  a content preference,” Turner Broadcasting System, Inc., 512 U. S., at
+  658, such scrutiny “is unwarranted when the differential treatment is
+  `justifed by some special characteristic of ' the particular [speaker] being
+                       Cite as: 604 U. S. 56 (2025)                      59
+
+                                Syllabus
+
+ regulated,” id., at 660–661 (quoting Minneapolis Star & Tribune Co. v.
+ Minnesota Comm'r of Revenue, 460 U. S. 575, 585). Here, the chal-
+ lenged provisions regulate TikTok based on a content-neutral data col-
+ lection interest. And TikTok has special characteristics—a foreign ad-
+ versary's ability to leverage its control over the platform to collect vast
+ amounts of personal data from 170 million U. S. users—that justify dif-
+ ferential treatment. Pp. 72–73.
+    (c) As applied to petitioners, the Act satisfes intermediate scrutiny.
+ Pp. 73–78.
+       (1) The challenged provisions further an important Government in-
+ terest unrelated to the suppression of free expression. The Act's prohi-
+ bitions and divestiture requirement are designed to prevent China—a
+ designated foreign adversary—from leveraging its control over Byte-
+ Dance Ltd. to capture the personal data of U. S. TikTok users. This
+ objective qualifes as an important Government interest under interme-
+ diate scrutiny. TikTok collects extensive personal information from
+ and about its users. Access to such detailed information about U. S.
+ users, the Government worries, could enable China to track the loca-
+ tions of federal workers, build dossiers for blackmail, and conduct corpo-
+ rate espionage. Rather than meaningfully dispute the scope of the data
+ TikTok collects or the ends to which it may be used, petitioners argue
+Page Proof Pending Publication
+ that it is unlikely that China would compel TikTok to turn over user
+ data for intelligence purposes. The Court, however, affords the Gov-
+ ernment's informed judgment substantial respect in the national secu-
+ rity and foreign policy contexts. And the Government's determination
+ that China might leverage its relationship with ByteDance Ltd. to ac-
+ cess U. S. TikTok users' data is at least a reasonable inference based on
+ substantial evidence. The Court also rejects petitioners' argument
+ that the Act is underinclusive as to the Government's data protection
+ rationale. On this record, Congress was justifed in specifcally ad-
+ dressing its TikTok-related national security concerns. Pp. 73–76.
+       (2) As applied to petitioners, the Act is suffciently tailored to ad-
+ dress the Government's data collection interest. Intermediate scrutiny
+ is satisfed if the challenged regulation “ `promotes a substantial govern-
+ ment interest that would be achieved less effectively absent the regula-
+ tion' ” and does not “burden substantially more speech than is neces-
+ sary.” Ward, 491 U. S., at 799 (quoting United States v. Albertini, 472
+ U. S. 675, 689; alterations omitted). That standard is met here. The
+ prohibitions account for the fact that, absent a qualifed divestiture, Tik-
+ Tok's very operation implicates the Government's data collection con-
+ cerns, while the requirements that make a divestiture “qualifed” ensure
+ that those concerns are addressed before TikTok resumes U. S. opera-
+60                    TIKTOK INC. v. GARLAND
+
+                                 Syllabus
+
+  tions. While petitioners offer a series of preferred alternatives that
+  they assert would equally address the Government's data collection in-
+  terest, those alternatives ignore the latitude the Court affords the Gov-
+  ernment to design regulatory solutions to address content-neutral in-
+  terests. The Court will not override the Government's judgment
+  respecting content-neutral regulations so long as the Government's pol-
+  icy is “grounded on reasonable factual fndings supported by evidence
+  that is substantial for a legislative determination.” Turner Broadcast-
+  ing System, Inc., 520 U. S., at 224. Those requirements are met here.
+  Pp. 76–78.
+     (d) Beyond data collection concerns, the Government asserts an inter-
+  est in preventing a foreign adversary from controlling the recommenda-
+  tion algorithm that runs a widely used U. S. communications platform
+  and from wielding that control to alter the content on the platform in
+  an undetectable manner. In petitioners' view, that rationale is a
+  content-based justifcation that triggers strict scrutiny. Petitioners
+  have not pointed to any cases in which the Court has assessed the appro-
+  priate level of First Amendment scrutiny for an Act of Congress justi-
+  fed on both content-neutral and content-based grounds. They assert,
+  however, that the challenged provisions are subject to—and fail—strict
+  scrutiny because Congress would not have passed the provisions absent
+Page Proof Pending Publication
+  the foreign adversary control rationale. The Court does not determine
+  the proper standard here. Even assuming the Government has offered
+  a content-based justifcation for the challenged provisions, petitioners'
+  argument fails under the standard they propose: The record before the
+  Court adequately supports the conclusion that Congress would have
+  passed the challenged provisions based on the data collection justifca-
+  tion alone. Pp. 78–80.
+122 F. 4th 930, affrmed.
+
+  Noel J. Francisco argued the cause for petitioners TikTok
+Inc. et al. With him on the brief were Hashim M. Moop-
+pan, Kelly Holt Rodriguez, Andrew J. Pincus, Avi M.
+Kupfer, Alexander A. Berengaut, David M. Zionts, Megan
+A. Crowley, and John E. Hall.
+  Jeffrey L. Fisher argued the cause for petitioners Fire-
+baugh et al. With him on the brief were Joshua Revesz,
+Jacob Huebert, Jeffrey M. Schwab, Ambika Kumar, Adam
+S. Sieff, James R. Sigel, and Elizabeth A. McNamara.
+  Solicitor General Prelogar argued the cause for respond-
+ent in both cases. With her on the brief were Principal
+                       Cite as: 604 U. S. 56 (2025)                     61
+
+                                 Counsel
+
+Deputy Assistant Attorney General Boynton, Deputy Solic-
+itor General Kneedler, Sopan Joshi, Mark R. Freeman,
+Sharon Swingle, Daniel Tenny, Casen B. Ross, Sean R.
+Janda, and Brian J. Springer.†
+
+   †Briefs of amici curiae urging reversal in both cases were fled for the
+Knight First Amendment Institute at Columbia University et al. by Ja-
+meel Jaffer, Ramya Krishnan, and Alex Abdo; for Members of Congress
+by Theodore J. Boutrous, Jr., Nicola T. Hanna, Patrick J. Fuster, Thomas
+M. Donovan, Blaine H. Evanson, and Christine A. Budasoff; for Social
+and Racial Justice Nonprofts by Travis LeBlanc, Matt K. Nguyen, Kath-
+leen R. Hartnett, and Jamie D. Robertson; and for Susan A. Aaronson
+et al. by Mark S. Davies.
+   Briefs of amici curiae urging reversal in No. 24–656 were fled for First
+Amendment and Internet Law Professors by Michael Gottlieb; and for
+the Foundation for Individual Rights and Expression et al. by Robert
+Corn-Revere.
+   Briefs of amici curiae urging affrmance in both cases were fled for the
+State of Montana et al. by Austin Knudsen, Attorney General of Montana,
+Christian B. Corrigan, Solicitor General, Peter M. Torstensen, Jr., Deputy
+Page Proof Pending Publication
+Solicitor General, by Jason S. Miyares, Attorney General of Virginia,
+Erika L. Maley, Solicitor General, Kevin M. Gallagher, Principal Deputy
+Solicitor General, and Michael Dingman, Assistant Solicitor General, and
+by the Attorneys General for their respective States as follows: Steve Mar-
+shall of Alabama, Tim Griffn of Arkansas, Ashley Moody of Florida,
+Christopher M. Carr of Georgia, Raúl R. Labrador of Idaho, Theodore E.
+Rokita of Indiana, Brenna Bird of Iowa, Russell Coleman of Kentucky,
+Liz Murrill of Louisiana, Lynn Fitch of Mississippi, Andrew Bailey of
+Missouri, Michael T. Hilgers of Nebraska, John M. Formella of New
+Hampshire, Drew Wrigley of North Dakota, Dave Yost of Ohio, Gentner
+F. Drummond of Oklahoma, Alan Wilson of South Carolina, Marty J.
+Jackley of South Dakota, Jonathan Skrmetti of Tennessee, and Sean D.
+Reyes of Utah; for the American Free Enterprise Chamber of Commerce
+by Jonathan Berry and William P. Barr; for Former Federal Communica-
+tions Commission Offcials et al. by Thomas M. Johnson, Jr., and Jeremy
+J. Broggi; for Former National Security Offcials by Thomas R. McCarthy
+and Kathleen S. Lane; for the Foundation for Defense of Democracies by
+Peter C. Choharis and Arnon D. Siegel; and for John R. Moolenaar et al.
+by Thomas M. Johnson, Jr., and Jeremy J. Broggi.
+   Briefs of amici curiae were fled in both cases for Advancing American
+Freedom, Inc., et al. by J. Marc Wheat; for the American Civil
+Liberties Union et al. by Patrick Toomey, Ashley Gorski, Vera Eidelman,
+62                     TIKTOK INC. v. GARLAND
+
+                                Per Curiam
+
+     Per Curiam.
+   As of January 19, the Protecting Americans from Foreign
+Adversary Controlled Applications Act will make it unlawful
+for companies in the United States to provide services to
+distribute, maintain, or update the social media platform Tik-
+Tok, unless U. S. operation of the platform is severed from
+Chinese control. Petitioners are two TikTok operating en-
+tities and a group of U. S. TikTok users. We consider
+whether the Act, as applied to petitioners, violates the
+First Amendment.
+   In doing so, we are conscious that the cases before us in-
+volve new technologies with transformative capabilities.
+This challenging new context counsels caution on our part.
+As Justice Frankfurter advised 80 years ago in consider-
+ing the application of established legal rules to the “totally
+new problems” raised by the airplane and radio, we should
+take care not to “embarrass the future. ” Northwest
+Page Proof Pending Publication
+Airlines, Inc. v. Minnesota, 322 U. S. 292, 300 (1944). That
+caution is heightened in these cases, given the expedited
+time allowed for our consideration.1 Our analysis must be
+understood to be narrowly focused in light of these
+circumstances.
+
+Hina Shamsi, Cecillia D. Wang, and Dav id Greene; for Asian
+Americans Advancing Justice ⎢AAJC et al. by Brendan Benedict and Noah
+B. Baron; for the Campaign for Uyghurs et al. by Joel L. Thayer; for the
+Cato Institute by Thomas A. Berry; for Floor64, Inc., by Catherine R.
+Gellis; for the Forum for Constitutional Rights by Mahesha P. Subbara-
+man; for Milton Mueller by Anne M. Voigts; for Zephyr Teachout et al.
+by Joel L. Thayer, pro se; and for President Donald J. Trump by D. John
+Sauer.
+  A brief of amicus curiae was fled in No. 24–656 for Chris Santospirito
+et al., pro se.
+  1
+    Applications for an injunction pending review were fled on December
+16, 2024; we construed the applications as petitions for a writ of certiorari
+and granted them on December 18, 2024; and oral argument was held on
+January 10, 2025.
+                   Cite as: 604 U. S. 56 (2025)              63
+
+                          Per Curiam
+
+                                I
+                               A
+   TikTok is a social media platform that allows users to cre-
+ate, publish, view, share, and interact with short videos over-
+laid with audio and text. Since its launch in 2017, the plat-
+form has accumulated over 170 million users in the United
+States and more than one billion worldwide. Those users
+are prolifc content creators and viewers. In 2023, U. S. Tik-
+Tok users uploaded more than 5.5 billion videos, which were
+in turn viewed more than 13 trillion times around the world.
+   Opening the TikTok application brings a user to the “For
+You” page—a personalized content feed tailored to the user's
+interests. TikTok generates the feed using a proprietary al-
+gorithm that recommends videos to a user based on the
+user's interactions with the platform. Each interaction a
+user has on TikTok—watching a video, following an account,
+leaving a comment—enables the recommendation system to
+Page Proof Pending Publication
+further tailor a personalized content feed.
+   A TikTok user's content feed is also shaped by content
+moderation and fltering decisions. TikTok uses automated
+and human processes to remove content that violates the
+platform's community guidelines. See 1 App. 493– 497.
+TikTok also promotes or demotes certain content to advance
+its business objectives and other goals. See id., at 499–501.
+   TikTok is operated in the United States by TikTok Inc.,
+an American company incorporated and headquartered
+in California. TikTok Inc.'s ultimate parent company is
+ByteDance Ltd., a privately held company that has opera-
+tions in China. ByteDance Ltd. owns TikTok's proprietary
+algorithm, which is developed and maintained in China.
+The company is also responsible for developing portions of
+the source code that runs the TikTok platform. ByteDance
+Ltd. is subject to Chinese laws that require it to “assist or
+cooperate” with the Chinese Government's “intelligence
+64                TIKTOK INC. v. GARLAND
+
+                          Per Curiam
+
+work” and to ensure that the Chinese Government has “the
+power to access and control private data” the company holds.
+H. R. Rep. No. 118–417, p. 4 (2024) (H. R. Rep.); see 2 App.
+673–676.
+                             B
+                               1
+   In recent years, U. S. Government offcials have taken re-
+peated actions to address national security concerns regard-
+ing the relationship between China and TikTok.
+   In August 2020, President Trump issued an Executive
+Order fnding that “the spread in the United States of mobile
+applications developed and owned by companies in [China]
+continues to threaten the national security, foreign policy,
+and economy of the United States.” Exec. Order No. 13942,
+3 CFR 412 (2021). President Trump determined that Tik-
+Tok raised particular concerns, noting that the platform “au-
+tomatically captures vast swaths of information from its
+Page Proof Pending Publication
+users” and is susceptible to being used to further the inter-
+ests of the Chinese Government. Ibid. The President in-
+voked his authority under the International Emergency Eco-
+nomic Powers Act (IEEPA), 50 U. S. C. § 1701 et seq., and the
+National Emergencies Act, 50 U. S. C. § 1601 et seq., to pro-
+hibit certain “transactions” involving ByteDance Ltd. or its
+subsidiaries, as identifed by the Secretary of Commerce. 3
+CFR 413. The Secretary published a list of prohibited
+transactions in September 2020. See 85 Fed. Reg. 60061.
+But federal courts enjoined the prohibitions before they took
+effect, fnding that they exceeded the Executive Branch's au-
+thority under IEEPA. See generally TikTok Inc. v. Trump,
+507 F. Supp. 3d 92 (DC 2020); Marland v. Trump, 498
+F. Supp. 3d 624 (ED Pa. 2020).
+   Just days after issuing his initial Executive Order, Presi-
+dent Trump ordered ByteDance Ltd. to divest all interests
+and rights in any property “used to enable or support
+ByteDance's operation of the TikTok application in the
+                   Cite as: 604 U. S. 56 (2025)              65
+
+                          Per Curiam
+
+United States,” along with “any data obtained or derived
+from” U. S. TikTok users. 85 Fed. Reg. 51297. ByteDance
+Ltd. and TikTok Inc. fled suit in the D. C. Circuit, challeng-
+ing the constitutionality of the order. In February 2021, the
+D. C. Circuit placed the case in abeyance to permit the Biden
+administration to review the matter and to enable the parties
+to negotiate a non-divestiture remedy that would address the
+Government's national security concerns. See Order in Tik-
+Tok Inc. v. Committee on Foreign Investment, No. 20–1444
+(CADC, Feb. 19, 2021).
+   Throughout 2021 and 2022, ByteDance Ltd. negotiated
+with Executive Branch offcials to develop a national security
+agreement that would resolve those concerns. Executive
+Branch offcials ultimately determined, however, that Byte-
+Dance Ltd.'s proposed agreement did not adequately “miti-
+gate the risks posed to U. S. national security interests.” 2
+App. 686. Negotiations stalled, and the parties never fnal-
+ized an agreement.
+Page Proof Pending Publication  2
+   Against this backdrop, Congress enacted the Protecting
+Americans from Foreign Adversary Controlled Applications
+Act. Pub. L. 118–50, div. H, 138 Stat. 955. The Act makes
+it unlawful for any entity to provide certain services to “dis-
+tribute, maintain, or update” a “foreign adversary controlled
+application” in the United States. § 2(a)(1). Entities that
+violate this prohibition are subject to civil enforcement
+actions and hefty monetary penalties. See §§ 2(d)(1)(A),
+(d)(2)(B).
+   The Act provides two means by which an application may
+be designated a “foreign adversary controlled application.”
+First, the Act expressly designates any application that
+is “operated, directly or indirectly,” by “ByteDance Ltd.”
+or “TikTok, ” or any subsidiary or successor thereof.
+§ 2(g)(3)(A). Second, the Act establishes a general designa-
+tion framework for any application that is both (1) operated
+66                 TIKTOK INC. v. GARLAND
+
+                          Per Curiam
+
+by a “covered company” that is “controlled by a foreign ad-
+versary,” and (2) “determined by the President to present a
+signifcant threat to the national security of the United
+States,” following a public notice and reporting process.
+§ 2(g)(3)(B). In broad terms, the Act defnes “covered com-
+pany” to include a company that operates an application that
+enables users to generate, share, and view content and
+has more than 1,000,000 monthly active users. § 2(g)(2)(A).
+The Act excludes from that defnition a company that oper-
+ates an application “whose primary purpose is to allow users
+to post product reviews, business reviews, or travel informa-
+tion and reviews.” § 2(g)(2)(B).
+   The Act's prohibitions take effect 270 days after an
+application is designated a foreign adversary controlled ap-
+plication. § 2(a)(2). Because the Act itself designates appli-
+cations operated by “ByteDance, Ltd.” and “TikTok,” prohi-
+bitions as to those applications take effect 270 days after the
+Page Proof Pending Publication
+Act's enactment—January 19, 2025.
+   The Act exempts a foreign adversary controlled applica-
+tion from the prohibitions if the application undergoes a
+“qualifed divestiture.” § 2(c)(1). A “qualifed divestiture”
+is one that the President determines will result in the appli-
+cation “no longer being controlled by a foreign adversary.”
+§ 2(g)(6)(A). The President must further determine that the
+divestiture “precludes the establishment or maintenance of
+any operational relationship between the United States oper-
+ations of the [application] and any formerly affliated entities
+that are controlled by a foreign adversary, including any co-
+operation with respect to the operation of a content recom-
+mendation algorithm or an agreement with respect to data
+sharing.” § 2(g)(6)(B). The Act permits the President to
+grant a one-time extension of no more than 90 days with
+respect to the prohibitions' 270-day effective date if the Pres-
+ident makes certain certifcations to Congress regarding
+progress toward a qualifed divestiture. § 2(a)(3).
+                    Cite as: 604 U. S. 56 (2025)              67
+
+                           Per Curiam
+
+                                 C
+   ByteDance Ltd. and TikTok Inc.—along with two sets of
+TikTok users and creators (creator petitioners)—fled peti-
+tions for review in the D. C. Circuit, challenging the constitu-
+tionality of the Act. As relevant here, petitioners argued
+that the Act's prohibitions, TikTok-specifc foreign adversary
+controlled application designation, and divestiture require-
+ment violate the First Amendment.
+   The D. C. Circuit consolidated and denied the petitions,
+holding that the Act does not violate petitioners' First
+Amendment rights. 122 F. 4th 930, 940, 948–965 (CADC
+2024). After frst concluding that the Act was subject to
+heightened scrutiny under the First Amendment, the court
+assumed without deciding that strict, rather than intermedi-
+ate, scrutiny applied. Id., at 948–952. The court held that
+the Act satisfed that standard, fnding that the Govern-
+ment's national security justifcations—countering China's
+Page Proof Pending Publication
+data collection and covert content manipulation efforts—
+were compelling, and that the Act was narrowly tailored to
+further those interests. Id., at 952–965.
+   Chief Judge Srinivasan concurred in part and in the judg-
+ment. Id., at 970. In his view, the Act was subject to inter-
+mediate scrutiny, id., at 974–979, and was constitutional
+under that standard, id., at 979–983.
+   We granted certiorari to decide whether the Act, as ap-
+plied to petitioners, violates the First Amendment. 604
+U. S. 1071 (2024).
+                               II
+                                A
+  At the threshold, we consider whether the challenged pro-
+visions are subject to First Amendment scrutiny. Laws
+that directly regulate expressive conduct can, but do not nec-
+essarily, trigger such review. See R. A. V. v. St. Paul, 505
+U. S. 377, 382–386 (1992). We have also applied First
+68                TIKTOK INC. v. GARLAND
+
+                          Per Curiam
+
+Amendment scrutiny in “cases involving governmental regu-
+lation of conduct that has an expressive element,” and to
+“some statutes which, although directed at activity with no
+expressive component, impose a disproportionate burden
+upon those engaged in protected First Amendment activi-
+ties.” Arcara v. Cloud Books, Inc., 478 U. S. 697, 703–704
+(1986).
+   It is not clear that the Act itself directly regulates pro-
+tected expressive activity, or conduct with an expressive
+component. Indeed, the Act does not regulate the creator
+petitioners at all. And it directly regulates ByteDance
+Ltd. and TikTok Inc. only through the divestiture require-
+ment. See § 2(c)(1). Petitioners, for their part, have not
+identifed any case in which this Court has treated a regula-
+tion of corporate control as a direct regulation of expressive
+activity or semi-expressive conduct. See Tr. of Oral Arg.
+37–40. We hesitate to break that new ground in this
+Page Proof Pending Publication
+unique case.
+   In any event, petitioners' arguments more closely approxi-
+mate a claim that the Act's prohibitions, TikTok-specifc des-
+ignation, and divestiture requirement “impose a dispro-
+portionate burden upon” their First Amendment activities.
+Arcara, 478 U. S., at 704. Petitioners assert—and the Gov-
+ernment does not contest—that, because it is commercially
+infeasible for TikTok to be divested within the Act's 270-
+day timeframe, the Act effectively bans TikTok in the United
+States. Petitioners argue that such a ban will burden vari-
+ous First Amendment activities, including content modera-
+tion, content generation, access to a distinct medium for ex-
+pression, association with another speaker or preferred
+editor, and receipt of information and ideas.
+   We have recognized a number of these asserted First
+Amendment interests. See Moody v. NetChoice, LLC, 603
+U. S. 707, 731 (2024) (“An entity `exercising editorial dis-
+cretion in the selection and presentation' of content is `en-
+gaged in speech activity.' ” (quoting Arkansas Ed. Television
+                       Cite as: 604 U. S. 56 (2025)                   69
+
+                              Per Curiam
+
+Comm'n v. Forbes, 523 U. S. 666, 674 (1998); alterations omit-
+ted)); City of Ladue v. Gilleo, 512 U. S. 43, 54–58 (1994) (“Our
+prior decisions have voiced particular concern with laws that
+foreclose an entire medium of expression.”); Rumsfeld v.
+Forum for Academic and Institutional Rights, Inc., 547
+U. S. 47, 68 (2006) (“We have recognized a First Amendment
+right to associate for the purpose of speaking, which we have
+termed a `right of expressive association.' ”); Martin v. City
+of Struthers, 319 U. S. 141, 143 (1943) (“The right of freedom
+of speech and press . . . embraces the right to distribute
+literature and necessarily protects the right to receive it.”
+(citation omitted)).2 And an effective ban on a social media
+platform with 170 million U. S. users certainly burdens those
+users' expressive activity in a non-trivial way.
+   At the same time, a law targeting a foreign adversary's
+control over a communications platform is in many ways
+different in kind from the regulations of non-expressive ac-
+tivity that we have subjected to First Amendment scrutiny.
+Page Proof Pending Publication
+Those differences—the Act's focus on a foreign government,
+the congressionally determined adversary relationship be-
+tween that foreign government and the United States, and
+the causal steps between the regulations and the alleged
+burden on protected speech—may impact whether First
+Amendment scrutiny applies.
+   This Court has not articulated a clear framework for de-
+termining whether a regulation of non-expressive activity
+that disproportionately burdens those engaged in expressive
+activity triggers heightened review. We need not do so
+here. We assume without deciding that the challenged pro-
+visions fall within this category and are subject to First
+Amendment scrutiny.
+
+  2
+    To the extent that ByteDance Ltd.'s asserted expressive activity oc-
+curs abroad, that activity is not protected by the First Amendment. See
+Agency for Int'l Development v. Alliance for Open Society Int'l Inc., 591
+U. S. 430, 436 (2020) (“[F]oreign organizations operating abroad have no
+First Amendment rights.”).
+70                 TIKTOK INC. v. GARLAND
+
+                           Per Curiam
+
+                               B
+                               1
+  “At the heart of the First Amendment lies the principle
+that each person should decide for himself or herself the
+ideas and beliefs deserving of expression, consideration, and
+adherence.” Turner Broadcasting System, Inc. v. FCC, 512
+U. S. 622, 641 (1994) (Turner I). Government action that
+suppresses speech because of its message “contravenes this
+essential right.” Ibid. “Content-based laws—those that
+target speech based on its communicative content—are pre-
+sumptively unconstitutional and may be justifed only if the
+government proves that they are narrowly tailored to serve
+compelling state interests.” Reed v. Town of Gilbert, 576
+U. S. 155, 163 (2015). Content-neutral laws, in contrast, “are
+subject to an intermediate level of scrutiny because in most
+cases they pose a less substantial risk of excising certain
+ideas or viewpoints from the public dialogue.” Turner I,
+Page Proof Pending Publication
+512 U. S., at 642 (citation omitted). Under that standard, we
+will sustain a content-neutral law “if it advances important
+governmental interests unrelated to the suppression of free
+speech and does not burden substantially more speech than
+necessary to further those interests.” Turner Broadcasting
+System, Inc. v. FCC, 520 U. S. 180, 189 (1997) (Turner II).
+  We have identifed two forms of content-based speech reg-
+ulation. First, a law is content based on its face if it “applies
+to particular speech because of the topic discussed or the
+idea or message expressed.” Reed, 576 U. S., at 163; see id.,
+at 163–164 (explaining that some facial distinctions defne
+regulated speech by subject matter, others by the speech's
+function or purpose). Second, a facially content-neutral law
+is nonetheless treated as a content-based regulation of
+speech if it “cannot be `justifed without reference to the con-
+tent of the regulated speech' ” or was “adopted by the gov-
+ernment `because of disagreement with the message the
+                   Cite as: 604 U. S. 56 (2025)              71
+
+                          Per Curiam
+
+speech conveys. ' ” Id., at 164 (quoting Ward v. Rock
+Against Racism, 491 U. S. 781, 791 (1989)).
+   As applied to petitioners, the challenged provisions are fa-
+cially content neutral and are justifed by a content-neutral
+rationale.
+                                a
+   The challenged provisions are facially content neutral.
+They impose TikTok-specifc prohibitions due to a foreign
+adversary's control over the platform and make divestiture
+a prerequisite for the platform's continued operation in the
+United States. They do not target particular speech based
+upon its content, contrast, e. g., Carey v. Brown, 447 U. S.
+455, 465 (1980) (statute prohibiting all residential picketing
+except “peaceful labor picketing”), or regulate speech based
+on its function or purpose, contrast, e. g., Holder v. Humani-
+tarian Law Project, 561 U. S. 1, 7, 27 (2010) (law prohibiting
+providing material support to terrorists). Nor do they im-
+Page Proof Pending Publication
+pose a “restriction, penalty, or burden” by reason of content
+on TikTok—a conclusion confrmed by the fact that petition-
+ers “cannot avoid or mitigate” the effects of the Act by alter-
+ing their speech. Turner I, 512 U. S., at 644. As to peti-
+tioners, the Act thus does not facially regulate “particular
+speech because of the topic discussed or the idea or message
+expressed.” Reed, 576 U. S., at 163.
+   Petitioners argue that the Act is content based on its face
+because it excludes from the defnition of “covered company”
+any company that operates an application “whose primary
+purpose is to allow users to post product reviews, business
+reviews, or travel information and reviews.” § 2(g)(2)(B);
+see Brief for Petitioners in No. 24–656, pp. 26–27 (Brief for
+TikTok); Brief for Petitioners in No. 24–657, p. 26 (Brief for
+Creator Petitioners). We need not decide whether that ex-
+clusion is content based. The question before the Court is
+whether the Act violates the First Amendment as applied
+to petitioners. To answer that question, we look to the pro-
+72                TIKTOK INC. v. GARLAND
+
+                         Per Curiam
+
+visions of the Act that give rise to the effective TikTok ban
+that petitioners argue burdens their First Amendment
+rights. The exclusion for certain review platforms, how-
+ever, applies only to the general framework for designat-
+ing applications controlled by “covered compan[ies],” not to
+the TikTok-specifc designation. §§ 2(g)(3)(A)–(B). As such,
+the exclusion is not within the scope of petitioners' as-
+applied challenge.
+                              b
+   The Government also supports the challenged provisions
+with a content-neutral justifcation: preventing China from
+collecting vast amounts of sensitive data from 170 million
+U. S. TikTok users. 2 App. 628. That rationale is decidedly
+content agnostic. It neither references the content of
+speech on TikTok nor refects disagreement with the mes-
+sage such speech conveys. Cf. Ward, 491 U. S., at 792–793
+(holding noise control and sound quality justifcations behind
+Page Proof Pending Publication
+city sound amplifcation guideline were content neutral).
+   Because the data collection justifcation refects a “pur-
+pos[e] unrelated to the content of expression,” it is content
+neutral. Id., at 791.
+                              2
+   The Act's TikTok-specifc distinctions, moreover, do not
+trigger strict scrutiny. See Brief for TikTok 26–27; Brief
+for Creator Petitioners 24–26. It is true that “[s]peech re-
+strictions based on the identity of the speaker are all too
+often simply a means to control content.” Citizens United
+v. Federal Election Comm'n, 558 U. S. 310, 340 (2010). For
+that reason, “[r]egulations that discriminate among media,
+or among different speakers within a single medium, often
+present serious First Amendment concerns.” Turner I, 512
+U. S., at 659. But while “laws favoring some speakers over
+others demand strict scrutiny when the legislature's speaker
+preference refects a content preference,” id., at 658, such
+                    Cite as: 604 U. S. 56 (2025)              73
+
+                           Per Curiam
+
+scrutiny “is unwarranted when the differential treatment is
+`justifed by some special characteristic of ' the particular
+[speaker] being regulated,” id., at 660–661 (quoting Minne-
+apolis Star & Tribune Co. v. Minnesota Comm'r of Revenue,
+460 U. S. 575, 585 (1983)).
+   For the reasons we have explained, requiring divestiture
+for the purpose of preventing a foreign adversary from ac-
+cessing the sensitive data of 170 million U. S. TikTok users
+is not “a subtle means of exercising a content preference.”
+Turner I, 512 U. S., at 645. The prohibitions, TikTok-
+specifc designation, and divestiture requirement regulate
+TikTok based on a content-neutral data collection interest.
+And TikTok has special characteristics—a foreign adver-
+sary's ability to leverage its control over the platform to col-
+lect vast amounts of personal data from 170 million U. S.
+users—that justify this differential treatment. “[S]peaker
+distinctions of this nature are not presumed invalid under
+the First Amendment.” Ibid.
+Page Proof Pending Publication
+   While we fnd that differential treatment was justifed
+here, however, we emphasize the inherent narrowness of
+our holding. Data collection and analysis is a common
+practice in this digital age. But TikTok's scale and suscepti-
+bility to foreign adversary control, together with the vast
+swaths of sensitive data the platform collects, justify differ-
+ential treatment to address the Government's national secu-
+rity concerns. A law targeting any other speaker would
+by necessity entail a distinct inquiry and separate
+considerations.
+   On this understanding, we cannot accept petitioners' call
+for strict scrutiny. No more than intermediate scrutiny is
+in order.
+                                C
+  As applied to petitioners, the Act satisfes intermediate
+scrutiny. The challenged provisions further an important
+Government interest unrelated to the suppression of free ex-
+74                    TIKTOK INC. v. GARLAND
+
+                               Per Curiam
+
+pression and do not burden substantially more speech than
+necessary to further that interest.3
+                                    1
+   The Act's prohibitions and divestiture requirement are de-
+signed to prevent China—a designated foreign adversary—
+from leveraging its control over ByteDance Ltd. to capture
+the personal data of U. S. TikTok users. This objective
+qualifes as an important Government interest under inter-
+mediate scrutiny.
+   Petitioners do not dispute that the Government has an im-
+portant and well-grounded interest in preventing China from
+collecting the personal data of tens of millions of U. S. TikTok
+users. Nor could they. The platform collects extensive
+personal information from and about its users. See H. R.
+Rep., at 3 (Public reporting has suggested that TikTok's
+“data collection practices extend to age, phone number, pre-
+cise location, internet address, device used, phone contacts,
+Page Proof Pending Publication
+social network connections, the content of private messages
+sent through the application, and videos watched.”); 1 App.
+241 (Draft National Security Agreement noting that TikTok
+collects user data, user content, behavioral data (including
+“keystroke patterns and rhythms”), and device and network
+data (including device contacts and calendars)). If, for ex-
+ample, a user allows TikTok access to the user's phone con-
+tact list to connect with others on the platform, TikTok can
+access “any data stored in the user's contact list,” including
+names, contact information, contact photos, job titles, and
+notes. 2 App. 659. Access to such detailed information
+about U. S. users, the Government worries, may enable
+“China to track the locations of Federal employees and
+contractors, build dossiers of personal information for black-
+mail, and conduct corporate espionage.” 3 CFR 412. And
+Chinese law enables China to require companies to surren-
+  3
+   Our holding and analysis are based on the public record, without refer-
+ence to the classifed evidence the Government fled below.
+                   Cite as: 604 U. S. 56 (2025)              75
+
+                          Per Curiam
+
+der data to the government, “making companies head-
+quartered there an espionage tool” of China. H. R. Rep.,
+at 4.
+   Rather than meaningfully dispute the scope of the data
+TikTok collects or the ends to which it may be used, petition-
+ers contest probability, asserting that it is “unlikely” that
+China would “compel TikTok to turn over user data for
+intelligence-gathering purposes, since China has more effec-
+tive and effcient means of obtaining relevant information.”
+Brief for TikTok 50 (internal quotation marks omitted). In
+reviewing the constitutionality of the Act, however, we
+“must accord substantial deference to the predictive judg-
+ments of Congress.” Turner I, 512 U. S., at 665 (opinion of
+Kennedy, J.). “Sound policymaking often requires legisla-
+tors to forecast future events and to anticipate the likely im-
+pact of these events based on deductions and inferences for
+which complete empirical support may be unavailable.”
+Page Proof Pending Publication
+Ibid. Here, the Government's TikTok-related data collec-
+tion concerns do not exist in isolation. The record refects
+that China “has engaged in extensive and years-long efforts
+to accumulate structured datasets, in particular on U. S. per-
+sons, to support its intelligence and counterintelligence oper-
+ations.” 2 App. 634.
+   Even if China has not yet leveraged its relationship with
+ByteDance Ltd. to access U. S. TikTok users' data, petition-
+ers offer no basis for concluding that the Government's de-
+termination that China might do so is not at least a “reason-
+able inferenc[e] based on substantial evidence.” Turner II,
+520 U. S., at 195. We are mindful that this law arises in a
+context in which “national security and foreign policy con-
+cerns arise in connection with efforts to confront evolving
+threats in an area where information can be diffcult to ob-
+tain and the impact of certain conduct diffcult to assess.”
+Humanitarian Law Project, 561 U. S., at 34. We thus af-
+ford the Government's “informed judgment” substantial re-
+spect here. Ibid.
+76                 TIKTOK INC. v. GARLAND
+
+                          Per Curiam
+
+   Petitioners further argue that the Act is underinclusive as
+to the Government's data protection concern, raising doubts
+as to whether the Government is actually pursuing that in-
+terest. In particular, petitioners argue that the Act's focus
+on applications with user-generated and user-shared content,
+along with its exclusion for certain review platforms, ex-
+empts from regulation applications that are “as capable as
+TikTok of collecting Americans' data.” Brief for TikTok 43;
+see Brief for Creator Petitioners 48–49. But “the First
+Amendment imposes no freestanding underinclusiveness
+limitation,” and the Government “need not address all as-
+pects of a problem in one fell swoop.” Williams-Yulee v.
+Florida Bar, 575 U. S. 433, 449 (2015) (internal quotation
+marks omitted). Furthermore, as we have already con-
+cluded, the Government had good reason to single out Tik-
+Tok for special treatment. Contrast Brown v. Entertain-
+ment Merchants Assn., 564 U. S. 786, 802 (2011) (singling out
+purveyors of video games for disfavored treatment without
+Page Proof Pending Publication
+a persuasive reason “raise[d] serious doubts about whether
+the government [wa]s in fact pursuing the interest it
+invoke[d], rather than disfavoring a particular speaker
+or viewpoint”). On this record, Congress was justifed in
+specifcally addressing its TikTok-related national security
+concerns.
+                               2
+   As applied to petitioners, the Act is suffciently tailored to
+address the Government's interest in preventing a foreign
+adversary from collecting vast swaths of sensitive data about
+the 170 million U. S. persons who use TikTok. To survive
+intermediate scrutiny, “a regulation need not be the least
+speech-restrictive means of advancing the Government's in-
+terests.” Turner I, 512 U. S., at 662. Rather, the standard
+“is satisfed `so long as the regulation promotes a substantial
+government interest that would be achieved less effectively
+absent the regulation' ” and does not “burden substantially
+more speech than is necessary” to further that interest.
+                    Cite as: 604 U. S. 56 (2025)               77
+
+                           Per Curiam
+
+Ward, 491 U. S., at 799 (quoting United States v. Albertini,
+472 U. S. 675, 689 (1985); alterations omitted).
+   The challenged provisions meet this standard. The provi-
+sions clearly serve the Government's data collection interest
+“in a direct and effective way.” Ward, 491 U. S., at 800.
+The prohibitions account for the fact that, absent a qualifed
+divestiture, TikTok's very operation in the United States im-
+plicates the Government's data collection concerns, while the
+requirements that make a divestiture “qualifed” ensure that
+those concerns are addressed before TikTok resumes U. S.
+operations. Neither the prohibitions nor the divestiture re-
+quirement, moreover, is “substantially broader than nec-
+essary to achieve” this national security objective. Ibid.
+Rather than ban TikTok outright, the Act imposes a condi-
+tional ban. The prohibitions prevent China from gathering
+data from U. S. TikTok users unless and until a qualifed di-
+vestiture severs China's control.
+Page Proof Pending Publication
+   Petitioners parade a series of alternatives—disclosure re-
+quirements, data sharing restrictions, the proposed national
+security agreement, the general designation provision—that
+they assert would address the Government's data collection
+interest in equal measure to a conditional TikTok ban.
+Those alternatives do not alter our tailoring analysis.
+   Petitioners' proposed alternatives ignore the “latitude” we
+afford the Government to design regulatory solutions to ad-
+dress content-neutral interests. Turner II, 520 U. S., at 213.
+“So long as the means chosen are not substantially broader
+than necessary to achieve the government's interest, . . . the
+regulation will not be invalid simply because a court con-
+cludes that the government's interest could be adequately
+served by some less-speech-restrictive alternative.” Ward,
+491 U. S., at 800; see ibid. (regulation valid despite availabil-
+ity of less restrictive “alternative regulatory methods”); Al-
+bertini, 472 U. S., at 689; Clark v. Community for Creative
+Non-Violence, 468 U. S. 288, 299 (1984); Members of City
+Council of Los Angeles v. Taxpayers for Vincent, 466 U. S.
+78                TIKTOK INC. v. GARLAND
+
+                          Per Curiam
+
+789, 815–816 (1984). For the reasons we have explained, the
+challenged provisions are “not substantially broader than
+necessary” to address the Government's data collection con-
+cerns. Ward, 491 U. S., at 800. Nor did the Government
+ignore less restrictive approaches already proven effective.
+Contrast McCullen v. Coakley, 573 U. S. 464, 490–494 (2014)
+(state law burdened substantially more speech than neces-
+sary where State had not considered less restrictive meas-
+ures successfully adopted by other jurisdictions). The va-
+lidity of the challenged provisions does not turn on whether
+we agree with the Government's conclusion that its chosen
+regulatory path is best or “most appropriate.” Albertini,
+472 U. S., at 689. “We cannot displace [the Government's]
+judgment respecting content-neutral regulations with our
+own, so long as its policy is grounded on reasonable factual
+fndings supported by evidence that is substantial for a legis-
+lative determination.” Turner II, 520 U. S., at 224. Those
+requirements are met here.
+Page Proof Pending Publication
+                              D
+   In addition to the data collection concerns addressed
+above, the Government asserts an interest in preventing a
+foreign adversary from having control over the recommenda-
+tion algorithm that runs a widely used U. S. communications
+platform, and from being able to wield that control to alter
+the content on the platform in an undetectable manner. See
+2 App. 628. In petitioners' view, that rationale is a content-
+based justifcation that “taint[s]” the Government's data col-
+lection interest and triggers strict scrutiny. Brief for Tik-
+Tok 41.
+   Petitioners have not pointed to any case in which this
+Court has assessed the appropriate level of First Amend-
+ment scrutiny for an Act of Congress justifed on both
+content-neutral and content-based grounds. They assert,
+however, that the challenged provisions are subject to—and
+fail—strict scrutiny because Congress would not have passed
+                   Cite as: 604 U. S. 56 (2025)             79
+
+                          Per Curiam
+
+the provisions absent the foreign adversary control rationale.
+See id., at 41–42; Brief for Creator Petitioners 47–50. We
+need not determine the proper standard for mixed-justifca-
+tion cases or decide whether the Government's foreign ad-
+versary control justifcation is content neutral. Even as-
+suming that rationale turns on content, petitioners'
+argument fails under the counterfactual analysis they pro-
+pose: The record before us adequately supports the conclu-
+sion that Congress would have passed the challenged provi-
+sions based on the data collection justifcation alone.
+   To start, the House Report focuses overwhelmingly on the
+Government's data collection concerns, noting the “breadth”
+of TikTok's data collection, “the diffculty in assessing pre-
+cisely which categories of data” the platform collects, the
+“tight interlinkages” between TikTok and the Chinese Gov-
+ernment, and the Chinese Government's ability to “coerc[e]”
+companies in China to “provid[e] data.” H. R. Rep., at 3;
+Page Proof Pending Publication
+see id., at 5–12 (recounting a fve-year record of Government
+actions raising and attempting to address those very con-
+cerns). Indeed, it does not appear that any legislator dis-
+puted the national security risks associated with TikTok's
+data collection practices, and nothing in the legislative rec-
+ord suggests that data collection was anything but an over-
+riding congressional concern. We are especially wary of
+parsing Congress's motives on this record with regard to an
+Act passed with striking bipartisan support. See 170 Cong.
+Rec. H1170 (Mar. 13, 2024) (352–65); 170 Cong. Rec. S2992
+(Apr. 23, 2024) (79–18).
+   Petitioners assert that the text of the Act itself under-
+mines this conclusion. In particular, they argue that the
+Government's data collection rationale cannot justify the re-
+quirement that a qualifed divestiture preclude “any opera-
+tional relationship” that allows for “cooperation with respect
+to the operation of a content recommendation algorithm or
+an agreement with respect to data sharing.” § 2(g)(6)(B);
+see Brief for Creator Petitioners 48–49. We disagree. The
+80                TIKTOK INC. v. GARLAND
+
+                    Opinion of Sotomayor, J.
+
+Government has explained that ByteDance Ltd. uses the
+data it collects to train the TikTok recommendation algo-
+rithm, which is developed and maintained in China. Accord-
+ing to the Government, ByteDance Ltd. has previously de-
+clined to agree to stop collecting U. S. user data or sending
+that data to China to train the algorithm. See 2 App. 705–
+706. The Government has further noted the diffculties as-
+sociated with monitoring data sharing between ByteDance
+Ltd. and TikTok Inc. See id., at 692–697. Under these
+circumstances, we fnd the Government's data collection jus-
+tifcation suffcient to sustain the challenged provisions.
+
+                        *      *     *
+   There is no doubt that, for more than 170 million Ameri-
+cans, TikTok offers a distinctive and expansive outlet for ex-
+pression, means of engagement, and source of community.
+But Congress has determined that divestiture is necessary
+Page Proof Pending Publication
+to address its well-supported national security concerns re-
+garding TikTok's data collection practices and relationship
+with a foreign adversary. For the foregoing reasons, we
+conclude that the challenged provisions do not violate peti-
+tioners' First Amendment rights.
+   The judgment of the United States Court of Appeals for
+the District of Columbia Circuit is affrmed.
+                                             It is so ordered.
+
+  Justice Sotomayor, concurring in part and concurring in
+the judgment.
+   I join all but Part II–A of the Court's per curiam opinion.
+I see no reason to assume without deciding that the Act im-
+plicates the First Amendment because our precedent leaves
+no doubt that it does.
+   TikTok engages in expressive activity by “compiling and
+curating” material on its platform. Moody v. NetChoice,
+LLC, 603 U. S. 707, 731 (2024). Laws that “impose a dispro-
+portionate burden” upon those engaged in expressive activ-
+                   Cite as: 604 U. S. 56 (2025)              81
+
+               Gorsuch, J., concurring in judgment
+
+ity are subject to heightened scrutiny under the First
+Amendment. Arcara v. Cloud Books, Inc., 478 U. S. 697,
+704 (1986); see Minneapolis Star & Tribune Co. v. Minnesota
+Comm'r of Revenue, 460 U. S. 575, 581–585 (1983). The
+challenged Act plainly imposes such a burden: It bars any
+entity from distributing TikTok's speech in the United
+States, unless TikTok undergoes a qualifed divestiture.
+The Act, moreover, effectively prohibits TikTok from collabo-
+rating with certain entities regarding its “content recom-
+mendation algorithm” even following a qualifed divestiture.
+§ 2(g)(6)(B), 138 Stat. 959. And the Act implicates content
+creators' “right to associate” with their preferred publisher
+“for the purpose of speaking.” Rumsfeld v. Forum for Aca-
+demic and Institutional Rights, Inc., 547 U. S. 47, 68 (2006).
+That, too, calls for First Amendment scrutiny.
+   As to the remainder of the per curiam opinion, I agree
+that the Act survives petitioners' First Amendment
+challenge.
+Page Proof Pending Publication
+  Justice Gorsuch, concurring in the judgment.
+   We have had a fortnight to resolve, fnally and on the mer-
+its, a major First Amendment dispute affecting more than
+170 million Americans. Briefng fnished on January 3, ar-
+gument took place on January 10, and our opinions issue on
+January 17, 2025. Given those conditions, I can sketch out
+only a few, and admittedly tentative, observations.
+   First, the Court rightly refrains from endorsing the gov-
+ernment's asserted interest in preventing “the covert manip-
+ulation of content” as a justifcation for the law before us.
+Brief for Respondent 37. One man's “covert content manip-
+ulation” is another's “editorial discretion.” Journalists, pub-
+lishers, and speakers of all kinds routinely make less-than-
+transparent judgments about what stories to tell and how to
+tell them. Without question, the First Amendment has
+much to say about the right to make those choices. It makes
+no difference that Americans (like TikTok Inc. and many of
+82                TIKTOK INC. v. GARLAND
+
+               Gorsuch, J., concurring in judgment
+
+its users) may wish to make decisions about what they say
+in concert with a foreign adversary. “Those who won our
+independence” knew the vital importance of the “freedom to
+think as you will and to speak as you think,” as well as the
+dangers that come with repressing the free fow of ideas.
+Whitney v. California, 274 U. S. 357, 375 (1927) (Brandeis,
+J., concurring). They knew, too, that except in the most ex-
+treme situations, “the ftting remedy for evil counsels is good
+ones.” Ibid. Too often in recent years, the government
+has sought to censor disfavored speech online, as if the in-
+ternet were somehow exempt from the full sweep of the
+First Amendment. See, e. g., Murthy v. Missouri, 603 U. S.
+43, 76–78 (2024) (Alito, J., dissenting). But even as times
+and technologies change, “the principle of the right to free
+speech is always the same.” Abrams v. United States, 250
+U. S. 616, 628 (1919) (Holmes, J., dissenting).
+   Second, I am pleased that the Court declines to consider
+Page Proof Pending Publication
+the classifed evidence the government has submitted to us
+but shielded from petitioners and their counsel. Ante, at 74,
+n. 3. Efforts to inject secret evidence into judicial proceed-
+ings present obvious constitutional concerns. Usually, “the
+evidence used to prove the Government's case must be dis-
+closed to the individual so that he has an opportunity to show
+that it is untrue.” Greene v. McElroy, 360 U. S. 474, 496
+(1959). Maybe there is a way to handle classifed evidence
+that would afford a similar opportunity in cases like these.
+Maybe, too, Congress or even the Standing Committee on
+Rules of Practice and Procedure would proft from consider-
+ing the question. Cf. United States v. Zubaydah, 595 U. S.
+195, 245 (2022) (Gorsuch, J., dissenting). But as the Court
+recognizes, we have no business considering the govern-
+ment's secret evidence here.
+   Third, I harbor serious reservations about whether the
+law before us is “content neutral” and thus escapes “strict
+scrutiny.” See ante, at 70–73; Brief for Petitioners in No. 24–
+                   Cite as: 604 U. S. 56 (2025)              83
+
+               Gorsuch, J., concurring in judgment
+
+656, pp. 25–31; Brief for Petitioners in No. 24–657, pp. 24–26;
+Reply Brief in No. 24–656, pp. 10–12; Reply Brief in No. 24–
+657, pp. 8–11. More than that, while I do not doubt that
+the various “tiers of scrutiny” discussed in our case law—
+“rational basis, strict scrutiny, something(s) in between”—
+can help focus our analysis, I worry that litigation over them
+can sometimes take on a life of its own and do more to ob-
+scure than to clarify the ultimate constitutional questions.
+Riddle v. Hickenlooper, 742 F. 3d 922, 932 (CA10 2014) (Gor-
+such, J., concurring).
+   Fourth, whatever the appropriate tier of scrutiny, I am
+persuaded that the law before us seeks to serve a compelling
+interest: preventing a foreign country, designated by Con-
+gress and the President as an adversary of our Nation, from
+harvesting vast troves of personal information about tens of
+millions of Americans. The record before us establishes
+that TikTok mines data both from TikTok users and about
+Page Proof Pending Publication
+millions of others who do not consent to share their informa-
+tion. 2 App. 659. According to the Federal Bureau of In-
+vestigation, TikTok can access “any data” stored in a con-
+senting user's “contact list”—including names, photos, and
+other personal information about unconsenting third parties.
+Ibid. (emphasis added). And because the record shows that
+the People's Republic of China (PRC) can require TikTok's
+parent company “to cooperate with [its] efforts to obtain per-
+sonal data,” there is little to stop all that information from
+ending up in the hands of a designated foreign adversary.
+Id., at 696; see id., at 673–676; ante, at 63–64. The PRC
+may then use that information to “build dossiers . . . for
+blackmail,” “conduct corporate espionage,” or advance intel-
+ligence operations. 1 App. 215; see 2 App. 659. To be sure,
+assessing exactly what a foreign adversary may do in the
+future implicates “delicate” and “complex” judgments about
+foreign affairs and requires “large elements of prophecy.”
+Chicago & Southern Air Lines, Inc. v. Waterman S. S. Corp.,
+84                TIKTOK INC. v. GARLAND
+
+               Gorsuch, J., concurring in judgment
+
+333 U. S. 103, 111 (1948) (Jackson, J., for the Court). But
+the record the government has amassed in these cases after
+years of study supplies compelling reason for concern.
+   Finally, the law before us also appears appropriately tai-
+lored to the problem it seeks to address. Without doubt, the
+remedy Congress and the President chose here is dramatic.
+The law may require TikTok's parent company to divest or
+(effectively) shutter its U. S. operations. But before seeking
+to impose that remedy, the coordinate branches spent years
+in negotiations with TikTok exploring alternatives and ulti-
+mately found them wanting. Ante, at 65. And from what
+I can glean from the record, that judgment was well founded.
+   Consider some of the alternatives. Start with our usual
+and preferred remedy under the First Amendment: more
+speech. Supra, at 82. However helpful that might be, the
+record shows that warning users of the risks associated with
+giving their data to a foreign-adversary-controlled applica-
+Page Proof Pending Publication
+tion would do nothing to protect nonusers' data. 2 App.
+659–660; supra, at 83. Forbidding TikTok's domestic opera-
+tions from sending sensitive data abroad might seem another
+option. But even if Congress were to impose serious crimi-
+nal penalties on domestic TikTok employees who violate a
+data-sharing ban, the record suggests that would do little to
+deter the PRC from exploiting TikTok to steal Americans'
+data. See 1 App. 214 (noting threats from “malicious code,
+backdoor vulnerabilities, surreptitious surveillance, and
+other problematic activities tied to source code development”
+in the PRC); 2 App. 702 (“[A]gents of the PRC would not
+fear monetary or criminal penalties in the United States”).
+The record also indicates that the “size” and “complexity” of
+TikTok's “underlying software” may make it impossible for
+law enforcement to detect violations. Id., at 688–689; see
+also id., at 662. Even setting all these challenges aside, any
+new compliance regime could raise separate constitutional
+concerns—for instance, by requiring the government to sur-
+veil Americans' data to ensure that it isn't illicitly fowing
+                   Cite as: 604 U. S. 56 (2025)             85
+
+               Gorsuch, J., concurring in judgment
+
+overseas. Id., at 687 (suggesting that effective enforcement
+of a data-export ban might involve “direct U. S. government
+monitoring” of the “fow of U. S. user data”).
+   Whether this law will succeed in achieving its ends, I do
+not know. A determined foreign adversary may just seek
+to replace one lost surveillance application with another. As
+time passes and threats evolve, less dramatic and more effec-
+tive solutions may emerge. Even what might happen next
+to TikTok remains unclear. See Tr. of Oral Arg. 146–147.
+But the question we face today is not the law's wisdom, only
+its constitutionality. Given just a handful of days after oral
+argument to issue an opinion, I cannot profess the kind of
+certainty I would like to have about the arguments and rec-
+ord before us. All I can say is that, at this time and under
+these constraints, the problem appears real and the response
+to it not unconstitutional. As persuaded as I am of the wis-
+dom of Justice Brandeis in Whitney and Justice Holmes in
+Abrams, their cases are not ours. See supra, at 82. Speak-
+Page Proof Pending Publication
+ing with and in favor of a foreign adversary is one thing.
+Allowing a foreign adversary to spy on Americans is another.
+                           Reporter’s Note
+
+  The attached opinion has been revised to refect the usual publication
+and citation style of the United States Reports. The revised pagination
+makes available the offcial United States Reports citation in advance of
+publication. The syllabus has been prepared by the Reporter of Decisions
+for the convenience of the reader and constitutes no part of the opinion of
+Page Proof Pending Publication
+the Court. A list of counsel who argued or fled briefs in this case, and
+who were members of the bar of this Court at the time this case was
+argued, has been inserted following the syllabus. Other revisions may
+include adjustments to formatting, captions, citation form, and any errant
+punctuation. The following additional edits were made:
+
+p. 56, line 2 from bottom: “the” before “petitioners” is deleted
+p. 57, line 14 from bottom: “this case” is changed to “these cases”
+p. 67, line 4: “the” before “petitioners” is deleted
+
