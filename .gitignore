@@ -16,6 +16,9 @@ tests/data/results/verification_*.json
 # Large PDFs — synced separately
 scratch/hallucination_opinions/
 
+# Worktrees
+.worktrees/
+
 # Replit auto-generated files
 .upm/
 .cache/
