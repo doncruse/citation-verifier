@@ -179,10 +179,63 @@ def _normalize_case_name(case_name: str) -> str:
         r"\bCath\.?\b": "Catholic",
         r"\bCh\.?\b": "Church",
 
+        # Legal/organizational terms - SAFE
+        r"\bInst\.?\b": "Institute",
+        r"\bAcad\.?\b": "Academic",
+        r"\bRts\.?\b": "Rights",
+        r"\bSys\.?\b": "System",
+        r"\bLab'ys\b": "Laboratories",
+        r"\bLabs\.?\b": "Laboratories",
+        r"\bPol\.?\b": "Political",
+        r"\bEnvtl\.?\b": "Environmental",
+        r"\bIndus\.?\b": "Industrial",
+        r"\bTech\.?\b": "Technology",
+        r"\bMgmt\.?\b": "Management",
+        r"\bProds\.?\b": "Products",
+        r"\bPharm\.?\b": "Pharmaceutical",
+        r"\bElec\.?\b": "Electric",
+        r"\bTelecomms\.?\b": "Telecommunications",
+        r"\bJust\.?\b": "Justice",
+        r"\bPetrol\.?\b": "Petroleum",
+        r"\bReg'l\b": "Regional",
+        r"\bRegl\.?\b": "Regional",
+        r"\bCmty\.?\b": "Community",
+        r"\bHous\.?\b": "Housing",
+
+        # State abbreviations (Indigo Book, 3+ chars, unambiguous)
+        r"\bAla\.?\b": "Alabama",
+        r"\bAriz\.?\b": "Arizona",
+        r"\bArk\.?\b": "Arkansas",
+        r"\bCal\.?\b": "California",
+        r"\bColo\.?\b": "Colorado",
+        r"\bConn\.?\b": "Connecticut",
+        r"\bDel\.?\b": "Delaware",
+        r"\bFla\.?\b": "Florida",
+        r"\bHaw\.?\b": "Hawaii",
+        r"\bIda\.?\b": "Idaho",
+        r"\bIll\.?\b": "Illinois",
+        r"\bInd\.?\b": "Indiana",
+        r"\bKan\.?\b": "Kansas",
+        r"\bMich\.?\b": "Michigan",
+        r"\bMinn\.?\b": "Minnesota",
+        r"\bMiss\.?\b": "Mississippi",
+        r"\bMont\.?\b": "Montana",
+        r"\bNeb\.?\b": "Nebraska",
+        r"\bNev\.?\b": "Nevada",
+        r"\bOkla\.?\b": "Oklahoma",
+        r"\bOre\.?\b": "Oregon",
+        r"\bTenn\.?\b": "Tennessee",
+        r"\bTex\.?\b": "Texas",
+        r"\bWash\.?\b": "Washington",
+        r"\bWis\.?\b": "Wisconsin",
+        r"\bWyo\.?\b": "Wyoming",
+
         # SKIPPED - Ambiguous or risky:
         # - N., S., E., W. (could be initials: "John E. Smith")
         # - St. (Street vs Saint, context-dependent)
         # - Ave., Blvd. (addresses, rarely in case names)
+        # - Am. (America vs Amendment - too short/ambiguous for search)
+        # - Pa., Ga., Va., etc. (2-letter state abbrevs could be initials)
     }
 
     normalized = case_name
