@@ -1,0 +1,72 @@
+{
+  "Camp v. Pitts, 411 U.S. 138 (1973)": {
+    "input_citation": "Camp v. Pitts, 411 U.S. 138 (1973)",
+    "status": "VERIFIED",
+    "confidence": 1.0,
+    "matched_case_name": "Camp v. Pitts",
+    "matched_url": "https://www.courtlistener.com/opinion/108752/camp-v-pitts/",
+    "matched_cluster_id": 108752,
+    "matched_court": null,
+    "matched_date": "1973-03-26",
+    "matched_description": null,
+    "candidates": [],
+    "diagnostics": [],
+    "error": null
+  },
+  "Citizens to Preserve Overton Park, Inc. v. Volpe, 401 U.S. 402 (1971)": {
+    "input_citation": "Citizens to Preserve Overton Park, Inc. v. Volpe, 401 U.S. 402 (1971)",
+    "status": "VERIFIED",
+    "confidence": 1.0,
+    "matched_case_name": "Citizens to Preserve Overton Park, Inc. v. Volpe",
+    "matched_url": "https://www.courtlistener.com/opinion/108283/citizens-to-preserve-overton-park-inc-v-volpe/",
+    "matched_cluster_id": 108283,
+    "matched_court": null,
+    "matched_date": "1971-03-02",
+    "matched_description": null,
+    "candidates": [],
+    "diagnostics": [],
+    "error": null
+  },
+  "Ohio Valley Envtl. Coal. v. Aracoma Coal Co., 556 F.3d 177 (4th Cir. 2009)": {
+    "input_citation": "Ohio Valley Envtl. Coal. v. Aracoma Coal Co., 556 F.3d 177 (4th Cir. 2009)",
+    "status": "VERIFIED",
+    "confidence": 1.0,
+    "matched_case_name": "Ohio Valley Environmental Coalition v. Aracoma Coal Co.",
+    "matched_url": "https://www.courtlistener.com/opinion/1027825/ohio-valley-environmental-coalition-v-aracoma-coal-co/",
+    "matched_cluster_id": 1027825,
+    "matched_court": null,
+    "matched_date": "2009-02-13",
+    "matched_description": null,
+    "candidates": [],
+    "diagnostics": [],
+    "error": null
+  },
+  "Dow AgroSciences LLC v. National Marine Fisheries Service, 637 F.3d 259 (4th Cir. 2011)": {
+    "input_citation": "Dow AgroSciences LLC v. National Marine Fisheries Service, 637 F.3d 259 (4th Cir. 2011)",
+    "status": "VERIFIED",
+    "confidence": 1.0,
+    "matched_case_name": "Dow Agrosciences LLC v. National Marine Fisheries Service",
+    "matched_url": "https://www.courtlistener.com/opinion/205823/dow-agrosciences-llc-v-national-marine-fisheries-service/",
+    "matched_cluster_id": 205823,
+    "matched_court": null,
+    "matched_date": "2011-03-02",
+    "matched_description": null,
+    "candidates": [],
+    "diagnostics": [],
+    "error": null
+  },
+  "Sierra Club v. U.S. Department of the Interior, 899 F.3d 260 (4th Cir. 2018)": {
+    "input_citation": "Sierra Club v. U.S. Department of the Interior, 899 F.3d 260 (4th Cir. 2018)",
+    "status": "VERIFIED",
+    "confidence": 1.0,
+    "matched_case_name": "Sierra Club v. U.S. Dep't of the Interior",
+    "matched_url": "https://www.courtlistener.com/opinion/4524080/sierra-club-v-us-dept-of-the-interior/",
+    "matched_cluster_id": 4524080,
+    "matched_court": null,
+    "matched_date": "2018-08-06",
+    "matched_description": null,
+    "candidates": [],
+    "diagnostics": [],
+    "error": null
+  }
+}

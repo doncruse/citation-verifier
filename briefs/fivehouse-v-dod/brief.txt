@@ -1,0 +1,387 @@
+                       IN THE UNITED STATES DISTRICT COURT
+                       EASTERN DISTRICT OF NORTH CAROLINA
+                               NORTHERN DIVISION
+
+                                  No. 2:25-cv-00041-M-RN
+
+    DERENCE FIVEHOUSE,                            )
+                                                  )
+         Plaintiff,                               )
+                                                  )   RESPONSE IN OPPOSITION TO
+    v.                                            )     PLAINTIFF’S MOTION TO
+                                                  )    SUPPLEMENT THE RECORD
+    UNITED STATES DEPARTMENT OF                   )          [DE 82; DE 83]
+    DEFENSE, et al,                               )
+                                                  )
+         Defendants.                              )
+
+           This arises from Plaintiff’s Administrative Procedure Act (“APA”) action filed
+
+with this Court challenging the United States Department of Defense,1 Defense
+
+Health Agency’s (“DHA”) implementation of its August 31, 2025, clarification on
+
+coverage for GLP-1 medications for weight management for TRICARE for Life
+
+beneficiaries. Plaintiff has requested that the Court exercise its power to prevent the
+
+DHA from implementing its August 31, 2025, clarification on coverage for GLP-1
+
+medications for weight management for TRICARE for Life beneficiaries because the
+
+DHA acted arbitrarily and capriciously. [DE 1]. To that end, following Defendants’
+
+filing of the Administrative Record, see [DE 68 thru DE 76], Plaintiff has filed a
+
+
+
+1      The statutory “Executive departments” include, inter alia, the Department of
+Defense. 5 U.S.C. § 101. On September 5, 2025, President Donald J. Trump signed
+Executive Order 14347, “Restoring the United States Department of War.” See
+90 Fed. Reg. 173, Sep. 10, 2025, at 43,893-94. Section 2(e) of Executive Order 14347
+specified that “[s]tatutory references to the Department of Defense . . . shall remain
+controlling until changed subsequently by the law.” Therefore, in accordance with
+5 U.S.C. § 101, the Executive department should be referred to in this matter as the
+“Department of Defense.”
+                                              1
+
+           Case 2:25-cv-00041-M-RN     Document 86     Filed 12/23/25   Page 1 of 9
+motion to supplement the Administrative Record, see [DE 82; DE 83]. For the
+
+following reasons, Plaintiff’s motion should be denied.
+
+                                     ARGUMENT
+
+        Plaintiff’s motion to supplement the administrative record rests on speculation
+
+rather than evidence. Defendants have filed a certified, multi-volume administrative
+
+record documenting the agency’s decision-making process, and Plaintiff does not
+
+identify a single document that was before the agency and omitted from the record.
+
+Instead, he asks the Court to authorize an expanded record because he believes
+
+additional materials would be helpful to his claims. The APA does not permit
+
+supplementation on that basis. Supreme Court and Fourth Circuit precedent strictly
+
+confine judicial review to the administrative record as certified, absent a concrete
+
+showing that the record is incomplete or that extraordinary circumstances exist.
+
+Plaintiff has made no such showing.
+
+   I.      APA Review Is Limited to the Administrative Record
+
+        The Supreme Court has long held that judicial review under the APA is limited
+
+to the administrative record that was before the agency at the time of the challenged
+
+decision. In Camp v. Pitts, the Court explained that “the focal point for judicial review
+
+should be the administrative record already in existence, not some new record made
+
+initially in the reviewing court.” 411 U.S. 138, 142 (1973). Likewise, in Citizens to
+
+Preserve Overton Park, Inc. v. Volpe, the Court rejected de novo review and
+
+emphasized that courts must assess agency action based on the materials actually
+
+considered by the agency. 401 U.S. 402, 420 (1971). The Fourth Circuit has
+
+
+
+                                           2
+
+        Case 2:25-cv-00041-M-RN     Document 86      Filed 12/23/25    Page 2 of 9
+consistently applied these principles, holding that APA review “is limited to the
+
+administrative record that was before the agency at the time of its decision.” Ohio
+
+Valley Envtl. Coal. v. Aracoma Coal Co., 556 F.3d 177, 201 (4th Cir. 2009).
+
+         This limitation is not a technicality; it reflects the separation of functions
+
+between agencies and courts. Agencies, not courts, are charged with compiling the
+
+evidentiary basis for policy implementation. Judicial review evaluates whether the
+
+provided record supports the agency’s decision under the applicable standard of
+
+review. In this case, Defendants have certified the Administrative Record that was
+
+before the agency when it made its decision. See [DE 68 thru DE 76].
+
+   II.      The Certified Administrative Record Is Presumed Regular And
+            Complete.
+
+         An agency’s designation and certification of the administrative record is
+
+entitled to a presumption of regularity and completeness. See Overton Park, 401 U.S.
+
+at 415 (Agency actions are entitled to a presumption of regularity.); Ohio Valley, 556
+
+F.3d at 201 (rejecting efforts to rely on extra-record materials where plaintiffs failed
+
+to overcome the presumption that the record was complete). Here, Defendants filed
+
+the administrative record in multiple volumes documenting: 1) the governing statutes
+
+and regulations, 2) history and publication of the applicable formal rule, 3) the
+
+Department of the Army’s implementing regulations, 4) the existence of processing
+
+issues that allowed Tricare for Life beneficiaries to obtain GLP-1 weight loss drug
+
+coverage contrary to statute and regulations, and 5) the agency’s corrective action
+
+restoring compliance with statutory and regulatory eligibility distinctions.
+
+
+
+
+                                            3
+
+         Case 2:25-cv-00041-M-RN     Document 86     Filed 12/23/25   Page 3 of 9
+       Plaintiff does not identify any specific document that was before the
+
+decisionmaker and omitted from the record. That failure alone is fatal to his motion.
+
+Furthermore, Plaintiff’s conclusory and self-serving allegations seeking discovery
+
+does   not   entitle   Plaintiff   to   “drafts,   interpretative   memoranda,   internal
+
+communications, or analyses[,]” see [DE 83, p. 2]. Plaintiff’s desire for confidential
+
+and privileged information is insufficient to justify allowing Plaintiff to go outside of
+
+the record which, as already filed, demonstrates the information Defendants relied
+
+on when the decision to enforce federal statutes and regulations was made was not
+
+arbitrary and capricious or otherwise contrary to law. Since Plaintiff’s motion fails to
+
+overcome the presumptions of regularity and completeness, his motion should be
+
+denied.
+
+   III.   Record Supplementation Is an Extraordinary Remedy Not
+          Warranted Here.
+
+       The Supreme Court has recognized only narrow exceptions permitting
+
+consideration of extra-record material, and even then only in rare circumstances. See
+
+Overton Park, 401 U.S. at 420 (Allowing extra-record inquiry only upon a “strong
+
+showing” of bad faith or improper behavior.). The Fourth Circuit has emphasized that
+
+these exceptions are limited and should not be used to transform APA review into a
+
+discovery fishing expedition. See Dow AgroSciences, 637 F.3d at 268–69 (Affirming
+
+denial of extra-record evidence where plaintiffs sought to challenge the agency’s
+
+reasoning rather than the completeness of the record.); Sierra Club v. U.S.
+
+Department of the Interior, 899 F.3d 260, 295–96 (4th Cir. 2018) (Extra-record
+
+evidence is not permitted merely because plaintiffs believe additional materials
+
+                                              4
+
+       Case 2:25-cv-00041-M-RN          Document 86     Filed 12/23/25   Page 4 of 9
+would be helpful.). Plaintiff’s motion falls squarely into the category rejected by these
+
+cases: it is an attempt to add materials to strengthen his arguments rather than to
+
+correct a genuinely incomplete record. Plaintiff has no evidence the Administrative
+
+Record is incomplete or that Defendants have acted in bad faith, and he has not
+
+overcome the APA’s presumptions of completeness and regularity.
+
+         To warrant supplementation, a plaintiff must do more than assert that
+
+additional documents might exist or that further information would be useful. The
+
+Fourth Circuit has made clear that such speculation is insufficient. In Ohio Valley,
+
+the court rejected claims that the record must be incomplete where plaintiffs offered
+
+no evidence that specific materials were omitted. 556 F.3d at 201. The court explained
+
+that “[m]ere allegations” or assumptions about what the agency “must have
+
+considered” do not rebut the presumption of completeness. Id. Here, Plaintiff does not
+
+identify any specific memorandum, email, analysis, or report, that was before the
+
+decisionmaker and was omitted from the lodged record. Instead, Plaintiff argues in
+
+general terms that the record does not contain enough information to support the
+
+agency’s decision or to explain its consequences, or that more documents could have
+
+been added to the record. That argument misunderstands the APA. A record is not
+
+incomplete merely because it does not contain every document a litigant wishes the
+
+agency had generated. Accordingly, his motion should be denied.
+
+   IV.     Plaintiff Cannot Satisfy Any Recognized Exception.
+
+
+
+
+                                           5
+
+      Case 2:25-cv-00041-M-RN       Document 86      Filed 12/23/25    Page 5 of 9
+       Courts have recognized limited circumstances where extra-record materials
+
+may be considered, including to explain technical terms, address complex subject
+
+matter, or show bad faith. None apply here.
+
+       First, Plaintiff does not allege—much less demonstrate—that the Department
+
+of the Army excluded documents that were actually before the decisionmaker. See
+
+Ohio Valley, 556 F.3d at 201 (Speculation that additional documents “may exist” does
+
+not justify supplementation.). Second, the challenged action concerns statutory
+
+eligibility distinctions among TRICARE programs and correction of a contractor
+
+implementation error. Courts routinely resolve such questions on the administrative
+
+record alone. See Dow AgroSciences, 637 F.3d at 269 (Rejecting supplementation
+
+where the issues were legal and policy-based, not technical.). Third, there is no
+
+evidence of bad faith or improper purpose. Correcting a failure to distinguish among
+
+beneficiary categories and enforcing statutory limits does not constitute bad faith.
+
+Overton Park, 401 U.S. at 420 (Bad faith requires a strong, concrete showing, not
+
+conjecture.).
+
+       Plaintiff does not allege—much less establish—bad faith or improper motive.
+
+Nor does this case involve scientific or technical issues requiring explanatory
+
+materials beyond the record. The challenged action concerns statutory and regulatory
+
+eligibility   distinctions   among   TRICARE   programs    and      correction   of   an
+
+implementation error—matters well within the competence of judicial review based
+
+on the existing record. Absent evidence that the agency deliberately or negligently
+
+
+
+
+                                          6
+
+      Case 2:25-cv-00041-M-RN        Document 86   Filed 12/23/25     Page 6 of 9
+excluded materials it actually considered, supplementation is unwarranted. and his
+
+motion should, therefore, be denied.
+
+   V.      Plaintiff’s Motion Improperly Seeks Discovery, Not Record
+           Completion.
+
+        The Fourth Circuit has made clear that the APA does not authorize discovery
+
+to search for flaws in agency reasoning. See Dow AgroSciences, 637 F.3d at 268 (“The
+
+APA does not provide for a broad right of discovery.”). That is precisely Plaintiff’s
+
+intention. As mentioned before, either the certified Administrative Record submitted
+
+by Defendants demonstrates that Defendants’ actions were not arbitrary and
+
+capricious, see [DE 68 thru DE 76], or it does not. The Court does not need further
+
+documentation added when the record already provided supports the DHA’s decision
+
+to enforce already existing statutory and regulatory language. Plaintiff’s request to
+
+add additional materials to Defendants’ Administrative Record, in this case, appears
+
+aimed at reframing the policy consequences of the Army’s decision and supporting
+
+his request for injunctive relief, not at determining whether, based on the information
+
+before Defendants, their actions were arbitrary or capricious. Accordingly, Plaintiff’s
+
+motion should be denied
+
+                                   CONCLUSION
+
+        For these reasons, Plaintiff’s motion to supplement the record has no merit and
+
+should be denied.
+
+
+
+
+                                           7
+
+        Case 2:25-cv-00041-M-RN     Document 86     Filed 12/23/25   Page 7 of 9
+Respectfully submitted this 23rd day of December, 2025.
+
+
+                               W. ELLIS BOYLE
+                               United States Attorney
+
+                               BY: /s/ Rudy E. Renfer
+                               RUDY E. RENFER
+                               Assistant United States Attorney
+                               Civil Division
+                               150 Fayetteville Street, Suite 2100
+                               Raleigh, NC 27601
+                               Telephone: (919) 856-4530
+                               Email: rudy.e.renfer@usdoj.gov
+                               N.C. Bar # 23513
+                               Attorney for the United States
+
+
+
+
+                                  8
+
+Case 2:25-cv-00041-M-RN    Document 86    Filed 12/23/25   Page 8 of 9
+                           CERTIFICATE OF SERVICE
+
+      I do hereby certify that I have this 23rd day of December, 2025, served a copy
+
+of the foregoing upon the below listed party electronically using the CM/ECF system
+
+or by placing a copy of the same in the U.S. Mail, addressed as follows:
+
+      Derence V. Fivehouse
+      316 Seaview Drive
+      Edenton, NC 27932
+
+
+                                       BY: /s/ Rudy E. Renfer
+                                       RUDY E. RENFER
+                                       Assistant United States Attorney
+                                       Civil Division
+                                       150 Fayetteville Street, Suite 2100
+                                       Raleigh, NC 27601
+                                       Telephone: (919) 856-4530
+                                       Email: rudy.e.renfer@usdoj.gov
+                                       N.C. Bar # 23513
+                                       Attorney for the United States
+
+
+
+
+                                          9
+
+      Case 2:25-cv-00041-M-RN      Document 86     Filed 12/23/25   Page 9 of 9
+
