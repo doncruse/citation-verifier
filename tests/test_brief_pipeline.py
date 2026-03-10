@@ -4,7 +4,7 @@ import csv
 import pytest
 from pathlib import Path
 from unittest.mock import patch, AsyncMock, MagicMock
-from citation_verifier.brief_pipeline import merge_claims, MergeStats
+from citation_verifier.brief_pipeline import merge_claims, MergeStats, _normalize_quote_text
 from citation_verifier.models import VerificationResult, VerificationStatus, Diagnostic
 
 
@@ -224,3 +224,75 @@ class TestFullPipeline:
         # claims.csv should be merged
         merged = list(csv.DictReader((tmp_path / "claims.csv").open()))
         assert merged[0]["cl_status"] == "VERIFIED"
+
+
+# --- Task 1: merge passthrough columns ---
+
+class TestMergePassthroughColumns:
+    def test_merge_preserves_quoted_text(self, tmp_path):
+        """merge_claims passes through quoted_text column."""
+        claims = tmp_path / "claims.csv"
+        claims.write_text(
+            'page,proposition,cited_case,quoted_text\n'
+            '21,"Courts defer.","Egan, 484 U.S. 518 (1988)","[""defer to executive""]"\n'
+            '30,"Free speech.","Garcetti, 547 U.S. 410 (2006)","[]"\n'
+        )
+        vr = tmp_path / "verification_results.csv"
+        vr.write_text(
+            "citation,status,confidence,cl_url,matched_name,diagnostics_cat,diagnostics_msg\n"
+            '"Egan, 484 U.S. 518 (1988)",VERIFIED,1.0,https://cl/1/,Egan,,\n'
+            '"Garcetti, 547 U.S. 410 (2006)",VERIFIED,1.0,https://cl/2/,Garcetti,,\n'
+        )
+        (tmp_path / "opinions").mkdir()
+
+        merge_claims(tmp_path)
+
+        merged = list(csv.DictReader((tmp_path / "claims.csv").open()))
+        assert merged[0]["quoted_text"] == '["defer to executive"]'
+        assert merged[1]["quoted_text"] == "[]"
+
+    def test_merge_preserves_quote_check(self, tmp_path):
+        """merge_claims passes through quote_check and quote_check_worst."""
+        claims = tmp_path / "claims.csv"
+        claims.write_text(
+            'page,proposition,cited_case,quoted_text,quote_check,quote_check_worst\n'
+            '21,"Courts defer.","Egan, 484 U.S. 518 (1988)","[""defer""]",'
+            '"[{""quote"": ""defer"", ""result"": ""VERBATIM"", ""similarity"": 0.95}]",VERBATIM\n'
+        )
+        vr = tmp_path / "verification_results.csv"
+        vr.write_text(
+            "citation,status,confidence,cl_url,matched_name,diagnostics_cat,diagnostics_msg\n"
+            '"Egan, 484 U.S. 518 (1988)",VERIFIED,1.0,https://cl/1/,Egan,,\n'
+        )
+        (tmp_path / "opinions").mkdir()
+
+        merge_claims(tmp_path)
+
+        merged = list(csv.DictReader((tmp_path / "claims.csv").open()))
+        assert merged[0]["quote_check_worst"] == "VERBATIM"
+
+
+# --- Task 2: _normalize_quote_text ---
+
+class TestNormalizeQuoteText:
+    def test_smart_quotes_to_straight(self):
+        assert _normalize_quote_text("\u201cno desire\u201d") == '"no desire"'
+
+    def test_collapses_whitespace(self):
+        assert _normalize_quote_text("no   desire\n to") == "no desire to"
+
+    def test_strips_bracketed_alterations(self):
+        assert _normalize_quote_text("the [Defendant] must show") == "the must show"
+
+    def test_strips_ellipses(self):
+        assert _normalize_quote_text("first ... last") == "first last"
+        assert _normalize_quote_text("first \u2026 last") == "first last"
+
+    def test_initial_capital_bracket(self):
+        """[T]he -> the (lowercase the revealed letter)."""
+        assert _normalize_quote_text("[T]he court held") == "the court held"
+
+    def test_combined(self):
+        text = "\u201c[T]he court\u2019s [inherent] authority \u2026 extends\u201d"
+        result = _normalize_quote_text(text)
+        assert result == '"the court\'s authority extends"'

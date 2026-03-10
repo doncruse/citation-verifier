@@ -73,6 +73,25 @@ def _normalize_for_match(cite: str) -> str:
     return s
 
 
+def _normalize_quote_text(text: str) -> str:
+    """Normalize quoted text for fuzzy matching.
+
+    Strips bracketed alterations, ellipses, smart quotes, and excess whitespace.
+    """
+    # Smart quotes to straight
+    s = text.replace("\u201c", '"').replace("\u201d", '"')
+    s = s.replace("\u2018", "'").replace("\u2019", "'")
+    # Strip bracketed alterations: [T] -> t (lowercase), [word] -> ""
+    s = re.sub(r"\[([A-Z])\]", lambda m: m.group(1).lower(), s)
+    s = re.sub(r"\[[^\]]*\]", "", s)
+    # Strip ellipses
+    s = s.replace("\u2026", " ")  # unicode ellipsis
+    s = re.sub(r"\.{3,}", " ", s)  # three+ dots
+    # Collapse whitespace
+    s = re.sub(r"\s+", " ", s).strip()
+    return s
+
+
 def _sanitize_filename(case_name: str) -> str:
     """Convert a case name to a safe filename (no extension)."""
     # Replace common separators with underscore
@@ -100,6 +119,8 @@ def _find_opinion_file(workdir: Path, case_name: str) -> str:
 
     return ""
 
+
+_PASSTHROUGH_FIELDS = ["quoted_text", "quote_check", "quote_check_worst"]
 
 _VR_FIELDS = [
     "citation", "status", "confidence", "cl_url",
@@ -355,6 +376,10 @@ def merge_claims(workdir: Path) -> MergeStats:
         "retrieved_case", "supporting_language", "assessment",
         "cl_url", "cl_status", "diagnostics", "opinion_file",
     ]
+    if claims:
+        for col in _PASSTHROUGH_FIELDS:
+            if col in claims[0]:
+                output_fields.append(col)
 
     merged_rows: list[dict[str, str]] = []
     for claim in claims:
@@ -387,7 +412,7 @@ def merge_claims(workdir: Path) -> MergeStats:
         if opinion_file:
             stats.opinion_count += 1
 
-        merged_rows.append({
+        row = {
             "page": claim.get("page", ""),
             "proposition": claim.get("proposition", ""),
             "cited_case": cited,
@@ -398,7 +423,11 @@ def merge_claims(workdir: Path) -> MergeStats:
             "cl_status": status,
             "diagnostics": diag_msg,
             "opinion_file": opinion_file,
-        })
+        }
+        for col in _PASSTHROUGH_FIELDS:
+            if col in claim:
+                row[col] = claim[col]
+        merged_rows.append(row)
 
     # Write updated claims.csv
     with open(claims_path, "w", newline="", encoding="utf-8") as f:
