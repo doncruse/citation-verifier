@@ -1,10 +1,11 @@
 """Tests for the brief verification pipeline."""
 import asyncio
 import csv
+import json
 import pytest
 from pathlib import Path
 from unittest.mock import patch, AsyncMock, MagicMock
-from citation_verifier.brief_pipeline import merge_claims, MergeStats, _normalize_quote_text
+from citation_verifier.brief_pipeline import merge_claims, MergeStats, _normalize_quote_text, check_quotes, QuoteCheckStats
 from citation_verifier.models import VerificationResult, VerificationStatus, Diagnostic
 
 
@@ -296,3 +297,97 @@ class TestNormalizeQuoteText:
         text = "\u201c[T]he court\u2019s [inherent] authority \u2026 extends\u201d"
         result = _normalize_quote_text(text)
         assert result == '"the court\'s authority extends"'
+
+
+# --- Task 3: check_quotes ---
+
+class TestCheckQuotes:
+    def _setup_workdir(self, tmp_path, claims_text, opinion_text):
+        """Helper: write claims.csv and an opinion file."""
+        (tmp_path / "claims.csv").write_text(claims_text, encoding="utf-8")
+        opinions = tmp_path / "opinions"
+        opinions.mkdir(exist_ok=True)
+        if opinion_text is not None:
+            (opinions / "Test_Case.txt").write_text(opinion_text, encoding="utf-8")
+        return tmp_path
+
+    def test_verbatim_match(self, tmp_path):
+        workdir = self._setup_workdir(
+            tmp_path,
+            'page,proposition,cited_case,quoted_text,opinion_file\n'
+            '1,"Prop","Test, 100 U.S. 1 (2000)","[""the court held that sanctions require bad faith""]",opinions/Test_Case.txt\n',
+            "In this opinion, the court held that sanctions require bad faith under the statute.",
+        )
+        stats = check_quotes(workdir)
+        merged = list(csv.DictReader((tmp_path / "claims.csv").open(encoding="utf-8")))
+        checks = json.loads(merged[0]["quote_check"])
+        assert len(checks) == 1
+        assert checks[0]["result"] == "VERBATIM"
+        assert checks[0]["similarity"] > 0.85
+        assert merged[0]["quote_check_worst"] == "VERBATIM"
+
+    def test_fabricated_quote(self, tmp_path):
+        workdir = self._setup_workdir(
+            tmp_path,
+            'page,proposition,cited_case,quoted_text,opinion_file\n'
+            '1,"Prop","Test, 100 U.S. 1 (2000)","[""completely invented language not in the opinion at all""]",opinions/Test_Case.txt\n',
+            "This opinion discusses sanctions under Rule 11 and the standard of review.",
+        )
+        stats = check_quotes(workdir)
+        merged = list(csv.DictReader((tmp_path / "claims.csv").open(encoding="utf-8")))
+        checks = json.loads(merged[0]["quote_check"])
+        assert checks[0]["result"] == "FABRICATED"
+        assert checks[0]["similarity"] < 0.6
+        assert merged[0]["quote_check_worst"] == "FABRICATED"
+
+    def test_no_quotes(self, tmp_path):
+        workdir = self._setup_workdir(
+            tmp_path,
+            'page,proposition,cited_case,quoted_text,opinion_file\n'
+            '1,"Prop","Test, 100 U.S. 1 (2000)","[]",opinions/Test_Case.txt\n',
+            "Some opinion text.",
+        )
+        stats = check_quotes(workdir)
+        merged = list(csv.DictReader((tmp_path / "claims.csv").open(encoding="utf-8")))
+        assert merged[0]["quote_check"] == "[]"
+        assert merged[0]["quote_check_worst"] == "NO_QUOTES"
+
+    def test_no_opinion_file(self, tmp_path):
+        workdir = self._setup_workdir(
+            tmp_path,
+            'page,proposition,cited_case,quoted_text,opinion_file\n'
+            '1,"Prop","Test, 100 U.S. 1 (2000)","[""some quote""]",""\n',
+            None,
+        )
+        stats = check_quotes(workdir)
+        merged = list(csv.DictReader((tmp_path / "claims.csv").open(encoding="utf-8")))
+        assert merged[0]["quote_check"] == "[]"
+        assert merged[0]["quote_check_worst"] == "NO_OPINION"
+
+    def test_multiple_quotes_worst_wins(self, tmp_path):
+        workdir = self._setup_workdir(
+            tmp_path,
+            'page,proposition,cited_case,quoted_text,opinion_file\n'
+            '1,"Prop","Test, 100 U.S. 1 (2000)",'
+            '"[""sanctions require bad faith"", ""totally fake quote here not in text""]",'
+            'opinions/Test_Case.txt\n',
+            "The court stated that sanctions require bad faith under the rule.",
+        )
+        stats = check_quotes(workdir)
+        merged = list(csv.DictReader((tmp_path / "claims.csv").open(encoding="utf-8")))
+        checks = json.loads(merged[0]["quote_check"])
+        assert len(checks) == 2
+        assert merged[0]["quote_check_worst"] == "FABRICATED"
+
+    def test_stats_returned(self, tmp_path):
+        workdir = self._setup_workdir(
+            tmp_path,
+            'page,proposition,cited_case,quoted_text,opinion_file\n'
+            '1,"P1","Test, 100 U.S. 1 (2000)","[""sanctions require bad faith""]",opinions/Test_Case.txt\n'
+            '2,"P2","Test, 100 U.S. 1 (2000)","[]",opinions/Test_Case.txt\n',
+            "The court held that sanctions require bad faith.",
+        )
+        stats = check_quotes(workdir)
+        assert stats.total_claims == 2
+        assert stats.checked == 1
+        assert stats.no_quotes == 1

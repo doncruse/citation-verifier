@@ -3,6 +3,8 @@
 from __future__ import annotations
 
 import csv
+import difflib
+import json as json_mod
 import re
 from dataclasses import dataclass, field
 from pathlib import Path
@@ -434,5 +436,144 @@ def merge_claims(workdir: Path) -> MergeStats:
         writer = csv.DictWriter(f, fieldnames=output_fields)
         writer.writeheader()
         writer.writerows(merged_rows)
+
+    return stats
+
+
+# ---------------------------------------------------------------------------
+# Quote checking
+# ---------------------------------------------------------------------------
+
+@dataclass
+class QuoteCheckStats:
+    """Statistics from check_quotes."""
+    total_claims: int = 0
+    checked: int = 0
+    no_quotes: int = 0
+    no_opinion: int = 0
+    verbatim: int = 0
+    close: int = 0
+    fabricated: int = 0
+
+
+def _best_match_ratio(needle: str, haystack: str) -> float:
+    """Find the best fuzzy match ratio for needle within haystack."""
+    if not needle or not haystack:
+        return 0.0
+    needle_norm = _normalize_quote_text(needle).lower()
+    haystack_norm = _normalize_quote_text(haystack).lower()
+
+    if not needle_norm:
+        return 0.0
+
+    # Exact substring = verbatim
+    if needle_norm in haystack_norm:
+        return 1.0
+
+    # Sliding window: compare against chunks roughly needle-sized
+    best = 0.0
+    window = len(needle_norm)
+    step = max(1, window // 4)
+    for start in range(0, max(1, len(haystack_norm) - window + 1), step):
+        chunk = haystack_norm[start:start + window + window // 2]
+        ratio = difflib.SequenceMatcher(None, needle_norm, chunk, autojunk=False).ratio()
+        if ratio > best:
+            best = ratio
+            if best > 0.95:
+                break
+    return best
+
+
+def check_quotes(workdir: Path) -> QuoteCheckStats:
+    """Check quoted text in claims against opinion files.
+
+    Reads claims.csv, checks each quoted_text entry against the opinion,
+    writes quote_check and quote_check_worst columns back to claims.csv.
+    """
+    workdir = Path(workdir)
+    claims_path = workdir / "claims.csv"
+    stats = QuoteCheckStats()
+
+    with open(claims_path, newline="", encoding="utf-8") as f:
+        claims = list(csv.DictReader(f))
+
+    # Cache opinion text by file path
+    opinion_cache: dict[str, str] = {}
+
+    for claim in claims:
+        stats.total_claims += 1
+        quoted_raw = claim.get("quoted_text", "[]")
+        opinion_file = claim.get("opinion_file", "")
+
+        try:
+            quotes = json_mod.loads(quoted_raw) if quoted_raw else []
+        except (json_mod.JSONDecodeError, TypeError):
+            quotes = []
+
+        if not quotes:
+            claim["quote_check"] = "[]"
+            claim["quote_check_worst"] = "NO_QUOTES"
+            stats.no_quotes += 1
+            continue
+
+        if not opinion_file:
+            claim["quote_check"] = "[]"
+            claim["quote_check_worst"] = "NO_OPINION"
+            stats.no_opinion += 1
+            continue
+
+        # Load opinion text
+        if opinion_file not in opinion_cache:
+            opinion_path = workdir / opinion_file
+            try:
+                opinion_cache[opinion_file] = opinion_path.read_text(encoding="utf-8")
+            except (FileNotFoundError, UnicodeDecodeError):
+                claim["quote_check"] = "[]"
+                claim["quote_check_worst"] = "NO_OPINION"
+                stats.no_opinion += 1
+                continue
+        opinion_text = opinion_cache[opinion_file]
+
+        # Check each quote
+        results = []
+        worst = "VERBATIM"
+        _WORST_ORDER = {"VERBATIM": 0, "CLOSE": 1, "FABRICATED": 2}
+
+        for quote in quotes:
+            ratio = _best_match_ratio(quote, opinion_text)
+            if ratio > 0.85:
+                result = "VERBATIM"
+                stats.verbatim += 1
+            elif ratio >= 0.6:
+                result = "CLOSE"
+                stats.close += 1
+            else:
+                result = "FABRICATED"
+                stats.fabricated += 1
+
+            results.append({
+                "quote": quote,
+                "result": result,
+                "similarity": round(ratio, 2),
+            })
+
+            if _WORST_ORDER.get(result, 0) > _WORST_ORDER.get(worst, 0):
+                worst = result
+
+        claim["quote_check"] = json_mod.dumps(results)
+        claim["quote_check_worst"] = worst
+        stats.checked += 1
+
+    # Write updated claims.csv
+    if claims:
+        all_fields = list(claims[0].keys())
+        for col in ("quote_check", "quote_check_worst"):
+            if col not in all_fields:
+                all_fields.append(col)
+
+        with open(claims_path, "w", newline="", encoding="utf-8") as f:
+            writer = csv.DictWriter(f, fieldnames=all_fields)
+            writer.writeheader()
+            writer.writerows(claims)
 
     return stats
