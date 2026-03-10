@@ -193,6 +193,10 @@ def verify_brief_main(argv: list[str] | None = None) -> int:
         help="Merge verification results into claims.csv",
     )
     group.add_argument(
+        "--check-quotes", action="store_true",
+        help="Run verbatim quote checker on claims.csv",
+    )
+    group.add_argument(
         "--full", action="store_true", default=True,
         help="Run full pipeline: wave1 + wave2 + merge (default)",
     )
@@ -228,7 +232,15 @@ def verify_brief_main(argv: list[str] | None = None) -> int:
                     citations.append(line)
         return citations
 
-    if args.merge and not args.wave1 and not args.wave2:
+    if args.check_quotes:
+        from .brief_pipeline import check_quotes
+        stats = check_quotes(workdir)
+        print(f"Quote check: {stats.total_claims} claims, {stats.checked} checked")
+        print(f"  VERBATIM: {stats.verbatim}, CLOSE: {stats.close}, FABRICATED: {stats.fabricated}")
+        print(f"  No quotes: {stats.no_quotes}, No opinion: {stats.no_opinion}")
+        return 0
+
+    if args.merge and not args.wave1 and not args.wave2 and not args.check_quotes:
         stats = merge_claims(workdir)
         print(f"Merge: {stats.matched} matched, {stats.unmatched} unmatched, "
               f"{stats.opinion_count} with opinions")
