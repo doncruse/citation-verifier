@@ -8,6 +8,14 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
 
+from .client import AsyncCourtListenerClient
+from .models import VerificationResult, VerificationStatus
+from .verifier import CitationVerifier
+
+
+# ---------------------------------------------------------------------------
+# Data structures
+# ---------------------------------------------------------------------------
 
 @dataclass
 class MergeStats:
@@ -18,7 +26,32 @@ class MergeStats:
     opinion_count: int = 0
 
 
-# --- Pinpoint stripping ---
+@dataclass
+class Wave1Result:
+    """Output of wave1_verify_and_download."""
+    results: list[VerificationResult]
+    miss_indices: list[int]
+    download_stats: dict[str, int] = field(default_factory=dict)
+
+
+@dataclass
+class Wave2Result:
+    """Output of wave2_fallback_and_download."""
+    results: list[VerificationResult]
+    download_stats: dict[str, int] = field(default_factory=dict)
+
+
+@dataclass
+class PipelineResult:
+    """Output of full_pipeline."""
+    wave1: Wave1Result
+    wave2: Wave2Result
+    merge: MergeStats
+
+
+# ---------------------------------------------------------------------------
+# Helpers — pinpoint stripping, filenames, CSV I/O
+# ---------------------------------------------------------------------------
 
 # Matches ", 527" or ", at 527" or ", 527-30" at end of volume/page cite
 _PINPOINT_RE = re.compile(
@@ -27,10 +60,7 @@ _PINPOINT_RE = re.compile(
 
 
 def _strip_pinpoint(cite: str) -> str:
-    """Remove pinpoint page references from a citation string.
-
-    E.g. 'Egan, 484 U.S. 518, 527 (1988)' -> 'Egan, 484 U.S. 518 (1988)'
-    """
+    """Remove pinpoint page references from a citation string."""
     return _PINPOINT_RE.sub(" ", cite).strip()
 
 
@@ -42,13 +72,23 @@ def _normalize_for_match(cite: str) -> str:
     return s
 
 
+def _sanitize_filename(case_name: str) -> str:
+    """Convert a case name to a safe filename (no extension)."""
+    # Replace common separators with underscore
+    s = re.sub(r"\s+v\.?\s+", "_v_", case_name)
+    # Keep only alphanumeric, underscores, hyphens
+    s = re.sub(r"[^A-Za-z0-9_\-]", "_", s)
+    # Collapse multiple underscores
+    s = re.sub(r"_+", "_", s).strip("_")
+    return s[:120]  # cap length
+
+
 def _find_opinion_file(workdir: Path, case_name: str) -> str:
     """Scan opinions/ for a file matching the case name. Returns relative path or ''."""
     opinions_dir = workdir / "opinions"
     if not opinions_dir.exists():
         return ""
 
-    # Normalize case name for comparison
     normalized = re.sub(r"[^a-z0-9]", "", case_name.lower())
 
     for f in opinions_dir.iterdir():
@@ -59,6 +99,229 @@ def _find_opinion_file(workdir: Path, case_name: str) -> str:
 
     return ""
 
+
+_VR_FIELDS = [
+    "citation", "status", "confidence", "cl_url",
+    "matched_name", "diagnostics_cat", "diagnostics_msg",
+]
+
+
+def _write_verification_csv(
+    workdir: Path,
+    citations: list[str],
+    results: list[VerificationResult],
+    append: bool = False,
+) -> None:
+    """Write or append verification results to verification_results.csv."""
+    path = workdir / "verification_results.csv"
+    mode = "a" if append else "w"
+    write_header = not append or not path.exists()
+
+    with open(path, mode, newline="", encoding="utf-8") as f:
+        writer = csv.DictWriter(f, fieldnames=_VR_FIELDS)
+        if write_header:
+            writer.writeheader()
+        for cite, result in zip(citations, results):
+            diag_cats = []
+            diag_msgs = []
+            for d in result.diagnostics:
+                diag_cats.append(d.category)
+                diag_msgs.append(d.message)
+            writer.writerow({
+                "citation": cite,
+                "status": result.status.value,
+                "confidence": f"{result.confidence:.2f}",
+                "cl_url": result.matched_url or "",
+                "matched_name": result.matched_case_name or "",
+                "diagnostics_cat": "; ".join(diag_cats),
+                "diagnostics_msg": "; ".join(diag_msgs),
+            })
+
+
+# ---------------------------------------------------------------------------
+# Opinion downloading
+# ---------------------------------------------------------------------------
+
+_DOWNLOADABLE_STATUSES = {
+    VerificationStatus.VERIFIED,
+    VerificationStatus.LIKELY_REAL,
+    VerificationStatus.POSSIBLE_MATCH,
+}
+
+
+async def _download_opinion(
+    client: AsyncCourtListenerClient,
+    workdir: Path,
+    result: VerificationResult,
+    citation: str,
+) -> str | None:
+    """Download opinion text for a verified result. Returns saved filename or None."""
+    if not result.matched_url:
+        return None
+
+    opinions_dir = workdir / "opinions"
+    opinions_dir.mkdir(exist_ok=True)
+
+    try:
+        data = await client.get_opinion_text_with_metadata(
+            result.matched_url, prefer_html=True,
+        )
+        if not data:
+            return None
+
+        fmt = data.get("format", "text")
+        case_name = result.matched_case_name or data.get("case_name", "")
+        if not case_name:
+            # Fall back to citation name
+            case_name = citation.split(",")[0].strip()
+
+        base = _sanitize_filename(case_name)
+        if not base:
+            base = "unknown"
+
+        if fmt == "pdf":
+            pdf_bytes = data.get("pdf_bytes")
+            if not pdf_bytes:
+                return None
+            filename = f"{base}.pdf"
+            (opinions_dir / filename).write_bytes(pdf_bytes)
+            return filename
+
+        text = data.get("text", "")
+        if not text or not text.strip():
+            return None
+
+        ext = ".html" if fmt == "html" else ".txt"
+        filename = f"{base}{ext}"
+        (opinions_dir / filename).write_text(text, encoding="utf-8")
+        return filename
+
+    except Exception:
+        return None
+
+
+# ---------------------------------------------------------------------------
+# Wave 1: batch citation lookup + download
+# ---------------------------------------------------------------------------
+
+async def wave1_verify_and_download(
+    workdir: Path,
+    citations: list[str],
+    progress_callback: Any = None,
+) -> Wave1Result:
+    """Wave 1: quick batch lookup + download opinions for hits.
+
+    Uses verify_batch(quick_only=True) for a single API call,
+    then downloads opinions for all resolved citations.
+    """
+    workdir = Path(workdir)
+    verifier = CitationVerifier()
+
+    results = await verifier.verify_batch(
+        citations, quick_only=True, progress_callback=progress_callback,
+    )
+
+    # Identify misses for wave2
+    miss_indices = [
+        i for i, r in enumerate(results)
+        if r.status not in _DOWNLOADABLE_STATUSES
+    ]
+
+    # Write verification_results.csv
+    _write_verification_csv(workdir, citations, results)
+
+    # Download opinions for hits
+    download_stats = {"downloaded": 0, "failed": 0, "skipped": 0}
+
+    async with AsyncCourtListenerClient() as client:
+        for i, (cite, result) in enumerate(zip(citations, results)):
+            if result.status not in _DOWNLOADABLE_STATUSES:
+                download_stats["skipped"] += 1
+                continue
+
+            filename = await _download_opinion(client, workdir, result, cite)
+            if filename:
+                download_stats["downloaded"] += 1
+            else:
+                download_stats["failed"] += 1
+
+    return Wave1Result(
+        results=results,
+        miss_indices=miss_indices,
+        download_stats=download_stats,
+    )
+
+
+# ---------------------------------------------------------------------------
+# Wave 2: fallback search for misses + download
+# ---------------------------------------------------------------------------
+
+async def wave2_fallback_and_download(
+    workdir: Path,
+    citations: list[str],
+    miss_indices: list[int],
+    progress_callback: Any = None,
+) -> Wave2Result:
+    """Wave 2: full pipeline verification for citations missed in wave1.
+
+    Uses verify_batch() without quick_only — opinion search + RECAP fallback.
+    Appends results to verification_results.csv and downloads any resolved opinions.
+    """
+    workdir = Path(workdir)
+
+    if not miss_indices:
+        return Wave2Result(results=[], download_stats={"downloaded": 0, "failed": 0, "skipped": 0})
+
+    miss_citations = [citations[i] for i in miss_indices]
+    verifier = CitationVerifier()
+
+    results = await verifier.verify_batch(
+        miss_citations, progress_callback=progress_callback,
+    )
+
+    # Append to verification_results.csv
+    _write_verification_csv(workdir, miss_citations, results, append=True)
+
+    # Download opinions for newly resolved citations
+    download_stats = {"downloaded": 0, "failed": 0, "skipped": 0}
+
+    async with AsyncCourtListenerClient() as client:
+        for cite, result in zip(miss_citations, results):
+            if result.status not in _DOWNLOADABLE_STATUSES:
+                download_stats["skipped"] += 1
+                continue
+
+            filename = await _download_opinion(client, workdir, result, cite)
+            if filename:
+                download_stats["downloaded"] += 1
+            else:
+                download_stats["failed"] += 1
+
+    return Wave2Result(
+        results=results,
+        download_stats=download_stats,
+    )
+
+
+# ---------------------------------------------------------------------------
+# Full pipeline
+# ---------------------------------------------------------------------------
+
+async def full_pipeline(
+    workdir: Path,
+    citations: list[str],
+    progress_callback: Any = None,
+) -> PipelineResult:
+    """Run wave1 + wave2 + merge in sequence."""
+    w1 = await wave1_verify_and_download(workdir, citations, progress_callback)
+    w2 = await wave2_fallback_and_download(workdir, citations, w1.miss_indices, progress_callback)
+    m = merge_claims(workdir)
+    return PipelineResult(wave1=w1, wave2=w2, merge=m)
+
+
+# ---------------------------------------------------------------------------
+# merge_claims (Task 3 — already implemented)
+# ---------------------------------------------------------------------------
 
 def merge_claims(workdir: Path) -> MergeStats:
     """Merge verification_results.csv into claims.csv.
@@ -115,7 +378,6 @@ def merge_claims(workdir: Path) -> MergeStats:
         if matched_name:
             opinion_file = _find_opinion_file(workdir, matched_name)
         if not opinion_file and cited:
-            # Try with cited case name
             name_part = cited.split(",")[0].strip()
             opinion_file = _find_opinion_file(workdir, name_part)
 

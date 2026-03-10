@@ -169,5 +169,117 @@ def main(argv: list[str] | None = None) -> int:
     return 1 if any_not_found else 0
 
 
+def verify_brief_main(argv: list[str] | None = None) -> int:
+    """CLI for brief verification pipeline."""
+    parser = argparse.ArgumentParser(
+        prog="citation-verifier verify-brief",
+        description="Verify citations in a legal brief working directory.",
+    )
+    parser.add_argument(
+        "workdir",
+        help="Brief working directory (contains claims.csv, citations_to_verify.txt)",
+    )
+    group = parser.add_mutually_exclusive_group()
+    group.add_argument(
+        "--wave1", action="store_true",
+        help="Run wave 1 only (batch citation lookup + download)",
+    )
+    group.add_argument(
+        "--wave2", action="store_true",
+        help="Run wave 2 only (fallback search for misses)",
+    )
+    group.add_argument(
+        "--merge", action="store_true",
+        help="Merge verification results into claims.csv",
+    )
+    group.add_argument(
+        "--full", action="store_true", default=True,
+        help="Run full pipeline: wave1 + wave2 + merge (default)",
+    )
+    args = parser.parse_args(argv)
+
+    from pathlib import Path
+    from .brief_pipeline import (
+        wave1_verify_and_download,
+        wave2_fallback_and_download,
+        merge_claims,
+        full_pipeline,
+    )
+
+    workdir = Path(args.workdir)
+    if not workdir.exists():
+        print(f"Error: workdir does not exist: {workdir}", file=sys.stderr)
+        return 1
+
+    def _progress(done: int, total: int) -> None:
+        print(f"  Verifying {done}/{total}...", flush=True)
+
+    # Load citations from citations_to_verify.txt
+    def _load_citations() -> list[str]:
+        cite_file = workdir / "citations_to_verify.txt"
+        if not cite_file.exists():
+            print(f"Error: {cite_file} not found", file=sys.stderr)
+            sys.exit(1)
+        citations = []
+        with open(cite_file, encoding="utf-8") as f:
+            for line in f:
+                line = line.strip()
+                if line and not line.startswith("#"):
+                    citations.append(line)
+        return citations
+
+    if args.merge and not args.wave1 and not args.wave2:
+        stats = merge_claims(workdir)
+        print(f"Merge: {stats.matched} matched, {stats.unmatched} unmatched, "
+              f"{stats.opinion_count} with opinions")
+        for status, count in sorted(stats.statuses.items()):
+            print(f"  {status}: {count}")
+        return 0
+
+    if args.wave1:
+        citations = _load_citations()
+        print(f"Wave 1: verifying {len(citations)} citations (quick lookup)...")
+        result = asyncio.run(wave1_verify_and_download(workdir, citations, _progress))
+        print(f"Wave 1 complete: {result.download_stats}")
+        print(f"  Misses for wave 2: {len(result.miss_indices)}")
+        return 0
+
+    if args.wave2:
+        citations = _load_citations()
+        # Read wave1 results to find misses
+        vr_path = workdir / "verification_results.csv"
+        if not vr_path.exists():
+            print("Error: run --wave1 first", file=sys.stderr)
+            return 1
+        import csv as csv_mod
+        verified_cites = set()
+        with open(vr_path, newline="", encoding="utf-8") as f:
+            for row in csv_mod.DictReader(f):
+                if row.get("status") in ("VERIFIED", "LIKELY_REAL", "POSSIBLE_MATCH"):
+                    verified_cites.add(row.get("citation", ""))
+        miss_indices = [
+            i for i, c in enumerate(citations) if c not in verified_cites
+        ]
+        print(f"Wave 2: {len(miss_indices)} misses to resolve...")
+        result = asyncio.run(wave2_fallback_and_download(
+            workdir, citations, miss_indices, _progress,
+        ))
+        print(f"Wave 2 complete: {result.download_stats}")
+        return 0
+
+    # Default: full pipeline
+    citations = _load_citations()
+    print(f"Full pipeline: {len(citations)} citations...")
+    result = asyncio.run(full_pipeline(workdir, citations, _progress))
+    print(f"Wave 1: {result.wave1.download_stats}")
+    print(f"  Misses: {len(result.wave1.miss_indices)}")
+    print(f"Wave 2: {result.wave2.download_stats}")
+    print(f"Merge: {result.merge.matched} matched, {result.merge.unmatched} unmatched")
+    return 0
+
+
 if __name__ == "__main__":
+    # Dispatch to verify-brief subcommand if first arg matches
+    if len(sys.argv) > 1 and sys.argv[1] == "verify-brief":
+        sys.exit(verify_brief_main(sys.argv[2:]))
     sys.exit(main())
