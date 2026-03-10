@@ -62,9 +62,10 @@ Three-step verification pipeline in `src/citation_verifier/verifier.py`:
 | `name_matcher.py` | Multi-factor case name similarity (adapted from CaseStrainer) |
 | `text_cleaner.py` | Contamination phrase removal (adapted from CaseStrainer) |
 | `parser.py` | Citation parsing (eyecite + regex + abbreviation normalization + eyecite factory) |
-| `client.py` | CourtListener API wrapper (rate limiting, 15s timeout, 429 retry). Both sync (`CourtListenerClient`) and async (`AsyncCourtListenerClient`) have `get_opinion_text()` and `get_opinion_text_with_metadata()` for fetching full opinion/RECAP text + metadata. |
+| `client.py` | CourtListener API wrapper (rate limiting, 15s timeout, 429 retry). Both sync (`CourtListenerClient`) and async (`AsyncCourtListenerClient`) have `get_opinion_text()` and `get_opinion_text_with_metadata()` for fetching full opinion/RECAP text + metadata. Supports `prefer_html=True` for raw HTML and PDF download fallback. |
 | `verifier.py` | Core 3-step pipeline (shared helpers + thin sync/async wrappers) |
-| `__main__.py` | CLI |
+| `brief_pipeline.py` | Brief verification pipeline: `wave1_verify_and_download()`, `wave2_fallback_and_download()`, `merge_claims()`, `full_pipeline()`. CLI: `python -m citation_verifier verify-brief <workdir> [--wave1\|--wave2\|--merge\|--full]` |
+| `__main__.py` | CLI (single-citation verify + `verify-brief` subcommand) |
 
 ### Tests and tools (`tests/`)
 
@@ -72,6 +73,8 @@ Three-step verification pipeline in `src/citation_verifier/verifier.py`:
 |------|---------|
 | `test_verifier.py` | 101 unit tests (mocked API calls) |
 | `test_async_verifier.py` | 29 async parity tests (sync/async behavior equivalence) |
+| `test_client_html.py` | Tests for prefer_html and PDF fallback in client |
+| `test_brief_pipeline.py` | Tests for brief pipeline (merge, wave1, wave2, full_pipeline) |
 | `test_false_negatives.py` | Regression tests against real CourtListener API |
 | `test_parser_diagnostics.py` | eyecite vs our parser comparison |
 | `test_cl_api_issues.py` | Documents and tests CL API limitations |
@@ -202,7 +205,7 @@ The web app's batch loop is parallelized (asyncio.Queue with MAX_CONCURRENT=5). 
 
 ## Claude Code Skills
 
-- **`/verify-brief`** — Multi-phase legal brief citation verifier. Extracts proposition-case pairs, verifies via CourtListener, downloads opinion texts, reads them to assess whether each citation supports what it's cited for. Output: `claims.csv` + `report.html` in `briefs/<name>/`. Design: `docs/plans/2026-03-02-verify-brief-skill-design.md`. Lives at `.claude/skills/verify-brief/SKILL.md`. Real-world tested on Valve v. Rothschild Daubert motion (2026-03-04, 63 claims, 25 cases). Known issue: AskUserQuestion in Phase 2.5 returns empty — auto-accept for now. Retrospectives: `docs/retrospectives/`.
+- **`/verify-brief`** — Multi-phase legal brief citation verifier. Uses `brief_pipeline.py` for all mechanical work (batch verify, download, merge). LLM orchestrates only extraction (Phase 1a/1c) and assessment (Phase 2/3 via Opus subagents). Output: `claims.csv` + `report.html` in `briefs/<name>/`. Design: `docs/plans/2026-03-09-verify-brief-pipeline-design.md`. CLI: `python -m citation_verifier verify-brief <workdir> [--wave1|--wave2|--merge|--full]`. Tested on law-firm EOS appeal (62 citations, 59 VERIFIED, 3 POSSIBLE_MATCH, 0 NOT_FOUND). Retrospectives: `docs/retrospectives/`.
 
 - **`/file-issue`** — Interactive coach for filing effective GitHub issues. Guides through duplicate search, evidence gathering, repo norm study, and drafting. Use it when filing issues on FLP repos (or any repo). Catches the antipatterns that get issues ignored: tentative framing, insufficient examples, no methodology, no cross-references, no root cause theory. Lives at `.claude/skills/file-issue/SKILL.md`.
 
