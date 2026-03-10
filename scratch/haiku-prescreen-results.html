@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Haiku Prescreen Test — Mismatches</title>
+<style>
+  body { font-family: system-ui, -apple-system, sans-serif; margin: 2rem; background: #fafafa; color: #222; }
+  h1 { font-size: 1.4rem; margin-bottom: 0.3rem; }
+  h2 { font-size: 1.1rem; color: #555; margin-top: 2rem; margin-bottom: 0.5rem; }
+  .stats { font-size: 0.95rem; color: #555; margin-bottom: 1.5rem; }
+  table { border-collapse: collapse; width: 100%; margin-bottom: 2rem; font-size: 0.88rem; }
+  th { background: #334; color: #fff; padding: 8px 10px; text-align: left; font-weight: 600; }
+  td { padding: 8px 10px; border-bottom: 1px solid #ddd; vertical-align: top; }
+  tr:nth-child(even) { background: #f4f4f4; }
+  .green { background: #d4edda; font-weight: 700; text-align: center; }
+  .yellow { background: #fff3cd; font-weight: 700; text-align: center; }
+  .red { background: #f8d7da; font-weight: 700; text-align: center; }
+  .arrow { text-align: center; font-size: 1.1rem; }
+  a { color: #1a5276; }
+  .brief-header { background: #e8e8e8; font-weight: 700; }
+  .brief-header td { padding: 6px 10px; font-size: 0.9rem; }
+  .note { font-size: 0.85rem; color: #666; margin-top: 1.5rem; line-height: 1.5; }
+  blockquote { margin: 0.3em 0; padding: 0.3em 0.6em; background: #f0f0f0; border-left: 3px solid #999; font-size: 0.85rem; }
+</style>
+</head>
+<body>
+
+<h1>Haiku Prescreen Test — Assessment Mismatches</h1>
+<p class="stats">
+  <strong>Fivehouse v. DOD:</strong> 10/12 match (83%) &nbsp;|&nbsp;
+  <strong>Kettering v. Collier:</strong> 22/27 match (81%) &nbsp;|&nbsp;
+  <strong>Valve v. Rothschild:</strong> 46/63 match (73%) &nbsp;|&nbsp;
+  <strong>Combined:</strong> 78/102 match (76%)
+  <br>21 conservative mismatches (GT more lenient, H→O stricter). <strong>3 false upgrades</strong> (Valve rows 5, 39, 42).
+</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="width:3%">Row</th>
+      <th style="width:22%">Proposition</th>
+      <th style="width:15%">Cited Case</th>
+      <th style="width:30%">Haiku→Opus Reasoning</th>
+      <th style="width:4%">GT</th>
+      <th style="width:3%"></th>
+      <th style="width:4%">H→O</th>
+    </tr>
+  </thead>
+  <tbody>
+
+    <!-- Fivehouse -->
+    <tr class="brief-header"><td colspan="7">Fivehouse v. DOD (2 mismatches / 12 claims)</td></tr>
+
+    <tr>
+      <td>7</td>
+      <td>Extra-record inquiry is allowed only upon a "strong showing" of bad faith or improper behavior.</td>
+      <td><a href="https://www.courtlistener.com/opinion/108283/citizens-to-preserve-overton-park-inc-v-volpe/">Citizens to Preserve Overton Park v. Volpe, 401 U.S. 402, 420 (1971)</a></td>
+      <td>The "strong showing of bad faith" language refers specifically to inquiry into the <em>mental processes of administrative decisionmakers</em>, not "extra-record inquiry" broadly. The proposition reframes the holding more broadly than the Court stated it.</td>
+      <td class="green">Green</td>
+      <td class="arrow">→</td>
+      <td class="yellow">Yellow</td>
+    </tr>
+
+    <tr>
+      <td>13</td>
+      <td>Bad faith requires a strong, concrete showing, not conjecture.</td>
+      <td><a href="https://www.courtlistener.com/opinion/108283/citizens-to-preserve-overton-park-inc-v-volpe/">Citizens to Preserve Overton Park v. Volpe, 401 U.S. 402, 420 (1971)</a></td>
+      <td>The words "concrete" and "conjecture" do not appear in the opinion. The Court said "strong showing of bad faith or improper behavior" — the proposition fabricates additional qualifiers not in the text.</td>
+      <td class="yellow">Yellow</td>
+      <td class="arrow">→</td>
+      <td class="red">Red</td>
+    </tr>
+
+    <!-- Kettering -->
+    <tr class="brief-header"><td colspan="7">Kettering v. Collier (5 mismatches / 27 claims)</td></tr>
+
+    <tr>
+      <td>4</td>
+      <td>Ohio courts have repeatedly held there is no stand-alone civil cause of action for extortion.</td>
+      <td><a href="https://www.courtlistener.com/opinion/3941929/heskett-v-van-horn-title-agency-unpublished-decision-12-26-2006/">Heskett v. Van Horn Title Agency, 2006-Ohio-6900, ¶ 26 (10th Dist.)</a></td>
+      <td>The opinion addresses <em>coercion</em> (R.C. 2905.12), not <em>extortion</em> (R.C. 2905.11). The court stated: "Neither are we aware of 'coercion' as a cognizable civil cause of action." The proposition substitutes "extortion" for "coercion" — related but distinct Ohio criminal offenses.</td>
+      <td class="yellow">Yellow</td>
+      <td class="arrow">→</td>
+      <td class="red">Red</td>
+    </tr>
+
+    <tr>
+      <td>13</td>
+      <td>Mere "hard bargaining," even when the consequences are severe, is not extortion where claims are legitimate and conduct threatened is lawful.</td>
+      <td><a href="https://www.courtlistener.com/opinion/75917/united-states-v-james-scott-pendergraft/">United States v. Pendergraft, 297 F.3d 1198, 1205 (11th Cir. 2002)</a></td>
+      <td>"Hard bargaining" does not appear in the opinion. The holding proceeds on the assumption that defendants' claims were <em>illegitimate</em> (based on fabricated evidence). The actual holding — that bad-faith litigation threats aren't "wrongful" under the Hobbs Act — is the opposite framing from "where claims are legitimate."</td>
+      <td class="green">Green</td>
+      <td class="arrow">→</td>
+      <td class="red">Red</td>
+    </tr>
+
+    <tr>
+      <td>17</td>
+      <td>Advising of possible consequences from lawful reporting cannot form the basis of an extortion claim.</td>
+      <td><a href="https://www.courtlistener.com/opinion/75917/united-states-v-james-scott-pendergraft/">United States v. Pendergraft, 297 F.3d 1198, 1205 (11th Cir. 2002)</a></td>
+      <td>The opinion does not discuss "advising of possible consequences from lawful reporting." The case concerns threats to file <em>litigation</em>, not reporting to authorities — a materially different legal concept.</td>
+      <td class="green">Green</td>
+      <td class="arrow">→</td>
+      <td class="red">Red</td>
+    </tr>
+
+    <tr>
+      <td>21</td>
+      <td>Broad categories of information do not satisfy the particularity requirement for trade secret claims.</td>
+      <td><a href="https://www.courtlistener.com/opinion/8710614/office-depot-inc-v-impact-office-products-llc/">Office Depot v. Impact Office Products, 821 F. Supp. 2d 912, 919-23 (N.D. Ohio 2011)</a></td>
+      <td>The opinion does not discuss a "particularity requirement" for trade secret claims. The cited pages (919-23) address OUTSA <em>preemption</em> of common-law tort claims, not whether broad categories satisfy any specificity standard. The topic is simply absent.</td>
+      <td class="green">Green</td>
+      <td class="arrow">→</td>
+      <td class="red">Red</td>
+    </tr>
+
+    <tr>
+      <td>28</td>
+      <td>Any defamation-based claim arising from litigation conduct is absolutely privileged.</td>
+      <td><a href="https://www.courtlistener.com/opinion/10680926/hecht-v-levin/">Hecht v. Levin, 66 Ohio St. 3d 458, 460-61 (1993)</a></td>
+      <td>The holding is specifically about statements in <em>attorney disciplinary proceedings</em> (a type of judicial proceeding), not all "litigation conduct" broadly. The proposition's "any defamation-based claim arising from litigation conduct" materially overstates the scope. The privilege also requires statements bear "some reasonable relation to the proceeding" — a limitation the proposition omits.</td>
+      <td class="green">Green</td>
+      <td class="arrow">→</td>
+      <td class="red">Red</td>
+    </tr>
+
+    <!-- Valve v. Rothschild -->
+    <tr class="brief-header"><td colspan="7">Valve v. Rothschild (17 mismatches / 63 claims) — 14 conservative, 3 lenient</td></tr>
+
+    <!-- FALSE UPGRADES (lenient mismatches) -->
+    <tr style="border-left: 3px solid #dc3545;">
+      <td>5</td>
+      <td>Testimony that articulates legal standards, applies law to facts, or draws legal conclusions is inadmissible</td>
+      <td><a href="https://www.courtlistener.com/opinion/209411/sundance-inc-v-demonte-fabricating-ltd/">Sundance, Inc. v. DeMonte Fabricating Ltd., 550 F.3d 1356, 1364 (Fed. Cir. 2008)</a></td>
+      <td><strong>[FALSE UPGRADE]</strong> H→O assessed Green, but GT was Yellow. Sundance addresses expert qualifications narrowly (patent law expert without technical expertise), not a broad rule about all legal conclusions. The proposition overgeneralizes the holding.</td>
+      <td class="yellow">Yellow</td>
+      <td class="arrow">→</td>
+      <td class="green">Green</td>
+    </tr>
+
+    <tr style="border-left: 3px solid #dc3545;">
+      <td>39</td>
+      <td>Determining what is "reasonable" under a statute is a question of law for the Court</td>
+      <td><a href="https://www.courtlistener.com/opinion/7106921/elsayed-mukhtar-v-california-state-university/">Mukhtar v. Cal. State Univ., 299 F.3d 1053, 1066 n.10 (9th Cir. 2002)</a></td>
+      <td><strong>[FALSE UPGRADE]</strong> H→O assessed Yellow, but GT was Red. Footnote 10 discusses expert witnesses giving legal conclusions (citing Duncan), not statutory "reasonableness." The Haiku summary likely included the fn. 10 language about legal conclusions, making it look partially relevant.</td>
+      <td class="red">Red</td>
+      <td class="arrow">→</td>
+      <td class="yellow">Yellow</td>
+    </tr>
+
+    <tr style="border-left: 3px solid #dc3545;">
+      <td>42</td>
+      <td>Expert testimony "telling the jury what result to reach" is inadmissible</td>
+      <td><a href="https://www.courtlistener.com/opinion/778954/united-states-v-richard-joseph-finley/">United States v. Finley, 301 F.3d 1000, 1014 (9th Cir. 2002)</a></td>
+      <td><strong>[FALSE UPGRADE]</strong> H→O assessed Yellow, but GT was Red. The quoted phrase is from Duncan (2d Cir.), not Finley. Haiku summary may have included related expert-testimony discussion at p. 1014, making the connection look partial.</td>
+      <td class="red">Red</td>
+      <td class="arrow">→</td>
+      <td class="yellow">Yellow</td>
+    </tr>
+
+    <!-- CONSERVATIVE MISMATCHES -->
+    <tr>
+      <td>7</td>
+      <td>"Experts may not testify to legal conclusions, even if couched as factual opinions."</td>
+      <td><a href="https://www.courtlistener.com/opinion/7036888/crow-tribe-of-indians-v-racicot/">Crow Tribe of Indians v. Racicot, 87 F.3d 1039, 1045 (9th Cir. 1996)</a></td>
+      <td>The exact phrase "even if couched as factual opinions" does not appear in Crow Tribe. The principle is present but the specific formulation is fabricated.</td>
+      <td class="yellow">Yellow</td>
+      <td class="arrow">→</td>
+      <td class="red">Red</td>
+    </tr>
+
+    <tr>
+      <td>11</td>
+      <td>Even where testimony is marginally relevant, Rule 403 mandates exclusion if its probative value is outweighed by risks of confusion or prejudice</td>
+      <td><a href="https://www.courtlistener.com/opinion/556608/united-states-v-paul-a-bilzerian/">United States v. Bilzerian, 926 F.2d 1285, 1294 (2d Cir. 1991)</a></td>
+      <td>Rule 403 discussion appears at page 1296, not 1294. Context also differs (rebutting false impressions on redirect, not expert testimony). H→O flagged the wrong pinpoint and context mismatch.</td>
+      <td class="yellow">Yellow</td>
+      <td class="arrow">→</td>
+      <td class="red">Red</td>
+    </tr>
+
+    <tr>
+      <td>16</td>
+      <td>Professor Gugliuzza's recitation of WPTPA elements and paraphrasing of Octane Fitness is not technical analysis but legal advocacy</td>
+      <td><a href="https://www.courtlistener.com/opinion/209411/sundance-inc-v-demonte-fabricating-ltd/">Sundance, Inc. v. DeMonte Fabricating Ltd., 550 F.3d 1356, 1364 (Fed. Cir. 2008)</a></td>
+      <td>Sundance discusses requiring technical expertise for patent experts, not WPTPA elements or Octane Fitness. The fit is loose at best.</td>
+      <td class="yellow">Yellow</td>
+      <td class="arrow">→</td>
+      <td class="red">Red</td>
+    </tr>
+
+    <tr>
+      <td>31</td>
+      <td>Experts may not testify to legal conclusions</td>
+      <td><a href="https://www.courtlistener.com/opinion/7036888/crow-tribe-of-indians-v-racicot/">Crow Tribe of Indians v. Racicot, 87 F.3d 1039, 1045 (9th Cir. 1996)</a></td>
+      <td>Opinion directly states "Expert testimony is not proper for issues of law" at *1045. H→O gave Yellow — likely because summary didn't make the match clear enough. GT Green seems correct here.</td>
+      <td class="green">Green</td>
+      <td class="arrow">→</td>
+      <td class="yellow">Yellow</td>
+    </tr>
+
+    <tr>
+      <td>33</td>
+      <td>Expert testimony "stating ultimate legal conclusions" is improper (regarding reasonableness of attorneys' fees)</td>
+      <td><a href="https://www.courtlistener.com/opinion/209411/sundance-inc-v-demonte-fabricating-ltd/">Sundance, Inc. v. DeMonte Fabricating Ltd., 550 F.3d 1356, 1364 (Fed. Cir. 2008)</a></td>
+      <td>Sundance addresses unqualified patent law experts, not fee reasonableness. Pinpoint also off (1367, not 1364).</td>
+      <td class="yellow">Yellow</td>
+      <td class="arrow">→</td>
+      <td class="red">Red</td>
+    </tr>
+
+    <tr>
+      <td>35</td>
+      <td>"Experts may not testify to legal conclusions, even if couched as factual opinions" (regarding reasonableness of fees)</td>
+      <td><a href="https://www.courtlistener.com/opinion/7036888/crow-tribe-of-indians-v-racicot/">Crow Tribe of Indians v. Racicot, 87 F.3d 1039, 1045 (9th Cir. 1996)</a></td>
+      <td>General principle supported, but case concerns compact interpretation (slot machines), not reasonableness of fees. Specific quote not in opinion.</td>
+      <td class="yellow">Yellow</td>
+      <td class="arrow">→</td>
+      <td class="red">Red</td>
+    </tr>
+
+    <tr>
+      <td>37</td>
+      <td>Determining what is "reasonable" under a statute is a question of law for the Court, not for an expert witness</td>
+      <td><a href="https://www.courtlistener.com/opinion/7036888/crow-tribe-of-indians-v-racicot/">Crow Tribe of Indians v. Racicot, 87 F.3d 1039, 1045 (9th Cir. 1996)</a></td>
+      <td>Case holds contract interpretation is a legal question (de novo review), which is analogous but does not address statutory "reasonableness."</td>
+      <td class="yellow">Yellow</td>
+      <td class="arrow">→</td>
+      <td class="red">Red</td>
+    </tr>
+
+    <tr>
+      <td>38</td>
+      <td>Determining what is "reasonable" under a statute is a question of law for the Court</td>
+      <td><a href="https://www.courtlistener.com/opinion/786763/joan-hangarter-v-provident-life-and-accident-insurance-company-and-the/">Hangarter v. Provident Life, 373 F.3d 998, 1016 (9th Cir. 2004)</a></td>
+      <td>Hangarter states "an expert witness cannot give an opinion as to her legal conclusion" but concerns insurance bad faith, not statutory reasonableness.</td>
+      <td class="yellow">Yellow</td>
+      <td class="arrow">→</td>
+      <td class="red">Red</td>
+    </tr>
+
+    <tr>
+      <td>43</td>
+      <td>Al-Salam's analysis fails Daubert's reliability requirement</td>
+      <td><a href="https://www.courtlistener.com/opinion/112903/daubert-v-merrell-dow-pharmaceuticals-inc/">Daubert v. Merrell Dow Pharmaceuticals, Inc., 509 U.S. 579 (1993)</a></td>
+      <td>Daubert's "fit" is about scientific validity, not distinguishing legal from factual questions. Brief stretches the concept to a non-scientific expert context.</td>
+      <td class="yellow">Yellow</td>
+      <td class="arrow">→</td>
+      <td class="red">Red</td>
+    </tr>
+
+    <tr>
+      <td>44</td>
+      <td>Al-Salam's analysis fails Daubert's reliability requirement</td>
+      <td><a href="https://www.courtlistener.com/opinion/118271/kumho-tire-co-v-carmichael/">Kumho Tire Co. v. Carmichael, 526 U.S. 137, 147 (1999)</a></td>
+      <td>Kumho at 147 establishes Daubert applies to all expert testimony — a general cite. GT gave Green, but H→O flagged that applying this general principle to the specific expert argument is the brief's own work, not what the opinion "holds."</td>
+      <td class="green">Green</td>
+      <td class="arrow">→</td>
+      <td class="red">Red</td>
+    </tr>
+
+    <tr>
+      <td>58</td>
+      <td>Ms. Schenk's opinions do not satisfy Daubert's fit requirement because they address legal issues that the Court must decide</td>
+      <td><a href="https://www.courtlistener.com/opinion/112903/daubert-v-merrell-dow-pharmaceuticals-inc/">Daubert v. Merrell Dow Pharmaceuticals, Inc., 509 U.S. 579, 591-92 (1993)</a></td>
+      <td>Daubert's "fit" is about scientific validity, not legal vs. factual issues. Brief stretches the concept.</td>
+      <td class="yellow">Yellow</td>
+      <td class="arrow">→</td>
+      <td class="red">Red</td>
+    </tr>
+
+    <tr>
+      <td>59</td>
+      <td>Ms. Schenk's opinions do not satisfy Daubert's fit requirement</td>
+      <td><a href="https://www.courtlistener.com/opinion/118157/general-electric-co-v-joiner/">General Elec. Co. v. Joiner, 522 U.S. 136, 146 (1997)</a></td>
+      <td>Joiner at 146 discusses analytical gaps (ipse dixit). GT gave Green. H→O flagged that "fit requirement" language comes from Daubert, not Joiner — the brief applies Joiner to a different concept than its holding.</td>
+      <td class="green">Green</td>
+      <td class="arrow">→</td>
+      <td class="red">Red</td>
+    </tr>
+
+    <tr>
+      <td>60</td>
+      <td>Ms. Schenk's opinions do not satisfy Daubert's fit requirement</td>
+      <td><a href="https://www.courtlistener.com/opinion/78691/primiano-v-cook/">Primiano v. Cook, 598 F.3d 558, 564-65 (9th Cir. 2010)</a></td>
+      <td>Primiano articulates the Daubert "fit" standard correctly, and the brief legitimately cites it. GT Yellow. H→O Red seems overly strict here.</td>
+      <td class="yellow">Yellow</td>
+      <td class="arrow">→</td>
+      <td class="red">Red</td>
+    </tr>
+
+    <tr>
+      <td>64</td>
+      <td>Expert opinions would "substitute the expert's judgment for that of the jury" and undermine the Court's responsibility to instruct on the law</td>
+      <td><a href="https://www.courtlistener.com/opinion/7036888/crow-tribe-of-indians-v-racicot/">Crow Tribe of Indians v. Racicot, 87 F.3d 1039, 1045 (9th Cir. 1996)</a></td>
+      <td>The general principle is supported ("Expert testimony is not proper for issues of law") but the specific jury-substitution language does not appear in Crow Tribe.</td>
+      <td class="yellow">Yellow</td>
+      <td class="arrow">→</td>
+      <td class="red">Red</td>
+    </tr>
+
+  </tbody>
+</table>
+
+<p class="note">
+  <strong>Methodology:</strong> Haiku read each opinion and produced a structured summary (case summary, key holdings, relevant passages, topics not found).
+  Opus then assessed each proposition using only the Haiku summary (not the full opinion text).
+  Opinions under 20K characters were read directly by Opus (no Haiku prescreen).
+  Ground truth (GT) assessments are from prior Opus-direct reads of the full opinions.<br><br>
+  <strong>Observations:</strong><br>
+  1. <strong>Conservative bias is dominant:</strong> 21/24 mismatches are conservative (H→O stricter than GT). Only 3 false upgrades across 102 claims.<br>
+  2. <strong>Several GT assessments appear generous in hindsight</strong> (Kettering rows 13, 17, 21; Valve rows 44, 59).
+     The Haiku→Opus path may be producing <em>more accurate</em> assessments in some cases.<br>
+  3. <strong>Crow Tribe pattern:</strong> 6 of 17 Valve mismatches involve Crow Tribe v. Racicot, which has a clear general holding
+     ("Expert testimony is not proper for issues of law") that GT rated Green/Yellow when applied loosely.
+     H→O correctly flags that the <em>specific</em> quoted language or application context is fabricated.<br>
+  4. <strong>False upgrades are mild:</strong> All 3 are Red→Yellow or Yellow→Green, never Red→Green.
+     Two (rows 39, 42) involve opinions that discuss related concepts but not the specific holding claimed.<br>
+  5. <strong>Valve is harder:</strong> 73% match vs 81-83% for the other briefs. The Valve brief reuses the same ~10 cases
+     across 63 claims with progressively looser application. GT appears to have been more lenient for "general principle" cites.
+</p>
+
+</body>
+</html>
