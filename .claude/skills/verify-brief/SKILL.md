@@ -61,8 +61,9 @@ Launch **two concurrent agents**:
 **Agent 1 (Opus) — Extract propositions:**
 - Read the brief
 - Reference the citation list from `citations_to_verify.txt`
-- Extract every proposition-case pair into `claims.csv` with columns: `page,proposition,cited_case`
+- Extract every proposition-case pair into `claims.csv` with columns: `page,proposition,cited_case,quoted_text`
 - CRITICAL: The `cited_case` column MUST start with the exact full citation text from `citations_to_verify.txt` (including case name, reporter, and year). Append pinpoint pages after the start page (e.g., "Camp v. Pitts, 411 U.S. 138, 142 (1973)"). Do NOT abbreviate, omit the reporter, or use short-form case names.
+- `quoted_text`: JSON array of any text that appears inside quotation marks in the brief's sentence for this claim. Extract the exact quoted words from the brief. If the claim has no quoted text, use `[]`. Example: `["no desire to deter", "but-for causation"]`
 - Same case cited for different propositions = separate rows
 - Same proposition supported by multiple cases = separate rows
 - Exclude non-case sources
