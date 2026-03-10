@@ -234,6 +234,10 @@ def verify_brief_main(argv: list[str] | None = None) -> int:
               f"{stats.opinion_count} with opinions")
         for status, count in sorted(stats.statuses.items()):
             print(f"  {status}: {count}")
+        if stats.unmatched_claims:
+            print(f"  Unmatched claims ({len(stats.unmatched_claims)}):")
+            for cite in stats.unmatched_claims:
+                print(f"    - {cite}")
         return 0
 
     if args.wave1:
@@ -275,6 +279,10 @@ def verify_brief_main(argv: list[str] | None = None) -> int:
     print(f"  Misses: {len(result.wave1.miss_indices)}")
     print(f"Wave 2: {result.wave2.download_stats}")
     print(f"Merge: {result.merge.matched} matched, {result.merge.unmatched} unmatched")
+    if result.merge.unmatched_claims:
+        print(f"  Unmatched claims ({len(result.merge.unmatched_claims)}):")
+        for cite in result.merge.unmatched_claims:
+            print(f"    - {cite}")
     return 0
 
 

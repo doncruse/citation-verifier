@@ -33,6 +33,16 @@ When our tool confirms a citation is real, we know the WL/Lexis citation string 
 
 Open questions: whether FLP wants this, submission format, batching strategy, IP concerns around WL/Lexis citation strings.
 
+## Brief Verification (`/verify-brief`)
+
+### Grep pre-screen for assessment subagents
+Before dispatching an Opus subagent to read a full opinion, grep for a broad term cluster (~10-15 terms spanning the proposition's topic). If zero hits in a 35K+ opinion, skip the subagent and auto-mark Yellow ("Could not locate relevant passages — manual review recommended"). Saves significant time and tokens on fabricated-holding citations (e.g., Dow AgroSciences and Sierra Club in the Fivehouse run burned ~80 sec and ~70K tokens to confirm irrelevance).
+
+Design questions: How to generate the term cluster (static per-topic vs. LLM-generated)? Zero hits vs. fewer-than-N threshold? Search full opinion or just cited page range? See `docs/retrospectives/2026-03-09-verify-brief-pipeline-fivehouse-v-dod.md` §A.
+
+### Targeted reading for long opinions
+When all pinpoints cite the same page, read that section first before committing to a full opinion read. For very long opinions (100K+), use keyword search to locate relevant passages before dispatching a subagent. Reduces cost even for *correct* citations — Ohio Valley (114K chars) required 17 tool uses and 52K tokens to assess 4 claims all citing the same page.
+
 ## Verification Quality
 
 ### Semantic search fallback (CourtListener Citegeist)

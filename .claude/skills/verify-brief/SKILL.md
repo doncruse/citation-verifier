@@ -62,12 +62,13 @@ Launch **two concurrent agents**:
 - Read the brief
 - Reference the citation list from `citations_to_verify.txt`
 - Extract every proposition-case pair into `claims.csv` with columns: `page,proposition,cited_case`
-- Use `cited_case` values from the citation list exactly, adding pinpoint pages as needed
+- CRITICAL: The `cited_case` column MUST start with the exact full citation text from `citations_to_verify.txt` (including case name, reporter, and year). Append pinpoint pages after the start page (e.g., "Camp v. Pitts, 411 U.S. 138, 142 (1973)"). Do NOT abbreviate, omit the reporter, or use short-form case names.
 - Same case cited for different propositions = separate rows
 - Same proposition supported by multiple cases = separate rows
 - Exclude non-case sources
 
-**Agent 2 (background bash) — Wave 2 fallback:**
+**Agent 2 (background bash) — Wave 2 fallback (only if wave1 had misses):**
+Check wave1 output first. If wave1 reported "Misses for wave 2: 0", skip wave2 entirely. Otherwise:
 ```bash
 venv/Scripts/python.exe -m citation_verifier verify-brief <workdir> --wave2
 ```
@@ -78,6 +79,8 @@ venv/Scripts/python.exe -m citation_verifier verify-brief <workdir> --merge
 ```
 
 This joins `claims.csv` with `verification_results.csv`, linking each claim to its verification status and opinion file.
+
+If merge reports unmatched claims, fix the `cited_case` values in `claims.csv` to match exactly what's in `citations_to_verify.txt` (with pinpoint pages appended), then re-run `--merge`.
 
 ### Phase 2: Assess Wave 1 Cases (Opus Subagents)
 

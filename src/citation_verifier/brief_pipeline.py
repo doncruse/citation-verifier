@@ -22,6 +22,7 @@ class MergeStats:
     """Statistics from merging verification results into claims.csv."""
     matched: int = 0
     unmatched: int = 0
+    unmatched_claims: list[str] = field(default_factory=list)
     statuses: dict[str, int] = field(default_factory=dict)
     opinion_count: int = 0
 
@@ -372,6 +373,8 @@ def merge_claims(workdir: Path) -> MergeStats:
             stats.statuses[status] = stats.statuses.get(status, 0) + 1
         else:
             stats.unmatched += 1
+            if cited:
+                stats.unmatched_claims.append(cited)
 
         # Find opinion file
         opinion_file = ""
