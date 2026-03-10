@@ -220,18 +220,23 @@ class CourtListenerClient:
         return result.get("text") if result else None
 
     def get_opinion_text_with_metadata(
-        self, matched_url: str,
+        self, matched_url: str, *, prefer_html: bool = False,
     ) -> dict[str, Any] | None:
         """Fetch opinion text with metadata (sync).
 
         Returns dict with: text, case_name, court, date_filed,
-        docket_number, citations, source_url. Returns None if not found.
+        docket_number, citations, source_url, format. Returns None if not found.
+
+        When prefer_html=True, returns raw HTML (format="html") if available,
+        falls back to plain text (format="text"), then PDF bytes (format="pdf").
         """
         if not matched_url:
             return None
 
         if "/opinion/" in matched_url:
-            return self._resolve_opinion_text_with_metadata(matched_url)
+            return self._resolve_opinion_text_with_metadata(
+                matched_url, prefer_html=prefer_html,
+            )
 
         docket_match = re.search(r"/docket/(\d+)/", matched_url)
         if not docket_match:
@@ -311,6 +316,7 @@ class CourtListenerClient:
 
             return {
                 "text": text,
+                "format": "text",
                 "case_name": docket.get("case_name", ""),
                 "court": court_name,
                 "date_filed": docket.get("date_filed", ""),
@@ -324,10 +330,17 @@ class CourtListenerClient:
 
         return None
 
+    STORAGE_BASE = "https://storage.courtlistener.com/"
+
     def _resolve_opinion_text_with_metadata(
-        self, matched_url: str,
+        self, matched_url: str, *, prefer_html: bool = False,
     ) -> dict[str, Any] | None:
-        """Resolve an opinion URL to plain text + metadata (sync)."""
+        """Resolve an opinion URL to text + metadata (sync).
+
+        When prefer_html=True, returns raw HTML with format="html" if
+        available; falls back to plain text (format="text"), then PDF
+        download (format="pdf").
+        """
         cluster_match = re.search(r"/opinion/(\d+)/", matched_url)
         if not cluster_match:
             return None
@@ -341,6 +354,7 @@ class CourtListenerClient:
             cluster = cluster_resp.json()
 
             text = None
+            fmt = "text"
             for op_url in cluster.get("sub_opinions", []):
                 op_id = op_url.rstrip("/").split("/")[-1]
                 opinion_resp = self._request_with_retry(
@@ -348,20 +362,52 @@ class CourtListenerClient:
                 )
                 opinion = opinion_resp.json()
 
+                # When prefer_html, try HTML first
+                if prefer_html:
+                    html = opinion.get("html_with_citations", "") or opinion.get(
+                        "html", ""
+                    )
+                    if html and html.strip():
+                        text = html
+                        fmt = "html"
+                        break
+
                 t = opinion.get("plain_text", "")
                 if t and t.strip():
                     text = t
+                    fmt = "text"
                     break
 
-                html = opinion.get("html_with_citations", "") or opinion.get(
-                    "html", ""
-                )
-                if html:
-                    stripped = re.sub(r"<[^>]+>", " ", html)
-                    stripped = re.sub(r"\s+", " ", stripped).strip()
-                    if stripped:
-                        text = stripped
-                        break
+                # Fall back to stripped HTML when not preferring raw HTML
+                if not prefer_html:
+                    html = opinion.get("html_with_citations", "") or opinion.get(
+                        "html", ""
+                    )
+                    if html:
+                        stripped = re.sub(r"<[^>]+>", " ", html)
+                        stripped = re.sub(r"\s+", " ", stripped).strip()
+                        if stripped:
+                            text = stripped
+                            fmt = "text"
+                            break
+
+            # PDF fallback when no text or HTML found
+            if not text and prefer_html:
+                pdf_path = cluster.get("filepath_pdf_with_extracted_text", "")
+                if pdf_path:
+                    pdf_url = f"{self.STORAGE_BASE}{pdf_path}"
+                    pdf_resp = self._request_with_retry("GET", pdf_url)
+                    return {
+                        "text": None,
+                        "pdf_bytes": pdf_resp.content,
+                        "format": "pdf",
+                        "case_name": cluster.get("case_name", ""),
+                        "court": "",
+                        "date_filed": cluster.get("date_filed", ""),
+                        "docket_number": "",
+                        "citations": [],
+                        "source_url": matched_url,
+                    }
 
             if not text:
                 return None
@@ -400,6 +446,7 @@ class CourtListenerClient:
 
             return {
                 "text": text,
+                "format": fmt,
                 "case_name": cluster.get("case_name", ""),
                 "court": court_name,
                 "date_filed": cluster.get("date_filed", ""),
@@ -630,18 +677,23 @@ class AsyncCourtListenerClient:
         return result.get("text") if result else None
 
     async def get_opinion_text_with_metadata(
-        self, matched_url: str,
+        self, matched_url: str, *, prefer_html: bool = False,
     ) -> dict[str, Any] | None:
         """Fetch opinion text along with metadata (case name, court, date, etc.).
 
         Returns a dict with keys: text, case_name, court, date_filed,
-        docket_number, citations, source_url.  Returns None if no text found.
+        docket_number, citations, source_url, format.  Returns None if no text found.
+
+        When prefer_html=True, returns raw HTML (format="html") if available,
+        falls back to plain text (format="text"), then PDF bytes (format="pdf").
         """
         if not matched_url:
             return None
 
         if "/opinion/" in matched_url:
-            return await self._resolve_opinion_text_with_metadata(matched_url)
+            return await self._resolve_opinion_text_with_metadata(
+                matched_url, prefer_html=prefer_html,
+            )
 
         docket_match = re.search(r"/docket/(\d+)/", matched_url)
         if not docket_match:
@@ -720,6 +772,7 @@ class AsyncCourtListenerClient:
 
             return {
                 "text": text,
+                "format": "text",
                 "case_name": docket.get("case_name", ""),
                 "court": court_name,
                 "date_filed": docket.get("date_filed", ""),
@@ -734,9 +787,14 @@ class AsyncCourtListenerClient:
         return None
 
     async def _resolve_opinion_text_with_metadata(
-        self, matched_url: str,
+        self, matched_url: str, *, prefer_html: bool = False,
     ) -> dict[str, Any] | None:
-        """Resolve an opinion URL to its plain text content plus metadata."""
+        """Resolve an opinion URL to text + metadata (async).
+
+        When prefer_html=True, returns raw HTML with format="html" if
+        available; falls back to plain text (format="text"), then PDF
+        download (format="pdf").
+        """
         cluster_match = re.search(r"/opinion/(\d+)/", matched_url)
         if not cluster_match:
             return None
@@ -749,25 +807,60 @@ class AsyncCourtListenerClient:
             )
 
             text = None
+            fmt = "text"
             for op_url in cluster.get("sub_opinions", []):
                 op_id = op_url.rstrip("/").split("/")[-1]
                 opinion = await self._request_with_retry(
                     "GET", f"{self.BASE_URL}/opinions/{op_id}/"
                 )
 
+                # When prefer_html, try HTML first
+                if prefer_html:
+                    html = opinion.get("html_with_citations", "") or opinion.get("html", "")
+                    if html and html.strip():
+                        text = html
+                        fmt = "html"
+                        break
+
                 t = opinion.get("plain_text", "")
                 if t and t.strip():
                     text = t
+                    fmt = "text"
                     break
 
-                # Fall back to stripped HTML
-                html = opinion.get("html_with_citations", "") or opinion.get("html", "")
-                if html:
-                    stripped = re.sub(r"<[^>]+>", " ", html)
-                    stripped = re.sub(r"\s+", " ", stripped).strip()
-                    if stripped:
-                        text = stripped
-                        break
+                # Fall back to stripped HTML when not preferring raw HTML
+                if not prefer_html:
+                    html = opinion.get("html_with_citations", "") or opinion.get("html", "")
+                    if html:
+                        stripped = re.sub(r"<[^>]+>", " ", html)
+                        stripped = re.sub(r"\s+", " ", stripped).strip()
+                        if stripped:
+                            text = stripped
+                            fmt = "text"
+                            break
+
+            # PDF fallback when no text or HTML found
+            if not text and prefer_html:
+                pdf_path = cluster.get("filepath_pdf_with_extracted_text", "")
+                if pdf_path:
+                    pdf_url = f"{self.STORAGE_BASE}{pdf_path}"
+                    assert self._session is not None
+                    async with self._semaphore:
+                        await self._rate_limit()
+                        async with self._session.get(pdf_url) as resp:
+                            resp.raise_for_status()
+                            pdf_bytes = await resp.read()
+                    return {
+                        "text": None,
+                        "pdf_bytes": pdf_bytes,
+                        "format": "pdf",
+                        "case_name": cluster.get("case_name", ""),
+                        "court": "",
+                        "date_filed": cluster.get("date_filed", ""),
+                        "docket_number": "",
+                        "citations": [],
+                        "source_url": matched_url,
+                    }
 
             if not text:
                 return None
@@ -776,9 +869,7 @@ class AsyncCourtListenerClient:
             citations = []
             for cite in cluster.get("citations", []):
                 if isinstance(cite, str):
-                    # URL reference — skip
                     continue
-                # cite may be a dict with "volume", "reporter", "page"
                 if isinstance(cite, dict):
                     vol = cite.get("volume", "")
                     rep = cite.get("reporter", "")
@@ -809,6 +900,7 @@ class AsyncCourtListenerClient:
 
             return {
                 "text": text,
+                "format": fmt,
                 "case_name": cluster.get("case_name", ""),
                 "court": court_name,
                 "date_filed": cluster.get("date_filed", ""),
