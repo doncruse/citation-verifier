@@ -83,46 +83,90 @@ This joins `claims.csv` with `verification_results.csv`, linking each claim to i
 
 If merge reports unmatched claims, fix the `cited_case` values in `claims.csv` to match exactly what's in `citations_to_verify.txt` (with pinpoint pages appended), then re-run `--merge`.
 
-### Phase 2: Assess Wave 1 Cases (Opus Subagents)
+### Phase 1d: Quote Check + Haiku Summaries
 
-Group claims by opinion file. For each opinion with a downloaded file, launch an Opus subagent.
+Two steps, run sequentially.
+
+**Step 1 — Verbatim Quote Check (deterministic):**
+
+```bash
+venv/Scripts/python.exe -m citation_verifier verify-brief <workdir> --check-quotes
+```
+
+This checks every quoted string in `quoted_text` against the opinion file and writes `quote_check` and `quote_check_worst` columns to `claims.csv`. Report the stats.
+
+**Step 2 — Haiku Opinion Summaries:**
+
+Group claims by `opinion_file`. For each unique opinion file:
+
+1. Check file size: `Read` the opinion and count characters
+2. If < 20,000 characters — **skip** (Opus reads directly in Phase 2)
+3. If >= 20,000 characters — launch an **Explore** agent (runs on Haiku) with this prompt:
+
+> Read the ENTIRE opinion file at `{opinion_path}` very thoroughly. This is a legal opinion.
+>
+> For each proposition below, search the full opinion text and report your findings.
+>
+> Propositions to check:
+> {numbered list of propositions from claims citing this opinion}
+>
+> **Output format — follow exactly:**
+>
+> TOPICS FOUND:
+> For each proposition where you found relevant content, write:
+> - Proposition N: [quote or close paraphrase from the opinion with page/section reference]
+>
+> TOPICS NOT FOUND:
+> For each proposition where the opinion does NOT address the topic at all, write:
+> - Proposition N: NOT FOUND. The opinion does not discuss [topic]. [One sentence on what the opinion actually covers instead.]
+>
+> Be precise. If a topic is only tangentially mentioned, put it under TOPICS FOUND with a note that the support is indirect. Only put items under TOPICS NOT FOUND when the opinion genuinely does not address that subject.
+
+4. Save the summary to `opinions/{case_name}_summary.txt`
+
+Report: "Summarized X opinions (Y skipped, under 20K chars)."
+
+### Phase 2: Assess Cases (Opus Subagents)
+
+Group claims by opinion file. For each opinion, launch an Opus subagent (general-purpose agent).
 
 **Subagent input:**
-- Opinion file path to read
-- List of claims: `[{row_index, proposition, cited_case}]`
+- Opinion source: If `opinions/{case}_summary.txt` exists, read the **summary**. Otherwise, read the **full opinion** using the Read tool.
+- List of claims: `[{row_index, proposition, cited_case, quote_check_worst, quote_check}]`
 - Assessment criteria (below)
 
 **Subagent instructions:**
-> Read the entire opinion using the Read tool. Do NOT use grep, search, or scripting to analyze it — you must read and comprehend the full text. For opinions > 80K characters, read in chunks using offset/limit (2000 lines per chunk). Read ALL chunks.
+> Read the opinion text (or summary). For each claim, assess whether the case supports the proposition.
 >
-> For each claim, find passages that address the proposition. Write your response as a JSON array:
+> If reading a full opinion (not a summary): read the entire text. For opinions > 80K characters, read in chunks using offset/limit (2000 lines per chunk). Read ALL chunks.
+>
+> **Quote check results are provided for each claim.** Factor these into your assessment:
+> - `FABRICATED` quote: the brief puts words in quotation marks that do not appear in the opinion. This is a serious issue — downgrade to at least Yellow, Red if the substance is also wrong.
+> - `CLOSE` quote: near-match with minor word changes. Note the discrepancy but don't automatically downgrade.
+> - `VERBATIM` or `NO_QUOTES`: no issue with quoted text.
+>
+> Write your response as a JSON array:
 > ```json
 > [{"row_index": 7, "assessment": "Green", "supporting_language": "(1) Supports: \"exact quote...\""}]
 > ```
 
 **Assessment criteria:**
-- **Green** — case directly and accurately supports the proposition as stated
-- **Yellow** — partially relevant, support weaker than represented, pinpoint off, or proposition overstates holding
-- **Red** — does not support, misleading, or quoted language doesn't appear in opinion
+- **Green** — case directly and accurately supports the proposition as stated, AND any quoted text is verbatim or no quotes used
+- **Yellow** — partially relevant, support weaker than represented, pinpoint off, proposition overstates holding, OR quoted text is close but not verbatim
+- **Red** — does not support, misleading, quoted language fabricated, or fundamentally misrepresents the holding
 
 **Special cases:**
-- POSSIBLE_MATCH: subagent reads opinion and decides if it's the right case. If wrong case → Red.
+- POSSIBLE_MATCH: subagent reads opinion and decides if it's the right case. If wrong case -> Red.
 - No opinion text available (empty `opinion_file`): auto-Yellow — "Case verified but opinion text not available for review." No subagent needed.
 
-**Batching:** One subagent per opinion file. Each reads the opinion once, assesses all propositions citing it.
+**Batching:** One subagent per opinion file. Each reads the opinion (or summary) once, assesses all propositions citing it.
 
 After all subagents return, update `claims.csv` with `assessment` and `supporting_language`.
 
-### Phase 3: Assess Wave 2 Cases (Opus Subagents)
-
-Same contract as Phase 2 for Wave 2 cases that resolved with opinion text.
-
-**NOT_FOUND with no opinion text → auto-Red:**
+**NOT_FOUND with no opinion text -> auto-Red:**
 - `assessment`: "Red"
 - `supporting_language`: "Case not found on CourtListener -- cannot verify citation."
 - No subagent needed for these.
-
-After all subagents return, update `claims.csv`.
 
 ### Phase 4: Report
 
@@ -149,7 +193,8 @@ If `claims.csv` already exists, detect state and resume:
 |-------|-----------|
 | No `claims.csv` | Phase 1a |
 | Has `cited_case` but no `cl_status` | Phase 1b (wave1) |
-| Has `cl_status` but no `assessment` | Phase 2 |
+| Has `cl_status` but no `quote_check_worst` | Phase 1d (quote check + summaries) |
+| Has `quote_check_worst` but no `assessment` | Phase 2 |
 | Has `assessment` | Phase 4 (report) |
 
 Announce: "Found existing work. Resuming at Phase N."
