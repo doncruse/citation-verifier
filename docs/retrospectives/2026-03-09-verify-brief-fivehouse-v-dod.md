@@ -75,3 +75,22 @@ This was a government brief (DOJ/AUSA), not a pro se or AI-generated filing, whi
 3. **Targeted reading for long opinions** — when all pinpoints cite the same page, try reading that section first. Use keyword search before full reads to quickly identify off-topic citations.
 4. **WebFetch 403 on CL docket pages** — the skill should document the API-based fallback path (docket-entries → recap-documents → plain_text) as the primary approach for CL URLs, since web scraping doesn't work.
 5. **Token budget awareness** — the 114K opinions consumed disproportionate resources. Consider a "quick scan" mode: grep for key terms from the proposition before committing to a full read. If zero hits, mark Red immediately.
+
+---
+
+## Second Run Notes (same session, different machine)
+
+A parallel run on this same brief produced slightly different results: **2 Green, 3 Yellow, 8 Red** (vs 4G/2Y/7R above). The stricter run rated Overton Park's "presumption of regularity" cite as Yellow (noting the qualification "not to shield his action from a thorough, probing, in-depth review" in the next sentence) and the "strong showing" cite as Yellow (noting it applies narrowly to mental-process inquiry, not all extra-record evidence). Assessment variance between runs is worth tracking.
+
+### Alternative interpretation: Citation Bluffing vs AI-Assisted Drafting
+
+The first run characterized the pattern as "consistent with AI-assisted drafting." An alternative framing: **citation bluffing** — real cases from the right circuit and topic area, with plausible-sounding propositions, banking on nobody checking pinpoint cites. This is distinct from AI hallucination (which invents cases entirely). Both interpretations are plausible; distinguishing them would require examining whether the specific fabricated propositions match common AI confabulation patterns.
+
+### Investigation: On-the-fly RAG for Assessment
+
+3 of 5 subagents read entire opinions (up to 115K chars) only to find zero relevant content. Could a lightweight RAG approach reduce wasted reads?
+
+- **Approach:** Chunk opinion → embed → query with proposition text → assess only matching chunks
+- **Simpler alternative:** Grep for key phrases from each proposition before dispatching Opus subagent. If zero hits on distinctive phrases (e.g., "extra-record," "supplementation," "discovery"), flag as likely Red without full read.
+- **Trade-off:** Risk of false negatives if the opinion uses different terminology. But for cases like Dow AgroSciences (FIFRA jurisdiction) and Sierra Club (ESA/pipeline), even basic keyword search would catch the mismatch instantly.
+- **Status:** Flagged for investigation.
