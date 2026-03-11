@@ -1,0 +1,13 @@
+Fox v. Vice - Summary for Brief Assessment
+
+TOPICS FOUND:
+- Fee causation/but-for standard: "Section 1988 allows a defendant to recover reasonable attorney's fees incurred because of, but only because of, a frivolous claim. Or what is the same thing stated as a but-for test: Section 1988 permits the defendant to receive only the portion of his fees that he would not have paid but for the frivolous claim." (p. 835-836)
+- Fee allocation in mixed cases: "The question then becomes one of allocation: In a lawsuit involving a mix of frivolous and non-frivolous claims, what work may the defendant receive fees for?...The dispositive question is not whether attorney costs at all relate to a non-frivolous claim, but whether the costs would have been incurred in the absence of the frivolous allegation." (p. 837-838)
+- District court must apply but-for standard: The opinion vacates the District Court's fee award as failing to apply the causation-based standard, stating the court "failed to take proper account of this overlap between the frivolous and non-frivolous claims" and "did not address whether the...interrelatedness of the claims meant that Vice would have incurred part or most of his fees even if Fox had asserted only the non-frivolous state-law claims" (p. 839-840)
+- Discretion requires correct standard: "A court has wide discretion when, but only when, it calls the game by the right rules" (p. 839)
+
+TOPICS NOT FOUND:
+- The opinion does NOT contain the exact quote "The question is whether the case was frivolous when filed, not whether it later proved to be so." (attributed in brief at p. 13)
+- The opinion does NOT contain the exact quote "Defendants may receive only the portion of their fees that they would not have incurred but for the frivolous claim." (close paraphrase but not verbatim)
+- The opinion does NOT contain the exact quote "The court must determine which fees were incurred because of the frivolous claim." (close paraphrase but not verbatim)
+- The opinion does NOT discuss Experian, Bridgecrest, or Fletcher

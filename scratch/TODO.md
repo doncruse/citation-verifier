@@ -196,6 +196,24 @@ One-off script to compare NOT_FOUND citations against Justia to distinguish: rea
 
 ## verify-brief Skill
 
+### Fabricated quote flag in assessment criteria
+Assessment subagent prompts need a separate "FABRICATED QUOTE" check: for any text the brief places in quotation marks and attributes to a case, verify the exact words appear in the opinion. Currently our Green/Yellow/Red conflates substantive accuracy with verbatim accuracy. The Fletcher run had 5 false Greens where the substance was right but the quoted words were AI-generated. See `docs/retrospectives/2026-03-10-verify-brief-fletcher-v-experian.md` §1.
+
+### TOA vs body citation cross-check in Phase 1a
+Extract citations from both the Table of Authorities and the brief body. Flag discrepancies in reporter volume, page, or year. The Fletcher brief had "97 F.3d" in the body vs "597 F.3d" in the TOA — wrong case entirely. We used the TOA version and missed it. BriefCatch caught it deterministically.
+
+### Short-form-only citation risk flag
+When a case appears only in short form (no full citation anywhere in the brief), flag it in the CSV/report. The reconstructed full citation could be wrong. From Fivehouse retro: reconstructed "Dow AgroSciences, 637 F.3d at 268–69" to the full citation from context — worked, but risky.
+
+### Assessment subagent batching guidance
+Max 4-5 opinion files per subagent. The Fletcher "remaining 11 opinions" agent took 149s and 119K tokens. Splitting into 3-4 smaller agents would parallelize better.
+
+### Prohibit external tools in assessment agents
+Assessment agent prompts must explicitly say "Do NOT use any external tools like Midpage — only use Read." The Flatley v. Mauro agent in the Haiku prescreen test autonomously called Midpage, introducing an uncontrolled variable. Fixed mid-test but needs to be permanent in the skill.
+
+### Assessment-to-CSV workflow
+Currently requires throwaway Python scripts to write subagent JSON results into claims.csv. Options: (a) subagents write JSON sidecar files, single merge step updates CSV; (b) orchestrator uses Edit tool on CSV directly; (c) add `--update-assessments` CLI command to `brief_pipeline.py`. Same issue for report generation — should be `--report` CLI command.
+
 ### Baseline test (RED phase)
 Run the brief verification task WITHOUT the skill loaded to establish what Claude does naturally. Steps:
 1. Rename `~/.claude/skills/verify-brief/SKILL.md` → `SKILL.md.bak`

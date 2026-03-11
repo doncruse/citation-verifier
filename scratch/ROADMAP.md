@@ -40,6 +40,18 @@ Before dispatching an Opus subagent to read a full opinion, grep for a broad ter
 
 Design questions: How to generate the term cluster (static per-topic vs. LLM-generated)? Zero hits vs. fewer-than-N threshold? Search full opinion or just cited page range? See `docs/retrospectives/2026-03-09-verify-brief-pipeline-fivehouse-v-dod.md` §A.
 
+### Haiku prescreen for assessment (ready to ship)
+Haiku reads opinions and produces structured summaries; Opus assesses from summaries instead of full text. Tested across 3 briefs (102 claims): 76% exact match, 21% conservative (safe), 3% false upgrade (all one-step). ~15x cheaper per opinion read. Ship with conservative bias. Tune Haiku prompt to include "partially related" passages to reduce Yellow→Red over-strictness. See `docs/retrospectives/2026-03-10-haiku-prescreen-test.md`.
+
+### Fabricated quote detection (separate criterion)
+The Fletcher v. Experian run exposed our biggest blind spot: we rated 5 claims Green (substantive accuracy) where the court called them fabricated quotes because the exact words in quotation marks weren't the opinion's actual words. Assessment should split into two axes: (a) does the case support the proposition? and (b) does the quoted language appear verbatim? A claim can be Green-substance + Red-quote. This is what BriefCatch's "FABRICATED QUOTE" tag does. See `docs/retrospectives/2026-03-10-verify-brief-fletcher-v-experian.md`.
+
+### TOA vs body citation cross-check
+Phase 1a should extract citations from both the Table of Authorities and the brief body independently, then flag discrepancies in reporter volume, page, or year. The Fletcher brief cited "97 F.3d 678" in the body (resolves to *US v. NYC Transit Authority*, 2d Cir.) but "597 F.3d 678" in the TOA (the correct Bryant case). BriefCatch caught this deterministically; we missed it because we only used the TOA version. This is a Layer 1 check that should be free.
+
+### Statute and rule verification (scope expansion)
+Currently we only verify case citations. BriefCatch flagged 28 U.S.C. § 1927 for "wrong statutory standard" — the brief attributes procedural requirements (notice, briefing, evidentiary hearing) to § 1927 that aren't in the statute text. This is a real category of error in AI-generated briefs. Could add a lightweight statutory-text check: extract the brief's characterization of the statute, compare to actual statutory language. Lower priority than case-citation work but worth tracking.
+
 ### Targeted reading for long opinions
 When all pinpoints cite the same page, read that section first before committing to a full opinion read. For very long opinions (100K+), use keyword search to locate relevant passages before dispatching a subagent. Reduces cost even for *correct* citations — Ohio Valley (114K chars) required 17 tool uses and 52K tokens to assess 4 claims all citing the same page.
 

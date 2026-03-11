@@ -1,0 +1,15 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo 'WINDOWS ENV: Use venv/Scripts/python.exe (not python). No head/tail/grep/which in Git Bash.'"
+          }
+        ]
+      }
+    ]
+  }
+}

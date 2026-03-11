@@ -1,0 +1,17 @@
+Vaughan v. Lewisville Indep. Sch. Dist. - Summary for Brief Assessment
+
+This opinion is about a voting rights case (Vaughan v. Lewisville ISD). It addresses:
+- Whether Vaughan's VRA standing claim was frivolous under 10310(e) (held: no)
+- Whether his attorneys engaged in unreasonable and vexatious conduct under 1927 (held: yes during depositions; no for filing)
+- Whether law firms can be sanctioned under 1927 (held: no)
+
+TOPICS FOUND:
+- Section 1927 requires awarding "only those fees and costs associated with the persistent prosecution of a meritless claim" (line 496)
+- The court must identify which fees were incurred because of the sanctionable conduct (lines 598-601)
+
+TOPICS NOT FOUND:
+- The opinion does NOT require "segregation of fees incurred defending frivolous claims from those incurred defending non-frivolous ones" in those terms
+- The opinion does NOT mandate "line-item segregation" or "line-item causation findings"
+- The opinion does NOT use the phrase "segregate fees"
+- The opinion does NOT discuss Rule 11(c)(2), Fox, or Cooter
+- The opinion does NOT discuss percentage-based fee allocations or bulk allocation

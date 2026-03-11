@@ -1,0 +1,40 @@
+Summaries for 12 remaining opinions:
+
+## Hensley v. Eckerhart
+FOUND: "work on an unsuccessful claim cannot be deemed to have been 'expended in pursuit of the ultimate result achieved.'" (from Davis v. County of Los Angeles, cited with approval)
+
+## Puckett v. United States
+FOUND: "structural errors — those that affect 'the framework within which the trial proceeds'" - but this is about structural errors generally, NOT about sanctions without notice/briefing
+NOT FOUND: Does not discuss sanctions imposed without notice constituting structural error
+
+## Bryant v. Military Dep't of Miss.
+FOUND: Section 1927 requires "evidence of bad faith, improper motive, or reckless disregard of the duty owed to the court"
+NOT FOUND: Does not state Rule 11 sanctions are "collateral to the merits and may be imposed after dismissal" - quote "Sanctions under Rule 11 are collateral to the merits and may be imposed after dismissal" NOT FOUND
+
+## In re Case (Citizens Bank)
+NOT FOUND: No matches for "causally tied" or "carefully tie the award" language. The quote "The court must carefully tie the award to the sanctionable conduct" was NOT FOUND.
+
+## Lewis v. Brown & Root
+FOUND: Discusses 1927 standard requiring vexatious multiplication
+NOT FOUND: Does not use "clear showing of bad faith, not speculation or narrative"
+
+## United States v. Miller
+NOT FOUND: Does NOT discuss FTC Identity Theft Reports or government-issued fraud documentation triggering evidentiary presumption. Opinion concerns wire fraud and identity theft criminal elements.
+
+## Peterson v. BMI Refractories
+NOT FOUND: Does not contain "1927 applies only to conduct prolonging litigation after it has begun; it does not reach the filing of a single, non-frivolous pleading"
+
+## Matta v. May
+NOT FOUND: Does not contain "requires a sustained course of vexatious litigation" or "Reversed sanctions where attorney filed only one complaint"
+
+## Childs v. State Farm
+NOT FOUND: Does not contain "sanctions must be grounded in objective evidence and articulated findings, not frustration, silence, or narrative"
+
+## Donaldson v. Clark
+NOT FOUND: Does not contain "Discretion is not unbounded; it must be exercised within the framework of the applicable rules and precedents"
+
+## Mendez v. County of San Bernardino
+NOT FOUND: Does not contain "A sanctions order must be supported by a specific finding of bad faith and a clear articulation of the factual basis"
+
+## Thomas v. Capital Security Services
+NOT FOUND: Does not contain "The district court must carefully articulate the evidence and reasoning supporting its decision to impose sanctions"

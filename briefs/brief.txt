@@ -1,0 +1,1293 @@
+       Case: 25-20086    Document: 44       Page: 1   Date Filed: 09/02/2025
+
+
+
+
+                              No. 25-20086
+
+     IN THE UNITED STATES COURT OF APPEALS
+              FOR THE FIFTH CIRCUIT
+
+ROBERT FLETCHER,
+
+                 PLAINTIFF – APPELLANT
+
+
+V.
+
+
+EXPERIAN INFORMATION SOLUTIONS, INCORPORATED;
+BRIDGECREST CREDIT COMPANY, L.L.C.,
+
+                 DEFENDANTS – APPELLEES
+
+
+                                On Appeal from
+         United States District Court for the Southern District of Texas
+                                 4:24-CV-370
+
+      REPLY BRIEF OF APPELLANT ROBERT FLETCHER
+
+
+
+                                     Heather Hersh
+                                     TX Bar Number 24025426
+                                     FCRA ATTORNEYS
+                                     5301 Alpha Road, Suite 80-5
+                                     Dallas, TX 75240
+                                     T: (214) 945-0000
+                                     F: (469) 669-0786
+                                     www.fcraattorneys.com
+
+                                        1
+           Case: 25-20086             Document: 44            Page: 2       Date Filed: 09/02/2025
+
+
+
+
+                                        TABLE OF CONTENTS
+
+                                                                                                               Page
+
+TABLE OF CONTENTS ...........................................................................................2
+
+TABLE OF AUTHORITIES .....................................................................................3
+
+SUMMARY OF ARGUMENT …………………………………………………....5
+
+ARGUMENT .............................................................................................................7
+
+A.       INTRODUCTION…………………………………………………….……..7
+
+B.       STANDARD OF REVIEW…………………………………………..….…..8
+
+C.   THE DISTRICT COURT ERRED IN IMPOSING SANCTIONS UNDER §
+1927……………………………………………………………………………..….9
+
+
+D.  THE DISTRICT COURT’S FINDINGS WERE PROCEDURALLY AND
+FACTUALLY DEFICIENT………………………………………………………12
+
+
+E.       THE FEE AWARD WAS EXCESSIVE AND UNSUPPORTED …….…..18
+
+CONCLUSION ........................................................................................................24
+
+CERTIFICATE OF SERVICE ................................................................................29
+
+CERTIFICATE OF COMPLIANCE .......................................................................30
+
+
+
+
+                                                          2
+        Case: 25-20086   Document: 44       Page: 3   Date Filed: 09/02/2025
+
+
+
+
+                         TABLE OF AUTHORITIES
+
+Cases
+
+Bryant v. Military Dep’t of Miss.,
+597 F.3d 678, 682 (5th Cir. 2010)……………………………...………………….23
+
+Childs v. State Farm Mut. Auto. Ins. Co.,
+29 F.3d 1018, 1023 (5th Cir. 1994)……………………………………………….28
+
+Coghlan v. Starkey,
+852 F.2d 806, 809 (5th Cir. 1988)………………………...………..………7, 23, 27
+
+Cooter & Gell v. Hartmarx Corp.,
+496 U.S. 384, 397 (1990)…………………………………..….6, 13, 14, 22, 26, 27
+
+Deepwater Horizon v. Lake Eugenie Land & Dev., Inc.,
+857 F.3d 246, 250 (5th Cir. 2017)………………………………...………11, 12, 16
+
+Donaldson v. Clark,
+819 F.2d 1551, 1556 (11th Cir. 1987)……………………………………………………28
+
+Edwards v. Gen. Motors Corp.,
+153 F.3d 242, 246 (5th Cir. 1998)………………………………….………8, 13, 17
+
+Fox v. Vice,
+563 U.S. 826, 836 (2011)………………………………6, 13, 14, 18, 19, 20, 21, 27
+
+Hensley v. Eckerhart,
+461 U.S. 424, 434–35 (1983)……………………………………………...………20
+
+In re Case,
+937 F.2d 1014, 1023 (5th Cir. 1991)…………………………………….....…23, 28
+
+Lewis v. Brown & Root, Inc.,
+711 F.2d 1287, 1292 (5th Cir. 1983)…………………………..……….…….23, 28
+
+
+
+                                        3
+        Case: 25-20086    Document: 44       Page: 4   Date Filed: 09/02/2025
+
+
+
+
+Matta v. May,
+118 F.3d 410, 413 (5th Cir. 1997)………………………………………….……..24
+
+Mendez v. County of San Bernardino,
+540 F.3d 1109, 1131 (9th Cir. 2008)……………………………………………..28
+
+Morrison v. Walker,
+939 F.3d 633, 636–37 (5th Cir. 2019)……………………………...……..9, 10, 11
+
+Peterson v. BMI Refractories,
+124 F.3d 1386, 1396 (11th Cir. 1997)…………………………………..………….9
+
+Puckett v. United States,
+556 U.S. 129, 135 (2009)…………………………………………….……….15, 16
+
+Thomas v. Capital Sec. Servs.,
+836 F.2d 866, 873–74 (5th Cir. 1988)……………………………….…………..28
+
+United States v. Miller,
+953 F.3d 1095, 1101 (9th Cir. 2020)………………………………..……………..13
+
+Vaughan v. Lewisville Indep. Sch. Dist.,
+62 F.4th 199, 207 (5th Cir. 2023)………………….…….5, 6, 18, 19, 20, 21, 23, 27
+
+Rules
+
+Federal Rule of Appellate Procedure 38……………….…………….…5, 6, 22, 27
+
+Federal Rule of Civil Procedure
+      11…………………………………….…….5, 6, 7, 8, 11, 12, 13, 15, 16, 17,
+18, 20, 23, 24, 27, 28
+
+Statutes
+
+28 U.S.C. § 1927…..………...…5, 7, 8, 9, 10, 11, 13, 15, 17, 18, 19, 21, 24, 27, 28
+
+
+
+
+                                         4
+        Case: 25-20086      Document: 44       Page: 5   Date Filed: 09/02/2025
+
+
+
+
+                          SUMMARY OF ARGUMENT
+
+      The district court’s sanctions order rests on procedural shortcuts, speculative
+
+evidence, and post hoc rationalizations. Experian and Bridgecrest seek to reframe a
+
+live dispute as frivolous, relying on internal records that were never disclosed pre-
+
+suit, authenticated, or tested through adversarial process. The sanctions were
+
+imposed without formal notice, without briefing, and without evidentiary hearing,
+
+violating the safeguards required under Rule 11, § 1927, and the court’s inherent
+
+powers. See Federal Rule of Civil Procedure 11.
+
+      Experian’s § 1927 theory fails for lack of procedural multiplication. See 28
+
+U.S.C. § 1927. One complaint, supported by sworn FTC documentation and
+
+consistent fraud assertions, does not constitute vexatious conduct. Bridgecrest’s
+
+Rule 11 theory collapses under its own timeline: its internal records were produced
+
+after filing and cannot retroactively render the claims frivolous. The district court’s
+
+fee award is excessive, causally untethered, and unsupported by line-item findings,
+
+violating the Fifth Circuit’s mandate in Vaughan. See Vaughan v. Lewisville Indep.
+
+Sch. Dist., 62 F.4th 199, 207 (5th Cir. 2023).
+
+      Bridgecrest’s Rule 38 request is procedurally defective and strategically
+
+abusive. See Federal Rule of Appellate Procedure 38. Bridgecrest seeks appellate
+
+penalties based on trial-level speculation, post hoc narrative, and unauthenticated
+
+
+                                           5
+        Case: 25-20086     Document: 44       Page: 6   Date Filed: 09/02/2025
+
+
+
+
+records, precisely the kind of overreach Rule 38 was designed to deter. Fletcher’s
+
+appeal raises legitimate questions about due process, evidentiary rigor, and fee
+
+apportionment. The record reflects genuine disputes, not objective frivolity.
+
+Bridgecrest’s attempt to weaponize appellate sanctions confirms the need for
+
+reversal and remand under proper procedural safeguards.
+
+      The sanctions order violates Rule 11(c)(2), rests on post hoc justification
+
+barred by Fox and Cooter, and awards fees without causation segregation required
+
+by Vaughan. These defects are not discretionary; they are structural, and they
+
+compel reversal.
+
+
+
+
+                                          6
+        Case: 25-20086      Document: 44       Page: 7   Date Filed: 09/02/2025
+
+
+
+
+                                   ARGUMENT
+
+A.    INTRODUCTION
+
+      Experian recasts a disputed record as settled, seeking sanctions grounded in
+
+untested assumptions and defense narrative, not adversarial process. The district
+
+court’s order rests on premature factual conclusions, procedural shortcuts, and a
+
+misapplication of § 1927. See 28 U.S.C. § 1927. Counsel did not multiply
+
+proceedings; he litigated a claim supported by sworn statements and FTC
+
+documentation. Experian’s position conflates zealous advocacy with sanctionable
+
+misconduct and ignores the procedural safeguards that § 1927 and the court’s
+
+inherent powers require. The Fifth Circuit has cautioned that sanctions must not
+
+deter legitimate advocacy. See Coghlan, 852 F.2d at 809. Because these defects
+
+strike at the court’s very authority to impose sanctions, they trigger de novo review
+
+by this Court rather than deferential review. The sanctions order was imposed
+
+without briefing, evidentiary hearing, or formal notice, triggering de novo review
+
+and constitutional scrutiny.
+
+      Bridgecrest portrays a live dispute as procedurally resolved, despite the
+
+absence of adjudication, discovery, or factual testing. Bridgecrest similarly relies
+
+on post-filing evidence and procedural shortcuts to justify Rule 11 sanctions. The
+
+district court’s order adopted Bridgecrest’s version of events without discovery,
+
+
+                                           7
+        Case: 25-20086     Document: 44       Page: 8   Date Filed: 09/02/2025
+
+
+
+
+briefing, or factual development. Bridgecrest’s revised brief asserts that Fletcher’s
+
+claims were “demonstrably false” and that Counsel “refused to consider the
+
+evidence.” But Bridgecrest’s internal records were produced post-filing and never
+
+tested through discovery. Its characterization presumes adjudicated facts without
+
+evidentiary development. Bridgecrest’s reliance on post hoc billing records and
+
+informal communications cannot substitute for adversarial testing or satisfy the
+
+procedural thresholds for sanctions. The Fifth Circuit does not permit sanctions
+
+based on untested assertions or informal communications.
+
+B.    STANDARD OF REVIEW
+
+      Experian and Bridgecrest misstate the applicable standard of review. While
+
+Rule 11 and § 1927 sanctions are generally reviewed for abuse of discretion,
+
+sanctions imposed sua sponte without notice or hearing implicate due process and
+
+are reviewed de novo. See Edwards v. Gen. Motors Corp., 153 F.3d 242, 246 (5th
+
+Cir. 1998). Inherent power sanctions require clear and convincing evidence of bad
+
+faith and are subject to heightened scrutiny. Where sanctions are imposed sua
+
+sponte without briefing or evidentiary hearing, the Fifth Circuit applies de novo
+
+review to safeguard constitutional due process.
+
+
+
+
+                                          8
+        Case: 25-20086     Document: 44       Page: 9   Date Filed: 09/02/2025
+
+
+
+
+C.    THE DISTRICT COURT ERRED IN IMPOSING SANCTIONS
+      UNDER § 1927
+
+      Experian’s claim that counsel “recklessly prosecuted a meritless claim” is
+
+unsupported in the procedural record. The complaint was filed based on Fletcher’s
+
+sworn FTC Identity Theft Report and consistent assertions of fraud. Experian’s
+
+claim that counsel should have “known” the allegations were false presumes facts
+
+outside the pleadings and ignores the limited pre-suit access to Bridgecrest’s
+
+internal records.
+
+
+      Experian cites Morrison, which involved repeated filings after dispositive
+
+rulings and a clear record of delay. Morrison v. Walker, 939 F.3d 633, 636–37 (5th
+
+Cir. 2019). Fletcher’s counsel filed a single complaint and participated in early
+
+case management. That is not “multiplying” proceedings under § 1927. See 28
+
+U.S.C. § 1927. The statute applies only to conduct prolonging litigation after it has
+
+begun. It does not reach the filing of a single, non-frivolous pleading supported by
+
+evidence. See Peterson v. BMI Refractories, 124 F.3d 1386, 1396 (11th Cir. 1997).
+
+Sanctions are an extraordinary remedy, reserved for conduct that is both
+
+objectively unreasonable and undertaken in bad faith. See Morrison,
+
+939 F.3d at 637.
+
+
+
+
+                                          9
+        Case: 25-20086     Document: 44      Page: 10    Date Filed: 09/02/2025
+
+
+
+
+      Experian’s argument that counsel’s withdrawal motion constituted
+
+misconduct is unfounded. The motion complied with local rules and reflected a
+
+breakdown in communication, not an attempt to evade responsibility. Experian’s
+
+suggestion that counsel had a duty to “confess frivolity” is unsupported by Fifth
+
+Circuit authority. Experian’s silence on the procedural defects, coupled with its
+
+failure to defend the lack of briefing, hearing, or notice, underscores its
+
+dependence on expedience rather than adjudication. Experian’s refusal to defend
+
+the procedural record is not mere omission; it is tactical endorsement. By
+
+remaining silent on the absence of briefing, hearing, or notice, Experian signals its
+
+comfort with adjudicative shortcuts that favor defense narrative over adversarial
+
+rigor. That silence is not passive nor neutral; it is strategic complicity. Experian’s
+
+refusal to defend the procedural record is not mere omission, it is strategic
+
+complicity. Silence here is not neutral; it is tactical. Experian benefits from a
+
+sanctions order imposed without process, and its refusal to engage the procedural
+
+record underscores the structural defect.
+
+
+      Bridgecrest cites Morrison to justify sanctions, but Morrison involved
+
+repeated filings after dispositive rulings. Morrison, 939 F.3d at 637. Again,
+
+Fletcher’s counsel filed a single complaint and participated in early case
+
+management. Bridgecrest’s analogy fails both factually and procedurally.
+
+                                            10
+       Case: 25-20086      Document: 44     Page: 11    Date Filed: 09/02/2025
+
+
+
+
+Bridgecrest’s reliance on Morrison also ignores the Fifth Circuit’s warning that §
+
+1927 must not be used to punish counsel for pursuing claims that ultimately fail.
+
+Morrison, 939 F.3d at 637. Bridgecrest identifies no procedural multiplication, no
+
+duplicative filings, no discovery abuse, no delay tactics. Its § 1927 theory is
+
+structurally defective and unsupported by the record. See 28 U.S.C. § 1927. The
+
+absence of procedural multiplication renders its § 1927 theory structurally
+
+defective. The statute targets abusive litigation conduct, not adverse outcomes. The
+
+Fifth Circuit requires a pattern of vexatious conduct, not a single filing supported
+
+by sworn statements and FTC documentation. Bridgecrest’s sanctions were
+
+imposed under Rule 11, not § 1927, but the procedural defects are parallel.
+
+
+      The motion was adjudicated sua sponte at a Rule 16 conference without
+
+briefing or a show cause order, violating Rule 11(c)(2). Bridgecrest defends the
+
+Rule 11 adjudication by claiming Counsel had “notice” via a draft motion and Rule
+
+16 hearing. Informal communications and draft motions do not satisfy Rule
+
+11(c)(2)’s mandatory service requirement. The Fifth Circuit has rejected attempts
+
+to substitute informal notice for procedural compliance. See Deepwater Horizon v.
+
+Lake Eugenie Land & Dev., Inc., 857 F.3d 246, 250 (5th Cir. 2017). Bridgecrest’s
+
+reliance on informal exchanges confirms the absence of formal service, and the
+
+structural defect that follows. Because no formal Rule 11 motion was ever served
+
+                                          11
+       Case: 25-20086      Document: 44      Page: 12    Date Filed: 09/02/2025
+
+
+
+
+and Fletcher was afforded no opportunity to respond, the district court acted
+
+without jurisdiction to impose sanctions. The Fifth Circuit treats Rule 11(c)(2)’s
+
+safe-harbor as a mandatory claim-processing rule, and non-compliance with that
+
+requirement renders the sanction order void.
+
+
+      The district court’s sua sponte imposition of sanctions, without briefing,
+
+evidentiary hearing, or show cause order, exceeds the bounds of judicial discretion.
+
+The Fifth Circuit has warned that courts must not “act as advocates” when
+
+imposing sanctions. See Deepwater Horizon, 857 F.3d at 250. The district court
+
+did not merely err; it abandoned neutrality. By adopting defense narrative without
+
+briefing, discovery, or evidentiary hearing, the court converted judicial discretion
+
+into strategic leverage. That is not adjudication; it is alignment. Here, the court
+
+adopted defense narrative wholesale, bypassing adversarial safeguards and
+
+converting judicial authority into strategic leverage. The Fifth Circuit does not
+
+permit sanctions imposed sua sponte without briefing or evidentiary hearing.
+
+
+D.    THE DISTRICT COURT’S FINDINGS WERE PROCEDURALLY
+      AND FACTUALLY DEFICIENT
+
+
+      Experian claims the district court made “detailed findings,” but the order
+
+reflects no evidentiary hearing, no credibility determinations, and no factual
+
+development beyond the pleadings. The absence of procedural safeguards
+                                          12
+       Case: 25-20086      Document: 44    Page: 13    Date Filed: 09/02/2025
+
+
+
+
+precludes deference. The court relied on defense assertions and billing records
+
+without testing Fletcher’s claims through discovery, cross-examination, or
+
+evidentiary hearing. This violates the procedural safeguards required under § 1927
+
+and the court’s inherent powers. See Edwards, 153 F.3d at 246.
+
+      Experian mischaracterizes the FTC Identity Theft Report. Fletcher’s
+
+submission identified multiple disputed accounts and attached sworn, government-
+
+issued documentation consistent with identity theft. Courts recognize such reports
+
+as credible evidence of disputed identity and routinely treat them as prima facie
+
+proof of fraud. See United States v. Miller, 953 F.3d 1095, 1101 (9th Cir. 2020)
+
+(government-issued fraud documentation triggers evidentiary presumption).
+
+Experian’s claim that Fletcher “used the same license” to purchase the vehicle is
+
+speculative and ignores the possibility of impersonation or document misuse,
+
+issues that require factual development, not judicial inference.
+
+      Bridgecrest’s defense of the sanctions order rests on a post hoc narrative that
+
+violates controlling precedent. Frivolousness must be assessed at the time of filing,
+
+not in hindsight. Fox v. Vice, 563 U.S. 826, 834–36 (2011) (“The question is
+
+whether the case was frivolous when filed, not whether it later proved to be so.”);
+
+Cooter & Gell v. Hartmarx Corp., 496 U.S. 384, 393 (1990) (“Rule 11 sanctions
+
+are to be imposed only for arguments that are frivolous when made, not for those
+
+
+                                          13
+        Case: 25-20086      Document: 44     Page: 14     Date Filed: 09/02/2025
+
+
+
+
+that later prove unsuccessful.”). The district court relied on records produced after
+
+the complaint was filed and Experian’s strategic silence, of contemporaneous
+
+evidence, to justify sanctions. That is not adjudication; it is retroactive punishment.
+
+      Bridgecrest conflates dismissal with misconduct, using outcome as evidence
+
+and silence as guilt. That framing collapses under Fox and Cooter, which bar
+
+retroactive justification and demand contemporaneous scrutiny. The district court
+
+made no finding of bad faith, held no evidentiary hearing, and imposed sanctions
+
+without procedural compliance. That is not discretion; it is distortion. The district
+
+court made no contemporaneous finding that the FTC affidavit was facially
+
+implausible or that Fletcher’s reliance was unreasonable. Its silence at the time of
+
+filing undermines any retroactive claim of frivolity.
+
+      Bridgecrest’s defense hinges on a retrospective dismissal and selective
+
+skepticism of the FTC affidavit. That posture misuses hindsight to justify sanctions
+
+that were procedurally defective at the moment they were imposed. Under Fox and
+
+Cooter, frivolousness must be judged at filing, not reconstructed after the fact. The
+
+district court imposed sanctions without finding bad faith, without notice, and
+
+without hearing. That is not discretion; it is adjudicative drift.
+
+      Fletcher’s complaint was supported by a sworn FTC affidavit alleging
+
+identity theft and unauthorized account activity. That affidavit was facially credible
+
+
+                                           14
+       Case: 25-20086      Document: 44    Page: 15    Date Filed: 09/02/2025
+
+
+
+
+and consistent with fraud documentation Experian submitted in other proceedings.
+
+Bridgecrest’s claim that the affidavit was unreliable is unsupported by any
+
+evidentiary hearing and contradicted by the record.
+
+      Moreover, the district court made no finding of bad faith or improper
+
+purpose. Rule 11 sanctions require more than disagreement; they require
+
+misconduct. Rule 11(c)(2) mandates notice and a hearing before sanctions are
+
+imposed. Fletcher received neither. The order bypassed procedural safeguards and
+
+imposed sanctions based on silence, speculation, and post-filing narrative. That
+
+violates Rule 11, § 1927, and the Fifth Circuit’s due process mandate.
+
+      Bridgecrest’s revised brief recites a chronology of emails, phone calls, and
+
+payment records to argue Fletcher’s claims were false. But none of this evidence
+
+was subject to cross-examination or discovery. The Fifth Circuit does not defer to
+
+untested factual assertions, especially when sanctions are imposed without
+
+evidentiary hearing. Bridgecrest’s evidentiary posture rests entirely on internal
+
+records and communications that were never authenticated, disclosed pre-suit, or
+
+subjected to adversarial testing.
+
+      Sanctions imposed without formal notice, briefing, or evidentiary hearing
+
+constitute structural error. See Puckett v. United States, 556 U.S. 129, 135 (2009)
+
+(structural errors “affect the framework within which the trial proceeds”). The
+
+
+                                          15
+        Case: 25-20086      Document: 44     Page: 16     Date Filed: 09/02/2025
+
+
+
+
+absence of notice, briefing, and evidentiary hearing here is not procedural
+
+oversight; it is constitutional failure. Structural errors are not subject to harmless
+
+error review. They “affect the framework within which the trial proceeds.” Puckett,
+
+556 U.S. at 135. The absence of notice, briefing, and evidentiary hearing here is
+
+not procedural oversight; it is constitutional failure. Reversal is not discretionary; it
+
+is mandatory. The procedural defect here undermines the integrity of the
+
+adjudication and compels reversal. The absence of adversarial safeguards here is
+
+not harmless; it is constitutionally fatal. The Fifth Circuit has repeatedly held that
+
+sanctions imposed sua sponte without notice or hearing violate core constitutional
+
+protections. See Deepwater Horizon, 857 F.3d at 250 (“Due process requires notice
+
+and an opportunity to be heard before sanctions are imposed.”). The district court’s
+
+failure to issue a show cause order or permit briefing renders the sanctions void for
+
+lack of procedural foundation. Bridgecrest’s evidentiary submission, untested,
+
+unauthenticated, and post hoc, fails every threshold for sanctionable conduct. The
+
+Fifth Circuit does not permit punishment by narrative.
+
+      The Fifth Circuit requires factual findings grounded in adversarial process,
+
+not unilateral narrative. Bridgecrest’s internal records were produced after the
+
+complaint was filed and do not retroactively render the claims frivolous. Counsel
+
+relied on Fletcher’s sworn FTC Identity Theft Report and his consistent statements
+
+
+                                           16
+        Case: 25-20086     Document: 44      Page: 17    Date Filed: 09/02/2025
+
+
+
+
+of fraud. Rule 11 requires courts to assess investigation reasonableness at the time
+
+of filing, not in hindsight. Bridgecrest concedes its records were produced after the
+
+complaint but insists they “do not retroactively render the claims frivolous.” That
+
+concession undermines its own argument. Rule 11 adjudication is temporal. It
+
+evaluates the reasonableness of counsel’s investigation at the time of filing, not in
+
+hindsight. Bridgecrest’s post-filing records are legally irrelevant to that inquiry.
+
+Their own timeline forecloses the sanction. Rule 11 requires courts to assess
+
+investigation reasonableness at the time of filing, not based on post hoc
+
+documentation.
+
+      The district court’s sua sponte sanctions order violated Fletcher’s
+
+constitutional right to procedural due process. The Fifth Circuit has held that
+
+sanctions imposed without formal notice, briefing, or evidentiary hearing are
+
+reviewed de novo, not merely for abuse of discretion, because they implicate core
+
+constitutional safeguards. See Edwards, 153 F.3d at 246. These procedural failures
+
+are not siloed; they cascade into the fee award itself. The district court did not
+
+merely misapply Rule 11 and § 1927; it compounded the error by awarding fees
+
+untethered from causation, inflated by joint defense coordination, and justified by
+
+silence rather than scrutiny.
+
+
+
+
+                                          17
+       Case: 25-20086      Document: 44     Page: 18    Date Filed: 09/02/2025
+
+
+
+
+E.    THE FEE AWARD WAS EXCESSIVE AND UNSUPPORTED
+
+      The procedural defects underlying the sanctions order cascade into the fee
+
+award itself. The district court did not merely misapply Rule 11 and § 1927; it
+
+compounded the error by awarding fees untethered from causation, inflated by
+
+joint defense coordination, and justified by silence rather than scrutiny. That is not
+
+compensation; it is strategic reward.
+
+      Bridgecrest may claim that the district court exercised billing judgment and
+
+applied a reasonable percentage allocation. That argument fails under Vaughan,
+
+which requires courts to “segregate fees incurred defending frivolous claims from
+
+those incurred defending non-frivolous ones.” It also violates Fox, 563 U.S. at 836,
+
+which limits recovery to fees “that would not have been incurred but for the
+
+frivolous claim.” Bridgecrest’s billing includes vague entries, joint defense
+
+coordination, and post-dismissal work, none of which were causally linked to the
+
+alleged misconduct. The district court made no causation findings and applied a
+
+bulk allocation that distorts the compensatory purpose of § 1927.
+
+      Bridgecrest’s billing records include entries unrelated to the alleged
+
+misconduct, including post-dismissal work, vague time descriptions, and
+
+coordination with Experian, who never moved for fees and whose silence shielded
+
+its own contradictory records. Experian’s silence was not neutral. It enabled
+
+
+                                          18
+       Case: 25-20086      Document: 44     Page: 19    Date Filed: 09/02/2025
+
+
+
+
+Bridgecrest to inflate billing scope without evidentiary challenge, while shielding
+
+documentation that contradicted the sanctions narrative. That silence distorted the
+
+compensable frame and undermined the adversarial process. See Fox, 563 U.S. at
+
+836; Vaughan, 62 F.4th at 207.
+
+      The district court made no attempt to isolate fees “caused by” the alleged
+
+violation, as required by Fox, 563 U.S. at 836 (“Defendants may receive only the
+
+portion of their fees that they would not have incurred but for the frivolous
+
+claim.”), and reaffirmed by Vaughan, 62 F.4th at 207 (“The district court must
+
+segregate fees incurred defending frivolous claims from those incurred defending
+
+non-frivolous ones.”). Instead, it applied a bulk percentage allocation that violates
+
+the compensatory purpose of § 1927 and the Fifth Circuit’s demand for task-
+
+specific segregation.
+
+      Experian’s fee request of $52,236.75, reduced to $13,059.18, was based on
+
+work performed before any judicial finding of frivolity. The district court failed to
+
+isolate fees “caused by” vexatious conduct, as required by § 1927 and reaffirmed
+
+in Vaughan. See Vaughan, 62 F.4th at 207. Instead, the court awarded a flat
+
+percentage based on billing records that included general litigation tasks. This
+
+violates the compensatory purpose of § 1927 and constitutes an abuse of discretion.
+
+See Vaughan, 62 F.4th at 207. The Supreme Court has expressly rejected
+
+
+                                          19
+        Case: 25-20086     Document: 44      Page: 20    Date Filed: 09/02/2025
+
+
+
+
+percentage-based fee allocations divorced from causation. See Hensley v.
+
+Eckerhart, 461 U.S. 424, 434–35 (1983) (“Work on an unsuccessful claim cannot
+
+be deemed to have been expended in pursuit of the ultimate result achieved.”). The
+
+award here suffers that precise defect.
+
+      Bridgecrest’s fee award is structurally defective. It bundles unrelated
+
+litigation tasks, lacks line-item causation findings, and includes entries that violate
+
+the Fifth Circuit’s mandate in Vaughan, and the Supreme Court’s directive in Fox.
+
+See Vaughan, 62 F.4th at 207; Fox, 563 U.S. at 836. The district court awarded
+
+60% of Bridgecrest’s total fees without isolating those “caused by” the alleged
+
+Rule 11 violation. That bulk allocation is not compensatory, it is punitive.
+
+      Bridgecrest’s fee award encompassed general litigation tasks unrelated to the
+
+alleged Rule 11 violation. The court failed to apportion fees or make specific
+
+findings linking them to sanctionable conduct. Bridgecrest’s revised brief claims
+
+the district court “was not required to make specific findings” and that billing
+
+judgment was exercised. But the Fifth Circuit requires segregation of fees caused
+
+by sanctionable conduct. Bridgecrest’s motion sought 76% of total fees, and the
+
+district court awarded 60%, without isolating fees attributable to the alleged
+
+violation. Bridgecrest’s revised brief offers no line-item breakdown of tasks linked
+
+to the alleged misconduct. Its reliance on percentage-based allocation contradicts
+
+
+                                          20
+       Case: 25-20086       Document: 44    Page: 21    Date Filed: 09/02/2025
+
+
+
+
+Vaughan’s mandate for causation-specific findings and renders the award
+
+structurally defective. Vaughan, 62 F.4th at 207.
+
+      Bridgecrest’s fee request includes entries for inter-defendant coordination
+
+and general litigation tasks, none causally linked to the alleged violation.
+
+Bridgecrest’s billing entries include coordination with Experian, internal strategy
+
+sessions, and communications unrelated to Fletcher’s claims. These entries reflect
+
+strategic inflation, not compensable harm. The Fifth Circuit requires fee
+
+segregation by causation, not convenience. See Fox, 563 U.S. at 836 (“The court
+
+must determine which fees were incurred because of the frivolous claim.”). The
+
+Fifth Circuit requires line-item segregation of fees caused by sanctionable conduct.
+
+See Vaughan, 62 F.4th at 207. Bridgecrest’s fee request includes inter-defendant
+
+coordination, general litigation tasks, and communications unrelated to the alleged
+
+violation. The district court awarded 60% of total fees without isolating causation.
+
+That bulk allocation violates Vaughan and renders the award non-compensatory.
+
+Vaughan, 62 F. 4th at 207
+
+      The award is a bulk invoice, not a compensable harm analysis. The absence
+
+of line-item segregation violates Vaughan and renders the award non-
+
+compensatory. Vaughan, 62 F. 4th at 207. This violates the compensatory purpose
+
+of § 1927 and constitutes an abuse of discretion.
+
+
+                                           21
+        Case: 25-20086      Document: 44     Page: 22   Date Filed: 09/02/2025
+
+
+
+
+      Bridgecrest’s Rule 38 request is procedurally meritless and tactically
+
+reckless. It seeks appellate sanctions based on trial-level speculation and
+
+unauthenticated records. Fletcher’s appeal raises legitimate procedural and legal
+
+questions, and the record reflects genuine disputes over both the adequacy of
+
+counsel’s investigation and the district court’s failure to follow required process.
+
+Appellate sanctions require a showing of objective frivolity, which the record does
+
+not support. Bridgecrest asks this Court to impose Rule 38 damages for a
+
+“frivolous appeal,” citing its own billing records and speculative misconduct
+
+theories. But Fletcher’s appeal raises legitimate procedural and legal questions, and
+
+Bridgecrest’s request is itself a tactical overreach.
+
+      Rule 38 is not a tool for retroactive punishment. Bridgecrest’s request rests
+
+on unauthenticated records and speculative misconduct theories. Bridgecrest’s
+
+invocation of Rule 38 borders on sanctionable conduct. The Fifth Circuit has
+
+condemned attempts to weaponize appellate procedure against legitimate
+
+challenge. Rule 38 is not a tactical cudgel; it is a safeguard against objectively
+
+frivolous appeals. Bridgecrest’s request, grounded in unauthenticated records and
+
+speculative misconduct theories, confirms the need for reversal, not just of the
+
+sanctions order, but of the procedural culture that enabled it. The Fifth Circuit has
+
+warned against using appellate sanctions as tactical leverage. See Cooter, 496 U.S.
+
+
+                                           22
+        Case: 25-20086     Document: 44      Page: 23    Date Filed: 09/02/2025
+
+
+
+
+at 397 (“Sanctions must not be used as mere fee-shifting devices.”); Bryant v.
+
+Military Dep’t of Miss., 97 F.3d 678, 682 (5th Cir. 2010) (“Sanctions under Rule 11
+
+are collateral to the merits and may be imposed after dismissal.”). Bridgecrest’s
+
+request is not grounded in objective frivolity; it is a strategic maneuver to chill
+
+legitimate appellate review.
+
+      Experian’s silence enabled Bridgecrest to inflate billing scope without
+
+evidentiary challenge or causation findings, violating Fox and Vaughan.
+
+Bridgecrest’s billing scope was never tested against causation, necessity, or
+
+Fletcher’s actual conduct. Fee awards must be causally tied to specific misconduct,
+
+not merely proximity or shared docket. See In re Case, 937 F.2d 1014, 1023 (5th
+
+Cir. 1991) (“The court must carefully tie the award to the sanctionable conduct.”).
+
+That silence was strategic, not incidental. The Fifth Circuit requires objective
+
+frivolity, not strategic retaliation. See Coghlan, 852 F.2d at 811 (“An appeal is
+
+frivolous if the result is obvious or the arguments of error are wholly without
+
+merit.”) Experian identifies no conduct that multiplied proceedings, and no factual
+
+basis for bad faith. Section 1927 sanctions require evidence of bad faith, improper
+
+motive, or reckless disregard of duty, not mere withdrawal or frustration. See
+
+Bryant, 597 F.3d at 694. Courts require a clear showing of bad faith, not
+
+speculation or narrative. See Lewis v. Brown & Root, Inc., 711 F.2d 1287, 1292
+
+
+                                          23
+        Case: 25-20086      Document: 44     Page: 24    Date Filed: 09/02/2025
+
+
+
+
+(5th Cir. 1983) (reversing § 1927 sanctions where record lacked evidence of
+
+vexatious intent). Section 1927 requires more than weak claims or procedural
+
+missteps; it demands a sustained course of vexatious litigation. See Matta v. May,
+
+118 F.3d 410, 413 (5th Cir. 1997) (reversing § 1927 sanctions where attorney filed
+
+only one complaint and did not prolong litigation).
+
+                                   CONCLUSION
+
+      The Constitution does not permit punishment by inference, and this Court
+
+does not permit sanctions imposed without process. Reversal is not optional; it is the
+
+Fifth Circuit’s duty to preserve adversarial integrity. Experian’s brief fails to justify
+
+the district court’s sanctions order under § 1927 or the court’s inherent powers. See
+
+28 U.S.C. § 1927. The record does not support the finding of bad faith, reckless
+
+conduct, or vexatious multiplication of proceedings. The fee award is excessive,
+
+procedurally unsupported, and improperly calculated. Bridgecrest’s revised brief
+
+confirms the procedural defects Fletcher identified: sanctions imposed without
+
+formal notice, without evidentiary hearing, and without fee segregation.
+
+Bridgecrest’s attempt to reframe the record as settled ignores the Fifth Circuit’s
+
+requirements for Rule 11 adjudication and § 1927 sanctions. See 28 U.S.C. § 1927.
+
+Bridgecrest’s own concessions expose the procedural shortcuts, speculative
+
+evidence, and post hoc rationalizations underlying the sanctions order. Bridgecrest’s
+
+
+                                           24
+        Case: 25-20086      Document: 44     Page: 25     Date Filed: 09/02/2025
+
+
+
+
+failure to isolate misconduct, segregate fees, or support findings with tested evidence
+
+confirms the need for reversal and remand under adversarial safeguards. The Fifth
+
+Circuit does not permit sanctions imposed without notice, hearing, or evidentiary
+
+rigor. Bridgecrest’s revised brief confirms that the sanctions order rests on
+
+procedural shortcuts, speculative evidence, and post hoc rationalizations. Its failure
+
+to isolate misconduct, segregate fees, or support findings with tested evidence
+
+underscores the need for reversal.
+
+      Fletcher respectfully requests reversal of the sanctions order and remand for
+
+proceedings consistent with procedural safeguards. The district court’s order rests
+
+on untested assertions, unauthenticated records, and procedural shortcuts. Reversal
+
+is not discretionary; it is required to restore adversarial integrity and constitutional
+
+compliance. The Fifth Circuit’s institutional integrity depends on enforcing
+
+procedural safeguards and rejecting sanctions grounded in speculation. Upholding
+
+the district court’s order would signal tolerance for shortcut adjudication and
+
+strategic punishment. Reversal is not merely corrective; it is protective. The Fifth
+
+Circuit’s role extends beyond error correction. It safeguards the adversarial
+
+framework against procedural erosion and strategic abuse. Upholding sanctions
+
+imposed without notice, hearing, or evidentiary rigor would normalize shortcut
+
+adjudication and chill legitimate advocacy.
+
+
+                                           25
+        Case: 25-20086      Document: 44     Page: 26     Date Filed: 09/02/2025
+
+
+
+
+      Reversal is not discretionary; it is constitutionally compelled. It restores
+
+procedural integrity and deters adjudicative shortcuts that chill legitimate
+
+advocacy. The Fifth Circuit’s reversal must do more than correct error; it must
+
+deter procedural weaponization. Sanctions imposed without process, grounded in
+
+unauthenticated records and speculative narrative, signal a dangerous precedent.
+
+Reversal here is not just restorative; it is prophylactic. It protects the adversarial
+
+framework from erosion by strategic overreach. Reversal is not merely corrective;
+
+it is constitutionally compelled. Sanctions imposed without notice, hearing, or
+
+evidentiary rigor violate the Fifth Circuit’s due process mandate. Upholding such
+
+an order would signal tolerance for adjudicative shortcuts and chill legitimate
+
+advocacy. If unauthenticated records and post hoc narrative can trigger sanctions,
+
+then zealous advocacy becomes a liability. The Fifth Circuit has warned that
+
+sanctions must not punish counsel for pursuing plausible claims. See Cooter, 496
+
+U.S. at 393. Reversal here is not just corrective; it is a reaffirmation that
+
+adversarial rigor must not be penalized. The Constitution does not permit
+
+punishment by inference. Reversal here will not only correct this case but will
+
+deter the procedural weaponization of sanctions in future litigation.
+
+      This appeal is not about a fee dispute; it is about the structural integrity of
+
+the adversarial process. From the outset, Fletcher was sanctioned without notice,
+
+
+                                           26
+        Case: 25-20086     Document: 44      Page: 27    Date Filed: 09/02/2025
+
+
+
+
+briefing, or evidentiary hearing, based on unauthenticated records and post hoc
+
+narrative. That procedural shortcut is not harmless; it is unconstitutional. The
+
+district court’s order bypassed Rule 11’s safeguards, misapplied § 1927, and
+
+endorsed a sanctions framework that punishes advocacy rather than misconduct.
+
+Reversal is not a favor to counsel; it is a reaffirmation of the procedural rigor that
+
+protects every litigant, every claim, and every court from strategic distortion. The
+
+Fifth Circuit has warned against adjudicative shortcuts. This case demands that
+
+warning be enforced. The sanctions order violates Rule 11(c)(2), rests on post hoc
+
+justification barred by Fox and Cooter, and awards fees without causation
+
+segregation required by Vaughan. These are not discretionary errors; they are
+
+structural defects that compel reversal.
+
+      The district court imposed sanctions without findings, inflated fees without
+
+causation, and endorsed silence as strategy. It exercised discretion without
+
+anchoring to Rule 11, § 1927, or the record. That is not judicial management. It is
+
+doctrinal abandonment. Sanctions must be grounded in objective evidence and
+
+articulated findings, not frustration, silence, or narrative. See Childs v. State Farm
+
+Mut. Auto. Ins. Co., 29 F.3d 1018, 1023 (5th Cir. 1994). Rule 11 discretion must be
+
+exercised within procedural bounds and anchored to articulated findings. See
+
+Mendez v. County of San Bernardino, 540 F.3d 1109, 1131 (9th Cir. 2008) (“A
+
+
+                                           27
+        Case: 25-20086     Document: 44      Page: 28    Date Filed: 09/02/2025
+
+
+
+
+sanctions order must be supported by a specific finding of bad faith and a clear
+
+articulation of the factual basis.”); Thomas v. Capital Sec. Servs., 836 F.2d 866,
+
+873–74 (5th Cir. 1988) (en banc) (“The district court must carefully articulate the
+
+evidence and reasoning supporting its decision to impose sanctions.”); Donaldson
+
+v. Clark, 819 F.2d 1551, 1556 (11th Cir. 1987) (“Discretion is not unbounded. It
+
+must be exercised within the framework of the applicable rules and precedents.”);
+
+Case, 937 F.2d at 1023; Lewis 711 F.2d at 1292.
+
+       Bridgecrest’s defenses collapse under Fifth Circuit precedent. Fox and
+
+Cooter bar retroactive justification. Vaughan requires fee segregation. Coghlan
+
+limits Rule 38 to objectively frivolous appeals. Experian’s silence distorted the
+
+billing frame and shielded contradictory records. The district court made no
+
+finding of bad faith, held no evidentiary hearing, and imposed sanctions without
+
+procedural compliance. If this order stands, it will not just chill advocacy; it will
+
+codify silence as guilt and narrative as evidence. That is not adjudication. It is
+
+erosion by silence, inflation, and discretion untethered from evidence.
+
+                                                                  SUBMITTED BY:
+                                                                   /s/ Heather Hersh
+                                                                       Heather Hersh
+                                                           Tx Bar Number 24025426
+                                                               FCRA ATTORNEYS
+                                                         5301 Alpha Road, Suite 80-5
+                                                                   Dallas, TX 75240
+
+
+                                          28
+      Case: 25-20086    Document: 44    Page: 29   Date Filed: 09/02/2025
+
+
+
+
+                                                             T: (214) 945-0000
+                                                             F: (469) 669-0786
+                                                     heather@fcraattorneys.com
+
+
+
+
+                       CERTIFICATE OF SERVICE
+
+     I certify that on September 2, 2025, the foregoing document was served, via
+
+the Court’s CM/ECF Document Filing System, upon the following registered
+
+CM/ECF users:
+
+
+
+                                                              /s/ Heather Hersh
+                                                                  Heather Hersh
+
+
+
+
+                                       29
+       Case: 25-20086     Document: 44    Page: 30   Date Filed: 09/02/2025
+
+
+
+
+                     CERTIFICATE OF COMPLIANCE
+
+1. This document complies with the type-volume limit of the FED. R. APP. P.
+
+32(a)(7)(B) because, excluding the parts of the document, exempted by FED. R. APP.
+
+P. 32(f) and 5th CIR. R. 32.1: This document contains 5300 words.
+
+
+
+2. This document complies with the typeface requirements of the FED. R. APP. P.
+
+32(a)(5), and 5th CIR. R. 32.1 and the type-style requirements of FED. R. APP. P.
+
+32(a)(6) because this document has been prepared in a proportionally spaced
+
+typeface using Version 2503 in 14-point font in Times New Roman.
+
+                                                                /s/ Heather Hersh
+                                                                    Heather Hersh
+
+
+
+
+                                         30
+

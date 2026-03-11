@@ -41,6 +41,7 @@ Rules:
 - Exclude: statutes, regulations, constitutional provisions, treatises, secondary sources, Federalist Papers
 - Deduplicate — same case with different pinpoints = one line (use base citation without pinpoint)
 - Format: `Case Name, Vol Reporter Page (Year)` — exactly as the brief cites it, minus pinpoint
+- **Citation inconsistencies**: If the Table of Authorities and the body text cite different reporter volumes or page numbers for the same case, include BOTH variants in `citations_to_verify.txt` (on separate lines) so the verifier can look up both. Note the discrepancy for the user.
 
 Report: "Extracted X unique case citations."
 
@@ -101,16 +102,20 @@ Group claims by `opinion_file`. For each unique opinion file:
 
 1. Check file size: `Read` the opinion and count characters
 2. If < 20,000 characters — **skip** (Opus reads directly in Phase 2)
-3. If >= 20,000 characters — launch an **Explore** agent (runs on Haiku) with this prompt:
+3. If >= 20,000 characters — launch an **Explore** agent (runs on Haiku; include "very thorough" in the prompt) with this prompt:
 
-> Read the ENTIRE opinion file at `{opinion_path}` very thoroughly. This is a legal opinion.
->
-> For each proposition below, search the full opinion text and report your findings.
+> Very thorough search needed. Read the ENTIRE opinion file at `{opinion_path}` using the Read tool. This is a legal opinion.
 >
 > Propositions to check:
 > {numbered list of propositions from claims citing this opinion}
 >
 > **Output format — follow exactly:**
+>
+> CASE SUMMARY:
+> [1-2 sentences: what this case is actually about]
+>
+> KEY HOLDINGS:
+> [Bullet list of actual holdings]
 >
 > TOPICS FOUND:
 > For each proposition where you found relevant content, write:
@@ -120,9 +125,11 @@ Group claims by `opinion_file`. For each unique opinion file:
 > For each proposition where the opinion does NOT address the topic at all, write:
 > - Proposition N: NOT FOUND. The opinion does not discuss [topic]. [One sentence on what the opinion actually covers instead.]
 >
-> Be precise. If a topic is only tangentially mentioned, put it under TOPICS FOUND with a note that the support is indirect. Only put items under TOPICS NOT FOUND when the opinion genuinely does not address that subject.
+> Be precise. Only summarize — do NOT assess whether propositions are supported.
 
-4. Save the summary to `opinions/{case_name}_summary.txt`
+4. Save the agent's output to `opinions/{case_name}_summary.txt`
+
+**Batching:** Launch one haiku-summarizer agent per opinion file (or group 2-3 small opinions per agent). Run all agents in background concurrently.
 
 Report: "Summarized X opinions (Y skipped, under 20K chars)."
 

@@ -1,0 +1,9 @@
+Coghlan v. Starkey - Summary for Brief Assessment
+
+TOPICS FOUND:
+- Frivolous appeal standard: "Sanctions are appropriate when the result of an appeal is obvious and the arguments of error are wholly without merit." (cited from Grimes v. Comm'r, 806 F.2d 1451, 1454 (9th Cir.1986), in footnote 4)
+
+TOPICS NOT FOUND:
+- Does NOT explicitly state "sanctions must not deter legitimate advocacy" - discusses deterrence concerns generally but not in those specific terms
+- Does NOT establish a limiting principle that "Coghlan limits Rule 38 to objectively frivolous appeals" in that formulation
+- The quote "An appeal is frivolous if the result is obvious or the arguments of error are wholly without merit" appears but is attributed to Grimes, not original Coghlan language

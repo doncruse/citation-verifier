@@ -1,0 +1,656 @@
+Case: 25-20086         Document: 89-1   Page: 1    Date Filed: 02/18/2026
+
+
+
+
+        United States Court of Appeals
+             for the Fifth Circuit                             United States Court of Appeals
+                             ____________                               Fifth Circuit
+
+                                                                      FILED
+                              No. 25-20086                     February 18, 2026
+                             ____________
+                                                                 Lyle W. Cayce
+                                                                      Clerk
+Robert Fletcher,
+
+                                                      Plaintiff—Appellant,
+
+                                  versus
+
+Experian Information Solutions, Incorporated;
+Bridgecrest Credit Company, L.L.C.,
+
+                                        Defendants—Appellees.
+               ______________________________
+
+               Appeal from the United States District Court
+                   for the Southern District of Texas
+                         USDC No. 4:24-CV-370
+               ______________________________
+
+Before Elrod, Chief Judge, and Smith and Wilson, Circuit Judges.
+Jennifer Walker Elrod, Chief Judge:
+      Pending before the court is an issue that has become central to the
+ongoing discussions of the relationship between law and technology: the use
+of artificial intelligence (“AI”) in the drafting of legal documents. On
+December 18, 2025, the court issued an order to show cause as to why
+Appellant’s counsel should not be sanctioned for including, in a brief,
+quotations, citations, and assertions that were not supported by the
+underlying case law.
+ Case: 25-20086          Document: 89-1          Page: 2      Date Filed: 02/18/2026
+
+
+
+
+                                      No. 25-20086
+
+
+        Having considered counsel’s responses to the show-cause order, we
+have determined that counsel used artificial intelligence to draft a substantial
+portion, if not all, of her reply brief and then failed to verify the accuracy of
+the content generated.           We have also determined that she was not
+forthcoming in her response to the show-cause order. For those reasons, IT
+IS ORDERED that Heather Hersh pay to the clerk of court within 30 days
+a sanction of $2,500.
+                                             I
+        The first high-profile incident of AI-fabricated case citations in the
+federal courts occurred in the Southern District of New York.                        Larry
+Neumeister, Lawyers blame ChatGPT for tricking them into citing bogus case
+law, AP (June 8, 2023), https://apnews.com/article/artificial-intelligence-
+chatgpt-courts-e15023d7e6fdf4f099aa122437dbb59b.                    In that case, the
+plaintiff’s AI-generated brief cited seven nonexistent cases. Mata v. Avianca,
+Inc., 678 F. Supp. 3d 443, 449–51 (S.D.N.Y. 2023). For example, the brief
+cited a case called Varghese v. China Southern Airlines Co., which did not exist,
+and the federal reporter citation led to a different case altogether. Id. at 151.
+The brief listed our own distinguished colleague, Judge Patrick
+Higginbotham, as a member of the Varghese panel, even though that case was
+entirely fictional. Id. at 453 & n.7.1
+        Fabrications of this sort have been dubbed “hallucinations.” See Snell
+v. United Specialty Ins. Co., 102 F.4th 1208, 1230 (11th Cir. 2024) (Newsom,
+J., concurring) (“Put simply, [a generative AI program] ‘hallucinates’ when,
+in response to a user’s query, it generates facts that, well, just aren’t true—
+
+        _____________________
+        1
+          Judge Higginbotham sits by designation from time-to-time on the Eleventh
+Circuit and on other federal courts around the country. See, e.g., Burke v. Postmaster Gen.,
+719 F. App’x 986 (11th Cir. 2018).
+
+
+
+
+                                             2
+Case: 25-20086       Document: 89-1       Page: 3   Date Filed: 02/18/2026
+
+
+
+
+                                No. 25-20086
+
+
+or at least not quite true.”). The hallucination problem has no end in sight,
+as AI’s tendency to fabricate results arises from the training and structures
+of AI programs. See Why language models hallucinate, OpenAI (Sep. 5, 2025),
+https://openai.com/index/why-language-models-hallucinate. As time goes
+on, these hallucinations grow “all the more insidious and harder to guard
+against,” as the models are more sophisticated and appear more truthful.
+Jane Bambauer, Negligent AI Speech: Some Thoughts About Duty, 3 J. Free
+Speech L. 343, 356 (2023). This problem now often manifests as false quotes
+or statements of law attributed to real cases, rather than the more easily
+recognizable fake cases.
+       Following the Mata case and other reports of AI hallucinations in
+court filings, our court appointed a three-judge AI Subcommittee to study
+the issue in Spring 2024. The Subcommittee developed a proposed rule.
+The rule would have required counsel and pro se litigants to certify either:
+(a) that no generative AI program was used to prepare any submitted
+document; or (b) if an AI program was used, that a human checked the AI-
+generated text for accuracy. Notice of Proposed Amendment to 5th Cir. R. 32.3
+(Jan. 4, 2024), https://www.ca5.uscourts.gov/docs/default-source/default-
+document-library/public-commentlocal-rule-32-3-and-form-6.
+       We published the proposed rule on our court website and asked for
+public comment. Thirteen comments were submitted by judges, professors,
+and practitioners. Many of the comments reasoned that such a rule was
+unnecessary because existing rules such as Federal Rule of Civil Procedure
+11 and Federal Rule of Appellate Procedure 46(b)(1)(B) already impose an
+obligation on counsel to submit accurate information to courts.
+       Ultimately, the Subcommittee recommended to the court that we
+decline to adopt the proposed rule, and we followed the Subcommittee’s
+recommendation. We instead issued a notice on our court website reminding
+
+
+
+
+                                      3
+Case: 25-20086            Document: 89-1          Page: 4       Date Filed: 02/18/2026
+
+
+
+
+                                        No. 25-20086
+
+
+counsel of their obligation to review all filings for accuracy. Court Decision on
+Proposed Rule, https://www.ca5.uscourts.gov/docs/default-source/default-
+document-library/court-decision-on-proposed-rule.pdf?sfvrsn=5967c92d_2
+(last visited Feb. 18, 2026). In doing so, we concluded that existing rules
+were sufficient to deter misconduct related to generative AI use, without the
+need for a rule specific to generative AI. Federal Rule of Appellate Procedure
+46(c), for instance, allows a court of appeals, after notice and an opportunity
+to show cause, to “discipline an attorney who practices before it for conduct
+unbecoming a member of the bar or for failure to comply with any court
+rule.” We also have “inherent power to impose sanctions for abuse of the
+judicial process.” Anderson v. Wells Fargo Bank, N.A., 953 F.3d 311, 315 (5th
+Cir. 2020). Other courts have noted that submitting a brief riddled with
+fabricated quotations and assertions is such an abuse. See Park v. Kim, 91
+F.4th 610, 615 (2d Cir. 2024) (referring attorney to the Second Circuit’s
+Grievance Panel under 2d Cir. R. 46.2 for failing to make inquiry into the
+validity of her argument).
+       Regrettably, despite numerous news stories, CLE presentations,
+scholarly articles, and judicial entreaties, AI-hallucinated case citations have
+increasingly become an even greater problem in our courts, and the problem
+shows no sign of abating. Damien Charlotin, a French lawyer and data
+scientist, maintains a database that tracks court orders related to AI-
+hallucinated content.             AI Hallucination Cases, Damien Charlotin,
+https://www.damiencharlotin.com/hallucinations (last visited Feb. 18,
+2026). As of the date of this order, Charlotin has identified 239 cases of
+hallucination by lawyers in the United States. Id.2 Within our circuit, district
+courts have shouldered the burden of addressing AI hallucinations in court
+
+       _____________________
+       2
+           This figure excludes hallucinations introduced by pro se litigants and judges.
+
+
+
+
+                                              4
+ Case: 25-20086           Document: 89-1           Page: 5      Date Filed: 02/18/2026
+
+
+
+
+                                        No. 25-20086
+
+
+filings.3 It is a problem that is getting worse—not better. If it were ever an
+excuse to plead ignorance of the risks of using generative AI to draft a brief
+without verifying its output, it is certainly no longer so. To ethically use
+generative AI in the practice of law—which we do not dispute can be helpful
+if done properly and carefully—a lawyer must “ensure that the legal
+propositions and authority generated are trustworthy.” ByoPlanet Int’l, LLC
+v. Johansson, 792 F. Supp. 3d 1341, 1347 (S.D. Fla. 2025). Failure to do so
+“abdicate[s] one’s duty, waste[s] legal resources, and lower[s] the public’s
+respect for the legal profession and judicial proceedings.” Id.
+                                              II
+                                              A
+        A brief recitation of the facts underlying this case is helpful. This is
+an appeal of a sanctions award against Shawn Jaffer, plaintiff’s counsel in the
+district court, and his law firm, Jaffer & Associates.                    Jaffer sued two
+defendants for violations of the Fair Credit Reporting Act. The gist of the
+
+
+        _____________________
+        3
+            See, e.g., Woodward Harbor L.L.C. v. City of Mandeville, 2026 WL 315061, at *9
+(E.D. La. Feb. 5, 2026); Holmes v. Univ. of Tex. at Austin, 2026 WL 297630, at *7 (W.D.
+Tex. Feb. 4, 2026); Billups v. Louisville Mun. Sch. Dist., 2025 WL 3691871, at *4–5 (N.D.
+Miss. Dec. 19, 2025); Disability Rights Miss. v. Palmer Home for Child., 2025 WL 3691876,
+at *4 (N.D. Miss. Dec. 19, 2025); Shelton v. Parkland Health, 2025 WL 3141108, at *3 (N.D.
+Tex. Nov. 10, 2025); In re Kheir, 674 B.R. 631 (Bankr. S.D. Tex. 2025); Weatherford Int’l,
+LLC v. Ameen, 2025 WL 4089353, at *3 n.2 (S.D. Tex. Oct. 16, 2025); Thackston v. Driscoll,
+2025 WL 2715267, at *2–5 (W.D. Tex. Aug. 28, 2025); Lee v. R&R Home Care, Inc., 2025
+WL 2481375, at *1–4 (E.D. La. Aug. 28, 2025); Elizando v. City of Laredo, 2025 WL
+2071072, at *1–3 (S.D. Tex. July 23, 2025); Gauthier v. Goodyear Tire & Rubber Co., 2024
+WL 4882651, at *1–3 (E.D. Tex. Nov. 25, 2024). Again, these are all cases in which a
+lawyer—not a pro se litigant—submitted a brief with hallucinations. That is not to say that
+pro se litigants are immune from sanctions for committing the same misconduct. See, e.g.,
+Ferris v. Amazon.com Servs., LLC, 778 F. Supp. 3d 879, 882 (N.D. Miss. 2025) (requiring a
+pro se litigant to pay “costs incurred by Defendant attributable to responding to [plaintiff’s]
+fabricated citations”).
+
+
+
+
+                                              5
+ Case: 25-20086           Document: 89-1          Page: 6       Date Filed: 02/18/2026
+
+
+
+
+                                        No. 25-20086
+
+
+case was that Robert Fletcher, Jaffer’s client, was a victim of identity theft
+and someone else had opened an automobile finance account in his name.
+        The district court instead determined that “Mr. Jaffer had not done
+even a minimal investigation of Fletcher’s claims before filing a suit seeking
+damages that were barred by law, or based on false factual allegations.”4 As
+a sanction, the district court ordered Jaffer and his law firm to pay defendant
+Bridgecrest (a lender) about $20,000 in attorneys’ fees under Federal Rule
+of Civil Procedure 11 and defendant Experian (a credit reporting agency)
+about $13,000 in attorneys’ fees under 28 U.S.C. § 1927. We vacated that
+sanctions order, holding that Jaffer needed a greater opportunity to defend
+his pre-suit investigation and that the early discovery of the false allegations
+brought Jaffer’s conduct outside the strictures of 28 U.S.C. § 1927, which
+only applies when an attorney “multiplies the proceedings.” Fletcher v.
+Experian Info. Sols., Inc., No. 25-20086, 2026 WL 37428, at *3–5 (5th Cir.
+Jan. 6, 2026).
+        But a problem remained. Heather Hersh, counsel for plaintiff and a
+member of the Jaffer & Associates law firm, had filed a reply brief on appeal
+containing numerous inaccurate citations, quotations, and statements of
+fact.5 We issued a show-cause order, enumerating 16 instances of fabricated
+quotations and 5 additional serious misrepresentations of law or fact. We
+directed Hersh, the only attorney to sign the brief, to “explain whether and
+
+        _____________________
+        4
+          The suit was barred by the statute of limitations, at least against Experian, because
+Fletcher had disputed the account at issue with Experian in January and August 2021. The
+Fair Credit Reporting Act provides that a plaintiff must bring an action thereunder within
+two years “after the date of discovery by the plaintiff of the violation that is the basis for
+such liability.” 15 U.S.C. § 1681p(1). Fletcher filed this lawsuit in January 2024.
+        5
+           The Jaffer & Associates law firm may have changed its name to “FCRA
+Attorneys.” Jaffer’s opening brief listed the firm as “Jaffer & Associates, P.L.L.C.,” but
+Jaffer’s reply brief listed the firm as “FCRA ATTORNEYS.”
+
+
+
+
+                                              6
+Case: 25-20086         Document: 89-1        Page: 7     Date Filed: 02/18/2026
+
+
+
+
+                                No. 25-20086
+
+
+how she verified the accuracy of the propositions in her brief.” We strongly
+suspected that Hersh had used AI to draft a substantial portion—if not the
+entirety—of her brief. The suspect quotations that we enumerated were:
+
+              Citation                                   Quotation
+
+ In re Deepwater Horizon, 857 F.3d The Fifth Circuit has warned that
+ 246, 250 (5th Cir. 2017).         courts must not “act as advocates”
+                                   when imposing sanctions.
+
+ Fox v. Vice, 563 U.S. 826, 834–36 “The question is whether the case
+ (2011).                           was frivolous when filed, not
+                                   whether it later proved to be so.”
+
+ Cooter & Gell v. Hartmarx Corp., 496 “Rule 11 sanctions are to be im-
+ U.S. 384, 393 (1990).                posed only for arguments that are
+                                      frivolous when made, not for those
+                                      that later prove unsuccessful.”
+
+ In re Deepwater Horizon, 857 F.3d “Due process requires notice and an
+ 246, 250 (5th Cir. 2017).         opportunity to be heard before sanc-
+                                   tions are imposed.”
+
+ Bridgecrest’s brief                        Bridgecrest concedes its records
+                                            were produced after the complaint
+                                            but insists that they “do not retroac-
+                                            tively render the claim frivolous.”
+
+ Vaughan v. Lewisville Indep. Sch. That argument fails under Vaughan,
+ Dist., 62 F.4th 199 (5th Cir. 2023). which requires courts to “segregate
+                                      fees incurred defending frivolous
+                                      claims from those incurred defend-
+                                      ing non-frivolous ones.”
+
+
+
+
+                                        7
+Case: 25-20086      Document: 89-1       Page: 8    Date Filed: 02/18/2026
+
+
+
+
+                                No. 25-20086
+
+
+
+Fox v. Vice, 563 U.S. 826, 836 (2011). It also violates Fox, 563 U.S. at 836,
+                                       which limits recovery to fees “that
+                                       would not have been incurred but
+                                       for the frivolous claim.”
+
+Fox v. Vice, 563 U.S. 826, 836 (2011). “Defendants may receive only the
+                                       portion of their fees that they would
+                                       not have incurred but for the frivo-
+                                       lous claim.”
+
+Vaughan v. Lewisville Indep. Sch. “The district court must segregate
+Dist., 62 F.4th 199, 207 (5th Cir. fees incurred defending frivolous
+2023).                             claims from those incurred defend-
+                                   ing non-frivolous ones.”
+
+Fox v. Vice, 563 U.S. 826, 836 (2011). “The court must determine which
+                                       fees were incurred because of the
+                                       frivolous claim.”
+
+Cooter & Gell v. Hartmarx Corp., 496 “Sanctions must not be used as
+U.S. 384, 397 (1990).                mere fee-shifting devices.”
+
+Bryant v. Mil. Dep’t of Miss., 597 “Sanctions under Rule 11 are collat-
+F.3d 678, 682 (5th Cir. 2010).     eral to the merits and may be im-
+                                   posed after dismissal.”
+
+In re Case, 937 F.2d 1014, 1023 (5th “The court must carefully tie the
+Cir. 1991).                          award to the sanctionable conduct.”
+
+Mendez v. County of San Bernardino, “A sanctions order must be sup-
+540 F.3d 1109, 1131 (9th Cir. 2008). ported by a specific finding of bad
+                                     faith and a clear articulation of the
+                                     factual basis.”
+
+
+
+
+                                     8
+Case: 25-20086        Document: 89-1         Page: 9   Date Filed: 02/18/2026
+
+
+
+
+                                  No. 25-20086
+
+
+
+ Thomas v. Cap. Sec. Servs., Inc., 836 “The district court must carefully
+ F.2d 866, 873–74 (5th Cir. 1988) (en articulate the evidence and reason-
+ banc).                                ing supporting its decision to im-
+                                       pose sanctions.”
+
+ Donaldson v. Clark, 819 F.2d 1551, “Discretion is not unbounded. It
+ 1556 (11th Cir. 1987).             must be exercised within the frame-
+                                    work of the applicable rules and
+                                    precedents.”
+
+We also alerted Hersh to the following inaccurate citations and assertions:
+
+    The brief cites Edwards v. General Motors Corp., 153 F.3d 242, 246 (5th
+       Cir. 1998), for the proposition that “sanctions imposed sua sponte
+       without notice or hearing implicate due process and are reviewed de
+       novo.” Edwards does not mention de novo review, sua sponte sanctions,
+       or lack of notice or a hearing.
+
+    The brief cites In re Deepwater Horizon Inc., 857 F.3d 246, 250 (5th
+     Cir. 2017), for the proposition that the “Fifth Circuit has rejected
+       attempts to substitute informal notice for procedural compliance.” In
+       re Deepwater Horizon has no apparent relation to this proposition.
+
+    The brief asserts that “no formal Rule 11 motion was ever served.”
+     Bridgecrest served its Rule 11 motion on Appellant at least 21 days
+       before filing its Rule 11 motion.
+
+    The brief cites United States v. Miller, 953 F.3d 1095, 1101 (9th Cir.
+       2020), for the proposition that “government-issued fraud
+       documentation triggers evidentiary presumption.”           We cannot
+       discern this proposition from Miller.
+
+    The brief asserts that Lewis v. Brown & Root, Inc., 711 F.2d 1287, 1292
+       (5th Cir. 1983), reversed 28 U.S.C. § 1927 sanctions where the record
+
+
+
+
+                                         9
+Case: 25-20086         Document: 89-1          Page: 10     Date Filed: 02/18/2026
+
+
+
+
+                                    No. 25-20086
+
+
+       lacked evidence of vexatious intent. Lewis affirmed a sanctions award
+       issued under § 1927.
+                                          B
+       Hersh’s response was disappointing. She asserted that she had
+“relied on publicly available versions of the cases, which [she] believed were
+accurate.” Believing that response to be incredible on its face, the court
+directed Hersh to answer additional questions.              Hersh answered these
+questions, noting that she “endeavored to answer each question directly and
+transparently.” We address each question and Hersh’s response in turn.
+       First, when asked when she became aware of the inaccuracies in the
+brief, Hersh replied that it was at the time of our show-cause order. We do
+not at this time have reason to doubt that Hersh first became aware of the
+inaccuracies when we pointed them out. Of course, if Hersh had discovered
+the inaccuracies in her reply brief in the three months between its submission
+and our show-cause order, she should have immediately alerted the court and
+sought leave to file a correct brief.
+       Second, when asked what “publicly available versions of the cases”
+had led to the inaccuracies described above, Hersh named several well-
+known legal databases. The court does not find it credible that these sources
+produced the hallucinated quotations that appeared in Hersh’s brief. The
+first source, Google Scholar, does not contain summaries of legal cases that
+could contain inaccurate quotes.6 While the second, third, and fourth
+sources—CourtListener, Justia, and FindLaw—do provide legal case
+summaries, we have reviewed the summaries for each case cited in Hersh’s
+reply brief, and the problematic quotations and propositions are nowhere to
+       _____________________
+       6
+         See, e.g., In re Deepwater Horizon, Google Scholar, https://scholar.google.com
+/scholar_case?case=17333900694566881422 (last visited Feb. 18, 2026).
+
+
+
+
+                                          10
+Case: 25-20086          Document: 89-1           Page: 11      Date Filed: 02/18/2026
+
+
+
+
+                                      No. 25-20086
+
+
+be found.7 The remaining two sources, Casetext, which has been spun off
+into Thomas Reuter’s CoCounsel, 8 and vLex, are both generative AI
+products.
+        To the extent these products generated the inaccurate summaries,
+Hersh’s response is misleading in several respects. For one, in her initial
+response, Hersh stated that she relied on “publicly available versions of the
+cases” and that “certain paraphrased summaries did not match the reporter
+
+        _____________________
+        7
+           CourtListener: See Freeh v. Lake Eugenie Land & Dev., Inc., CourtListener,
+https://www.courtlistener.com/opinion/8443291/freeh-v-lake-eugenie-land-
+development-inc/summaries (last visited Feb. 18, 2026); Fox v. Vice, CourtListener,
+https://www.courtlistener.com/opinion/218177/fox-v-vice/summaries (last visited Feb.
+18,     2026);    Cooter     &     Gell     v.   Hartmarx       Corp.,      CourtListener,
+https://www.courtlistener.com/opinion/112457/cooter-gell-v-hartmarx-corp/summaries
+(last visited Feb. 18, 2026); Vaughan v. Lewisville Indep. Sch. Dist., CourtListener,
+https://www.courtlistener.com/opinion/9382860/vaughan-v-lewisville-indep-sch-
+dist/summaries (last visited Feb. 18, 2026); Bryant v. Mil. Dep’t of Miss., CourtListener,
+https://www.courtlistener.com/opinion/70894/bryant-v-military-department-of-
+mississippi/summaries (last visited Feb. 18, 2026); In re Case, CourtListener,
+https://www.courtlistener.com/opinion/564347/in-the-matter-of-george-milton-case-
+debtor-citizens-bank-trust-company/summaries (last visited Feb. 18, 2026); Mendez v.
+County of San Bernardino, CourtListener, https://www.courtlistener.com/opinion/
+1269651/mendez-v-county-of-san-bernardino/summaries (last visited Feb. 18, 2026);
+Thomas v. Cap. Sec. Servs., Inc., CourtListener, https://www.courtlistener.com/
+opinion/499756/patricia-thomas-v-capital-security-services-inc/summaries (last visited
+Feb. 18, 2026); Donaldson v. Clark, CourtListener, https:// www.courtlistener.com/
+opinion/489317/jurldine-a-donaldson-v-paul-v-clark/summaries (last visited Feb. 18,
+2026).
+       Justia: See, e.g., Fox v. Vice, Justia, https:// supreme.justia.com/cases/federal/us/
+563/826 (last visited Feb. 18, 2026).
+       FindLaw: See, e.g., Fox v. Vice, FindLaw, https:// caselaw.findlaw.com/summary/
+opinion/us-supreme-court/2011/06/06/255340.html (last visited Feb. 18, 2026).
+        8
+          Thomson Reuters Launches CoCounsel Core, Legal GenAI Assistant, in Canada and
+Australia, Thomson Reuters (Feb. 20, 2024), https:// www.thomsonreuters.com/
+en/press-releases/2024/february/thomson-reuters-launches-cocounsel-core-legal-gen-ai-
+assistant-in-canada-and-australia.
+
+
+
+
+                                            11
+Case: 25-20086         Document: 89-1           Page: 12     Date Filed: 02/18/2026
+
+
+
+
+                                     No. 25-20086
+
+
+text.” Neither of these descriptions fairly characterizes an AI-generated
+sentence.     In addition, if these products generated the hallucinated
+quotations, they are not fairly characterized as “free online case
+repositories,” the use of which phrase suggested that these quotations came
+from summaries posted that could lead others astray. Further, Hersh did not
+even mention AI in her first response to the court.
+        Third, when asked specifically about whether she used AI and how she
+verified the accuracy of the case citations, Hersch finally admitted to the use
+of AI, though she neglected to do so in her initial show-cause response. We
+do not find it credible that Hersh used AI solely to “help organize and
+structure [her] arguments and to break up overly long paragraphs.” Even
+when asked directly, Hersh did not explain the steps she took to verify the
+factual assertions in her brief, so the court concludes that she took none.
+        Fourth, when asked about inaccurate assertions of record facts, Hersh
+provided no explanation of how “publicly available sources” could have
+caused record facts to be inaccurate. She had two such factual misstatements
+in her reply brief.9
+        Fifth, when asked how the paraphrased summaries caused the
+inaccurate citations and quotations, Hersh continued to attribute the
+inaccurate quotations to “paraphrased summaries,” which she claims to
+have “mistakenly believed . . . reflected the actual language of the cases.”
+However, Hersh did not point this court to a single one of those summaries.
+We have put tremendous effort into attempting to find where these
+summaries could be located and have been unable to find them. To the extent
+
+        _____________________
+        9
+          The two misstatements are: (1) that Bridgecrest “concedes its records were
+produced after the complaint but insists that they ‘do not retroactively render the claim
+frivolous’” and (2) that “no formal Rule 11 motion was ever served.”
+
+
+
+
+                                           12
+Case: 25-20086           Document: 89-1          Page: 13     Date Filed: 02/18/2026
+
+
+
+
+                                      No. 25-20086
+
+
+Hersh is referring to a case summary generated by AI as a “paraphrased
+summar[y],” her response is evasive, misleading, and sanctionable.
+        In sum, the court finds that Hersh used artificial generative
+intelligence to draft a substantial portion—if not all—of her reply brief and
+failed to check the brief for accuracy. It is also likely that she used artificial
+generative intelligence in her response to the show-cause order. Had Hersh
+accepted responsibility and been more forthcoming, it is likely that the court
+would have imposed lesser sanctions. However, when confronted with a
+serious ethical misstep, Hersh misled, evaded, and violated her duties as an
+officer of this court.
+                                           III
+        Modern generative AI may be a new technology, but the same
+sanctions rules apply, and the rules we have are well equipped to handle these
+types of cases.10 First, Rule 46(c) allows us to discipline an attorney who
+practices before us for “conduct unbecoming a member of the bar or for
+failure to comply with any court rule.” Discipline under Rule 46(c) may
+include monetary sanctions. In re Violation of Rule 28(d), 635 F.3d 1352, 1360
+(Fed. Cir. 2011); see 16AA Wright & Miller’s Federal Practice and Procedure
+§ 3992.2 (5th ed. 2025).
+
+        _____________________
+        10
+           We note that Hersh has been previously sanctioned in federal court. See Powell
+v. Nelnet, Inc., 2025 WL 1584694, at *2 (E.D. Tex. June 4, 2025). In that case, the
+magistrate judge found that Hersh had “acted recklessly in [her] representation,” but
+noted that he “trust[ed]” that Hersh had “learned the importance of diligence and candor
+in [her] representation of clients.” Id. at *6. The magistrate judge declined to order
+monetary sanctions but suggested that “[c]onduct of the same or a similar nature in future
+litigation would likely warrant” monetary sanctions. Id. Hersh, as managing attorney of
+Jaffer & Associates, submitted a sworn declaration in that case affirming that “[t]he firm
+ha[d] taken measures to reinforce compliance with professional and ethical standards,
+including discussions regarding diligence, candor, and adherence to court rules.”
+ECF No. 130, Powell v. Nelnet, Inc., 4:23-cv-783 (June 5, 2025).
+
+
+
+
+                                           13
+Case: 25-20086        Document: 89-1        Page: 14    Date Filed: 02/18/2026
+
+
+
+
+                                  No. 25-20086
+
+
+       Conduct “unbecoming a member of the bar” is broad and includes
+making frivolous arguments and misrepresenting facts or law. See, e.g.,
+United States v. Martinez-Martinez, 1999 WL 1330642, at *1 (5th Cir. Dec. 15,
+1999) (show-cause order under Rule 46(c) for misrepresenting “a critical fact
+relating to jurisdiction”); Waldon v. Wal-Mart Stores, Inc., Store No. 1655, 943
+F.3d 818, 825 (7th Cir. 2019) (noting that “conduct unbecoming a member
+of the bar” includes “deliberately misleading the court or displaying
+egregious misjudgment”).
+       The conduct at issue in this case is certainly “unbecoming a member
+of the bar.” Fed. R. App. P. 46(c). As discussed above, Hersh failed to check
+her own brief before submitting it, leading her to repeatedly misrepresent the
+law to the court. Cf. Fed. R. Civ. P. 11(b) and (c) advisory committee’s note
+to 1993 amendment (“The rule . . . require[s] litigants to ‘stop-and-think’
+before initially making legal or factual contentions . . . . A litigant’s
+obligations . . . include reaffirming to the court and advocating positions
+contained in those pleadings and motions after learning that they cease to
+have any merit.”); Tex. Disciplinary Rules Prof’l Conduct R. 3.01 (“A
+lawyer shall not . . . assert or controvert an issue [in a proceeding], unless the
+lawyer reasonably believes that there is a basis for doing so that is not
+frivolous.”); Id. 3.03(a)(1) (“A lawyer shall not knowingly . . . make a false
+statement of material fact or law to a tribunal”); Id. 8.04(a)(3) (A lawyer shall
+not “engage in conduct involving dishonesty, fraud, deceit[,] or
+misrepresentation”).
+       Second, we have the “inherent power to impose sanctions for abuse of
+the judicial process.” Anderson, 953 F.3d at 315; see also Amarsingh v. Frontier
+Airlines, Inc., 2026 WL 352016 at *6 (10th Cir. Feb. 9, 2026) (noting a court’s
+inherent authority to sanction in the context of a brief with AI-hallucinated
+citations).   Submitting a brief riddled with fabricated quotations and
+assertions is such an abuse. See Park, 91 F.4th at 615 (noting that an “attempt
+
+
+
+                                       14
+Case: 25-20086       Document: 89-1        Page: 15     Date Filed: 02/18/2026
+
+
+
+
+                                 No. 25-20086
+
+
+to persuade a court or oppose an adversary by relying on fake opinions is an
+abuse of the adversary system”). Hersh’s misleading the court as to the
+source of her errors further justifies sanctions under our inherent powers. See
+Ben E. Keith Co. v. Dining All., Inc., 80 F.4th 695, 703 (5th Cir. 2023)
+(affirming    inherent-power     sanctions      where    attorney   discovered
+misrepresentation and failed to correct it).
+       We have recognized, in reviewing a district court’s sanctions order,
+that “an admonition by the court may be an appropriate sanction, in instances
+where the attorney’s sanctionable conduct was not intentional or malicious,
+where it constituted a first offense, and where the attorney had already
+recognized and apologized for his actions.” Jenkins v. Methodist Hosp. of
+Dallas, Inc., 478 F.3d 255, 265 (5th Cir. 2007) (reviewing Rule 11 sanctions).
+These factors do not counsel against sanctions here.
+       IT IS ORDERED that Heather Hersh shall pay $2,500 in sanctions
+to the United States Court of Appeals for the Fifth Circuit within 30 days of
+this order.
+
+
+
+
+                                      15
+
