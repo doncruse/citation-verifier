@@ -700,6 +700,9 @@ async def download_htmls(request: Request):
         result = await client.get_opinion_text_with_metadata(
             matched_url, prefer_html=True,
         )
+        # Fall back to plain text if prefer_html returned nothing
+        if not result or not result.get("text"):
+            result = await client.get_opinion_text_with_metadata(matched_url)
         logger.info(
             "HTML resolve: %s -> %s chars (format=%s)",
             matched_url,
