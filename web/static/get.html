@@ -87,7 +87,7 @@
   }
   #deep-search-btn:hover:not(:disabled) { background: #cf6d17; }
   #deep-search-btn:disabled { opacity: 0.5; cursor: not-allowed; }
-  #download-btn, #download-text-btn {
+  #download-btn, #download-text-btn, #download-html-btn {
     background: #fff;
     color: #555;
     font-weight: 600;
@@ -95,12 +95,12 @@
     padding: 6px 14px;
     font-size: 0.82rem;
   }
-  #download-btn:hover:not(:disabled), #download-text-btn:hover:not(:disabled) {
+  #download-btn:hover:not(:disabled), #download-text-btn:hover:not(:disabled), #download-html-btn:hover:not(:disabled) {
     background: #f0f0f0;
     border-color: #999;
     color: #333;
   }
-  #download-btn:disabled, #download-text-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+  #download-btn:disabled, #download-text-btn:disabled, #download-html-btn:disabled { opacity: 0.4; cursor: not-allowed; }
   .download-status {
     font-size: 0.8rem;
     color: #666;
@@ -324,8 +324,8 @@ Terry v. Ohio, 392 U.S. 1 (1968)"></textarea>
     <span class="results-summary" id="results-summary"></span>
     <button id="deep-search-btn">Deep Search</button>
     <span style="display:inline-block;">
-      <span style="display:flex;align-items:center;gap:8px;"><button id="download-text-btn" disabled>Download Text</button><button id="download-btn" disabled>Download PDFs</button><span class="download-status" id="download-status"></span></span>
-      <div style="font-size:0.75rem;color:#999;margin-top:2px;">Text = best for LLMs &nbsp;|&nbsp; PDF = best for reading and printing</div>
+      <span style="display:flex;align-items:center;gap:8px;"><button id="download-text-btn" disabled>Download Text</button><button id="download-html-btn" disabled>Download HTML</button><button id="download-btn" disabled>Download PDFs</button><span class="download-status" id="download-status"></span></span>
+      <div style="font-size:0.75rem;color:#999;margin-top:2px;">Text = best for LLMs &nbsp;|&nbsp; HTML = formatted with footnotes &nbsp;|&nbsp; PDF = best for reading and printing</div>
     </span>
   </div>
   <div class="table-wrap">
@@ -359,6 +359,7 @@ Terry v. Ohio, 392 U.S. 1 (1968)"></textarea>
   const deepSearchBtn = document.getElementById('deep-search-btn');
   const downloadBtn = document.getElementById('download-btn');
   const downloadTextBtn = document.getElementById('download-text-btn');
+  const downloadHtmlBtn = document.getElementById('download-html-btn');
   const downloadStatus = document.getElementById('download-status');
   const selectAll = document.getElementById('select-all');
   const citeCount = document.getElementById('cite-count');
@@ -823,11 +824,15 @@ Terry v. Ohio, 392 U.S. 1 (1968)"></textarea>
       downloadBtn.textContent = 'Download ' + count + ' PDF' + (count !== 1 ? 's' : '');
       downloadTextBtn.disabled = false;
       downloadTextBtn.textContent = 'Download ' + count + ' Text';
+      downloadHtmlBtn.disabled = false;
+      downloadHtmlBtn.textContent = 'Download ' + count + ' HTML';
     } else {
       downloadBtn.disabled = true;
       downloadBtn.textContent = 'Download PDFs';
       downloadTextBtn.disabled = true;
       downloadTextBtn.textContent = 'Download Text';
+      downloadHtmlBtn.disabled = true;
+      downloadHtmlBtn.textContent = 'Download HTML';
     }
     downloadStatus.textContent = '';
   }
@@ -913,6 +918,51 @@ Terry v. Ohio, 392 U.S. 1 (1968)"></textarea>
       var msg = 'Downloaded ' + downloaded + ' text file' + (downloaded !== 1 ? 's' : '');
       if (skipped > 0) {
         msg += ' (' + skipped + ' skipped -- no text available)';
+      }
+      downloadStatus.textContent = msg + '.';
+    } catch (err) {
+      downloadStatus.textContent = '';
+      showError(err.message);
+    } finally {
+      updateDownloadBtn();
+    }
+  });
+
+  // --- Download HTML ---
+  downloadHtmlBtn.addEventListener('click', async function() {
+    const items = getSelectedItems();
+    if (!items.length) return;
+
+    downloadHtmlBtn.disabled = true;
+    downloadStatus.textContent = 'Fetching HTML for ' + items.length + ' opinion' + (items.length !== 1 ? 's' : '') + '...';
+
+    try {
+      var htmlHdrs = { 'Content-Type': 'application/json' };
+      if (hasApiToken()) htmlHdrs['X-CL-API-Token'] = getApiToken();
+
+      const response = await fetch('/api/download-htmls', {
+        method: 'POST',
+        headers: htmlHdrs,
+        body: JSON.stringify({ urls: items }),
+      });
+
+      if (!response.ok) {
+        const err = await response.json().catch(function() { return {}; });
+        throw new Error(err.error || 'Download failed (' + response.status + ')');
+      }
+
+      const downloaded = parseInt(response.headers.get('x-downloaded') || '0', 10);
+      const skipped = parseInt(response.headers.get('x-skipped') || '0', 10);
+      const blob = await response.blob();
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'citation_htmls.zip';
+      a.click();
+      URL.revokeObjectURL(url);
+      var msg = 'Downloaded ' + downloaded + ' HTML file' + (downloaded !== 1 ? 's' : '');
+      if (skipped > 0) {
+        msg += ' (' + skipped + ' skipped -- no HTML available)';
       }
       downloadStatus.textContent = msg + '.';
     } catch (err) {

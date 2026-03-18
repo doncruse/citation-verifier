@@ -667,6 +667,164 @@ async def download_texts(request: Request):
 
 
 # ---------------------------------------------------------------------------
+# Download HTML
+# ---------------------------------------------------------------------------
+
+@app.post("/api/download-htmls")
+async def download_htmls(request: Request):
+    """Download opinion HTML for the given matched_urls, returned as a zip of .html files.
+
+    Uses prefer_html=True to get formatted HTML with footnotes when available.
+    Accepts JSON body: {"urls": [{"matched_url": "...", "case_name": "..."}, ...]}
+    """
+    try:
+        body = await request.json()
+    except Exception:
+        return JSONResponse({"error": "Invalid JSON body"}, status_code=400)
+
+    items = body.get("urls", [])
+    if not isinstance(items, list) or not items:
+        return JSONResponse({"error": "No URLs provided"}, status_code=400)
+
+    if len(items) > 50:
+        return JSONResponse(
+            {"error": "Maximum 50 files per download"}, status_code=400
+        )
+
+    # Fetch opinion HTML + metadata for each URL (parallel)
+    async def _fetch_one(
+        client: AsyncCourtListenerClient, item: dict,
+    ) -> dict[str, Any]:
+        matched_url = item.get("matched_url", "")
+        case_name = item.get("case_name", "document")
+        result = await client.get_opinion_text_with_metadata(
+            matched_url, prefer_html=True,
+        )
+        logger.info(
+            "HTML resolve: %s -> %s chars (format=%s)",
+            matched_url,
+            len(result["text"]) if result else 0,
+            result.get("format") if result else None,
+        )
+        if result:
+            if not result.get("case_name"):
+                result["case_name"] = case_name
+            result["matched_url"] = matched_url
+        else:
+            result = {"text": None, "case_name": case_name, "matched_url": matched_url}
+        return result
+
+    token = _get_api_token(request)
+
+    async with AsyncCourtListenerClient(api_token=token) as client:
+        fetched = await asyncio.gather(
+            *[_fetch_one(client, item) for item in items]
+        )
+
+    # Assemble zip of .html files
+    buf = io.BytesIO()
+    downloaded = 0
+    skipped_names: list[str] = []
+
+    with zipfile.ZipFile(buf, "w", zipfile.ZIP_DEFLATED) as zf:
+        seen_filenames: set[str] = set()
+        for entry in fetched:
+            case_name = entry.get("case_name") or "document"
+            text = entry.get("text")
+            if not text:
+                skipped_names.append(case_name)
+                continue
+
+            fmt = entry.get("format", "text")
+
+            if fmt == "html":
+                # Already HTML -- wrap with metadata header
+                meta_parts = [f"<h1>{case_name}</h1>"]
+                citations = entry.get("citations", [])
+                if citations:
+                    meta_parts.append(f"<p>{', '.join(citations)}</p>")
+                court = entry.get("court", "")
+                if court:
+                    meta_parts.append(f"<p>{court}</p>")
+                date_filed = entry.get("date_filed", "")
+                if date_filed:
+                    meta_parts.append(f"<p>Filed: {date_filed}</p>")
+                docket_number = entry.get("docket_number", "")
+                if docket_number:
+                    meta_parts.append(f"<p>Docket No. {docket_number}</p>")
+                meta_parts.append(
+                    f"<p>Source: <a href=\"{entry.get('matched_url', '')}\">"
+                    f"{entry.get('matched_url', '')}</a></p>"
+                )
+                meta_parts.append("<hr>")
+                meta_header = "\n".join(meta_parts)
+                content = (
+                    "<!DOCTYPE html>\n<html><head>"
+                    f"<meta charset=\"utf-8\"><title>{case_name}</title>"
+                    "</head><body>\n"
+                    f"{meta_header}\n{text}\n"
+                    "</body></html>"
+                )
+            else:
+                # Plain text -- convert to simple HTML
+                lines = []
+                lines.append(case_name)
+                citations = entry.get("citations", [])
+                if citations:
+                    lines.append(", ".join(citations))
+                court = entry.get("court", "")
+                if court:
+                    lines.append(court)
+                date_filed = entry.get("date_filed", "")
+                if date_filed:
+                    lines.append(f"Filed: {date_filed}")
+                docket_number = entry.get("docket_number", "")
+                if docket_number:
+                    lines.append(f"Docket No. {docket_number}")
+                lines.append(f"Source: {entry.get('matched_url', '')}")
+                lines.append("-" * 60)
+                lines.append("")
+                header = "\n".join(lines) + "\n"
+                escaped_text = (header + text).replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+                content = (
+                    "<!DOCTYPE html>\n<html><head>"
+                    f"<meta charset=\"utf-8\"><title>{case_name}</title>"
+                    "</head><body>\n"
+                    f"<pre>{escaped_text}</pre>\n"
+                    "</body></html>"
+                )
+
+            base = _sanitize_filename(case_name)
+            filename = f"{base}.html"
+            counter = 2
+            while filename in seen_filenames:
+                filename = f"{base} ({counter}).html"
+                counter += 1
+            seen_filenames.add(filename)
+            zf.writestr(filename, content)
+            downloaded += 1
+
+    if downloaded == 0:
+        return JSONResponse(
+            {"error": f"No HTML available for the selected citations ({len(skipped_names)} skipped -- no text on CourtListener)"},
+            status_code=404,
+        )
+
+    buf.seek(0)
+    headers = {
+        "Content-Disposition": 'attachment; filename="citation_htmls.zip"',
+        "x-downloaded": str(downloaded),
+        "x-skipped": str(len(skipped_names)),
+        "Access-Control-Expose-Headers": "x-downloaded, x-skipped",
+    }
+    return StreamingResponse(
+        buf,
+        media_type="application/zip",
+        headers=headers,
+    )
+
+
+# ---------------------------------------------------------------------------
 # Flag for FLP — save results for CourtListener issue evidence
 # ---------------------------------------------------------------------------
 
