@@ -49,9 +49,9 @@
       "opinion_file": "opinions/State_v_Kelly.html",
       "cited_case": "State v. Kelly, 290 Ga. 29, 33 (2011)",
       "proposition": "The trial court did not err plainly or otherwise because the justification charge already covered the legal defense raised; plain error requires a clear legal mistake that affects substantial rights and the fairness of proceedings",
-      "expected_assessment": "Red",
+      "expected_assessment": "Green",
       "quote_check_worst": "NO_QUOTES",
-      "notes": "no mention of justification charge or citizens arrest"
+      "notes": "No mention of justification or citizen's arrest, but the parenthetical scopes the citation to the plain error standard, which Kelly does adopt (Puckett v. US four-prong test). Cited for the latter point only."
     },
     {
       "source": "payne",
@@ -219,9 +219,9 @@
       "opinion_file": "opinions/Jackson_v_Virginia.html",
       "cited_case": "Jackson v. Virginia, 443 U.S. 307 (1979)",
       "proposition": "The standard for reviewing the sufficiency of evidence is whether the evidence was sufficient for a rational trier of fact to find beyond a reasonable doubt that the defendant was guilty of the charged offenses",
-      "expected_assessment": "Yellow",
+      "expected_assessment": "Green",
       "quote_check_worst": "NO_QUOTES",
-      "notes": "This was about the standard in a habeas case, not the same as for an appeal or motion for new trial."
+      "notes": "Jackson v. Virginia is the universal sufficiency standard regardless of procedural posture (habeas, direct appeal, MNT). Georgia courts routinely apply it when reviewing sufficiency challenges on appeal from denied MNTs."
     },
     {
       "source": "payne",
