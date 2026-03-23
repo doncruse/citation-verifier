@@ -1,0 +1,1386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>A/B Test Ground Truth Review</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Segoe UI', sans-serif; font-size: 13px; background: #f5f5f5; overflow: hidden; height: 100vh; }
+.container { display: flex; height: 100vh; }
+.left-panel { flex: 1; overflow-y: auto; padding: 15px; min-width: 0; }
+.right-panel { width: 45%; border-left: 2px solid #2c3e50; display: flex; flex-direction: column;
+               background: #fff; }
+.right-panel.collapsed { width: 0; min-width: 0; overflow: hidden; border: none; }
+.panel-header { background: #2c3e50; color: white; padding: 10px; font-size: 0.85em; flex-shrink: 0; }
+.panel-header .case-name { font-weight: bold; font-size: 1.1em; }
+.panel-header .panel-prop { font-style: italic; margin-top: 5px; color: #bdc3c7; }
+.panel-header .panel-quotes { margin-top: 5px; font-size: 0.9em; color: #f39c12; }
+.panel-close { float: right; cursor: pointer; font-size: 1.2em; padding: 0 5px; }
+.panel-close:hover { color: #e74c3c; }
+.search-bar { display: flex; gap: 5px; margin-top: 8px; align-items: center; }
+.search-bar input { flex: 1; padding: 5px 8px; border: none; border-radius: 3px; font-size: 12px; }
+.search-bar button { padding: 4px 10px; background: #34495e; border: 1px solid #4a6fa5; font-size: 11px; }
+.search-bar .search-count { color: #bdc3c7; font-size: 0.85em; min-width: 50px; }
+.search-hl { background: #fff176; padding: 1px 0; }
+.search-hl.current { background: #ff9800; color: white; }
+#opinion-frame { flex: 1; border: none; width: 100%; }
+h1 { font-size: 1.3em; margin-bottom: 5px; }
+.meta { color: #666; margin-bottom: 15px; }
+table { width: 100%; border-collapse: collapse; background: #fff; }
+th { background: #2c3e50; color: white; padding: 8px 6px; text-align: left; font-size: 0.75em;
+     text-transform: uppercase; letter-spacing: 0.5px; position: sticky; top: 0; z-index: 10; }
+td { padding: 6px; border-bottom: 1px solid #e0e0e0; vertical-align: top; }
+tr:hover td { background: #f0f4f8; }
+tr.selected td { background: #d6eaf8 !important; }
+.cited-case { max-width: 180px; font-weight: 500; font-size: 0.9em; }
+.proposition { max-width: 260px; font-style: italic; font-size: 0.9em; cursor: pointer; }
+.proposition:hover { text-decoration: underline; color: #2c3e50; }
+.qc { font-size: 0.8em; font-weight: bold; }
+.qc-detail { font-size: 0.75em; color: #666; max-width: 180px; }
+.assess-green { background: #d4edda; color: #155724; font-weight: bold; }
+.assess-yellow { background: #fff3cd; color: #856404; font-weight: bold; }
+.assess-red { background: #f8d7da; color: #721c24; font-weight: bold; }
+select { padding: 4px; font-size: 12px; }
+input[type="text"] { padding: 4px; font-size: 12px; border: 1px solid #ccc; border-radius: 3px; }
+.toolbar { margin: 15px 0; display: flex; gap: 10px; align-items: center; }
+button { padding: 8px 16px; background: #2c3e50; color: white; border: none; border-radius: 4px;
+         cursor: pointer; font-size: 13px; }
+button:hover { background: #34495e; }
+#export-output { display: none; margin-top: 10px; width: 100%; height: 200px; font-family: monospace;
+                 font-size: 11px; }
+.count { margin-left: 20px; font-size: 0.9em; color: #666; }
+</style>
+</head>
+<body>
+
+<div class="container">
+<div class="left-panel">
+
+<h1>A/B Test Ground Truth Review</h1>
+<div class="meta">
+Click any proposition to view the cited opinion in the side panel.
+Set your human judgment and add notes. Export when done.
+<span class="count" id="progress">0 / TOTAL reviewed</span>
+</div>
+
+<div class="toolbar">
+<button onclick="exportJSON()">Export JSON</button>
+<button onclick="prefillFromMachine()">Pre-fill from Machine</button>
+</div>
+<textarea id="export-output" readonly></textarea>
+
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Source</th>
+<th>Cited Case</th>
+<th>Proposition (click to view opinion)</th>
+<th>QC</th>
+<th>Quote Detail</th>
+<th>Machine</th>
+<th>Human</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr data-row="0" data-source="payne" data-case-id="11" data-opinion-file="opinions/Manzano_v_State.html" data-quotes="[]">
+<td>0</td>
+<td>Payne</td>
+<td>11</td>
+<td class="cited-case">Manzano v. State, 282 Ga. 557 (2007)</td>
+<td class="proposition">A justification charge does not require a charge on citizen's arrest unless the facts specifically support that additional theory</td>
+<td class="qc">NO_QUOTES</td>
+<td class="qc-detail"></td>
+<td class="machine-assess assess-red">Red</td>
+<td><select class="human-judgment" data-row="0">
+  <option value="">--</option>
+  <option value="Green">Green</option>
+  <option value="Yellow">Yellow</option>
+  <option value="Red">Red</option>
+</select></td>
+<td><input type="text" class="human-notes" data-row="0" placeholder="notes..." style="width:100%"></td>
+</tr>
+<tr data-row="1" data-source="payne" data-case-id="12" data-opinion-file="opinions/Manzano_v_State.html" data-quotes="[A charge on justification is proper where the defendant contends that his actions were legally auth">
+<td>1</td>
+<td>Payne</td>
+<td>12</td>
+<td class="cited-case">Manzano v. State, 282 Ga. 557, 559 (2007)</td>
+<td class="proposition">A charge on justification is proper where the defendant contends that his actions were legally authorized and necessary to prevent a crime or injury</td>
+<td class="qc">FABRICATED</td>
+<td class="qc-detail">FABRICATED: &quot;A charge on justification is proper where the defendant cont&quot;</td>
+<td class="machine-assess assess-red">Red</td>
+<td><select class="human-judgment" data-row="1">
+  <option value="">--</option>
+  <option value="Green">Green</option>
+  <option value="Yellow">Yellow</option>
+  <option value="Red">Red</option>
+</select></td>
+<td><input type="text" class="human-notes" data-row="1" placeholder="notes..." style="width:100%"></td>
+</tr>
+<tr data-row="2" data-source="payne" data-case-id="14" data-opinion-file="opinions/Durden_v_State.html" data-quotes="[[a]lthough the defendant requested a charge on citizen\u2019s arrest, the trial court properly char">
+<td>2</td>
+<td>Payne</td>
+<td>14</td>
+<td class="cited-case">Durden v. State, 327 Ga. App. 173, 179 (2014)</td>
+<td class="proposition">Although the defendant requested a charge on citizen's arrest, the trial court properly charged justification, which covered the substance of his defense; a trial court is not required to give redundant instructions</td>
+<td class="qc">FABRICATED</td>
+<td class="qc-detail">FABRICATED: &quot;[a]lthough the defendant requested a charge on citizen’s arr&quot;</td>
+<td class="machine-assess assess-red">Red</td>
+<td><select class="human-judgment" data-row="2">
+  <option value="">--</option>
+  <option value="Green">Green</option>
+  <option value="Yellow">Yellow</option>
+  <option value="Red">Red</option>
+</select></td>
+<td><input type="text" class="human-notes" data-row="2" placeholder="notes..." style="width:100%"></td>
+</tr>
+<tr data-row="3" data-source="payne" data-case-id="15" data-opinion-file="opinions/Lang_v_State.html" data-quotes="[[a] citizen\u2019s arrest defense is not required when a justification charge sufficiently encompas">
+<td>3</td>
+<td>Payne</td>
+<td>15</td>
+<td class="cited-case">Lang v. State, 344 Ga. App. 623, 627 (2018)</td>
+<td class="proposition">A citizen's arrest defense is not required when a justification charge sufficiently encompasses the defendant's theory of the case</td>
+<td class="qc">FABRICATED</td>
+<td class="qc-detail">FABRICATED: &quot;[a] citizen’s arrest defense is not required when a justific&quot;</td>
+<td class="machine-assess assess-red">Red</td>
+<td><select class="human-judgment" data-row="3">
+  <option value="">--</option>
+  <option value="Green">Green</option>
+  <option value="Yellow">Yellow</option>
+  <option value="Red">Red</option>
+</select></td>
+<td><input type="text" class="human-notes" data-row="3" placeholder="notes..." style="width:100%"></td>
+</tr>
+<tr data-row="4" data-source="payne" data-case-id="16" data-opinion-file="opinions/State_v_Kelly.html" data-quotes="[]">
+<td>4</td>
+<td>Payne</td>
+<td>16</td>
+<td class="cited-case">State v. Kelly, 290 Ga. 29, 33 (2011)</td>
+<td class="proposition">The trial court did not err plainly or otherwise because the justification charge already covered the legal defense raised; plain error requires a clear legal mistake that affects substantial rights and the fairness of proceedings</td>
+<td class="qc">NO_QUOTES</td>
+<td class="qc-detail"></td>
+<td class="machine-assess assess-red">Red</td>
+<td><select class="human-judgment" data-row="4">
+  <option value="">--</option>
+  <option value="Green">Green</option>
+  <option value="Yellow">Yellow</option>
+  <option value="Red">Red</option>
+</select></td>
+<td><input type="text" class="human-notes" data-row="4" placeholder="notes..." style="width:100%"></td>
+</tr>
+<tr data-row="5" data-source="payne" data-case-id="59" data-opinion-file="opinions/Virgil_v_State.html" data-quotes="[but there must be a legitimate basis for the defense]">
+<td>5</td>
+<td>Payne</td>
+<td>59</td>
+<td class="cited-case">Virgil v. State, 227 Ga. App. 96</td>
+<td class="proposition">A jury charge on a defendant's sole defense, such as citizen's arrest, is only required if there is some evidence to support the charge; there must be a legitimate basis for the defense</td>
+<td class="qc">FABRICATED</td>
+<td class="qc-detail">FABRICATED: &quot;but there must be a legitimate basis for the defense&quot;</td>
+<td class="machine-assess assess-red">Red</td>
+<td><select class="human-judgment" data-row="5">
+  <option value="">--</option>
+  <option value="Green">Green</option>
+  <option value="Yellow">Yellow</option>
+  <option value="Red">Red</option>
+</select></td>
+<td><input type="text" class="human-notes" data-row="5" placeholder="notes..." style="width:100%"></td>
+</tr>
+<tr data-row="6" data-source="payne" data-case-id="79" data-opinion-file="opinions/Goldsby_v_State.html" data-quotes="[[t]he testimony of a single witness is generally sufficient to establish a fact.]">
+<td>6</td>
+<td>Payne</td>
+<td>79</td>
+<td class="cited-case">Goldsby v. State, 273 Ga. App. 523 (2005)</td>
+<td class="proposition">The testimony of a single witness is generally sufficient to establish a fact</td>
+<td class="qc">FABRICATED</td>
+<td class="qc-detail">FABRICATED: &quot;[t]he testimony of a single witness is generally sufficient &quot;</td>
+<td class="machine-assess assess-red">Red</td>
+<td><select class="human-judgment" data-row="6">
+  <option value="">--</option>
+  <option value="Green">Green</option>
+  <option value="Yellow">Yellow</option>
+  <option value="Red">Red</option>
+</select></td>
+<td><input type="text" class="human-notes" data-row="6" placeholder="notes..." style="width:100%"></td>
+</tr>
+<tr data-row="7" data-source="payne" data-case-id="2" data-opinion-file="opinions/State_v_Rozier.html" data-quotes="[]">
+<td>7</td>
+<td>Payne</td>
+<td>2</td>
+<td class="cited-case">Harbuck v. State, 288 Ga. 768 (2011)</td>
+<td class="proposition">Georgia courts have made it clear that a valid citizen's arrest must occur immediately and without delay</td>
+<td class="qc">NO_QUOTES</td>
+<td class="qc-detail"></td>
+<td class="machine-assess assess-red">Red</td>
+<td><select class="human-judgment" data-row="7">
+  <option value="">--</option>
+  <option value="Green">Green</option>
+  <option value="Yellow">Yellow</option>
+  <option value="Red">Red</option>
+</select></td>
+<td><input type="text" class="human-notes" data-row="7" placeholder="notes..." style="width:100%"></td>
+</tr>
+<tr data-row="8" data-source="payne" data-case-id="23" data-opinion-file="opinions/In_the_Interest_of_D_L.html" data-quotes="[]">
+<td>8</td>
+<td>Payne</td>
+<td>23</td>
+<td class="cited-case">Bryant v. State, 268 Ga. App. 362 (2004)</td>
+<td class="proposition">The defendant must make an affirmative showing that the witness would have testified and that the testimony would have made a difference</td>
+<td class="qc">NO_QUOTES</td>
+<td class="qc-detail"></td>
+<td class="machine-assess assess-red">Red</td>
+<td><select class="human-judgment" data-row="8">
+  <option value="">--</option>
+  <option value="Green">Green</option>
+  <option value="Yellow">Yellow</option>
+  <option value="Red">Red</option>
+</select></td>
+<td><input type="text" class="human-notes" data-row="8" placeholder="notes..." style="width:100%"></td>
+</tr>
+<tr data-row="9" data-source="payne" data-case-id="32" data-opinion-file="opinions/Clark_v_State.html" data-quotes="[hindsight has no place in an assessment of the performance of trial counsel.]">
+<td>9</td>
+<td>Payne</td>
+<td>32</td>
+<td class="cited-case">Clark v. State, 315 Ga. 1, 4 (2022)</td>
+<td class="proposition">Hindsight has no place in an assessment of the performance of trial counsel</td>
+<td class="qc">VERBATIM</td>
+<td class="qc-detail">VERBATIM: &quot;hindsight has no place in an assessment of the performance o&quot;</td>
+<td class="machine-assess assess-green">Green</td>
+<td><select class="human-judgment" data-row="9">
+  <option value="">--</option>
+  <option value="Green">Green</option>
+  <option value="Yellow">Yellow</option>
+  <option value="Red">Red</option>
+</select></td>
+<td><input type="text" class="human-notes" data-row="9" placeholder="notes..." style="width:100%"></td>
+</tr>
+<tr data-row="10" data-source="payne" data-case-id="33" data-opinion-file="opinions/Mahan_v_State.html" data-quotes="[The fact that defendant and his present counsel disagree with the decision made by trial counsel do">
+<td>10</td>
+<td>Payne</td>
+<td>33</td>
+<td class="cited-case">Mahan v. State, 282 Ga. App. 201, 204 (2006)</td>
+<td class="proposition">The fact that defendant and his present counsel disagree with the decision made by trial counsel does not require a finding that defendant's original representation was inadequate</td>
+<td class="qc">VERBATIM</td>
+<td class="qc-detail">VERBATIM: &quot;The fact that defendant and his present counsel disagree wit&quot;</td>
+<td class="machine-assess assess-green">Green</td>
+<td><select class="human-judgment" data-row="10">
+  <option value="">--</option>
+  <option value="Green">Green</option>
+  <option value="Yellow">Yellow</option>
+  <option value="Red">Red</option>
+</select></td>
+<td><input type="text" class="human-notes" data-row="10" placeholder="notes..." style="width:100%"></td>
+</tr>
+<tr data-row="11" data-source="payne" data-case-id="34" data-opinion-file="opinions/Jones_v_State.html" data-quotes="[[t]rial counsel\u2019s decisions relating to strategy and tactics are not judged by hindsight.]">
+<td>11</td>
+<td>Payne</td>
+<td>34</td>
+<td class="cited-case">Jones v. State, 296 Ga. 561, 567 (2015)</td>
+<td class="proposition">Trial counsel's decisions relating to strategy and tactics are not judged by hindsight</td>
+<td class="qc">VERBATIM</td>
+<td class="qc-detail">VERBATIM: &quot;[t]rial counsel’s decisions relating to strategy and tactics&quot;</td>
+<td class="machine-assess assess-green">Green</td>
+<td><select class="human-judgment" data-row="11">
+  <option value="">--</option>
+  <option value="Green">Green</option>
+  <option value="Yellow">Yellow</option>
+  <option value="Red">Red</option>
+</select></td>
+<td><input type="text" class="human-notes" data-row="11" placeholder="notes..." style="width:100%"></td>
+</tr>
+<tr data-row="12" data-source="payne" data-case-id="38" data-opinion-file="opinions/Johnson_v_Jackson.html" data-quotes="[in his presence, within his immediate knowledge]">
+<td>12</td>
+<td>Payne</td>
+<td>38</td>
+<td class="cited-case">Johnson v. Jackson, 140 Ga. App. 252 (1976)</td>
+<td class="proposition">The terms &quot;in his presence&quot; and &quot;within his immediate knowledge&quot; are synonymous under the citizen's arrest statute, meaning that a crime is considered to be committed in a citizen's presence if they acquire knowledge of its commission through the exercise of any of their senses</td>
+<td class="qc">VERBATIM</td>
+<td class="qc-detail">VERBATIM: &quot;in his presence&quot;; VERBATIM: &quot;within his immediate knowledge&quot;</td>
+<td class="machine-assess assess-green">Green</td>
+<td><select class="human-judgment" data-row="12">
+  <option value="">--</option>
+  <option value="Green">Green</option>
+  <option value="Yellow">Yellow</option>
+  <option value="Red">Red</option>
+</select></td>
+<td><input type="text" class="human-notes" data-row="12" placeholder="notes..." style="width:100%"></td>
+</tr>
+<tr data-row="13" data-source="payne" data-case-id="69" data-opinion-file="opinions/Montgomery_v_State.html" data-quotes="[thirteenth juror]">
+<td>13</td>
+<td>Payne</td>
+<td>69</td>
+<td class="cited-case">Montgomery v. State, 315 Ga. 467, 473 (2023)</td>
+<td class="proposition">These statutes known as general grounds afford the Court broad discretion to sit as a thirteenth juror and weigh the evidence on a motion for new trial alleging these general grounds</td>
+<td class="qc">VERBATIM</td>
+<td class="qc-detail">VERBATIM: &quot;thirteenth juror&quot;</td>
+<td class="machine-assess assess-green">Green</td>
+<td><select class="human-judgment" data-row="13">
+  <option value="">--</option>
+  <option value="Green">Green</option>
+  <option value="Yellow">Yellow</option>
+  <option value="Red">Red</option>
+</select></td>
+<td><input type="text" class="human-notes" data-row="13" placeholder="notes..." style="width:100%"></td>
+</tr>
+<tr data-row="14" data-source="payne" data-case-id="73" data-opinion-file="opinions/Hargrave_v_State.html" data-quotes="[The grant or denial of a motion for new trial is a matter within the sound discretion of the trial ">
+<td>14</td>
+<td>Payne</td>
+<td>73</td>
+<td class="cited-case">Hargrave v. State, 311 Ga. App. 852, 855 (2011)</td>
+<td class="proposition">The grant or denial of a motion for new trial is a matter within the sound discretion of the trial court and will not be disturbed if there is any evidence to authorize it</td>
+<td class="qc">VERBATIM</td>
+<td class="qc-detail">VERBATIM: &quot;The grant or denial of a motion for new trial is a matter wi&quot;</td>
+<td class="machine-assess assess-green">Green</td>
+<td><select class="human-judgment" data-row="14">
+  <option value="">--</option>
+  <option value="Green">Green</option>
+  <option value="Yellow">Yellow</option>
+  <option value="Red">Red</option>
+</select></td>
+<td><input type="text" class="human-notes" data-row="14" placeholder="notes..." style="width:100%"></td>
+</tr>
+<tr data-row="15" data-source="payne" data-case-id="77" data-opinion-file="opinions/Vega_v_State.html" data-quotes="[for the jury to determine the credibility of the witnesses and to resolve any conflicts or inconsis">
+<td>15</td>
+<td>Payne</td>
+<td>77</td>
+<td class="cited-case">Vega v. State, 285 Ga. 32 (2009)</td>
+<td class="proposition">It is for the jury to determine the credibility of the witnesses and to resolve any conflicts or inconsistencies in the evidence</td>
+<td class="qc">VERBATIM</td>
+<td class="qc-detail">VERBATIM: &quot;for the jury to determine the credibility of the witnesses a&quot;</td>
+<td class="machine-assess assess-green">Green</td>
+<td><select class="human-judgment" data-row="15">
+  <option value="">--</option>
+  <option value="Green">Green</option>
+  <option value="Yellow">Yellow</option>
+  <option value="Red">Red</option>
+</select></td>
+<td><input type="text" class="human-notes" data-row="15" placeholder="notes..." style="width:100%"></td>
+</tr>
+<tr data-row="16" data-source="payne" data-case-id="0" data-opinion-file="opinions/Strickland_v_Washington.html" data-quotes="[]">
+<td>16</td>
+<td>Payne</td>
+<td>0</td>
+<td class="cited-case">Strickland v. Washington, 466 U.S. 668 (1984)</td>
+<td class="proposition">To prevail on a claim of ineffective assistance of counsel, a defendant must satisfy the two-prong test: (1) counsel's performance was deficient, falling below an objective standard of reasonableness, and (2) the deficient performance prejudiced the defense to the extent that there is a reasonable probability the outcome would have been different but for counsel's errors</td>
+<td class="qc">NO_QUOTES</td>
+<td class="qc-detail"></td>
+<td class="machine-assess assess-green">Green</td>
+<td><select class="human-judgment" data-row="16">
+  <option value="">--</option>
+  <option value="Green">Green</option>
+  <option value="Yellow">Yellow</option>
+  <option value="Red">Red</option>
+</select></td>
+<td><input type="text" class="human-notes" data-row="16" placeholder="notes..." style="width:100%"></td>
+</tr>
+<tr data-row="17" data-source="payne" data-case-id="42" data-opinion-file="opinions/Prayor_v_State.html" data-quotes="[]">
+<td>17</td>
+<td>Payne</td>
+<td>42</td>
+<td class="cited-case">Prayor v. State, 217 Ga. App. 56 (1995)</td>
+<td class="proposition">For felonies, a citizen may also arrest upon reasonable and probable grounds of suspicion if the offender is escaping or attempting to escape</td>
+<td class="qc">NO_QUOTES</td>
+<td class="qc-detail"></td>
+<td class="machine-assess assess-green">Green</td>
+<td><select class="human-judgment" data-row="17">
+  <option value="">--</option>
+  <option value="Green">Green</option>
+  <option value="Yellow">Yellow</option>
+  <option value="Red">Red</option>
+</select></td>
+<td><input type="text" class="human-notes" data-row="17" placeholder="notes..." style="width:100%"></td>
+</tr>
+<tr data-row="18" data-source="payne" data-case-id="43" data-opinion-file="opinions/Prayor_v_State.html" data-quotes="[]">
+<td>18</td>
+<td>Payne</td>
+<td>43</td>
+<td class="cited-case">Prayor v. State, 217 Ga. App. 56, 58 (1995)</td>
+<td class="proposition">For a citizen's arrest to be valid, the citizen must use no more force than is reasonable under the circumstances; deadly force in effecting an arrest is limited to self-defense or to a situation in which it is necessary to prevent a forcible felony</td>
+<td class="qc">NO_QUOTES</td>
+<td class="qc-detail"></td>
+<td class="machine-assess assess-green">Green</td>
+<td><select class="human-judgment" data-row="18">
+  <option value="">--</option>
+  <option value="Green">Green</option>
+  <option value="Yellow">Yellow</option>
+  <option value="Red">Red</option>
+</select></td>
+<td><input type="text" class="human-notes" data-row="18" placeholder="notes..." style="width:100%"></td>
+</tr>
+<tr data-row="19" data-source="payne" data-case-id="48" data-opinion-file="opinions/Reddick_v_State.html" data-quotes="[]">
+<td>19</td>
+<td>Payne</td>
+<td>48</td>
+<td class="cited-case">Reddick v. State, 321 Ga. 73 (2025)</td>
+<td class="proposition">Excessive or unlawful force, even when acting in self-defense, is not justifiable</td>
+<td class="qc">NO_QUOTES</td>
+<td class="qc-detail"></td>
+<td class="machine-assess assess-green">Green</td>
+<td><select class="human-judgment" data-row="19">
+  <option value="">--</option>
+  <option value="Green">Green</option>
+  <option value="Yellow">Yellow</option>
+  <option value="Red">Red</option>
+</select></td>
+<td><input type="text" class="human-notes" data-row="19" placeholder="notes..." style="width:100%"></td>
+</tr>
+<tr data-row="20" data-source="payne" data-case-id="54" data-opinion-file="opinions/Wainwright_v_State.html" data-quotes="[]">
+<td>20</td>
+<td>Payne</td>
+<td>54</td>
+<td class="cited-case">Wainwright v. State, 305 Ga. 63 (2019)</td>
+<td class="proposition">The use of force is not justified if the individual was the initial aggressor, unless they withdraw from the encounter and effectively communicate their intent to do so</td>
+<td class="qc">NO_QUOTES</td>
+<td class="qc-detail"></td>
+<td class="machine-assess assess-green">Green</td>
+<td><select class="human-judgment" data-row="20">
+  <option value="">--</option>
+  <option value="Green">Green</option>
+  <option value="Yellow">Yellow</option>
+  <option value="Red">Red</option>
+</select></td>
+<td><input type="text" class="human-notes" data-row="20" placeholder="notes..." style="width:100%"></td>
+</tr>
+<tr data-row="21" data-source="payne" data-case-id="75" data-opinion-file="opinions/Jackson_v_Virginia.html" data-quotes="[]">
+<td>21</td>
+<td>Payne</td>
+<td>75</td>
+<td class="cited-case">Jackson v. Virginia, 443 U.S. 307 (1979)</td>
+<td class="proposition">The standard for reviewing the sufficiency of evidence is whether the evidence was sufficient for a rational trier of fact to find beyond a reasonable doubt that the defendant was guilty of the charged offenses</td>
+<td class="qc">NO_QUOTES</td>
+<td class="qc-detail"></td>
+<td class="machine-assess assess-green">Green</td>
+<td><select class="human-judgment" data-row="21">
+  <option value="">--</option>
+  <option value="Green">Green</option>
+  <option value="Yellow">Yellow</option>
+  <option value="Red">Red</option>
+</select></td>
+<td><input type="text" class="human-notes" data-row="21" placeholder="notes..." style="width:100%"></td>
+</tr>
+<tr data-row="22" data-source="payne" data-case-id="3" data-opinion-file="opinions/Reed_v_State.html" data-quotes="[]">
+<td>22</td>
+<td>Payne</td>
+<td>3</td>
+<td class="cited-case">Reed v. State, 291 Ga. 10 (2012)</td>
+<td class="proposition">The failure to request a jury instruction not supported by the evidence does not constitute deficient performance</td>
+<td class="qc">NO_QUOTES</td>
+<td class="qc-detail"></td>
+<td class="machine-assess assess-yellow">Yellow</td>
+<td><select class="human-judgment" data-row="22">
+  <option value="">--</option>
+  <option value="Green">Green</option>
+  <option value="Yellow">Yellow</option>
+  <option value="Red">Red</option>
+</select></td>
+<td><input type="text" class="human-notes" data-row="22" placeholder="notes..." style="width:100%"></td>
+</tr>
+<tr data-row="23" data-source="payne" data-case-id="47" data-opinion-file="opinions/Chambers_v_State.html" data-quotes="[]">
+<td>23</td>
+<td>Payne</td>
+<td>47</td>
+<td class="cited-case">Chambers v. State, 308 Ga. App. 748</td>
+<td class="proposition">Excessive or unlawful force, even when acting in self-defense, is not justifiable</td>
+<td class="qc">NO_QUOTES</td>
+<td class="qc-detail"></td>
+<td class="machine-assess assess-yellow">Yellow</td>
+<td><select class="human-judgment" data-row="23">
+  <option value="">--</option>
+  <option value="Green">Green</option>
+  <option value="Yellow">Yellow</option>
+  <option value="Red">Red</option>
+</select></td>
+<td><input type="text" class="human-notes" data-row="23" placeholder="notes..." style="width:100%"></td>
+</tr>
+<tr data-row="24" data-source="payne" data-case-id="50" data-opinion-file="opinions/Nelson_v_State.html" data-quotes="[]">
+<td>24</td>
+<td>Payne</td>
+<td>50</td>
+<td class="cited-case">Nelson v. State, 283 Ga. 119, 121 (2008)</td>
+<td class="proposition">A citizen's arrest charge is not warranted unless there is some evidence to support each statutory element; no citizen's arrest instruction required where defendant did not personally witness the crime</td>
+<td class="qc">NO_QUOTES</td>
+<td class="qc-detail"></td>
+<td class="machine-assess assess-yellow">Yellow</td>
+<td><select class="human-judgment" data-row="24">
+  <option value="">--</option>
+  <option value="Green">Green</option>
+  <option value="Yellow">Yellow</option>
+  <option value="Red">Red</option>
+</select></td>
+<td><input type="text" class="human-notes" data-row="24" placeholder="notes..." style="width:100%"></td>
+</tr>
+<tr data-row="25" data-source="payne" data-case-id="52" data-opinion-file="opinions/Hamm_v_State.html" data-quotes="[]">
+<td>25</td>
+<td>Payne</td>
+<td>52</td>
+<td class="cited-case">Hamm v. State, 294 Ga. 791, 795 (2014)</td>
+<td class="proposition">Trial counsel was not deficient for failing to request an unsupported instruction; no ineffective assistance for failing to request a charge not adjusted to the evidence</td>
+<td class="qc">NO_QUOTES</td>
+<td class="qc-detail"></td>
+<td class="machine-assess assess-yellow">Yellow</td>
+<td><select class="human-judgment" data-row="25">
+  <option value="">--</option>
+  <option value="Green">Green</option>
+  <option value="Yellow">Yellow</option>
+  <option value="Red">Red</option>
+</select></td>
+<td><input type="text" class="human-notes" data-row="25" placeholder="notes..." style="width:100%"></td>
+</tr>
+<tr data-row="26" data-source="payne" data-case-id="58" data-opinion-file="opinions/Tarvestad_v_State.html" data-quotes="[but there must be a legitimate basis for the defense]">
+<td>26</td>
+<td>Payne</td>
+<td>58</td>
+<td class="cited-case">Tarvestad v. State, 261 Ga. 605</td>
+<td class="proposition">A jury charge on a defendant's sole defense, such as citizen's arrest, is only required if there is some evidence to support the charge; there must be a legitimate basis for the defense</td>
+<td class="qc">FABRICATED</td>
+<td class="qc-detail">FABRICATED: &quot;but there must be a legitimate basis for the defense&quot;</td>
+<td class="machine-assess assess-yellow">Yellow</td>
+<td><select class="human-judgment" data-row="26">
+  <option value="">--</option>
+  <option value="Green">Green</option>
+  <option value="Yellow">Yellow</option>
+  <option value="Red">Red</option>
+</select></td>
+<td><input type="text" class="human-notes" data-row="26" placeholder="notes..." style="width:100%"></td>
+</tr>
+<tr data-row="27" data-source="wainwright" data-case-id="0" data-opinion-file="opinions/Jackson_v_Virginia.html" data-quotes="[]">
+<td>27</td>
+<td>Wainwright</td>
+<td>0</td>
+<td class="cited-case">Jackson v. Virginia, 443 U.S. 307, 318-319 (1979)</td>
+<td class="proposition">The evidence presented against Wainwright was sufficient to authorize a rational jury to find beyond a reasonable doubt that he was guilty of the crimes for which he was convicted.</td>
+<td class="qc">NO_QUOTES</td>
+<td class="qc-detail"></td>
+<td class="machine-assess assess-"></td>
+<td><select class="human-judgment" data-row="27">
+  <option value="">--</option>
+  <option value="Green">Green</option>
+  <option value="Yellow">Yellow</option>
+  <option value="Red">Red</option>
+</select></td>
+<td><input type="text" class="human-notes" data-row="27" placeholder="notes..." style="width:100%"></td>
+</tr>
+<tr data-row="28" data-source="wainwright" data-case-id="1" data-opinion-file="opinions/Phoenix_v_State.html" data-quotes="[]">
+<td>28</td>
+<td>Wainwright</td>
+<td>1</td>
+<td class="cited-case">Phoenix v. State, 304 Ga. 785, 788 (2018)</td>
+<td class="proposition">Without a clear showing of abuse of the trial court's broad discretion, an appellate court will not disturb the trial court's decision to deny a motion for continuance.</td>
+<td class="qc">NO_QUOTES</td>
+<td class="qc-detail"></td>
+<td class="machine-assess assess-"></td>
+<td><select class="human-judgment" data-row="28">
+  <option value="">--</option>
+  <option value="Green">Green</option>
+  <option value="Yellow">Yellow</option>
+  <option value="Red">Red</option>
+</select></td>
+<td><input type="text" class="human-notes" data-row="28" placeholder="notes..." style="width:100%"></td>
+</tr>
+<tr data-row="29" data-source="wainwright" data-case-id="2" data-opinion-file="opinions/Phoenix_v_State.html" data-quotes="[has the burden to show that he was harmed by that denial.]">
+<td>29</td>
+<td>Wainwright</td>
+<td>2</td>
+<td class="cited-case">Phoenix v. State, 304 Ga. 785, 788 (2018)</td>
+<td class="proposition">To be entitled to a new trial based upon the denial of his motion for continuance, the defendant has the burden to show that he was harmed by that denial.</td>
+<td class="qc">VERBATIM</td>
+<td class="qc-detail">VERBATIM: &quot;has the burden to show that he was harmed by that denial.&quot;</td>
+<td class="machine-assess assess-"></td>
+<td><select class="human-judgment" data-row="29">
+  <option value="">--</option>
+  <option value="Green">Green</option>
+  <option value="Yellow">Yellow</option>
+  <option value="Red">Red</option>
+</select></td>
+<td><input type="text" class="human-notes" data-row="29" placeholder="notes..." style="width:100%"></td>
+</tr>
+<tr data-row="30" data-source="wainwright" data-case-id="3" data-opinion-file="opinions/Geiger_v_State.html" data-quotes="[]">
+<td>30</td>
+<td>Wainwright</td>
+<td>3</td>
+<td class="cited-case">Geiger v. State, 295 Ga. 648, 651 (2014)</td>
+<td class="proposition">To be entitled to a new trial based upon the denial of his motion for continuance, the defendant has the burden to show that he was harmed by that denial.</td>
+<td class="qc">NO_QUOTES</td>
+<td class="qc-detail"></td>
+<td class="machine-assess assess-"></td>
+<td><select class="human-judgment" data-row="30">
+  <option value="">--</option>
+  <option value="Green">Green</option>
+  <option value="Yellow">Yellow</option>
+  <option value="Red">Red</option>
+</select></td>
+<td><input type="text" class="human-notes" data-row="30" placeholder="notes..." style="width:100%"></td>
+</tr>
+<tr data-row="31" data-source="wainwright" data-case-id="4" data-opinion-file="opinions/Cox_v_State.html" data-quotes="[]">
+<td>31</td>
+<td>Wainwright</td>
+<td>4</td>
+<td class="cited-case">Cox v. State, 279 Ga. 223, 226 (2005)</td>
+<td class="proposition">There is no inherent violation of a defendant's constitutional right to counsel when an associate of lead counsel represents the defendant.</td>
+<td class="qc">NO_QUOTES</td>
+<td class="qc-detail"></td>
+<td class="machine-assess assess-"></td>
+<td><select class="human-judgment" data-row="31">
+  <option value="">--</option>
+  <option value="Green">Green</option>
+  <option value="Yellow">Yellow</option>
+  <option value="Red">Red</option>
+</select></td>
+<td><input type="text" class="human-notes" data-row="31" placeholder="notes..." style="width:100%"></td>
+</tr>
+<tr data-row="32" data-source="wainwright" data-case-id="5" data-opinion-file="opinions/Phoenix_v_State.html" data-quotes="[]">
+<td>32</td>
+<td>Wainwright</td>
+<td>5</td>
+<td class="cited-case">Phoenix v. State, 304 Ga. 785 (2018)</td>
+<td class="proposition">Mere speculation and conjecture that harm occurred is not enough to show harmful error in a continuance denial.</td>
+<td class="qc">NO_QUOTES</td>
+<td class="qc-detail"></td>
+<td class="machine-assess assess-"></td>
+<td><select class="human-judgment" data-row="32">
+  <option value="">--</option>
+  <option value="Green">Green</option>
+  <option value="Yellow">Yellow</option>
+  <option value="Red">Red</option>
+</select></td>
+<td><input type="text" class="human-notes" data-row="32" placeholder="notes..." style="width:100%"></td>
+</tr>
+<tr data-row="33" data-source="wainwright" data-case-id="6" data-opinion-file="opinions/Geiger_v_State.html" data-quotes="[]">
+<td>33</td>
+<td>Wainwright</td>
+<td>6</td>
+<td class="cited-case">Geiger v. State, 295 Ga. 648, 651-652 (2014)</td>
+<td class="proposition">Mere speculation and conjecture that harm occurred is not enough to show harmful error in a continuance denial.</td>
+<td class="qc">NO_QUOTES</td>
+<td class="qc-detail"></td>
+<td class="machine-assess assess-"></td>
+<td><select class="human-judgment" data-row="33">
+  <option value="">--</option>
+  <option value="Green">Green</option>
+  <option value="Yellow">Yellow</option>
+  <option value="Red">Red</option>
+</select></td>
+<td><input type="text" class="human-notes" data-row="33" placeholder="notes..." style="width:100%"></td>
+</tr>
+<tr data-row="34" data-source="wainwright" data-case-id="7" data-opinion-file="opinions/Strickland_v_Washington.html" data-quotes="[]">
+<td>34</td>
+<td>Wainwright</td>
+<td>7</td>
+<td class="cited-case">Strickland v. Washington, 466 U.S. 668, 687-695 (1984)</td>
+<td class="proposition">To prevail on a claim of ineffective assistance of counsel, a defendant generally must show both that counsel's performance was deficient and that the deficient performance prejudiced the defendant -- a reasonable probability that the result of the trial would have been different absent counsel's deficient performance.</td>
+<td class="qc">NO_QUOTES</td>
+<td class="qc-detail"></td>
+<td class="machine-assess assess-"></td>
+<td><select class="human-judgment" data-row="34">
+  <option value="">--</option>
+  <option value="Green">Green</option>
+  <option value="Yellow">Yellow</option>
+  <option value="Red">Red</option>
+</select></td>
+<td><input type="text" class="human-notes" data-row="34" placeholder="notes..." style="width:100%"></td>
+</tr>
+<tr data-row="35" data-source="wainwright" data-case-id="8" data-opinion-file="opinions/Wesley_v_State.html" data-quotes="[]">
+<td>35</td>
+<td>Wainwright</td>
+<td>8</td>
+<td class="cited-case">Wesley v. State, 286 Ga. 355, 356 (2010)</td>
+<td class="proposition">To prevail on a claim of ineffective assistance of counsel, a defendant generally must show both that counsel's performance was deficient and that the deficient performance prejudiced the defendant.</td>
+<td class="qc">NO_QUOTES</td>
+<td class="qc-detail"></td>
+<td class="machine-assess assess-"></td>
+<td><select class="human-judgment" data-row="35">
+  <option value="">--</option>
+  <option value="Green">Green</option>
+  <option value="Yellow">Yellow</option>
+  <option value="Red">Red</option>
+</select></td>
+<td><input type="text" class="human-notes" data-row="35" placeholder="notes..." style="width:100%"></td>
+</tr>
+<tr data-row="36" data-source="wainwright" data-case-id="9" data-opinion-file="opinions/United_States_v_Cronic.html" data-quotes="[]">
+<td>36</td>
+<td>Wainwright</td>
+<td>9</td>
+<td class="cited-case">United States v. Cronic, 466 U.S. 648, 659 (1984)</td>
+<td class="proposition">Wainwright argues that prejudice should be presumed because he was effectively denied effective assistance of counsel at a critical stage of his trial, citing the constructive denial of counsel doctrine.</td>
+<td class="qc">NO_QUOTES</td>
+<td class="qc-detail"></td>
+<td class="machine-assess assess-"></td>
+<td><select class="human-judgment" data-row="36">
+  <option value="">--</option>
+  <option value="Green">Green</option>
+  <option value="Yellow">Yellow</option>
+  <option value="Red">Red</option>
+</select></td>
+<td><input type="text" class="human-notes" data-row="36" placeholder="notes..." style="width:100%"></td>
+</tr>
+<tr data-row="37" data-source="wainwright" data-case-id="10" data-opinion-file="opinions/Charleston_v_State.html" data-quotes="[there was a breakdown in the adversarial process, counsel entirely fails to subject the prosecution">
+<td>37</td>
+<td>Wainwright</td>
+<td>10</td>
+<td class="cited-case">Charleston v. State, 292 Ga. 678, 682-683 (2013)</td>
+<td class="proposition">Cronic's constructive denial of counsel exception to the general Strickland standard is a narrow one that applies only when there was a breakdown in the adversarial process such that counsel entirely fails to subject the prosecution's case to meaningful adversarial testing.</td>
+<td class="qc">CLOSE</td>
+<td class="qc-detail">VERBATIM: &quot;there was a breakdown in the adversarial process&quot;; CLOSE: &quot;counsel entirely fails to subject the prosecution's case to &quot;</td>
+<td class="machine-assess assess-"></td>
+<td><select class="human-judgment" data-row="37">
+  <option value="">--</option>
+  <option value="Green">Green</option>
+  <option value="Yellow">Yellow</option>
+  <option value="Red">Red</option>
+</select></td>
+<td><input type="text" class="human-notes" data-row="37" placeholder="notes..." style="width:100%"></td>
+</tr>
+<tr data-row="38" data-source="wainwright" data-case-id="11" data-opinion-file="opinions/United_States_v_Cronic.html" data-quotes="[]">
+<td>38</td>
+<td>Wainwright</td>
+<td>11</td>
+<td class="cited-case">United States v. Cronic, 466 U.S. 648, 659, 662 (1984)</td>
+<td class="proposition">Cronic's constructive denial of counsel exception to the general Strickland standard is a narrow one that applies only when there was a breakdown in the adversarial process such that counsel entirely fails to subject the prosecution's case to meaningful adversarial testing.</td>
+<td class="qc">NO_QUOTES</td>
+<td class="qc-detail"></td>
+<td class="machine-assess assess-"></td>
+<td><select class="human-judgment" data-row="38">
+  <option value="">--</option>
+  <option value="Green">Green</option>
+  <option value="Yellow">Yellow</option>
+  <option value="Red">Red</option>
+</select></td>
+<td><input type="text" class="human-notes" data-row="38" placeholder="notes..." style="width:100%"></td>
+</tr>
+<tr data-row="39" data-source="wainwright" data-case-id="12" data-opinion-file="opinions/Charleston_v_State.html" data-quotes="[attorney's failure [to] be complete]">
+<td>39</td>
+<td>Wainwright</td>
+<td>12</td>
+<td class="cited-case">Charleston v. State, 292 Ga. 678, 682-683 (2013)</td>
+<td class="proposition">The Cronic exception requires an attorney's failure to be complete and must occur throughout the proceeding and not merely at specific points.</td>
+<td class="qc">CLOSE</td>
+<td class="qc-detail">CLOSE: &quot;attorney's failure [to] be complete&quot;</td>
+<td class="machine-assess assess-"></td>
+<td><select class="human-judgment" data-row="39">
+  <option value="">--</option>
+  <option value="Green">Green</option>
+  <option value="Yellow">Yellow</option>
+  <option value="Red">Red</option>
+</select></td>
+<td><input type="text" class="human-notes" data-row="39" placeholder="notes..." style="width:100%"></td>
+</tr>
+<tr data-row="40" data-source="wainwright" data-case-id="13" data-opinion-file="opinions/Turpin_v_Curtis.html" data-quotes="[]">
+<td>40</td>
+<td>Wainwright</td>
+<td>13</td>
+<td class="cited-case">Turpin v. Curtis, 278 Ga. 698, 699 (2004)</td>
+<td class="proposition">The Cronic exception requires an attorney's failure to be complete and must occur throughout the proceeding and not merely at specific points.</td>
+<td class="qc">NO_QUOTES</td>
+<td class="qc-detail"></td>
+<td class="machine-assess assess-"></td>
+<td><select class="human-judgment" data-row="40">
+  <option value="">--</option>
+  <option value="Green">Green</option>
+  <option value="Yellow">Yellow</option>
+  <option value="Red">Red</option>
+</select></td>
+<td><input type="text" class="human-notes" data-row="40" placeholder="notes..." style="width:100%"></td>
+</tr>
+<tr data-row="41" data-source="wainwright" data-case-id="14" data-opinion-file="opinions/Charleston_v_State.html" data-quotes="[does not meet this stringent standard]">
+<td>41</td>
+<td>Wainwright</td>
+<td>14</td>
+<td class="cited-case">Charleston v. State, 292 Ga. 678, 683 (2013)</td>
+<td class="proposition">Given that co-counsel was present throughout, Morris's cross-examination of a single witness after missing most of her direct examination does not meet the stringent Cronic standard, and Strickland's two-part test remains appropriate.</td>
+<td class="qc">VERBATIM</td>
+<td class="qc-detail">VERBATIM: &quot;does not meet this stringent standard&quot;</td>
+<td class="machine-assess assess-"></td>
+<td><select class="human-judgment" data-row="41">
+  <option value="">--</option>
+  <option value="Green">Green</option>
+  <option value="Yellow">Yellow</option>
+  <option value="Red">Red</option>
+</select></td>
+<td><input type="text" class="human-notes" data-row="41" placeholder="notes..." style="width:100%"></td>
+</tr>
+<tr data-row="42" data-source="wainwright" data-case-id="15" data-opinion-file="opinions/Baker_v_State.html" data-quotes="[]">
+<td>42</td>
+<td>Wainwright</td>
+<td>15</td>
+<td class="cited-case">Baker v. State, 293 Ga. 811, 815 (2013)</td>
+<td class="proposition">Wainwright has not established a reasonable probability that the result of his trial would have been different absent Morris's alleged deficiencies; mere speculation that counsel failed to properly cross-examine a witness is not enough to show prejudice.</td>
+<td class="qc">NO_QUOTES</td>
+<td class="qc-detail"></td>
+<td class="machine-assess assess-"></td>
+<td><select class="human-judgment" data-row="42">
+  <option value="">--</option>
+  <option value="Green">Green</option>
+  <option value="Yellow">Yellow</option>
+  <option value="Red">Red</option>
+</select></td>
+<td><input type="text" class="human-notes" data-row="42" placeholder="notes..." style="width:100%"></td>
+</tr>
+<tr data-row="43" data-source="wainwright" data-case-id="16" data-opinion-file="opinions/Lawrence_v_State.html" data-quotes="[If an appellant fails to meet his or her burden of proving either prong of the Strickland test, the">
+<td>43</td>
+<td>Wainwright</td>
+<td>16</td>
+<td class="cited-case">Lawrence v. State, 286 Ga. 533, 533-534 (2010)</td>
+<td class="proposition">If an appellant fails to meet his or her burden of proving either prong of the Strickland test, the reviewing court does not have to examine the other prong.</td>
+<td class="qc">FABRICATED</td>
+<td class="qc-detail">FABRICATED: &quot;If an appellant fails to meet his or her burden of proving e&quot;</td>
+<td class="machine-assess assess-"></td>
+<td><select class="human-judgment" data-row="43">
+  <option value="">--</option>
+  <option value="Green">Green</option>
+  <option value="Yellow">Yellow</option>
+  <option value="Red">Red</option>
+</select></td>
+<td><input type="text" class="human-notes" data-row="43" placeholder="notes..." style="width:100%"></td>
+</tr>
+<tr data-row="44" data-source="wainwright" data-case-id="17" data-opinion-file="opinions/Hammond_v_State.html" data-quotes="[upon a party's request, the trial court is required to put the jurors in the jury box in groups of ">
+<td>44</td>
+<td>Wainwright</td>
+<td>17</td>
+<td class="cited-case">Hammond v. State, 273 Ga. 442, 444 (2001)</td>
+<td class="proposition">Upon a party's request, the trial court is required to put the jurors in the jury box in groups of 12 for examination of individual jurors because the statute does not provide for the exercise of judicial discretion in this matter.</td>
+<td class="qc">CLOSE</td>
+<td class="qc-detail">CLOSE: &quot;upon a party's request, the trial court is required to put t&quot;</td>
+<td class="machine-assess assess-"></td>
+<td><select class="human-judgment" data-row="44">
+  <option value="">--</option>
+  <option value="Green">Green</option>
+  <option value="Yellow">Yellow</option>
+  <option value="Red">Red</option>
+</select></td>
+<td><input type="text" class="human-notes" data-row="44" placeholder="notes..." style="width:100%"></td>
+</tr>
+<tr data-row="45" data-source="wainwright" data-case-id="18" data-opinion-file="opinions/Raven_v_State.html" data-quotes="[]">
+<td>45</td>
+<td>Wainwright</td>
+<td>18</td>
+<td class="cited-case">Raven v. State, 256 Ga. 366, 367 (1986)</td>
+<td class="proposition">Error in denying a request to place jurors in panels of 12 will not warrant reversal if the defendant is not harmed by it.</td>
+<td class="qc">NO_QUOTES</td>
+<td class="qc-detail"></td>
+<td class="machine-assess assess-"></td>
+<td><select class="human-judgment" data-row="45">
+  <option value="">--</option>
+  <option value="Green">Green</option>
+  <option value="Yellow">Yellow</option>
+  <option value="Red">Red</option>
+</select></td>
+<td><input type="text" class="human-notes" data-row="45" placeholder="notes..." style="width:100%"></td>
+</tr>
+<tr data-row="46" data-source="wainwright" data-case-id="19" data-opinion-file="opinions/Jones_v_State.html" data-quotes="[]">
+<td>46</td>
+<td>Wainwright</td>
+<td>19</td>
+<td class="cited-case">Jones v. State, 217 Ga. App. 722, 723 (1995)</td>
+<td class="proposition">A trial court's error in denying a defendant's request to place the jury in panels of 12 for individual questioning has been held harmless when the evidence of guilt was overwhelming.</td>
+<td class="qc">NO_QUOTES</td>
+<td class="qc-detail"></td>
+<td class="machine-assess assess-"></td>
+<td><select class="human-judgment" data-row="46">
+  <option value="">--</option>
+  <option value="Green">Green</option>
+  <option value="Yellow">Yellow</option>
+  <option value="Red">Red</option>
+</select></td>
+<td><input type="text" class="human-notes" data-row="46" placeholder="notes..." style="width:100%"></td>
+</tr>
+<tr data-row="47" data-source="wainwright" data-case-id="20" data-opinion-file="opinions/Mathis_v_State.html" data-quotes="[]">
+<td>47</td>
+<td>Wainwright</td>
+<td>20</td>
+<td class="cited-case">Mathis v. State, 176 Ga. App. 362 (1985)</td>
+<td class="proposition">A trial court's error in denying a defendant's request to place the jury in panels of 12 for individual questioning has been held harmless when the evidence of guilt was overwhelming.</td>
+<td class="qc">NO_QUOTES</td>
+<td class="qc-detail"></td>
+<td class="machine-assess assess-"></td>
+<td><select class="human-judgment" data-row="47">
+  <option value="">--</option>
+  <option value="Green">Green</option>
+  <option value="Yellow">Yellow</option>
+  <option value="Red">Red</option>
+</select></td>
+<td><input type="text" class="human-notes" data-row="47" placeholder="notes..." style="width:100%"></td>
+</tr>
+<tr data-row="48" data-source="wainwright" data-case-id="21" data-opinion-file="opinions/Hicks_v_State.html" data-quotes="[To authorize a requested jury instruction, there need only be slight evidence supporting the theory">
+<td>48</td>
+<td>Wainwright</td>
+<td>21</td>
+<td class="cited-case">Hicks v. State, 287 Ga. 260, 262 (2010)</td>
+<td class="proposition">To authorize a requested jury instruction, there need only be slight evidence supporting the theory of the charge.</td>
+<td class="qc">VERBATIM</td>
+<td class="qc-detail">VERBATIM: &quot;To authorize a requested jury instruction, there need only b&quot;</td>
+<td class="machine-assess assess-"></td>
+<td><select class="human-judgment" data-row="48">
+  <option value="">--</option>
+  <option value="Green">Green</option>
+  <option value="Yellow">Yellow</option>
+  <option value="Red">Red</option>
+</select></td>
+<td><input type="text" class="human-notes" data-row="48" placeholder="notes..." style="width:100%"></td>
+</tr>
+<tr data-row="49" data-source="wainwright" data-case-id="22" data-opinion-file="opinions/Mills_v_State.html" data-quotes="[]">
+<td>49</td>
+<td>Wainwright</td>
+<td>22</td>
+<td class="cited-case">Mills v. State, 287 Ga. 828, 832 (2010)</td>
+<td class="proposition">When the evidence shows that a defendant acted with criminal intent, was engaged in a criminal scheme, or was criminally negligent, the affirmative defense of accident is unavailable and a jury charge on accident is not warranted.</td>
+<td class="qc">NO_QUOTES</td>
+<td class="qc-detail"></td>
+<td class="machine-assess assess-"></td>
+<td><select class="human-judgment" data-row="49">
+  <option value="">--</option>
+  <option value="Green">Green</option>
+  <option value="Yellow">Yellow</option>
+  <option value="Red">Red</option>
+</select></td>
+<td><input type="text" class="human-notes" data-row="49" placeholder="notes..." style="width:100%"></td>
+</tr>
+<tr data-row="50" data-source="wainwright" data-case-id="23" data-opinion-file="opinions/Powers_v_State.html" data-quotes="[A defendant is not entitled to a jury instruction on justification when the evidence is that the su">
+<td>50</td>
+<td>Wainwright</td>
+<td>23</td>
+<td class="cited-case">Powers v. State, 297 Ga. 345, 349 (2015)</td>
+<td class="proposition">A defendant who was the aggressor is not entitled to a jury instruction on justification.</td>
+<td class="qc">VERBATIM</td>
+<td class="qc-detail">VERBATIM: &quot;A defendant is not entitled to a jury instruction on justifi&quot;</td>
+<td class="machine-assess assess-"></td>
+<td><select class="human-judgment" data-row="50">
+  <option value="">--</option>
+  <option value="Green">Green</option>
+  <option value="Yellow">Yellow</option>
+  <option value="Red">Red</option>
+</select></td>
+<td><input type="text" class="human-notes" data-row="50" placeholder="notes..." style="width:100%"></td>
+</tr>
+<tr data-row="51" data-source="wainwright" data-case-id="24" data-opinion-file="opinions/Brunson_v_State.html" data-quotes="[]">
+<td>51</td>
+<td>Wainwright</td>
+<td>24</td>
+<td class="cited-case">Brunson v. State, 293 Ga. 226, 227-228 (2013)</td>
+<td class="proposition">A defendant is not entitled to a self-defense charge where the victim initiated a struggle because the defendant threatened him with a firearm.</td>
+<td class="qc">NO_QUOTES</td>
+<td class="qc-detail"></td>
+<td class="machine-assess assess-"></td>
+<td><select class="human-judgment" data-row="51">
+  <option value="">--</option>
+  <option value="Green">Green</option>
+  <option value="Yellow">Yellow</option>
+  <option value="Red">Red</option>
+</select></td>
+<td><input type="text" class="human-notes" data-row="51" placeholder="notes..." style="width:100%"></td>
+</tr>
+<tr data-row="52" data-source="wainwright" data-case-id="25" data-opinion-file="opinions/Kilpatrick_v_State.html" data-quotes="[Indeed, it would turn the law on its head to allow an armed aggressor, who confronts an unarmed non">
+<td>52</td>
+<td>Wainwright</td>
+<td>25</td>
+<td class="cited-case">Kilpatrick v. State, 252 Ga. App. 900, 904 (2001)</td>
+<td class="proposition">It would turn the law on its head to allow an armed aggressor, who confronts an unarmed nonthreatening victim, to claim self-defense when the victim is shot during the victim's struggle to disarm the aggressor.</td>
+<td class="qc">VERBATIM</td>
+<td class="qc-detail">VERBATIM: &quot;Indeed, it would turn the law on its head to allow an armed &quot;</td>
+<td class="machine-assess assess-"></td>
+<td><select class="human-judgment" data-row="52">
+  <option value="">--</option>
+  <option value="Green">Green</option>
+  <option value="Yellow">Yellow</option>
+  <option value="Red">Red</option>
+</select></td>
+<td><input type="text" class="human-notes" data-row="52" placeholder="notes..." style="width:100%"></td>
+</tr>
+<tr data-row="53" data-source="wainwright" data-case-id="26" data-opinion-file="opinions/Berrian_v_State.html" data-quotes="[may authorize the jury to find the defendant guilty of voluntary manslaughter.]">
+<td>53</td>
+<td>Wainwright</td>
+<td>26</td>
+<td class="cited-case">Berrian v. State, 297 Ga. 740, 742 (2015)</td>
+<td class="proposition">Evidence of mutual combat may authorize the jury to find the defendant guilty of voluntary manslaughter.</td>
+<td class="qc">CLOSE</td>
+<td class="qc-detail">CLOSE: &quot;may authorize the jury to find the defendant guilty of volun&quot;</td>
+<td class="machine-assess assess-"></td>
+<td><select class="human-judgment" data-row="53">
+  <option value="">--</option>
+  <option value="Green">Green</option>
+  <option value="Yellow">Yellow</option>
+  <option value="Red">Red</option>
+</select></td>
+<td><input type="text" class="human-notes" data-row="53" placeholder="notes..." style="width:100%"></td>
+</tr>
+<tr data-row="54" data-source="wainwright" data-case-id="27" data-opinion-file="opinions/Watson_v_State.html" data-quotes="[Reluctance, or fighting to repel an unprovoked attack, is self-defense, ... and should not be confu">
+<td>54</td>
+<td>Wainwright</td>
+<td>27</td>
+<td class="cited-case">Watson v. State, 298 Ga. 348, 350 (2016)</td>
+<td class="proposition">Reluctance, or fighting to repel an unprovoked attack, is self-defense and should not be confused with mutual combat; there was no evidence to support a finding of mutual combat.</td>
+<td class="qc">CLOSE</td>
+<td class="qc-detail">CLOSE: &quot;Reluctance, or fighting to repel an unprovoked attack, is se&quot;</td>
+<td class="machine-assess assess-"></td>
+<td><select class="human-judgment" data-row="54">
+  <option value="">--</option>
+  <option value="Green">Green</option>
+  <option value="Yellow">Yellow</option>
+  <option value="Red">Red</option>
+</select></td>
+<td><input type="text" class="human-notes" data-row="54" placeholder="notes..." style="width:100%"></td>
+</tr>
+<tr data-row="55" data-source="wainwright" data-case-id="28" data-opinion-file="opinions/Palmer_v_State.html" data-quotes="[]">
+<td>55</td>
+<td>Wainwright</td>
+<td>28</td>
+<td class="cited-case">Palmer v. State, 303 Ga. 810 (2018)</td>
+<td class="proposition">Palmer's convictions have already been affirmed by this Court.</td>
+<td class="qc">NO_QUOTES</td>
+<td class="qc-detail"></td>
+<td class="machine-assess assess-"></td>
+<td><select class="human-judgment" data-row="55">
+  <option value="">--</option>
+  <option value="Green">Green</option>
+  <option value="Yellow">Yellow</option>
+  <option value="Red">Red</option>
+</select></td>
+<td><input type="text" class="human-notes" data-row="55" placeholder="notes..." style="width:100%"></td>
+</tr>
+<tr data-row="56" data-source="wainwright" data-case-id="29" data-opinion-file="opinions/Dixon_v_State.html" data-quotes="[]">
+<td>56</td>
+<td>Wainwright</td>
+<td>29</td>
+<td class="cited-case">Dixon v. State, 302 Ga. 691, 698 (2017)</td>
+<td class="proposition">When a merger error benefits a defendant and the State fails to raise it by cross-appeal, the court generally does not correct the error.</td>
+<td class="qc">NO_QUOTES</td>
+<td class="qc-detail"></td>
+<td class="machine-assess assess-"></td>
+<td><select class="human-judgment" data-row="56">
+  <option value="">--</option>
+  <option value="Green">Green</option>
+  <option value="Yellow">Yellow</option>
+  <option value="Red">Red</option>
+</select></td>
+<td><input type="text" class="human-notes" data-row="56" placeholder="notes..." style="width:100%"></td>
+</tr>
+<tr data-row="57" data-source="wainwright" data-case-id="30" data-opinion-file="opinions/Thomas_v_State.html" data-quotes="[]">
+<td>57</td>
+<td>Wainwright</td>
+<td>30</td>
+<td class="cited-case">Thomas v. State, 289 Ga. 877, 880 (2011)</td>
+<td class="proposition">Because the evidence shows that Wainwright's aggravated assault of Sanusi by shooting him was part of the same transaction as the armed robbery of Sanusi, the aggravated assault conviction should have been merged.</td>
+<td class="qc">NO_QUOTES</td>
+<td class="qc-detail"></td>
+<td class="machine-assess assess-"></td>
+<td><select class="human-judgment" data-row="57">
+  <option value="">--</option>
+  <option value="Green">Green</option>
+  <option value="Yellow">Yellow</option>
+  <option value="Red">Red</option>
+</select></td>
+<td><input type="text" class="human-notes" data-row="57" placeholder="notes..." style="width:100%"></td>
+</tr>
+<tr data-row="58" data-source="wainwright" data-case-id="31" data-opinion-file="opinions/in_the_Matter_of_Ricky_W_Morris_Jr.html" data-quotes="[]">
+<td>58</td>
+<td>Wainwright</td>
+<td>31</td>
+<td class="cited-case">In the Matter of Morris, 302 Ga. 862 (2018)</td>
+<td class="proposition">Morris was disbarred by order of this Court on January 29, 2018, after Wainwright's trial, for issues unrelated to his representation of Wainwright.</td>
+<td class="qc">NO_QUOTES</td>
+<td class="qc-detail"></td>
+<td class="machine-assess assess-"></td>
+<td><select class="human-judgment" data-row="58">
+  <option value="">--</option>
+  <option value="Green">Green</option>
+  <option value="Yellow">Yellow</option>
+  <option value="Red">Red</option>
+</select></td>
+<td><input type="text" class="human-notes" data-row="58" placeholder="notes..." style="width:100%"></td>
+</tr>
+<tr data-row="59" data-source="wainwright" data-case-id="32" data-opinion-file="opinions/Anthony_v_State.html" data-quotes="[counsel was subsequently disbarred does not itself show ineffective assistance in [a] particular ca">
+<td>59</td>
+<td>Wainwright</td>
+<td>32</td>
+<td class="cited-case">Anthony v. State, 302 Ga. 546, 555 (2017)</td>
+<td class="proposition">The fact that counsel was subsequently disbarred does not itself show ineffective assistance in a particular case.</td>
+<td class="qc">CLOSE</td>
+<td class="qc-detail">CLOSE: &quot;counsel was subsequently disbarred does not itself show inef&quot;</td>
+<td class="machine-assess assess-"></td>
+<td><select class="human-judgment" data-row="59">
+  <option value="">--</option>
+  <option value="Green">Green</option>
+  <option value="Yellow">Yellow</option>
+  <option value="Red">Red</option>
+</select></td>
+<td><input type="text" class="human-notes" data-row="59" placeholder="notes..." style="width:100%"></td>
+</tr>
+<tr data-row="60" data-source="wainwright" data-case-id="33" data-opinion-file="opinions/Simmons_v_State.html" data-quotes="[]">
+<td>60</td>
+<td>Wainwright</td>
+<td>33</td>
+<td class="cited-case">Simmons v. State, 291 Ga. 705, 713 (2012)</td>
+<td class="proposition">The fact that counsel was subsequently disbarred does not itself show ineffective assistance in a particular case.</td>
+<td class="qc">NO_QUOTES</td>
+<td class="qc-detail"></td>
+<td class="machine-assess assess-"></td>
+<td><select class="human-judgment" data-row="60">
+  <option value="">--</option>
+  <option value="Green">Green</option>
+  <option value="Yellow">Yellow</option>
+  <option value="Red">Red</option>
+</select></td>
+<td><input type="text" class="human-notes" data-row="60" placeholder="notes..." style="width:100%"></td>
+</tr>
+
+</tbody>
+</table>
+
+</div><!-- left-panel -->
+
+<div class="right-panel collapsed" id="right-panel">
+<div class="panel-header" id="panel-header">
+  <span class="panel-close" onclick="closePanel()">&times;</span>
+  <div class="case-name" id="panel-case"></div>
+  <div class="panel-prop" id="panel-prop"></div>
+  <div class="panel-quotes" id="panel-quotes"></div>
+  <div class="search-bar">
+    <input type="text" id="opinion-search" placeholder="Search opinion text..." onkeydown="if(event.key==='Enter')searchOpinion()">
+    <button onclick="searchOpinion()">Find</button>
+    <button onclick="searchNext()">Next</button>
+    <button onclick="searchPrev()">Prev</button>
+    <span class="search-count" id="search-count"></span>
+  </div>
+</div>
+<div id="opinion-content" style="flex:1; overflow-y:auto; padding:15px; font-size:13px; line-height:1.6;"></div>
+</div>
+
+</div><!-- container -->
+
+<script>
+const TOTAL = 61;
+
+function updateProgress() {
+    const selects = document.querySelectorAll('.human-judgment');
+    let filled = 0;
+    selects.forEach(s => { if (s.value) filled++; });
+    document.getElementById('progress').textContent = filled + ' / ' + TOTAL + ' reviewed';
+}
+
+document.querySelectorAll('.human-judgment').forEach(s => {
+    s.addEventListener('change', updateProgress);
+});
+
+// Click handler for propositions
+document.querySelectorAll('tr[data-row]').forEach(tr => {
+    const propCell = tr.querySelector('.proposition');
+    if (propCell) {
+        propCell.addEventListener('click', function() {
+            // Highlight selected row
+            document.querySelectorAll('tr.selected').forEach(r => r.classList.remove('selected'));
+            tr.classList.add('selected');
+
+            const source = tr.dataset.source;
+            const caseName = tr.querySelector('.cited-case').textContent;
+            const prop = tr.querySelector('.proposition').textContent;
+            const opinionFile = tr.dataset.opinionFile || '';
+            const quotes = tr.dataset.quotes || '';
+
+            // Update panel header
+            document.getElementById('panel-case').textContent = caseName;
+            document.getElementById('panel-prop').textContent = prop;
+            if (quotes) {
+                document.getElementById('panel-quotes').textContent = 'Search for: ' + quotes;
+                document.getElementById('panel-quotes').style.display = 'block';
+            } else {
+                document.getElementById('panel-quotes').style.display = 'none';
+            }
+
+            // Load opinion in iframe
+            const panel = document.getElementById('right-panel');
+            panel.classList.remove('collapsed');
+
+            // Clear previous search
+            document.getElementById('opinion-search').value = '';
+            document.getElementById('search-count').textContent = '';
+            searchMatches = [];
+            searchIndex = -1;
+
+            if (opinionFile) {
+                const basePath = source === 'payne' ? '../briefs/payne-proposed/' : '../briefs/wainwright-v-state/';
+                loadOpinion(basePath + opinionFile);
+            } else {
+                document.getElementById('opinion-content').innerHTML = '<p style="color:#999;">No opinion file available.</p>';
+            }
+        });
+    }
+});
+
+function closePanel() {
+    document.getElementById('right-panel').classList.add('collapsed');
+    document.querySelectorAll('tr.selected').forEach(r => r.classList.remove('selected'));
+}
+
+function prefillFromMachine() {
+    document.querySelectorAll('tr[data-row]').forEach(tr => {
+        const machineCell = tr.querySelector('.machine-assess');
+        const select = tr.querySelector('.human-judgment');
+        if (machineCell && select && !select.value) {
+            const val = machineCell.textContent.trim();
+            if (['Green','Yellow','Red'].includes(val)) {
+                select.value = val;
+            }
+        }
+    });
+    updateProgress();
+}
+
+function exportJSON() {
+    const cases = [];
+    document.querySelectorAll('tr[data-row]').forEach(tr => {
+        const source = tr.dataset.source;
+        const caseId = parseInt(tr.dataset.caseId);
+        const cited = tr.querySelector('.cited-case').textContent;
+        const prop = tr.querySelector('.proposition').textContent;
+        const machine = tr.querySelector('.machine-assess').textContent.trim();
+        const human = tr.querySelector('.human-judgment').value;
+        const notes = tr.querySelector('.human-notes').value;
+        const qc = tr.querySelector('.qc').textContent;
+        const opinionFile = tr.dataset.opinionFile || '';
+
+        if (human) {
+            cases.push({
+                source: source,
+                id: caseId,
+                opinion_file: opinionFile,
+                cited_case: cited,
+                proposition: prop,
+                expected_assessment: human,
+                machine_assessment: machine,
+                quote_check_worst: qc,
+                notes: notes
+            });
+        }
+    });
+
+    const output = JSON.stringify({cases: cases}, null, 2);
+    const textarea = document.getElementById('export-output');
+    textarea.style.display = 'block';
+    textarea.value = output;
+    textarea.select();
+    navigator.clipboard.writeText(output).then(() => {
+        alert('Copied ' + cases.length + ' reviewed cases to clipboard!');
+    }).catch(() => {
+        alert('JSON ready in textarea below. Select all and copy manually.');
+    });
+}
+
+// --- Load opinion into div ---
+function loadOpinion(url) {
+    const container = document.getElementById('opinion-content');
+    container.innerHTML = '<p style="color:#999;">Loading...</p>';
+    fetch(url)
+        .then(r => r.text())
+        .then(html => {
+            // For HTML files, extract body content; for txt, wrap in pre
+            if (url.endsWith('.txt')) {
+                container.innerHTML = '<pre style="white-space:pre-wrap;font-family:Georgia,serif;font-size:13px;">' + html.replace(/</g,'&lt;') + '</pre>';
+            } else {
+                // Strip <html>/<head>/<body> wrappers, keep inner content
+                const match = html.match(/<body[^>]*>([\s\S]*)<\/body>/i);
+                container.innerHTML = match ? match[1] : html;
+            }
+        })
+        .catch(e => {
+            container.innerHTML = '<p style="color:#c00;">Could not load opinion: ' + e.message + '</p>';
+        });
+}
+
+// --- Opinion search ---
+let searchMatches = [];
+let searchIndex = -1;
+
+function clearHighlights() {
+    const container = document.getElementById('opinion-content');
+    container.querySelectorAll('.search-hl').forEach(el => {
+        const parent = el.parentNode;
+        parent.replaceChild(document.createTextNode(el.textContent), el);
+        parent.normalize();
+    });
+}
+
+function searchOpinion() {
+    const query = document.getElementById('opinion-search').value.trim();
+    if (!query) return;
+
+    clearHighlights();
+    searchMatches = [];
+    searchIndex = -1;
+
+    const container = document.getElementById('opinion-content');
+    if (!container.textContent.trim()) {
+        document.getElementById('search-count').textContent = 'no doc';
+        return;
+    }
+
+    // Walk text nodes and highlight matches
+    const walker = document.createTreeWalker(container, NodeFilter.SHOW_TEXT, null, false);
+    const lowerQuery = query.toLowerCase();
+    const nodesToProcess = [];
+
+    while (walker.nextNode()) {
+        const node = walker.currentNode;
+        if (node.textContent.toLowerCase().includes(lowerQuery)) {
+            nodesToProcess.push(node);
+        }
+    }
+
+    nodesToProcess.forEach(node => {
+        const text = node.textContent;
+        const lowerText = text.toLowerCase();
+        let idx = 0;
+        const frag = document.createDocumentFragment();
+        let pos;
+
+        while ((pos = lowerText.indexOf(lowerQuery, idx)) !== -1) {
+            if (pos > idx) {
+                frag.appendChild(document.createTextNode(text.substring(idx, pos)));
+            }
+            const span = document.createElement('span');
+            span.className = 'search-hl';
+            span.textContent = text.substring(pos, pos + query.length);
+            frag.appendChild(span);
+            searchMatches.push(span);
+            idx = pos + query.length;
+        }
+
+        if (idx < text.length) {
+            frag.appendChild(document.createTextNode(text.substring(idx)));
+        }
+
+        node.parentNode.replaceChild(frag, node);
+    });
+
+    document.getElementById('search-count').textContent = searchMatches.length + ' found';
+
+    if (searchMatches.length > 0) {
+        searchIndex = 0;
+        scrollToMatch();
+    }
+}
+
+function scrollToMatch() {
+    if (searchMatches.length === 0) return;
+    // Remove current highlight from all
+    searchMatches.forEach(m => m.classList.remove('current'));
+    // Add to current
+    const match = searchMatches[searchIndex];
+    match.classList.add('current');
+    match.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    document.getElementById('search-count').textContent =
+        (searchIndex + 1) + ' / ' + searchMatches.length;
+}
+
+function searchNext() {
+    if (searchMatches.length === 0) return;
+    searchIndex = (searchIndex + 1) % searchMatches.length;
+    scrollToMatch();
+}
+
+function searchPrev() {
+    if (searchMatches.length === 0) return;
+    searchIndex = (searchIndex - 1 + searchMatches.length) % searchMatches.length;
+    scrollToMatch();
+}
+</script>
+</body>
+</html>

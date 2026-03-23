@@ -1,0 +1,986 @@
+ NOTICE: This opinion is subject to modification resulting from motions for reconsideration under Supreme Court
+ Rule 27, the Court’s reconsideration, and editorial revisions by the Reporter of Decisions. The version of the
+ opinion published in the Advance Sheets for the Georgia Reports, designated as the “Final Copy,” will replace any
+ prior version on the Court’s website and docket. A bound volume of the Georgia Reports will contain the final and
+ official text of the opinion.
+
+
+In the Supreme Court of Georgia
+
+
+
+                                                   Decided: May 3, 2022
+
+
+                        S22A0317. BUTLER v. THE STATE.
+
+
+        WARREN, Justice.
+
+        After a bench trial that was held in March 2013, Cory Frayana
+
+Butler was convicted of malice murder and other crimes for his
+
+involvement in a home invasion and beatings that resulted in the
+
+death of Epsie Ewing (“Mrs. Ewing”) and injury of her husband, C.F.
+
+Ewing (“Mr. Ewing”). 1 Butler raises four claims of error on appeal:
+
+
+
+       1Mr. and Mrs. Ewing were beaten on May 21, 2009, and Mrs. Ewing died
+on June 23, 2009. On August 21, 2009, a Walton County grand jury indicted
+Butler for malice murder, three counts of felony murder, one count of
+aggravated battery, two counts of aggravated assault, two counts of false
+imprisonment, one count of armed robbery, one count of burglary, two counts
+of possession of a firearm during the commission of a felony, and one count of
+possession of a firearm by a convicted felon. The armed robbery and burglary
+counts and one each of the aggravated assault, false imprisonment, and
+possession of a firearm during the commission of a felony counts were specific
+to crimes committed against Mr. Ewing. The State initially filed a notice of
+intent to seek the death penalty, but after negotiations with Butler, entered
+into a consent agreement whereby Butler agreed to a bench trial and the State
+agreed to withdraw its notice of intent. After a bench trial from March 13 to
+that (1) the evidence presented at trial was insufficient to support
+
+his conviction for malice murder; (2) the trial court did not determine
+
+whether Butler knowingly and intelligently waived his right to a
+
+jury trial; (3) Butler received constitutionally ineffective assistance
+
+of counsel; and (4) the trial court committed a sentencing error. For
+
+the reasons explained below, we affirm.
+
+
+18, 2013, the trial court found Butler guilty on all counts. On March 26, 2013,
+the trial court sentenced Butler to life in prison without the possibility of parole
+for malice murder, ten concurrent years in prison for one of the false-
+imprisonment convictions, a concurrent sentence of life with the possibility of
+parole for armed robbery, five consecutive years in prison for one of the
+convictions for possession of a firearm during the commission of a felony, ten
+consecutive years in prison for the other false-imprisonment conviction, five
+consecutive years in prison for the other conviction for possession of a firearm
+during the commission of a felony, and five consecutive years in prison for
+possession of a firearm by a convicted felon. The trial court merged, for
+sentencing purposes, the aggravated battery count and one of the aggravated
+assault counts into the malice murder conviction, and the other aggravated
+assault count and the burglary count into the armed robbery conviction. The
+State has not challenged the purported merger of the burglary count into the
+armed robbery conviction, and we decline to address that issue sua sponte. See
+Dixon v. State, 302 Ga. 691, 696-698 (808 SE2d 696) (2017). And although the
+court also purported to merge the three felony murder counts into the malice
+murder conviction, those counts were actually vacated by operation of law. See
+Malcolm v. State, 263 Ga. 369, 372 (434 SE2d 479) (1993). Butler filed, through
+trial counsel, a timely motion for new trial on April 24, 2013, which he later
+amended. On May 13, 2019, after a hearing on Butler’s motion for new trial,
+the trial court denied Butler’s motion as amended. On June 10, 2019, Butler
+filed a timely notice of appeal, which he later amended. The case was docketed
+in this Court to the term beginning in December 2021 and submitted for a
+decision on the briefs.
+
+                                         2
+     1. The evidence presented at Butler’s trial showed the
+
+following. Angela Jackson and Mr. Ewing had been engaged in an
+
+extramarital affair since 1999, and Ewing was informally giving
+
+Jackson $50 a month for a child she said was his. Ewing previously
+
+had told Jackson to stop coming to his house, but on May 17, 2009,
+
+Jackson, Ykescha “Missy” Walton (Jackson’s niece), and Butler
+
+drove to the Ewings’ house so that Jackson could “pick up her child
+
+support money” from Mr. Ewing. 2 After arriving at the Ewings’
+
+house, Jackson sent Butler to the front door to pick up the money.
+
+Butler walked up to the door, expressed interest in purchasing Mr.
+
+Ewing’s red truck, and requested $50 for Jackson. After speaking
+
+for a few minutes, Mr. Ewing gave Butler $50 in a money clip, and
+
+Butler returned to Walton’s car to hand the money to Jackson.
+
+Jackson later testified that while driving back from the Ewings’
+
+house, Butler made a comment pertaining to how much money Mr.
+
+Ewing appeared to have and said “if y’all wouldn’t have been in the
+
+
+
+     2 Mr. Ewing, Jackson, and Walton all positively identified Butler as the
+person who accompanied the women to the Ewings’ house that day.
+                                     3
+car, I would have busted his head down to the white meat.”
+
+     Four days later, on May 21 at around 12:00 or 1:00 p.m., Butler
+
+returned to the Ewings’ house with J.J. Blackwell and Barry Partee.
+
+At trial, Mr. Ewing, who had positively identified Butler, Blackwell,
+
+and Partee in photographic lineups, testified as follows.      After
+
+parking in the Ewings’ driveway, Butler and Blackwell exited the
+
+car, approached Mr. Ewing, and again expressed interest in
+
+purchasing his red truck. Mr. Ewing and Butler then went for a test
+
+drive around the block while Blackwell and Partee followed Mr.
+
+Ewing’s truck in their car. Upon returning to the house, Butler said
+
+“don’t try nothing [because] I got a gun on you.” Butler then exited
+
+the truck and began “pistol whipping” Mr. Ewing and beating him
+
+on the head with a pistol. Butler “knocked” Mr. Ewing through the
+
+back door of the Ewings’ house, and Blackwell and Partee followed
+
+them inside.
+
+     In the utility room, Butler and Blackwell “started beating” Mr.
+
+Ewing in the face and head, causing him to fall. Butler also hit Mrs.
+
+Ewing, who was standing in the utility room, in the forehead with
+
+                                 4
+the pistol. Blackwell then grabbed Mr. Ewing in a “headlock” and
+
+dragged him through the kitchen and into the dining room. By that
+
+point, Butler had moved Mrs. Ewing onto the couch in the dining
+
+room. Mr. Ewing later explained that he assumed that Mrs. Ewing
+
+had been beaten with their walking stick, which he saw lying broken
+
+on the ground in front of her as she sat screaming on the couch, but
+
+that he did not actually see this occur. Mrs. Ewing said “[h]oney,
+
+just give them anything they want,” and Mr. Ewing pleaded with
+
+“them” to stop hitting his wife. Then Butler, Blackwell, and Partee
+
+left the house through the back door, taking Mr. Ewing’s wallet with
+
+them. Before leaving, Butler threatened Mr. Ewing, “if you call the
+
+law, I’ll come back and kill both of you.”          At trial, Mr. Ewing
+
+positively identified Butler as one of his attackers.3
+
+     After Butler, Blackwell, and Partee left the Ewings’ house,4
+
+
+
+     3 After Mr. Ewing testified that Butler “might have had” a beard on the
+day of the attack, he conceded on cross-examination that on the day of the
+crimes, he told an investigator that none of the assailants had facial hair.
+
+     4 A neighbor saw two men leave the back door of the Ewings’ house and
+enter a car with a third person at around 12:30 p.m. that day. That neighbor
+
+                                     5
+Mrs. Ewing was “bleeding all over, her face and hands, her head.”
+
+The Ewings’ walking stick was broken and was lying on the floor
+
+next to the couch. At Mr. Ewing’s request, a neighbor called 911. A
+
+few minutes later, police officers arrived and found both Mr. and
+
+Mrs. Ewing “covered in blood.”
+
+      Mrs. Ewing was flown to the Atlanta Medical Center, where
+
+she was admitted in critical condition and in a coma. A physical
+
+exam and CT scans were performed and showed that she had large
+
+cuts on her scalp, fractured facial bones, swelling and bruises on her
+
+face, and fractures in both arms.           She died on June 23.          After
+
+performing an autopsy, Dr. Lora Darrisaw of the Georgia Bureau of
+
+Investigation (“GBI”), who testified at trial, determined that the
+
+cause of death was multiple-system organ failure due to “poor
+
+circulation [and] poor oxygenation” following the “blunt force
+
+
+
+
+identified Butler in a photographic lineup as one of the men she saw, and she
+also made an in-court identification of Butler at trial. On cross-examination,
+she testified that she did not see facial hair on the man she later identified as
+Butler. A passerby testified at trial that he saw three men leaving the Ewings’
+house and that one of them appeared to be shoving a gun in his pocket, but he
+was unable to identify Butler in a photographic lineup.
+                                       6
+traumatic injuries” that were inflicted on Mrs. Ewing on May 21.
+
+Dr. Darrisaw certified the manner of death as homicide. Dr. James
+
+Stevens, who treated Mrs. Ewing after the attack, also testified at
+
+trial and explained that blunt force trauma caused Mrs. Ewing’s
+
+death, even though her preexisting conditions of diabetes,
+
+hypertension, congestive heart failure, and deep-vein thrombosis
+
+likely contributed to it.
+
+     Walton testified at trial that after Jackson told her about the
+
+events of May 21, Walton asked Butler if he had beaten Mrs. Ewing,
+
+and Butler responded that he had not. Butler then asked Walton
+
+“did [she] love [her] auntie,” referring to Jackson, and “how would
+
+you feel if she was dead?” Walton interpreted this to mean that
+
+Butler “might do something” to Jackson “like kill her or something”
+
+if she talked about the events of May 21 or Butler’s alleged
+
+involvement. Nevertheless, Walton discussed the matter with a
+
+friend, who in turn called the City of Monroe Police Department and
+
+told police to speak with Jackson about the matter. An investigation
+
+led officers to obtain an arrest warrant and issue a “be on the
+
+                                 7
+lookout” (“BOLO”) for Butler in connection with the home invasion
+
+and beatings.
+
+     On May 26, a Georgia State Patrol trooper—who was looking
+
+for Butler because of the BOLO—recognized Butler and began
+
+questioning him. Butler provided a false name and then fled on foot
+
+before being apprehended.      Butler was arrested, and when a
+
+detective interviewed him, he denied any involvement in the
+
+Ewings’ home invasion and beatings, claiming that “he robs rich
+
+people” but that he “doesn’t rob poor people.” He also stated that a
+
+man named Richard Deloatch from Monroe was the culprit. But
+
+after the police spent a week searching for Deloatch, they concluded
+
+that “there appeared to be no such person.”
+
+     2. Butler contends that the evidence was insufficient to support
+
+his conviction for malice murder because even if there was evidence
+
+that he struck Mrs. Ewing over the head once with a pistol, the
+
+evidence showed that Blackwell dealt the “fatal blows” to Mrs.
+
+
+
+
+                                 8
+Ewing. 5 He further claims that Mrs. Ewing died weeks after the
+
+home invasion and beatings because of preexisting medical
+
+conditions that were aggravated by Blackwell’s assault. According
+
+to Butler, the State did not present evidence that Butler was a party
+
+to Blackwell’s conduct, and Blackwell’s intent cannot be imputed to
+
+Butler as a result.
+
+      When evaluating a challenge to the sufficiency of the evidence
+
+as a matter of constitutional due process, we view the evidence
+
+presented at trial in the light most favorable to the verdicts and ask
+
+whether any rational trier of fact could have found the defendant
+
+guilty beyond a reasonable doubt of the crimes of which he was
+
+convicted. See Jones v. State, 304 Ga. 594, 598 (820 SE2d 696)
+
+(2018) (citing Jackson v. Virginia, 443 U.S. 307, 318-319 (99 SCt
+
+2781, 61 LE2d 560) (1979)).          We leave to the trier of fact “the
+
+resolution of conflicts or inconsistencies in the evidence, credibility
+
+of witnesses, and reasonable inferences to be derived from the facts,”
+
+
+
+      5Butler does not challenge the sufficiency of the evidence supporting his
+other convictions.
+                                      9
+Smith v. State, 308 Ga. 81, 84 (839 SE2d 630) (2020), and we do not
+
+“reweigh the evidence,” Ivey v. State, 305 Ga. 156, 159 (824 SE2d
+
+242) (2019) (citation and punctuation omitted).
+
+      As a matter of Georgia statutory law, “[e]very person
+
+concerned in the commission of a crime is a party thereto and may
+
+be charged with and convicted of commission of the crime.” OCGA
+
+§ 16-2-20 (a). Conviction as a party to a crime requires proof of a
+
+common criminal intent, which a trier of fact may infer from
+
+“presence, companionship, and conduct before, during and after the
+
+offense.” McGruder v. State, 303 Ga. 588, 591 (814 SE2d 293) (2018)
+
+(citation and punctuation omitted). See also Felts v. State, 311 Ga.
+
+547, 552 (858 SE2d 708) (2021). And “all the participants in a plan
+
+to rob are criminally responsible for the act of each committed in the
+
+execution of the plan and which may be said to be a probable
+
+consequence of the unlawful design,” Williams v. State, 304 Ga. 658,
+
+662 (821 SE2d 351) (2018) (citation and punctuation omitted), a
+
+principle we have specifically held applies to murders committed
+
+during the commission of “a crime that foreseeably [leads] to
+
+                                 10
+murder”—such as armed robbery—perpetrated by a group that
+
+shares a common criminal intent. Felts, 311 Ga. at 552. See also
+
+Moore v. State, 311 Ga. 506, 509 (858 SE2d 676) (2021).
+
+     Moreover, “we have long held, in numerous cases, that
+
+proximate causation is the test for malice murder.” State v. Jackson,
+
+287 Ga. 646, 649 (697 SE2d 757) (2010) (collecting cases). See also
+
+Stribling v. State, 304 Ga. 250, 252-254 (818 SE2d 563) (2018)
+
+(applying proximate cause standard in determining that evidence
+
+was sufficient to support a malice murder conviction). An injury is
+
+the proximate cause of death when “(1) the injury itself constituted
+
+the sole proximate cause of the death; or . . . (2) the injury directly
+
+and materially contributed to the happening of a subsequent
+
+accruing immediate cause of the death; or . . . (3) the injury
+
+materially accelerated the death, although proximately occasioned
+
+by a pre-existing cause.” Stribling, 304 Ga. at 253 (citation and
+
+punctuation omitted). See also Clarke v. State, 292 Ga. 305, 306
+
+(737 SE2d 575) (2013) (evidence that defendant inflicted blunt-force
+
+trauma on elderly victim’s head sufficiently supported malice
+
+                                  11
+murder conviction, despite evidence that other conditions related to
+
+the victim’s advanced age also contributed to death).
+
+     Here, the evidence was sufficient to convict Butler as a matter
+
+of constitutional due process and as a matter of Georgia statutory
+
+law. Among other things, the evidence introduced at trial included
+
+testimony from Mr. Ewing, who survived the home invasion that
+
+resulted in the death of his wife, Mrs. Ewing, and who positively
+
+identified Butler as one of their assailants. Mr. Ewing testified that
+
+he saw Butler pistol-whip Mrs. Ewing on the head. But he also
+
+testified that he pleaded with the group of assailants, which he
+
+referenced as “them,” to stop hitting Mrs. Ewing. And based on that
+
+testimony and other evidence presented at trial, the jury was
+
+authorized to infer that Butler—whom Mr. Ewing identified from a
+
+photographic lineup and at trial as one of the men who attacked Mrs.
+
+Ewing and him—attacked Mrs. Ewing beyond the pistol-whip about
+
+which Mr. Ewing separately testified. According to Mr. Ewing, the
+
+assailants’ additional assault against Mrs. Ewing left her beaten
+
+and bloodied. Other evidence presented at trial included Butler’s
+
+                                 12
+comments to Jackson and Walton days before the home invasion
+
+about Mr. Ewing’s cash and “bust[ing] his head down to the white
+
+meat” if the women were not there; a neighbor’s positive
+
+identification of Butler as one of the men she saw leaving the
+
+Ewings’ house around the time that the home invasion and beatings
+
+ended; Butler’s threat to kill the Ewings as he left their house after
+
+the home invasion; Butler’s veiled threat against Walton; and
+
+Butler’s flight from law enforcement.
+
+     And although Butler points to Dr. Stevens as supporting
+
+Butler’s defense theory that he did not cause Mrs. Ewing’s death,
+
+Dr. Stevens’ testimony undermines, rather than supports, Butler’s
+
+claim. That is because Dr. Stevens testified that it was “likely” that
+
+Mrs. Ewing’s preexisting medical conditions, “combined” with the
+
+blunt force trauma she suffered during the assault, caused her
+
+death, thus allowing the trial court, as the trier of fact, to conclude
+
+that the injuries from Mrs. Ewing’s beating “materially accelerated
+
+[her] death,” Jackson, 287 Ga. at 649, and thus proximately caused
+
+it. Specifically, the court heard that Mrs. Ewing was admitted to
+
+                                  13
+the hospital in critical condition after the attack; Dr. Stevens
+
+acknowledged Mrs. Ewing’s preexisting medical conditions and
+
+nonetheless testified that Mrs. Ewing would not have died “on that
+
+day” without the blunt force trauma she suffered; and Dr. Darrisaw
+
+certified Mrs. Ewing’s manner of death as a homicide. In sum, the
+
+evidence presented at trial and recounted in part above authorized
+
+a rational trier of fact to conclude beyond a reasonable doubt that
+
+Butler was guilty of the crime of malice murder for which he was
+
+convicted, and that he was at least a party to that crime. See
+
+Jackson, 443 U.S. at 319. See also OCGA § 16-2-20.
+
+     3. Butler contends that his right to a jury trial under the Sixth
+
+Amendment to the United States Constitution was violated because
+
+the trial court “never questioned [him] to determine whether he
+
+knowingly and intelligently waive[d] his right to a jury trial.” As
+
+explained below, the record belies that argument and this
+
+enumeration of error fails.
+
+     “When a defendant seeks to waive his or her right to a jury
+
+trial, a trial court should ask the defendant sufficient questions on
+
+                                 14
+the record so that the court can ensure the defendant’s waiver is
+
+knowing, voluntary, and intelligent.” Agee v. State, 311 Ga. 340,
+
+343-344 (857 SE2d 642) (2021) (citation and punctuation omitted).
+
+“The constitutional right to a jury trial may be waived only if the
+
+State proves beyond a reasonable doubt that a defendant did so
+
+knowingly, voluntarily, and intelligently.” See id. at 343 (citation
+
+omitted). This burden can be met by a “showing on the record that
+
+the defendant was cognizant of the right being waived.” Id. “We
+
+review a trial court’s acceptance of a waiver of a constitutional right
+
+for clear error.” Id. at 344.
+
+     Here, the record shows that the State initially sought the death
+
+penalty in this case, filing a notice of intent (and later an amended
+
+notice) to seek the death penalty. On March 13, 2013, Butler and
+
+the State entered into a consent agreement, signed by both parties,
+
+whereby the State withdrew its notice of intent to seek the death
+
+penalty and Butler waived his right to a jury trial. The consent
+
+agreement expressly provided that Butler “does hereby waive trial
+
+by jury on the charges in [this] case and consents to be tried by the
+
+                                  15
+Court without a jury.”
+
+     The parties presented the trial court with the consent
+
+agreement during a pretrial motions hearing held that same
+
+morning. Both the State and Butler’s counsel verbally agreed to
+
+proceed without a jury.    The trial court then asked a series of
+
+questions to determine whether Butler “expressly, intelligently and
+
+personally participate[d] in the waiver of his right to a jury trial.”
+
+After affirming that Butler would provide truthful answers to its
+
+questions, the trial court had the following exchange with Butler:
+
+     THE COURT: That’s good. Now, Mr. Butler, you signed
+     this consent agreement between the State of Georgia and
+     the accused to proceed under Senate Bill Number 13. It
+     includes, but [is] not limited to, the waiver of the jury
+     trial. Did your attorney explain to you everything that’s
+     in this consent agreement?
+
+     THE DEFENDANT: Yes, sir.
+
+     THE COURT Did you understand everything in this
+     consent agreement?
+
+     THE DEFENDANT: I mean, I understand according to
+     how they explained it to me, yes.
+
+     THE COURT: Well --
+
+
+                                 16
+THE DEFENDANT: Yes, sir.
+
+THE COURT: Okay. So they explained everything to you
+to the best of their ability . . . about waiving a jury trial.
+Do you want to waive a jury trial?
+
+THE DEFENDANT: Yes, sir.
+
+THE COURT: And you understand we’re here today and
+we have jurors back there ready to be picked to have a
+jury trial in this matter? Do you understand that?
+
+THE DEFENDANT: Yes, sir.
+
+THE COURT: And if you want a jury trial, it’s your
+constitutional right to have a jury trial?
+
+THE DEFENDANT: Yes, sir.
+
+THE COURT: But if you want to consent to not have a
+jury trial, if you do that, expressly, intelligently and
+personally make a decision not to have a jury trial, then
+you have that right also?
+
+THE DEFENDANT: Yes, sir.
+
+THE COURT: Do you want to waive a jury trial and
+proceed without a jury here today?
+
+THE DEFENDANT: Yes, sir.
+
+THE COURT: And that’s after your attorneys have
+explained to you all the ramifications, the benefits and
+drawbacks of waiving a jury trial; is that correct?
+
+
+                             17
+     THE DEFENDANT: They explained to me, I guess, it
+     would be in my best interest to waive the jury trial and
+     proceed with a bench trial.
+
+     THE COURT: All right. And after listening to them, do
+     you feel like it’s in your best interest to proceed without a
+     jury trial?
+
+     THE DEFENDANT: Yes, sir.
+
+     THE COURT: All right. I find that the defendant has
+     expressly, intelligently and personally participated in the
+     waiver of his jury trial.
+
+     Later that afternoon, immediately prior to the start of the
+
+bench trial, Butler’s attorney stated that “Mr. Butler just wanted me
+
+to put on the record that he is absolutely on board” with a bench
+
+trial. Butler again confirmed on the record that he agreed.
+
+     Contrary to Butler’s claim on appeal, the record shows that the
+
+trial court repeatedly inquired about whether Butler had been
+
+informed about and understood his right to a jury trial and that he
+
+was choosing to waive it, that Butler stated he did so because he
+
+believed it was in his best interest, and that both the trial court and
+
+Butler confirmed that Butler wanted a bench trial. The trial court
+
+did not err, let alone clearly err, by finding that Butler had
+
+                                  18
+“knowingly, voluntarily, and intelligently” waived his right to a jury
+
+trial. See Agee, 311 Ga. at 344-345.
+
+     4. Butler contends that his trial counsel provided ineffective
+
+assistance under the Sixth Amendment to the United States
+
+Constitution. But for the reasons explained below, his claims fail.
+
+     To prevail on a claim of ineffective assistance of counsel, a
+
+defendant generally must show that counsel’s performance was
+
+deficient and that the deficient performance resulted in prejudice to
+
+the defendant. See Strickland v. Washington, 466 U.S. 668, 687-695
+
+(104 SCt 2052, 80 LE2d 674) (1984); Wesley v. State, 286 Ga. 355,
+
+356 (689 SE2d 280) (2010).      To satisfy the deficiency prong, a
+
+defendant must demonstrate that his attorney “performed at trial in
+
+an objectively unreasonable way considering all the circumstances
+
+and in the light of prevailing professional norms.” Romer v. State,
+
+293 Ga. 339, 344 (745 SE2d 637) (2013); see also Strickland, 466
+
+U.S. at 687-688. Moreover, “[t]rial counsel’s decisions relating to
+
+strategy and tactics are not judged by hindsight.” Jones v. State,
+
+296 Ga. 561, 567 (769 SE2d 307) (2015). To satisfy the prejudice
+
+                                 19
+prong, a defendant must establish a reasonable probability that, in
+
+the absence of counsel’s deficient performance, the result of the trial
+
+would have been different. See Strickland, 466 U.S. at 694. “If an
+
+appellant fails to meet his or her burden of proving either prong of
+
+the Strickland test, the reviewing court does not have to examine
+
+the other prong.” Lawrence v. State, 286 Ga. 533, 533-534 (690 SE2d
+
+801) (2010).
+
+     (a) Butler contends that he waived his right to a jury trial in
+
+part because of his trial counsel’s belief that co-defendant Partee
+
+was going to testify against Butler, and implies that his trial counsel
+
+performed deficiently because one predicate for counsel’s advice to
+
+agree to a bench trial—that Partee was going to testify—did not
+
+materialize.   Specifically, when Partee was called to testify at
+
+Butler’s trial, Partee testified that he felt “pressured” to plead guilty,
+
+that what he had agreed to testify about as part of his plea
+
+agreement “wasn’t true,” and that he wanted a jury trial in his case
+
+instead of pleading guilty. As a result, the trial court excused Partee
+
+from the witness stand and the State called its next witness.
+
+                                   20
+     To the extent Butler argues that his trial counsel was deficient
+
+for advising him to waive his right to a jury trial, the reasonableness
+
+of strategic decisions of counsel—in this case, whether to advise his
+
+client to waive his right to a jury trial—are to be “examined from
+
+counsel’s perspective at the time of trial and under the particular
+
+circumstances of the case.” Taylor v. State, 312 Ga. 1, 15 (860 SE2d
+
+470) (2021) (citation and punctuation omitted). See also Ford v.
+
+Tate, 307 Ga. 383, 422 (835 SE2d 198) (2019). And here, the record
+
+shows that there were multiple strategic reasons that could have
+
+supported counsel’s advice to choose a bench trial. To begin, trial
+
+counsel testified at the motion for new trial hearing that at the time
+
+he advised Butler to enter the consent agreement with the State to
+
+hold a bench trial, Partee had agreed to testify against Butler as a
+
+part of Partee’s plea deal and counsel did not want a jury to hear
+
+Partee’s testimony.    But counsel also testified that one of his
+
+primary objectives in negotiating with the State was to convince the
+
+State to withdraw its notice of intent to seek the death penalty,
+
+which it did when Butler entered into the consent agreement and
+
+                                  21
+agreed to have a bench trial instead of a jury trial. Moreover, in
+
+testifying about why he advised Butler to waive his right to a jury
+
+trial, trial counsel also affirmed that Butler’s “overall demeanor”
+
+caused counsel some “trepidation” about “the impression [ ] Butler
+
+would make to a jury.” Especially considering that “[t]rial counsel’s
+
+decisions relating to strategy and tactics are not judged by
+
+hindsight,” Jones, 296 Ga. at 567, we cannot say that any of these
+
+reasons were “objectively unreasonable . . .       considering all the
+
+circumstances and in the light of prevailing professional norms.”
+
+Romer, 293 Ga. at 344; Strickland, 466 U.S. at 687-688.            Trial
+
+counsel’s performance therefore was not deficient.
+
+     (b) In a related argument, Butler contends that his trial
+
+counsel performed deficiently by failing to call Partee as a witness
+
+after Partee’s recantation. Butler characterizes not calling Partee
+
+as a witness as a failure to “present potentially exculpatory
+
+evidence.”
+
+     To begin, it is well settled that the determination of which
+
+witnesses to call is a “matter[ ] of trial strategy and tactics, and such
+
+                                   22
+strategic and tactical decisions do not amount to deficient
+
+performance unless they are so unreasonable that no competent
+
+attorney would have made them under similar circumstances.”
+
+Roseboro v. State, 308 Ga. 428, 437 (841 SE2d 706) (2020) (citation
+
+and punctuation omitted).      But even if we were to assume, for
+
+purposes of argument, that trial counsel’s decision not to call Partee
+
+to testify was unreasonable, Butler did not call Partee to testify at
+
+the motion for new trial hearing or otherwise establish what Partee
+
+would have testified about had he been called as a witness at trial.
+
+As a result, Butler’s claim relies on speculation about what Partee
+
+would have testified about after he unexpectedly backed out of his
+
+plea deal, and Butler cannot meet his burden of proving that he was
+
+prejudiced by the failure to call Partee as a witness. See Alexander
+
+v. State, Case No. S21G0112, 2022 WL 779597, at *9, __ Ga. __, __
+
+(__ SE2d __) (decided Mar. 15, 2022) (“[W]e routinely conclude that
+
+such speculation is insufficient to establish prejudice in a claim of
+
+ineffective assistance of counsel.”); Harris v. State, 304 Ga. 652, 654-
+
+655 (821 SE2d 346) (2018) (defendant failed to prove he was
+
+                                  23
+prejudiced by counsel’s failure to call trial witnesses or elicit certain
+
+testimony because defendant did not provide competent evidence of
+
+what their testimony would be). Having failed to show any prejudice
+
+from counsel’s alleged deficiency, this claim of ineffective assistance
+
+fails.
+
+         (c) Butler also contends that trial counsel performed deficiently
+
+“in his presentation of [ ] Butler’s defense,” specifically by arguing
+
+at trial that Butler was falsely identified as being part of the group
+
+of men who killed Mrs. Ewing, rather than arguing that Butler was
+
+merely present but not a party to the crime of murder because
+
+Blackwell (not Butler) dealt the blows that ultimately killed Mrs.
+
+Ewing.
+
+         “An attorney’s decision about which defense to present is a
+
+question of trial strategy,” and “unless the choice of strategy is
+
+objectively unreasonable, such that no competent trial counsel
+
+would have pursued such a course, we will not second-guess
+
+counsel’s decisions in this regard.” Anthony v. State, 311 Ga. 293,
+
+298 (857 SE2d 682) (2021) (citation and punctuation omitted).
+
+                                     24
+Moreover, “[a]n attorney’s decision about which defense to present
+
+is a question of trial strategy and will generally be considered
+
+reasonable if supported by evidence in the record.” Wilson v. State,
+
+Case No. S22A0005, 2022 WL 451560, at *3, __ Ga. __, __ (869 SE2d
+
+384) (decided Feb. 15, 2022). See also Hendrix v. State, 298 Ga. 60,
+
+63 (779 SE2d 322) (2015) (holding that trial counsel’s election to
+
+pursue   misidentification   over    self-defense   was   objectively
+
+reasonable).
+
+     Here, the record shows that certain aspects of the evidence
+
+presented at trial supported trial counsel’s false identification
+
+argument. For example, one eyewitness failed to identify Butler
+
+from a photographic lineup, and there were apparent discrepancies
+
+in some of the witnesses’ descriptions of the men who were seen at
+
+the Ewings’ home on the day of the home invasion and beatings,
+
+specifically regarding whether Butler had facial hair—a point on
+
+which some witnesses provided inconsistent testimony. Regarding
+
+Butler’s contention that his trial counsel should have argued mere
+
+presence, we note that—as recounted in Division 2—there was
+
+                                25
+strong evidence that Butler was at least a party to the crime of
+
+malice murder. In light of the strong evidence presented at Butler’s
+
+trial, his speculation that a different defense strategy would have
+
+been more successful than the one his trial counsel chose is not
+
+sufficient to establish that his trial counsel performed deficiently.
+
+See Lanier v. State, 310 Ga. 520, 525 (852 SE2d 509) (2020) (“The
+
+fact that appellate counsel would have pursued the defense in
+
+different ways does not render trial counsel ineffective.”) (citation
+
+and punctuation omitted). Under these circumstances, Butler has
+
+not carried his burden of demonstrating that trial counsel’s decision
+
+to present a defense of false identification was objectively
+
+unreasonable. See Wilson, 2022 WL 451560, at *3.
+
+     5. Butler contends that the trial court erred by purporting to
+
+“merge” the felony murder verdicts into the malice murder
+
+conviction for sentencing purposes. The State concedes this point,
+
+and we agree. But because—as noted in footnote 1—the felony
+
+murder verdicts actually were vacated by operation of law, and
+
+because the trial court’s erroneous nomenclature (i.e., referring to
+
+                                 26
+“merging” instead of vacating by operation of law) did not affect
+
+Butler’s sentence, there is no sentencing error we need to correct.
+
+See Manner v. State, 302 Ga. 877, 890-891 (808 SE2d 681) (2017).
+
+     Judgment affirmed. All the Justices concur.
+
+
+
+
+                                27
+

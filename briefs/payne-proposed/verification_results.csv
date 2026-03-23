@@ -1,0 +1,56 @@
+citation,status,confidence,cl_url,matched_name,diagnostics_cat,diagnostics_msg
+"Strickland v. Washington, 466 U.S. 668 (1984)",VERIFIED,1.00,https://www.courtlistener.com/opinion/111170/strickland-v-washington/,Strickland v. Washington,,
+"Reynolds v. State, 306 Ga. 630 (2019)",NOT_FOUND,0.00,,,info,Quick search only: not in citation lookup API
+"Harbuck v. State, 288 Ga. 768 (2011)",POSSIBLE_MATCH,0.30,https://www.courtlistener.com/opinion/2112294/state-v-rozier/,State v. Rozier,name,"Name mismatch: citation exists at this reporter location but belongs to ""State v. Rozier"""
+"Reed v. State, 291 Ga. 10 (2012)",VERIFIED,1.00,https://www.courtlistener.com/opinion/2506728/reed-v-state/,Reed v. State,,
+"Davis v. State, 285 Ga. 343 (2009)",VERIFIED,1.00,https://www.courtlistener.com/opinion/1322724/davis-v-state/,Davis v. State,,
+"Head v. Ferrell, 274 Ga. 399 (2001)",VERIFIED,1.00,https://www.courtlistener.com/opinion/1323520/head-v-ferrell/,Head v. Ferrell,,
+"Rumph v. State, 307 Ga. 477 (2019)",VERIFIED,1.00,https://www.courtlistener.com/opinion/10366942/state-v-rumph/,State v. Rumph,,
+"Jones v. State, 283 Ga. 155 (2008)",POSSIBLE_MATCH,0.30,https://www.courtlistener.com/opinion/1208630/moore-v-state/,Moore v. State,name,"Name mismatch: citation exists at this reporter location but belongs to ""Moore v. State"""
+"Hughes v. State, 269 Ga. App. 242 (2004)",POSSIBLE_MATCH,0.30,https://www.courtlistener.com/opinion/1324101/bravo-v-state/,Bravo v. State,name,"Name mismatch: citation exists at this reporter location but belongs to ""Bravo v. State"""
+"Manzano v. State, 282 Ga. 557 (2007)",VERIFIED,1.00,https://www.courtlistener.com/opinion/1387492/manzano-v-state/,Manzano v. State,,
+"Durden v. State, 327 Ga. App. 173 (2014)",VERIFIED,1.00,https://www.courtlistener.com/opinion/7929776/durden-v-state/,Durden v. State,,
+"Lang v. State, 344 Ga. App. 623 (2018)",NOT_FOUND,0.00,,,info,Quick search only: not in citation lookup API
+"State v. Kelly, 290 Ga. 29 (2011)",VERIFIED,1.00,https://www.courtlistener.com/opinion/2506257/state-v-kelly/,State v. Kelly,,
+"Chapman v. State, 273 Ga. 348 (2001)",VERIFIED,1.00,https://www.courtlistener.com/opinion/1379079/chapman-v-state/,Chapman v. State,,
+"Black v. State, 264 Ga. 550 (1994)",VERIFIED,1.00,https://www.courtlistener.com/opinion/1399641/black-v-state/,Black v. State,,
+"Head v. Carr, 273 Ga. 613 (2001)",VERIFIED,1.00,https://www.courtlistener.com/opinion/1266664/head-v-carr/,Head v. Carr,,
+"Bryant v. State, 268 Ga. App. 362 (2004)",POSSIBLE_MATCH,0.30,https://www.courtlistener.com/opinion/7921700/in-the-interest-of-d-l/,In the Interest of D. L.,name,"Name mismatch: citation exists at this reporter location but belongs to ""In the Interest of D. L."""
+"Mahan v. State, 282 Ga. App. 201 (2006)",VERIFIED,1.00,https://www.courtlistener.com/opinion/7922975/mahan-v-state/,Mahan v. State,,
+"Clark v. State, 315 Ga. 1 (2022)",VERIFIED,1.00,https://www.courtlistener.com/opinion/10679789/clark-v-state/,Clark v. State,,
+"Jones v. State, 296 Ga. 561 (2015)",VERIFIED,1.00,https://www.courtlistener.com/opinion/2779582/jones-v-state/,Jones v. State,,
+"Butler v. State, 313 Ga. 675 (2022)",VERIFIED,1.00,https://www.courtlistener.com/opinion/10679906/butler-v-state/,Butler v. State,,
+"Smith v. State, 314 Ga. App. 583 (2012)",VERIFIED,1.00,https://www.courtlistener.com/opinion/2502877/smith-v-state/,Smith v. State,,
+"Bradley v. State, 318 Ga. 142 (2024)",VERIFIED,1.00,https://www.courtlistener.com/opinion/10680416/bradley-v-state/,Bradley v. State,,
+"Johnson v. Jackson, 140 Ga. App. 252 (1976)",VERIFIED,1.00,https://www.courtlistener.com/opinion/1217054/johnson-v-jackson/,Johnson v. Jackson,,
+"Merneigh v. State, 242 Ga. App. 735 (2000)",VERIFIED,1.00,https://www.courtlistener.com/opinion/1420144/merneigh-v-state/,Merneigh v. State,,
+"Delegal v. State, 109 Ga. 518 (1900)",VERIFIED,1.00,https://www.courtlistener.com/opinion/5719482/delegal-v-state/,Delegal v. State,,
+"Prayor v. State, 217 Ga. App. 56 (1995)",VERIFIED,1.00,https://www.courtlistener.com/opinion/1253106/prayor-v-state/,Prayor v. State,,
+"Hayes v. State, 261 Ga. 439 (1991)",VERIFIED,1.00,https://www.courtlistener.com/opinion/1233384/hayes-v-state/,Hayes v. State,,
+"Chambers v. State, 308 Ga. App. 748",VERIFIED,1.00,https://www.courtlistener.com/opinion/2502836/chambers-v-state/,Chambers v. State,,
+"Reddick v. State, 321 Ga. 73 (2025)",VERIFIED,1.00,https://www.courtlistener.com/opinion/10680534/reddick-v-state/,Reddick v. State,,
+"Patel v. State, 279 Ga. 750",VERIFIED,1.00,https://www.courtlistener.com/opinion/1245424/patel-v-state/,Patel v. State,,
+"Patel v. State, 279 Ga. 50",POSSIBLE_MATCH,0.30,https://www.courtlistener.com/opinion/1256046/smith-v-state/,Smith v. State,name,"Name mismatch: citation exists at this reporter location but belongs to ""Smith v. State"""
+"Nelson v. State, 283 Ga. 119 (2008)",VERIFIED,1.00,https://www.courtlistener.com/opinion/1374685/nelson-v-state/,Nelson v. State,,
+"Davis v. State, 269 Ga. 276 (1998)",VERIFIED,1.00,https://www.courtlistener.com/opinion/1398343/davis-v-state/,Davis v. State,,
+"Hamm v. State, 294 Ga. 791 (2014)",VERIFIED,1.00,https://www.courtlistener.com/opinion/2687390/hamm-v-state/,Hamm v. State,,
+"Wainwright v. State, 305 Ga. 63 (2019)",VERIFIED,1.00,https://www.courtlistener.com/opinion/7479307/wainwright-v-state/,Wainwright v. State,,
+"Powers v. State, 297 Ga. 345 (2015)",VERIFIED,1.00,https://www.courtlistener.com/opinion/2808301/powers-v-state/,Powers v. State,,
+"Tarvestad v. State, 261 Ga. 605",VERIFIED,1.00,https://www.courtlistener.com/opinion/1409138/tarvestad-v-state/,Tarvestad v. State,,
+"Virgil v. State, 227 Ga. App. 96",VERIFIED,1.00,https://www.courtlistener.com/opinion/5793070/virgil-v-state/,Virgil v. State,,
+"Montgomery v. State, 315 Ga. 467 (2023)",VERIFIED,1.00,https://www.courtlistener.com/opinion/10680180/montgomery-v-state/,Montgomery v. State,,
+"Walker v. State, 292 Ga. 262 (2013)",VERIFIED,1.00,https://www.courtlistener.com/opinion/5748911/walker-v-state/,Walker v. State,,
+"State v. Denson, 306 Ga. 795 (2019)",VERIFIED,1.00,https://www.courtlistener.com/opinion/10367022/state-v-denson/,State v. Denson,,
+"State v. Hamilton, 306 Ga. 678 (2019)",VERIFIED,1.00,https://www.courtlistener.com/opinion/10367039/state-v-hamilton/,State v. Hamilton,,
+"Hargrave v. State, 311 Ga. App. 852 (2011)",VERIFIED,1.00,https://www.courtlistener.com/opinion/2501796/hargrave-v-state/,Hargrave v. State,,
+"Taylor v. State, 259 Ga. App. 457 (2003)",VERIFIED,1.00,https://www.courtlistener.com/opinion/1155076/taylor-v-state/,Taylor v. State,,
+"Jackson v. Virginia, 443 U.S. 307 (1979)",VERIFIED,1.00,https://www.courtlistener.com/opinion/110138/jackson-v-virginia/,Jackson v. Virginia,,
+"Caldwell v. State, 263 Ga. 560 (1993)",VERIFIED,1.00,https://www.courtlistener.com/opinion/1229904/caldwell-v-state/,Caldwell v. State,,
+"Vega v. State, 285 Ga. 32 (2009)",VERIFIED,1.00,https://www.courtlistener.com/opinion/1291675/vega-v-state/,Vega v. State,,
+"Santiago v. State, 314 Ga. App. 623 (2012)",VERIFIED,1.00,https://www.courtlistener.com/opinion/2507789/santiago-v-state/,Santiago v. State,,
+"Choisnet v. State, 292 Ga. 860 (2013)",VERIFIED,1.00,https://www.courtlistener.com/opinion/5749040/choisnet-v-state/,Choisnet v. State,,
+"Goldsby v. State, 273 Ga. App. 523 (2005)",VERIFIED,1.00,https://www.courtlistener.com/opinion/1279473/goldsby-v-state/,Goldsby v. State,,
+"Smiley v. State, 300 Ga. 582 (2017)",VERIFIED,1.00,https://www.courtlistener.com/opinion/5749590/smiley-v-state/,Smiley v. State,,
+"Mickens v. State, 277 Ga. 627 (2004)",VERIFIED,1.00,https://www.courtlistener.com/opinion/1351880/mickens-v-state/,Mickens v. State,,
+"Reynolds v. State, 306 Ga. 630 (2019)",POSSIBLE_MATCH,0.60,https://www.courtlistener.com/opinion/7479754/bailey-v-state/,Bailey v. State,name; cite,"Name mismatch: cited ""Reynolds v. State"" vs found ""Bailey v. State""; Citation mismatch: cited 306 Ga. 630 but CourtListener has 828 S.E.2d 300, but we identified a possible match."
+"Lang v. State, 344 Ga. App. 623 (2018)",LIKELY_REAL,0.90,https://www.courtlistener.com/opinion/7478231/lang-v-state/,Lang v. State,cite,"Citation mismatch: cited 344 Ga. App. 623 but CourtListener has 812 S.E.2d 16, but we identified a likely match."

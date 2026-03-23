@@ -1,0 +1,28 @@
+{
+  "configs": {
+    "opus-baseline": {
+      "description": "Current approach: Opus, no hints, standard prompt",
+      "model": "opus",
+      "include_hints": false,
+      "include_brief_context": false
+    },
+    "sonnet-baseline": {
+      "description": "Same prompt but Sonnet -- tests if cheaper model is good enough",
+      "model": "sonnet",
+      "include_hints": false,
+      "include_brief_context": false
+    },
+    "sonnet-with-hints": {
+      "description": "Sonnet with Haiku summary hints -- can hints compensate for smaller model?",
+      "model": "sonnet",
+      "include_hints": true,
+      "include_brief_context": false
+    },
+    "opus-with-hints": {
+      "description": "Opus with Haiku summary hints -- does giving hints improve accuracy?",
+      "model": "opus",
+      "include_hints": true,
+      "include_brief_context": false
+    }
+  }
+}

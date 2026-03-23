@@ -1,0 +1,617 @@
+{
+  "reviewed_by": "Rebecca Fordon",
+  "reviewed_date": "2026-03-22",
+  "notes": "Human-reviewed ground truth. Payne opinions in briefs/payne-proposed/opinions/, Wainwright opinions in briefs/wainwright-v-state/opinions/. Runner resolves paths based on source field.",
+  "cases": [
+    {
+      "source": "payne",
+      "id": 11,
+      "opinion_file": "opinions/Manzano_v_State.html",
+      "cited_case": "Manzano v. State, 282 Ga. 557 (2007)",
+      "proposition": "A justification charge does not require a charge on citizen's arrest unless the facts specifically support that additional theory",
+      "expected_assessment": "Red",
+      "quote_check_worst": "NO_QUOTES",
+      "notes": "no mention of justification charge or citizens arrest"
+    },
+    {
+      "source": "payne",
+      "id": 12,
+      "opinion_file": "opinions/Manzano_v_State.html",
+      "cited_case": "Manzano v. State, 282 Ga. 557, 559 (2007)",
+      "proposition": "A charge on justification is proper where the defendant contends that his actions were legally authorized and necessary to prevent a crime or injury",
+      "expected_assessment": "Red",
+      "quote_check_worst": "FABRICATED",
+      "notes": "no mention of justification charge or citizens arrest"
+    },
+    {
+      "source": "payne",
+      "id": 14,
+      "opinion_file": "opinions/Durden_v_State.html",
+      "cited_case": "Durden v. State, 327 Ga. App. 173, 179 (2014)",
+      "proposition": "Although the defendant requested a charge on citizen's arrest, the trial court properly charged justification, which covered the substance of his defense; a trial court is not required to give redundant instructions",
+      "expected_assessment": "Red",
+      "quote_check_worst": "FABRICATED",
+      "notes": "no mention of justification charge or citizens arrest"
+    },
+    {
+      "source": "payne",
+      "id": 15,
+      "opinion_file": "opinions/Lang_v_State.html",
+      "cited_case": "Lang v. State, 344 Ga. App. 623, 627 (2018)",
+      "proposition": "A citizen's arrest defense is not required when a justification charge sufficiently encompasses the defendant's theory of the case",
+      "expected_assessment": "Red",
+      "quote_check_worst": "FABRICATED",
+      "notes": "no mention of justification charge or citizens arrest"
+    },
+    {
+      "source": "payne",
+      "id": 16,
+      "opinion_file": "opinions/State_v_Kelly.html",
+      "cited_case": "State v. Kelly, 290 Ga. 29, 33 (2011)",
+      "proposition": "The trial court did not err plainly or otherwise because the justification charge already covered the legal defense raised; plain error requires a clear legal mistake that affects substantial rights and the fairness of proceedings",
+      "expected_assessment": "Red",
+      "quote_check_worst": "NO_QUOTES",
+      "notes": "no mention of justification charge or citizens arrest"
+    },
+    {
+      "source": "payne",
+      "id": 59,
+      "opinion_file": "opinions/Virgil_v_State.html",
+      "cited_case": "Virgil v. State, 227 Ga. App. 96",
+      "proposition": "A jury charge on a defendant's sole defense, such as citizen's arrest, is only required if there is some evidence to support the charge; there must be a legitimate basis for the defense",
+      "expected_assessment": "Yellow",
+      "quote_check_worst": "FABRICATED",
+      "notes": "this case did involve a requested charge on a defense. The quote does not appear, but the proposition is somewhat supported."
+    },
+    {
+      "source": "payne",
+      "id": 79,
+      "opinion_file": "opinions/Goldsby_v_State.html",
+      "cited_case": "Goldsby v. State, 273 Ga. App. 523 (2005)",
+      "proposition": "The testimony of a single witness is generally sufficient to establish a fact",
+      "expected_assessment": "Red",
+      "quote_check_worst": "FABRICATED",
+      "notes": "Discusses accomplice corroboration, not single witness sufficiency. Big stretch, exact quote does not appear."
+    },
+    {
+      "source": "payne",
+      "id": 2,
+      "opinion_file": "opinions/State_v_Rozier.html",
+      "cited_case": "Harbuck v. State, 288 Ga. 768 (2011)",
+      "proposition": "Georgia courts have made it clear that a valid citizen's arrest must occur immediately and without delay",
+      "expected_assessment": "Red",
+      "quote_check_worst": "NO_QUOTES",
+      "notes": "wrong case - quiet title property action, no mention of citizen's arrest"
+    },
+    {
+      "source": "payne",
+      "id": 23,
+      "opinion_file": "opinions/In_the_Interest_of_D_L.html",
+      "cited_case": "Bryant v. State, 268 Ga. App. 362 (2004)",
+      "proposition": "The defendant must make an affirmative showing that the witness would have testified and that the testimony would have made a difference",
+      "expected_assessment": "Red",
+      "quote_check_worst": "NO_QUOTES",
+      "notes": "wrong case - parental rights termination, no mention of potential testimony"
+    },
+    {
+      "source": "payne",
+      "id": 32,
+      "opinion_file": "opinions/Clark_v_State.html",
+      "cited_case": "Clark v. State, 315 Ga. 1, 4 (2022)",
+      "proposition": "Hindsight has no place in an assessment of the performance of trial counsel",
+      "expected_assessment": "Green",
+      "quote_check_worst": "VERBATIM",
+      "notes": "quote is there, but left out that this case is quoting another case."
+    },
+    {
+      "source": "payne",
+      "id": 33,
+      "opinion_file": "opinions/Mahan_v_State.html",
+      "cited_case": "Mahan v. State, 282 Ga. App. 201, 204 (2006)",
+      "proposition": "The fact that defendant and his present counsel disagree with the decision made by trial counsel does not require a finding that defendant's original representation was inadequate",
+      "expected_assessment": "Green",
+      "quote_check_worst": "VERBATIM",
+      "notes": "quote is there, but left out that this case is quoting another case."
+    },
+    {
+      "source": "payne",
+      "id": 34,
+      "opinion_file": "opinions/Jones_v_State.html",
+      "cited_case": "Jones v. State, 296 Ga. 561, 567 (2015)",
+      "proposition": "Trial counsel's decisions relating to strategy and tactics are not judged by hindsight",
+      "expected_assessment": "Green",
+      "quote_check_worst": "VERBATIM",
+      "notes": ""
+    },
+    {
+      "source": "payne",
+      "id": 38,
+      "opinion_file": "opinions/Johnson_v_Jackson.html",
+      "cited_case": "Johnson v. Jackson, 140 Ga. App. 252 (1976)",
+      "proposition": "The terms \"in his presence\" and \"within his immediate knowledge\" are synonymous under the citizen's arrest statute, meaning that a crime is considered to be committed in a citizen's presence if they acquire knowledge of its commission through the exercise of any of their senses",
+      "expected_assessment": "Green",
+      "quote_check_worst": "VERBATIM",
+      "notes": ""
+    },
+    {
+      "source": "payne",
+      "id": 69,
+      "opinion_file": "opinions/Montgomery_v_State.html",
+      "cited_case": "Montgomery v. State, 315 Ga. 467, 473 (2023)",
+      "proposition": "These statutes known as general grounds afford the Court broad discretion to sit as a thirteenth juror and weigh the evidence on a motion for new trial alleging these general grounds",
+      "expected_assessment": "Green",
+      "quote_check_worst": "VERBATIM",
+      "notes": ""
+    },
+    {
+      "source": "payne",
+      "id": 73,
+      "opinion_file": "opinions/Hargrave_v_State.html",
+      "cited_case": "Hargrave v. State, 311 Ga. App. 852, 855 (2011)",
+      "proposition": "The grant or denial of a motion for new trial is a matter within the sound discretion of the trial court and will not be disturbed if there is any evidence to authorize it",
+      "expected_assessment": "Green",
+      "quote_check_worst": "VERBATIM",
+      "notes": "quote is there, but left out that this case is quoting another case."
+    },
+    {
+      "source": "payne",
+      "id": 77,
+      "opinion_file": "opinions/Vega_v_State.html",
+      "cited_case": "Vega v. State, 285 Ga. 32 (2009)",
+      "proposition": "It is for the jury to determine the credibility of the witnesses and to resolve any conflicts or inconsistencies in the evidence",
+      "expected_assessment": "Green",
+      "quote_check_worst": "VERBATIM",
+      "notes": "quote is there, but left out that this case is quoting another case."
+    },
+    {
+      "source": "payne",
+      "id": 0,
+      "opinion_file": "opinions/Strickland_v_Washington.html",
+      "cited_case": "Strickland v. Washington, 466 U.S. 668 (1984)",
+      "proposition": "To prevail on a claim of ineffective assistance of counsel, a defendant must satisfy the two-prong test: (1) counsel's performance was deficient, falling below an objective standard of reasonableness, and (2) the deficient performance prejudiced the defense to the extent that there is a reasonable probability the outcome would have been different but for counsel's errors",
+      "expected_assessment": "Green",
+      "quote_check_worst": "NO_QUOTES",
+      "notes": ""
+    },
+    {
+      "source": "payne",
+      "id": 42,
+      "opinion_file": "opinions/Prayor_v_State.html",
+      "cited_case": "Prayor v. State, 217 Ga. App. 56 (1995)",
+      "proposition": "For felonies, a citizen may also arrest upon reasonable and probable grounds of suspicion if the offender is escaping or attempting to escape",
+      "expected_assessment": "Green",
+      "quote_check_worst": "NO_QUOTES",
+      "notes": ""
+    },
+    {
+      "source": "payne",
+      "id": 43,
+      "opinion_file": "opinions/Prayor_v_State.html",
+      "cited_case": "Prayor v. State, 217 Ga. App. 56, 58 (1995)",
+      "proposition": "For a citizen's arrest to be valid, the citizen must use no more force than is reasonable under the circumstances; deadly force in effecting an arrest is limited to self-defense or to a situation in which it is necessary to prevent a forcible felony",
+      "expected_assessment": "Green",
+      "quote_check_worst": "NO_QUOTES",
+      "notes": "quote is there, but left out that this case is quoting another case."
+    },
+    {
+      "source": "payne",
+      "id": 48,
+      "opinion_file": "opinions/Reddick_v_State.html",
+      "cited_case": "Reddick v. State, 321 Ga. 73 (2025)",
+      "proposition": "Excessive or unlawful force, even when acting in self-defense, is not justifiable",
+      "expected_assessment": "Green",
+      "quote_check_worst": "NO_QUOTES",
+      "notes": "quote is there, but left out that this case is quoting another case."
+    },
+    {
+      "source": "payne",
+      "id": 54,
+      "opinion_file": "opinions/Wainwright_v_State.html",
+      "cited_case": "Wainwright v. State, 305 Ga. 63 (2019)",
+      "proposition": "The use of force is not justified if the individual was the initial aggressor, unless they withdraw from the encounter and effectively communicate their intent to do so",
+      "expected_assessment": "Green",
+      "quote_check_worst": "NO_QUOTES",
+      "notes": "yes, but quoting from statute; and the case itself is about whether a jury charge is warranted, not whether the use of force was appropriate."
+    },
+    {
+      "source": "payne",
+      "id": 75,
+      "opinion_file": "opinions/Jackson_v_Virginia.html",
+      "cited_case": "Jackson v. Virginia, 443 U.S. 307 (1979)",
+      "proposition": "The standard for reviewing the sufficiency of evidence is whether the evidence was sufficient for a rational trier of fact to find beyond a reasonable doubt that the defendant was guilty of the charged offenses",
+      "expected_assessment": "Yellow",
+      "quote_check_worst": "NO_QUOTES",
+      "notes": "This was about the standard in a habeas case, not the same as for an appeal or motion for new trial."
+    },
+    {
+      "source": "payne",
+      "id": 3,
+      "opinion_file": "opinions/Reed_v_State.html",
+      "cited_case": "Reed v. State, 291 Ga. 10 (2012)",
+      "proposition": "The failure to request a jury instruction not supported by the evidence does not constitute deficient performance",
+      "expected_assessment": "Red",
+      "quote_check_worst": "NO_QUOTES",
+      "notes": "Nothing in this case about failure to request jury instruction."
+    },
+    {
+      "source": "payne",
+      "id": 47,
+      "opinion_file": "opinions/Chambers_v_State.html",
+      "cited_case": "Chambers v. State, 308 Ga. App. 748",
+      "proposition": "Excessive or unlawful force, even when acting in self-defense, is not justifiable",
+      "expected_assessment": "Green",
+      "quote_check_worst": "NO_QUOTES",
+      "notes": "proposition agent got the proposition wrong here. Chambers is offered for proposition that deadly force is justified if the individual reasonably believes it is necessary to prevent death or great bodily injury"
+    },
+    {
+      "source": "payne",
+      "id": 50,
+      "opinion_file": "opinions/Nelson_v_State.html",
+      "cited_case": "Nelson v. State, 283 Ga. 119, 121 (2008)",
+      "proposition": "A citizen's arrest charge is not warranted unless there is some evidence to support each statutory element; no citizen's arrest instruction required where defendant did not personally witness the crime",
+      "expected_assessment": "Red",
+      "quote_check_worst": "NO_QUOTES",
+      "notes": "case has nothing to do with citizen's arrest"
+    },
+    {
+      "source": "payne",
+      "id": 52,
+      "opinion_file": "opinions/Hamm_v_State.html",
+      "cited_case": "Hamm v. State, 294 Ga. 791, 795 (2014)",
+      "proposition": "Trial counsel was not deficient for failing to request an unsupported instruction; no ineffective assistance for failing to request a charge not adjusted to the evidence",
+      "expected_assessment": "Yellow",
+      "quote_check_worst": "NO_QUOTES",
+      "notes": "case is about accomplice liability with different instruction rules. Court said the charge WAS required. Only slight evidence needed."
+    },
+    {
+      "source": "payne",
+      "id": 58,
+      "opinion_file": "opinions/Tarvestad_v_State.html",
+      "cited_case": "Tarvestad v. State, 261 Ga. 605",
+      "proposition": "A jury charge on a defendant's sole defense, such as citizen's arrest, is only required if there is some evidence to support the charge; there must be a legitimate basis for the defense",
+      "expected_assessment": "Yellow",
+      "quote_check_worst": "FABRICATED",
+      "notes": "No exact quote. Not a great case - the charge wasn't necessary because the entire charge fairly presented the defendant's theory."
+    },
+    {
+      "source": "wainwright",
+      "id": 0,
+      "opinion_file": "opinions/Jackson_v_Virginia.html",
+      "cited_case": "Jackson v. Virginia, 443 U.S. 307, 318-319 (1979)",
+      "proposition": "The evidence presented against Wainwright was sufficient to authorize a rational jury to find beyond a reasonable doubt that he was guilty of the crimes for which he was convicted.",
+      "expected_assessment": "Green",
+      "quote_check_worst": "NO_QUOTES",
+      "notes": ""
+    },
+    {
+      "source": "wainwright",
+      "id": 1,
+      "opinion_file": "opinions/Phoenix_v_State.html",
+      "cited_case": "Phoenix v. State, 304 Ga. 785, 788 (2018)",
+      "proposition": "Without a clear showing of abuse of the trial court's broad discretion, an appellate court will not disturb the trial court's decision to deny a motion for continuance.",
+      "expected_assessment": "Green",
+      "quote_check_worst": "NO_QUOTES",
+      "notes": ""
+    },
+    {
+      "source": "wainwright",
+      "id": 2,
+      "opinion_file": "opinions/Phoenix_v_State.html",
+      "cited_case": "Phoenix v. State, 304 Ga. 785, 788 (2018)",
+      "proposition": "To be entitled to a new trial based upon the denial of his motion for continuance, the defendant has the burden to show that he was harmed by that denial.",
+      "expected_assessment": "Green",
+      "quote_check_worst": "VERBATIM",
+      "notes": ""
+    },
+    {
+      "source": "wainwright",
+      "id": 3,
+      "opinion_file": "opinions/Geiger_v_State.html",
+      "cited_case": "Geiger v. State, 295 Ga. 648, 651 (2014)",
+      "proposition": "To be entitled to a new trial based upon the denial of his motion for continuance, the defendant has the burden to show that he was harmed by that denial.",
+      "expected_assessment": "Green",
+      "quote_check_worst": "NO_QUOTES",
+      "notes": ""
+    },
+    {
+      "source": "wainwright",
+      "id": 4,
+      "opinion_file": "opinions/Cox_v_State.html",
+      "cited_case": "Cox v. State, 279 Ga. 223, 226 (2005)",
+      "proposition": "There is no inherent violation of a defendant's constitutional right to counsel when an associate of lead counsel represents the defendant.",
+      "expected_assessment": "Green",
+      "quote_check_worst": "NO_QUOTES",
+      "notes": ""
+    },
+    {
+      "source": "wainwright",
+      "id": 5,
+      "opinion_file": "opinions/Phoenix_v_State.html",
+      "cited_case": "Phoenix v. State, 304 Ga. 785 (2018)",
+      "proposition": "Mere speculation and conjecture that harm occurred is not enough to show harmful error in a continuance denial.",
+      "expected_assessment": "Green",
+      "quote_check_worst": "NO_QUOTES",
+      "notes": ""
+    },
+    {
+      "source": "wainwright",
+      "id": 6,
+      "opinion_file": "opinions/Geiger_v_State.html",
+      "cited_case": "Geiger v. State, 295 Ga. 648, 651-652 (2014)",
+      "proposition": "Mere speculation and conjecture that harm occurred is not enough to show harmful error in a continuance denial.",
+      "expected_assessment": "Green",
+      "quote_check_worst": "NO_QUOTES",
+      "notes": ""
+    },
+    {
+      "source": "wainwright",
+      "id": 7,
+      "opinion_file": "opinions/Strickland_v_Washington.html",
+      "cited_case": "Strickland v. Washington, 466 U.S. 668, 687-695 (1984)",
+      "proposition": "To prevail on a claim of ineffective assistance of counsel, a defendant generally must show both that counsel's performance was deficient and that the deficient performance prejudiced the defendant -- a reasonable probability that the result of the trial would have been different absent counsel's deficient performance.",
+      "expected_assessment": "Green",
+      "quote_check_worst": "NO_QUOTES",
+      "notes": ""
+    },
+    {
+      "source": "wainwright",
+      "id": 8,
+      "opinion_file": "opinions/Wesley_v_State.html",
+      "cited_case": "Wesley v. State, 286 Ga. 355, 356 (2010)",
+      "proposition": "To prevail on a claim of ineffective assistance of counsel, a defendant generally must show both that counsel's performance was deficient and that the deficient performance prejudiced the defendant.",
+      "expected_assessment": "Green",
+      "quote_check_worst": "NO_QUOTES",
+      "notes": ""
+    },
+    {
+      "source": "wainwright",
+      "id": 9,
+      "opinion_file": "opinions/United_States_v_Cronic.html",
+      "cited_case": "United States v. Cronic, 466 U.S. 648, 659 (1984)",
+      "proposition": "Wainwright argues that prejudice should be presumed because he was effectively denied effective assistance of counsel at a critical stage of his trial, citing the constructive denial of counsel doctrine.",
+      "expected_assessment": "Green",
+      "quote_check_worst": "NO_QUOTES",
+      "notes": ""
+    },
+    {
+      "source": "wainwright",
+      "id": 10,
+      "opinion_file": "opinions/Charleston_v_State.html",
+      "cited_case": "Charleston v. State, 292 Ga. 678, 682-683 (2013)",
+      "proposition": "Cronic's constructive denial of counsel exception to the general Strickland standard is a narrow one that applies only when there was a breakdown in the adversarial process such that counsel entirely fails to subject the prosecution's case to meaningful adversarial testing.",
+      "expected_assessment": "Green",
+      "quote_check_worst": "CLOSE",
+      "notes": "agent may have gotten the exact quotes mixed up. Both quotes are in the case verbatim."
+    },
+    {
+      "source": "wainwright",
+      "id": 11,
+      "opinion_file": "opinions/United_States_v_Cronic.html",
+      "cited_case": "United States v. Cronic, 466 U.S. 648, 659, 662 (1984)",
+      "proposition": "Cronic's constructive denial of counsel exception to the general Strickland standard is a narrow one that applies only when there was a breakdown in the adversarial process such that counsel entirely fails to subject the prosecution's case to meaningful adversarial testing.",
+      "expected_assessment": "Green",
+      "quote_check_worst": "NO_QUOTES",
+      "notes": ""
+    },
+    {
+      "source": "wainwright",
+      "id": 12,
+      "opinion_file": "opinions/Charleston_v_State.html",
+      "cited_case": "Charleston v. State, 292 Ga. 678, 682-683 (2013)",
+      "proposition": "The Cronic exception requires an attorney's failure to be complete and must occur throughout the proceeding and not merely at specific points.",
+      "expected_assessment": "Green",
+      "quote_check_worst": "CLOSE",
+      "notes": "brackets indicate slight alteration (must to [to])"
+    },
+    {
+      "source": "wainwright",
+      "id": 13,
+      "opinion_file": "opinions/Turpin_v_Curtis.html",
+      "cited_case": "Turpin v. Curtis, 278 Ga. 698, 699 (2004)",
+      "proposition": "The Cronic exception requires an attorney's failure to be complete and must occur throughout the proceeding and not merely at specific points.",
+      "expected_assessment": "Green",
+      "quote_check_worst": "NO_QUOTES",
+      "notes": ""
+    },
+    {
+      "source": "wainwright",
+      "id": 14,
+      "opinion_file": "opinions/Charleston_v_State.html",
+      "cited_case": "Charleston v. State, 292 Ga. 678, 683 (2013)",
+      "proposition": "Given that co-counsel was present throughout, Morris's cross-examination of a single witness after missing most of her direct examination does not meet the stringent Cronic standard, and Strickland's two-part test remains appropriate.",
+      "expected_assessment": "Green",
+      "quote_check_worst": "VERBATIM",
+      "notes": ""
+    },
+    {
+      "source": "wainwright",
+      "id": 15,
+      "opinion_file": "opinions/Baker_v_State.html",
+      "cited_case": "Baker v. State, 293 Ga. 811, 815 (2013)",
+      "proposition": "Wainwright has not established a reasonable probability that the result of his trial would have been different absent Morris's alleged deficiencies; mere speculation that counsel failed to properly cross-examine a witness is not enough to show prejudice.",
+      "expected_assessment": "Green",
+      "quote_check_worst": "NO_QUOTES",
+      "notes": ""
+    },
+    {
+      "source": "wainwright",
+      "id": 16,
+      "opinion_file": "opinions/Lawrence_v_State.html",
+      "cited_case": "Lawrence v. State, 286 Ga. 533, 533-534 (2010)",
+      "proposition": "If an appellant fails to meet his or her burden of proving either prong of the Strickland test, the reviewing court does not have to examine the other prong.",
+      "expected_assessment": "Green",
+      "quote_check_worst": "FABRICATED",
+      "notes": "Quote is there but star pagination interfered with matching"
+    },
+    {
+      "source": "wainwright",
+      "id": 17,
+      "opinion_file": "opinions/Hammond_v_State.html",
+      "cited_case": "Hammond v. State, 273 Ga. 442, 444 (2001)",
+      "proposition": "Upon a party's request, the trial court is required to put the jurors in the jury box in groups of 12 for examination of individual jurors because the statute does not provide for the exercise of judicial discretion in this matter.",
+      "expected_assessment": "Green",
+      "quote_check_worst": "CLOSE",
+      "notes": "Missing the only; otherwise exact match"
+    },
+    {
+      "source": "wainwright",
+      "id": 18,
+      "opinion_file": "opinions/Raven_v_State.html",
+      "cited_case": "Raven v. State, 256 Ga. 366, 367 (1986)",
+      "proposition": "Error in denying a request to place jurors in panels of 12 will not warrant reversal if the defendant is not harmed by it.",
+      "expected_assessment": "Green",
+      "quote_check_worst": "NO_QUOTES",
+      "notes": ""
+    },
+    {
+      "source": "wainwright",
+      "id": 19,
+      "opinion_file": "opinions/Jones_v_State.html",
+      "cited_case": "Jones v. State, 217 Ga. App. 722, 723 (1995)",
+      "proposition": "A trial court's error in denying a defendant's request to place the jury in panels of 12 for individual questioning has been held harmless when the evidence of guilt was overwhelming.",
+      "expected_assessment": "Green",
+      "quote_check_worst": "NO_QUOTES",
+      "notes": ""
+    },
+    {
+      "source": "wainwright",
+      "id": 20,
+      "opinion_file": "opinions/Mathis_v_State.html",
+      "cited_case": "Mathis v. State, 176 Ga. App. 362 (1985)",
+      "proposition": "A trial court's error in denying a defendant's request to place the jury in panels of 12 for individual questioning has been held harmless when the evidence of guilt was overwhelming.",
+      "expected_assessment": "Green",
+      "quote_check_worst": "NO_QUOTES",
+      "notes": ""
+    },
+    {
+      "source": "wainwright",
+      "id": 21,
+      "opinion_file": "opinions/Hicks_v_State.html",
+      "cited_case": "Hicks v. State, 287 Ga. 260, 262 (2010)",
+      "proposition": "To authorize a requested jury instruction, there need only be slight evidence supporting the theory of the charge.",
+      "expected_assessment": "Green",
+      "quote_check_worst": "VERBATIM",
+      "notes": ""
+    },
+    {
+      "source": "wainwright",
+      "id": 22,
+      "opinion_file": "opinions/Mills_v_State.html",
+      "cited_case": "Mills v. State, 287 Ga. 828, 832 (2010)",
+      "proposition": "When the evidence shows that a defendant acted with criminal intent, was engaged in a criminal scheme, or was criminally negligent, the affirmative defense of accident is unavailable and a jury charge on accident is not warranted.",
+      "expected_assessment": "Green",
+      "quote_check_worst": "NO_QUOTES",
+      "notes": ""
+    },
+    {
+      "source": "wainwright",
+      "id": 23,
+      "opinion_file": "opinions/Powers_v_State.html",
+      "cited_case": "Powers v. State, 297 Ga. 345, 349 (2015)",
+      "proposition": "A defendant who was the aggressor is not entitled to a jury instruction on justification.",
+      "expected_assessment": "Green",
+      "quote_check_worst": "VERBATIM",
+      "notes": ""
+    },
+    {
+      "source": "wainwright",
+      "id": 24,
+      "opinion_file": "opinions/Brunson_v_State.html",
+      "cited_case": "Brunson v. State, 293 Ga. 226, 227-228 (2013)",
+      "proposition": "A defendant is not entitled to a self-defense charge where the victim initiated a struggle because the defendant threatened him with a firearm.",
+      "expected_assessment": "Green",
+      "quote_check_worst": "NO_QUOTES",
+      "notes": ""
+    },
+    {
+      "source": "wainwright",
+      "id": 25,
+      "opinion_file": "opinions/Kilpatrick_v_State.html",
+      "cited_case": "Kilpatrick v. State, 252 Ga. App. 900, 904 (2001)",
+      "proposition": "It would turn the law on its head to allow an armed aggressor, who confronts an unarmed nonthreatening victim, to claim self-defense when the victim is shot during the victim's struggle to disarm the aggressor.",
+      "expected_assessment": "Green",
+      "quote_check_worst": "VERBATIM",
+      "notes": ""
+    },
+    {
+      "source": "wainwright",
+      "id": 26,
+      "opinion_file": "opinions/Berrian_v_State.html",
+      "cited_case": "Berrian v. State, 297 Ga. 740, 742 (2015)",
+      "proposition": "Evidence of mutual combat may authorize the jury to find the defendant guilty of voluntary manslaughter.",
+      "expected_assessment": "Green",
+      "quote_check_worst": "CLOSE",
+      "notes": "full quote includes more context about malice murder"
+    },
+    {
+      "source": "wainwright",
+      "id": 27,
+      "opinion_file": "opinions/Watson_v_State.html",
+      "cited_case": "Watson v. State, 298 Ga. 348, 350 (2016)",
+      "proposition": "Reluctance, or fighting to repel an unprovoked attack, is self-defense and should not be confused with mutual combat; there was no evidence to support a finding of mutual combat.",
+      "expected_assessment": "Green",
+      "quote_check_worst": "CLOSE",
+      "notes": "exact match but technically quoting Berrian"
+    },
+    {
+      "source": "wainwright",
+      "id": 28,
+      "opinion_file": "opinions/Palmer_v_State.html",
+      "cited_case": "Palmer v. State, 303 Ga. 810 (2018)",
+      "proposition": "Palmer's convictions have already been affirmed by this Court.",
+      "expected_assessment": "Green",
+      "quote_check_worst": "NO_QUOTES",
+      "notes": ""
+    },
+    {
+      "source": "wainwright",
+      "id": 29,
+      "opinion_file": "opinions/Dixon_v_State.html",
+      "cited_case": "Dixon v. State, 302 Ga. 691, 698 (2017)",
+      "proposition": "When a merger error benefits a defendant and the State fails to raise it by cross-appeal, the court generally does not correct the error.",
+      "expected_assessment": "Green",
+      "quote_check_worst": "NO_QUOTES",
+      "notes": ""
+    },
+    {
+      "source": "wainwright",
+      "id": 30,
+      "opinion_file": "opinions/Thomas_v_State.html",
+      "cited_case": "Thomas v. State, 289 Ga. 877, 880 (2011)",
+      "proposition": "Because the evidence shows that Wainwright's aggravated assault of Sanusi by shooting him was part of the same transaction as the armed robbery of Sanusi, the aggravated assault conviction should have been merged.",
+      "expected_assessment": "Green",
+      "quote_check_worst": "NO_QUOTES",
+      "notes": ""
+    },
+    {
+      "source": "wainwright",
+      "id": 31,
+      "opinion_file": "opinions/in_the_Matter_of_Ricky_W_Morris_Jr.html",
+      "cited_case": "In the Matter of Morris, 302 Ga. 862 (2018)",
+      "proposition": "Morris was disbarred by order of this Court on January 29, 2018, after Wainwright's trial, for issues unrelated to his representation of Wainwright.",
+      "expected_assessment": "Green",
+      "quote_check_worst": "NO_QUOTES",
+      "notes": ""
+    },
+    {
+      "source": "wainwright",
+      "id": 32,
+      "opinion_file": "opinions/Anthony_v_State.html",
+      "cited_case": "Anthony v. State, 302 Ga. 546, 555 (2017)",
+      "proposition": "The fact that counsel was subsequently disbarred does not itself show ineffective assistance in a particular case.",
+      "expected_assessment": "Green",
+      "quote_check_worst": "CLOSE",
+      "notes": "page number/footnote and acknowledged alterations"
+    },
+    {
+      "source": "wainwright",
+      "id": 33,
+      "opinion_file": "opinions/Simmons_v_State.html",
+      "cited_case": "Simmons v. State, 291 Ga. 705, 713 (2012)",
+      "proposition": "The fact that counsel was subsequently disbarred does not itself show ineffective assistance in a particular case.",
+      "expected_assessment": "Green",
+      "quote_check_worst": "NO_QUOTES",
+      "notes": "involved voluntary surrender of license, good see also"
+    }
+  ]
+}
