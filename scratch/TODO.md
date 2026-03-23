@@ -214,6 +214,29 @@ Assessment agent prompts must explicitly say "Do NOT use any external tools like
 ### Assessment-to-CSV workflow
 Currently requires throwaway Python scripts to write subagent JSON results into claims.csv. Options: (a) subagents write JSON sidecar files, single merge step updates CSV; (b) orchestrator uses Edit tool on CSV directly; (c) add `--update-assessments` CLI command to `brief_pipeline.py`. Same issue for report generation — should be `--report` CLI command.
 
+### A/B testing infrastructure (2026-03-22)
+Built and tested. Files: `tests/ab_test_runner.py`, `tests/ab_test_cases.json`, `tests/ab_test_configs.json`, `tests/build_review_page.py`. Uses `claude -p` headless mode (no separate API costs). 61 human-reviewed ground truth cases (27 Payne + 34 Wainwright). First results: Sonnet 81% vs Opus 85% on 27-case Payne subset. Next steps:
+- [ ] Run full 61-case suite with both Sonnet and Opus baselines
+- [ ] Test "with hints" configs (Haiku summary hints to assessment agent)
+- [ ] Add Kettering test cases to corpus
+- [ ] Investigate whether batch mode (all claims per opinion) changes results vs single-claim mode
+
+### Report improvements
+- [ ] Add opinion side panel + search to `report.html` (like the review page)
+- [ ] Standardize on Kettering-style report format (quote comparisons, Retrieved column)
+- [ ] Consider `build_report.py` as reusable across briefs or add `--report` CLI command
+
+### Pipeline architecture: skill -> Python scripts
+`claude -p` headless mode makes it feasible to replace the SKILL.md with a series of Python scripts. LLM-dependent phases (extraction, proposition extraction, summaries, assessment) become `claude -p` calls. Gains: reproducible, testable, resumable, runs unattended, A/B testable per-phase. Design doc needed before implementation.
+
+### Proposition extraction quality
+Payne case 47 (Chambers v. State) — the proposition extraction agent assigned the wrong proposition to this case. The brief cites Chambers for "deadly force is justified if reasonably necessary to prevent death/great bodily injury" but the agent recorded it as "excessive force in self-defense is not justifiable." This affected the assessment. Need to investigate whether this is a one-off or systematic.
+
+### Quote checker limitations (from Wainwright review)
+- Star pagination in CourtListener HTML interferes with matching (Lawrence v. State FABRICATED due to `*534` in the middle of the quote)
+- Missing articles ("the") cause CLOSE instead of VERBATIM (Hammond v. State)
+- Bracket alterations in quoted text (Charleston: `[to]` replacing `must`) not handled
+
 ### Baseline test (RED phase)
 Run the brief verification task WITHOUT the skill loaded to establish what Claude does naturally. Steps:
 1. Rename `~/.claude/skills/verify-brief/SKILL.md` → `SKILL.md.bak`
