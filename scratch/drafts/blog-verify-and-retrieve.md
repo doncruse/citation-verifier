@@ -14,7 +14,13 @@ We all know the hallucination problem. I wrote about the [science behind it](htt
 
 But here's the thing that kept bugging me: *verifying* a citation is tedious. You have to go look it up. If you have a brief with 50 citations, you're doing that 50 times. And if a citation doesn't come up, you can't always tell whether the case doesn't exist or whether you just searched for it wrong.
 
-I wanted something that could take a list of citations, check them all, and hand me back the actual opinions — so I could read the source material myself, not just trust that it exists.
+Shay Elbaum nailed a piece of this problem in his recent LIT-SIS post, ["Two Solutions for Hallucinated Citations to Unpublished Cases."](https://litsis.classcaster.net/2026/02/26/two-solutions-for-hallucinated-citations-to-unpublished-cases/) He starts from a point made — accidentally — by the attorney in *Flycatcher Corp. v. Affable Avenue LLC*: when a generative AI tool makes up citations in a proprietary format, it's difficult or impossible to verify them without access to the proprietary source. And on a quick review of recent fabricated citations, Elbaum found that most filings with fake citations included at least one in the `2022 WL 4637582` format, supposedly pointing to an unpublished case on Westlaw. As he puts it: if Westlaw doesn't want WL citations to become red flags for potential hallucinations, it needs to provide a method for everyone to verify them.
+
+That post crystallized something I'd already been running into while building this tool. The underlying decisions that WL citations point to are often already on CourtListener — they come from court websites, PACER, and the RECAP Archive. What CL *doesn't* have are the proprietary WL and Lexis citation numbers, because the vendors keep those under lock and key. So the decisions are there. You just can't look them up by WL number.
+
+That's a big part of why I built a verification pipeline that goes beyond simple citation lookup. When a reporter citation doesn't match, the tool falls back to searching by case name, court, and date — and then searches RECAP docket entries for the actual documents. It's not as clean as typing in a WL number and getting a yes or no, but it finds cases that a simple citation lookup would miss. I'm not aware of other hallucination checkers that do this multi-step fallback, and in my testing it's the difference between flagging a real case as "not found" and actually finding it.
+
+I wanted something that could take a list of citations, check them all — including the hard-to-verify ones — and hand me back the actual opinions, so I could read the source material myself.
 
 ## What It Does
 
@@ -48,7 +54,7 @@ A few things to be clear about:
 
 **It doesn't tell you whether a case supports the proposition it's cited for.** That requires reading the opinion. What it *does* do is get that opinion into your hands quickly so you can read it yourself. (I've been building a [separate pipeline](https://github.com/rlfordon/citation-verifier) for proposition-level verification, but that's a story for another post.)
 
-**It doesn't cover everything.** CourtListener is comprehensive, but it doesn't have every case ever published. Westlaw citations (like `2018 WL 301424`) can't be verified because CourtListener doesn't track WL numbers — those get flagged with a "WL Cite" badge so you know to check them elsewhere. Unreported decisions and very recent opinions may also be missing.
+**It can't verify proprietary WL or Lexis citation numbers directly.** As I described above, CourtListener doesn't have those — but the tool flags them with a "WL Cite" badge so you know they need separate verification. When the brief also provides a case name, court, and date alongside the WL number, the Deep Search will try to find the decision anyway through the opinion and RECAP searches. It often succeeds. But a bare `2022 WL 4637582` with no other metadata is exactly the problem Elbaum describes — and until Westlaw and Lexis provide public verification, there's no free way to check it.
 
 **It's not a substitute for professional legal research tools.** It's a verification layer. When a lawyer hands you a brief, or an LLM generates a memo, this tool answers the threshold question: *Do these cases exist, and can I get my hands on them?*
 
