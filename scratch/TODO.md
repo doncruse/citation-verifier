@@ -229,6 +229,16 @@ Built and tested. Files: `tests/ab_test_runner.py`, `tests/ab_test_cases.json`, 
 ### Pipeline architecture: skill -> Python scripts
 `claude -p` headless mode makes it feasible to replace the SKILL.md with a series of Python scripts. LLM-dependent phases (extraction, proposition extraction, summaries, assessment) become `claude -p` calls. Gains: reproducible, testable, resumable, runs unattended, A/B testable per-phase. Design doc needed before implementation.
 
+### Proposition extraction: separate argument from citation scope
+Currently, the proposition extraction agent captures the full sentence/argument a case appears in. But briefs often make compound arguments and cite a case for only part of it — scoped by a parenthetical. Example: "the justification charge already covered the legal defense raised; plain error requires a clear legal mistake that affects substantial rights (State v. Kelly, 290 Ga. 29)." Kelly is cited for the plain error standard (which it does address), not for the justification point (which it doesn't). Our current extraction treats the whole sentence as the proposition, causing false Yellow/Red assessments.
+
+Fix options:
+- (a) Extract two fields: `full_proposition` (the sentence) and `cited_for` (what the parenthetical or citation signal attributes to this specific case)
+- (b) Instruct the assessment agent to scope its evaluation to what the case is actually cited for, considering parentheticals and citation signals (See, e.g., Cf., etc.)
+- (c) Both — extract scoped propositions and also give the assessment agent the surrounding context
+
+This is a design question for the pipeline redesign. Option (b) is cheaper (prompt change only). Option (a) is more testable.
+
 ### Proposition extraction quality
 Payne case 47 (Chambers v. State) — the proposition extraction agent assigned the wrong proposition to this case. The brief cites Chambers for "deadly force is justified if reasonably necessary to prevent death/great bodily injury" but the agent recorded it as "excessive force in self-defense is not justifiable." This affected the assessment. Need to investigate whether this is a one-off or systematic.
 
