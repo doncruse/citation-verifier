@@ -1,0 +1,15 @@
+CASE SUMMARY:
+This case involves anti-abortion protesters who, through targeted picketing, surveillance, threats, and other harassment lasting ten months, caused severe emotional distress and mental anguish to Dr. Norman Tompkins and his wife. The jury awarded approximately $8.5 million in damages for intentional infliction of emotional distress, invasion of privacy, and civil conspiracy; on appeal, the court upheld the invasion of privacy award but vacated the intentional infliction damages due to duplicative recovery under the one-satisfaction rule.
+
+KEY HOLDINGS:
+- Evidence of anonymous death threats (not attributed to defendants) is relevant to show plaintiffs' state of mind and vulnerability to emotional harm from defendants' unlawful conduct
+- Under Texas law, tortfeasors take their victims as they find them; a victim's particular susceptibility to psychological harm does not reduce available damages
+- Causation in emotional distress cases can be established through circumstantial evidence and reasonable inferences
+- The "one-satisfaction rule" prohibits plaintiffs from recovering for the same injury under multiple tort theories
+- Rule 11 sanctions require proper notice and a 21-day safe harbor period
+
+TOPICS FOUND:
+(none)
+
+TOPICS NOT FOUND:
+- Proposition 1: NOT FOUND. The opinion does not discuss whether evidence of prior settlement or verdict amounts is irrelevant to liability and damages in subsequent, unrelated accidents. The opinion addresses harassment in a single ongoing dispute, not multiple separate accidents or litigation. The evidence discussed concerns threats and fear, not prior settlement/verdict amounts.

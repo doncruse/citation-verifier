@@ -1,0 +1,14 @@
+CASE SUMMARY:
+Plaintiffs (injured passengers and representatives of deceased passengers from a church group bus) sued Wayne Corporation for products liability, alleging the bus was defectively designed and not crashworthy after a tractor-trailer collision on a narrow bridge in New Mexico.
+
+KEY HOLDINGS:
+- Greene's deposition testimony should have been admitted as an admission by Wayne, though the error was harmless
+- An expert witness can be cross-examined about fees earned in prior cases to show possible bias
+- Prior inconsistent statements by an expert witness on cross-examination are admissible to impeach credibility
+- Section 402B misrepresentation claims require actual misrepresentations of material fact, not mere puffing
+
+TOPICS FOUND:
+- Proposition 2: The opinion addresses relevance of evidence to issues before the jury. Regarding Severy's prior Volkswagen testimony on cross-examination, the plaintiffs contended the testimony was "not relevant to his credibility in the instant case" because it involved "an entirely different subject." The court held that "strict rules of relevancy are relaxed on cross-examination and the trial court has wide discretion to determine whether prior, possibly inconsistent statements of an expert witness are relevant to that witness's credibility" (p. 784-785). The opinion does not establish a general principle that "evidence having no bearing on specific issues before the jury should be excluded" as a standalone holding.
+
+TOPICS NOT FOUND:
+(none — but the match to proposition 2 is indirect)

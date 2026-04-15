@@ -1,0 +1,13 @@
+CASE SUMMARY:
+A bank robbery defendant challenged the admission of testimony showing his and a witness's membership in the Aryan Brotherhood prison gang. The Supreme Court held that evidence of the witness's gang membership was properly admitted to show potential bias toward the defendant.
+
+KEY HOLDINGS:
+- Evidence of bias may be shown through extrinsic evidence under Federal Rules of Evidence
+- A witness's membership in an organization with the defendant is probative of bias when the organization's tenets create motive to favor that person
+- The probative value of bias evidence may outweigh any prejudicial effect under Rule 403
+
+TOPICS FOUND:
+- Proposition 17: The opinion addresses bias evidence: "Bias is a term used in the 'common law of evidence' to describe the relationship between a party and a witness which might lead the witness to slant, unconsciously or otherwise, his testimony in favor of or against a party." Note: The opinion allows bias to be inferred from circumstances and motive; it does not strictly require proof of "actual bias affecting the witness's testimony" as the proposition states.
+
+TOPICS NOT FOUND:
+(none — but the match to proposition 17 is nuanced; Abel discusses proving bias through circumstantial evidence, not requiring proof of actual bias)

@@ -1,0 +1,13 @@
+CASE SUMMARY:
+This case concerns a dispute between Bankcard America, Inc. and Universal Bancard Systems, Inc. over a contract for credit card merchant account processing, involving breach of contract and RICO violations.
+
+KEY HOLDINGS:
+- Rule 408 evidence about settlement negotiations can be admitted under the "explain conduct" exception when one party has been lulled into violating a contract during settlement talks
+- A new trial on RICO claims was properly ordered due to erroneous jury instructions
+- On remand, the contract damages verdict should be reinstated from the first trial
+
+TOPICS FOUND:
+- Proposition 6: "Because settlement talks might be chilled if such discussions could later be used as admissions of liability at trial, the rule's purpose is to encourage settlements." (p. 484); further: "The purpose of Rule 408 is to encourage settlements. Settlements will not be encouraged if one party during settlement talks seduces the other party into violating the contract and then, when a settlement ultimately is not reached, accuses the other party at trial of violating the contract." (p. 484)
+
+TOPICS NOT FOUND:
+(none)

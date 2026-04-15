@@ -1,0 +1,13 @@
+CASE SUMMARY:
+Michelson was convicted of bribing a federal revenue agent in 1947. The primary issue on appeal was whether the trial court properly allowed the prosecution to cross-examine the defendant's character witnesses about an arrest for receiving stolen goods from 1920, where no conviction had occurred.
+
+KEY HOLDINGS:
+- Character witnesses may be cross-examined about arrests, not just convictions
+- Arrest without conviction may impair or cloud one's reputation in the community
+- Trial courts have discretion to limit character evidence questioning
+
+TOPICS FOUND:
+- Proposition 15: "Arrest without more does not, in law any more than in reason, impeach the integrity or impair the credibility of a witness. It happens to the innocent as well as the guilty... Arrest without more may nevertheless impair or cloud one's reputation. False arrest may do that." (Page 482-483). The Court also recognized the "prejudicial impact" by noting the jury "almost surely cannot comprehend the judge's limiting instruction" (Page 484-485).
+
+TOPICS NOT FOUND:
+(none)

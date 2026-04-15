@@ -1,0 +1,19 @@
+citation,status,confidence,cl_url,matched_name,diagnostics_cat,diagnostics_msg
+"Tompkins v. Cyr, 202 F.3d 770 (5th Cir. 2000)",VERIFIED,1.00,https://www.courtlistener.com/opinion/19782/tompkins-v-cyr/,Tompkins v. Cyr,,
+"Collins v. Wayne Corp., 621 F.2d 777 (5th Cir. 1980)",VERIFIED,1.00,https://www.courtlistener.com/opinion/378125/h-e-collins-and-joetta-collins-surviving-parents-and-personal/,"H. E. Collins and Joetta Collins, Surviving Parents and Personal Representatives of Karen Collins, Deceased v. Wayne Corporation",,
+"United States v. McRae, 593 F.2d 700 (5th Cir. 1979)",VERIFIED,1.00,https://www.courtlistener.com/opinion/363891/united-states-v-stephen-roderick-mcrae/,United States v. Stephen Roderick McRae,,
+"Old Chief v. United States, 519 U.S. 172 (1997)",VERIFIED,1.00,https://www.courtlistener.com/opinion/118074/old-chief-v-united-states/,Old Chief v. United States,,
+"Bozeman v. State, 879 So. 2d 692 (La. 2004)",VERIFIED,1.00,https://www.courtlistener.com/opinion/1103946/bozeman-v-state/,Bozeman v. State,,
+"Bankcard America, Inc. v. Universal Bancard Systems, Inc., 203 F.3d 477 (7th Cir. 2000)",VERIFIED,1.00,https://www.courtlistener.com/opinion/7079960/bankcard-america-inc-v-universal-bancard-system-inc/,"Bankcard America, Inc. v. Universal Bancard System, Inc.",,
+"King v. Illinois Cent. R.R., 337 F.3d 550 (5th Cir. 2003)",VERIFIED,1.00,https://www.courtlistener.com/opinion/8437633/king-v-illinois-central-railroad/,King v. Illinois Central Railroad,,
+"Condrey v. SunTrust Bank of Ga., 431 F.3d 191 (5th Cir. 2005)",VERIFIED,1.00,https://www.courtlistener.com/opinion/39696/condrey-v-suntrust-bank-of-ga/,Condrey v. Suntrust Bank of GA,,
+"Guzman v. Jones, 804 F.3d 707 (5th Cir. 2015)",VERIFIED,1.00,https://www.courtlistener.com/opinion/3148675/jaime-guzman-v-melvin-jones/,Jaime Guzman v. Melvin Jones,,
+"Gilliam v. Uni Holdings, LLC, 201 A.D.3d 83 (1st Dep't 2021)",NOT_FOUND,0.00,,,info,Quick search only: not in citation lookup API
+"Menges v. Cliffs Drilling Co., 2000 WL 765082 (E.D. La. June 12, 2000)",NOT_FOUND,0.00,,,info,Quick search only: not in citation lookup API
+"Michelson v. United States, 335 U.S. 469 (1948)",VERIFIED,1.00,https://www.courtlistener.com/opinion/104607/michelson-v-united-states/,Michelson v. United States,,
+"United States v. Abel, 469 U.S. 45 (1984)",VERIFIED,1.00,https://www.courtlistener.com/opinion/111285/united-states-v-abel/,United States v. Abel,,
+"Maurer v. United States, 668 F.2d 98 (2d Cir. 1981)",VERIFIED,1.00,https://www.courtlistener.com/opinion/398652/louis-a-maurer-v-united-states/,Louis A. Maurer v. United States,,
+"Koch v. United States, 857 F.3d 267 (5th Cir. 2017)",VERIFIED,1.00,https://www.courtlistener.com/opinion/4390987/ricky-koch-v-tote-incorporated/,"Ricky Koch v. Tote, Incorporated",,
+"Lasha v. Olin Corp., 625 So. 2d 1002 (La. 1993)",VERIFIED,1.00,https://www.courtlistener.com/opinion/1112408/lasha-v-olin-corp/,Lasha v. Olin Corp.,,
+"Gilliam v. Uni Holdings, LLC, 201 A.D.3d 83 (1st Dep't 2021)",POSSIBLE_MATCH,0.77,https://www.courtlistener.com/opinion/5305052/gilliam-v-uni-holdings/,Gilliam v. Uni holdings,info; cite,"Low confidence: court not available in citation text; Citation mismatch: cited 201 A.D.3d 83 but CourtListener has 2021 NY Slip Op 06798, but we identified a possible match."
+"Menges v. Cliffs Drilling Co., 2000 WL 765082 (E.D. La. June 12, 2000)",NOT_FOUND,0.31,https://www.courtlistener.com/docket/5356731/30/patrick-v-tractor-supply-company/,Patrick v. Tractor Supply Company,recap; name; date; cite,"Found in RECAP (not in opinions database). Document dated 2017-01-30:  ORDER & REASONS that Defendant, Tractor Supply Company's  13   Motion for Summa...; Name mismatch: cited ""Menges v. Cliffs Drilling Co."" vs found ""Patrick v. Tractor Supply Company""; Date mismatch: cited 2000 vs filed 2017-01-30; Reporter citation 2000 WL 765082 could not be confirmed (CourtListener has no reporter citations on file for this case)"

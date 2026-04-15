@@ -1,0 +1,13 @@
+CASE SUMMARY:
+This case addresses the application of the collateral source rule to "write-off" amounts in medical expenses when a plaintiff is a Medicaid recipient. Tommy Bozeman was catastrophically injured in a highway accident and received Medicaid benefits to cover medical care.
+
+KEY HOLDINGS:
+- The collateral source rule is a rule of evidence and damages of common law origin, embraced and applied by Louisiana courts, and bars a tortfeasor from reducing liability because a plaintiff received compensation from an independent source
+- Medicaid recipients are unable to recover "write-off" amounts as damages because Medicaid provides free medical care with no consideration paid by the recipient
+- The "benefit of the bargain" test applies to plaintiffs who have paid consideration for collateral source benefits
+
+TOPICS FOUND:
+- Proposition 5: "The collateral source rule is a rule of evidence and damages that is of common law origin, yet embraced and applied by Louisiana courts" (page 697). Further: "Under the collateral source rule, a tortfeasor may not benefit, and an injured plaintiff's tort recovery may not be reduced, because of monies received by the plaintiff from sources independent of the tortfeasor's procuration or contribution" (page 697-698).
+
+TOPICS NOT FOUND:
+(none)

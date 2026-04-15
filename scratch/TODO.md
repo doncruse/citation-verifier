@@ -320,8 +320,10 @@ If/when this ships, we could consume the classification labels via API to dramat
 Running both skills on the same brief (Brooks v. Lowe's, `briefs-2/gov.uscourts.lawd.207038.49.1.pdf`) on 2026-04-15.
 
 - `/proposition-verifier` run complete — report at `briefs-2/gov.uscourts.lawd.207038.49.1_proposition_report.html`, notes at `briefs-2/gov.uscourts.lawd.207038.49.1_run_notes.md`
-- `/verify-brief` run in progress (separate window)
-- [ ] Compare: same issues caught? Different false positives/negatives? Timing/API usage? Report format preference?
+- `/verify-brief` run complete — retrospective at `docs/retrospectives/2026-04-15-verify-brief-brooks-v-lowes.md`, report at `briefs/gov.uscourts.lawd.207038.49.1/report.html`
+- `/verify-brief` results: 9 Green, 8 Yellow, 3 Red (20 claims, 16 citations, ~9 min active time, ~21 CL API calls + 17 LLM agents)
+- **Report format: `/verify-brief` report.html is significantly better.** Color-coded table with Green/Yellow/Red sections, blockquote supporting language, quote check tags, clickable CL links. User strongly prefers this over `/proposition-verifier` format.
+- [ ] Compare: same issues caught? Different false positives/negatives? Timing/API usage?
 
 ## Future Ideas
 

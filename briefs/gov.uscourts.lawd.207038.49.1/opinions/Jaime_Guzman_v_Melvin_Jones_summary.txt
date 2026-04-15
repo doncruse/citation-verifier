@@ -1,0 +1,13 @@
+CASE SUMMARY:
+Melvin Jones and Celadon Trucking appeal the denial of a motion for new trial following a judgment awarding $1.3 million in damages to Jaime Guzman for injuries from a motor vehicle accident. The appeal focuses on medical bills and whether sanctions for spoliation were warranted when Guzman underwent back surgery before an independent medical examination.
+
+KEY HOLDINGS:
+- Spoliation of evidence requires proof of "bad faith" or "bad conduct" (Fifth Circuit standard)
+- Bad faith in spoliation context means "destruction for the purpose of hiding adverse evidence"
+- Timing alone is insufficient to establish bad faith when no evidence shows intent to deceive
+
+TOPICS FOUND:
+- Proposition 8/9: "We permit an adverse inference against the spoliator or sanctions against the spoliator only upon a showing of 'bad faith' or 'bad conduct.'" (p. 212-213). "While the timing of Guzman's surgery may seem strange, there is no evidence to suggest that he acted in a manner intended to deceive Appellants or that he undertook the surgery with the intent of destroying or altering evidence." (p. 227-230)
+
+TOPICS NOT FOUND:
+(none)

@@ -1,0 +1,13 @@
+CASE SUMMARY:
+Stephen McRae was convicted of second-degree murder for shooting his wife Nancy through the head with a rifle, claiming the shooting was accidental. The Fifth Circuit affirmed his conviction despite various trial errors.
+
+KEY HOLDINGS:
+- The trial court's instruction on malice did not shift the burden of proof because it used permissive language ("may infer")
+- Rule 403 applies with cautious discretion and does not permit exclusion of relevant evidence merely because it is prejudicial; it is limited to excluding matter where probative value is substantially outweighed by unfair prejudice
+- Trial courts have wide discretion in evidentiary rulings regarding admission of photographs and rebuttal evidence
+
+TOPICS FOUND:
+- Proposition 3: "Relevant evidence is inherently prejudicial; but it is only unfair prejudice, substantially outweighing probative value, which permits exclusion of relevant matter under Rule 403... the application of Rule 403 must be cautious and sparing. Its major function is limited to excluding matter of scant or cumulative probative force... Rule 403 is meant to relax the iron rule of relevance, to permit the trial judge to preserve the fairness of the proceedings by exclusion despite its relevance." (page 707)
+
+TOPICS NOT FOUND:
+- Proposition 16: NOT FOUND. The opinion addresses Rule 403's general framework but does not state that evidence "must be excluded" when "any minimal probative value is substantially outweighed." The opinion instead emphasizes the trial court's discretion and states that exclusion occurs only when probative value is "substantially outweighed."

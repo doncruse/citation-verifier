@@ -1,0 +1,14 @@
+CASE SUMMARY:
+This case involves a negligence action arising from a train-automobile collision at a railroad crossing in Mississippi. The Fifth Circuit affirmed summary judgment dismissing King's claims.
+
+KEY HOLDINGS:
+- Under Mississippi's "occupied crossing doctrine," a train's presence in a crossing is sufficient warning to the traveling public
+- An adverse inference based on destruction of evidence requires proof of "bad faith" conduct by the defendant
+- Mississippi state law claims requiring reflectors on boxcars are implicitly preempted by federal law
+
+TOPICS FOUND:
+- Proposition 7: "An adverse inference based on the destruction of potential evidence is predicated on the 'bad conduct' of the defendant" and "Therefore, King must show that ICR acted in 'bad faith' to establish that it was entitled to an adverse inference." (page 556)
+- Proposition 13: "Therefore, King must show that ICR acted in 'bad faith' to establish that it was entitled to an adverse inference." (page 556, citing Vick, 514 F.2d at 737)
+
+TOPICS NOT FOUND:
+(none)

@@ -1,0 +1,13 @@
+CASE SUMMARY:
+A worker with preexisting osteoarthritis and spinal conditions fell on a vessel due to inadequate lighting. The court held that the defendant was fully liable for all resulting damages even though the preexisting conditions made the harm more severe.
+
+KEY HOLDINGS:
+- When a defendant's negligent act causes injury to someone with a preexisting condition, the defendant is fully liable for all resulting damage
+- The "eggshell skull" or "thin skull" rule applies even when the preexisting condition was manifested before the injury
+- A defendant takes the plaintiff as he finds him
+
+TOPICS FOUND:
+- Proposition 19: "It is a settled principle of tort law that when a defendant's wrongful act causes injury, he is fully liable for the resulting damage even though the injured plaintiff had a preexisting condition that made the consequences of the wrongful act more severe than they would have been for a normal victim. The defendant takes the plaintiff as he finds him."
+
+TOPICS NOT FOUND:
+(none)

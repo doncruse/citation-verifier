@@ -1,0 +1,13 @@
+CASE SUMMARY:
+Harrell Equipment Company appeals summary judgment dismissing its cross-claims against SunTrust Bank arising from alleged fraudulent inducement and breach of an oral agreement regarding the sale of equipment.
+
+KEY HOLDINGS:
+- Georgia's Statute of Frauds bars enforcement of an oral agreement involving a commitment to lend money, sale of goods over $500, and sale of land
+- Spoliation of evidence claims require a showing of bad faith or bad conduct under federal law (Fifth Circuit standard)
+- An adverse inference against a spoliator is only permitted upon showing "bad faith" or "bad conduct"
+
+TOPICS FOUND:
+- Proposition 8/9: "The Fifth Circuit permits an adverse inference against the destroyer of evidence only upon a showing of 'bad faith' or 'bad conduct.'" (p. 408-411). "Because Harrell Equipment has shown no evidence of bad faith, we find that its spoliation claim is without merit." (p. 428-429)
+
+TOPICS NOT FOUND:
+(none)

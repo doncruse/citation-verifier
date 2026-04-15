@@ -1,0 +1,13 @@
+CASE SUMMARY:
+Old Chief v. United States addresses whether a defendant charged with felony gun possession under 18 U.S.C. § 922(g)(1) can force exclusion of evidence identifying the specific nature of a prior conviction when he offers to stipulate that he has been convicted of a qualifying felony. The Court held that a district court abuses its discretion if it rejects such an offer and admits the full record.
+
+KEY HOLDINGS:
+- Under Rule 403, when evidence of the name or nature of a prior offense carries a substantial risk of unfair prejudice, and a defendant offers a stipulation with equivalent probative value, the trial court abuses its discretion by admitting the more prejudicial evidence
+- Rule 403 analysis requires the trial court to consider available alternative proofs
+- The general rule permitting prosecution to prove its case with evidence of its own choosing has limited application when the issue involves proving a defendant's legal status rather than concrete criminal conduct
+
+TOPICS FOUND:
+- Proposition 4: "The term 'unfair prejudice,' as to a criminal defendant, speaks to the capacity of some concededly relevant evidence to lure the factfinder into declaring guilt on a ground different from proof specific to the offense charged" and "'Unfair prejudice' within its context means an undue tendency to suggest decision on an improper basis, commonly, though not necessarily, an emotional one." (Page 180)
+
+TOPICS NOT FOUND:
+- Proposition 14: NOT FOUND. The opinion does not discuss spoliation language or spoliation-related evidence at all. The case addresses prior conviction evidence under § 922(g)(1), not spoliation.
