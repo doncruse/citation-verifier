@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Proposition Verification Report — Brooks v. Lowe's Home Centers</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+    color: #2d2d2d;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+    background: #fafaf8;
+  }
+  h1, h2, h3 { font-family: 'Lora', serif; }
+  h1 { font-size: 1.6rem; margin-bottom: 0.3rem; color: #1a1a1a; }
+  h2 { font-size: 1.25rem; margin: 2rem 0 0.8rem; color: #333; border-bottom: 1px solid #ddd; padding-bottom: 0.3rem; }
+  h3 { font-size: 1.05rem; margin: 1rem 0 0.5rem; }
+
+  .meta { color: #666; font-size: 0.9rem; margin-bottom: 1.5rem; }
+  .meta span { display: inline-block; margin-right: 1.5rem; }
+
+  /* Dashboard */
+  .dashboard { background: #fff; border: 1px solid #e0e0e0; border-radius: 6px; padding: 1.2rem 1.5rem; margin-bottom: 2rem; }
+  .stats { display: flex; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 1rem; }
+  .stat { text-align: center; }
+  .stat-num { font-size: 1.8rem; font-weight: 600; }
+  .stat-label { font-size: 0.8rem; color: #666; text-transform: uppercase; letter-spacing: 0.05em; }
+  .stat-red .stat-num { color: #c0392b; }
+  .stat-yellow .stat-num { color: #d4a017; }
+  .stat-green .stat-num { color: #27ae60; }
+  .stat-gray .stat-num { color: #888; }
+
+  .issue-list { list-style: none; padding: 0; }
+  .issue-list li {
+    padding: 0.5rem 0.7rem;
+    margin-bottom: 0.4rem;
+    border-left: 4px solid #ccc;
+    background: #fefefe;
+    font-size: 0.9rem;
+  }
+  .issue-list li.sev-red { border-left-color: #c0392b; background: #fdf2f2; }
+  .issue-list li.sev-yellow { border-left-color: #d4a017; background: #fefcf0; }
+  .issue-list li.sev-gray { border-left-color: #999; background: #f5f5f5; }
+  .issue-list a { color: inherit; text-decoration: none; }
+  .issue-list a:hover { text-decoration: underline; }
+
+  /* Badges */
+  .badge {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.15rem 0.5rem;
+    border-radius: 3px;
+    vertical-align: middle;
+  }
+  .badge-red { background: #f8d7da; color: #721c24; }
+  .badge-yellow { background: #fff3cd; color: #856404; }
+  .badge-orange { background: #ffe0b2; color: #8a4500; }
+  .badge-green { background: #d4edda; color: #155724; }
+  .badge-blue { background: #d1ecf1; color: #0c5460; }
+  .badge-gray { background: #e9ecef; color: #495057; }
+
+  /* Blockquotes */
+  .bq-brief {
+    border-left: 4px solid #e67e22;
+    background: #fef9f3;
+    padding: 0.7rem 1rem;
+    margin: 0.5rem 0;
+    font-size: 0.9rem;
+  }
+  .bq-opinion {
+    border-left: 4px solid #27ae60;
+    background: #f0faf4;
+    padding: 0.7rem 1rem;
+    margin: 0.5rem 0;
+    font-size: 0.9rem;
+  }
+  .bq-label { font-weight: 600; font-size: 0.8rem; color: #666; margin-bottom: 0.2rem; }
+
+  /* Details/Summary */
+  details { margin-bottom: 0.8rem; }
+  summary {
+    cursor: pointer;
+    padding: 0.6rem 0.8rem;
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    list-style: none;
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary::before { content: "\25B6\00a0"; font-size: 0.7rem; color: #888; }
+  details[open] > summary::before { content: "\25BC\00a0"; }
+  details[open] > summary { border-radius: 4px 4px 0 0; border-bottom: none; }
+  .finding-body {
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-top: none;
+    border-radius: 0 0 4px 4px;
+    padding: 1rem;
+  }
+  .case-name { font-family: 'Lora', serif; font-style: italic; }
+  .explanation { margin-top: 0.7rem; font-size: 0.9rem; line-height: 1.5; }
+
+  /* Controls */
+  .controls { margin-bottom: 0.5rem; font-size: 0.8rem; }
+  .controls button {
+    background: none;
+    border: none;
+    color: #2980b9;
+    cursor: pointer;
+    font-size: 0.8rem;
+    padding: 0.2rem 0.4rem;
+  }
+  .controls button:hover { text-decoration: underline; }
+
+  /* Verified section */
+  .verified-item {
+    padding: 0.3rem 0;
+    font-size: 0.85rem;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  .checkmark { color: #27ae60; font-weight: bold; }
+
+  /* Methodology */
+  .methodology { font-size: 0.85rem; color: #555; margin-top: 2rem; }
+  .methodology h2 { font-size: 1.1rem; }
+  .methodology ul { padding-left: 1.2rem; }
+  .methodology li { margin-bottom: 0.5rem; }
+
+  @media print {
+    details { open: true; }
+    details[open] > summary { border-bottom: 1px solid #e0e0e0; }
+    body { max-width: 100%; padding: 1rem; font-size: 12px; }
+    .controls { display: none; }
+    .dashboard { box-shadow: none; }
+  }
+</style>
+<script>
+function expandAll() { document.querySelectorAll('details').forEach(d => d.open = true); }
+function collapseAll() { document.querySelectorAll('details').forEach(d => d.open = false); }
+</script>
+</head>
+<body>
+
+<h1>Proposition Verification Report</h1>
+<div class="meta">
+  <span><strong>Brief:</strong> Memorandum in Support of Plaintiff's Omnibus Motions in Limine</span><br>
+  <span><strong>Case:</strong> <em>Brooks v. Lowe's Home Centers, LLC</em>, No. 1:24-CV-01063 (W.D. La.)</span><br>
+  <span><strong>Filed:</strong> February 4, 2026</span>
+  <span><strong>Report generated:</strong> April 15, 2026</span>
+</div>
+
+<!-- SECTION 1: DASHBOARD -->
+<div class="dashboard">
+  <h2 style="border:none; margin-top:0; padding:0;">Summary</h2>
+  <div class="stats">
+    <div class="stat"><div class="stat-num">19</div><div class="stat-label">Claims checked</div></div>
+    <div class="stat stat-red"><div class="stat-num">3</div><div class="stat-label">Serious issues</div></div>
+    <div class="stat stat-yellow"><div class="stat-num">3</div><div class="stat-label">Minor notes</div></div>
+    <div class="stat stat-green"><div class="stat-num">11</div><div class="stat-label">Verified</div></div>
+    <div class="stat stat-gray"><div class="stat-num">2</div><div class="stat-label">Unable to verify</div></div>
+  </div>
+
+  <h3>Issues</h3>
+  <ul class="issue-list">
+    <li class="sev-red"><a href="#finding-1"><span class="badge badge-red">Not supported by cited case</span> p. 3 &mdash; <em>Tompkins v. Cyr</em>, 202 F.3d 770 &mdash; Case is about abortion protesters/RICO, not prior settlement exclusion</a></li>
+    <li class="sev-red"><a href="#finding-2"><span class="badge badge-red">Not supported by cited case</span> p. 3 &mdash; <em>Collins v. Wayne Corp.</em>, 621 F.2d 777 &mdash; Products liability case, not about prior verdict exclusion</a></li>
+    <li class="sev-red"><a href="#finding-3"><span class="badge badge-red">Not supported by cited case</span> p. 11 &mdash; <em>United States v. Abel</em>, 469 U.S. 45 &mdash; Abel supports broad admissibility of bias evidence, not a limiting principle</a></li>
+    <li class="sev-yellow"><a href="#finding-4"><span class="badge badge-yellow">Reworded &mdash; not a verbatim quote</span> p. 5 &mdash; <em>Bankcard America v. Universal Bancard Systems</em>, 203 F.3d 477 &mdash; Brief says "policy behind" but opinion says "purpose of"</a></li>
+    <li class="sev-yellow"><a href="#finding-5"><span class="badge badge-yellow">Overstated &mdash; case partially supports</span> p. 9 &mdash; <em>Michelson v. United States</em>, 335 U.S. 469 &mdash; Arrest-specific discussion is later in opinion, not at cited pages</a></li>
+    <li class="sev-yellow"><a href="#finding-6"><span class="badge badge-yellow">Reworded &mdash; not a verbatim quote</span> p. 13 &mdash; <em>Lasha v. Olin Corp.</em>, 625 So. 2d 1002 &mdash; Brief says "The tortfeasor" but opinion says "a defendant"</a></li>
+    <li class="sev-gray"><a href="#finding-7"><span class="badge badge-gray">Unable to verify</span> p. 6 &mdash; <em>Gilliam v. Uni Holdings, LLC</em>, 201 A.D.3d 83 &mdash; Not available on CourtListener</a></li>
+    <li class="sev-gray"><a href="#finding-8"><span class="badge badge-gray">Unable to verify</span> p. 7 &mdash; <em>Menges v. Cliffs Drilling Co.</em>, 2000 WL 765082 &mdash; Not available on CourtListener</a></li>
+  </ul>
+</div>
+
+<!-- SECTION 2: WALKTHROUGH -->
+<h2>Findings</h2>
+<div class="controls">
+  <button onclick="expandAll()">Expand All</button> | <button onclick="collapseAll()">Collapse All</button>
+</div>
+
+<!-- Finding 1: Tompkins -->
+<details id="finding-1">
+  <summary>
+    <strong>p. 3</strong> &mdash; <span class="case-name">Tompkins v. Cyr</span>, 202 F.3d 770, 787 (5th Cir. 2000)
+    &mdash; <span class="badge badge-red">Not supported by cited case</span>
+  </summary>
+  <div class="finding-body">
+    <div class="bq-label">What the brief claims:</div>
+    <div class="bq-brief">
+      "Courts consistently and uniformly hold that evidence of prior settlement or verdict amounts is irrelevant to the issues of liability and damages in a subsequent, unrelated accident. <em>See Tompkins v. Cyr</em>, 202 F.3d 770, 787 (5th Cir. 2000) (evidence must be relevant to a 'consequential fact' in the case at bar)."
+    </div>
+
+    <div class="bq-label">What the opinion actually says:</div>
+    <div class="bq-opinion">
+      <em>Tompkins v. Cyr</em> is a case about anti-abortion protesters who harassed a doctor. It involves RICO claims, defamation, and emotional distress damages. The phrase "consequential fact" does not appear anywhere in the opinion. The relevance discussions in the case concern whether anonymous threats and a murder in Florida were relevant to the plaintiffs' emotional distress claims. There is no discussion of prior settlement amounts, verdict amounts, or unrelated accident evidence.
+    </div>
+
+    <div class="explanation">
+      <strong>Assessment:</strong> This citation does not support the proposition it is cited for. The case has nothing to do with excluding prior settlement or verdict evidence in subsequent litigation. The parenthetical characterization ("evidence must be relevant to a 'consequential fact' in the case at bar") does not appear in the opinion. This could reflect a citation error (wrong case or wrong reporter page) or a fabricated attribution.
+    </div>
+  </div>
+</details>
+
+<!-- Finding 2: Collins -->
+<details id="finding-2">
+  <summary>
+    <strong>p. 3</strong> &mdash; <span class="case-name">Collins v. Wayne Corp.</span>, 621 F.2d 777, 784 (5th Cir. 1980)
+    &mdash; <span class="badge badge-red">Not supported by cited case</span>
+  </summary>
+  <div class="finding-body">
+    <div class="bq-label">What the brief claims:</div>
+    <div class="bq-brief">
+      "<em>Collins v. Wayne Corp.</em>, 621 F.2d 777, 784 (5th Cir. 1980) (excluding evidence that had no bearing on the specific issues before the jury)."
+    </div>
+
+    <div class="bq-label">What the opinion actually says:</div>
+    <div class="bq-opinion">
+      <em>Collins v. Wayne Corp.</em> is a products liability action arising from a bus-truck collision that killed 19 people. Page 784 discusses cross-examination of an expert witness about fees earned in prior cases and whether the plaintiffs preserved error by failing to object. The phrase "excluding evidence that had no bearing on the specific issues before the jury" does not appear. There is no discussion of excluding prior settlement or verdict amounts from unrelated cases.
+    </div>
+
+    <div class="explanation">
+      <strong>Assessment:</strong> This citation does not support the proposition it is cited for. The case involves entirely different evidentiary issues (expert witness cross-examination in a products liability trial). It does not establish any principle about excluding prior settlement or verdict evidence.
+    </div>
+  </div>
+</details>
+
+<!-- Finding 3: Abel -->
+<details id="finding-3">
+  <summary>
+    <strong>p. 11</strong> &mdash; <span class="case-name">United States v. Abel</span>, 469 U.S. 45, 52 (1984)
+    &mdash; <span class="badge badge-red">Not supported by cited case</span>
+  </summary>
+  <div class="finding-body">
+    <div class="bq-label">What the brief claims:</div>
+    <div class="bq-brief">
+      "The Supreme Court has addressed the proper scope of bias evidence, emphasizing that such evidence must demonstrate actual bias affecting the witness's testimony. <em>United States v. Abel</em>, 469 U.S. 45, 52 (1984)."
+    </div>
+
+    <div class="bq-label">What the opinion actually says:</div>
+    <div class="bq-opinion">
+      <em>Abel</em> holds that bias evidence is <strong>broadly admissible</strong>. The Court wrote: "Proof of bias is almost always relevant because the jury, as finder of fact and weigher of credibility, has historically been entitled to assess all evidence which might bear on the accuracy and truth of a witness' testimony." The case upheld admission of evidence that a defense witness and the defendant were members of the same prison gang, as this tended to show the witness's bias. The opinion stands for the breadth of admissible bias evidence, not for restricting it.
+    </div>
+
+    <div class="explanation">
+      <strong>Assessment:</strong> The brief mischaracterizes <em>Abel</em> as establishing a restrictive standard for bias evidence &mdash; that "such evidence must demonstrate actual bias affecting the witness's testimony." In fact, <em>Abel</em> holds the opposite: evidence that makes bias <em>more probable</em> is sufficient, and trial courts have broad discretion to admit such evidence. The brief cites this case to argue that attorney-referral evidence should be excluded unless it shows "actual bias," but <em>Abel</em> would more naturally support the <em>admission</em> of such evidence. An opposing counsel familiar with <em>Abel</em> could use this mischaracterization to undermine the brief's argument.
+    </div>
+  </div>
+</details>
+
+<!-- Finding 4: Bankcard America -->
+<details id="finding-4">
+  <summary>
+    <strong>p. 5</strong> &mdash; <span class="case-name">Bankcard America, Inc. v. Universal Bancard Systems, Inc.</span>, 203 F.3d 477, 484 (7th Cir. 2000)
+    &mdash; <span class="badge badge-yellow">Reworded &mdash; not a verbatim quote</span>
+  </summary>
+  <div class="finding-body">
+    <div class="bq-label">What the brief says:</div>
+    <div class="bq-brief">
+      "<em>See Bankcard America, Inc. v. Universal Bancard Systems, Inc.</em>, 203 F.3d 477, 484 (7th Cir. 2000) (recognizing that 'the policy behind Rule 408 is to encourage settlements')."
+    </div>
+
+    <div class="bq-label">What the opinion actually says:</div>
+    <div class="bq-opinion">
+      "The purpose of Rule 408 is to encourage settlements."
+    </div>
+
+    <div class="explanation">
+      <strong>Assessment:</strong> The substance is accurate &mdash; the opinion clearly states that Rule 408 aims to encourage settlements. However, the brief places in quotation marks the phrase "the policy behind Rule 408 is to encourage settlements," when the opinion actually says "The purpose of Rule 408 is to encourage settlements." The word "policy behind" is substituted for "purpose of." This is a minor wording change that does not alter the meaning, but the quotation marks suggest a verbatim quote.
+    </div>
+  </div>
+</details>
+
+<!-- Finding 5: Michelson -->
+<details id="finding-5">
+  <summary>
+    <strong>p. 9</strong> &mdash; <span class="case-name">Michelson v. United States</span>, 335 U.S. 469, 475&ndash;76 (1948)
+    &mdash; <span class="badge badge-yellow">Overstated &mdash; case partially supports</span>
+  </summary>
+  <div class="finding-body">
+    <div class="bq-label">What the brief claims:</div>
+    <div class="bq-brief">
+      "The Supreme Court has long recognized the prejudicial impact of arrest evidence where no conviction exists. <em>Michelson v. United States</em>, 335 U.S. 469, 475&ndash;76 (1948)."
+    </div>
+
+    <div class="bq-label">What the opinion actually says:</div>
+    <div class="bq-opinion">
+      Pages 475&ndash;76 discuss the general rules about character evidence &mdash; specifically that the prosecution cannot introduce evidence of a defendant's evil character to establish guilt, because such evidence "weigh[s] too much with the jury" and tends to "prejudge one with a bad general record." The specific discussion of <strong>arrest</strong> evidence (as opposed to conviction) appears later in the opinion, where Justice Jackson writes: "Arrest without more does not, in law any more than in reason, impeach the integrity or impair the credibility of a witness. It happens to the innocent as well as the guilty."
+    </div>
+
+    <div class="explanation">
+      <strong>Assessment:</strong> <em>Michelson</em> does address the prejudicial impact of arrest evidence, but not at the cited pages 475&ndash;76. Those pages discuss character evidence rules generally. The arrest-specific language appears later in the opinion. The proposition is substantively supported by the case as a whole, but the pinpoint citation is inaccurate.
+    </div>
+  </div>
+</details>
+
+<!-- Finding 6: Lasha -->
+<details id="finding-6">
+  <summary>
+    <strong>p. 13</strong> &mdash; <span class="case-name">Lasha v. Olin Corp.</span>, 625 So. 2d 1002, 1006 (La. 1993)
+    &mdash; <span class="badge badge-yellow">Reworded &mdash; not a verbatim quote</span>
+  </summary>
+  <div class="finding-body">
+    <div class="bq-label">What the brief says:</div>
+    <div class="bq-brief">
+      "The tortfeasor takes his victim as he finds him and is responsible for all natural and probable consequences of his tortious conduct."
+    </div>
+
+    <div class="bq-label">What the opinion actually says:</div>
+    <div class="bq-opinion">
+      "It is clear that <strong>a defendant</strong> takes his victim as he finds him and is responsible for all natural and probable consequences of his tortious conduct."
+    </div>
+
+    <div class="explanation">
+      <strong>Assessment:</strong> The only difference is "The tortfeasor" in the brief versus "a defendant" in the opinion. The meaning is identical &mdash; "tortfeasor" and "defendant" are synonymous in this context. This is a very minor rewording, but the quotation marks in the brief suggest a verbatim quote when it is not quite verbatim. The opinion also uses "tortfeasor" elsewhere (Section III), so the word is not foreign to the opinion &mdash; just not used in this specific sentence.
+    </div>
+  </div>
+</details>
+
+<!-- Finding 7: Gilliam -->
+<details id="finding-7">
+  <summary>
+    <strong>p. 6</strong> &mdash; <span class="case-name">Gilliam v. Uni Holdings, LLC</span>, 201 A.D.3d 83, 88&ndash;89 (1st Dep't 2021)
+    &mdash; <span class="badge badge-gray">Unable to verify &mdash; opinion text unavailable</span>
+  </summary>
+  <div class="finding-body">
+    <div class="bq-label">What the brief claims:</div>
+    <div class="bq-brief">
+      "Gilliam's body is fundamentally different from a vehicle or other inanimate piece of evidence&hellip; plaintiffs are free to determine when they should undergo medical treatment deemed necessary by their physicians." Also: "a plaintiff's decision to undergo surgery does not constitute spoliation of evidence."
+    </div>
+
+    <div class="explanation">
+      This is a New York Appellate Division case (1st Department, 2021) that is not available in the CourtListener database. The citation could not be verified against opinion text. It should be checked through Westlaw, Lexis, or the NY courts' own databases.
+    </div>
+  </div>
+</details>
+
+<!-- Finding 8: Menges -->
+<details id="finding-8">
+  <summary>
+    <strong>p. 7</strong> &mdash; <span class="case-name">Menges v. Cliffs Drilling Co.</span>, 2000 WL 765082, at *3 (E.D. La. June 12, 2000)
+    &mdash; <span class="badge badge-gray">Unable to verify &mdash; opinion text unavailable</span>
+  </summary>
+  <div class="finding-body">
+    <div class="bq-label">What the brief claims:</div>
+    <div class="bq-brief">
+      Plaintiff "did not have a duty to delay his surgery" to allow for a defense medical examination.
+    </div>
+
+    <div class="explanation">
+      This is a WestLaw-only citation (2000 WL 765082) from the Eastern District of Louisiana. It is not available in the CourtListener database. The citation and quoted language could not be verified against opinion text. It should be checked through Westlaw or Lexis.
+    </div>
+  </div>
+</details>
+
+<!-- SECTION 3: VERIFIED CITATIONS -->
+<h2>Verified Citations</h2>
+<details>
+  <summary>11 citation-proposition pairs verified &mdash; click to expand</summary>
+  <div class="finding-body">
+
+    <div class="verified-item">
+      <span class="checkmark">&#10003;</span> <strong>p. 3</strong> &mdash; <span class="case-name">United States v. McRae</span>, 593 F.2d 700, 707 (5th Cir. 1979) &mdash; Rule 403 grants trial courts "wide discretion" to exclude prejudicial evidence. <span class="badge badge-green">Supported</span>
+    </div>
+
+    <div class="verified-item">
+      <span class="checkmark">&#10003;</span> <strong>p. 3</strong> &mdash; <span class="case-name">Old Chief v. United States</span>, 519 U.S. 172, 180 (1997) &mdash; "Unfair prejudice" means "an undue tendency to suggest decision on an improper basis, commonly, though not necessarily, an emotional one." <span class="badge badge-green">Verified</span> &mdash; exact quote from the Advisory Committee's Notes quoted in the opinion.
+    </div>
+
+    <div class="verified-item">
+      <span class="checkmark">&#10003;</span> <strong>p. 4</strong> &mdash; <span class="case-name">Bozeman v. State</span>, 879 So. 2d 692, 698 (La. 2004) &mdash; Collateral source rule is of "common law origin" and bars reducing liability for independent compensation. <span class="badge badge-green">Verified</span> &mdash; exact quote.
+    </div>
+
+    <div class="verified-item">
+      <span class="checkmark">&#10003;</span> <strong>p. 6</strong> &mdash; <span class="case-name">King v. Illinois Cent. R.R.</span>, 337 F.3d 550, 556 (5th Cir. 2003) &mdash; Spoliation requires bad faith; mere negligence is insufficient. <span class="badge badge-green">Supported</span>
+    </div>
+
+    <div class="verified-item">
+      <span class="checkmark">&#10003;</span> <strong>p. 6</strong> &mdash; <span class="case-name">Condrey v. SunTrust Bank of Ga.</span>, 431 F.3d 191, 203 (5th Cir. 2005) &mdash; Bad faith required for spoliation sanctions. <span class="badge badge-green">Supported</span> &mdash; opinion states "The Fifth Circuit permits an adverse inference against the destroyer of evidence only upon a showing of 'bad faith.'"
+    </div>
+
+    <div class="verified-item">
+      <span class="checkmark">&#10003;</span> <strong>p. 6</strong> &mdash; <span class="case-name">Guzman v. Jones</span>, 804 F.3d 707, 713 (5th Cir. 2015) &mdash; Bad faith required for spoliation. <span class="badge badge-green">Supported</span> &mdash; opinion states: "We permit an adverse inference against the spoliator or sanctions against the spoliator only upon a showing of 'bad faith' or 'bad conduct.'"
+    </div>
+
+    <div class="verified-item">
+      <span class="checkmark">&#10003;</span> <strong>p. 7</strong> &mdash; <span class="case-name">King v. Illinois Cent. R.R.</span>, 337 F.3d 550, 556 (5th Cir. 2003) &mdash; Party accused of spoliation must be shown to have acted in "bad faith." <span class="badge badge-green">Supported</span>
+    </div>
+
+    <div class="verified-item">
+      <span class="checkmark">&#10003;</span> <strong>p. 8</strong> &mdash; <span class="case-name">Old Chief v. United States</span>, 519 U.S. 172, 180 (1997) &mdash; "Unfair prejudice" means "an undue tendency to suggest decision on an improper basis." <span class="badge badge-green">Verified</span>
+    </div>
+
+    <div class="verified-item">
+      <span class="checkmark">&#10003;</span> <strong>p. 10</strong> &mdash; <span class="case-name">United States v. McRae</span>, 593 F.2d 700, 707 (5th Cir. 1979) &mdash; Under Rule 403, evidence excluded when probative value outweighed by prejudice. <span class="badge badge-green">Supported</span>
+    </div>
+
+    <div class="verified-item">
+      <span class="checkmark">&#10003;</span> <strong>p. 12</strong> &mdash; <span class="case-name">Maurer v. United States</span>, 668 F.2d 98, 99 (2d Cir. 1981) &mdash; Eggshell plaintiff: defendant fully liable for consequences even when plaintiff had preexisting condition. <span class="badge badge-green">Supported</span> &mdash; opinion states: "It is a settled principle of tort law that when a defendant's wrongful act causes injury, he is fully liable for the resulting damage even though the injured plaintiff had a preexisting condition."
+    </div>
+
+    <div class="verified-item">
+      <span class="checkmark">&#10003;</span> <strong>p. 12&ndash;13</strong> &mdash; <span class="case-name">Koch v. United States</span>, 857 F.3d 267, 279 (5th Cir. 2017) &mdash; Fifth Circuit reaffirmed eggshell plaintiff doctrine. <span class="badge badge-green">Supported</span> &mdash; opinion extensively discusses and applies eggshell skull rule. (Note: CourtListener's database mislabels this as "Koch v. Tote, Incorporated" but the opinion text confirms the defendant is the United States.)
+    </div>
+
+  </div>
+</details>
+
+<!-- METHODOLOGY -->
+<div class="methodology">
+  <h2>Methodology &amp; Limitations</h2>
+  <ul>
+    <li><strong>Quote verification</strong> is near-deterministic but limited by the quality of CourtListener's text. Minor discrepancies may reflect OCR artifacts in the source database rather than errors in the brief.</li>
+    <li><strong>Propositional support</strong> assessment is an AI judgment. It reflects Claude's reading of the opinion text and should be verified by counsel. Reasonable lawyers may disagree about whether a case "supports" a given proposition.</li>
+    <li>This report checks whether cited cases say what the brief claims they say. It does not assess the overall legal merit of the brief's arguments or whether the cited cases are the best authorities available.</li>
+    <li>Cases marked "unable to verify" should be checked through other sources (Westlaw, Lexis, etc.).</li>
+  </ul>
+
+  <h3>Verification method disclosure</h3>
+  <p>The following opinions were <strong>retrieved from CourtListener</strong> and verified against their full text:</p>
+  <ul>
+    <li><em>Tompkins v. Cyr</em>, 202 F.3d 770 (cluster 19782)</li>
+    <li><em>Collins v. Wayne Corp.</em>, 621 F.2d 777 (cluster 378125)</li>
+    <li><em>United States v. McRae</em>, 593 F.2d 700 (cluster 363891)</li>
+    <li><em>Old Chief v. United States</em>, 519 U.S. 172 (cluster 118074)</li>
+    <li><em>Bozeman v. State</em>, 879 So. 2d 692 (cluster 1103946)</li>
+    <li><em>Bankcard America, Inc. v. Universal Bancard Systems, Inc.</em>, 203 F.3d 477 (cluster 7079960)</li>
+    <li><em>King v. Illinois Cent. R.R.</em>, 337 F.3d 550 (cluster 8437633)</li>
+    <li><em>Condrey v. SunTrust Bank of Ga.</em>, 431 F.3d 191 (cluster 39696)</li>
+    <li><em>Guzman v. Jones</em>, 804 F.3d 707 (cluster 3148675)</li>
+    <li><em>Michelson v. United States</em>, 335 U.S. 469 (cluster 104607)</li>
+    <li><em>United States v. Abel</em>, 469 U.S. 45 (cluster 111285)</li>
+    <li><em>Maurer v. United States</em>, 668 F.2d 98 (cluster 398652)</li>
+    <li><em>Koch v. United States</em>, 857 F.3d 267 (cluster 4390987)</li>
+    <li><em>Lasha v. Olin Corp.</em>, 625 So. 2d 1002 (cluster 1112408)</li>
+  </ul>
+  <p>The following opinions were <strong>not available on CourtListener</strong> and could not be verified against opinion text:</p>
+  <ul>
+    <li><em>Gilliam v. Uni Holdings, LLC</em>, 201 A.D.3d 83 (1st Dep't 2021) &mdash; New York state appellate court, not in CL database</li>
+    <li><em>Menges v. Cliffs Drilling Co.</em>, 2000 WL 765082 (E.D. La. 2000) &mdash; WestLaw-only citation, not in CL database</li>
+  </ul>
+  <p>No opinions in this report were assessed from training knowledge. All assessments are based on retrieved opinion text.</p>
+</div>
+
+</body>
+</html>

@@ -315,6 +315,14 @@ If/when this ships, we could consume the classification labels via API to dramat
 - Do bankruptcy courts label orders as "opinions" less frequently than district courts? If so, the opinion-keyword tier is systematically biased against bankruptcy results.
 - Could we match the cited order's subject matter against docket entry descriptions? e.g., if the citation context mentions "settlement with Prime Trust," match against entries containing those terms.
 
+## A/B Test: `/proposition-verifier` vs `/verify-brief`
+
+Running both skills on the same brief (Brooks v. Lowe's, `briefs-2/gov.uscourts.lawd.207038.49.1.pdf`) on 2026-04-15.
+
+- `/proposition-verifier` run complete — report at `briefs-2/gov.uscourts.lawd.207038.49.1_proposition_report.html`, notes at `briefs-2/gov.uscourts.lawd.207038.49.1_run_notes.md`
+- `/verify-brief` run in progress (separate window)
+- [ ] Compare: same issues caught? Different false positives/negatives? Timing/API usage? Report format preference?
+
 ## Future Ideas
 
 Moved to `scratch/ROADMAP.md` — covers client-side BYOK, WL/Lexis data contributions, semantic search, and more.
