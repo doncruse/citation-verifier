@@ -395,7 +395,7 @@ class TestCheckQuotes:
 
 # --- metadata_check ---
 
-from citation_verifier.brief_pipeline import metadata_check, MetadataCheckResult
+from citation_verifier.brief_pipeline import metadata_check, MetadataCheckResult, generate_report
 
 
 class TestMetadataCheck:
@@ -452,3 +452,35 @@ class TestMetadataCheck:
         assert result.not_found == 0
         assert len(result.flagged_claims) == 0
         assert len(result.syllabus_items) == 0
+
+
+# --- generate_report ---
+
+
+class TestGenerateReport:
+    def test_generates_html_file(self, tmp_path):
+        """generate_report reads claims.csv and produces report.html."""
+        # Set up minimal claims.csv with assessment data
+        claims = tmp_path / "claims.csv"
+        claims.write_text(
+            "page,proposition,cited_case,retrieved_case,supporting_language,assessment,"
+            "cl_url,cl_status,diagnostics,opinion_file,quoted_text,quote_check,quote_check_worst,syllabus\n"
+            '3,"Bad faith required.","King v. Ill. Cent. R.R., 337 F.3d 550 (5th Cir. 2003)",'
+            '"King v. Illinois Central Railroad","An adverse inference requires bad conduct.","Green",'
+            '"https://cl/opinion/8437633/","VERIFIED","",opinions/King.txt,"[]","[]","NO_QUOTES",""\n'
+        )
+        (tmp_path / "opinions").mkdir()
+        (tmp_path / "opinions" / "King.txt").write_text("opinion text")
+
+        report_path = generate_report(
+            tmp_path,
+            title="Test Brief",
+            case_name="Smith v. Jones",
+            case_number="No. 1:24-CV-00001",
+        )
+
+        assert report_path.exists()
+        html = report_path.read_text(encoding="utf-8")
+        assert "<!DOCTYPE html>" in html
+        assert "Smith v. Jones" in html
+        assert "King v. Ill" in html

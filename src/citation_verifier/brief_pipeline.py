@@ -12,6 +12,7 @@ from typing import Any
 
 from .client import AsyncCourtListenerClient
 from .models import VerificationResult, VerificationStatus
+from .report_template import generate_report_html
 from .verifier import CitationVerifier
 
 
@@ -659,3 +660,148 @@ def metadata_check(workdir: Path) -> MetadataCheckResult:
             })
 
     return result
+
+
+# ---------------------------------------------------------------------------
+# Report generation
+# ---------------------------------------------------------------------------
+
+
+def generate_report(
+    workdir: Path,
+    title: str = "",
+    case_name: str = "",
+    case_number: str = "",
+    filed_date: str = "",
+    report_date: str = "",
+) -> Path:
+    """Generate an HTML report from claims.csv assessment data.
+
+    Reads claims.csv (must have assessment column populated),
+    builds the report data structure, and writes report.html.
+
+    Returns the path to the generated report.
+    """
+    workdir = Path(workdir)
+    claims_path = workdir / "claims.csv"
+
+    with open(claims_path, newline="", encoding="utf-8") as f:
+        claims = list(csv.DictReader(f))
+
+    findings = []
+    verified = []
+    unable = []
+    retrieved_set: dict[str, dict[str, str]] = {}
+    unavailable_list = []
+    finding_counter = 0
+
+    for claim in claims:
+        assessment = claim.get("assessment", "").strip()
+        cl_status = claim.get("cl_status", "")
+        page = claim.get("page", "")
+        proposition = claim.get("proposition", "")
+        cited_case = claim.get("cited_case", "")
+        cl_url = claim.get("cl_url", "")
+        retrieved_case = claim.get("retrieved_case", "")
+        supporting_lang = claim.get("supporting_language", "")
+        opinion_file = claim.get("opinion_file", "")
+
+        # Parse case name and citation from cited_case
+        parts = cited_case.split(",", 1)
+        case_name_parsed = parts[0].strip() if parts else cited_case
+        citation_parsed = parts[1].strip() if len(parts) > 1 else ""
+
+        # Track retrieved opinions
+        if opinion_file and retrieved_case:
+            cluster_id = ""
+            if cl_url:
+                m = re.search(r"/opinion/(\d+)/", cl_url)
+                if m:
+                    cluster_id = m.group(1)
+            retrieved_set[retrieved_case] = {
+                "case_name": retrieved_case,
+                "citation": citation_parsed,
+                "cluster_id": cluster_id,
+            }
+
+        if assessment.lower() == "green":
+            verified.append({
+                "page": page,
+                "case_name": case_name_parsed,
+                "citation": citation_parsed,
+                "cl_url": cl_url,
+                "proposition": proposition,
+                "badge_label": "Supported",
+                "supporting_language": supporting_lang,
+            })
+        elif cl_status == "NOT_FOUND" and not opinion_file:
+            finding_counter += 1
+            unable.append({
+                "id": f"finding-uv-{finding_counter}",
+                "page": page,
+                "case_name": case_name_parsed,
+                "citation": citation_parsed,
+                "brief_text": proposition,
+                "explanation": (
+                    supporting_lang if supporting_lang
+                    else "Case not found on CourtListener. Cannot verify against opinion text."
+                ),
+            })
+            unavailable_list.append({
+                "case_name": case_name_parsed,
+                "citation": citation_parsed,
+                "reason": "Not in CourtListener database",
+            })
+        else:
+            # Yellow or Red finding
+            finding_counter += 1
+            severity = "red" if assessment.lower() == "red" else "yellow"
+
+            brief_text = proposition
+            opinion_text = supporting_lang
+            explanation = ""
+
+            # If supporting_language has structured format, parse it
+            if supporting_lang:
+                if "Assessment:" in supporting_lang:
+                    parts_sl = supporting_lang.split("Assessment:", 1)
+                    opinion_text = parts_sl[0].strip()
+                    explanation = parts_sl[1].strip()
+                else:
+                    explanation = supporting_lang
+
+            badge_label = (
+                "Not supported by cited case" if severity == "red"
+                else "Overstated -- case partially supports"
+            )
+
+            findings.append({
+                "id": f"finding-{finding_counter}",
+                "page": page,
+                "case_name": case_name_parsed,
+                "citation": citation_parsed,
+                "cl_url": cl_url,
+                "severity": severity,
+                "badge_label": badge_label,
+                "brief_text": brief_text,
+                "opinion_text": opinion_text,
+                "explanation": explanation,
+            })
+
+    report_data = {
+        "title": title,
+        "case_name": case_name,
+        "case_number": case_number,
+        "filed_date": filed_date,
+        "report_date": report_date,
+        "findings": findings,
+        "verified": verified,
+        "unable_to_verify": unable,
+        "retrieved_opinions": list(retrieved_set.values()),
+        "unavailable_opinions": unavailable_list,
+    }
+
+    html = generate_report_html(report_data)
+    report_path = workdir / "report.html"
+    report_path.write_text(html, encoding="utf-8")
+    return report_path

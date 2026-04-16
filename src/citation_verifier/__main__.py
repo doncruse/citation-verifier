@@ -197,6 +197,14 @@ def verify_brief_main(argv: list[str] | None = None) -> int:
         help="Run verbatim quote checker on claims.csv",
     )
     group.add_argument(
+        "--metadata-check", action="store_true",
+        help="Run metadata sanity check on merged claims",
+    )
+    group.add_argument(
+        "--report", action="store_true",
+        help="Generate HTML report from assessed claims",
+    )
+    group.add_argument(
         "--full", action="store_true", default=True,
         help="Run full pipeline: wave1 + wave2 + merge (default)",
     )
@@ -231,6 +239,41 @@ def verify_brief_main(argv: list[str] | None = None) -> int:
                 if line and not line.startswith("#"):
                     citations.append(line)
         return citations
+
+    if args.metadata_check:
+        from .brief_pipeline import metadata_check
+        result = metadata_check(workdir)
+        print(f"Metadata check: {result.total_claims} claims")
+        print(f"  Name mismatches: {result.name_mismatches}")
+        print(f"  NOT_FOUND: {result.not_found}")
+        print(f"  No opinion: {result.no_opinion}")
+        if result.flagged_claims:
+            print(f"  Flagged for mandatory assessment ({len(result.flagged_claims)}):")
+            for fc in result.flagged_claims:
+                print(f"    - p.{fc['page']}: {fc['cited_case']} [{', '.join(fc['flags'])}]")
+        if result.syllabus_items:
+            print(f"  Syllabus check ({len(result.syllabus_items)}):")
+            for si in result.syllabus_items:
+                print(f'    - p.{si["page"]}: "{si["proposition"][:80]}" / Syllabus: "{si["syllabus"][:80]}"')
+        return 0
+
+    if args.report:
+        from .brief_pipeline import generate_report
+        import json as json_mod
+        meta_path = workdir / "brief_metadata.json"
+        meta = {}
+        if meta_path.exists():
+            meta = json_mod.loads(meta_path.read_text(encoding="utf-8"))
+        report_path = generate_report(
+            workdir,
+            title=meta.get("title", ""),
+            case_name=meta.get("case_name", ""),
+            case_number=meta.get("case_number", ""),
+            filed_date=meta.get("filed_date", ""),
+            report_date=meta.get("report_date", ""),
+        )
+        print(f"Report generated: {report_path}")
+        return 0
 
     if args.check_quotes:
         from .brief_pipeline import check_quotes
