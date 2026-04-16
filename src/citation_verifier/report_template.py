@@ -202,25 +202,32 @@ def _build_findings(findings: list[dict]) -> str:
                 f'<div class="bq-brief">{_esc(f["brief_text"])}</div>'
             )
 
-        # Show actual opinion language: prefer deterministic matched
-        # passages (extracted programmatically from opinion text) over
-        # agent-written opinion_text summaries.
+        # Show actual opinion language: deterministic matched passages
+        # from the opinion text, with quality-aware labels. Fall back
+        # to agent-written case overview when no passage was found.
         opinion_block = ""
         matched_passages = f.get("matched_passages", [])
         if matched_passages:
             parts = []
             for mp in matched_passages:
+                text = mp.get("text", mp) if isinstance(mp, dict) else mp
+                sim = mp.get("similarity", 1.0) if isinstance(mp, dict) else 1.0
+                if sim >= 0.6:
+                    label = "Actual language in opinion:"
+                else:
+                    label = "Closest passage found in opinion (low match):"
+                if sim >= 0.6:
+                    formatted = f'\u2026 {_esc(text)} \u2026'
+                else:
+                    formatted = f'\u201c{_esc(text)}\u201d'
                 parts.append(
-                    f'<div class="bq-opinion">'
-                    f'\u2026 {_esc(mp)} \u2026</div>'
+                    f'<div class="bq-label">{label}</div>'
+                    f'<div class="bq-opinion">{formatted}</div>'
                 )
-            opinion_block = (
-                '<div class="bq-label">Actual language in opinion:</div>'
-                + "".join(parts)
-            )
+            opinion_block = "".join(parts)
         elif f.get("opinion_text"):
             opinion_block = (
-                '<div class="bq-label">What the opinion actually says:</div>'
+                '<div class="bq-label">Case overview:</div>'
                 f'<div class="bq-opinion">{_esc(f["opinion_text"])}</div>'
             )
 

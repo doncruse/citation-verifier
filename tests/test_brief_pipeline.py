@@ -549,25 +549,3 @@ class TestGenerateReport:
         # When there are quotes, the proposition is NOT shown (avoids redundancy)
         assert "Agent wrote this proposition summary" not in html
 
-    def test_falls_back_to_old_format(self, tmp_path):
-        """When structured columns are absent, falls back to parsing
-        supporting_language (backwards compat with old claims.csv)."""
-        claims = tmp_path / "claims.csv"
-        claims.write_text(
-            "page,proposition,cited_case,retrieved_case,supporting_language,assessment,"
-            "cl_url,cl_status,diagnostics,opinion_file,quoted_text,quote_check,"
-            "quote_check_worst,syllabus\n"
-            '3,"Settlement evidence is irrelevant.","Tompkins v. Cyr, 202 F.3d 770 (5th Cir. 2000)",'
-            '"Tompkins v. Cyr","The case discusses RICO claims. Assessment: Wrong topic entirely.","Red",'
-            '"https://cl/opinion/19782/","VERIFIED","",opinions/Tompkins.txt,'
-            '"[]","[]","NO_QUOTES",""\n'
-        )
-        (tmp_path / "opinions").mkdir()
-        (tmp_path / "opinions" / "Tompkins.txt").write_text("opinion text")
-
-        report_path = generate_report(tmp_path, title="Test")
-        html = report_path.read_text(encoding="utf-8")
-
-        # Fallback parsing: opinion_text from before "Assessment:", explanation from after
-        assert "RICO claims" in html
-        assert "Wrong topic entirely" in html

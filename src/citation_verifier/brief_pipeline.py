@@ -461,12 +461,6 @@ class QuoteCheckStats:
     fabricated: int = 0
 
 
-def _best_match_ratio(needle: str, haystack: str) -> float:
-    """Find the best fuzzy match ratio for needle within haystack."""
-    ratio, _ = _best_match_with_passage(needle, haystack)
-    return ratio
-
-
 def _best_match_with_passage(
     needle: str, haystack: str, context_chars: int = 80,
 ) -> tuple[float, str]:
@@ -839,27 +833,16 @@ def generate_report(
             except (json_mod.JSONDecodeError, ValueError):
                 quote_checks = []
             for qc in quote_checks:
-                # Only use deterministic passages for CLOSE/VERBATIM matches.
-                # FABRICATED matches (sim < 0.6) often land on the wrong
-                # passage — the agent's opinion_text is more reliable.
-                if qc.get("matched_passage") and qc.get("result") in (
-                    "VERBATIM", "CLOSE",
-                ):
-                    matched_passages.append(qc["matched_passage"])
+                sim = qc.get("similarity", 0)
+                if qc.get("matched_passage") and sim >= 0.5:
+                    matched_passages.append({
+                        "text": qc["matched_passage"],
+                        "similarity": sim,
+                        "result": qc.get("result", ""),
+                    })
 
-            # Prefer structured columns from new-style agents; fall back
-            # to parsing supporting_language for old-style data.
             opinion_text = claim.get("opinion_text", "").strip() or ""
             explanation = claim.get("explanation", "").strip() or ""
-
-            if not opinion_text and not explanation and supporting_lang:
-                # Old-format fallback: parse from supporting_language
-                if "Assessment:" in supporting_lang:
-                    parts_sl = supporting_lang.split("Assessment:", 1)
-                    opinion_text = parts_sl[0].strip()
-                    explanation = parts_sl[1].strip()
-                else:
-                    explanation = supporting_lang
 
             badge_label = claim.get("badge_label", "").strip() or (
                 "Not supported by cited case" if severity == "red"
