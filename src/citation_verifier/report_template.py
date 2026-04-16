@@ -218,12 +218,6 @@ def _build_findings(findings: list[dict]) -> str:
                 '<div class="bq-label">Actual language in opinion:</div>'
                 + "".join(parts)
             )
-            # Add agent assessment as supplementary context if present
-            if f.get("opinion_text"):
-                opinion_block += (
-                    f'<div class="explanation" style="margin-top:0.5rem;">'
-                    f'<em>{_esc(f["opinion_text"])}</em></div>'
-                )
         elif f.get("opinion_text"):
             opinion_block = (
                 '<div class="bq-label">What the opinion actually says:</div>'

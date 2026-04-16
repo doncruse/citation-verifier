@@ -839,7 +839,12 @@ def generate_report(
             except (json_mod.JSONDecodeError, ValueError):
                 quote_checks = []
             for qc in quote_checks:
-                if qc.get("matched_passage"):
+                # Only use deterministic passages for CLOSE/VERBATIM matches.
+                # FABRICATED matches (sim < 0.6) often land on the wrong
+                # passage — the agent's opinion_text is more reliable.
+                if qc.get("matched_passage") and qc.get("result") in (
+                    "VERBATIM", "CLOSE",
+                ):
                     matched_passages.append(qc["matched_passage"])
 
             # Prefer structured columns from new-style agents; fall back
