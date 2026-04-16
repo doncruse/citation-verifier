@@ -201,11 +201,32 @@ def _build_findings(findings: list[dict]) -> str:
                 f'\u201c{_esc(joined)}\u201d</div>'
             )
 
+        # Show actual opinion language: prefer deterministic matched
+        # passages (extracted programmatically from opinion text) over
+        # agent-written opinion_text summaries.
         opinion_block = ""
-        if f.get("opinion_text"):
+        matched_passages = f.get("matched_passages", [])
+        if matched_passages:
+            parts = []
+            for mp in matched_passages:
+                parts.append(
+                    f'<div class="bq-opinion">'
+                    f'\u2026 {_esc(mp)} \u2026</div>'
+                )
+            opinion_block = (
+                '<div class="bq-label">Actual language in opinion:</div>'
+                + "".join(parts)
+            )
+            # Add agent assessment as supplementary context if present
+            if f.get("opinion_text"):
+                opinion_block += (
+                    f'<div class="explanation" style="margin-top:0.5rem;">'
+                    f'<em>{_esc(f["opinion_text"])}</em></div>'
+                )
+        elif f.get("opinion_text"):
             opinion_block = (
                 '<div class="bq-label">What the opinion actually says:</div>'
-                f'<div class="bq-opinion">{f["opinion_text"]}</div>'
+                f'<div class="bq-opinion">{_esc(f["opinion_text"])}</div>'
             )
 
         explanation_block = ""

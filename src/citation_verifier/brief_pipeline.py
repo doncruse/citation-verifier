@@ -463,30 +463,77 @@ class QuoteCheckStats:
 
 def _best_match_ratio(needle: str, haystack: str) -> float:
     """Find the best fuzzy match ratio for needle within haystack."""
+    ratio, _ = _best_match_with_passage(needle, haystack)
+    return ratio
+
+
+def _best_match_with_passage(
+    needle: str, haystack: str, context_chars: int = 80,
+) -> tuple[float, str]:
+    """Find the best fuzzy match ratio and extract the matching passage.
+
+    Returns (ratio, passage) where passage is the best-matching text from
+    the haystack with surrounding context.  The haystack should already be
+    HTML-stripped clean text (check_quotes does this).  We normalize the
+    needle for matching but extract the passage from the original haystack
+    using haystack_lower (same length as haystack, so positions map 1:1).
+    """
     if not needle or not haystack:
-        return 0.0
+        return 0.0, ""
     needle_norm = _normalize_quote_text(needle).lower()
-    haystack_norm = _normalize_quote_text(haystack).lower()
+    # Only lowercase the haystack (don't normalize — preserves positions)
+    haystack_lower = haystack.lower()
 
     if not needle_norm:
-        return 0.0
+        return 0.0, ""
 
     # Exact substring = verbatim
-    if needle_norm in haystack_norm:
-        return 1.0
+    if needle_norm in haystack_lower:
+        pos = haystack_lower.index(needle_norm)
+        return 1.0, _extract_passage(haystack, pos, len(needle_norm), context_chars)
 
-    # Sliding window: compare against chunks roughly needle-sized
+    # Sliding window with fine step
     best = 0.0
+    best_start = 0
     window = len(needle_norm)
-    step = max(1, window // 4)
-    for start in range(0, max(1, len(haystack_norm) - window + 1), step):
-        chunk = haystack_norm[start:start + window + window // 2]
-        ratio = difflib.SequenceMatcher(None, needle_norm, chunk, autojunk=False).ratio()
+    step = max(1, window // 8)
+    for start in range(0, max(1, len(haystack_lower) - window + 1), step):
+        chunk = haystack_lower[start:start + window + window // 2]
+        ratio = difflib.SequenceMatcher(
+            None, needle_norm, chunk, autojunk=False,
+        ).ratio()
         if ratio > best:
             best = ratio
+            best_start = start
             if best > 0.95:
                 break
-    return best
+
+    passage = ""
+    if best >= 0.4:
+        passage = _extract_passage(
+            haystack, best_start, window + window // 2, context_chars,
+        )
+    return best, passage
+
+
+def _extract_passage(
+    text: str, match_start: int, match_len: int, context: int,
+) -> str:
+    """Extract a passage from text around a match, trimmed to sentences."""
+    start = max(0, match_start - context)
+    end = min(len(text), match_start + match_len + context)
+    passage = text[start:end].strip()
+    # Trim leading partial sentence
+    if start > 0:
+        dot = passage.find(". ")
+        if 0 < dot < context:
+            passage = passage[dot + 2:]
+    # Trim trailing partial sentence
+    if end < len(text):
+        dot = passage.rfind(". ")
+        if dot > len(passage) - context and dot > 0:
+            passage = passage[:dot + 1]
+    return passage.strip()
 
 
 def check_quotes(workdir: Path) -> QuoteCheckStats:
@@ -502,7 +549,7 @@ def check_quotes(workdir: Path) -> QuoteCheckStats:
     with open(claims_path, newline="", encoding="utf-8") as f:
         claims = list(csv.DictReader(f))
 
-    # Cache opinion text by file path
+    # Cache opinion text by file path (HTML-stripped for clean matching)
     opinion_cache: dict[str, str] = {}
 
     for claim in claims:
@@ -527,16 +574,21 @@ def check_quotes(workdir: Path) -> QuoteCheckStats:
             stats.no_opinion += 1
             continue
 
-        # Load opinion text
+        # Load opinion text (strip HTML for clean matching + extraction)
         if opinion_file not in opinion_cache:
             opinion_path = workdir / opinion_file
             try:
-                opinion_cache[opinion_file] = opinion_path.read_text(encoding="utf-8")
+                raw = opinion_path.read_text(encoding="utf-8")
             except (FileNotFoundError, UnicodeDecodeError):
                 claim["quote_check"] = "[]"
                 claim["quote_check_worst"] = "NO_OPINION"
                 stats.no_opinion += 1
                 continue
+            # Strip HTML/XML tags and collapse whitespace for clean text
+            clean = re.sub(r"<[^>]+>", " ", raw)
+            clean = re.sub(r"&\w+;", " ", clean)  # HTML entities
+            clean = re.sub(r"\s+", " ", clean).strip()
+            opinion_cache[opinion_file] = clean
         opinion_text = opinion_cache[opinion_file]
 
         # Check each quote
@@ -545,7 +597,9 @@ def check_quotes(workdir: Path) -> QuoteCheckStats:
         _WORST_ORDER = {"VERBATIM": 0, "CLOSE": 1, "FABRICATED": 2}
 
         for quote in quotes:
-            ratio = _best_match_ratio(quote, opinion_text)
+            ratio, matched_passage = _best_match_with_passage(
+                quote, opinion_text,
+            )
             if ratio > 0.85:
                 result = "VERBATIM"
                 stats.verbatim += 1
@@ -556,11 +610,14 @@ def check_quotes(workdir: Path) -> QuoteCheckStats:
                 result = "FABRICATED"
                 stats.fabricated += 1
 
-            results.append({
+            entry: dict[str, object] = {
                 "quote": quote,
                 "result": result,
                 "similarity": round(ratio, 2),
-            })
+            }
+            if matched_passage:
+                entry["matched_passage"] = matched_passage
+            results.append(entry)
 
             if _WORST_ORDER.get(result, 0) > _WORST_ORDER.get(worst, 0):
                 worst = result
@@ -773,6 +830,18 @@ def generate_report(
 
             brief_text = claim.get("brief_text", "").strip() or proposition
 
+            # Extract matched passages from quote_check (deterministic,
+            # from the actual opinion text — not agent-written summaries).
+            matched_passages = []
+            quote_check_raw = claim.get("quote_check", "[]")
+            try:
+                quote_checks = json_mod.loads(quote_check_raw) if quote_check_raw else []
+            except (json_mod.JSONDecodeError, ValueError):
+                quote_checks = []
+            for qc in quote_checks:
+                if qc.get("matched_passage"):
+                    matched_passages.append(qc["matched_passage"])
+
             # Prefer structured columns from new-style agents; fall back
             # to parsing supporting_language for old-style data.
             opinion_text = claim.get("opinion_text", "").strip() or ""
@@ -802,6 +871,7 @@ def generate_report(
                 "badge_label": badge_label,
                 "brief_text": brief_text,
                 "quoted_strings": quoted_strings,
+                "matched_passages": matched_passages,
                 "opinion_text": opinion_text,
                 "explanation": explanation,
             })
