@@ -315,15 +315,32 @@ If/when this ships, we could consume the classification labels via API to dramat
 - Do bankruptcy courts label orders as "opinions" less frequently than district courts? If so, the opinion-keyword tier is systematically biased against bankruptcy results.
 - Could we match the cited order's subject matter against docket entry descriptions? e.g., if the citation context mentions "settlement with Prime Trust," match against entries containing those terms.
 
-## A/B Test: `/proposition-verifier` vs `/verify-brief`
+## A/B Test: `/proposition-verifier` vs `/verify-brief` — COMPLETE
 
-Running both skills on the same brief (Brooks v. Lowe's, `briefs-2/gov.uscourts.lawd.207038.49.1.pdf`) on 2026-04-15.
+Both skills run on the same brief (Brooks v. Lowe's, `briefs-2/gov.uscourts.lawd.207038.49.1.pdf`) on 2026-04-15.
 
 - `/proposition-verifier` run complete — report at `briefs-2/gov.uscourts.lawd.207038.49.1_proposition_report.html`, notes at `briefs-2/gov.uscourts.lawd.207038.49.1_run_notes.md`
 - `/verify-brief` run complete — retrospective at `docs/retrospectives/2026-04-15-verify-brief-brooks-v-lowes.md`, report at `briefs/gov.uscourts.lawd.207038.49.1/report.html`
 - `/verify-brief` results: 9 Green, 8 Yellow, 3 Red (20 claims, 16 citations, ~9 min active time, ~21 CL API calls + 17 LLM agents)
-- **Report format: `/verify-brief` report.html is significantly better.** Color-coded table with Green/Yellow/Red sections, blockquote supporting language, quote check tags, clickable CL links. User strongly prefers this over `/proposition-verifier` format.
-- [ ] Compare: same issues caught? Different false positives/negatives? Timing/API usage?
+- `/proposition-verifier` results: 11 Green, 3 Yellow, 3 Red, 2 Gray (19 claims, ~31 min compute, ~17 CL MCP calls)
+- **Report format: `/proposition-verifier` report is significantly better.** Collapsible details, paired blockquotes ("What the brief claims" / "What the opinion actually says"), Lora serif headings, methodology disclosure. User strongly prefers this over `/verify-brief`'s flat table format.
+- [x] Compare: same issues caught? Different false positives/negatives? Timing/API usage?
+
+### Comparison results
+
+**Proposition-verifier was stricter and more accurate on 5 of 6 divergent calls:**
+- Collins: prop-verifier Red (correct — page 784 is expert cross-exam, not settlement exclusion), verify-brief Yellow
+- Abel: prop-verifier Red (correct — brief inverts the holding), verify-brief Yellow
+- Menges: prop-verifier Gray (correct — CL coverage gap, not fabricated), verify-brief Red
+- Michelson: prop-verifier Yellow (correct — pinpoint off), verify-brief Green
+- Bankcard/Lasha: prop-verifier Yellow (correct — word swaps in "verbatim" quotes), verify-brief Green
+
+**Verify-brief caught one thing prop-verifier missed:**
+- Old Chief p.8: verify-brief Red (correct — Rule 403 language applied to spoliation, which Old Chief never discusses), prop-verifier Green
+
+**Verify-brief pipeline advantages:** 3.4x faster, found Gilliam (NY state) via RECAP that MCP connector missed, resumable CLI phases.
+
+**Decision:** Merge into unified `/verify-brief` — verify-brief pipeline + proposition-verifier report format and assessment calibration. Plan at `docs/plans/2026-04-15-unified-brief-verifier-plan.md`, rationale at `docs/plans/2026-04-15-unified-brief-verifier-rationale.md`.
 
 ## Future Ideas
 
