@@ -509,12 +509,45 @@ class TestGenerateReport:
         report_path = generate_report(tmp_path, title="Test")
         html = report_path.read_text(encoding="utf-8")
 
-        # Structured columns should appear in the report
+        # No quoted_text, so brief_text column is used
         assert "prior settlement evidence" in html
         assert "anti-abortion protesters" in html
         assert "Complete subject matter mismatch" in html
         # Old fallback text should NOT appear
         assert "old fallback text" not in html
+
+    def test_quoted_text_preferred_over_brief_text(self, tmp_path):
+        """When quoted_text has actual quotes, those appear in the report
+        instead of the brief_text or proposition."""
+        claims = tmp_path / "claims.csv"
+        claims.write_text(
+            "page,proposition,cited_case,retrieved_case,supporting_language,assessment,"
+            "cl_url,cl_status,diagnostics,opinion_file,quoted_text,quote_check,"
+            "quote_check_worst,syllabus,brief_text,opinion_text,explanation,badge_label\n"
+            '2,"A party cannot claim lack of knowledge about facts.",'
+            '"David v. Caterpillar, 324 F.3d 851 (7th Cir. 2003)",'
+            '"David v. Caterpillar","","Red",'
+            '"https://cl/1/","VERIFIED","",opinions/David.txt,'
+            '"[""A party cannot claim lack of knowledge about facts within the party\'s own knowledge or control.""]",'
+            '"[]","FABRICATED","",'
+            '"Agent wrote this proposition summary.",'
+            '"This is a Title VII case about retaliation.",'
+            '"Fabricated quote.",'
+            '"Not supported by cited case"\n'
+        )
+        (tmp_path / "opinions").mkdir()
+        (tmp_path / "opinions" / "David.txt").write_text("opinion text")
+
+        report_path = generate_report(tmp_path, title="Test")
+        html = report_path.read_text(encoding="utf-8")
+
+        # The brief's actual quoted text should appear in a separate block
+        assert "within the party" in html
+        assert "knowledge or control" in html
+        # The quoted text appears under "Quoted in brief:" label
+        assert "Quoted in brief" in html
+        # The proposition context also appears (under "What the brief claims:")
+        assert "Agent wrote this proposition summary" in html
 
     def test_falls_back_to_old_format(self, tmp_path):
         """When structured columns are absent, falls back to parsing

@@ -191,6 +191,15 @@ def _build_findings(findings: list[dict]) -> str:
                 '<div class="bq-label">What the brief claims:</div>'
                 f'<div class="bq-brief">{_esc(f["brief_text"])}</div>'
             )
+        # Show the brief's exact quoted language separately when available
+        quoted_strings = f.get("quoted_strings", [])
+        if quoted_strings:
+            joined = "\u201d \u2026 \u201c".join(quoted_strings)
+            brief_block += (
+                '<div class="bq-label">Quoted in brief:</div>'
+                f'<div class="bq-brief" style="font-style:italic;">'
+                f'\u201c{_esc(joined)}\u201d</div>'
+            )
 
         opinion_block = ""
         if f.get("opinion_text"):

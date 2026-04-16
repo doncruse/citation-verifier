@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Proposition Verification Report — Maxwell v. Michael</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  color: #2d2d2d;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+  background: #fafaf8;
+}
+h1, h2, h3 { font-family: 'Lora', serif; }
+h1 { font-size: 1.6rem; margin-bottom: 0.3rem; color: #1a1a1a; }
+h2 { font-size: 1.25rem; margin: 2rem 0 0.8rem; color: #333; border-bottom: 1px solid #ddd; padding-bottom: 0.3rem; }
+h3 { font-size: 1.05rem; margin: 1rem 0 0.5rem; }
+
+.meta { color: #666; font-size: 0.9rem; margin-bottom: 1.5rem; }
+.meta span { display: inline-block; margin-right: 1.5rem; }
+
+.dashboard { background: #fff; border: 1px solid #e0e0e0; border-radius: 6px; padding: 1.2rem 1.5rem; margin-bottom: 2rem; }
+.stats { display: flex; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 1rem; }
+.stat { text-align: center; }
+.stat-num { font-size: 1.8rem; font-weight: 600; }
+.stat-label { font-size: 0.8rem; color: #666; text-transform: uppercase; letter-spacing: 0.05em; }
+.stat-red .stat-num { color: #c0392b; }
+.stat-yellow .stat-num { color: #d4a017; }
+.stat-green .stat-num { color: #27ae60; }
+.stat-gray .stat-num { color: #888; }
+
+.issue-list { list-style: none; padding: 0; }
+.issue-list li {
+  padding: 0.5rem 0.7rem;
+  margin-bottom: 0.4rem;
+  border-left: 4px solid #ccc;
+  background: #fefefe;
+  font-size: 0.9rem;
+}
+.issue-list li.sev-red { border-left-color: #c0392b; background: #fdf2f2; }
+.issue-list li.sev-yellow { border-left-color: #d4a017; background: #fefcf0; }
+.issue-list li.sev-gray { border-left-color: #999; background: #f5f5f5; }
+.issue-list a { color: inherit; text-decoration: none; }
+.issue-list a:hover { text-decoration: underline; }
+
+.badge {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.15rem 0.5rem;
+  border-radius: 3px;
+  vertical-align: middle;
+}
+.badge-red { background: #f8d7da; color: #721c24; }
+.badge-yellow { background: #fff3cd; color: #856404; }
+.badge-orange { background: #ffe0b2; color: #8a4500; }
+.badge-green { background: #d4edda; color: #155724; }
+.badge-blue { background: #d1ecf1; color: #0c5460; }
+.badge-gray { background: #e9ecef; color: #495057; }
+
+.bq-brief {
+  border-left: 4px solid #e67e22;
+  background: #fef9f3;
+  padding: 0.7rem 1rem;
+  margin: 0.5rem 0;
+  font-size: 0.9rem;
+}
+.bq-opinion {
+  border-left: 4px solid #27ae60;
+  background: #f0faf4;
+  padding: 0.7rem 1rem;
+  margin: 0.5rem 0;
+  font-size: 0.9rem;
+}
+.bq-label { font-weight: 600; font-size: 0.8rem; color: #666; margin-bottom: 0.2rem; }
+
+details { margin-bottom: 0.8rem; }
+summary {
+  cursor: pointer;
+  padding: 0.6rem 0.8rem;
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  list-style: none;
+}
+summary::-webkit-details-marker { display: none; }
+summary::before { content: "\25B6\00a0"; font-size: 0.7rem; color: #888; }
+details[open] > summary::before { content: "\25BC\00a0"; }
+details[open] > summary { border-radius: 4px 4px 0 0; border-bottom: none; }
+.finding-body {
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-top: none;
+  border-radius: 0 0 4px 4px;
+  padding: 1rem;
+}
+.case-name { font-family: 'Lora', serif; font-style: italic; }
+.explanation { margin-top: 0.7rem; font-size: 0.9rem; line-height: 1.5; }
+
+.controls { margin-bottom: 0.5rem; font-size: 0.8rem; }
+.controls button {
+  background: none;
+  border: none;
+  color: #2980b9;
+  cursor: pointer;
+  font-size: 0.8rem;
+  padding: 0.2rem 0.4rem;
+}
+.controls button:hover { text-decoration: underline; }
+
+.verified-item {
+  padding: 0.3rem 0;
+  font-size: 0.85rem;
+  border-bottom: 1px solid #f0f0f0;
+}
+.checkmark { color: #27ae60; font-weight: bold; }
+
+.methodology { font-size: 0.85rem; color: #555; margin-top: 2rem; }
+.methodology h2 { font-size: 1.1rem; }
+.methodology ul { padding-left: 1.2rem; }
+.methodology li { margin-bottom: 0.5rem; }
+
+@media print {
+  details { open: true; }
+  details[open] > summary { border-bottom: 1px solid #e0e0e0; }
+  body { max-width: 100%; padding: 1rem; font-size: 12px; }
+  .controls { display: none; }
+  .dashboard { box-shadow: none; }
+}
+</style>
+<script>
+function expandAll() { document.querySelectorAll('details').forEach(d => d.open = true); }
+function collapseAll() { document.querySelectorAll('details').forEach(d => d.open = false); }
+</script>
+</head>
+<body>
+
+<h1>Proposition Verification Report</h1>
+<div class="meta">
+  <span><strong>Brief:</strong> Plaintiffs Rebuttal to Defendants' Answer to Second Amended Complaint and Motion to Compel Deemed Admissions</span><br>
+  <span><strong>Case:</strong> <em>Maxwell v. Michael</em>, No. 1:24-cv-1365-JRS-TAB (S.D. Ind.)</span><br>
+  <span><strong>Filed:</strong> December 22, 2025</span>
+  <span><strong>Report generated:</strong> </span>
+</div>
+
+
+<div class="dashboard">
+  <h2 style="border:none; margin-top:0; padding:0;">Summary</h2>
+  <div class="stats">
+    <div class="stat"><div class="stat-num">29</div><div class="stat-label">Claims checked</div></div>
+    <div class="stat stat-red"><div class="stat-num">11</div><div class="stat-label">Serious issues</div></div>
+    <div class="stat stat-yellow"><div class="stat-num">4</div><div class="stat-label">Minor notes</div></div>
+    <div class="stat stat-green"><div class="stat-num">10</div><div class="stat-label">Verified</div></div>
+    <div class="stat stat-gray"><div class="stat-num">4</div><div class="stat-label">Unable to verify</div></div>
+  </div>
+  <h3>Issues</h3>
+  <ul class="issue-list">
+    <li class="sev-red"><a href="#finding-1"><span class="badge badge-red">Not supported by cited case</span> p. 2 &mdash; <em>Swierkiewicz v. Sorema N.A.</em>, 534 U.S. 506, 514 (2002) &mdash; This case is entirely about the sufficiency of complaint pleading under Rule 8(a), not about the adequacy of denials und...</a></li>
+<li class="sev-red"><a href="#finding-2"><span class="badge badge-red">Not supported by cited case</span> p. 2 &mdash; <em>David v. Caterpillar</em>, Inc., 324 F.3d 851, 857 (7th Cir. 2003) &mdash; This opinion addresses Title VII retaliation, not pleading standards. The quoted language does not appear in the opinion...</a></li>
+<li class="sev-red"><a href="#finding-3"><span class="badge badge-red">Not supported by cited case</span> p. 2 &mdash; <em>Sojka v. Bovis Lend Lease</em>, Inc., 686 F.3d 394, 398-99 (7th Cir. 2012) &mdash; This case concerns summary judgment procedure. It does not address Rule 8(b) denials. The quoted language does not appea...</a></li>
+<li class="sev-yellow"><a href="#finding-5"><span class="badge badge-yellow">Overstated -- case partially supports</span> p. 2 &mdash; <em>United States v. Kasuboski</em>, 834 F.2d 1345, 1350 (7th Cir. 1987) &mdash; Kasuboski supports the principle that admissions are binding, but addresses Rule 36 admissions (unanswered requests), no...</a></li>
+<li class="sev-red"><a href="#finding-7"><span class="badge badge-red">Quote not found in opinion</span> p. 3 &mdash; <em>Iqbal v. Hasty</em>, 490 F.3d 143, 157-58 (2d Cir. 2007) &mdash; The quoted text does not appear in the opinion. Iqbal v. Hasty is a qualified immunity case about post-9/11 detention co...</a></li>
+<li class="sev-red"><a href="#finding-8"><span class="badge badge-red">Citation resolves to different case</span> p. 3 &mdash; <em>Kraemer v. Franklin &amp; Marshall Coll.</em>, 371 F. Supp. 2d 765, 787 (E.D. Pa. 2005) &mdash; CourtListener matched this citation to an entirely different case. The proposition cannot be verified.</a></li>
+<li class="sev-red"><a href="#finding-9"><span class="badge badge-red">Quote not found in opinion</span> p. 3 &mdash; <em>Whitlock v. Brueggemann</em>, 682 F.3d 567, 580 (7th Cir. 2012) &mdash; The quoted text is fabricated. The Whitlock case involves wrongful murder convictions, not video evidence. The propositi...</a></li>
+<li class="sev-red"><a href="#finding-10"><span class="badge badge-red">Not supported by cited case</span> p. 3 &mdash; <em>Anderson v. Branen</em>, 17 F.3d 552, 556 (2d Cir. 1994) &mdash; The quoted text does not appear in the opinion. Anderson v. Branen is about officers duty to intervene. Both the quote a...</a></li>
+<li class="sev-yellow"><a href="#finding-11"><span class="badge badge-yellow">Reworded -- not a verbatim quote</span> p. 4 &mdash; <em>United States v. McMurtrey</em>, 704 F.3d 502, 508 (7th Cir. 2013) &mdash; The opinion uses obvious reasons to doubt the veracity (quoting Whitley), not the truth of what he or she is asserting. ...</a></li>
+<li class="sev-red"><a href="#finding-12"><span class="badge badge-red">Not supported by cited case</span> p. 5 &mdash; <em>David v. Caterpillar</em>, Inc., 324 F.3d 851, 857 (7th Cir. 2003) &mdash; Same opinion as Row 1. Title VII case with no discussion of Rule 8(b). The quoted language is fabricated.</a></li>
+<li class="sev-yellow"><a href="#finding-13"><span class="badge badge-yellow">Reworded -- not a verbatim quote</span> p. 9 &mdash; <em>Hafer v. Melo</em>, 502 U.S. 21, 30-31 (1991) &mdash; The proposition is well-supported but the brief presents it as a direct quote when it is actually a paraphrase.</a></li>
+<li class="sev-yellow"><a href="#finding-14"><span class="badge badge-yellow">Overstated -- case partially supports</span> p. 10 &mdash; <em>Wilson v. Isaacs</em>, 929 N.E.2d 200, 203-04 (Ind. 2010) &mdash; Wilson v. Isaacs addresses false arrest but not malicious prosecution. The brief overstates the scope.</a></li>
+<li class="sev-red"><a href="#finding-17"><span class="badge badge-red">Not supported by cited case</span> p. 16 &mdash; <em>Beauchamp v. City of Noblesville</em>, 320 F.3d 733, 743-44 (7th Cir. 2003) &mdash; The brief presents a fabricated quotation and attributes a principle that the case explicitly rejects. Beauchamp affirme...</a></li>
+<li class="sev-red"><a href="#finding-18"><span class="badge badge-red">Citation resolves to different case</span> p. 17 &mdash; <em>Wolfe v. Little</em>, 382 N.E.2d 1175, 1180 (Ind. Ct. App. 1978) &mdash; CourtListener matched this to Abbott v. State, a completely different case. The proposition cannot be verified.</a></li>
+<li class="sev-red"><a href="#finding-19"><span class="badge badge-red">Citation resolves to different case</span> p. 18 &mdash; <em>Kraemer v. Franklin &amp; Marshall Coll.</em>, 371 F. Supp. 2d 765, 787 (E.D. Pa. 2005) &mdash; Same mismatched opinion as Row 7. The quoted text and proposition cannot be verified.</a></li>
+<li class="sev-gray"><a href="#finding-uv-4"><span class="badge badge-gray">Unable to verify</span> p. 2 &mdash; <em>Holleman v. Zatecky</em>, 951 F.2d 873, 876 (7th Cir. 1991) &mdash; Case not found on CourtListener. Cannot verify against opinion text.</a></li>
+<li class="sev-gray"><a href="#finding-uv-6"><span class="badge badge-gray">Unable to verify</span> p. 3 &mdash; <em>Holleman v. Zatecky</em>, 951 F.2d 873, 876 (7th Cir. 1991) &mdash; Case not found on CourtListener. Cannot verify against opinion text.</a></li>
+<li class="sev-gray"><a href="#finding-uv-15"><span class="badge badge-gray">Unable to verify</span> p. 14 &mdash; <em>Holleman v. Zatecky</em>, 951 F.2d 873, 876 (7th Cir. 1991) &mdash; Case not found on CourtListener. Cannot verify against opinion text.</a></li>
+<li class="sev-gray"><a href="#finding-uv-16"><span class="badge badge-gray">Unable to verify</span> p. 15 &mdash; <em>Holleman v. Zatecky</em>, 951 F.2d 873, 876 (7th Cir. 1991) &mdash; Case not found on CourtListener. Cannot verify against opinion text.</a></li>
+  </ul>
+</div>
+<h2>Findings</h2>
+<div class="controls"><button onclick="expandAll()">Expand All</button> | <button onclick="collapseAll()">Collapse All</button></div>
+<details id="finding-1">
+  <summary>
+    <strong>p. 2</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/118482/swierkiewicz-v-sorema-n-a/"><span class="case-name">Swierkiewicz v. Sorema N.A.</span></a>, 534 U.S. 506, 514 (2002)
+    &mdash; <span class="badge badge-red">Not supported by cited case</span>
+  </summary>
+  <div class="finding-body">
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief">Under Rule 8(b)(6), denials must fairly respond to the substance of the allegation; a party cannot deny facts established by undisputed documentary evidence or already admitted in prior pleadings</div><div class="bq-label">Quoted in brief:</div><div class="bq-brief" style="font-style:italic;">“A defendant may not deny allegations that are supported by the defendant's own prior admissions or undisputed evidence.”</div>
+    <div class="bq-label">What the opinion actually says:</div><div class="bq-opinion">Swierkiewicz v. Sorema is about whether an employment discrimination complaint must plead a prima facie case under McDonnell Douglas. The Court held that Rule 8(a)(2) short and plain statement standard applies. The opinion discusses Rule 8(a), 8(e)(1), and 8(f) but never addresses Rule 8(b)(6) or the standards for denials in responsive pleadings.</div>
+    <div class="explanation"><strong>Assessment:</strong> This case is entirely about the sufficiency of complaint pleading under Rule 8(a), not about the adequacy of denials under Rule 8(b)(6). The quoted text does not appear in the opinion.</div>
+  </div>
+</details><details id="finding-2">
+  <summary>
+    <strong>p. 2</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/781451/lori-david-v-caterpillar-incorporated/"><span class="case-name">David v. Caterpillar</span></a>, Inc., 324 F.3d 851, 857 (7th Cir. 2003)
+    &mdash; <span class="badge badge-red">Not supported by cited case</span>
+  </summary>
+  <div class="finding-body">
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief">A party cannot claim lack of knowledge about facts within the partys own knowledge or control.</div><div class="bq-label">Quoted in brief:</div><div class="bq-brief" style="font-style:italic;">“A party cannot claim lack of knowledge about facts within the party's own knowledge or control.”</div>
+    <div class="bq-label">What the opinion actually says:</div><div class="bq-opinion">David v. Caterpillar is a Title VII employment discrimination case about retaliation. The opinion addresses jury instructions, sufficiency of evidence, and punitive damages. It does not discuss Rule 8(b) denial standards.</div>
+    <div class="explanation"><strong>Assessment:</strong> This opinion addresses Title VII retaliation, not pleading standards. The quoted language does not appear in the opinion.</div>
+  </div>
+</details><details id="finding-3">
+  <summary>
+    <strong>p. 2</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/803946/christopher-sojka-j-v-bovis-lend/"><span class="case-name">Sojka v. Bovis Lend Lease</span></a>, Inc., 686 F.3d 394, 398-99 (7th Cir. 2012)
+    &mdash; <span class="badge badge-red">Not supported by cited case</span>
+  </summary>
+  <div class="finding-body">
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief">A party may not deny on information and belief matters within its personal knowledge or control.</div><div class="bq-label">Quoted in brief:</div><div class="bq-brief" style="font-style:italic;">“A party may not deny on information and belief matters within its personal knowledge or control.”</div>
+    <div class="bq-label">What the opinion actually says:</div><div class="bq-opinion">Sojka v. Bovis Lend Lease is about summary judgment procedure under Rule 56, not pleading denial standards.</div>
+    <div class="explanation"><strong>Assessment:</strong> This case concerns summary judgment procedure. It does not address Rule 8(b) denials. The quoted language does not appear in the opinion.</div>
+  </div>
+</details><details id="finding-5">
+  <summary>
+    <strong>p. 2</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/8965034/united-states-v-kasuboski/"><span class="case-name">United States v. Kasuboski</span></a>, 834 F.2d 1345, 1350 (7th Cir. 1987)
+    &mdash; <span class="badge badge-yellow">Overstated -- case partially supports</span>
+  </summary>
+  <div class="finding-body">
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief">Judicial admissions in pleadings are binding and may not be controverted at trial absent leave to amend.</div><div class="bq-label">Quoted in brief:</div><div class="bq-brief" style="font-style:italic;">“Judicial admissions in pleadings are binding and may not be controverted at trial absent leave to amend.”</div>
+    <div class="bq-label">What the opinion actually says:</div><div class="bq-opinion">The court held that a party cannot attack issues of fact established in admissions by resisting a motion for summary judgment and that Rule 36(b) provides that a matter admitted is conclusively established.</div>
+    <div class="explanation"><strong>Assessment:</strong> Kasuboski supports the principle that admissions are binding, but addresses Rule 36 admissions (unanswered requests), not judicial admissions in pleadings. The quoted language is a paraphrase.</div>
+  </div>
+</details><details id="finding-7">
+  <summary>
+    <strong>p. 3</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/798076/iqbal-v-hasty/"><span class="case-name">Iqbal v. Hasty</span></a>, 490 F.3d 143, 157-58 (2d Cir. 2007)
+    &mdash; <span class="badge badge-red">Quote not found in opinion</span>
+  </summary>
+  <div class="finding-body">
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief">Where a defendant admits the underlying facts but denies the legal conclusion, the factual admissions control.</div><div class="bq-label">Quoted in brief:</div><div class="bq-brief" style="font-style:italic;">“Where a defendant admits the underlying facts but denies the legal conclusion, the factual admissions control.”</div>
+    <div class="bq-label">What the opinion actually says:</div><div class="bq-opinion">Iqbal v. Hasty (2d Cir. 2007) addresses qualified immunity and pleading standards in a post-9/11 detention case. It does not contain the quoted language or any discussion of factual admissions controlling over legal denials.</div>
+    <div class="explanation"><strong>Assessment:</strong> The quoted text does not appear in the opinion. Iqbal v. Hasty is a qualified immunity case about post-9/11 detention conditions.</div>
+  </div>
+</details><details id="finding-8">
+  <summary>
+    <strong>p. 3</strong> &mdash;
+    <a href="https://www.courtlistener.com/docket/4689620/32/argue-v-david-davis-enterprises-inc/"><span class="case-name">Kraemer v. Franklin &amp; Marshall Coll.</span></a>, 371 F. Supp. 2d 765, 787 (E.D. Pa. 2005)
+    &mdash; <span class="badge badge-red">Citation resolves to different case</span>
+  </summary>
+  <div class="finding-body">
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief">Denying facts established by documentary evidence violates Rule 11.</div><div class="bq-label">Quoted in brief:</div><div class="bq-brief" style="font-style:italic;">“have evidentiary support.”</div>
+    <div class="bq-label">What the opinion actually says:</div><div class="bq-opinion">The opinion file is Argue v. David Davis Enterprises, Inc., a 2009 E.D. Pa. attorneys fees order. It is not Kraemer v. Franklin and Marshall College.</div>
+    <div class="explanation"><strong>Assessment:</strong> CourtListener matched this citation to an entirely different case. The proposition cannot be verified.</div>
+  </div>
+</details><details id="finding-9">
+  <summary>
+    <strong>p. 3</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/801194/herbert-whitlock-v-charles-bruegge/"><span class="case-name">Whitlock v. Brueggemann</span></a>, 682 F.3d 567, 580 (7th Cir. 2012)
+    &mdash; <span class="badge badge-red">Quote not found in opinion</span>
+  </summary>
+  <div class="finding-body">
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief">Video evidence that conclusively disproves a partys account defeats that account as a matter of law.</div><div class="bq-label">Quoted in brief:</div><div class="bq-brief" style="font-style:italic;">“Video evidence that conclusively disproves a party's account defeats that account as a matter of law.”</div>
+    <div class="bq-label">What the opinion actually says:</div><div class="bq-opinion">Whitlock v. Brueggemann (7th Cir. 2012) is a wrongful conviction case about fabricated evidence and coerced testimony. It does not discuss video evidence defeating a partys account and does not cite Scott v. Harris.</div>
+    <div class="explanation"><strong>Assessment:</strong> The quoted text is fabricated. The Whitlock case involves wrongful murder convictions, not video evidence. The proposition is actually the holding of Scott v. Harris.</div>
+  </div>
+</details><details id="finding-10">
+  <summary>
+    <strong>p. 3</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/664051/marc-j-anderson-jeffrey-e-grubb-v-dennis-branen-ross-kindestin-ed/"><span class="case-name">Anderson v. Branen</span></a>, 17 F.3d 552, 556 (2d Cir. 1994)
+    &mdash; <span class="badge badge-red">Not supported by cited case</span>
+  </summary>
+  <div class="finding-body">
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief">When the documentary evidence makes clear that the allegations in the complaint could not have occurred as alleged, those allegations must be disregarded.</div><div class="bq-label">Quoted in brief:</div><div class="bq-brief" style="font-style:italic;">“When the documentary evidence makes clear that the allegations in the complaint could not have occurred as alleged, those allegations must be disregarded.”</div>
+    <div class="bq-label">What the opinion actually says:</div><div class="bq-opinion">Anderson v. Branen holds that all law enforcement officials have an affirmative duty to intervene to protect the constitutional rights of citizens from infringement by other law enforcement officers in their presence. The case addresses the duty to intercede and excessive force.</div>
+    <div class="explanation"><strong>Assessment:</strong> The quoted text does not appear in the opinion. Anderson v. Branen is about officers duty to intervene. Both the quote and proposition are fabricated attributions.</div>
+  </div>
+</details><details id="finding-11">
+  <summary>
+    <strong>p. 4</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/815090/united-states-v-mason-mcmurtrey/"><span class="case-name">United States v. McMurtrey</span></a>, 704 F.3d 502, 508 (7th Cir. 2013)
+    &mdash; <span class="badge badge-yellow">Reworded -- not a verbatim quote</span>
+  </summary>
+  <div class="finding-body">
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief">obvious reasons to doubt the truth of what he or she is asserting.</div><div class="bq-label">Quoted in brief:</div><div class="bq-brief" style="font-style:italic;">“obvious reasons to doubt the truth of what he or she is asserting.”</div>
+    <div class="bq-label">What the opinion actually says:</div><div class="bq-opinion">McMurtreys Franks motion permitted a reasonable inference of falsity because it provided obvious reasons to doubt the veracity of the allegations (quoting United States v. Whitley).</div>
+    <div class="explanation"><strong>Assessment:</strong> The opinion uses obvious reasons to doubt the veracity (quoting Whitley), not the truth of what he or she is asserting. The proposition is supported but the quoted phrase is reworded.</div>
+  </div>
+</details><details id="finding-12">
+  <summary>
+    <strong>p. 5</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/781451/lori-david-v-caterpillar-incorporated/"><span class="case-name">David v. Caterpillar</span></a>, Inc., 324 F.3d 851, 857 (7th Cir. 2003)
+    &mdash; <span class="badge badge-red">Not supported by cited case</span>
+  </summary>
+  <div class="finding-body">
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief">A party cannot claim lack of knowledge about facts within the partys own knowledge or control.</div><div class="bq-label">Quoted in brief:</div><div class="bq-brief" style="font-style:italic;">“A party cannot claim lack of knowledge about facts within the party's own knowledge or control.”</div>
+    <div class="bq-label">What the opinion actually says:</div><div class="bq-opinion">David v. Caterpillar is a Title VII case. It does not discuss pleading standards or denial requirements under Rule 8(b).</div>
+    <div class="explanation"><strong>Assessment:</strong> Same opinion as Row 1. Title VII case with no discussion of Rule 8(b). The quoted language is fabricated.</div>
+  </div>
+</details><details id="finding-13">
+  <summary>
+    <strong>p. 9</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/112657/hafer-v-melo/"><span class="case-name">Hafer v. Melo</span></a>, 502 U.S. 21, 30-31 (1991)
+    &mdash; <span class="badge badge-yellow">Reworded -- not a verbatim quote</span>
+  </summary>
+  <div class="finding-body">
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief">Individual-capacity suits for damages under Section 1983 are not barred by the Eleventh Amendment.</div><div class="bq-label">Quoted in brief:</div><div class="bq-brief" style="font-style:italic;">“Individual-capacity suits for damages under § 1983 are not barred by the Eleventh Amendment.”</div>
+    <div class="bq-label">What the opinion actually says:</div><div class="bq-opinion">We hold that state officials, sued in their individual capacities, are persons within the meaning of Section 1983. The Eleventh Amendment does not bar such suits.</div>
+    <div class="explanation"><strong>Assessment:</strong> The proposition is well-supported but the brief presents it as a direct quote when it is actually a paraphrase.</div>
+  </div>
+</details><details id="finding-14">
+  <summary>
+    <strong>p. 10</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/852239/wilson-v-isaacs/"><span class="case-name">Wilson v. Isaacs</span></a>, 929 N.E.2d 200, 203-04 (Ind. 2010)
+    &mdash; <span class="badge badge-yellow">Overstated -- case partially supports</span>
+  </summary>
+  <div class="finding-body">
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief">Intentional torts such as false arrest and malicious prosecution fall outside ITCA protection</div>
+    <div class="bq-label">What the opinion actually says:</div><div class="bq-opinion">Wilson v. Isaacs addresses the ITCAs law enforcement immunity exception for false arrest/false imprisonment, and holds that excessive force claims are not shielded. The case does not address malicious prosecution.</div>
+    <div class="explanation"><strong>Assessment:</strong> Wilson v. Isaacs addresses false arrest but not malicious prosecution. The brief overstates the scope.</div>
+  </div>
+</details><details id="finding-17">
+  <summary>
+    <strong>p. 16</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/780983/ricky-w-beauchamp-and-beth-e-beauchamp-v-city-of-noblesville-indiana/"><span class="case-name">Beauchamp v. City of Noblesville</span></a>, 320 F.3d 733, 743-44 (7th Cir. 2003)
+    &mdash; <span class="badge badge-red">Not supported by cited case</span>
+  </summary>
+  <div class="finding-body">
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief">Probable cause dissipates when officers receive exculpatory evidence yet fail to act.</div><div class="bq-label">Quoted in brief:</div><div class="bq-brief" style="font-style:italic;">“Probable cause dissipates when officers receive exculpatory evidence yet fail to act.”</div>
+    <div class="bq-label">What the opinion actually says:</div><div class="bq-opinion">Beauchamp holds the opposite: once an officer learns sufficient trustworthy information establishing probable cause, he is entitled to rely on what he knows and is under no further duty to investigate. The word dissipates does not appear in the opinion.</div>
+    <div class="explanation"><strong>Assessment:</strong> The brief presents a fabricated quotation and attributes a principle that the case explicitly rejects. Beauchamp affirmed summary judgment for the officers, holding that probable cause persisted. The case stands for the opposite proposition.</div>
+  </div>
+</details><details id="finding-18">
+  <summary>
+    <strong>p. 17</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/2023486/abbott-v-state/"><span class="case-name">Wolfe v. Little</span></a>, 382 N.E.2d 1175, 1180 (Ind. Ct. App. 1978)
+    &mdash; <span class="badge badge-red">Citation resolves to different case</span>
+  </summary>
+  <div class="finding-body">
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief">Malice may be inferred from advancing charges in the face of contrary facts.</div><div class="bq-label">Quoted in brief:</div><div class="bq-brief" style="font-style:italic;">“Malice may be inferred from advancing charges in the face of contrary facts.”</div>
+    <div class="bq-label">What the opinion actually says:</div><div class="bq-opinion">The opinion file is Abbott v. State, 371 N.E.2d 721 (Ind. Ct. App. 1978), a criminal appeal about entering to commit a felony. It contains no discussion of malice or malicious prosecution.</div>
+    <div class="explanation"><strong>Assessment:</strong> CourtListener matched this to Abbott v. State, a completely different case. The proposition cannot be verified.</div>
+  </div>
+</details><details id="finding-19">
+  <summary>
+    <strong>p. 18</strong> &mdash;
+    <a href="https://www.courtlistener.com/docket/4689620/32/argue-v-david-davis-enterprises-inc/"><span class="case-name">Kraemer v. Franklin &amp; Marshall Coll.</span></a>, 371 F. Supp. 2d 765, 787 (E.D. Pa. 2005)
+    &mdash; <span class="badge badge-red">Citation resolves to different case</span>
+  </summary>
+  <div class="finding-body">
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief">Denying facts established by documentary evidence violates Rule 11.</div><div class="bq-label">Quoted in brief:</div><div class="bq-brief" style="font-style:italic;">“Denying facts established by documentary evidence violates Rule 11.”</div>
+    <div class="bq-label">What the opinion actually says:</div><div class="bq-opinion">Same as Row 7: the opinion file is Argue v. David Davis Enterprises, not Kraemer v. Franklin and Marshall College.</div>
+    <div class="explanation"><strong>Assessment:</strong> Same mismatched opinion as Row 7. The quoted text and proposition cannot be verified.</div>
+  </div>
+</details>
+<details id="finding-uv-4">
+  <summary>
+    <strong>p. 2</strong> &mdash;
+    <span class="case-name">Holleman v. Zatecky</span>, 951 F.2d 873, 876 (7th Cir. 1991)
+    &mdash; <span class="badge badge-gray">Unable to verify -- opinion text unavailable</span>
+  </summary>
+  <div class="finding-body">
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief">A matter admitted under Rule 36(a)(3) is conclusively established unless the court, on motion, permits the admission to be withdrawn or amended</div>
+    <div class="explanation">Case not found on CourtListener. Cannot verify against opinion text.</div>
+  </div>
+</details>
+<details id="finding-uv-6">
+  <summary>
+    <strong>p. 3</strong> &mdash;
+    <span class="case-name">Holleman v. Zatecky</span>, 951 F.2d 873, 876 (7th Cir. 1991)
+    &mdash; <span class="badge badge-gray">Unable to verify -- opinion text unavailable</span>
+  </summary>
+  <div class="finding-body">
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief">A party cannot deny a conclusion that flows inexorably from admitted facts</div>
+    <div class="explanation">Case not found on CourtListener. Cannot verify against opinion text.</div>
+  </div>
+</details>
+<details id="finding-uv-15">
+  <summary>
+    <strong>p. 14</strong> &mdash;
+    <span class="case-name">Holleman v. Zatecky</span>, 951 F.2d 873, 876 (7th Cir. 1991)
+    &mdash; <span class="badge badge-gray">Unable to verify -- opinion text unavailable</span>
+  </summary>
+  <div class="finding-body">
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief">A party cannot deny a conclusion that flows inexorably from admitted facts (applied to denial of paragraph 22 regarding warrant based on false affidavit)</div>
+    <div class="explanation">Case not found on CourtListener. Cannot verify against opinion text.</div>
+  </div>
+</details>
+<details id="finding-uv-16">
+  <summary>
+    <strong>p. 15</strong> &mdash;
+    <span class="case-name">Holleman v. Zatecky</span>, 951 F.2d 873, 876 (7th Cir. 1991)
+    &mdash; <span class="badge badge-gray">Unable to verify -- opinion text unavailable</span>
+  </summary>
+  <div class="finding-body">
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief">A party cannot deny a conclusion that flows inexorably from admitted facts (applied to deemed admission that warrant was based on materially false affidavit)</div>
+    <div class="explanation">Case not found on CourtListener. Cannot verify against opinion text.</div>
+  </div>
+</details>
+<h2>Verified Citations</h2>
+<details>
+  <summary>10 citation-proposition pairs verified &mdash; click to expand</summary>
+  <div class="finding-body">
+    <div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 3</strong> &mdash; <a href="https://www.courtlistener.com/opinion/145738/scott-v-harris/"><em>Scott v. Harris</em></a>, 550 U.S. 372, 380-81 (2007) &mdash; Where objective evidence -- particularly video with timestamps -- conclusively disproves a party's account, that account fails as a matter of law <span class="badge badge-green">Supported</span> &mdash; <span style="color:#555;font-size:0.85em;">"When opposing parties tell two different stories, one of which is blatantly contradicted by the record, so that no reasonable jury could believe it, a court should not adopt that version of the facts for purposes of ruling on a motion for summary judgment."</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 6</strong> &mdash; <a href="https://www.courtlistener.com/opinion/145738/scott-v-harris/"><em>Scott v. Harris</em></a>, 550 U.S. 372, 380-81 (2007) &mdash; When opposing parties tell two different stories, one of which is blatantly contradicted by the record, a court should not adopt that version of the facts (applied to denial of false statement in affidavit, paragraph 14) <span class="badge badge-green">Supported</span> &mdash; <span style="color:#555;font-size:0.85em;">"When opposing parties tell two different stories, one of which is blatantly contradicted by the record, so that no reasonable jury could believe it, a court should not adopt that version of the facts for purposes of ruling on a motion for summary judgment."</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 7</strong> &mdash; <a href="https://www.courtlistener.com/opinion/106598/brady-v-maryland/"><em>Brady v. Maryland</em></a>, 373 U.S. 83, 87 (1963) &mdash; Evidence is exculpatory if material either to guilt or to punishment; a 0.016% BAC is objectively exculpatory in an OWI case <span class="badge badge-green">Supported</span> &mdash; <span style="color:#555;font-size:0.85em;">"We now hold that the suppression by the prosecution of evidence favorable to an accused upon request violates due process where the evidence is material either to guilt or to punishment, irrespective of the good faith or bad faith of the prosecution."</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 8</strong> &mdash; <a href="https://www.courtlistener.com/opinion/109925/franks-v-delaware/"><em>Franks v. Delaware</em></a>, 438 U.S. 154, 171 (1978) &mdash; Good faith is inconsistent with knowingly or recklessly swearing false statements into warrant affidavits <span class="badge badge-green">Supported</span> &mdash; <span style="color:#555;font-size:0.85em;">"We hold that, where the defendant makes a substantial preliminary showing that a false statement knowingly and intentionally, or with reckless disregard for the truth, was included by the affiant in the warrant affidavit, the Fourth Amendment requires that a hearing be held."</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 8</strong> &mdash; <a href="https://www.courtlistener.com/opinion/111611/malley-v-briggs/"><em>Malley v. Briggs</em></a>, 475 U.S. 335, 341 (1986) &mdash; No qualified immunity for knowingly violating the law <span class="badge badge-green">Supported</span> &mdash; <span style="color:#555;font-size:0.85em;">"As the qualified immunity defense has evolved, it provides ample protection to all but the plainly incompetent or those who knowingly violate the law."</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 10</strong> &mdash; <a href="https://www.courtlistener.com/opinion/112121/felder-v-casey/"><em>Felder v. Casey</em></a>, 487 U.S. 131, 138-39 (1988) &mdash; State notice-of-claim statutes are preempted when applied to federal Section 1983 actions <span class="badge badge-green">Supported</span> &mdash; <span style="color:#555;font-size:0.85em;">"Because the notice-of-claim statute at issue here conflicts in both its purpose and effects with the remedial objectives of Section 1983, we conclude that the state law is pre-empted."</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 12</strong> &mdash; <a href="https://www.courtlistener.com/opinion/145738/scott-v-harris/"><em>Scott v. Harris</em></a>, 550 U.S. 372, 380-81 (2007) &mdash; Video evidence defeats contradictory account under Scott v. Harris standard (applied to false statement in affidavit deemed admission) <span class="badge badge-green">Supported</span> &mdash; <span style="color:#555;font-size:0.85em;">"Respondents version of events is so utterly discredited by the record that no reasonable jury could have believed him."</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 15</strong> &mdash; <a href="https://www.courtlistener.com/opinion/109925/franks-v-delaware/"><em>Franks v. Delaware</em></a>, 438 U.S. 154, 155-56 (1978) &mdash; Material falsehood in warrant affidavit, made knowingly or with reckless disregard for truth, voids the warrant <span class="badge badge-green">Supported</span> &mdash; <span style="color:#555;font-size:0.85em;">"If the allegation of perjury or reckless disregard is established by a preponderance, and the remaining content is insufficient for probable cause, the search warrant must be voided and the fruits excluded."</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 16</strong> &mdash; <a href="https://www.courtlistener.com/opinion/111611/malley-v-briggs/"><em>Malley v. Briggs</em></a>, 475 U.S. 335, 341 (1986) &mdash; No qualified immunity where officer knowingly violates clearly established law <span class="badge badge-green">Supported</span> &mdash; <span style="color:#555;font-size:0.85em;">"Qualified immunity provides ample protection to all but the plainly incompetent or those who knowingly violate the law."</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 18</strong> &mdash; <a href="https://www.courtlistener.com/opinion/2030332/dwyer-v-mcclean/"><em>Dwyer v. McClean</em></a>, 133 Ind. App. 454, 465-66 (1961) &mdash; Malice may also be inferred from the facts which, if established, would constitute want of probable cause <span class="badge badge-green">Supported</span> &mdash; <span style="color:#555;font-size:0.85em;">"Dwyer v. McClean, Instruction No. 7: Malice may also be inferred from the facts which, if established, would constitute want of probable cause."</span></div>
+  </div>
+</details>
+<div class="methodology">
+  <h2>Methodology &amp; Limitations</h2>
+  <ul>
+    <li><strong>Quote verification</strong> is near-deterministic but limited by the quality of CourtListener's text. Minor discrepancies may reflect OCR artifacts in the source database rather than errors in the brief.</li>
+    <li><strong>Propositional support</strong> assessment is an AI judgment. It reflects Claude's reading of the opinion text and should be verified by counsel. Reasonable lawyers may disagree about whether a case "supports" a given proposition.</li>
+    <li>This report checks whether cited cases say what the brief claims they say. It does not assess the overall legal merit of the brief's arguments or whether the cited cases are the best authorities available.</li>
+    <li>Cases marked "unable to verify" should be checked through other sources (Westlaw, Lexis, etc.).</li>
+  </ul>
+  <h3>Verification method disclosure</h3>
+  <p>The following opinions were <strong>retrieved from CourtListener</strong> and verified against their full text:</p>
+  <ul>
+    <li><em>Swierkiewicz v. Sorema N. A.</em>, 534 U.S. 506, 514 (2002) (cluster 118482)</li>
+<li><em>Lori David v. Caterpillar, Incorporated</em>, Inc., 324 F.3d 851, 857 (7th Cir. 2003) (cluster 781451)</li>
+<li><em>Christopher Sojka, J v. Bovis Lend</em>, Inc., 686 F.3d 394, 398-99 (7th Cir. 2012) (cluster 803946)</li>
+<li><em>United States v. Kasuboski</em>, 834 F.2d 1345, 1350 (7th Cir. 1987) (cluster 8965034)</li>
+<li><em>Iqbal v. Hasty</em>, 490 F.3d 143, 157-58 (2d Cir. 2007) (cluster 798076)</li>
+<li><em>ARGUE v. DAVID DAVIS ENTERPRISES, INC.</em>, 371 F. Supp. 2d 765, 787 (E.D. Pa. 2005) (cluster )</li>
+<li><em>Scott v. Harris</em>, 550 U.S. 372, 380-81 (2007) (cluster 145738)</li>
+<li><em>Herbert Whitlock v. Charles Bruegge</em>, 682 F.3d 567, 580 (7th Cir. 2012) (cluster 801194)</li>
+<li><em>Marc J. Anderson &amp; Jeffrey E. Grubb v. Dennis Branen, Ross Kindestin, Ed Wisniefski</em>, 17 F.3d 552, 556 (2d Cir. 1994) (cluster 664051)</li>
+<li><em>United States v. Mason McMurtrey</em>, 704 F.3d 502, 508 (7th Cir. 2013) (cluster 815090)</li>
+<li><em>Brady v. Maryland</em>, 373 U.S. 83, 87 (1963) (cluster 106598)</li>
+<li><em>Franks v. Delaware</em>, 438 U.S. 154, 155-56 (1978) (cluster 109925)</li>
+<li><em>Malley v. Briggs</em>, 475 U.S. 335, 341 (1986) (cluster 111611)</li>
+<li><em>Hafer v. Melo</em>, 502 U.S. 21, 30-31 (1991) (cluster 112657)</li>
+<li><em>Wilson v. Isaacs</em>, 929 N.E.2d 200, 203-04 (Ind. 2010) (cluster 852239)</li>
+<li><em>Felder v. Casey</em>, 487 U.S. 131, 138-39 (1988) (cluster 112121)</li>
+<li><em>Ricky W. Beauchamp and Beth E. Beauchamp v. City of Noblesville, Indiana, Cynthia Dukette, Joe Cook, Hamilton County Sheriff</em>, 320 F.3d 733, 743-44 (7th Cir. 2003) (cluster 780983)</li>
+<li><em>Abbott v. State</em>, 382 N.E.2d 1175, 1180 (Ind. Ct. App. 1978) (cluster 2023486)</li>
+<li><em>Dwyer v. McClean</em>, 133 Ind. App. 454, 465-66 (1961) (cluster 2030332)</li>
+  </ul>
+  <p>The following opinions were <strong>not available on CourtListener</strong> and could not be verified against opinion text:</p>
+  <ul>
+    <li><em>Holleman v. Zatecky</em>, 951 F.2d 873, 876 (7th Cir. 1991) &mdash; Not in CourtListener database</li>
+<li><em>Holleman v. Zatecky</em>, 951 F.2d 873, 876 (7th Cir. 1991) &mdash; Not in CourtListener database</li>
+<li><em>Holleman v. Zatecky</em>, 951 F.2d 873, 876 (7th Cir. 1991) &mdash; Not in CourtListener database</li>
+<li><em>Holleman v. Zatecky</em>, 951 F.2d 873, 876 (7th Cir. 1991) &mdash; Not in CourtListener database</li>
+  </ul>
+  <p>No opinions in this report were assessed from training knowledge. All assessments are based on retrieved opinion text.</p>
+</div>
+
+</body>
+</html>

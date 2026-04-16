@@ -757,9 +757,24 @@ def generate_report(
             finding_counter += 1
             severity = "red" if assessment.lower() == "red" else "yellow"
 
+            # Build "What the brief claims" with both the proposition
+            # context and the brief's exact quoted language (if any).
+            # Proposition-verifier style: show the proposition, then the
+            # quoted text in a distinct sub-block so the reader sees both
+            # what argument the brief is making AND what words it attributes
+            # to the court.
+            quoted_raw = claim.get("quoted_text", "").strip()
+            quoted_strings = []
+            if quoted_raw and quoted_raw != "[]":
+                try:
+                    quoted_strings = json_mod.loads(quoted_raw)
+                except (json_mod.JSONDecodeError, ValueError):
+                    pass
+
+            brief_text = claim.get("brief_text", "").strip() or proposition
+
             # Prefer structured columns from new-style agents; fall back
             # to parsing supporting_language for old-style data.
-            brief_text = claim.get("brief_text", "").strip() or proposition
             opinion_text = claim.get("opinion_text", "").strip() or ""
             explanation = claim.get("explanation", "").strip() or ""
 
@@ -786,6 +801,7 @@ def generate_report(
                 "severity": severity,
                 "badge_label": badge_label,
                 "brief_text": brief_text,
+                "quoted_strings": quoted_strings,
                 "opinion_text": opinion_text,
                 "explanation": explanation,
             })
