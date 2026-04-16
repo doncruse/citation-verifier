@@ -54,6 +54,14 @@ class CitationVerifier:
         elif cluster_id and not url:
             url = f"https://www.courtlistener.com/opinion/{cluster_id}/"
 
+        # Build syllabus from available metadata
+        syllabus_parts = []
+        if cluster.get("syllabus"):
+            syllabus_parts.append(cluster["syllabus"])
+        if cluster.get("nature_of_suit"):
+            syllabus_parts.append(cluster["nature_of_suit"])
+        syllabus = "; ".join(syllabus_parts) if syllabus_parts else None
+
         # Verify the case name actually matches before calling it VERIFIED
         if parsed.case_name and case_name:
             if not self._names_match_citation_lookup(parsed, case_name):
@@ -66,6 +74,7 @@ class CitationVerifier:
                     matched_cluster_id=cluster_id,
                     matched_court=cluster.get("court") or cluster.get("court_id") or None,
                     matched_date=cluster.get("date_filed") or None,
+                    matched_syllabus=syllabus,
                     diagnostics=[Diagnostic(
                         "name",
                         f'Name mismatch: citation exists at this reporter location '
@@ -82,6 +91,7 @@ class CitationVerifier:
             matched_cluster_id=cluster_id,
             matched_court=cluster.get("court") or cluster.get("court_id") or None,
             matched_date=cluster.get("date_filed") or None,
+            matched_syllabus=syllabus,
         )
 
     def _build_search_params(

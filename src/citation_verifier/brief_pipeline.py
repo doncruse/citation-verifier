@@ -127,6 +127,7 @@ _PASSTHROUGH_FIELDS = ["quoted_text", "quote_check", "quote_check_worst"]
 _VR_FIELDS = [
     "citation", "status", "confidence", "cl_url",
     "matched_name", "diagnostics_cat", "diagnostics_msg",
+    "syllabus",
 ]
 
 
@@ -159,6 +160,7 @@ def _write_verification_csv(
                 "matched_name": result.matched_case_name or "",
                 "diagnostics_cat": "; ".join(diag_cats),
                 "diagnostics_msg": "; ".join(diag_msgs),
+                "syllabus": result.matched_syllabus or "",
             })
 
 
@@ -377,6 +379,7 @@ def merge_claims(workdir: Path) -> MergeStats:
         "page", "proposition", "cited_case",
         "retrieved_case", "supporting_language", "assessment",
         "cl_url", "cl_status", "diagnostics", "opinion_file",
+        "syllabus",
     ]
     if claims:
         for col in _PASSTHROUGH_FIELDS:
@@ -425,6 +428,7 @@ def merge_claims(workdir: Path) -> MergeStats:
             "cl_status": status,
             "diagnostics": diag_msg,
             "opinion_file": opinion_file,
+            "syllabus": vr.get("syllabus", ""),
         }
         for col in _PASSTHROUGH_FIELDS:
             if col in claim:

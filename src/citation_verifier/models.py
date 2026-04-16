@@ -63,6 +63,7 @@ class VerificationResult:
     matched_court: str | None = None
     matched_date: str | None = None
     matched_description: str | None = None
+    matched_syllabus: str | None = None
     candidates: list[CandidateMatch] = field(default_factory=list)
     diagnostics: list[Diagnostic] = field(default_factory=list)
     error: str | None = None

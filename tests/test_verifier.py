@@ -1741,3 +1741,63 @@ class TestDocketNormalization:
     def test_trailing_hyphen(self):
         # 24-cv-00953-DC- → 24-cv-953
         assert self._norm("24-cv-00953-DC-") == "24-cv-953"
+
+
+# ---------------------------------------------------------------------------
+# Syllabus preservation
+# ---------------------------------------------------------------------------
+
+
+class TestSyllabusPreservation:
+    """Verify that syllabus data from citation-lookup is preserved."""
+
+    def test_citation_lookup_preserves_syllabus(self):
+        """When citation-lookup returns a cluster with syllabus, it's on the result."""
+        client = _make_client(
+            citation_lookup=[
+                {
+                    "citation": "202 F.3d 770",
+                    "clusters": [
+                        {
+                            "case_name": "Tompkins v. Cyr",
+                            "id": 19782,
+                            "absolute_url": "/opinion/19782/tompkins-v-cyr/",
+                            "court": "ca5",
+                            "date_filed": "2000-01-26",
+                            "syllabus": "RICO; anti-abortion protesters; harassment; emotional distress",
+                            "nature_of_suit": "440 Civil Rights: Other",
+                        }
+                    ],
+                }
+            ]
+        )
+
+        v = CitationVerifier(client)
+        result = v.verify("Tompkins v. Cyr, 202 F.3d 770 (5th Cir. 2000)")
+
+        assert result.matched_syllabus is not None
+        assert "RICO" in result.matched_syllabus or "abortion" in result.matched_syllabus
+
+    def test_citation_lookup_no_syllabus(self):
+        """When cluster has no syllabus, field is None."""
+        client = _make_client(
+            citation_lookup=[
+                {
+                    "citation": "337 F.3d 550",
+                    "clusters": [
+                        {
+                            "case_name": "King v. Illinois Central Railroad",
+                            "id": 8437633,
+                            "absolute_url": "/opinion/8437633/king/",
+                            "court": "ca5",
+                            "date_filed": "2003-07-16",
+                        }
+                    ],
+                }
+            ]
+        )
+
+        v = CitationVerifier(client)
+        result = v.verify("King v. Ill. Cent. R.R., 337 F.3d 550 (5th Cir. 2003)")
+
+        assert result.matched_syllabus is None
