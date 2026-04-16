@@ -484,3 +484,57 @@ class TestGenerateReport:
         assert "<!DOCTYPE html>" in html
         assert "Smith v. Jones" in html
         assert "King v. Ill" in html
+
+    def test_uses_structured_columns_over_fallback(self, tmp_path):
+        """When brief_text, opinion_text, explanation, badge_label columns
+        are present, generate_report uses them instead of parsing
+        supporting_language."""
+        claims = tmp_path / "claims.csv"
+        claims.write_text(
+            "page,proposition,cited_case,retrieved_case,supporting_language,assessment,"
+            "cl_url,cl_status,diagnostics,opinion_file,quoted_text,quote_check,"
+            "quote_check_worst,syllabus,brief_text,opinion_text,explanation,badge_label\n"
+            '3,"Generic proposition.","Tompkins v. Cyr, 202 F.3d 770 (5th Cir. 2000)",'
+            '"Tompkins v. Cyr","old fallback text","Red",'
+            '"https://cl/opinion/19782/tompkins-v-cyr/","VERIFIED","",opinions/Tompkins.txt,'
+            '"[]","[]","NO_QUOTES","",'
+            '"Courts hold that prior settlement evidence is irrelevant.",'
+            '"This case is about anti-abortion protesters under RICO.",'
+            '"Complete subject matter mismatch.",'
+            '"Not supported by cited case"\n'
+        )
+        (tmp_path / "opinions").mkdir()
+        (tmp_path / "opinions" / "Tompkins.txt").write_text("opinion text")
+
+        report_path = generate_report(tmp_path, title="Test")
+        html = report_path.read_text(encoding="utf-8")
+
+        # Structured columns should appear in the report
+        assert "prior settlement evidence" in html
+        assert "anti-abortion protesters" in html
+        assert "Complete subject matter mismatch" in html
+        # Old fallback text should NOT appear
+        assert "old fallback text" not in html
+
+    def test_falls_back_to_old_format(self, tmp_path):
+        """When structured columns are absent, falls back to parsing
+        supporting_language (backwards compat with old claims.csv)."""
+        claims = tmp_path / "claims.csv"
+        claims.write_text(
+            "page,proposition,cited_case,retrieved_case,supporting_language,assessment,"
+            "cl_url,cl_status,diagnostics,opinion_file,quoted_text,quote_check,"
+            "quote_check_worst,syllabus\n"
+            '3,"Settlement evidence is irrelevant.","Tompkins v. Cyr, 202 F.3d 770 (5th Cir. 2000)",'
+            '"Tompkins v. Cyr","The case discusses RICO claims. Assessment: Wrong topic entirely.","Red",'
+            '"https://cl/opinion/19782/","VERIFIED","",opinions/Tompkins.txt,'
+            '"[]","[]","NO_QUOTES",""\n'
+        )
+        (tmp_path / "opinions").mkdir()
+        (tmp_path / "opinions" / "Tompkins.txt").write_text("opinion text")
+
+        report_path = generate_report(tmp_path, title="Test")
+        html = report_path.read_text(encoding="utf-8")
+
+        # Fallback parsing: opinion_text from before "Assessment:", explanation from after
+        assert "RICO claims" in html
+        assert "Wrong topic entirely" in html

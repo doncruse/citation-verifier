@@ -757,12 +757,14 @@ def generate_report(
             finding_counter += 1
             severity = "red" if assessment.lower() == "red" else "yellow"
 
-            brief_text = proposition
-            opinion_text = supporting_lang
-            explanation = ""
+            # Prefer structured columns from new-style agents; fall back
+            # to parsing supporting_language for old-style data.
+            brief_text = claim.get("brief_text", "").strip() or proposition
+            opinion_text = claim.get("opinion_text", "").strip() or ""
+            explanation = claim.get("explanation", "").strip() or ""
 
-            # If supporting_language has structured format, parse it
-            if supporting_lang:
+            if not opinion_text and not explanation and supporting_lang:
+                # Old-format fallback: parse from supporting_language
                 if "Assessment:" in supporting_lang:
                     parts_sl = supporting_lang.split("Assessment:", 1)
                     opinion_text = parts_sl[0].strip()
@@ -770,7 +772,7 @@ def generate_report(
                 else:
                     explanation = supporting_lang
 
-            badge_label = (
+            badge_label = claim.get("badge_label", "").strip() or (
                 "Not supported by cited case" if severity == "red"
                 else "Overstated -- case partially supports"
             )
