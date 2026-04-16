@@ -581,3 +581,81 @@ def check_quotes(workdir: Path) -> QuoteCheckStats:
             writer.writerows(claims)
 
     return stats
+
+
+# ---------------------------------------------------------------------------
+# Metadata sanity check
+# ---------------------------------------------------------------------------
+
+@dataclass
+class MetadataCheckResult:
+    """Results from metadata sanity check."""
+    total_claims: int = 0
+    name_mismatches: int = 0
+    not_found: int = 0
+    no_opinion: int = 0
+    flagged_claims: list[dict] = field(default_factory=list)
+    syllabus_items: list[dict] = field(default_factory=list)
+
+
+def metadata_check(workdir: Path) -> MetadataCheckResult:
+    """Check verification metadata for obvious problems before assessment.
+
+    Flags:
+    - Case name mismatches (CL returned a different case)
+    - NOT_FOUND citations (no opinion available)
+    - Claims with no opinion file (can't assess)
+
+    Also surfaces syllabus data alongside propositions so the skill
+    orchestrator (LLM) can flag obvious topic mismatches during triage.
+    """
+    workdir = Path(workdir)
+    claims_path = workdir / "claims.csv"
+    result = MetadataCheckResult()
+
+    with open(claims_path, newline="", encoding="utf-8") as f:
+        claims = list(csv.DictReader(f))
+
+    for claim in claims:
+        result.total_claims += 1
+        cl_status = claim.get("cl_status", "")
+        diagnostics = claim.get("diagnostics", "")
+        opinion_file = claim.get("opinion_file", "")
+        syllabus = claim.get("syllabus", "")
+
+        flags = []
+
+        # Name mismatch: diagnostics contain "name mismatch"
+        if "name mismatch" in diagnostics.lower() or "Name mismatch" in diagnostics:
+            result.name_mismatches += 1
+            flags.append("name_mismatch")
+
+        # NOT_FOUND
+        if cl_status == "NOT_FOUND":
+            result.not_found += 1
+            flags.append("not_found")
+
+        # No opinion available
+        if not opinion_file and cl_status not in ("NOT_FOUND", ""):
+            result.no_opinion += 1
+            flags.append("no_opinion")
+
+        if flags:
+            result.flagged_claims.append({
+                "cited_case": claim.get("cited_case", ""),
+                "page": claim.get("page", ""),
+                "proposition": claim.get("proposition", ""),
+                "syllabus": syllabus,
+                "flags": flags,
+            })
+
+        # Surface syllabus for LLM triage (even if no other flags)
+        if syllabus:
+            result.syllabus_items.append({
+                "cited_case": claim.get("cited_case", ""),
+                "page": claim.get("page", ""),
+                "proposition": claim.get("proposition", ""),
+                "syllabus": syllabus,
+            })
+
+    return result

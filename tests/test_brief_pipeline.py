@@ -391,3 +391,64 @@ class TestCheckQuotes:
         assert stats.total_claims == 2
         assert stats.checked == 1
         assert stats.no_quotes == 1
+
+
+# --- metadata_check ---
+
+from citation_verifier.brief_pipeline import metadata_check, MetadataCheckResult
+
+
+class TestMetadataCheck:
+    def test_surfaces_syllabus_for_triage(self, tmp_path):
+        """Syllabus data is included in output for LLM triage."""
+        claims = tmp_path / "claims.csv"
+        claims.write_text(
+            "page,proposition,cited_case,cl_status,retrieved_case,cl_url,opinion_file,diagnostics,syllabus\n"
+            '3,"Prior settlement evidence is irrelevant.","Tompkins v. Cyr, 202 F.3d 770 (5th Cir. 2000)",'
+            'VERIFIED,"Tompkins v. Cyr",https://cl/1/,opinions/Tompkins.txt,"",'
+            '"RICO; anti-abortion protesters; harassment; emotional distress"\n'
+        )
+        result = metadata_check(tmp_path)
+        # Names match so no name_mismatch flag, but syllabus is surfaced
+        assert result.name_mismatches == 0
+        assert len(result.syllabus_items) == 1
+        assert "RICO" in result.syllabus_items[0]["syllabus"]
+        assert "settlement" in result.syllabus_items[0]["proposition"]
+
+    def test_flags_name_mismatch(self, tmp_path):
+        """When CL returns a different case name, flag it."""
+        claims = tmp_path / "claims.csv"
+        claims.write_text(
+            "page,proposition,cited_case,cl_status,retrieved_case,cl_url,opinion_file,diagnostics,syllabus\n"
+            '3,"Some proposition.","State v. Carter, 100 So.3d 1 (La. 2020)",'
+            'VERIFIED,"Stull v. Combustion Engineering",https://cl/1/,opinions/Stull.txt,'
+            '"name: Name mismatch",""\n'
+        )
+        result = metadata_check(tmp_path)
+        assert result.name_mismatches == 1
+        assert "State v. Carter" in result.flagged_claims[0]["cited_case"]
+
+    def test_flags_not_found(self, tmp_path):
+        """NOT_FOUND citations are flagged for mandatory assessment."""
+        claims = tmp_path / "claims.csv"
+        claims.write_text(
+            "page,proposition,cited_case,cl_status,retrieved_case,cl_url,opinion_file,diagnostics,syllabus\n"
+            '7,"Plaintiff has no duty.","Menges v. Cliffs, 2000 WL 765082 (E.D. La. 2000)",'
+            'NOT_FOUND,"",,,,""\n'
+        )
+        result = metadata_check(tmp_path)
+        assert result.not_found == 1
+
+    def test_no_flags_on_clean_data(self, tmp_path):
+        """Clean data with no syllabus produces no flags."""
+        claims = tmp_path / "claims.csv"
+        claims.write_text(
+            "page,proposition,cited_case,cl_status,retrieved_case,cl_url,opinion_file,diagnostics,syllabus\n"
+            '6,"Bad faith required.","King v. Ill. Cent. R.R., 337 F.3d 550 (5th Cir. 2003)",'
+            'VERIFIED,"King v. Illinois Central Railroad",https://cl/1/,opinions/King.txt,"",""\n'
+        )
+        result = metadata_check(tmp_path)
+        assert result.name_mismatches == 0
+        assert result.not_found == 0
+        assert len(result.flagged_claims) == 0
+        assert len(result.syllabus_items) == 0
