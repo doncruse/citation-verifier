@@ -541,13 +541,13 @@ class TestGenerateReport:
         report_path = generate_report(tmp_path, title="Test")
         html = report_path.read_text(encoding="utf-8")
 
-        # The brief's actual quoted text should appear in a separate block
+        # The brief's actual quoted text should appear
         assert "within the party" in html
         assert "knowledge or control" in html
         # The quoted text appears under "Quoted in brief:" label
         assert "Quoted in brief" in html
-        # The proposition context also appears (under "What the brief claims:")
-        assert "Agent wrote this proposition summary" in html
+        # When there are quotes, the proposition is NOT shown (avoids redundancy)
+        assert "Agent wrote this proposition summary" not in html
 
     def test_falls_back_to_old_format(self, tmp_path):
         """When structured columns are absent, falls back to parsing

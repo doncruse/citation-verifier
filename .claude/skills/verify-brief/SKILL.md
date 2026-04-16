@@ -233,23 +233,29 @@ Group all full-assessment claims (original + escalated from fast-track) by opini
 2. If `opinions/{case}_excerpts.txt` exists (grep hits): read the **excerpts**
 3. If `opinions/{case}_summary.txt` exists (Haiku full-read): read the **summary**
 
-Also provide:
-- List of claims: `[{row_index, page, proposition, cited_case, quoted_text, quote_check_worst, quote_check}]`
+Also provide for each claim:
+- `row_index`, `page`, `proposition`, `cited_case`, `quoted_text`
+- `quote_check_worst` (VERBATIM, CLOSE, FABRICATED, NO_QUOTES, NO_OPINION)
+- `matched_passage` from `quote_check` — the actual text from the opinion that the deterministic quote matcher found as the best match. This is what the report will show as "Actual language in opinion." The agent does NOT need to find or transcribe this — it's already extracted. But reading it helps the agent understand the quote comparison.
+
+Example claim input:
+```
+Row 11 (p.4): United States v. McMurtrey, 704 F.3d 502, 508 (7th Cir. 2013)
+  Proposition: Reckless disregard under Franks is established where an officer has obvious reasons to doubt the truth of what he or she is asserting
+  Quoted: "obvious reasons to doubt the truth of what he or she is asserting."
+  Quote check: FABRICATED (sim=0.58)
+  Matched passage: "Franks motion permitted a reasonable inference of falsity because it provided 'obvious reasons to doubt the veracity' of the allegations."
+```
+
+The agent sees both the brief's quote and the opinion's actual language, which helps it make an informed assessment.
 
 **Subagent instructions:**
 
-> Read the opinion text (or summary). For each claim, assess two things independently:
+> Read the opinion text (or summary). For each claim, assess **propositional support** — does the case support the proposition it's cited for?
 >
-> **1. Quote accuracy** (only for claims with quoted text):
-> Does the quoted language actually appear in the opinion? Classify:
-> - **Verbatim** — exact match (after normalizing punctuation/whitespace)
-> - **Cosmetic near match** — same words, minor formatting differences
-> - **Reworded** — recognizably derived from a passage, but with word substitutions or reordering. Show BOTH the brief's version and the opinion's actual text.
-> - **Paraphrase in quotes** — the brief uses quotation marks around language that is the author's summary, not the court's words. Identify the closest actual passage.
-> - **Not found** — the quoted text does not appear and no similar passage exists
+> **Quote accuracy is already handled deterministically** by the pipeline's quote checker, which found the best-matching passage from the opinion (provided to you as `matched_passage`). You do NOT need to search for quotes or transcribe opinion text. Use the matched passage to inform your assessment — e.g., if the brief quotes "reasons to doubt the truth" but the opinion says "reasons to doubt the veracity," that's a reworded quote, not a fabrication.
 >
-> **2. Propositional support:**
-> Does the case support the proposition it's cited for? Classify:
+> **Propositional support** — classify as:
 > - **Supported** — the opinion directly and accurately supports the proposition
 > - **Partially supported** — the opinion touches on the topic but the brief overstates, oversimplifies, or extends the holding. Explain the gap.
 > - **Not supported** — the opinion does NOT support the proposition. This includes:
@@ -265,36 +271,43 @@ Also provide:
 > **Assessment calibration examples:**
 > - Brief says "courts exclude prior settlement evidence" and cites a case about anti-abortion protesters → **Not supported** (completely different topic)
 > - Brief says "bias evidence must demonstrate actual bias" and cites a case that holds bias evidence is broadly admissible → **Not supported** (inverts the holding)
-> - Brief says a case "excludes irrelevant evidence" but the case actually favored admission → **Not supported** (opposite holding)
 > - Brief overstates "must be excluded" when the case says "may be excluded at the court's discretion" → **Partially supported** (same topic, overstated standard)
-> - Brief cites a general Rule 403 case for a spoliation-specific proposition → **Partially supported** if the legal principle genuinely applies, **Not supported** if the brief implies the case specifically addressed spoliation when it didn't
+>
+> **Combining quote + propositional assessment into a color:**
+> - The `quote_check_worst` tells you the quote status. Combine with your propositional assessment:
+>   - Supported + (VERBATIM or NO_QUOTES) → Green
+>   - Supported + (CLOSE with minor differences like "truth" vs "veracity") → Green (use badge "Supported")
+>   - Supported + FABRICATED (quote not in opinion but proposition is supported) → Yellow (use badge "Paraphrase presented as direct quote")
+>   - Partially supported (regardless of quote status) → Yellow
+>   - Not supported (regardless of quote status) → Red
 >
 > Do NOT use any external tools — only use Read to access opinion files provided in the workdir.
 >
-> **Output format — JSON array:**
+> **Output:** Write a JSON file to `{workdir}/assessments_{group_name}.json`:
 > ```json
 > [
 >   {
 >     "row_index": 7,
 >     "assessment": "Red",
 >     "badge_label": "Not supported by cited case",
->     "brief_text": "The brief's claim or quoted text, verbatim from the brief",
->     "opinion_text": "What the opinion actually says — the relevant passage or a specific explanation of what the case is about. Use the opinion's own words where possible. This will appear in a green blockquote in the report.",
->     "explanation": "A 1-3 sentence assessment explaining why this is Red/Yellow. Written for a lawyer audience — specific, not vague."
+>     "opinion_text": "1-2 sentence description of what this case is actually about. This provides context when the deterministic quote matcher found no passage (FABRICATED cases) or when the case is on a completely different topic. Do NOT transcribe passages from the opinion — the pipeline already extracted the matched passage.",
+>     "explanation": "1-3 sentence assessment explaining why this is Red/Yellow. Written for a lawyer audience — specific, not vague."
 >   }
 > ]
 > ```
 >
-> **Assessment → color mapping:**
-> - Green: Supported + (Verbatim or No quotes) → `"assessment": "Green"`
-> - Yellow: Partially supported, OR Supported but reworded/paraphrase-in-quotes → `"assessment": "Yellow"`
->   - Use badge_label: "Overstated -- case partially supports" or "Reworded -- not a verbatim quote" or "Paraphrase presented as direct quote"
-> - Red: Not supported, OR quote Not found → `"assessment": "Red"`
->   - Use badge_label: "Not supported by cited case" or "Quote not found in opinion" or "Citation resolves to different case"
+> **Badge labels:**
+> - "Supported" (Green)
+> - "Overstated -- case partially supports" (Yellow)
+> - "Reworded -- not a verbatim quote" (Yellow, when quote is CLOSE but substance is fine)
+> - "Paraphrase presented as direct quote" (Yellow, when brief uses quotation marks around non-verbatim language but the proposition is supported)
+> - "Not supported by cited case" (Red)
+> - "Quote not found in opinion" (Red, when the quote is FABRICATED and the proposition is also not supported)
+> - "Citation resolves to different case" (Red, for name mismatches)
 
 **Batching:** Max 4-5 opinions per subagent. If more than 5 opinions need assessment, split into multiple subagents and run in parallel.
 
-After all subagents return, update `claims.csv` with `assessment`, `supporting_language` (the subagent's full JSON response for that claim, which `generate_report` will parse), `badge_label`, `brief_text`, and `opinion_text` columns.
+After all subagents return, read their JSON output files, then update `claims.csv` with `assessment`, `badge_label`, `opinion_text`, and `explanation` columns.
 
 **Special cases (no subagent needed):**
 - NOT_FOUND with no opinion text → assessment: "Red", badge_label: "Unable to verify", route to `unable_to_verify` in the report (Gray, not Red)
@@ -306,9 +319,12 @@ After all subagents return, update `claims.csv` with `assessment`, `supporting_l
 venv/Scripts/python.exe -m citation_verifier verify-brief <workdir> --report
 ```
 
-This reads `claims.csv` and `brief_metadata.json` and generates `report.html` in the proposition-verifier format:
+This reads `claims.csv` and `brief_metadata.json` and generates `report.html`:
 - Dashboard with severity counts and clickable issue list
-- Collapsible findings with paired blockquotes ("What the brief claims" / "What the opinion actually says")
+- Collapsible findings with:
+  - "Quoted in brief:" — the brief's exact quoted text (or proposition if no quote)
+  - "Actual language in opinion:" — the deterministically-extracted matching passage from the opinion
+  - Agent's assessment explaining the issue
 - Collapsed verified section with green checkmarks
 - Methodology section listing which opinions were retrieved vs. unavailable
 

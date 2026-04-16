@@ -185,20 +185,21 @@ def _build_findings(findings: list[dict]) -> str:
             f'<span class="case-name">{_esc(f.get("case_name", ""))}</span>'
         )
 
+        # Show the brief's quoted text when available; fall back to
+        # proposition when there are no quotes.
         brief_block = ""
-        if f.get("brief_text"):
-            brief_block = (
-                '<div class="bq-label">What the brief claims:</div>'
-                f'<div class="bq-brief">{_esc(f["brief_text"])}</div>'
-            )
-        # Show the brief's exact quoted language separately when available
         quoted_strings = f.get("quoted_strings", [])
         if quoted_strings:
             joined = "\u201d \u2026 \u201c".join(quoted_strings)
-            brief_block += (
+            brief_block = (
                 '<div class="bq-label">Quoted in brief:</div>'
                 f'<div class="bq-brief" style="font-style:italic;">'
                 f'\u201c{_esc(joined)}\u201d</div>'
+            )
+        elif f.get("brief_text"):
+            brief_block = (
+                '<div class="bq-label">What the brief claims:</div>'
+                f'<div class="bq-brief">{_esc(f["brief_text"])}</div>'
             )
 
         # Show actual opinion language: prefer deterministic matched
