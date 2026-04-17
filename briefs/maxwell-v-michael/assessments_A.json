@@ -1,0 +1,50 @@
+[
+  {
+    "row_index": 0,
+    "assessment": "Red",
+    "badge_label": "Not supported by cited case",
+    "brief_block": "",
+    "opinion_block": "This ease presents the question whether a complaint in an employment discrimination lawsuit must contain specific facts establishing a prima facie case of discrimination under the framework set forth by this Court in McDonnell Douglas Corp. v. Green, 411 U. S. 792 (1973). We hold that an employment discrimination complaint need not include such facts and instead must contain only 'a short and plain statement of the claim showing that the pleader is entitled to relief.' Fed. Rule Civ. Proc. 8(a)(2).",
+    "finding_analysis": "Swierkiewicz addresses the pleading standard for a plaintiff's complaint under Rule 8(a)(2) in employment discrimination cases, holding that a plaintiff need not plead a prima facie McDonnell Douglas case to survive a motion to dismiss. It has nothing to do with Rule 8(b)(6) or the sufficiency of a defendant's denials in an answer, and the opinion never discusses whether a party may deny allegations established by documentary evidence or prior admissions.\n\nThe brief's quoted sentence -- 'A defendant may not deny allegations that are supported by the defendant's own prior admissions or undisputed evidence' -- does not appear in the opinion in any form and is not a holding or rationale of the case. The citation is off-topic: Swierkiewicz cannot support a Rule 8(b)(6) denial-sufficiency proposition.\n\nThe cited pinpoint (page 514) contains the Court's discussion of Rule 8(a)'s notice-pleading regime and the liberal construction of pleadings, not anything about defensive denials."
+  },
+  {
+    "row_index": 1,
+    "assessment": "Red",
+    "badge_label": "Not supported by cited case",
+    "brief_block": "",
+    "opinion_block": "Lori David filed this action against Caterpillar, Inc. ('Caterpillar'); she claimed that Caterpillar had violated Title VII by discriminating and/or retaliating against her when it denied her promotions to five different positions while she was employed in its security department.",
+    "finding_analysis": "David v. Caterpillar is a Title VII sex-discrimination and retaliation case in which the Seventh Circuit reviewed a jury verdict on issues of evidentiary sanctions under Rule 37, sufficiency of the evidence of retaliation, remittitur of damages, and back pay. It does not address Rule 8(b) denials, the pleading of admissions, or any principle about when a party may disclaim knowledge of facts within its own control.\n\nThe quoted sentence -- 'A party cannot claim lack of knowledge about facts within the party's own knowledge or control' -- does not appear anywhere in the opinion, nor is any analogous proposition discussed. The cited pinpoint (page 857) falls within the court's discussion of the Rule 26/Rule 37 discovery-sanction standard, which likewise has nothing to do with the brief's proposition.\n\nThe case cannot support the cited proposition at all; the citation appears fabricated."
+  },
+  {
+    "row_index": 2,
+    "assessment": "Red",
+    "badge_label": "Not supported by cited case",
+    "brief_block": "",
+    "opinion_block": "We review the grant of a motion for summary judgment de novo, construing the facts and drawing all reasonable inferences in favor of the nonmoving party. ... Summary judgment is appropriate if there is no genuine dispute of material fact, and the movant is entitled to judgment as a matter of law.",
+    "finding_analysis": "Sojka v. Bovis Lend Lease is a construction-negligence diversity case in which the Seventh Circuit reversed a grant of summary judgment, holding that the plaintiff had adequately preserved theories of breach through his Local Rule 56.1 statement of facts. The opinion is entirely about Rule 56 summary-judgment practice and Northern District of Illinois Local Rule 56.1 -- not about Rule 8(b) denials or the propriety of denying allegations 'on information and belief.'\n\nThe brief's quoted sentence -- 'A party may not deny on information and belief matters within its personal knowledge or control' -- does not appear in the opinion, and no analogous rule is articulated. The cited pinpoint (pages 398-99) covers the court's discussion of Local Rule 56.1's requirements and the Harney v. Speedway scour-the-record principle, which bear no relationship to the proposition cited.\n\nThe citation cannot support the cited proposition."
+  },
+  {
+    "row_index": 4,
+    "assessment": "Yellow",
+    "badge_label": "Overstated -- case partially supports",
+    "brief_block": "",
+    "opinion_block": "Admissions made under Rule 36, even default admissions, can serve as the factual predicate for summary judgment. ... Rule 36(b) provides that a matter admitted is 'conclusively established.' ... [A] party cannot attack issues of fact established in admissions by resisting a motion for summary judgment. ... Affidavits and depositions entered in opposition to summary judgment that attempt to establish issues of fact cannot refute default admissions.",
+    "finding_analysis": "Kasuboski does support the general principle that admissions are binding and cannot be controverted absent a proper motion to withdraw them -- but the admissions it discusses are Rule 36 requests-for-admission, deemed admitted by the defendant's failure to respond within 30 days, not judicial admissions contained in pleadings under Rule 8. The opinion explains that 'the proper procedural vehicle through which to attempt to withdraw admissions made in these circumstances is a motion under Rule 36(b) to withdraw admissions,' and the court's reasoning is grounded in Rule 36(b)'s 'conclusively established' language and Rule 56(c)'s reference to 'admissions on file.'\n\nThe brief's quoted proposition -- that 'judicial admissions in pleadings are binding and may not be controverted at trial absent leave to amend' -- states a cognate doctrine but is not the holding or language of Kasuboski. Courts often recognize both Rule 36 admissions and judicial admissions in pleadings as binding, but Kasuboski is a Rule 36 case and does not discuss pleading admissions or leave to amend under Rule 15. The brief therefore overstates the case's reach by attributing to it a proposition about judicial admissions in pleadings that the court did not address.\n\nThe quoted sentence does not appear verbatim in the opinion, and the underlying principle, while analogous, is applied to a different procedural mechanism."
+  },
+  {
+    "row_index": 6,
+    "assessment": "Red",
+    "badge_label": "Not supported by cited case",
+    "brief_block": "",
+    "opinion_block": "These interlocutory appeals present several issues concerning the defense of qualified immunity in the aftermath of the events of 9/11. ... Plaintiff-Appellee Javaid Iqbal alleges that the Defendants-Appellants took a series of unconstitutional actions against him in connection with his confinement under harsh conditions at the Metropolitan Detention Center ('MDC') in Brooklyn, after separation from the general prison population.",
+    "finding_analysis": "Iqbal v. Hasty is a Second Circuit qualified-immunity decision reviewing the denial of motions to dismiss Bivens claims brought by a post-9/11 detainee. The opinion's discussion of pleading standards focuses on Rule 8(a)(2), Swierkiewicz, Crawford-El, and Bell Atlantic v. Twombly as applied to civil-rights complaints against government officials -- not on the sufficiency of defendants' answers or how courts should treat admissions of underlying facts coupled with denials of legal conclusions.\n\nThe brief's quoted sentence -- 'Where a defendant admits the underlying facts but denies the legal conclusion, the factual admissions control' -- does not appear in the opinion, and the court articulates no such rule. The cited pinpoint (pages 157-58) falls within the court's extended discussion of how to read Bell Atlantic's 'plausibility' standard alongside Swierkiewicz, which concerns pleading complaints, not construing answers.\n\nThe citation does not support the proposition for which it is offered."
+  },
+  {
+    "row_index": 12,
+    "assessment": "Red",
+    "badge_label": "Not supported by cited case",
+    "brief_block": "",
+    "opinion_block": "Lori David filed this action against Caterpillar, Inc. ('Caterpillar'); she claimed that Caterpillar had violated Title VII by discriminating and/or retaliating against her when it denied her promotions to five different positions while she was employed in its security department.",
+    "finding_analysis": "This is the same opinion as row 1 cited for the same proposition, and the analysis is identical. David v. Caterpillar is a Title VII retaliation case reviewing issues of Rule 37 discovery sanctions, sufficiency of evidence supporting the jury's retaliation verdict, and remittitur; it does not discuss Rule 8(b) denials, disclaimer of knowledge, or any principle about denying facts within a party's own control.\n\nThe quoted sentence does not appear in the opinion, and nothing at or near page 857 speaks to the brief's proposition. The citation cannot support the cited proposition in any application, including as applied to the defendants' denial of the consent-timing allegations in paragraph 15 of the complaint."
+  }
+]

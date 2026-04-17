@@ -132,12 +132,18 @@ def _build_dashboard(
         citation = f.get("citation", "")
         badge_label = f.get("badge_label", "")
         # Pull a one-line preview from the finding's prose. Dashboard teaser
-        # only — the full prose shows in the finding card.
-        teaser = f.get("finding_analysis", "")
-        # Use the first sentence or ~140 chars, whichever is shorter.
+        # only — the full prose shows in the finding card. Prefer the first
+        # sentence; if the sentence itself is very long, truncate at a word
+        # boundary instead of mid-word.
+        teaser = f.get("finding_analysis", "").strip()
         first_sentence = teaser.split(". ", 1)[0]
-        if len(first_sentence) > 140:
-            first_sentence = first_sentence[:137] + "..."
+        _TEASER_MAX = 220
+        if len(first_sentence) > _TEASER_MAX:
+            truncated = first_sentence[:_TEASER_MAX]
+            last_space = truncated.rfind(" ")
+            if last_space > _TEASER_MAX - 40:
+                truncated = truncated[:last_space]
+            first_sentence = truncated + "\u2026"
         elif first_sentence and not first_sentence.endswith("."):
             first_sentence += "."
         issue_items.append(

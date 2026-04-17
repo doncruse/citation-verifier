@@ -1,0 +1,34 @@
+[
+  {
+    "row_index": 17,
+    "assessment": "The proposition is substantively supported by Hafer v. Melo, but the brief presents what is actually a paraphrase as a direct quotation. The Court's actual language holds that state officials sued in their individual capacities are 'persons' under § 1983 and that the Eleventh Amendment does not bar such suits; the brief's quoted sentence does not appear verbatim in the opinion.",
+    "badge_label": "Paraphrase presented as direct quote",
+    "brief_block": "",
+    "opinion_block": "We hold that state officials, sued in their individual capacities, are \u201cpersons\u201d within the meaning of \u00a7 1983. The Eleventh Amendment does not bar such suits, nor are state officers absolutely immune from personal liability under \u00a7 1983 solely by virtue of the \u201cofficial\u201d nature of their acts.",
+    "finding_analysis": "Hafer holds that individual-capacity suits for damages under § 1983 are not barred by the Eleventh Amendment, so the brief's proposition is substantively correct. However, the brief encloses its articulation of that holding in quotation marks, and that exact sentence does not appear in the opinion. The Court's actual formulation is broader and phrased differently (quoted above). Presenting a paraphrase as a direct quote misleads the reader about what the Court said, even when the underlying point is accurate."
+  },
+  {
+    "row_index": 18,
+    "assessment": "Wilson v. Isaacs addresses whether the Indiana Tort Claims Act's law-enforcement immunity shields officers who use excessive force; it holds that such claims are not shielded. The opinion also notes the ITCA's statutory exception for false arrest and false imprisonment. Wilson does not address malicious prosecution, and the brief's proposition overstates the case's scope by lumping malicious prosecution in with false arrest.",
+    "badge_label": "Overstated -- case partially supports",
+    "brief_block": "",
+    "opinion_block": "(8) The ... enforcement of ... a law (including rules and regulations), unless the act of enforcement constitutes false arrest or false imprisonment.",
+    "finding_analysis": "Wilson quotes the ITCA's law-enforcement immunity provision and notes the statutory carve-out 'unless the act of enforcement constitutes false arrest or false imprisonment.' The court's holding addresses excessive force, concluding that 'a law enforcement officer's use of force in excess of the reasonable force authorized by statute is not shielded from liability' under the ITCA. Nothing in Wilson speaks to malicious prosecution. The brief's proposition that 'intentional torts such as false arrest and malicious prosecution fall outside ITCA protection' overstates the case: Wilson supports the false-arrest/false-imprisonment point (which comes straight from the statute), but it does not support the malicious-prosecution extension."
+  },
+  {
+    "row_index": 24,
+    "assessment": "The brief inverts Beauchamp's holding. The Seventh Circuit affirmed summary judgment for the officers, expressly holding that once probable cause is established, officers are entitled to rely on what they know and have no further duty to investigate a suspect's exculpatory claims. The proposition that probable cause 'dissipates' when officers receive exculpatory evidence is the argument the Beauchamps advanced and lost; it is the opposite of what the court held.",
+    "badge_label": "Inverts the holding",
+    "brief_block": "",
+    "opinion_block": "Once an officer has established probable cause on every element of a crime, he need not continue investigating to test the suspect\u2019s claim of innocence.",
+    "finding_analysis": "Beauchamp squarely rejects the proposition the brief attributes to it. The Seventh Circuit held that 'once an officer learns sufficient trustworthy information establishing probable cause, he is entitled to rely on what he knows in pursuing charges or an arrest, and is under no further duty to investigate,' and further that 'once an officer has established probable cause on every element of a crime, he need not continue investigating to test the suspect's claim of innocence.' The court affirmed summary judgment for the detectives on qualified-immunity and false-arrest grounds, concluding that even Beauchamp's alibi and the inconsistencies in the complainant's account did not defeat probable cause. The brief's proposition -- that probable cause dissipates when officers receive exculpatory evidence yet fail to act -- is the losing argument in Beauchamp, not its holding. The quoted sentence also does not appear in the opinion."
+  },
+  {
+    "row_index": 26,
+    "assessment": "The CourtListener citation for Wolfe v. Little, 382 N.E.2d 1175, resolves instead to Abbott v. State, a 1978 Indiana Court of Appeals criminal-law decision affirming a conviction for 'entering to commit a felony' based on jury-instruction and sufficiency-of-the-evidence issues. Abbott has nothing to do with malicious prosecution, malice as an element of a tort, or inferring malice from contrary facts. The proposition cannot be assessed against this opinion because the citation resolves to a different case.",
+    "badge_label": "Citation resolves to different case",
+    "brief_block": "",
+    "opinion_block": "Defendant-appellant Abbott appeals from a conviction for entering to commit a felony.",
+    "finding_analysis": "The citation 382 N.E.2d 1175 resolves to Abbott v. State, a criminal appeal by a defendant convicted of entering a home to commit a felony after being caught with stolen grocery items, grass shears, and an electric sander. The opinion addresses (1) whether a jury instruction on possession of stolen goods was properly refused as incomplete/misleading, and (2) whether an attached garage qualifies as part of a dwelling for first-degree burglary purposes. The case contains no discussion of malicious prosecution, malice, or the tort elements referenced in the brief's proposition. Because the citation does not resolve to Wolfe v. Little, the proposition cannot be evaluated against the opinion on file; the mismatch itself is the finding."
+  }
+]

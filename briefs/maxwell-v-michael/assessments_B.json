@@ -1,0 +1,42 @@
+[
+  {
+    "row_index": 7,
+    "assessment": "Red",
+    "badge_label": "Citation resolves to different case",
+    "brief_block": "",
+    "opinion_block": "ROBERT E. ARGUE, III, Plaintiff : CIVIL ACTION NO. 02-9521 Vv. DAVID DAVIS ENTERPRISES, INC., t/a DAVIS ACURA, Defendant ... PLAINTIFF'S FIRST SUPPLEMENTAL PETITION FOR ATTORNEYS' FEES AND COSTS",
+    "finding_analysis": "The citation 371 F. Supp. 2d 765 resolves on CourtListener to Argue v. David Davis Enterprises, Inc. -- an ADEA/PHRA attorneys'-fees petition in the Eastern District of Pennsylvania -- not to Kraemer v. Franklin & Marshall College. The opinion on file has nothing to do with Rule 11 sanctions for denying facts established by documentary evidence. Because the reporter citation points to an unrelated case, the brief's proposition cannot be assessed against this opinion. The Kraemer citation appears to be fabricated or miscited."
+  },
+  {
+    "row_index": 9,
+    "assessment": "Red",
+    "badge_label": "Not supported by cited case",
+    "brief_block": "",
+    "opinion_block": "From the ashes of these gruesome murders rises another, deeply disturbing, allegation: that police and a prosecutor conspired to frame two innocent men of these crimes, and over the course of the next two decades, state officials continued to cover up those misdeeds. ... the district court's opinion ... explicitly refers to several items -- notably, the recantations of Reinbolt and Herrington -- that, if true (as we must assume at this stage), provide evidence that police officers Eckerty, Parrish, and Ray coerced and manipulated those witnesses to implicate Whitlock and Steidl falsely in the murders.",
+    "finding_analysis": "Whitlock v. Brueggemann is a Section 1983 wrongful-conviction case about police and prosecutors coercing witness testimony and committing Brady violations to frame two men for murder. The opinion addresses immunity defenses raised on interlocutory appeal from denial of summary judgment. It contains no discussion of video evidence, Scott v. Harris-style visual-record rules, or any principle that video 'defeats' a party's account as a matter of law. The proposition is actually the holding of Scott v. Harris. The quoted sentence does not appear in Whitlock, and Whitlock does not support the proposition."
+  },
+  {
+    "row_index": 10,
+    "assessment": "Red",
+    "badge_label": "Not supported by cited case",
+    "brief_block": "",
+    "opinion_block": "Anderson and Grubb argue that the district court erred in refusing to include in its charge to the jury their proffered instruction that a law enforcement official has a duty to intervene when fellow officers are committing constitutional violations in his presence. We agree. ... It is widely recognized that all law enforcement officials have an affirmative duty to intervene to protect the constitutional rights of citizens from infringement by other law enforcement officers in their presence.",
+    "finding_analysis": "Anderson v. Branen is an excessive-force / Bivens case addressing whether the district court erred in refusing to instruct the jury on a law enforcement officer's affirmative duty to intervene when fellow officers commit constitutional violations. The opinion says nothing about timestamps, documentary evidence making allegations 'physically impossible,' or knowing falsehood versus negligence. The quoted sentence ('When the documentary evidence makes clear that the allegations in the complaint could not have occurred as alleged, those allegations must be disregarded.') does not appear in the opinion, and the case does not stand for the cited proposition."
+  },
+  {
+    "row_index": 11,
+    "assessment": "Yellow",
+    "badge_label": "Reworded -- not a verbatim quote",
+    "brief_block": "",
+    "opinion_block": "The circumstantial evidence in McMurtrey's Franks motion permitted a reasonable inference of falsity because it provided \"obvious reasons to doubt the veracity\" of the allegations. See United States v. Whitley, 249 F.3d 614, 621 (7th Cir.2001) ... quoting United States v. Williams, 737 F.2d 594, 602 (7th Cir.1984).",
+    "finding_analysis": "McMurtrey does articulate the Franks reckless-disregard standard using the 'obvious reasons to doubt' formulation, but the opinion (quoting Whitley/Williams) says 'obvious reasons to doubt the veracity of the allegations,' not 'obvious reasons to doubt the truth of what he or she is asserting.' The brief presents this as a direct quote ('have evidentiary support.' style quotation), but the operative phrase has been reworded. The substance of the proposition survives -- the Seventh Circuit does apply this standard for reckless disregard under Franks -- but the quoted language is not verbatim and should not appear in quotation marks."
+  },
+  {
+    "row_index": 28,
+    "assessment": "Red",
+    "badge_label": "Citation resolves to different case",
+    "brief_block": "",
+    "opinion_block": "ROBERT E. ARGUE, III, Plaintiff : CIVIL ACTION NO. 02-9521 Vv. DAVID DAVIS ENTERPRISES, INC., t/a DAVIS ACURA, Defendant ... PLAINTIFF'S FIRST SUPPLEMENTAL PETITION FOR ATTORNEYS' FEES AND COSTS",
+    "finding_analysis": "Same mismatched opinion as row 7. The Kraemer v. Franklin & Marshall College citation (371 F. Supp. 2d 765) resolves to Argue v. David Davis Enterprises, Inc. -- an unrelated ADEA/PHRA attorneys'-fees case from E.D. Pa. The opinion on file does not address Rule 11 sanctions or the effect of documentary evidence on pleading denials. The quoted text 'Denying facts established by documentary evidence violates Rule 11.' cannot be evaluated against this opinion because it is the wrong case. The Kraemer citation is not supported by any opinion accessible under that reporter cite."
+  }
+]
