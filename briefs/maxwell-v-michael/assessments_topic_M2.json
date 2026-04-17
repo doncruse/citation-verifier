@@ -1,0 +1,20 @@
+{
+  "assessments": [
+    {
+      "row_index": 9,
+      "assessment": "Red",
+      "badge_label": "Case on unrelated subject",
+      "brief_block": "",
+      "opinion_block": "",
+      "finding_analysis": "Whitlock v. Brueggemann is a Section 1983 wrongful-conviction case about police and a prosecutor allegedly framing two innocent men for a 1986 double murder in Paris, Illinois through fabricated witness testimony and Brady violations. It does not address video evidence, the standard for when recorded footage can defeat a party's account on summary judgment, or anything resembling the proposition cited. The quoted sentence about video evidence that 'conclusively disproves a party's account' does not appear at page 580 or anywhere else in the opinion, and the holding the brief attributes to Whitlock is actually drawn from Scott v. Harris, 550 U.S. 372 (2007), which involved a high-speed-chase videotape. Citing Whitlock for this proposition misattributes a Supreme Court holding to a Seventh Circuit case on an entirely unrelated subject."
+    },
+    {
+      "row_index": 10,
+      "assessment": "Red",
+      "badge_label": "Case on unrelated subject",
+      "brief_block": "",
+      "opinion_block": "",
+      "finding_analysis": "Anderson v. Branen is a Bivens excessive-force case about a physical altercation between DEA agents and two civilians outside a Manhattan parking garage, holding that law enforcement officials have an affirmative duty to intercede when fellow officers violate a citizen's constitutional rights in their presence. It does not address timestamps, documentary evidence, the scienter element of a false statement, or the distinction between knowing falsehoods and mistaken or negligent ones. The quoted sentence about documentary evidence making clear that 'the allegations in the complaint could not have occurred as alleged' appears nowhere in the opinion, which is devoted to jury-instruction error on duty-to-intercede and reasonable-force standards. The cite supplies no support for the proposition that timestamp-impossible statements are necessarily knowing rather than negligent."
+    }
+  ]
+}

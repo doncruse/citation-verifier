@@ -1,0 +1,26 @@
+[
+  {
+    "row_index": 7,
+    "assessment": "Red",
+    "badge_label": "Citation resolves to different case",
+    "brief_block": "",
+    "opinion_block": "",
+    "finding_analysis": "The citation 371 F. Supp. 2d 765 resolves to Argue v. David Davis Enterprises, Inc. (E.D. Pa. 2009), not Kraemer v. Franklin & Marshall College. Argue is an ADEA/PHRA attorneys' fees petition by a prevailing age-discrimination plaintiff seeking supplemental fees and costs under 29 U.S.C. sec. 626(b) and 43 P.S. sec. 962 -- it does not address Rule 11 sanctions, documentary evidence, or the consequences of denying facts in pleadings. Because the reporter cite points to an entirely different case on an entirely different subject, the citation cannot support the proposition that denying facts established by documentary evidence violates Rule 11."
+  },
+  {
+    "row_index": 26,
+    "assessment": "Red",
+    "badge_label": "Citation resolves to different case",
+    "brief_block": "",
+    "opinion_block": "",
+    "finding_analysis": "The citation 382 N.E.2d 1175 resolves to Abbott v. State (Ind. Ct. App. 1978), not Wolfe v. Little. Abbott is a criminal appeal from a conviction for entering to commit a felony, addressing jury instructions on possession of recently stolen property and the sufficiency of evidence of breaking and entering -- it has nothing to do with malicious prosecution, defamation, or the inference of malice from advancing charges contrary to known facts. The cited reporter page cannot support any proposition about when malice may be inferred, because the opinion at that reporter location is an unrelated burglary case."
+  },
+  {
+    "row_index": 28,
+    "assessment": "Red",
+    "badge_label": "Citation resolves to different case",
+    "brief_block": "",
+    "opinion_block": "",
+    "finding_analysis": "The citation 371 F. Supp. 2d 765 resolves to Argue v. David Davis Enterprises, Inc. (E.D. Pa. 2009), not Kraemer v. Franklin & Marshall College. Argue is an ADEA/PHRA supplemental attorneys' fees petition -- the order and petition concern a prevailing age-discrimination plaintiff's entitlement to fees and costs under 29 U.S.C. sec. 626(b) and 43 P.S. sec. 962, and say nothing about Rule 11, documentary evidence, or sanctions for denying established facts. Because the reporter cite points to an unrelated fee-petition order, it cannot support the proposition that denying facts established by documentary evidence violates Rule 11."
+  }
+]

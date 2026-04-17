@@ -1,0 +1,18 @@
+[
+  {
+    "row_index": 0,
+    "assessment": "Red",
+    "badge_label": "Case on unrelated subject",
+    "brief_block": "Courts consistently and uniformly hold that evidence of prior settlement or verdict amounts is irrelevant to the issues of liability and damages in a subsequent, unrelated accident. See Tompkins v. Cyr, 202 F.3d 770, 787 (5th Cir. 2000) (evidence must be relevant to a \"consequential fact\" in the case at bar) [...]",
+    "opinion_block": "",
+    "finding_analysis": "Tompkins v. Cyr is a civil RICO and state-tort case about anti-abortion protesters who harassed a doctor and his wife for ten months, resulting in an approximately $8 million jury verdict for intentional infliction of emotional distress, invasion of privacy, and civil conspiracy. It does not address Rule 401 relevance or the admissibility of prior settlement or verdict amounts in a subsequent unrelated accident. The phrase \"consequential fact\" does not appear in the opinion, and page 787 addresses issues unrelated to the evidentiary relevance proposition the brief cites it for. The cited parenthetical has no basis in this opinion."
+  },
+  {
+    "row_index": 1,
+    "assessment": "Red",
+    "badge_label": "Case on unrelated subject",
+    "brief_block": "Courts consistently and uniformly hold that evidence of prior settlement or verdict amounts is irrelevant to the issues of liability and damages in a subsequent, unrelated accident. See [...] Collins v. Wayne Corp., 621 F.2d 777, 784 (5th Cir. 1980) (excluding evidence that had no [...]",
+    "opinion_block": "",
+    "finding_analysis": "Collins v. Wayne Corp. is a products-liability action arising from a 1972 bus-tractor-trailer collision on a New Mexico bridge that killed nineteen and injured eleven passengers, brought under Restatement (Second) of Torts Sections 402A and 402B against the bus manufacturer for defective seat design and crashworthiness. It does not address the exclusion of prior settlement or verdict evidence in a subsequent unrelated accident. The opinion's evidentiary rulings concern Rule 801(d)(2)(C) party-admissions (Greene deposition) and expert-testimony issues, not Rule 401 relevance to \"specific issues before the jury.\" Page 784 does not support the proposition the brief attributes to it."
+  }
+]

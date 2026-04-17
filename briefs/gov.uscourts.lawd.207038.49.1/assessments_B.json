@@ -1,0 +1,42 @@
+[
+  {
+    "row_index": 4,
+    "assessment": "Green",
+    "badge_label": "Supported",
+    "brief_block": "The Collateral Source Rule is of \"common law origin\" and bars a tortfeasor from reducing their liability because the plaintiff received compensation from an independent source. Bozeman v. State, 879 So. 2d 692, 698 (La. 2004).",
+    "opinion_block": "The collateral source rule is a rule of evidence and damages that is of common law origin, yet embraced and applied by Louisiana courts. . . . Under the collateral source rule, a tortfeasor may not benefit, and an injured plaintiff's tort recovery may not be reduced, because of monies received by the plaintiff from sources independent of the tortfeasor's procuration or contribution.",
+    "finding_analysis": "The Bozeman court expressly describes the collateral source rule as being 'of common law origin' (the quoted phrase appears verbatim) and articulates the rule in the same terms used by the brief: a tortfeasor cannot benefit, and a plaintiff's recovery cannot be reduced, because of payments from sources independent of the tortfeasor. The brief's characterization accurately tracks the opinion."
+  },
+  {
+    "row_index": 5,
+    "assessment": "Yellow",
+    "badge_label": "Paraphrase presented as direct quote",
+    "brief_block": "See Bankcard America, Inc. v. Universal Bancard Systems, Inc., 203 F.3d 477, 484 (7th Cir. 2000) (recognizing that \"the policy behind Rule 408 is to encourage settlements\").",
+    "opinion_block": "The purpose of Rule 408 is to encourage settlements.",
+    "finding_analysis": "The brief presents \"the policy behind Rule 408 is to encourage settlements\" as a direct quotation, but the opinion uses different wording: \"The purpose of Rule 408 is to encourage settlements.\" The opinion does say elsewhere that \"the rule's purpose is to encourage settlements.\" The substantive proposition -- that Rule 408's aim is to encourage settlements -- is fully supported, but the language placed inside quotation marks does not appear in the opinion. This is a rewording presented as a verbatim quote."
+  },
+  {
+    "row_index": 6,
+    "assessment": "Green",
+    "badge_label": "Supported",
+    "brief_block": "The Fifth Circuit has established clear standards for when spoliation sanctions are appropriate, requiring proof that the party acted in bad faith--mere negligence is insufficient. King v. Illinois Cent. R.R., 337 F.3d 550, 556 (5th Cir. 2003); Condrey v. SunTrust Bank of Ga., 431 F.3d 191, 203 (5th Cir. 2005); Guzman v. Jones, 804 F.3d 707, 713 (5th Cir. 2015).",
+    "opinion_block": "An adverse inference based on the destruction of potential evidence is predicated on the \"bad conduct\" of the defendant. . . . Therefore, King must show that ICR acted in \"bad faith\" to establish that it was entitled to an adverse inference.",
+    "finding_analysis": "King squarely holds that, in the Fifth Circuit, a party seeking an adverse inference based on spoliation must show that the opposing party acted in bad faith; an adverse inference is predicated on 'bad conduct.' The brief's proposition that the Fifth Circuit requires bad faith for spoliation sanctions is directly supported. Although King does not use the exact phrase 'mere negligence is insufficient,' the bad-faith requirement necessarily excludes mere negligence as a basis for sanctions."
+  },
+  {
+    "row_index": 7,
+    "assessment": "Green",
+    "badge_label": "Supported",
+    "brief_block": "The Fifth Circuit has established clear standards for when spoliation sanctions are appropriate, requiring proof that the party acted in bad faith--mere negligence is insufficient. King v. Illinois Cent. R.R., 337 F.3d 550, 556 (5th Cir. 2003); Condrey v. SunTrust Bank of Ga., 431 F.3d 191, 203 (5th Cir. 2005); Guzman v. Jones, 804 F.3d 707, 713 (5th Cir. 2015).",
+    "opinion_block": "The Fifth Circuit permits an adverse inference against the destroyer of evidence only upon a showing of \"bad faith\" or \"bad conduct.\"",
+    "finding_analysis": "Condrey expressly states -- citing King -- that the Fifth Circuit permits an adverse spoliation inference only on a showing of 'bad faith' or 'bad conduct.' This directly supports the brief's proposition that spoliation sanctions in the Fifth Circuit require bad faith and that negligence alone will not suffice."
+  },
+  {
+    "row_index": 11,
+    "assessment": "Yellow",
+    "badge_label": "Paraphrase presented as direct quote",
+    "brief_block": "The party seeking sanctions \"must have acted in 'bad faith.'\" King v. Illinois Cent. R.R., 337 F.3d 550, 556 (5th Cir. 2003).",
+    "opinion_block": "Therefore, King must show that ICR acted in \"bad faith\" to establish that it was entitled to an adverse inference.",
+    "finding_analysis": "King does require a showing of bad faith for an adverse spoliation inference, so the brief's underlying proposition is supported. But the brief places the phrase 'must have acted in \"bad faith\"' in quotation marks, suggesting it is a direct quotation from the opinion. The opinion's actual wording is different: it says the party seeking the inference 'must show that [the opponent] acted in \"bad faith.\"' Only the two-word phrase 'bad faith' is actually quoted from the case; the surrounding language has been reworded and should not have been placed inside quotation marks."
+  }
+]

@@ -1,0 +1,42 @@
+[
+  {
+    "row_index": 0,
+    "assessment": "Red",
+    "badge_label": "Case on unrelated subject",
+    "brief_block": "",
+    "opinion_block": "",
+    "finding_analysis": "Swierkiewicz v. Sorema N.A. is a Supreme Court employment-discrimination case about whether a Title VII/ADEA complaint must plead a prima facie case of discrimination under the McDonnell Douglas framework. It does not address Rule 8(b)(6) denials, answer pleading, or the effect of prior admissions or documentary evidence on denials. The decision concerns Rule 8(a)(2)'s 'short and plain statement' standard for complaints, holding that a plaintiff need not allege specific facts establishing each McDonnell Douglas element. Nothing in the opinion discusses defendants' obligations when framing denials or the treatment of admissions in prior pleadings. The quoted sentence does not appear in the opinion, and the pinpoint page (514) falls within the Court's discussion of complaint pleading standards, not answer requirements."
+  },
+  {
+    "row_index": 1,
+    "assessment": "Red",
+    "badge_label": "Case on unrelated subject",
+    "brief_block": "",
+    "opinion_block": "",
+    "finding_analysis": "David v. Caterpillar, Inc. is a Seventh Circuit Title VII sex-discrimination and retaliation case reviewing a jury verdict, evidentiary rulings under Rules 26 and 37, and damages awards following the denial of a promotion in an employer's security department. It does not address Rule 8(b) answer-pleading standards or a party's ability to claim lack of knowledge about facts within its own control. The opinion's discussion on the cited pinpoint page concerns discovery disclosure obligations and trial evidentiary issues, not the substantive content of denials in an answer. The quoted sentence does not appear anywhere in the opinion and represents a proposition foreign to the court's analysis."
+  },
+  {
+    "row_index": 2,
+    "assessment": "Red",
+    "badge_label": "Case on unrelated subject",
+    "brief_block": "",
+    "opinion_block": "",
+    "finding_analysis": "Sojka v. Bovis Lend Lease, Inc. is a Seventh Circuit construction-negligence case addressing summary judgment procedure under Rule 56 and Northern District of Illinois Local Rule 56.1, reviewing whether a plaintiff who failed to argue a specific theory of breach in his memorandum but included supporting facts in his Rule 56.1 statement had created a triable issue. It does not address Rule 8(b) answer pleadings or denials on information and belief. The cited pages (398-99) discuss the interaction between Rule 56 and Local Rule 56.1, not any rule governing the sufficiency of denials. The quoted proposition does not appear in the opinion and is unrelated to the court's summary-judgment analysis."
+  },
+  {
+    "row_index": 6,
+    "assessment": "Red",
+    "badge_label": "Case on unrelated subject",
+    "brief_block": "",
+    "opinion_block": "",
+    "finding_analysis": "Iqbal v. Hasty is a Second Circuit qualified-immunity case arising from Bivens claims by a post-9/11 detainee held in the Metropolitan Detention Center's ADMAX SHU, addressing the pleading standard for supervisory liability and qualified immunity at the motion-to-dismiss stage. It does not address Rule 8(b) answer-pleading standards, the binding effect of factual admissions, or the treatment of mixed fact/legal-conclusion denials. The cited pages (157-58) fall within the court's discussion of complaint pleading sufficiency and Bivens liability, not defendants' obligations in an answer. The quoted sentence does not appear in the opinion and states a proposition the court never considered."
+  },
+  {
+    "row_index": 12,
+    "assessment": "Red",
+    "badge_label": "Case on unrelated subject",
+    "brief_block": "",
+    "opinion_block": "",
+    "finding_analysis": "David v. Caterpillar, Inc. is a Seventh Circuit Title VII sex-discrimination and retaliation case reviewing a jury verdict for the plaintiff, evidentiary rulings under Rules 26 and 37, and remitted damages awards following the denial of a promotion in an employer's security department. It does not address Rule 8(b) answer-pleading standards or a party's ability to plead lack of knowledge about matters within its own control, and it has no analysis bearing on a defendant's denial of consent timing. The cited pinpoint page (857) discusses discovery-disclosure sanctions under Rule 37(c), not the sufficiency of denials in an answer. The quoted sentence does not appear in the opinion, and the case cannot support the proposition for which it is cited."
+  }
+]

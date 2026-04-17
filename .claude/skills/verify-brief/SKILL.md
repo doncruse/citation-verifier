@@ -267,21 +267,27 @@ Row 11 (p.4): United States v. McMurtrey, 704 F.3d 502, 508 (7th Cir. 2013)
 >
 > **`brief_block`** — reproduce the brief's own language for this citation. Usually that's the `brief_sentence` you've been given, reproduced verbatim or lightly trimmed. If the cited-case fragment is buried in a very long sentence, trim with `[...]` but keep enough context that the reader understands the claim. Do not paraphrase. Leave empty only if there truly is nothing distinctive to show (rare).
 >
-> **`opinion_block`** — reproduce the language from the opinion that best illuminates the comparison. This is the key judgment call:
+> **`opinion_block`** — reproduce the language from the opinion that best illuminates the comparison. This is the key judgment call. **Only populate this block when a direct quote from the opinion adds contrast-value that a prose description cannot.** When in doubt, leave it empty and let `finding_analysis` carry the weight.
 > - **Reworded quote (CLOSE)**: quote the opinion's actual parallel language so the reader can see the word substitution at a glance. The `matched_passage` is usually correct here — use it, or trim it to the sentence that parallels the brief's quote.
-> - **Topic mismatch / inverted holding (Red)**: the matched_passage is usually unhelpful. Find and quote the opinion's actual holding or the sentence that most clearly shows the case is about something else. A short direct quote is more powerful than a long excerpt.
+> - **Inverted holding (Red)**: quote the opinion's actual contrary rule — the sentence(s) that hold the opposite of what the brief claims. This is the devastating quote the reader needs to see.
 > - **Pinpoint off**: quote the opinion's discussion of the actual topic (wherever in the opinion it appears), prefaced briefly if you need to orient the reader ("Later in the opinion, Justice Jackson writes: ...").
-> - **No useful quote available** (e.g., the proposition is nowhere in the opinion and no single sentence captures the mismatch): leave `opinion_block` empty and let the analysis prose carry the weight.
+> - **Paraphrase-as-quote**: quote the opinion's real phrasing so the reader can see the brief's rewording.
+> - **Pure topic mismatch — LEAVE EMPTY.** When the cited case is about a completely different area of law, there is no single opinion passage that makes the mismatch sharper than a plain-prose description would. Opening-framing quotes like "This appeal presents a chronicle of abortion protestors..." are noise, not signal — they dilute the punch rather than sharpen it. Let `finding_analysis` do the work (see below).
+> - **Citation resolves to different case — LEAVE EMPTY.** When the reporter citation returned a different opinion than the one the brief named (e.g., brief cites "Kraemer v. Franklin & Marshall Coll." but CL returned "Argue v. David Davis Enterprises"), quoting the resolved case's language adds no contrast — it's just evidence that it's a different case, which the analysis prose already makes clear. Let `finding_analysis` state what the citation actually resolves to.
 >
 > Do NOT invent opinion language. Every quote in `opinion_block` must appear in the opinion file you were given. Quote verbatim, preserve punctuation, and use ellipses for elisions.
 >
 > **OCR handling.** CourtListener's opinion text sometimes contains OCR artifacts — character-level misreads like "MeMurtrey" for "McMurtrey", "This ease" for "This case", missing ampersands in case names ("King Spalding" for "King & Spalding"), `l`/`1` or `rn`/`m` confusions. These come from the source database, not from the court. When quoting in `opinion_block`, silently correct obvious OCR errors to the intended word so the comparison reads cleanly. Use judgment: if the same case name appears correctly elsewhere in the opinion, or if the "word" is semantically impossible in context, it's OCR — fix it. If in doubt, leave it and the reader will understand. This rule applies ONLY to `opinion_block` quoting from the CL-sourced opinion text; `brief_block` reproduces the brief verbatim (any typos there are the brief's own and matter for verification).
 >
 > **`finding_analysis`** — your prose assessment of the gap between brief and opinion. Written for a lawyer audience. Form follows the problem:
-> - Topic mismatch / wrong case / inverted holding: 3–5 sentences describing what the case actually is, what it holds, and why the brief's attribution is wrong.
-> - Reworded quote where substance survives: one or two sentences identifying the word substitution and noting whether it changes the meaning.
-> - Pinpoint off but proposition supported elsewhere: note where the relevant discussion actually appears and confirm the substance is in the case.
-> - Partial support: explain the specific gap — what the case decided versus what the brief claims.
+> - **Pure topic mismatch (Red)**: LEAD with a one-sentence subject-matter description in the form "X v. Y is a [type] case about [factual context]. It does not address [brief's topic / area of law]." This must be the first sentence so the mismatch is instantly visible to a reader scanning the card. Only after that opening should the analysis dive into pinpoint-page specifics or quote-not-found details. Total length 3–5 sentences.
+>   - Good opening: *"Tompkins v. Cyr is a civil RICO case about anti-abortion protesters who harassed a doctor. It does not address Rule 401 relevance or prior settlement evidence."*
+>   - Bad opening (buries the lead): *"The phrase 'consequential fact' does not appear in the opinion. Page 787 discusses Texas's one-satisfaction rule..."* — the subject-matter mismatch is mentioned only in paragraph 3.
+> - **Citation resolves to different case (Red)**: LEAD with the resolution mismatch in the form "The citation [vol reporter page] resolves to [resolved case], not [case named in the brief]. [Resolved case] is a [type] case about [facts] — it does not address [brief's topic]." The first sentence must make both the name mismatch and the unrelated subject matter visible.
+> - **Inverted holding (Red)**: lead with the inversion ("X holds the opposite of what the brief claims"), then name the actual holding.
+> - **Reworded quote where substance survives**: one or two sentences identifying the word substitution and noting whether it changes the meaning.
+> - **Pinpoint off but proposition supported elsewhere**: note where the relevant discussion actually appears and confirm the substance is in the case.
+> - **Partial support**: explain the specific gap — what the case decided versus what the brief claims.
 >
 > Plain prose, complete sentences, no headers or bullets. Paragraphs separated by blank lines. Length follows what the finding needs; do not pad.
 >
@@ -312,10 +318,11 @@ Row 11 (p.4): United States v. McMurtrey, 704 F.3d 502, 508 (7th Cir. 2013)
 > - "Overstated -- case partially supports" (Yellow — pinpoint off, overstates holding, partial topic overlap)
 > - "Reworded -- not a verbatim quote" (Yellow — CLOSE quote, substance accurate)
 > - "Paraphrase presented as direct quote" (Yellow — FABRICATED quote but proposition is supported)
-> - "Not supported by cited case" (Red — topic mismatch, fails to support)
-> - "Quote not found in opinion" (Red — FABRICATED quote and proposition also not supported)
-> - "Inverts the holding" (Red — case holds the opposite)
-> - "Citation resolves to different case" (Red — name mismatch)
+> - **"Case on unrelated subject"** (Red — the cited case is in a different area of law entirely; the proposition does not appear anywhere in the opinion and the case does not even touch the topic. Use this for pure topic-mismatch findings — a common hallucination pattern where a real case is cited for a fabricated proposition it has no relation to.)
+> - "Not supported by cited case" (Red — the case is topically adjacent but does not actually support the specific proposition; use when the case is *about* the area of law in question but doesn't go as far as the brief claims, and the fit is worse than "Overstated")
+> - "Quote not found in opinion" (Red — FABRICATED quote and proposition also not supported; usually paired with or subsumed by "Case on unrelated subject" when the whole citation is off-topic)
+> - "Inverts the holding" (Red — case holds the opposite of what the brief claims)
+> - "Citation resolves to different case" (Red — CourtListener returned a different opinion than the brief named)
 >
 > ### Output
 >
@@ -325,10 +332,10 @@ Row 11 (p.4): United States v. McMurtrey, 704 F.3d 502, 508 (7th Cir. 2013)
 >   {
 >     "row_index": 7,
 >     "assessment": "Red",
->     "badge_label": "Not supported by cited case",
+>     "badge_label": "Case on unrelated subject",
 >     "brief_block": "Courts consistently and uniformly hold that evidence of prior settlement or verdict amounts is irrelevant to the issues of liability and damages in a subsequent, unrelated accident. See Tompkins v. Cyr, 202 F.3d 770, 787 (5th Cir. 2000) (evidence must be relevant to a 'consequential fact' in the case at bar).",
 >     "opinion_block": "",
->     "finding_analysis": "Tompkins v. Cyr is a civil RICO case about anti-abortion protesters who harassed a doctor. The opinion addresses defamation, emotional-distress damages, and the relevance of anonymous threats to those claims. The phrase 'consequential fact' does not appear anywhere in the opinion, and there is no discussion of prior settlement amounts, verdict amounts, or unrelated-accident evidence. The brief's citation appears to be a fabricated attribution."
+>     "finding_analysis": "Tompkins v. Cyr is a civil RICO case about anti-abortion protesters who engaged in targeted picketing and harassment of a doctor, resulting in an $8 million jury verdict. It does not address Rule 401 relevance, prior settlement evidence, or the concept of a 'consequential fact' — the quoted phrase does not appear anywhere in the opinion. The relevance discussions in Tompkins concern whether evidence of anonymous threats and an unrelated Florida murder bore on the plaintiffs' emotional-distress damages. Page 787 of the opinion addresses Texas's one-satisfaction rule for double-recovery of damages — a completely different issue. The brief's citation appears to be a fabricated attribution."
 >   },
 >   {
 >     "row_index": 11,

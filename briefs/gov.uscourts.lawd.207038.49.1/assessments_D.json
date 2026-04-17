@@ -1,0 +1,26 @@
+[
+  {
+    "row_index": 16,
+    "assessment": "Green",
+    "badge_label": "Supported",
+    "brief_block": "It is a settled principle of tort law that when a defendant's wrongful act causes injury, the defendant is fully liable for the resulting damage even though the injured plaintiff had a preexisting condition that made the consequences of the wrongful act more severe than they would have been for a normal victim. The defendant takes the plaintiff as he finds him. Maurer v. United States, 668 F.2d 98, 99 (2d Cir. 1981).",
+    "opinion_block": "It is a settled principle of tort law that when a defendant's wrongful act causes injury, he is fully liable for the resulting damage even though the injured plaintiff had a preexisting condition that made the consequences of the wrongful act more severe than they would have been for a normal victim. The defendant takes the plaintiff as he finds him.",
+    "finding_analysis": "The brief's paragraph tracks Maurer almost word-for-word (substituting 'the defendant' for 'he' as the subject of 'is fully liable'). The brief does not place quotation marks around the language, so the trivial rewording is acceptable attribution rather than a misquote. The proposition -- eggshell plaintiff / thin-skull doctrine with full liability for aggravated harm -- is directly stated in Maurer at the cited page. Supported."
+  },
+  {
+    "row_index": 17,
+    "assessment": "Green",
+    "badge_label": "Supported",
+    "brief_block": "The Fifth Circuit has consistently applied this doctrine. In Koch v. United States, 857 F.3d 267, 279 (5th Cir. 2017), the court reaffirmed that defendants are liable for all consequences of their negligence, even when those consequences are more severe due to the plaintiff's pre-existing vulnerabilities.",
+    "opinion_block": "We see no error in the district court's application of the well-settled principles set forth in Maurer. . . . [T]he Government is fully liable for his resulting harm and disability, even though Koch's preexisting conditions made the consequences of the Government's negligence more severe than they would have been for an ordinary victim.",
+    "finding_analysis": "Koch squarely reaffirms the thin-skull rule in the Fifth Circuit. The panel quotes Maurer's 'defendant takes the plaintiff as he finds him' language at length, rejects the Government's argument that the rule is limited to latent conditions, and holds the Government 'fully liable' despite Koch's preexisting osteoarthritis and degenerative spinal disease. That directly supports the brief's proposition that defendants remain liable for all consequences of negligence even when pre-existing vulnerabilities amplify the harm. Supported."
+  },
+  {
+    "row_index": 18,
+    "assessment": "Yellow",
+    "badge_label": "Reworded -- not a verbatim quote",
+    "brief_block": "Louisiana courts have likewise embraced this principle. Lasha v. Olin Corp., 625 So. 2d 1002, 1006 (La. 1993) (\"The tortfeasor takes his victim as he finds him and is responsible for all natural and probable consequences of his tortious conduct.\").",
+    "opinion_block": "It is clear that a defendant takes his victim as he finds him and is responsible for all natural and probable consequences of his tortious conduct.",
+    "finding_analysis": "Lasha stands for exactly the proposition the brief cites it for -- the Louisiana Supreme Court holds that a defendant takes his victim as he finds him and must compensate for the full extent of the aggravation of a pre-existing condition. However, the brief encloses the passage in quotation marks and attributes it as a direct quote, while substituting 'The tortfeasor' for 'a defendant' (and dropping the 'It is clear that' lead-in). The substantive holding is correctly conveyed, but the quoted language is not verbatim. Reworded."
+  }
+]

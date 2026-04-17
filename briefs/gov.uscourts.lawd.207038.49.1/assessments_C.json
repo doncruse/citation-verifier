@@ -1,0 +1,34 @@
+[
+  {
+    "row_index": 8,
+    "assessment": "Green",
+    "badge_label": "Supported",
+    "brief_block": "The Fifth Circuit has established clear standards for when spoliation sanctions are appropriate, requiring proof that the party acted in bad faith\u2014mere negligence is insufficient. King v. Illinois Cent. R.R., 337 F.3d 550, 556 (5th Cir. 2003); Condrey v. SunTrust Bank of Ga., 431 F.3d 191, 203 (5th Cir. 2005); Guzman v. Jones, 804 F.3d 707, 713 (5th Cir. 2015).",
+    "opinion_block": "We permit an adverse inference against the spoliator or sanctions against the spoliator only upon a showing of \u201cbad faith\u201d or \u201cbad conduct.\u201d ... The district court concluded that the timing of Guzman\u2019s surgery alone was insufficient to demonstrate he had acted in bad faith.",
+    "finding_analysis": "Guzman at 713 directly supports the proposition. The Fifth Circuit held that adverse inferences or spoliation sanctions are permitted 'only upon a showing of \"bad faith\" or \"bad conduct\"' (quoting Condrey, 431 F.3d at 203), and affirmed the denial of sanctions where the record showed no bad faith. The pinpoint cite is accurate and the proposition is a fair statement of the holding."
+  },
+  {
+    "row_index": 9,
+    "assessment": "Yellow",
+    "badge_label": "Paraphrase presented as direct quote",
+    "brief_block": "As one court aptly explained, the human body is fundamentally different from inanimate evidence: \"Gilliam's body is fundamentally different from a vehicle or other inanimate piece of evidence\u2026 plaintiffs are free to determine when they should undergo medical treatment deemed necessary by their physicians.\" Gilliam v. Uni Holdings, LLC, 201 A.D.3d 83, 88\u201389 (1st Dep't 2021). The court emphasized that \"a plaintiff's decision to undergo surgery does not constitute spoliation of evidence.\"",
+    "opinion_block": "The state of one's body is fundamentally different from inanimate evidence, and medical treatment, including surgery, is entirely distinct from the destruction of documents or tangible evidence which spoliation sanctions attempt to ameliorate. ... Plaintiffs must be free to determine when to undergo medical treatments based on personal factors such as doctor's advice and their specific pain and discomfort level. ... Thus, plaintiff's pre-ME spine surgery did not result in the spoliation of evidence.",
+    "finding_analysis": "The underlying proposition is fully supported by Gilliam\u2014the First Department held that the condition of one's body is not subject to spoliation analysis and that plaintiffs must be free to make medical decisions. However, neither of the passages presented in quotation marks appears verbatim in the opinion. The actual language is 'The state of one's body is fundamentally different from inanimate evidence' (not 'Gilliam's body is fundamentally different from a vehicle or other inanimate piece of evidence'), and 'Plaintiffs must be free to determine when to undergo medical treatments based on personal factors such as doctor's advice and their specific pain and discomfort level' (not 'plaintiffs are free to determine when they should undergo medical treatment deemed necessary by their physicians'). The second quoted sentence\u2014'a plaintiff's decision to undergo surgery does not constitute spoliation of evidence'\u2014is also not verbatim; the opinion states 'plaintiff's pre-ME spine surgery did not result in the spoliation of evidence.' Because the substantive proposition is supported but the quotation marks misrepresent the opinion's actual wording, this is reworded/paraphrased language presented as direct quotation."
+  },
+  {
+    "row_index": 13,
+    "assessment": "Yellow",
+    "badge_label": "Overstated -- case partially supports",
+    "brief_block": "The Supreme Court has long recognized the prejudicial impact of arrest evidence where no conviction exists. Michelson v. United States, 335 U.S. 469, 475\u201376 (1948).",
+    "opinion_block": "Arrest without more does not, in law any more than in reason, impeach the integrity or impair the credibility of a witness. It happens to the innocent as well as the guilty. Only a conviction, therefore, may be inquired about to undermine the trustworthiness of a witness. Arrest without more may nevertheless impair or cloud one's reputation.",
+    "finding_analysis": "Michelson does recognize the prejudicial impact of arrest evidence, but the brief's pinpoint cite (pp. 475\u201376) is off. Pages 475\u201376 discuss the common-law framework for character evidence generally\u2014explaining that the overriding policy of excluding such evidence is that 'its disallowance tends to prevent confusion of issues, unfair surprise and undue prejudice'\u2014without focusing on arrests specifically. The arrest-specific discussion (including Justice Jackson's statement that 'Arrest without more does not, in law any more than in reason, impeach the integrity') appears later in the opinion at page 482. The proposition has support in Michelson overall, but the cited pages do not establish the specific point about arrest evidence."
+  },
+  {
+    "row_index": 15,
+    "assessment": "Red",
+    "badge_label": "Inverts the holding",
+    "brief_block": "The Supreme Court has addressed the proper scope of bias evidence, emphasizing that such evidence must demonstrate actual bias affecting the witness's testimony. United States v. Abel, 469 U.S. 45, 52 (1984).",
+    "opinion_block": "Proof of bias is almost always relevant because the jury, as finder of fact and weigher of credibility, has historically been entitled to assess all evidence which might bear on the accuracy and truth of a witness' testimony. ... A witness' and a party's common membership in an organization, even without proof that the witness or party has personally adopted its tenets, is certainly probative of bias.",
+    "finding_analysis": "Abel holds the opposite of what the brief suggests. At page 52, the Supreme Court emphasized the broad admissibility of bias evidence\u2014'Proof of bias is almost always relevant'\u2014and specifically held that common membership in an organization 'even without proof that the witness or party has personally adopted its tenets, is certainly probative of bias.' The Court explicitly rejected any requirement that the proponent demonstrate 'actual bias'; it was enough that membership supported an inference of potential bias. The brief inverts this holding by suggesting Abel imposes a heightened 'actual bias' requirement, when Abel in fact stands for broad and permissive admission of bias evidence on a relevance theory under Rules 401 and 403."
+  }
+]
