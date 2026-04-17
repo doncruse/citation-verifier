@@ -1,0 +1,26 @@
+[
+  {
+    "row_index": 0,
+    "assessment": "Red",
+    "badge_label": "Not supported by cited case",
+    "brief_block": "",
+    "opinion_block": "This ease presents the question whether a complaint in an employment discrimination lawsuit must contain specific facts establishing a prima facie case of discrimination under the framework set forth by this Court in McDonnell Douglas Corp. v. Green... We hold that an employment discrimination complaint need not include such facts and instead must contain only 'a short and plain statement of the claim showing that the pleader is entitled to relief.' Fed. Rule Civ. Proc. 8(a)(2).",
+    "finding_analysis": "Swierkiewicz does not address Rule 8(b)(6) denials or the adequacy of a defendant's answer. It is a complaint-pleading case that holds an employment discrimination plaintiff need not plead a prima facie case under McDonnell Douglas and instead must satisfy only Rule 8(a)(2)'s short-and-plain-statement requirement.\n\nThe opinion says nothing about denials, admissions, or a defendant's obligation to respond to factual allegations. The quoted sentence the brief attributes to the case -- that a defendant may not deny allegations supported by prior admissions or undisputed evidence -- appears nowhere in the opinion. Swierkiewicz is the wrong subsection of the wrong rule for the proposition asserted, and the citation provides no support for it."
+  },
+  {
+    "row_index": 11,
+    "assessment": "Yellow",
+    "badge_label": "Reworded -- not a verbatim quote",
+    "brief_block": "",
+    "opinion_block": "The circumstantial evidence in MeMurtrey's Franks motion permitted a reasonable inference of falsity because it provided \"obvious reasons to doubt the veracity\" of the allegations.",
+    "finding_analysis": "The brief presents \"obvious reasons to doubt the truth of what he or she is asserting\" as a direct quotation, but the opinion's actual phrasing is \"obvious reasons to doubt the veracity\" of the allegations. The substantive standard survives the rewording, but the quotation marks misrepresent the opinion's language."
+  },
+  {
+    "row_index": 24,
+    "assessment": "Red",
+    "badge_label": "Inverts the holding",
+    "brief_block": "",
+    "opinion_block": "Once an officer learns sufficient trustworthy information establishing probable cause, he is entitled to rely on what he knows in pursuing charges or an arrest, and is under no further duty to investigate... Once an officer has established probable cause on every element of a crime, he need not continue investigating to test the suspect's claim of innocence.",
+    "finding_analysis": "Beauchamp holds the opposite of the proposition the brief attributes to it. The Seventh Circuit affirmed summary judgment for the officers, holding that once probable cause is established, officers have no duty to continue investigating or to chase down a suspect's exculpatory claims. The court expressly observed that \"a suspect's denial of guilt generally is not enough to trigger a duty to investigate in the face of a reasonably believable witness,\" and that officers \"are under no constitutional obligation to exclude every possibility\" that the complainant is not telling the truth.\n\nThe brief's proposition -- that probable cause dissipates when officers receive exculpatory evidence yet fail to act -- is the argument the Beauchamps made and lost. Citing Beauchamp for that rule inverts the case's actual holding."
+  }
+]

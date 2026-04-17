@@ -485,20 +485,117 @@ class TestGenerateReport:
         assert "Smith v. Jones" in html
         assert "King v. Ill" in html
 
-    def test_uses_structured_columns_over_fallback(self, tmp_path):
-        """When brief_text, opinion_text, explanation, badge_label columns
-        are present, generate_report uses them instead of parsing
-        supporting_language."""
+    def test_agent_authored_blocks_preferred_over_fallback(self, tmp_path):
+        """When the agent authors brief_block and opinion_block, the
+        template renders those verbatim instead of the deterministic
+        brief_sentence / matched_passage fallbacks."""
         claims = tmp_path / "claims.csv"
         claims.write_text(
             "page,proposition,cited_case,retrieved_case,supporting_language,assessment,"
             "cl_url,cl_status,diagnostics,opinion_file,quoted_text,quote_check,"
-            "quote_check_worst,syllabus,brief_text,opinion_text,explanation,badge_label\n"
+            "quote_check_worst,syllabus,brief_sentence,brief_block,opinion_block,"
+            "finding_analysis,badge_label\n"
+            '4,"Prop.","McMurtrey, 704 F.3d 502","McMurtrey","","Yellow",'
+            '"https://cl/1/","VERIFIED","",opinions/McMurtrey.txt,'
+            '"[""reasons to doubt the truth""]",'
+            '"[{""quote"": ""reasons to doubt the truth"", ""result"": ""CLOSE"", '
+            '""similarity"": 0.72, ""matched_passage"": ""obvious reasons to doubt the veracity""}]",'
+            '"CLOSE","",'
+            # brief_sentence (deterministic fallback, should NOT appear when brief_block wins)
+            '"AGENT SHOULD OVERRIDE THIS sentence.",'
+            # brief_block (agent authored)
+            '"Reckless disregard is shown where the officer had reasons to doubt the truth. Cite: McMurtrey.",'
+            # opinion_block (agent authored — different from matched_passage)
+            '"The court spoke of doubting the veracity, not the truth.",'
+            '"One-sentence agent analysis.","Reworded -- not a verbatim quote"\n'
+        )
+        (tmp_path / "opinions").mkdir()
+        (tmp_path / "opinions" / "McMurtrey.txt").write_text("opinion text")
+
+        report_path = generate_report(tmp_path, title="Test")
+        html = report_path.read_text(encoding="utf-8")
+
+        # Agent-authored blocks appear
+        assert "Reckless disregard is shown where the officer" in html
+        assert "The court spoke of doubting the veracity" in html
+        # Deterministic fallbacks must NOT appear when agent authored
+        assert "AGENT SHOULD OVERRIDE THIS" not in html
+        # matched_passage is not rendered when agent authored opinion_block
+        assert "obvious reasons to doubt the veracity" not in html
+
+    def test_empty_opinion_block_omits_the_box(self, tmp_path):
+        """When the agent leaves opinion_block empty intentionally, the
+        green box is omitted (no fallback rendering)."""
+        claims = tmp_path / "claims.csv"
+        claims.write_text(
+            "page,proposition,cited_case,retrieved_case,supporting_language,assessment,"
+            "cl_url,cl_status,diagnostics,opinion_file,quoted_text,quote_check,"
+            "quote_check_worst,syllabus,brief_sentence,brief_block,opinion_block,"
+            "finding_analysis,badge_label\n"
+            '3,"Prop.","Case, 1 U.S. 1","Case","","Red",'
+            '"https://cl/1/","VERIFIED","",opinions/Case.txt,'
+            '"[]","[]","NO_QUOTES","","",'
+            '"Brief says X.","",'
+            '"The case is about Y, not X.","Not supported by cited case"\n'
+        )
+        (tmp_path / "opinions").mkdir()
+        (tmp_path / "opinions" / "Case.txt").write_text("opinion text")
+
+        report_path = generate_report(tmp_path, title="Test")
+        html = report_path.read_text(encoding="utf-8")
+
+        # brief_block rendered
+        assert "Brief says X." in html
+        # No "Actual language in opinion" section when agent left it empty
+        # AND there's no matched_passage fallback
+        assert "Actual language in opinion" not in html
+
+    def test_finding_analysis_is_rendered_as_prose(self, tmp_path):
+        """finding_analysis is the agent's prose block. Paragraphs separated
+        by blank lines render as <p> tags."""
+        claims = tmp_path / "claims.csv"
+        claims.write_text(
+            "page,proposition,cited_case,retrieved_case,supporting_language,assessment,"
+            "cl_url,cl_status,diagnostics,opinion_file,quoted_text,quote_check,"
+            "quote_check_worst,syllabus,brief_sentence,finding_analysis,badge_label\n"
             '3,"Generic proposition.","Tompkins v. Cyr, 202 F.3d 770 (5th Cir. 2000)",'
-            '"Tompkins v. Cyr","old fallback text","Red",'
+            '"Tompkins v. Cyr","","Red",'
             '"https://cl/opinion/19782/tompkins-v-cyr/","VERIFIED","",opinions/Tompkins.txt,'
             '"[]","[]","NO_QUOTES","",'
-            '"Courts hold that prior settlement evidence is irrelevant.",'
+            '"Courts hold that prior settlement evidence is irrelevant. See Tompkins v. Cyr.",'
+            '"Tompkins v. Cyr is a civil RICO case about anti-abortion protesters. '
+            'The phrase \'consequential fact\' does not appear in the opinion.\n\n'
+            "This looks like a fabricated attribution.\","
+            '"Not supported by cited case"\n'
+        )
+        (tmp_path / "opinions").mkdir()
+        (tmp_path / "opinions" / "Tompkins.txt").write_text("opinion text")
+
+        report_path = generate_report(tmp_path, title="Test")
+        html = report_path.read_text(encoding="utf-8")
+
+        # brief_sentence is rendered under "What the brief claims:"
+        assert "prior settlement evidence is irrelevant" in html
+        assert "What the brief claims" in html
+        # finding_analysis appears with both paragraphs
+        assert "anti-abortion protesters" in html
+        assert "fabricated attribution" in html
+        # Two paragraphs → rendered as two <p> tags inside .analysis
+        assert '<div class="analysis">' in html
+        assert html.count('<p>') >= 2
+
+    def test_legacy_opinion_text_and_explanation_fallback(self, tmp_path):
+        """Old schema (opinion_text + explanation) still renders when
+        finding_analysis is absent — lets pre-existing briefs regenerate."""
+        claims = tmp_path / "claims.csv"
+        claims.write_text(
+            "page,proposition,cited_case,retrieved_case,supporting_language,assessment,"
+            "cl_url,cl_status,diagnostics,opinion_file,quoted_text,quote_check,"
+            "quote_check_worst,syllabus,opinion_text,explanation,badge_label\n"
+            '3,"Prop.","Tompkins v. Cyr, 202 F.3d 770 (5th Cir. 2000)",'
+            '"Tompkins v. Cyr","","Red",'
+            '"https://cl/opinion/19782/tompkins-v-cyr/","VERIFIED","",opinions/Tompkins.txt,'
+            '"[]","[]","NO_QUOTES","",'
             '"This case is about anti-abortion protesters under RICO.",'
             '"Complete subject matter mismatch.",'
             '"Not supported by cited case"\n'
@@ -509,43 +606,108 @@ class TestGenerateReport:
         report_path = generate_report(tmp_path, title="Test")
         html = report_path.read_text(encoding="utf-8")
 
-        # No quoted_text, so brief_text column is used
-        assert "prior settlement evidence" in html
+        # Both legacy fields appear, joined into the single analysis block
         assert "anti-abortion protesters" in html
         assert "Complete subject matter mismatch" in html
-        # Old fallback text should NOT appear
-        assert "old fallback text" not in html
 
-    def test_quoted_text_preferred_over_brief_text(self, tmp_path):
-        """When quoted_text has actual quotes, those appear in the report
-        instead of the brief_text or proposition."""
+    def test_brief_sentence_bolds_quoted_strings(self, tmp_path):
+        """When brief_sentence contains a quoted_string, the string is
+        wrapped in <strong> so the reader sees what the brief attributed."""
         claims = tmp_path / "claims.csv"
         claims.write_text(
             "page,proposition,cited_case,retrieved_case,supporting_language,assessment,"
             "cl_url,cl_status,diagnostics,opinion_file,quoted_text,quote_check,"
-            "quote_check_worst,syllabus,brief_text,opinion_text,explanation,badge_label\n"
-            '2,"A party cannot claim lack of knowledge about facts.",'
-            '"David v. Caterpillar, 324 F.3d 851 (7th Cir. 2003)",'
-            '"David v. Caterpillar","","Red",'
-            '"https://cl/1/","VERIFIED","",opinions/David.txt,'
-            '"[""A party cannot claim lack of knowledge about facts within the party\'s own knowledge or control.""]",'
-            '"[]","FABRICATED","",'
-            '"Agent wrote this proposition summary.",'
-            '"This is a Title VII case about retaliation.",'
-            '"Fabricated quote.",'
-            '"Not supported by cited case"\n'
+            "quote_check_worst,syllabus,brief_sentence,finding_analysis,badge_label\n"
+            '2,"Prop.","Case, 100 U.S. 1 (2000)","Case","","Red",'
+            '"https://cl/1/","VERIFIED","",opinions/Case.txt,'
+            '"[""obvious reasons to doubt""]","[]","FABRICATED","",'
+            '"Reckless disregard means obvious reasons to doubt. Case, 100 U.S. 1.",'
+            '"Agent analysis.","Quote not found in opinion"\n'
         )
         (tmp_path / "opinions").mkdir()
-        (tmp_path / "opinions" / "David.txt").write_text("opinion text")
+        (tmp_path / "opinions" / "Case.txt").write_text("opinion text")
 
         report_path = generate_report(tmp_path, title="Test")
         html = report_path.read_text(encoding="utf-8")
 
-        # The brief's actual quoted text should appear
-        assert "within the party" in html
-        assert "knowledge or control" in html
-        # The quoted text appears under "Quoted in brief:" label
-        assert "Quoted in brief" in html
-        # When there are quotes, the proposition is NOT shown (avoids redundancy)
-        assert "Agent wrote this proposition summary" not in html
+        assert "<strong>obvious reasons to doubt</strong>" in html
+
+    def test_matched_passage_below_threshold_is_hidden(self, tmp_path):
+        """Passages below the 0.65 similarity floor are junk; hide them."""
+        claims = tmp_path / "claims.csv"
+        claims.write_text(
+            "page,proposition,cited_case,retrieved_case,supporting_language,assessment,"
+            "cl_url,cl_status,diagnostics,opinion_file,quoted_text,quote_check,"
+            "quote_check_worst,syllabus,brief_sentence,finding_analysis,badge_label\n"
+            '3,"Prop.","Case, 100 U.S. 1","Case","","Red",'
+            '"https://cl/1/","VERIFIED","",opinions/Case.txt,'
+            '"[""fabricated quote""]",'
+            '"[{""quote"": ""fabricated quote"", ""result"": ""FABRICATED"", '
+            '""similarity"": 0.55, ""matched_passage"": ""adjust the lodestar upward""}]",'
+            '"FABRICATED","","","Analysis.","Quote not found in opinion"\n'
+        )
+        (tmp_path / "opinions").mkdir()
+        (tmp_path / "opinions" / "Case.txt").write_text("opinion text")
+
+        report_path = generate_report(tmp_path, title="Test")
+        html = report_path.read_text(encoding="utf-8")
+
+        # Junk passage must not appear
+        assert "adjust the lodestar upward" not in html
+        assert "Actual language in opinion" not in html
+
+    def test_matched_passage_above_threshold_is_shown(self, tmp_path):
+        """Passages at or above 0.65 similarity are shown."""
+        claims = tmp_path / "claims.csv"
+        claims.write_text(
+            "page,proposition,cited_case,retrieved_case,supporting_language,assessment,"
+            "cl_url,cl_status,diagnostics,opinion_file,quoted_text,quote_check,"
+            "quote_check_worst,syllabus,brief_sentence,finding_analysis,badge_label\n"
+            '4,"Prop.","McMurtrey, 704 F.3d 502","McMurtrey","","Yellow",'
+            '"https://cl/1/","VERIFIED","",opinions/McMurtrey.txt,'
+            '"[""reasons to doubt the truth""]",'
+            '"[{""quote"": ""reasons to doubt the truth"", ""result"": ""CLOSE"", '
+            '""similarity"": 0.72, ""matched_passage"": ""obvious reasons to doubt the veracity""}]",'
+            '"CLOSE","","","Reworded.","Reworded -- not a verbatim quote"\n'
+        )
+        (tmp_path / "opinions").mkdir()
+        (tmp_path / "opinions" / "McMurtrey.txt").write_text("opinion text")
+
+        report_path = generate_report(tmp_path, title="Test")
+        html = report_path.read_text(encoding="utf-8")
+
+        assert "obvious reasons to doubt the veracity" in html
+        assert "Actual language in opinion" in html
+
+    def test_unable_to_verify_groups_by_citation(self, tmp_path):
+        """Same unavailable case cited for 3 propositions = one card, not
+        three."""
+        claims = tmp_path / "claims.csv"
+        rows = []
+        for page, prop in [(2, "Prop A"), (3, "Prop B"), (14, "Prop C")]:
+            rows.append(
+                f'{page},"{prop}","Holleman v. Zatecky, 951 F.2d 873 (7th Cir. 1991)",'
+                f'"","","Red","","NOT_FOUND","","","[]","[]","NO_QUOTES","","","",""\n'
+            )
+        claims.write_text(
+            "page,proposition,cited_case,retrieved_case,supporting_language,assessment,"
+            "cl_url,cl_status,diagnostics,opinion_file,quoted_text,quote_check,"
+            "quote_check_worst,syllabus,brief_sentence,finding_analysis,badge_label\n"
+            + "".join(rows)
+        )
+        (tmp_path / "opinions").mkdir()
+
+        report_path = generate_report(tmp_path, title="Test")
+        html = report_path.read_text(encoding="utf-8")
+
+        # Exactly one unable-to-verify card (one <details id="finding-uv-*">)
+        assert html.count('id="finding-uv-') == 1
+        # Badge appears once
+        assert html.count('Unable to verify -- opinion text unavailable') == 1
+        # All three propositions listed inside the card
+        assert "Prop A" in html
+        assert "Prop B" in html
+        assert "Prop C" in html
+        # Count suffix shows how many times cited
+        assert "cited 3" in html
 

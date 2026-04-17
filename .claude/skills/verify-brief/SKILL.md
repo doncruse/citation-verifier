@@ -73,12 +73,14 @@ Launch **two concurrent agents**:
 **Agent 1 (Opus) — Extract propositions:**
 - Read the brief
 - Reference the citation list from `citations_to_verify.txt`
-- Extract every proposition-case pair into `claims.csv` with columns: `page,proposition,cited_case,quoted_text`
+- Extract every proposition-case pair into `claims.csv` with columns: `page,proposition,cited_case,quoted_text,brief_sentence`
 - CRITICAL: The `cited_case` column MUST start with the exact full citation text from `citations_to_verify.txt` (including case name, reporter, and year). Append pinpoint pages after the start page (e.g., "Camp v. Pitts, 411 U.S. 138, 142 (1973)"). Do NOT abbreviate, omit the reporter, or use short-form case names.
+- `proposition`: your summary of the legal claim the brief is attributing to this case (one sentence, your words).
 - `quoted_text`: JSON array of any text that appears inside quotation marks in the brief's sentence for this claim. Extract the exact quoted words from the brief. If the claim has no quoted text, use `[]`. Example: `["no desire to deter", "but-for causation"]`
-- Same case cited for different propositions = separate rows
-- Same proposition supported by multiple cases = separate rows
-- Exclude non-case sources
+- `brief_sentence`: the brief's actual sentence (or sentences) containing the citation, reproduced as written — including any quoted language, signal word (See, Cf., etc.), and parenthetical attributed to the case. This is what the report will display as "What the brief claims," so the reader can see exactly how the brief used the authority. Normalize whitespace (collapse line breaks), but do not paraphrase. If the sentence is very long, you may trim with `[...]` to keep the cited-case fragment and the immediately surrounding context. Example: `"Courts consistently hold that evidence of prior settlement amounts is irrelevant to liability and damages. See Tompkins v. Cyr, 202 F.3d 770, 787 (5th Cir. 2000) (evidence must be relevant to a 'consequential fact' in the case at bar)."`
+- Same case cited for different propositions = separate rows (with potentially different `brief_sentence` values).
+- Same proposition supported by multiple cases = separate rows.
+- Exclude non-case sources.
 
 **Agent 2 (background bash) — Wave 2 fallback (only if wave1 had misses):**
 Check wave1 output first. If wave1 reported "Misses for wave 2: 0", skip wave2 entirely. Otherwise:
@@ -234,80 +236,116 @@ Group all full-assessment claims (original + escalated from fast-track) by opini
 3. If `opinions/{case}_summary.txt` exists (Haiku full-read): read the **summary**
 
 Also provide for each claim:
-- `row_index`, `page`, `proposition`, `cited_case`, `quoted_text`
+- `row_index`, `page`, `proposition`, `cited_case`, `quoted_text`, `brief_sentence`
 - `quote_check_worst` (VERBATIM, CLOSE, FABRICATED, NO_QUOTES, NO_OPINION)
-- `matched_passage` from `quote_check` — the actual text from the opinion that the deterministic quote matcher found as the best match. This is what the report will show as "Actual language in opinion." The agent does NOT need to find or transcribe this — it's already extracted. But reading it helps the agent understand the quote comparison.
+- `matched_passage` from `quote_check` — the actual text from the opinion that the deterministic quote matcher found as the best match. This is raw material for the agent's analysis.
 
 Example claim input:
 ```
 Row 11 (p.4): United States v. McMurtrey, 704 F.3d 502, 508 (7th Cir. 2013)
   Proposition: Reckless disregard under Franks is established where an officer has obvious reasons to doubt the truth of what he or she is asserting
-  Quoted: "obvious reasons to doubt the truth of what he or she is asserting."
+  Brief sentence: "Reckless disregard is established where an officer has 'obvious reasons to doubt the truth of what he or she is asserting.' United States v. McMurtrey, 704 F.3d 502, 508 (7th Cir. 2013)."
+  Quoted strings: ["obvious reasons to doubt the truth of what he or she is asserting."]
   Quote check: FABRICATED (sim=0.58)
   Matched passage: "Franks motion permitted a reasonable inference of falsity because it provided 'obvious reasons to doubt the veracity' of the allegations."
 ```
 
-The agent sees both the brief's quote and the opinion's actual language, which helps it make an informed assessment.
-
 **Subagent instructions:**
 
-> Read the opinion text (or summary). For each claim, assess **propositional support** — does the case support the proposition it's cited for?
+> You are reviewing a legal brief's citations against the opinions they cite. For each claim below, produce:
 >
-> **Quote accuracy is already handled deterministically** by the pipeline's quote checker, which found the best-matching passage from the opinion (provided to you as `matched_passage`). You do NOT need to search for quotes or transcribe opinion text. Use the matched passage to inform your assessment — e.g., if the brief quotes "reasons to doubt the truth" but the opinion says "reasons to doubt the veracity," that's a reworded quote, not a fabrication.
+> 1. An **assessment color** — Green, Yellow, or Red.
+> 2. A **badge label** — a short plain-English phrase describing the issue (see list below).
+> 3. Three content blocks that will be rendered in the report card, in order:
+>    - `brief_block` — what the brief claims (rendered in an orange-bordered box)
+>    - `opinion_block` — what the opinion actually says on this topic (rendered in a green-bordered box)
+>    - `finding_analysis` — your prose analysis of the gap (rendered as paragraphs beneath the two quote boxes)
 >
-> **Propositional support** — classify as:
-> - **Supported** — the opinion directly and accurately supports the proposition
-> - **Partially supported** — the opinion touches on the topic but the brief overstates, oversimplifies, or extends the holding. Explain the gap.
-> - **Not supported** — the opinion does NOT support the proposition. This includes:
->   - The case addresses a completely different topic
->   - The case holds the OPPOSITE of what the brief claims
->   - The brief attributes a specific principle to the case that doesn't appear in it
->   - The case's dicta or background discussion touches the topic but the holding does not
+> The pipeline pre-computes a best-match `matched_passage` from the opinion using a deterministic fuzzy matcher. This is given to you as a hint — above ~0.65 similarity it's usually the passage you want to quote; below that it's often junk. You decide what to show; you are not required to use it.
 >
-> Be strict on the distinction between "partially supported" and "not supported":
-> - If the case is topically related and its holding can reasonably be extended to the proposition, that's "partially supported"
-> - If the case's holding is about a different legal issue entirely and would require a leap of logic to reach the proposition, that's "not supported" — even if the case happens to use some of the same legal terminology
+> ### How to write each block
 >
-> **Assessment calibration examples:**
-> - Brief says "courts exclude prior settlement evidence" and cites a case about anti-abortion protesters → **Not supported** (completely different topic)
-> - Brief says "bias evidence must demonstrate actual bias" and cites a case that holds bias evidence is broadly admissible → **Not supported** (inverts the holding)
-> - Brief overstates "must be excluded" when the case says "may be excluded at the court's discretion" → **Partially supported** (same topic, overstated standard)
+> **`brief_block`** — reproduce the brief's own language for this citation. Usually that's the `brief_sentence` you've been given, reproduced verbatim or lightly trimmed. If the cited-case fragment is buried in a very long sentence, trim with `[...]` but keep enough context that the reader understands the claim. Do not paraphrase. Leave empty only if there truly is nothing distinctive to show (rare).
 >
-> **Combining quote + propositional assessment into a color:**
-> - The `quote_check_worst` tells you the quote status. Combine with your propositional assessment:
->   - Supported + (VERBATIM or NO_QUOTES) → Green
->   - Supported + (CLOSE with minor differences like "truth" vs "veracity") → Green (use badge "Supported")
->   - Supported + FABRICATED (quote not in opinion but proposition is supported) → Yellow (use badge "Paraphrase presented as direct quote")
->   - Partially supported (regardless of quote status) → Yellow
->   - Not supported (regardless of quote status) → Red
+> **`opinion_block`** — reproduce the language from the opinion that best illuminates the comparison. This is the key judgment call:
+> - **Reworded quote (CLOSE)**: quote the opinion's actual parallel language so the reader can see the word substitution at a glance. The `matched_passage` is usually correct here — use it, or trim it to the sentence that parallels the brief's quote.
+> - **Topic mismatch / inverted holding (Red)**: the matched_passage is usually unhelpful. Find and quote the opinion's actual holding or the sentence that most clearly shows the case is about something else. A short direct quote is more powerful than a long excerpt.
+> - **Pinpoint off**: quote the opinion's discussion of the actual topic (wherever in the opinion it appears), prefaced briefly if you need to orient the reader ("Later in the opinion, Justice Jackson writes: ...").
+> - **No useful quote available** (e.g., the proposition is nowhere in the opinion and no single sentence captures the mismatch): leave `opinion_block` empty and let the analysis prose carry the weight.
 >
-> Do NOT use any external tools — only use Read to access opinion files provided in the workdir.
+> Do NOT invent opinion language. Every quote in `opinion_block` must appear in the opinion file you were given. Quote verbatim, preserve punctuation, and use ellipses for elisions.
 >
-> **Output:** Write a JSON file to `{workdir}/assessments_{group_name}.json`:
+> **OCR handling.** CourtListener's opinion text sometimes contains OCR artifacts — character-level misreads like "MeMurtrey" for "McMurtrey", "This ease" for "This case", missing ampersands in case names ("King Spalding" for "King & Spalding"), `l`/`1` or `rn`/`m` confusions. These come from the source database, not from the court. When quoting in `opinion_block`, silently correct obvious OCR errors to the intended word so the comparison reads cleanly. Use judgment: if the same case name appears correctly elsewhere in the opinion, or if the "word" is semantically impossible in context, it's OCR — fix it. If in doubt, leave it and the reader will understand. This rule applies ONLY to `opinion_block` quoting from the CL-sourced opinion text; `brief_block` reproduces the brief verbatim (any typos there are the brief's own and matter for verification).
+>
+> **`finding_analysis`** — your prose assessment of the gap between brief and opinion. Written for a lawyer audience. Form follows the problem:
+> - Topic mismatch / wrong case / inverted holding: 3–5 sentences describing what the case actually is, what it holds, and why the brief's attribution is wrong.
+> - Reworded quote where substance survives: one or two sentences identifying the word substitution and noting whether it changes the meaning.
+> - Pinpoint off but proposition supported elsewhere: note where the relevant discussion actually appears and confirm the substance is in the case.
+> - Partial support: explain the specific gap — what the case decided versus what the brief claims.
+>
+> Plain prose, complete sentences, no headers or bullets. Paragraphs separated by blank lines. Length follows what the finding needs; do not pad.
+>
+> ### Propositional support classification
+>
+> - **Supported** — the opinion directly and accurately supports the proposition.
+> - **Partially supported** — the opinion touches on the topic but the brief overstates, oversimplifies, or extends the holding.
+> - **Not supported** — the opinion does not support the proposition. This includes: (a) the case addresses a completely different topic; (b) the case holds the opposite of what the brief claims; (c) the brief attributes a specific principle to the case that does not appear in it.
+>
+> Be strict about "partially" vs. "not":
+> - Topically related and the holding can reasonably be extended → **Partially**.
+> - Different legal issue entirely → **Not supported**, even if the opinion uses some of the same vocabulary.
+>
+> ### Assessment color
+>
+> | Propositional support | Quote status | Color |
+> |---|---|---|
+> | Supported | VERBATIM / CLOSE / NO_QUOTES | Green |
+> | Supported | FABRICATED (quote not in opinion but proposition is sound) | Yellow |
+> | Partially supported | any | Yellow |
+> | Not supported | any | Red |
+>
+> ### Badge labels
+>
+> Pick the phrase that best describes the issue. Reuse these when they fit; invent a new one only if none fit.
+>
+> - "Supported" (Green)
+> - "Overstated -- case partially supports" (Yellow — pinpoint off, overstates holding, partial topic overlap)
+> - "Reworded -- not a verbatim quote" (Yellow — CLOSE quote, substance accurate)
+> - "Paraphrase presented as direct quote" (Yellow — FABRICATED quote but proposition is supported)
+> - "Not supported by cited case" (Red — topic mismatch, fails to support)
+> - "Quote not found in opinion" (Red — FABRICATED quote and proposition also not supported)
+> - "Inverts the holding" (Red — case holds the opposite)
+> - "Citation resolves to different case" (Red — name mismatch)
+>
+> ### Output
+>
+> Write a JSON file to `{workdir}/assessments_{group_name}.json`:
 > ```json
 > [
 >   {
 >     "row_index": 7,
 >     "assessment": "Red",
 >     "badge_label": "Not supported by cited case",
->     "opinion_text": "1-2 sentence description of what this case is actually about. This provides context when the deterministic quote matcher found no passage (FABRICATED cases) or when the case is on a completely different topic. Do NOT transcribe passages from the opinion — the pipeline already extracted the matched passage.",
->     "explanation": "1-3 sentence assessment explaining why this is Red/Yellow. Written for a lawyer audience — specific, not vague."
+>     "brief_block": "Courts consistently and uniformly hold that evidence of prior settlement or verdict amounts is irrelevant to the issues of liability and damages in a subsequent, unrelated accident. See Tompkins v. Cyr, 202 F.3d 770, 787 (5th Cir. 2000) (evidence must be relevant to a 'consequential fact' in the case at bar).",
+>     "opinion_block": "",
+>     "finding_analysis": "Tompkins v. Cyr is a civil RICO case about anti-abortion protesters who harassed a doctor. The opinion addresses defamation, emotional-distress damages, and the relevance of anonymous threats to those claims. The phrase 'consequential fact' does not appear anywhere in the opinion, and there is no discussion of prior settlement amounts, verdict amounts, or unrelated-accident evidence. The brief's citation appears to be a fabricated attribution."
+>   },
+>   {
+>     "row_index": 11,
+>     "assessment": "Yellow",
+>     "badge_label": "Reworded -- not a verbatim quote",
+>     "brief_block": "Reckless disregard under Franks is established where an officer has 'obvious reasons to doubt the truth of what he or she is asserting.' United States v. McMurtrey, 704 F.3d 502, 508 (7th Cir. 2013).",
+>     "opinion_block": "... the Franks motion permitted a reasonable inference of falsity because it provided 'obvious reasons to doubt the veracity' of the allegations. See United States v. Whitley, 249 F.3d 614, 621 (7th Cir. 2001) ...",
+>     "finding_analysis": "The brief substitutes 'the truth of what he or she is asserting' for the opinion's actual phrase, 'the veracity.' The substance of the Franks standard is preserved, but the substitution means the quotation marks in the brief are not quite accurate."
 >   }
 > ]
 > ```
 >
-> **Badge labels:**
-> - "Supported" (Green)
-> - "Overstated -- case partially supports" (Yellow)
-> - "Reworded -- not a verbatim quote" (Yellow, when quote is CLOSE but substance is fine)
-> - "Paraphrase presented as direct quote" (Yellow, when brief uses quotation marks around non-verbatim language but the proposition is supported)
-> - "Not supported by cited case" (Red)
-> - "Quote not found in opinion" (Red, when the quote is FABRICATED and the proposition is also not supported)
-> - "Citation resolves to different case" (Red, for name mismatches)
+> Do NOT use any external tools — only use Read to access the opinion files in the workdir.
 
 **Batching:** Max 4-5 opinions per subagent. If more than 5 opinions need assessment, split into multiple subagents and run in parallel.
 
-After all subagents return, read their JSON output files, then update `claims.csv` with `assessment`, `badge_label`, `opinion_text`, and `explanation` columns.
+After all subagents return, read their JSON output files and merge them into `claims.csv` — specifically the columns `assessment`, `badge_label`, `brief_block`, `opinion_block`, and `finding_analysis`.
 
 **Special cases (no subagent needed):**
 - NOT_FOUND with no opinion text → assessment: "Red", badge_label: "Unable to verify", route to `unable_to_verify` in the report (Gray, not Red)
@@ -320,11 +358,12 @@ venv/Scripts/python.exe -m citation_verifier verify-brief <workdir> --report
 ```
 
 This reads `claims.csv` and `brief_metadata.json` and generates `report.html`:
-- Dashboard with severity counts and clickable issue list
-- Collapsible findings with:
-  - "Quoted in brief:" — the brief's exact quoted text (or proposition if no quote)
-  - "Actual language in opinion:" — the deterministically-extracted matching passage from the opinion
-  - Agent's assessment explaining the issue
+- Dashboard with severity counts and a clickable issue list (teaser is first sentence of `finding_analysis`)
+- Collapsible findings, each with three agent-authored blocks:
+  - "What the brief claims:" — `brief_block` (orange-bordered box). Falls back to `brief_sentence` with quoted strings bolded if the agent left it empty.
+  - "Actual language in opinion:" — `opinion_block` (green-bordered box). Omitted when the agent intentionally leaves it empty (e.g., no useful single quote exists). Falls back to the deterministic `matched_passage` for legacy data that pre-dates agent-authored blocks.
+  - `finding_analysis` — agent's prose analysis, rendered as paragraphs beneath the two quote boxes.
+- Unable-to-verify cards grouped by cited case (one card per unavailable case, with all attributed propositions listed inside)
 - Collapsed verified section with green checkmarks
 - Methodology section listing which opinions were retrieved vs. unavailable
 

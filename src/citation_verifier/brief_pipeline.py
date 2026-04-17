@@ -123,7 +123,15 @@ def _find_opinion_file(workdir: Path, case_name: str) -> str:
     return ""
 
 
-_PASSTHROUGH_FIELDS = ["quoted_text", "quote_check", "quote_check_worst"]
+_PASSTHROUGH_FIELDS = [
+    "quoted_text", "quote_check", "quote_check_worst",
+    # Phase 1c extraction (brief-side text)
+    "brief_sentence",
+    # Phase 2c assessment output — three agent-authored blocks + badge
+    "brief_block", "opinion_block", "finding_analysis", "badge_label",
+    # Legacy (pre-finding_analysis) — kept so old briefs can regenerate reports
+    "opinion_text", "explanation",
+]
 
 _VR_FIELDS = [
     "citation", "status", "confidence", "cl_url",
@@ -741,10 +749,15 @@ def generate_report(
 
     findings = []
     verified = []
-    unable = []
+    unable_by_citation: dict[str, dict] = {}
     retrieved_set: dict[str, dict[str, str]] = {}
     unavailable_list = []
     finding_counter = 0
+    # Minimum similarity for a deterministic matched passage to be shown.
+    # Below this, the match is typically junk pulled from an unrelated part
+    # of the opinion — worse than showing nothing, because it misleads the
+    # reader into thinking the matcher found something relevant.
+    _MATCH_PASSAGE_MIN_SIM = 0.65
 
     for claim in claims:
         assessment = claim.get("assessment", "").strip()
@@ -786,46 +799,52 @@ def generate_report(
                 "supporting_language": supporting_lang,
             })
         elif cl_status == "NOT_FOUND" and not opinion_file:
-            finding_counter += 1
-            unable.append({
-                "id": f"finding-uv-{finding_counter}",
+            # Group by cited_case so the same unavailable case cited for
+            # multiple propositions collapses into one card.
+            group_key = cited_case or f"{case_name_parsed}|{citation_parsed}"
+            card = unable_by_citation.get(group_key)
+            if not card:
+                finding_counter += 1
+                card = {
+                    "id": f"finding-uv-{finding_counter}",
+                    "page": page,
+                    "case_name": case_name_parsed,
+                    "citation": citation_parsed,
+                    "propositions": [],
+                    "explanation": (
+                        supporting_lang if supporting_lang
+                        else "Case not found on CourtListener. Cannot verify against opinion text."
+                    ),
+                }
+                unable_by_citation[group_key] = card
+                unavailable_list.append({
+                    "case_name": case_name_parsed,
+                    "citation": citation_parsed,
+                    "reason": "Not in CourtListener database",
+                })
+            card["propositions"].append({
                 "page": page,
-                "case_name": case_name_parsed,
-                "citation": citation_parsed,
-                "brief_text": proposition,
-                "explanation": (
-                    supporting_lang if supporting_lang
-                    else "Case not found on CourtListener. Cannot verify against opinion text."
-                ),
-            })
-            unavailable_list.append({
-                "case_name": case_name_parsed,
-                "citation": citation_parsed,
-                "reason": "Not in CourtListener database",
+                "proposition": proposition,
+                "quoted_text": claim.get("quoted_text", ""),
             })
         else:
             # Yellow or Red finding
             finding_counter += 1
             severity = "red" if assessment.lower() == "red" else "yellow"
 
-            # Build "What the brief claims" with both the proposition
-            # context and the brief's exact quoted language (if any).
-            # Proposition-verifier style: show the proposition, then the
-            # quoted text in a distinct sub-block so the reader sees both
-            # what argument the brief is making AND what words it attributes
-            # to the court.
             quoted_raw = claim.get("quoted_text", "").strip()
-            quoted_strings = []
+            quoted_strings: list[str] = []
             if quoted_raw and quoted_raw != "[]":
                 try:
                     quoted_strings = json_mod.loads(quoted_raw)
                 except (json_mod.JSONDecodeError, ValueError):
                     pass
 
-            brief_text = claim.get("brief_text", "").strip() or proposition
+            brief_sentence = claim.get("brief_sentence", "").strip()
 
-            # Extract matched passages from quote_check (deterministic,
-            # from the actual opinion text — not agent-written summaries).
+            # Deterministic matched passages from quote_check. Only show
+            # passages that cleared the similarity floor — below it, the
+            # matcher is guessing and the passage is usually junk.
             matched_passages = []
             quote_check_raw = claim.get("quote_check", "[]")
             try:
@@ -834,20 +853,32 @@ def generate_report(
                 quote_checks = []
             for qc in quote_checks:
                 sim = qc.get("similarity", 0)
-                if qc.get("matched_passage") and sim >= 0.5:
+                if qc.get("matched_passage") and sim >= _MATCH_PASSAGE_MIN_SIM:
                     matched_passages.append({
                         "text": qc["matched_passage"],
                         "similarity": sim,
                         "result": qc.get("result", ""),
                     })
 
-            opinion_text = claim.get("opinion_text", "").strip() or ""
-            explanation = claim.get("explanation", "").strip() or ""
+            # Agent-authored narrative. Prefer the new single-field schema;
+            # fall back to composing from the legacy two-field schema so old
+            # briefs can still regenerate their reports.
+            finding_analysis = claim.get("finding_analysis", "").strip()
+            if not finding_analysis:
+                legacy_overview = claim.get("opinion_text", "").strip()
+                legacy_explanation = claim.get("explanation", "").strip()
+                parts_legacy = [p for p in (legacy_overview, legacy_explanation) if p]
+                finding_analysis = "\n\n".join(parts_legacy)
 
             badge_label = claim.get("badge_label", "").strip() or (
                 "Not supported by cited case" if severity == "red"
                 else "Overstated -- case partially supports"
             )
+
+            # Agent-authored quote blocks (optional). When present they
+            # replace the deterministic fallbacks in the template.
+            brief_block = claim.get("brief_block", "").strip()
+            opinion_block = claim.get("opinion_block", "").strip()
 
             findings.append({
                 "id": f"finding-{finding_counter}",
@@ -857,11 +888,15 @@ def generate_report(
                 "cl_url": cl_url,
                 "severity": severity,
                 "badge_label": badge_label,
-                "brief_text": brief_text,
+                # Agent-authored blocks (preferred when present)
+                "brief_block": brief_block,
+                "opinion_block": opinion_block,
+                # Deterministic inputs (fallback / reference)
+                "brief_sentence": brief_sentence,
+                "proposition": proposition,
                 "quoted_strings": quoted_strings,
                 "matched_passages": matched_passages,
-                "opinion_text": opinion_text,
-                "explanation": explanation,
+                "finding_analysis": finding_analysis,
             })
 
     report_data = {
@@ -872,7 +907,7 @@ def generate_report(
         "report_date": report_date,
         "findings": findings,
         "verified": verified,
-        "unable_to_verify": unable,
+        "unable_to_verify": list(unable_by_citation.values()),
         "retrieved_opinions": list(retrieved_set.values()),
         "unavailable_opinions": unavailable_list,
     }

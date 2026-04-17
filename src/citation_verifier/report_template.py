@@ -6,6 +6,8 @@ collapsible findings, paired blockquotes, methodology disclosure.
 
 from __future__ import annotations
 
+import re
+
 
 def generate_report_html(data: dict) -> str:
     """Generate a complete HTML report from structured verification data.
@@ -48,8 +50,8 @@ def generate_report_html(data: dict) -> str:
             all_clear = (
                 '<div style="background:#d4edda;border:1px solid #c3e6cb;'
                 'border-radius:6px;padding:1rem;margin-bottom:1rem;">'
-                f'<strong>No serious issues found.</strong> {yellow_count} minor '
-                f'note{"s" if yellow_count != 1 else ""} below.</div>'
+                f'<strong>No serious issues found.</strong> {yellow_count} '
+                f'concern{"s" if yellow_count != 1 else ""} noted below.</div>'
             )
         else:
             all_clear = (
@@ -129,26 +131,36 @@ def _build_dashboard(
         case = f.get("case_name", "")
         citation = f.get("citation", "")
         badge_label = f.get("badge_label", "")
-        explanation = f.get("explanation", "")
-        # Truncate explanation for the dashboard
-        short_expl = explanation[:120] + "..." if len(explanation) > 120 else explanation
+        # Pull a one-line preview from the finding's prose. Dashboard teaser
+        # only — the full prose shows in the finding card.
+        teaser = f.get("finding_analysis", "")
+        # Use the first sentence or ~140 chars, whichever is shorter.
+        first_sentence = teaser.split(". ", 1)[0]
+        if len(first_sentence) > 140:
+            first_sentence = first_sentence[:137] + "..."
+        elif first_sentence and not first_sentence.endswith("."):
+            first_sentence += "."
         issue_items.append(
             f'<li class="sev-{sev}"><a href="#{anchor}">'
             f'{_badge(badge_label, sev)} '
             f'p. {_esc(f.get("page", ""))} &mdash; '
             f'<em>{_esc(case)}</em>, {_esc(citation)} &mdash; '
-            f'{_esc(short_expl)}</a></li>'
+            f'{_esc(first_sentence)}</a></li>'
         )
     for u in unable:
         anchor = u.get("id", "")
         case = u.get("case_name", "")
         citation = u.get("citation", "")
+        prop_count = len(u.get("propositions", []))
+        suffix = (
+            f'cited {prop_count}&times; &mdash; not on CourtListener'
+            if prop_count > 1 else "Not on CourtListener"
+        )
         issue_items.append(
             f'<li class="sev-gray"><a href="#{anchor}">'
             f'{_badge("Unable to verify", "gray")} '
-            f'p. {_esc(u.get("page", ""))} &mdash; '
             f'<em>{_esc(case)}</em>, {_esc(citation)} &mdash; '
-            f'{_esc(u.get("explanation", "")[:120])}</a></li>'
+            f'{suffix}</a></li>'
         )
 
     issues_html = "\n".join(issue_items) if issue_items else "<li>None</li>"
@@ -158,7 +170,7 @@ def _build_dashboard(
   <div class="stats">
     <div class="stat"><div class="stat-num">{total}</div><div class="stat-label">Claims checked</div></div>
     <div class="stat stat-red"><div class="stat-num">{red}</div><div class="stat-label">Serious issues</div></div>
-    <div class="stat stat-yellow"><div class="stat-num">{yellow}</div><div class="stat-label">Minor notes</div></div>
+    <div class="stat stat-yellow"><div class="stat-num">{yellow}</div><div class="stat-label">Concerns</div></div>
     <div class="stat stat-green"><div class="stat-num">{green}</div><div class="stat-label">Verified</div></div>
     <div class="stat stat-gray"><div class="stat-num">{gray}</div><div class="stat-label">Unable to verify</div></div>
   </div>
@@ -167,6 +179,108 @@ def _build_dashboard(
     {issues_html}
   </ul>
 </div>"""
+
+
+def _build_brief_block(f: dict) -> str:
+    """Build the "What the brief claims" block for a finding.
+
+    Preference order:
+    1. Agent-authored `brief_block` (Phase 2c output) — the agent chose how
+       to present the brief's claim; render it verbatim in the styled box.
+    2. brief_sentence (full sentence with quoted strings bolded)
+    3. quoted strings alone
+    4. proposition (agent summary)
+    """
+    agent_block = f.get("brief_block", "").strip()
+    if agent_block:
+        return (
+            '<div class="bq-label">What the brief claims:</div>'
+            f'<div class="bq-brief">{_format_analysis(agent_block)}</div>'
+        )
+
+    brief_sentence = f.get("brief_sentence", "").strip()
+    quoted_strings = f.get("quoted_strings", [])
+    proposition = f.get("proposition", "").strip()
+
+    if brief_sentence:
+        # Highlight the quoted strings within the sentence when we can find
+        # them. Keeps the reader's eye on what the brief attributed to the
+        # court while still showing surrounding context.
+        rendered = _esc(brief_sentence)
+        for q in quoted_strings:
+            if not q:
+                continue
+            esc_q = _esc(q)
+            if esc_q in rendered:
+                rendered = rendered.replace(
+                    esc_q, f'<strong>{esc_q}</strong>', 1,
+                )
+        return (
+            '<div class="bq-label">What the brief claims:</div>'
+            f'<div class="bq-brief">{rendered}</div>'
+        )
+
+    if quoted_strings:
+        joined = "\u201d \u2026 \u201c".join(quoted_strings)
+        return (
+            '<div class="bq-label">Quoted in brief:</div>'
+            f'<div class="bq-brief" style="font-style:italic;">'
+            f'\u201c{_esc(joined)}\u201d</div>'
+        )
+
+    if proposition:
+        return (
+            '<div class="bq-label">What the brief claims:</div>'
+            f'<div class="bq-brief">{_esc(proposition)}</div>'
+        )
+
+    return ""
+
+
+def _build_opinion_block(f: dict) -> str:
+    """Build the "Actual language in opinion" block for a finding.
+
+    Preference order:
+    1. Agent-authored `opinion_block` — agent chose the passage (or narrative)
+       that best illuminates the mismatch. If the agent wrote an empty
+       string, the block is intentionally omitted (e.g., the analysis
+       prose covers it inline).
+    2. Deterministic `matched_passages` fallback — shown for legacy claims
+       that pre-date agent-authored blocks.
+    """
+    agent_block = f.get("opinion_block", "").strip()
+    if agent_block:
+        return (
+            '<div class="bq-label">Actual language in opinion:</div>'
+            f'<div class="bq-opinion">{_format_analysis(agent_block)}</div>'
+        )
+
+    # Legacy-data path: show the deterministic matched_passage. Whether
+    # it renders at all is already gated by the similarity threshold in
+    # generate_report, so we don't re-check here.
+    matched_passages = f.get("matched_passages", [])
+    if not matched_passages:
+        return ""
+    parts = []
+    for mp in matched_passages:
+        text = mp.get("text", "") if isinstance(mp, dict) else str(mp)
+        parts.append(
+            '<div class="bq-label">Actual language in opinion:</div>'
+            f'<div class="bq-opinion">\u2026 {_esc(text)} \u2026</div>'
+        )
+    return "".join(parts)
+
+
+def _format_analysis(text: str) -> str:
+    """Format agent-written analysis text into HTML paragraphs.
+
+    Splits on blank lines. Everything else is escaped — agents are told to
+    write plain prose, not HTML.
+    """
+    paragraphs = [p.strip() for p in re.split(r"\n\s*\n", text) if p.strip()]
+    if not paragraphs:
+        return _esc(text)
+    return "".join(f'<p>{_esc(p)}</p>' for p in paragraphs)
 
 
 def _build_findings(findings: list[dict]) -> str:
@@ -185,57 +299,25 @@ def _build_findings(findings: list[dict]) -> str:
             f'<span class="case-name">{_esc(f.get("case_name", ""))}</span>'
         )
 
-        # Show the brief's quoted text when available; fall back to
-        # proposition when there are no quotes.
-        brief_block = ""
-        quoted_strings = f.get("quoted_strings", [])
-        if quoted_strings:
-            joined = "\u201d \u2026 \u201c".join(quoted_strings)
-            brief_block = (
-                '<div class="bq-label">Quoted in brief:</div>'
-                f'<div class="bq-brief" style="font-style:italic;">'
-                f'\u201c{_esc(joined)}\u201d</div>'
-            )
-        elif f.get("brief_text"):
-            brief_block = (
-                '<div class="bq-label">What the brief claims:</div>'
-                f'<div class="bq-brief">{_esc(f["brief_text"])}</div>'
-            )
+        # Brief block: show the surrounding sentence (with quoted language
+        # called out when present). Fall back to isolated quoted strings,
+        # then to the proposition.
+        brief_block = _build_brief_block(f)
 
-        # Show actual opinion language: deterministic matched passages
-        # from the opinion text, with quality-aware labels. Fall back
-        # to agent-written case overview when no passage was found.
-        opinion_block = ""
-        matched_passages = f.get("matched_passages", [])
-        if matched_passages:
-            parts = []
-            for mp in matched_passages:
-                text = mp.get("text", mp) if isinstance(mp, dict) else mp
-                sim = mp.get("similarity", 1.0) if isinstance(mp, dict) else 1.0
-                if sim >= 0.6:
-                    label = "Actual language in opinion:"
-                else:
-                    label = "Closest passage found in opinion (low match):"
-                if sim >= 0.6:
-                    formatted = f'\u2026 {_esc(text)} \u2026'
-                else:
-                    formatted = f'\u201c{_esc(text)}\u201d'
-                parts.append(
-                    f'<div class="bq-label">{label}</div>'
-                    f'<div class="bq-opinion">{formatted}</div>'
-                )
-            opinion_block = "".join(parts)
-        elif f.get("opinion_text"):
-            opinion_block = (
-                '<div class="bq-label">Case overview:</div>'
-                f'<div class="bq-opinion">{_esc(f["opinion_text"])}</div>'
-            )
+        # Opinion block: agent-authored when present (agent decided what to
+        # show, which may be the matched_passage, a different passage, or
+        # nothing). Falls back to the deterministic matched_passage for
+        # legacy claims.csv data where the agent didn't author this block.
+        matched_block = _build_opinion_block(f)
 
-        explanation_block = ""
-        if f.get("explanation"):
-            explanation_block = (
-                f'<div class="explanation"><strong>Assessment:</strong> '
-                f'{f["explanation"]}</div>'
+        # Agent-authored narrative. One block, flexible length, may include
+        # direct quotations from the opinion when the agent judges it helpful.
+        analysis_block = ""
+        if f.get("finding_analysis"):
+            analysis_block = (
+                '<div class="analysis">'
+                f'{_format_analysis(f["finding_analysis"])}'
+                '</div>'
             )
 
         items.append(f"""<details id="{_esc(f.get("id", ""))}">
@@ -246,8 +328,8 @@ def _build_findings(findings: list[dict]) -> str:
   </summary>
   <div class="finding-body">
     {brief_block}
-    {opinion_block}
-    {explanation_block}
+    {matched_block}
+    {analysis_block}
   </div>
 </details>""")
 
@@ -264,26 +346,64 @@ def _build_findings(findings: list[dict]) -> str:
 
 
 def _build_unable_to_verify(unable: list[dict]) -> str:
-    """Build the unable-to-verify section."""
+    """Build the unable-to-verify section with one card per cited case.
+
+    When the same unavailable case is cited for multiple propositions, all
+    propositions are listed inside a single card rather than duplicating
+    the card itself.
+    """
     if not unable:
         return ""
 
     items = []
     for u in unable:
-        brief_block = ""
-        if u.get("brief_text"):
-            brief_block = (
-                '<div class="bq-label">What the brief claims:</div>'
-                f'<div class="bq-brief">{_esc(u["brief_text"])}</div>'
+        propositions = u.get("propositions", [])
+        if propositions:
+            rows = []
+            for p in propositions:
+                page = p.get("page", "")
+                prop_text = p.get("proposition", "")
+                # Show quoted text inline when present
+                quoted_raw = p.get("quoted_text", "")
+                quoted_suffix = ""
+                try:
+                    import json as _j
+                    qs = _j.loads(quoted_raw) if quoted_raw else []
+                    if qs:
+                        joined = "\u201d \u2026 \u201c".join(qs)
+                        quoted_suffix = (
+                            f' <em style="color:#666;">(quotes brief: '
+                            f'\u201c{_esc(joined)}\u201d)</em>'
+                        )
+                except (ValueError, TypeError):
+                    pass
+                rows.append(
+                    f'<li><strong>p. {_esc(page)}:</strong> '
+                    f'{_esc(prop_text)}{quoted_suffix}</li>'
+                )
+            prop_list = (
+                '<div class="bq-label">Propositions the brief attributes to '
+                'this case:</div>'
+                f'<ul class="prop-list">{"".join(rows)}</ul>'
             )
+        else:
+            prop_list = ""
+
+        # Summary header: case + citation + count suffix if > 1
+        count = len(propositions)
+        count_suffix = (
+            f' <span style="color:#888;">(cited {count}\u00d7)</span>'
+            if count > 1 else ""
+        )
+
         items.append(f"""<details id="{_esc(u.get("id", ""))}">
   <summary>
-    <strong>p. {_esc(u.get("page", ""))}</strong> &mdash;
     <span class="case-name">{_esc(u.get("case_name", ""))}</span>, {_esc(u.get("citation", ""))}
+    {count_suffix}
     &mdash; {_badge("Unable to verify -- opinion text unavailable", "gray")}
   </summary>
   <div class="finding-body">
-    {brief_block}
+    {prop_list}
     <div class="explanation">{_esc(u.get("explanation", ""))}</div>
   </div>
 </details>""")
@@ -472,6 +592,11 @@ details[open] > summary { border-radius: 4px 4px 0 0; border-bottom: none; }
 }
 .case-name { font-family: 'Lora', serif; font-style: italic; }
 .explanation { margin-top: 0.7rem; font-size: 0.9rem; line-height: 1.5; }
+.analysis { margin-top: 0.8rem; font-size: 0.92rem; line-height: 1.55; color: #2d2d2d; }
+.analysis p { margin-bottom: 0.6rem; }
+.analysis p:last-child { margin-bottom: 0; }
+.prop-list { margin: 0.3rem 0 0.6rem 1.2rem; font-size: 0.9rem; }
+.prop-list li { margin-bottom: 0.25rem; }
 
 .controls { margin-bottom: 0.5rem; font-size: 0.8rem; }
 .controls button {
