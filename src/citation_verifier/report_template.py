@@ -8,6 +8,15 @@ from __future__ import annotations
 
 import re
 
+# Sentence-end pattern for dashboard teaser extraction. Matches `. ` only
+# when preceded by at least two lowercase letters and followed by an
+# uppercase letter. Excludes:
+#   - case-name periods (`Tompkins v. Cyr` — `v` is a single lowercase)
+#   - reporter abbreviations (`F. Supp.`, `U.S. `, `Inc. `, `Pa. ` — all
+#     end with a capital before the period, or are single letters)
+#   - short abbreviations (`p. 180`, `sec. 626`, `e.g.`, `i.e.`)
+_SENTENCE_END_RE = re.compile(r'(?<=[a-z]{2})\.\s+(?=[A-Z])')
+
 
 def generate_report_html(data: dict) -> str:
     """Generate a complete HTML report from structured verification data.
@@ -135,8 +144,16 @@ def _build_dashboard(
         # only — the full prose shows in the finding card. Prefer the first
         # sentence; if the sentence itself is very long, truncate at a word
         # boundary instead of mid-word.
+        #
+        # Sentence-end detection: require a lowercase letter, close bracket,
+        # or close quote *before* the period, and an uppercase letter after
+        # the space. This excludes case-name periods (`v. Cyr`) and reporter
+        # abbreviations (`F. Supp.`, `U.S. `, `Inc. `, `Pa. `) which all have
+        # a capital letter before the period — naive `.split(". ")` would
+        # cut the teaser mid-citation.
         teaser = f.get("finding_analysis", "").strip()
-        first_sentence = teaser.split(". ", 1)[0]
+        m = _SENTENCE_END_RE.search(teaser)
+        first_sentence = teaser[:m.start() + 1] if m else teaser
         _TEASER_MAX = 220
         if len(first_sentence) > _TEASER_MAX:
             truncated = first_sentence[:_TEASER_MAX]
