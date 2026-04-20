@@ -123,6 +123,71 @@ class TestWave1:
 
     @patch("citation_verifier.brief_pipeline.AsyncCourtListenerClient")
     @patch("citation_verifier.brief_pipeline.CitationVerifier")
+    def test_wave1_swaps_short_order_for_substantive_sibling(
+        self, mock_verifier_cls, mock_client_cls, tmp_path,
+    ):
+        """When the matched cluster is a short order (e.g. a vacatur order),
+        the pipeline should swap to a sibling cluster on the same docket that
+        carries the substantive merits opinion, and update matched_url in the
+        result (so verification_results.csv reflects the swap).
+        """
+        from citation_verifier.brief_pipeline import wave1_verify_and_download
+
+        citations = ["In re Hertz Corp., 2024 LEXIS 1 (2024)"]
+
+        mock_verifier = mock_verifier_cls.return_value
+        mock_verifier.verify_batch = AsyncMock(return_value=[
+            _make_result(
+                VerificationStatus.POSSIBLE_MATCH,
+                "https://www.courtlistener.com/opinion/10124964/hertz/",
+                "In re Hertz",
+            ),
+        ])
+
+        mock_client = AsyncMock()
+        mock_client_cls.return_value.__aenter__ = AsyncMock(return_value=mock_client)
+        mock_client_cls.return_value.__aexit__ = AsyncMock(return_value=False)
+        mock_client.BASE_URL = "https://cl/api"
+
+        short_order_text = "ORDER: the opinion is vacated. " * 20  # ~620 chars
+        substantive_text = "PRECEDENTIAL opinion body. " * 200  # ~5400 chars
+
+        # get_opinion_text_with_metadata: first returns short order (for the
+        # original cluster), then substantive (for the sibling)
+        mock_client.get_opinion_text_with_metadata = AsyncMock(side_effect=[
+            {"text": short_order_text, "case_name": "In re Hertz",
+             "format": "text", "citations": [], "court": "", "date_filed": "",
+             "docket_number": ""},
+            {"text": substantive_text, "case_name": "In re Hertz",
+             "format": "text", "citations": [], "court": "", "date_filed": "",
+             "docket_number": ""},
+        ])
+        # _request_with_retry: first returns the cluster (w/ docket), then
+        # the list of clusters on that docket (original + one sibling)
+        mock_client._request_with_retry = AsyncMock(side_effect=[
+            {"docket": "https://cl/api/dockets/999/"},
+            {"results": [
+                {"id": 10124964, "absolute_url": "/opinion/10124964/hertz/"},
+                {"id": 10265999, "absolute_url": "/opinion/10265999/hertz/"},
+            ]},
+        ])
+
+        result = asyncio.run(wave1_verify_and_download(tmp_path, citations))
+
+        assert result.download_stats["downloaded"] == 1
+        # The swap should have updated matched_url and matched_cluster_id
+        vr = result.results[0]
+        assert "10265999" in (vr.matched_url or "")
+        assert vr.matched_cluster_id == 10265999
+        # And the diagnostic should record the swap
+        assert any("swapped to sibling" in d.message for d in vr.diagnostics)
+        # verification_results.csv should also reflect the new URL
+        vr_csv = (tmp_path / "verification_results.csv").read_text()
+        assert "10265999" in vr_csv
+        assert "10124964" not in vr_csv
+
+    @patch("citation_verifier.brief_pipeline.AsyncCourtListenerClient")
+    @patch("citation_verifier.brief_pipeline.CitationVerifier")
     def test_wave1_identifies_misses(self, mock_verifier_cls, mock_client_cls, tmp_path):
         from citation_verifier.brief_pipeline import wave1_verify_and_download, Wave1Result
 

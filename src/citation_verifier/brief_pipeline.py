@@ -11,7 +11,7 @@ from pathlib import Path
 from typing import Any
 
 from .client import AsyncCourtListenerClient
-from .models import VerificationResult, VerificationStatus
+from .models import Diagnostic, VerificationResult, VerificationStatus
 from .report_template import generate_report_html
 from .verifier import CitationVerifier
 
@@ -183,6 +183,93 @@ _DOWNLOADABLE_STATUSES = {
     VerificationStatus.POSSIBLE_MATCH,
 }
 
+# Threshold (chars of visible text) below which we suspect a downloaded
+# "opinion" is actually a short order (vacatur, amendment notice, mandate,
+# rehearing denial). When we hit one of these, we look for a sibling
+# cluster on the same docket with substantive content.
+_SHORT_OPINION_THRESHOLD = 3000
+
+
+def _visible_text_len(data: dict[str, Any]) -> int:
+    """Return the length of human-readable text in an opinion data dict."""
+    text = data.get("text") or ""
+    if not text:
+        return 0
+    if data.get("format") == "html":
+        stripped = re.sub(r"<[^>]+>", " ", text)
+        stripped = re.sub(r"\s+", " ", stripped).strip()
+        return len(stripped)
+    return len(text.strip())
+
+
+async def _find_substantive_sibling(
+    client: AsyncCourtListenerClient,
+    matched_url: str,
+    current_len: int,
+) -> dict[str, Any] | None:
+    """Look for a sibling cluster on the same docket with substantive content.
+
+    Triggered when the primary cluster's opinion is suspiciously short (e.g.
+    a vacatur order sitting in its own CL cluster while the real merits
+    opinion lives in a separate cluster on the same docket — the Hertz 3d Cir.
+    case was the motivating example).
+
+    Returns a new opinion data dict (with source_url set to the sibling's URL)
+    if a sibling has more than 2x the current text AND clears the short-opinion
+    threshold; otherwise returns None.
+    """
+    cluster_match = re.search(r"/opinion/(\d+)/", matched_url)
+    if not cluster_match:
+        return None
+    current_cluster_id = cluster_match.group(1)
+
+    try:
+        current_cluster = await client._request_with_retry(
+            "GET", f"{client.BASE_URL}/clusters/{current_cluster_id}/",
+        )
+        if not isinstance(current_cluster, dict):
+            return None
+        docket_url = current_cluster.get("docket") or ""
+        if not docket_url or not isinstance(docket_url, str):
+            return None
+        docket_id = docket_url.rstrip("/").split("/")[-1]
+
+        resp = await client._request_with_retry(
+            "GET", f"{client.BASE_URL}/clusters/",
+            params={"docket": docket_id},
+        )
+        siblings = resp.get("results", []) if isinstance(resp, dict) else []
+    except Exception:
+        return None
+
+    best: dict[str, Any] | None = None
+    best_len = current_len
+    for sib in siblings:
+        if not isinstance(sib, dict):
+            continue
+        sib_id = str(sib.get("id") or "")
+        if not sib_id or sib_id == current_cluster_id:
+            continue
+        sib_abs = sib.get("absolute_url", "")
+        if sib_abs and not sib_abs.startswith("http"):
+            sib_abs = f"https://www.courtlistener.com{sib_abs}"
+        if not sib_abs:
+            continue
+        try:
+            sib_data = await client.get_opinion_text_with_metadata(
+                sib_abs, prefer_html=True,
+            )
+        except Exception:
+            continue
+        if not isinstance(sib_data, dict):
+            continue
+        sib_len = _visible_text_len(sib_data)
+        if sib_len > best_len * 2 and sib_len >= _SHORT_OPINION_THRESHOLD:
+            sib_data["source_url"] = sib_abs
+            best = sib_data
+            best_len = sib_len
+    return best
+
 
 async def _download_opinion(
     client: AsyncCourtListenerClient,
@@ -203,6 +290,33 @@ async def _download_opinion(
         )
         if not data:
             return None
+
+        # If the matched cluster is a short order (vacatur, amendment notice,
+        # rehearing denial), look for a sibling cluster on the same docket
+        # carrying the substantive merits opinion and swap to that.
+        if _visible_text_len(data) < _SHORT_OPINION_THRESHOLD:
+            better = await _find_substantive_sibling(
+                client, result.matched_url, _visible_text_len(data),
+            )
+            if better is not None:
+                new_url = better["source_url"]
+                m = re.search(r"/opinion/(\d+)/", new_url)
+                result.diagnostics.append(Diagnostic(
+                    "info",
+                    f"Matched cluster looked like a short order "
+                    f"({_visible_text_len(data)} chars); swapped to sibling "
+                    f"cluster {m.group(1) if m else '?'} on same docket with "
+                    f"substantive content ({_visible_text_len(better)} chars).",
+                ))
+                data = better
+                result.matched_url = new_url
+                if m:
+                    try:
+                        result.matched_cluster_id = int(m.group(1))
+                    except ValueError:
+                        pass
+                if better.get("case_name"):
+                    result.matched_case_name = better["case_name"]
 
         fmt = data.get("format", "text")
         case_name = result.matched_case_name or data.get("case_name", "")
@@ -262,10 +376,8 @@ async def wave1_verify_and_download(
         if r.status not in _DOWNLOADABLE_STATUSES
     ]
 
-    # Write verification_results.csv
-    _write_verification_csv(workdir, citations, results)
-
-    # Download opinions for hits
+    # Download opinions for hits (may mutate result.matched_url if the
+    # pipeline swaps to a substantive sibling cluster — see _download_opinion)
     download_stats = {"downloaded": 0, "failed": 0, "skipped": 0}
 
     async with AsyncCourtListenerClient() as client:
@@ -279,6 +391,9 @@ async def wave1_verify_and_download(
                 download_stats["downloaded"] += 1
             else:
                 download_stats["failed"] += 1
+
+    # Write verification_results.csv after downloads so any URL swaps persist
+    _write_verification_csv(workdir, citations, results)
 
     return Wave1Result(
         results=results,
@@ -314,10 +429,8 @@ async def wave2_fallback_and_download(
         miss_citations, progress_callback=progress_callback,
     )
 
-    # Append to verification_results.csv
-    _write_verification_csv(workdir, miss_citations, results, append=True)
-
-    # Download opinions for newly resolved citations
+    # Download opinions for newly resolved citations (may mutate
+    # result.matched_url when swapping to a substantive sibling cluster)
     download_stats = {"downloaded": 0, "failed": 0, "skipped": 0}
 
     async with AsyncCourtListenerClient() as client:
@@ -331,6 +444,9 @@ async def wave2_fallback_and_download(
                 download_stats["downloaded"] += 1
             else:
                 download_stats["failed"] += 1
+
+    # Append to verification_results.csv after downloads so URL swaps persist
+    _write_verification_csv(workdir, miss_citations, results, append=True)
 
     return Wave2Result(
         results=results,

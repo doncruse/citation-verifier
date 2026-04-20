@@ -1,0 +1,58 @@
+[
+  {
+    "row_index": 11,
+    "assessment": "Green",
+    "badge_label": "Supported",
+    "brief_block": "Under New York law, prepayment premiums are enforceable as liquidated damages if: (1) actual damages are difficult to determine, and (2) the sum is not \"plainly disproportionate\" to the possible loss, determined as of the time parties entered the agreement. In re 1141 Realty Owner LLC, 598 B.R. 534 (2019)",
+    "opinion_block": "A liquidated damages clause is valid under New York law if: (1) actual damages are difficult to determine, and (2) the sum is not \"plainly disproportionate\" to the possible loss. . . . The enforceability of a liquidated damages provision must be decided based on the circumstances existing at the time the parties entered into their agreement.",
+    "finding_analysis": "The opinion states the two-prong New York test for liquidated damages verbatim, including the quoted phrase \"plainly disproportionate,\" and confirms that enforceability is measured as of the time of contract formation. The brief's articulation tracks the opinion's holding accurately."
+  },
+  {
+    "row_index": 12,
+    "assessment": "Green",
+    "badge_label": "Supported",
+    "brief_block": "Courts emphasize that \"the historical distinction between liquidated damages and penalties has become increasingly difficult to justify, and courts should not interfere with the parties' agreement regarding liquidated damages absent some persuasive justification.\" In re 1141 Realty Owner LLC, 598 B.R. 534 (2019)",
+    "opinion_block": "This burden must be considered in light of the admonition that the historical distinction between liquidated damages and penalties has become increasingly difficult to justify, and courts should not interfere with the parties' agreement regarding liquidated damages \"absent some persuasive justification.\"",
+    "finding_analysis": "The quoted language appears verbatim in the opinion. The only difference is the placement of the internal quotation marks: the opinion quotes only \"absent some persuasive justification,\" while the brief frames the entire sentence as a single quotation. The substance is faithfully reproduced and fully supported."
+  },
+  {
+    "row_index": 13,
+    "assessment": "Green",
+    "badge_label": "Supported",
+    "brief_block": "The burden falls on the party seeking to avoid the liquidated damages clause to prove it constitutes an unenforceable penalty by demonstrating either that damages were readily ascertainable at contract formation or that the premium is \"conspicuously disproportionate\" to the lender's foreseeable losses. In re 1141 Realty Owner LLC, 598 B.R. 534 (2019)",
+    "opinion_block": "The party seeking to avoid the liquidated damages clause bears the burden of proving that it is a penalty and must demonstrate either that the damages flowing from prepayment were readily ascertainable at the time the parties entered into the lending agreement or the prepayment premium is \"conspicuously disproportionate\" to the lender's foreseeable losses.",
+    "finding_analysis": "The opinion states the burden-allocation rule in nearly identical terms, including the verbatim quoted phrase \"conspicuously disproportionate\" and the reference to \"the lender's foreseeable losses.\" The brief's paraphrase is faithful to the source."
+  },
+  {
+    "row_index": 14,
+    "assessment": "Green",
+    "badge_label": "Supported",
+    "brief_block": "New York law generally provides that lenders forfeit the right to prepayment premiums by accelerating loans following default because acceleration advances the maturity date, eliminating the possibility of prepayment. In re 1141 Realty Owner LLC, 598 B.R. 534 (2019)",
+    "opinion_block": "Generally, a lender that accelerates a loan following a default forfeits the right to a prepayment premium because the acceleration advances the maturity date, and by definition, the loan cannot be prepaid.",
+    "finding_analysis": "The opinion articulates the general forfeiture rule in substantively identical terms: acceleration advances the maturity date and eliminates the possibility of prepayment. The brief's paraphrase accurately captures the rule and the reasoning."
+  },
+  {
+    "row_index": 15,
+    "assessment": "Green",
+    "badge_label": "Supported",
+    "brief_block": "However, courts recognize two exceptions: (1) when borrowers intentionally default to trigger acceleration and evade premium payment, and (2) when contracts contain \"clear and unambiguous\" clauses requiring premium payment even after default and acceleration. In re 1141 Realty Owner LLC, 598 B.R. 534 (2019)",
+    "opinion_block": "Courts recognize two exceptions to this general rule. First, if a clear and unambiguous clause requires the payment of the prepayment premium even after default and acceleration, the clause will be analyzed as a liquidated damages clause. . . . Second, if the borrower intentionally defaults to trigger the acceleration and \"evade\" payment of the prepayment premium, the lender can enforce the prepayment premium.",
+    "finding_analysis": "The opinion enumerates the same two exceptions, and the phrase \"clear and unambiguous\" appears verbatim. The brief reverses the opinion's ordering (intentional default is listed second in the opinion, first in the brief), but the substance of both exceptions is faithfully reproduced."
+  },
+  {
+    "row_index": 16,
+    "assessment": "Green",
+    "badge_label": "Supported",
+    "brief_block": "In In re 1141 Realty Owner LLC, the SDNY bankruptcy court enforced a carefully drafted provision that deemed any post-default payment a \"voluntary prepayment\" for yield maintenance purposes, finding this language sufficiently clear to survive acceleration. In re 1141 Realty Owner LLC, 598 B.R. 534 (2019)",
+    "opinion_block": "Section 2.3.3 mandates the payment of the Yield Maintenance Default Premium as a matter of New York contract law. It imposes the make-whole premium in connection with any payment made after an Event of Default, not just a prepayment made after an Event of Default but before acceleration. In fact, the word acceleration does not appear in the clause. Instead, the clause deems the post-default payment, whenever made, to be a \"voluntary prepayment\" for the purpose of the Yield Maintenance Default Premium.",
+    "finding_analysis": "The opinion squarely holds that the Section 2.3.3 provision deeming any post-default payment a \"voluntary prepayment\" enforced the yield maintenance premium notwithstanding acceleration, rendering acceleration irrelevant. The brief's description of the court's reasoning and outcome is accurate."
+  },
+  {
+    "row_index": 17,
+    "assessment": "Green",
+    "badge_label": "Supported",
+    "brief_block": "The court noted that \"parties can provide for their rights with any language that plainly conveys their intent\" and that \"deeming the post-default payment to be a 'voluntary prepayment' does not forfeit the Yield Maintenance Default Premium; it confirms the parties' intent that it must be paid even if it is not an actual prepayment.\" In re 1141 Realty Owner LLC, 598 B.R. 534 (2019)",
+    "opinion_block": "The short answer is parties can provide for their rights with any language that plainly conveys their intent. . . . Deeming the post-default payment to be a \"voluntary prepayment\" does not forfeit the Yield Maintenance Default Premium; it confirms the parties' intent that it must be paid even if it is not an actual prepayment.",
+    "finding_analysis": "Both quoted passages appear verbatim in the opinion. The brief accurately attributes the reasoning to the court, and the two sentences correctly capture the court's rationale for enforcing the premium despite the absence of the word \"acceleration\" in the loan documents."
+  }
+]

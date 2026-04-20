@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Proposition Verification Report — AI Research Q&amp;A (not a filed brief)</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  color: #2d2d2d;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+  background: #fafaf8;
+}
+h1, h2, h3 { font-family: 'Lora', serif; }
+h1 { font-size: 1.6rem; margin-bottom: 0.3rem; color: #1a1a1a; }
+h2 { font-size: 1.25rem; margin: 2rem 0 0.8rem; color: #333; border-bottom: 1px solid #ddd; padding-bottom: 0.3rem; }
+h3 { font-size: 1.05rem; margin: 1rem 0 0.5rem; }
+
+.meta { color: #666; font-size: 0.9rem; margin-bottom: 1.5rem; }
+.meta span { display: inline-block; margin-right: 1.5rem; }
+
+.dashboard { background: #fff; border: 1px solid #e0e0e0; border-radius: 6px; padding: 1.2rem 1.5rem; margin-bottom: 2rem; }
+.stats { display: flex; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 1rem; }
+.stat { text-align: center; }
+.stat-num { font-size: 1.8rem; font-weight: 600; }
+.stat-label { font-size: 0.8rem; color: #666; text-transform: uppercase; letter-spacing: 0.05em; }
+.stat-red .stat-num { color: #c0392b; }
+.stat-yellow .stat-num { color: #d4a017; }
+.stat-green .stat-num { color: #27ae60; }
+.stat-gray .stat-num { color: #888; }
+
+.issue-list { list-style: none; padding: 0; }
+.issue-list li {
+  padding: 0.5rem 0.7rem;
+  margin-bottom: 0.4rem;
+  border-left: 4px solid #ccc;
+  background: #fefefe;
+  font-size: 0.9rem;
+}
+.issue-list li.sev-red { border-left-color: #c0392b; background: #fdf2f2; }
+.issue-list li.sev-yellow { border-left-color: #d4a017; background: #fefcf0; }
+.issue-list li.sev-gray { border-left-color: #999; background: #f5f5f5; }
+.issue-list a { color: inherit; text-decoration: none; }
+.issue-list a:hover { text-decoration: underline; }
+
+.badge {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.15rem 0.5rem;
+  border-radius: 3px;
+  vertical-align: middle;
+}
+.badge-red { background: #f8d7da; color: #721c24; }
+.badge-yellow { background: #fff3cd; color: #856404; }
+.badge-orange { background: #ffe0b2; color: #8a4500; }
+.badge-green { background: #d4edda; color: #155724; }
+.badge-blue { background: #d1ecf1; color: #0c5460; }
+.badge-gray { background: #e9ecef; color: #495057; }
+
+.bq-brief {
+  border-left: 4px solid #e67e22;
+  background: #fef9f3;
+  padding: 0.7rem 1rem;
+  margin: 0.5rem 0;
+  font-size: 0.9rem;
+}
+.bq-opinion {
+  border-left: 4px solid #27ae60;
+  background: #f0faf4;
+  padding: 0.7rem 1rem;
+  margin: 0.5rem 0;
+  font-size: 0.9rem;
+}
+.bq-label { font-weight: 600; font-size: 0.8rem; color: #666; margin-bottom: 0.2rem; }
+
+details { margin-bottom: 0.8rem; }
+summary {
+  cursor: pointer;
+  padding: 0.6rem 0.8rem;
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  list-style: none;
+}
+summary::-webkit-details-marker { display: none; }
+summary::before { content: "\25B6\00a0"; font-size: 0.7rem; color: #888; }
+details[open] > summary::before { content: "\25BC\00a0"; }
+details[open] > summary { border-radius: 4px 4px 0 0; border-bottom: none; }
+.finding-body {
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-top: none;
+  border-radius: 0 0 4px 4px;
+  padding: 1rem;
+}
+.case-name { font-family: 'Lora', serif; font-style: italic; }
+.explanation { margin-top: 0.7rem; font-size: 0.9rem; line-height: 1.5; }
+.analysis { margin-top: 0.8rem; font-size: 0.92rem; line-height: 1.55; color: #2d2d2d; }
+.analysis p { margin-bottom: 0.6rem; }
+.analysis p:last-child { margin-bottom: 0; }
+.prop-list { margin: 0.3rem 0 0.6rem 1.2rem; font-size: 0.9rem; }
+.prop-list li { margin-bottom: 0.25rem; }
+
+.controls { margin-bottom: 0.5rem; font-size: 0.8rem; }
+.controls button {
+  background: none;
+  border: none;
+  color: #2980b9;
+  cursor: pointer;
+  font-size: 0.8rem;
+  padding: 0.2rem 0.4rem;
+}
+.controls button:hover { text-decoration: underline; }
+
+.verified-item {
+  padding: 0.3rem 0;
+  font-size: 0.85rem;
+  border-bottom: 1px solid #f0f0f0;
+}
+.checkmark { color: #27ae60; font-weight: bold; }
+
+.methodology { font-size: 0.85rem; color: #555; margin-top: 2rem; }
+.methodology h2 { font-size: 1.1rem; }
+.methodology ul { padding-left: 1.2rem; }
+.methodology li { margin-bottom: 0.5rem; }
+
+@media print {
+  details { open: true; }
+  details[open] > summary { border-bottom: 1px solid #e0e0e0; }
+  body { max-width: 100%; padding: 1rem; font-size: 12px; }
+  .controls { display: none; }
+  .dashboard { box-shadow: none; }
+}
+</style>
+<script>
+function expandAll() { document.querySelectorAll('details').forEach(d => d.open = true); }
+function collapseAll() { document.querySelectorAll('details').forEach(d => d.open = false); }
+</script>
+</head>
+<body>
+
+<h1>Proposition Verification Report</h1>
+<div class="meta">
+  <span><strong>Brief:</strong> Protege AI Response: Are make-whole premiums enforceable if the debt is paid in bankruptcy?</span><br>
+  <span><strong>Case:</strong> <em>AI Research Q&amp;A (not a filed brief)</em>, N/A — AI-generated legal research</span><br>
+  <span><strong>Filed:</strong> N/A</span>
+  <span><strong>Report generated:</strong> </span>
+</div>
+
+
+<div class="dashboard">
+  <h2 style="border:none; margin-top:0; padding:0;">Summary</h2>
+  <div class="stats">
+    <div class="stat"><div class="stat-num">8</div><div class="stat-label">Claims checked</div></div>
+    <div class="stat stat-red"><div class="stat-num">1</div><div class="stat-label">Serious issues</div></div>
+    <div class="stat stat-yellow"><div class="stat-num">4</div><div class="stat-label">Concerns</div></div>
+    <div class="stat stat-green"><div class="stat-num">3</div><div class="stat-label">Verified</div></div>
+    <div class="stat stat-gray"><div class="stat-num">0</div><div class="stat-label">Unable to verify</div></div>
+  </div>
+  <h3>Issues</h3>
+  <ul class="issue-list">
+    <li class="sev-yellow"><a href="#finding-1"><span class="badge badge-yellow">Overstated -- case partially supports</span> p. general-rule &mdash; <em>Wells Fargo Bank</em>, N.A. v. Hertz Corp. (In re Hertz Corp.), 637 B.R. 781 (2021) &mdash; Judge Walrath's 2021 opinion supports the general proposition only partially.</a></li>
+<li class="sev-yellow"><a href="#finding-2"><span class="badge badge-yellow">Overstated -- case partially supports</span> p. ny-law-sdny &mdash; <em>Apollo Global Mgmt.</em>, LLC v. Bokf, NA (In re MPM Silicones, L.L.C.), 874 F.3d 787 (2017) &mdash; The brief's substantive description of the Momentive holding is accurate: the SDNY Bankruptcy Court (Judge Drain) denied enforcement of the make-whole because the 2012 Indentures' Optional Redemption Clauses did not…</a></li>
+<li class="sev-red"><a href="#finding-3"><span class="badge badge-red">Inverts the holding</span> p. ny-law-sdny &mdash; <em>Del. Trust Co. v. Energy Future Intermediate Holding Co. LLC (In re Energy Future Holdings Corp.)</em>, 842 F.3d 247 (2016) &mdash; EFH is cited for the proposition that Momentive's clear-and-unambiguous-language rule is the governing approach, but the Third Circuit in EFH does the opposite: Judge Ambro expressly rejects Momentive as 'unpersuasive'…</a></li>
+<li class="sev-yellow"><a href="#finding-4"><span class="badge badge-yellow">Overstated -- case partially supports</span> p. exception-clear-language &mdash; <em>Paloian v. LaSalle Bank N.A (In re Doctors Hosp. of Hyde Park</em>, Inc.), 508 B.R. 697 (2014) &mdash; Paloian does quote the exact Madison 92nd Street passage the brief paraphrases, so using Paloian as a pincite for the Madison 92nd Street proposition is defensible as an 'example' citation.</a></li>
+<li class="sev-yellow"><a href="#finding-5"><span class="badge badge-yellow">Overstated -- case partially supports</span> p. exception-solvent-debtor &mdash; <em>Ultra Petroleum Corp. v. Ad Hoc Comm.</em>, 943 F.3d 758 (2019) &mdash; The 2019 Ultra Petroleum opinion does raise the solvent-debtor exception and expressly leaves the door open to its application, stating it sees 'no reason why the solvent-debtor exception could not apply' and citing Dow…</a></li>
+  </ul>
+</div>
+<h2>Findings</h2>
+<div class="controls"><button onclick="expandAll()">Expand All</button> | <button onclick="collapseAll()">Collapse All</button></div>
+<details id="finding-1">
+  <summary>
+    <strong>p. general-rule</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/9989578/wells-fargo-bank-national-association-v-the-hertz-corporation/"><span class="case-name">Wells Fargo Bank</span></a>, N.A. v. Hertz Corp. (In re Hertz Corp.), 637 B.R. 781 (2021)
+    &mdash; <span class="badge badge-yellow">Overstated -- case partially supports</span>
+  </summary>
+  <div class="finding-body">
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief"><p>claims for unmatured interest are disallowed in bankruptcy. Courts have often treated make-whole premiums as the economic equivalent of unmatured interest, leading to their disallowance in many cases. Reorganized Debtors v. Hertz Corp. (In re Hertz Corp.), 2024 U.S. App. LEXIS 34433 (2024), Wells Fargo Bank, N.A. v. Hertz Corp. (In re Hertz Corp.), 637 B.R. 781 (2021).</p></div>
+    <div class="bq-label">Actual language in opinion:</div><div class="bq-opinion"><p>Calling a make-whole a contract right or a liquidated damages provision does not answer the question of whether it is unmatured interest. ... Instead, the Court concludes that the determination of whether the redemption premium that Wells Fargo seeks in this case is, in fact, the economic equivalent of unmatured interest is not a legal question, but is instead a factual one ... the Court concludes that Wells Fargo may be able to present evidence that the redemption premium in the 2026/2028 Senior Notes is not, in fact, the economic equivalent of unmatured interest due under those Senior Notes.</p></div>
+    <div class="analysis"><p>Judge Walrath's 2021 opinion supports the general proposition only partially. She acknowledged and surveyed case law treating make-whole premiums as economic equivalents of unmatured interest subject to disallowance under Section 502(b)(2), and held that courts 'look to the economic substance of the transaction to determine what counts as interest.' However, at the motion-to-dismiss stage she did NOT disallow the make-whole: she denied Hertz's motion as to the 2026/2028 Notes, holding that whether the premium is the economic equivalent of unmatured interest is a fact question requiring discovery. So the opinion supports the general doctrinal point that make-wholes can be and sometimes are disallowed as unmatured interest, but the 637 B.R. 781 ruling itself is not an example of disallowance at this stage (disallowance came later on summary judgment, which the 3d Cir affirmed in 2024). Citing this opinion for the proposition is defensible but slightly overstates what this particular ruling did.</p></div>
+  </div>
+</details><details id="finding-2">
+  <summary>
+    <strong>p. ny-law-sdny</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/8443579/momentive-performance-materials-inc-v-bokf-na/"><span class="case-name">Apollo Global Mgmt.</span></a>, LLC v. Bokf, NA (In re MPM Silicones, L.L.C.), 874 F.3d 787 (2017)
+    &mdash; <span class="badge badge-yellow">Overstated -- case partially supports</span>
+  </summary>
+  <div class="finding-body">
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief"><p>New York law generally enforces make-whole premiums as liquidated damages if they are reasonable and not a penalty. However, in bankruptcy, SDNY courts have consistently required clear and unambiguous language in the governing agreements to enforce make-whole premiums after acceleration. For instance, in Momentive, the SDNY Bankruptcy Court denied enforcement of a make-whole premium, emphasizing that the indenture must explicitly provide for such payment following acceleration. Apollo Global Mgmt., LLC v. Bokf, NA (In re MPM Silicones, L.L.C.), 874 F.3d 787 (2017), Del. Trust Co. v. Energy Future Intermediate Holding Co. LLC (In re Energy Future Holdings Corp.), 842 F.3d 247 (2016) [...]</p></div>
+    <div class="bq-label">Actual language in opinion:</div><div class="bq-opinion"><p>The bankruptcy court concluded that the Senior-Lien Notes holders were not entitled to the premium. It reasoned that under the 2012 Indentures the make-whole premium would be due only in the case of an 'optional redemption' and not in the case of an acceleration brought about by a bankruptcy filing. 2014 WL 4436335, at *11-*15. The district court agreed. 531 B.R. at 335-38. We too agree.</p></div>
+    <div class="analysis"><p>The brief's substantive description of the Momentive holding is accurate: the SDNY Bankruptcy Court (Judge Drain) denied enforcement of the make-whole because the 2012 Indentures' Optional Redemption Clauses did not trigger upon bankruptcy-caused automatic acceleration, and the court required indenture language that specifically provided for the make-whole after acceleration. The Second Circuit opinion cited (874 F.3d 787) recounts and affirms exactly that reasoning. The minor gap is that 874 F.3d 787 is the circuit affirmance, not the bankruptcy court opinion the brief invokes; a more precise cite would be to 2014 WL 4436335 (Bankr. S.D.N.Y.) or 531 B.R. 321 (the district court affirmance). Because the Second Circuit opinion expressly describes and endorses the bankruptcy court's reasoning, citing it is a defensible shortcut rather than a misattribution.</p></div>
+  </div>
+</details><details id="finding-3">
+  <summary>
+    <strong>p. ny-law-sdny</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/4321854/delaware-trust-co-v-energy-future-intermediate-holding-co-in-re-energy/"><span class="case-name">Del. Trust Co. v. Energy Future Intermediate Holding Co. LLC (In re Energy Future Holdings Corp.)</span></a>, 842 F.3d 247 (2016)
+    &mdash; <span class="badge badge-red">Inverts the holding</span>
+  </summary>
+  <div class="finding-body">
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief"><p>New York law generally enforces make-whole premiums as liquidated damages if they are reasonable and not a penalty. However, in bankruptcy, SDNY courts have consistently required clear and unambiguous language in the governing agreements to enforce make-whole premiums after acceleration. For instance, in Momentive, the SDNY Bankruptcy Court denied enforcement of a make-whole premium, emphasizing that the indenture must explicitly provide for such payment following acceleration. [...] Del. Trust Co. v. Energy Future Intermediate Holding Co. LLC (In re Energy Future Holdings Corp.), 842 F.3d 247 (2016) [...]</p></div>
+    <div class="bq-label">Actual language in opinion:</div><div class="bq-opinion"><p>We believe, however, the result in Momentive conflicts with that indenture's text and fails to honor the parties' bargain. For these and additional reasons discussed below, we find it unpersuasive. [...] Recently, however, bankruptcy courts, including the Bankruptcy Court here, have stretched Northwestern beyond its language and applied its clear-statement rule to yield-protection payments not styled as prepayment premiums.</p></div>
+    <div class="analysis"><p>EFH is cited for the proposition that Momentive's clear-and-unambiguous-language rule is the governing approach, but the Third Circuit in EFH does the opposite: Judge Ambro expressly rejects Momentive as 'unpersuasive' and criticizes bankruptcy courts for 'stretch[ing] Northwestern beyond its language' by extending the clear-statement rule to make-wholes that are not styled as prepayment premiums. EFH holds that under New York law (per NML Capital), contract terms 'not necessarily impacted by acceleration . . . [do not] automatically cease to be enforceable after acceleration,' so the noteholders were entitled to the make-whole despite the absence of explicit post-acceleration language. Citing EFH for the Momentive rule therefore inverts the Third Circuit's actual holding. (Also note the proposition attributes the rule to 'SDNY courts,' but EFH is a Third Circuit opinion reviewing a Delaware bankruptcy case.)</p></div>
+  </div>
+</details><details id="finding-4">
+  <summary>
+    <strong>p. exception-clear-language</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/8524479/paloian-v-lasalle-bank-national-assn-in-re-doctors-hospital-of-hyde/"><span class="case-name">Paloian v. LaSalle Bank N.A (In re Doctors Hosp. of Hyde Park</span></a>, Inc.), 508 B.R. 697 (2014)
+    &mdash; <span class="badge badge-yellow">Overstated -- case partially supports</span>
+  </summary>
+  <div class="finding-body">
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief"><p>Clear and Unambiguous Language: If the indenture explicitly states that the make-whole premium is payable even after acceleration, courts may enforce it. For example, in In re Madison 92nd St. Associates LLC, a prepayment premium was upheld under New York law because the agreement contained clear language requiring payment even after default and acceleration. Paloian v. LaSalle Bank N.A (In re Doctors Hosp. of Hyde Park, Inc.), 508 B.R. 697 (2014).</p></div>
+    <div class="bq-label">Actual language in opinion:</div><div class="bq-opinion"><p>Prepayment premiums are generally enforceable under the New York common law 'rule of perfect tender in time.' [...] Where . . . a clear and unambiguous clause requires the payment of the prepayment premium even after default and acceleration, the clause will be analyzed as a liquidated damages clause. In re Madison 92nd St. Associates LLC, 472 B.R. 189, 195-96 (Bankr. S.D.N.Y. 2012).</p></div>
+    <div class="analysis"><p>Paloian does quote the exact Madison 92nd Street passage the brief paraphrases, so using Paloian as a pincite for the Madison 92nd Street proposition is defensible as an 'example' citation. However, Paloian itself does not uphold a prepayment premium under Madison 92nd Street's 'clear and unambiguous' exception -- Judge Schmetterer instead holds the Yield Maintenance Premium is unmatured interest under Section 502(b)(2) and denies summary judgment only because of a factual dispute about whether the creditor was oversecured. Paloian also does not involve post-acceleration enforcement in Madison's sense; acceleration occurred post-petition when LaSalle filed foreclosure. So Paloian supports the background rule that clear language allowing post-acceleration premiums is enforceable under New York law, but readers could be misled to think Paloian itself enforced such a premium.</p></div>
+  </div>
+</details><details id="finding-5">
+  <summary>
+    <strong>p. exception-solvent-debtor</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/4682139/ultra-petroleum-corporation-v-ad-hoc-commi/"><span class="case-name">Ultra Petroleum Corp. v. Ad Hoc Comm.</span></a>, 943 F.3d 758 (2019)
+    &mdash; <span class="badge badge-yellow">Overstated -- case partially supports</span>
+  </summary>
+  <div class="finding-body">
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief"><p>Solvent Debtor Exception: If the debtor is solvent, courts may apply the 'solvent-debtor exception' to honor contractual obligations, including make-whole premiums, despite the general disallowance of unmatured interest under (11 USCS Section 502.b)(2). [...] Ultra Petroleum Corp. v. Ad Hoc Comm., 943 F.3d 758 (2019).</p></div>
+    <div class="bq-label">Actual language in opinion:</div><div class="bq-opinion"><p>Our review of the record reveals no reason why the solvent-debtor exception could not apply. As other circuits have recognized, 'absent compelling equitable considerations, when a debtor is solvent, it is the role of the bankruptcy court to enforce the creditors' contractual rights.' [...] But 'mindful that we are a court of review, not of first view,' we will not make the choice ourselves or weigh the equities on our own. [...] Accordingly, the bankruptcy court should consider the Make-Whole Amount, the appropriate post-petition interest rate, and the applicability of the solvent-debtor exception on remand.</p></div>
+    <div class="analysis"><p>The 2019 Ultra Petroleum opinion does raise the solvent-debtor exception and expressly leaves the door open to its application, stating it sees 'no reason why the solvent-debtor exception could not apply' and citing Dow Corning and Chicago, Milwaukee for the principle that courts should enforce creditors' contractual rights when the debtor is solvent. That broadly supports the brief's hedged 'courts may apply' framing. However, the Fifth Circuit did not hold that the exception applies; it remanded, explicitly declining to 'make the choice ourselves or weigh the equities,' and cautioned that any equitable power must be exercised 'within the confines of the Bankruptcy Code' (quoting Law v. Siegel). The brief's proposition is directionally accurate but overstates Ultra Petroleum as authority for applying the exception when it is really authority only for preserving the question on remand.</p></div>
+  </div>
+</details>
+
+<h2>Verified Citations</h2>
+<details>
+  <summary>3 citation-proposition pairs verified &mdash; click to expand</summary>
+  <div class="finding-body">
+    <div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. general-rule</strong> &mdash; <a href="https://www.courtlistener.com/opinion/10265999/in-re-the-hertz-corporation-v/"><em>Reorganized Debtors v. Hertz Corp. (In re Hertz Corp.)</em></a>, 2024 U.S. App. LEXIS 34433 (2024) &mdash; Courts have treated make-whole premiums as the economic equivalent of unmatured interest, leading to their disallowance in bankruptcy. <span class="badge badge-green">Supported</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. general-rule</strong> &mdash; <a href="https://www.courtlistener.com/opinion/8443579/momentive-performance-materials-inc-v-bokf-na/"><em>Apollo Global Mgmt.</em></a>, LLC v. Bokf, NA (In re MPM Silicones, L.L.C.), 874 F.3d 787 (2017) &mdash; The Second Circuit held that automatic acceleration of debt upon a bankruptcy filing changes the maturity date of the debt to the petition date, rendering any subsequent payment a post-maturity payment rather than a prepayment, so make-whole premiums tied to prepayment are not enforceable unless the indenture contains clear and unambiguous language requiring payment after acceleration. <span class="badge badge-green">Supported</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. economic-substance</strong> &mdash; <a href="https://www.courtlistener.com/opinion/9989578/wells-fargo-bank-national-association-v-the-hertz-corporation/"><em>Wells Fargo Bank</em></a>, N.A. v. Hertz Corp. (In re Hertz Corp.), 637 B.R. 781 (2021) &mdash; If the make-whole premium is deemed the economic equivalent of unmatured interest, it is likely to be disallowed under Section 502(b)(2), regardless of its characterization as liquidated damages or a separate contractual right. <span class="badge badge-green">Supported</span></div>
+  </div>
+</details>
+<div class="methodology">
+  <h2>Methodology &amp; Limitations</h2>
+  <ul>
+    <li><strong>Quote verification</strong> is near-deterministic but limited by the quality of CourtListener's text. Minor discrepancies may reflect OCR artifacts in the source database rather than errors in the brief.</li>
+    <li><strong>Propositional support</strong> assessment is an AI judgment. It reflects Claude's reading of the opinion text and should be verified by counsel. Reasonable lawyers may disagree about whether a case "supports" a given proposition.</li>
+    <li>This report checks whether cited cases say what the brief claims they say. It does not assess the overall legal merit of the brief's arguments or whether the cited cases are the best authorities available.</li>
+    <li>Cases marked "unable to verify" should be checked through other sources (Westlaw, Lexis, etc.).</li>
+  </ul>
+  <h3>Verification method disclosure</h3>
+  <p>The following opinions were <strong>retrieved from CourtListener</strong> and verified against their full text:</p>
+  <ul>
+    <li><em>In re: The Hertz Corporation v.</em>, 2024 U.S. App. LEXIS 34433 (2024) (cluster 10265999)</li>
+<li><em>Wells Fargo Bank, National Association v. The Hertz Corporation</em>, N.A. v. Hertz Corp. (In re Hertz Corp.), 637 B.R. 781 (2021) (cluster 9989578)</li>
+<li><em>Momentive Performance Materials Inc. v. BOKF, NA</em>, LLC v. Bokf, NA (In re MPM Silicones, L.L.C.), 874 F.3d 787 (2017) (cluster 8443579)</li>
+<li><em>Delaware Trust Co. v. Energy Future Intermediate Holding Co. (In Re Energy Future Holdings Corp.)</em>, 842 F.3d 247 (2016) (cluster 4321854)</li>
+<li><em>Paloian v. LaSalle Bank National Ass'n (In re Doctors Hospital of Hyde Park, Inc.)</em>, Inc.), 508 B.R. 697 (2014) (cluster 8524479)</li>
+<li><em>Ultra Petroleum Corporation v. Ad Hoc Commi</em>, 943 F.3d 758 (2019) (cluster 4682139)</li>
+  </ul>
+  
+  <p>No opinions in this report were assessed from training knowledge. All assessments are based on retrieved opinion text.</p>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,34 @@
+[
+  {
+    "row_index": 8,
+    "assessment": "Green",
+    "badge_label": "Supported",
+    "brief_block": "In In re Chemtura Corp., the court conducted a detailed analysis distinguishing between state law contractual rights and bankruptcy law limitations, noting that make-whole provisions \"protect lenders' right to the yield that was expected at the time that they made their loans.\"  In re Chemtura Corp., 439 B.R. 561 (2010)",
+    "opinion_block": "Make-whole and no-call provisions in bond indentures protect lenders' right to the yield that was expected at the time that they made their loans, though such provisions sometimes raise concerns, particularly (or, it could be argued, only) when they come at the expense of other creditors.",
+    "finding_analysis": "The quoted language appears verbatim in the opinion's discussion of the Make-Whole and No-Call Provisions. The court describes the function of such provisions exactly as the brief characterizes it, and also frames the broader state-law/bankruptcy-law analytical structure that the brief attributes to the case. The sub-0.78 similarity score in the automated quote check appears to reflect smart-quote/apostrophe normalization artifacts rather than any substantive wording difference; the text in the opinion matches the brief's quotation word for word."
+  },
+  {
+    "row_index": 9,
+    "assessment": "Green",
+    "badge_label": "Supported",
+    "brief_block": "However, the court emphasized that enforceability requires \"at least two layers of analysis\"\u2014first, state law interpretation of whether payment or damages become due, and second, bankruptcy law considerations including Section 502(b)(2).  In re Chemtura Corp., 439 B.R. 561 (2010)",
+    "opinion_block": "Determining whether the Make-Whole and No-Call Provisions of the two series of notes would support claims would require at least two layers of analysis. The first layer would involve matters of state law\u2014whether a payment or damages would become due, and, if so, to what extent. . . . The second layer would involve the special considerations that apply in bankruptcy cases.",
+    "finding_analysis": "The quoted phrase \"at least two layers of analysis\" appears verbatim, and the brief's characterization of the two layers tracks the opinion precisely: the first layer is state-law contractual interpretation of whether payment or damages become due, and the second layer addresses bankruptcy-specific considerations. The opinion's second-layer discussion expressly engages with Section 502(b)(2)'s treatment of unmatured interest, so the brief's reference to that provision as part of the bankruptcy-law layer is an accurate gloss on the court's analysis rather than an overreach."
+  },
+  {
+    "row_index": 10,
+    "assessment": "Green",
+    "badge_label": "Supported",
+    "brief_block": "The Chemtura court found that sophisticated parties' settlement allocating approximately 42% of asserted make-whole claims was within the \"range of reasonableness,\" particularly in the context of a solvent debtor where \"issues as to fairness amongst creditors, in sharing a limited pie, no longer apply.\"  In re Chemtura Corp., 439 B.R. 561 (2010)",
+    "opinion_block": "Here, the claims on the 2016 Notes' Make-Whole Provision were settled for approximately 42% of their asserted value . . . . The Settlement, insofar as it allocates value to satisfy alleged liability on the part of the Debtors on account of the No-Call and Make-Whole Provisions, is well within the \"range of reasonableness.\" . . . With a solvent debtor, issues as to fairness amongst creditors, in sharing a limited pie, no longer apply; the allowance of claims under a make-whole provision, or for damages for breach of a no-call, no longer comes at the expense of other creditors.",
+    "finding_analysis": "Both quoted phrases appear verbatim in the opinion, and the 42% figure is the court's own number for the Make-Whole settlement on the 2016 Notes. The court expressly concluded that the settlement was \"well within\" the range of reasonableness in the context of a solvent debtor, and tied that conclusion to its observation that fairness-among-creditors concerns do not apply when recovery does not come at the expense of other creditors. The brief's synthesis of the 42% settlement, the reasonableness standard, and the solvent-debtor rationale accurately captures the court's reasoning."
+  },
+  {
+    "row_index": 19,
+    "assessment": "Green",
+    "badge_label": "Supported",
+    "brief_block": "The distinction between solvent and insolvent debtors may influence courts' willingness to enforce carefully drafted provisions, with the Chemtura decision suggesting greater deference to contractual rights when enforcement does not disadvantage other creditors.  In re Chemtura Corp., 439 B.R. 561 (2010)",
+    "opinion_block": "With a solvent debtor, issues as to fairness amongst creditors, in sharing a limited pie, no longer apply; the allowance of claims under a make-whole provision, or for damages for breach of a no-call, no longer comes at the expense of other creditors. Thus it's at least arguable, as stated in Charles & Kleinhaus, that \"[t]he effect of prepayment clauses in solvent cases, therefore, should be an issue of state law alone.\" . . . As matters of bankruptcy law, since we here have a solvent debtor, I think the bondholders are likely to get whatever they're entitled to under state law, on both issues of notes.",
+    "finding_analysis": "Although no verbatim quotations are offered, the brief's paraphrase accurately tracks the opinion's reasoning. The court explicitly draws the solvent/insolvent distinction, explains that fairness-among-creditors concerns fall away in the solvent context because enforcement does not come at other creditors' expense, and concludes that in a solvent case the bondholders are likely to get whatever state law gives them. That is precisely the \"greater deference to contractual rights when enforcement does not disadvantage other creditors\" point the brief attributes to Chemtura."
+  }
+]

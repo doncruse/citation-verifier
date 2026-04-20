@@ -97,6 +97,8 @@ This joins `claims.csv` with `verification_results.csv`, linking each claim to i
 
 If merge reports unmatched claims, fix the `cited_case` values in `claims.csv` to match exactly what's in `citations_to_verify.txt` (with pinpoint pages appended), then re-run `--merge`.
 
+**Spot-check downloaded opinions.** After wave1/wave2 finish, glance at `ls -la <workdir>/opinions/` and investigate any file < ~5 KB. CourtListener occasionally has multiple clusters per docket — e.g. a short vacatur/amendment order in one cluster and the full merits opinion in another. The pipeline auto-detects short downloads and swaps to a substantive sibling on the same docket (a diagnostic starting with "swapped to sibling" is added to `verification_results.csv` when this fires), but the heuristic can miss edge cases. If a POSSIBLE_MATCH's opinion file is a 1–2 page procedural order that doesn't contain the cited reasoning, search CL manually for the case and docket number, find the correct cluster, and fix `cl_url` in both `claims.csv` and `verification_results.csv` before running the quote check.
+
 ### Phase 1d: Quote Check + Metadata Check
 
 Run sequentially:

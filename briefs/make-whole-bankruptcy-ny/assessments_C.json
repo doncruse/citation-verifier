@@ -1,0 +1,34 @@
+[
+  {
+    "row_index": 0,
+    "assessment": "Green",
+    "badge_label": "Supported",
+    "brief_block": "In In re Ultra Petroleum Corp., the bankruptcy court established a three-part framework for analyzing whether make-whole amounts constitute unmatured interest: (1) defining interest as \"consideration for the use or forbearance of another's money accruing over time,\" (2) defining unmatured interest as interest that has not accrued as of the petition date, and (3) identifying characteristics that make a debt the economic equivalent of unmatured interest.  In re Ultra Petroleum Corp., 624 B.R. 178 (2020)",
+    "opinion_block": "To decide whether the Make-Whole Amount is allowed, the Court must define the \"economic equivalent of unmatured interest.\" Pengo, 962 F.2d at 546. The definition is formed in three steps. First, the Court defines interest. Second, the Court defines unmatured interest. Third, the Court identifies the characteristics which make a debt the 'economic equivalent' of unmatured interest.",
+    "finding_analysis": "The opinion expressly announces a three-step definitional framework that tracks the brief's description almost exactly. The court states that the definition of the economic equivalent of unmatured interest is formed in three steps: defining interest, defining unmatured interest, and identifying the characteristics which make a debt the economic equivalent of unmatured interest. The court then defines interest as consideration for the use or forbearance of another's money accruing over time, and defines unmatured interest as interest that has not accrued or been earned as of the petition date (the order for relief in a bankruptcy case). The brief's paraphrase of the first step uses a verbatim quote from the opinion, and the paraphrases of steps two and three are accurate characterizations of the court's analysis. The quote check flagged similarity at 0.79 because the opinion phrases the first step slightly differently across passages (\"Interest means consideration...\" vs. \"interest is widely understood as consideration...\"), but the quoted phrase itself appears verbatim."
+  },
+  {
+    "row_index": 1,
+    "assessment": "Green",
+    "badge_label": "Supported",
+    "brief_block": "The court held that make-whole amounts are liquidated damages that compensate for prepayment losses rather than for the use of money, do not accrue over time, and therefore are not unmatured interest subject to disallowance under Section 502(b)(2).  In re Ultra Petroleum Corp., 624 B.R. 178 (2020)",
+    "opinion_block": "The Make-Whole Amount represents liquidated damages and should not be characterized as unmatured interest, or its economic equivalent. The Make-Whole Amount is not compensation for the use or forbearance of money, and it does not accrue over time. It is not interest. The Bankruptcy Code allows the Make-Whole Amount.",
+    "finding_analysis": "The opinion directly supports each element of the brief's paraphrase. The court holds that the Make-Whole Amount represents liquidated damages, that it is not compensation for the use or forbearance of money, that it does not accrue over time, and that it therefore is not interest or unmatured interest and is allowed under the Bankruptcy Code. The brief's characterization tracks the opinion's holding closely, including the two analytical reasons the court gives (not for use of money; does not accrue over time) and the conclusion regarding Section 502(b)(2). No direct quote is asserted, and nothing in the paraphrase overstates the holding."
+  },
+  {
+    "row_index": 2,
+    "assessment": "Green",
+    "badge_label": "Supported",
+    "brief_block": "The Ultra Petroleum court emphasized that \"economic substance, rather than party labels, determines whether an amount is unmatured interest.\"  In re Ultra Petroleum Corp., 624 B.R. 178 (2020)",
+    "opinion_block": "Economic substance, rather than party labels, determines whether an amount is unmatured interest. In re Chateaugay Corp., 109 B.R. 51, 57 (Bankr. S.D.N.Y. 1990) (\"[T]he essential factor guiding this Court in making its determination . . . is the underlying economic substance of the transaction.\"). If a debt fits within the definition of unmatured interest, it is disallowed by Section 502(b)(2), regardless of its superficial label.",
+    "finding_analysis": "The quoted sentence appears verbatim in the opinion as a declarative statement introducing the court's discussion of the economic-equivalent test. The court immediately elaborates that a debt fitting the definition of unmatured interest is disallowed regardless of its superficial label, which reinforces the quoted proposition. The brief's attribution and use of the quote accurately reflect both the text and the role it plays in the court's reasoning."
+  },
+  {
+    "row_index": 3,
+    "assessment": "Green",
+    "badge_label": "Supported",
+    "brief_block": "Make-whole amounts that compensate creditors \"for the cost of reinvesting in a less favorable market\" rather than \"for the use or forbearance of their money\" are not considered unmatured interest.  In re Ultra Petroleum Corp., 624 B.R. 178 (2020)",
+    "opinion_block": "The Make-Whole Amount is not consideration for the use or forbearance of the Note Claimants' money, which had not accrued or been earned as of the petition date. Although the Make-Whole Amount is \"consideration,\" it is not consideration for the use or forbearance of the Note Claimants' money. The Make-Whole Amount compensates the Note Claimants for the cost of reinvesting in a less favorable market. . . . Instead of compensating the Note Claimants for the use or forbearance of their money, the Make-Whole Amount compensates the Note Claimants for Ultra's decision not to use their money.",
+    "finding_analysis": "Both quoted phrases appear verbatim in a single passage of the opinion, and the brief's framing accurately captures the contrast the court draws. The court explains that the Make-Whole Amount compensates the Note Claimants for the cost of reinvesting in a less favorable market rather than for the use or forbearance of their money, and uses that distinction to conclude that the Make-Whole Amount is not interest and therefore not unmatured interest. The brief's synthesis faithfully reproduces this analytical move without overstatement."
+  }
+]

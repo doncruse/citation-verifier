@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Proposition Verification Report — Legal research memorandum</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  color: #2d2d2d;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+  background: #fafaf8;
+}
+h1, h2, h3 { font-family: 'Lora', serif; }
+h1 { font-size: 1.6rem; margin-bottom: 0.3rem; color: #1a1a1a; }
+h2 { font-size: 1.25rem; margin: 2rem 0 0.8rem; color: #333; border-bottom: 1px solid #ddd; padding-bottom: 0.3rem; }
+h3 { font-size: 1.05rem; margin: 1rem 0 0.5rem; }
+
+.meta { color: #666; font-size: 0.9rem; margin-bottom: 1.5rem; }
+.meta span { display: inline-block; margin-right: 1.5rem; }
+
+.dashboard { background: #fff; border: 1px solid #e0e0e0; border-radius: 6px; padding: 1.2rem 1.5rem; margin-bottom: 2rem; }
+.stats { display: flex; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 1rem; }
+.stat { text-align: center; }
+.stat-num { font-size: 1.8rem; font-weight: 600; }
+.stat-label { font-size: 0.8rem; color: #666; text-transform: uppercase; letter-spacing: 0.05em; }
+.stat-red .stat-num { color: #c0392b; }
+.stat-yellow .stat-num { color: #d4a017; }
+.stat-green .stat-num { color: #27ae60; }
+.stat-gray .stat-num { color: #888; }
+
+.issue-list { list-style: none; padding: 0; }
+.issue-list li {
+  padding: 0.5rem 0.7rem;
+  margin-bottom: 0.4rem;
+  border-left: 4px solid #ccc;
+  background: #fefefe;
+  font-size: 0.9rem;
+}
+.issue-list li.sev-red { border-left-color: #c0392b; background: #fdf2f2; }
+.issue-list li.sev-yellow { border-left-color: #d4a017; background: #fefcf0; }
+.issue-list li.sev-gray { border-left-color: #999; background: #f5f5f5; }
+.issue-list a { color: inherit; text-decoration: none; }
+.issue-list a:hover { text-decoration: underline; }
+
+.badge {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.15rem 0.5rem;
+  border-radius: 3px;
+  vertical-align: middle;
+}
+.badge-red { background: #f8d7da; color: #721c24; }
+.badge-yellow { background: #fff3cd; color: #856404; }
+.badge-orange { background: #ffe0b2; color: #8a4500; }
+.badge-green { background: #d4edda; color: #155724; }
+.badge-blue { background: #d1ecf1; color: #0c5460; }
+.badge-gray { background: #e9ecef; color: #495057; }
+
+.bq-brief {
+  border-left: 4px solid #e67e22;
+  background: #fef9f3;
+  padding: 0.7rem 1rem;
+  margin: 0.5rem 0;
+  font-size: 0.9rem;
+}
+.bq-opinion {
+  border-left: 4px solid #27ae60;
+  background: #f0faf4;
+  padding: 0.7rem 1rem;
+  margin: 0.5rem 0;
+  font-size: 0.9rem;
+}
+.bq-label { font-weight: 600; font-size: 0.8rem; color: #666; margin-bottom: 0.2rem; }
+
+details { margin-bottom: 0.8rem; }
+summary {
+  cursor: pointer;
+  padding: 0.6rem 0.8rem;
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  list-style: none;
+}
+summary::-webkit-details-marker { display: none; }
+summary::before { content: "\25B6\00a0"; font-size: 0.7rem; color: #888; }
+details[open] > summary::before { content: "\25BC\00a0"; }
+details[open] > summary { border-radius: 4px 4px 0 0; border-bottom: none; }
+.finding-body {
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-top: none;
+  border-radius: 0 0 4px 4px;
+  padding: 1rem;
+}
+.case-name { font-family: 'Lora', serif; font-style: italic; }
+.explanation { margin-top: 0.7rem; font-size: 0.9rem; line-height: 1.5; }
+.analysis { margin-top: 0.8rem; font-size: 0.92rem; line-height: 1.55; color: #2d2d2d; }
+.analysis p { margin-bottom: 0.6rem; }
+.analysis p:last-child { margin-bottom: 0; }
+.prop-list { margin: 0.3rem 0 0.6rem 1.2rem; font-size: 0.9rem; }
+.prop-list li { margin-bottom: 0.25rem; }
+
+.controls { margin-bottom: 0.5rem; font-size: 0.8rem; }
+.controls button {
+  background: none;
+  border: none;
+  color: #2980b9;
+  cursor: pointer;
+  font-size: 0.8rem;
+  padding: 0.2rem 0.4rem;
+}
+.controls button:hover { text-decoration: underline; }
+
+.verified-item {
+  padding: 0.3rem 0;
+  font-size: 0.85rem;
+  border-bottom: 1px solid #f0f0f0;
+}
+.checkmark { color: #27ae60; font-weight: bold; }
+
+.methodology { font-size: 0.85rem; color: #555; margin-top: 2rem; }
+.methodology h2 { font-size: 1.1rem; }
+.methodology ul { padding-left: 1.2rem; }
+.methodology li { margin-bottom: 0.5rem; }
+
+@media print {
+  details { open: true; }
+  details[open] > summary { border-bottom: 1px solid #e0e0e0; }
+  body { max-width: 100%; padding: 1rem; font-size: 12px; }
+  .controls { display: none; }
+  .dashboard { box-shadow: none; }
+}
+</style>
+<script>
+function expandAll() { document.querySelectorAll('details').forEach(d => d.open = true); }
+function collapseAll() { document.querySelectorAll('details').forEach(d => d.open = false); }
+</script>
+</head>
+<body>
+
+<h1>Proposition Verification Report</h1>
+<div class="meta">
+  <span><strong>Brief:</strong> Are make-whole premiums enforceable if the debt is paid in bankruptcy? Indenture governed under New York law</span><br>
+  <span><strong>Case:</strong> <em>Legal research memorandum</em>, N/A</span><br>
+  <span><strong>Filed:</strong> N/A</span>
+  <span><strong>Report generated:</strong> </span>
+</div>
+
+<div style="background:#d4edda;border:1px solid #c3e6cb;border-radius:6px;padding:1rem;margin-bottom:1rem;"><strong>No serious issues found.</strong> All citations verified.</div>
+<div class="dashboard">
+  <h2 style="border:none; margin-top:0; padding:0;">Summary</h2>
+  <div class="stats">
+    <div class="stat"><div class="stat-num">20</div><div class="stat-label">Claims checked</div></div>
+    <div class="stat stat-red"><div class="stat-num">0</div><div class="stat-label">Serious issues</div></div>
+    <div class="stat stat-yellow"><div class="stat-num">0</div><div class="stat-label">Concerns</div></div>
+    <div class="stat stat-green"><div class="stat-num">20</div><div class="stat-label">Verified</div></div>
+    <div class="stat stat-gray"><div class="stat-num">0</div><div class="stat-label">Unable to verify</div></div>
+  </div>
+  <h3>Issues</h3>
+  <ul class="issue-list">
+    <li>None</li>
+  </ul>
+</div>
+
+
+<h2>Verified Citations</h2>
+<details>
+  <summary>20 citation-proposition pairs verified &mdash; click to expand</summary>
+  <div class="finding-body">
+    <div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 1</strong> &mdash; <a href="https://www.courtlistener.com/docket/17166210/878/ultra-petroleum-corp/"><em>In re Ultra Petroleum Corp.</em></a>, 624 B.R. 178 (2020) &mdash; The Ultra Petroleum bankruptcy court established a three-part framework for determining whether make-whole amounts constitute unmatured interest. <span class="badge badge-green">Supported</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 1</strong> &mdash; <a href="https://www.courtlistener.com/docket/17166210/878/ultra-petroleum-corp/"><em>In re Ultra Petroleum Corp.</em></a>, 624 B.R. 178 (2020) &mdash; Make-whole amounts are liquidated damages compensating for prepayment losses, not for the use of money, and therefore are not unmatured interest disallowed under Section 502(b)(2). <span class="badge badge-green">Supported</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 1</strong> &mdash; <a href="https://www.courtlistener.com/docket/17166210/878/ultra-petroleum-corp/"><em>In re Ultra Petroleum Corp.</em></a>, 624 B.R. 178 (2020) &mdash; Economic substance, rather than party labels, controls whether an amount qualifies as unmatured interest. <span class="badge badge-green">Supported</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 1</strong> &mdash; <a href="https://www.courtlistener.com/docket/17166210/878/ultra-petroleum-corp/"><em>In re Ultra Petroleum Corp.</em></a>, 624 B.R. 178 (2020) &mdash; Make-whole amounts that compensate for reinvestment losses, rather than for the use or forbearance of money, are not unmatured interest. <span class="badge badge-green">Supported</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 1</strong> &mdash; <a href="https://www.courtlistener.com/opinion/1040539/us-bank-trust-national-assn-v-amr-corp/"><em>In re AMR Corp.</em></a>, 730 F.3d 88 (2013) &mdash; Automatic acceleration triggered by a bankruptcy filing changes the maturity date from the original stated date to the petition date, precluding make-whole premium claims. <span class="badge badge-green">Supported</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 1</strong> &mdash; <a href="https://www.courtlistener.com/opinion/1040539/us-bank-trust-national-assn-v-amr-corp/"><em>In re AMR Corp.</em></a>, 730 F.3d 88 (2013) &mdash; Adopting the reasoning of In re Solutia, the Second Circuit concluded that prepayment can occur only before maturity and that automatic acceleration upon bankruptcy establishes the petition date as the new maturity date. <span class="badge badge-green">Supported</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 1</strong> &mdash; <a href="https://www.courtlistener.com/opinion/8443579/momentive-performance-materials-inc-v-bokf-na/"><em>Matter of MPM Silicones</em></a>, L.L.C., 874 F.3d 787 (2017) &mdash; The Second Circuit rejected the argument that issuing replacement notes under a Chapter 11 plan constitutes an optional redemption triggering make-whole premiums. <span class="badge badge-green">Supported</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 1</strong> &mdash; <a href="https://www.courtlistener.com/opinion/8443579/momentive-performance-materials-inc-v-bokf-na/"><em>Matter of MPM Silicones</em></a>, L.L.C., 874 F.3d 787 (2017) &mdash; Payments made following automatic acceleration are not made at the debtor's option because the obligation arises automatically from the indenture's acceleration clauses. <span class="badge badge-green">Supported</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 1</strong> &mdash; <a href="https://www.courtlistener.com/opinion/2188811/in-re-chemtura-corp/"><em>In re Chemtura Corp.</em></a>, 439 B.R. 561 (2010) &mdash; Make-whole provisions function to protect lenders' expected yield from the time the loan was made. <span class="badge badge-green">Supported</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 1</strong> &mdash; <a href="https://www.courtlistener.com/opinion/2188811/in-re-chemtura-corp/"><em>In re Chemtura Corp.</em></a>, 439 B.R. 561 (2010) &mdash; Enforceability of make-whole premiums in bankruptcy requires two layers of analysis: state-law contractual interpretation and bankruptcy law considerations including Section 502(b)(2). <span class="badge badge-green">Supported</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 1</strong> &mdash; <a href="https://www.courtlistener.com/opinion/2188811/in-re-chemtura-corp/"><em>In re Chemtura Corp.</em></a>, 439 B.R. 561 (2010) &mdash; A settlement allocating approximately 42% of asserted make-whole claims fell within the range of reasonableness, particularly given a solvent debtor where fairness concerns among creditors diminished. <span class="badge badge-green">Supported</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 1</strong> &mdash; <a href="https://www.courtlistener.com/opinion/8529557/in-re-1141-realty-owner-llc/"><em>In re 1141 Realty Owner LLC</em></a>, 598 B.R. 534 (2019) &mdash; Under New York law, prepayment premiums are enforceable as liquidated damages if actual damages are difficult to determine and the sum is not plainly disproportionate to the possible loss, measured at contract formation. <span class="badge badge-green">Supported</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 1</strong> &mdash; <a href="https://www.courtlistener.com/opinion/8529557/in-re-1141-realty-owner-llc/"><em>In re 1141 Realty Owner LLC</em></a>, 598 B.R. 534 (2019) &mdash; New York courts should not interfere with parties' liquidated damages agreements absent persuasive justification, as the historical distinction between liquidated damages and penalties has become difficult to justify. <span class="badge badge-green">Supported</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 1</strong> &mdash; <a href="https://www.courtlistener.com/opinion/8529557/in-re-1141-realty-owner-llc/"><em>In re 1141 Realty Owner LLC</em></a>, 598 B.R. 534 (2019) &mdash; The party challenging a liquidated damages clause bears the burden of proving it is an unenforceable penalty by showing damages were readily ascertainable or the premium is conspicuously disproportionate to foreseeable losses. <span class="badge badge-green">Supported</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 1</strong> &mdash; <a href="https://www.courtlistener.com/opinion/8529557/in-re-1141-realty-owner-llc/"><em>In re 1141 Realty Owner LLC</em></a>, 598 B.R. 534 (2019) &mdash; Under New York law, a lender generally forfeits the right to a prepayment premium by accelerating the loan following default because acceleration advances the maturity date and eliminates the possibility of prepayment. <span class="badge badge-green">Supported</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 1</strong> &mdash; <a href="https://www.courtlistener.com/opinion/8529557/in-re-1141-realty-owner-llc/"><em>In re 1141 Realty Owner LLC</em></a>, 598 B.R. 534 (2019) &mdash; Two exceptions to the forfeiture rule exist: intentional default to evade the premium, and contracts with clear and unambiguous language requiring premium payment even after default and acceleration. <span class="badge badge-green">Supported</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 1</strong> &mdash; <a href="https://www.courtlistener.com/opinion/8529557/in-re-1141-realty-owner-llc/"><em>In re 1141 Realty Owner LLC</em></a>, 598 B.R. 534 (2019) &mdash; The SDNY bankruptcy court enforced a provision deeming any post-default payment a voluntary prepayment for yield maintenance purposes, finding that language sufficiently clear to survive acceleration. <span class="badge badge-green">Supported</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 1</strong> &mdash; <a href="https://www.courtlistener.com/opinion/8529557/in-re-1141-realty-owner-llc/"><em>In re 1141 Realty Owner LLC</em></a>, 598 B.R. 534 (2019) &mdash; Parties may express their intent regarding post-default premiums in any language that plainly conveys it; deeming a post-default payment a voluntary prepayment confirms rather than forfeits the parties' agreement. <span class="badge badge-green">Supported</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 1</strong> &mdash; <a href="https://www.courtlistener.com/opinion/1040539/us-bank-trust-national-assn-v-amr-corp/"><em>In re AMR Corp.</em></a>, 730 F.3d 88 (2013) &mdash; In AMR, the Second Circuit rejected the argument that refinancing to obtain better rates constituted voluntary redemption when the indenture's automatic acceleration provisions had already operated. <span class="badge badge-green">Supported</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 1</strong> &mdash; <a href="https://www.courtlistener.com/opinion/2188811/in-re-chemtura-corp/"><em>In re Chemtura Corp.</em></a>, 439 B.R. 561 (2010) &mdash; The solvent-versus-insolvent debtor distinction may influence a court's willingness to enforce carefully drafted make-whole provisions when enforcement does not disadvantage other creditors. <span class="badge badge-green">Supported</span></div>
+  </div>
+</details>
+<div class="methodology">
+  <h2>Methodology &amp; Limitations</h2>
+  <ul>
+    <li><strong>Quote verification</strong> is near-deterministic but limited by the quality of CourtListener's text. Minor discrepancies may reflect OCR artifacts in the source database rather than errors in the brief.</li>
+    <li><strong>Propositional support</strong> assessment is an AI judgment. It reflects Claude's reading of the opinion text and should be verified by counsel. Reasonable lawyers may disagree about whether a case "supports" a given proposition.</li>
+    <li>This report checks whether cited cases say what the brief claims they say. It does not assess the overall legal merit of the brief's arguments or whether the cited cases are the best authorities available.</li>
+    <li>Cases marked "unable to verify" should be checked through other sources (Westlaw, Lexis, etc.).</li>
+  </ul>
+  <h3>Verification method disclosure</h3>
+  <p>The following opinions were <strong>retrieved from CourtListener</strong> and verified against their full text:</p>
+  <ul>
+    <li><em>Ultra Petroleum Corp.</em>, 624 B.R. 178 (2020) (cluster )</li>
+<li><em>U.S. Bank Trust National Ass'n v. AMR Corp.</em>, 730 F.3d 88 (2013) (cluster 1040539)</li>
+<li><em>Momentive Performance Materials Inc. v. BOKF, NA</em>, L.L.C., 874 F.3d 787 (2017) (cluster 8443579)</li>
+<li><em>In Re Chemtura Corp.</em>, 439 B.R. 561 (2010) (cluster 2188811)</li>
+<li><em>In re 1141 Realty Owner LLC</em>, 598 B.R. 534 (2019) (cluster 8529557)</li>
+  </ul>
+  
+  <p>No opinions in this report were assessed from training knowledge. All assessments are based on retrieved opinion text.</p>
+</div>
+
+</body>
+</html>

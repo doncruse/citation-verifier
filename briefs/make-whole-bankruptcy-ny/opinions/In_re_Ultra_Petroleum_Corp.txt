@@ -1,0 +1,2308 @@
+         Case 16-32202 Document 1874 Filed in TXSB on 10/27/20 Page 1 of 43
+
+
+
+
+                     IN THE UNITED STATES BANKRUPTCY COURT
+                       FOR THE SOUTHERN DISTRICT OF TEXAS
+                                HOUSTON DIVISION                                               ENTERED
+                                                                                               10/27/2020
+IN RE:                                           §
+ULTRA PETROLEUM CORP., et al                     §      CASE NO: 16-32202
+                                                 §
+                                                 §      CASE NO: 16-03272
+                                                 §
+ULTRA RESOURCES, INC.                            §      CASE NO: 16-32204
+                                                 §
+ULTRA WYOMING, INC.                              §      CASE NO: 16-32205
+                                                 §
+ULTRA WYOMING LGS, LLC                           §      CASE NO: 16-32206
+                                                 §
+UP ENERGY CORPORATION                            §      CASE NO: 16-32207
+                                                 §
+UPL PINEDALE, LLC                                §      CASE NO: 16-32208
+                                                 §
+UPL THREE RIVERS HOLDINGS, LLC                   §      CASE NO: 16-32209
+                                                 §      Jointly Administered Order
+          Debtors                                §
+                                                 §      CHAPTER 11
+
+                           AMENDED MEMORANDUM OPINION
+
+         The Court answers two questions:
+
+               Does the Bankruptcy Code disallow a contractual claim for “make-whole”
+                liquidated damages when an interest-bearing obligation is prepaid?
+
+               Does the Bankruptcy Code permit a solvent debtor to forego contractual
+                obligations to an unimpaired class of unsecured creditors, but still pay a
+                distribution to its shareholders?
+
+         Ultra Petroleum argues that the Bankruptcy Code allows a solvent debtor to avoid paying
+
+unimpaired unsecured creditors a contractual liquidated damages claim and to avoid paying post-
+
+petition interest at contractual default rates. The Bankruptcy Code permits neither.
+
+         Bankruptcy relief is intended for the honest, but unfortunate debtor. Although no one
+
+questions Ultra’s honesty, a post-petition uptick in natural gas prices made Ultra and its
+
+shareholders quite fortunate.    As a result, Ultra became massively solvent.          The question
+
+
+1 / 43
+         Case 16-32202 Document 1874 Filed in TXSB on 10/27/20 Page 2 of 43
+
+
+
+
+becomes whether an honest but fortunate solvent debtor may use bankruptcy to discharge validly
+
+owed debt, while its shareholders retain value. Sensibly, the answer is “no.” Ultra must pay its
+
+creditors before it pays its shareholders.
+
+                                              BACKGROUND
+
+         The particulars of the Ultra Make-Whole litigation are well chronicled in the Federal and
+
+Bankruptcy Reporters. Ultra Petroleum Corp. v. Ad Hoc Comm. Of Unsecured Creditors (In re
+
+Ultra Petroleum Corp.), 913 F.3d 533 (5th Cir. 2019) withdrawn and superseded, 943 F.3d 758
+
+(5th Cir. 2019); In re Ultra Petroleum Corp., 575 B.R. 361 (Bankr. S.D. Tex. 2017). The Court
+
+provides a brief history for clarity.
+
+         This dispute stems from Ultra’s 2016 chapter 11 bankruptcy case and focuses on the
+
+amount owed to unimpaired Noteholders under Ultra’s confirmed plan.                          Ultra Resources
+
+(“OpCo”), Ultra Petroleum Corp. (“HoldCo”), and UP Energy Corp. (“MidCo”) (collectively,
+
+“Ultra”) engaged in natural gas exploration and production. Ultra, 943 F.3d at 760. Due to a
+
+precipitous decline in natural gas prices, Ultra found itself unable to pay its debts as they came
+
+due. (See ECF No. 30 at 18). Accordingly, the Ultra entities filed voluntary chapter 11 petitions
+
+on April 29, 2016. (ECF No. 1). After the petition date, commodity prices rose sharply,
+
+allowing Ultra to propose and confirm a chapter 11 plan paying its creditors in full.1 Ultra, 943
+
+F.3d at 761.
+
+         Among the creditors deemed unimpaired by Ultra’s plan were the Class 4 Creditors.
+
+(ECF No. 1308-01 at 25-26). Class 4 of the plan set out the treatment of the “OpCo Funded
+
+Debt Claims.” (ECF No. 1308-01 at 25-26). The plan defined “OpCo Funded Debt Claims” as
+
+
+1
+  Although the rebound in commodity prices made Ultra “as rare as the proverbial rich man who manages to enter
+the Kingdom of Heaven,” Ultra’s stay beyond the Pearly Gates was short-lived. See Ultra, 943 F.3d at 760. Ultra
+filed a second voluntary chapter 11 petition on May 14, 2020. (Case No. 20-32631, ECF No. 1).
+
+
+
+2 / 43
+         Case 16-32202 Document 1874 Filed in TXSB on 10/27/20 Page 3 of 43
+
+
+
+
+“the OpCo Note Claims and the OpCo RCF Claims.” (ECF No. 1308-01 at 16). The OpCo Note
+
+Claimants held $1.46 billion in unsecured notes, issued between 2008 and 2010. Ultra, 943 F.3d
+
+at 760. The OpCo RCF Claimants were owed $999 million, which OpCo borrowed under a
+
+Revolving Credit Facility (“RCF”) in 2011. Id. HoldCo and MidCo each guaranteed the OpCo
+
+Funded Debt. Ultra, 575 B.R. at 363.
+
+         Ultra issued the OpCo Notes pursuant to a Master Note Purchase Agreement (“MNPA”).
+
+(ECF No. 1834 at 2). The MNPA contains a number of provisions relevant to this dispute.
+
+Under the MNPA, Ultra could repay the Notes ahead of the Notes’ maturity date, so long as
+
+Ultra also paid a Make-Whole Amount. (ECF No. 1215-1 at 27). The Make-Whole Amount
+
+could be calculated using a formula designed to compensate a Noteholder for deprivation of the
+
+“right to maintain its investment in the Notes free from repayment.” (ECF No. 1834 at 11).
+
+         The MNPA defines the Make-Whole Amount as “an amount equal to the excess, if any,
+
+of the Discounted Value of the Remaining Scheduled Payments with respect to the Called
+
+Principal of such fixed rate Note over the amount of such Called Principal . . . .” (ECF No.
+
+1215-1 at 27). “Called Principal” is “the principal of such Note that . . . has become or is
+
+declared to be immediately due and payable pursuant to Section 12.1.” (ECF No. 1215-1 at 27).
+
+“Remaining Scheduled Payments” includes “all payments of such Called Principal and interest
+
+thereon that would be due after the Settlement Date,” which is “the date on which such Called
+
+Principal . . . has become or is declared to be immediately due and payable pursuant to Section
+
+12.1.” (ECF No. 1215–1 at 28). The “Discounted Value” of such Remaining Scheduled
+
+Payments is comprised of “the amount obtained by discounting all Remaining Scheduled
+
+Payments with respect to such Called Principal from their respected scheduled due dates to the
+
+Settlement Date . . . . in accordance with accepted financial practice and at a discount factor . . .
+
+
+
+
+3 / 43
+         Case 16-32202 Document 1874 Filed in TXSB on 10/27/20 Page 4 of 43
+
+
+
+
+equal to the Reinvestment Yield” of 0.5% over the yield to maturity of specified United States
+
+Treasury obligations. (ECF No. 1215–1 at 27).
+
+         The MNPA also contained various events of defaults, the occurrence of which
+
+accelerated the Notes and caused them to become immediately due and payable. (ECF No.
+
+1215-1 at 38). After an event of default, the entire unpaid principal, accrued but unpaid interest,
+
+and the Make-Whole Amount came due for each Note. Ultra, 575 B.R. at 364. One event of
+
+default was the filing of a bankruptcy petition. Id. Thus, Ultra’s bankruptcy filing accelerated
+
+the Notes and triggered the Make-Whole Amount. Id.
+
+         “Failure to pay immediately trigger[ed] interest at a default rate of either 2% above the
+
+normal rate set for the note at issue or 2% above J.P. Morgan’s publicly announced prime rate,
+
+whichever [was] greater.” Ultra, 943 F.3d at 761. While the RCF did not include a Make-
+
+Whole provision, it contained a similar acceleration clause, with a default interest rate of 2%
+
+above the contractual RCF rate. Id.
+
+         The proposed plan distribution to Class 4 Creditors did not include the Note Claimants’
+
+Make-Whole Amount. (See ECF No. 1308-01 at 25-26). Nor did the plan pay Class 4 Creditors
+
+post-petition interest at the MNPA and RCF default interest rates. (See ECF No. 1308-01 at 25-
+
+26). Instead, the plan only proposed to pay the Class 4 Creditors the outstanding principal under
+
+the Notes and RCF, pre-petition interest at the rate of 0.1%, and post-petition interest at the
+
+federal judgment rate. (ECF No. 1308-01 at 25-26). Despite restricting the contractual amounts
+
+due, the plan deemed Class 4 unimpaired, prohibiting Class 4 Creditors from voting on the plan.
+
+11 U.S.C. § 1126(f).
+
+         The Class 4 Creditors objected to confirmation, citing an entitlement to the Make-Whole
+
+Amount and post-petition default interest. Ultra, 943 F.3d at 761. Ultra objected to the Class 4
+
+
+
+
+4 / 43
+         Case 16-32202 Document 1874 Filed in TXSB on 10/27/20 Page 5 of 43
+
+
+
+
+Creditors’ claims. Id. The Court confirmed Ultra’s plan after the parties stipulated that a
+
+decision determining the amounts necessary to leave the Class 4 Creditors unimpaired could be
+
+reached after confirmation. Id.
+
+         On September 21, 2017, this Court issued an opinion allowing the Make-Whole Amount
+
+and post-petition interest at the default rates. Ultra, 575 B.R. at 361. Following a direct appeal,
+
+the Fifth Circuit reversed, holding that a creditor is not impaired when a plan incorporates the
+
+Bankruptcy Code’s disallowance provisions.         Ultra, 943 F.3d at 758.      The Fifth Circuit
+
+remanded and directed this Court to consider whether the Make-Whole Amount is disallowed by
+
+the Bankruptcy Code, “the appropriate post-petition interest rate, and the applicability of the
+
+solvent-debtor exception.” Id. at 766. The Court now determines those issues.
+
+         It is also important to place the dispute in context. The plan in this case was confirmed
+
+on March 14, 2017. (ECF No. 1324). The confirmation order reserved to the Court whether the
+
+treatment of these claims left the holders “unimpaired.” The Court’s sole role is to determine the
+
+amount that must be paid to leave the Class 4 Claimants unimpaired.
+
+                                         JURISDICTION
+
+         The district court has jurisdiction over this proceeding pursuant to 28 U.S.C. § 1334. The
+
+allowance or disallowance of a proof of claim against the estate, as well as the “estimation of
+
+claims or interests for the purposes of confirming a plan under chapter 11,” are core matters as
+
+defined in 28 U.S.C. § 157(b)(2)(B). This case was referred to the Bankruptcy Court pursuant to
+
+28 U.S.C. § 157(a).
+
+                                          DISCUSSION
+
+         This Memorandum Opinion addresses two primary questions:
+
+            Does the Bankruptcy Code disallow a contractual claim for “make-whole” liquidated
+             damages when an interest-bearing obligation is prepaid?
+
+
+
+5 / 43
+         Case 16-32202 Document 1874 Filed in TXSB on 10/27/20 Page 6 of 43
+
+
+
+
+            Does the Bankruptcy Code permit a solvent debtor to forego contractual obligations
+             to an unimpaired class of unsecured creditors, but still pay a distribution to its
+             shareholders?
+
+         The first question focuses on whether the amounts due under the contractual Make-
+
+Whole constitute unmatured interest. If the amounts due under the Make-Whole are unmatured
+
+interest, they would be disallowed under § 502(b)(2). Because the Fifth Circuit held that failure
+
+to pay amounts disallowed by the Bankruptcy Code does not result in impairment, the
+
+classification of the Make-Whole as unmatured interest would permit non-payment while leaving
+
+the holders of the claims “unimpaired.” If the Make-Whole Amount is not unmatured interest, it
+
+is allowed under the Bankruptcy Code.
+
+         The answer to the first question is “no.” Section 502(b)(2) disallows claims for the
+
+economic equivalent of unmatured interest. The Make-Whole Amount represents liquidated
+
+damages and should not be characterized as unmatured interest, or its economic equivalent. The
+
+Make-Whole Amount is not compensation for the use or forbearance of money, and it does not
+
+accrue over time. It is not interest. The Bankruptcy Code allows the Make-Whole Amount.
+
+         The second question focuses on whether the Bankruptcy Code requires that an
+
+unimpaired unsecured creditor of a solvent debtor be paid post-petition interest at contractual
+
+rates.    While the Bankruptcy Code disallows unmatured interest as part of a claim, it is
+
+ambiguous as to an unimpaired unsecured creditor’s right to post-petition interest on a claim.
+
+The parties agree that the Class 4 Claimants are entitled to some post-petition interest, but
+
+dispute whether the proper amount is the federal judgment rate or the contractual default rates.
+
+         The answer to the second question is also “no.” The solvent-debtor exception has been
+
+widely recognized, both before and after adoption of the Bankruptcy Code. The exception is
+
+rooted in the principle that the solvent debtor must pay its creditors in full before the debtor may
+
+
+
+6 / 43
+         Case 16-32202 Document 1874 Filed in TXSB on 10/27/20 Page 7 of 43
+
+
+
+
+recover a surplus. Congress did not silently abandon that fundamental equitable principle when
+
+it passed the Bankruptcy Code. The solvent-debtor exception entitles the Class 4 Claimants to
+
+post-petition interest. The proper rates of interest are the contractual default rates. Awarding the
+
+contractual default rates is consistent with the underlying principle of the solvent-debtor
+
+exception, that creditors must be paid what they are owed under the contract before the debtor
+
+may receive a windfall. Further, limiting the Class 4 Claimants to the federal judgment rate
+
+would treat an unimpaired class worse than an impaired class of unsecured creditors.
+
+   a. Make-Whole Amount is Allowed Under the Bankruptcy Code
+
+         Ultra’s confirmed plan left the Note Claimants unimpaired. The Fifth Circuit made clear
+
+that an unimpaired creditor is entitled to the full amount of his claim allowed under the
+
+Bankruptcy Code. See Ultra, 943 F.3d at 765. Ultra is obligated to distribute to the Note
+
+Claimants all amounts validly owed under state law, minus any amounts disallowed by the
+
+Bankruptcy Code. See id. at 765.
+
+         Section 502 of the Bankruptcy Code sets out categories of debts which Congress
+
+disallowed in bankruptcy. Among other categories, § 502 disallows a claim if “such claim is for
+
+unmatured interest.” 11 U.S.C. § 502(b)(2). Section 502(b)(2) also encompasses a claim to the
+
+extent that it seeks “the economic equivalent of unmatured interest.” Tex. Commerce Bank, N.A.
+
+v. Licht (In re Pengo Indus., Inc.), 962 F.2d 543, 546 (5th Cir. 1992).
+
+         Although the Code does not define the term unmatured interest, interest is widely
+
+understood as consideration for the use or forbearance of another’s money accruing over time.
+
+See Love v. State of New York, 78 N.Y.2d 540, 544 (N.Y. 1991); Interest, Black’s Law
+
+Dictionary, (11th ed. 2019). The Make-Whole Amount is an enforceable liquidated damages
+
+provision which compensates the Note Claimants for any actual loss suffered due to prepayment
+
+
+
+
+7 / 43
+         Case 16-32202 Document 1874 Filed in TXSB on 10/27/20 Page 8 of 43
+
+
+
+
+of the notes. The Make-Whole Amount is not interest because it does not compensate the Note
+
+Claimants for OpCo’s use or forbearance of the Note Claimants’ money, it compensates the Note
+
+Claimants for OpCo’s breach of a promise to use money. Because the Make-Whole Amount is
+
+not interest, it is also not unmatured interest.       Because the Make-Whole Amount is not
+
+unmatured interest, it forms part of the Note Claimants’ allowed claims.
+
+         Section 502(a) of the Bankruptcy Code states that “a claim or interest, proof of which is
+
+filed under § 501 of this title, is deemed allowed, unless a party in interest . . . objects.” Section
+
+502(b) mandates that a claim is allowed, unless the claim (or a portion thereof) falls into one of
+
+nine disallowed categories. See 11 U.S.C. § 502(b); In re Today's Destiny, Inc., No. 05-90080,
+
+2008 WL 5479109, at *2 (Bankr. S.D. Tex. Nov. 26, 2008).
+
+         Section 502(b)(2) “flows from the legal principle that ‘interest stops accruing at the date
+
+of the filing of the petition.’” In re Pengo, 962 F.2d at 546 (emphasis added) (quoting S. Rep.
+
+No. 989, 95th Cong., 2d Sess. 63, reprinted in 1978 U.S.S.C.A.N. 5787, 5849).                  When
+
+determining if an amount falls within § 502(b)(2), “much depends on the dynamics of the
+
+individual case.” Ultra, 943 F.3d at 765. Absent controlling federal law, a determination of a
+
+creditor’s allowed claim necessarily references state law. E.g., Vanston Bondholders Protective
+
+Comm. v. Green, 329 U.S. 156, 161 (1946) (“[W]hat claims of creditors are valid and subsisting
+
+obligations against the bankrupt at the time a petition in bankruptcy is filed, is a question which,
+
+in the absence of overruling federal law, is to be determined by reference to state law.”).
+
+Calculating a creditor’s allowed claim based on state law “prevent[s] a party from receiving ‘a
+
+windfall merely by reason of the happenstance of bankruptcy.’” Butner v. United States, 440
+
+U.S. 48, 55 (1979) (quoting Lewis v. Mfrs. Nat’l Bank, 364 U.S. 603, 609 (1961)). No one
+
+disputes that the MNPA is governed by New York law. To form part of an allowed claim, the
+
+
+
+
+8 / 43
+         Case 16-32202 Document 1874 Filed in TXSB on 10/27/20 Page 9 of 43
+
+
+
+
+Make-Whole Amount must be both enforceable under New York law, and not unmatured interest
+
+under § 502(b)(2).
+
+         1. The Make-Whole Amount is Enforceable Under New York Law
+
+         This Court previously held that the Make-Whole Amount is a valid liquidated damages
+
+clause, and not a disproportionate penalty, under New York law.          Ultra, 575 B.R. at 369
+
+(“Debtors fail to rebut the Noteholders’ claim for the Make-Whole Amount because they fail to
+
+prove that the damages resulting from prepayment were readily ascertainable at the time the
+
+parties entered into the Note Agreement or that they were conspicuously disproportionate to
+
+foreseeable damage amounts.”). The Fifth Circuit did not disturb that holding. See Ultra, 943
+
+F.3d at 764.
+
+         New York courts hold that make-whole provisions are enforceable liquidated damages
+
+clauses. JMD Holding Corp. v. Cong. Fin. Corp., 828 N.E.2d 604, 609 (N.Y. 2005). Liquidated
+
+damages are “[i]n effect . . . an estimate, made by the parties at the time they enter into their
+
+agreement, of the extent of the injury that would be sustained as a result of breach of the
+
+agreement.” Truck Rent-A-Ctr. v. Puritan Farms 2nd, 41 N.Y.2d 420, 424 (N.Y. 1977). The
+
+Make-Whole Amount is enforceable under New York law.
+
+         Ultra argues that the Make-Whole Amount can be both liquidated damages under New
+
+York law and unmatured interest under the Bankruptcy Code. The Note Claimants believe that
+
+liquidated damages and unmatured interest are mutually exclusive terms in New York. Ultra
+
+correctly notes that it is the Bankruptcy Code, not New York law, which determines the scope of
+
+amounts disallowed as unmatured interest. However, because the Bankruptcy Code leaves
+
+unmatured interest undefined, the Note Claimants’ reference to state law is appropriate.
+
+
+
+
+9 / 43
+     Case 16-32202 Document 1874 Filed in TXSB on 10/27/20 Page 10 of 43
+
+
+
+
+          The Court need not decide whether liquidated damages and unmatured interest are
+
+mutually exclusive per se because this Make-Whole Amount is not the economic equivalent of
+
+unmatured interest. Black’s Law Dictionary defines a “liquidated-damages clause” as “[a]
+
+contractual provision that determines in advance the measure of damages if a party breaches the
+
+agreement.” Liquidated-damages clause, Black’s Law Dictionary, (11th ed. 2019). The Court
+
+need not speculate whether some hypothetical liquidated damages clause conceivably
+
+compensates a creditor for unmatured interest under section 502(b)(2). This Make-Whole does
+
+not. This Make-Whole Amount is enforceable under New York law. For the reasons that
+
+follow, it represents neither interest, unmatured interest, nor the economic equivalent of
+
+unmatured interest.
+
+          2. Defining Interest
+
+          Having determined that the Make-Whole Amount is recoverable under applicable
+
+nonbankruptcy law, the Court must determine whether the Make-Whole Amount constitutes the
+
+“economic equivalent of unmatured interest.” See Pengo, 962 F.2d at 546. The Bankruptcy
+
+Code defines neither interest nor unmatured interest.        See 11 U.S.C. § 101.        Without
+
+Congressional instruction to the contrary, undefined words found in the Bankruptcy Code should
+
+be given their ordinary meaning. Lamar, Archer & Cofrin LLP v. Appling, 138 S. Ct. 1752, 1759
+
+(2018) (“Because the Bankruptcy Code does not define the words ‘statement,’ ‘financial
+
+condition,’ or respecting,’ we look to their ordinary meanings.”). Further, bankruptcy courts
+
+generally interpret undefined terms in accordance with state law. See Butner, 440 U.S. at 54.
+
+          To decide whether the Make-Whole Amount is allowed, the Court must define the
+
+“economic equivalent of unmatured interest.” Pengo, 962 F.2d at 546. The definition is formed
+
+in three steps. First, the Court defines interest. Second, the Court defines unmatured interest.
+
+
+
+
+10 / 43
+       Case 16-32202 Document 1874 Filed in TXSB on 10/27/20 Page 11 of 43
+
+
+
+
+Third, the Court identifies the characteristics which make a debt the ‘economic equivalent’ of
+
+unmatured interest.
+
+          The Court begins by defining interest. The Senior Creditors’ Committee and the OpCo
+
+Noteholders provide substantially similar definitions of interest.                      According to the Note
+
+Claimants, interest can be defined as consideration for the use or forbearance of another’s money
+
+accruing over time. (ECF No. 1859 at 6 (“‘Interest’ means consideration that accrues over time
+
+for the use or forbearance of another’s money.”) (emphasis in original)); (ECF No. 1862 at 9
+
+(“‘Interest’ means consideration for the use or forbearance of another’s money over a period of
+
+time.”)).2
+
+          The Note Claimants’ definition is consistent with the ordinary meaning of interest and
+
+with state law interpretations of the term. Black’s Law Dictionary defines “interest” as “[t]he
+
+compensation fixed by agreement or allowed by law for the use or detention of money, or for the
+
+loss of money by one who is entitled to its use; especially the amount owed to a lender in return
+
+for the use of borrowed money.” Interest, Black’s Law Dictionary, (11th ed. 2019). Webster’s
+
+Dictionary notes that interest accrues as a percentage over time. See Interest, Webster’s New
+
+World Dictionary, (2d coll. ed. 1970) (“[M]oney paid for the use of money [and/or] the rate of
+
+such payment, expressed as a percentage per unit of time.”).                        New York courts similarly
+
+recognize that interest is a cost associated with the use or nonpayment of another’s money. Love,
+
+78 N.Y.2d at 544 (describing interest as “the cost of having the use of another’s money for a
+
+specified period”); Becker v. Huss Co., 43 N.Y.2d 527, 543 (N.Y. 1978) (“[I]nterest is intended
+
+to compensate for the use or nonpayment of money.”). Applying Texas law, the Fifth Circuit has
+
+acknowledged the same general definition. See Achee Holds., LLC v. Silver Hill Fin., LLC, 342
+
+
+2
+ In its supplemental brief, Ultra did not provide a specific definition of interest. (See generally ECF No. 1860 at 7-
+12).
+
+
+11 / 43
+      Case 16-32202 Document 1874 Filed in TXSB on 10/27/20 Page 12 of 43
+
+
+
+
+F. App’x 943, 944 (5th Cir. 2009) (“Specifically a fee will not be considered interest if it is not
+
+for the use, forbearance or detention of money.”).
+
+          The Court adopts the Note Claimants’ definition of interest. Interest means consideration
+
+for the use or forbearance of another’s money accruing over time. The New York Court of
+
+Appeals, the Fifth Circuit, and Black’s Law Dictionary expressly recognize the principle that
+
+interest is a cost associated with the use or forbearance of another’s money.           Webster’s
+
+Dictionary adds to that principle the fact that interest is normally expressed as a percentage
+
+accruing over time. The Note Claimants’ definition appropriately incorporates each element of
+
+interest.
+
+          3. Defining Unmatured Interest
+
+          If interest is consideration for the use or forbearance of another’s money accruing over
+
+time, unmatured interest is interest that has not accrued or been earned as of a reference date.
+
+See In re Sadler, No. 14-CV-2312, 2015 WL 9474174, at *6 (N.D. Ohio Dec. 29, 2015) (noting
+
+bankruptcy court defined unmatured interest as “interest that is not yet due and payable or is not
+
+yet earned at the time of the filing of the petition”). Stated more fully, unmatured interest is
+
+consideration for the use or forbearance of another’s money, which has not accrued or been
+
+earned as of a reference date. In a bankruptcy case, the reference date is the order for relief.
+
+E.g., In re X-Cel, Inc., 75 B.R. 781, 788-89 (N.D. Ill. 1987) (“Unmatured interest is defined in
+
+this context as interest which was not yet due and payable at the time the petition was filed.”).
+
+This Court slightly refines the X-Cel court’s definition. “Unmatured” is more indicative of
+
+whether the interest has accrued and been earned; the due date for payment of the interest should
+
+not be considered.
+
+
+
+
+12 / 43
+      Case 16-32202 Document 1874 Filed in TXSB on 10/27/20 Page 13 of 43
+
+
+
+
+          The key distinction between matured and unmatured interest is whether such interest has
+
+been earned. Interest matures when it is earned and owing to the lender. See In re Sadler, 2015
+
+WL 9474174, at *6. An amount is due when it is either immediately enforceable or owing. Due,
+
+Black’s Law Dictionary (11th ed. 2019). Under the Bankruptcy Code, interest that has accrued
+
+as of the petition date is matured. The lender has earned that compensation because his money
+
+was used pre-petition.
+
+          Because interest accrues, or is earned, steadily over time, some interest may be owed on a
+
+given date even though it is not immediately payable. In other words, on any given date between
+
+contractual installments, a portion of the interest has come due and is owing, despite the fact that
+
+the next installment is not immediately payable. Such interest is ‘earned’ because the borrower,
+
+looking backwards, used the lender’s money. The Bankruptcy Code allows such interest, even if
+
+it is not immediately payable as of the petition date. Unmatured interest is prospective. It is
+
+compensation for the future use of another’s money.
+
+          The Note Claimants argue that the Make-Whole Amount matured due to acceleration of
+
+the Notes. (ECF No. 1831 at 26). While interest can also mature when it becomes immediately
+
+payable due to acceleration, acceleration occurred post-petition in this case. Acceleration is “the
+
+advancing of a loan agreement’s maturity date so that payment of the entire debt is due
+
+immediately. NML Capital v. Republic of Arg., 952 N.E.2d 482, 491 (N.Y. 2011) (citing Black’s
+
+Law Dictionary (9th ed. 2009)). Obligations can become due for payment through acceleration.
+
+Id. (“‘[A]cceleration’ of a repayment obligation in a note or bond changes the date of maturity
+
+from some point in the future . . . to an earlier date based on the debtor’s default under the
+
+contract.”). However, whether interest is matured at the moment of filing is determined without
+
+reference to acceleration clauses triggered by a bankruptcy petition. See In re ICH Corp., 230
+
+
+
+
+13 / 43
+      Case 16-32202 Document 1874 Filed in TXSB on 10/27/20 Page 14 of 43
+
+
+
+
+B.R. 88, 94 (Bankr. N.D. Tex. 1999). The Make-Whole Amount came due because the Notes
+
+accelerated when Ultra filed its chapter 11 petition. Because the Notes did not accelerate prior to
+
+the petition, the Make-Whole Amount’s status under § 502(b)(2) is determined without reference
+
+to the acceleration clause.
+
+          4. The Make-Whole Amount is not Unmatured Interest
+
+          The Make-Whole Amount is neither interest nor unmatured interest. The Make-Whole
+
+Amount is not consideration for the use or forbearance of the Note Claimants’ money, which had
+
+not accrued or been earned as of the petition date. Although the Make-Whole Amount is
+
+“consideration,” it is not consideration for the use or forbearance of the Note Claimants’ money.
+
+The Make-Whole Amount compensates the Note Claimants for the cost of reinvesting in a less
+
+favorable market. If the market is substantially more favorable at the time of prepayment, the
+
+Make-Whole Amount could equal zero dollars. Instead of compensating the Note Claimants for
+
+the use or forbearance of their money, the Make-Whole Amount compensates the Note
+
+Claimants for Ultra’s decision not to use their money. In an unfavorable market, that decision
+
+causes the Note Claimants to suffer damages.        The Make-Whole Amount liquidates those
+
+damages.
+
+          The Make-Whole Amount became payable because on the petition date, the Called
+
+Principal of the Notes was less than the “Discounted Value” of the principal and interest
+
+payments scheduled to come due after the petition date. (ECF No. 1831 at 10). Under the
+
+MNPA, “Discounted Value” was calculated by discounting the remaining payments to their net
+
+present value on the petition date, “using a discount factor equal to the applicable ‘Reinvestment
+
+Yield.’” (ECF No. 1831 at 11). The applicable “Reinvestment Yield” was 0.5% higher than the
+
+
+
+
+14 / 43
+     Case 16-32202 Document 1874 Filed in TXSB on 10/27/20 Page 15 of 43
+
+
+
+
+yield for similar U.S. Treasury securities reported two days prior to the petition date. (ECF No.
+
+1831 at 11).
+
+          The Make-Whole formula incorporates both the timing of prepayment and the applicable
+
+Treasury rates just prior to prepayment. The earlier prepayment occurs, the higher the Called
+
+Principal. At lower Treasury rates, the Discounted Value becomes higher. On the other hand,
+
+higher Treasury rates equate to lower Discounted Values. A Make-Whole is owed when the
+
+Discounted Value exceeds the Called Principal, and the Make-Whole equals the difference
+
+between those two sums. The combination of the timing of prepayment and the applicable
+
+reinvestment rates approximate the damages suffered due to prepayment.
+
+          Other courts have reached the conclusion that similar make-wholes are compensate for
+
+liquidated damages. E.g., In re Trico Marine Servs. Inc., 450 B.R. 474, 481 (Bankr. D. Del.
+
+2011) (“Th[e] Court is persuaded by the soundness of the majority’s interpretation of make-
+
+whole obligations, and therefore finds that the Indenture Trustee’s claim on account of the Make-
+
+Whole Premium is akin to a claim for liquidated damages, not for unmatured interest.”); see,
+
+e.g., C.C. Port, Ltd. v. Davis-Penn Mortg. Co., 61 F.3d 288, 289 (5th Cir. 1995) (“Where the
+
+contract grants the borrower the right to prepay, a prepayment premium is not compensation for
+
+the use, forbearance, or detention of money, rather it is a charge for the option or privilege of
+
+prepayment.”).
+
+          The Make-Whole Amount is not unmatured interest simply because it could equal zero
+
+when reinvestment rates are high. Nor would the Make-Whole Amount be unmatured interest
+
+merely because it might equal the unmatured interest due at the time of prepayment. The issue is
+
+not the final sum of the Make-Whole Amount. Rather, the issue is what the Make-Whole
+
+Amount compensates the Note Claimants for. Like a grade school math student, answering the
+
+
+
+
+15 / 43
+      Case 16-32202 Document 1874 Filed in TXSB on 10/27/20 Page 16 of 43
+
+
+
+
+problem requires showing the work. The arithmetic here demonstrates that the Make-Whole
+
+Amount does not compensate the Note Claimants for the use or forbearance of their money.
+
+          The Make-Whole Amount does not accrue over time. Rather, it is a one-time charge
+
+which fixes the Note Claimants’ damages when it is triggered. See Parker Plaza W. Partners v.
+
+UNUM Pension & Ins. Co., 941 F.2d 349, 352 (5th Cir. 1991) (noting under Texas law “a
+
+prepayment premium is a charge for the option or privilege of prepayment . . . and, as such, the
+
+charge is not ‘interest’”); Feldman v. Kings Highway Savs. Bank, 102 N.Y.S.2d 306, 307 (N.Y.
+
+App. Div. 2d Dep’t 1951) (applying New York usury law and finding prepayment premium “was
+
+not in consideration of the making of a loan or of forbearance of money. It was the converse,
+
+that is, for the making of a new and separate agreement, the termination of the indebtedness.
+
+Accordingly, it was not a payment of interest”). Interest accrues over time. Even payment in
+
+kind interest, where no interest becomes due for payment until a maturity date, accrues over the
+
+life of a note for the purposes of § 502(b)(2). See In re Energy Future Holdings Corp., 540 B.R.
+
+109, 111 (Bankr. D. Del. 2015) (characterizing portion of interest on payment in kind notes as
+
+accrued as of the petition date).
+
+          Unlike interest, the Make-Whole Amount fixes the damages sustained by the
+
+Noteholders’ at the time of prepayment. While the timing of prepayment plays a significant role
+
+in calculating the damages suffered, nothing about the formula suggests the Make-Whole accrues
+
+over time. The Note Claimants do not earn the Make-Whole Amount over the life of the Notes.
+
+Instead, time is utilized in the Make-Whole formula to determine the Called Principal and
+
+remaining payments. Significantly, the time relevant to the Make-Whole formula is the date at
+
+which Ultra ceased to use or forbear the Note Claimants’ money. The Make-Whole Amount is
+
+not earned over time.
+
+
+
+
+16 / 43
+     Case 16-32202 Document 1874 Filed in TXSB on 10/27/20 Page 17 of 43
+
+
+
+
+          Ultra relies on the Court of Appeals for the Second Circuit’s decision in In re MPM
+
+Silicones, LLC, as suggesting that a make-whole is unmatured interest. 874 F.3d 787, 801-02 (2d
+
+Cir. 2017) (“The make-whole premium was intended to ensure that the Senior-Lien Note holders
+
+received additional compensation to make up for the interest they would not receive if the Notes
+
+were redeemed prior to the maturity date.”). However, the Second Circuit was not presented
+
+with the question of whether a make-whole is unmatured interest. See id. In fact, the make-
+
+whole in MPM Silicones was not disallowed by the Bankruptcy Code at all. See id. Instead, that
+
+make-whole never became due under the relevant terms of the notes. Id. at 803. The make-
+
+whole in MPM Silicones came due if the debtor opted to prepay the notes ahead of the maturity
+
+date. Id. Under the acceleration clause of the notes, the debtor’s bankruptcy filing automatically
+
+accelerated the notes. Id. The maturity date became the petition date. Because the make-whole
+
+only became due if the debtors paid those notes ahead of the maturity date, the debtor’s post-
+
+petition decision to redeem the notes was not a prepayment and did not trigger the make-whole.
+
+Id. Any statement by the Second Circuit about the characterization of the make-whole was dicta.
+
+          To illustrate whether the Make-Whole Amount is akin to unmatured interest, during the
+
+May 19, 2020 oral argument, the Court posed a brokerage fee hypothetical that envisioned the
+
+make-whole as a three-party transaction. The Court then requested further briefing regarding
+
+whether any portion of the brokerage fee constitutes unmatured interest. The hypothetical began
+
+with a loan, providing for a fixed 6% interest rate, prepaid exactly one year prior to maturity.
+
+Prepayment of the loan triggers a reinvestment fee equal to the amount that the lender would be
+
+required to pay to make a loan in the same industry as the original loan, with cash flows that
+
+match the remaining payments had the original loan not been prepaid. (ECF No. 1856 at 1).
+
+Following the borrower’s prepayment, the lender locates a broker who will find a new borrower
+
+
+
+
+17 / 43
+      Case 16-32202 Document 1874 Filed in TXSB on 10/27/20 Page 18 of 43
+
+
+
+
+and replace the loan with a 6% loan in exchange for a 2.25% fee. The market interest rate at the
+
+time of prepayment is 4%. The Court asked whether any portion of the 2.25% fee is unmatured
+
+interest.
+
+          The fee is equal to the amount the lender would have to pay to a broker in order to
+
+reinvest the prepaid funds with cash flows mirroring the remaining original loan payments. The
+
+fee cannot be interest because it does not provide consideration for the use or forbearance of the
+
+lender’s money, and it does not accrue over time. Just like the Make-Whole Amount, the fee
+
+represents a negotiated cost to compensate the lender for making a new loan on comparable
+
+terms in a changed market. The hypothetical is no different than the Make-Whole at issue here.
+
+Instead of a Make-Whole that directly compensates the lender for the difference in interest rates
+
+compared to the outstanding principal, the hypothetical reinvestment fee involves a third-party
+
+broker and compensates the lender for the actual cost of making a new loan. There is no credible
+
+argument that the reinvestment fee could be considered unmatured interest under the Bankruptcy
+
+Code. Nor is there reason to believe that the Bankruptcy Code disallows the Make-Whole
+
+Amount, despite allowing a functionally identical transaction executed through a third-party.
+
+Both the Make-Whole Amount and the reinvestment fee represent damages to the lender, not
+
+interest.
+
+          The OpCo Noteholders and the Senior Creditors Committee provided substantially
+
+similar answers to the hypothetical. Both creditor groups recognized that the reinvestment fee
+
+was not for the use or forbearance of money. (ECF No. 1859 at 11 (“It is a remedy imposed
+
+upon the borrower when it no longer borrows money, after having promised to do so for a fixed
+
+term.”); ECF No. 1862 at 17 (“[The fee] compensates the lender for its actual damages by
+
+obligating the initial borrower to reimburse the lender for the cost of relending the funds that the
+
+
+
+
+18 / 43
+     Case 16-32202 Document 1874 Filed in TXSB on 10/27/20 Page 19 of 43
+
+
+
+
+borrower had agreed to borrow for a specified period.”)). Further, the fee is unlike interest
+
+because it does not grow as a function of time. (ECF No. 1859 at 11). The reinvestment fee
+
+becomes due upon the closing of the replacement loan. (ECF No. 1862 at 18). The fee is
+
+entirely contingent on future market events.
+
+          Ultra also acknowledged that the reinvestment fee would be allowed under § 502. (ECF
+
+No. 1860 at 15 (“That brokerage fee plainly does not qualify as unmatured interest under §
+
+502(b)(2).”)). Ultra noted that because the hypothetical lender has not borrowed money from the
+
+broker, the fee does not qualify as unmatured interest. (ECF No. 1860 at 15). Rather, Ultra
+
+characterizes the fee as the transaction cost of finding a new borrower. (See ECF No. 1860 at
+
+15-16). Ultra also raised concerns that the hypothetical would be economically impractical and
+
+would potentially subject the borrower to “unlimited liability upon prepayment.” (ECF No. 1860
+
+at 14). Qualms about the practicality of the hypothetical aside, Ultra’s characterization of the
+
+reinvestment fee is a mere transaction cost does not distinguish the fee from the Make-Whole
+
+Amount.
+
+          The sole economic difference between the hypothetical and the Make-Whole in this case
+
+is that the Make-Whole in this case eliminates the broker. Rather than paying the broker to find
+
+the alternative borrower, the Make-Whole recipients accept the identical amount of funds. The
+
+compensation to the borrower represents liquidated damages stemming from prepayment,
+
+whether it is structured as a Make-Whole or a reinvestment fee. The hypothetical illustrates an
+
+economic equivalent of the make whole, and it is apparent that neither the hypothetical nor the
+
+Make-Whole is unmatured interest.
+
+
+
+
+19 / 43
+      Case 16-32202 Document 1874 Filed in TXSB on 10/27/20 Page 20 of 43
+
+
+
+
+          5. The Make-Whole Amount is not the Economic Equivalent of Unmatured Interest
+
+          Ultra argues that the Make-Whole is the economic equivalent of unmatured interest. This
+
+is incorrect. Applying the Court’s definitions, the economic equivalent of interest must be the
+
+economic equivalent of consideration for the use or forbearance of another’s money accruing
+
+over time. A claim is the economic equivalent of unmatured interest if, in economic reality, it is
+
+the economic substance of unmatured interest. Pengo, 962 F.2d at 546. If it is the economic
+
+equivalent of interest, the claim must be disallowed regardless of the parties’ labels. See id. The
+
+Make-Whole Amount is not an economic equivalent of unmatured interest.
+
+          Economic substance, rather than party labels, determines whether an amount is
+
+unmatured interest. In re Chateaugay Corp., 109 B.R. 51, 57 (Bankr. S.D.N.Y. 1990) (“[T]he
+
+essential factor guiding this Court in making its determination . . . is the underlying economic
+
+substance of the transaction.”). If a debt fits within the definition of unmatured interest, it is
+
+disallowed by § 502(b)(2), regardless of its superficial label. See id.
+
+          The Fifth Circuit expressly adopted that understanding in Pengo, 962 F.2d at 543. In
+
+Pengo, the Fifth Circuit held that an unamortized original issue discount (“OID”) is disallowed
+
+by § 502(b)(2) because it is the economic equivalent of unmatured interest. Id.
+
+          OID notes are issued for less than face value. For example, an issuer might receive $90
+
+for a note with a face value of $100. The issuer receives $90 up front, but agrees to repay $100
+
+over the life of the note. That $10 difference would, in economic fact, be compensation “for the
+
+delay and risk involved in the ultimate repayment of monies loaned.” Id. at 546. The difference
+
+is earned over the note’s term as it amortizes, and in the event of a bankruptcy petition, unearned
+
+amounts are the economic equivalent of unmatured interest. Id.
+
+
+
+
+20 / 43
+     Case 16-32202 Document 1874 Filed in TXSB on 10/27/20 Page 21 of 43
+
+
+
+
+          In deciding that unamortized OID fell within the scope of unmatured interest, the Fifth
+
+Circuit followed an analysis similar to what this Court applies here. First, it explained the
+
+mechanics of OID loans, noting that OID “is in the nature of additional interest,” and that it
+
+amortizes over time. See id. at 546 (internal quotations omitted). Next, while the Fifth Circuit
+
+did not define unmatured interest, it stated that OID compensates a lender for “the delay and risk
+
+involved” with lending money. Id. Because the economic facts showed that unamortized OID
+
+fit within the meaning of unmatured interest, it was disallowed under § 502(b)(2). Id. (“The
+
+‘unmatured interest’ bankruptcy rule and the economic notion of ‘original issue discount’
+
+intersect to form the legal nexus for our decision-making.”). Put simply, the Fifth Circuit
+
+compared the mechanics of OID to a common understanding of unmatured interest. Because
+
+OID’s round peg fit within unmatured interest’s round hole, OID was the economic equivalent of
+
+unmatured interest. See id.
+
+          The Pengo court also noted that both the Senate and House Reports describe OID as a
+
+form of unmatured interest disallowed under § 502(b)(2). Id. (citing S. Rep No. 989, 95th Cong.,
+
+2d Sess. 62, reprinted in 1978 U.S.C.C.A.N. 5787, 5848 (noting § 502 disallows “any portion of
+
+prepaid interest that represents an original discounting of the claim, yet that would not have been
+
+earned on the date of bankruptcy”); H.R. Rep. No. 595, 95th Cong., 2d Sess. 352, reprinted in
+
+U.S.C.C.A.N. 5963, 6308).
+
+          Applying Pengo to the case at hand, the Make-Whole Amount is distinguishable from
+
+OID and is not an economic equivalent of unmatured interest. The Make-Whole Amount does
+
+not compensate the Note Claimants for “the delay and risk involved” with lending money. Id.
+
+Rather than compensating for delay or risk, the Make-Whole Amount compensates for actual
+
+pecuniary loss. Further, while the timing of prepayment affects damages suffered, the Make-
+
+
+
+
+21 / 43
+      Case 16-32202 Document 1874 Filed in TXSB on 10/27/20 Page 22 of 43
+
+
+
+
+Whole Amount does not amortize or accrue over time. Unlike OID, the Make-Whole Amount is
+
+a square peg, one which cannot be shoved into a round hole. The Make-Whole Amount is not
+
+the economic equivalent of unmatured interest.
+
+          In re Doctors Hospital of Hyde Park, Inc., 508 B.R. 697 (Bankr. N.D. Ill. 2014), which
+
+Ultra relies on, provides an unpersuasive comparison of OID and make-wholes. There, the
+
+bankruptcy court held that a make-whole (described as a “Yield Maintenance Premium”) was
+
+both a liquidated damages clause and unmatured interest. Id. Without further explanation,
+
+Doctors Hospital stated that “[n]othing about the nature of liquidated damages necessarily
+
+excludes interest, or vice versa.” Id. The court likened the make-whole to OID. Id. at 705
+
+(citing In re Chateaugay, 961 F.2d at 380). However, that comparison was based on the
+
+understanding that “[b]oth OID and yield maintenance premiums are one-time charges to
+
+compensate the lender for lending . . . .” Id.
+
+          The Court respectfully disagrees with Doctors Hospital for two reasons.          First, as
+
+discussed, this Make-Whole Amount is distinguishable from OID. Contrary to the Doctors
+
+Hospital court’s assertion, OID is not a one-time charge. OID is amortized and, like interest, it is
+
+earned over the term of the loan. See Pengo, 962 F.2d at 546. The Make-Whole Amount is
+
+distinguishable from interest because it does not accrue over time. Second, while “[n]othing
+
+about the nature of liquidated damages necessarily excludes interest,” Doctors Hospital fails to
+
+explain how this Make-Whole Amount could be considered interest. See Doctors Hosp., 508
+
+B.R. at 706. Beyond the false parallel between make-wholes and OID as one-time charges,
+
+Doctors Hospital provides no persuasive explanation why make-wholes “serve the purpose of
+
+interest in economic reality.” Id. at 705. The law in this circuit is that § 502(b)(2) disallows
+
+amounts seeking the economic equivalent of unmatured interest. The Make-Whole Amount does
+
+
+
+
+22 / 43
+     Case 16-32202 Document 1874 Filed in TXSB on 10/27/20 Page 23 of 43
+
+
+
+
+not compensate for the use or forbearance of money, and it does not accrue over time. It is not
+
+the economic equivalent of unmatured interest.
+
+          Ultra argues that the Make-Whole Amount merely compensates the Note Claimants for a
+
+portion of the unmatured interest owed on the petition date. In Ultra’s view, the Note Claimants
+
+were owed a certain amount of unmatured interest under the Notes as of the petition date, and the
+
+Make-Whole Amount is equivalent to a slice of that unmatured pie. Therefore, according to
+
+Ultra, the Make-Whole Amount must be disallowed. Section 502(b)(2) disallows a claim “to the
+
+extent that” it is for unmatured interest. Ultra is correct that any claim for unmatured interest
+
+must be disallowed, whether that claim represents the full amount of unmatured interest owed
+
+under nonbankruptcy law or only a portion thereof. However, the Fifth Circuit noted that when
+
+analyzing whether a make-whole is unmatured interest, “much depends on the dynamics of the
+
+individual case. Ultra, 943 F.3d at 765. Resolution of those dynamics requires consideration of
+
+“multifarious, fleeting, special, narrow facts that utterly resist generalization.” U.S. Bank Nat’l
+
+Ass’n ex rel. CWCapital Asset Mgmt. LLC v. Vill. At Lakeridge, LLC, 138 S. Ct. 960, 968 n.6
+
+(2018); see Ultra, 943 F.3d at 765. Ultra’s view oversimplifies the Make-Whole Amount and
+
+fails to engage with the economic reality that the Make-Whole Amount does not compensate the
+
+Note Claimants for the use or forbearance of money.
+
+          As discussed, the Make-Whole Amount compensates the Note Claimants for damages
+
+based on the prepayment or acceleration of the Notes. Absent the Make-Whole, if Ultra prepaid
+
+the Notes, the Note Claimants would be deprived of the interest expected to accrue between the
+
+date of prepayment and the original maturity date of the Notes. That amount would undoubtedly
+
+be unmatured interest. It also equals the maximum amount of compensable damages under the
+
+
+
+
+23 / 43
+      Case 16-32202 Document 1874 Filed in TXSB on 10/27/20 Page 24 of 43
+
+
+
+
+Make-Whole. Ultra believes that fact leads to the conclusion that the Make-Whole Amount is
+
+the economic equivalent of unmatured interest. That conclusion is incorrect.
+
+          The Make-Whole Amount does not become the economic equivalent of unmatured
+
+interest merely because the Make-Whole formula references interest rates. The differential
+
+between the contractual interest rate and the reinvestment interest rate is the logical measure of a
+
+noteholder’s damages. Courts recognize that reference to an interest rate differential does not
+
+transform a make-whole into unmatured interest. See In re Sch. Specialty, Inc., No. 13-10125
+
+(KJC), 2013 WL 1838513, at *4 (Bankr. D. Del. Apr. 22, 2013) (allowing claim for make whole
+
+“calculated by discounting future interest payments using an interest rate tied to Treasury Note
+
+performance”).
+
+          It is neither surprising nor dispositive that the high-water mark of damages a lender may
+
+suffer when a loan is paid off ahead of schedule is equal to the expected interest lost. From a
+
+lender’s perspective, interest is the benefit of the bargain.       However, contrary to Ultra’s
+
+argument, the Make-Whole formula does not provide the Note Claimants with a portion of the
+
+full amount owed for the use or forbearance of the Note Claimants’ money. Rather, the Make-
+
+Whole builds the upper limit of unmatured interest into a formula designed to compensate the
+
+Note Claimants for actual damages. The Make-Whole does not give the Note Claimants a slice
+
+of the unmatured interest pie. Unmatured interest is merely an ingredient in the liquidated
+
+damage pie.
+
+          The Make-Whole formula is also not an example of clever attorneys drafting around the
+
+provisions of § 502. The Make-Whole measures the Note Claimants potential economic loss
+
+based on the remaining principal at the time of acceleration and a comparison between the
+
+interest rates under the Notes and available reinvestment rates. The resulting Make-Whole
+
+
+
+
+24 / 43
+     Case 16-32202 Document 1874 Filed in TXSB on 10/27/20 Page 25 of 43
+
+
+
+
+Amount is not a cost for the use or forbearance of the Noteholders’ money, which had not yet
+
+accrued on the petition date. Nor is it the economic equivalent of that amount. It is a principled
+
+economic estimation of the damages suffered by the Note Claimants after Ultra defaulted on the
+
+Notes.
+
+          Ultra advances a theory where the economic equivalent of unmatured interest equates to
+
+anything Ultra believes is similar to unmatured interest. The parameters of Ultra’s broad view of
+
+an economic equivalent are uncertain. What is certain is that Congress disallowed claims for
+
+“unmatured interest” in bankruptcy. 11 U.S.C. § 502(b)(2). Just as a federal court cannot
+
+narrow the scope of § 502(b)(2) by allowing some forms of unmatured interest, a court cannot
+
+widen the scope by disallowing claims that are not for unmatured interest. Pengo teaches that
+
+unmatured interest is determined based on economic reality, not by contractual labels. 962 F.2d
+
+at 546 (“For OID constitutes a ‘method of providing for and collecting what in economic fact is
+
+interest to be paid to compensate for the delay and risk involved in the ultimate repayment of
+
+monies loaned.’”).     Despite this, Ultra reads Pengo as expanding § 502(b)(2) to disallow
+
+unmatured interest and other amounts that (in its view) seem similar to unmatured interest. (See
+
+ECF No. 1860 at 10 (arguing unmatured interest includes “its economic substitutes”)). Yet,
+
+Congress was clear that § 502(b)(2) disallows only unmatured interest.
+
+          Ultra resists defining unmatured interest because “much depends on the dynamics on the
+
+individual case.” (ECF No. 1860 at 7 (quoting Ultra, 943 F.3d at 765)). Ultra argues that
+
+because “[t]he Make-Whole Amount was expressly intended to serve as an economic substitute
+
+for the Creditors’ expected future interest payments,” the Make-Whole Amount is the economic
+
+equivalent of unmatured interest. (ECF No. 1860 at 11 (emphasis added)). However, without a
+
+
+
+
+25 / 43
+      Case 16-32202 Document 1874 Filed in TXSB on 10/27/20 Page 26 of 43
+
+
+
+
+workable definition of unmatured interest, it is impossible to determine whether a make-whole is
+
+the economic equivalent of unmatured interest.
+
+          Notably, Ultra frequently stressed that Pengo disallows claims for the economic
+
+equivalent of unmatured interest. Yet, at various points in its briefing, Ultra’s reading of Pengo
+
+shifts. At times, Ultra suggests that Pengo disallows claims for the economic substitute of
+
+unmatured interest. (E.g., ECF No. 1860 at 10 (“In short, the critical lesson of Pengo is that
+
+‘unmatured interest’ under § 502(b)(2) must be defined to include not only amounts traditionally
+
+labeled as ‘interest,’ but also amounts that represent an economic substitute for traditional
+
+interest.”); ECF No. 1834 at 16 (“[T]he Make-Whole Amount in the MNPA was expressly
+
+designed to serve as an economic substitute for unmatured interest . . . .”)). An equivalent and a
+
+substitute are not, for lack of a better word, equivalent.
+
+          The reason for this subtle shift in terminology is clear: the Make-Whole Amount cannot
+
+be categorized as the equivalent of interest. The Make-Whole Amount does not compensate the
+
+Note Claimants for the use or forbearance of their money. It is not interest and it is not the
+
+economic equivalent of interest.      Ultra attempts to avoid this issue by framing Pengo as
+
+disallowing substitutes for unmatured interest. Whether or not the Make-Whole Amount is a
+
+“substitute” for unmatured interest, Pengo says nothing about substitutes. Pengo disallows
+
+equivalents because an equivalent to unmatured interest is economically identical to unmatured
+
+interest. That is what Congress chose to disallow. A substitute is not an equivalent. When a
+
+restaurant diner substitutes a $10.00 slice of salmon for $10.00 of chopped grilled chicken on a
+
+Caesar salad, it is not because salmon and grilled chicken (even at the equivalent price) are the
+
+same. She does so because they are different. Section 502(b)(2) disallows claims for unmatured
+
+
+
+
+26 / 43
+       Case 16-32202 Document 1874 Filed in TXSB on 10/27/20 Page 27 of 43
+
+
+
+
+interest, not amounts that parties contract to pay instead of interest. The Make-Whole Amount is
+
+allowed under § 502 of the Bankruptcy Code.
+
+    b. The Solvent-Debtor Exception
+          The second question before the Court is whether the “solvent-debtor exception” survived
+
+the enactment of the Bankruptcy Code, and if so, whether the exception entitles the Class 4
+
+Creditors to post-petition interest at the MNPA and RCF default rates.3 The answer to both
+
+questions is yes. The parties agree that Ultra was “massively solvent” at confirmation, and that
+
+the Class 4 Claimants are entitled to receive some amount of post-petition interest. Ultra argues
+
+that post-petition interest should be limited to the federal judgment rate. However, “absent
+
+compelling equitable considerations, when a debtor is solvent, it is the role of the bankruptcy
+
+court to enforce the creditors’ contractual rights.” In re Dow Corning Corp., 456 F.3d 668, 679
+
+(6th Cir. 2006).       For the reasons that follow, this Court upholds the Class 4 Claimants’
+
+contractual rights.
+
+          1. The Historical Basis of the Solvent-Debtor Exception
+
+          Under § 502(b)(2), interest as part of a claim ceases to accrue upon the filing of a
+
+bankruptcy petition. However, in some circumstances, creditors may demand post-petition
+
+interest on their claims. See 11 U.S.C. § 506. Historically, one such circumstance allowed
+
+unsecured creditors of a solvent debtor to receive post-petition interest on their claims.
+
+          Courts have heard disputes between solvent debtors and their creditors over the right to
+
+post-petition interest for nearly three hundred years. Over the centuries, courts developed a
+
+solvent-debtor exception to the general bankruptcy rule that interest stops accruing on the
+
+3
+  Because the Make-Whole Amount is allowed under § 502 of the Bankruptcy Code, the Court does not decide
+whether the solvent-debtor exception also permits recovery of the Make-Whole Amount. While the solvent-debtor
+exception is rooted in a court’s duty to enforce creditors’ contractual rights, the exception has traditionally been
+utilized only to award post-petition interest. Because the Make-Whole Amount is not interest, it is unclear whether
+the solvent-debtor exception provides an alternative basis for the Note Claimants to recover the Make-Whole
+Amount.
+
+
+27 / 43
+      Case 16-32202 Document 1874 Filed in TXSB on 10/27/20 Page 28 of 43
+
+
+
+
+petition date. The rationale for the exception is as obvious as it is uncontroversial: an individual
+
+with the means to pay his debts in full should be required to do so. See Johnson v. Norris, 190 F.
+
+459, 466 (5th Cir. 1911) (“The bankrupts should pay their debts in full, principal and interest to
+
+the time of payment, whenever the assets of their estates are sufficient.” (emphasis added)).
+
+          The solvent-debtor exception, rooted in English bankruptcy law, long predates the
+
+Bankruptcy Code. Lorde Chancellor Hardwicke first recognized the exception in Bromley v.
+
+Goodere, (1743) 1 Atkyns 75. There, certain creditors held notes with an entitlement to interest.
+
+Following a thirty-year bankruptcy proceeding, a surplus remained after the creditors were paid
+
+the full principal of the notes, as well as contractual interest up to the date of the bankruptcy. Id.
+
+at 79. Lord Chancellor Hardwicke held that, due to the surplus assets, the creditors were entitled
+
+to recover post-bankruptcy interest before any distribution could be made to the debtor’s heirs.
+
+Id. Subsequent English cases adopted this solvent-debtor exception. E.g., Ex parte Mills, 2
+
+Vesey, Jr., 295; Ex parte Clarke, 4 Vesey, Jr., 676.
+
+          Congress exercised its Constitutional power to adopt uniform bankruptcy law in 1898,
+
+when it passed the Bankruptcy Act.4 U.S. Const. art. I. § 8, cl. 4; Bankruptcy Act of 1898, ch.
+
+541, 30 Stat. 544.     Interpreting the Bankruptcy Act, the Supreme Court “naturally assume[d]
+
+that the fundamental principles upon which [England’s bankruptcy system] was administered
+
+were adopted by [the United States] when we copied th[at] system.” Sexton v. Dreyfus, 219 U.S.
+
+339, 344 (1911). One fundamental principle of English bankruptcy adopted in the Bankruptcy
+
+Act was the suspension of interest accrual as of the petition date. City of New York v. Saper, 336
+
+U.S. 328, 330-31 (1949); see also Dreyfus, 219 U.S. at 344 (stating “[n]o one doubts interest on
+
+unsecured debt stops” accruing on the petition date).
+
+4
+  Prior to passage of the Bankruptcy Act of 1898, Congress passed three short-lived bankruptcy statutes: The
+Bankruptcy Act of 1800, the Bankruptcy Act of 1841, and the Bankruptcy Act of 1867. Those Acts were repealed
+after three, two, and eleven years, respectively.
+
+
+28 / 43
+      Case 16-32202 Document 1874 Filed in TXSB on 10/27/20 Page 29 of 43
+
+
+
+
+          The Bankruptcy Act expressly disallowed unmatured interest as part of a claim. Section
+
+63 of the Bankruptcy Act dealt with claims allowance, and provided:
+
+          Debts of the bankrupt may be proved and allowed against his estate which are
+          founded upon (1) a fixed liability . . . owing at the time of the filing of the petition
+          by or against him, whether then payable or not, with any interest thereon which
+          would have been recoverable at that date . . . (5) provable debts reduced to
+          judgments after the filing of the petition . . . less costs incurred and interest
+          accrued after the filing of the petition and up to the time of the entry of such
+          judgments.
+
+Bankruptcy Act of 1938, ch. 575, § 63, 52 Stat. 840 (repealed) (emphasis added). Section 63
+
+disallowed post-petition on both secured and unsecured claims. See id.; In re Al Copeland
+
+Enters., Inc., 133 B.R. 837, 840 (Bankr. W.D. Tex. 1991).
+
+          Despite that fundamental principle, the solvent-debtor exception entitled creditors of a
+
+solvent debtor to recover post-petition interest. Courts consistently applied the solvent-debtor
+
+exception under the Bankruptcy Act. Am. Iron & Steel Mfg. Co. v. Seaboard Air Line Ry., 233
+
+U.S. 261, 266-67 (1914) (“Even in bankruptcy . . . it has been held, in the rare instances where
+
+the assets ultimately proved sufficient for the purpose, that creditors were entitled to interest
+
+accruing after adjudication.”); see also Sword Line, Inc. v. Indus. Comm’r of N.Y., 212 F.2d 865,
+
+870 (2d Cir. 1954) (“[I]nterest ceases upon bankruptcy in the general and usual instances noted
+
+and unless the bankruptcy bar proves eventually nonexistent by reason of the actual solvency of
+
+the debtor.”).
+
+          The Bankruptcy Act’s treatment of unmatured interest was nearly identical to §
+
+502(b)(2). Prior to Congresses’ adoption of the Bankruptcy Code, courts understood that “in the
+
+case of a solvent bankrupt the bankruptcy court should be guided by the contract between the
+
+bankrupt and its creditors rather than by the distinct principles of equity jurisprudence.” In re
+
+Chicago, Milwaukee, St. Paul & Pac. R.R. Co., 791 F.2d 524, 531 (7th Cir. 1986).
+
+
+
+
+29 / 43
+      Case 16-32202 Document 1874 Filed in TXSB on 10/27/20 Page 30 of 43
+
+
+
+
+          In Johnson v. Norris, the Fifth Circuit squarely held that creditors of a solvent debtor may
+
+recover post-petition interest, notwithstanding the plain text of § 63 of the Bankruptcy Act. 190
+
+F. at 460 (“The rule in bankruptcy for the computation of interest on claims to the date of filing
+
+the petition has no application to a solvent estate.” (emphasis added)). The trustee in Norris had
+
+$88,432 on hand after paying all creditors in full, including pre-petition interest. Id. at 461. The
+
+debtors contended that the creditors were “entitled to collect only the principal of their claims
+
+and interest to the date of the filing of the voluntary petition, and that therefore the entire surplus
+
+should be returned to the bankrupts.” Id.
+
+          The Fifth Circuit noted that in a typical case there is no dispute that § 63 disallows post-
+
+petition interest. Id. (“Ordinarily no question as to subsequently accruing interest can arise, for it
+
+is a very rare occurrence that a surplus is left after paying the principal and interest to the date of
+
+the filing of the petition.”). However, that general rule promoted equitable distribution of limited
+
+assets, a consideration that was inapplicable to a solvent estate. Id. at 462 (“It was not intended
+
+to be applied to a solvent estate. It was not in the contemplation of Congress that a solvent estate
+
+would be settled in the bankruptcy courts.”). Thus, the Fifth Circuit applied the solvent-debtor
+
+exception and held that “[w]hether we are governed by the apparent intention of Congress as
+
+shown by the general purpose of the bankruptcy law, or by the general principles of equity, the
+
+result would be the same. The bankrupts should pay their debts in full, principal and interest to
+
+the time of payment, whenever the assets of the estate are sufficient.” Id. at 466.
+
+          Multiple circuit courts followed Norris’ lead. E.g., Littleton v. Kincaid, 179 F.2d 848,
+
+852 (4th Cir. 1950) (“Ordinarily interest on claims against a bankrupt estate runs to the filing of
+
+the petition in bankruptcy . . . [pursuant to] Section 63 . . . . [But] when [solvency] . . . occurs
+
+interest is payable out of this surplus to the date of payment.” (citations omitted)); Brown v. Leo,
+
+
+
+
+30 / 43
+      Case 16-32202 Document 1874 Filed in TXSB on 10/27/20 Page 31 of 43
+
+
+
+
+34 F.2d 127, 127 (2d Cir. 1929) (“[T]he time when interest stops . . . has already been fixed as a
+
+matter of law as the date of the filing of the petition . . . . But this estate will be solvent, and
+
+neither the rule nor the reason for stopping interest at the date of the filing of the petition applies
+
+to an estate which turns out to be solvent.” (citations omitted)). Some courts went further and
+
+held that there is an obligation to enforce the solvent-debtor exception in cases where a claim
+
+included a contractual right to post-petition interest. See Ruskins v. Griffiths, 269 F.2d 827, 832
+
+(2d Cir. 1959) (“[W]here there is no showing that the creditor entitled to the increased interest
+
+caused any unjust delay in the proceedings, it seems to us the opposite of equity to allow the
+
+debtor to escape the expressly-bargained-for” contractual interest provision); In re Int’l Hydro-
+
+Elec. Sys., 101 F. Supp. 222, 225 (D. Mass. 1951) (“Fairness requires that the debenture holders
+
+who were compelled to wait for their interest payments should receive the compensation which
+
+the indenture provided they should be paid in such an eventuality.”).
+
+          2. Adoption of the Bankruptcy Code did not Abrogate the Solvent-Debtor Exception
+
+          There is no doubt that courts recognized a solvent-debtor exception to § 63 of the
+
+Bankruptcy Act. When Congress enacted the Bankruptcy Code, Congress confirmed that section
+
+502(b)(2) incorporated the principle that “interest stops accruing at the date of the filing of the
+
+petition.” S. Rep. No. 95-989, at 63 (1978), reprinted in 1978 U.S.C.C.A.N. 5963, at 6309. In
+
+fact, § 502(b)(2) is “closely analogous” to § 63 of the Bankruptcy Act. In re Dow Corning
+
+Corp., 244 B.R. 678, 684 (Bankr. E.D. Mich. 1999). The primary change from pre-Code
+
+practice was the adoption of § 506(b), which allows over-secured creditors to recover post-
+
+petition interest up to the value of the collateral in all cases. Rake v. Wade, 508 U.S. 464, 471
+
+(1993). Absent clear Congressional intent, provisions of the Bankruptcy Code did not abrogate
+
+universally recognized legal principles under the Bankruptcy Act.           E.g., Gladstone v. U.S.
+
+
+
+
+31 / 43
+      Case 16-32202 Document 1874 Filed in TXSB on 10/27/20 Page 32 of 43
+
+
+
+
+Bancorp, 811 F.3d 1133, 1139-40 (9th Cir. 2016). Nothing in the legislative history of the
+
+Bankruptcy Code or § 502(b)(2) suggests that Congress intended to defang the solvent-debtor
+
+exception.
+
+          Parsing legislative history is always a murky business. However, if Congress intended to
+
+abandon the universal principle that a capable individual must fully repay his debts,
+
+Congressional silence on the issue would be curious. The Supreme Court has made clear that it
+
+“will not read the Bankruptcy Code to erode past bankruptcy practice absent a clear indication
+
+that Congress intended such a departure.” Cohen v. de la Cruz, 523 U.S. 213, 221 (1998); see
+
+also Midatlantic Nat’l Bank v. N.J. Dep’t of Envtl. Prot., 474 U.S. 494, 501 (1986) (“The normal
+
+rule of statutory construction is that if Congress intends for legislation to change the
+
+interpretation of a judicially created concept, it makes that intent specific.”). Congress gave no
+
+indication that it intended to erode the solvent debtor exception.
+
+          Equitable considerations support the solvent-debtor exception. Limiting claims to pre-
+
+petition interest is of overwhelming consequence when creditors must share a limited pool of
+
+assets, but that limitation is without cause when the debtor can afford to pay all of its debts. UPS
+
+Cap. Bus. Credit v. Gencarelli (In re Gencarelli), 501 F.3d 1, 7 (1st Cir. 2007); In re Chemtura
+
+Corp., 439 B.R. 561, 605 (Bankr. S.D.N.Y. 2010) (“With a solvent debtor, issues as to fairness
+
+amongst creditors, in sharing a limited pie, no longer apply.”). Instead, when the debtor is
+
+solvent, the equitable tug exists between unsecured creditors and the debtor’s equity holders.
+
+The solvent-debtor exception ensures that the debtor does not receive a windfall at the expense
+
+of its creditors. See In re Carter, 220 B.R. 411, 416-17 (Bankr. D.N.M. 1998) (“[I]f the Court
+
+were to modify the originally contracted for [default] interest rate . . . , it would result in a
+
+windfall to the Debtor . . . at the [creditors’] expense.”).
+
+
+
+
+32 / 43
+      Case 16-32202 Document 1874 Filed in TXSB on 10/27/20 Page 33 of 43
+
+
+
+
+          Norris recognized that rationale over one hundred years ago, and it remains persuasive to
+
+this day. Nothing in the legislative history surrounding the adoption of the Bankruptcy Code
+
+suggests that Congress intended to eliminate the solvent-debtor exception.             This may be
+
+unsurprising given the Norris court’s recognition that bankruptcy law “was not intended to be
+
+applied to a solvent estate. It was not in the contemplation of Congress that a solvent estate
+
+would be settled in the bankruptcy courts.”        190 F. at 462.     That observation applies as
+
+persuasively to Congresses’ deliberation of the Bankruptcy Code as it did to deliberations of the
+
+Bankruptcy Act.       There is no reason why Congress would allow solvent debtors to wield
+
+bankruptcy as a sword to slash valid debts. The solvent-debtor exception was “sufficiently
+
+widespread and well recognized” under the Bankruptcy Act to survive adoption of the
+
+Bankruptcy Code, absent a clear legislative intent to the contrary. See Hartford Underwriters
+
+Ins. Co. v. Union Planters Bank, N.A., 530 U.S. 1, 10 (2000). No such intent was present when
+
+Congress passed the Bankruptcy Code. Elimination of the solvent-debtor exception would allow
+
+solvent debtors to realize windfalls by virtue of bankruptcy, while reneging on valid contractual
+
+debt. Id. Neither legal, equitable, or contractual principles favor such an outcome.
+
+          Numerous courts recognize that the solvent-debtor exception survived enactment of the
+
+Bankruptcy Code. See, e.g., In re Gencarelli, 501 F.3d at 7 (“[T]he equities strongly favor
+
+holding the [solvent] debtor to his contractual obligations as long as those obligations are legally
+
+enforceable under applicable nonbankruptcy law.”); In re Dow Corning Corp., 456 F.3d 668,
+
+679 (6th Cir. 2006) (holding solvent debtor must pay post-petition interest and remanding to
+
+determine whether contractual default rate or contractual non-default rate applied); In re
+
+Schoeneberg, 156 B.R. 963, 972 (Bankr. W.D. Tex. 1993) (in a solvent debtor case the “weight
+
+of prior case law . . . convinces this Court that, when there was a prepetition contract between the
+
+
+
+
+33 / 43
+      Case 16-32202 Document 1874 Filed in TXSB on 10/27/20 Page 34 of 43
+
+
+
+
+parties that provided for interest, it is that contract rate which should be applied”); In re Beck,
+
+128 B.R. 571, 573 (Bankr. E.D. Okla. 1991) (“The scale balancing the equities . . . is
+
+overwhelmingly tilted toward restoring the creditor to as near a position as the creditor would
+
+have occupied absent bankruptcy before benefitting the Debtors with surplus funds.”).
+
+          Legislative history after the adoption of the Bankruptcy Code also shows that the solvent-
+
+debtor exception enjoys continued vitality. The history of § 1124 of the Bankruptcy Code
+
+indicates that Congress intended that a solvent debtor’s creditors should receive post-petition
+
+interest. Section 1124 sets out the conditions that must be satisfied for a class of claims to be
+
+unimpaired in a chapter 11 plan. Before 1994, § 1124(3) stated that a claim was unimpaired
+
+where “the holder of such claim . . . receive[d] . . . cash equal to . . . the allowed amount of such
+
+claim.” 11 U.S.C. § 1124(3) (1988). Congress removed that provision in direct response to a
+
+bankruptcy court’s decision in In re New Valley Corp., 168 B.R. 73 (Bankr. D.N.J. 1994).
+
+          In New Valley, the court confirmed a solvent debtor’s chapter 11 plan. The plan left a
+
+class of unsecured creditors unimpaired, despite limiting the class’ claims to prepetition interest
+
+while providing a recovery to a junior class. The debtor’s argued that because § 1124(3) only
+
+required that unimpaired creditors receive the allowed amount of their claims, paying post-
+
+petition interest was not necessary. The bankruptcy court agreed and confirmed the plan.
+
+          Congress quickly rejected that result by removing § 1124(3) from the Bankruptcy Code.
+
+The House Reporter states that:
+
+          The principal change in this section . . . relates to the award of postpetition
+          interest. In a recent Bankruptcy Court decision in New Valley, unsecured
+          creditors were denied the right to receive postpetition interest on their allowed
+          claims even though the debtor was liquidation and reorganization solvent. The
+          New Valley decision applied section 1124(3) of the Bankruptcy Code literally by
+          asserting . . . that a class that is paid the allowed amount of its claims in cash on
+          the effective date of a plan is unimpaired under section 1124(3), therefore is not
+          entitled to vote, and is not entitled to receive postpetition interest . . . . In order to
+
+
+
+34 / 43
+      Case 16-32202 Document 1874 Filed in TXSB on 10/27/20 Page 35 of 43
+
+
+
+
+          preclude this unfair result in the future, the Committee finds it appropriate to
+          delete section 1124(3) from the Bankruptcy Code.
+
+H.R. Rep No. 103-835, at 47-48 (1994), reprinted in 1994 U.S.C.C.A.N. 3340. The repeal of §
+
+1124(3) illustrates that, by adopting the Bankruptcy Code, Congress did not intend to eliminate
+
+the solvent-debtor exception. The principle that unsecured creditors of a solvent debtor are
+
+entitled to post-petition interest continues to exist under the Bankruptcy Code.        Congress
+
+expressly recognized that the amendment after New Valley was meant to “preclude” the “unfair
+
+result” of depriving such creditors of post-petition interest “in the future.” Id.
+
+          The Class 4 Claimants here find themselves in an identical situation as the creditors in
+
+New Valley. Depriving the Class 4 Claimants of their bargained for interest would allow Ultra’s
+
+equity holders to realize an unjust windfall. Congress did not intend such a result. Moreover,
+
+depriving the Class 4 Claimants of post-petition interest would run counter to a “monolithic
+
+mountain of authority,” developed over nearly three hundred years in both English and American
+
+courts, holding that a solvent debtor must make its creditors whole. See Ultra, 943 F.3d at 760.
+
+Congresses’ amendment to the Bankruptcy Code after the New Valley decision supports the
+
+conclusion that the solvent-debtor exception remains.
+
+          3. The Solvent-Debtor Exception is not Rooted in § 105(a)
+
+          This review of competing statutes, legislative history, amendments to the Code, and case
+
+law may appear both sprawling and technical. These are the tools available to interpret the
+
+Bankruptcy Code. The task is delicate. The mechanics of the solvent-debtor exception and the
+
+precise manner of its incorporation into the Bankruptcy Code is similarly nuanced. However, it
+
+is crucial to remember that the exception’s reason for existence is plain: a “fortunate” debtor
+
+must repay its creditors.
+
+
+
+
+35 / 43
+      Case 16-32202 Document 1874 Filed in TXSB on 10/27/20 Page 36 of 43
+
+
+
+
+          While the solvent-debtor exception survives, it must be applied within the parameters of
+
+the Bankruptcy Code. See Gencarelli, 501 F.3d at 7. A bankruptcy court is undoubtedly
+
+forbidden from exercising equitable powers “in contravention of the Code.” Law v. Siegel, 571
+
+U.S. 415, 423 (2014); see 11 U.S.C. § 105(a). Any explanation of the exception as a gloss to §
+
+502(b)(2), allowing unmatured interest as part of a claim, is foreclosed by Law v. Siegel. Such
+
+an understanding plainly contravenes the Bankruptcy Code. Thus, the Court must look to other
+
+provisions of the Bankruptcy Code to understand the solvent-debtor exception’s operation.
+
+          This Court is mindful of the Supreme Court’s admonishment of bankruptcy courts using
+
+roving equity to disregard provisions of the Bankruptcy Code. Id. However, the Fifth Circuit
+
+has “caution[ed] against an overly literal interpretation of the Bankruptcy Code,” instead
+
+encouraging interpretations based on “careful review of the statutory language, legislative
+
+history, and public policy considerations . . . .” CompuAdd Corp. v. Tex. Instruments Inc. (In re
+
+CompuAdd Corp.), 137 F.3d 880, 882 (5th Cir. 1998). Law v. Siegel dealt with a bankruptcy
+
+court’s use of its equitable powers to rewrite the Code based on what that court thought was fair.
+
+517 U.S. at 423. The solvent-debtor exception, while equitable in nature, does not lend itself to
+
+whimsical application by courts. It is triggered when one concrete fact exists: the estate’s assets
+
+exceed its liabilities. Its application is similarly straightforward: creditors are paid the post-
+
+petition interest to which they are legally or contractually entitled.
+
+          4. The Best Interest of Creditors Test is not the Source of the Exception
+
+          Ultra suggests that Congress codified some aspects of the solvent-debtor exception in §
+
+1129(a)(7) of the Bankruptcy Code, but that suggestion lacks merit. Ultra’s vision of the
+
+solvent-debtor exception under the Bankruptcy Code is that unimpaired creditors are simply
+
+
+
+
+36 / 43
+      Case 16-32202 Document 1874 Filed in TXSB on 10/27/20 Page 37 of 43
+
+
+
+
+entitled to the same post-petition interest as impaired creditors. There is neither a textual nor
+
+historical basis for that assertion.
+
+          Section 1129(a)(7), commonly known as the best interest of creditors test, prohibits
+
+confirmation of a chapter 11 plan if a dissenting impaired class would receive less than it would
+
+in a chapter 7 liquidation. Because an unsecured creditor in chapter 7 is entitled to receive post-
+
+petition “interest at the legal rate” before funds may be distributed to the debtor, Ultra argues that
+
+Congress incorporated the solvent-debtor exception into the best interest of creditors test. See 11
+
+U.S.C. § 726(a)(5).
+
+          One problem with Ultra’s argument is that the best interest of creditors test already
+
+existed in the Bankruptcy Act. Section 366(2) of the Bankruptcy Act provided that “[t]he court
+
+shall confirm an arrangement if satisfied that . . . it is for the best interests of the creditors.”
+
+Bankruptcy Act of 1938, ch. 575, § 366, 52 Stat. 840, 911. Section 366(2) was “broadly
+
+interpreted to require a comparison between what creditors would receive under the composition
+
+offer and what they would receive in liquidation of the estate. Where the composition offer
+
+would pay creditors considerably less than they might reasonably expect to realize in liquidation,
+
+the composition . . . was not for the best interest of creditors.” In re Gilchrist Co., 410 F. Supp.
+
+1070, 1074 n.2 (E.D. Pa. 1976) (citation omitted).
+
+          Section 1129(a)(7) of the Bankruptcy Code restates the test found in § 366 of the
+
+Bankruptcy Act. See In re SM 104 Ltd., 160 B.R. 202, 219 (Bankr. S.D. Fla. 1993) (“Section
+
+1129(a)(7) sets out the financial minimum that assenting creditors in an assenting class can
+
+impose on dissenting creditors within that class. This minimum was drawn from the best
+
+interests test that came to the Bankruptcy Code from the old [Bankruptcy Act].”).
+
+
+
+
+37 / 43
+      Case 16-32202 Document 1874 Filed in TXSB on 10/27/20 Page 38 of 43
+
+
+
+
+          Again, the solvent-debtor exception was widely recognized under the Bankruptcy Act.
+
+The best interest of creditors test also existed under the Bankruptcy Act. Section 502(b)(2) and §
+
+1129(a)(7) of the Bankruptcy Code closely mirror their predecessor provisions in the Bankruptcy
+
+Act. Nothing in the legislative history suggests Congress intended to eliminate the solvent-
+
+debtor exception or that Congress incorporated it into § 1129(a)(7) of the Bankruptcy Code. See
+
+In re Dow Corning, 244 B.R. at 684 (citing H.R. Rep. No. 95-595, at 353 (1977)).
+
+          A second problem with Ultra’s argument is based upon the plain text of the Bankruptcy
+
+Code. Section 1129(a)(7) expressly applies only to impaired creditors in a cramdown scenario.
+
+Nothing in the text of the Bankruptcy Code applies § 1129(a)(7) to unimpaired creditors. Nor
+
+does any provision of the Bankruptcy Code give unimpaired creditors a right to interest at the
+
+legal rate under § 726(a)(5). Instead, the Bankruptcy Code is silent regarding an unimpaired
+
+creditor’s right to post-petition interest.
+
+          5. The Fair and Equitable Test is not the Source of the Exception
+
+          The Class 4 Claimants’ argument that the solvent-debtor exception is rooted in the fair
+
+and equitable test under § 1129(b)(1) faces a similar issue as Ultra’s argument regarding the best
+
+interest of creditors test. Section 1129(b)(1) requires a plan to be “fair and equitable” before a
+
+court may allow confirmation. 11 U.S.C. § 1129(b)(1). “‘Fair and equitable’ (a redundant term)
+
+should be pictured vertically, as it ‘regulates priority among classes of creditors having higher
+
+and lower priorities.’” In re Tribune Co., 972 F.3d 228, 232 (3d Cir. 2020) (quoting Markell, A
+
+New Perspective on Unfair Discrimination in Chapter 11, 72 Am. Bankr. L.J. 227, 228 (1998)).
+
+Thus, a plan must be fair and equitable as between interest holders of higher and lower priorities.
+
+Id.
+
+
+
+
+38 / 43
+      Case 16-32202 Document 1874 Filed in TXSB on 10/27/20 Page 39 of 43
+
+
+
+
+          As with the best interest of creditors test, the fair and equitable test only applies “with
+
+respect to each class of claims or interests that is impaired under, and has not accepted, the plan.”
+
+11 U.S.C. § 1129(b)(1). Nothing in the Bankruptcy Code applies the fair and equitable test to
+
+unimpaired classes of creditors. For that reason, a bankruptcy court cannot apply the test to
+
+determine whether a plan that limits or denies post-petition interest to unimpaired creditors, but
+
+awards a recovery to equity holders, is fair and equitable.
+
+          6. The Solvent-Debtor Exception Entitles the Class 4 Claimants to Post-Petition Interest
+
+          No single provision of the Bankruptcy Code explains the solvent-debtor exception on its
+
+own. However, piecing these Bankruptcy Code provisions together, the solvent-debtor exception
+
+works as follows. Section 1124 sets out what the Class 4 Claimants are entitled to receive under
+
+Ultra’s plan. Section 1124 requires that the plan leaves the Claimants’ “legal, equitable, and
+
+contractual rights” unaltered. 11 U.S.C. § 1124(1). This encompasses a panoply of rights,
+
+derived from a number of different sources. The starting points are the MNPA and RCF, without
+
+which the Class 4 Claimants would have no contractual rights, and thus, no legal or equitable
+
+rights in this bankruptcy case. The MNPA gives the Note Claimants a contractual right to the
+
+Make-Whole Amount and interest at the default rate. The RCF gives the RCF Claimants a right
+
+to interest at the default rate. New York law provides the Class 4 Claimants with a legal right to
+
+those contractual rights. The full amount of the Make-Whole Amount and interest at the default
+
+rates represent the Class 4 Claimants maximum limit that the plan would distribute.
+
+          Of course, § 502(b)(2) supersedes New York law and the parties’ contract by restricting
+
+the legal right to receive unmatured interest in bankruptcy. The Fifth Circuit made clear that any
+
+limitation on the Class 4 Claimants’ claims imposed by the Bankruptcy Code does not result in
+
+impairment. Ultra, 943 F.3d at 762. In other words, § 502(b)(2) subtracts unmatured interest
+
+
+
+
+39 / 43
+      Case 16-32202 Document 1874 Filed in TXSB on 10/27/20 Page 40 of 43
+
+
+
+
+from the ceiling of recovery provided by New York law, the MNPA, and the RCF. At the very
+
+least, the Class 4 Creditors must receive their full allowed claims in order to be unimpaired.
+
+          However, the Class 4 Creditors possess two important equitable rights as well. First, they
+
+have an equitable right, based within the Bankruptcy Code, to be treated better than similarly
+
+situated impaired creditors. See In re Energy Future Holdings, 540 B.R. at 119 (quoting In re
+
+PPI Enters. (U.S.), Inc., 324 F.3d 197, 202-203 (3d Cir. 2003)). Impaired creditors in a solvent
+
+chapter 11 must receive at least their full allowed claim plus interest at the legal rate. See id.
+
+The Bankruptcy Code is silent as to whether unimpaired creditors have a right to post-petition
+
+interest. This creates ambiguity because equity dictates that unimpaired creditors be treated no
+
+less favorably than impaired creditors.
+
+          Second, the Class 4 Claimants have an equitable right to be paid the full amount they are
+
+validly owed before Ultra’s equity holders receive any recovery. See Norris, 190 F. at 466. This
+
+equitable right is the root of the solvent-debtor exception. In a typical case, the right vanishes
+
+because other creditors must share a limited pot of assets. That is not so when the debtor is
+
+solvent. Id. at 462. When the struggle is between creditors and equity holders, as opposed to
+
+creditors and creditors, the equitable right is critical.
+
+          The Bankruptcy Code’s ambiguity leaves an unimpaired unsecured creditor’s right to
+
+post-petition interest uncertain. Because an unimpaired creditor has equitable rights to be treated
+
+no less favorably than an impaired creditor and to be paid in full before the debtor realizes a
+
+recovery, a plan denying post-petition interest in a solvent debtor case alters the equitable rights
+
+of an unimpaired creditor under § 1124(1).
+
+          Viewed in this light, the solvent-debtor exception is not simply a judicial gloss allowing
+
+courts to bypass § 502(b)(2). Instead, the exception recognizes that the equitable prong of §
+
+
+
+
+40 / 43
+      Case 16-32202 Document 1874 Filed in TXSB on 10/27/20 Page 41 of 43
+
+
+
+
+1124 applies differently when the debtor is solvent. In re Energy Future Holdings, 540 B.R. at
+
+111 (“The receipt of post-petition interest, thus, does not arise as part of the allowed amount of
+
+the claim but, rather, as a requirement to confirmation.”). The solvent-debtor exception has
+
+existed throughout the history of bankruptcy law and § 1124 provides a means to implement the
+
+exception within the plan confirmation framework of the Bankruptcy Code. Because impaired
+
+creditors are expressly entitled to post-petition interest, unimpaired creditors of a solvent chapter
+
+11 debtor, who must be no worse off than impaired creditors, should also receive post-petition
+
+interest. Further, because creditors in a solvent case need not share limited assets, there is no
+
+equitable reason to deny unimpaired creditors post-petition interest.
+
+          7. The Class 4 Claimants Must Receive Interest at the Default Rates
+
+          The final question is what post-petition interest rate the Class 4 Claimants are entitled to
+
+receive. The Claimants argue that they must be paid interest at the MNPA and RCF default
+
+rates. On the other hand, Ultra believes the Claimants must be limited to interest at the federal
+
+judgment rate. Courts are split as to whether the reference to interest “at the legal rate” under §
+
+726(a)(7) means the federal judgment rate or a contractual rate. Compare In re Cardelucci, 285
+
+F.3d 1231 (9th Cir. 2002), with In re Carter, 220 B.R. 411 (Bankr. D.N.M. 1998).
+
+          The Court need not pin down the meaning of the “legal rate” at this time because the
+
+Class 4 Claimants have a right to receive interest at the contractual default rates even if interest
+
+“at the legal” rate means the federal judgment rate. As discussed, the Class 4 Claimants’ right to
+
+post-petition interest is based on two key equitable rights. First, the right to receive no less
+
+favorable treatment than impaired creditors. And second, the right to have their contractual
+
+rights fully enforced. See In re Dow Corning, 456 F.3d at 679 (“When a debtor is solvent, the
+
+presumption is that a bankruptcy court’s role is merely to enforce the contractual rights of the
+
+
+
+
+41 / 43
+       Case 16-32202 Document 1874 Filed in TXSB on 10/27/20 Page 42 of 43
+
+
+
+
+parties, and the role that equitable principles play in the allocation of competing interest is
+
+significantly reduced.”).
+
+          Assuming that the legal rate under § 726(a)(7) is the federal judgment rate, the Class 4
+
+Claimants may nevertheless recover interest at the contractual default rates. If the legal rate is
+
+the federal judgment rate, then impaired creditors of a solvent chapter 11 debtor must receive
+
+interest at least at the federal judgment rate. The Court cannot adopt a reading of the Bankruptcy
+
+Code which places impaired creditors in a more advantageous position than unimpaired
+
+creditors. If the Class 4 Creditors are limited to the federal judgment rate, they are worse off
+
+than if they were impaired under Ultra’s plan. This is because even though the Class 4 Creditors
+
+would receive identical interest as a hypothetical impaired class, as an unimpaired class the
+
+Claimants were deprived of the right to vote for or against the plan.
+
+          Additionally, limiting the Class 4 Claimants to interest at the federal judgment rate
+
+contravenes the purpose of the solvent-debtor exception.         The underlying purpose of the
+
+exception, recognized for nearly three hundred years, is that a debtor must repay its debts in full
+
+when it has the means to do so. This means that when a debtor is solvent, “a bankruptcy court’s
+
+role is merely to enforce the contractual rights of the parties.” In re Dow Corning, 456 F.3d at
+
+679.      Limiting post-petition interest to the federal judgment rate would not enforce the
+
+contractual rights of the parties in this case. Instead, it would curtail the Class 4 Claimants’
+
+recovery, while allowing Ultra and its equity holders to escape bankruptcy with a windfall.
+
+          The solvent-debtor exception is based on the critical public policy consideration that a
+
+debtor cannot walk away from bankruptcy with a windfall while creditors walk away with
+
+depleted pockets. This Court will not upset three hundred years of established law. The Class 4
+
+Claimants are entitled to post-petition interest at the MNPA and RCF default rates.
+
+
+
+
+42 / 43
+     Case 16-32202 Document 1874 Filed in TXSB on 10/27/20 Page 43 of 43
+
+
+
+
+                                         CONCLUSION
+
+          The Court will issue an order consistent with this Memorandum Opinion.
+
+          SIGNED October 27, 2020.
+
+
+                                                 ___________________________________
+                                                            Marvin Isgur
+                                                 UNITED STATES BANKRUPTCY JUDGE
+
+
+
+
+43 / 43
+
