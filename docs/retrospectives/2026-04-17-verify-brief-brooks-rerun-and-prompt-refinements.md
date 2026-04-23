@@ -206,3 +206,35 @@ Maxwell (`briefs/maxwell-v-michael/`):
    the automatic triage in Phase 2a.
 3. **Remove the `tests/ab_test_single.json` file** (untracked, looks
    stale — confirm with user before deleting).
+
+## Post-retrospective fix (commit 5bcd840)
+
+User caught a bug after this retrospective was written: the dashboard
+issue-list teaser was using `teaser.split(". ", 1)[0]` to grab the
+first sentence, which mangled findings whose lead included case names
+or reporter abbreviations. "Tompkins v. Cyr is a..." became just
+"Tompkins v." (split at `v. `); "The citation 371 F. Supp. 2d 765..."
+became "The citation 371 F." (split at `F. `). The bug had been latent
+since b85bc7c but only became visible once topic-mismatch findings
+started leading with case names.
+
+Fix: `(?<=[a-z]{2})\.\s+(?=[A-Z])` — require at least two lowercase
+letters before the period and an uppercase after the space. Excludes
+single-letter abbreviations (`v.`, `F.`, `U.`, `Pa.`, `Inc.`) while
+still matching real sentence endings.
+
+Lesson: the user's diagnostic instinct ("regex looking for a period
+and seeing it in case names") was exactly right. Worth flagging in
+this corpus that legal prose has a much higher density of
+period-bearing abbreviations than general English text, so any
+sentence-splitter heuristic needs to be tighter than the default
+`. ` split.
+
+## Final session state (4 commits ahead of session start)
+
+- `2dd2917` feat: agent-authored finding blocks + Brooks-style polish
+- `b85bc7c` docs: retrospective for agent-authored-blocks Maxwell rerun
+- `a189d81` feat: sharper wrong-case findings via empty opinion_block rule
+- `5bcd840` fix: dashboard teaser splits on real sentence ends
+
+All pushed to `origin/main`.
