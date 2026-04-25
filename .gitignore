@@ -16,6 +16,9 @@ tests/data/results/verification_*.json
 # Large PDFs — synced separately
 scratch/hallucination_opinions/
 
+# Private working notes (not for public repo)
+docs/mcp-feedback.md
+
 # Worktrees
 .worktrees/
 

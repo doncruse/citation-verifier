@@ -87,7 +87,7 @@
   }
   #deep-search-btn:hover:not(:disabled) { background: #cf6d17; }
   #deep-search-btn:disabled { opacity: 0.5; cursor: not-allowed; }
-  #download-btn, #download-text-btn, #download-html-btn {
+  #download-btn, #download-text-btn, #download-html-btn, #download-json-btn {
     background: #fff;
     color: #555;
     font-weight: 600;
@@ -95,12 +95,12 @@
     padding: 6px 14px;
     font-size: 0.82rem;
   }
-  #download-btn:hover:not(:disabled), #download-text-btn:hover:not(:disabled), #download-html-btn:hover:not(:disabled) {
+  #download-btn:hover:not(:disabled), #download-text-btn:hover:not(:disabled), #download-html-btn:hover:not(:disabled), #download-json-btn:hover:not(:disabled) {
     background: #f0f0f0;
     border-color: #999;
     color: #333;
   }
-  #download-btn:disabled, #download-text-btn:disabled, #download-html-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+  #download-btn:disabled, #download-text-btn:disabled, #download-html-btn:disabled, #download-json-btn:disabled { opacity: 0.4; cursor: not-allowed; }
   .download-status {
     font-size: 0.8rem;
     color: #666;
@@ -324,8 +324,8 @@ Terry v. Ohio, 392 U.S. 1 (1968)"></textarea>
     <span class="results-summary" id="results-summary"></span>
     <button id="deep-search-btn">Deep Search</button>
     <span style="display:inline-block;">
-      <span style="display:flex;align-items:center;gap:8px;"><button id="download-text-btn" disabled>Download Text</button><button id="download-html-btn" disabled>Download HTML</button><button id="download-btn" disabled>Download PDFs</button><span class="download-status" id="download-status"></span></span>
-      <div style="font-size:0.75rem;color:#999;margin-top:2px;">Text = best for LLMs &nbsp;|&nbsp; HTML = formatted with footnotes &nbsp;|&nbsp; PDF = best for reading and printing</div>
+      <span style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;"><button id="download-json-btn" disabled title="Download CourtListener pointers (cluster IDs, URLs, metadata) as JSON">Download JSON</button><button id="download-text-btn" disabled>Download Text</button><button id="download-html-btn" disabled>Download HTML</button><button id="download-btn" disabled>Download PDFs</button><span class="download-status" id="download-status"></span></span>
+      <div style="font-size:0.75rem;color:#999;margin-top:2px;">JSON = structured pointers (cluster IDs, URLs) &nbsp;|&nbsp; Text = best for LLMs &nbsp;|&nbsp; HTML = formatted with footnotes &nbsp;|&nbsp; PDF = best for reading and printing</div>
     </span>
   </div>
   <div class="table-wrap">
@@ -360,6 +360,7 @@ Terry v. Ohio, 392 U.S. 1 (1968)"></textarea>
   const downloadBtn = document.getElementById('download-btn');
   const downloadTextBtn = document.getElementById('download-text-btn');
   const downloadHtmlBtn = document.getElementById('download-html-btn');
+  const downloadJsonBtn = document.getElementById('download-json-btn');
   const downloadStatus = document.getElementById('download-status');
   const selectAll = document.getElementById('select-all');
   const citeCount = document.getElementById('cite-count');
@@ -826,6 +827,8 @@ Terry v. Ohio, 392 U.S. 1 (1968)"></textarea>
       downloadTextBtn.textContent = 'Download ' + count + ' Text';
       downloadHtmlBtn.disabled = false;
       downloadHtmlBtn.textContent = 'Download ' + count + ' HTML';
+      downloadJsonBtn.disabled = false;
+      downloadJsonBtn.textContent = 'Download JSON (' + count + ')';
     } else {
       downloadBtn.disabled = true;
       downloadBtn.textContent = 'Download PDFs';
@@ -833,6 +836,8 @@ Terry v. Ohio, 392 U.S. 1 (1968)"></textarea>
       downloadTextBtn.textContent = 'Download Text';
       downloadHtmlBtn.disabled = true;
       downloadHtmlBtn.textContent = 'Download HTML';
+      downloadJsonBtn.disabled = true;
+      downloadJsonBtn.textContent = 'Download JSON';
     }
     downloadStatus.textContent = '';
   }
@@ -926,6 +931,67 @@ Terry v. Ohio, 392 U.S. 1 (1968)"></textarea>
     } finally {
       updateDownloadBtn();
     }
+  });
+
+  // --- Download JSON (CourtListener MCP pointers) ---
+  function extractIds(url) {
+    if (!url) return { cluster_id: null, docket_id: null, docket_entry_number: null };
+    var m = url.match(/\/opinion\/(\d+)\//);
+    if (m) return { cluster_id: m[1], docket_id: null, docket_entry_number: null };
+    m = url.match(/\/docket\/(\d+)\/(\d+)\//);
+    if (m) return { cluster_id: null, docket_id: m[1], docket_entry_number: m[2] };
+    m = url.match(/\/docket\/(\d+)\//);
+    if (m) return { cluster_id: null, docket_id: m[1], docket_entry_number: null };
+    return { cluster_id: null, docket_id: null, docket_entry_number: null };
+  }
+
+  downloadJsonBtn.addEventListener('click', function() {
+    var selectedIndices = [];
+    document.querySelectorAll('.row-chk:checked').forEach(function(cb) {
+      selectedIndices.push(parseInt(cb.getAttribute('data-index'), 10));
+    });
+    if (!selectedIndices.length) return;
+
+    var entries = [];
+    selectedIndices.forEach(function(idx) {
+      var r = results[idx];
+      if (!r || !r.matched_url) return;
+      var ids = extractIds(r.matched_url);
+      entries.push({
+        citation: r.input_citation || '',
+        case_name: r.matched_case_name || null,
+        status: r.status || null,
+        confidence: (typeof r.confidence === 'number') ? r.confidence : null,
+        cluster_id: ids.cluster_id,
+        docket_id: ids.docket_id,
+        docket_entry_number: ids.docket_entry_number,
+        matched_url: r.matched_url,
+        court: r.matched_court || null,
+        date_filed: r.matched_date || null,
+        description: r.matched_description || null,
+      });
+    });
+
+    if (!entries.length) {
+      downloadStatus.textContent = 'No verified matches in selection.';
+      return;
+    }
+
+    var payload = {
+      source: 'citation-verifier',
+      generated_at: new Date().toISOString(),
+      count: entries.length,
+      results: entries,
+    };
+
+    var blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = 'citation_pointers.json';
+    a.click();
+    URL.revokeObjectURL(url);
+    downloadStatus.textContent = 'Downloaded ' + entries.length + ' pointer' + (entries.length !== 1 ? 's' : '') + '.';
   });
 
   // --- Download HTML ---
