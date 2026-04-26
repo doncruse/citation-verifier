@@ -16,6 +16,14 @@ tests/data/results/verification_*.json
 # Large PDFs — synced separately
 scratch/hallucination_opinions/
 
+# Pilot A opinion-text caches (regenerable, ~5-25 MB each)
+scratch/pilot_a/_dcd_opinion_cache/
+scratch/pilot_a/opinion_cache/
+
+# Pilot A run logs (chatty eyecite warnings, regenerable)
+scratch/pilot_a/_*.txt
+scratch/pilot_a/_smoke_*.csv
+
 # Private working notes (not for public repo)
 docs/mcp-feedback.md
 
