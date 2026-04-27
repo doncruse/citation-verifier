@@ -225,3 +225,7 @@ Fuzzy match confidence is a weighted score:
 | Citation | 5% | Reporter citation or WL number found in CourtListener record |
 
 RECAP docket-only matches (no specific document found) receive a 40% score discount.
+
+## License
+
+[MIT](LICENSE)
