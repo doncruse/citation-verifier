@@ -22,7 +22,9 @@ An **open evaluation instrument** — code, dataset, scoring methodology — tha
 
 ### Two design moves that distinguish this from prior work
 
-1. **Brief-derived gold, not expert-curated gold.** Mine `(proposition, cited case)` pairs from published federal opinions. The gold's authority is provenance — these citations passed through Article III judges and adversarial briefing — not someone's opinion about what the right citation is. This sidesteps the moving-standard problem.
+1. **Fresh-mined gold, not expert-curated gold.** Mine `(proposition, cited case)` pairs from published federal opinions filed **after model training cutoffs** (primary path). The gold's authority is provenance — these citations passed through Article III judges and adversarial briefing — not someone's opinion about what the right citation is. This sidesteps the moving-standard problem.
+
+   **Primary data source: fresh post-cutoff opinion mining.** Pilot A (2026-04-26) found that Sonnet 4.6 scored 48% Green on LePaRD-sampled propositions vs. 16% on fresh post-cutoff D.D.C. parentheticals — a 32 pp gap (95% CI [+14, +50]), exceeding the 15 pp contamination threshold in the pilot's decision rule. Prior-dataset sources such as LePaRD are too easy for current models and are viable only as supplementary or ablation data. See `scratch/pilot_a/summary.md`.
 
 2. **Federated structure.** A federal-layer benchmark maintained in this repo, plus a **forkable kit** — schema, mining playbook, scoring code — that any state, jurisdiction, or research group can use to build their own benchmark. State coverage scales without us building it.
 
@@ -142,6 +144,23 @@ The repo contains:
 
 A state fork is then: clone the kit, swap the corpus to (e.g.) California Supreme Court + California Court of Appeal opinions, run the mining playbook, ship the dataset. The federal layer is also our test case: if the kit isn't cleanly factored, we can't build the federal layer either.
 
+### Mining playbook: precedential-status filter (required for fresh district data)
+
+CourtListener's `/api/rest/v4/search/?type=o` endpoint defaults to `stat_Published=on` only. PACER-flagged district court opinions arrive on CL with `precedential_status=Unknown` and are **silently excluded** under the default filter.
+
+For fresh post-cutoff district-court mining, the query **must** include `stat_Published=on&stat_Unknown=on`. Without it, the playbook silently constrains forks to roughly one district's worth of fresh data — an apparent infrastructure failure that is actually a filter artifact.
+
+Verified 2026-04-26 (see `scratch/pilot_a/summary.md`):
+
+| District | Default count | With `stat_Unknown` lifted |
+|---|---:|---:|
+| C.D. Cal. | 0 | 185 |
+| S.D. Tex. | 0 | 357 |
+| N.D. Ill. | 0 | 327 |
+| D.D.C. | 598 | 598 (unchanged) |
+
+`MINING_PLAYBOOK.md` must document `stat_Published=on&stat_Unknown=on` (or the equivalent non-search-API parameter) as a required query parameter, not an optional tuning knob. Forks that omit it will silently produce unrepresentative coverage.
+
 ### Quality gates
 
 Every record must pass automated checks before inclusion:
@@ -179,6 +198,8 @@ These are deliberate open questions to resolve in implementation, not blockers t
 1. **Corpus age window** — How recent should citing opinions be? Recent enough that gold cases are still good law; old enough for citator data to settle. Likely a 2-4 year lookback window with explicit cutoff.
 2. **Court level distribution** — Should we sample equally across SCOTUS / circuit / district, or weight by the realistic distribution of legal-research targets? Probably stratified sampling with explicit slice metadata.
 3. **Proposition extraction** — Existing `/verify-brief` extracts propositions from briefs; same approach should work on opinions but needs validation. May produce noisier propositions than briefs because judicial writing is more elliptical.
+
+   **LePaRD `destination_context` quality caveat (from Pilot A):** LePaRD's preceding-paragraph text is noisier than expected as a proposition source. A non-trivial fraction of sampled propositions were paragraph fragments rather than coherent legal claims; a few caused Sonnet 4.6 to flag the prompt as a possible injection attempt. When using LePaRD as a supplementary data source, either: (a) extract a single trimmed sentence from `destination_context`, or (b) prefer parentheticals with holding/finding/concluding/noting verbs over preceding-context. Option (b) aligns with the fresh-mining approach already adopted as primary and sidesteps the fragment problem entirely. See `scratch/pilot_a/summary.md`.
 4. **Lexical-dissimilarity threshold** — Threshold value for the quality gate. Too high excludes valid examples; too low lets keyword-matching shortcut succeed. Calibrate on a held-out validation slice.
 5. **Headline summary score** — Whether to ship a weighted summary number alongside the breakdown. Tension between leaderboard sortability and not reproducing single-number-misleadingness.
 6. **State-fork audit signal** — Whether to add a "validated" badge for state forks that meet quality bars. Risks recentralizing the referee role; benefits reliability. Likely defer to whenever a second fork exists.
