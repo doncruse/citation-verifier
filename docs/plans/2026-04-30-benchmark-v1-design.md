@@ -7,7 +7,7 @@
 
 ## What v1 produces
 
-A 3-model leaderboard on 200 freshly-mined federal district-court parentheticals, scored on three axes by Opus 4.7. Single eval mode (closed-book, no tools). Total budget: ~$95 in API (cap at $150) + half a day of work.
+A 3-model leaderboard on 200 freshly-mined federal district-court parentheticals, scored on three axes by Opus 4.7. Single eval mode (closed-book, no tools). Out-of-pocket budget: **~$10–15 for GPT-5** (OpenAI direct API). Sonnet 4.6, Opus 4.7, and the Opus assessor run through `claude -p` against the Claude Code subscription quota — no separate billing — but consume ~700 Claude calls' worth of quota in a tight burst.
 
 The contribution is the **scorecard plus dataset**, not a forkable kit. The kit comes in v1.1 once we have a working reference implementation worth pointing forks at.
 
@@ -163,20 +163,33 @@ These were 6 open methodological questions in the parent spec; v1 takes a positi
 | NYSD still empty after `stat_Unknown` | Documented swap to MAD or PAED |
 | One district's verified pool < 80 | Documented graceful degrade; v1 dataset can be < 200 |
 | Opus assessor and Sonnet assessor disagree systematically | Out of scope for v1; calibration study is v1.2 |
-| GPT-5 API cost overrun | OpenAI pricing higher than Anthropic; budget cap at $100, abort if blown |
+| GPT-5 API cost overrun | Hard cap at $30 out-of-pocket; abort GPT-5 phase if blown |
+| Claude Code quota burn | Glance at quota usage before kicking off; pause-and-resume if depleted |
 | Mid-run interrupts | All scripts idempotent; outputs/{model}.csv written incrementally with flush |
 
 ## Cost estimate
 
+Two ledgers — Claude calls hit the Claude Code subscription quota; GPT-5 is the only true out-of-pocket cost.
+
+**Out-of-pocket (OpenAI direct API):**
+
 | Component | Calls | Cost/call | Subtotal |
+|---|---|---|---|
+| GPT-5 model calls | 200 | $0.05 (est) | $10 |
+| **Total out-of-pocket** | | | **~$10–15** |
+
+Hard cap: abort GPT-5 phase if running total exceeds $30.
+
+**Subscription quota (no separate billing, but counts against your usage):**
+
+| Component | Calls | Notional cost/call | Notional subtotal |
 |---|---|---|---|
 | Sonnet model calls | 200 | $0.05 | $10 |
 | Opus model calls | 200 | $0.15 | $30 |
-| GPT-5 model calls | 200 | $0.05 (est) | $10 |
 | Opus assessor (real cases only, ~50%) | 300 | $0.15 | $45 |
-| **Total** | | | **~$95** |
+| **Total quota usage** | **~700 calls** | | **~$85 notional** |
 
-Pilot A came in at $8.40 vs $5–15 estimate, so estimates here have ~2× error bars. Real cap: stop if total exceeds $150.
+Pilot A reported $8.40 notional for 100 model + ~30 assessor calls; v1 scales that ~7×. Glance at quota usage before kicking off so the burst doesn't surprise you.
 
 ## Success criteria
 
