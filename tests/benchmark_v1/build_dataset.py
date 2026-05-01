@@ -118,20 +118,29 @@ def fetch_opinion_text(client: CourtListenerClient, cluster_id: int) -> str:
     return text
 
 
+VERIFY_CHUNK = 100  # Pilot A learning: large verify_batch hangs; chunk it.
+
+
 async def verify_pool(pool: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """Verify pool in chunks of VERIFY_CHUNK to avoid CL batch-lookup hangs."""
     verifier = CitationVerifier()
-    parsed = [parsed_citation_from_eyecite(item["fcc"]) for item in pool]
-    citation_strs = [item["citation_text"] for item in pool]
-    results = await verifier.verify_batch(citation_strs, parsed_citations=parsed,
-                                          quick_only=True)
     keep: list[dict[str, Any]] = []
-    for item, res in zip(pool, results):
-        if res.status in (VerificationStatus.VERIFIED, VerificationStatus.LIKELY_REAL):
-            item = {k: v for k, v in item.items() if k != "fcc"}
-            item["v_status"] = res.status.value
-            item["v_url"] = res.matched_url or ""
-            item["v_matched_name"] = res.matched_case_name or ""
-            keep.append(item)
+    total_chunks = (len(pool) + VERIFY_CHUNK - 1) // VERIFY_CHUNK
+    for ci in range(total_chunks):
+        chunk = pool[ci * VERIFY_CHUNK : (ci + 1) * VERIFY_CHUNK]
+        parsed = [parsed_citation_from_eyecite(item["fcc"]) for item in chunk]
+        citation_strs = [item["citation_text"] for item in chunk]
+        print(f"    verify chunk {ci + 1}/{total_chunks} ({len(chunk)} cites)...",
+              flush=True)
+        results = await verifier.verify_batch(citation_strs, parsed_citations=parsed,
+                                              quick_only=True)
+        for item, res in zip(chunk, results):
+            if res.status in (VerificationStatus.VERIFIED, VerificationStatus.LIKELY_REAL):
+                item = {k: v for k, v in item.items() if k != "fcc"}
+                item["v_status"] = res.status.value
+                item["v_url"] = res.matched_url or ""
+                item["v_matched_name"] = res.matched_case_name or ""
+                keep.append(item)
     return keep
 
 
