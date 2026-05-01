@@ -34,3 +34,9 @@ docs/mcp-feedback.md
 .upm/
 .cache/
 .config/
+
+# Benchmark v1 — opinion-text caches (regenerable)
+benchmark_v1/_opinion_cache/
+
+# Benchmark v1 — chatty run logs (regenerable; keep CSVs and markdown)
+benchmark_v1/_*.txt
