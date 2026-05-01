@@ -458,18 +458,25 @@ def test_route_opus_uses_claude_cli_with_opus():
     assert "opus" in cmd
 
 
-def test_route_gpt5_uses_openai():
+def test_route_gpt5_uses_openai_without_temperature():
+    """GPT-5 rejects temperature=0; adapter must omit temperature."""
     fake_completion = MagicMock()
     fake_completion.choices = [MagicMock(message=MagicMock(content="Doe v. Roe, 2 F.2d 3 (1950)"))]
     fake_completion.usage = MagicMock(prompt_tokens=80, completion_tokens=15)
+    fake_completion.model = "gpt-5-2025-08-07"
     fake_client = MagicMock()
     fake_client.chat.completions.create.return_value = fake_completion
     with patch("tests.benchmark_v1.model_adapter._openai_client",
                return_value=fake_client):
         result = ma.call_model("p", "gpt-5")
+    # Verify the API call did NOT include temperature
+    create_kwargs = fake_client.chat.completions.create.call_args.kwargs
+    assert "temperature" not in create_kwargs, "GPT-5 must not be called with temperature"
+    assert create_kwargs.get("max_completion_tokens", 0) >= 2000, "GPT-5 needs >=2000 token budget"
     assert result["response"] == "Doe v. Roe, 2 F.2d 3 (1950)"
     assert result["input_tokens"] == 80
     assert result["output_tokens"] == 15
+    assert result["model_id"] == "gpt-5-2025-08-07"
 
 
 def test_unknown_model_raises():
@@ -550,7 +557,8 @@ def _call_claude(prompt: str, model: str, timeout_s: int) -> dict:
                               timeout=timeout_s, cwd=str(_HERMETIC_DIR))
     except subprocess.TimeoutExpired:
         return {"response": "", "elapsed_s": timeout_s, "cost_usd": 0,
-                "input_tokens": 0, "output_tokens": 0, "stderr": "TIMEOUT"}
+                "input_tokens": 0, "output_tokens": 0, "model_id": "",
+                "stderr": "TIMEOUT"}
     elapsed = time.time() - start
     try:
         payload = json.loads((proc.stdout or "").strip())
@@ -567,34 +575,42 @@ def _call_claude(prompt: str, model: str, timeout_s: int) -> dict:
         "cost_usd": cost,
         "input_tokens": usage.get("input_tokens", 0),
         "output_tokens": usage.get("output_tokens", 0),
+        "model_id": "",  # Claude CLI doesn't expose specific snapshot id
         "stderr": (proc.stderr or "")[:500] if proc.returncode != 0 else "",
     }
 
 
 def _call_gpt5(prompt: str, timeout_s: int) -> dict:
+    """Call GPT-5. Note: temperature is NOT set — GPT-5 rejects
+    temperature=0 (only default 1 is allowed). max_completion_tokens
+    must be high enough for reasoning tokens (verified 2026-04-30:
+    short responses can consume ~500 tokens before producing output).
+    """
     client = _openai_client()
     start = time.time()
     try:
         completion = client.chat.completions.create(
             model="gpt-5",
             messages=[{"role": "user", "content": prompt}],
-            temperature=0,
+            max_completion_tokens=2000,
             timeout=timeout_s,
         )
     except Exception as exc:
         return {"response": "", "elapsed_s": round(time.time() - start, 1),
                 "cost_usd": 0, "input_tokens": 0, "output_tokens": 0,
-                "stderr": f"OPENAI_ERROR: {exc}"[:500]}
+                "model_id": "", "stderr": f"OPENAI_ERROR: {exc}"[:500]}
     elapsed = time.time() - start
     response = (completion.choices[0].message.content or "").strip()
     usage = completion.usage
     return {
         "response": response,
         "elapsed_s": round(elapsed, 1),
-        # OpenAI SDK doesn't return cost; computed by caller if needed.
+        # OpenAI SDK doesn't return cost in the response; we compute
+        # notional cost downstream if needed.
         "cost_usd": 0,
         "input_tokens": getattr(usage, "prompt_tokens", 0) if usage else 0,
         "output_tokens": getattr(usage, "completion_tokens", 0) if usage else 0,
+        "model_id": completion.model or "",  # e.g. "gpt-5-2025-08-07"
         "stderr": "",
     }
 
@@ -694,7 +710,7 @@ def main() -> None:
 
     fieldnames = [
         "id", "court", "proposition", "gold_name", "gold_cite",
-        "model", "model_response", "elapsed_s", "cost_usd",
+        "model", "model_id", "model_response", "elapsed_s", "cost_usd",
         "input_tokens", "output_tokens", "stderr",
     ]
     write_header = not out.exists()

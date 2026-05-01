@@ -63,7 +63,16 @@ If NYSD is empty after the precedential-status fix (Pilot A's probe found 0 with
 | Claude Opus 4.7 | `claude -p --model opus` |
 | GPT-5 | OpenAI Python SDK (`pip install openai`), uses `OPENAI_API_KEY` from `.env` |
 
-All three call paths share one Python interface in `model_adapter.py` so `run_model.py --model {name}` is symmetric. Closed-book, temperature 0, same prompt template as Pilot A:
+All three call paths share one Python interface in `model_adapter.py` so `run_model.py --model {name}` is symmetric. Closed-book, same prompt template as Pilot A.
+
+**Per-provider quirks** (verified 2026-04-30):
+
+- **Sonnet/Opus** (via `claude -p`): temperature defaults to model default; we do not set explicitly. (Claude CLI doesn't expose temperature; matches Pilot A.)
+- **GPT-5** (via OpenAI SDK): temperature **must be omitted** — GPT-5 only accepts the default (1) and rejects `temperature=0` with a 400. `max_completion_tokens` must be ≥ 2000 because GPT-5 consumes reasoning tokens out of the same budget; with the default budget responses are silently empty. The actual model id resolved at call time is recorded per-row in `outputs_gpt5.csv` for reproducibility (e.g. `gpt-5-2025-08-07`).
+
+The benchmark accepts that GPT-5 runs at temperature 1 while Claude runs at provider default — this is a methodology footnote in the scorecard, not a comparability gate.
+
+Prompt template (same as Pilot A):
 
 ```
 You are a legal research assistant. I will give you a legal proposition.
@@ -159,7 +168,8 @@ These were 6 open methodological questions in the parent spec; v1 takes a positi
 
 | Risk | Mitigation |
 |---|---|
-| GPT-5 cutoff is later than 2025-12-31 | Build step verifies cutoffs; pushes start date if needed |
+| GPT-5 cutoff is later than 2025-12-31 | Verified 2026-04-30: gpt-5-2025-08-07 has Aug 2025 cutoff; safe |
+| GPT-5 quirks (temperature, token budget) | Documented above; model_adapter handles per-provider |
 | NYSD still empty after `stat_Unknown` | Documented swap to MAD or PAED |
 | One district's verified pool < 80 | Documented graceful degrade; v1 dataset can be < 200 |
 | Opus assessor and Sonnet assessor disagree systematically | Out of scope for v1; calibration study is v1.2 |

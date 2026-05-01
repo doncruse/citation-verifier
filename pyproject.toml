@@ -17,6 +17,7 @@ dependencies = [
     "uvicorn[standard]>=0.27",
     "sse-starlette>=2.0",
     "certifi",
+    "openai>=1.40",
 ]
 
 [project.optional-dependencies]
