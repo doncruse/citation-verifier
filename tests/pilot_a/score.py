@@ -190,7 +190,8 @@ def fetch_opinion_text(client: CourtListenerClient, cluster_id: int | None) -> s
     return text[:MAX_OPINION_CHARS]
 
 
-def call_assessor(proposition: str, case_name_citation: str, opinion_text: str) -> dict:
+def call_assessor(proposition: str, case_name_citation: str, opinion_text: str,
+                  model: str = ASSESSOR_MODEL) -> dict:
     prompt = ASSESSMENT_PROMPT.format(
         proposition=proposition,
         case_name_citation=case_name_citation,
@@ -199,7 +200,7 @@ def call_assessor(proposition: str, case_name_citation: str, opinion_text: str) 
     cmd = [
         "claude", "-p", prompt,
         "--output-format", "json",
-        "--model", ASSESSOR_MODEL,
+        "--model", model,
     ]
     start = time.time()
     try:
