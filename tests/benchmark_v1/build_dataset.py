@@ -122,9 +122,15 @@ VERIFY_CHUNK = 100  # Pilot A learning: large verify_batch hangs; chunk it.
 
 
 async def verify_pool(pool: list[dict[str, Any]]) -> list[dict[str, Any]]:
-    """Verify pool in chunks of VERIFY_CHUNK to avoid CL batch-lookup hangs."""
+    """Verify pool in chunks. Returns ALL items annotated with v_status.
+
+    Both resolved (VERIFIED / LIKELY_REAL) and unresolved (NOT_FOUND etc.)
+    are kept and annotated; the caller filters for sampling. Saving the
+    full annotated pool lets us audit CL-coverage bias later (e.g. spot-
+    check unresolved items to estimate the "real but missed" rate).
+    """
     verifier = CitationVerifier()
-    keep: list[dict[str, Any]] = []
+    annotated: list[dict[str, Any]] = []
     total_chunks = (len(pool) + VERIFY_CHUNK - 1) // VERIFY_CHUNK
     for ci in range(total_chunks):
         chunk = pool[ci * VERIFY_CHUNK : (ci + 1) * VERIFY_CHUNK]
@@ -135,13 +141,19 @@ async def verify_pool(pool: list[dict[str, Any]]) -> list[dict[str, Any]]:
         results = await verifier.verify_batch(citation_strs, parsed_citations=parsed,
                                               quick_only=True)
         for item, res in zip(chunk, results):
-            if res.status in (VerificationStatus.VERIFIED, VerificationStatus.LIKELY_REAL):
-                item = {k: v for k, v in item.items() if k != "fcc"}
-                item["v_status"] = res.status.value
-                item["v_url"] = res.matched_url or ""
-                item["v_matched_name"] = res.matched_case_name or ""
-                keep.append(item)
-    return keep
+            item = {k: v for k, v in item.items() if k != "fcc"}
+            item["v_status"] = res.status.value if res.status else ""
+            item["v_url"] = res.matched_url or ""
+            item["v_matched_name"] = res.matched_case_name or ""
+            annotated.append(item)
+    return annotated
+
+
+def _is_resolved(item: dict[str, Any]) -> bool:
+    return item.get("v_status") in (
+        VerificationStatus.VERIFIED.value,
+        VerificationStatus.LIKELY_REAL.value,
+    )
 
 
 def mine_court(client: CourtListenerClient, court_id: str,
@@ -170,9 +182,11 @@ def mine_court(client: CourtListenerClient, court_id: str,
             print(f"  {court_id}: scanned {i}/{len(opinions)}, pool {len(pool)}",
                   flush=True)
     print(f"  {court_id}: raw pool {len(pool)}")
-    verified = asyncio.run(verify_pool(pool))
-    print(f"  {court_id}: verified {len(verified)}")
-    return verified
+    annotated = asyncio.run(verify_pool(pool))
+    n_resolved = sum(1 for it in annotated if _is_resolved(it))
+    print(f"  {court_id}: annotated {len(annotated)} | resolved {n_resolved} "
+          f"| unresolved {len(annotated) - n_resolved}")
+    return annotated
 
 
 def main() -> None:
@@ -185,11 +199,15 @@ def main() -> None:
 
     courts_to_use = list(COURTS)
     all_rows: list[dict[str, Any]] = []
+    # raw_dump now holds the FULL annotated pool per court (resolved + unresolved).
+    # Sampling pulls only resolved items, but unresolved are persisted to
+    # _raw_pool.json so we can audit CL-coverage bias later.
     raw_dump: dict[str, list[dict[str, Any]]] = {}
 
     for court_id in list(courts_to_use):
-        verified = mine_court(client, court_id, tokenizer)
-        raw_dump[court_id] = verified
+        annotated = mine_court(client, court_id, tokenizer)
+        raw_dump[court_id] = annotated
+        verified = [it for it in annotated if _is_resolved(it)]
         if len(verified) < 80:
             print(f"  WARN: {court_id} has only {len(verified)} verified rows; "
                   f"trying fallback", file=sys.stderr)
@@ -197,8 +215,9 @@ def main() -> None:
             for fb in COURTS_FALLBACK:
                 if fb in courts_to_use:
                     continue
-                fb_verified = mine_court(client, fb, tokenizer)
-                raw_dump[fb] = fb_verified
+                fb_annotated = mine_court(client, fb, tokenizer)
+                raw_dump[fb] = fb_annotated
+                fb_verified = [it for it in fb_annotated if _is_resolved(it)]
                 if len(fb_verified) >= 80:
                     courts_to_use.append(fb)
                     courts_to_use.remove(court_id)
