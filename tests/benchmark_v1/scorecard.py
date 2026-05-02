@@ -115,6 +115,13 @@ def main() -> None:
         lines.append(f"| {m} | " + " | ".join(cells) + " |")
 
     OUT.write_text("\n".join(lines), encoding="utf-8")
+    # Force utf-8 stdout so Unicode minus (en-dash, Greek letters) prints
+    # on Windows (default cp1252 chokes on −).
+    import sys
+    try:
+        sys.stdout.reconfigure(encoding="utf-8")
+    except AttributeError:
+        pass  # older Python; preview will skip non-ascii
     print(OUT.read_text(encoding="utf-8"))
 
 
