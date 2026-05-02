@@ -10,9 +10,10 @@ docs/plans/2026-04-30-benchmark-v1-design.md:
   expose it). Run from a hermetic temp dir to avoid the repo's
   CLAUDE.md leaking project context (Pilot A finding).
 - GPT-5: must omit `temperature` (only default 1 is allowed; setting
-  0 returns 400 Bad Request). `max_completion_tokens` must be >=2000
-  because reasoning tokens count against the same budget; smaller
-  values produce silently empty responses.
+  0 returns 400 Bad Request). `max_completion_tokens` is set to 8000
+  because reasoning tokens count against the same budget; the
+  spec-suggested 2000 produced empty responses on ~67% of v1 prompts
+  (every empty hit the 2000 budget exactly on reasoning).
 """
 from __future__ import annotations
 
@@ -89,15 +90,15 @@ def _call_claude(prompt: str, model: str, timeout_s: int) -> dict:
 def _call_gpt5(prompt: str, timeout_s: int) -> dict:
     """Call GPT-5. NOTE: temperature is intentionally omitted — GPT-5
     rejects temperature=0 (only default 1 is allowed). max_completion_tokens
-    must be high enough for reasoning tokens (verified 2026-04-30: short
-    responses can consume ~500 tokens before producing output)."""
+    is 8000 because reasoning tokens count against the same budget; the
+    spec-suggested 2000 produced empty responses on ~67% of v1 prompts."""
     client = _openai_client()
     start = time.time()
     try:
         completion = client.chat.completions.create(
             model="gpt-5",
             messages=[{"role": "user", "content": prompt}],
-            max_completion_tokens=2000,
+            max_completion_tokens=8000,
             timeout=timeout_s,
         )
     except Exception as exc:

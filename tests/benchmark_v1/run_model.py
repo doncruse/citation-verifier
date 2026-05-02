@@ -17,7 +17,9 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from model_adapter import call_model, PROMPT_TEMPLATE  # noqa: E402
 
 DATASET = PROJECT_ROOT / "benchmark_v1" / "dataset.csv"
-TIMEOUT_S = 60
+# 60s timed out 8/29 Sonnet calls in initial v1 run (max OK call was 59.5s).
+# 120s gives Sonnet headroom while still bounding stuck subprocesses.
+TIMEOUT_S = 120
 
 
 def main() -> None:
@@ -68,7 +70,13 @@ def main() -> None:
                 "proposition": row["proposition"],
                 "gold_name": row["gold_name"], "gold_cite": row["gold_cite"],
                 "model": args.model,
-                **r,
+                "model_id": r.get("model_id", ""),
+                "model_response": r["response"],
+                "elapsed_s": r.get("elapsed_s", 0),
+                "cost_usd": r.get("cost_usd", 0),
+                "input_tokens": r.get("input_tokens", 0),
+                "output_tokens": r.get("output_tokens", 0),
+                "stderr": r.get("stderr", ""),
             })
             f.flush()
     print(f"\nWrote {out}; total notional cost ${total_cost:.2f}")
