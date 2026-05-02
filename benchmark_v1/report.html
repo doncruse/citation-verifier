@@ -174,21 +174,22 @@
 
 <header>
   <h1>Case Law Retrieval Benchmark v1</h1>
-  <p class="subtitle">A 200-example federal-district leaderboard for closed-book legal case retrieval.</p>
+  <p class="subtitle">A 130-example federal-district leaderboard for closed-book legal case retrieval.</p>
   <p class="meta">
-    Sonnet 4.6 · Opus 4.7 · GPT-5 &nbsp;·&nbsp; Substance assessor: Opus 4.7 &nbsp;·&nbsp; 5 districts × 40 examples &nbsp;·&nbsp; v1 results · May 2026
+    Sonnet 4.6 · Opus 4.7 · GPT-5 &nbsp;·&nbsp; Substance assessor: Opus 4.7 &nbsp;·&nbsp; 130 unique propositions &nbsp;·&nbsp; v1 results · May 2026
   </p>
 </header>
 
 <section class="tldr">
   <p><strong>What was tested.</strong> Each model was given a legal proposition extracted from a real federal-district opinion's parenthetical and asked to name a federal case that supports it &mdash; closed-book, no tools, no web. Three axes graded each answer: <em>does the cited case actually exist</em> (CourtListener), <em>does the named case match what CL resolved</em> (similarity ≥ 0.65), and <em>does the cited opinion substantively support the proposition</em> (Opus 4.7 reading the opinion text, returning Green/Yellow/Red).</p>
   <p><strong>Headline.</strong> GPT-5 leads on Green rate (46% vs 36% Opus vs 31% Sonnet). At this sample size, only the Sonnet–GPT-5 difference has 95% CI excluding zero; the Opus–GPT-5 advantage is borderline and the Opus–Sonnet difference is well within noise.</p>
-  <p><strong>Caveat.</strong> Sonnet's high UNKNOWN rate (52%, vs 27% Opus, 7% GPT-5) makes simple "hallucination rate" misleading: a model that refuses often answers fewer questions, but its few answers can still be wrong. The leaderboard captures the recall/precision tradeoff but doesn't flatten it into a single number.</p>
-  <p><strong>Numbers below are after dedup.</strong> A post-run audit found that the mining pipeline produced ~10× duplication of each parenthetical inside its source opinion, leaving 35% of the 200-row dataset as duplicates of other rows. After dedup, the effective dataset is 130 unique propositions per model. Original scorecard with the inflated numbers is preserved at <code>scorecards.md</code>; corrected numbers are at <code>scorecards-deduped.md</code> and reflected in the tables here.</p>
+  <p><strong>Caveat.</strong> Sonnet's high UNKNOWN rate (52%, vs 27% Opus, 7% GPT-5) makes simple "hallucination rate" misleading: a model that refuses often answers fewer questions, but its few answers can still be wrong. The leaderboard surfaces the recall/precision tradeoff explicitly and reports F1 alongside the per-axis numbers.</p>
+  <p><strong>Note on the dataset.</strong> A post-run audit found that the mining pipeline produced duplicate parentheticals (the same paren extracted multiple times from the same source opinion). After deduplication on (proposition, gold cite), the effective dataset is 130 unique propositions per model. All numbers below are deduped.</p>
 </section>
 
 <h2>Headline numbers</h2>
 
+<p style="font-size: 13.5px; color: var(--ink-soft); margin-bottom: 4px;"><strong>Table 1.</strong> Headline metrics per model on the deduplicated 130-proposition subset. % Green divides by all 130; hallucination rate divides only by answered cells.</p>
 <table>
   <thead>
     <tr>
@@ -222,13 +223,14 @@
 
 <p style="font-size: 14px; color: var(--ink-soft);">
 Each cell shows the percentage with the underlying count below. Denominators differ by metric:
-<strong>% Green</strong> divides by all 200 cells (every proposition counts, including UNKNOWNs).
+<strong>% Green</strong> divides by all 130 cells (every proposition counts, including UNKNOWNs).
 <strong>Hallucination rate</strong> divides only by <em>answered</em> (non-UNKNOWN) cells.
-<strong>UNKNOWN rate</strong> divides by all 200.
+<strong>UNKNOWN rate</strong> divides by all 130.
 </p>
 
 <h3>Pairwise differences (Green rate, 95% CI via 5,000-sample bootstrap)</h3>
 
+<p style="font-size: 13.5px; color: var(--ink-soft); margin-bottom: 4px;"><strong>Table 2.</strong> Pairwise Green-rate differences with 95% confidence intervals from a 5,000-sample bootstrap (independent resampling, fixed seed 42).</p>
 <table>
   <thead>
     <tr><th>Pair</th><th class="num">Green-rate diff</th><th>95% CI</th><th>Significant?</th></tr>
@@ -242,6 +244,7 @@ Each cell shows the percentage with the underlying count below. Denominators dif
 
 <h3>Per-district Green rate</h3>
 
+<p style="font-size: 13.5px; color: var(--ink-soft); margin-bottom: 4px;"><strong>Table 3.</strong> Green rate by citing district (one cell per model × district). N ≈ 26 unique propositions per cell after dedup; treat as directional.</p>
 <table>
   <thead>
     <tr>
@@ -270,6 +273,7 @@ D. Mass. was the hardest court for all three models (15.0%–25.0% Green); D.D.C
 
 <p>When we instead bucket by the tier of the case the <em>model</em> chose to cite, the picture is sharper:</p>
 
+<p style="font-size: 13.5px; color: var(--ink-soft); margin-bottom: 4px;"><strong>Table 4.</strong> Green rate broken down by the tier of the case each model chose to cite (SCOTUS / circuit / district).</p>
 <table>
   <thead>
     <tr>
@@ -314,6 +318,7 @@ D. Mass. was the hardest court for all three models (15.0%–25.0% Green); D.D.C
 </ul>
 <p>Under this framing:</p>
 
+<p style="font-size: 13.5px; color: var(--ink-soft); margin-bottom: 4px;"><strong>Table 5.</strong> Per-model precision (TP / answered), recall (TP / 130), and F1 (harmonic mean) on the deduplicated subset.</p>
 <table>
   <thead>
     <tr>
@@ -356,7 +361,7 @@ D. Mass. was the hardest court for all three models (15.0%–25.0% Green); D.D.C
 <h2>Methodology</h2>
 
 <h3>Dataset construction</h3>
-<p>200 examples were mined from federal-district opinions filed between January 1 and April 30, 2026 — after every tested model's training cutoff. The mining filter:</p>
+<p>The dataset was assembled by sampling 200 explanatory parentheticals from federal-district opinions filed between January 1 and April 30, 2026 — after every tested model's training cutoff. The mining filter:</p>
 <ul>
   <li>Queries CourtListener for opinions in five districts: D.D.C., N.D. Cal., S.D. Tex., N.D. Ill., and D. Mass. (D. Mass. substituted for S.D.N.Y. after S.D.N.Y. yielded zero opinions in the date range).</li>
   <li>Extracts explanatory parentheticals (<code>(holding/finding/explaining/...)</code>) of 15–80 words.</li>
@@ -365,12 +370,13 @@ D. Mass. was the hardest court for all three models (15.0%–25.0% Green); D.D.C
 </ul>
 <p>Each row pairs a real proposition (from the parenthetical) with the gold case the opinion cited. The benchmark question: can the model retrieve a federal case that supports the proposition? The original gold case is one valid answer, but not the only one — the substance assessor judges whether <em>any</em> federal case the model names actually supports.</p>
 
-<p><strong>Effective N after dedup: 130, not 200.</strong> A post-run audit found that the mining pass produced ~10× duplication of each parenthetical inside its source opinion (eyecite picking up the same citation in multiple forms — full reference, supra/id-style short citations, etc.). 70 of the 200 sampled rows turned out to be duplicates of other rows on the (proposition, gold_cite) key. All numbers in this report run on the deduplicated 130-proposition subset; the original 200-row scorecard with the inflated counts is preserved at <code>scorecards.md</code> and the corrected one at <code>scorecards-deduped.md</code>. Most affected metric: GPT-5's % Green dropped from 51.0% (inflated) to 46.2% (deduped); the Opus–GPT-5 pairwise CI shifted from clearly excluding zero to straddling it. v1.1 will dedup at the mining stage and re-mine to a clean 200.</p>
+<p><strong>Mining-stage duplication.</strong> The mining pipeline produced duplicate parentheticals (eyecite picking up the same citation in multiple forms — full reference and supra/id-style short citations — within a single source opinion). 70 of the 200 sampled rows were duplicates of other rows on the (proposition, gold cite) key. All numbers in this report use the deduplicated 130-proposition subset. v1.1 will dedup at the mining stage and re-mine to a clean N=200.</p>
 
 <p><strong>Tier distribution.</strong> Sample is stratified by <em>citing court</em> (40 propositions per district), but not by the tier of the <em>cited case</em>. Because district opinions overwhelmingly cite higher courts for binding precedent, the gold-case distribution is 60% circuit, 19% SCOTUS, 9% district, and 12% other (state courts, unpublished, etc.). This skew matters — see the per-tier results section above.</p>
 
 <p>The skew compounds across two filtering stages, both biased against district cases:</p>
 
+<p style="font-size: 13.5px; color: var(--ink-soft); margin-bottom: 4px;"><strong>Table 6.</strong> Two-stage filtering of unique mined parentheticals (deduplicated), broken down by tier of the cited case. Mining stage extracts parentheticals; CL verification discards cites the citation-lookup API can't resolve.</p>
 <table>
   <thead>
     <tr>
@@ -381,15 +387,16 @@ D. Mass. was the hardest court for all three models (15.0%–25.0% Green); D.D.C
     </tr>
   </thead>
   <tbody>
-    <tr><td>Circuit</td><td class="num">1,350</td><td class="num">1,270</td><td class="num">94%</td></tr>
-    <tr><td>SCOTUS</td><td class="num">290</td><td class="num">270</td><td class="num">93%</td></tr>
-    <tr><td>District</td><td class="num">520</td><td class="num">350</td><td class="num"><strong>67%</strong></td></tr>
-    <tr><td>Other (state / unpublished)</td><td class="num">910</td><td class="num">240</td><td class="num">26%</td></tr>
-    <tr><td><strong>Total</strong></td><td class="num"><strong>3,070</strong></td><td class="num"><strong>2,130</strong></td><td class="num"><strong>69%</strong></td></tr>
+    <tr><td>Circuit</td><td class="num">138</td><td class="num">129</td><td class="num">93%</td></tr>
+    <tr><td>SCOTUS</td><td class="num">27</td><td class="num">27</td><td class="num">100%</td></tr>
+    <tr><td>District</td><td class="num">56</td><td class="num">37</td><td class="num"><strong>66%</strong></td></tr>
+    <tr><td>Other (state / unpublished)</td><td class="num">27</td><td class="num">20</td><td class="num">74%</td></tr>
+    <tr><td>WL (Westlaw-only)</td><td class="num">59</td><td class="num">0</td><td class="num">0%</td></tr>
+    <tr><td><strong>Total</strong></td><td class="num"><strong>307</strong></td><td class="num"><strong>213</strong></td><td class="num"><strong>69%</strong></td></tr>
   </tbody>
 </table>
 
-<p>The mining stage already underweights district cases (17% of the raw pool, vs 44% circuit). Then CL verification drops a further <strong>1 in 3 district cases</strong> — a 33% loss rate, roughly five times the loss for circuit (6%) or SCOTUS (7%). Random stratified-by-citing-court sampling to 200 thinned them again. Net result: district cases that the v1 sampling pipeline saw 520 of in the raw data ended up as 18 in the final dataset.</p>
+<p>The mining stage already underweights district cases (~18% of the raw pool, vs 45% circuit). Then CL verification drops a further <strong>1 in 3 district cases</strong> — a 34% loss rate, roughly five times the loss for circuit (7%) or SCOTUS (0%). Random stratified-by-citing-court sampling to 130 thinned them again. Net result: district cases that the v1 sampling pipeline saw 56 of in the raw deduped data ended up as 18 in the final dataset.</p>
 
 <p>This means v1's "district-cases-are-harder" finding (essentially zero Green when models attempt them) understates the problem in two ways. First, the n is too small to be statistically firm. Second, the district cases that did make it through are the easier-to-resolve ones — popular district opinions with clean reporter citations — so the few district cases models attempted were biased toward "should be findable." A v1.1 dataset that explicitly preserves the harder-to-resolve district cases (potentially via a multi-source existence oracle, since CL underperforms on them) would test the hypothesis directly.</p>
 
@@ -491,11 +498,6 @@ Proposition: {proposition}</pre>
 </div>
 
 <div class="caveat">
-  <p class="label">Single substance assessor (Opus 4.7)</p>
-  <p>The Green/Yellow/Red verdict comes from one model. Closed-book Opus answers from training memory; assessor Opus reads the opinion text — they're solving different problems, not the same one. A calibration study (v1.2) will quantify whether Sonnet or Haiku as alternative assessors agree with Opus's verdicts.</p>
-</div>
-
-<div class="caveat">
   <p class="label">Temperature comparability</p>
   <p>Sonnet and Opus run at the Claude CLI's provider default temperature; GPT-5 runs at OpenAI's provider default (1) because the API rejects <code>temperature=0</code>. This is a methodology footnote, not a comparability gate.</p>
 </div>
@@ -533,7 +535,7 @@ venv/Scripts/python.exe tests/benchmark_v1/scorecard.py --dedupe   # corrected n
   <li><strong>Per-district CIs.</strong> The per-district table reports point estimates without intervals. v1.1 adds bootstrap CIs there too — useful for noticing where district sample size is too thin to draw conclusions.</li>
   <li><strong>Mining-stage deduplication.</strong> v1's mining pass produced ~10× duplication of each parenthetical inside its source opinion (eyecite picking up the same citation in full + short forms), leaving 35% of the 200-row dataset as duplicates of other rows. v1.1 will dedup at the mining stage on (citing_cluster_id, citation_text, parenthetical) before sending anything to CourtListener — saves API calls and prevents over-weighting in the final dataset.</li>
   <li><strong>Verified-citations cache.</strong> v1's gold cases are verified during the build phase, but scoring re-asks CourtListener for everything from scratch. v1.1 will introduce a <code>citation → (cluster_id, case_name)</code> cache, seeded from the gold-case verifications and grown across runs. Speeds re-runs, cuts CL dependency, and produces a diff-able artifact that lives in the repo.</li>
-  <li><strong>Stratified sampling by tier of cited case.</strong> v1's dataset is 60% circuit, 19% SCOTUS, 9% district — driven by what district opinions actually cite, not by what the benchmark needs to test. v1.1 will mine a larger pool, then stratify the sample to include meaningful coverage of district cases (target ~33% per tier). This is what unlocks a serious "do models hallucinate district cases more often" claim instead of the n=5/n=9 hint we have now.</li>
+  <li><strong>Stratified sampling by tier of cited case.</strong> v1's dataset is 60% circuit, 19% SCOTUS, 9% district — driven by what district opinions actually cite, not by what the benchmark needs to test. v1.1 will mine a larger pool, then stratify the sample to include meaningful coverage of district cases (target ~33% per tier). This is what unlocks a serious "do models hallucinate district cases more often" claim instead of the n=4/n=5 hint we have now.</li>
   <li><strong>Per-case metadata extraction.</strong> v1 records the cited case's name, citation, and CL cluster ID, but not the court ID or filing year of the cited case. v1.1 adds a metadata-pull step (the cluster has both fields) and breaks down green / hallucination rates by jurisdiction and case age. Lets us answer questions like "do models hallucinate more on older cases?" and "is the circuit-split-on-the-9th-Circuit signal real?"</li>
 </ul>
 
@@ -547,7 +549,7 @@ venv/Scripts/python.exe tests/benchmark_v1/scorecard.py --dedupe   # corrected n
 <ul>
   <li><strong>Circuits and SCOTUS.</strong> v1 is districts only. Circuit-level parentheticals tend to be richer; SCOTUS would expose strong-recall vs. accuracy tradeoffs at higher difficulty.</li>
   <li><strong>State-law forks.</strong> The federal layer is the reference implementation. State-court variants (predicated on the v1.1 forkable kit) test how the methodology generalizes.</li>
-  <li><strong>Larger N.</strong> N=200 leaves the Opus–Sonnet diff inside the noise floor (CI: [−3.0pp, +15.5pp]). N=500 or 1000, predicated on the v1.2 calibration study cutting per-cell cost, would resolve it.</li>
+  <li><strong>Larger N.</strong> N=130 (effective, after dedup) leaves both the Opus–Sonnet and Opus–GPT-5 diffs inside the noise floor. N=500 or 1000 — predicated on the v1.2 calibration study cutting per-cell cost — would resolve them.</li>
 </ul>
 
 <h3>Outside the planned roadmap</h3>

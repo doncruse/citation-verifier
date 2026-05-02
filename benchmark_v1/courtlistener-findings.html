@@ -136,8 +136,9 @@
 <div class="finding">
   <h3><span class="tag headline">data coverage</span>F. Supp. 3d coverage stops at 2019 — sharp cliff, not gradual</h3>
 
-  <p>Of the 3,070 parentheticals we mined from federal-district opinions filed in early 2026, we got a clean year-by-year view of how citation-lookup resolves district-court reporter cites. The pattern is striking and almost binary:</p>
+  <p>From the 3,070 parentheticals we mined (deduped to 307 unique citations after a mining-stage audit), we got a clean year-by-year view of how citation-lookup resolves district-court reporter cites. The pattern is striking and almost binary:</p>
 
+  <p style="font-size: 13.5px; color: var(--ink-soft); margin-bottom: 4px;"><strong>Table 1.</strong> CourtListener citation-lookup resolution rate for unique F. Supp. 3d cites (deduplicated) by year of the cited opinion.</p>
   <table>
     <thead>
       <tr>
@@ -148,50 +149,80 @@
       </tr>
     </thead>
     <tbody>
-      <tr><td>2014</td><td class="num">50</td><td class="num">0</td><td class="num">100%</td></tr>
-      <tr><td>2015</td><td class="num">10</td><td class="num">0</td><td class="num">100%</td></tr>
-      <tr><td>2016</td><td class="num">30</td><td class="num">0</td><td class="num">100%</td></tr>
-      <tr><td>2017</td><td class="num">40</td><td class="num">0</td><td class="num">100%</td></tr>
-      <tr><td>2019</td><td class="num">10</td><td class="num">0</td><td class="num">100%</td></tr>
-      <tr><td><strong>2020</strong></td><td class="num">0</td><td class="num">10</td><td class="num"><strong>0%</strong></td></tr>
-      <tr><td>2021</td><td class="num">0</td><td class="num">20</td><td class="num">0%</td></tr>
-      <tr><td>2022</td><td class="num">0</td><td class="num">40</td><td class="num">0%</td></tr>
-      <tr><td>2023</td><td class="num">0</td><td class="num">10</td><td class="num">0%</td></tr>
-      <tr><td>2024</td><td class="num">0</td><td class="num">70</td><td class="num">0%</td></tr>
-      <tr><td>2025</td><td class="num">0</td><td class="num">30</td><td class="num">0%</td></tr>
+      <tr><td>2014</td><td class="num">5</td><td class="num">0</td><td class="num">100%</td></tr>
+      <tr><td>2015</td><td class="num">1</td><td class="num">0</td><td class="num">100%</td></tr>
+      <tr><td>2016</td><td class="num">3</td><td class="num">0</td><td class="num">100%</td></tr>
+      <tr><td>2017</td><td class="num">4</td><td class="num">0</td><td class="num">100%</td></tr>
+      <tr><td>2019</td><td class="num">1</td><td class="num">0</td><td class="num">100%</td></tr>
+      <tr><td><strong>2020</strong></td><td class="num">0</td><td class="num">1</td><td class="num"><strong>0%</strong></td></tr>
+      <tr><td>2021</td><td class="num">0</td><td class="num">2</td><td class="num">0%</td></tr>
+      <tr><td>2022</td><td class="num">0</td><td class="num">4</td><td class="num">0%</td></tr>
+      <tr><td>2023</td><td class="num">0</td><td class="num">1</td><td class="num">0%</td></tr>
+      <tr><td>2024</td><td class="num">0</td><td class="num">7</td><td class="num">0%</td></tr>
+      <tr><td>2025</td><td class="num">0</td><td class="num">3</td><td class="num">0%</td></tr>
     </tbody>
   </table>
 
-  <p>Every F. Supp. 3d cite from 2014–2019 in our pool resolves. <strong>Not one F. Supp. 3d cite from 2020 onward resolves.</strong> Same pattern across every citing district (DDC, ILND, MAD, etc.) — it's not a per-district issue, it's a reporter/year cutoff. Circuit reporters (F.2d / F.3d / F.4th) by contrast resolve at 93–100% from pre-1990 through 2024 in the same pool, dropping only at 2025 (the in-progress year). So the F. Supp. 3d cliff is roughly five years behind the circuit pipeline.</p>
+  <p>Every unique F. Supp. 3d cite from 2014–2019 resolves (14/14). <strong>Not one F. Supp. 3d cite from 2020 onward resolves (0/18).</strong> Same pattern across every citing district (DDC, ILND, MAD, etc.) — it's not a per-district issue, it's a reporter/year cutoff. Circuit reporters (F.2d / F.3d / F.4th) by contrast resolve at 93–100% from pre-1990 through 2024 in the same deduped pool, dropping only at 2025 (the in-progress year). So the F. Supp. 3d cliff is roughly five years behind the circuit pipeline.</p>
 
-  <p>This is a citation-coverage issue, not an opinion-coverage one — the underlying opinions are largely in CL via PACER/RECAP; what's missing is the reporter-citation→opinion mapping. That's exactly what the scanning project is built to backfill, so we're sharing the year-by-year breakdown only in case the granularity is useful for prioritization. If a dump of the 180 unresolved 2020+ F. Supp. 3d cites would help validate scanning coverage, we have it ready.</p>
+  <p>This is a citation-coverage issue, not an opinion-coverage one — the underlying opinions are largely in CL via PACER/RECAP; what's missing is the reporter-citation→opinion mapping. That's exactly what the scanning project is built to backfill, so we're sharing the year-by-year breakdown only in case the granularity is useful for prioritization. If a dump of the 18 unique unresolved 2020+ F. Supp. 3d cites would help validate scanning coverage, we have it ready.</p>
 </div>
 
 <div class="finding">
   <h3><span class="tag data">data coverage</span>Other reporter patterns we noticed</h3>
 
-  <p>Verification rates by reporter format, on the same 3,070-paren pool:</p>
+  <p>Verification rates by reporter format, on the deduplicated 307-citation pool:</p>
 
+  <p style="font-size: 13.5px; color: var(--ink-soft); margin-bottom: 4px;"><strong>Table 2.</strong> CourtListener citation-lookup resolution rate by reporter format, on the deduplicated 307-citation pool.</p>
   <table>
     <thead>
       <tr><th>Format</th><th class="num">Verified / Total</th><th class="num">Rate</th><th>Notes</th></tr>
     </thead>
     <tbody>
-      <tr><td>F.3d</td><td class="num">950 / 970</td><td class="num">98%</td><td>Steady across years</td></tr>
-      <tr><td>F.2d</td><td class="num">200 / 200</td><td class="num">100%</td><td>Older, fully ingested</td></tr>
-      <tr><td>F. Supp. 2d</td><td class="num">220 / 220</td><td class="num">100%</td><td>Older district series</td></tr>
-      <tr><td>F. Supp. 3d</td><td class="num">140 / 320</td><td class="num">44%</td><td>The 2020 cliff above</td></tr>
-      <tr><td>U.S. (SCOTUS)</td><td class="num">270 / 290</td><td class="num">93%</td><td>Steady</td></tr>
-      <tr><td>F.4th</td><td class="num">100 / 140</td><td class="num">71%</td><td>Newer (2021–) circuit series; mostly 2025-year drops</td></tr>
-      <tr><td>F. App'x</td><td class="num">30 / 60</td><td class="num">50%</td><td>Unpublished circuit; partial coverage expected</td></tr>
-      <tr><td>WL (Westlaw-only)</td><td class="num">0 / 590</td><td class="num"><strong>0%</strong></td><td>None resolve via citation-lookup</td></tr>
-      <tr><td>State / unpublished / other</td><td class="num">240 / 910</td><td class="num">26%</td><td>Federal-tilted index; expected</td></tr>
+      <tr><td>F.3d</td><td class="num">95 / 97</td><td class="num">98%</td><td>Steady across years</td></tr>
+      <tr><td>F.2d</td><td class="num">20 / 20</td><td class="num">100%</td><td>Older, fully ingested</td></tr>
+      <tr><td>F. Supp. 2d</td><td class="num">22 / 22</td><td class="num">100%</td><td>Older district series</td></tr>
+      <tr><td>F. Supp. 3d</td><td class="num">14 / 32</td><td class="num">44%</td><td>The 2020 cliff above</td></tr>
+      <tr><td>F. Supp. (1st series)</td><td class="num">1 / 2</td><td class="num">—</td><td>n too small; one is the Nat'l Gypsum case-name mismatch in Table 3</td></tr>
+      <tr><td>SCOTUS (U.S. / S. Ct. / L. Ed.)</td><td class="num">27 / 27</td><td class="num">100%</td><td>All resolve cleanly across all three reporter parallels</td></tr>
+      <tr><td>F.4th</td><td class="num">11 / 15</td><td class="num">73%</td><td>Newer (2021–) circuit series; misses are mostly 2025</td></tr>
+      <tr><td>F. App'x</td><td class="num">3 / 6</td><td class="num">50%</td><td>Unpublished circuit; partial coverage expected</td></tr>
+      <tr><td>WL (Westlaw-only)</td><td class="num">0 / 59</td><td class="num"><strong>0%</strong></td><td>None resolve via citation-lookup</td></tr>
+      <tr><td>LEXIS database IDs</td><td class="num">0 / 3</td><td class="num"><strong>0%</strong></td><td>Same shape as WL (paywalled, separately indexed)</td></tr>
+      <tr><td>Regional state reporters (A. / N.E. / P. / S.W.)</td><td class="num">19 / 22</td><td class="num">86%</td><td>Atlantic / Pacific / SouthW at 100%; Northeast (N.E.2d/N.E.3d) at 79% (11/14)</td></tr>
+      <tr><td>State-specific (Mass.)</td><td class="num">1 / 2</td><td class="num">—</td><td>n too small to interpret</td></tr>
     </tbody>
   </table>
 
-  <p>The one figure here that isn't a scanning-project story: <strong>WL-only citations resolve at 0%</strong> — 590 of them in the pool, ~19% of all parentheticals in modern district opinions, with no parallel reporter to fall back on. That's expected (Westlaw is paywalled), but the volume is worth noting for downstream tools: if a benchmark or verifier depends on CL, ~1 in 5 modern-district parentheticals will simply be unverifiable.</p>
+  <p>The one figure here that isn't a scanning-project story: <strong>WL-only citations resolve at 0%</strong> — 59 unique WL-only cites in the deduped pool (590 entries before dedup), ~19% of all parentheticals in modern district opinions, with no parallel reporter to fall back on. That's expected (Westlaw is paywalled), but the volume is worth noting for downstream tools: if a benchmark or verifier depends on CL, ~1 in 5 modern-district parentheticals will simply be unverifiable.</p>
 
   <p>For completeness, we also re-checked each NOT_FOUND citation against opinion-search (the next fallback path) and saw a clean split: <strong>F.3d misses recovered at 100%</strong> (20/20), but F.4th 2025+ misses, F. Supp. 3d 2020+ misses, and WL misses recovered at <strong>0%</strong> (260/260 stayed NOT_FOUND). Citation-lookup is doing some work that opinion-search isn't redundant with, even when both endpoints have access to the same underlying data.</p>
+</div>
+
+<div class="finding">
+  <h3><span class="tag data">data coverage</span>Manual triage of the high-coverage misses</h3>
+
+  <p>To break down the small set of misses outside the F. Supp. 3d cliff, we hand-investigated the 7 distinct citation-lookup NOT_FOUNDs in the well-covered reporter buckets (F.3d, F. Supp. with year ≥ 2020 excluded, F. App'x, F.4th pre-2025; LEXIS-format false positives in the original list were removed). The breakdown is mostly <em>not</em> coverage gaps — 5 of 7 are findable cases that either citation-lookup missed or returned with a non-matching <code>case_name</code> display:</p>
+
+  <p style="font-size: 13.5px; color: var(--ink-soft); margin-bottom: 4px;"><strong>Table 3.</strong> Manual disposition of 7 distinct citation-lookup NOT_FOUNDs in well-covered reporter buckets.</p>
+  <table>
+    <thead>
+      <tr><th>Disposition</th><th class="num">Count</th><th>What this means</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Not in CL at all</td><td class="num">2</td><td>True coverage gap — case really isn't in the index</td></tr>
+      <tr><td>In CL but citation-lookup missed it</td><td class="num">3</td><td>Findable via name search; cite-lookup parser issue</td></tr>
+      <tr><td>Case-name display mismatch</td><td class="num">2</td><td>Cite-lookup found the correct cluster, but CL's <code>case_name</code> field shows a different lead party than the brief's</td></tr>
+    </tbody>
+  </table>
+
+  <p>The two genuine coverage misses are <em>Brown v. Osmundson</em>, 38 F.4th 545 (7th Cir. 2022)and <em>Chailla v. Navient Dep't of Educ.</em>, 791 F. App'x 226 (2d Cir. 2019), both published on the circuit court websites but missing on CourtListener.</p>
+
+  <p>The three findable-but-cite-lookup-missed cases are <em>United States v. Coddington</em>, 802 F. App'x 373 (2020); <em>Slabon v. Berryhill</em>, 751 F. App'x 928 (2019); and <em>National Gypsum Co. v. Continental Brands Corp.</em>, 895 F. Supp. 328 (D. Mass. 1995). All three are in CL and resolve via case-name search on the CL site, but neither citation-lookup nor citation-verifier's opinion-search fallback finds them given just the citation string.</p>
+
+  <p>The two case-name display issues are particularly interesting. For <em>United States v. Fields</em>, 763 F.3d 443 (D.C. Cir. 2014), citation-lookup correctly resolved the (volume, page) tuple to the right cluster — but the <code>case_name</code> field that comes back reads <em>United States v. Martin Lewis</em>, even though Fields is the first-listed party in the caption. The benchmark's name-match check then fails because "Fields" doesn't match "Martin Lewis" at threshold, even though the underlying case is correct. Same shape for <em>United States v. Asrar</em>, 67 F.3d 309 (1995), where the cluster's case_name field shows a different lead party than what was cited. The fix here is at the case-name display level (or returning all caption parties, not just the lead).</p>
+
+  <p>The full disposition table for these 7 cases (with CL opinion URLs and notes) is at <code>benchmark_v1/_pre_cliff_misses_investigated.csv</code>.</p>
 </div>
 
 <div class="finding">
