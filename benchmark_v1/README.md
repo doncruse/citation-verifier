@@ -9,29 +9,33 @@ scored on Real / Name-match / Supports axes. Closed-book mode only.
 
 ## Headlines (v1 results)
 
-200 examples per model, single closed-book run, scored by Opus 4.7.
+200 examples per model, single closed-book run, scored by Opus 4.7. Numbers
+below are after a post-run dedup audit that found 35% of the 200 rows were
+duplicates of other rows (mining-stage bug). Effective N is 130 unique
+propositions per model.
 
-| Model | % Green | Hallucination rate | UNKNOWN rate | Right-case rate |
-|---|---:|---:|---:|---:|
-| Sonnet 4.6 | 31.0% | 12.8% | 53.0% | 11.5% |
-| Opus 4.7 | 37.0% | 16.7% | 22.0% | 14.0% |
-| **GPT-5** | **51.0%** | 17.0% | 6.0% | 16.5% |
+| Model | % Green | Hallucination rate | UNKNOWN rate |
+|---|---:|---:|---:|
+| Sonnet 4.6 | 31.5% (41/130) | 12.9% (8/62) | 52.3% (68/130) |
+| Opus 4.7 | 36.2% (47/130) | 20.0% (19/95) | 26.9% (35/130) |
+| **GPT-5** | **46.2%** (60/130) | 16.5% (20/121) | 6.9% (9/130) |
 
-GPT-5 leads on Green rate by a wide margin. Two pairwise diffs have
-95% CI excluding zero:
+GPT-5 leads on Green rate. Only one pairwise diff has 95% CI excluding zero
+at this sample size:
 
 | Pair | Green diff | 95% CI |
 |---|---:|---|
-| Opus − GPT-5 | **−14.0pp** | [−23.5, −4.5] |
-| Sonnet − GPT-5 | **−20.0pp** | [−29.5, −10.5] |
-| Opus − Sonnet | +6.0pp | [−3.0, +15.5] |
+| Opus − GPT-5 | −10.0pp | [−21.5, +1.5] |
+| Sonnet − GPT-5 | **−14.6pp** | [−26.2, −3.1] |
+| Opus − Sonnet | +4.6pp | [−6.9, +16.2] |
 
 Sonnet's low hallucination rate is partly a denominator effect — its
-53% UNKNOWN rate excludes most responses from the hallucination tally.
+52% UNKNOWN rate excludes most responses from the hallucination tally.
 The recall (Green) vs precision (low Hallucination) tradeoff is the
 shape of the leaderboard.
 
-See `scorecards.md` for the per-district breakdown.
+See `scorecards-deduped.md` for the deduped scorecard with per-district
+breakdown; `scorecards.md` preserves the original inflated numbers.
 
 ## What's here
 
@@ -43,7 +47,8 @@ See `scorecards.md` for the per-district breakdown.
 | `outputs_opus.csv` | Claude Opus 4.7 closed-book responses |
 | `outputs_gpt5.csv` | OpenAI GPT-5 closed-book responses |
 | `results.csv` | Per-(model, example) cell with three-axis scoring |
-| `scorecards.md` | Headline numbers + bootstrap CIs |
+| `scorecards.md` | Original scorecard (inflated by mining-stage dedup bug; preserved for transparency) |
+| `scorecards-deduped.md` | Corrected scorecard after dedup (the numbers cited in this README) |
 
 ## How to reproduce
 
@@ -62,11 +67,12 @@ venv/Scripts/python.exe tests/benchmark_v1/run_model.py --model sonnet
 venv/Scripts/python.exe tests/benchmark_v1/run_model.py --model opus
 venv/Scripts/python.exe tests/benchmark_v1/run_model.py --model gpt-5
 
-# Score (~30 min — Opus assessor on each real case)
+# Score (~3 hr — Opus assessor on each real case)
 venv/Scripts/python.exe tests/benchmark_v1/score.py
 
-# Generate scorecard (instant)
-venv/Scripts/python.exe tests/benchmark_v1/scorecard.py
+# Generate scorecards (instant)
+venv/Scripts/python.exe tests/benchmark_v1/scorecard.py            # original numbers (scorecards.md)
+venv/Scripts/python.exe tests/benchmark_v1/scorecard.py --dedupe   # corrected numbers (scorecards-deduped.md)
 ```
 
 All scripts are idempotent — interrupted runs resume from where they left off.
@@ -95,18 +101,19 @@ the model's named case, and the cited opinion's text (≤ 20K chars).
 
 ## Methodology adjustments during the run
 
-The run surfaced three issues that needed in-flight adjustments. All
-are documented in code comments at the relevant call sites.
+The run surfaced four issues that needed in-flight or post-run adjustments.
+The first three were patched during the run; the fourth was caught by a
+post-run audit and addressed by deduplicating the scoring data.
 
 | Issue | Adjustment | Affects |
 |---|---|---|
 | GPT-5's spec-suggested 2000-token budget left ~67% of responses empty (every empty hit the budget exactly on reasoning) | Bumped to 8000 in `model_adapter.py` `_call_gpt5` | GPT-5's "answered" rate would have been ~33% under the original budget; now ~94% |
 | Sonnet's 60s timeout cut off ~28% of calls (max OK call observed: 59.5s) | Bumped to 120s in `run_model.py` `TIMEOUT_S` | Sonnet's UNKNOWN rate would have included ~28% TIMEOUTs; now ~1% |
 | CourtListener's citation-lookup API silently truncates the response at ~200 entries even when the request body is well within size limits | Patched `_batch_citation_lookup` in `verifier.py` to chunk by both char count (50K) and citation count (150) | All three models' real-rates were under-reported on the first scoring pass; GPT-5 (last in batch order) was hit hardest, going from real=4 to real=175 after the patch |
+| Mining pass produced ~10× duplication of each parenthetical inside its source opinion (eyecite picking up the same citation in full + short forms); 35% of the sampled dataset turned out to be duplicates | Added `--dedupe` flag to `scorecard.py` to filter to canonical (proposition, gold_cite) cells before aggregating; published numbers run on this 130-row deduped subset (preserved at `scorecards-deduped.md`) | GPT-5's % Green dropped from 51.0% (inflated) to 46.2% (deduped); the Opus–GPT-5 pairwise CI shifted from clearly excluding zero to straddling it. v1.1 will fix the bug at the mining stage |
 
-The chunking fix landed as `7eeb0a4` (`fix: chunk batch citation-lookup
-by citation count, not just chars`) with a regression test. The other
-two are documented inline in the adapter and runner.
+The chunking fix landed as `7eeb0a4`. The other adjustments are documented
+inline in the adapter / runner / scorecard.
 
 ## Known biases (CL-coverage)
 

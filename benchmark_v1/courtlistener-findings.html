@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>What we learned about CourtListener — Benchmark v1 findings</title>
+<style>
+  :root {
+    --ink: #1a1a1a;
+    --ink-soft: #555;
+    --ink-faint: #888;
+    --rule: #e1e1e1;
+    --bg: #fafaf7;
+    --panel: #fff;
+    --accent: #2b5d8a;
+    --accent-soft: #eef3f9;
+    --green: #1f7a3a;
+    --yellow: #b07c00;
+    --red: #b1352b;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font: 16px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          "Helvetica Neue", Arial, sans-serif;
+    color: var(--ink);
+    background: var(--bg);
+    -webkit-font-smoothing: antialiased;
+  }
+  main { max-width: 820px; margin: 0 auto; padding: 48px 24px 96px; }
+  header { border-bottom: 2px solid var(--ink); padding-bottom: 24px; margin-bottom: 32px; }
+  h1 {
+    font-size: 28px; font-weight: 700; letter-spacing: -0.01em;
+    margin: 0 0 8px;
+  }
+  .subtitle { color: var(--ink-soft); font-size: 16px; margin: 0; }
+  .meta {
+    color: var(--ink-faint); font-size: 13px; margin-top: 12px;
+    font-feature-settings: "tnum" 1;
+  }
+  h2 {
+    font-size: 22px; font-weight: 700; margin: 48px 0 12px;
+    border-bottom: 1px solid var(--rule); padding-bottom: 6px;
+  }
+  h3 {
+    font-size: 17px; font-weight: 600; margin: 28px 0 8px;
+  }
+  p, li { color: var(--ink); }
+  p { margin: 0 0 14px; }
+  ul, ol { padding-left: 24px; margin: 0 0 14px; }
+  li { margin-bottom: 6px; }
+  a { color: var(--accent); }
+  code {
+    font: 13.5px/1 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    background: #f0eee8; padding: 1px 5px; border-radius: 3px;
+  }
+  pre {
+    font: 13px/1.5 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    background: #f7f5ee; border: 1px solid var(--rule); border-radius: 4px;
+    padding: 12px 14px; overflow-x: auto; margin: 0 0 14px;
+  }
+  table {
+    width: 100%; border-collapse: collapse; font-size: 14.5px;
+    margin: 0 0 18px; font-feature-settings: "tnum" 1;
+  }
+  th, td {
+    padding: 9px 10px; border-bottom: 1px solid var(--rule);
+    text-align: left; vertical-align: top;
+  }
+  th {
+    font-weight: 600; background: var(--accent-soft);
+    border-bottom: 2px solid #c9d6e2;
+  }
+  td.num, th.num { text-align: right; }
+
+  .tldr {
+    background: var(--panel);
+    border: 1px solid var(--rule);
+    border-left: 4px solid var(--accent);
+    padding: 18px 22px;
+    margin: 0 0 32px;
+    border-radius: 4px;
+  }
+  .tldr p:last-child { margin-bottom: 0; }
+
+  .finding {
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    background: var(--panel);
+    padding: 18px 22px;
+    margin: 0 0 18px;
+  }
+  .finding h3 { margin-top: 0; }
+  .finding .tag {
+    display: inline-block; font-size: 11px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.04em;
+    padding: 2px 8px; border-radius: 10px;
+    margin-right: 8px; vertical-align: middle;
+  }
+  .tag.headline { background: #fbeeec; color: var(--red); }
+  .tag.data { background: #eef3f9; color: var(--accent); }
+  .tag.minor { background: #eee; color: #555; }
+
+  footer {
+    margin-top: 64px; padding-top: 18px;
+    border-top: 1px solid var(--rule);
+    color: var(--ink-faint); font-size: 13px;
+  }
+  footer p { margin: 0 0 4px; }
+
+  @media (max-width: 600px) {
+    main { padding: 24px 16px 64px; }
+    h1 { font-size: 22px; }
+    h2 { font-size: 18px; margin-top: 32px; }
+    table { font-size: 13.5px; }
+    th, td { padding: 7px 6px; }
+  }
+</style>
+</head>
+<body>
+<main>
+
+<header>
+  <h1>What we learned about CourtListener</h1>
+  <p class="subtitle">Findings from running the Case Law Retrieval Benchmark v1, written for the Free Law Project / CourtListener team.</p>
+  <p class="meta">Companion to the <a href="report.html">main benchmark report</a> · May 2026</p>
+</header>
+
+<section class="tldr">
+  <p><strong>What this is.</strong> While running a 600-cell legal case retrieval benchmark, our pipeline made about 4,000 calls against CourtListener's APIs. We mined and verified 3,070 federal-district parentheticals along the way, which gave us a usable lens on what citation-lookup resolves and what it doesn't. The biggest pattern we noticed — a sharp F. Supp. 3d coverage cliff at 2020 — almost certainly lines up with what the <a href="https://free.law/2026/04/16/scanning-americas-case-law/">free.law scanning project announced in April 2026</a> is set up to address. We're sharing the year-by-year breakdown in case it's useful for prioritization.</p>
+  <p><strong>What this is not.</strong> A complaint. CL is the indispensable substrate for this kind of work; the reason we noticed these patterns is that we used CL heavily and most of it worked. We're happy to file GitHub issues with full reproducers, share data dumps, or help triage in any way that's useful.</p>
+</section>
+
+<h2>Findings</h2>
+
+<div class="finding">
+  <h3><span class="tag headline">data coverage</span>F. Supp. 3d coverage stops at 2019 — sharp cliff, not gradual</h3>
+
+  <p>Of the 3,070 parentheticals we mined from federal-district opinions filed in early 2026, we got a clean year-by-year view of how citation-lookup resolves district-court reporter cites. The pattern is striking and almost binary:</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Cited year</th>
+        <th class="num">F. Supp. 3d verified</th>
+        <th class="num">Not found</th>
+        <th class="num">Rate</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>2014</td><td class="num">50</td><td class="num">0</td><td class="num">100%</td></tr>
+      <tr><td>2015</td><td class="num">10</td><td class="num">0</td><td class="num">100%</td></tr>
+      <tr><td>2016</td><td class="num">30</td><td class="num">0</td><td class="num">100%</td></tr>
+      <tr><td>2017</td><td class="num">40</td><td class="num">0</td><td class="num">100%</td></tr>
+      <tr><td>2019</td><td class="num">10</td><td class="num">0</td><td class="num">100%</td></tr>
+      <tr><td><strong>2020</strong></td><td class="num">0</td><td class="num">10</td><td class="num"><strong>0%</strong></td></tr>
+      <tr><td>2021</td><td class="num">0</td><td class="num">20</td><td class="num">0%</td></tr>
+      <tr><td>2022</td><td class="num">0</td><td class="num">40</td><td class="num">0%</td></tr>
+      <tr><td>2023</td><td class="num">0</td><td class="num">10</td><td class="num">0%</td></tr>
+      <tr><td>2024</td><td class="num">0</td><td class="num">70</td><td class="num">0%</td></tr>
+      <tr><td>2025</td><td class="num">0</td><td class="num">30</td><td class="num">0%</td></tr>
+    </tbody>
+  </table>
+
+  <p>Every F. Supp. 3d cite from 2014–2019 in our pool resolves. <strong>Not one F. Supp. 3d cite from 2020 onward resolves.</strong> Same pattern across every citing district (DDC, ILND, MAD, etc.) — it's not a per-district issue, it's a reporter/year cutoff. Circuit reporters (F.2d / F.3d / F.4th) by contrast resolve at 93–100% from pre-1990 through 2024 in the same pool, dropping only at 2025 (the in-progress year). So the F. Supp. 3d cliff is roughly five years behind the circuit pipeline.</p>
+
+  <p>This is a citation-coverage issue, not an opinion-coverage one — the underlying opinions are largely in CL via PACER/RECAP; what's missing is the reporter-citation→opinion mapping. That's exactly what the scanning project is built to backfill, so we're sharing the year-by-year breakdown only in case the granularity is useful for prioritization. If a dump of the 180 unresolved 2020+ F. Supp. 3d cites would help validate scanning coverage, we have it ready.</p>
+</div>
+
+<div class="finding">
+  <h3><span class="tag data">data coverage</span>Other reporter patterns we noticed</h3>
+
+  <p>Verification rates by reporter format, on the same 3,070-paren pool:</p>
+
+  <table>
+    <thead>
+      <tr><th>Format</th><th class="num">Verified / Total</th><th class="num">Rate</th><th>Notes</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>F.3d</td><td class="num">950 / 970</td><td class="num">98%</td><td>Steady across years</td></tr>
+      <tr><td>F.2d</td><td class="num">200 / 200</td><td class="num">100%</td><td>Older, fully ingested</td></tr>
+      <tr><td>F. Supp. 2d</td><td class="num">220 / 220</td><td class="num">100%</td><td>Older district series</td></tr>
+      <tr><td>F. Supp. 3d</td><td class="num">140 / 320</td><td class="num">44%</td><td>The 2020 cliff above</td></tr>
+      <tr><td>U.S. (SCOTUS)</td><td class="num">270 / 290</td><td class="num">93%</td><td>Steady</td></tr>
+      <tr><td>F.4th</td><td class="num">100 / 140</td><td class="num">71%</td><td>Newer (2021–) circuit series; mostly 2025-year drops</td></tr>
+      <tr><td>F. App'x</td><td class="num">30 / 60</td><td class="num">50%</td><td>Unpublished circuit; partial coverage expected</td></tr>
+      <tr><td>WL (Westlaw-only)</td><td class="num">0 / 590</td><td class="num"><strong>0%</strong></td><td>None resolve via citation-lookup</td></tr>
+      <tr><td>State / unpublished / other</td><td class="num">240 / 910</td><td class="num">26%</td><td>Federal-tilted index; expected</td></tr>
+    </tbody>
+  </table>
+
+  <p>The one figure here that isn't a scanning-project story: <strong>WL-only citations resolve at 0%</strong> — 590 of them in the pool, ~19% of all parentheticals in modern district opinions, with no parallel reporter to fall back on. That's expected (Westlaw is paywalled), but the volume is worth noting for downstream tools: if a benchmark or verifier depends on CL, ~1 in 5 modern-district parentheticals will simply be unverifiable.</p>
+
+  <p>For completeness, we also re-checked each NOT_FOUND citation against opinion-search (the next fallback path) and saw a clean split: <strong>F.3d misses recovered at 100%</strong> (20/20), but F.4th 2025+ misses, F. Supp. 3d 2020+ misses, and WL misses recovered at <strong>0%</strong> (260/260 stayed NOT_FOUND). Citation-lookup is doing some work that opinion-search isn't redundant with, even when both endpoints have access to the same underlying data.</p>
+</div>
+
+<div class="finding">
+  <h3><span class="tag minor">minor</span>citation-lookup clusters returned with <code>case_name</code> empty</h3>
+  <p>When citation-lookup resolves a citation, the returned cluster object frequently has <code>"case_name": null</code> even when the cluster's <code>absolute_url</code> contains the slug (e.g. <code>/opinion/145814/virginia-v-moore/</code>) and the cluster ID resolves correctly via the <code>/clusters/&lt;id&gt;/</code> endpoint with full case-name population.</p>
+  <p>For callers doing name-matching (which we are — to detect cases like "this citation is real but the model named the wrong case"), this means a follow-up <code>/clusters/&lt;id&gt;/</code> fetch to get the actual name. Not a bug per se — just an observation that two API endpoints return slightly different shapes for the same cluster, and the citation-lookup shape is more minimal than callers might expect. Either populating <code>case_name</code> in the citation-lookup response, or documenting that callers need to follow up via <code>/clusters/&lt;id&gt;/</code>, would help.</p>
+</div>
+
+<div class="finding">
+  <h3><span class="tag minor">minor</span>opinion text retrieval needs a 6-field fallthrough</h3>
+  <p>To pull opinion text from a cluster, we have to try <code>plain_text</code> first, then fall through to <code>html</code>, <code>html_columbia</code>, <code>html_with_citations</code>, <code>html_lawbox</code>, and <code>xml_harvard</code>, stripping markup along the way. Some opinions populate one field; some populate another; some populate several inconsistently.</p>
+  <p>This is presumably a consequence of CL's import history (different sources populate different fields). Not asking for normalization — that'd be a huge project — but a one-paragraph "how to robustly get the text of an opinion" in the API docs, with the recommended fallthrough order, would save every downstream tool from inventing its own.</p>
+</div>
+
+<p style="font-size: 14px; color: var(--ink-soft); margin-top: 24px;">
+A note on what we left out: while running this benchmark we also hit citation-lookup's response-truncation behavior on large batches (we sent 600 citations in one call and got entries for only ~250). We understand this is already known to FLP; we worked around it by chunking to 150 per request. Mentioning only so the audit trail is complete.
+</p>
+
+<h2>What we'd find useful (wishlist)</h2>
+
+<p>Not asks — just things that would simplify benchmarks like ours:</p>
+<ul>
+  <li><strong>An "is this real?" endpoint that fans out across multiple resolution paths.</strong> Today, citation-lookup is fast but conservative; opinion-search is more permissive but slower. Empirically: of the 20 F.3d citations that citation-lookup missed in our pool, opinion-search rescued 20/20 (100%) — those weren't coverage gaps, just parser misses. A unified existence-check endpoint that tries cite-lookup first, then falls through to opinion-search, would let downstream tools have one canonical "real or not" oracle without each writing its own fallback chain.</li>
+  <li><strong>A bulk-resolution endpoint that handles 1,000+ citations cleanly.</strong> Would let benchmark scoring be a single API call instead of N batched calls.</li>
+  <li><strong>Per-citation court-tier metadata in citation-lookup's response.</strong> Would let benchmark consumers stratify by tier without separately fetching <code>/clusters/&lt;id&gt;/</code> for each.</li>
+  <li><strong>A test-data endpoint or fixture set for citation-lookup.</strong> When integrating CL into a tool, a small set of known-good citations (covering each reporter, each tier, edge cases) would be invaluable for regression tests.</li>
+</ul>
+
+<h2>What we have on hand</h2>
+
+<p>If any of these are useful, we have the full 3,070-row mined pool with verification status, year, and tier classification (<code>benchmark_v1/_raw_pool.json</code>); the 180 unresolved post-2019 F. Supp. 3d citations as a separate dump on request; and the open-source <a href="https://github.com/rlfordon/citation-verifier"><code>citation-verifier</code></a> codebase, which uses CL heavily.</p>
+
+<p>The citation-verifier project itself exists because of CourtListener — happy to help with issue triage, test cases, sample data, or just talking through findings.</p>
+
+<footer>
+  <p>Author: Rebecca Fordon (<a href="mailto:fordon.4@osu.edu">fordon.4@osu.edu</a>) · The Ohio State University.</p>
+  <p>Methodology and full numbers: <a href="report.html">main benchmark v1 report</a>. Code: <a href="https://github.com/rlfordon/citation-verifier">github.com/rlfordon/citation-verifier</a>.</p>
+</footer>
+
+</main>
+</body>
+</html>
