@@ -7,6 +7,32 @@ scored on Real / Name-match / Supports axes. Closed-book mode only.
 **Predecessor pilot:** [../docs/plans/2026-04-26-benchmark-pilot-a.md](../docs/plans/2026-04-26-benchmark-pilot-a.md)
 **Implementation plan:** [../docs/plans/2026-04-30-benchmark-v1-plan.md](../docs/plans/2026-04-30-benchmark-v1-plan.md)
 
+## Headlines (v1 results)
+
+200 examples per model, single closed-book run, scored by Opus 4.7.
+
+| Model | % Green | Hallucination rate | UNKNOWN rate | Right-case rate |
+|---|---:|---:|---:|---:|
+| Sonnet 4.6 | 31.0% | 12.8% | 53.0% | 11.5% |
+| Opus 4.7 | 37.0% | 16.7% | 22.0% | 14.0% |
+| **GPT-5** | **51.0%** | 17.0% | 6.0% | 16.5% |
+
+GPT-5 leads on Green rate by a wide margin. Two pairwise diffs have
+95% CI excluding zero:
+
+| Pair | Green diff | 95% CI |
+|---|---:|---|
+| Opus − GPT-5 | **−14.0pp** | [−23.5, −4.5] |
+| Sonnet − GPT-5 | **−20.0pp** | [−29.5, −10.5] |
+| Opus − Sonnet | +6.0pp | [−3.0, +15.5] |
+
+Sonnet's low hallucination rate is partly a denominator effect — its
+53% UNKNOWN rate excludes most responses from the hallucination tally.
+The recall (Green) vs precision (low Hallucination) tradeoff is the
+shape of the leaderboard.
+
+See `scorecards.md` for the per-district breakdown.
+
 ## What's here
 
 | File | Description |
@@ -66,6 +92,21 @@ the scorecard footer; not a comparability gate.
 **Substance assessor:** Opus 4.7 judges Green/Yellow/Red on the assertion
 "this case substantively supports this proposition" given the proposition,
 the model's named case, and the cited opinion's text (≤ 20K chars).
+
+## Methodology adjustments during the run
+
+The run surfaced three issues that needed in-flight adjustments. All
+are documented in code comments at the relevant call sites.
+
+| Issue | Adjustment | Affects |
+|---|---|---|
+| GPT-5's spec-suggested 2000-token budget left ~67% of responses empty (every empty hit the budget exactly on reasoning) | Bumped to 8000 in `model_adapter.py` `_call_gpt5` | GPT-5's "answered" rate would have been ~33% under the original budget; now ~94% |
+| Sonnet's 60s timeout cut off ~28% of calls (max OK call observed: 59.5s) | Bumped to 120s in `run_model.py` `TIMEOUT_S` | Sonnet's UNKNOWN rate would have included ~28% TIMEOUTs; now ~1% |
+| CourtListener's citation-lookup API silently truncates the response at ~200 entries even when the request body is well within size limits | Patched `_batch_citation_lookup` in `verifier.py` to chunk by both char count (50K) and citation count (150) | All three models' real-rates were under-reported on the first scoring pass; GPT-5 (last in batch order) was hit hardest, going from real=4 to real=175 after the patch |
+
+The chunking fix landed as `7eeb0a4` (`fix: chunk batch citation-lookup
+by citation count, not just chars`) with a regression test. The other
+two are documented inline in the adapter and runner.
 
 ## Known biases (CL-coverage)
 
