@@ -1,6 +1,15 @@
-"""Aggregate results.csv into a per-model leaderboard with bootstrap CIs."""
+"""Aggregate results.csv into a per-model leaderboard with bootstrap CIs.
+
+CLI: --dedupe to drop duplicate (proposition, gold_cite) cells before
+aggregating. The v1 raw mining pass produced ~10x duplication of each
+parenthetical inside the source opinion (eyecite extracting the same
+citation in multiple forms); the sampled 200-row dataset retained 35%
+duplicates as a result. Dedup recomputes headline numbers on the unique
+~130 propositions per model. Output goes to scorecards-deduped.md.
+"""
 from __future__ import annotations
 
+import argparse
 import csv
 import random
 from pathlib import Path
@@ -8,9 +17,24 @@ from typing import Callable
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
 RESULTS = PROJECT_ROOT / "benchmark_v1" / "results.csv"
+DATASET = PROJECT_ROOT / "benchmark_v1" / "dataset.csv"
 OUT = PROJECT_ROOT / "benchmark_v1" / "scorecards.md"
+OUT_DEDUPED = PROJECT_ROOT / "benchmark_v1" / "scorecards-deduped.md"
 
 MODELS = ["sonnet", "opus", "gpt-5"]
+
+
+def canonical_dataset_ids() -> set[str]:
+    """Return the set of dataset row IDs to keep after deduplicating on
+    (proposition, gold_cite). For each unique pair, the first-seen row
+    is canonical."""
+    ds_rows = list(csv.DictReader(DATASET.open(encoding="utf-8")))
+    seen: dict[tuple[str, str], str] = {}
+    for r in ds_rows:
+        key = (r["proposition"], r["gold_cite"])
+        if key not in seen:
+            seen[key] = r["id"]
+    return set(seen.values())
 
 
 def green_rate(rows: list[dict]) -> float:
@@ -58,16 +82,34 @@ def bootstrap_diff(rows_a: list[dict], rows_b: list[dict],
 
 
 def main() -> None:
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--dedupe", action="store_true",
+                    help="drop duplicate (proposition, gold_cite) cells "
+                         "before aggregating; writes scorecards-deduped.md")
+    args = ap.parse_args()
+
     rows = list(csv.DictReader(RESULTS.open(encoding="utf-8")))
+    out_path = OUT
+    title = "Case Law Retrieval Benchmark v1 — Scorecard"
+    if args.dedupe:
+        keep_ids = canonical_dataset_ids()
+        before = len(rows)
+        rows = [r for r in rows if r["id"] in keep_ids]
+        out_path = OUT_DEDUPED
+        title += " (deduped)"
+        print(f"Dedup: {before} cells -> {len(rows)} (kept {len(keep_ids)} unique propositions)")
     by_model = {m: [r for r in rows if r["model"] == m] for m in MODELS}
 
     lines: list[str] = []
-    lines.append("# Case Law Retrieval Benchmark v1 — Scorecard")
+    lines.append(f"# {title}")
     lines.append("")
     lines.append(f"**N per model:** {min(len(rs) for rs in by_model.values())}  ")
     lines.append(f"**Models:** Sonnet 4.6, Opus 4.7, GPT-5  ")
     lines.append(f"**Eval mode:** closed-book  ")
     lines.append(f"**Substance assessor:** Opus 4.7")
+    if args.dedupe:
+        lines.append("")
+        lines.append(f"**Note:** This scorecard runs on the deduplicated subset. The mining pass produced ~10x duplication of each parenthetical inside its source opinion (eyecite picking up the same citation in multiple forms), and 35% of the v1 dataset rows turned out to be duplicates of others. Numbers below run on the unique (proposition, gold_cite) cells only — N is per-model unique propositions, not the original 200.")
     lines.append("")
     lines.append("**Note:** GPT-5 ran with provider-default temperature (1) — "
                  "the API rejects temperature=0. Claude models also use provider")
@@ -114,7 +156,7 @@ def main() -> None:
             cells.append(f"{green_rate(sub):.1%}")
         lines.append(f"| {m} | " + " | ".join(cells) + " |")
 
-    OUT.write_text("\n".join(lines), encoding="utf-8")
+    out_path.write_text("\n".join(lines), encoding="utf-8")
     # Force utf-8 stdout so Unicode minus (en-dash, Greek letters) prints
     # on Windows (default cp1252 chokes on −).
     import sys
@@ -122,7 +164,7 @@ def main() -> None:
         sys.stdout.reconfigure(encoding="utf-8")
     except AttributeError:
         pass  # older Python; preview will skip non-ascii
-    print(OUT.read_text(encoding="utf-8"))
+    print(out_path.read_text(encoding="utf-8"))
 
 
 if __name__ == "__main__":
