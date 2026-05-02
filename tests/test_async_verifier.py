@@ -724,6 +724,41 @@ class TestBatchCitationLookup:
         result = asyncio.run(v._batch_citation_lookup(mock_client, [citation]))
         assert result[0]["case_name"] == "First Match"
 
+    def test_chunks_when_citation_count_exceeds_limit(self):
+        """CL's citation-lookup response truncates beyond ~200 entries.
+        Verifier must chunk by citation count (max 150 per chunk), not just
+        by character count, so requests with 200+ citations get full
+        coverage. Regression for benchmark v1 bug: 437-citation batch
+        silently dropped citations 250+ from the response."""
+        # 300 short citations stay well under the 50K char limit but
+        # exceed the 150 citation-count limit, so should produce 2 chunks.
+        citations = [
+            f"Case{i} v. Other, {100 + i} U.S. {i} (2020)"
+            for i in range(300)
+        ]
+
+        chunk_calls: list[str] = []
+
+        async def track_chunks(text: str):
+            chunk_calls.append(text)
+            return []  # no hits, doesn't matter for this test
+
+        mock_client = _mock_batch_client()
+        mock_client.citation_lookup.side_effect = track_chunks
+
+        v = CitationVerifier()
+        asyncio.run(v._batch_citation_lookup(mock_client, citations))
+
+        assert len(chunk_calls) >= 2, (
+            f"Expected >=2 chunks for 300 citations; got {len(chunk_calls)}"
+        )
+        for i, chunk in enumerate(chunk_calls):
+            n_lines = chunk.count("\n")
+            assert n_lines <= 150, (
+                f"Chunk {i} has {n_lines} citations; max is 150 to stay "
+                f"under CL's ~200-entry response truncation"
+            )
+
 
 # ---------------------------------------------------------------------------
 # verify_batch integration with batch lookup

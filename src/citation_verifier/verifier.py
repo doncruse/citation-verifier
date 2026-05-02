@@ -1373,9 +1373,13 @@ class CitationVerifier:
         Joins citations into a text block, POSTs to the API, and maps
         results back to citation indices using start_index/end_index.
 
-        Chunks the text block at ~50K characters to stay under the 64K
-        API limit.  Each chunk is retried up to 3 times; on total failure
-        the chunk falls back to individual citation_lookup() calls.
+        Chunks the text block by both character count (50K, to stay under
+        the 64K request size limit) and citation count (150, because CL's
+        citation-lookup response silently truncates beyond ~200 entries —
+        observed 2026-05-02 on a 437-citation batch where citations past
+        the cutoff returned no entries even though they resolve when sent
+        alone). Each chunk is retried up to 3 times; on total failure the
+        chunk falls back to individual citation_lookup() calls.
 
         Returns ``{index: cluster}`` for citations with hits.
         """
@@ -1383,6 +1387,7 @@ class CitationVerifier:
             return {}
 
         CHUNK_SIZE = 50_000
+        MAX_CITATIONS_PER_CHUNK = 150
         MAX_ATTEMPTS = 3
 
         # Build text block and track per-citation offsets
@@ -1398,29 +1403,25 @@ class CitationVerifier:
             lines.append("\n")
             pos += 1  # newline
 
-        full_text = "".join(lines)
-
-        # Split into chunks on newline boundaries
+        # Split into chunks bounded by both char count and citation count
         chunks: list[tuple[str, list[tuple[int, int, int]]]] = []
-        if len(full_text) <= CHUNK_SIZE:
-            chunks.append((full_text, offsets))
-        else:
-            chunk_text = ""
-            chunk_offsets: list[tuple[int, int, int]] = []
-            chunk_base = 0
-            for i, cite in enumerate(citations):
-                line = cite + "\n"
-                if chunk_text and len(chunk_text) + len(line) > CHUNK_SIZE:
-                    chunks.append((chunk_text, chunk_offsets))
-                    chunk_base += len(chunk_text)
-                    chunk_text = ""
-                    chunk_offsets = []
-                start = len(chunk_text)
-                chunk_text += line
-                end = start + len(cite)
-                chunk_offsets.append((offsets[i][0], start, end))
-            if chunk_text:
+        chunk_text = ""
+        chunk_offsets: list[tuple[int, int, int]] = []
+        for i, cite in enumerate(citations):
+            line = cite + "\n"
+            if chunk_text and (
+                len(chunk_text) + len(line) > CHUNK_SIZE
+                or len(chunk_offsets) >= MAX_CITATIONS_PER_CHUNK
+            ):
                 chunks.append((chunk_text, chunk_offsets))
+                chunk_text = ""
+                chunk_offsets = []
+            start = len(chunk_text)
+            chunk_text += line
+            end = start + len(cite)
+            chunk_offsets.append((offsets[i][0], start, end))
+        if chunk_text:
+            chunks.append((chunk_text, chunk_offsets))
 
         results: dict[int, dict] = {}
 
