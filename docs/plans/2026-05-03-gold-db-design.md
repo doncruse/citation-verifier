@@ -36,14 +36,14 @@ The gold pair — citing court asserts case X supports proposition P — is a **
 
 **Design implication:** the gold-pair self-score is a **first-class column** in the gold-DB, not a validation gate. A gold pair where Opus says Yellow is a research datum ("citing court overstated the holding here"), not a row to discard. This baseline rate is the right comparison floor for any model's Green rate — a model at 75% isn't obviously worse than the human (judge-and-clerk) baseline of 85%.
 
-Court tier matters too: SCOTUS clerks edit citations harder than district-court clerks, so the proxy tightens at the top of the hierarchy. The schema records `court_id` and `tier` on every case so we can break this down post-hoc.
+Court tier matters too: SCOTUS clerks edit citations harder than district-court clerks, so the proxy tightens at the top of the hierarchy. The schema records `court_id` plus `system` and `level` (from courts-db) on every case so we can break this down post-hoc.
 
 ## Entity model (graph-shaped)
 
 The conceptual model is a small typed graph:
 
 **Entities**
-- `Case` (pk: CourtListener cluster_id; attrs: canonical_name, court, year, tier, jurisdiction)
+- `Case` (pk: CourtListener cluster_id; attrs: canonical_name, court, year, system, level — system + level looked up from [courts-db](https://github.com/freelawproject/courts-db))
 - `Proposition` (pk: hash of normalized text; attrs: text, holding_verb, source mining run)
 - `Dataset` (pk: name e.g. `v1`, `v2`; attrs: mining window, courts, frozen_at)
 
@@ -77,14 +77,14 @@ CREATE TABLE cases (
     canonical_name      TEXT NOT NULL,
     court_id            TEXT,                        -- CL court abbrev (e.g. 'scotus', 'ca9', 'almd')
     year                INTEGER,
-    tier                TEXT,                        -- 'scotus' | 'circuit' | 'district' | 'state' | 'other'
-    jurisdiction        TEXT,                        -- 'federal' | 'state' | 'tribal' | ...
+    system              TEXT,                        -- courts-db: federal|state|tribal|extraterritorial|special
+    level               TEXT,                        -- courts-db: colr|iac|gjc|ljc|trial
     cite_string         TEXT,                        -- canonical reporter citation
     first_seen_run_id   TEXT,
     first_seen_at       TEXT NOT NULL                -- ISO 8601
 );
-CREATE INDEX idx_cases_court ON cases(court_id);
-CREATE INDEX idx_cases_tier  ON cases(tier);
+CREATE INDEX idx_cases_court        ON cases(court_id);
+CREATE INDEX idx_cases_system_level ON cases(system, level);
 
 CREATE TABLE propositions (
     proposition_id      TEXT PRIMARY KEY,            -- sha256(normalized_text)
@@ -175,7 +175,7 @@ CREATE TABLE runs (
 
 ## Cache hit behavior
 
-**Build-side cache (mining).** Before calling CL citation-lookup for a citation, query `cases` by reporter cite or canonical name + year. On hit, skip CL and reuse cluster_id, canonical_name, court_id, tier.
+**Build-side cache (mining).** Before calling CL citation-lookup for a citation, query `cases` by reporter cite or canonical name + year. On hit, skip CL and reuse cluster_id, canonical_name, court_id, system, level.
 
 **Score-side cache (assessing).** Before calling Opus assessor for `(proposition_id, candidate_cluster_id)`, query `assessor_verdicts` for a row matching the current `assessor_model`, `assessor_prompt_version`, and `opinion_window_chars`. On hit, reuse verdict; skip the call.
 
@@ -270,6 +270,7 @@ gold_db/
 - Dedicated query CLI (use `sqlite3` + pandas for now)
 - Stratified sampling tooling for v1.1 (separate work item; will *consume* the gold-DB)
 - Migration plan if `gold.db` outgrows in-repo storage
+- **Semantic proposition matching across datasets.** First cut hashes the proposition by `sha256(normalized_text)` — exact match after whitespace + case normalization. v2's freshly-mined propositions almost never collide with v1's, so the score-side cache is primarily a within-dataset benefit (re-runs, drift, acceptable-alternatives across models). Cross-dataset cache hits require a `proposition_clusters` table populated by an embedding pass (sentence-transformers locally, or Anthropic embeddings — ~$1-5 to embed ~1000 props). Non-breaking layer-on; defer to v1.3+ once we measure how often we'd want this. The cumulative-research-corpus role of the gold-DB works regardless.
 
 ## Open questions
 
@@ -277,7 +278,7 @@ gold_db/
 
 2. **Backfill granularity:** rebuild from v1's CSVs (`benchmark_v1/dataset.csv`, `outputs_*.csv`, `results.csv`) wholesale, or only forward-fill from v2 onward and treat v1 as an external archive? **Leaning backfill** — v1's 130 unique pairs + ~390 model answers + ~195 verdicts are the seed corpus, and not having them in the gold-DB defeats the cache for v1 reruns. Note that backfill works off the deduped data (130 unique propositions), not the original 200-row mining output.
 
-3. **Tier taxonomy:** `scotus | circuit | district | state | bia | tax | other`? Want to settle this before backfill so v1 cases get a tier on first insert. Defer to first implementation; revise as edge cases surface.
+3. ~~**Tier taxonomy:**~~ **Resolved.** Use [courts-db](https://github.com/freelawproject/courts-db)'s `system` + `level` fields directly (federal/state/tribal/etc. × colr/iac/gjc/ljc/trial). Stored as two separate columns on `cases` so analysts can combine them at query time rather than baking a tier label into storage.
 
 4. **Prompt versioning:** manual `assessor_prompt_version` string for v1. Should we hash the prompt template for automatic invalidation? Defer to v2; manual is fine while we're the only ones changing prompts.
 

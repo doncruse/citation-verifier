@@ -6,7 +6,7 @@
 
 **Architecture:** Single SQLite file at `gold_db/gold.db` with 5 tables (cases, propositions, citation_rows, assessor_verdicts, model_answers) plus a runs metadata table. Thin Python wrapper class `GoldDB` in `src/citation_verifier/gold_db.py` exposing idempotent upserts and a cache-aware `get_or_score_verdict` method. CSV exports committed alongside for diffability.
 
-**Tech Stack:** Python 3.10+ stdlib `sqlite3`, `hashlib` (sha256 proposition hashing), `csv` (export). Tests via `pytest` with `tmp_path` fixtures. No new third-party dependencies.
+**Tech Stack:** Python 3.10+ stdlib `sqlite3`, `hashlib` (sha256 proposition hashing), `csv` (export). Tests via `pytest` with `tmp_path` fixtures. One new third-party dependency: [`courts-db`](https://github.com/freelawproject/courts-db) for court-system / level lookup (replaces a home-rolled tier table).
 
 **Environment:** Windows + Git Bash. Python is `venv/Scripts/python.exe`. Run pytest as `venv/Scripts/python.exe -m pytest ...`. No `head`/`tail`/`grep` available — use Python or dedicated tools.
 
@@ -19,7 +19,7 @@
 **New files:**
 - `gold_db/migrations/001_initial.sql` — canonical CREATE TABLE statements
 - `gold_db/README.md` — querying examples + CSV export consumption guide
-- `src/citation_verifier/gold_db.py` — `GoldDB` class + `infer_tier` utility
+- `src/citation_verifier/gold_db.py` — `GoldDB` class + `lookup_court` utility (courts-db wrapper)
 - `tests/test_gold_db.py` — unit tests (in-memory SQLite via `tmp_path`)
 - `tests/benchmark_v1/backfill_gold_db.py` — one-shot script to populate gold-DB from v1 CSVs
 - `tests/benchmark_v1/score_gold_pairs.py` — one-shot script to compute gold-pair self-scores
@@ -94,7 +94,15 @@ Expected: FAIL with `ModuleNotFoundError: No module named 'citation_verifier.gol
 
 - [ ] **Step 3: Write the SQL schema**
 
-Create `gold_db/migrations/001_initial.sql` with the contents of the schema block from [2026-05-03-gold-db-design.md](2026-05-03-gold-db-design.md) §Schema. Verbatim — all 7 `CREATE TABLE` statements (cases, propositions, datasets, citation_rows, assessor_verdicts, model_answers, runs) plus the indexes.
+Create `gold_db/migrations/001_initial.sql` with the contents of the schema block from [2026-05-03-gold-db-design.md](2026-05-03-gold-db-design.md) §Schema. Verbatim — all 7 `CREATE TABLE` statements (cases, propositions, datasets, citation_rows, assessor_verdicts, model_answers, runs) plus the indexes. Note that `cases` has `system` + `level` columns (from courts-db) rather than `tier` + `jurisdiction`.
+
+- [ ] **Step 3b: Add courts-db dependency**
+
+```bash
+venv/Scripts/python.exe -m pip install courts-db
+```
+
+Then update `pyproject.toml` (or `requirements.txt` / `requirements-dev.txt` — whichever the repo uses) to declare `courts-db` as a dependency.
 
 - [ ] **Step 4: Write the GoldDB class**
 
@@ -147,94 +155,100 @@ git commit -m "gold-DB: schema + GoldDB skeleton"
 
 ---
 
-## Task 2: Tier inference utility
+## Task 2: Court-system / level lookup (via courts-db)
 
 **Files:**
-- Modify: `src/citation_verifier/gold_db.py` (add `infer_tier`)
-- Modify: `tests/test_gold_db.py` (add tier tests)
+- Modify: `src/citation_verifier/gold_db.py` (add `lookup_court`)
+- Modify: `tests/test_gold_db.py` (add lookup tests)
+
+**Why courts-db, not a home-rolled enum:** [courts-db](https://github.com/freelawproject/courts-db) is the Free Law Project's authoritative court taxonomy, keyed by the same `id` as CourtListener. It exposes `system` (federal | state | tribal | extraterritorial | special) and `level` (colr | iac | gjc | ljc | trial). Using it means our taxonomy stays in sync with FLP's curation as new courts are added or reclassified.
 
 - [ ] **Step 1: Write failing tests**
 
 Append to `tests/test_gold_db.py`:
 
 ```python
-from citation_verifier.gold_db import infer_tier
+from citation_verifier.gold_db import lookup_court
 
 
-@pytest.mark.parametrize("court_id,expected", [
-    ("scotus", "scotus"),
-    ("ca9", "circuit"),
-    ("cadc", "circuit"),
-    ("cafc", "circuit"),
-    ("ca1", "circuit"),
-    ("ca11", "circuit"),
-    ("nysd", "district"),
-    ("cand", "district"),
-    ("dcd", "district"),
-    ("almd", "district"),
-    ("tax", "specialty"),
-    ("bia", "specialty"),
-    ("cit", "specialty"),
-    ("cofc", "specialty"),
-    ("ny", "state"),
-    ("cal", "state"),
-    ("", "unknown"),
-    (None, "unknown"),
+@pytest.mark.parametrize("court_id,expected_system,expected_level", [
+    ("scotus", "federal", "colr"),
+    ("ca9",    "federal", "iac"),
+    ("cadc",   "federal", "iac"),
+    ("nysd",   "federal", "gjc"),
+    ("cand",   "federal", "gjc"),
 ])
-def test_infer_tier(court_id, expected):
-    assert infer_tier(court_id) == expected
+def test_lookup_court_known_federal(court_id, expected_system, expected_level):
+    system, level = lookup_court(court_id)
+    assert system == expected_system
+    assert level == expected_level
+
+
+def test_lookup_court_unknown_returns_none(tmp_path):
+    system, level = lookup_court("definitely-not-a-court-id-12345")
+    assert system is None
+    assert level is None
+
+
+def test_lookup_court_empty_or_none():
+    assert lookup_court(None) == (None, None)
+    assert lookup_court("") == (None, None)
 ```
+
+The expected values for the parametrized cases come from courts-db itself; if courts-db's classification differs from what's listed (e.g. it labels `cadc` differently), update the test to match courts-db rather than the other way around.
 
 - [ ] **Step 2: Run test to verify it fails**
 
-Run: `venv/Scripts/python.exe -m pytest tests/test_gold_db.py::test_infer_tier -v`
-Expected: FAIL with `ImportError: cannot import name 'infer_tier'`
+Run: `venv/Scripts/python.exe -m pytest tests/test_gold_db.py -k lookup_court -v`
+Expected: FAIL with `ImportError: cannot import name 'lookup_court'`
 
-- [ ] **Step 3: Implement `infer_tier`**
+- [ ] **Step 3: Implement `lookup_court`**
 
 Append to `src/citation_verifier/gold_db.py`:
 
 ```python
-from citation_verifier.court_map import is_federal_court
-
-_SCOTUS = {"scotus"}
-_CIRCUITS = {f"ca{i}" for i in range(1, 12)} | {"cadc", "cafc"}
-_SPECIALTY = {"tax", "cit", "cofc", "bia", "jpml", "uscfc", "fisc"}
+# Lazily build the courts-db index on first use so import is cheap.
+_COURT_INDEX: dict[str, dict] | None = None
 
 
-def infer_tier(court_id: str | None) -> str:
-    """Map a CourtListener court_id to a benchmark tier label.
+def _build_court_index() -> dict[str, dict]:
+    """Load courts-db data into an id -> court-record dict.
 
-    Returns one of: 'scotus', 'circuit', 'district', 'specialty', 'state',
-    'other', 'unknown'.
+    courts-db ships its data as a JSON list. The exact import path can
+    change across versions; this helper isolates that.
     """
-    if not court_id:
-        return "unknown"
-    if court_id in _SCOTUS:
-        return "scotus"
-    if court_id in _CIRCUITS:
-        return "circuit"
-    if court_id in _SPECIALTY:
-        return "specialty"
-    if is_federal_court(court_id):
-        return "district"
-    return "state"
-```
+    try:
+        from courts_db import courts as courts_list  # courts-db >= 0.10
+    except ImportError:
+        # Older shape: top-level module exposes data via load_courts_db()
+        from courts_db import load_courts_db
+        courts_list = load_courts_db()
+    return {c["id"]: c for c in courts_list}
 
-Note: `is_federal_court` is from `court_map.py`; the function returns False for state and unknown codes, which we then call "state" (best effort — caller can override if needed).
+
+def lookup_court(court_id: str | None) -> tuple[str | None, str | None]:
+    """Return (system, level) for a CourtListener court_id, or (None, None)."""
+    if not court_id:
+        return None, None
+    global _COURT_INDEX
+    if _COURT_INDEX is None:
+        _COURT_INDEX = _build_court_index()
+    rec = _COURT_INDEX.get(court_id)
+    if not rec:
+        return None, None
+    return rec.get("system"), rec.get("level")
+```
 
 - [ ] **Step 4: Run test to verify it passes**
 
-Run: `venv/Scripts/python.exe -m pytest tests/test_gold_db.py::test_infer_tier -v`
-Expected: PASS for all parametrized cases.
-
-If "ny" / "cal" return "other" instead of "state" because they're not in `is_federal_court`'s map and the function's contract returns False for unknowns, the test expectation needs to match reality. Run once and align the test to actual behavior — `infer_tier`'s job is "best-effort label," not "perfect taxonomy."
+Run: `venv/Scripts/python.exe -m pytest tests/test_gold_db.py -k lookup_court -v`
+Expected: PASS for all cases. If a parametrized case fails because courts-db labels a court differently than expected, update the expected value to match courts-db (it's the source of truth).
 
 - [ ] **Step 5: Commit**
 
 ```bash
 git add src/citation_verifier/gold_db.py tests/test_gold_db.py
-git commit -m "gold-DB: infer_tier utility"
+git commit -m "gold-DB: lookup_court via courts-db (system + level)"
 ```
 
 ---
@@ -259,13 +273,14 @@ def test_upsert_case_inserts(tmp_path: Path):
         run_id="test",
     )
     row = db.conn.execute(
-        "SELECT cluster_id, canonical_name, court_id, year, tier FROM cases"
+        "SELECT cluster_id, canonical_name, court_id, year, system, level FROM cases"
     ).fetchone()
     assert row["cluster_id"] == 12345
     assert row["canonical_name"] == "Foo v. Bar"
     assert row["court_id"] == "scotus"
     assert row["year"] == 2020
-    assert row["tier"] == "scotus"  # auto-derived from court_id
+    assert row["system"] == "federal"   # auto-looked-up from courts-db
+    assert row["level"] == "colr"
 
 
 def test_upsert_case_idempotent(tmp_path: Path):
@@ -289,6 +304,8 @@ def test_upsert_case_updates_metadata(tmp_path: Path):
     # Newer richer metadata wins; first_seen_run_id stays at 'r1'.
     assert row["canonical_name"] == "Foo v. Bar"
     assert row["court_id"] == "ca9"
+    assert row["system"] == "federal"
+    assert row["level"] == "iac"
     assert row["first_seen_run_id"] == "r1"
 ```
 
@@ -315,31 +332,28 @@ def upsert_case(
     year: int | None,
     cite_string: str | None,
     run_id: str,
-    jurisdiction: str | None = None,
 ) -> None:
-    tier = infer_tier(court_id)
-    if jurisdiction is None:
-        jurisdiction = "federal" if tier in ("scotus", "circuit", "district", "specialty") else "state" if tier == "state" else None
+    system, level = lookup_court(court_id)
     self.conn.execute(
         """
-        INSERT INTO cases (cluster_id, canonical_name, court_id, year, tier,
-                           jurisdiction, cite_string, first_seen_run_id, first_seen_at)
+        INSERT INTO cases (cluster_id, canonical_name, court_id, year, system,
+                           level, cite_string, first_seen_run_id, first_seen_at)
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
         ON CONFLICT(cluster_id) DO UPDATE SET
             canonical_name = excluded.canonical_name,
             court_id       = COALESCE(excluded.court_id, cases.court_id),
             year           = COALESCE(excluded.year, cases.year),
-            tier           = excluded.tier,
-            jurisdiction   = COALESCE(excluded.jurisdiction, cases.jurisdiction),
+            system         = COALESCE(excluded.system, cases.system),
+            level          = COALESCE(excluded.level,  cases.level),
             cite_string    = COALESCE(excluded.cite_string, cases.cite_string)
         """,
-        (cluster_id, canonical_name, court_id, year, tier, jurisdiction,
+        (cluster_id, canonical_name, court_id, year, system, level,
          cite_string, run_id, _now_iso()),
     )
     self.conn.commit()
 ```
 
-`first_seen_run_id` and `first_seen_at` only ever get set on initial insert (the `ON CONFLICT` clause doesn't touch them).
+`first_seen_run_id` and `first_seen_at` only ever get set on initial insert (the `ON CONFLICT` clause doesn't touch them). `system` and `level` are derived from `court_id` via `lookup_court`; explicit overrides aren't supported in v1 — if a case is mis-classified upstream in courts-db, fix it there.
 
 - [ ] **Step 4: Run tests to verify they pass**
 
@@ -981,15 +995,14 @@ git commit -m "gold-DB: model_answers, runs, CSV export"
 - Create: `tests/benchmark_v1/backfill_gold_db.py`
 - Create: `tests/benchmark_v1/test_backfill.py`
 
-**Background:** v1's `dataset.csv` has 200 rows but only ~130 unique (proposition, gold-case) pairs after dedup (eyecite duplication bug). The backfill script:
+**Background:** v1's `dataset.csv` has 200 rows but only ~130 unique (proposition, gold-case) pairs after dedup (eyecite duplication bug). The backfill script does six passes:
 
-1. Reads `benchmark_v1/dataset.csv` — extracts gold cluster_id from `v_url`
-2. Dedups by `(_normalize_proposition(proposition), gold_cluster_id)` keeping first occurrence
-3. Inserts cases (citing + cited) and propositions
-4. Inserts citation_rows (one per unique pair, with `dataset_name='v1'`)
-5. Reads `outputs_*.csv` × 3 — dedups model_answers by `(proposition_id, model_name)` keeping first
-6. Inserts model_answers
-7. Reads `results.csv` — extracts `supports` verdicts where `right_case == True` (real + name match), inserts as `assessor_verdicts` with `source='model_answer'`
+1. **Pass 1 — `dataset.csv`:** dedup by `(_normalize_proposition(proposition), gold_cluster_id)`; insert cases (citing + cited), propositions, citation_rows (with `dataset_name='v1'`). Gold cluster_id extracted from `v_url` via regex.
+2. **Pass 2 — `outputs_*.csv` × 3:** dedup model_answers by `(proposition_id, model_name)`; insert model_answers (without verdicts, those come in pass 3).
+3. **Pass 3 — `results.csv`:** fill in `answer_cluster_id` / `cite_resolved_real` / `name_match_score` on existing model_answers; insert `assessor_verdicts` with `source='model_answer'`, `assessor_model='opus-4.7'`, `assessor_prompt_version='v1'`, `opinion_window_chars=20000` (v1's actual window).
+4. **Pass 4 — `truncation_experiment_60k.csv`:** insert `assessor_verdicts` for the ~22 Reds re-scored at 60K, with `assessor_model='opus-4.7'`, `assessor_prompt_version='v1'`, `opinion_window_chars=60000`. These are *additional* rows on top of the 20K verdicts from pass 3 (different `opinion_window_chars` ⇒ different UNIQUE key ⇒ no collision).
+5. **Pass 5 — `calibration_results.csv`:** insert `assessor_verdicts` with `assessor_model='sonnet-4.6'` or `'haiku-4.5'`, `opinion_window_chars=20000` (calibration ran at 20K). Joins with `results.csv` to recover `matched_cluster_id` (calibration CSV records `id` only).
+6. **Pass 6 — sanity:** print final counts.
 
 The `v_url` format is `https://www.courtlistener.com/opinion/{cluster_id}/...` — pull cluster_id with regex.
 
@@ -1166,7 +1179,7 @@ def backfill_v1(db: GoldDB, bench_dir: Path, run_id: str) -> dict:
                 db.upsert_case(
                     cluster_id=cited_id,
                     canonical_name=row.get("v_matched_name") or row.get("gold_name") or "",
-                    court_id=None,  # not in dataset.csv; tier inferred 'unknown' until v1.x metadata pass
+                    court_id=None,  # not in dataset.csv; system/level NULL until v1.x metadata pass
                     year=_safe_int(row.get("cited_year")),
                     cite_string=row.get("gold_cite"),
                     run_id=run_id,
@@ -1291,8 +1304,132 @@ def backfill_v1(db: GoldDB, bench_dir: Path, run_id: str) -> dict:
                     counts["verdicts"] += 1
         db.conn.commit()
 
+    # Pass 4: truncation_experiment_60k.csv -> Opus 60K verdicts.
+    counts["truncation_verdicts"] = _backfill_truncation(
+        db, bench_dir, run_id, proposition_id_by_text)
+
+    # Pass 5: calibration_results.csv -> Sonnet/Haiku verdicts.
+    counts["calibration_verdicts"] = _backfill_calibration(
+        db, bench_dir, run_id, proposition_id_by_text)
+
     db.end_run(run_id)
     return counts
+
+
+def _backfill_truncation(
+    db: GoldDB, bench_dir: Path, run_id: str,
+    proposition_id_by_text: dict[str, str],
+) -> int:
+    """Pass 4: insert Opus 60K re-scored verdicts on Reds."""
+    p = bench_dir / "truncation_experiment_60k.csv"
+    if not p.exists():
+        return 0
+    n = 0
+    with p.open(encoding="utf-8") as f:
+        for row in csv.DictReader(f):
+            ans_id = _safe_int(row.get("matched_cluster_id"))
+            if ans_id is None:
+                continue
+            norm = _normalize_proposition(row.get("proposition") or "")
+            pid = proposition_id_by_text.get(norm)
+            if pid is None:
+                # Proposition not in dataset.csv (shouldn't happen, but skip safely)
+                continue
+            verdict = (row.get("new_supports") or "").strip().lower()
+            if verdict not in ("green", "yellow", "red"):
+                continue
+            db.insert_verdict(
+                proposition_id=pid,
+                candidate_cluster_id=ans_id,
+                verdict=verdict,
+                assessor_model="opus-4.7",
+                assessor_prompt_version="v1",
+                opinion_window_chars=60000,
+                confidence=None,
+                reasoning_excerpt=(row.get("new_rationale") or "")[:500],
+                source="model_answer",
+                run_id=run_id,
+            )
+            n += 1
+    db.conn.commit()
+    return n
+
+
+def _backfill_calibration(
+    db: GoldDB, bench_dir: Path, run_id: str,
+    proposition_id_by_text: dict[str, str],
+) -> int:
+    """Pass 5: insert Sonnet/Haiku verdicts from the calibration study.
+
+    calibration_results.csv has (id, model_under_test, candidate_model,
+    candidate_verdict, ...) but no proposition text or matched_cluster_id.
+    Recover matched_cluster_id by joining results.csv on (id, model).
+    Recover proposition by joining dataset.csv on id.
+    """
+    cal_path = bench_dir / "calibration_results.csv"
+    if not cal_path.exists():
+        return 0
+
+    # Join lookup: (model, id) -> matched_cluster_id (from results.csv)
+    results_lookup: dict[tuple[str, str], int] = {}
+    results_path = bench_dir / "results.csv"
+    if results_path.exists():
+        with results_path.open(encoding="utf-8") as f:
+            for r in csv.DictReader(f):
+                mc = _safe_int(r.get("matched_cluster_id"))
+                if mc is not None:
+                    results_lookup[(r["model"], r["id"])] = mc
+
+    # Lookup id -> proposition_id (from dataset.csv normalized text)
+    id_to_pid: dict[str, str] = {}
+    dataset_path = bench_dir / "dataset.csv"
+    if dataset_path.exists():
+        with dataset_path.open(encoding="utf-8") as f:
+            for r in csv.DictReader(f):
+                norm = _normalize_proposition(r.get("proposition") or "")
+                pid = proposition_id_by_text.get(norm)
+                if pid:
+                    id_to_pid[r["id"]] = pid
+
+    # Map calibration's model strings to our canonical names
+    cand_model_map = {
+        "sonnet": "sonnet-4.6",
+        "haiku":  "haiku-4.5",
+        "opus":   "opus-4.7",
+    }
+
+    n = 0
+    with cal_path.open(encoding="utf-8") as f:
+        for row in csv.DictReader(f):
+            if (row.get("error") or "").strip():
+                continue
+            verdict = (row.get("candidate_verdict") or "").strip().lower()
+            if verdict not in ("green", "yellow", "red"):
+                continue
+            mut = row.get("model_under_test")
+            ans_id = results_lookup.get((mut, row["id"]))
+            if ans_id is None:
+                continue
+            pid = id_to_pid.get(row["id"])
+            if pid is None:
+                continue
+            cand_model = cand_model_map.get(
+                row.get("candidate_model"), row.get("candidate_model"))
+            db.insert_verdict(
+                proposition_id=pid,
+                candidate_cluster_id=ans_id,
+                verdict=verdict,
+                assessor_model=cand_model,
+                assessor_prompt_version="v1",
+                opinion_window_chars=20000,
+                confidence=None,
+                reasoning_excerpt=(row.get("candidate_rationale") or "")[:500],
+                source="model_answer",
+                run_id=run_id,
+            )
+            n += 1
+    db.conn.commit()
+    return n
 
 
 def main() -> None:
@@ -1335,11 +1472,13 @@ venv/Scripts/python.exe -m tests.benchmark_v1.backfill_gold_db
 Expected output (approximate):
 ```
 Final row counts:
-  cases: ~150-200          # gold cases + citing cases + answer cases (overlap)
+  cases: ~150-300            # gold + citing + answer (overlap), plus answer cases for calibration
   propositions: 130
   citation_rows: 130
-  model_answers: 390       # 130 × 3
-  assessor_verdicts: ~190  # ~50% of 390 had Real == Y
+  model_answers: 390         # 130 × 3
+  assessor_verdicts: ~700    # ~190 (Opus 20K, pass 3)
+                             # + ~22 (Opus 60K truncation, pass 4)
+                             # + ~500 (Sonnet+Haiku 20K calibration, pass 5; 514 calls × ~half non-error)
 ```
 
 If propositions ≠ 130 exactly, investigate before committing. The dedup target is documented as 130; deviations indicate either the dedup rule needs tightening or the source data has more variance than the v1 retrospective recorded.
@@ -1352,16 +1491,16 @@ from citation_verifier.gold_db import GoldDB
 db = GoldDB('gold_db/gold.db')
 print('Tier distribution of cited (gold) cases:')
 for r in db.conn.execute('''
-    SELECT c.tier, COUNT(*) FROM citation_rows cr
+    SELECT c.system, c.level, COUNT(*) FROM citation_rows cr
     JOIN cases c ON c.cluster_id = cr.cited_cluster_id
     WHERE cr.dataset_name = 'v1'
-    GROUP BY c.tier ORDER BY 2 DESC
+    GROUP BY c.system, c.level ORDER BY 3 DESC
 '''):
     print(f'  {r[0]}: {r[1]}')
 "
 ```
 
-Expected: most tiers = 'unknown' (because we didn't populate court_id for cited cases — that's a separate metadata pass, deferred). Document this in the task summary; v1.x can do a one-shot CL metadata fetch later.
+Expected: most rows have `system=NULL` and `level=NULL` (we didn't populate court_id for cited cases in dataset.csv — that's a separate metadata pass, deferred). Document this in the task summary; v1.x can do a one-shot CL metadata fetch later, after which `lookup_court` will populate system/level on the existing rows via the COALESCE in `upsert_case`.
 
 - [ ] **Step 7: Commit**
 
@@ -1369,7 +1508,7 @@ Expected: most tiers = 'unknown' (because we didn't populate court_id for cited 
 git add tests/benchmark_v1/backfill_gold_db.py tests/benchmark_v1/test_backfill.py gold_db/gold.db gold_db/exports/
 venv/Scripts/python.exe -c "from citation_verifier.gold_db import GoldDB; GoldDB('gold_db/gold.db').export_csvs('gold_db/exports')"
 git add gold_db/exports/
-git commit -m "gold-DB: backfill v1 (130 props, 130 citation_rows, ~390 answers, ~190 verdicts)"
+git commit -m "gold-DB: backfill v1 (130 props/rows, ~390 answers, ~190 Opus-20K + ~22 Opus-60K + ~500 calibration verdicts)"
 ```
 
 ---
@@ -1937,7 +2076,7 @@ git commit -m "gold-DB: end-to-end validation + README"
 ## Self-review checklist (mark before declaring done)
 
 - [ ] Re-running v1 scoring produces zero net new canonical assessor verdicts (rolling-sample drift rows are expected)
-- [ ] `gold.db` final state: 130 propositions, ≤130 unique cited cases, 130 citation_rows, ~390 model_answers, ~190 model_answer verdicts, 130 gold_pair verdicts, ~10 drift samples
+- [ ] `gold.db` final state: 130 propositions, ≤130 unique cited cases, 130 citation_rows, ~390 model_answers; on the verdict side: ~190 Opus-20K + ~22 Opus-60K (truncation) + ~500 Sonnet/Haiku-20K (calibration) + 130 gold_pair (60K) + ~10 drift samples
 - [ ] `gold_db/exports/*.csv` re-exported and committed
 - [ ] All unit tests pass: `venv/Scripts/python.exe -m pytest tests/test_gold_db.py tests/benchmark_v1/test_backfill.py tests/benchmark_v1/test_score_gold_pairs.py tests/benchmark_v1/test_score_integration.py -v`
 - [ ] Gold-pair Green/Yellow/Red distribution recorded in retrospective notes (this is the v1.3 publishable result)
@@ -1946,8 +2085,9 @@ git commit -m "gold-DB: end-to-end validation + README"
 
 ## Out of scope for this plan (deferred to v1.x or v2)
 
-- One-shot CL metadata fetch to populate `cases.court_id` / `cases.year` / `cases.tier` for backfilled cited cases (Task 9 leaves them as 'unknown' — separate v1.x work item)
-- 60K opinion-window rerun of v1's existing model_answer verdicts (the gold-pair pass uses 60K, but `source='model_answer'` rows from Task 9 are at 20K — bump in v1.x by changing `OPINION_WINDOW` in `score.py` and rerunning, which the cache will mostly miss)
+- One-shot CL metadata fetch to populate `cases.court_id` / `cases.year` for backfilled cited cases (Task 9 leaves them NULL because dataset.csv doesn't include court_id for cited cases — separate v1.x work item; once court_id is populated, `lookup_court` fills in system/level via the next `upsert_case`)
+- 60K opinion-window rerun of v1's existing 20K model_answer verdicts that *aren't* in `truncation_experiment_60k.csv` (truncation only re-scored Reds, ~22 of ~190; the remaining ~170 Greens/Yellows are still 20K-only — bump in v1.x by changing `OPINION_WINDOW` in `score.py` and rerunning, which the cache will mostly miss)
+- Semantic proposition matching across datasets (sha256 of normalized text means v2's freshly-mined propositions don't hit v1's verdict cache; add a `proposition_clusters` table populated by an embedding pass to enable cross-dataset cache hits — see spec §"Out of scope")
 - Migration framework (single `001_initial.sql` is enough for v1)
 - Public release / DOI for gold-DB
 - Stratified-sampling tooling that consumes gold-DB
