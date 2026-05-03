@@ -2,7 +2,7 @@
 
 Compares Sonnet 4.6 and Haiku 4.5 substance-assessor verdicts against v1's published Opus 4.7 verdicts on the deduped 257-cell subset (canonical examples only). Direct API, `temperature=0`, same `ASSESSMENT_PROMPT` as v1.
 
-**Decision rule (from `benchmark-roadmap.md` v1.2):** overall agreement ≥ 90% AND Red recall ≥ 85% → candidate may replace Opus. Red precision is reported alongside per the roadmap's stated rationale (Reds are the hallucinations we catch).
+**Decision rule (from `benchmark-roadmap.md` v1.1 — originally scoped as v1.2 before rebadging):** overall agreement ≥ 90% AND Red recall ≥ 85% → candidate may replace Opus. Red precision is reported alongside per the roadmap's stated rationale (Reds are the hallucinations we catch).
 
 ## Summary
 

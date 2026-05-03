@@ -66,7 +66,7 @@ The correction *widens* rather than narrows the GPT-5 lead. The model with the m
 - **One-directional check.** Only Reds were re-assessed. We don't know whether any v1 Greens or Yellows would *downgrade* under more context (e.g., Opus initially saw a clean syllabus statement but additional pages reveal qualifications). The asymmetry biases the impact estimate upward; a balanced check would re-assess all 390 cells.
 - **60K isn't the ceiling.** 13 of the 86 unique cited opinions were ≥ 60K full size; their full text would still be truncated at 60K. A grep tool or a 100K window would catch those, at higher cost.
 - **Single re-run per cell.** Same nondeterminism story as v1 — a flip might not replicate on a re-run.
-- **Assessor identity preserved.** Used the same Opus 4.7 model so we're not confounding window-size with assessor-choice. v1.2 calibration on cheaper assessors (`calibration.md`) is independent.
+- **Assessor identity preserved.** Used the same Opus 4.7 model so we're not confounding window-size with assessor-choice. The v1.1 calibration on cheaper assessors (`calibration.md`) is a separate, independent study.
 
 ## Per-row data
 

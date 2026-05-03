@@ -506,7 +506,7 @@ Proposition: {proposition}</pre>
 
 <div class="caveat">
   <p class="label">Sample size N=130 (effective, after dedup)</p>
-  <p>The Opus–Sonnet diff (+4.6pp) has CI [−6.9, +16.2] — straddles zero. The Opus–GPT-5 diff (−10.0pp) has CI [−21.5, +1.5] — also straddles zero, just barely. Only the Sonnet–GPT-5 diff has CI clearly excluding zero. Per-district numbers (n≈26 each after dedup) carry even wider uncertainty. v1.1 will fix the mining-stage duplication. Scaling to N=500 won't come cheap: v1.2's <a href="calibration.md">assessor-calibration study</a> found that neither Sonnet 4.6 nor Haiku 4.5 reproduced Opus's verdicts well enough to replace it.</p>
+  <p>The Opus–Sonnet diff (+4.6pp) has CI [−6.9, +16.2] — straddles zero. The Opus–GPT-5 diff (−10.0pp) has CI [−21.5, +1.5] — also straddles zero, just barely. Only the Sonnet–GPT-5 diff has CI clearly excluding zero. Per-district numbers (n≈26 each after dedup) carry even wider uncertainty. v1.1 will fix the mining-stage duplication. Scaling to N=500 won't come cheap: the v1.1 <a href="calibration.md">assessor-calibration study</a> found that neither Sonnet 4.6 nor Haiku 4.5 reproduced Opus's verdicts well enough to replace it.</p>
 </div>
 
 <h2>Reproducibility</h2>
@@ -541,22 +541,22 @@ venv/Scripts/python.exe tests/benchmark_v1/scorecard.py --dedupe   # corrected n
   <li><strong>Per-case metadata extraction.</strong> v1 records the cited case's name, citation, and CL cluster ID, but not the court ID or filing year of the cited case. v1.1 adds a metadata-pull step (the cluster has both fields) and breaks down green / hallucination rates by jurisdiction and case age. Lets us answer questions like "do models hallucinate more on older cases?" and "is the circuit-split-on-the-9th-Circuit signal real?"</li>
 </ul>
 
-<h3>v1.2 — assessor calibration</h3>
+<h3>v1.1 — validation studies (completed)</h3>
 <ul>
-  <li><strong>Single substance assessor (Opus 4.7).</strong> The Green/Yellow/Red verdict comes from one model. <em>Status (May 2026):</em> the v1.2 <a href="calibration.md">calibration study</a> tested Sonnet 4.6 and Haiku 4.5 against the deduped 257-cell subset under the same prompt at <code>temperature=0</code>. Both missed the bar by ~20pp on overall agreement and ~30pp on Red recall (Sonnet 68.9% / 52.2%; Haiku 65.4% / 55.1%). Sonnet's Red precision was high (87.8%) but its Red recall of 52.2% means roughly half the hallucinations Opus catches would be missed. Opus stays as primary assessor for v1.x; the 5–10× cost cut that would have unlocked N=500+ runs is not available.</li>
-  <li><strong>20K-character opinion truncation.</strong> The assessor reads the first 5–7 pages of each opinion. v1.2 will spot-check the long-opinion edge cases (federal opinions over 60 pages where the support might live deeper) and report how often raising the truncation changes the verdict.</li>
+  <li><strong>Single substance assessor (Opus 4.7).</strong> The Green/Yellow/Red verdict comes from one model. <em>Done (May 2026):</em> the <a href="calibration.md">calibration study</a> tested Sonnet 4.6 and Haiku 4.5 against the deduped 257-cell subset under the same prompt at <code>temperature=0</code>. Both missed the bar by ~20pp on overall agreement and ~30pp on Red recall (Sonnet 68.9% / 52.2%; Haiku 65.4% / 55.1%). Sonnet's Red precision was high (87.8%) but its Red recall of 52.2% means roughly half the hallucinations Opus catches would be missed. Opus stays as primary assessor for v1.x; the 5–10× cost cut that would have unlocked N=500+ runs is not available.</li>
+  <li><strong>20K-character opinion truncation.</strong> The Opus assessor reads only the first 5–7 pages of each opinion. <em>Done (May 2026):</em> re-ran the assessor at a 60K window on every Red whose cached opinion exceeded 20K (59 of 69 deduped Reds). 22 of 59 flipped to Green or Yellow (37%); the correction widens the GPT-5 lead but doesn't reorder the leaderboard. Full breakdown in the "20,000-character opinion truncation — measured at 60K" block above; data in <code>truncation_experiment_60k.csv</code>.</li>
 </ul>
 
 <h3>v2 — scope expansion</h3>
 <ul>
   <li><strong>Circuits and SCOTUS.</strong> v1 is districts only. Circuit-level parentheticals tend to be richer; SCOTUS would expose strong-recall vs. accuracy tradeoffs at higher difficulty.</li>
   <li><strong>State-law forks.</strong> The federal layer is the reference implementation. State-court variants (predicated on the v1.1 forkable kit) test how the methodology generalizes.</li>
-  <li><strong>Larger N.</strong> N=130 (effective, after dedup) leaves both the Opus–Sonnet and Opus–GPT-5 diffs inside the noise floor. N=500 or 1000 would resolve them, but the cheap path via a smaller assessor is closed — v1.2's <a href="calibration.md">calibration study</a> found neither Sonnet 4.6 nor Haiku 4.5 meets the agreement bar to replace Opus. Within Opus's budget envelope, N≈200 is the practical ceiling.</li>
+  <li><strong>Larger N.</strong> N=130 (effective, after dedup) leaves both the Opus–Sonnet and Opus–GPT-5 diffs inside the noise floor. N=500 or 1000 would resolve them, but the cheap path via a smaller assessor is closed — the v1.1 <a href="calibration.md">calibration study</a> found neither Sonnet 4.6 nor Haiku 4.5 meets the agreement bar to replace Opus. Within Opus's budget envelope, N≈200 is the practical ceiling.</li>
 </ul>
 
 <h3>Outside the planned roadmap</h3>
 <ul>
-  <li><strong>Single eval per model.</strong> Each model answered each proposition once. Re-sampling per cell would tighten variance estimates but increases cost ~Nx. Not on the planned roadmap; would only matter if the calibration study (v1.2) suggests sampling variance is non-trivial.</li>
+  <li><strong>Single eval per model.</strong> Each model answered each proposition once. Re-sampling per cell would tighten variance estimates but increases cost ~Nx. Not on the planned roadmap.</li>
 </ul>
 
 <footer>
