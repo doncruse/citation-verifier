@@ -32,3 +32,35 @@ class GoldDB:
 
     def close(self) -> None:
         self.conn.close()
+
+
+# Lazily build the courts-db index on first use so import is cheap.
+_COURT_INDEX: dict[str, dict] | None = None
+
+
+def _build_court_index() -> dict[str, dict]:
+    """Load courts-db data into an id -> court-record dict.
+
+    courts-db ships its data as a JSON list. The exact import path can
+    change across versions; this helper isolates that.
+    """
+    try:
+        from courts_db import courts as courts_list  # courts-db >= 0.10
+    except ImportError:
+        # Older shape: top-level module exposes data via load_courts_db()
+        from courts_db import load_courts_db
+        courts_list = load_courts_db()
+    return {c["id"]: c for c in courts_list}
+
+
+def lookup_court(court_id: str | None) -> tuple[str | None, str | None]:
+    """Return (system, level) for a CourtListener court_id, or (None, None)."""
+    if not court_id:
+        return None, None
+    global _COURT_INDEX
+    if _COURT_INDEX is None:
+        _COURT_INDEX = _build_court_index()
+    rec = _COURT_INDEX.get(court_id)
+    if not rec:
+        return None, None
+    return rec.get("system"), rec.get("level")
