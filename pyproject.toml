@@ -19,6 +19,7 @@ dependencies = [
     "certifi",
     "openai>=1.40",
     "anthropic>=0.40",
+    "courts-db>=0.10",
 ]
 
 [project.optional-dependencies]
