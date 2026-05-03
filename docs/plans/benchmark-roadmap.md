@@ -27,7 +27,28 @@ These items were called out in the v1 design as deferred. Keep them grouped so a
 
 ---
 
-## v1.2 — Assessor calibration study
+## v1.2 — Assessor calibration study ✅ done (May 2026)
+
+**Outcome:** both candidates failed the bar. Opus stays as primary assessor.
+
+| Model | Overall agreement | Red recall | Red precision | Cohen's κ |
+|---|---:|---:|---:|---:|
+| Sonnet 4.6 | 68.9% | 52.2% | 87.8% | 0.50 |
+| Haiku 4.5 | 65.4% | 55.1% | 67.9% | 0.41 |
+| *Bar* | ≥90% | ≥85% | — | — |
+
+Both miss by ~20pp on overall and ~30pp on Red recall — robustly below the bar across CIs at n=257. Sonnet's Red precision is high (87.8%) but its Red recall is only 52% — half the hallucinations Opus catches would slip through. Yellow is the failure mode for both candidates (precision 21–32%): neither model treats the Yellow boundary the way Opus does.
+
+**Implication:** the cost-scaling path (5–10× the run by switching assessors) is closed. v1.x stays at N≈200 within Opus's budget envelope; cheaper-frontier-model substitution is not the lever.
+
+**Artifacts:**
+- [`benchmark_v1/calibration.md`](../../benchmark_v1/calibration.md) — confusion matrices, per-class metrics
+- [`benchmark_v1/calibration_results.csv`](../../benchmark_v1/calibration_results.csv) — 514 calls, full coverage
+- [`tests/benchmark_v1/calibrate_assessor.py`](../../tests/benchmark_v1/calibrate_assessor.py) — runner (direct API, `temperature=0`, resume-safe)
+- [`tests/benchmark_v1/calibrate_assessor_report.py`](../../tests/benchmark_v1/calibrate_assessor_report.py) — aggregator
+- [`docs/retrospectives/2026-05-02-v1.2-assessor-calibration.md`](../retrospectives/2026-05-02-v1.2-assessor-calibration.md) — run notes + keying-bug postmortem
+
+**Original goal and method preserved below for the trail.**
 
 **Goal:** quantify whether Sonnet or Haiku can do the substance assessment job as well as Opus.
 
@@ -54,7 +75,7 @@ These items were called out in the v1 design as deferred. Keep them grouped so a
 |---|---|
 | Circuits + SCOTUS | Pilot A and v1 are districts only. Circuits have richer parentheticals; SCOTUS would expose strong-recall vs. accuracy tradeoffs |
 | State-law forks | Federal layer is the reference; state implementations exercise the kit and surface state-specific quirks (regional reporters, citation styles) |
-| Larger N (500–1000) | Predicated on the calibration study (v1.2) cutting per-cell cost |
+| Larger N (500–1000) | Originally predicated on the v1.2 calibration cutting per-cell cost; that path is closed (see v1.2 above). Larger N now needs either a bigger Opus budget, prompt-tuned cheaper assessors (separate study), or a different scoring rubric |
 
 ---
 

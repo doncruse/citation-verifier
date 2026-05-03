@@ -506,7 +506,7 @@ Proposition: {proposition}</pre>
 
 <div class="caveat">
   <p class="label">Sample size N=130 (effective, after dedup)</p>
-  <p>The Opus–Sonnet diff (+4.6pp) has CI [−6.9, +16.2] — straddles zero. The Opus–GPT-5 diff (−10.0pp) has CI [−21.5, +1.5] — also straddles zero, just barely. Only the Sonnet–GPT-5 diff has CI clearly excluding zero. Per-district numbers (n≈26 each after dedup) carry even wider uncertainty. v1.1 will fix the mining-stage duplication and scale to N=500 or larger if v1.2 calibration unlocks cheaper assessor runs.</p>
+  <p>The Opus–Sonnet diff (+4.6pp) has CI [−6.9, +16.2] — straddles zero. The Opus–GPT-5 diff (−10.0pp) has CI [−21.5, +1.5] — also straddles zero, just barely. Only the Sonnet–GPT-5 diff has CI clearly excluding zero. Per-district numbers (n≈26 each after dedup) carry even wider uncertainty. v1.1 will fix the mining-stage duplication. Scaling to N=500 won't come cheap: v1.2's <a href="calibration.md">assessor-calibration study</a> found that neither Sonnet 4.6 nor Haiku 4.5 reproduced Opus's verdicts well enough to replace it.</p>
 </div>
 
 <h2>Reproducibility</h2>
@@ -543,7 +543,7 @@ venv/Scripts/python.exe tests/benchmark_v1/scorecard.py --dedupe   # corrected n
 
 <h3>v1.2 — assessor calibration</h3>
 <ul>
-  <li><strong>Single substance assessor (Opus 4.7).</strong> The Green/Yellow/Red verdict comes from one model. v1.2 will re-run the assessor on the v1 dataset with Sonnet 4.6 and Haiku 4.5 and report inter-rater agreement (overall accuracy, Cohen's kappa, per-class precision/recall). Acceptance bar: if a cheaper assessor agrees with Opus &gt; 90% overall and ≥ 85% on Red specifically, the cheaper model becomes the default for v2 — a 5–10× cost cut that unlocks N=500+ samples.</li>
+  <li><strong>Single substance assessor (Opus 4.7).</strong> The Green/Yellow/Red verdict comes from one model. <em>Status (May 2026):</em> the v1.2 <a href="calibration.md">calibration study</a> tested Sonnet 4.6 and Haiku 4.5 against the deduped 257-cell subset under the same prompt at <code>temperature=0</code>. Both missed the bar by ~20pp on overall agreement and ~30pp on Red recall (Sonnet 68.9% / 52.2%; Haiku 65.4% / 55.1%). Sonnet's Red precision was high (87.8%) but its Red recall of 52.2% means roughly half the hallucinations Opus catches would be missed. Opus stays as primary assessor for v1.x; the 5–10× cost cut that would have unlocked N=500+ runs is not available.</li>
   <li><strong>20K-character opinion truncation.</strong> The assessor reads the first 5–7 pages of each opinion. v1.2 will spot-check the long-opinion edge cases (federal opinions over 60 pages where the support might live deeper) and report how often raising the truncation changes the verdict.</li>
 </ul>
 
@@ -551,7 +551,7 @@ venv/Scripts/python.exe tests/benchmark_v1/scorecard.py --dedupe   # corrected n
 <ul>
   <li><strong>Circuits and SCOTUS.</strong> v1 is districts only. Circuit-level parentheticals tend to be richer; SCOTUS would expose strong-recall vs. accuracy tradeoffs at higher difficulty.</li>
   <li><strong>State-law forks.</strong> The federal layer is the reference implementation. State-court variants (predicated on the v1.1 forkable kit) test how the methodology generalizes.</li>
-  <li><strong>Larger N.</strong> N=130 (effective, after dedup) leaves both the Opus–Sonnet and Opus–GPT-5 diffs inside the noise floor. N=500 or 1000 — predicated on the v1.2 calibration study cutting per-cell cost — would resolve them.</li>
+  <li><strong>Larger N.</strong> N=130 (effective, after dedup) leaves both the Opus–Sonnet and Opus–GPT-5 diffs inside the noise floor. N=500 or 1000 would resolve them, but the cheap path via a smaller assessor is closed — v1.2's <a href="calibration.md">calibration study</a> found neither Sonnet 4.6 nor Haiku 4.5 meets the agreement bar to replace Opus. Within Opus's budget envelope, N≈200 is the practical ceiling.</li>
 </ul>
 
 <h3>Outside the planned roadmap</h3>
