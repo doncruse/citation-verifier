@@ -2,13 +2,13 @@
 
 Living doc. Tracks deferred work from v1 plus ideas surfaced during runs.
 
-**Current state:** v1 shipped May 2026 (effective N=130 after dedup, 3 models, Opus-assessed). v1.1 calibration study done (Sonnet/Haiku failed Opus replacement bar — see `## v1.1 — Assessor calibration study`). v1.1 methodology hardening (mining dedup, stratified sampling, etc.) still pending.
+**Current state:** v1 shipped May 2026 (effective N=130 after dedup, 3 models, Opus-assessed). v1.1 validation studies done (assessor calibration + 60K truncation re-test — see `## v1.1 — Validation studies`). v1.2 methodology hardening in progress: gold-DB design + plan landed 2026-05-03 ([design](2026-05-03-gold-db-design.md), [plan](2026-05-03-gold-db-plan.md)) and subsumes three of the deferred items (verified-citations cache, acceptable-alternatives caching, per-case metadata extraction).
 
 ---
 
-## v1.1 — Methodology hardening
+## v1.2 — Methodology hardening
 
-These items were called out in the v1 design as deferred. Keep them grouped so a v1.1 release can sweep them together.
+These items were called out in the v1 design as deferred. Keep them grouped so a v1.2 release can sweep them together. The **gold-DB** ([design](2026-05-03-gold-db-design.md), [plan](2026-05-03-gold-db-plan.md), in progress 2026-05-03) is the framing artifact for v1.2: a cumulative SQLite corpus of (proposition, case, verdict) tuples that subsumes three of the items below (marked) and unlocks the rest.
 
 | Item | Why deferred from v1 | What it unlocks |
 |---|---|---|
@@ -17,19 +17,20 @@ These items were called out in the v1 design as deferred. Keep them grouped so a
 | Currency axis (good-law check) | Needs CL citator data integration | Catches "real case but bad law" — overruled, vacated, distinguished |
 | Jurisdictional-appropriateness axis | Needs court-hierarchy rules | Penalizes citing 3rd Cir. for a 5th Cir. proposition |
 | Lexical-dissimilarity quality gate | Pilot A recorded raw similarity but didn't filter | Removes propositions that are near-paraphrases of the gold case name |
-| Multi-source existence oracle (CL + Justia + Caselaw Access Project) | CL-coverage bias is acknowledged in v1; quantification deferred | Vendor RAG benchmarks (v1.1+) need broader-than-CL coverage to be fair |
-| Acceptable-alternatives caching | v1 records (model, gold, alternative-found-by-Opus) but no cache | Re-runs don't re-judge known-acceptable substitutes |
-| Mining-stage deduplication on `(citing_cluster_id, citation_text, parenthetical)` | v1 mining produced ~10× duplication of each paren inside its source opinion (eyecite picking up the same citation in full + short forms); 35% of the 200-row sampled dataset turned out to be duplicates of other rows; deduped to 130 unique propositions for the report | Saves CL API calls during build; prevents over-weighting in the final sample; lets v1.1 hit a true N=200 instead of an effective N=130 |
-| Verified-citations cache (`citation_text → cluster_id, case_name`) | v1 has gold-case verifications in `dataset.csv` but doesn't reuse them — every scoring run re-asks CL for known-real cases | Speed (skip CL for cached hits), reliability (fewer chances for CL bugs to bite), and a diff-able audit artifact that grows across runs |
+| Multi-source existence oracle (CL + Justia + Caselaw Access Project) | CL-coverage bias is acknowledged in v1; quantification deferred | Vendor RAG benchmarks (v1.2+) need broader-than-CL coverage to be fair |
+| **Acceptable-alternatives caching** → *subsumed by [gold-DB](2026-05-03-gold-db-design.md)* | v1 records (model, gold, alternative-found-by-Opus) but no cache | Re-runs don't re-judge known-acceptable substitutes |
+| Mining-stage deduplication on `(citing_cluster_id, citation_text, parenthetical)` | v1 mining produced ~10× duplication of each paren inside its source opinion (eyecite picking up the same citation in full + short forms); 35% of the 200-row sampled dataset turned out to be duplicates of other rows; deduped to 130 unique propositions for the report | Saves CL API calls during build; prevents over-weighting in the final sample; lets v1.2 hit a true N=200 instead of an effective N=130 (or v2 starts fresh at the target) |
+| **Verified-citations cache** (`citation_text → cluster_id, case_name`) → *subsumed by [gold-DB](2026-05-03-gold-db-design.md)* | v1 has gold-case verifications in `dataset.csv` but doesn't reuse them — every scoring run re-asks CL for known-real cases | Speed (skip CL for cached hits), reliability (fewer chances for CL bugs to bite), and a diff-able audit artifact that grows across runs |
 | Stratified sampling by tier of cited case (target ~33% SCOTUS / circuit / district) | v1's gold cases are 60% circuit, 19% SCOTUS, only 9% district — driven by what district opinions cite, not what the benchmark needs to test. The hint that district-case retrieval is dramatically harder (Sonnet: 0 cited; Opus: 1/5 Green; GPT-5: 0/9 Green) is buried under low n | Lets us make a serious claim about district vs appellate hallucination rates instead of an n=5 hint |
-| Per-case metadata extraction (court ID + filing year of each cited case) | v1 records cited case name, citation, and CL cluster ID, but not the court or year of the cited case (the cluster has both — just unused). Without it we can't break down hallucination rate by jurisdiction or case age | Enables tier breakdown (the dimension above) without re-running, plus opens questions like "do models hallucinate more on older cases?" or "is recency bias real for legal retrieval?" |
+| **Per-case metadata extraction** (court ID + filing year of each cited case) → *gold-DB schema has the columns ([gold-DB design](2026-05-03-gold-db-design.md)); a one-shot CL fetch to fill them is a follow-up v1.2 item* | v1 records cited case name, citation, and CL cluster ID, but not the court or year of the cited case (the cluster has both — just unused). Without it we can't break down hallucination rate by jurisdiction or case age | Enables tier breakdown (the dimension above) without re-running, plus opens questions like "do models hallucinate more on older cases?" or "is recency bias real for legal retrieval?" |
 | Default opinion window 20K → 60K (or grep tool) | v1 used a 20K-char truncation. v1 follow-up (`benchmark_v1/truncation_experiment.md`) re-assessed every v1 Red at 60K and found 22/59 (37%) flipped to Green/Yellow. Per-model corrected Green rates: Sonnet 31.5% (no change), Opus 36.2% → 39.3%, GPT-5 46.2% → 52.4% | Eliminates the conservative-against-the-model bias the v1 caveats already disclosed. Cost: ~3× the assessor budget. A grep / relevance-aware retrieval tool would target relevance directly; deferred as future work |
+| **Gold-DB itself** ([design](2026-05-03-gold-db-design.md), [plan](2026-05-03-gold-db-plan.md)) — in progress 2026-05-03 | v1's data was scattered across CSVs; verdicts repeated across runs; no shared corpus that outlives any one dataset | One cumulative SQLite artifact: build- and score-side caches, calibration self-scores as first-class data, schema for v2 fresh mining to extend |
 
 ---
 
-## v1.1 — Assessor calibration study ✅ done (May 2026)
+## v1.1 — Validation studies ✅ done (May 2026)
 
-> *Originally scoped as v1.2; rebadged to v1.1 because it's a small additive validation study, not a separate release line. The 20K-truncation 60K re-test (also done May 2026) likewise sits under v1.1; it lives in the v1 report body and `benchmark_v1/truncation_experiment_60k.csv`.*
+> *Two small additive studies grouped under v1.1 because they validate v1's methodology without expanding scope: (a) the assessor calibration study (Sonnet/Haiku vs Opus) and (b) the 20K → 60K truncation re-test (`benchmark_v1/truncation_experiment.md` and `truncation_experiment_60k.csv`). Both are documented below; the calibration study has the bigger writeup. v1.2 is methodology hardening (gold-DB, dedup, stratified sampling, etc.).*
 
 **Outcome:** both candidates failed the bar. Opus stays as primary assessor.
 
@@ -97,7 +98,7 @@ These aren't roadmap items but are factual lessons from running v1 that shouldn'
 
 ## When to spin out to its own repo
 
-**Recommendation: at v1.1, when the forkable kit ships.** Not before.
+**Recommendation: at v1.2, when the forkable kit ships.** Not before.
 
 Today's setup (benchmark inside citation-verifier) is the right call because:
 - The benchmark depends on citation-verifier *internals*: `parsed_citation_from_eyecite`, `verify_batch`, parser normalization, name matcher. These aren't a stable public API yet.
@@ -106,7 +107,7 @@ Today's setup (benchmark inside citation-verifier) is the right call because:
 - v1's deliverable is a **scorecard + dataset**, not a kit. No external forkers are arriving yet.
 
 Spin out when these are all true:
-1. **Forkable kit lands (v1.1)**. SCHEMA.md, MINING_PLAYBOOK.md, etc. exist. External contributors are the audience.
+1. **Forkable kit lands (v1.2)**. SCHEMA.md, MINING_PLAYBOOK.md, etc. exist. External contributors are the audience.
 2. **citation-verifier exposes a stable public API** that the benchmark can pin a version of (`citation-verifier>=X.Y`). Until then, internal-API churn breaks the benchmark in a separate repo.
 3. **At least 2–3 outside people have signaled they want to fork** (state-court variant, topic-specific variant, etc.). One-off curiosity isn't enough — the cost of a separate repo is real.
 4. **A clean release story is needed** — DOI, arXiv companion, NeurIPS-style benchmark track submission, GitHub releases with versioned datasets. These all want a top-level repo to point at.
@@ -118,12 +119,12 @@ Practical mechanics when the time comes:
 - Roadmap, design docs, retrospectives migrate too
 - Leave a stub in citation-verifier pointing at the new repo
 
-Anti-pattern to avoid: spinning out before v1.1 just because it "feels cleaner." External contributors aren't there yet, and you'd pay the cross-repo PR / dependency-version-bump cost without a benefit.
+Anti-pattern to avoid: spinning out before v1.2 just because it "feels cleaner." External contributors aren't there yet, and you'd pay the cross-repo PR / dependency-version-bump cost without a benefit.
 
 ---
 
 ## How this doc evolves
 
 - Add a row when a v1.x or v2 release ships an item (mark as ✅, link to commit/PR)
-- Promote items that get scoped down to a release (e.g. mark "v1.1 — Assessor calibration study" as ✅ done with the headline result, as was done in May 2026)
+- Promote items that get scoped down to a release (e.g. mark "v1.1 — Validation studies" as ✅ done with the headline result, as was done in May 2026)
 - Don't delete completed items; they're the trail of how we got here
