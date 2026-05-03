@@ -31,11 +31,12 @@ from citation_verifier.gold_db import lookup_court
 
 
 @pytest.mark.parametrize("court_id,expected_system,expected_level", [
-    ("scotus", "federal", ""),
-    ("ca9",    "federal", ""),
-    ("cadc",   "federal", "iac"),
-    ("nysd",   "federal", "trial"),
-    ("cand",   "federal", "gjc"),
+    ("scotus", "federal", "colr"),    # normalized: courts-db says ''
+    ("ca9",    "federal", "iac"),     # normalized: courts-db says ''
+    ("cadc",   "federal", "iac"),     # courts-db already says 'iac'
+    ("nysd",   "federal", "trial"),   # courts-db already says 'trial'
+    ("cand",   "federal", "trial"),   # normalized: courts-db says 'gjc'
+    ("ny",     "state",   "colr"),    # state pass-through, courts-db says 'colr'
 ])
 def test_lookup_court_known_federal(court_id, expected_system, expected_level):
     system, level = lookup_court(court_id)

@@ -54,7 +54,15 @@ def _build_court_index() -> dict[str, dict]:
 
 
 def lookup_court(court_id: str | None) -> tuple[str | None, str | None]:
-    """Return (system, level) for a CourtListener court_id, or (None, None)."""
+    """Return (system, level) for a CourtListener court_id, or (None, None).
+
+    courts-db's `level` field is sparse and inconsistent for federal
+    courts (SCOTUS, ca9, Tax Court all have empty `level`; districts split
+    between 'trial' and 'gjc'). We normalize federal classification here
+    so analysts can rely on (system='federal', level in {'colr','iac','trial'})
+    being uniformly populated. State classification is left untouched
+    because courts-db gets it right.
+    """
     if not court_id:
         return None, None
     global _COURT_INDEX
@@ -63,4 +71,20 @@ def lookup_court(court_id: str | None) -> tuple[str | None, str | None]:
     rec = _COURT_INDEX.get(court_id)
     if not rec:
         return None, None
-    return rec.get("system"), rec.get("level")
+    system = rec.get("system") or None
+    level = rec.get("level") or None  # coerce '' to None
+    ctype = rec.get("type")
+
+    # Federal normalization (courts-db's level data is uneven for federal courts).
+    if system == "federal":
+        if court_id == "scotus":
+            level = "colr"
+        elif court_id.startswith("ca") and ctype == "appellate":
+            # Circuits: ca1..ca11, cadc, cafc
+            level = "iac"
+        elif ctype == "trial":
+            # All federal trial courts (district + bankruptcy) -> consistent label
+            level = "trial"
+        # else: federal specialty (tax, bia, cit, etc.) — leave courts-db value (or None)
+
+    return system, level
