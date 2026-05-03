@@ -258,8 +258,8 @@ gold_db/
 - `build_dataset.py` consults `cases` before calling CL (build-side cache)
 - `score.py` uses `get_or_score_verdict` (score-side cache)
 - CSV export script
-- Backfill v1's existing data into the gold-DB (200 cases, ~200 propositions, ~600 model_answers, ~300 assessor_verdicts from v1's `dataset.csv` + `outputs_*.csv` + `results.csv`)
-- Add gold-pair self-score pass: for every v1 citation_row, score `(proposition, gold-case)` with Opus and store as `source='gold_pair'`. ~200 calls; gives us the first calibration baseline.
+- Backfill v1's existing data into the gold-DB: **130 unique propositions** (v1's effective N after the eyecite dedup), ≤130 unique gold cases, 130 citation_rows, ~390 model_answers (130 × 3 models), ~195 assessor_verdicts with `source='model_answer'` (assessor fired on ~50% of cells where Real == Y). Source files: v1's `dataset.csv`, `outputs_*.csv`, `results.csv`. v1 is sealed at N=130; we are not topping up to 200.
+- Add gold-pair self-score pass: for every v1 citation_row, score `(proposition, gold-case)` with Opus and store as `source='gold_pair'`. ~130 calls; gives us the first calibration baseline.
 - Rolling-sample re-check (~10 random pairs per run)
 
 ## Out of scope (deferred)
@@ -275,7 +275,7 @@ gold_db/
 
 1. **Module location:** `src/citation_verifier/gold_db.py` (treat as core library) or `tests/benchmark_v1/gold_db.py` (treat as benchmark-only)? Leaning core library since the cache logic is reusable beyond benchmarking, but the audience for v1 is benchmark scripts only.
 
-2. **Backfill granularity:** rebuild from v1's CSVs (`benchmark_v1/dataset.csv`, `outputs_*.csv`, `results.csv`) wholesale, or only forward-fill from v2 onward and treat v1 as an external archive? **Leaning backfill** — v1's 200 rows + 600 model answers + 300 verdicts are the seed corpus, and not having them in the gold-DB defeats the cache for v1 reruns.
+2. **Backfill granularity:** rebuild from v1's CSVs (`benchmark_v1/dataset.csv`, `outputs_*.csv`, `results.csv`) wholesale, or only forward-fill from v2 onward and treat v1 as an external archive? **Leaning backfill** — v1's 130 unique pairs + ~390 model answers + ~195 verdicts are the seed corpus, and not having them in the gold-DB defeats the cache for v1 reruns. Note that backfill works off the deduped data (130 unique propositions), not the original 200-row mining output.
 
 3. **Tier taxonomy:** `scotus | circuit | district | state | bia | tax | other`? Want to settle this before backfill so v1 cases get a tier on first insert. Defer to first implementation; revise as edge cases surface.
 
@@ -286,8 +286,8 @@ gold_db/
 ## Success criteria
 
 - [ ] `gold.db` exists at repo root with schema applied
-- [ ] v1's data backfilled (200 cases / propositions, ~600 model_answers, ~300 assessor_verdicts, plus the new ~200 gold-pair self-scores)
+- [ ] v1's data backfilled: 130 unique propositions, ≤130 unique gold cases, 130 citation_rows, ~390 model_answers (130 × 3 models), ~195 model-answer verdicts, plus 130 new gold-pair self-scores
 - [ ] Re-running v1 with no methodology changes produces **zero** new assessor calls
 - [ ] Build-side cache: `build_dataset.py` for any future dataset hits the cache for any case already in `cases`
 - [ ] CSV exports diff cleanly across runs (no spurious row reordering)
-- [ ] Gold-pair self-score baseline computed: distribution of Green/Yellow/Red across v1's 200 gold pairs, broken down by tier — this is the first publishable calibration result and v1.3's deliverable
+- [ ] Gold-pair self-score baseline computed: distribution of Green/Yellow/Red across v1's 130 gold pairs, broken down by tier — this is the first publishable calibration result and v1.3's deliverable
