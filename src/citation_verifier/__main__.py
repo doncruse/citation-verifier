@@ -6,7 +6,6 @@ import argparse
 import asyncio
 import json
 import sys
-from dataclasses import asdict
 
 from .cache import VerificationCache
 from .models import VerificationResult, VerificationStatus
@@ -21,11 +20,55 @@ _STATUS_LABELS = {
 }
 
 
+def _result_to_json_dict(result: VerificationResult) -> dict:
+    """JSON shape for a single-citation verification result.
+
+    The first nine fields are the canonical schema shared with the
+    verify-batch CSV: ``citation``, ``status``, ``matched_cluster_id``,
+    ``matched_url``, ``matched_case_name``, ``matched_court_id``,
+    ``matched_date_filed``, ``confidence``, ``diagnostics``.
+
+    The tail (``candidates``, ``error``) is bonus debug data exposed
+    only via ``--json``, not in the CSV. Useful for one-off debugging
+    of POSSIBLE_MATCH and NOT_FOUND outcomes.
+    """
+    return {
+        "citation": result.input_citation,
+        "status": result.status.value,
+        "matched_cluster_id": result.matched_cluster_id,
+        "matched_url": result.matched_url,
+        "matched_case_name": result.matched_case_name,
+        "matched_court_id": result.matched_court,
+        "matched_date_filed": result.matched_date,
+        "confidence": result.confidence,
+        "diagnostics": [
+            {"category": d.category, "message": d.message}
+            for d in (result.diagnostics or [])
+        ],
+        "candidates": [
+            {
+                "case_name": c.case_name,
+                "url": c.url,
+                "cluster_id": c.cluster_id,
+                "date_filed": c.date_filed,
+                "court_id": c.court_id,
+                "score": c.score,
+                "description": c.description,
+                "mismatches": [
+                    {"category": d.category, "message": d.message}
+                    for d in (c.mismatches or [])
+                ],
+            }
+            for c in (result.candidates or [])
+        ],
+        "error": result.error,
+    }
+
+
 def _print_result(result: VerificationResult, json_mode: bool) -> None:
     if json_mode:
-        d = asdict(result)
-        d["status"] = result.status.value
-        print(json.dumps(d, indent=2))
+        # One JSON object per line so multi-citation output is NDJSON.
+        print(json.dumps(_result_to_json_dict(result), ensure_ascii=False))
         return
 
     label = _STATUS_LABELS.get(result.status, result.status.value)
@@ -341,8 +384,374 @@ def verify_brief_main(argv: list[str] | None = None) -> int:
     return 0
 
 
+_VERIFY_BATCH_OUTPUT_COLUMNS = [
+    "citation",
+    "status",
+    "matched_cluster_id",
+    "matched_url",
+    "matched_case_name",
+    "matched_court_id",
+    "matched_date_filed",
+    "confidence",
+    "diagnostics_json",
+]
+
+
+def _result_to_row(result: VerificationResult) -> dict[str, str]:
+    diagnostics = [
+        {"category": d.category, "message": d.message}
+        for d in (result.diagnostics or [])
+    ]
+    return {
+        "citation": result.input_citation,
+        "status": result.status.value,
+        "matched_cluster_id": (
+            str(result.matched_cluster_id)
+            if result.matched_cluster_id is not None
+            else ""
+        ),
+        "matched_url": result.matched_url or "",
+        "matched_case_name": result.matched_case_name or "",
+        "matched_court_id": result.matched_court or "",
+        "matched_date_filed": result.matched_date or "",
+        "confidence": f"{result.confidence}",
+        "diagnostics_json": json.dumps(diagnostics, ensure_ascii=False),
+    }
+
+
+def verify_batch_main(argv: list[str] | None = None) -> int:
+    """CLI for batch citation verification from a CSV.
+
+    Reads citations from a CSV column and writes verification results
+    to an output CSV with a stable column schema.
+    """
+    import csv as csv_mod
+    from pathlib import Path
+
+    from .models import ParsedCitation
+    from .parser import parse_citation
+
+    parser = argparse.ArgumentParser(
+        prog="citation-verifier verify-batch",
+        description="Verify a batch of citations from a CSV file.",
+    )
+    parser.add_argument("input", help="Input CSV file with a citation column")
+    parser.add_argument(
+        "--column",
+        required=True,
+        help="Name of the column in the input CSV containing citation strings",
+    )
+    parser.add_argument(
+        "--name-column",
+        default=None,
+        help="Optional column name with the case name (used to enrich the parsed citation)",
+    )
+    parser.add_argument(
+        "--court-column",
+        default=None,
+        help="Optional column name with the court ID (e.g. 'scotus', 'ca2')",
+    )
+    parser.add_argument(
+        "--year-column",
+        default=None,
+        help="Optional column name with the citation year (integer)",
+    )
+    parser.add_argument(
+        "--output",
+        "-o",
+        required=True,
+        help="Output CSV path",
+    )
+    parser.add_argument(
+        "--quick-only",
+        action="store_true",
+        help="Skip opinion-search/RECAP fallback (citation-lookup only)",
+    )
+    args = parser.parse_args(argv)
+
+    in_path = Path(args.input)
+    if not in_path.exists():
+        print(f"Error: input file does not exist: {in_path}", file=sys.stderr)
+        return 1
+
+    with in_path.open(encoding="utf-8", newline="") as f:
+        reader = csv_mod.DictReader(f)
+        if args.column not in (reader.fieldnames or []):
+            print(
+                f"Error: column '{args.column}' not found in {in_path}. "
+                f"Available columns: {reader.fieldnames}",
+                file=sys.stderr,
+            )
+            return 1
+        rows = list(reader)
+
+    citations: list[str] = [(row.get(args.column) or "").strip() for row in rows]
+
+    use_metadata = bool(args.name_column or args.court_column or args.year_column)
+    parsed_citations: list[ParsedCitation | None] | None = None
+    if use_metadata:
+        parsed_citations = []
+        for cite, row in zip(citations, rows):
+            base = parse_citation(cite) if cite else ParsedCitation(raw_text=cite)
+            if args.name_column:
+                name_val = (row.get(args.name_column) or "").strip()
+                if name_val:
+                    base.case_name = name_val
+            if args.court_column:
+                court_val = (row.get(args.court_column) or "").strip()
+                if court_val:
+                    base.court = court_val
+            if args.year_column:
+                year_val = (row.get(args.year_column) or "").strip()
+                if year_val:
+                    try:
+                        base.year = int(year_val)
+                    except ValueError:
+                        pass
+            parsed_citations.append(base)
+
+    verifier = CitationVerifier()
+
+    def _progress(done: int, total: int) -> None:
+        print(f"  Verifying {done}/{total}...", file=sys.stderr, flush=True)
+
+    kwargs: dict = {
+        "progress_callback": _progress,
+        "quick_only": args.quick_only,
+    }
+    if parsed_citations is not None:
+        kwargs["parsed_citations"] = parsed_citations
+
+    results = asyncio.run(verifier.verify_batch(citations, **kwargs))
+
+    out_path = Path(args.output)
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    with out_path.open("w", encoding="utf-8", newline="") as f:
+        writer = csv_mod.DictWriter(f, fieldnames=_VERIFY_BATCH_OUTPUT_COLUMNS)
+        writer.writeheader()
+        for result in results:
+            writer.writerow(_result_to_row(result))
+
+    print(f"Wrote {len(results)} rows to {out_path}", file=sys.stderr)
+    return 0
+
+
+_AUDIT_MISSES_ADDED_COLUMNS = [
+    "fallback_status",
+    "fallback_path",
+    "fallback_confidence",
+    "fallback_url",
+    "fallback_matched_name",
+    "fallback_court_id",
+    "fallback_date_filed",
+]
+
+
+def _classify_fallback_path(
+    quick_result: VerificationResult | None,
+    full_result: VerificationResult | None,
+) -> str:
+    """Attribute which production path resolved (or didn't resolve) a citation.
+
+    - ``citation-lookup`` if the quick (citation-lookup-only) pass already
+      returned a hit (VERIFIED or LIKELY_REAL). The chunking fix matters
+      here: a citation that missed in an old run can recover in a fresh
+      one without needing search fallback.
+    - ``RECAP`` if the full pipeline returned a hit AND any diagnostic on
+      the result has category ``recap`` (the verifier annotates RECAP-
+      sourced candidates with this category).
+    - ``opinion-search`` if the full pipeline returned a hit with no
+      ``recap`` diagnostic — implying the opinion-search step resolved it.
+    - ``no_match`` if the full pipeline still returned NOT_FOUND.
+    """
+    if quick_result is not None and quick_result.status in (
+        VerificationStatus.VERIFIED,
+        VerificationStatus.LIKELY_REAL,
+        VerificationStatus.POSSIBLE_MATCH,
+    ):
+        return "citation-lookup"
+    if full_result is None or full_result.status == VerificationStatus.NOT_FOUND:
+        return "no_match"
+    has_recap = any(
+        (d.category or "").lower() == "recap" for d in (full_result.diagnostics or [])
+    )
+    return "RECAP" if has_recap else "opinion-search"
+
+
+def audit_misses_main(argv: list[str] | None = None) -> int:
+    """CLI for auditing CL misses against the full production fallback path.
+
+    Two-pass design:
+      1. ``verify_batch(quick_only=True)`` — citation-lookup with chunking.
+         Catches anything that recovers from the bare lookup endpoint
+         (e.g. fixed by recent chunking changes). Path attributed as
+         ``citation-lookup``.
+      2. ``verify_batch()`` (full) on the quick-misses — runs opinion-
+         search and, for federal courts, RECAP. Diagnostics tell us
+         which step matched.
+    """
+    import csv as csv_mod
+    from pathlib import Path
+
+    from .models import ParsedCitation
+    from .parser import parse_citation
+
+    parser = argparse.ArgumentParser(
+        prog="citation-verifier audit-misses",
+        description="Audit CL misses against the full fallback pipeline.",
+    )
+    parser.add_argument("input", help="Input CSV with one citation per row")
+    parser.add_argument(
+        "--column",
+        required=True,
+        help="Column with the citation string",
+    )
+    parser.add_argument(
+        "--name-column",
+        default=None,
+        help="Optional column with the case name (improves search recall)",
+    )
+    parser.add_argument(
+        "--court-column",
+        default=None,
+        help="Optional column with the court ID (e.g. 'ca9', 'dcd')",
+    )
+    parser.add_argument(
+        "--year-column",
+        default=None,
+        help="Optional column with the citation year",
+    )
+    parser.add_argument(
+        "--output",
+        "-o",
+        required=True,
+        help="Output CSV path (input columns passed through, fallback_* added)",
+    )
+    args = parser.parse_args(argv)
+
+    in_path = Path(args.input)
+    if not in_path.exists():
+        print(f"Error: input file does not exist: {in_path}", file=sys.stderr)
+        return 1
+
+    with in_path.open(encoding="utf-8", newline="") as f:
+        reader = csv_mod.DictReader(f)
+        in_fieldnames = list(reader.fieldnames or [])
+        if args.column not in in_fieldnames:
+            print(
+                f"Error: column '{args.column}' not found. Available: {in_fieldnames}",
+                file=sys.stderr,
+            )
+            return 1
+        rows = list(reader)
+
+    citations: list[str] = [(row.get(args.column) or "").strip() for row in rows]
+
+    use_metadata = bool(args.name_column or args.court_column or args.year_column)
+    parsed_citations: list[ParsedCitation | None] | None = None
+    if use_metadata:
+        parsed_citations = []
+        for cite, row in zip(citations, rows):
+            base = parse_citation(cite) if cite else ParsedCitation(raw_text=cite)
+            if args.name_column:
+                v = (row.get(args.name_column) or "").strip()
+                if v:
+                    base.case_name = v
+            if args.court_column:
+                v = (row.get(args.court_column) or "").strip()
+                if v:
+                    base.court = v
+            if args.year_column:
+                v = (row.get(args.year_column) or "").strip()
+                if v:
+                    try:
+                        base.year = int(v)
+                    except ValueError:
+                        pass
+            parsed_citations.append(base)
+
+    verifier = CitationVerifier()
+
+    def _progress(label: str):
+        def _cb(done: int, total: int) -> None:
+            print(f"  [{label}] {done}/{total}...", file=sys.stderr, flush=True)
+        return _cb
+
+    # Pass 1: quick (citation-lookup with chunking only)
+    quick_kwargs: dict = {
+        "progress_callback": _progress("quick"),
+        "quick_only": True,
+    }
+    if parsed_citations is not None:
+        quick_kwargs["parsed_citations"] = parsed_citations
+    quick_results = asyncio.run(verifier.verify_batch(citations, **quick_kwargs))
+
+    # Identify the indices that need the full pipeline.
+    miss_indices: list[int] = [
+        i for i, r in enumerate(quick_results)
+        if r.status == VerificationStatus.NOT_FOUND
+    ]
+
+    full_results: dict[int, VerificationResult] = {}
+    if miss_indices:
+        miss_citations = [citations[i] for i in miss_indices]
+        miss_parsed = (
+            [parsed_citations[i] for i in miss_indices]
+            if parsed_citations is not None else None
+        )
+        full_kwargs: dict = {"progress_callback": _progress("full")}
+        if miss_parsed is not None:
+            full_kwargs["parsed_citations"] = miss_parsed
+        full_list = asyncio.run(verifier.verify_batch(miss_citations, **full_kwargs))
+        for idx, res in zip(miss_indices, full_list):
+            full_results[idx] = res
+
+    # Build output rows: passthrough + fallback_* columns
+    out_fieldnames = list(in_fieldnames) + [
+        c for c in _AUDIT_MISSES_ADDED_COLUMNS if c not in in_fieldnames
+    ]
+
+    out_path = Path(args.output)
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    with out_path.open("w", encoding="utf-8", newline="") as f:
+        writer = csv_mod.DictWriter(f, fieldnames=out_fieldnames)
+        writer.writeheader()
+        for idx, row in enumerate(rows):
+            quick = quick_results[idx]
+            full = full_results.get(idx)
+            chosen = full if full is not None else quick
+            path = _classify_fallback_path(quick, full)
+            out_row = dict(row)
+            out_row["fallback_status"] = chosen.status.value
+            out_row["fallback_path"] = path
+            out_row["fallback_confidence"] = f"{chosen.confidence}"
+            out_row["fallback_url"] = chosen.matched_url or ""
+            out_row["fallback_matched_name"] = chosen.matched_case_name or ""
+            out_row["fallback_court_id"] = chosen.matched_court or ""
+            out_row["fallback_date_filed"] = chosen.matched_date or ""
+            writer.writerow(out_row)
+
+    # Per-path summary to stderr
+    counts: dict[str, int] = {}
+    for idx in range(len(rows)):
+        path = _classify_fallback_path(
+            quick_results[idx], full_results.get(idx)
+        )
+        counts[path] = counts.get(path, 0) + 1
+    print(
+        f"Audit complete: {sum(counts.values())} rows. "
+        + ", ".join(f"{k}={v}" for k, v in sorted(counts.items())),
+        file=sys.stderr,
+    )
+    return 0
+
+
 if __name__ == "__main__":
-    # Dispatch to verify-brief subcommand if first arg matches
+    # Dispatch subcommands if first arg matches
     if len(sys.argv) > 1 and sys.argv[1] == "verify-brief":
         sys.exit(verify_brief_main(sys.argv[2:]))
+    if len(sys.argv) > 1 and sys.argv[1] == "verify-batch":
+        sys.exit(verify_batch_main(sys.argv[2:]))
+    if len(sys.argv) > 1 and sys.argv[1] == "audit-misses":
+        sys.exit(audit_misses_main(sys.argv[2:]))
     sys.exit(main())

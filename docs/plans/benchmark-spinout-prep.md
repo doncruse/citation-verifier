@@ -6,6 +6,27 @@
 
 ---
 
+## 2026-05-02 status update
+
+After scoping this, we walked back the original "do all five tasks now" framing. Three of four spin-out criteria (kit / forkers / release story) aren't met, and v1.1 has concrete work queued that's a better next mile. Doing API-stability prep months ahead of the other three criteria locks API choices before we know what v1.1 needs from the verifier.
+
+Current decisions:
+
+| Task | Status | Notes |
+|---|---|---|
+| 1. `verify-batch` CLI | **shipped, reframed** | Built and tested ([`tests/test_cli_verify_batch.py`](../../tests/test_cli_verify_batch.py)). Originally pitched as "removes 50 lines of imports from benchmark." Reality is closer to ~5 lines, AND the wire format doesn't carry eyecite FCC-flavored parses (volume/reporter/page) that benchmark currently passes via `parsed_citation_from_eyecite`. Net: the CLI is a real user-facing convenience for ad-hoc CSVs and briefs work, but it is **not** the canonical replacement for benchmark's import surface. Don't lock the wire format until v1.1 tells us what it actually needs. |
+| 2. `verify --json` | **shipped, with `candidates`/`error` retained** | The required fields from the plan are present ([`tests/test_cli_verify_json.py`](../../tests/test_cli_verify_json.py)). Walked back an earlier choice to drop `candidates`/`error` for strict CSV-symmetry — those stayed useful for single-citation debugging, and the symmetry argument weakens once Task 1 isn't load-bearing. |
+| 3. API.md | **deferred** | API.md is most useful paired with a publish step. Standalone, it duplicates `__init__.py` and `CLAUDE.md`. Revisit when Task 5 is imminent. |
+| 4. `audit-misses` CLI | **next** | Most concrete ROI: the workflow has been hand-built twice this session (`benchmark_v1/_all_cl_misses.csv` is the artifact) and the audit feeds the FLP-findings HTML, so it has a second use beyond benchmark-internal scoring. Promoted ahead of 1/3/5. |
+| 5. PyPI publish | **deferred** | Without v1.1 in flight or a forker on the horizon, publishing 0.1.0 means every change to citation-verifier between now and the actual spin-out either honors a published API (paying stability cost without spin-out benefit) or drifts from it (paying publish cost without stability benefit). Revisit when v1.1 is in flight or a forker shows up. |
+| 6. `citation_verifier.benchmark` helpers | **deferred** | Lower priority even in the original plan. No change. |
+
+What changes about the spin-out plan as a whole: the gating criterion is now **v1.1 progress**, not "land 1/2/3/5 in citation-verifier." When v1.1's call patterns are known we'll know what API surface to commit to. Until then, prefer concrete pull (Task 4) and v1.1 work over speculative API stabilization.
+
+The original task descriptions below are kept as-is for the eventual revisit.
+
+---
+
 ## Where things stand (May 2026)
 
 - Benchmark v1 is shipped: `benchmark_v1/{report.html, courtlistener-findings.html, scorecards-deduped.md, README.md}` plus the data files. All on `main`.
