@@ -56,13 +56,13 @@ CREATE TABLE assessor_verdicts (
     id                       INTEGER PRIMARY KEY AUTOINCREMENT,
     proposition_id           TEXT    NOT NULL REFERENCES propositions(proposition_id),
     candidate_cluster_id     INTEGER NOT NULL REFERENCES cases(cluster_id),
-    verdict                  TEXT    NOT NULL,
-    assessor_model           TEXT    NOT NULL,
-    assessor_prompt_version  TEXT    NOT NULL,
-    opinion_window_chars     INTEGER,
-    confidence               REAL,
-    reasoning_excerpt        TEXT,
-    source                   TEXT    NOT NULL,
+    verdict                  TEXT    NOT NULL,      -- 'green' | 'yellow' | 'red'
+    assessor_model           TEXT    NOT NULL,      -- 'opus-4.7' | ...
+    assessor_prompt_version  TEXT    NOT NULL,      -- 'v1' (changing invalidates cache)
+    opinion_window_chars     INTEGER,               -- 20000 | 60000 | NULL (NULL = N/A)
+    confidence               REAL,                  -- 0.0-1.0 if returned, else NULL
+    reasoning_excerpt        TEXT,                  -- first ~500 chars of stated reasoning
+    source                   TEXT    NOT NULL,      -- 'gold_pair' | 'model_answer' | 'probe'
     run_id                   TEXT,
     assessed_at              TEXT    NOT NULL,
     UNIQUE (proposition_id, candidate_cluster_id, assessor_model, assessor_prompt_version, opinion_window_chars)
@@ -73,11 +73,11 @@ CREATE INDEX idx_verdicts_prop_case ON assessor_verdicts(proposition_id, candida
 CREATE TABLE model_answers (
     id                    INTEGER PRIMARY KEY AUTOINCREMENT,
     proposition_id        TEXT    NOT NULL REFERENCES propositions(proposition_id),
-    answer_cluster_id     INTEGER          REFERENCES cases(cluster_id),
-    model_name            TEXT    NOT NULL,
+    answer_cluster_id     INTEGER          REFERENCES cases(cluster_id), -- NULL for UNKNOWN/unparseable
+    model_name            TEXT    NOT NULL,                              -- 'sonnet-4.6' | 'opus-4.7' | 'gpt-5'
     raw_response          TEXT    NOT NULL,
-    parse_status          TEXT    NOT NULL,
-    answered_cite_string  TEXT,
+    parse_status          TEXT    NOT NULL,                              -- 'parsed' | 'unknown' | 'unparseable' | 'hallucinated_cite'
+    answered_cite_string  TEXT,                                         -- model's citation string before resolution
     cite_resolved_real    BOOLEAN,
     name_match_score      REAL,
     run_id                TEXT    NOT NULL,
@@ -90,7 +90,7 @@ CREATE INDEX idx_answers_run  ON model_answers(run_id);
 
 CREATE TABLE runs (
     run_id      TEXT PRIMARY KEY,
-    kind        TEXT NOT NULL,
+    kind        TEXT NOT NULL,   -- 'mining' | 'model_eval' | 'assessor' | 'calibration'
     started_at  TEXT NOT NULL,
     ended_at    TEXT,
     git_commit  TEXT,

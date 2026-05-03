@@ -14,18 +14,21 @@ SCHEMA_PATH = REPO_ROOT / "gold_db" / "migrations" / "001_initial.sql"
 class GoldDB:
     def __init__(self, path: str | Path):
         self.path = Path(path)
-        is_new = not self.path.exists()
         self.path.parent.mkdir(parents=True, exist_ok=True)
         self.conn = sqlite3.connect(str(self.path))
         self.conn.row_factory = sqlite3.Row
         self.conn.execute("PRAGMA foreign_keys = ON")
-        if is_new:
+        if not self._schema_applied():
             self._apply_schema()
+
+    def _schema_applied(self) -> bool:
+        return bool(self.conn.execute(
+            "SELECT 1 FROM sqlite_master WHERE type='table' AND name='cases'"
+        ).fetchone())
 
     def _apply_schema(self) -> None:
         sql = SCHEMA_PATH.read_text(encoding="utf-8")
         self.conn.executescript(sql)
-        self.conn.commit()
 
     def close(self) -> None:
         self.conn.close()
