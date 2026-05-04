@@ -326,3 +326,56 @@ def test_insert_verdict_idempotent_on_unique(tmp_path: Path):
         "SELECT verdict FROM assessor_verdicts WHERE id=?", (rid1,)
     ).fetchone()
     assert row["verdict"] == "green"
+
+
+def test_get_or_score_cache_miss_calls_score_fn(tmp_path: Path):
+    db = GoldDB(tmp_path / "gold.db")
+    db.upsert_case(1, "A", "ca9", 2020, None, "t")
+    pid = db.upsert_proposition("p", None, "t")
+    calls = []
+
+    def score_fn():
+        calls.append(1)
+        return {"verdict": "green", "confidence": 0.9, "reasoning": "..."}
+
+    result = db.get_or_score_verdict(
+        proposition_id=pid, candidate_cluster_id=1,
+        assessor_model="opus-4.7", assessor_prompt_version="v1",
+        opinion_window_chars=60000, source="model_answer", run_id="r1",
+        score_fn=score_fn,
+    )
+    assert result["verdict"] == "green"
+    assert len(calls) == 1
+
+
+def test_get_or_score_cache_hit_skips_score_fn(tmp_path: Path):
+    db = GoldDB(tmp_path / "gold.db")
+    db.upsert_case(1, "A", "ca9", 2020, None, "t")
+    pid = db.upsert_proposition("p", None, "t")
+    calls = []
+
+    def score_fn():
+        calls.append(1)
+        return {"verdict": "green", "confidence": 0.9, "reasoning": "..."}
+
+    db.get_or_score_verdict(pid, 1, "opus-4.7", "v1", 60000,
+                            "model_answer", "r1", score_fn)
+    db.get_or_score_verdict(pid, 1, "opus-4.7", "v1", 60000,
+                            "model_answer", "r2", score_fn)
+    assert len(calls) == 1  # second call hit the cache
+
+
+def test_get_or_score_truncates_long_reasoning(tmp_path: Path):
+    """reasoning_excerpt is capped at 500 chars."""
+    db = GoldDB(tmp_path / "gold.db")
+    db.upsert_case(1, "A", "ca9", 2020, None, "t")
+    pid = db.upsert_proposition("p", None, "t")
+    long_reasoning = "x" * 1000
+
+    def score_fn():
+        return {"verdict": "green", "confidence": 0.9, "reasoning": long_reasoning}
+
+    result = db.get_or_score_verdict(
+        pid, 1, "opus-4.7", "v1", 60000, "model_answer", "r1", score_fn,
+    )
+    assert len(result["reasoning_excerpt"]) == 500
