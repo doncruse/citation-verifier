@@ -4,11 +4,16 @@ See docs/plans/2026-05-03-gold-db-design.md for the conceptual model.
 """
 from __future__ import annotations
 
+import datetime as dt
 import sqlite3
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 SCHEMA_PATH = REPO_ROOT / "gold_db" / "migrations" / "001_initial.sql"
+
+
+def _now_iso() -> str:
+    return dt.datetime.utcnow().isoformat(timespec="seconds") + "Z"
 
 
 class GoldDB:
@@ -32,6 +37,34 @@ class GoldDB:
 
     def close(self) -> None:
         self.conn.close()
+
+    def upsert_case(
+        self,
+        cluster_id: int,
+        canonical_name: str,
+        court_id: str | None,
+        year: int | None,
+        cite_string: str | None,
+        run_id: str,
+    ) -> None:
+        system, level = lookup_court(court_id)
+        self.conn.execute(
+            """
+            INSERT INTO cases (cluster_id, canonical_name, court_id, year, system,
+                               level, cite_string, first_seen_run_id, first_seen_at)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+            ON CONFLICT(cluster_id) DO UPDATE SET
+                canonical_name = excluded.canonical_name,
+                court_id       = COALESCE(excluded.court_id, cases.court_id),
+                year           = COALESCE(excluded.year, cases.year),
+                system         = COALESCE(excluded.system, cases.system),
+                level          = COALESCE(excluded.level,  cases.level),
+                cite_string    = COALESCE(excluded.cite_string, cases.cite_string)
+            """,
+            (cluster_id, canonical_name, court_id, year, system, level,
+             cite_string, run_id, _now_iso()),
+        )
+        self.conn.commit()
 
 
 # Lazily build the courts-db index on first use so import is cheap.
