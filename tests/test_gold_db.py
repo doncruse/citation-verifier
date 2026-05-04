@@ -1,7 +1,7 @@
 import sqlite3
 from pathlib import Path
 import pytest
-from citation_verifier.gold_db import GoldDB
+from citation_verifier.gold_db import GoldDB, lookup_court
 
 
 def test_init_creates_all_tables(tmp_path: Path):
@@ -27,9 +27,6 @@ def test_foreign_keys_enabled(tmp_path: Path):
     assert fk == 1
 
 
-from citation_verifier.gold_db import lookup_court
-
-
 @pytest.mark.parametrize("court_id,expected_system,expected_level", [
     ("scotus", "federal", "colr"),    # normalized: courts-db says ''
     ("ca9",    "federal", "iac"),     # normalized: courts-db says ''
@@ -37,8 +34,9 @@ from citation_verifier.gold_db import lookup_court
     ("nysd",   "federal", "trial"),   # courts-db already says 'trial'
     ("cand",   "federal", "trial"),   # normalized: courts-db says 'gjc'
     ("ny",     "state",   "colr"),    # state pass-through, courts-db says 'colr'
+    ("nysb",   "federal", "trial"),   # bankruptcy court, normalized from type='bankruptcy'
 ])
-def test_lookup_court_known_federal(court_id, expected_system, expected_level):
+def test_lookup_court_known(court_id, expected_system, expected_level):
     system, level = lookup_court(court_id)
     assert system == expected_system
     assert level == expected_level

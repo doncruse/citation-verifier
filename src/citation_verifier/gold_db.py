@@ -82,8 +82,8 @@ def lookup_court(court_id: str | None) -> tuple[str | None, str | None]:
         elif court_id.startswith("ca") and ctype == "appellate":
             # Circuits: ca1..ca11, cadc, cafc
             level = "iac"
-        elif ctype == "trial":
-            # All federal trial courts (district + bankruptcy) -> consistent label
+        elif ctype in ("trial", "bankruptcy"):
+            # All federal trial-level courts (district + bankruptcy) -> consistent label
             level = "trial"
         # else: federal specialty (tax, bia, cit, etc.) — leave courts-db value (or None)
 
