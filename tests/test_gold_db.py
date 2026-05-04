@@ -174,3 +174,12 @@ def test_upsert_proposition_first_seen_preserved(tmp_path: Path):
         "SELECT first_seen_run_id FROM propositions"
     ).fetchone()
     assert row["first_seen_run_id"] == "r1"
+
+
+def test_upsert_proposition_holding_verb_preserved(tmp_path: Path):
+    """holding_verb is insert-only — second call doesn't overwrite."""
+    db = GoldDB(tmp_path / "gold.db")
+    db.upsert_proposition("p", "holding", "r1")
+    db.upsert_proposition("p", "finding", "r2")  # different verb, same text
+    row = db.conn.execute("SELECT holding_verb FROM propositions").fetchone()
+    assert row["holding_verb"] == "holding"

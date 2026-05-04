@@ -23,6 +23,7 @@ def _normalize_proposition(text: str) -> str:
 
 
 def _hash_proposition(text: str) -> str:
+    """sha256 hex digest of the normalized proposition text."""
     return hashlib.sha256(_normalize_proposition(text).encode("utf-8")).hexdigest()
 
 
@@ -97,7 +98,8 @@ class GoldDB:
         unchanged — `text`, `holding_verb`, and `first_seen_*` all stay at
         the values from the original insert.
         """
-        pid = _hash_proposition(text)
+        norm = _normalize_proposition(text)
+        pid = hashlib.sha256(norm.encode("utf-8")).hexdigest()
         self.conn.execute(
             """
             INSERT INTO propositions (proposition_id, text, normalized_text,
@@ -105,7 +107,7 @@ class GoldDB:
             VALUES (?, ?, ?, ?, ?, ?)
             ON CONFLICT(proposition_id) DO NOTHING
             """,
-            (pid, text, _normalize_proposition(text), holding_verb, run_id, _now_iso()),
+            (pid, text, norm, holding_verb, run_id, _now_iso()),
         )
         self.conn.commit()
         return pid
