@@ -18,6 +18,7 @@ from typing import Callable
 PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
 sys.path.insert(0, str(PROJECT_ROOT / "src"))
 
+from citation_verifier.client import CourtListenerClient  # noqa: E402
 from citation_verifier.gold_db import GoldDB  # noqa: E402
 
 OPINION_WINDOW = 60000  # post v1.1 standard
@@ -27,7 +28,13 @@ PROMPT_VERSION = "v1"
 
 def _load_pilot_assessor():
     """Import call_assessor + fetch_opinion_text from pilot_a/score.py
-    without name collision (both files are called score.py)."""
+    without name collision (both files are called score.py).
+
+    Cached: re-execution would re-run pilot_a's module-level init
+    (CaseNameMatcher() and courts_db lookup) on every call.
+    """
+    if "pilot_a_score" in sys.modules:
+        return sys.modules["pilot_a_score"]
     p = PROJECT_ROOT / "tests" / "pilot_a" / "score.py"
     spec = importlib.util.spec_from_file_location("pilot_a_score", p)
     mod = importlib.util.module_from_spec(spec)
@@ -93,6 +100,9 @@ def score_gold_pairs(
          WHERE cr.dataset_name = 'v1'
     """).fetchall()
 
+    # Instantiate CourtListener client once for opinion fetches (real-mode only)
+    cl_client = CourtListenerClient() if assessor_fn is _default_assessor else None
+
     new_verdicts = 0
     for r in rows:
         # Cache check first to avoid expensive opinion fetch on hits
@@ -106,7 +116,7 @@ def score_gold_pairs(
         # need opinion text — pass a placeholder to satisfy the API.
         if assessor_fn is _default_assessor:
             pilot = _load_pilot_assessor()
-            opinion_text = pilot.fetch_opinion_text(r["cited_cluster_id"])
+            opinion_text = pilot.fetch_opinion_text(cl_client, r["cited_cluster_id"])
             if not opinion_text:
                 print(f"WARN: no opinion text for cluster {r['cited_cluster_id']}, skipping",
                       file=sys.stderr)

@@ -104,3 +104,32 @@ def test_default_assessor_handles_timeout(tmp_path: Path, monkeypatch):
     # None assessment must produce a recordable verdict, not raise
     assert result["verdict"] in ("green", "yellow", "red")
     assert "TIMEOUT" in result["reasoning"]
+
+
+def test_score_gold_pairs_real_mode_passes_client_to_fetch(tmp_path: Path, monkeypatch):
+    """In real mode (assessor_fn=None defaults to _default_assessor),
+    fetch_opinion_text must be called with both client and cluster_id."""
+    db = GoldDB(tmp_path / "gold.db")
+    pid, cid = _seed(db)
+
+    fetch_calls = []
+
+    fake_pilot = type("FakePilot", (), {})()
+    fake_pilot.fetch_opinion_text = lambda client, cluster_id: (
+        fetch_calls.append((client, cluster_id)) or "opinion text body..."
+    )
+    fake_pilot.call_assessor = lambda *a, **kw: {
+        "assessment": "Green", "rationale": "supports it", "elapsed_s": 1, "cost_usd": 0.05
+    }
+
+    from tests.benchmark_v1 import score_gold_pairs as mod
+    monkeypatch.setattr(mod, "_load_pilot_assessor", lambda: fake_pilot)
+
+    # Use the real default assessor path (assessor_fn=None triggers it)
+    n = mod.score_gold_pairs(db, run_id="t-real")
+    assert n == 1
+    assert len(fetch_calls) == 1
+    client, cluster = fetch_calls[0]
+    # client must be non-None — the bug was passing only cluster_id
+    assert client is not None
+    assert cluster == cid
