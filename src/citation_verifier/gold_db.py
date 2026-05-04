@@ -8,6 +8,13 @@ import datetime as dt
 import hashlib
 import sqlite3
 from pathlib import Path
+from typing import Callable, TypedDict
+
+
+class VerdictResult(TypedDict, total=False):
+    verdict: str
+    confidence: float | None
+    reasoning: str | None
 
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 SCHEMA_PATH = REPO_ROOT / "gold_db" / "migrations" / "001_initial.sql"
@@ -111,6 +118,135 @@ class GoldDB:
         )
         self.conn.commit()
         return pid
+
+    def get_verdict(
+        self,
+        proposition_id: str,
+        candidate_cluster_id: int,
+        assessor_model: str,
+        assessor_prompt_version: str,
+        opinion_window_chars: int | None,
+    ) -> sqlite3.Row | None:
+        """Look up a verdict by the 5-tuple cache key.
+
+        Returns the most recent matching row, or None on miss. The COALESCE
+        on opinion_window_chars makes NULL == NULL a hit (SQLite's default
+        NULL semantics treat NULL = NULL as unknown).
+        """
+        cur = self.conn.execute(
+            """
+            SELECT * FROM assessor_verdicts
+             WHERE proposition_id = ?
+               AND candidate_cluster_id = ?
+               AND assessor_model = ?
+               AND assessor_prompt_version = ?
+               AND COALESCE(opinion_window_chars, -1) = COALESCE(?, -1)
+             ORDER BY assessed_at DESC
+             LIMIT 1
+            """,
+            (proposition_id, candidate_cluster_id, assessor_model,
+             assessor_prompt_version, opinion_window_chars),
+        )
+        return cur.fetchone()
+
+    def insert_verdict(
+        self,
+        proposition_id: str,
+        candidate_cluster_id: int,
+        verdict: str,
+        assessor_model: str,
+        assessor_prompt_version: str,
+        opinion_window_chars: int | None,
+        confidence: float | None,
+        reasoning_excerpt: str | None,
+        source: str,
+        run_id: str | None,
+    ) -> int:
+        """Insert a verdict, or return the id of the existing row.
+
+        UNIQUE on (proposition_id, candidate_cluster_id, assessor_model,
+        assessor_prompt_version, opinion_window_chars). On conflict, does
+        NOT overwrite — original verdict / confidence / reasoning stay.
+        Returns the row id (new or existing).
+        """
+        cur = self.conn.execute(
+            """
+            INSERT INTO assessor_verdicts
+                (proposition_id, candidate_cluster_id, verdict, assessor_model,
+                 assessor_prompt_version, opinion_window_chars, confidence,
+                 reasoning_excerpt, source, run_id, assessed_at)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            ON CONFLICT(proposition_id, candidate_cluster_id, assessor_model,
+                        assessor_prompt_version, opinion_window_chars)
+            DO NOTHING
+            RETURNING id
+            """,
+            (proposition_id, candidate_cluster_id, verdict, assessor_model,
+             assessor_prompt_version, opinion_window_chars, confidence,
+             reasoning_excerpt, source, run_id, _now_iso()),
+        )
+        row = cur.fetchone()
+        self.conn.commit()
+        if row is not None:
+            return row[0]
+        # ON CONFLICT DO NOTHING -> fetchone returned None; look up existing id.
+        existing = self.conn.execute(
+            """
+            SELECT id FROM assessor_verdicts
+             WHERE proposition_id = ?
+               AND candidate_cluster_id = ?
+               AND assessor_model = ?
+               AND assessor_prompt_version = ?
+               AND COALESCE(opinion_window_chars, -1) = COALESCE(?, -1)
+            """,
+            (proposition_id, candidate_cluster_id, assessor_model,
+             assessor_prompt_version, opinion_window_chars),
+        ).fetchone()
+        return existing[0]
+
+    def get_or_score_verdict(
+        self,
+        proposition_id: str,
+        candidate_cluster_id: int,
+        assessor_model: str,
+        assessor_prompt_version: str,
+        opinion_window_chars: int | None,
+        source: str,
+        run_id: str | None,
+        score_fn: Callable[[], VerdictResult],
+    ) -> sqlite3.Row:
+        """Cache-aware verdict scoring.
+
+        Returns a verdict row. On cache miss, calls score_fn() and inserts
+        its result. score_fn must return a dict with 'verdict' (required)
+        and optional 'confidence' and 'reasoning' keys. Reasoning is
+        truncated to 500 chars before storage.
+        """
+        cached = self.get_verdict(
+            proposition_id, candidate_cluster_id, assessor_model,
+            assessor_prompt_version, opinion_window_chars,
+        )
+        if cached is not None:
+            return cached
+
+        result = score_fn()
+        reasoning = result.get("reasoning")
+        self.insert_verdict(
+            proposition_id=proposition_id,
+            candidate_cluster_id=candidate_cluster_id,
+            verdict=result["verdict"],
+            assessor_model=assessor_model,
+            assessor_prompt_version=assessor_prompt_version,
+            opinion_window_chars=opinion_window_chars,
+            confidence=result.get("confidence"),
+            reasoning_excerpt=reasoning[:500] if reasoning else None,
+            source=source,
+            run_id=run_id,
+        )
+        return self.get_verdict(
+            proposition_id, candidate_cluster_id, assessor_model,
+            assessor_prompt_version, opinion_window_chars,
+        )
 
     def add_citation_row(
         self,

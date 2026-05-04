@@ -248,3 +248,81 @@ def test_add_citation_row_fk_violation_raises(tmp_path: Path):
     # FK fails on a statement with a RETURNING clause; accept either.
     with pytest.raises((sqlite3.IntegrityError, sqlite3.OperationalError)):
         db.add_citation_row(999, 998, pid, "holding ...", None)
+
+
+def test_get_verdict_miss_returns_none(tmp_path: Path):
+    db = GoldDB(tmp_path / "gold.db")
+    db.upsert_case(1, "A", "ca9", 2020, None, "t")
+    pid = db.upsert_proposition("p", None, "t")
+    result = db.get_verdict(pid, 1, "opus-4.7", "v1", 60000)
+    assert result is None
+
+
+def test_insert_verdict_then_get(tmp_path: Path):
+    db = GoldDB(tmp_path / "gold.db")
+    db.upsert_case(1, "A", "ca9", 2020, None, "t")
+    pid = db.upsert_proposition("p", None, "t")
+    db.insert_verdict(
+        proposition_id=pid, candidate_cluster_id=1, verdict="green",
+        assessor_model="opus-4.7", assessor_prompt_version="v1",
+        opinion_window_chars=60000, confidence=0.92,
+        reasoning_excerpt="The opinion holds...", source="model_answer",
+        run_id="r1",
+    )
+    result = db.get_verdict(pid, 1, "opus-4.7", "v1", 60000)
+    assert result is not None
+    assert result["verdict"] == "green"
+    assert result["confidence"] == 0.92
+
+
+def test_get_verdict_methodology_change_misses(tmp_path: Path):
+    """Cache key includes (model, prompt_version, opinion_window_chars).
+    Changing any of these causes a cache miss."""
+    db = GoldDB(tmp_path / "gold.db")
+    db.upsert_case(1, "A", "ca9", 2020, None, "t")
+    pid = db.upsert_proposition("p", None, "t")
+    db.insert_verdict(pid, 1, "green", "opus-4.7", "v1", 60000, 0.9,
+                      "...", "model_answer", "r1")
+    # Different prompt version => cache miss.
+    assert db.get_verdict(pid, 1, "opus-4.7", "v2", 60000) is None
+    # Different window => cache miss.
+    assert db.get_verdict(pid, 1, "opus-4.7", "v1", 20000) is None
+    # Different model => cache miss.
+    assert db.get_verdict(pid, 1, "sonnet-4.6", "v1", 60000) is None
+    # Original tuple still hits.
+    assert db.get_verdict(pid, 1, "opus-4.7", "v1", 60000) is not None
+
+
+def test_get_verdict_null_opinion_window_matches(tmp_path: Path):
+    """NULL opinion_window_chars in storage matches NULL in query (COALESCE trick)."""
+    db = GoldDB(tmp_path / "gold.db")
+    db.upsert_case(1, "A", "ca9", 2020, None, "t")
+    pid = db.upsert_proposition("p", None, "t")
+    db.insert_verdict(pid, 1, "green", "opus-4.7", "v1",
+                      opinion_window_chars=None,  # NULL
+                      confidence=None, reasoning_excerpt=None,
+                      source="probe", run_id="r1")
+    result = db.get_verdict(pid, 1, "opus-4.7", "v1", None)
+    assert result is not None
+    assert result["verdict"] == "green"
+    # And NULL doesn't accidentally match a non-NULL window:
+    assert db.get_verdict(pid, 1, "opus-4.7", "v1", 60000) is None
+
+
+def test_insert_verdict_idempotent_on_unique(tmp_path: Path):
+    """Re-insert with the same 5-tuple returns the existing row's id."""
+    db = GoldDB(tmp_path / "gold.db")
+    db.upsert_case(1, "A", "ca9", 2020, None, "t")
+    pid = db.upsert_proposition("p", None, "t")
+    rid1 = db.insert_verdict(pid, 1, "green", "opus-4.7", "v1", 60000,
+                             None, None, "model_answer", "r1")
+    rid2 = db.insert_verdict(pid, 1, "yellow", "opus-4.7", "v1", 60000,
+                             None, None, "model_answer", "r2")
+    assert rid1 == rid2
+    n = db.conn.execute("SELECT COUNT(*) FROM assessor_verdicts").fetchone()[0]
+    assert n == 1
+    # Original verdict ('green') stays — new call does NOT overwrite.
+    row = db.conn.execute(
+        "SELECT verdict FROM assessor_verdicts WHERE id=?", (rid1,)
+    ).fetchone()
+    assert row["verdict"] == "green"
