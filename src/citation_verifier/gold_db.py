@@ -112,6 +112,38 @@ class GoldDB:
         self.conn.commit()
         return pid
 
+    def add_citation_row(
+        self,
+        citing_cluster_id: int,
+        cited_cluster_id: int,
+        proposition_id: str,
+        parenthetical: str,
+        dataset_name: str | None,
+    ) -> int:
+        """Insert a citation_rows row, or return the id of the matching one.
+
+        UNIQUE on (citing_cluster_id, cited_cluster_id, proposition_id). On
+        conflict, `parenthetical` is updated to the new value (most recent
+        observation wins) but the row id stays stable. Other fields
+        (`dataset_name`, `mined_at`) are preserved on conflict.
+        """
+        cur = self.conn.execute(
+            """
+            INSERT INTO citation_rows
+                (citing_cluster_id, cited_cluster_id, proposition_id,
+                 parenthetical, dataset_name, mined_at)
+            VALUES (?, ?, ?, ?, ?, ?)
+            ON CONFLICT(citing_cluster_id, cited_cluster_id, proposition_id)
+            DO UPDATE SET parenthetical = excluded.parenthetical
+            RETURNING id
+            """,
+            (citing_cluster_id, cited_cluster_id, proposition_id,
+             parenthetical, dataset_name, _now_iso()),
+        )
+        row = cur.fetchone()
+        self.conn.commit()
+        return row[0]
+
 
 # Lazily build the courts-db index on first use so import is cheap.
 _COURT_INDEX: dict[str, dict] | None = None

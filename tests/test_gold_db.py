@@ -183,3 +183,57 @@ def test_upsert_proposition_holding_verb_preserved(tmp_path: Path):
     db.upsert_proposition("p", "finding", "r2")  # different verb, same text
     row = db.conn.execute("SELECT holding_verb FROM propositions").fetchone()
     assert row["holding_verb"] == "holding"
+
+
+def test_add_citation_row_inserts(tmp_path: Path):
+    db = GoldDB(tmp_path / "gold.db")
+    db.upsert_case(cluster_id=1, canonical_name="A", court_id="ca9",
+                   year=2020, cite_string=None, run_id="t")
+    db.upsert_case(cluster_id=2, canonical_name="B", court_id="ca9",
+                   year=2010, cite_string=None, run_id="t")
+    pid = db.upsert_proposition("Some proposition.", None, "t")
+    row_id = db.add_citation_row(
+        citing_cluster_id=1, cited_cluster_id=2, proposition_id=pid,
+        parenthetical="holding that ...", dataset_name=None,
+    )
+    assert isinstance(row_id, int)
+    n = db.conn.execute("SELECT COUNT(*) FROM citation_rows").fetchone()[0]
+    assert n == 1
+
+
+def test_add_citation_row_idempotent_on_unique(tmp_path: Path):
+    db = GoldDB(tmp_path / "gold.db")
+    db.upsert_case(cluster_id=1, canonical_name="A", court_id=None,
+                   year=None, cite_string=None, run_id="t")
+    db.upsert_case(cluster_id=2, canonical_name="B", court_id=None,
+                   year=None, cite_string=None, run_id="t")
+    pid = db.upsert_proposition("Some proposition.", None, "t")
+    rid1 = db.add_citation_row(1, 2, pid, "holding ...", None)
+    rid2 = db.add_citation_row(1, 2, pid, "holding ...", None)
+    assert rid1 == rid2  # same row returned, no duplicate
+    n = db.conn.execute("SELECT COUNT(*) FROM citation_rows").fetchone()[0]
+    assert n == 1
+
+
+def test_add_citation_row_updates_parenthetical(tmp_path: Path):
+    """A second call with a different parenthetical updates it (no new row)."""
+    db = GoldDB(tmp_path / "gold.db")
+    db.upsert_case(1, "A", None, None, None, "t")
+    db.upsert_case(2, "B", None, None, None, "t")
+    pid = db.upsert_proposition("p", None, "t")
+    rid1 = db.add_citation_row(1, 2, pid, "first paren", None)
+    rid2 = db.add_citation_row(1, 2, pid, "updated paren", None)
+    assert rid1 == rid2
+    row = db.conn.execute(
+        "SELECT parenthetical FROM citation_rows WHERE id=?", (rid1,)
+    ).fetchone()
+    assert row["parenthetical"] == "updated paren"
+
+
+def test_add_citation_row_fk_violation_raises(tmp_path: Path):
+    db = GoldDB(tmp_path / "gold.db")
+    pid = db.upsert_proposition("Some proposition.", None, "t")
+    # SQLite raises OperationalError (not IntegrityError) for FK violations
+    # when the statement includes a RETURNING clause (SQLite 3.39+ behaviour).
+    with pytest.raises(sqlite3.DatabaseError):
+        db.add_citation_row(999, 998, pid, "holding ...", None)
