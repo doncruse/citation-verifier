@@ -216,24 +216,35 @@ def test_add_citation_row_idempotent_on_unique(tmp_path: Path):
 
 
 def test_add_citation_row_updates_parenthetical(tmp_path: Path):
-    """A second call with a different parenthetical updates it (no new row)."""
+    """A second call with a different parenthetical updates it; mined_at and
+    dataset_name are preserved (no new row, no metadata churn)."""
     db = GoldDB(tmp_path / "gold.db")
     db.upsert_case(1, "A", None, None, None, "t")
     db.upsert_case(2, "B", None, None, None, "t")
+    db.conn.execute("INSERT INTO datasets (name) VALUES ('v1')")
+    db.conn.commit()
     pid = db.upsert_proposition("p", None, "t")
-    rid1 = db.add_citation_row(1, 2, pid, "first paren", None)
-    rid2 = db.add_citation_row(1, 2, pid, "updated paren", None)
+    rid1 = db.add_citation_row(1, 2, pid, "first paren", "v1")
+    first_mined_at = db.conn.execute(
+        "SELECT mined_at FROM citation_rows WHERE id=?", (rid1,)
+    ).fetchone()[0]
+
+    rid2 = db.add_citation_row(1, 2, pid, "updated paren", "v1")
     assert rid1 == rid2
+
     row = db.conn.execute(
-        "SELECT parenthetical FROM citation_rows WHERE id=?", (rid1,)
+        "SELECT parenthetical, mined_at, dataset_name FROM citation_rows WHERE id=?",
+        (rid1,),
     ).fetchone()
     assert row["parenthetical"] == "updated paren"
+    assert row["mined_at"] == first_mined_at  # preserved on conflict
+    assert row["dataset_name"] == "v1"        # preserved on conflict
 
 
 def test_add_citation_row_fk_violation_raises(tmp_path: Path):
     db = GoldDB(tmp_path / "gold.db")
     pid = db.upsert_proposition("Some proposition.", None, "t")
-    # SQLite raises OperationalError (not IntegrityError) for FK violations
-    # when the statement includes a RETURNING clause (SQLite 3.39+ behaviour).
-    with pytest.raises(sqlite3.DatabaseError):
+    # SQLite 3.35+ may raise OperationalError instead of IntegrityError when
+    # FK fails on a statement with a RETURNING clause; accept either.
+    with pytest.raises((sqlite3.IntegrityError, sqlite3.OperationalError)):
         db.add_citation_row(999, 998, pid, "holding ...", None)
