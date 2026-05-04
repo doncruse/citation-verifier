@@ -134,67 +134,69 @@ async def verify_pool(pool: list[dict[str, Any]]) -> list[dict[str, Any]]:
     verifier = CitationVerifier()
     annotated: list[dict[str, Any]] = []
     total_chunks = (len(pool) + VERIFY_CHUNK - 1) // VERIFY_CHUNK
-    for ci in range(total_chunks):
-        chunk = pool[ci * VERIFY_CHUNK : (ci + 1) * VERIFY_CHUNK]
-        parsed = [parsed_citation_from_eyecite(item["fcc"]) for item in chunk]
-        citation_strs = [item["citation_text"] for item in chunk]
-        print(f"    verify chunk {ci + 1}/{total_chunks} ({len(chunk)} cites)...",
-              flush=True)
-        # --- Build-side gold-DB cache ---
-        # On a cache hit (cite_string already in cases table) we skip the CL
-        # call entirely and synthesise a VerificationResult from stored data.
-        # This only matters for future dataset builds (v2+); v1 is sealed.
-        db = GoldDB(GOLD_DB_PATH)
-        cached_results: dict[int, VerificationResult] = {}
-        to_verify_indices: list[int] = []
-        to_verify_cites: list[str] = []
-        to_verify_parsed = []
-        for j, (cite, pc) in enumerate(zip(citation_strs, parsed)):
-            row = db.conn.execute(
-                "SELECT cluster_id, canonical_name FROM cases"
-                " WHERE cite_string = ? LIMIT 1",
-                (cite,),
-            ).fetchone()
-            if row is not None:
-                cached_results[j] = VerificationResult(
-                    input_citation=cite,
-                    status=VerificationStatus.VERIFIED,
-                    confidence=1.0,
-                    matched_case_name=row["canonical_name"],
-                    matched_url=(
-                        f"https://www.courtlistener.com/opinion/{row['cluster_id']}/"
-                    ),
-                    matched_cluster_id=row["cluster_id"],
+    db = GoldDB(GOLD_DB_PATH)
+    try:
+        for ci in range(total_chunks):
+            chunk = pool[ci * VERIFY_CHUNK : (ci + 1) * VERIFY_CHUNK]
+            parsed = [parsed_citation_from_eyecite(item["fcc"]) for item in chunk]
+            citation_strs = [item["citation_text"] for item in chunk]
+            print(f"    verify chunk {ci + 1}/{total_chunks} ({len(chunk)} cites)...",
+                  flush=True)
+            # --- Build-side gold-DB cache ---
+            # On a cache hit (cite_string already in cases table) we skip the CL
+            # call entirely and synthesise a VerificationResult from stored data.
+            # This only matters for future dataset builds (v2+); v1 is sealed.
+            cached_results: dict[int, VerificationResult] = {}
+            to_verify_indices: list[int] = []
+            to_verify_cites: list[str] = []
+            to_verify_parsed: list = []
+            for j, (cite, pc) in enumerate(zip(citation_strs, parsed)):
+                row = db.conn.execute(
+                    "SELECT cluster_id, canonical_name FROM cases"
+                    " WHERE cite_string = ? LIMIT 1",
+                    (cite,),
+                ).fetchone()
+                if row is not None:
+                    cached_results[j] = VerificationResult(
+                        input_citation=cite,
+                        status=VerificationStatus.VERIFIED,
+                        confidence=1.0,
+                        matched_case_name=row["canonical_name"],
+                        matched_url=(
+                            f"https://www.courtlistener.com/opinion/{row['cluster_id']}/"
+                        ),
+                        matched_cluster_id=row["cluster_id"],
+                    )
+                else:
+                    to_verify_indices.append(j)
+                    to_verify_cites.append(cite)
+                    to_verify_parsed.append(pc)
+
+            n_cached = len(cached_results)
+            if n_cached:
+                print(f"      build-side cache: {n_cached} hits / {len(chunk)} in chunk",
+                      flush=True)
+
+            if to_verify_cites:
+                cl_results = await verifier.verify_batch(
+                    to_verify_cites, parsed_citations=to_verify_parsed, quick_only=True,
                 )
             else:
-                to_verify_indices.append(j)
-                to_verify_cites.append(cite)
-                to_verify_parsed.append(pc)
+                cl_results = []
+
+            results: list[VerificationResult] = [None] * len(chunk)  # type: ignore[list-item]
+            for idx, r in zip(to_verify_indices, cl_results):
+                results[idx] = r
+            for idx, r in cached_results.items():
+                results[idx] = r
+            for item, res in zip(chunk, results):
+                item = {k: v for k, v in item.items() if k != "fcc"}
+                item["v_status"] = res.status.value if res.status else ""
+                item["v_url"] = res.matched_url or ""
+                item["v_matched_name"] = res.matched_case_name or ""
+                annotated.append(item)
+    finally:
         db.close()
-
-        n_cached = len(cached_results)
-        if n_cached:
-            print(f"      build-side cache: {n_cached} hits / {len(chunk)} in chunk",
-                  flush=True)
-
-        if to_verify_cites:
-            cl_results = await verifier.verify_batch(
-                to_verify_cites, parsed_citations=to_verify_parsed, quick_only=True,
-            )
-        else:
-            cl_results = []
-
-        results: list[VerificationResult] = [None] * len(chunk)  # type: ignore[list-item]
-        for idx, r in zip(to_verify_indices, cl_results):
-            results[idx] = r
-        for idx, r in cached_results.items():
-            results[idx] = r
-        for item, res in zip(chunk, results):
-            item = {k: v for k, v in item.items() if k != "fcc"}
-            item["v_status"] = res.status.value if res.status else ""
-            item["v_url"] = res.matched_url or ""
-            item["v_matched_name"] = res.matched_case_name or ""
-            annotated.append(item)
     return annotated
 
 
