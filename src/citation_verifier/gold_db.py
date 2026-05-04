@@ -321,7 +321,10 @@ class GoldDB:
         git_commit: str | None = None,
         notes: str | None = None,
     ) -> None:
-        """Insert a run record. Use end_run to set ended_at when finished."""
+        """Insert a run record. Use end_run to set ended_at when finished.
+
+        Raises sqlite3.IntegrityError if run_id already exists.
+        """
         self.conn.execute(
             "INSERT INTO runs (run_id, kind, started_at, git_commit, notes) "
             "VALUES (?, ?, ?, ?, ?)",
@@ -330,12 +333,18 @@ class GoldDB:
         self.conn.commit()
 
     def end_run(self, run_id: str) -> None:
-        """Set ended_at on an existing run record."""
-        self.conn.execute(
+        """Set ended_at on an existing run record.
+
+        Raises KeyError if run_id was never start_run'd (silent updates
+        on missing rows would mask programmer errors).
+        """
+        cur = self.conn.execute(
             "UPDATE runs SET ended_at=? WHERE run_id=?",
             (_now_iso(), run_id),
         )
         self.conn.commit()
+        if cur.rowcount == 0:
+            raise KeyError(f"end_run: no run with run_id={run_id!r}")
 
     def export_csvs(self, out_dir: str | Path) -> None:
         """Write one CSV per table to out_dir (created if missing).

@@ -494,3 +494,9 @@ def test_export_csvs_creates_dir_if_missing(tmp_path: Path):
     assert out.exists()
     # Even with empty tables, the files exist (header only)
     assert (out / "cases.csv").exists()
+
+
+def test_end_run_raises_for_unknown_run(tmp_path: Path):
+    db = GoldDB(tmp_path / "gold.db")
+    with pytest.raises(KeyError, match="no run with run_id"):
+        db.end_run("never-started")
