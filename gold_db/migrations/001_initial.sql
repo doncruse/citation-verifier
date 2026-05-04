@@ -64,10 +64,23 @@ CREATE TABLE assessor_verdicts (
     reasoning_excerpt        TEXT,                  -- first ~500 chars of stated reasoning
     source                   TEXT    NOT NULL,      -- 'gold_pair' | 'model_answer' | 'probe'
     run_id                   TEXT,
-    assessed_at              TEXT    NOT NULL,
-    UNIQUE (proposition_id, candidate_cluster_id, assessor_model, assessor_prompt_version, opinion_window_chars)
+    assessed_at              TEXT    NOT NULL
 );
 CREATE INDEX idx_verdicts_prop_case ON assessor_verdicts(proposition_id, candidate_cluster_id);
+
+-- Partial unique indexes — SQLite treats each NULL in a UNIQUE constraint as
+-- distinct from every other NULL, so a plain UNIQUE(... opinion_window_chars)
+-- fails to detect duplicates when opinion_window_chars IS NULL. Splitting
+-- into two indexes (one for non-NULL, one for NULL) gives correct
+-- idempotency in both cases.
+CREATE UNIQUE INDEX uq_verdicts_with_window ON assessor_verdicts
+    (proposition_id, candidate_cluster_id, assessor_model,
+     assessor_prompt_version, opinion_window_chars)
+    WHERE opinion_window_chars IS NOT NULL;
+CREATE UNIQUE INDEX uq_verdicts_null_window ON assessor_verdicts
+    (proposition_id, candidate_cluster_id, assessor_model,
+     assessor_prompt_version)
+    WHERE opinion_window_chars IS NULL;
 
 -- A model's answer to a proposition during a specific run.
 CREATE TABLE model_answers (

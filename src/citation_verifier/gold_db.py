@@ -8,11 +8,11 @@ import datetime as dt
 import hashlib
 import sqlite3
 from pathlib import Path
-from typing import Callable, TypedDict
+from typing import Callable, Required, TypedDict
 
 
 class VerdictResult(TypedDict, total=False):
-    verdict: str
+    verdict: Required[str]              # must be present
     confidence: float | None
     reasoning: str | None
 
@@ -176,9 +176,7 @@ class GoldDB:
                  assessor_prompt_version, opinion_window_chars, confidence,
                  reasoning_excerpt, source, run_id, assessed_at)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-            ON CONFLICT(proposition_id, candidate_cluster_id, assessor_model,
-                        assessor_prompt_version, opinion_window_chars)
-            DO NOTHING
+            ON CONFLICT DO NOTHING
             RETURNING id
             """,
             (proposition_id, candidate_cluster_id, verdict, assessor_model,

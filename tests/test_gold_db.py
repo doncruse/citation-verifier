@@ -379,3 +379,28 @@ def test_get_or_score_truncates_long_reasoning(tmp_path: Path):
         pid, 1, "opus-4.7", "v1", 60000, "model_answer", "r1", score_fn,
     )
     assert len(result["reasoning_excerpt"]) == 500
+
+
+def test_insert_verdict_idempotent_with_null_window(tmp_path: Path):
+    """Regression: SQLite UNIQUE treats each NULL as distinct, so a plain
+    UNIQUE(... window) fails to dedupe NULL-window verdicts. Partial
+    indexes split the constraint and fix this."""
+    db = GoldDB(tmp_path / "gold.db")
+    db.upsert_case(1, "A", "ca9", 2020, None, "t")
+    pid = db.upsert_proposition("p", None, "t")
+    rid1 = db.insert_verdict(pid, 1, "green", "opus-4.7", "v1",
+                             opinion_window_chars=None,
+                             confidence=None, reasoning_excerpt=None,
+                             source="probe", run_id="r1")
+    rid2 = db.insert_verdict(pid, 1, "yellow", "opus-4.7", "v1",
+                             opinion_window_chars=None,
+                             confidence=None, reasoning_excerpt=None,
+                             source="probe", run_id="r2")
+    assert rid1 == rid2
+    n = db.conn.execute("SELECT COUNT(*) FROM assessor_verdicts").fetchone()[0]
+    assert n == 1
+    # Original verdict ('green') stays — DO NOTHING preserves it.
+    row = db.conn.execute(
+        "SELECT verdict FROM assessor_verdicts WHERE id=?", (rid1,)
+    ).fetchone()
+    assert row["verdict"] == "green"
