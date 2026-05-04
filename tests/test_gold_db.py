@@ -126,3 +126,51 @@ def test_upsert_case_canonical_name_always_overwrites(tmp_path: Path):
         "SELECT canonical_name FROM cases WHERE cluster_id=99"
     ).fetchone()[0]
     assert name == "Short Name"  # second call wins, even though it's shorter
+
+
+def test_upsert_proposition_returns_id(tmp_path: Path):
+    db = GoldDB(tmp_path / "gold.db")
+    pid = db.upsert_proposition("The court reviews summary judgment de novo.",
+                                holding_verb="reviewing", run_id="test")
+    assert isinstance(pid, str)
+    assert len(pid) == 64  # sha256 hex
+
+
+def test_upsert_proposition_same_text_same_id(tmp_path: Path):
+    db = GoldDB(tmp_path / "gold.db")
+    pid1 = db.upsert_proposition("Summary judgment is reviewed de novo.",
+                                 holding_verb=None, run_id="r1")
+    pid2 = db.upsert_proposition("Summary judgment is reviewed de novo.",
+                                 holding_verb=None, run_id="r2")
+    assert pid1 == pid2
+    n = db.conn.execute("SELECT COUNT(*) FROM propositions").fetchone()[0]
+    assert n == 1
+
+
+def test_upsert_proposition_normalizes_whitespace_and_case(tmp_path: Path):
+    db = GoldDB(tmp_path / "gold.db")
+    pid1 = db.upsert_proposition("Summary judgment is reviewed de novo.",
+                                 holding_verb=None, run_id="r1")
+    pid2 = db.upsert_proposition("summary  judgment   is\nreviewed de novo.",
+                                 holding_verb=None, run_id="r2")
+    assert pid1 == pid2
+
+
+def test_upsert_proposition_different_text_different_id(tmp_path: Path):
+    db = GoldDB(tmp_path / "gold.db")
+    pid1 = db.upsert_proposition("Summary judgment is reviewed de novo.",
+                                 holding_verb=None, run_id="r1")
+    pid2 = db.upsert_proposition("Summary judgment is reviewed for abuse of discretion.",
+                                 holding_verb=None, run_id="r2")
+    assert pid1 != pid2
+
+
+def test_upsert_proposition_first_seen_preserved(tmp_path: Path):
+    """first_seen_run_id and first_seen_at are insert-only (matches upsert_case contract)."""
+    db = GoldDB(tmp_path / "gold.db")
+    db.upsert_proposition("p", None, "r1")
+    db.upsert_proposition("p", None, "r2")  # same text, different run_id
+    row = db.conn.execute(
+        "SELECT first_seen_run_id FROM propositions"
+    ).fetchone()
+    assert row["first_seen_run_id"] == "r1"

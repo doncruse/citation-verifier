@@ -5,6 +5,7 @@ See docs/plans/2026-05-03-gold-db-design.md for the conceptual model.
 from __future__ import annotations
 
 import datetime as dt
+import hashlib
 import sqlite3
 from pathlib import Path
 
@@ -14,6 +15,15 @@ SCHEMA_PATH = REPO_ROOT / "gold_db" / "migrations" / "001_initial.sql"
 
 def _now_iso() -> str:
     return dt.datetime.utcnow().isoformat(timespec="seconds") + "Z"
+
+
+def _normalize_proposition(text: str) -> str:
+    """Lowercase + collapse all whitespace runs to a single space."""
+    return " ".join(text.lower().split())
+
+
+def _hash_proposition(text: str) -> str:
+    return hashlib.sha256(_normalize_proposition(text).encode("utf-8")).hexdigest()
 
 
 class GoldDB:
@@ -73,6 +83,32 @@ class GoldDB:
              cite_string, run_id, _now_iso()),
         )
         self.conn.commit()
+
+    def upsert_proposition(
+        self,
+        text: str,
+        holding_verb: str | None,
+        run_id: str,
+    ) -> str:
+        """Insert a proposition or return its existing id.
+
+        The id is sha256 of the normalized text (lowercased, whitespace
+        collapsed). On conflict (same hash), the existing row is preserved
+        unchanged — `text`, `holding_verb`, and `first_seen_*` all stay at
+        the values from the original insert.
+        """
+        pid = _hash_proposition(text)
+        self.conn.execute(
+            """
+            INSERT INTO propositions (proposition_id, text, normalized_text,
+                                      holding_verb, first_seen_run_id, first_seen_at)
+            VALUES (?, ?, ?, ?, ?, ?)
+            ON CONFLICT(proposition_id) DO NOTHING
+            """,
+            (pid, text, _normalize_proposition(text), holding_verb, run_id, _now_iso()),
+        )
+        self.conn.commit()
+        return pid
 
 
 # Lazily build the courts-db index on first use so import is cheap.
