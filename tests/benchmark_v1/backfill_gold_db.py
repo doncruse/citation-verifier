@@ -12,6 +12,7 @@ import argparse
 import csv
 import datetime
 import re
+import sqlite3
 import sys
 from pathlib import Path
 
@@ -19,6 +20,20 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
 sys.path.insert(0, str(PROJECT_ROOT / "src"))
 
 from citation_verifier.gold_db import GoldDB, _normalize_proposition  # noqa: E402
+
+# Model name mappings: outputs CSVs and results.csv use short names;
+# gold-DB stores versioned names. Centralize so v2 only needs one edit.
+_MODEL_NAME_MAP = {
+    "sonnet": "sonnet-4.6",
+    "opus":   "opus-4.7",
+    "haiku":  "haiku-4.5",
+    "gpt-5":  "gpt-5",
+}
+_OUTPUTS_FILES = [
+    ("outputs_sonnet.csv", "sonnet-4.6"),
+    ("outputs_opus.csv",   "opus-4.7"),
+    ("outputs_gpt5.csv",   "gpt-5"),
+]
 
 _CL_URL_RE = re.compile(r"courtlistener\.com/opinion/(\d+)/")
 
@@ -64,8 +79,8 @@ def backfill_v1(db: GoldDB, bench_dir: Path, run_id: str) -> dict:
     # Idempotency: only call start_run if it hasn't already happened
     try:
         db.start_run(run_id, kind="backfill", notes=f"backfill from {bench_dir}")
-    except Exception:
-        pass  # already started
+    except sqlite3.IntegrityError:
+        pass  # already started (idempotent re-run)
 
     # Register the dataset.
     db.conn.execute(
@@ -73,7 +88,7 @@ def backfill_v1(db: GoldDB, bench_dir: Path, run_id: str) -> dict:
                   mining_window_end, mined_courts, n_rows, frozen_at, notes)
            VALUES ('v1', '2026-01-01', '2026-04-30',
                    '[\"dcd\",\"cand\",\"txsd\",\"ilnd\",\"nysd\",\"mad\"]',
-                   130, ?, 'effective N=130 after eyecite dedup')""",
+                   127, ?, 'effective N=127 after eyecite dedup')""",
         (datetime.datetime.utcnow().isoformat(timespec="seconds") + "Z",),
     )
     db.conn.commit()
@@ -146,11 +161,7 @@ def backfill_v1(db: GoldDB, bench_dir: Path, run_id: str) -> dict:
         for row in db.conn.execute(
             "SELECT proposition_id, model_name FROM model_answers")
     }
-    for model_file, model_name in [
-        ("outputs_sonnet.csv", "sonnet-4.6"),
-        ("outputs_opus.csv",   "opus-4.7"),
-        ("outputs_gpt5.csv",   "gpt-5"),
-    ]:
+    for model_file, model_name in _OUTPUTS_FILES:
         p = bench_dir / model_file
         if not p.exists():
             continue
@@ -187,11 +198,7 @@ def backfill_v1(db: GoldDB, bench_dir: Path, run_id: str) -> dict:
                 pid = proposition_id_by_text.get(norm)
                 if pid is None:
                     continue
-                model = {
-                    "sonnet": "sonnet-4.6",
-                    "opus":   "opus-4.7",
-                    "gpt-5":  "gpt-5",
-                }.get(row.get("model"), row.get("model"))
+                model = _MODEL_NAME_MAP.get(row.get("model"), row.get("model"))
                 ans_id = _safe_int(row.get("matched_cluster_id"))
 
                 # Ensure answer case exists BEFORE the UPDATE writes
@@ -344,12 +351,6 @@ def _backfill_calibration(
                 if pid:
                     id_to_pid[r["id"]] = pid
 
-    cand_model_map = {
-        "sonnet": "sonnet-4.6",
-        "haiku":  "haiku-4.5",
-        "opus":   "opus-4.7",
-    }
-
     n = 0
     with cal_path.open(encoding="utf-8") as f:
         for row in csv.DictReader(f):
@@ -365,7 +366,7 @@ def _backfill_calibration(
             pid = id_to_pid.get(row["id"])
             if pid is None:
                 continue
-            cand_model = cand_model_map.get(
+            cand_model = _MODEL_NAME_MAP.get(
                 row.get("candidate_model"), row.get("candidate_model"))
             db.insert_verdict(
                 proposition_id=pid,
