@@ -4,6 +4,7 @@ See docs/plans/2026-05-03-gold-db-design.md for the conceptual model.
 """
 from __future__ import annotations
 
+import csv
 import datetime as dt
 import hashlib
 import sqlite3
@@ -277,6 +278,83 @@ class GoldDB:
         row = cur.fetchone()
         self.conn.commit()
         return row[0]
+
+    def record_model_answer(
+        self,
+        proposition_id: str,
+        answer_cluster_id: int | None,
+        model_name: str,
+        raw_response: str,
+        parse_status: str,
+        answered_cite_string: str | None,
+        cite_resolved_real: bool | None,
+        name_match_score: float | None,
+        run_id: str,
+    ) -> int:
+        """Append a model answer (no deduplication; each call inserts a row).
+
+        parse_status is one of 'parsed' | 'unknown' | 'unparseable' |
+        'hallucinated_cite'. answer_cluster_id is NULL for parse_status
+        in {'unknown', 'unparseable'}. Run_id is required (NOT NULL in schema).
+        """
+        cur = self.conn.execute(
+            """
+            INSERT INTO model_answers
+                (proposition_id, answer_cluster_id, model_name, raw_response,
+                 parse_status, answered_cite_string, cite_resolved_real,
+                 name_match_score, run_id, answered_at)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            RETURNING id
+            """,
+            (proposition_id, answer_cluster_id, model_name, raw_response,
+             parse_status, answered_cite_string, cite_resolved_real,
+             name_match_score, run_id, _now_iso()),
+        )
+        rid = cur.fetchone()[0]
+        self.conn.commit()
+        return rid
+
+    def start_run(
+        self,
+        run_id: str,
+        kind: str,
+        git_commit: str | None = None,
+        notes: str | None = None,
+    ) -> None:
+        """Insert a run record. Use end_run to set ended_at when finished."""
+        self.conn.execute(
+            "INSERT INTO runs (run_id, kind, started_at, git_commit, notes) "
+            "VALUES (?, ?, ?, ?, ?)",
+            (run_id, kind, _now_iso(), git_commit, notes),
+        )
+        self.conn.commit()
+
+    def end_run(self, run_id: str) -> None:
+        """Set ended_at on an existing run record."""
+        self.conn.execute(
+            "UPDATE runs SET ended_at=? WHERE run_id=?",
+            (_now_iso(), run_id),
+        )
+        self.conn.commit()
+
+    def export_csvs(self, out_dir: str | Path) -> None:
+        """Write one CSV per table to out_dir (created if missing).
+
+        Each CSV has a header row + one row per DB row, ordered by primary
+        key. Used for diff-able commits and external researcher access.
+        """
+        out = Path(out_dir)
+        out.mkdir(parents=True, exist_ok=True)
+        tables = ["cases", "propositions", "datasets", "citation_rows",
+                  "assessor_verdicts", "model_answers", "runs"]
+        for t in tables:
+            cur = self.conn.execute(f"SELECT * FROM {t} ORDER BY 1")
+            cols = [d[0] for d in cur.description]
+            with (out / f"{t}.csv").open("w", encoding="utf-8", newline="") as f:
+                w = csv.writer(f)
+                w.writerow(cols)
+                for row in cur.fetchall():
+                    w.writerow([row[c] for c in cols])
 
 
 # Lazily build the courts-db index on first use so import is cheap.

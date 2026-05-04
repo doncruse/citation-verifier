@@ -404,3 +404,93 @@ def test_insert_verdict_idempotent_with_null_window(tmp_path: Path):
         "SELECT verdict FROM assessor_verdicts WHERE id=?", (rid1,)
     ).fetchone()
     assert row["verdict"] == "green"
+
+
+def test_record_model_answer(tmp_path: Path):
+    db = GoldDB(tmp_path / "gold.db")
+    db.upsert_case(1, "A", "ca9", 2020, None, "t")
+    pid = db.upsert_proposition("p", None, "t")
+    db.record_model_answer(
+        proposition_id=pid, answer_cluster_id=1, model_name="opus-4.7",
+        raw_response="Foo v. Bar, 100 F.3d 1 (9th Cir. 2020)",
+        parse_status="parsed", answered_cite_string="100 F.3d 1",
+        cite_resolved_real=True, name_match_score=0.95, run_id="v1",
+    )
+    n = db.conn.execute("SELECT COUNT(*) FROM model_answers").fetchone()[0]
+    assert n == 1
+
+
+def test_record_model_answer_unknown(tmp_path: Path):
+    """UNKNOWN response: answer_cluster_id is NULL, parse_status='unknown'."""
+    db = GoldDB(tmp_path / "gold.db")
+    pid = db.upsert_proposition("p", None, "t")
+    db.record_model_answer(
+        proposition_id=pid, answer_cluster_id=None, model_name="sonnet-4.6",
+        raw_response="UNKNOWN", parse_status="unknown",
+        answered_cite_string=None, cite_resolved_real=None,
+        name_match_score=None, run_id="v1",
+    )
+    row = db.conn.execute("SELECT * FROM model_answers").fetchone()
+    assert row["answer_cluster_id"] is None
+    assert row["parse_status"] == "unknown"
+
+
+def test_record_model_answer_appends_not_dedup(tmp_path: Path):
+    """Two calls with identical (proposition, model, run) all produce
+    separate rows — model_answers is append-only."""
+    db = GoldDB(tmp_path / "gold.db")
+    db.upsert_case(1, "A", "ca9", 2020, None, "t")
+    pid = db.upsert_proposition("p", None, "t")
+    db.record_model_answer(pid, 1, "opus-4.7", "resp", "parsed",
+                           None, True, 0.9, "v1")
+    db.record_model_answer(pid, 1, "opus-4.7", "resp", "parsed",
+                           None, True, 0.9, "v1")
+    n = db.conn.execute("SELECT COUNT(*) FROM model_answers").fetchone()[0]
+    assert n == 2
+
+
+def test_start_and_end_run(tmp_path: Path):
+    db = GoldDB(tmp_path / "gold.db")
+    db.start_run("v1-rerun-2026-05-03", kind="model_eval",
+                 git_commit="abc123", notes="rerun for cache validation")
+    started = db.conn.execute(
+        "SELECT * FROM runs WHERE run_id=?", ("v1-rerun-2026-05-03",)
+    ).fetchone()
+    assert started["kind"] == "model_eval"
+    assert started["git_commit"] == "abc123"
+    assert started["ended_at"] is None  # not yet ended
+
+    db.end_run("v1-rerun-2026-05-03")
+    ended = db.conn.execute(
+        "SELECT ended_at FROM runs WHERE run_id=?", ("v1-rerun-2026-05-03",)
+    ).fetchone()
+    assert ended["ended_at"] is not None
+
+
+def test_export_csvs(tmp_path: Path):
+    db = GoldDB(tmp_path / "gold.db")
+    db.upsert_case(1, "A", "ca9", 2020, None, "t")
+    pid = db.upsert_proposition("p", None, "t")
+    out = tmp_path / "exports"
+    db.export_csvs(out)
+
+    # All 7 tables should have a CSV file
+    for name in ["cases", "propositions", "citation_rows",
+                 "assessor_verdicts", "model_answers", "datasets", "runs"]:
+        assert (out / f"{name}.csv").exists(), f"missing {name}.csv"
+
+    # cases.csv should have a header + the one row we inserted
+    cases_csv = (out / "cases.csv").read_text(encoding="utf-8").splitlines()
+    assert "cluster_id" in cases_csv[0]  # header
+    assert len(cases_csv) >= 2  # header + at least one data row
+    assert "1" in cases_csv[1]  # the cluster_id we inserted
+
+
+def test_export_csvs_creates_dir_if_missing(tmp_path: Path):
+    db = GoldDB(tmp_path / "gold.db")
+    out = tmp_path / "deeply" / "nested" / "exports"
+    assert not out.exists()
+    db.export_csvs(out)
+    assert out.exists()
+    # Even with empty tables, the files exist (header only)
+    assert (out / "cases.csv").exists()
