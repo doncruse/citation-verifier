@@ -47,6 +47,14 @@ class GoldDB:
         cite_string: str | None,
         run_id: str,
     ) -> None:
+        """Insert or update a case record.
+
+        canonical_name always overwrites (latest call wins). court_id, year,
+        cite_string use COALESCE semantics (non-NULL incoming wins; NULL
+        incoming preserves existing). system and level are auto-derived from
+        court_id via lookup_court and are never specified directly.
+        first_seen_run_id and first_seen_at are set only on initial insert.
+        """
         system, level = lookup_court(court_id)
         self.conn.execute(
             """
