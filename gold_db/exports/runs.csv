@@ -3,3 +3,7 @@ v1-backfill-20260504-040014,backfill,2026-05-04T04:00:14Z,2026-05-04T04:00:21Z,,
 v1-backfill-20260504-040022,backfill,2026-05-04T04:00:22Z,2026-05-04T04:00:28Z,,backfill from benchmark_v1
 v1-backfill-20260504-041109,backfill,2026-05-04T04:11:09Z,2026-05-04T04:11:15Z,,backfill from benchmark_v1
 v1-goldpair-20260504-042415,calibration,2026-05-04T04:24:15Z,2026-05-04T04:43:30Z,,gold-pair self-score baseline
+v1-red-audit-sonnet-20260504-121921,red_audit_fulltext,2026-05-04T12:19:21Z,2026-05-04T12:25:19Z,,re-score v1 Reds at full opinion with sonnet-4.6
+v1-red-audit-sonnet-20260504-123207,red_audit_fulltext,2026-05-04T12:32:07Z,,,re-score v1 Reds at full opinion with sonnet-4.6
+v1-red-audit-sonnet-20260504-123310,red_audit_fulltext,2026-05-04T12:33:10Z,2026-05-04T12:34:47Z,,re-score v1 Reds at full opinion with sonnet-4.6
+v1-red-audit-sonnet-20260504-123611,red_audit_fulltext,2026-05-04T12:36:11Z,2026-05-04T12:37:59Z,,re-score v1 Reds at full opinion with sonnet-4.6
