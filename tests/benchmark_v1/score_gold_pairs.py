@@ -37,12 +37,31 @@ def _load_pilot_assessor():
 
 
 def _default_assessor(proposition: str, case_name: str, opinion_text: str) -> dict:
-    """Real Opus assessor (calls Anthropic API)."""
+    """Real Opus assessor (calls Anthropic API).
+
+    pilot_a's call_assessor returns a dict with keys
+    {assessment, rationale, elapsed_s, cost_usd}. On timeout it returns
+    assessment=None; we propagate this as a 'red' verdict with
+    rationale='TIMEOUT' so the row still goes in (preserving the audit
+    trail) rather than silently skipping.
+    """
     pilot = _load_pilot_assessor()
-    verdict, rationale, _cost = pilot.call_assessor(
+    result = pilot.call_assessor(
         proposition, case_name, opinion_text, model="opus",
     )
-    return {"verdict": verdict.lower(), "confidence": None, "reasoning": rationale}
+    assessment = result.get("assessment")
+    rationale = result.get("rationale") or ""
+    if assessment is None:
+        # Timeout or parse failure — preserve in DB as 'red' with reason.
+        verdict = "red"
+        rationale = f"ASSESSOR_FAILURE: {rationale}"
+    else:
+        verdict = assessment.lower()
+        # Defensive: ensure verdict is a known value
+        if verdict not in ("green", "yellow", "red"):
+            verdict = "red"
+            rationale = f"UNEXPECTED_VERDICT={assessment!r}: {rationale}"
+    return {"verdict": verdict, "confidence": None, "reasoning": rationale}
 
 
 def score_gold_pairs(

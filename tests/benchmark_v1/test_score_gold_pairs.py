@@ -63,3 +63,44 @@ def test_score_gold_pairs_only_processes_v1_rows(tmp_path: Path):
     n = score_gold_pairs(db, run_id="t-1", assessor_fn=fake)
     assert n == 1  # only the v1 row got scored
     assert fake.call_count == 1
+
+
+def test_default_assessor_translates_pilot_dict_shape(tmp_path: Path, monkeypatch):
+    """_default_assessor unpacks pilot_a's call_assessor return correctly.
+
+    pilot_a returns {assessment, rationale, elapsed_s, cost_usd}; we
+    must extract assessment->verdict and rationale->reasoning."""
+    from tests.benchmark_v1 import score_gold_pairs as mod
+
+    fake_pilot = type("FakePilot", (), {})()
+    fake_pilot.call_assessor = lambda *args, **kwargs: {
+        "assessment": "Green",
+        "rationale": "The opinion holds the relevant proposition.",
+        "elapsed_s": 12.3,
+        "cost_usd": 0.05,
+    }
+    monkeypatch.setattr(mod, "_load_pilot_assessor", lambda: fake_pilot)
+
+    result = mod._default_assessor("p", "Foo v. Bar", "...opinion text...")
+    assert result["verdict"] == "green"
+    assert result["reasoning"] == "The opinion holds the relevant proposition."
+    assert result["confidence"] is None
+
+
+def test_default_assessor_handles_timeout(tmp_path: Path, monkeypatch):
+    """Timeout returns assessment=None; must produce a usable verdict (not crash)."""
+    from tests.benchmark_v1 import score_gold_pairs as mod
+
+    fake_pilot = type("FakePilot", (), {})()
+    fake_pilot.call_assessor = lambda *args, **kwargs: {
+        "assessment": None,
+        "rationale": "TIMEOUT",
+        "elapsed_s": 60.0,
+        "cost_usd": 0.0,
+    }
+    monkeypatch.setattr(mod, "_load_pilot_assessor", lambda: fake_pilot)
+
+    result = mod._default_assessor("p", "Foo v. Bar", "...")
+    # None assessment must produce a recordable verdict, not raise
+    assert result["verdict"] in ("green", "yellow", "red")
+    assert "TIMEOUT" in result["reasoning"]
