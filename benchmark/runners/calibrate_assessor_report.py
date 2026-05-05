@@ -7,7 +7,7 @@ Compute per-candidate-model:
 - Cohen's kappa
 - Cost and elapsed time
 
-Decision rule (per docs/plans/benchmark-roadmap.md v1.2):
+Decision rule (per ../ROADMAP.md v1.2):
     >=90% overall agreement AND >=85% on Red
 
 The "85% on Red" line is read two ways and we report both:
@@ -133,7 +133,7 @@ def render_report(rows: list[dict]) -> str:
         "same `ASSESSMENT_PROMPT` as v1.\n"
     )
     sections.append(
-        "**Decision rule (from `benchmark-roadmap.md` v1.2):** overall "
+        "**Decision rule (from `../ROADMAP.md` v1.2):** overall "
         "agreement ≥ 90% AND Red recall ≥ 85% → candidate "
         "may replace Opus. Red precision is reported alongside per the "
         "roadmap's stated rationale (Reds are the hallucinations we catch).\n"

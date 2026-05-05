@@ -1,7 +1,7 @@
 """Calibration study: can Sonnet 4.6 or Haiku 4.5 reproduce v1's Opus
 verdicts well enough to replace Opus as the substance assessor?
 
-Acceptance bar (from `docs/plans/benchmark-roadmap.md` v1.2):
+Acceptance bar (from `../ROADMAP.md` v1.2):
     overall agreement >= 90% AND Red agreement >= 85%
 
 Reads:

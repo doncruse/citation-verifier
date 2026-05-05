@@ -2,7 +2,7 @@
 
 **Status:** Design, ready for implementation plan.
 **Date:** 2026-05-03
-**Predecessors:** [2026-04-30-benchmark-v1-design.md](2026-04-30-benchmark-v1-design.md), [benchmark-roadmap.md](benchmark-roadmap.md), [2026-05-02-v1.2-assessor-calibration.md](../retrospectives/2026-05-02-v1.2-assessor-calibration.md)
+**Predecessors:** [2026-04-30-benchmark-v1-design.md](2026-04-30-benchmark-v1-design.md), [../../ROADMAP.md](../../ROADMAP.md), [2026-05-02-v1.2-assessor-calibration.md](../retrospectives/2026-05-02-v1.2-assessor-calibration.md)
 **Related roadmap items (subsumed):** verified-citations cache (v1.1), acceptable-alternatives caching (v1.1), per-case metadata extraction (v1.1)
 
 ## Motivation

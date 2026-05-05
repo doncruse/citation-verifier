@@ -5,7 +5,7 @@ external planning session: institutional / conflicts / authorship /
 timeline / outreach / document deliverables. Open tensions surfaced
 during review are integrated inline rather than sectioned off.
 
-Different audience from [`benchmark-roadmap.md`](benchmark-roadmap.md)
+Different audience from [`../../ROADMAP.md`](../../ROADMAP.md)
 (engineering) and [`2026-05-05-external-methodology-review.md`](2026-05-05-external-methodology-review.md)
 (methodology). Cross-links at the end.
 
@@ -41,7 +41,7 @@ explicitly transfers to v2 and what doesn't? Default working position:
 - v1's mining pipeline transfers as infrastructure with two mining-side
   bugfixes: (a) eyecite parenthetical mis-attribution in chained
   citations, (b) intra-opinion deduplication (already a v1.2 deferred
-  item in `benchmark-roadmap.md`). v2 scope expansion (circuits + SCOTUS)
+  item in `../../ROADMAP.md`). v2 scope expansion (circuits + SCOTUS)
   is additive plumbing, not a non-transfer. The 20K truncation lives in
   score-side code (`pilot_a/score.py:fetch_opinion_text` plus an
   `OPINION_WINDOW = 20_000` constant in `benchmark/runners/score.py`)
@@ -557,7 +557,7 @@ points:
 | Week 3 ML co-author conversation | Tensions #2 (self-preference) and #3 (cost vs quality) in [methodology review](2026-05-05-external-methodology-review.md) |
 | Week 4 librarian conversation + rubric draft | Tiered rubric (concrete addition #2 in methodology review) |
 | Weeks 5–7 codebook + assessor validation | Tension #1 (court agreement as ground truth) in methodology review; human-coding interface; cross-family assessor pilot for tension #2 |
-| Week 8 pre-registration | Tension #4 (pilot vs confirmatory) in methodology review; sampling protocol (stratified by tier — already a v1.2 deferred item in `benchmark-roadmap.md`); backfill protocol (concrete addition #1 in methodology review) |
+| Week 8 pre-registration | Tension #4 (pilot vs confirmatory) in methodology review; sampling protocol (stratified by tier — already a v1.2 deferred item in `../../ROADMAP.md`); backfill protocol (concrete addition #1 in methodology review) |
 | Week 9 confirmatory dataset construction | Mining bugfixes (eyecite parenthetical attribution + intra-opinion dedup — see `docs/retrospectives/2026-05-04-*.md`); pool building (parallel-track Week 4) |
 | Weeks 11–12 model runs | Backfill scaffolding (parallel-track Weeks 1–2) |
 

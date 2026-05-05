@@ -16,7 +16,7 @@ Living doc. Tracks active and planned work; history at the bottom.
 
 **Goal:** End-to-end methodology dry-run before the pre-registered v2. Builds a fresh 200-pair benchmark stratified across four court tiers, validates the new mining pipeline and Sonnet@FT assessor against human-coded gold labels, and develops a 5-tier substance rubric collaboratively with the librarian co-author.
 
-**Design contract:** [`2026-05-05-v1.3-design.md`](2026-05-05-v1.3-design.md). All v1.3 implementation work tracks against that doc — sections get marked ✅ / 🟡 as work lands.
+**Design contract:** [`2026-05-05-v1.3-design.md`](docs/plans/2026-05-05-v1.3-design.md). All v1.3 implementation work tracks against that doc — sections get marked ✅ / 🟡 as work lands.
 
 **Scope (in):**
 
@@ -46,7 +46,7 @@ Living doc. Tracks active and planned work; history at the bottom.
 
 **Structural changes from v1.3:**
 
-- **Pre-registered.** Sampling protocol, rubric, assessor configuration, models, metrics, hypotheses all locked before mining begins. Timestamped on OSF + public GitHub release. See [publication plan](2026-05-05-publication-plan.md) for the rationale and timeline.
+- **Pre-registered.** Sampling protocol, rubric, assessor configuration, models, metrics, hypotheses all locked before mining begins. Timestamped on OSF + public GitHub release. See [publication plan](docs/plans/2026-05-05-publication-plan.md) for the rationale and timeline.
 - **Larger N** (TBD per pre-reg). Conditional on Sonnet@FT validation in v1.3 — if Sonnet passes the human-validation bar, ~5× cost reduction unlocks N ≥ 500. If not, v2 stays near v1.3's N within Opus's budget envelope.
 
 **Scope items deferred from v1 / v1.2 / v1.3 that v2 picks up:**
@@ -67,9 +67,9 @@ Living doc. Tracks active and planned work; history at the bottom.
 
 ## v1.2 — Methodology hardening 🟢 closed out (2026-05-05)
 
-**What landed:** the **gold-DB** ([design](2026-05-03-gold-db-design.md), [plan](2026-05-03-gold-db-plan.md)) — a cumulative SQLite corpus of (proposition, case, verdict) tuples with build-side cache, score-side cache, drift sampling, and CSV exports. Implementation completed 2026-05-04 via the 13-task plan.
+**What landed:** the **gold-DB** ([design](docs/plans/2026-05-03-gold-db-design.md), [plan](docs/plans/2026-05-03-gold-db-plan.md)) — a cumulative SQLite corpus of (proposition, case, verdict) tuples with build-side cache, score-side cache, drift sampling, and CSV exports. Implementation completed 2026-05-04 via the 13-task plan.
 
-**Ledger close-out:** the broader v1.2 backlog (originally ~15 deferred items) was dispositioned as part of the [v1.3 design](2026-05-05-v1.3-design.md). Summary:
+**Ledger close-out:** the broader v1.2 backlog (originally ~15 deferred items) was dispositioned as part of the [v1.3 design](docs/plans/2026-05-05-v1.3-design.md). Summary:
 
 - **Absorbed into v1.3** (4 items + 3 fixes from 2026-05-04 audits): stratified sampling, per-case metadata, default opinion full-text window, mining-stage dedup, plus the truncation + parenthetical-attribution + Green/Yellow audit items.
 - **Subsumed by gold-DB** (3 items): acceptable-alternatives caching, verified-citations cache, gold-DB itself.
@@ -85,9 +85,9 @@ The v1.2 banner closes here; nothing remains under v1.2 going forward.
 
 The gold-pair self-score pass surfaced two material methodology issues. Both are scoped into v1.3 mining and assessor work.
 
-**(a) `pilot_a/score.py:fetch_opinion_text` silently truncates at 20K** — affected Task 10's "60K" gold-pair pass and the v1.1 calibration study. Function caps every opinion at 20K chars regardless of caller intent; bypassed only by the original truncation experiment. See [retrospective](../retrospectives/2026-05-04-truncation-bug-and-red-audit.md).
+**(a) `pilot_a/score.py:fetch_opinion_text` silently truncates at 20K** — affected Task 10's "60K" gold-pair pass and the v1.1 calibration study. Function caps every opinion at 20K chars regardless of caller intent; bypassed only by the original truncation experiment. See [retrospective](docs/retrospectives/2026-05-04-truncation-bug-and-red-audit.md).
 
-**(b) Eyecite/build_dataset mis-attaches parentheticals to the wrong case in chained citations** — 3 of 5 v1 "Reds" at full text were parser bugs, not court errors. The substantive parenthetical attaches to the wrong cited case in chains like `Case_A; Case_B (parenthetical)`. See [retrospective](../retrospectives/2026-05-04-fulltext-assessor-comparison-and-mining-bugs.md).
+**(b) Eyecite/build_dataset mis-attaches parentheticals to the wrong case in chained citations** — 3 of 5 v1 "Reds" at full text were parser bugs, not court errors. The substantive parenthetical attaches to the wrong cited case in chains like `Case_A; Case_B (parenthetical)`. See [retrospective](docs/retrospectives/2026-05-04-fulltext-assessor-comparison-and-mining-bugs.md).
 
 **Assessor-candidate update:** Sonnet 4.6 at full text emerged as v1.3's default assessor candidate (90.6% Green on v1 gold pairs at full text, ~5× cheaper than Opus on subscription quota). Haiku 4.5 ruled out (54.7% Red at full text — disagrees with Sonnet on 60+ Greens). The v1.1 calibration conclusion ("Sonnet/Haiku fail the 90% bar") was measured at 20K-truncated input and is now provisional; Sonnet at full text may pass.
 
@@ -110,10 +110,10 @@ Both candidates missed the bar at 20K. Conclusion was "Opus stays as primary." *
 **Truncation re-test:** 22 of 59 v1 Reds (37%) flipped to Green/Yellow when re-assessed at 60K chars. Per-model corrected Green rates: Sonnet 31.5% (no change), Opus 36.2% → 39.3%, GPT-5 46.2% → 52.4%.
 
 **Artifacts:**
-- [`benchmark/releases/v1/calibration.md`](../../releases/v1/calibration.md) — confusion matrices, per-class metrics
-- [`benchmark/releases/v1/calibration_results.csv`](../../releases/v1/calibration_results.csv) — 514 calls, full coverage
-- [`benchmark/releases/v1/truncation_experiment.md`](../../releases/v1/truncation_experiment.md) — truncation re-test writeup
-- [`docs/retrospectives/2026-05-02-v1.2-assessor-calibration.md`](../retrospectives/2026-05-02-v1.2-assessor-calibration.md) — full run notes + keying-bug postmortem
+- [`benchmark/releases/v1/calibration.md`](releases/v1/calibration.md) — confusion matrices, per-class metrics
+- [`benchmark/releases/v1/calibration_results.csv`](releases/v1/calibration_results.csv) — 514 calls, full coverage
+- [`benchmark/releases/v1/truncation_experiment.md`](releases/v1/truncation_experiment.md) — truncation re-test writeup
+- [`docs/retrospectives/2026-05-02-v1.2-assessor-calibration.md`](docs/retrospectives/2026-05-02-v1.2-assessor-calibration.md) — full run notes + keying-bug postmortem
 
 ---
 
@@ -121,7 +121,7 @@ Both candidates missed the bar at 20K. Conclusion was "Opus stays as primary." *
 
 130-pair effective N (after dedup from 200 raw), 3 models (Sonnet 4.6, Opus 4.7, GPT-5), Opus@20K assessor, federal-court-pleadings source, 5 districts (D.D.C., N.D. Cal., S.D. Tex., N.D. Ill., NYSD).
 
-Headline: GPT-5 46.2% Green, Opus 36.2%, Sonnet 31.5%. See [`releases/v1/README.md`](../../releases/v1/README.md) for the full writeup, scorecards, and reproducibility instructions.
+Headline: GPT-5 46.2% Green, Opus 36.2%, Sonnet 31.5%. See [`releases/v1/README.md`](releases/v1/README.md) for the full writeup, scorecards, and reproducibility instructions.
 
 ---
 

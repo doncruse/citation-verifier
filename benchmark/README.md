@@ -14,7 +14,8 @@ the proposition.
 | `runners/` | Runner code that built v1 and will build v2 (build_dataset, run_model, score, scorecard, calibrate_assessor, etc.) plus their unit tests |
 | `pilot_a/` | Predecessor pilot — code + data + summary. Frozen; superseded by v1 but preserved for the methodology trail |
 | `gold_db/` | Cumulative SQLite knowledge corpus (`gold.db`), schema migrations, CSV exports. The Python module that drives this lives at `src/citation_verifier/gold_db.py` |
-| `docs/plans/` | Design docs, implementation plans, roadmap, publication plan |
+| `ROADMAP.md` | Live state tracker — current state, active plan, next, history, lessons |
+| `docs/plans/` | Design docs, implementation plans, publication plan, methodology review |
 | `docs/retrospectives/` | Run retrospectives — what we learned from each major pass |
 | `scratch/` | One-off scripts and logs from benchmark work |
 | `TODO.md` | Benchmark-only TODOs (separate from the citation-verifier `scratch/TODO.md`) |
@@ -31,7 +32,7 @@ the proposition.
 
 **Active plan:** [`docs/plans/2026-05-05-v1.3-design.md`](docs/plans/2026-05-05-v1.3-design.md). All v1.3 implementation work tracks against this doc.
 
-**Strategic state:** [`docs/plans/benchmark-roadmap.md`](docs/plans/benchmark-roadmap.md) — single source of truth for what's done, in progress, and queued across versions.
+**Strategic state:** [`ROADMAP.md`](ROADMAP.md) — single source of truth for what's done, in progress, and queued across versions.
 
 ## Convention: per-version vs evolving
 
@@ -95,4 +96,4 @@ venv/Scripts/python.exe -m benchmark.runners.scorecard --dedupe
 
 ## Spinout status
 
-Internal consolidation only — citation-verifier benchmark code lives here today, but the package depends on `citation_verifier` internals. Eventual standalone-repo spinout is gated on v1.2 forkable kit + publication track + ≥2-3 external forkers. See [`docs/plans/benchmark-spinout-prep.md`](docs/plans/benchmark-spinout-prep.md).
+Internal consolidation only — citation-verifier benchmark code lives here today, but the package depends on `citation_verifier` internals. Eventual standalone-repo spinout is gated on v2 forkable kit + publication track + ≥2-3 external forkers. See [`docs/plans/benchmark-spinout-prep.md`](docs/plans/benchmark-spinout-prep.md) and [`ROADMAP.md`](ROADMAP.md) §"When to spin out to its own repo".

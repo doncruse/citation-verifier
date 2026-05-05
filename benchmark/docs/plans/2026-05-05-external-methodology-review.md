@@ -4,7 +4,7 @@ Source: a planning doc written in another session that had no visibility into
 this repo. The doc is broader than the benchmark — it covers institutional /
 authorship / timeline considerations for a publication-track version of this
 work — but the methodology sections raise four tensions with the current
-direction in [`benchmark-roadmap.md`](benchmark-roadmap.md) and propose five
+direction in [`../../ROADMAP.md`](../../ROADMAP.md) and propose five
 concrete additions worth considering for v2.
 
 This doc captures only the technical content. Institutional / authorship /
@@ -263,7 +263,7 @@ The external planning doc also covers:
 - Disclosure-anxiety / idea-scoop mitigations
 
 These are publication-track items, not benchmark-engineering items. They
-belong in a separate publication-plan doc — not in `benchmark-roadmap.md`,
+belong in a separate publication-plan doc — not in `../../ROADMAP.md`,
 which has a different audience.
 
 There are real interlocks between the two docs:
@@ -286,7 +286,7 @@ from this file.
 2. Land a separate publication-plan doc covering the institutional /
    authorship / timeline content, with cross-links.
 3. Surface tension #1 (court-agreement-as-ground-truth) on
-   `benchmark-roadmap.md` as a v1.2 open question — it's the most material
+   `../../ROADMAP.md` as a v1.2 open question — it's the most material
    challenge to the current direction and the one most likely to be raised
    by a reviewer.
 4. Defer tensions #2, #3, #4 to the ML co-author conversation. They're

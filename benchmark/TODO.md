@@ -2,7 +2,7 @@
 
 **Currently working on:** v1.3 — see [`docs/plans/2026-05-05-v1.3-design.md`](docs/plans/2026-05-05-v1.3-design.md). v1.3 work items are tracked in the design doc itself (section progress marks); only **cross-version** or **out-of-scope-of-v1.3** items live here.
 
-For the live state of all versions, see [`docs/plans/benchmark-roadmap.md`](docs/plans/benchmark-roadmap.md).
+For the live state of all versions, see [`ROADMAP.md`](ROADMAP.md).
 
 ---
 
@@ -46,5 +46,5 @@ sense for the calling script.
 
 ## See also
 
-- [`docs/plans/benchmark-roadmap.md`](docs/plans/benchmark-roadmap.md) — full roadmap with v1.x and v2 items
+- [`ROADMAP.md`](ROADMAP.md) — full roadmap with v1.x and v2 items
 - [`docs/plans/2026-05-05-publication-plan.md`](docs/plans/2026-05-05-publication-plan.md) — publication-track items

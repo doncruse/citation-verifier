@@ -225,7 +225,7 @@ the proposition.
 - v1.1 validation studies done (calibration + truncation experiment)
 - v1.2 methodology hardening — gold-DB infrastructure landed
 - v1.3, v1.4 — additional analyses on v1's 130-prop dataset (truncation re-test, parenthetical-mis-attribution audit, etc.). Artifacts go in `releases/v1/`; runner code evolves in `runners/` in place
-- v2 in design — when v2 mining produces a fresh dataset, it lands in `releases/v2/`. See [`docs/plans/2026-05-05-publication-plan.md`](docs/plans/2026-05-05-publication-plan.md) and [`docs/plans/benchmark-roadmap.md`](docs/plans/benchmark-roadmap.md)
+- v2 in design — when v2 mining produces a fresh dataset, it lands in `releases/v2/`. See [`docs/plans/2026-05-05-publication-plan.md`](docs/plans/2026-05-05-publication-plan.md) and [`../../ROADMAP.md`](../../ROADMAP.md)
 
 ## Convention: per-version vs evolving
 
@@ -1280,10 +1280,10 @@ Plans (11 — `docs/plans/` → `benchmark/docs/plans/`):
 - `2026-05-05-benchmark-consolidation-plan.md` (this file)
 - `2026-05-05-external-methodology-review.md`
 - `2026-05-05-publication-plan.md`
-- `benchmark-roadmap.md`
+- `../../ROADMAP.md`
 - `benchmark-spinout-prep.md`
 
-(That's 12 actually. Both `benchmark-roadmap.md` and `benchmark-spinout-prep.md` are unscoped-by-date.)
+(That's 12 actually. Both `../../ROADMAP.md` and `benchmark-spinout-prep.md` are unscoped-by-date.)
 
 Retrospectives (3 — `docs/retrospectives/` → `benchmark/docs/retrospectives/`):
 - `2026-05-02-v1.2-assessor-calibration.md`
@@ -1309,7 +1309,7 @@ git mv docs/plans/2026-05-03-gold-db-plan.md benchmark/docs/plans/2026-05-03-gol
 git mv docs/plans/2026-05-05-benchmark-consolidation-plan.md benchmark/docs/plans/2026-05-05-benchmark-consolidation-plan.md
 git mv docs/plans/2026-05-05-external-methodology-review.md benchmark/docs/plans/2026-05-05-external-methodology-review.md
 git mv docs/plans/2026-05-05-publication-plan.md benchmark/docs/plans/2026-05-05-publication-plan.md
-git mv docs/plans/benchmark-roadmap.md benchmark/docs/plans/benchmark-roadmap.md
+git mv ../../ROADMAP.md benchmark/../../ROADMAP.md
 git mv docs/plans/benchmark-spinout-prep.md benchmark/docs/plans/benchmark-spinout-prep.md
 ```
 
@@ -1402,7 +1402,7 @@ the three call sites are at predictable paths.
 
 ## See also
 
-- [`docs/plans/benchmark-roadmap.md`](docs/plans/benchmark-roadmap.md) — full roadmap with v1.x and v2 items
+- [`../../ROADMAP.md`](../../ROADMAP.md) — full roadmap with v1.x and v2 items
 - [`docs/plans/2026-05-05-publication-plan.md`](docs/plans/2026-05-05-publication-plan.md) — publication-track items
 ```
 
@@ -1532,7 +1532,7 @@ git diff --stat benchmark/docs/
 Expected: each updated file shows a few lines changed.
 
 ```bash
-git diff benchmark/docs/plans/benchmark-roadmap.md | head -40
+git diff benchmark/../../ROADMAP.md | head -40
 ```
 
 Spot-check that the diff looks right — no double-replacements (e.g. `benchmark/releases/v1/releases/v1/`), no off-by-one issues.
@@ -1598,7 +1598,7 @@ Find the existing "## Project Overview" section in CLAUDE.md. After it (before "
 
 A separate effort lives at [`benchmark/`](benchmark/) — a case-law retrieval benchmark
 that depends on this verifier but is otherwise self-contained. See
-[`benchmark/README.md`](benchmark/README.md) for orientation, [`benchmark/docs/plans/benchmark-roadmap.md`](benchmark/docs/plans/benchmark-roadmap.md)
+[`benchmark/README.md`](benchmark/README.md) for orientation, [`benchmark/../../ROADMAP.md`](benchmark/../../ROADMAP.md)
 for the engineering roadmap, and [`benchmark/docs/plans/2026-05-05-publication-plan.md`](benchmark/docs/plans/2026-05-05-publication-plan.md)
 for the publication track.
 

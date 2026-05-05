@@ -2,7 +2,7 @@
 
 **Goal:** Get `citation-verifier` to a state where the benchmark can move to its own repo cleanly. Don't spin out yet — these prep tasks land in `citation-verifier` first.
 
-**Spin-out criteria** (from `benchmark-roadmap.md`): forkable kit ships, citation-verifier has stable public API, ≥2-3 external forkers, clean release story. We're at zero of those today; this doc handles the API-stability piece.
+**Spin-out criteria** (from `../../ROADMAP.md`): forkable kit ships, citation-verifier has stable public API, ≥2-3 external forkers, clean release story. We're at zero of those today; this doc handles the API-stability piece.
 
 ---
 
@@ -30,7 +30,7 @@ The original task descriptions below are kept as-is for the eventual revisit.
 ## Where things stand (May 2026)
 
 - Benchmark v1 is shipped: `benchmark/releases/v1/{report.html, courtlistener-findings.html, scorecards-deduped.md, README.md}` plus the data files. All on `main`.
-- v1.1 work is queued in `benchmark-roadmap.md` — mining-stage dedup, verified-citations cache, stratified sampling by tier, per-case metadata extraction, multi-source existence oracle, etc.
+- v1.1 work is queued in `../../ROADMAP.md` — mining-stage dedup, verified-citations cache, stratified sampling by tier, per-case metadata extraction, multi-source existence oracle, etc.
 - Citation-verifier is not on PyPI, has no stable API doc, and the benchmark imports ~6 internal modules (parser, models, verifier, court_map, client, court_abbrev).
 - This session built up substantial audit infrastructure (`benchmark/releases/v1/_all_cl_misses.csv` with 94 hand-verified rows, fallback path attribution, etc.) — those workflows are good candidates for promoting into citation-verifier as CLI commands.
 
@@ -141,7 +141,7 @@ citation-verifier verify-batch input.csv \
 
 Suggested order in a session that picks this up:
 
-1. Read this doc + `benchmark-roadmap.md` + `benchmark/releases/v1/courtlistener-findings.html` (the audit shape informs the CLI design)
+1. Read this doc + `../../ROADMAP.md` + `benchmark/releases/v1/courtlistener-findings.html` (the audit shape informs the CLI design)
 2. Implement Task 1 (`verify-batch` CLI) with tests — biggest unlock, ~half a day
 3. Implement Task 2 (`--json` for single verify) — quick, ~hour
 4. Write Task 3 (API.md) — docs only, ~hour
@@ -158,7 +158,7 @@ After Tasks 1-3-5 land, the benchmark can plausibly move:
 ## What to NOT do in the spin-out prep
 
 - **Don't redesign the verifier.** The chunking fix and the opinion-search behavior are stable enough; touching them risks v1.1 breakage.
-- **Don't pre-build the v1.1 forkable kit.** That's a separate scope item (`benchmark-roadmap.md` v1.1 row).
+- **Don't pre-build the v1.1 forkable kit.** That's a separate scope item (`../../ROADMAP.md` v1.1 row).
 - **Don't break existing CLI commands** (`verify-brief`, single-citation verify). The new subcommands are additive.
 - **Don't move the benchmark out yet.** Land tasks 1-3-5 first.
 
