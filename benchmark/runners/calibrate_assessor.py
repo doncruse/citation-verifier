@@ -14,7 +14,7 @@ Writes:
 
 Run from repo root, with `ANTHROPIC_API_KEY` in `.env`:
 
-    venv/Scripts/python.exe tests/benchmark_v1/calibrate_assessor.py \\
+    venv/Scripts/python.exe benchmark/runners/calibrate_assessor.py \\
         [--models sonnet,haiku]  (default: both)
         [--dry-run]              (cost estimate only)
         [--limit N]              (smoke-test first N cells per model)
@@ -47,7 +47,7 @@ except ImportError:
     pass  # python-dotenv is in deps, but tolerate absence in case of editable install drift
 
 # canonical_dataset_ids() lives in scorecard.py — reuse the same dedup rule v1 uses.
-sys.path.insert(0, str(PROJECT_ROOT / "tests" / "benchmark_v1"))
+sys.path.insert(0, str(PROJECT_ROOT / "benchmark" / "runners"))
 from scorecard import canonical_dataset_ids  # noqa: E402
 
 import anthropic  # noqa: E402

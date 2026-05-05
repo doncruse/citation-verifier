@@ -38,7 +38,7 @@ def test_cases_table_supports_cite_string_lookup(tmp_path: Path):
 
 def test_build_dataset_imports_goldDB():
     """build_dataset.py should import GoldDB so the cache wiring is in place."""
-    p = Path(__file__).parent / "build_dataset.py"
+    p = Path(__file__).parent.parent / "build_dataset.py"
     src = p.read_text(encoding="utf-8")
     assert (
         "from citation_verifier.gold_db import GoldDB" in src

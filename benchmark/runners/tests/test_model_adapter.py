@@ -10,7 +10,7 @@ from unittest.mock import MagicMock, patch
 import pytest
 
 # Make model_adapter importable without relying on package discovery.
-sys.path.insert(0, str(Path(__file__).resolve().parent))
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 import model_adapter as ma  # noqa: E402
 
 

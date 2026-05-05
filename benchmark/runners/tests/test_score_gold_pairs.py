@@ -3,7 +3,7 @@ from pathlib import Path
 from unittest.mock import MagicMock
 import pytest
 from citation_verifier.gold_db import GoldDB
-from tests.benchmark_v1.score_gold_pairs import score_gold_pairs
+from benchmark.runners.score_gold_pairs import score_gold_pairs
 
 
 def _seed(db: GoldDB) -> tuple[str, int]:
@@ -70,7 +70,7 @@ def test_default_assessor_translates_pilot_dict_shape(tmp_path: Path, monkeypatc
 
     pilot_a returns {assessment, rationale, elapsed_s, cost_usd}; we
     must extract assessment->verdict and rationale->reasoning."""
-    from tests.benchmark_v1 import score_gold_pairs as mod
+    from benchmark.runners import score_gold_pairs as mod
 
     fake_pilot = type("FakePilot", (), {})()
     fake_pilot.call_assessor = lambda *args, **kwargs: {
@@ -89,7 +89,7 @@ def test_default_assessor_translates_pilot_dict_shape(tmp_path: Path, monkeypatc
 
 def test_default_assessor_handles_timeout(tmp_path: Path, monkeypatch):
     """Timeout returns assessment=None; must produce a usable verdict (not crash)."""
-    from tests.benchmark_v1 import score_gold_pairs as mod
+    from benchmark.runners import score_gold_pairs as mod
 
     fake_pilot = type("FakePilot", (), {})()
     fake_pilot.call_assessor = lambda *args, **kwargs: {
@@ -122,7 +122,7 @@ def test_score_gold_pairs_real_mode_passes_client_to_fetch(tmp_path: Path, monke
         "assessment": "Green", "rationale": "supports it", "elapsed_s": 1, "cost_usd": 0.05
     }
 
-    from tests.benchmark_v1 import score_gold_pairs as mod
+    from benchmark.runners import score_gold_pairs as mod
     monkeypatch.setattr(mod, "_load_pilot_assessor", lambda: fake_pilot)
 
     # Use the real default assessor path (assessor_fn=None triggers it)

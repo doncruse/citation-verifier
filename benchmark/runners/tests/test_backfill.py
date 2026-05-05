@@ -3,7 +3,7 @@ from pathlib import Path
 import csv
 import pytest
 from citation_verifier.gold_db import GoldDB
-from tests.benchmark_v1.backfill_gold_db import backfill_v1, _cluster_id_from_url
+from benchmark.runners.backfill_gold_db import backfill_v1, _cluster_id_from_url
 
 
 def _write_csv(path: Path, rows: list[dict], cols: list[str]) -> None:

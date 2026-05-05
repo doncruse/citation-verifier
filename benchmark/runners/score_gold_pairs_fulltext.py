@@ -14,15 +14,15 @@ models coexist without collision.
 
 Usage:
     # Run Sonnet on all gold pairs (skips ones already scored at this key)
-    venv/Scripts/python.exe -m tests.benchmark_v1.score_gold_pairs_fulltext \\
+    venv/Scripts/python.exe -m benchmark.runners.score_gold_pairs_fulltext \\
         --model sonnet
 
     # Run Haiku
-    venv/Scripts/python.exe -m tests.benchmark_v1.score_gold_pairs_fulltext \\
+    venv/Scripts/python.exe -m benchmark.runners.score_gold_pairs_fulltext \\
         --model haiku
 
     # Re-score only the original Reds (for the audit pattern)
-    venv/Scripts/python.exe -m tests.benchmark_v1.score_gold_pairs_fulltext \\
+    venv/Scripts/python.exe -m benchmark.runners.score_gold_pairs_fulltext \\
         --model sonnet --reds-only
 """
 from __future__ import annotations

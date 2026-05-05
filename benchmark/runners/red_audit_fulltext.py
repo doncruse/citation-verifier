@@ -8,7 +8,7 @@ don't collide with canonical 60K verdicts.
 Cache-aware: re-runs are zero-cost.
 
 Usage:
-    venv/Scripts/python.exe -m tests.benchmark_v1.red_audit_fulltext --model sonnet
+    venv/Scripts/python.exe -m benchmark.runners.red_audit_fulltext --model sonnet
 """
 from __future__ import annotations
 
