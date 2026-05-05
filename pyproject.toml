@@ -44,3 +44,4 @@ markers = [
     "live_api: tests that hit the real CourtListener API (deselect with -m 'not live_api')",
 ]
 addopts = "-m 'not live_api'"
+testpaths = ["tests", "benchmark/runners/tests"]

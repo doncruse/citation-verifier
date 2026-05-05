@@ -18,7 +18,7 @@ class VerdictResult(TypedDict, total=False):
     reasoning: str | None
 
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent
-SCHEMA_PATH = REPO_ROOT / "gold_db" / "migrations" / "001_initial.sql"
+SCHEMA_PATH = REPO_ROOT / "benchmark" / "gold_db" / "migrations" / "001_initial.sql"
 
 
 def _now_iso() -> str:
