@@ -1,50 +1,63 @@
 # Benchmark TODO
 
-**Currently working on:** v1.3 — see [`docs/plans/2026-05-05-v1.3-design.md`](docs/plans/2026-05-05-v1.3-design.md). v1.3 work items are tracked in the design doc itself (section progress marks); only **cross-version** or **out-of-scope-of-v1.3** items live here.
+Hands-on task tracker — pure-human, pure-CC, and joint tasks. Complements the [v1.3 design doc](docs/plans/2026-05-05-v1.3-design.md) (the contract for what we're building) and the eventual v1.3 implementation plan (which will cover CC-executable steps in TDD-style depth). For strategic state across versions, see [`ROADMAP.md`](ROADMAP.md).
 
-For the live state of all versions, see [`ROADMAP.md`](ROADMAP.md).
+**Owner tags:** `(me)` = pure-human; `(CC)` = pure-CC; `(me + X)` = joint with named collaborator.
+
+**Currently working on:** non-benchmark work; v1.3 implementation on hold.
 
 ---
 
-## Mining
+## Up next
 
-### Pool builder drops month/day from cited-case dates — folded into v1.3 mining overhaul
+### Cleanup (anytime, not blocking anything)
 
-Originally fixed in `benchmark/pilot_a/build_fresh_dc_sample.py` 2026-05-03 (extract_parentheticals now persists month, day, full_citation_text). The same fix needs to land in v1.3's new mining pipeline. The existing `benchmark/releases/v1/_raw_pool.json` predates the fix and is not re-mined since v1 is sealed.
+- [ ] **(CC) Patch `pilot_a/score.py:fetch_opinion_text` to make truncation explicit-by-caller** (default no cap). Removes a known footgun before any v1.3 assessor work touches it. ~30 min.
+- [ ] **(CC) Extract shared hermetic-CLI helper for `claude -p` callers.** Three sites: `pilot_a/score.py`, `runners/model_adapter.py`, `runners/red_audit_fulltext.py` — DRY up the `_HERMETIC_DIR` pattern. ~1–2 hours.
+- [ ] **(CC) Audit cache fallback list semantics** in `red_audit_fulltext.py` + `score_gold_pairs_fulltext.py`. The v1.3 cache rename was mechanical; the original cited+citing mix may itself have been a bug. Investigation, then fix or document.
 
-Tracked under v1.3 design §"Mining pipeline (full overhaul)" — bugfix #6.
+### v1.3 prep — when ready to start
 
-## Code cleanup
+> v1.3 is in design but implementation hasn't started. These items kick off when you're ready.
 
-### Extract shared hermetic-CLI helper for `claude -p` callers
+**Setup**
 
-Three runners independently maintain their own workaround for the
-`claude -p` + `CLAUDE.md` role-confusion leak:
+- [ ] (me) Set up OSF entry for public timestamp; tag a GitHub release pointing at the v1.3 design doc for prior-art coverage
+- [ ] (me) Confirm librarian timeline; send authorship-memo draft; pin student-RA backup plan
+- [ ] (CC) Run state-court mining smoke test per v1.3 design §"State-court contingency rule" — ~1 day investigation
+- [ ] (me) After smoke: decide 25/25/25/25 vs federal-only 33/33/33 fallback
 
-- `pilot_a/score.py` — `_HERMETIC_DIR = tempfile.mkdtemp(prefix="pilot_a_score_")`, used as `cwd=` in `subprocess.run(["claude", "-p", ...])`
-- `runners/model_adapter.py` — same pattern, `prefix="benchmark_v1_"`
-- `runners/red_audit_fulltext.py` — variant that pipes prompt via stdin instead of CLI args, to avoid Windows `CreateProcess` arg-length limits
+**Mining pipeline**
 
-DRY these into a shared `runners/_hermetic.py` (or similar) exporting
-something like `invoke_claude_cli(prompt, model, timeout, ...)` that
-handles hermetic cwd + stdin piping uniformly. Update the three call
-sites.
+- [ ] (CC) One-shot CL metadata fetch to populate v1's 130 cases with `court_id` + `year` (~30 min; enables v1↔v1.3 tier-by-tier comparison post-v1.3)
+- [ ] (CC) Implement v1.3 mining pipeline overhaul: parenthetical-attribution fix + intra-opinion dedup + no-CL-prefilter + full-text fetcher
+- [ ] (CC) Build pool at scale (target 1,000–3,000 candidates across source districts)
+- [ ] (CC) Stratified sampling to v1.3 dataset (200 pairs)
 
-This is a behavior-touching cleanup, not just a move — split out from
-the 2026-05-05 consolidation refactor. Touch it after the consolidation
-lands so the three call sites are at predictable paths.
+**Model runs + assessor**
 
-### Audit cache fallback list semantics in `red_audit_fulltext.py` and `score_gold_pairs_fulltext.py`
+- [ ] (CC) Run all three model conditions (Sonnet 4.6, Opus 4.7, GPT-5) on the 200
+- [ ] (CC) Run Sonnet@FT assessor on all 200 cells
+- [ ] (CC, optional) Cross-family probe: GPT-5/Gemini on 50-pair sample (out-of-pocket cost ~$10–30)
 
-The `OPINION_CACHE_DIRS` fallback lists in these scripts now mix two
-semantically distinct cache types: `cited_opinion_cache` (cited-case text)
-and `citing_opinion_cache` (citing-court text). The 2026-05-05 cache
-rename was a faithful mechanical translation of pre-existing paths, but
-the original mix of cited+citing in one fallback list may itself have
-been a bug. Audit whether each fallback entry is actually used and makes
-sense for the calling script.
+**Human coding**
 
-## See also
+- [ ] (me + librarian) Calibration pilot on 10–20 pairs; iterate rubric until disagreement-rate < 20%
+- [ ] (me + librarian) Independent coding pass on all 200 pairs
+- [ ] (me + librarian) Adjudication of disagreements; record adjudication notes
+- [ ] (CC + me) Compute Sonnet validation: Cohen's κ vs human, Red precision/recall
 
-- [`ROADMAP.md`](ROADMAP.md) — full roadmap with v1.x and v2 items
-- [`docs/plans/2026-05-05-publication-plan.md`](docs/plans/2026-05-05-publication-plan.md) — publication-track items
+**Checkpoint**
+
+- [ ] (me + co-authors) Week 8 proceed/modify/rethink decision before any v2 pre-reg work
+
+---
+
+## Recently done
+
+Compact trail of recent landings. Older items collapse to [`ROADMAP.md`](ROADMAP.md)'s History zone.
+
+- [x] (CC) ROADMAP.md restructure + top-level promotion (2026-05-05)
+- [x] (CC) v1.3 design doc (2026-05-05)
+- [x] (CC) README/TODO/ROADMAP state-tracking convention (2026-05-05)
+- [x] (CC) Benchmark consolidation refactor — `benchmark/` top-level dir, gold-DB move, runners move, pilot_a coupling cleanup (2026-05-05)
