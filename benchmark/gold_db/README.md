@@ -35,7 +35,7 @@ Cumulative knowledge corpus for the case-law benchmark. See
 
 ```bash
 # Distribution of gold-pair self-scores (calibration baseline)
-sqlite3 gold_db/gold.db "
+sqlite3 benchmark/gold_db/gold.db "
   SELECT verdict, COUNT(*) FROM assessor_verdicts
    WHERE source='gold_pair' GROUP BY verdict
 "
@@ -43,7 +43,7 @@ sqlite3 gold_db/gold.db "
 
 ```bash
 # Drift agreement: canonical vs drift verdicts on the same pair
-sqlite3 gold_db/gold.db "
+sqlite3 benchmark/gold_db/gold.db "
   SELECT canonical.verdict, drift.verdict, COUNT(*)
     FROM assessor_verdicts canonical
     JOIN assessor_verdicts drift
@@ -57,7 +57,7 @@ sqlite3 gold_db/gold.db "
 
 ```bash
 # All cached verdicts for a specific proposition (by text fragment)
-sqlite3 gold_db/gold.db "
+sqlite3 benchmark/gold_db/gold.db "
   SELECT v.verdict, v.assessor_prompt_version, v.created_at, c.canonical_name
     FROM assessor_verdicts v
     JOIN propositions p ON p.proposition_id = v.proposition_id
@@ -69,11 +69,11 @@ sqlite3 gold_db/gold.db "
 
 ## CSV exports
 
-CSVs in `gold_db/exports/` are diff-able snapshots — one file per table.
+CSVs in `benchmark/gold_db/exports/` are diff-able snapshots — one file per table.
 Refresh after writes:
 
 ```bash
-venv/Scripts/python.exe -c "from citation_verifier.gold_db import GoldDB; GoldDB('gold_db/gold.db').export_csvs('gold_db/exports')"
+venv/Scripts/python.exe -c "from citation_verifier.gold_db import GoldDB; GoldDB('benchmark/gold_db/gold.db').export_csvs('benchmark/gold_db/exports')"
 ```
 
 **Bool encoding in CSVs:** SQLite stores Python `bool` as `INTEGER 1/0`.
@@ -96,11 +96,11 @@ yellow -> green (a borderline case shifting to a more favorable verdict).
 
 ```bash
 # Full run (exercises cache + adds ~10 drift samples)
-venv/Scripts/python.exe tests/benchmark_v1/score.py
+venv/Scripts/python.exe -m benchmark.runners.score
 
 # Axes 1+2 only (no Opus calls, no drift)
-venv/Scripts/python.exe tests/benchmark_v1/score.py --skip-substance --skip-drift
+venv/Scripts/python.exe -m benchmark.runners.score --skip-substance --skip-drift
 
 # Custom run-id (useful for reproducible logs)
-venv/Scripts/python.exe tests/benchmark_v1/score.py --run-id my-run-label
+venv/Scripts/python.exe -m benchmark.runners.score --run-id my-run-label
 ```
