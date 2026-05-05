@@ -19,13 +19,19 @@ the proposition.
 | `scratch/` | One-off scripts and logs from benchmark work |
 | `TODO.md` | Benchmark-only TODOs (separate from the citation-verifier `scratch/TODO.md`) |
 
-## Status (as of 2026-05-05)
+## Status
 
-- v1 shipped May 2026 — see [`releases/v1/README.md`](releases/v1/README.md)
-- v1.1 validation studies done (calibration + truncation experiment)
-- v1.2 methodology hardening — gold-DB infrastructure landed
-- v1.3, v1.4 — additional analyses on v1's 130-prop dataset (truncation re-test, parenthetical-mis-attribution audit, etc.). Artifacts go in `releases/v1/`; runner code evolves in `runners/` in place
-- v2 in design — when v2 mining produces a fresh dataset, it lands in `releases/v2/`. See [`docs/plans/2026-05-05-publication-plan.md`](docs/plans/2026-05-05-publication-plan.md) and [`docs/plans/benchmark-roadmap.md`](docs/plans/benchmark-roadmap.md)
+| Version | State | Headline |
+|---|---|---|
+| v1 | ✅ Shipped May 2026 | 130-pair benchmark, 3 models, Opus@20K assessor |
+| v1.1 | ✅ Done | Calibration study + truncation experiment |
+| v1.2 | 🟡 Partial | Gold-DB infrastructure landed; methodology backlog tracked in roadmap |
+| **v1.3** | **🟡 In design** | **Methodology test bed: 200-pair stratified, full-text Sonnet, human-coded validation. See [v1.3 design doc](docs/plans/2026-05-05-v1.3-design.md).** |
+| v2 | 📋 Planned | Pre-registered confirmatory dataset. See [publication plan](docs/plans/2026-05-05-publication-plan.md). |
+
+**Active plan:** [`docs/plans/2026-05-05-v1.3-design.md`](docs/plans/2026-05-05-v1.3-design.md). All v1.3 implementation work tracks against this doc.
+
+**Strategic state:** [`docs/plans/benchmark-roadmap.md`](docs/plans/benchmark-roadmap.md) — single source of truth for what's done, in progress, and queued across versions.
 
 ## Convention: per-version vs evolving
 

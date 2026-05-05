@@ -2,7 +2,13 @@
 
 Living doc. Tracks deferred work from v1 plus ideas surfaced during runs.
 
-**Current state:** v1 shipped May 2026 (effective N=130 after dedup, 3 models, Opus-assessed). v1.1 validation studies done (assessor calibration + 60K truncation re-test — see `## v1.1 — Validation studies`). v1.2 methodology hardening in progress: gold-DB design + plan landed 2026-05-03 ([design](2026-05-03-gold-db-design.md), [plan](2026-05-03-gold-db-plan.md)) and subsumes three of the deferred items (verified-citations cache, acceptable-alternatives caching, per-case metadata extraction). **Mid-flight findings (2026-05-04):** the gold-pair self-score pass surfaced two material methodology issues, both written up in retrospectives: (a) `pilot_a/score.py:fetch_opinion_text` silently truncates at 20K — affected Task 10's "60K" gold-pair pass and the v1.1 calibration study (see [2026-05-04-truncation-bug-and-red-audit.md](../retrospectives/2026-05-04-truncation-bug-and-red-audit.md)); (b) eyecite/build_dataset mis-attaches parentheticals to the wrong case in chained citations — 3 of 5 v1 "Reds" at full text were parser bugs, not court errors (see [2026-05-04-fulltext-assessor-comparison-and-mining-bugs.md](../retrospectives/2026-05-04-fulltext-assessor-comparison-and-mining-bugs.md)). Sonnet 4.6 at full text is now the leading candidate for v2 assessor (90.6% Green on v1 gold pairs, ~5× cheaper than Opus); Haiku 4.5 fails badly even at full text (54.7% Red, agreement matrix shows it disagrees with Sonnet on 60+ Greens).
+**Current state (as of 2026-05-05):** v1 shipped May 2026 (effective N=130 after dedup, 3 models, Opus-assessed). v1.1 validation studies done (assessor calibration + 60K truncation re-test). v1.2 partial — gold-DB infrastructure landed 2026-05-04; remaining methodology backlog rolls into v1.3 or defers to v2 per [v1.3 design](2026-05-05-v1.3-design.md).
+
+**Active plan:** [`2026-05-05-v1.3-design.md`](2026-05-05-v1.3-design.md) — methodology test bed: 200-pair stratified (25/25/25/25 SCOTUS / Fed COA / Fed District / State COLR+COA), full-text Sonnet 4.6 assessor, human-coded validation, 5-tier rubric. NOT pre-registered; v2 is the pre-registered confirmatory paper. **In design phase — implementation has not started.**
+
+**Mid-flight findings from v1.x (2026-05-04):** gold-pair self-score pass surfaced two material methodology issues (both written up): (a) `pilot_a/score.py:fetch_opinion_text` silently truncates at 20K — affected Task 10's "60K" gold-pair pass and the v1.1 calibration study (see [2026-05-04-truncation-bug-and-red-audit.md](../retrospectives/2026-05-04-truncation-bug-and-red-audit.md)); (b) eyecite/build_dataset mis-attaches parentheticals to the wrong case in chained citations — 3 of 5 v1 "Reds" at full text were parser bugs, not court errors (see [2026-05-04-fulltext-assessor-comparison-and-mining-bugs.md](../retrospectives/2026-05-04-fulltext-assessor-comparison-and-mining-bugs.md)). Sonnet 4.6 at full text emerged as v1.3's default assessor candidate (90.6% Green on v1 gold pairs, ~5× cheaper than Opus); Haiku 4.5 ruled out (54.7% Red at full text). Both fixes are scoped into v1.3 mining and assessor work.
+
+**v1.3 update protocol:** This roadmap is the live state tracker. When v1.3 work lands, update this doc's "Current state" line and the v1.3 section below. The active design contract is [`2026-05-05-v1.3-design.md`](2026-05-05-v1.3-design.md) — that doc tracks per-section progress (✅ / 🟡) as implementation proceeds.
 
 ---
 
@@ -76,6 +82,38 @@ Both miss by ~20pp on overall and ~30pp on Red recall — robustly below the bar
 **Deliverable:** `benchmark/runners/calibrate_assessor.py` + a `calibration.md` report. Doesn't touch v1's data — strictly additive.
 
 **Acceptance bar:** if cheaper-assessor agreement with Opus is ≥ 90% overall AND ≥ 85% on Red specifically, switch the primary. Red precision matters most because Reds are the hallucinations we're catching.
+
+---
+
+## v1.3 — Methodology test bed 🟡 in design (2026-05-05)
+
+**Status:** design landed 2026-05-05. Implementation not started. User holding to do other work first.
+
+**Goal:** End-to-end methodology dry-run before pre-registered v2. Builds a fresh 200-pair benchmark stratified across four court tiers, validates the new mining pipeline and Sonnet@FT assessor against human-coded gold labels, and develops a 5-tier substance rubric collaboratively with the librarian co-author.
+
+**Design contract:** [`2026-05-05-v1.3-design.md`](2026-05-05-v1.3-design.md). All v1.3 implementation work tracks against this doc — sections get marked ✅ / 🟡 as work lands.
+
+**Scope (in):**
+
+- Fresh 200-pair dataset, stratified 25/25/25/25 across SCOTUS / Fed COA / Fed District / State (COLR+COA)
+- New mining pipeline (no CL pre-filter, eyecite-only metadata at pool time, parenthetical-attribution + intra-opinion dedup bugfixes, full-text fetcher)
+- Three model conditions (Sonnet 4.6, Opus 4.7, GPT-5)
+- Sonnet 4.6 at full text as default assessor; Cohen's κ ≥ 0.6 vs human coders as the bar
+- Human-coded verdicts from project lead + librarian (with student RA backup) on all 200
+- 5-tier substance rubric, refined collaboratively
+- Tier-stratified comparison with v1's 130 cohort (after one-shot CL metadata backfill)
+- State-court contingency rule: smoke-test gate (≥70% court_id resolution + ≥50% full-text coverage); fall back to federal-only 33/33/33 if state is too sparse
+
+**Scope (NOT in):**
+
+- Workshop paper or any external publication of v1.3 (no public artifact)
+- Pre-registration (only v2 is pre-registered)
+- Web-search modes, currency axis, jurisdictional axis (defer to v2)
+- Forkable kit (defer to v2)
+
+**v1.2 ledger close-out:** Four deferred items absorbed into v1.3 (stratified sampling, per-case metadata, full-text default, mining bugfixes). Six obviated by gold-DB or by v1.3's design (multi-source oracle, acceptable-alternatives, verified-citations cache, mining dedup, etc.). Remaining items defer to v2. See v1.3 design §"v1.2 ledger close-out" for the full table.
+
+**Hard time budget:** Week 10 cap from start of implementation. Week 8 proceed/modify/rethink checkpoint before any v2 pre-reg work begins.
 
 ---
 

@@ -1,11 +1,18 @@
 # Benchmark TODO
 
+**Currently working on:** v1.3 — see [`docs/plans/2026-05-05-v1.3-design.md`](docs/plans/2026-05-05-v1.3-design.md). v1.3 work items are tracked in the design doc itself (section progress marks); only **cross-version** or **out-of-scope-of-v1.3** items live here.
+
+For the live state of all versions, see [`docs/plans/benchmark-roadmap.md`](docs/plans/benchmark-roadmap.md).
+
+---
+
 ## Mining
 
-### ~~Pool builder drops month/day from cited-case dates~~ FIXED 2026-05-03
-`extract_parentheticals()` in `benchmark/pilot_a/build_fresh_dc_sample.py` (also used by `benchmark/runners/build_dataset.py`) was persisting only `meta.year`, dropping `meta.month` and `meta.day` that eyecite already extracts. Now persists `month`, `day`, plus a new `full_citation_text` field (eyecite `c.full_span()` slice — case name + reporter + court + date + parenthetical) so downstream consumers can re-parse if eyecite metadata extraction drops a field in the future. Existing `benchmark/releases/v1/_raw_pool.json` predates the fix; re-mine to backfill.
+### Pool builder drops month/day from cited-case dates — folded into v1.3 mining overhaul
 
-Discovered via `_all_cl_misses.csv` analysis: only `year` was available for cited cases, so date filtering in the verifier was year-wide and the misses CSV had no full-date column for the cited case. Relevant for the v1.1 "real-but-CL-missed" audit since narrower date filters should reduce miscoded misses.
+Originally fixed in `benchmark/pilot_a/build_fresh_dc_sample.py` 2026-05-03 (extract_parentheticals now persists month, day, full_citation_text). The same fix needs to land in v1.3's new mining pipeline. The existing `benchmark/releases/v1/_raw_pool.json` predates the fix and is not re-mined since v1 is sealed.
+
+Tracked under v1.3 design §"Mining pipeline (full overhaul)" — bugfix #6.
 
 ## Code cleanup
 
