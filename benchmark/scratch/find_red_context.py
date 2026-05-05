@@ -4,8 +4,8 @@ from pathlib import Path
 import re
 
 CACHES = [
-    Path("scratch/pilot_a/opinion_cache"),
-    Path("benchmark_v1/_opinion_cache"),
+    Path("benchmark/pilot_a/cited_opinion_cache"),
+    Path("benchmark/releases/v1/citing_opinion_cache"),
 ]
 
 # (citing_cluster, cited_cluster, cited_name, citing_court, search_phrases)
