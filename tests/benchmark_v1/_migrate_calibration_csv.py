@@ -10,7 +10,7 @@ each row corresponds to.
 Recovery: rows in calibration_results.csv were written in the order
 the script visited cells. The script visited cells in the order
 load_candidate_cells() returned them, which preserves the order of
-benchmark_v1/results.csv. So for each (id, candidate_model) pair,
+benchmark/releases/v1/results.csv. So for each (id, candidate_model) pair,
 the i-th calibration row corresponds to the i-th v1 cell with that
 id (filtered to canonical + supports-populated cells).
 

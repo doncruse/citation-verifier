@@ -43,8 +43,8 @@ from citation_verifier.models import VerificationStatus  # noqa: E402
 from citation_verifier.parser import parsed_citation_from_eyecite  # noqa: E402
 from citation_verifier.verifier import CitationVerifier  # noqa: E402
 
-OUT = PROJECT_ROOT / "benchmark_v1" / "results.csv"
-GOLD_DB_PATH = PROJECT_ROOT / "gold_db" / "gold.db"
+OUT = PROJECT_ROOT / "benchmark" / "releases" / "v1" / "results.csv"
+GOLD_DB_PATH = PROJECT_ROOT / "benchmark" / "gold_db" / "gold.db"
 
 ASSESSOR_MODEL = "opus"          # shorthand passed to call_assessor
 ASSESSOR_MODEL_DB = "opus-4.7"   # canonical name stored in gold-DB
@@ -215,7 +215,7 @@ def main() -> None:
     )
     print(f"run_id: {run_id}")
 
-    bench = PROJECT_ROOT / "benchmark_v1"
+    bench = PROJECT_ROOT / "benchmark" / "releases" / "v1"
     all_rows: list[dict] = []
     for m_file in ["outputs_sonnet.csv", "outputs_opus.csv", "outputs_gpt5.csv"]:
         p = bench / m_file

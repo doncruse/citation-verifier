@@ -5,12 +5,12 @@ Acceptance bar (from `docs/plans/benchmark-roadmap.md` v1.2):
     overall agreement >= 90% AND Red agreement >= 85%
 
 Reads:
-- `benchmark_v1/results.csv` (v1 cells; `supports` column = Opus verdict)
-- `benchmark_v1/dataset.csv` (used for `canonical_dataset_ids()` dedup)
-- `benchmark_v1/_opinion_cache/<cluster_id>.txt` (cached opinion text)
+- `benchmark/releases/v1/results.csv` (v1 cells; `supports` column = Opus verdict)
+- `benchmark/releases/v1/dataset.csv` (used for `canonical_dataset_ids()` dedup)
+- `benchmark/releases/v1/citing_opinion_cache/<cluster_id>.txt` (cached opinion text)
 
 Writes:
-- `benchmark_v1/calibration_results.csv` (per-row, resume-safe — append-only)
+- `benchmark/releases/v1/calibration_results.csv` (per-row, resume-safe — append-only)
 
 Run from repo root, with `ANTHROPIC_API_KEY` in `.env`:
 
@@ -52,10 +52,10 @@ from scorecard import canonical_dataset_ids  # noqa: E402
 
 import anthropic  # noqa: E402
 
-BENCH = PROJECT_ROOT / "benchmark_v1"
+BENCH = PROJECT_ROOT / "benchmark" / "releases" / "v1"
 RESULTS_CSV = BENCH / "results.csv"
 # v1's score.py used pilot_a's cache for CITED opinion text. The
-# benchmark_v1/_opinion_cache directory holds CITING-court opinions
+# benchmark/releases/v1/citing_opinion_cache directory holds CITING-court opinions
 # used during dataset mining — different artifact, do not confuse.
 OPINION_CACHE = PROJECT_ROOT / "scratch" / "pilot_a" / "opinion_cache"
 OUT_CSV = BENCH / "calibration_results.csv"

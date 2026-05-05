@@ -146,7 +146,7 @@ def _fetch_full_opinion_text(client: CourtListenerClient, cluster_id: int | None
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--db-path", default="gold_db/gold.db")
+    ap.add_argument("--db-path", default="benchmark/gold_db/gold.db")
     ap.add_argument("--model", default="sonnet", choices=["sonnet", "haiku", "opus"])
     ap.add_argument("--limit", type=int, default=None,
                     help="only process first N rows (for testing)")

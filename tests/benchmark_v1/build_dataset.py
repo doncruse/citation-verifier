@@ -40,10 +40,10 @@ from citation_verifier.models import VerificationResult, VerificationStatus  # n
 from citation_verifier.parser import parsed_citation_from_eyecite  # noqa: E402
 from citation_verifier.verifier import CitationVerifier  # noqa: E402
 
-OUT = PROJECT_ROOT / "benchmark_v1" / "dataset.csv"
-OPINION_TEXT_CACHE = PROJECT_ROOT / "benchmark_v1" / "_opinion_cache"
-RAW_POOL = PROJECT_ROOT / "benchmark_v1" / "_raw_pool.json"
-GOLD_DB_PATH = PROJECT_ROOT / "gold_db" / "gold.db"
+OUT = PROJECT_ROOT / "benchmark" / "releases" / "v1" / "dataset.csv"
+OPINION_TEXT_CACHE = PROJECT_ROOT / "benchmark" / "releases" / "v1" / "citing_opinion_cache"
+RAW_POOL = PROJECT_ROOT / "benchmark" / "releases" / "v1" / "_raw_pool.json"
+GOLD_DB_PATH = PROJECT_ROOT / "benchmark" / "gold_db" / "gold.db"
 
 # 5 districts, in priority order. NYSD has fallback if empty.
 COURTS = ["dcd", "cand", "txsd", "ilnd", "nysd"]

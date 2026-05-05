@@ -1,6 +1,6 @@
 """Backfill v1's CSV outputs into gold-DB.
 
-Reads benchmark_v1/{dataset.csv, outputs_*.csv, results.csv,
+Reads benchmark/releases/v1/{dataset.csv, outputs_*.csv, results.csv,
 truncation_experiment_60k.csv, calibration_results.csv}, dedupes, and
 populates the gold-DB. Idempotent: rerunning on a populated DB inserts
 only what's missing (relies on UNIQUE constraints + ON CONFLICT
@@ -387,8 +387,8 @@ def _backfill_calibration(
 
 def main() -> None:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--bench-dir", default="benchmark_v1")
-    ap.add_argument("--db-path", default="gold_db/gold.db")
+    ap.add_argument("--bench-dir", default="benchmark/releases/v1")
+    ap.add_argument("--db-path", default="benchmark/gold_db/gold.db")
     ap.add_argument("--run-id", default=None)
     args = ap.parse_args()
     run_id = args.run_id or f"v1-backfill-{datetime.datetime.utcnow().strftime('%Y%m%d-%H%M%S')}"

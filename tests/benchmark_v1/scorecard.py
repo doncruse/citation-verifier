@@ -16,10 +16,10 @@ from pathlib import Path
 from typing import Callable
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
-RESULTS = PROJECT_ROOT / "benchmark_v1" / "results.csv"
-DATASET = PROJECT_ROOT / "benchmark_v1" / "dataset.csv"
-OUT = PROJECT_ROOT / "benchmark_v1" / "scorecards.md"
-OUT_DEDUPED = PROJECT_ROOT / "benchmark_v1" / "scorecards-deduped.md"
+RESULTS = PROJECT_ROOT / "benchmark" / "releases" / "v1" / "results.csv"
+DATASET = PROJECT_ROOT / "benchmark" / "releases" / "v1" / "dataset.csv"
+OUT = PROJECT_ROOT / "benchmark" / "releases" / "v1" / "scorecards.md"
+OUT_DEDUPED = PROJECT_ROOT / "benchmark" / "releases" / "v1" / "scorecards-deduped.md"
 
 MODELS = ["sonnet", "opus", "gpt-5"]
 

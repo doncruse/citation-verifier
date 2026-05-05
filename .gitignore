@@ -35,8 +35,8 @@ docs/mcp-feedback.md
 .cache/
 .config/
 
-# Benchmark v1 — opinion-text caches (regenerable)
-benchmark_v1/_opinion_cache/
+# Benchmark v1 — citing-court opinion cache (regenerable)
+benchmark/releases/v1/citing_opinion_cache/
 
 # Benchmark v1 — chatty run logs (regenerable; keep CSVs and markdown)
-benchmark_v1/_*.txt
+benchmark/releases/v1/_*.txt

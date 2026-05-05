@@ -16,7 +16,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from model_adapter import call_model, PROMPT_TEMPLATE  # noqa: E402
 
-DATASET = PROJECT_ROOT / "benchmark_v1" / "dataset.csv"
+DATASET = PROJECT_ROOT / "benchmark" / "releases" / "v1" / "dataset.csv"
 # 60s timed out 8/29 Sonnet calls in initial v1 run (max OK call was 59.5s).
 # 120s gives Sonnet headroom while still bounding stuck subprocesses.
 TIMEOUT_S = 120
@@ -28,10 +28,10 @@ def main() -> None:
     ap.add_argument("--limit", type=int, default=None,
                     help="run only the first N rows (smoke test)")
     ap.add_argument("--out", type=Path, default=None,
-                    help="output CSV; defaults to benchmark_v1/outputs_{model}.csv")
+                    help="output CSV; defaults to benchmark/releases/v1/outputs_{model}.csv")
     args = ap.parse_args()
 
-    out = args.out or PROJECT_ROOT / "benchmark_v1" / f"outputs_{args.model.replace('-', '')}.csv"
+    out = args.out or PROJECT_ROOT / "benchmark" / "releases" / "v1" / f"outputs_{args.model.replace('-', '')}.csv"
     rows = list(csv.DictReader(DATASET.open(encoding="utf-8")))
     if args.limit:
         rows = rows[: args.limit]
