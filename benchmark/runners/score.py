@@ -18,30 +18,21 @@ import argparse
 import asyncio
 import csv
 import datetime as dt
-import importlib.util
-import sys
 from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
-sys.path.insert(0, str(PROJECT_ROOT / "src"))
 
-# Load Pilot A's score.py under a distinct module name to avoid colliding
-# with this file (also called score.py).
-_pilot_path = PROJECT_ROOT / "tests" / "pilot_a" / "score.py"
-_spec = importlib.util.spec_from_file_location("pilot_a_score", _pilot_path)
-_pilot_score = importlib.util.module_from_spec(_spec)
-sys.modules["pilot_a_score"] = _pilot_score
-_spec.loader.exec_module(_pilot_score)
-extract_citation = _pilot_score.extract_citation
-fetch_opinion_text = _pilot_score.fetch_opinion_text
-call_assessor = _pilot_score.call_assessor
-_names_score = _pilot_score._names_score
-
-from citation_verifier.client import CourtListenerClient  # noqa: E402
-from citation_verifier.gold_db import GoldDB  # noqa: E402
-from citation_verifier.models import VerificationStatus  # noqa: E402
-from citation_verifier.parser import parsed_citation_from_eyecite  # noqa: E402
-from citation_verifier.verifier import CitationVerifier  # noqa: E402
+from benchmark.pilot_a.score import (
+    _names_score,
+    call_assessor,
+    extract_citation,
+    fetch_opinion_text,
+)
+from citation_verifier.client import CourtListenerClient
+from citation_verifier.gold_db import GoldDB
+from citation_verifier.models import VerificationStatus
+from citation_verifier.parser import parsed_citation_from_eyecite
+from citation_verifier.verifier import CitationVerifier
 
 OUT = PROJECT_ROOT / "benchmark" / "releases" / "v1" / "results.csv"
 GOLD_DB_PATH = PROJECT_ROOT / "benchmark" / "gold_db" / "gold.db"

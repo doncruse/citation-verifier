@@ -20,31 +20,25 @@ from __future__ import annotations
 
 import argparse
 import csv
-import importlib.util
 import json
 import re
 import subprocess
-import sys
 import tempfile
 import time
 from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
-sys.path.insert(0, str(PROJECT_ROOT / "src"))
 
 # Borrow the cache path + prompt template from pilot_a/score.py (same
 # module v1 score.py uses). We intentionally do NOT use pilot_a's
 # call_assessor: it passes the prompt as a CLI argument, which exceeds
 # the ~32K Windows CreateProcess limit at 60K-char opinion windows.
-_pilot_path = PROJECT_ROOT / "tests" / "pilot_a" / "score.py"
-_spec = importlib.util.spec_from_file_location("pilot_a_score", _pilot_path)
-_pilot = importlib.util.module_from_spec(_spec)
-sys.modules["pilot_a_score"] = _pilot
-_spec.loader.exec_module(_pilot)
-ASSESSMENT_PROMPT = _pilot.ASSESSMENT_PROMPT
-OPINIONS_CACHE = _pilot.OPINIONS_CACHE
-MAX_OPINION_CHARS_OLD = _pilot.MAX_OPINION_CHARS  # 20_000
-ASSESSOR_TIMEOUT = _pilot.ASSESSOR_TIMEOUT
+from benchmark.pilot_a.score import (
+    ASSESSMENT_PROMPT,
+    ASSESSOR_TIMEOUT,
+    MAX_OPINION_CHARS as MAX_OPINION_CHARS_OLD,  # 20_000
+    OPINIONS_CACHE,
+)
 
 MAX_OPINION_CHARS_NEW = 60_000  # 3x the v1 window, ~15K tokens
 ASSESSOR_MODEL = "opus"          # match v1
