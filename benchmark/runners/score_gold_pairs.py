@@ -9,38 +9,20 @@ from __future__ import annotations
 
 import argparse
 import datetime
-import importlib.util
 import sqlite3
 import sys
 from pathlib import Path
 from typing import Callable
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
-sys.path.insert(0, str(PROJECT_ROOT / "src"))
 
+from benchmark.pilot_a import score as pilot_score  # noqa: E402
 from citation_verifier.client import CourtListenerClient  # noqa: E402
 from citation_verifier.gold_db import GoldDB  # noqa: E402
 
 OPINION_WINDOW = 60000  # post v1.1 standard
 ASSESSOR_MODEL = "opus-4.7"
 PROMPT_VERSION = "v1"
-
-
-def _load_pilot_assessor():
-    """Import call_assessor + fetch_opinion_text from pilot_a/score.py
-    without name collision (both files are called score.py).
-
-    Cached: re-execution would re-run pilot_a's module-level init
-    (CaseNameMatcher() and courts_db lookup) on every call.
-    """
-    if "pilot_a_score" in sys.modules:
-        return sys.modules["pilot_a_score"]
-    p = PROJECT_ROOT / "benchmark" / "pilot_a" / "score.py"
-    spec = importlib.util.spec_from_file_location("pilot_a_score", p)
-    mod = importlib.util.module_from_spec(spec)
-    sys.modules["pilot_a_score"] = mod
-    spec.loader.exec_module(mod)
-    return mod
 
 
 def _default_assessor(proposition: str, case_name: str, opinion_text: str) -> dict:
@@ -52,8 +34,7 @@ def _default_assessor(proposition: str, case_name: str, opinion_text: str) -> di
     rationale='TIMEOUT' so the row still goes in (preserving the audit
     trail) rather than silently skipping.
     """
-    pilot = _load_pilot_assessor()
-    result = pilot.call_assessor(
+    result = pilot_score.call_assessor(
         proposition, case_name, opinion_text, model="opus",
     )
     assessment = result.get("assessment")
@@ -115,8 +96,7 @@ def score_gold_pairs(
         # When testing, assessor_fn may be a MagicMock and we don't actually
         # need opinion text — pass a placeholder to satisfy the API.
         if assessor_fn is _default_assessor:
-            pilot = _load_pilot_assessor()
-            opinion_text = pilot.fetch_opinion_text(cl_client, r["cited_cluster_id"])
+            opinion_text = pilot_score.fetch_opinion_text(cl_client, r["cited_cluster_id"])
             if not opinion_text:
                 print(f"WARN: no opinion text for cluster {r['cited_cluster_id']}, skipping",
                       file=sys.stderr)

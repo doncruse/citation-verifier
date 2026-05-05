@@ -14,13 +14,12 @@ from __future__ import annotations
 
 import argparse
 import datetime
-import importlib.util
 import sys
 from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
-sys.path.insert(0, str(PROJECT_ROOT / "src"))
 
+from benchmark.pilot_a import score as pilot_score  # noqa: E402
 from citation_verifier.client import CourtListenerClient  # noqa: E402
 from citation_verifier.gold_db import GoldDB  # noqa: E402
 
@@ -30,17 +29,6 @@ OPINION_CACHE_DIRS = [
     PROJECT_ROOT / "benchmark" / "pilot_a" / "cited_opinion_cache",
     PROJECT_ROOT / "benchmark" / "releases" / "v1" / "citing_opinion_cache",
 ]
-
-
-def _load_pilot():
-    if "pilot_a_score" in sys.modules:
-        return sys.modules["pilot_a_score"]
-    p = PROJECT_ROOT / "benchmark" / "pilot_a" / "score.py"
-    spec = importlib.util.spec_from_file_location("pilot_a_score", p)
-    mod = importlib.util.module_from_spec(spec)
-    sys.modules["pilot_a_score"] = mod
-    spec.loader.exec_module(mod)
-    return mod
 
 
 def _call_assessor_stdin(proposition: str, case_name: str, opinion_text: str,
@@ -55,8 +43,7 @@ def _call_assessor_stdin(proposition: str, case_name: str, opinion_text: str,
     import subprocess
     import time
 
-    pilot = _load_pilot()
-    prompt = pilot.ASSESSMENT_PROMPT.format(
+    prompt = pilot_score.ASSESSMENT_PROMPT.format(
         proposition=proposition,
         case_name_citation=case_name,
         opinion_text=opinion_text or "(opinion text unavailable)",
@@ -67,12 +54,12 @@ def _call_assessor_stdin(proposition: str, case_name: str, opinion_text: str,
         proc = subprocess.run(
             cmd, input=prompt, capture_output=True, text=True,
             encoding="utf-8", errors="replace",
-            timeout=pilot.ASSESSOR_TIMEOUT,
-            cwd=str(pilot._HERMETIC_DIR),
+            timeout=pilot_score.ASSESSOR_TIMEOUT,
+            cwd=str(pilot_score._HERMETIC_DIR),
         )
     except subprocess.TimeoutExpired:
         return {"assessment": None, "rationale": "TIMEOUT",
-                "elapsed_s": pilot.ASSESSOR_TIMEOUT, "cost_usd": 0}
+                "elapsed_s": pilot_score.ASSESSOR_TIMEOUT, "cost_usd": 0}
     elapsed = time.time() - start
 
     try:
@@ -157,7 +144,6 @@ def main():
 
     db = GoldDB(args.db_path)
     cl = CourtListenerClient()
-    pilot = _load_pilot()
 
     rows = db.conn.execute("""
         SELECT v.id AS verdict_id, v.proposition_id, v.candidate_cluster_id,

@@ -20,11 +20,9 @@ from eyecite.models import FullCaseCitation
 from eyecite.tokenizers import AhocorasickTokenizer
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
-sys.path.insert(0, str(PROJECT_ROOT / "src"))
 
 # Reuse Pilot A's helpers verbatim where possible.
-sys.path.insert(0, str(PROJECT_ROOT / "benchmark" / "pilot_a"))
-from build_fresh_dc_sample import (  # noqa: E402
+from benchmark.pilot_a.build_fresh_dc_sample import (  # noqa: E402
     HOLDING_VERBS,
     MIN_WORDS,
     MAX_WORDS,

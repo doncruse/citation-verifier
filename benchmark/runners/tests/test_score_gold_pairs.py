@@ -71,15 +71,16 @@ def test_default_assessor_translates_pilot_dict_shape(tmp_path: Path, monkeypatc
     pilot_a returns {assessment, rationale, elapsed_s, cost_usd}; we
     must extract assessment->verdict and rationale->reasoning."""
     from benchmark.runners import score_gold_pairs as mod
+    from unittest.mock import MagicMock
 
-    fake_pilot = type("FakePilot", (), {})()
-    fake_pilot.call_assessor = lambda *args, **kwargs: {
+    fake_pilot = MagicMock()
+    fake_pilot.call_assessor.return_value = {
         "assessment": "Green",
         "rationale": "The opinion holds the relevant proposition.",
         "elapsed_s": 12.3,
         "cost_usd": 0.05,
     }
-    monkeypatch.setattr(mod, "_load_pilot_assessor", lambda: fake_pilot)
+    monkeypatch.setattr(mod, "pilot_score", fake_pilot)
 
     result = mod._default_assessor("p", "Foo v. Bar", "...opinion text...")
     assert result["verdict"] == "green"
@@ -90,15 +91,16 @@ def test_default_assessor_translates_pilot_dict_shape(tmp_path: Path, monkeypatc
 def test_default_assessor_handles_timeout(tmp_path: Path, monkeypatch):
     """Timeout returns assessment=None; must produce a usable verdict (not crash)."""
     from benchmark.runners import score_gold_pairs as mod
+    from unittest.mock import MagicMock
 
-    fake_pilot = type("FakePilot", (), {})()
-    fake_pilot.call_assessor = lambda *args, **kwargs: {
+    fake_pilot = MagicMock()
+    fake_pilot.call_assessor.return_value = {
         "assessment": None,
         "rationale": "TIMEOUT",
         "elapsed_s": 60.0,
         "cost_usd": 0.0,
     }
-    monkeypatch.setattr(mod, "_load_pilot_assessor", lambda: fake_pilot)
+    monkeypatch.setattr(mod, "pilot_score", fake_pilot)
 
     result = mod._default_assessor("p", "Foo v. Bar", "...")
     # None assessment must produce a recordable verdict, not raise
@@ -114,16 +116,17 @@ def test_score_gold_pairs_real_mode_passes_client_to_fetch(tmp_path: Path, monke
 
     fetch_calls = []
 
-    fake_pilot = type("FakePilot", (), {})()
-    fake_pilot.fetch_opinion_text = lambda client, cluster_id: (
+    from unittest.mock import MagicMock
+    fake_pilot = MagicMock()
+    fake_pilot.fetch_opinion_text.side_effect = lambda client, cluster_id: (
         fetch_calls.append((client, cluster_id)) or "opinion text body..."
     )
-    fake_pilot.call_assessor = lambda *a, **kw: {
+    fake_pilot.call_assessor.return_value = {
         "assessment": "Green", "rationale": "supports it", "elapsed_s": 1, "cost_usd": 0.05
     }
 
     from benchmark.runners import score_gold_pairs as mod
-    monkeypatch.setattr(mod, "_load_pilot_assessor", lambda: fake_pilot)
+    monkeypatch.setattr(mod, "pilot_score", fake_pilot)
 
     # Use the real default assessor path (assessor_fn=None triggers it)
     n = mod.score_gold_pairs(db, run_id="t-real")

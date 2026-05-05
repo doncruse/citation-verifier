@@ -38,7 +38,6 @@ from eyecite.models import FullCaseCitation
 from eyecite.tokenizers import AhocorasickTokenizer
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
-sys.path.insert(0, str(PROJECT_ROOT / "src"))
 
 from citation_verifier.client import CourtListenerClient  # noqa: E402
 from citation_verifier.models import VerificationStatus  # noqa: E402
