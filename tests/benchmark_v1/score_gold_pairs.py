@@ -35,7 +35,7 @@ def _load_pilot_assessor():
     """
     if "pilot_a_score" in sys.modules:
         return sys.modules["pilot_a_score"]
-    p = PROJECT_ROOT / "tests" / "pilot_a" / "score.py"
+    p = PROJECT_ROOT / "benchmark" / "pilot_a" / "score.py"
     spec = importlib.util.spec_from_file_location("pilot_a_score", p)
     mod = importlib.util.module_from_spec(spec)
     sys.modules["pilot_a_score"] = mod

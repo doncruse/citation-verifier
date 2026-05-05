@@ -27,15 +27,15 @@ from citation_verifier.gold_db import GoldDB  # noqa: E402
 PROMPT_VERSION = "v1-fulltext"
 MODEL_DB_NAME = {"sonnet": "sonnet-4.6", "haiku": "haiku-4.5", "opus": "opus-4.7"}
 OPINION_CACHE_DIRS = [
-    PROJECT_ROOT / "scratch" / "pilot_a" / "opinion_cache",
-    PROJECT_ROOT / "benchmark_v1" / "_opinion_cache",
+    PROJECT_ROOT / "benchmark" / "pilot_a" / "cited_opinion_cache",
+    PROJECT_ROOT / "benchmark" / "releases" / "v1" / "citing_opinion_cache",
 ]
 
 
 def _load_pilot():
     if "pilot_a_score" in sys.modules:
         return sys.modules["pilot_a_score"]
-    p = PROJECT_ROOT / "tests" / "pilot_a" / "score.py"
+    p = PROJECT_ROOT / "benchmark" / "pilot_a" / "score.py"
     spec = importlib.util.spec_from_file_location("pilot_a_score", p)
     mod = importlib.util.module_from_spec(spec)
     sys.modules["pilot_a_score"] = mod

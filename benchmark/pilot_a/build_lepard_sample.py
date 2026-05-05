@@ -6,7 +6,7 @@ empirically on 2026-04-26): `source_*` is the older / **cited** case and
 immediately preceding the citation in the citing opinion) as the proposition,
 and (`source_name`, `source_cite`) as the gold case.
 
-Output: scratch/pilot_a/lepard_sample.csv with columns:
+Output: benchmark/pilot_a/lepard_sample.csv with columns:
     id, proposition, gold_name, gold_cite, citing_court, citing_year,
     cited_year, source_quote
 """
@@ -21,7 +21,7 @@ from pathlib import Path
 from datasets import load_dataset
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
-OUT = PROJECT_ROOT / "scratch" / "pilot_a" / "lepard_sample.csv"
+OUT = PROJECT_ROOT / "benchmark" / "pilot_a" / "lepard_sample.csv"
 
 SAMPLE_SIZE = 50
 SHUFFLE_BUFFER = 20_000

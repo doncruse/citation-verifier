@@ -13,7 +13,7 @@ Pipeline:
     4. Verify the cited case via the citation-verifier batch lookup.
     5. Random sample 50 from the verified pool (seed=42).
 
-Output: scratch/pilot_a/fresh_dc_sample.csv with the same column schema as
+Output: benchmark/pilot_a/fresh_dc_sample.csv with the same column schema as
 lepard_sample.csv, but `proposition` is the parenthetical and `gold_*` is
 what eyecite extracted (case name + reporter citation).
 """
@@ -40,8 +40,8 @@ from citation_verifier.models import VerificationStatus  # noqa: E402
 from citation_verifier.parser import parsed_citation_from_eyecite  # noqa: E402
 from citation_verifier.verifier import CitationVerifier  # noqa: E402
 
-OUT = PROJECT_ROOT / "scratch" / "pilot_a" / "fresh_dc_sample.csv"
-PARENS_RAW = PROJECT_ROOT / "scratch" / "pilot_a" / "fresh_dc_parens_raw.json"
+OUT = PROJECT_ROOT / "benchmark" / "pilot_a" / "fresh_dc_sample.csv"
+PARENS_RAW = PROJECT_ROOT / "benchmark" / "pilot_a" / "fresh_dc_parens_raw.json"
 
 COURT_ID = "dcd"
 DATE_FROM = "2026-01-01"
@@ -140,7 +140,7 @@ def fetch_opinion_list(client: CourtListenerClient) -> list[dict[str, Any]]:
     return out
 
 
-OPINION_TEXT_CACHE = PROJECT_ROOT / "scratch" / "pilot_a" / "_dcd_opinion_cache"
+OPINION_TEXT_CACHE = PROJECT_ROOT / "benchmark" / "pilot_a" / "dcd_citing_opinion_cache"
 
 
 def fetch_opinion_text(client: CourtListenerClient, cluster_id: int) -> str:
@@ -162,7 +162,12 @@ def fetch_opinion_text(client: CourtListenerClient, cluster_id: int) -> str:
 
 
 def extract_parentheticals(text: str, tokenizer: AhocorasickTokenizer) -> list[dict[str, Any]]:
-    """Return [{citation_text, case_name, parenthetical, year, court, fcc}] tuples."""
+    """Return [{citation_text, full_citation_text, case_name, parenthetical, year, month, day, court, fcc}] tuples.
+
+    `full_citation_text` is the source-text slice covering the entire citation
+    (case name + reporter + court + date + parenthetical), so downstream
+    consumers can re-parse if eyecite metadata extraction drops a field.
+    """
     out: list[dict[str, Any]] = []
     if not text:
         return out
@@ -191,11 +196,19 @@ def extract_parentheticals(text: str, tokenizer: AhocorasickTokenizer) -> list[d
             case_name = defendant
         if not case_name:
             continue
+        try:
+            fs_start, fs_end = c.full_span()
+            full_citation_text = text[fs_start:fs_end]
+        except Exception:
+            full_citation_text = c.matched_text()
         out.append({
             "citation_text": c.matched_text(),
+            "full_citation_text": full_citation_text,
             "case_name": case_name,
             "parenthetical": paren,
             "year": meta.year or "",
+            "month": meta.month or "",
+            "day": meta.day or "",
             "court": meta.court or "",
             "fcc": c,  # keep for downstream verification
         })

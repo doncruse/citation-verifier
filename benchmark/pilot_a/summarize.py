@@ -1,6 +1,6 @@
 """Summarize Pilot A results: per-sample stats + bootstrap CI on the diff.
 
-Reads scratch/pilot_a/results.csv. Writes scratch/pilot_a/summary.md with:
+Reads benchmark/pilot_a/results.csv. Writes benchmark/pilot_a/summary.md with:
     - Headline accuracy (% Green) per sample
     - Hallucination rate per sample
     - "Right case" rate per sample
@@ -16,8 +16,8 @@ import statistics
 from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
-RESULTS = PROJECT_ROOT / "scratch" / "pilot_a" / "results.csv"
-OUT = PROJECT_ROOT / "scratch" / "pilot_a" / "summary.md"
+RESULTS = PROJECT_ROOT / "benchmark" / "pilot_a" / "results.csv"
+OUT = PROJECT_ROOT / "benchmark" / "pilot_a" / "summary.md"
 
 
 def load(path: Path) -> tuple[list[dict], list[dict]]:

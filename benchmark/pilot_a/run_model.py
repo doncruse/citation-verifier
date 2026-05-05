@@ -2,7 +2,7 @@
 
 Loads both lepard_sample.csv and fresh_dc_sample.csv, runs the standardized
 prompt template once per row through `claude -p`, and writes raw outputs to
-scratch/pilot_a/model_outputs.csv.
+benchmark/pilot_a/model_outputs.csv.
 
 Uses the `claude -p` subprocess pattern from tests/ab_test_runner.py to keep
 authentication and infra consistent with the rest of the repo.
@@ -27,9 +27,9 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
 # We run from a hermetic temp dir to bypass that.
 _HERMETIC_DIR = Path(tempfile.mkdtemp(prefix="pilot_a_hermetic_"))
 
-LEPARD = PROJECT_ROOT / "scratch" / "pilot_a" / "lepard_sample.csv"
-FRESH = PROJECT_ROOT / "scratch" / "pilot_a" / "fresh_dc_sample.csv"
-OUT = PROJECT_ROOT / "scratch" / "pilot_a" / "model_outputs.csv"
+LEPARD = PROJECT_ROOT / "benchmark" / "pilot_a" / "lepard_sample.csv"
+FRESH = PROJECT_ROOT / "benchmark" / "pilot_a" / "fresh_dc_sample.csv"
+OUT = PROJECT_ROOT / "benchmark" / "pilot_a" / "model_outputs.csv"
 
 PROMPT_TEMPLATE = """You are a legal research assistant. I will give you a legal proposition.
 Name a US federal case that supports it.

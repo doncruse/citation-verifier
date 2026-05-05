@@ -23,7 +23,7 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
 sys.path.insert(0, str(PROJECT_ROOT / "src"))
 
 # Reuse Pilot A's helpers verbatim where possible.
-sys.path.insert(0, str(PROJECT_ROOT / "tests" / "pilot_a"))
+sys.path.insert(0, str(PROJECT_ROOT / "benchmark" / "pilot_a"))
 from build_fresh_dc_sample import (  # noqa: E402
     HOLDING_VERBS,
     MIN_WORDS,
@@ -102,7 +102,7 @@ def fetch_opinion_text(client: CourtListenerClient, cluster_id: int) -> str:
     if cache.exists():
         return cache.read_text(encoding="utf-8", errors="replace")
     # Fallback: try Pilot A's cache too
-    pilot_cache = (PROJECT_ROOT / "scratch" / "pilot_a" / "_dcd_opinion_cache"
+    pilot_cache = (PROJECT_ROOT / "benchmark" / "pilot_a" / "dcd_citing_opinion_cache"
                    / f"{cluster_id}.txt")
     if pilot_cache.exists():
         text = pilot_cache.read_text(encoding="utf-8", errors="replace")

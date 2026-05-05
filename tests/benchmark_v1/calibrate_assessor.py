@@ -57,7 +57,7 @@ RESULTS_CSV = BENCH / "results.csv"
 # v1's score.py used pilot_a's cache for CITED opinion text. The
 # benchmark/releases/v1/citing_opinion_cache directory holds CITING-court opinions
 # used during dataset mining — different artifact, do not confuse.
-OPINION_CACHE = PROJECT_ROOT / "scratch" / "pilot_a" / "opinion_cache"
+OPINION_CACHE = PROJECT_ROOT / "benchmark" / "pilot_a" / "cited_opinion_cache"
 OUT_CSV = BENCH / "calibration_results.csv"
 
 # Same truncation v1's Opus calls used. Keeps the comparison apples-to-apples.

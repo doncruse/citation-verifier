@@ -17,12 +17,12 @@ tests/data/results/verification_*.json
 scratch/hallucination_opinions/
 
 # Pilot A opinion-text caches (regenerable, ~5-25 MB each)
-scratch/pilot_a/_dcd_opinion_cache/
-scratch/pilot_a/opinion_cache/
+benchmark/pilot_a/cited_opinion_cache/
+benchmark/pilot_a/dcd_citing_opinion_cache/
 
 # Pilot A run logs (chatty eyecite warnings, regenerable)
-scratch/pilot_a/_*.txt
-scratch/pilot_a/_smoke_*.csv
+benchmark/pilot_a/_*.txt
+benchmark/pilot_a/_smoke_*.csv
 
 # Private working notes (not for public repo)
 docs/mcp-feedback.md

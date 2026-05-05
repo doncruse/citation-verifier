@@ -9,7 +9,7 @@ For each row in model_outputs.csv:
                             model's named case + the downloaded opinion text,
                             score Green / Yellow / Red.
 
-Writes scratch/pilot_a/results.csv. We use Sonnet for the substance assessor
+Writes benchmark/pilot_a/results.csv. We use Sonnet for the substance assessor
 to bound pilot cost; the parent benchmark spec calls for Opus, but the
 contamination signal we're chasing should be robust to assessor choice.
 
@@ -46,9 +46,9 @@ from citation_verifier.name_matcher import CaseNameMatcher  # noqa: E402
 from citation_verifier.parser import parsed_citation_from_eyecite  # noqa: E402
 from citation_verifier.verifier import CitationVerifier  # noqa: E402
 
-MODEL_OUTPUTS = PROJECT_ROOT / "scratch" / "pilot_a" / "model_outputs.csv"
-RESULTS = PROJECT_ROOT / "scratch" / "pilot_a" / "results.csv"
-OPINIONS_CACHE = PROJECT_ROOT / "scratch" / "pilot_a" / "opinion_cache"
+MODEL_OUTPUTS = PROJECT_ROOT / "benchmark" / "pilot_a" / "model_outputs.csv"
+RESULTS = PROJECT_ROOT / "benchmark" / "pilot_a" / "results.csv"
+OPINIONS_CACHE = PROJECT_ROOT / "benchmark" / "pilot_a" / "cited_opinion_cache"
 
 ASSESSOR_MODEL = "sonnet"
 ASSESSOR_TIMEOUT = 90
