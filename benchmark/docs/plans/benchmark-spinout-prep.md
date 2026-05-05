@@ -17,7 +17,7 @@ Current decisions:
 | 1. `verify-batch` CLI | **shipped, reframed** | Built and tested ([`tests/test_cli_verify_batch.py`](../../tests/test_cli_verify_batch.py)). Originally pitched as "removes 50 lines of imports from benchmark." Reality is closer to ~5 lines, AND the wire format doesn't carry eyecite FCC-flavored parses (volume/reporter/page) that benchmark currently passes via `parsed_citation_from_eyecite`. Net: the CLI is a real user-facing convenience for ad-hoc CSVs and briefs work, but it is **not** the canonical replacement for benchmark's import surface. Don't lock the wire format until v1.1 tells us what it actually needs. |
 | 2. `verify --json` | **shipped, with `candidates`/`error` retained** | The required fields from the plan are present ([`tests/test_cli_verify_json.py`](../../tests/test_cli_verify_json.py)). Walked back an earlier choice to drop `candidates`/`error` for strict CSV-symmetry — those stayed useful for single-citation debugging, and the symmetry argument weakens once Task 1 isn't load-bearing. |
 | 3. API.md | **deferred** | API.md is most useful paired with a publish step. Standalone, it duplicates `__init__.py` and `CLAUDE.md`. Revisit when Task 5 is imminent. |
-| 4. `audit-misses` CLI | **next** | Most concrete ROI: the workflow has been hand-built twice this session (`benchmark_v1/_all_cl_misses.csv` is the artifact) and the audit feeds the FLP-findings HTML, so it has a second use beyond benchmark-internal scoring. Promoted ahead of 1/3/5. |
+| 4. `audit-misses` CLI | **next** | Most concrete ROI: the workflow has been hand-built twice this session (`benchmark/releases/v1/_all_cl_misses.csv` is the artifact) and the audit feeds the FLP-findings HTML, so it has a second use beyond benchmark-internal scoring. Promoted ahead of 1/3/5. |
 | 5. PyPI publish | **deferred** | Without v1.1 in flight or a forker on the horizon, publishing 0.1.0 means every change to citation-verifier between now and the actual spin-out either honors a published API (paying stability cost without spin-out benefit) or drifts from it (paying publish cost without stability benefit). Revisit when v1.1 is in flight or a forker shows up. |
 | 6. `citation_verifier.benchmark` helpers | **deferred** | Lower priority even in the original plan. No change. |
 
@@ -29,10 +29,10 @@ The original task descriptions below are kept as-is for the eventual revisit.
 
 ## Where things stand (May 2026)
 
-- Benchmark v1 is shipped: `benchmark_v1/{report.html, courtlistener-findings.html, scorecards-deduped.md, README.md}` plus the data files. All on `main`.
+- Benchmark v1 is shipped: `benchmark/releases/v1/{report.html, courtlistener-findings.html, scorecards-deduped.md, README.md}` plus the data files. All on `main`.
 - v1.1 work is queued in `benchmark-roadmap.md` — mining-stage dedup, verified-citations cache, stratified sampling by tier, per-case metadata extraction, multi-source existence oracle, etc.
 - Citation-verifier is not on PyPI, has no stable API doc, and the benchmark imports ~6 internal modules (parser, models, verifier, court_map, client, court_abbrev).
-- This session built up substantial audit infrastructure (`benchmark_v1/_all_cl_misses.csv` with 94 hand-verified rows, fallback path attribution, etc.) — those workflows are good candidates for promoting into citation-verifier as CLI commands.
+- This session built up substantial audit infrastructure (`benchmark/releases/v1/_all_cl_misses.csv` with 94 hand-verified rows, fallback path attribution, etc.) — those workflows are good candidates for promoting into citation-verifier as CLI commands.
 
 ---
 
@@ -42,7 +42,7 @@ The first three (#1, #2, #5) are the spin-out blockers. The rest are convenience
 
 ### 1. `citation-verifier verify-batch` CLI subcommand
 
-**What:** A subcommand that takes a CSV of citations and outputs a CSV with verification results. Mirrors what `tests/benchmark_v1/score.py` does internally today, exposed as a tool benchmark can call without importing.
+**What:** A subcommand that takes a CSV of citations and outputs a CSV with verification results. Mirrors what `benchmark/runners/score.py` does internally today, exposed as a tool benchmark can call without importing.
 
 **Interface:**
 ```bash
@@ -141,7 +141,7 @@ citation-verifier verify-batch input.csv \
 
 Suggested order in a session that picks this up:
 
-1. Read this doc + `benchmark-roadmap.md` + `benchmark_v1/courtlistener-findings.html` (the audit shape informs the CLI design)
+1. Read this doc + `benchmark-roadmap.md` + `benchmark/releases/v1/courtlistener-findings.html` (the audit shape informs the CLI design)
 2. Implement Task 1 (`verify-batch` CLI) with tests — biggest unlock, ~half a day
 3. Implement Task 2 (`--json` for single verify) — quick, ~hour
 4. Write Task 3 (API.md) — docs only, ~hour
@@ -149,7 +149,7 @@ Suggested order in a session that picks this up:
 6. Then Task 4 + Task 6 as time permits, or defer to v1.1
 
 After Tasks 1-3-5 land, the benchmark can plausibly move:
-- `benchmark_v1/` → new `case-law-retrieval-benchmark` repo
+- `benchmark/releases/v1/` → new `case-law-retrieval-benchmark` repo
 - `requirements.txt` pins `citation-verifier>=0.1`
 - Audit scripts (`_relayer_fallback.py`-style work) become `citation-verifier audit-misses` shell-outs
 
@@ -180,10 +180,10 @@ tests/test_brief_pipeline.py  # verify-brief subcommand
 # (no existing test for the verify-batch CLI subcommand because it doesn't exist yet)
 
 # Reference for what verify-batch should do internally:
-tests/benchmark_v1/score.py   # batch-verifies 600 cells; the canonical usage pattern
+benchmark/runners/score.py   # batch-verifies 600 cells; the canonical usage pattern
 
 # Audit scripts that motivated task 4:
-benchmark_v1/_all_cl_misses.csv  # the data shape audit-misses should produce
+benchmark/releases/v1/_all_cl_misses.csv  # the data shape audit-misses should produce
 
 # Don't forget Windows env:
 venv/Scripts/python.exe -m pytest tests/test_verifier.py -v

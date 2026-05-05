@@ -44,7 +44,7 @@ explicitly transfers to v2 and what doesn't? Default working position:
   item in `benchmark-roadmap.md`). v2 scope expansion (circuits + SCOTUS)
   is additive plumbing, not a non-transfer. The 20K truncation lives in
   score-side code (`pilot_a/score.py:fetch_opinion_text` plus an
-  `OPINION_WINDOW = 20_000` constant in `tests/benchmark_v1/score.py`)
+  `OPINION_WINDOW = 20_000` constant in `benchmark/runners/score.py`)
   and is tracked separately under assessor configuration, not mining;
   `build_dataset.py` has its own non-truncating fetcher.
 - v1's assessor configuration does *not* transfer until tensions in

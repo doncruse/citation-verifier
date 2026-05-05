@@ -4,7 +4,7 @@
 
 **Goal:** Build a 3-model leaderboard (Sonnet 4.6 / Opus 4.7 / GPT-5) on 200 fresh-mined federal district parentheticals, scored on Real / Name-match / Supports axes by Opus 4.7.
 
-**Architecture:** Five separately-runnable scripts in `tests/benchmark_v1/` mirroring Pilot A's pattern: build dataset → run each model → score → scorecard. Output to `benchmark_v1/` at repo root.
+**Architecture:** Five separately-runnable scripts in `benchmark/runners/` mirroring Pilot A's pattern: build dataset → run each model → score → scorecard. Output to `benchmark/releases/v1/` at repo root.
 
 **Tech Stack:** Python 3.10+, eyecite, citation-verifier, `claude -p` CLI for Claude models, `openai` SDK for GPT-5.
 
@@ -72,15 +72,15 @@ git commit -m "deps: add openai SDK for benchmark v1 GPT-5 calls"
 ## Task 1: Scaffold benchmark_v1 module and output dir
 
 **Files:**
-- Create: `tests/benchmark_v1/__init__.py`
-- Create: `benchmark_v1/.gitkeep`
+- Create: `benchmark/runners/__init__.py`
+- Create: `benchmark/releases/v1/.gitkeep`
 - Modify: `.gitignore`
 
 - [ ] **Step 1: Make directories**
 
 ```bash
 mkdir -p tests/benchmark_v1 benchmark_v1
-touch tests/benchmark_v1/__init__.py benchmark_v1/.gitkeep
+touch benchmark/runners/__init__.py benchmark/releases/v1/.gitkeep
 ```
 
 - [ ] **Step 2: gitignore the OpenAI/Claude output caches but keep the deliverables**
@@ -89,10 +89,10 @@ Edit `.gitignore`, add:
 
 ```
 # Benchmark v1 — opinion-text caches (regenerable)
-benchmark_v1/_opinion_cache/
+benchmark/releases/v1/citing_opinion_cache/
 
 # Benchmark v1 — chatty run logs (regenerable; keep CSVs and markdown)
-benchmark_v1/_*.txt
+benchmark/releases/v1/_*.txt
 ```
 
 Note: outputs_*.csv, results.csv, dataset.csv, scorecards.md, README.md are **all** committed (per the user preference: "always commit working data").
@@ -100,7 +100,7 @@ Note: outputs_*.csv, results.csv, dataset.csv, scorecards.md, README.md are **al
 - [ ] **Step 3: Commit**
 
 ```bash
-git add tests/benchmark_v1/__init__.py benchmark_v1/.gitkeep .gitignore
+git add benchmark/runners/__init__.py benchmark/releases/v1/.gitkeep .gitignore
 git commit -m "scaffold: benchmark_v1 module + output dir"
 ```
 
@@ -109,13 +109,13 @@ git commit -m "scaffold: benchmark_v1 module + output dir"
 ## Task 2: Build the multi-district dataset
 
 **Files:**
-- Create: `tests/benchmark_v1/build_dataset.py`
+- Create: `benchmark/runners/build_dataset.py`
 
 **Why:** Pilot A's mining code is tied to D.D.C. Need a parameterized version that loops over 5 districts and applies the precedential-status fix.
 
 - [ ] **Step 1: Write build_dataset.py**
 
-Create `tests/benchmark_v1/build_dataset.py`:
+Create `benchmark/runners/build_dataset.py`:
 
 ```python
 """Mine 40 parentheticals each from 5 federal districts -> dataset.csv.
@@ -367,15 +367,15 @@ if __name__ == "__main__":
 Add a `--limit` arg to limit OPINIONS_PER_COURT before running for real. Or simpler: edit `OPINIONS_PER_COURT = 30` temporarily, run, verify the script works end to end on DDC alone, then revert.
 
 ```bash
-"venv/Scripts/python.exe" tests/benchmark_v1/build_dataset.py 2>&1 | tee benchmark_v1/_build_smoke.txt
+"venv/Scripts/python.exe" benchmark/runners/build_dataset.py 2>&1 | tee benchmark/releases/v1/_build_smoke.txt
 ```
 
-Expected: produces `benchmark_v1/dataset.csv` with some rows (likely fewer than 200 since limit was reduced). No tracebacks.
+Expected: produces `benchmark/releases/v1/dataset.csv` with some rows (likely fewer than 200 since limit was reduced). No tracebacks.
 
 - [ ] **Step 3: Restore OPINIONS_PER_COURT = 200 and run for real**
 
 ```bash
-"venv/Scripts/python.exe" tests/benchmark_v1/build_dataset.py 2>&1 | tee benchmark_v1/_build_log.txt
+"venv/Scripts/python.exe" benchmark/runners/build_dataset.py 2>&1 | tee benchmark/releases/v1/_build_log.txt
 ```
 
 Expected: ~30+ minutes runtime (5 districts × ~5 min each). Final output reports total rows and per-district counts.
@@ -385,7 +385,7 @@ Expected: ~30+ minutes runtime (5 districts × ~5 min each). Final output report
 ```bash
 "venv/Scripts/python.exe" -c "
 import csv
-rows = list(csv.DictReader(open('benchmark_v1/dataset.csv', encoding='utf-8')))
+rows = list(csv.DictReader(open('benchmark/releases/v1/dataset.csv', encoding='utf-8')))
 from collections import Counter
 print(f'rows: {len(rows)}')
 print(f'per-court: {Counter(r[\"court\"] for r in rows)}')
@@ -398,7 +398,7 @@ Expected: 200 rows (or close — spec allows graceful degrade), 40 per court, mo
 - [ ] **Step 5: Commit**
 
 ```bash
-git add tests/benchmark_v1/build_dataset.py benchmark_v1/dataset.csv benchmark_v1/_raw_pool.json
+git add benchmark/runners/build_dataset.py benchmark/releases/v1/dataset.csv benchmark/releases/v1/_raw_pool.json
 git commit -m "benchmark v1: dataset — 200 fresh parens across 5 districts"
 ```
 
@@ -407,14 +407,14 @@ git commit -m "benchmark v1: dataset — 200 fresh parens across 5 districts"
 ## Task 3: Model adapter with unit tests
 
 **Files:**
-- Create: `tests/benchmark_v1/model_adapter.py`
-- Create: `tests/benchmark_v1/test_model_adapter.py`
+- Create: `benchmark/runners/model_adapter.py`
+- Create: `benchmark/runners/test_model_adapter.py`
 
 **Why:** Need a unified `call_model(prompt, model_name) → dict` so `run_model.py` is symmetric across Sonnet/Opus/GPT-5.
 
 - [ ] **Step 1: Write the failing tests**
 
-Create `tests/benchmark_v1/test_model_adapter.py`:
+Create `benchmark/runners/test_model_adapter.py`:
 
 ```python
 """Unit tests for model_adapter (mocked subprocess + openai)."""
@@ -425,7 +425,7 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
-from tests.benchmark_v1 import model_adapter as ma
+from benchmark.runners import model_adapter as ma
 
 
 def test_route_sonnet_uses_claude_cli():
@@ -434,7 +434,7 @@ def test_route_sonnet_uses_claude_cli():
         "total_cost_usd": 0.05,
         "usage": {"input_tokens": 100, "output_tokens": 20},
     }), stderr="", returncode=0)
-    with patch("tests.benchmark_v1.model_adapter.subprocess.run",
+    with patch("benchmark.runners.model_adapter.subprocess.run",
                return_value=fake_proc) as mock_run:
         result = ma.call_model("test prompt", "sonnet")
     assert mock_run.called
@@ -451,7 +451,7 @@ def test_route_opus_uses_claude_cli_with_opus():
     fake_proc = MagicMock(stdout=json.dumps({
         "result": "UNKNOWN", "total_cost_usd": 0.10, "usage": {}
     }), stderr="", returncode=0)
-    with patch("tests.benchmark_v1.model_adapter.subprocess.run",
+    with patch("benchmark.runners.model_adapter.subprocess.run",
                return_value=fake_proc) as mock_run:
         ma.call_model("p", "opus")
     cmd = mock_run.call_args[0][0]
@@ -466,7 +466,7 @@ def test_route_gpt5_uses_openai_without_temperature():
     fake_completion.model = "gpt-5-2025-08-07"
     fake_client = MagicMock()
     fake_client.chat.completions.create.return_value = fake_completion
-    with patch("tests.benchmark_v1.model_adapter._openai_client",
+    with patch("benchmark.runners.model_adapter._openai_client",
                return_value=fake_client):
         result = ma.call_model("p", "gpt-5")
     # Verify the API call did NOT include temperature
@@ -486,7 +486,7 @@ def test_unknown_model_raises():
 
 def test_claude_timeout_returns_none_response():
     import subprocess
-    with patch("tests.benchmark_v1.model_adapter.subprocess.run",
+    with patch("benchmark.runners.model_adapter.subprocess.run",
                side_effect=subprocess.TimeoutExpired(cmd="claude", timeout=60)):
         result = ma.call_model("p", "sonnet", timeout_s=60)
     assert result["response"] == ""
@@ -496,14 +496,14 @@ def test_claude_timeout_returns_none_response():
 - [ ] **Step 2: Run tests to verify they fail**
 
 ```bash
-"venv/Scripts/python.exe" -m pytest tests/benchmark_v1/test_model_adapter.py -v
+"venv/Scripts/python.exe" -m pytest benchmark/runners/test_model_adapter.py -v
 ```
 
 Expected: ImportError or ModuleNotFoundError (model_adapter doesn't exist yet).
 
 - [ ] **Step 3: Write the adapter**
 
-Create `tests/benchmark_v1/model_adapter.py`:
+Create `benchmark/runners/model_adapter.py`:
 
 ```python
 """Unified call interface for Sonnet / Opus / GPT-5.
@@ -628,7 +628,7 @@ def call_model(prompt: str, model_name: str, timeout_s: int = 60) -> dict:
 - [ ] **Step 4: Run tests, verify pass**
 
 ```bash
-"venv/Scripts/python.exe" -m pytest tests/benchmark_v1/test_model_adapter.py -v
+"venv/Scripts/python.exe" -m pytest benchmark/runners/test_model_adapter.py -v
 ```
 
 Expected: 5 passed.
@@ -637,7 +637,7 @@ Expected: 5 passed.
 
 ```bash
 "venv/Scripts/python.exe" -c "
-from tests.benchmark_v1.model_adapter import call_model, PROMPT_TEMPLATE
+from benchmark.runners.model_adapter import call_model, PROMPT_TEMPLATE
 prop = 'A grand jury subpoena requires a judicial finding of probable cause.'
 for model in ['sonnet', 'opus', 'gpt-5']:
     print(f'=== {model} ===')
@@ -654,7 +654,7 @@ Expected: each model returns a citation or "UNKNOWN" or refuses, within ~30s. No
 - [ ] **Step 6: Commit**
 
 ```bash
-git add tests/benchmark_v1/model_adapter.py tests/benchmark_v1/test_model_adapter.py
+git add benchmark/runners/model_adapter.py benchmark/runners/test_model_adapter.py
 git commit -m "benchmark v1: model adapter (Claude CLI + OpenAI SDK)"
 ```
 
@@ -663,7 +663,7 @@ git commit -m "benchmark v1: model adapter (Claude CLI + OpenAI SDK)"
 ## Task 4: run_model.py — single-model runner
 
 **Files:**
-- Create: `tests/benchmark_v1/run_model.py`
+- Create: `benchmark/runners/run_model.py`
 
 - [ ] **Step 1: Write run_model.py**
 
@@ -682,7 +682,7 @@ from pathlib import Path
 PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
 sys.path.insert(0, str(PROJECT_ROOT))
 
-from tests.benchmark_v1.model_adapter import call_model, PROMPT_TEMPLATE  # noqa: E402
+from benchmark.runners.model_adapter import call_model, PROMPT_TEMPLATE  # noqa: E402
 
 DATASET = PROJECT_ROOT / "benchmark_v1" / "dataset.csv"
 TIMEOUT_S = 60
@@ -694,7 +694,7 @@ def main() -> None:
     ap.add_argument("--limit", type=int, default=None,
                     help="run only the first N rows (smoke test)")
     ap.add_argument("--out", type=Path, default=None,
-                    help="output CSV; defaults to benchmark_v1/outputs_{model}.csv")
+                    help="output CSV; defaults to benchmark/releases/v1/outputs_{model}.csv")
     args = ap.parse_args()
 
     out = args.out or PROJECT_ROOT / "benchmark_v1" / f"outputs_{args.model.replace('-', '')}.csv"
@@ -747,7 +747,7 @@ if __name__ == "__main__":
 - [ ] **Step 2: Smoke-test on 3 rows of one model**
 
 ```bash
-"venv/Scripts/python.exe" tests/benchmark_v1/run_model.py --model sonnet --limit 3 --out benchmark_v1/_smoke_sonnet.csv
+"venv/Scripts/python.exe" benchmark/runners/run_model.py --model sonnet --limit 3 --out benchmark/releases/v1/_smoke_sonnet.csv
 ```
 
 Expected: 3 rows, no tracebacks.
@@ -758,12 +758,12 @@ These can run in parallel in three separate shells if you want. Each takes ~30 m
 
 Sequential is fine if quota matters:
 ```bash
-"venv/Scripts/python.exe" tests/benchmark_v1/run_model.py --model sonnet 2>&1 | tee benchmark_v1/_run_sonnet_log.txt
-"venv/Scripts/python.exe" tests/benchmark_v1/run_model.py --model opus   2>&1 | tee benchmark_v1/_run_opus_log.txt
-"venv/Scripts/python.exe" tests/benchmark_v1/run_model.py --model gpt-5  2>&1 | tee benchmark_v1/_run_gpt5_log.txt
+"venv/Scripts/python.exe" benchmark/runners/run_model.py --model sonnet 2>&1 | tee benchmark/releases/v1/_run_sonnet_log.txt
+"venv/Scripts/python.exe" benchmark/runners/run_model.py --model opus   2>&1 | tee benchmark/releases/v1/_run_opus_log.txt
+"venv/Scripts/python.exe" benchmark/runners/run_model.py --model gpt-5  2>&1 | tee benchmark/releases/v1/_run_gpt5_log.txt
 ```
 
-Expected: each produces `benchmark_v1/outputs_{sonnet,opus,gpt5}.csv` with 200 rows.
+Expected: each produces `benchmark/releases/v1/outputs_{sonnet,opus,gpt5}.csv` with 200 rows.
 
 - [ ] **Step 4: Verify all three output files**
 
@@ -771,7 +771,7 @@ Expected: each produces `benchmark_v1/outputs_{sonnet,opus,gpt5}.csv` with 200 r
 "venv/Scripts/python.exe" -c "
 import csv
 for m in ['sonnet', 'opus', 'gpt5']:
-    rows = list(csv.DictReader(open(f'benchmark_v1/outputs_{m}.csv', encoding='utf-8')))
+    rows = list(csv.DictReader(open(f'benchmark/releases/v1/outputs_{m}.csv', encoding='utf-8')))
     unk = sum(1 for r in rows if r['model_response'].strip().upper().startswith('UNKNOWN'))
     print(f'{m}: {len(rows)} rows, {unk} UNKNOWN')
 "
@@ -782,7 +782,7 @@ Expected: 200 rows each. UNKNOWN counts will vary per model.
 - [ ] **Step 5: Commit**
 
 ```bash
-git add tests/benchmark_v1/run_model.py benchmark_v1/outputs_sonnet.csv benchmark_v1/outputs_opus.csv benchmark_v1/outputs_gpt5.csv
+git add benchmark/runners/run_model.py benchmark/releases/v1/outputs_sonnet.csv benchmark/releases/v1/outputs_opus.csv benchmark/releases/v1/outputs_gpt5.csv
 git commit -m "benchmark v1: model outputs — Sonnet 4.6 / Opus 4.7 / GPT-5"
 ```
 
@@ -791,7 +791,7 @@ git commit -m "benchmark v1: model outputs — Sonnet 4.6 / Opus 4.7 / GPT-5"
 ## Task 5: score.py — three-axis scoring
 
 **Files:**
-- Create: `tests/benchmark_v1/score.py`
+- Create: `benchmark/runners/score.py`
 
 **Why:** Pilot A's score.py works on one CSV at a time. We need a version that joins three model outputs and produces one results.csv with (model, example) rows.
 
@@ -990,9 +990,9 @@ if __name__ == "__main__":
 
 - [ ] **Step 2: Patch Pilot A's call_assessor to accept a `model=` kwarg**
 
-Verified: `tests/pilot_a/score.py:193` is `def call_assessor(proposition, case_name_citation, opinion_text)` — no model param. We need to add one defaulting to "sonnet" so v1 can pass "opus" without breaking pilot_a's existing behavior.
+Verified: `benchmark/pilot_a/score.py:193` is `def call_assessor(proposition, case_name_citation, opinion_text)` — no model param. We need to add one defaulting to "sonnet" so v1 can pass "opus" without breaking pilot_a's existing behavior.
 
-Edit `tests/pilot_a/score.py`:
+Edit `benchmark/pilot_a/score.py`:
 
 ```python
 # Line 193 — change signature
@@ -1016,7 +1016,7 @@ Spot-check the new signature works:
 "venv/Scripts/python.exe" -c "
 from importlib.util import spec_from_file_location, module_from_spec
 import inspect
-spec = spec_from_file_location('pilot_score', 'tests/pilot_a/score.py')
+spec = spec_from_file_location('pilot_score', 'benchmark/pilot_a/score.py')
 m = module_from_spec(spec); spec.loader.exec_module(m)
 print(inspect.signature(m.call_assessor))
 "
@@ -1031,9 +1031,9 @@ Temporarily edit `outputs_sonnet.csv` etc. to a 3-row copy, or pass a flag to li
 "venv/Scripts/python.exe" -c "
 import csv, shutil
 for m in ['sonnet','opus','gpt5']:
-    src = f'benchmark_v1/outputs_{m}.csv'
+    src = f'benchmark/releases/v1/outputs_{m}.csv'
     rows = list(csv.DictReader(open(src, encoding='utf-8')))[:3]
-    with open(f'benchmark_v1/_smoke_outputs_{m}.csv','w',encoding='utf-8',newline='') as f:
+    with open(f'benchmark/releases/v1/_smoke_outputs_{m}.csv','w',encoding='utf-8',newline='') as f:
         w=csv.DictWriter(f, fieldnames=rows[0].keys(), quoting=csv.QUOTE_ALL); w.writeheader(); w.writerows(rows)
 "
 ```
@@ -1043,10 +1043,10 @@ Then patch score.py temporarily (or hack with a `--limit` arg) and run on the sm
 - [ ] **Step 4: Run score on full dataset**
 
 ```bash
-"venv/Scripts/python.exe" tests/benchmark_v1/score.py 2>&1 | tee benchmark_v1/_score_log.txt
+"venv/Scripts/python.exe" benchmark/runners/score.py 2>&1 | tee benchmark/releases/v1/_score_log.txt
 ```
 
-Expected: ~30+ minutes. Produces `benchmark_v1/results.csv` with 600 rows (200 × 3 models). Mid-run interruption is OK — script resumes.
+Expected: ~30+ minutes. Produces `benchmark/releases/v1/results.csv` with 600 rows (200 × 3 models). Mid-run interruption is OK — script resumes.
 
 - [ ] **Step 5: Verify results.csv**
 
@@ -1054,7 +1054,7 @@ Expected: ~30+ minutes. Produces `benchmark_v1/results.csv` with 600 rows (200 �
 "venv/Scripts/python.exe" -c "
 import csv
 from collections import Counter
-rows = list(csv.DictReader(open('benchmark_v1/results.csv', encoding='utf-8')))
+rows = list(csv.DictReader(open('benchmark/releases/v1/results.csv', encoding='utf-8')))
 print(f'rows: {len(rows)}')
 for m in ['sonnet','opus','gpt-5']:
     rs = [r for r in rows if r['model']==m]
@@ -1070,7 +1070,7 @@ Expected: 600 rows, 200 per model, varied real/name/green counts.
 - [ ] **Step 6: Commit**
 
 ```bash
-git add tests/benchmark_v1/score.py tests/pilot_a/score.py benchmark_v1/results.csv
+git add benchmark/runners/score.py benchmark/pilot_a/score.py benchmark/releases/v1/results.csv
 git commit -m "benchmark v1: scored — 3 axes × 3 models × 200 examples"
 ```
 
@@ -1079,8 +1079,8 @@ git commit -m "benchmark v1: scored — 3 axes × 3 models × 200 examples"
 ## Task 6: scorecard.py — aggregates and bootstrap CIs
 
 **Files:**
-- Create: `tests/benchmark_v1/scorecard.py`
-- Create: `tests/benchmark_v1/test_scorecard.py`
+- Create: `benchmark/runners/scorecard.py`
+- Create: `benchmark/runners/test_scorecard.py`
 
 - [ ] **Step 1: Write the failing tests**
 
@@ -1088,7 +1088,7 @@ git commit -m "benchmark v1: scored — 3 axes × 3 models × 200 examples"
 """Unit tests for scorecard bootstrap math."""
 from __future__ import annotations
 
-from tests.benchmark_v1 import scorecard as sc
+from benchmark.runners import scorecard as sc
 
 
 def test_pct_returns_zero_for_empty():
@@ -1128,7 +1128,7 @@ def test_bootstrap_diff_zero_overlap_when_identical():
 - [ ] **Step 2: Run tests, verify they fail**
 
 ```bash
-"venv/Scripts/python.exe" -m pytest tests/benchmark_v1/test_scorecard.py -v
+"venv/Scripts/python.exe" -m pytest benchmark/runners/test_scorecard.py -v
 ```
 
 Expected: ImportError.
@@ -1254,7 +1254,7 @@ if __name__ == "__main__":
 - [ ] **Step 4: Run unit tests, verify pass**
 
 ```bash
-"venv/Scripts/python.exe" -m pytest tests/benchmark_v1/test_scorecard.py -v
+"venv/Scripts/python.exe" -m pytest benchmark/runners/test_scorecard.py -v
 ```
 
 Expected: 5 passed.
@@ -1262,17 +1262,17 @@ Expected: 5 passed.
 - [ ] **Step 5: Run scorecard on real results**
 
 ```bash
-"venv/Scripts/python.exe" tests/benchmark_v1/scorecard.py
+"venv/Scripts/python.exe" benchmark/runners/scorecard.py
 ```
 
-Expected: prints the markdown report. Writes `benchmark_v1/scorecards.md`. Inspect the output:
+Expected: prints the markdown report. Writes `benchmark/releases/v1/scorecards.md`. Inspect the output:
 - Per-model headlines look reasonable (no NaN, no all-zero columns)
 - At least one pairwise diff has CI excluding 0 (success criterion); if not, document in README
 
 - [ ] **Step 6: Commit**
 
 ```bash
-git add tests/benchmark_v1/scorecard.py tests/benchmark_v1/test_scorecard.py benchmark_v1/scorecards.md
+git add benchmark/runners/scorecard.py benchmark/runners/test_scorecard.py benchmark/releases/v1/scorecards.md
 git commit -m "benchmark v1: scorecard with bootstrap CIs"
 ```
 
@@ -1281,7 +1281,7 @@ git commit -m "benchmark v1: scorecard with bootstrap CIs"
 ## Task 7: README and final integration
 
 **Files:**
-- Create: `benchmark_v1/README.md`
+- Create: `benchmark/releases/v1/README.md`
 
 - [ ] **Step 1: Write the README**
 
@@ -1313,18 +1313,18 @@ Requires:
 
 ```bash
 # Build dataset (~30 min)
-venv/Scripts/python.exe tests/benchmark_v1/build_dataset.py
+venv/Scripts/python.exe benchmark/runners/build_dataset.py
 
 # Run each model (~30 min each, can run in parallel shells)
-venv/Scripts/python.exe tests/benchmark_v1/run_model.py --model sonnet
-venv/Scripts/python.exe tests/benchmark_v1/run_model.py --model opus
-venv/Scripts/python.exe tests/benchmark_v1/run_model.py --model gpt-5
+venv/Scripts/python.exe benchmark/runners/run_model.py --model sonnet
+venv/Scripts/python.exe benchmark/runners/run_model.py --model opus
+venv/Scripts/python.exe benchmark/runners/run_model.py --model gpt-5
 
 # Score (~30 min)
-venv/Scripts/python.exe tests/benchmark_v1/score.py
+venv/Scripts/python.exe benchmark/runners/score.py
 
 # Generate scorecard (instant)
-venv/Scripts/python.exe tests/benchmark_v1/scorecard.py
+venv/Scripts/python.exe benchmark/runners/scorecard.py
 ```
 
 All scripts are idempotent — interrupted runs resume.
@@ -1348,17 +1348,17 @@ Walk through each item in the spec's "Success criteria" section:
 ```bash
 "venv/Scripts/python.exe" -c "
 import csv
-ds = list(csv.DictReader(open('benchmark_v1/dataset.csv', encoding='utf-8')))
+ds = list(csv.DictReader(open('benchmark/releases/v1/dataset.csv', encoding='utf-8')))
 print(f'[1] dataset.csv rows: {len(ds)} (target 200, allowed <200)')
 
 for m in ['sonnet','opus','gpt5']:
-    rows = list(csv.DictReader(open(f'benchmark_v1/outputs_{m}.csv', encoding='utf-8')))
+    rows = list(csv.DictReader(open(f'benchmark/releases/v1/outputs_{m}.csv', encoding='utf-8')))
     print(f'[2] outputs_{m}.csv rows: {len(rows)} (must equal {len(ds)})')
 
-results = list(csv.DictReader(open('benchmark_v1/results.csv', encoding='utf-8')))
+results = list(csv.DictReader(open('benchmark/releases/v1/results.csv', encoding='utf-8')))
 print(f'[3] results.csv cells: {len(results)} (must equal 3 * {len(ds)} = {3*len(ds)})')
 
-scorecard = open('benchmark_v1/scorecards.md', encoding='utf-8').read()
+scorecard = open('benchmark/releases/v1/scorecards.md', encoding='utf-8').read()
 print(f'[4] scorecards.md present: {len(scorecard)} chars')
 print(f'[5] CI-excludes-0 pair present: {\"**\" in scorecard}')
 "
@@ -1369,7 +1369,7 @@ If [5] is False, edit the README to add a note: "current frontier models are sta
 - [ ] **Step 3: Commit and push**
 
 ```bash
-git add benchmark_v1/README.md
+git add benchmark/releases/v1/README.md
 git commit -m "benchmark v1: README — reproduction instructions and scope"
 git push
 ```
@@ -1378,8 +1378,8 @@ git push
 
 ## Notes section (for engineer reference)
 
-- Pilot A's `tests/pilot_a/score.py` is reused directly — don't refactor in v1.
-- Opinion-text cache in `scratch/pilot_a/_dcd_opinion_cache/` is checked first (saves re-fetching DDC opinions).
+- Pilot A's `benchmark/pilot_a/score.py` is reused directly — don't refactor in v1.
+- Opinion-text cache in `benchmark/pilot_a/dcd_citing_opinion_cache/` is checked first (saves re-fetching DDC opinions).
 - All Claude calls run from a hermetic temp dir to avoid project CLAUDE.md leakage (Pilot A finding).
 - CL search must include `stat_Published=on&stat_Unknown=on` to access PACER-flagged district opinions (Pilot A finding).
 - `eyecite` parenthetical extraction breaks on multi-newline plain_text; `_normalize_text` collapses whitespace first (Pilot A finding).

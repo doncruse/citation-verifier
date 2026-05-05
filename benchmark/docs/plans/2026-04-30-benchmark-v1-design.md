@@ -2,7 +2,7 @@
 
 **Status:** Design, ready for implementation plan.
 **Parent design:** [2026-04-26-case-law-benchmark-design.md](2026-04-26-case-law-benchmark-design.md)
-**Predecessor pilot:** [2026-04-26-benchmark-pilot-a.md](2026-04-26-benchmark-pilot-a.md), results in [scratch/pilot_a/summary.md](../../scratch/pilot_a/summary.md)
+**Predecessor pilot:** [2026-04-26-benchmark-pilot-a.md](2026-04-26-benchmark-pilot-a.md), results in [benchmark/pilot_a/summary.md](../../benchmark/pilot_a/summary.md)
 **Date:** 2026-04-30
 
 ## What v1 produces
@@ -113,7 +113,7 @@ Headline metrics in scorecard:
 ## Output artifacts
 
 ```
-benchmark_v1/
+benchmark/releases/v1/
 ├── dataset.csv          # 200 rows, frozen, the benchmark instrument
 ├── outputs_sonnet.csv   # 200 rows, raw model responses
 ├── outputs_opus.csv     # 200 rows, raw model responses
@@ -123,21 +123,21 @@ benchmark_v1/
 └── README.md            # reproduction instructions, scope, caveats
 ```
 
-`benchmark_v1/` lives at repo root, not under `scratch/` — this is a published artifact, not working state.
+`benchmark/releases/v1/` lives at repo root, not under `scratch/` — this is a published artifact, not working state.
 
 ## Code organization
 
-New module `tests/benchmark_v1/` mirroring Pilot A's separately-runnable script pattern:
+New module `benchmark/runners/` mirroring Pilot A's separately-runnable script pattern:
 
 | Script | Purpose |
 |---|---|
-| `build_dataset.py` | Mine 40 parens × 5 districts → `benchmark_v1/dataset.csv` |
+| `build_dataset.py` | Mine 40 parens × 5 districts → `benchmark/releases/v1/dataset.csv` |
 | `model_adapter.py` | Unified call interface (Claude CLI + OpenAI SDK) |
-| `run_model.py --model {sonnet,opus,gpt-5}` | One model run; writes `benchmark_v1/outputs_{model}.csv` |
-| `score.py` | Joins all model outputs + runs Opus assessor → `benchmark_v1/results.csv` |
-| `scorecard.py` | Aggregate `results.csv` → `benchmark_v1/scorecards.md` |
+| `run_model.py --model {sonnet,opus,gpt-5}` | One model run; writes `benchmark/releases/v1/outputs_{model}.csv` |
+| `score.py` | Joins all model outputs + runs Opus assessor → `benchmark/releases/v1/results.csv` |
+| `scorecard.py` | Aggregate `results.csv` → `benchmark/releases/v1/scorecards.md` |
 
-Each script independently re-runnable. Mid-run failures don't lose work. Opinion-text cache reuses Pilot A's at `scratch/pilot_a/opinion_cache/` (avoids re-fetching the same case across model cells).
+Each script independently re-runnable. Mid-run failures don't lose work. Opinion-text cache reuses Pilot A's at `benchmark/pilot_a/cited_opinion_cache/` (avoids re-fetching the same case across model cells).
 
 ## Explicitly NOT in v1
 
@@ -205,10 +205,10 @@ Pilot A reported $8.40 notional for 100 model + ~30 assessor calls; v1 scales th
 
 V1 is shippable when:
 
-- [ ] `benchmark_v1/dataset.csv` has 200 rows (or documented < 200 with reason)
+- [ ] `benchmark/releases/v1/dataset.csv` has 200 rows (or documented < 200 with reason)
 - [ ] All 3 models produce outputs for every dataset row (with UNKNOWN allowed)
-- [ ] `benchmark_v1/results.csv` has all (model, example) cells scored
-- [ ] `benchmark_v1/scorecards.md` shows the leaderboard with CIs
+- [ ] `benchmark/releases/v1/results.csv` has all (model, example) cells scored
+- [ ] `benchmark/releases/v1/scorecards.md` shows the leaderboard with CIs
 - [ ] At least one pairwise model diff has CI excluding 0 (otherwise v1 doesn't differentiate models)
 - [ ] Reproduction instructions in README work from a clean clone
 

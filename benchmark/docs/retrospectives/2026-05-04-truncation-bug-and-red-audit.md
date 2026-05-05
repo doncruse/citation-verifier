@@ -16,7 +16,7 @@ The 28% Yellow+Red headline was dominated by Opus seeing only the first 20K of l
 
 ## Root cause
 
-`tests/pilot_a/score.py:fetch_opinion_text` silently truncates every opinion to `MAX_OPINION_CHARS = 20_000`:
+`benchmark/pilot_a/score.py:fetch_opinion_text` silently truncates every opinion to `MAX_OPINION_CHARS = 20_000`:
 
 ```python
 def fetch_opinion_text(client, cluster_id):
@@ -34,20 +34,20 @@ Cache files contain the full opinion (some 100K+ bytes), but the function caps e
 
 Three scripts in the benchmark stack ingested truncated opinions while believing they had longer windows:
 
-1. **`tests/benchmark_v1/score_gold_pairs.py` (Task 10).** Set `OPINION_WINDOW = 60000`, called `pilot.fetch_opinion_text(...)`, then `truncated = opinion_text[:OPINION_WINDOW]`. Both calls return 20K. **All 117 Task 10 gold-pair verdicts in `gold.db` are labeled `opinion_window_chars=60000` but were actually scored at 20K.**
+1. **`benchmark/runners/score_gold_pairs.py` (Task 10).** Set `OPINION_WINDOW = 60000`, called `pilot.fetch_opinion_text(...)`, then `truncated = opinion_text[:OPINION_WINDOW]`. Both calls return 20K. **All 117 Task 10 gold-pair verdicts in `gold.db` are labeled `opinion_window_chars=60000` but were actually scored at 20K.**
 
-2. **`tests/benchmark_v1/calibrate_assessor.py` (v1.1 calibration study).** Has its own `MAX_OPINION_CHARS = 20000` (line 64) and applies it on cache read (line 163). All three models — Opus, Sonnet, Haiku — saw the same 20K-truncated input. **The study's headline conclusion ("Sonnet/Haiku fail the 90% agreement bar; Opus stays as primary") is unsupported by full-text data.** A re-run at full text could produce different agreement rates because Opus's verdicts (the ground truth) shift heavily when the input changes.
+2. **`benchmark/runners/calibrate_assessor.py` (v1.1 calibration study).** Has its own `MAX_OPINION_CHARS = 20000` (line 64) and applies it on cache read (line 163). All three models — Opus, Sonnet, Haiku — saw the same 20K-truncated input. **The study's headline conclusion ("Sonnet/Haiku fail the 90% agreement bar; Opus stays as primary") is unsupported by full-text data.** A re-run at full text could produce different agreement rates because Opus's verdicts (the ground truth) shift heavily when the input changes.
 
-3. **`tests/benchmark_v1/score.py` main loop (Task 12).** Currently uses `OPINION_WINDOW = 20000` and calls `pilot.fetch_opinion_text` — internally consistent (both 20K), so its label is honest, but it's still operating at 20K when the v1 design intended ≥60K post-v1.1.
+3. **`benchmark/runners/score.py` main loop (Task 12).** Currently uses `OPINION_WINDOW = 20000` and calls `pilot.fetch_opinion_text` — internally consistent (both 20K), so its label is honest, but it's still operating at 20K when the v1 design intended ≥60K post-v1.1.
 
-The original truncation experiment (`tests/benchmark_v1/truncation_experiment.py`) is **not affected** — line 219 reads `cache.read_text(...)` directly, bypassing pilot_a's cap, then explicitly truncates to `MAX_OPINION_CHARS_NEW = 60000`. So the v1.1 finding that "60K flips 37% of 20K Reds" is real.
+The original truncation experiment (`benchmark/runners/truncation_experiment.py`) is **not affected** — line 219 reads `cache.read_text(...)` directly, bypassing pilot_a's cap, then explicitly truncates to `MAX_OPINION_CHARS_NEW = 60000`. So the v1.1 finding that "60K flips 37% of 20K Reds" is real.
 
 ## Audit method
 
-[tests/benchmark_v1/red_audit_fulltext.py](../../tests/benchmark_v1/red_audit_fulltext.py):
+[benchmark/runners/red_audit_fulltext.py](../../benchmark/runners/red_audit_fulltext.py):
 
 1. Query the 22 Red gold-pair verdicts from `gold.db`.
-2. Read the full cached opinion text directly (no truncation): try `scratch/pilot_a/opinion_cache/<cluster_id>.txt`, fall back to `benchmark_v1/_opinion_cache/<cluster_id>.txt`, fall back to a fresh CL fetch.
+2. Read the full cached opinion text directly (no truncation): try `benchmark/pilot_a/cited_opinion_cache/<cluster_id>.txt`, fall back to `benchmark/releases/v1/citing_opinion_cache/<cluster_id>.txt`, fall back to a fresh CL fetch.
 3. Pipe the prompt to `claude -p --model sonnet` via **stdin** (Windows `CreateProcess` rejects long CLI args — pilot_a's `claude -p <prompt>` form fails on opinions >~30K chars).
 4. Store verdicts under `assessor_prompt_version='v1-fulltext'` with `opinion_window_chars=NULL` to distinguish from canonical 20K and 60K entries.
 
@@ -113,7 +113,7 @@ So the actual genuine miscitation rate in v1 is **~1 case** (Festo). Mining-arti
 
 ## Artifacts
 
-- `tests/benchmark_v1/red_audit_fulltext.py` — the audit script (also usable for haiku/opus re-runs)
-- `gold_db/gold.db` — 22 new rows: `assessor_model='sonnet-4.6'`, `assessor_prompt_version='v1-fulltext'`, `opinion_window_chars=NULL`, `source='gold_pair'`
+- `benchmark/runners/red_audit_fulltext.py` — the audit script (also usable for haiku/opus re-runs)
+- `benchmark/gold_db/gold.db` — 22 new rows: `assessor_model='sonnet-4.6'`, `assessor_prompt_version='v1-fulltext'`, `opinion_window_chars=NULL`, `source='gold_pair'`
 - `scratch/red_audit_sonnet_fulltext_v2.log` — script output of the successful audit run
 - `scratch/red_audit_input.txt` — pre-audit data dump (proposition + Opus rationale per Red)

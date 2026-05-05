@@ -23,7 +23,7 @@ These items were called out in the v1 design as deferred. Keep them grouped so a
 | **Verified-citations cache** (`citation_text → cluster_id, case_name`) → *subsumed by [gold-DB](2026-05-03-gold-db-design.md)* | v1 has gold-case verifications in `dataset.csv` but doesn't reuse them — every scoring run re-asks CL for known-real cases | Speed (skip CL for cached hits), reliability (fewer chances for CL bugs to bite), and a diff-able audit artifact that grows across runs |
 | Stratified sampling by tier of cited case (target ~33% SCOTUS / circuit / district) | v1's gold cases are 60% circuit, 19% SCOTUS, only 9% district — driven by what district opinions cite, not what the benchmark needs to test. The hint that district-case retrieval is dramatically harder (Sonnet: 0 cited; Opus: 1/5 Green; GPT-5: 0/9 Green) is buried under low n | Lets us make a serious claim about district vs appellate hallucination rates instead of an n=5 hint |
 | **Per-case metadata extraction** (court ID + filing year of each cited case) → *gold-DB schema has the columns ([gold-DB design](2026-05-03-gold-db-design.md)); a one-shot CL fetch to fill them is a follow-up v1.2 item* | v1 records cited case name, citation, and CL cluster ID, but not the court or year of the cited case (the cluster has both — just unused). Without it we can't break down hallucination rate by jurisdiction or case age | Enables tier breakdown (the dimension above) without re-running, plus opens questions like "do models hallucinate more on older cases?" or "is recency bias real for legal retrieval?" |
-| Default opinion window 20K → 60K (or grep tool) | v1 used a 20K-char truncation. v1 follow-up (`benchmark_v1/truncation_experiment.md`) re-assessed every v1 Red at 60K and found 22/59 (37%) flipped to Green/Yellow. Per-model corrected Green rates: Sonnet 31.5% (no change), Opus 36.2% → 39.3%, GPT-5 46.2% → 52.4% | Eliminates the conservative-against-the-model bias the v1 caveats already disclosed. Cost: ~3× the assessor budget. A grep / relevance-aware retrieval tool would target relevance directly; deferred as future work |
+| Default opinion window 20K → 60K (or grep tool) | v1 used a 20K-char truncation. v1 follow-up (`benchmark/releases/v1/truncation_experiment.md`) re-assessed every v1 Red at 60K and found 22/59 (37%) flipped to Green/Yellow. Per-model corrected Green rates: Sonnet 31.5% (no change), Opus 36.2% → 39.3%, GPT-5 46.2% → 52.4% | Eliminates the conservative-against-the-model bias the v1 caveats already disclosed. Cost: ~3× the assessor budget. A grep / relevance-aware retrieval tool would target relevance directly; deferred as future work |
 | **Gold-DB itself** ([design](2026-05-03-gold-db-design.md), [plan](2026-05-03-gold-db-plan.md)) — in progress 2026-05-03 | v1's data was scattered across CSVs; verdicts repeated across runs; no shared corpus that outlives any one dataset | One cumulative SQLite artifact: build- and score-side caches, calibration self-scores as first-class data, schema for v2 fresh mining to extend |
 | **Fix `pilot_a/score.py:fetch_opinion_text` 20K truncation** — surfaced 2026-05-04 by gold-pair audit | Function silently caps every opinion at 20K chars; bypassed only by the original truncation experiment (which read cache directly). Affected Task 10's gold-pair self-scores, calibrate_assessor.py, and v1's main score.py loop. See [retrospective](../retrospectives/2026-05-04-truncation-bug-and-red-audit.md). | Honest-window measurements; lets v2's assessor see the full opinion by default; eliminates ~17 spurious Reds in the v1 gold-pair set |
 | **Fix eyecite parenthetical mis-attribution in chained citations** — surfaced 2026-05-04 by Reds-in-context audit | When a citation chain has form `Case_A; Case_B (parenthetical)` or `Case_A (quoting Z); see Case_B (parenthetical)`, eyecite/build_dataset sometimes attaches the substantive parenthetical to the wrong case. 3 of 5 v1 full-text Reds were this bug. Footnote text adjacent to a parenthetical can also leak in. See [retrospective](../retrospectives/2026-05-04-fulltext-assessor-comparison-and-mining-bugs.md). | v2 mining quality: today an unknown fraction of "verified" propositions are actually attributed to the wrong case but happen to score Green by luck. Fix is either upstream eyecite PR or post-processing in build_dataset.py. |
@@ -35,7 +35,7 @@ These items were called out in the v1 design as deferred. Keep them grouped so a
 
 ## v1.1 — Validation studies ✅ done (May 2026)
 
-> *Two small additive studies grouped under v1.1 because they validate v1's methodology without expanding scope: (a) the assessor calibration study (Sonnet/Haiku vs Opus) and (b) the 20K → 60K truncation re-test (`benchmark_v1/truncation_experiment.md` and `truncation_experiment_60k.csv`). Both are documented below; the calibration study has the bigger writeup. v1.2 is methodology hardening (gold-DB, dedup, stratified sampling, etc.).*
+> *Two small additive studies grouped under v1.1 because they validate v1's methodology without expanding scope: (a) the assessor calibration study (Sonnet/Haiku vs Opus) and (b) the 20K → 60K truncation re-test (`benchmark/releases/v1/truncation_experiment.md` and `truncation_experiment_60k.csv`). Both are documented below; the calibration study has the bigger writeup. v1.2 is methodology hardening (gold-DB, dedup, stratified sampling, etc.).*
 
 > ⚠️ **2026-05-04 update — calibration conclusion is provisional.** The calibration study scored all three models at 20K-truncated input (its own `MAX_OPINION_CHARS = 20000`). Subsequent gold-pair work at full opinion text suggests Sonnet's failure mode at 20K was largely a truncation artifact: at full text, Sonnet matches the audit's truth estimate (~91% Green on v1 gold pairs), comparable to expected Opus@full-text behavior. **Sonnet may pass the 90% bar at full text and is currently the leading v2 assessor candidate.** Haiku's failure is robust across input windows. A definitive answer requires re-running the 514-cell calibration at full text (~1000 calls; subscription quota); see v1.4 follow-ups in [the 2026-05-04 retrospective](../retrospectives/2026-05-04-fulltext-assessor-comparison-and-mining-bugs.md).
 
@@ -52,10 +52,10 @@ Both miss by ~20pp on overall and ~30pp on Red recall — robustly below the bar
 **Implication:** the cost-scaling path (5–10× the run by switching assessors) is closed. v1.x stays at N≈200 within Opus's budget envelope; cheaper-frontier-model substitution is not the lever.
 
 **Artifacts:**
-- [`benchmark_v1/calibration.md`](../../benchmark_v1/calibration.md) — confusion matrices, per-class metrics
-- [`benchmark_v1/calibration_results.csv`](../../benchmark_v1/calibration_results.csv) — 514 calls, full coverage
-- [`tests/benchmark_v1/calibrate_assessor.py`](../../tests/benchmark_v1/calibrate_assessor.py) — runner (direct API, `temperature=0`, resume-safe)
-- [`tests/benchmark_v1/calibrate_assessor_report.py`](../../tests/benchmark_v1/calibrate_assessor_report.py) — aggregator
+- [`benchmark/releases/v1/calibration.md`](../../benchmark/releases/v1/calibration.md) — confusion matrices, per-class metrics
+- [`benchmark/releases/v1/calibration_results.csv`](../../benchmark/releases/v1/calibration_results.csv) — 514 calls, full coverage
+- [`benchmark/runners/calibrate_assessor.py`](../../benchmark/runners/calibrate_assessor.py) — runner (direct API, `temperature=0`, resume-safe)
+- [`benchmark/runners/calibrate_assessor_report.py`](../../benchmark/runners/calibrate_assessor_report.py) — aggregator
 - [`docs/retrospectives/2026-05-02-v1.2-assessor-calibration.md`](../retrospectives/2026-05-02-v1.2-assessor-calibration.md) — run notes + keying-bug postmortem
 
 **Original goal and method preserved below for the trail.**
@@ -73,7 +73,7 @@ Both miss by ~20pp on overall and ~30pp on Red recall — robustly below the bar
 3. Quantify agreement on Green/Yellow/Red — overall accuracy, kappa, and per-class precision/recall.
 4. Decide a primary assessor for v2 based on the results.
 
-**Deliverable:** `tests/benchmark_v1/calibrate_assessor.py` + a `calibration.md` report. Doesn't touch v1's data — strictly additive.
+**Deliverable:** `benchmark/runners/calibrate_assessor.py` + a `calibration.md` report. Doesn't touch v1's data — strictly additive.
 
 **Acceptance bar:** if cheaper-assessor agreement with Opus is ≥ 90% overall AND ≥ 85% on Red specifically, switch the primary. Red precision matters most because Reds are the hallucinations we're catching.
 
@@ -97,10 +97,10 @@ These aren't roadmap items but are factual lessons from running v1 that shouldn'
 
 | Observation | Where it shows up |
 |---|---|
-| GPT-5 needs `max_completion_tokens >= 8000` for closed-book legal prompts; 2000 left ~67% of responses empty (all hit the budget exactly on reasoning) | `tests/benchmark_v1/model_adapter.py` `_call_gpt5` comment |
-| Claude CLI `claude -p --model sonnet` calls can take >60s on real prompts; 120s timeout is safer; max OK call observed was 59.5s | `tests/benchmark_v1/run_model.py` `TIMEOUT_S` comment |
-| Sonnet's UNKNOWN rate is far higher than Opus or GPT-5 (53% vs 22% vs 6%) — implies hallucination rate alone misranks; pair with UNKNOWN rate or use Green-rate-of-real | Will live in `benchmark_v1/scorecards.md` once v1 finishes |
-| 20K char opinion truncation hides supporting passages ~37% of the time when the cited opinion exceeds 20K. Measured by re-assessing all v1 Reds at 60K (see `benchmark_v1/truncation_experiment.md`); SCOTUS and circuit Reds flip at indistinguishable rates (43% vs 41%), so the SCOTUS-leans-easy pattern in Table 4 is a knowledge effect, not a syllabus artifact. District Reds did not flip at all (0/8) | Default opinion window raised to 60K in v1.1 (see above). A grep / relevance-aware retrieval tool is deferred as future work for cases where 60K is still insufficient |
+| GPT-5 needs `max_completion_tokens >= 8000` for closed-book legal prompts; 2000 left ~67% of responses empty (all hit the budget exactly on reasoning) | `benchmark/runners/model_adapter.py` `_call_gpt5` comment |
+| Claude CLI `claude -p --model sonnet` calls can take >60s on real prompts; 120s timeout is safer; max OK call observed was 59.5s | `benchmark/runners/run_model.py` `TIMEOUT_S` comment |
+| Sonnet's UNKNOWN rate is far higher than Opus or GPT-5 (53% vs 22% vs 6%) — implies hallucination rate alone misranks; pair with UNKNOWN rate or use Green-rate-of-real | Will live in `benchmark/releases/v1/scorecards.md` once v1 finishes |
+| 20K char opinion truncation hides supporting passages ~37% of the time when the cited opinion exceeds 20K. Measured by re-assessing all v1 Reds at 60K (see `benchmark/releases/v1/truncation_experiment.md`); SCOTUS and circuit Reds flip at indistinguishable rates (43% vs 41%), so the SCOTUS-leans-easy pattern in Table 4 is a knowledge effect, not a syllabus artifact. District Reds did not flip at all (0/8) | Default opinion window raised to 60K in v1.1 (see above). A grep / relevance-aware retrieval tool is deferred as future work for cases where 60K is still insufficient |
 | Stdout buffering through bash redirect (`>` log file) hides progress until process exits; results.csv is the real progress signal | Future runners: tail `results.csv`, not the log |
 
 ---
@@ -124,7 +124,7 @@ Spin out when these are all true:
 Practical mechanics when the time comes:
 - New repo name candidates: `case-law-retrieval-benchmark`, `claire-bench`, etc.
 - citation-verifier becomes a pinned pip dependency (publish to PyPI first, or git+https)
-- Move `tests/benchmark_v1/` → benchmark repo's `runners/`, `benchmark_v1/` → benchmark repo's `releases/v1/`
+- Move `benchmark/runners/` → benchmark repo's `runners/`, `benchmark/releases/v1/` → benchmark repo's `releases/v1/`
 - Roadmap, design docs, retrospectives migrate too
 - Leave a stub in citation-verifier pointing at the new repo
 

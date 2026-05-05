@@ -60,7 +60,7 @@ This is a **substantial v2 issue**: 3/5 of v1's "Reds" came from it, and the sam
 
 ## Implications for v1.1 calibration study
 
-The v1.1 calibration study (`benchmark_v1/calibration.md`) concluded "Opus stays as primary; Sonnet/Haiku fail the 90% agreement bar; cheaper-frontier-model substitution is closed." That conclusion was measured on 20K-truncated input for all three models.
+The v1.1 calibration study (`benchmark/releases/v1/calibration.md`) concluded "Opus stays as primary; Sonnet/Haiku fail the 90% agreement bar; cheaper-frontier-model substitution is closed." That conclusion was measured on 20K-truncated input for all three models.
 
 The full-text data here (gold pairs, n=117) suggests a different shape:
 
@@ -88,10 +88,10 @@ All on Claude CLI subscription quota — no out-of-pocket spend.
 
 ## Artifacts
 
-- [`tests/benchmark_v1/score_gold_pairs_fulltext.py`](../../tests/benchmark_v1/score_gold_pairs_fulltext.py) — the methodologically-correct successor to score_gold_pairs.py, uses CourtListenerClient directly, hard-fails on no-text rather than silently writing Reds
+- [`benchmark/runners/score_gold_pairs_fulltext.py`](../../benchmark/runners/score_gold_pairs_fulltext.py) — the methodologically-correct successor to score_gold_pairs.py, uses CourtListenerClient directly, hard-fails on no-text rather than silently writing Reds
 - [`scratch/find_red_context.py`](../../scratch/find_red_context.py) — extracts each Red's parenthetical-in-context from the citing opinion
 - [`scratch/red_context.md`](../../scratch/red_context.md) — output of the above; the 5 Reds with citing/cited URLs and surrounding text
-- `gold_db/gold.db` — 117 Sonnet@FT verdicts + 117 Haiku@FT verdicts under `assessor_prompt_version='v1-fulltext'`
+- `benchmark/gold_db/gold.db` — 117 Sonnet@FT verdicts + 117 Haiku@FT verdicts under `assessor_prompt_version='v1-fulltext'`
 - [`scratch/score_fulltext_sonnet.log`](../../scratch/score_fulltext_sonnet.log), [`scratch/score_fulltext_haiku.log`](../../scratch/score_fulltext_haiku.log) — run logs
 
 ## v1.4 follow-up items

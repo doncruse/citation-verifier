@@ -23,7 +23,7 @@ benchmark/
 ├── docs/
 │   ├── plans/                      # 11 files (was docs/plans/{benchmark,pilot,gold-db,publication}*.md)
 │   └── retrospectives/             # 3 files (was docs/retrospectives/*calibration*, *truncation*, *fulltext-assessor*)
-├── runners/                        # was tests/benchmark_v1/
+├── runners/                        # was benchmark/runners/
 │   ├── __init__.py
 │   ├── build_dataset.py
 │   ├── run_model.py
@@ -46,7 +46,7 @@ benchmark/
 │       ├── test_score_gold_pairs.py
 │       ├── test_score_integration.py
 │       └── test_scorecard.py
-├── pilot_a/                        # was tests/pilot_a/ (code) + scratch/pilot_a/ (data)
+├── pilot_a/                        # was benchmark/pilot_a/ (code) + benchmark/pilot_a/ (data)
 │   ├── __init__.py
 │   ├── build_fresh_dc_sample.py
 │   ├── build_lepard_sample.py
@@ -59,10 +59,10 @@ benchmark/
 │   ├── model_outputs.csv
 │   ├── results.csv
 │   ├── summary.md
-│   ├── _opinion_cache/              # gitignored (was scratch/pilot_a/opinion_cache/)
-│   ├── _dcd_opinion_cache/          # gitignored (was scratch/pilot_a/_dcd_opinion_cache/)
-│   ├── _*.txt                       # gitignored (was scratch/pilot_a/_*.txt)
-│   └── _smoke_*.csv                 # gitignored (was scratch/pilot_a/_smoke_*.csv)
+│   ├── _opinion_cache/              # gitignored (was benchmark/pilot_a/cited_opinion_cache/)
+│   ├── _dcd_opinion_cache/          # gitignored (was benchmark/pilot_a/dcd_citing_opinion_cache/)
+│   ├── _*.txt                       # gitignored (was benchmark/pilot_a/_*.txt)
+│   └── _smoke_*.csv                 # gitignored (was benchmark/pilot_a/_smoke_*.csv)
 ├── gold_db/                        # was gold_db/ at repo root
 │   ├── README.md
 │   ├── gold.db
@@ -71,7 +71,7 @@ benchmark/
 │   └── exports/
 │       └── *.csv
 ├── releases/
-│   └── v1/                         # was benchmark_v1/
+│   └── v1/                         # was benchmark/releases/v1/
 │       ├── README.md
 │       ├── dataset.csv
 │       ├── _raw_pool.json
@@ -133,11 +133,11 @@ The working tree currently has 3 modified tracked files and 3 untracked items un
 
 - `M .claude/settings.json` — leave alone
 - `M scratch/TODO.md` — keep as-is (will be touched by Task 9)
-- `M tests/pilot_a/build_fresh_dc_sample.py` — already part of pilot_a, will move with it (Task 4)
+- `M benchmark/pilot_a/build_fresh_dc_sample.py` — already part of pilot_a, will move with it (Task 4)
 - `?? .claude/scheduled_tasks.lock` — gitignored junk, leave
 - `?? .claude/skills/pdf-processing-anthropic/` — leave
 - `?? .claude/worktrees/` — leave
-- `?? benchmark_v1/_all_cl_misses_with_citation_court.csv` — needs to move with benchmark_v1/ (Task 3)
+- `?? benchmark/releases/v1/_all_cl_misses_with_citation_court.csv` — needs to move with benchmark/releases/v1/ (Task 3)
 - `?? scratch/join_misses_citation_court.py` — needs to move with scratch benchmark items (Task 6)
 - `?? tests/ab_test_single.json` — verify-brief AB testing, NOT this refactor — leave alone
 
@@ -299,8 +299,8 @@ git add benchmark/
 git commit -m "benchmark: create top-level directory skeleton + README
 
 Empty placeholder structure. Subsequent commits move existing
-benchmark_v1/, gold_db/, tests/benchmark_v1/, tests/pilot_a/,
-scratch/pilot_a/, and benchmark docs into this tree.
+benchmark/releases/v1/, gold_db/, benchmark/runners/, benchmark/pilot_a/,
+benchmark/pilot_a/, and benchmark docs into this tree.
 
 See docs/plans/2026-05-05-benchmark-consolidation-plan.md."
 ```
@@ -321,9 +321,9 @@ Expected: lists `benchmark/__init__.py`, `benchmark/README.md`, etc.
 
 **Files:**
 - Move (git mv): `gold_db/README.md` → `benchmark/gold_db/README.md`
-- Move (git mv): `gold_db/gold.db` → `benchmark/gold_db/gold.db`
-- Move (git mv): `gold_db/migrations/001_initial.sql` → `benchmark/gold_db/migrations/001_initial.sql`
-- Move (git mv): `gold_db/exports/*.csv` (7 files) → `benchmark/gold_db/exports/`
+- Move (git mv): `benchmark/gold_db/gold.db` → `benchmark/benchmark/gold_db/gold.db`
+- Move (git mv): `benchmark/gold_db/migrations/001_initial.sql` → `benchmark/benchmark/gold_db/migrations/001_initial.sql`
+- Move (git mv): `benchmark/gold_db/exports/*.csv` (7 files) → `benchmark/benchmark/gold_db/exports/`
 - Modify: `src/citation_verifier/gold_db.py` (line 21 — `SCHEMA_PATH`)
 - Modify: `benchmark/gold_db/README.md` (path examples in sqlite3 commands)
 
@@ -331,16 +331,16 @@ Expected: lists `benchmark/__init__.py`, `benchmark/README.md`, etc.
 
 ```bash
 git mv gold_db/README.md benchmark/gold_db/README.md
-git mv gold_db/gold.db benchmark/gold_db/gold.db
-mkdir -p benchmark/gold_db/migrations benchmark/gold_db/exports
-git mv gold_db/migrations/001_initial.sql benchmark/gold_db/migrations/001_initial.sql
-git mv gold_db/exports/assessor_verdicts.csv benchmark/gold_db/exports/assessor_verdicts.csv
-git mv gold_db/exports/cases.csv benchmark/gold_db/exports/cases.csv
-git mv gold_db/exports/citation_rows.csv benchmark/gold_db/exports/citation_rows.csv
-git mv gold_db/exports/datasets.csv benchmark/gold_db/exports/datasets.csv
-git mv gold_db/exports/model_answers.csv benchmark/gold_db/exports/model_answers.csv
-git mv gold_db/exports/propositions.csv benchmark/gold_db/exports/propositions.csv
-git mv gold_db/exports/runs.csv benchmark/gold_db/exports/runs.csv
+git mv benchmark/gold_db/gold.db benchmark/benchmark/gold_db/gold.db
+mkdir -p benchmark/benchmark/gold_db/migrations benchmark/benchmark/gold_db/exports
+git mv benchmark/gold_db/migrations/001_initial.sql benchmark/benchmark/gold_db/migrations/001_initial.sql
+git mv benchmark/gold_db/exports/assessor_verdicts.csv benchmark/benchmark/gold_db/exports/assessor_verdicts.csv
+git mv benchmark/gold_db/exports/cases.csv benchmark/benchmark/gold_db/exports/cases.csv
+git mv benchmark/gold_db/exports/citation_rows.csv benchmark/benchmark/gold_db/exports/citation_rows.csv
+git mv benchmark/gold_db/exports/datasets.csv benchmark/benchmark/gold_db/exports/datasets.csv
+git mv benchmark/gold_db/exports/model_answers.csv benchmark/benchmark/gold_db/exports/model_answers.csv
+git mv benchmark/gold_db/exports/propositions.csv benchmark/benchmark/gold_db/exports/propositions.csv
+git mv benchmark/gold_db/exports/runs.csv benchmark/benchmark/gold_db/exports/runs.csv
 ```
 
 Verify the source `gold_db/` directory is now empty:
@@ -367,13 +367,13 @@ SCHEMA_PATH = REPO_ROOT / "benchmark" / "gold_db" / "migrations" / "001_initial.
 
 - [ ] **Step 2.3: Update path examples in `benchmark/gold_db/README.md`**
 
-Find every `sqlite3 gold_db/gold.db` and replace with `sqlite3 benchmark/gold_db/gold.db`. Same for `gold_db/exports`.
+Find every `sqlite3 benchmark/gold_db/gold.db` and replace with `sqlite3 benchmark/benchmark/gold_db/gold.db`. Same for `benchmark/gold_db/exports`.
 
 Specifically, in `benchmark/gold_db/README.md`:
-- `sqlite3 gold_db/gold.db "..."` (3 occurrences) → `sqlite3 benchmark/gold_db/gold.db "..."`
-- `GoldDB('gold_db/gold.db').export_csvs('gold_db/exports')` → `GoldDB('benchmark/gold_db/gold.db').export_csvs('benchmark/gold_db/exports')`
-- `gold_db/exports/` (in prose) → `benchmark/gold_db/exports/`
-- `tests/benchmark_v1/score.py` (in §Score.py invocation) → `benchmark/runners/score.py` AND `python tests/benchmark_v1/score.py` → `python -m benchmark.runners.score` (account for the import-path change in Task 5)
+- `sqlite3 benchmark/gold_db/gold.db "..."` (3 occurrences) → `sqlite3 benchmark/benchmark/gold_db/gold.db "..."`
+- `GoldDB('benchmark/gold_db/gold.db').export_csvs('benchmark/gold_db/exports')` → `GoldDB('benchmark/benchmark/gold_db/gold.db').export_csvs('benchmark/benchmark/gold_db/exports')`
+- `benchmark/gold_db/exports/` (in prose) → `benchmark/benchmark/gold_db/exports/`
+- `benchmark/runners/score.py` (in §Score.py invocation) → `benchmark/runners/score.py` AND `python benchmark/runners/score.py` → `python -m benchmark.runners.score` (account for the import-path change in Task 5)
 
 - [ ] **Step 2.4: Run gold-db tests to verify SCHEMA_PATH update works**
 
@@ -388,7 +388,7 @@ Expected: PASS (same as baseline). The test creates a fresh DB at tmp_path and a
 ```bash
 venv/Scripts/python.exe -c "
 import sqlite3
-conn = sqlite3.connect('benchmark/gold_db/gold.db')
+conn = sqlite3.connect('benchmark/benchmark/gold_db/gold.db')
 n = conn.execute('SELECT COUNT(*) FROM assessor_verdicts').fetchone()[0]
 print(f'verdicts: {n}')
 "
@@ -410,30 +410,30 @@ and README move."
 
 ---
 
-## Task 3: Move `benchmark_v1/` → `benchmark/releases/v1/`
+## Task 3: Move `benchmark/releases/v1/` → `benchmark/releases/v1/`
 
-**Goal:** Move v1 release artifacts. Update gitignore, update path references in committed runner scripts (still under `tests/benchmark_v1/` at this point — we'll move them in Task 5).
+**Goal:** Move v1 release artifacts. Update gitignore, update path references in committed runner scripts (still under `benchmark/runners/` at this point — we'll move them in Task 5).
 
 **Files affected:**
-- Move (git mv): all tracked files in `benchmark_v1/` (~30 files)
-- Move (fs mv): `benchmark_v1/_opinion_cache/` (gitignored, regenerable but expensive to re-fetch)
-- Move (fs mv): any `benchmark_v1/_*.txt` log files (gitignored)
+- Move (git mv): all tracked files in `benchmark/releases/v1/` (~30 files)
+- Move (fs mv): `benchmark/releases/v1/citing_opinion_cache/` (gitignored, regenerable but expensive to re-fetch)
+- Move (fs mv): any `benchmark/releases/v1/_*.txt` log files (gitignored)
 - Modify: `.gitignore` (paths)
-- Modify: `tests/benchmark_v1/build_dataset.py` (paths)
-- Modify: `tests/benchmark_v1/run_model.py` (paths)
-- Modify: `tests/benchmark_v1/score.py` (paths)
-- Modify: `tests/benchmark_v1/scorecard.py` (paths)
-- Modify: `tests/benchmark_v1/calibrate_assessor.py` (paths + docstring)
-- Modify: `tests/benchmark_v1/calibrate_assessor_report.py` (paths + comment)
-- Modify: `tests/benchmark_v1/red_audit_fulltext.py` (paths)
-- Modify: `tests/benchmark_v1/backfill_gold_db.py` (CLI defaults)
-- Modify: `tests/benchmark_v1/test_backfill.py` (no path update needed — uses tmp_path/"benchmark_v1" which is just a fixture name)
+- Modify: `benchmark/runners/build_dataset.py` (paths)
+- Modify: `benchmark/runners/run_model.py` (paths)
+- Modify: `benchmark/runners/score.py` (paths)
+- Modify: `benchmark/runners/scorecard.py` (paths)
+- Modify: `benchmark/runners/calibrate_assessor.py` (paths + docstring)
+- Modify: `benchmark/runners/calibrate_assessor_report.py` (paths + comment)
+- Modify: `benchmark/runners/red_audit_fulltext.py` (paths)
+- Modify: `benchmark/runners/backfill_gold_db.py` (CLI defaults)
+- Modify: `benchmark/runners/test_backfill.py` (no path update needed — uses tmp_path/"benchmark_v1" which is just a fixture name)
 
 - [ ] **Step 3.1: Move untracked file (uncommitted CSV) into the new location**
 
 ```bash
 mkdir -p benchmark/releases/v1
-mv benchmark_v1/_all_cl_misses_with_citation_court.csv benchmark/releases/v1/_all_cl_misses_with_citation_court.csv
+mv benchmark/releases/v1/_all_cl_misses_with_citation_court.csv benchmark/releases/v1/_all_cl_misses_with_citation_court.csv
 ```
 
 - [ ] **Step 3.2: Move tracked files via `git mv`**
@@ -449,11 +449,11 @@ Then move all v1 files. Use a Python one-liner to enumerate tracked files and `g
 ```bash
 venv/Scripts/python.exe -c "
 import subprocess
-out = subprocess.check_output(['git', 'ls-files', 'benchmark_v1/'], text=True)
+out = subprocess.check_output(['git', 'ls-files', 'benchmark/releases/v1/'], text=True)
 for f in out.strip().split('\n'):
     if not f:
         continue
-    new = f.replace('benchmark_v1/', 'benchmark/releases/v1/', 1)
+    new = f.replace('benchmark/releases/v1/', 'benchmark/releases/v1/', 1)
     subprocess.check_call(['git', 'mv', f, new])
 "
 ```
@@ -468,22 +468,22 @@ Should print a count matching the move count.
 
 - [ ] **Step 3.3: Move gitignored caches and logs via filesystem `mv` — and rename the cache for clarity**
 
-The cache `benchmark_v1/_opinion_cache/` holds **citing-court** opinions (the courts that did the citing — these are what we mine parentheticals from). Renaming to `citing_opinion_cache/` distinguishes it from pilot_a's CITED-opinions cache. Past sessions hit this confusion twice ("wait, which cache?").
+The cache `benchmark/releases/v1/citing_opinion_cache/` holds **citing-court** opinions (the courts that did the citing — these are what we mine parentheticals from). Renaming to `citing_opinion_cache/` distinguishes it from pilot_a's CITED-opinions cache. Past sessions hit this confusion twice ("wait, which cache?").
 
 ```bash
 # Opinion cache (regenerable but costly to re-fetch) — also renamed for clarity
-[ -d benchmark_v1/_opinion_cache ] && mv benchmark_v1/_opinion_cache benchmark/releases/v1/citing_opinion_cache
+[ -d benchmark/releases/v1/citing_opinion_cache ] && mv benchmark/releases/v1/citing_opinion_cache benchmark/releases/v1/citing_opinion_cache
 
 # Any remaining log files (gitignored)
-for f in benchmark_v1/_*.txt; do
+for f in benchmark/releases/v1/_*.txt; do
   [ -f "$f" ] && mv "$f" "benchmark/releases/v1/$(basename "$f")"
 done
 ```
 
-Verify `benchmark_v1/` is empty:
+Verify `benchmark/releases/v1/` is empty:
 
 ```bash
-ls benchmark_v1/ 2>/dev/null
+ls benchmark/releases/v1/ 2>/dev/null
 ```
 
 Expected: empty or "No such file or directory."
@@ -495,10 +495,10 @@ Edit `.gitignore`:
 Old:
 ```
 # Benchmark v1 — opinion-text caches (regenerable)
-benchmark_v1/_opinion_cache/
+benchmark/releases/v1/citing_opinion_cache/
 
 # Benchmark v1 — chatty run logs (regenerable; keep CSVs and markdown)
-benchmark_v1/_*.txt
+benchmark/releases/v1/_*.txt
 ```
 
 New:
@@ -510,7 +510,7 @@ benchmark/releases/v1/citing_opinion_cache/
 benchmark/releases/v1/_*.txt
 ```
 
-- [ ] **Step 3.5: Update `tests/benchmark_v1/build_dataset.py` paths**
+- [ ] **Step 3.5: Update `benchmark/runners/build_dataset.py` paths**
 
 Edit lines 43-46:
 
@@ -532,7 +532,7 @@ GOLD_DB_PATH = PROJECT_ROOT / "benchmark" / "gold_db" / "gold.db"
 
 (Note: cache rename `_opinion_cache` → `citing_opinion_cache`. This is the **citing-court** opinion cache. The variable name `OPINION_TEXT_CACHE` could also be renamed to `CITING_OPINION_TEXT_CACHE` for clarity if grep shows few callers — verify with `git grep -n OPINION_TEXT_CACHE benchmark/runners/`.)
 
-- [ ] **Step 3.6: Update `tests/benchmark_v1/run_model.py` paths**
+- [ ] **Step 3.6: Update `benchmark/runners/run_model.py` paths**
 
 Edit lines 19, 31, 34:
 
@@ -548,7 +548,7 @@ DATASET = PROJECT_ROOT / "benchmark" / "releases" / "v1" / "dataset.csv"
 
 Old:
 ```python
-                    help="output CSV; defaults to benchmark_v1/outputs_{model}.csv")
+                    help="output CSV; defaults to benchmark/releases/v1/outputs_{model}.csv")
 ```
 
 New:
@@ -566,18 +566,18 @@ New:
     out = args.out or PROJECT_ROOT / "benchmark" / "releases" / "v1" / f"outputs_{args.model.replace('-', '')}.csv"
 ```
 
-- [ ] **Step 3.7: Update `tests/benchmark_v1/score.py`, `scorecard.py`, `calibrate_assessor*.py`, `red_audit_fulltext.py`, `backfill_gold_db.py` paths**
+- [ ] **Step 3.7: Update `benchmark/runners/score.py`, `scorecard.py`, `calibrate_assessor*.py`, `red_audit_fulltext.py`, `backfill_gold_db.py` paths**
 
-Apply the same pattern (`benchmark_v1` → `benchmark/releases/v1`, `gold_db/gold.db` → `benchmark/gold_db/gold.db`) in each file. Specific line numbers:
+Apply the same pattern (`benchmark_v1` → `benchmark/releases/v1`, `benchmark/gold_db/gold.db` → `benchmark/benchmark/gold_db/gold.db`) in each file. Specific line numbers:
 
 - `scorecard.py` lines 19-22 (RESULTS, DATASET, OUT, OUT_DEDUPED)
 - `calibrate_assessor.py` line 55 (`BENCH = PROJECT_ROOT / "benchmark_v1"`) and lines 8-13, 17 in the docstring (paths in the usage example)
-- `calibrate_assessor_report.py` line 30 (`BENCH = PROJECT_ROOT / "benchmark_v1"`) and line 205 (the "Generated by `tests/benchmark_v1/calibrate_assessor_report.py`" string — update to `benchmark/runners/calibrate_assessor_report.py` since that's where it lands after Task 5)
-- `red_audit_fulltext.py` line 149 only (`--db-path` default `gold_db/gold.db` → `benchmark/gold_db/gold.db`). Lines 30-31 are a 2-line array of opinion-cache paths AND need rename `_opinion_cache` → `citing_opinion_cache` and `opinion_cache` → `cited_opinion_cache` (see Task 4) — defer the whole array to Task 4 step 4.4 so the edit is atomic. Line 38 (`PROJECT_ROOT / "tests" / "pilot_a" / "score.py"`) — defer to Task 4. Line 11 (docstring `tests.benchmark_v1.red_audit_fulltext`) — defer to Task 5.
+- `calibrate_assessor_report.py` line 30 (`BENCH = PROJECT_ROOT / "benchmark_v1"`) and line 205 (the "Generated by `benchmark/runners/calibrate_assessor_report.py`" string — update to `benchmark/runners/calibrate_assessor_report.py` since that's where it lands after Task 5)
+- `red_audit_fulltext.py` line 149 only (`--db-path` default `benchmark/gold_db/gold.db` → `benchmark/benchmark/gold_db/gold.db`). Lines 30-31 are a 2-line array of opinion-cache paths AND need rename `_opinion_cache` → `citing_opinion_cache` and `opinion_cache` → `cited_opinion_cache` (see Task 4) — defer the whole array to Task 4 step 4.4 so the edit is atomic. Line 38 (`PROJECT_ROOT / "tests" / "pilot_a" / "score.py"`) — defer to Task 4. Line 11 (docstring `benchmark.runners.red_audit_fulltext`) — defer to Task 5.
 
-- `calibrate_assessor.py` lines 57-58 (the comment block describing what `OPINION_CACHE` and `_opinion_cache` hold — verify the comment text references `benchmark_v1/_opinion_cache` and update to `benchmark/releases/v1/citing_opinion_cache`).
-- `backfill_gold_db.py` line 390 (`--bench-dir default="benchmark_v1"` → `--bench-dir default="benchmark/releases/v1"`) and line 391 (`--db-path default="gold_db/gold.db"` → `--db-path default="benchmark/gold_db/gold.db"`)
-- `score.py` — has imports (Task 5) but no benchmark_v1/ paths beyond what `model_adapter` etc. handle. Confirm by grep and skip if none.
+- `calibrate_assessor.py` lines 57-58 (the comment block describing what `OPINION_CACHE` and `_opinion_cache` hold — verify the comment text references `benchmark/releases/v1/citing_opinion_cache` and update to `benchmark/releases/v1/citing_opinion_cache`).
+- `backfill_gold_db.py` line 390 (`--bench-dir default="benchmark_v1"` → `--bench-dir default="benchmark/releases/v1"`) and line 391 (`--db-path default="benchmark/gold_db/gold.db"` → `--db-path default="benchmark/benchmark/gold_db/gold.db"`)
+- `score.py` — has imports (Task 5) but no benchmark/releases/v1/ paths beyond what `model_adapter` etc. handle. Confirm by grep and skip if none.
 
 For each: use Edit with the old/new strings shown above.
 
@@ -589,7 +589,7 @@ venv/Scripts/python.exe -m pytest tests/ -v --tb=short -q 2>&1 | tail -30
 
 Expected: same pass/fail count as baseline (pre-existing live_api skips OK; no new failures).
 
-If tests fail with paths like `tests/benchmark_v1/...benchmark_v1/...` — likely a missed path. Grep for `"benchmark_v1"` (with quotes, indicating string literal) and re-check:
+If tests fail with paths like `benchmark/runners/...benchmark/releases/v1/...` — likely a missed path. Grep for `"benchmark_v1"` (with quotes, indicating string literal) and re-check:
 
 ```bash
 venv/Scripts/python.exe -c "
@@ -599,7 +599,7 @@ print(out)
 "
 ```
 
-Note: hits inside `tests/benchmark_v1/` directory NAMES are expected (the directory name change happens in Task 5). Hits inside file CONTENTS that aren't covered above are bugs.
+Note: hits inside `benchmark/runners/` directory NAMES are expected (the directory name change happens in Task 5). Hits inside file CONTENTS that aren't covered above are bugs.
 
 - [ ] **Step 3.9: Commit**
 
@@ -607,57 +607,57 @@ Note: hits inside `tests/benchmark_v1/` directory NAMES are expected (the direct
 git add -u  # stages all the renames AND the path-update edits
 git add benchmark/releases/v1/_all_cl_misses_with_citation_court.csv  # the previously-untracked file
 git add .gitignore
-git commit -m "benchmark: move benchmark_v1/ → benchmark/releases/v1/
+git commit -m "benchmark: move benchmark/releases/v1/ → benchmark/releases/v1/
 
 Renames the 28-file release artifact directory and updates path
-references in tests/benchmark_v1/ runner scripts. Caches and log
+references in benchmark/runners/ runner scripts. Caches and log
 files (gitignored) moved via filesystem mv.
 
-Runner scripts still live at tests/benchmark_v1/ at this point
+Runner scripts still live at benchmark/runners/ at this point
 (they move in Task 5); only their internal paths are updated."
 ```
 
 ---
 
-## Task 4: Move `tests/pilot_a/` + `scratch/pilot_a/` → `benchmark/pilot_a/`
+## Task 4: Move `benchmark/pilot_a/` + `benchmark/pilot_a/` → `benchmark/pilot_a/`
 
 **Goal:** Combine pilot_a code (was under tests/) and pilot_a artifacts (was under scratch/) into one location. This is a frozen pilot — code stays runnable but not actively iterated.
 
 **Files affected:**
-- Move (git mv): `tests/pilot_a/{build_fresh_dc_sample.py, build_lepard_sample.py, run_model.py, score.py, summarize.py}` (5 files) → `benchmark/pilot_a/`
-- Move (git mv): `scratch/pilot_a/{fresh_dc_parens_raw.json, fresh_dc_sample.csv, lepard_sample.csv, model_outputs.csv, results.csv, summary.md}` (6 tracked files) → `benchmark/pilot_a/`
-- Move (fs mv): `scratch/pilot_a/_dcd_opinion_cache/`, `scratch/pilot_a/opinion_cache/`, `scratch/pilot_a/_*.txt`, `scratch/pilot_a/_smoke_*.csv` (gitignored)
+- Move (git mv): `benchmark/pilot_a/{build_fresh_dc_sample.py, build_lepard_sample.py, run_model.py, score.py, summarize.py}` (5 files) → `benchmark/pilot_a/`
+- Move (git mv): `benchmark/pilot_a/{fresh_dc_parens_raw.json, fresh_dc_sample.csv, lepard_sample.csv, model_outputs.csv, results.csv, summary.md}` (6 tracked files) → `benchmark/pilot_a/`
+- Move (fs mv): `benchmark/pilot_a/dcd_citing_opinion_cache/`, `benchmark/pilot_a/cited_opinion_cache/`, `benchmark/pilot_a/_*.txt`, `benchmark/pilot_a/_smoke_*.csv` (gitignored)
 - Modify: `.gitignore`
-- Modify: `tests/benchmark_v1/build_dataset.py:26` (sys.path.insert) and line 105 (cache path)
-- Modify: `tests/benchmark_v1/calibrate_assessor.py:60` (`OPINION_CACHE = PROJECT_ROOT / "scratch" / "pilot_a" / "opinion_cache"`)
-- Modify: `tests/benchmark_v1/red_audit_fulltext.py` lines 30, 38 (cache + score.py paths)
-- Modify: `tests/benchmark_v1/score_gold_pairs.py:38` (`PROJECT_ROOT / "tests" / "pilot_a" / "score.py"`)
-- Modify: `tests/benchmark_v1/score_gold_pairs_fulltext.py` (similar paths — confirm via grep)
+- Modify: `benchmark/runners/build_dataset.py:26` (sys.path.insert) and line 105 (cache path)
+- Modify: `benchmark/runners/calibrate_assessor.py:60` (`OPINION_CACHE = PROJECT_ROOT / "scratch" / "pilot_a" / "opinion_cache"`)
+- Modify: `benchmark/runners/red_audit_fulltext.py` lines 30, 38 (cache + score.py paths)
+- Modify: `benchmark/runners/score_gold_pairs.py:38` (`PROJECT_ROOT / "tests" / "pilot_a" / "score.py"`)
+- Modify: `benchmark/runners/score_gold_pairs_fulltext.py` (similar paths — confirm via grep)
 
 - [ ] **Step 4.1: Move tracked files via `git mv`**
 
 ```bash
-git mv tests/pilot_a/build_fresh_dc_sample.py benchmark/pilot_a/build_fresh_dc_sample.py
-git mv tests/pilot_a/build_lepard_sample.py benchmark/pilot_a/build_lepard_sample.py
-git mv tests/pilot_a/run_model.py benchmark/pilot_a/run_model.py
-git mv tests/pilot_a/score.py benchmark/pilot_a/score.py
-git mv tests/pilot_a/summarize.py benchmark/pilot_a/summarize.py
+git mv benchmark/pilot_a/build_fresh_dc_sample.py benchmark/pilot_a/build_fresh_dc_sample.py
+git mv benchmark/pilot_a/build_lepard_sample.py benchmark/pilot_a/build_lepard_sample.py
+git mv benchmark/pilot_a/run_model.py benchmark/pilot_a/run_model.py
+git mv benchmark/pilot_a/score.py benchmark/pilot_a/score.py
+git mv benchmark/pilot_a/summarize.py benchmark/pilot_a/summarize.py
 
-git mv scratch/pilot_a/fresh_dc_parens_raw.json benchmark/pilot_a/fresh_dc_parens_raw.json
-git mv scratch/pilot_a/fresh_dc_sample.csv benchmark/pilot_a/fresh_dc_sample.csv
-git mv scratch/pilot_a/lepard_sample.csv benchmark/pilot_a/lepard_sample.csv
-git mv scratch/pilot_a/model_outputs.csv benchmark/pilot_a/model_outputs.csv
-git mv scratch/pilot_a/results.csv benchmark/pilot_a/results.csv
-git mv scratch/pilot_a/summary.md benchmark/pilot_a/summary.md
+git mv benchmark/pilot_a/fresh_dc_parens_raw.json benchmark/pilot_a/fresh_dc_parens_raw.json
+git mv benchmark/pilot_a/fresh_dc_sample.csv benchmark/pilot_a/fresh_dc_sample.csv
+git mv benchmark/pilot_a/lepard_sample.csv benchmark/pilot_a/lepard_sample.csv
+git mv benchmark/pilot_a/model_outputs.csv benchmark/pilot_a/model_outputs.csv
+git mv benchmark/pilot_a/results.csv benchmark/pilot_a/results.csv
+git mv benchmark/pilot_a/summary.md benchmark/pilot_a/summary.md
 ```
 
-Note: `tests/pilot_a/` may not have an `__init__.py` (let me confirm during execution; if there was one, `git mv` it too).
+Note: `benchmark/pilot_a/` may not have an `__init__.py` (let me confirm during execution; if there was one, `git mv` it too).
 
 Verify directories empty:
 
 ```bash
-ls tests/pilot_a/ 2>/dev/null
-ls scratch/pilot_a/ 2>/dev/null
+ls benchmark/pilot_a/ 2>/dev/null
+ls benchmark/pilot_a/ 2>/dev/null
 ```
 
 Expected for both: only `__pycache__/`, `_dcd_opinion_cache/`, `opinion_cache/`, `_*.txt`, `_smoke_*.csv` may remain (all gitignored or auto-generated).
@@ -668,25 +668,25 @@ Pilot_a has TWO gitignored opinion caches today, with role-opaque names:
 
 | Old path | Holds | New path |
 |---|---|---|
-| `scratch/pilot_a/opinion_cache/` (no underscore prefix) | **Cited** opinions (text of cases that pilot's mined parentheticals reference) | `benchmark/pilot_a/cited_opinion_cache/` |
-| `scratch/pilot_a/_dcd_opinion_cache/` (underscore prefix, `_dcd_` infix) | **Citing** D.D.C. opinions (the District of Columbia District court opinions pilot mined parens FROM) | `benchmark/pilot_a/dcd_citing_opinion_cache/` |
+| `benchmark/pilot_a/cited_opinion_cache/` (no underscore prefix) | **Cited** opinions (text of cases that pilot's mined parentheticals reference) | `benchmark/pilot_a/cited_opinion_cache/` |
+| `benchmark/pilot_a/dcd_citing_opinion_cache/` (underscore prefix, `_dcd_` infix) | **Citing** D.D.C. opinions (the District of Columbia District court opinions pilot mined parens FROM) | `benchmark/pilot_a/dcd_citing_opinion_cache/` |
 
 The rename eliminates the role confusion that bit past sessions twice (May 3 + May 4) — "wait, which cache?". Symmetric naming with `benchmark/releases/v1/citing_opinion_cache/` from Task 3.
 
 ```bash
 # Cited-opinions cache (used by pilot_a/score.py and reused by calibrate_assessor)
-[ -d scratch/pilot_a/opinion_cache ] && mv scratch/pilot_a/opinion_cache benchmark/pilot_a/cited_opinion_cache
+[ -d benchmark/pilot_a/cited_opinion_cache ] && mv benchmark/pilot_a/cited_opinion_cache benchmark/pilot_a/cited_opinion_cache
 
 # Citing D.D.C. opinions cache (used by pilot_a/build_fresh_dc_sample and v1's build_dataset fallback)
-[ -d scratch/pilot_a/_dcd_opinion_cache ] && mv scratch/pilot_a/_dcd_opinion_cache benchmark/pilot_a/dcd_citing_opinion_cache
+[ -d benchmark/pilot_a/dcd_citing_opinion_cache ] && mv benchmark/pilot_a/dcd_citing_opinion_cache benchmark/pilot_a/dcd_citing_opinion_cache
 
 # Log files
-for f in scratch/pilot_a/_*.txt scratch/pilot_a/_smoke_*.csv; do
+for f in benchmark/pilot_a/_*.txt benchmark/pilot_a/_smoke_*.csv; do
   [ -f "$f" ] && mv "$f" "benchmark/pilot_a/$(basename "$f")"
 done
 
 # __pycache__ if any
-rm -rf tests/pilot_a/__pycache__ scratch/pilot_a/__pycache__ 2>/dev/null
+rm -rf benchmark/pilot_a/__pycache__ benchmark/pilot_a/__pycache__ 2>/dev/null
 ```
 
 After this step, every place that referenced these caches by name needs an update — Step 4.4 below sweeps the runner scripts; pilot_a's own `score.py` and `build_fresh_dc_sample.py` need the same treatment.
@@ -698,12 +698,12 @@ Edit `.gitignore`:
 Old:
 ```
 # Pilot A opinion-text caches (regenerable, ~5-25 MB each)
-scratch/pilot_a/_dcd_opinion_cache/
-scratch/pilot_a/opinion_cache/
+benchmark/pilot_a/dcd_citing_opinion_cache/
+benchmark/pilot_a/cited_opinion_cache/
 
 # Pilot A run logs (chatty eyecite warnings, regenerable)
-scratch/pilot_a/_*.txt
-scratch/pilot_a/_smoke_*.csv
+benchmark/pilot_a/_*.txt
+benchmark/pilot_a/_smoke_*.csv
 ```
 
 New:
@@ -719,7 +719,7 @@ benchmark/pilot_a/_smoke_*.csv
 
 - [ ] **Step 4.4: Update path references in runner scripts AND in pilot_a's own scripts**
 
-The cache renames in Step 4.2 mean every reader/writer of the old names needs updating. The path-prefix change (`scratch/pilot_a/` → `benchmark/pilot_a/`, `tests/pilot_a/` → `benchmark/pilot_a/`) is also bundled here.
+The cache renames in Step 4.2 mean every reader/writer of the old names needs updating. The path-prefix change (`benchmark/pilot_a/` → `benchmark/pilot_a/`, `benchmark/pilot_a/` → `benchmark/pilot_a/`) is also bundled here.
 
 **Pilot_a's own scripts** — read these first to find the cache constants, then update:
 
@@ -749,14 +749,14 @@ New:
 
 (Verify constant names by `git grep -n opinion_cache benchmark/pilot_a/` — they may be `DCD_OPINION_CACHE`, `OPINION_CACHE`, or similar.)
 
-**Runner scripts** (still under `tests/benchmark_v1/` at this point; they move in Task 5):
+**Runner scripts** (still under `benchmark/runners/` at this point; they move in Task 5):
 
-`tests/benchmark_v1/build_dataset.py:26`:
+`benchmark/runners/build_dataset.py:26`:
 
 Old: `sys.path.insert(0, str(PROJECT_ROOT / "tests" / "pilot_a"))`
 New: `sys.path.insert(0, str(PROJECT_ROOT / "benchmark" / "pilot_a"))`
 
-`tests/benchmark_v1/build_dataset.py:105`:
+`benchmark/runners/build_dataset.py:105`:
 
 Old:
 ```python
@@ -768,12 +768,12 @@ New:
     pilot_cache = (PROJECT_ROOT / "benchmark" / "pilot_a" / "dcd_citing_opinion_cache"
 ```
 
-`tests/benchmark_v1/calibrate_assessor.py:60`:
+`benchmark/runners/calibrate_assessor.py:60`:
 
 Old: `OPINION_CACHE = PROJECT_ROOT / "scratch" / "pilot_a" / "opinion_cache"`
 New: `OPINION_CACHE = PROJECT_ROOT / "benchmark" / "pilot_a" / "cited_opinion_cache"`
 
-`tests/benchmark_v1/red_audit_fulltext.py:30-31`:
+`benchmark/runners/red_audit_fulltext.py:30-31`:
 
 Old:
 ```python
@@ -795,22 +795,22 @@ New:
 
 Determine the intent with `git log` or by reading the surrounding function. **If unsure, default to (a)** and verify with a smoke run.
 
-`tests/benchmark_v1/red_audit_fulltext.py:38`:
+`benchmark/runners/red_audit_fulltext.py:38`:
 
 Old: `p = PROJECT_ROOT / "tests" / "pilot_a" / "score.py"`
 New: `p = PROJECT_ROOT / "benchmark" / "pilot_a" / "score.py"`
 
-`tests/benchmark_v1/score_gold_pairs.py:38`:
+`benchmark/runners/score_gold_pairs.py:38`:
 
 Old: `p = PROJECT_ROOT / "tests" / "pilot_a" / "score.py"`
 New: `p = PROJECT_ROOT / "benchmark" / "pilot_a" / "score.py"`
 
-`tests/benchmark_v1/score_gold_pairs_fulltext.py`: grep for `tests/pilot_a` and `scratch/pilot_a` and update analogously. Most likely line will be near the top, similar pattern.
+`benchmark/runners/score_gold_pairs_fulltext.py`: grep for `tests/pilot_a` and `scratch/pilot_a` and update analogously. Most likely line will be near the top, similar pattern.
 
 ```bash
 venv/Scripts/python.exe -c "
 import subprocess
-out = subprocess.check_output(['git', 'grep', '-n', 'pilot_a', 'tests/benchmark_v1/'], text=True)
+out = subprocess.check_output(['git', 'grep', '-n', 'pilot_a', 'benchmark/runners/'], text=True)
 print(out)
 "
 ```
@@ -830,11 +830,11 @@ Expected: same pass/fail count as baseline. If tests that exercise build_dataset
 ```bash
 git add -u
 git add .gitignore
-git commit -m "benchmark: move tests/pilot_a/ + scratch/pilot_a/ → benchmark/pilot_a/
+git commit -m "benchmark: move benchmark/pilot_a/ + benchmark/pilot_a/ → benchmark/pilot_a/
 
 Combines pilot_a code (was under tests/) with pilot_a data and
 artifacts (was under scratch/) into one location. Updates the
-five tests/benchmark_v1/ runner scripts that referenced the old
+five benchmark/runners/ runner scripts that referenced the old
 paths (build_dataset, calibrate_assessor, red_audit_fulltext,
 score_gold_pairs, score_gold_pairs_fulltext).
 
@@ -844,78 +844,78 @@ methodology trail."
 
 ---
 
-## Task 5: Move `tests/benchmark_v1/` → `benchmark/runners/`
+## Task 5: Move `benchmark/runners/` → `benchmark/runners/`
 
-**Goal:** Move the runner code and its tests. Update absolute imports (`from tests.benchmark_v1.X` → `from benchmark.runners.X`) and add `benchmark/runners/tests/` to pytest's testpaths.
+**Goal:** Move the runner code and its tests. Update absolute imports (`from benchmark.runners.X` → `from benchmark.runners.X`) and add `benchmark/runners/tests/` to pytest's testpaths.
 
 **Files affected:**
-- Move (git mv): all 14 runner scripts + 6 test files + `__init__.py` from `tests/benchmark_v1/` (existing tasks 5 had moved it from `tests/benchmark_v1/__init__.py` if present)
+- Move (git mv): all 14 runner scripts + 6 test files + `__init__.py` from `benchmark/runners/` (existing tasks 5 had moved it from `benchmark/runners/__init__.py` if present)
 - Modify: `pyproject.toml` (add `testpaths`)
-- Modify: 5+ files with `from tests.benchmark_v1.X` absolute imports
+- Modify: 5+ files with `from benchmark.runners.X` absolute imports
 - Modify: 2 files with `sys.path.insert(0, str(Path(__file__).resolve().parent))` — these become unnecessary once the package is properly installable, but keep them for now to minimize churn (they're harmless when the dir is also on sys.path via testpaths)
 
 - [ ] **Step 5.1: Move runner scripts and test files via `git mv`**
 
 ```bash
 # 14 runner scripts
-git mv tests/benchmark_v1/__init__.py benchmark/runners/__init__.py
+git mv benchmark/runners/__init__.py benchmark/runners/__init__.py
 # (overwrites the empty __init__.py created in Task 1 — git mv handles this; if not, rm the placeholder first)
-git mv tests/benchmark_v1/_migrate_calibration_csv.py benchmark/runners/_migrate_calibration_csv.py
-git mv tests/benchmark_v1/backfill_gold_db.py benchmark/runners/backfill_gold_db.py
-git mv tests/benchmark_v1/build_dataset.py benchmark/runners/build_dataset.py
-git mv tests/benchmark_v1/calibrate_assessor.py benchmark/runners/calibrate_assessor.py
-git mv tests/benchmark_v1/calibrate_assessor_report.py benchmark/runners/calibrate_assessor_report.py
-git mv tests/benchmark_v1/model_adapter.py benchmark/runners/model_adapter.py
-git mv tests/benchmark_v1/red_audit_fulltext.py benchmark/runners/red_audit_fulltext.py
-git mv tests/benchmark_v1/run_model.py benchmark/runners/run_model.py
-git mv tests/benchmark_v1/score.py benchmark/runners/score.py
-git mv tests/benchmark_v1/score_gold_pairs.py benchmark/runners/score_gold_pairs.py
-git mv tests/benchmark_v1/score_gold_pairs_fulltext.py benchmark/runners/score_gold_pairs_fulltext.py
-git mv tests/benchmark_v1/scorecard.py benchmark/runners/scorecard.py
-git mv tests/benchmark_v1/truncation_experiment.py benchmark/runners/truncation_experiment.py
+git mv benchmark/runners/_migrate_calibration_csv.py benchmark/runners/_migrate_calibration_csv.py
+git mv benchmark/runners/backfill_gold_db.py benchmark/runners/backfill_gold_db.py
+git mv benchmark/runners/build_dataset.py benchmark/runners/build_dataset.py
+git mv benchmark/runners/calibrate_assessor.py benchmark/runners/calibrate_assessor.py
+git mv benchmark/runners/calibrate_assessor_report.py benchmark/runners/calibrate_assessor_report.py
+git mv benchmark/runners/model_adapter.py benchmark/runners/model_adapter.py
+git mv benchmark/runners/red_audit_fulltext.py benchmark/runners/red_audit_fulltext.py
+git mv benchmark/runners/run_model.py benchmark/runners/run_model.py
+git mv benchmark/runners/score.py benchmark/runners/score.py
+git mv benchmark/runners/score_gold_pairs.py benchmark/runners/score_gold_pairs.py
+git mv benchmark/runners/score_gold_pairs_fulltext.py benchmark/runners/score_gold_pairs_fulltext.py
+git mv benchmark/runners/scorecard.py benchmark/runners/scorecard.py
+git mv benchmark/runners/truncation_experiment.py benchmark/runners/truncation_experiment.py
 
 # 6 test files → benchmark/runners/tests/
-git mv tests/benchmark_v1/test_backfill.py benchmark/runners/tests/test_backfill.py
-git mv tests/benchmark_v1/test_build_cache_wiring.py benchmark/runners/tests/test_build_cache_wiring.py
-git mv tests/benchmark_v1/test_model_adapter.py benchmark/runners/tests/test_model_adapter.py
-git mv tests/benchmark_v1/test_score_gold_pairs.py benchmark/runners/tests/test_score_gold_pairs.py
-git mv tests/benchmark_v1/test_score_integration.py benchmark/runners/tests/test_score_integration.py
-git mv tests/benchmark_v1/test_scorecard.py benchmark/runners/tests/test_scorecard.py
+git mv benchmark/runners/test_backfill.py benchmark/runners/tests/test_backfill.py
+git mv benchmark/runners/test_build_cache_wiring.py benchmark/runners/tests/test_build_cache_wiring.py
+git mv benchmark/runners/test_model_adapter.py benchmark/runners/tests/test_model_adapter.py
+git mv benchmark/runners/test_score_gold_pairs.py benchmark/runners/tests/test_score_gold_pairs.py
+git mv benchmark/runners/test_score_integration.py benchmark/runners/tests/test_score_integration.py
+git mv benchmark/runners/test_scorecard.py benchmark/runners/tests/test_scorecard.py
 ```
 
 If `git mv` complains about overwriting the placeholder `__init__.py` from Task 1, run instead:
 
 ```bash
 rm benchmark/runners/__init__.py
-git mv tests/benchmark_v1/__init__.py benchmark/runners/__init__.py
+git mv benchmark/runners/__init__.py benchmark/runners/__init__.py
 ```
 
-Verify `tests/benchmark_v1/` is empty:
+Verify `benchmark/runners/` is empty:
 
 ```bash
-ls tests/benchmark_v1/ 2>/dev/null
+ls benchmark/runners/ 2>/dev/null
 ```
 
 Expected: empty or only `__pycache__/`.
 
 ```bash
-rm -rf tests/benchmark_v1/__pycache__ 2>/dev/null
+rm -rf benchmark/runners/__pycache__ 2>/dev/null
 ```
 
 - [ ] **Step 5.2: Update absolute imports**
 
-The pattern `from tests.benchmark_v1.X` becomes `from benchmark.runners.X`.
+The pattern `from benchmark.runners.X` becomes `from benchmark.runners.X`.
 
 Files affected (per earlier grep):
 
 `benchmark/runners/tests/test_backfill.py:6`:
 
-Old: `from tests.benchmark_v1.backfill_gold_db import backfill_v1, _cluster_id_from_url`
+Old: `from benchmark.runners.backfill_gold_db import backfill_v1, _cluster_id_from_url`
 New: `from benchmark.runners.backfill_gold_db import backfill_v1, _cluster_id_from_url`
 
 `benchmark/runners/tests/test_score_gold_pairs.py:6`:
 
-Old: `from tests.benchmark_v1.score_gold_pairs import score_gold_pairs`
+Old: `from benchmark.runners.score_gold_pairs import score_gold_pairs`
 New: `from benchmark.runners.score_gold_pairs import score_gold_pairs`
 
 `benchmark/runners/calibrate_assessor.py:50`:
@@ -928,18 +928,18 @@ New: `sys.path.insert(0, str(PROJECT_ROOT / "benchmark" / "runners"))`
 Old: `sys.path.insert(0, str(PROJECT_ROOT / "tests" / "benchmark_v1"))`
 New: `sys.path.insert(0, str(PROJECT_ROOT / "benchmark" / "runners"))`
 
-`benchmark/runners/calibrate_assessor.py` docstring (line 17): `tests/benchmark_v1/calibrate_assessor.py` → `benchmark/runners/calibrate_assessor.py`
+`benchmark/runners/calibrate_assessor.py` docstring (line 17): `benchmark/runners/calibrate_assessor.py` → `benchmark/runners/calibrate_assessor.py`
 
-`benchmark/runners/calibrate_assessor_report.py:205`: `tests/benchmark_v1/calibrate_assessor_report.py` → `benchmark/runners/calibrate_assessor_report.py` (deferred from Task 3 step 3.7)
+`benchmark/runners/calibrate_assessor_report.py:205`: `benchmark/runners/calibrate_assessor_report.py` → `benchmark/runners/calibrate_assessor_report.py` (deferred from Task 3 step 3.7)
 
-`benchmark/runners/red_audit_fulltext.py:11` (docstring): `tests.benchmark_v1.red_audit_fulltext` → `benchmark.runners.red_audit_fulltext`
+`benchmark/runners/red_audit_fulltext.py:11` (docstring): `benchmark.runners.red_audit_fulltext` → `benchmark.runners.red_audit_fulltext`
 
-After updates, verify no stale `tests.benchmark_v1` imports remain:
+After updates, verify no stale `benchmark.runners` imports remain:
 
 ```bash
 venv/Scripts/python.exe -c "
 import subprocess
-out = subprocess.check_output(['git', 'grep', '-n', 'tests.benchmark_v1\\|tests/benchmark_v1'], text=True)
+out = subprocess.check_output(['git', 'grep', '-n', 'benchmark.runners\\|tests/benchmark_v1'], text=True)
 print(out)
 "
 ```
@@ -983,7 +983,7 @@ Expected output should show test files from both `tests/` and `benchmark/runners
 venv/Scripts/python.exe -m pytest -v --tb=short -q 2>&1 | tail -30
 ```
 
-Expected: same pass/fail count as baseline (after accounting for tests that previously lived in `tests/benchmark_v1/` and are now in `benchmark/runners/tests/` — net count unchanged).
+Expected: same pass/fail count as baseline (after accounting for tests that previously lived in `benchmark/runners/` and are now in `benchmark/runners/tests/` — net count unchanged).
 
 If imports fail with `ModuleNotFoundError: No module named 'benchmark.runners.X'`, the `benchmark/__init__.py` may be missing or the test invocation may need to be from the repo root. Confirm `benchmark/__init__.py` and `benchmark/runners/__init__.py` exist.
 
@@ -1006,10 +1006,10 @@ Expected: regenerates `benchmark/releases/v1/scorecards-deduped.md` from `benchm
 ```bash
 git add -u
 git add pyproject.toml
-git commit -m "benchmark: move tests/benchmark_v1/ → benchmark/runners/
+git commit -m "benchmark: move benchmark/runners/ → benchmark/runners/
 
 Renames the runner directory and updates absolute imports
-(from tests.benchmark_v1.X → from benchmark.runners.X). Adds
+(from benchmark.runners.X → from benchmark.runners.X). Adds
 benchmark/runners/tests/ to pytest's testpaths.
 
 Test files for runners now live under benchmark/runners/tests/;
@@ -1236,7 +1236,7 @@ print(open('benchmark/scratch/find_red_context.py').read())
 " | head -30
 ```
 
-If the script references `benchmark_v1/`, `gold_db/gold.db`, `tests/pilot_a/`, or `scratch/pilot_a/`, update analogously to step 6.3 and the patterns from earlier tasks.
+If the script references `benchmark/releases/v1/`, `benchmark/gold_db/gold.db`, `benchmark/pilot_a/`, or `benchmark/pilot_a/`, update analogously to step 6.3 and the patterns from earlier tasks.
 
 - [ ] **Step 7.5: Smoke-test the moved scripts**
 
@@ -1337,7 +1337,7 @@ git commit -m "benchmark: move 12 plan docs + 3 retro docs → benchmark/docs/
 
 Internal cross-links between moved docs still work (relative paths
 within benchmark/docs/). Path references TO repo files (e.g.
-'benchmark_v1/', 'tests/benchmark_v1/') in the moved docs are
+'benchmark/releases/v1/', 'benchmark/runners/') in the moved docs are
 stale and will be corrected in Task 10 of the consolidation plan.
 
 Non-benchmark plans (verify-brief, etc.) remain at docs/plans/."
@@ -1418,7 +1418,7 @@ Old (the entire section starting `## Benchmark Mining` and ending right before `
 ## Benchmark Mining (for v1.1+ runs)
 
 ### ~~Pool builder drops month/day from cited-case dates~~ FIXED 2026-05-03
-`extract_parentheticals()` in `tests/pilot_a/build_fresh_dc_sample.py` (also used by `tests/benchmark_v1/build_dataset.py`) was persisting only `meta.year`, dropping `meta.month` and `meta.day` that eyecite already extracts. Now persists `month`, `day`, plus a new `full_citation_text` field (eyecite `c.full_span()` slice — case name + reporter + court + date + parenthetical) so downstream consumers can re-parse if eyecite metadata extraction drops a field in the future. Existing `_raw_pool.json` files predate the fix; re-mine to backfill.
+`extract_parentheticals()` in `benchmark/pilot_a/build_fresh_dc_sample.py` (also used by `benchmark/runners/build_dataset.py`) was persisting only `meta.year`, dropping `meta.month` and `meta.day` that eyecite already extracts. Now persists `month`, `day`, plus a new `full_citation_text` field (eyecite `c.full_span()` slice — case name + reporter + court + date + parenthetical) so downstream consumers can re-parse if eyecite metadata extraction drops a field in the future. Existing `_raw_pool.json` files predate the fix; re-mine to backfill.
 
 Discovered via `_all_cl_misses.csv` analysis: only `year` was available for cited cases, so date filtering in the verifier was year-wide and the misses CSV had no full-date column for the cited case. Relevant for the v1.1 "real-but-CL-missed" audit since narrower date filters should reduce miscoded misses.
 
@@ -1436,7 +1436,7 @@ New (replace with empty string — i.e. delete entirely):
 
 - [ ] **Step 9.4: Update path references in `benchmark/TODO.md`**
 
-The captured section refers to `tests/pilot_a/build_fresh_dc_sample.py` and `tests/benchmark_v1/build_dataset.py`. Update to:
+The captured section refers to `benchmark/pilot_a/build_fresh_dc_sample.py` and `benchmark/runners/build_dataset.py`. Update to:
 - `benchmark/pilot_a/build_fresh_dc_sample.py`
 - `benchmark/runners/build_dataset.py`
 
@@ -1456,7 +1456,7 @@ TODOs now live with the rest of the benchmark project."
 
 ## Task 10: Update path references inside moved docs
 
-**Goal:** Sweep through `benchmark/docs/` and update stale path references (`benchmark_v1/`, `tests/benchmark_v1/`, `scratch/pilot_a/`, `tests/pilot_a/`, `gold_db/gold.db`) to the new locations. The cross-references between docs already work (relative paths inside `benchmark/docs/`), but references to repo files are stale.
+**Goal:** Sweep through `benchmark/docs/` and update stale path references (`benchmark/releases/v1/`, `benchmark/runners/`, `benchmark/pilot_a/`, `benchmark/pilot_a/`, `benchmark/gold_db/gold.db`) to the new locations. The cross-references between docs already work (relative paths inside `benchmark/docs/`), but references to repo files are stale.
 
 **Files affected:** all 14 docs under `benchmark/docs/plans/` and `benchmark/docs/retrospectives/`.
 
@@ -1465,7 +1465,7 @@ TODOs now live with the rest of the benchmark project."
 ```bash
 venv/Scripts/python.exe -c "
 import subprocess
-patterns = ['benchmark_v1/', 'tests/benchmark_v1/', 'tests.benchmark_v1', 'scratch/pilot_a/', 'tests/pilot_a/', 'gold_db/gold.db']
+patterns = ['benchmark/releases/v1/', 'benchmark/runners/', 'benchmark.runners', 'benchmark/pilot_a/', 'benchmark/pilot_a/', 'benchmark/gold_db/gold.db']
 for p in patterns:
     print(f'=== {p} ===')
     out = subprocess.run(['git', 'grep', '-l', p, 'benchmark/docs/'], capture_output=True, text=True)
@@ -1481,18 +1481,18 @@ For each file from Step 10.1, use `Edit` with `replace_all=True` for each path p
 
 | Old | New |
 |-----|-----|
-| `benchmark_v1/` | `benchmark/releases/v1/` |
-| `tests/benchmark_v1/` | `benchmark/runners/` |
-| `tests.benchmark_v1` | `benchmark.runners` |
-| `scratch/pilot_a/` | `benchmark/pilot_a/` |
-| `tests/pilot_a/` | `benchmark/pilot_a/` |
-| `gold_db/gold.db` | `benchmark/gold_db/gold.db` |
-| `gold_db/exports` | `benchmark/gold_db/exports` |
-| `gold_db/migrations` | `benchmark/gold_db/migrations` |
+| `benchmark/releases/v1/` | `benchmark/releases/v1/` |
+| `benchmark/runners/` | `benchmark/runners/` |
+| `benchmark.runners` | `benchmark.runners` |
+| `benchmark/pilot_a/` | `benchmark/pilot_a/` |
+| `benchmark/pilot_a/` | `benchmark/pilot_a/` |
+| `benchmark/gold_db/gold.db` | `benchmark/benchmark/gold_db/gold.db` |
+| `benchmark/gold_db/exports` | `benchmark/benchmark/gold_db/exports` |
+| `benchmark/gold_db/migrations` | `benchmark/benchmark/gold_db/migrations` |
 
 **Caution:** the `replace_all=True` will hit prose AND code blocks. That's the intent — both should reflect new paths.
 
-**Caution:** `tests/benchmark_v1/` substring also appears inside `tests.benchmark_v1` (no it doesn't — the punctuation differs). But `benchmark_v1/` is a substring of `benchmark_v1/_raw_pool.json` etc. — that's fine, replacement still works.
+**Caution:** `benchmark/runners/` substring also appears inside `benchmark.runners` (no it doesn't — the punctuation differs). But `benchmark/releases/v1/` is a substring of `benchmark/releases/v1/_raw_pool.json` etc. — that's fine, replacement still works.
 
 For each file, run:
 
@@ -1504,14 +1504,14 @@ for f in Path('benchmark/docs').rglob('*.md'):
     text = f.read_text(encoding='utf-8')
     orig = text
     repls = [
-        ('tests/benchmark_v1/', 'benchmark/runners/'),
-        ('tests.benchmark_v1', 'benchmark.runners'),
-        ('benchmark_v1/', 'benchmark/releases/v1/'),
-        ('scratch/pilot_a/', 'benchmark/pilot_a/'),
-        ('tests/pilot_a/', 'benchmark/pilot_a/'),
-        ('gold_db/gold.db', 'benchmark/gold_db/gold.db'),
-        ('gold_db/exports', 'benchmark/gold_db/exports'),
-        ('gold_db/migrations', 'benchmark/gold_db/migrations'),
+        ('benchmark/runners/', 'benchmark/runners/'),
+        ('benchmark.runners', 'benchmark.runners'),
+        ('benchmark/releases/v1/', 'benchmark/releases/v1/'),
+        ('benchmark/pilot_a/', 'benchmark/pilot_a/'),
+        ('benchmark/pilot_a/', 'benchmark/pilot_a/'),
+        ('benchmark/gold_db/gold.db', 'benchmark/benchmark/gold_db/gold.db'),
+        ('benchmark/gold_db/exports', 'benchmark/benchmark/gold_db/exports'),
+        ('benchmark/gold_db/migrations', 'benchmark/benchmark/gold_db/migrations'),
     ]
     for old, new in repls:
         text = text.replace(old, new)
@@ -1521,7 +1521,7 @@ for f in Path('benchmark/docs').rglob('*.md'):
 "
 ```
 
-**Note on order:** `tests/benchmark_v1/` must be replaced BEFORE `benchmark_v1/` to avoid the longer pattern's prefix being consumed by the shorter one.
+**Note on order:** `benchmark/runners/` must be replaced BEFORE `benchmark/releases/v1/` to avoid the longer pattern's prefix being consumed by the shorter one.
 
 - [ ] **Step 10.3: Visual review of diffs**
 
@@ -1542,7 +1542,7 @@ Spot-check that the diff looks right — no double-replacements (e.g. `benchmark
 ```bash
 venv/Scripts/python.exe -c "
 import subprocess
-patterns = ['benchmark_v1/', 'tests/benchmark_v1/', 'tests.benchmark_v1', 'scratch/pilot_a/', 'tests/pilot_a/']
+patterns = ['benchmark/releases/v1/', 'benchmark/runners/', 'benchmark.runners', 'benchmark/pilot_a/', 'benchmark/pilot_a/']
 for p in patterns:
     out = subprocess.run(['git', 'grep', '-l', p, 'benchmark/docs/'], capture_output=True, text=True)
     if out.stdout.strip():
@@ -1559,8 +1559,8 @@ Expected: no output.
 git add benchmark/docs/
 git commit -m "benchmark: update stale path refs in moved docs
 
-Sweeps benchmark_v1/ → benchmark/releases/v1/, tests/benchmark_v1/ →
-benchmark/runners/, scratch/pilot_a/ + tests/pilot_a/ → benchmark/pilot_a/,
+Sweeps benchmark/releases/v1/ → benchmark/releases/v1/, benchmark/runners/ →
+benchmark/runners/, benchmark/pilot_a/ + benchmark/pilot_a/ → benchmark/pilot_a/,
 gold_db/* → benchmark/gold_db/* across all 14 plan + retro docs."
 ```
 
@@ -1655,7 +1655,7 @@ Then check the regenerated `benchmark/releases/v1/scorecards-deduped.md` matches
 ```bash
 venv/Scripts/python.exe -c "
 from citation_verifier.gold_db import GoldDB
-db = GoldDB('benchmark/gold_db/gold.db')
+db = GoldDB('benchmark/benchmark/gold_db/gold.db')
 print('verdicts:', db.conn.execute('SELECT COUNT(*) FROM assessor_verdicts').fetchone()[0])
 print('propositions:', db.conn.execute('SELECT COUNT(*) FROM propositions').fetchone()[0])
 print('drift samples:', db.conn.execute(\"SELECT COUNT(*) FROM assessor_verdicts WHERE assessor_prompt_version LIKE 'v1-drift%'\").fetchone()[0])
@@ -1676,11 +1676,11 @@ Visual check: matches the target structure from the top of this plan.
 - [ ] **Step 12.5: Confirm no benchmark items remain in the old locations + no stale cache names**
 
 ```bash
-ls benchmark_v1/ 2>/dev/null
+ls benchmark/releases/v1/ 2>/dev/null
 ls gold_db/ 2>/dev/null
-ls tests/benchmark_v1/ 2>/dev/null
-ls tests/pilot_a/ 2>/dev/null
-ls scratch/pilot_a/ 2>/dev/null
+ls benchmark/runners/ 2>/dev/null
+ls benchmark/pilot_a/ 2>/dev/null
+ls benchmark/pilot_a/ 2>/dev/null
 ```
 
 Expected: all should report empty or "No such file or directory."
@@ -1716,11 +1716,11 @@ git push origin main
 
 ## Self-review checklist
 
-- [ ] All `benchmark_v1/` paths in scripts and docs now point to `benchmark/releases/v1/`
-- [ ] All `tests/benchmark_v1/` references → `benchmark/runners/` (paths) or `benchmark.runners` (imports)
-- [ ] All `tests/pilot_a/` and `scratch/pilot_a/` references → `benchmark/pilot_a/`
-- [ ] `gold_db/gold.db` → `benchmark/gold_db/gold.db`
-- [ ] `gold_db.py` SCHEMA_PATH points to `benchmark/gold_db/migrations/...`
+- [ ] All `benchmark/releases/v1/` paths in scripts and docs now point to `benchmark/releases/v1/`
+- [ ] All `benchmark/runners/` references → `benchmark/runners/` (paths) or `benchmark.runners` (imports)
+- [ ] All `benchmark/pilot_a/` and `benchmark/pilot_a/` references → `benchmark/pilot_a/`
+- [ ] `benchmark/gold_db/gold.db` → `benchmark/benchmark/gold_db/gold.db`
+- [ ] `gold_db.py` SCHEMA_PATH points to `benchmark/benchmark/gold_db/migrations/...`
 - [ ] `pyproject.toml` testpaths includes `benchmark/runners/tests`
 - [ ] `.gitignore` updated for new cache locations
 - [ ] `tests/test_gold_db.py` still passes
@@ -1732,7 +1732,7 @@ git push origin main
 - [ ] `benchmark/TODO.md` exists with the Benchmark Mining content
 - [ ] `CLAUDE.md` has the benchmark-orientation pointer
 - [ ] All ~12 commits land on `main`; remote is up to date
-- [ ] No tracked files remain in `benchmark_v1/`, `gold_db/`, `tests/benchmark_v1/`, `tests/pilot_a/`, or `scratch/pilot_a/`
+- [ ] No tracked files remain in `benchmark/releases/v1/`, `gold_db/`, `benchmark/runners/`, `benchmark/pilot_a/`, or `benchmark/pilot_a/`
 
 ---
 

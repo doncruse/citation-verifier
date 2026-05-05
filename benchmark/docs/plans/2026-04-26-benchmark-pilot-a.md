@@ -46,7 +46,7 @@ If **in between** (5-15 pp gap), run Pilot B (temporal stratification of LePaRD)
 - Pull LePaRD from [HuggingFace / GitHub](https://github.com/rmahari/LePaRD)
 - Random sample of 50 rows, no stratification (we want the natural distribution)
 - For each row, extract: `proposition` (the preceding context, lightly trimmed to a single coherent statement), `gold_case` (the cited target passage's source case + citation), `citing_court`, `citing_year`
-- Write to `scratch/pilot_a/lepard_sample.csv`
+- Write to `benchmark/pilot_a/lepard_sample.csv`
 
 ### Step 2 — Build the fresh district-court sample
 
@@ -56,7 +56,7 @@ If **in between** (5-15 pp gap), run Pilot B (temporal stratification of LePaRD)
 - Filter: parenthetical must be ≥15 words and ≤80 words (excludes signal-only parentheticals like "(emphasis added)" and bloated string-cites)
 - Filter: cited case must resolve via citation-verifier as VERIFIED or LIKELY_REAL
 - Random sample of 50 from the filtered pool
-- Write to `scratch/pilot_a/fresh_dc_sample.csv` with same schema as LePaRD sample
+- Write to `benchmark/pilot_a/fresh_dc_sample.csv` with same schema as LePaRD sample
 
 ### Step 3 — Standardized prompt template
 
@@ -115,20 +115,20 @@ Bootstrap 95% CIs on the difference between samples (small N, so reporting uncer
 
 ## Deliverables
 
-- `scratch/pilot_a/lepard_sample.csv` — 50 examples, LePaRD-sourced
-- `scratch/pilot_a/fresh_dc_sample.csv` — 50 examples, freshly-mined district court
-- `scratch/pilot_a/results.csv` — one row per example with model output and three-axis scores
-- `scratch/pilot_a/summary.md` — short report: headline numbers, CIs, decision recommendation, anything surprising in the data
+- `benchmark/pilot_a/lepard_sample.csv` — 50 examples, LePaRD-sourced
+- `benchmark/pilot_a/fresh_dc_sample.csv` — 50 examples, freshly-mined district court
+- `benchmark/pilot_a/results.csv` — one row per example with model output and three-axis scores
+- `benchmark/pilot_a/summary.md` — short report: headline numbers, CIs, decision recommendation, anything surprising in the data
 
 ## Code organization
 
-New module: `tests/pilot_a/`
+New module: `benchmark/pilot_a/`
 
-- `tests/pilot_a/build_lepard_sample.py` — Step 1
-- `tests/pilot_a/build_fresh_dc_sample.py` — Step 2
-- `tests/pilot_a/run_model.py` — Steps 3-4 (loads both CSVs, prompts model, writes raw outputs)
-- `tests/pilot_a/score.py` — Step 5 (loads outputs, runs three-axis scorer using existing pipeline)
-- `tests/pilot_a/summarize.py` — Step 6 (CSV → summary stats + markdown report)
+- `benchmark/pilot_a/build_lepard_sample.py` — Step 1
+- `benchmark/pilot_a/build_fresh_dc_sample.py` — Step 2
+- `benchmark/pilot_a/run_model.py` — Steps 3-4 (loads both CSVs, prompts model, writes raw outputs)
+- `benchmark/pilot_a/score.py` — Step 5 (loads outputs, runs three-axis scorer using existing pipeline)
+- `benchmark/pilot_a/summarize.py` — Step 6 (CSV → summary stats + markdown report)
 
 Each script is independently runnable so we can re-run any phase without redoing earlier work.
 

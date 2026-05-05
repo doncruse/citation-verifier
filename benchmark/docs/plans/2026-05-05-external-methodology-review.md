@@ -44,7 +44,7 @@ Solo hand-checking is insufficient; the recommendation is a ~150-pair
 double- or triple-coded validation set with κ or α reported.
 
 **What the repo currently does:**
-- v1.1 calibration (`benchmark_v1/calibration.md`): scored Sonnet/Haiku
+- v1.1 calibration (`benchmark/releases/v1/calibration.md`): scored Sonnet/Haiku
   against Opus on v1's 600 cells; Opus's labels were treated as ground
   truth. No human coding.
 - Gold-pair self-score baseline (`gold_db/`, 117 props, 84G/11Y/22R):

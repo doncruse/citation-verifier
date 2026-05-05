@@ -202,11 +202,11 @@ Skipping bulk re-check on routine runs is the right move. Cost: ~10 extra Opus c
 
 ## Integration with existing code
 
-Thin Python module `src/citation_verifier/gold_db.py` (or `tests/benchmark_v1/gold_db.py` if benchmark-only is preferred — see open question below):
+Thin Python module `src/citation_verifier/gold_db.py` (or `benchmark/runners/gold_db.py` if benchmark-only is preferred — see open question below):
 
 ```python
 class GoldDB:
-    def __init__(self, path: str = "gold_db/gold.db"): ...
+    def __init__(self, path: str = "benchmark/gold_db/gold.db"): ...
 
     # Idempotent upserts
     def upsert_case(self, cluster_id: int, **attrs) -> None: ...
@@ -228,9 +228,9 @@ class GoldDB:
 ```
 
 Wires into existing benchmark scripts:
-- `tests/benchmark_v1/build_dataset.py` — uses `upsert_case` / `upsert_proposition` / `add_citation_row`; consults `cases` before calling CL
-- `tests/benchmark_v1/run_model.py` — calls `record_model_answer` (does not score)
-- `tests/benchmark_v1/score.py` — uses `get_or_score_verdict` (cache-or-call wrapper around the existing Opus assessor)
+- `benchmark/runners/build_dataset.py` — uses `upsert_case` / `upsert_proposition` / `add_citation_row`; consults `cases` before calling CL
+- `benchmark/runners/run_model.py` — calls `record_model_answer` (does not score)
+- `benchmark/runners/score.py` — uses `get_or_score_verdict` (cache-or-call wrapper around the existing Opus assessor)
 
 ## File layout
 
@@ -274,9 +274,9 @@ gold_db/
 
 ## Open questions
 
-1. **Module location:** `src/citation_verifier/gold_db.py` (treat as core library) or `tests/benchmark_v1/gold_db.py` (treat as benchmark-only)? Leaning core library since the cache logic is reusable beyond benchmarking, but the audience for v1 is benchmark scripts only.
+1. **Module location:** `src/citation_verifier/gold_db.py` (treat as core library) or `benchmark/runners/gold_db.py` (treat as benchmark-only)? Leaning core library since the cache logic is reusable beyond benchmarking, but the audience for v1 is benchmark scripts only.
 
-2. **Backfill granularity:** rebuild from v1's CSVs (`benchmark_v1/dataset.csv`, `outputs_*.csv`, `results.csv`) wholesale, or only forward-fill from v2 onward and treat v1 as an external archive? **Leaning backfill** — v1's 130 unique pairs + ~390 model answers + ~195 verdicts are the seed corpus, and not having them in the gold-DB defeats the cache for v1 reruns. Note that backfill works off the deduped data (130 unique propositions), not the original 200-row mining output.
+2. **Backfill granularity:** rebuild from v1's CSVs (`benchmark/releases/v1/dataset.csv`, `outputs_*.csv`, `results.csv`) wholesale, or only forward-fill from v2 onward and treat v1 as an external archive? **Leaning backfill** — v1's 130 unique pairs + ~390 model answers + ~195 verdicts are the seed corpus, and not having them in the gold-DB defeats the cache for v1 reruns. Note that backfill works off the deduped data (130 unique propositions), not the original 200-row mining output.
 
 3. ~~**Tier taxonomy:**~~ **Resolved.** Use [courts-db](https://github.com/freelawproject/courts-db)'s `system` + `level` fields directly (federal/state/tribal/etc. × colr/iac/gjc/ljc/trial). Stored as two separate columns on `cases` so analysts can combine them at query time rather than baking a tier label into storage.
 

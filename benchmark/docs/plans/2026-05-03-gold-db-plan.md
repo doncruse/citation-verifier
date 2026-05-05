@@ -4,7 +4,7 @@
 
 **Goal:** Build the gold-DB SQLite cache + Python module specified in [2026-05-03-gold-db-design.md](2026-05-03-gold-db-design.md), backfill v1's data into it, score gold-pair self-scores, and wire the build-side and score-side caches into the existing benchmark_v1 scripts.
 
-**Architecture:** Single SQLite file at `gold_db/gold.db` with 5 tables (cases, propositions, citation_rows, assessor_verdicts, model_answers) plus a runs metadata table. Thin Python wrapper class `GoldDB` in `src/citation_verifier/gold_db.py` exposing idempotent upserts and a cache-aware `get_or_score_verdict` method. CSV exports committed alongside for diffability.
+**Architecture:** Single SQLite file at `benchmark/gold_db/gold.db` with 5 tables (cases, propositions, citation_rows, assessor_verdicts, model_answers) plus a runs metadata table. Thin Python wrapper class `GoldDB` in `src/citation_verifier/gold_db.py` exposing idempotent upserts and a cache-aware `get_or_score_verdict` method. CSV exports committed alongside for diffability.
 
 **Tech Stack:** Python 3.10+ stdlib `sqlite3`, `hashlib` (sha256 proposition hashing), `csv` (export). Tests via `pytest` with `tmp_path` fixtures. One new third-party dependency: [`courts-db`](https://github.com/freelawproject/courts-db) for court-system / level lookup (replaces a home-rolled tier table).
 
@@ -17,23 +17,23 @@
 ## File structure
 
 **New files:**
-- `gold_db/migrations/001_initial.sql` — canonical CREATE TABLE statements
+- `benchmark/gold_db/migrations/001_initial.sql` — canonical CREATE TABLE statements
 - `gold_db/README.md` — querying examples + CSV export consumption guide
 - `src/citation_verifier/gold_db.py` — `GoldDB` class + `lookup_court` utility (courts-db wrapper)
 - `tests/test_gold_db.py` — unit tests (in-memory SQLite via `tmp_path`)
-- `tests/benchmark_v1/backfill_gold_db.py` — one-shot script to populate gold-DB from v1 CSVs
-- `tests/benchmark_v1/score_gold_pairs.py` — one-shot script to compute gold-pair self-scores
-- `tests/benchmark_v1/test_backfill.py` — unit tests for backfill (small CSV fixtures)
-- `tests/benchmark_v1/test_score_gold_pairs.py` — unit tests for self-score script (mocked assessor)
+- `benchmark/runners/backfill_gold_db.py` — one-shot script to populate gold-DB from v1 CSVs
+- `benchmark/runners/score_gold_pairs.py` — one-shot script to compute gold-pair self-scores
+- `benchmark/runners/test_backfill.py` — unit tests for backfill (small CSV fixtures)
+- `benchmark/runners/test_score_gold_pairs.py` — unit tests for self-score script (mocked assessor)
 
 **Modified files:**
-- `tests/benchmark_v1/build_dataset.py` — consult `cases` before CL citation-lookup
-- `tests/benchmark_v1/score.py` — wrap assessor in `get_or_score_verdict`, add rolling-sample re-check
-- `tests/benchmark_v1/run_model.py` — call `record_model_answer` alongside CSV write
+- `benchmark/runners/build_dataset.py` — consult `cases` before CL citation-lookup
+- `benchmark/runners/score.py` — wrap assessor in `get_or_score_verdict`, add rolling-sample re-check
+- `benchmark/runners/run_model.py` — call `record_model_answer` alongside CSV write
 
 **Generated artifacts (committed, not hand-edited):**
-- `gold_db/gold.db` — SQLite database (created in Task 1; populated by Task 9 backfill + Task 11 self-scores)
-- `gold_db/exports/cases.csv` etc. — written by `GoldDB.export_csvs()` after Task 8
+- `benchmark/gold_db/gold.db` — SQLite database (created in Task 1; populated by Task 9 backfill + Task 11 self-scores)
+- `benchmark/gold_db/exports/cases.csv` etc. — written by `GoldDB.export_csvs()` after Task 8
 
 ---
 
@@ -50,7 +50,7 @@
 ## Task 1: Schema + GoldDB skeleton
 
 **Files:**
-- Create: `gold_db/migrations/001_initial.sql`
+- Create: `benchmark/gold_db/migrations/001_initial.sql`
 - Create: `src/citation_verifier/gold_db.py`
 - Create: `tests/test_gold_db.py`
 
@@ -94,7 +94,7 @@ Expected: FAIL with `ModuleNotFoundError: No module named 'citation_verifier.gol
 
 - [ ] **Step 3: Write the SQL schema**
 
-Create `gold_db/migrations/001_initial.sql` with the contents of the schema block from [2026-05-03-gold-db-design.md](2026-05-03-gold-db-design.md) §Schema. Verbatim — all 7 `CREATE TABLE` statements (cases, propositions, datasets, citation_rows, assessor_verdicts, model_answers, runs) plus the indexes. Note that `cases` has `system` + `level` columns (from courts-db) rather than `tier` + `jurisdiction`.
+Create `benchmark/gold_db/migrations/001_initial.sql` with the contents of the schema block from [2026-05-03-gold-db-design.md](2026-05-03-gold-db-design.md) §Schema. Verbatim — all 7 `CREATE TABLE` statements (cases, propositions, datasets, citation_rows, assessor_verdicts, model_answers, runs) plus the indexes. Note that `cases` has `system` + `level` columns (from courts-db) rather than `tier` + `jurisdiction`.
 
 - [ ] **Step 3b: Add courts-db dependency**
 
@@ -149,7 +149,7 @@ Expected: PASS for both tests.
 - [ ] **Step 6: Commit**
 
 ```bash
-git add gold_db/migrations/001_initial.sql src/citation_verifier/gold_db.py tests/test_gold_db.py
+git add benchmark/gold_db/migrations/001_initial.sql src/citation_verifier/gold_db.py tests/test_gold_db.py
 git commit -m "gold-DB: schema + GoldDB skeleton"
 ```
 
@@ -992,8 +992,8 @@ git commit -m "gold-DB: model_answers, runs, CSV export"
 ## Task 9: Backfill v1 from CSVs (with dedup)
 
 **Files:**
-- Create: `tests/benchmark_v1/backfill_gold_db.py`
-- Create: `tests/benchmark_v1/test_backfill.py`
+- Create: `benchmark/runners/backfill_gold_db.py`
+- Create: `benchmark/runners/test_backfill.py`
 
 **Background:** v1's `dataset.csv` has 200 rows but only ~130 unique (proposition, gold-case) pairs after dedup (eyecite duplication bug). The backfill script does six passes:
 
@@ -1009,12 +1009,12 @@ The `v_url` format is `https://www.courtlistener.com/opinion/{cluster_id}/...` �
 - [ ] **Step 1: Write failing test on small fixture**
 
 ```python
-# tests/benchmark_v1/test_backfill.py
+# benchmark/runners/test_backfill.py
 from pathlib import Path
 import csv
 import pytest
 from citation_verifier.gold_db import GoldDB
-from tests.benchmark_v1.backfill_gold_db import backfill_v1
+from benchmark.runners.backfill_gold_db import backfill_v1
 
 
 def _write_csv(path: Path, rows: list[dict], cols: list[str]) -> None:
@@ -1057,7 +1057,7 @@ def test_backfill_dedupes_propositions(tmp_path: Path):
 
 
 def test_backfill_extracts_cluster_id_from_url(tmp_path: Path):
-    from tests.benchmark_v1.backfill_gold_db import _cluster_id_from_url
+    from benchmark.runners.backfill_gold_db import _cluster_id_from_url
     assert _cluster_id_from_url(
         "https://www.courtlistener.com/opinion/12345/foo/") == 12345
     assert _cluster_id_from_url(
@@ -1069,16 +1069,16 @@ def test_backfill_extracts_cluster_id_from_url(tmp_path: Path):
 
 - [ ] **Step 2: Run tests to verify they fail**
 
-Run: `venv/Scripts/python.exe -m pytest tests/benchmark_v1/test_backfill.py -v`
-Expected: FAIL with `ModuleNotFoundError: No module named 'tests.benchmark_v1.backfill_gold_db'`
+Run: `venv/Scripts/python.exe -m pytest benchmark/runners/test_backfill.py -v`
+Expected: FAIL with `ModuleNotFoundError: No module named 'benchmark.runners.backfill_gold_db'`
 
 - [ ] **Step 3: Implement the backfill script**
 
 ```python
-# tests/benchmark_v1/backfill_gold_db.py
+# benchmark/runners/backfill_gold_db.py
 """Backfill v1's CSV outputs into gold-DB.
 
-Reads benchmark_v1/{dataset.csv, outputs_*.csv, results.csv}, dedupes,
+Reads benchmark/releases/v1/{dataset.csv, outputs_*.csv, results.csv}, dedupes,
 and populates the gold-DB. Idempotent: rerunning on a populated DB
 inserts only what's missing.
 """
@@ -1435,7 +1435,7 @@ def _backfill_calibration(
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--bench-dir", default="benchmark_v1")
-    ap.add_argument("--db-path", default="gold_db/gold.db")
+    ap.add_argument("--db-path", default="benchmark/gold_db/gold.db")
     ap.add_argument("--run-id", default=None)
     args = ap.parse_args()
     run_id = args.run_id or f"v1-backfill-{__import__('datetime').datetime.utcnow().strftime('%Y%m%d-%H%M%S')}"
@@ -1460,13 +1460,13 @@ if __name__ == "__main__":
 
 - [ ] **Step 4: Run unit tests to verify they pass**
 
-Run: `venv/Scripts/python.exe -m pytest tests/benchmark_v1/test_backfill.py -v`
+Run: `venv/Scripts/python.exe -m pytest benchmark/runners/test_backfill.py -v`
 Expected: PASS for both fixture tests.
 
 - [ ] **Step 5: Run on real v1 data**
 
 ```bash
-venv/Scripts/python.exe -m tests.benchmark_v1.backfill_gold_db
+venv/Scripts/python.exe -m benchmark.runners.backfill_gold_db
 ```
 
 Expected output (approximate):
@@ -1488,7 +1488,7 @@ If propositions ≠ 130 exactly, investigate before committing. The dedup target
 ```bash
 venv/Scripts/python.exe -c "
 from citation_verifier.gold_db import GoldDB
-db = GoldDB('gold_db/gold.db')
+db = GoldDB('benchmark/gold_db/gold.db')
 print('Tier distribution of cited (gold) cases:')
 for r in db.conn.execute('''
     SELECT c.system, c.level, COUNT(*) FROM citation_rows cr
@@ -1505,9 +1505,9 @@ Expected: most rows have `system=NULL` and `level=NULL` (we didn't populate cour
 - [ ] **Step 7: Commit**
 
 ```bash
-git add tests/benchmark_v1/backfill_gold_db.py tests/benchmark_v1/test_backfill.py gold_db/gold.db gold_db/exports/
-venv/Scripts/python.exe -c "from citation_verifier.gold_db import GoldDB; GoldDB('gold_db/gold.db').export_csvs('gold_db/exports')"
-git add gold_db/exports/
+git add benchmark/runners/backfill_gold_db.py benchmark/runners/test_backfill.py benchmark/gold_db/gold.db benchmark/gold_db/exports/
+venv/Scripts/python.exe -c "from citation_verifier.gold_db import GoldDB; GoldDB('benchmark/gold_db/gold.db').export_csvs('benchmark/gold_db/exports')"
+git add benchmark/gold_db/exports/
 git commit -m "gold-DB: backfill v1 (130 props/rows, ~390 answers, ~190 Opus-20K + ~22 Opus-60K + ~500 calibration verdicts)"
 ```
 
@@ -1516,8 +1516,8 @@ git commit -m "gold-DB: backfill v1 (130 props/rows, ~390 answers, ~190 Opus-20K
 ## Task 10: Gold-pair self-score pass
 
 **Files:**
-- Create: `tests/benchmark_v1/score_gold_pairs.py`
-- Create: `tests/benchmark_v1/test_score_gold_pairs.py`
+- Create: `benchmark/runners/score_gold_pairs.py`
+- Create: `benchmark/runners/test_score_gold_pairs.py`
 
 **Cost:** ~130 Opus assessor calls. **Pause and confirm with user before Step 5 (running on real data).**
 
@@ -1526,11 +1526,11 @@ The script iterates every `citation_rows` row in `dataset_name='v1'`, calls the 
 - [ ] **Step 1: Write failing test (mocked assessor)**
 
 ```python
-# tests/benchmark_v1/test_score_gold_pairs.py
+# benchmark/runners/test_score_gold_pairs.py
 from pathlib import Path
 from unittest.mock import MagicMock
 from citation_verifier.gold_db import GoldDB
-from tests.benchmark_v1.score_gold_pairs import score_gold_pairs
+from benchmark.runners.score_gold_pairs import score_gold_pairs
 
 
 def _seed(db: GoldDB) -> tuple[str, int]:
@@ -1568,13 +1568,13 @@ def test_score_gold_pairs_skips_cached(tmp_path: Path):
 
 - [ ] **Step 2: Run tests to verify they fail**
 
-Run: `venv/Scripts/python.exe -m pytest tests/benchmark_v1/test_score_gold_pairs.py -v`
+Run: `venv/Scripts/python.exe -m pytest benchmark/runners/test_score_gold_pairs.py -v`
 Expected: FAIL with `ModuleNotFoundError`.
 
 - [ ] **Step 3: Implement the script**
 
 ```python
-# tests/benchmark_v1/score_gold_pairs.py
+# benchmark/runners/score_gold_pairs.py
 """Score every v1 (proposition, gold-case) pair with Opus.
 
 Establishes the calibration baseline: how often does Opus agree that the
@@ -1681,7 +1681,7 @@ def score_gold_pairs(
 
 def main() -> None:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--db-path", default="gold_db/gold.db")
+    ap.add_argument("--db-path", default="benchmark/gold_db/gold.db")
     ap.add_argument("--run-id", default=None)
     args = ap.parse_args()
     run_id = args.run_id or f"v1-goldpair-{__import__('datetime').datetime.utcnow().strftime('%Y%m%d-%H%M%S')}"
@@ -1703,7 +1703,7 @@ if __name__ == "__main__":
 
 - [ ] **Step 4: Run unit tests to verify they pass**
 
-Run: `venv/Scripts/python.exe -m pytest tests/benchmark_v1/test_score_gold_pairs.py -v`
+Run: `venv/Scripts/python.exe -m pytest benchmark/runners/test_score_gold_pairs.py -v`
 Expected: PASS for both.
 
 - [ ] **Step 5: Pause and confirm with user before running on real data**
@@ -1713,7 +1713,7 @@ This step costs ~130 Opus calls. Confirm with user that they want to proceed and
 After confirmation:
 
 ```bash
-venv/Scripts/python.exe -m tests.benchmark_v1.score_gold_pairs
+venv/Scripts/python.exe -m benchmark.runners.score_gold_pairs
 ```
 
 Expected output (approximate; depends on whether Opus agrees with citing courts):
@@ -1734,8 +1734,8 @@ The exact distribution is the headline result for v1.3. Whatever the Yellow + Re
 - [ ] **Step 6: Re-export CSVs and commit**
 
 ```bash
-venv/Scripts/python.exe -c "from citation_verifier.gold_db import GoldDB; GoldDB('gold_db/gold.db').export_csvs('gold_db/exports')"
-git add gold_db/gold.db gold_db/exports/ tests/benchmark_v1/score_gold_pairs.py tests/benchmark_v1/test_score_gold_pairs.py
+venv/Scripts/python.exe -c "from citation_verifier.gold_db import GoldDB; GoldDB('benchmark/gold_db/gold.db').export_csvs('benchmark/gold_db/exports')"
+git add benchmark/gold_db/gold.db benchmark/gold_db/exports/ benchmark/runners/score_gold_pairs.py benchmark/runners/test_score_gold_pairs.py
 git commit -m "gold-DB: gold-pair self-score baseline (130 verdicts, source=gold_pair)"
 ```
 
@@ -1744,7 +1744,7 @@ git commit -m "gold-DB: gold-pair self-score baseline (130 verdicts, source=gold
 ## Task 11: Wire build-side cache into build_dataset.py
 
 **Files:**
-- Modify: `tests/benchmark_v1/build_dataset.py`
+- Modify: `benchmark/runners/build_dataset.py`
 
 **Goal:** Before calling CL citation-lookup for any citation, check `cases` for the cluster_id (when known) or for a name+cite match. On hit, skip CL.
 
@@ -1752,7 +1752,7 @@ git commit -m "gold-DB: gold-pair self-score baseline (130 verdicts, source=gold
 
 - [ ] **Step 1: Read build_dataset.py to find CL call sites**
 
-Open `tests/benchmark_v1/build_dataset.py`. Locate the section that calls `verifier.verify_batch(...)` for gold-case verification. That's the CL hit point.
+Open `benchmark/runners/build_dataset.py`. Locate the section that calls `verifier.verify_batch(...)` for gold-case verification. That's the CL hit point.
 
 - [ ] **Step 2: Write integration test**
 
@@ -1805,7 +1805,7 @@ print(f"Build-side cache: {len(cached)} hits / {len(citation_strs)} total")
 
 - [ ] **Step 4: Smoke test on existing v1 dataset.csv**
 
-Run: `venv/Scripts/python.exe -m tests.benchmark_v1.build_dataset --dry-run` (or whatever dry-run flag exists; if none, skip — see step 5).
+Run: `venv/Scripts/python.exe -m benchmark.runners.build_dataset --dry-run` (or whatever dry-run flag exists; if none, skip — see step 5).
 
 Expected: `Build-side cache: ~150 hits / 200 total` since v1's gold cases are in `cases` after Task 9 backfill.
 
@@ -1814,7 +1814,7 @@ Expected: `Build-side cache: ~150 hits / 200 total` since v1's gold cases are in
 If `build_dataset.py` doesn't have a clean dry-run mode and a real run would re-mine, skip the smoke test and commit the wiring as-is. The next v2 mining run will exercise it.
 
 ```bash
-git add tests/benchmark_v1/build_dataset.py
+git add benchmark/runners/build_dataset.py
 git commit -m "gold-DB: wire build-side cache into build_dataset.py"
 ```
 
@@ -1823,18 +1823,18 @@ git commit -m "gold-DB: wire build-side cache into build_dataset.py"
 ## Task 12: Wire score-side cache into score.py + rolling-sample re-check
 
 **Files:**
-- Modify: `tests/benchmark_v1/score.py`
+- Modify: `benchmark/runners/score.py`
 
 **Goal:** Wrap the Opus assessor call in `db.get_or_score_verdict` so reruns hit the cache. Also call `record_model_answer` so future runs of `score.py` populate the gold-DB even on cache miss. Add a rolling-sample re-check that scores ~10 already-cached random pairs to detect drift.
 
 - [ ] **Step 1: Read score.py's assessor call site**
 
-Open `tests/benchmark_v1/score.py`. Locate the `call_assessor(...)` invocation and the surrounding loop that iterates over (model, example) cells.
+Open `benchmark/runners/score.py`. Locate the `call_assessor(...)` invocation and the surrounding loop that iterates over (model, example) cells.
 
 - [ ] **Step 2: Write integration test**
 
 ```python
-# tests/benchmark_v1/test_score_integration.py (new file)
+# benchmark/runners/test_score_integration.py (new file)
 from pathlib import Path
 from unittest.mock import patch, MagicMock
 from citation_verifier.gold_db import GoldDB
@@ -1859,7 +1859,7 @@ def test_score_uses_gold_db_cache(tmp_path: Path):
 
 - [ ] **Step 3: Run test**
 
-Run: `venv/Scripts/python.exe -m pytest tests/benchmark_v1/test_score_integration.py -v`
+Run: `venv/Scripts/python.exe -m pytest benchmark/runners/test_score_integration.py -v`
 Expected: PASS (this is really a re-check of Task 7's contract; it's here as documentation that score.py consumes the contract correctly).
 
 - [ ] **Step 4: Modify score.py**
@@ -1964,7 +1964,7 @@ def rolling_recheck(db: GoldDB, run_id: str, n: int = ROLLING_RECHECK_N) -> int:
 - [ ] **Step 6: Smoke run on existing v1 data**
 
 ```bash
-venv/Scripts/python.exe -m tests.benchmark_v1.score
+venv/Scripts/python.exe -m benchmark.runners.score
 ```
 
 Expected: zero new assessor calls (everything cached from Task 9 backfill). Plus 10 drift-sample calls.
@@ -1974,7 +1974,7 @@ If the run makes more than 10 + UNKNOWN-cell calls, investigate why the cache is
 - [ ] **Step 7: Commit**
 
 ```bash
-git add tests/benchmark_v1/score.py tests/benchmark_v1/test_score_integration.py
+git add benchmark/runners/score.py benchmark/runners/test_score_integration.py
 git commit -m "gold-DB: wire score.py to use cache + rolling-sample re-check"
 ```
 
@@ -1989,7 +1989,7 @@ git commit -m "gold-DB: wire score.py to use cache + rolling-sample re-check"
 ```bash
 venv/Scripts/python.exe -c "
 from citation_verifier.gold_db import GoldDB
-db = GoldDB('gold_db/gold.db')
+db = GoldDB('benchmark/gold_db/gold.db')
 print('verdicts:', db.conn.execute('SELECT COUNT(*) FROM assessor_verdicts').fetchone()[0])
 print('drift samples:', db.conn.execute(\"SELECT COUNT(*) FROM assessor_verdicts WHERE assessor_prompt_version LIKE 'v1-drift%'\").fetchone()[0])
 "
@@ -2000,7 +2000,7 @@ Record the numbers.
 - [ ] **Step 2: Re-run score.py end-to-end**
 
 ```bash
-venv/Scripts/python.exe -m tests.benchmark_v1.score
+venv/Scripts/python.exe -m benchmark.runners.score
 ```
 
 - [ ] **Step 3: Capture post-run verdict count**
@@ -2016,7 +2016,7 @@ If `verdicts` grew by more than ~10 + cells-with-no-match, the cache failed some
 ```bash
 venv/Scripts/python.exe -c "
 from citation_verifier.gold_db import GoldDB
-db = GoldDB('gold_db/gold.db')
+db = GoldDB('benchmark/gold_db/gold.db')
 # How many drift-sample rows agree with their canonical row?
 print(db.conn.execute('''
     SELECT canonical.verdict = drift.verdict AS agree, COUNT(*)
@@ -2052,7 +2052,7 @@ Cumulative knowledge corpus for the case-law benchmark. See
 ## Querying
 
 ```bash
-sqlite3 gold_db/gold.db "
+sqlite3 benchmark/gold_db/gold.db "
   SELECT verdict, COUNT(*) FROM assessor_verdicts
    WHERE source='gold_pair' GROUP BY verdict
 "
@@ -2061,13 +2061,13 @@ sqlite3 gold_db/gold.db "
 ## Refreshing exports
 
 ```bash
-venv/Scripts/python.exe -c "from citation_verifier.gold_db import GoldDB; GoldDB('gold_db/gold.db').export_csvs('gold_db/exports')"
+venv/Scripts/python.exe -c "from citation_verifier.gold_db import GoldDB; GoldDB('benchmark/gold_db/gold.db').export_csvs('benchmark/gold_db/exports')"
 ```
 ```
 
 ```bash
-venv/Scripts/python.exe -c "from citation_verifier.gold_db import GoldDB; GoldDB('gold_db/gold.db').export_csvs('gold_db/exports')"
-git add gold_db/README.md gold_db/gold.db gold_db/exports/
+venv/Scripts/python.exe -c "from citation_verifier.gold_db import GoldDB; GoldDB('benchmark/gold_db/gold.db').export_csvs('benchmark/gold_db/exports')"
+git add gold_db/README.md benchmark/gold_db/gold.db benchmark/gold_db/exports/
 git commit -m "gold-DB: end-to-end validation + README"
 ```
 
@@ -2077,8 +2077,8 @@ git commit -m "gold-DB: end-to-end validation + README"
 
 - [ ] Re-running v1 scoring produces zero net new canonical assessor verdicts (rolling-sample drift rows are expected)
 - [ ] `gold.db` final state: 130 propositions, ≤130 unique cited cases, 130 citation_rows, ~390 model_answers; on the verdict side: ~190 Opus-20K + ~22 Opus-60K (truncation) + ~500 Sonnet/Haiku-20K (calibration) + 130 gold_pair (60K) + ~10 drift samples
-- [ ] `gold_db/exports/*.csv` re-exported and committed
-- [ ] All unit tests pass: `venv/Scripts/python.exe -m pytest tests/test_gold_db.py tests/benchmark_v1/test_backfill.py tests/benchmark_v1/test_score_gold_pairs.py tests/benchmark_v1/test_score_integration.py -v`
+- [ ] `benchmark/gold_db/exports/*.csv` re-exported and committed
+- [ ] All unit tests pass: `venv/Scripts/python.exe -m pytest tests/test_gold_db.py benchmark/runners/test_backfill.py benchmark/runners/test_score_gold_pairs.py benchmark/runners/test_score_integration.py -v`
 - [ ] Gold-pair Green/Yellow/Red distribution recorded in retrospective notes (this is the v1.3 publishable result)
 
 ---
