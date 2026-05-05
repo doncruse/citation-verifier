@@ -1,97 +1,22 @@
 # Case Law Retrieval Benchmark — Roadmap
 
-Living doc. Tracks deferred work from v1 plus ideas surfaced during runs.
+Living doc. Tracks active and planned work; history at the bottom.
 
-**Current state (as of 2026-05-05):** v1 shipped May 2026 (effective N=130 after dedup, 3 models, Opus-assessed). v1.1 validation studies done (assessor calibration + 60K truncation re-test). v1.2 partial — gold-DB infrastructure landed 2026-05-04; remaining methodology backlog rolls into v1.3 or defers to v2 per [v1.3 design](2026-05-05-v1.3-design.md).
+**Current state (2026-05-05):** v1.3 design landed; implementation pending (user holding to do other work first). Recent v1.x audits (2026-05-04) closed out v1.2 and informed v1.3 design — see History below. v2 is the pre-registered confirmatory paper, planned post-v1.3.
 
-**Active plan:** [`2026-05-05-v1.3-design.md`](2026-05-05-v1.3-design.md) — methodology test bed: 200-pair stratified (25/25/25/25 SCOTUS / Fed COA / Fed District / State COLR+COA), full-text Sonnet 4.6 assessor, human-coded validation, 5-tier rubric. NOT pre-registered; v2 is the pre-registered confirmatory paper. **In design phase — implementation has not started.**
-
-**Mid-flight findings from v1.x (2026-05-04):** gold-pair self-score pass surfaced two material methodology issues (both written up): (a) `pilot_a/score.py:fetch_opinion_text` silently truncates at 20K — affected Task 10's "60K" gold-pair pass and the v1.1 calibration study (see [2026-05-04-truncation-bug-and-red-audit.md](../retrospectives/2026-05-04-truncation-bug-and-red-audit.md)); (b) eyecite/build_dataset mis-attaches parentheticals to the wrong case in chained citations — 3 of 5 v1 "Reds" at full text were parser bugs, not court errors (see [2026-05-04-fulltext-assessor-comparison-and-mining-bugs.md](../retrospectives/2026-05-04-fulltext-assessor-comparison-and-mining-bugs.md)). Sonnet 4.6 at full text emerged as v1.3's default assessor candidate (90.6% Green on v1 gold pairs, ~5× cheaper than Opus); Haiku 4.5 ruled out (54.7% Red at full text). Both fixes are scoped into v1.3 mining and assessor work.
-
-**v1.3 update protocol:** This roadmap is the live state tracker. When v1.3 work lands, update this doc's "Current state" line and the v1.3 section below. The active design contract is [`2026-05-05-v1.3-design.md`](2026-05-05-v1.3-design.md) — that doc tracks per-section progress (✅ / 🟡) as implementation proceeds.
+**Update protocol:** This doc is the live state tracker. When work lands, update the relevant section here and any per-section progress marks (✅ / 🟡) on the active design contract.
 
 ---
 
-## v1.2 — Methodology hardening
-
-These items were called out in the v1 design as deferred. Keep them grouped so a v1.2 release can sweep them together. The **gold-DB** ([design](2026-05-03-gold-db-design.md), [plan](2026-05-03-gold-db-plan.md), in progress 2026-05-03) is the framing artifact for v1.2: a cumulative SQLite corpus of (proposition, case, verdict) tuples that subsumes three of the items below (marked) and unlocks the rest.
-
-| Item | Why deferred from v1 | What it unlocks |
-|---|---|---|
-| Forkable kit scaffolding (SCHEMA.md, MINING_PLAYBOOK.md, QUALITY_GATES.md, PROMPT_TEMPLATES/, scoring/, SUBMISSION.md) | Federal-layer was the reference implementation; kit comes after a working v1 | External contributors can fork the kit and run state-court / circuit / topic-specific variants |
-| Web-search and tool-augmented eval modes | Closed-book first to establish baseline | Tests retrieval-augmented frontier behavior (e.g. Sonnet+web vs. Opus closed-book) |
-| Currency axis (good-law check) | Needs CL citator data integration | Catches "real case but bad law" — overruled, vacated, distinguished |
-| Jurisdictional-appropriateness axis | Needs court-hierarchy rules | Penalizes citing 3rd Cir. for a 5th Cir. proposition |
-| Lexical-dissimilarity quality gate | Pilot A recorded raw similarity but didn't filter | Removes propositions that are near-paraphrases of the gold case name |
-| Multi-source existence oracle (CL + Justia + Caselaw Access Project) | CL-coverage bias is acknowledged in v1; quantification deferred | Vendor RAG benchmarks (v1.2+) need broader-than-CL coverage to be fair |
-| **Acceptable-alternatives caching** → *subsumed by [gold-DB](2026-05-03-gold-db-design.md)* | v1 records (model, gold, alternative-found-by-Opus) but no cache | Re-runs don't re-judge known-acceptable substitutes |
-| Mining-stage deduplication on `(citing_cluster_id, citation_text, parenthetical)` | v1 mining produced ~10× duplication of each paren inside its source opinion (eyecite picking up the same citation in full + short forms); 35% of the 200-row sampled dataset turned out to be duplicates of other rows; deduped to 130 unique propositions for the report | Saves CL API calls during build; prevents over-weighting in the final sample; lets v1.2 hit a true N=200 instead of an effective N=130 (or v2 starts fresh at the target) |
-| **Verified-citations cache** (`citation_text → cluster_id, case_name`) → *subsumed by [gold-DB](2026-05-03-gold-db-design.md)* | v1 has gold-case verifications in `dataset.csv` but doesn't reuse them — every scoring run re-asks CL for known-real cases | Speed (skip CL for cached hits), reliability (fewer chances for CL bugs to bite), and a diff-able audit artifact that grows across runs |
-| Stratified sampling by tier of cited case (target ~33% SCOTUS / circuit / district) | v1's gold cases are 60% circuit, 19% SCOTUS, only 9% district — driven by what district opinions cite, not what the benchmark needs to test. The hint that district-case retrieval is dramatically harder (Sonnet: 0 cited; Opus: 1/5 Green; GPT-5: 0/9 Green) is buried under low n | Lets us make a serious claim about district vs appellate hallucination rates instead of an n=5 hint |
-| **Per-case metadata extraction** (court ID + filing year of each cited case) → *gold-DB schema has the columns ([gold-DB design](2026-05-03-gold-db-design.md)); a one-shot CL fetch to fill them is a follow-up v1.2 item* | v1 records cited case name, citation, and CL cluster ID, but not the court or year of the cited case (the cluster has both — just unused). Without it we can't break down hallucination rate by jurisdiction or case age | Enables tier breakdown (the dimension above) without re-running, plus opens questions like "do models hallucinate more on older cases?" or "is recency bias real for legal retrieval?" |
-| Default opinion window 20K → 60K (or grep tool) | v1 used a 20K-char truncation. v1 follow-up (`benchmark/releases/v1/truncation_experiment.md`) re-assessed every v1 Red at 60K and found 22/59 (37%) flipped to Green/Yellow. Per-model corrected Green rates: Sonnet 31.5% (no change), Opus 36.2% → 39.3%, GPT-5 46.2% → 52.4% | Eliminates the conservative-against-the-model bias the v1 caveats already disclosed. Cost: ~3× the assessor budget. A grep / relevance-aware retrieval tool would target relevance directly; deferred as future work |
-| **Gold-DB itself** ([design](2026-05-03-gold-db-design.md), [plan](2026-05-03-gold-db-plan.md)) — in progress 2026-05-03 | v1's data was scattered across CSVs; verdicts repeated across runs; no shared corpus that outlives any one dataset | One cumulative SQLite artifact: build- and score-side caches, calibration self-scores as first-class data, schema for v2 fresh mining to extend |
-| **Fix `pilot_a/score.py:fetch_opinion_text` 20K truncation** — surfaced 2026-05-04 by gold-pair audit | Function silently caps every opinion at 20K chars; bypassed only by the original truncation experiment (which read cache directly). Affected Task 10's gold-pair self-scores, calibrate_assessor.py, and v1's main score.py loop. See [retrospective](../retrospectives/2026-05-04-truncation-bug-and-red-audit.md). | Honest-window measurements; lets v2's assessor see the full opinion by default; eliminates ~17 spurious Reds in the v1 gold-pair set |
-| **Fix eyecite parenthetical mis-attribution in chained citations** — surfaced 2026-05-04 by Reds-in-context audit | When a citation chain has form `Case_A; Case_B (parenthetical)` or `Case_A (quoting Z); see Case_B (parenthetical)`, eyecite/build_dataset sometimes attaches the substantive parenthetical to the wrong case. 3 of 5 v1 full-text Reds were this bug. Footnote text adjacent to a parenthetical can also leak in. See [retrospective](../retrospectives/2026-05-04-fulltext-assessor-comparison-and-mining-bugs.md). | v2 mining quality: today an unknown fraction of "verified" propositions are actually attributed to the wrong case but happen to score Green by luck. Fix is either upstream eyecite PR or post-processing in build_dataset.py. |
-| ~~Re-run gold-pair Opus at full text~~ — **resolved 2026-05-04 via relabel** | Task 10's 117 gold-pair Opus rows were stored as `(v1, 60000)` but actually scored at 20K. Sonnet@FT (Tasks ~done) supersedes the need for a canonical Opus@FT baseline — Sonnet IS the v2 assessor candidate. Rather than re-running Opus, we relabeled the 117 rows to `(v1-task10, 20000)` to reflect actual scoring conditions. The new prompt_version distinguishes Task 10's re-scoring from the original v1 Pass 3 model_answer scorings (also at `v1, 20000`) without UNIQUE collision. | DB labels are honest; no new Opus spend; v2's Sonnet@FT becomes the canonical calibration baseline going forward |
-| **Random-sample Green/Yellow audit** — measure parenthetical-mis-attribution prevalence | The 3-of-5-Reds finding only tells us about the Reds. We don't know how often the same misattribution affects propositions that scored Green or Yellow despite the parenthetical actually belonging to a different case. 50-100 random non-Red gold pairs read in context would settle it. | Estimate of the v1 dataset's true proposition-attribution accuracy; tells us how aggressively v2 mining needs to be fixed |
-| **Gold-DB taxonomy / safe-query design** — open question raised 2026-05-04 | `gold.db` has become a hybrid: `citation_rows` + `propositions` are pure gold, but `cases` includes model-named answer cases, `assessor_verdicts` is polymorphic by `source`, and `model_answers` is pure observation. Risk: ad-hoc queries that don't filter by `dataset_name` (on `citation_rows`) or `source` (on `assessor_verdicts`) can mix gold-truth with model-output / experimental data. **Three options on the table** — (A) add SQL views (`gold_pairs`, `gold_pair_verdicts`) so the right query is the easy query, (B) document the table taxonomy in `gold_db/README.md` only, (C) rename `gold.db` → `corpus.db` to reflect cumulative-knowledge framing. **Deferred for fresh-eyes review.** Initial lean was A+B (skip rename). Downsides discussed: view-maintenance burden if columns drift, migration mechanics for existing DB, view masking of underlying complexity. | Future contributors / future-self get safer queries by default; reduces risk of contaminating v2+ analysis with stale or off-purpose data |
-
----
-
-## v1.1 — Validation studies ✅ done (May 2026)
-
-> *Two small additive studies grouped under v1.1 because they validate v1's methodology without expanding scope: (a) the assessor calibration study (Sonnet/Haiku vs Opus) and (b) the 20K → 60K truncation re-test (`benchmark/releases/v1/truncation_experiment.md` and `truncation_experiment_60k.csv`). Both are documented below; the calibration study has the bigger writeup. v1.2 is methodology hardening (gold-DB, dedup, stratified sampling, etc.).*
-
-> ⚠️ **2026-05-04 update — calibration conclusion is provisional.** The calibration study scored all three models at 20K-truncated input (its own `MAX_OPINION_CHARS = 20000`). Subsequent gold-pair work at full opinion text suggests Sonnet's failure mode at 20K was largely a truncation artifact: at full text, Sonnet matches the audit's truth estimate (~91% Green on v1 gold pairs), comparable to expected Opus@full-text behavior. **Sonnet may pass the 90% bar at full text and is currently the leading v2 assessor candidate.** Haiku's failure is robust across input windows. A definitive answer requires re-running the 514-cell calibration at full text (~1000 calls; subscription quota); see v1.4 follow-ups in [the 2026-05-04 retrospective](../retrospectives/2026-05-04-fulltext-assessor-comparison-and-mining-bugs.md).
-
-**Outcome:** both candidates failed the bar. Opus stays as primary assessor.
-
-| Model | Overall agreement | Red recall | Red precision | Cohen's κ |
-|---|---:|---:|---:|---:|
-| Sonnet 4.6 | 68.9% | 52.2% | 87.8% | 0.50 |
-| Haiku 4.5 | 65.4% | 55.1% | 67.9% | 0.41 |
-| *Bar* | ≥90% | ≥85% | — | — |
-
-Both miss by ~20pp on overall and ~30pp on Red recall — robustly below the bar across CIs at n=257. Sonnet's Red precision is high (87.8%) but its Red recall is only 52% — half the hallucinations Opus catches would slip through. Yellow is the failure mode for both candidates (precision 21–32%): neither model treats the Yellow boundary the way Opus does.
-
-**Implication:** the cost-scaling path (5–10× the run by switching assessors) is closed. v1.x stays at N≈200 within Opus's budget envelope; cheaper-frontier-model substitution is not the lever.
-
-**Artifacts:**
-- [`benchmark/releases/v1/calibration.md`](../../benchmark/releases/v1/calibration.md) — confusion matrices, per-class metrics
-- [`benchmark/releases/v1/calibration_results.csv`](../../benchmark/releases/v1/calibration_results.csv) — 514 calls, full coverage
-- [`benchmark/runners/calibrate_assessor.py`](../../benchmark/runners/calibrate_assessor.py) — runner (direct API, `temperature=0`, resume-safe)
-- [`benchmark/runners/calibrate_assessor_report.py`](../../benchmark/runners/calibrate_assessor_report.py) — aggregator
-- [`docs/retrospectives/2026-05-02-v1.2-assessor-calibration.md`](../retrospectives/2026-05-02-v1.2-assessor-calibration.md) — run notes + keying-bug postmortem
-
-**Original goal and method preserved below for the trail.**
-
-**Goal:** quantify whether Sonnet or Haiku can do the substance assessment job as well as Opus.
-
-**Motivation:**
-- The "Opus marks own Opus homework" objection is weaker than the v1 design treated it. The closed-book test-time model answers from memory; the assessor reads the actual opinion. Different tasks, different inputs.
-- Opus is the bottleneck in v1: ~50% of cells trigger the assessor, ~15–25s per call. A capable cheaper assessor would 5–10× the run.
-- That unlocks N=500 or N=1000 datasets, more model variants per run, and cheap re-runs as new frontier models ship.
-
-**Method (sketch):**
-1. Re-run the assessor on v1's 600 cells with Sonnet and Haiku. Opinion text is already cached so it's just the model calls.
-2. Build a confusion matrix per pair (Opus vs Sonnet, Opus vs Haiku).
-3. Quantify agreement on Green/Yellow/Red — overall accuracy, kappa, and per-class precision/recall.
-4. Decide a primary assessor for v2 based on the results.
-
-**Deliverable:** `benchmark/runners/calibrate_assessor.py` + a `calibration.md` report. Doesn't touch v1's data — strictly additive.
-
-**Acceptance bar:** if cheaper-assessor agreement with Opus is ≥ 90% overall AND ≥ 85% on Red specifically, switch the primary. Red precision matters most because Reds are the hallucinations we're catching.
-
----
+# Forward-looking
 
 ## v1.3 — Methodology test bed 🟡 in design (2026-05-05)
 
-**Status:** design landed 2026-05-05. Implementation not started. User holding to do other work first.
+**Status:** design landed 2026-05-05. Implementation not started.
 
-**Goal:** End-to-end methodology dry-run before pre-registered v2. Builds a fresh 200-pair benchmark stratified across four court tiers, validates the new mining pipeline and Sonnet@FT assessor against human-coded gold labels, and develops a 5-tier substance rubric collaboratively with the librarian co-author.
+**Goal:** End-to-end methodology dry-run before the pre-registered v2. Builds a fresh 200-pair benchmark stratified across four court tiers, validates the new mining pipeline and Sonnet@FT assessor against human-coded gold labels, and develops a 5-tier substance rubric collaboratively with the librarian co-author.
 
-**Design contract:** [`2026-05-05-v1.3-design.md`](2026-05-05-v1.3-design.md). All v1.3 implementation work tracks against this doc — sections get marked ✅ / 🟡 as work lands.
+**Design contract:** [`2026-05-05-v1.3-design.md`](2026-05-05-v1.3-design.md). All v1.3 implementation work tracks against that doc — sections get marked ✅ / 🟡 as work lands.
 
 **Scope (in):**
 
@@ -111,67 +36,143 @@ Both miss by ~20pp on overall and ~30pp on Red recall — robustly below the bar
 - Web-search modes, currency axis, jurisdictional axis (defer to v2)
 - Forkable kit (defer to v2)
 
-**v1.2 ledger close-out:** Four deferred items absorbed into v1.3 (stratified sampling, per-case metadata, full-text default, mining bugfixes). Six obviated by gold-DB or by v1.3's design (multi-source oracle, acceptable-alternatives, verified-citations cache, mining dedup, etc.). Remaining items defer to v2. See v1.3 design §"v1.2 ledger close-out" for the full table.
-
 **Hard time budget:** Week 10 cap from start of implementation. Week 8 proceed/modify/rethink checkpoint before any v2 pre-reg work begins.
 
 ---
 
-## v2 — Scope expansion
+## v2 — Pre-registered confirmatory 📋 planned
 
-| Item | Why |
+**Status:** scoped post-v1.3. Pre-registration pending v1.3 results.
+
+**Structural changes from v1.3:**
+
+- **Pre-registered.** Sampling protocol, rubric, assessor configuration, models, metrics, hypotheses all locked before mining begins. Timestamped on OSF + public GitHub release. See [publication plan](2026-05-05-publication-plan.md) for the rationale and timeline.
+- **Larger N** (TBD per pre-reg). Conditional on Sonnet@FT validation in v1.3 — if Sonnet passes the human-validation bar, ~5× cost reduction unlocks N ≥ 500. If not, v2 stays near v1.3's N within Opus's budget envelope.
+
+**Scope items deferred from v1 / v1.2 / v1.3 that v2 picks up:**
+
+| Item | Why for v2 |
 |---|---|
-| Circuits + SCOTUS | Pilot A and v1 are districts only. Circuits have richer parentheticals; SCOTUS would expose strong-recall vs. accuracy tradeoffs |
-| State-law forks | Federal layer is the reference; state implementations exercise the kit and surface state-specific quirks (regional reporters, citation styles) |
-| Larger N (500–1000) | Originally predicated on the assessor calibration (v1.1, done) cutting per-cell cost; **that conclusion is now provisional** — Sonnet@full-text appears to match Opus's expected accuracy at ~5× lower cost (see 2026-05-04 retrospective). If full-text re-calibration confirms, larger N becomes affordable. |
-| **Sonnet 4.6 at full text as default assessor** | Surfaced 2026-05-04 by gold-pair full-text comparison: Sonnet hit 90.6% Green on v1's 117 gold pairs (matches audit's truth estimate); Haiku hit 41.9% Green and is unusable. Switching from Opus to Sonnet cuts assessor cost ~5×. Subscription-only quota — no out-of-pocket impact, but real impact on per-run wall time and total Claude Code usage. |
-| Mining pipeline overhaul before v2 | Three v1 issues need addressing: (a) eyecite duplicate-citation bug (deduped to 130 unique props from 200 raw rows in v1 — already a known item above); (b) parenthetical mis-attribution in chained citations (3 of 5 v1 Reds — see 2026-05-04 retrospective); (c) full-text fetcher (don't reuse pilot_a's 20K-truncating function). Together these determine v2's data-quality ceiling. |
+| Forkable kit scaffolding (SCHEMA.md, MINING_PLAYBOOK.md, QUALITY_GATES.md, PROMPT_TEMPLATES/, scoring/, SUBMISSION.md) | External contributors can fork the kit and run state-court / circuit / topic-specific variants |
+| Web-search and tool-augmented eval modes | Tests retrieval-augmented frontier behavior (e.g. Sonnet+web vs. Opus closed-book) |
+| Currency axis (good-law check) | Catches "real case but bad law" — overruled, vacated, distinguished |
+| Jurisdictional-appropriateness axis | Penalizes citing 3rd Cir. for a 5th Cir. proposition |
+| Lexical-dissimilarity quality gate | Removes propositions that are near-paraphrases of the gold case name |
+| Multi-source existence oracle (CL + Justia + Caselaw Access Project) | Vendor RAG benchmarks need broader-than-CL coverage to be fair (v1.3's no-CL-prefilter design partially addresses this) |
+| State-law forks | Federal layer is the reference; state implementations exercise the kit and surface state-specific quirks |
 
 ---
 
-## Observations from v1 run (worth reusing)
+# History
 
-These aren't roadmap items but are factual lessons from running v1 that shouldn't be forgotten.
+## v1.2 — Methodology hardening 🟢 closed out (2026-05-05)
+
+**What landed:** the **gold-DB** ([design](2026-05-03-gold-db-design.md), [plan](2026-05-03-gold-db-plan.md)) — a cumulative SQLite corpus of (proposition, case, verdict) tuples with build-side cache, score-side cache, drift sampling, and CSV exports. Implementation completed 2026-05-04 via the 13-task plan.
+
+**Ledger close-out:** the broader v1.2 backlog (originally ~15 deferred items) was dispositioned as part of the [v1.3 design](2026-05-05-v1.3-design.md). Summary:
+
+- **Absorbed into v1.3** (4 items + 3 fixes from 2026-05-04 audits): stratified sampling, per-case metadata, default opinion full-text window, mining-stage dedup, plus the truncation + parenthetical-attribution + Green/Yellow audit items.
+- **Subsumed by gold-DB** (3 items): acceptable-alternatives caching, verified-citations cache, gold-DB itself.
+- **Resolved without new work** (1 item): "Re-run gold-pair Opus at full text" — relabeled Task 10 rows to honest `(v1-task10, 20000)` since Sonnet@FT became v1.3's assessor candidate.
+- **Deferred to v2** (6 items): forkable kit, web-search modes, currency axis, jurisdictional-appropriateness axis, lexical-dissimilarity gate, multi-source existence oracle.
+- **Parked open question** (1 item): gold-DB taxonomy / safe-query design (commit `dfe178c`) — three options A/B/C (SQL views, README docs, rename `gold.db` → `corpus.db`). Deferred for fresh-eyes review.
+
+The v1.2 banner closes here; nothing remains under v1.2 going forward.
+
+---
+
+## Mid-flight findings (2026-05-04)
+
+The gold-pair self-score pass surfaced two material methodology issues. Both are scoped into v1.3 mining and assessor work.
+
+**(a) `pilot_a/score.py:fetch_opinion_text` silently truncates at 20K** — affected Task 10's "60K" gold-pair pass and the v1.1 calibration study. Function caps every opinion at 20K chars regardless of caller intent; bypassed only by the original truncation experiment. See [retrospective](../retrospectives/2026-05-04-truncation-bug-and-red-audit.md).
+
+**(b) Eyecite/build_dataset mis-attaches parentheticals to the wrong case in chained citations** — 3 of 5 v1 "Reds" at full text were parser bugs, not court errors. The substantive parenthetical attaches to the wrong cited case in chains like `Case_A; Case_B (parenthetical)`. See [retrospective](../retrospectives/2026-05-04-fulltext-assessor-comparison-and-mining-bugs.md).
+
+**Assessor-candidate update:** Sonnet 4.6 at full text emerged as v1.3's default assessor candidate (90.6% Green on v1 gold pairs at full text, ~5× cheaper than Opus on subscription quota). Haiku 4.5 ruled out (54.7% Red at full text — disagrees with Sonnet on 60+ Greens). The v1.1 calibration conclusion ("Sonnet/Haiku fail the 90% bar") was measured at 20K-truncated input and is now provisional; Sonnet at full text may pass.
+
+---
+
+## v1.1 — Validation studies ✅ done (May 2026)
+
+Two additive studies validating v1's methodology: assessor calibration (Sonnet/Haiku vs Opus on 514 cells) and the 20K → 60K truncation re-test on v1's Reds.
+
+**Headline (at 20K-truncated input):**
+
+| Model | Overall agreement | Red recall | Red precision | Cohen's κ |
+|---|---:|---:|---:|---:|
+| Sonnet 4.6 | 68.9% | 52.2% | 87.8% | 0.50 |
+| Haiku 4.5 | 65.4% | 55.1% | 67.9% | 0.41 |
+| *Bar* | ≥90% | ≥85% | — | — |
+
+Both candidates missed the bar at 20K. Conclusion was "Opus stays as primary." **Conclusion now provisional** — see Mid-flight findings above; Sonnet at full text may pass.
+
+**Truncation re-test:** 22 of 59 v1 Reds (37%) flipped to Green/Yellow when re-assessed at 60K chars. Per-model corrected Green rates: Sonnet 31.5% (no change), Opus 36.2% → 39.3%, GPT-5 46.2% → 52.4%.
+
+**Artifacts:**
+- [`benchmark/releases/v1/calibration.md`](../../releases/v1/calibration.md) — confusion matrices, per-class metrics
+- [`benchmark/releases/v1/calibration_results.csv`](../../releases/v1/calibration_results.csv) — 514 calls, full coverage
+- [`benchmark/releases/v1/truncation_experiment.md`](../../releases/v1/truncation_experiment.md) — truncation re-test writeup
+- [`docs/retrospectives/2026-05-02-v1.2-assessor-calibration.md`](../retrospectives/2026-05-02-v1.2-assessor-calibration.md) — full run notes + keying-bug postmortem
+
+---
+
+## v1 — Initial benchmark ✅ shipped (May 2026)
+
+130-pair effective N (after dedup from 200 raw), 3 models (Sonnet 4.6, Opus 4.7, GPT-5), Opus@20K assessor, federal-court-pleadings source, 5 districts (D.D.C., N.D. Cal., S.D. Tex., N.D. Ill., NYSD).
+
+Headline: GPT-5 46.2% Green, Opus 36.2%, Sonnet 31.5%. See [`releases/v1/README.md`](../../releases/v1/README.md) for the full writeup, scorecards, and reproducibility instructions.
+
+---
+
+# Reference
+
+## Lessons from v1 run
+
+Factual lessons from running v1 that shouldn't be forgotten — useful when designing v1.3 / v2 runners:
 
 | Observation | Where it shows up |
 |---|---|
 | GPT-5 needs `max_completion_tokens >= 8000` for closed-book legal prompts; 2000 left ~67% of responses empty (all hit the budget exactly on reasoning) | `benchmark/runners/model_adapter.py` `_call_gpt5` comment |
 | Claude CLI `claude -p --model sonnet` calls can take >60s on real prompts; 120s timeout is safer; max OK call observed was 59.5s | `benchmark/runners/run_model.py` `TIMEOUT_S` comment |
-| Sonnet's UNKNOWN rate is far higher than Opus or GPT-5 (53% vs 22% vs 6%) — implies hallucination rate alone misranks; pair with UNKNOWN rate or use Green-rate-of-real | Will live in `benchmark/releases/v1/scorecards.md` once v1 finishes |
-| 20K char opinion truncation hides supporting passages ~37% of the time when the cited opinion exceeds 20K. Measured by re-assessing all v1 Reds at 60K (see `benchmark/releases/v1/truncation_experiment.md`); SCOTUS and circuit Reds flip at indistinguishable rates (43% vs 41%), so the SCOTUS-leans-easy pattern in Table 4 is a knowledge effect, not a syllabus artifact. District Reds did not flip at all (0/8) | Default opinion window raised to 60K in v1.1 (see above). A grep / relevance-aware retrieval tool is deferred as future work for cases where 60K is still insufficient |
+| Sonnet's UNKNOWN rate is far higher than Opus or GPT-5 (53% vs 22% vs 6%) — implies hallucination rate alone misranks; pair with UNKNOWN rate or use Green-rate-of-real | `benchmark/releases/v1/scorecards.md` |
+| 20K char opinion truncation hides supporting passages ~37% of the time when the cited opinion exceeds 20K. SCOTUS and circuit Reds flip at indistinguishable rates (43% vs 41%) — the SCOTUS-leans-easy pattern in Table 4 is a knowledge effect, not a syllabus artifact. District Reds did not flip at all (0/8) | `benchmark/releases/v1/truncation_experiment.md`. v1.3 defaults to full-text |
 | Stdout buffering through bash redirect (`>` log file) hides progress until process exits; results.csv is the real progress signal | Future runners: tail `results.csv`, not the log |
 
 ---
 
 ## When to spin out to its own repo
 
-**Recommendation: at v1.2, when the forkable kit ships.** Not before.
+**Recommendation: at v2, when the forkable kit ships.** Not before.
 
 Today's setup (benchmark inside citation-verifier) is the right call because:
+
 - The benchmark depends on citation-verifier *internals*: `parsed_citation_from_eyecite`, `verify_batch`, parser normalization, name matcher. These aren't a stable public API yet.
-- Pilot A code is reused via `sys.path` injection, not a clean import boundary.
 - Single venv, single .env, single dev loop — high velocity for iteration.
-- v1's deliverable is a **scorecard + dataset**, not a kit. No external forkers are arriving yet.
+- v1's deliverable is a **scorecard + dataset**, not a kit. v1.3's deliverable is methodology validation, also not a kit. No external forkers are arriving for either.
 
 Spin out when these are all true:
-1. **Forkable kit lands (v1.2)**. SCHEMA.md, MINING_PLAYBOOK.md, etc. exist. External contributors are the audience.
+
+1. **Forkable kit lands (v2).** SCHEMA.md, MINING_PLAYBOOK.md, etc. exist. External contributors are the audience.
 2. **citation-verifier exposes a stable public API** that the benchmark can pin a version of (`citation-verifier>=X.Y`). Until then, internal-API churn breaks the benchmark in a separate repo.
 3. **At least 2–3 outside people have signaled they want to fork** (state-court variant, topic-specific variant, etc.). One-off curiosity isn't enough — the cost of a separate repo is real.
 4. **A clean release story is needed** — DOI, arXiv companion, NeurIPS-style benchmark track submission, GitHub releases with versioned datasets. These all want a top-level repo to point at.
 
 Practical mechanics when the time comes:
+
 - New repo name candidates: `case-law-retrieval-benchmark`, `claire-bench`, etc.
 - citation-verifier becomes a pinned pip dependency (publish to PyPI first, or git+https)
-- Move `benchmark/runners/` → benchmark repo's `runners/`, `benchmark/releases/v1/` → benchmark repo's `releases/v1/`
+- Move `benchmark/` → top of new repo (the consolidation refactor of 2026-05-05 was specifically designed to make this a `git mv` operation)
 - Roadmap, design docs, retrospectives migrate too
 - Leave a stub in citation-verifier pointing at the new repo
 
-Anti-pattern to avoid: spinning out before v1.2 just because it "feels cleaner." External contributors aren't there yet, and you'd pay the cross-repo PR / dependency-version-bump cost without a benefit.
+Anti-pattern to avoid: spinning out before the kit ships just because it "feels cleaner." External contributors aren't there yet, and you'd pay the cross-repo PR / dependency-version-bump cost without a benefit.
 
 ---
 
 ## How this doc evolves
 
-- Add a row when a v1.x or v2 release ships an item (mark as ✅, link to commit/PR)
-- Promote items that get scoped down to a release (e.g. mark "v1.1 — Validation studies" as ✅ done with the headline result, as was done in May 2026)
-- Don't delete completed items; they're the trail of how we got here
+- **Forward-looking sections (v1.3, v2)** get updated as scope shifts, sub-decisions land, or new items get queued. Per-section progress marks (✅ / 🟡) live on the active design contract, not here.
+- **History sections** are reverse-chronological. New entries go at the top of the History zone. Don't delete completed entries; collapse them to short summaries with pointers to artifacts.
+- **Reference sections** are stable. Update only when a lesson actually changes (e.g., a runner workaround becomes obsolete) or a criterion shifts.
+- When a release ships: move it from Forward to History (reverse-chronologically). Trim its forward-looking detail; keep the headline + artifact pointers.
