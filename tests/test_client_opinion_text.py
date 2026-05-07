@@ -192,3 +192,44 @@ class TestSyncGetOpinionText:
                 "https://www.courtlistener.com/opinion/999/empty-case/"
             )
             assert result is None
+
+    @pytest.mark.parametrize(
+        "field",
+        ["html_lawbox", "html_columbia", "html_anon_2020", "xml_harvard"],
+    )
+    def test_falls_back_to_secondary_html_fields(self, field: str):
+        """Regression: state-court opinions often have plain_text="" and
+        html_with_citations="" but populate html_lawbox / html_columbia /
+        html_anon_2020 / xml_harvard. The fallback chain must cover all of
+        these — this gap was rediscovered three separate times in the
+        project (see 2026-05-06 state-court smoke test).
+        """
+        client = self._make_client()
+        with patch.object(client, "_request_with_retry") as mock_req:
+            cluster_resp = MagicMock()
+            cluster_resp.json.return_value = {
+                "case_name": "State v. Burkhart",
+                "date_filed": "2004-12-30",
+                "sub_opinions": [
+                    "https://www.courtlistener.com/api/rest/v4/opinions/789/"
+                ],
+                "citations": [],
+                "docket": "",
+            }
+            opinion_resp = MagicMock()
+            opinion_resp.json.return_value = {
+                "plain_text": "",
+                "html_with_citations": "",
+                "html": "",
+                field: "<p>State court <b>opinion</b> text.</p>",
+            }
+            mock_req.side_effect = [cluster_resp, opinion_resp]
+
+            result = client.get_opinion_text(
+                "https://www.courtlistener.com/opinion/789/state-v-burkhart/"
+            )
+            assert result is not None, (
+                f"Expected fallback to {field!r} when other fields empty"
+            )
+            assert "opinion" in result
+            assert "<p>" not in result  # markup stripped

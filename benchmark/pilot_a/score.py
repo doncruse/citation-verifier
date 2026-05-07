@@ -161,8 +161,9 @@ def fetch_opinion_text(client: CourtListenerClient, cluster_id: int | None) -> s
     sub_ops = cluster.get("sub_opinions") or []
     if not sub_ops:
         return ""
-    # Try each sub_opinion until we find one with text. Fall back through
-    # plain_text -> html -> html_with_citations -> xml_harvard.
+    # Canonical fallback chain lives in citation_verifier.client._extract_opinion_text.
+    # Don't duplicate the field list here — keep them in sync via that helper.
+    from citation_verifier.client import _extract_opinion_text
     text = ""
     for sub in sub_ops:
         try:
@@ -170,20 +171,9 @@ def fetch_opinion_text(client: CourtListenerClient, cluster_id: int | None) -> s
         except Exception as exc:
             print(f"  opinion fetch failed for {cluster_id}: {exc}", file=sys.stderr)
             continue
-        text = op.get("plain_text") or ""
-        if text:
-            break
-        for field in ("html", "html_columbia", "html_with_citations",
-                      "html_lawbox", "xml_harvard"):
-            raw = op.get(field) or ""
-            if raw:
-                stripped = re.sub(r"<[^>]+>", " ", raw)
-                stripped = re.sub(r"&[a-z#0-9]+;", " ", stripped)
-                stripped = re.sub(r"\s+", " ", stripped).strip()
-                if stripped:
-                    text = stripped
-                    break
-        if text:
+        t, _ = _extract_opinion_text(op, prefer_html=False)
+        if t:
+            text = t
             break
     cache.write_text(text, encoding="utf-8")
     return text[:MAX_OPINION_CHARS]

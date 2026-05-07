@@ -21,6 +21,63 @@ _env_path = Path(__file__).resolve().parent.parent.parent / ".env"
 load_dotenv(_env_path)
 
 
+# CL opinion content can live in several fields. `plain_text` is empty for
+# many state opinions (and some older federal ones); `html_lawbox` and
+# `xml_harvard` cover most of the gap. This list is the canonical fallback
+# order used everywhere we need opinion text. Keep in sync with any local
+# fallback chains in benchmark/pilot_a/score.py.
+_OPINION_HTML_FIELDS: tuple[str, ...] = (
+    "html_with_citations",
+    "html",
+    "html_lawbox",
+    "html_columbia",
+    "html_anon_2020",
+)
+_OPINION_XML_FIELDS: tuple[str, ...] = ("xml_harvard",)
+
+
+def _strip_markup(s: str) -> str:
+    s = re.sub(r"<[^>]+>", " ", s)
+    s = re.sub(r"\s+", " ", s).strip()
+    return s
+
+
+def _extract_opinion_text(
+    opinion: dict[str, Any], *, prefer_html: bool = False,
+) -> tuple[str, str]:
+    """Pull text out of a CL opinion JSON, walking the canonical fallback chain.
+
+    Returns ``(text, fmt)``. ``fmt`` is one of ``"text"``, ``"html"``, or
+    ``""`` when nothing usable was found.
+
+    - ``prefer_html=True``: returns the first non-empty HTML field as raw
+      HTML (``fmt="html"``), or the first non-empty plain/XML field stripped
+      to text. Callers that want raw markup pass this; the assessor wants
+      plain text and uses the default.
+    - ``prefer_html=False``: returns plain text when available, else the
+      first non-empty HTML/XML field stripped to text. ``fmt`` is always
+      ``"text"`` in this mode.
+    """
+    if prefer_html:
+        for f in _OPINION_HTML_FIELDS:
+            v = (opinion.get(f) or "").strip()
+            if v:
+                return v, "html"
+
+    plain = (opinion.get("plain_text") or "").strip()
+    if plain:
+        return plain, "text"
+
+    for f in _OPINION_HTML_FIELDS + _OPINION_XML_FIELDS:
+        v = (opinion.get(f) or "")
+        if v.strip():
+            stripped = _strip_markup(v)
+            if stripped:
+                return stripped, "text"
+
+    return "", ""
+
+
 class CourtListenerClient:
     """Client for the CourtListener REST API v4."""
 
@@ -361,35 +418,11 @@ class CourtListenerClient:
                     "GET", f"{self.BASE_URL}/opinions/{op_id}/"
                 )
                 opinion = opinion_resp.json()
-
-                # When prefer_html, try HTML first
-                if prefer_html:
-                    html = opinion.get("html_with_citations", "") or opinion.get(
-                        "html", ""
-                    )
-                    if html and html.strip():
-                        text = html
-                        fmt = "html"
-                        break
-
-                t = opinion.get("plain_text", "")
-                if t and t.strip():
+                t, f = _extract_opinion_text(opinion, prefer_html=prefer_html)
+                if t:
                     text = t
-                    fmt = "text"
+                    fmt = f
                     break
-
-                # Fall back to stripped HTML when not preferring raw HTML
-                if not prefer_html:
-                    html = opinion.get("html_with_citations", "") or opinion.get(
-                        "html", ""
-                    )
-                    if html:
-                        stripped = re.sub(r"<[^>]+>", " ", html)
-                        stripped = re.sub(r"\s+", " ", stripped).strip()
-                        if stripped:
-                            text = stripped
-                            fmt = "text"
-                            break
 
             # PDF fallback when no text or HTML found
             if not text and prefer_html:
@@ -813,31 +846,11 @@ class AsyncCourtListenerClient:
                 opinion = await self._request_with_retry(
                     "GET", f"{self.BASE_URL}/opinions/{op_id}/"
                 )
-
-                # When prefer_html, try HTML first
-                if prefer_html:
-                    html = opinion.get("html_with_citations", "") or opinion.get("html", "")
-                    if html and html.strip():
-                        text = html
-                        fmt = "html"
-                        break
-
-                t = opinion.get("plain_text", "")
-                if t and t.strip():
+                t, f = _extract_opinion_text(opinion, prefer_html=prefer_html)
+                if t:
                     text = t
-                    fmt = "text"
+                    fmt = f
                     break
-
-                # Fall back to stripped HTML when not preferring raw HTML
-                if not prefer_html:
-                    html = opinion.get("html_with_citations", "") or opinion.get("html", "")
-                    if html:
-                        stripped = re.sub(r"<[^>]+>", " ", html)
-                        stripped = re.sub(r"\s+", " ", stripped).strip()
-                        if stripped:
-                            text = stripped
-                            fmt = "text"
-                            break
 
             # PDF fallback when no text or HTML found
             if not text and prefer_html:
