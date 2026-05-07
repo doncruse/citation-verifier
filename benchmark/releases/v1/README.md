@@ -42,7 +42,7 @@ breakdown; `scorecards.md` preserves the original inflated numbers.
 | File | Description |
 |---|---|
 | `dataset.csv` | The benchmark instrument — proposition + gold case per row, sampled across 5 federal districts |
-| `_raw_pool.json` | Full mined pool per district (resolved + unresolved), for CL-coverage bias auditing |
+| `_raw_pool.json` | Full mined pool per district (resolved + unresolved), for CL-coverage bias auditing. **Contains 3,070 rows but only 307 unique parentheticals — every parenthetical is duplicated ~10x by an eyecite full+short-cite mining bug.** Always dedup on `(citing_cluster_id, citation_text, parenthetical[:60])` before counting. The intra-opinion-dedup fix is v1.3 bugfix #2 (see `docs/plans/2026-05-05-v1.3-design.md` §Bugfixes). |
 | `outputs_sonnet.csv` | Claude Sonnet 4.6 closed-book responses |
 | `outputs_opus.csv` | Claude Opus 4.7 closed-book responses |
 | `outputs_gpt5.csv` | OpenAI GPT-5 closed-book responses |
