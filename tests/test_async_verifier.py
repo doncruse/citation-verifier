@@ -212,6 +212,29 @@ class TestAsyncSyncParity:
         assert sync_r.confidence == async_r.confidence
         assert sync_r.confidence < 0.6  # 0.6x discount
 
+    def test_parity_docket_only_sets_matched_docket_id(self):
+        """Async parity for issue #6 docket-only path."""
+        client = _make_async_client(
+            search_recap=[
+                {
+                    "caseName": "Lindsay-Stern v. Garamszegi",
+                    "docket_id": 18158469,
+                    "court_id": "cacd",
+                    "docket_absolute_url": "/docket/18158469/",
+                    "recap_documents": [],
+                }
+            ],
+        )
+        v = CitationVerifier()
+        result = asyncio.run(
+            v.verify_async(
+                client,
+                "Lindsay-Stern v. Garamszegi, No. 2:18-cv-01234 (C.D. Cal. 2018)",
+            )
+        )
+        assert result.matched_docket_id == 18158469
+        assert result.matched_cluster_id is None
+
     def test_parity_court_corroboration_required(self):
         """Unverified citation + wrong court → NOT_FOUND in both paths."""
         api = {
