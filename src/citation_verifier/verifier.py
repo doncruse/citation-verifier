@@ -205,6 +205,7 @@ class CitationVerifier:
             matched_case_name=best.case_name,
             matched_url=best.url,
             matched_cluster_id=best.cluster_id,
+            matched_docket_id=best.docket_id,
             matched_court=best.court_id or None,
             matched_date=best.date_filed or None,
             matched_description=best.description,
@@ -595,12 +596,13 @@ class CitationVerifier:
         return CandidateMatch(
             case_name=case_name,
             url=doc_url or docket_url,
-            cluster_id=docket_id,
+            cluster_id=None,
             date_filed=entry_date,
             court_id=court_id,
             score=score,
             description=full_desc or None,
             mismatches=mismatches,
+            docket_id=docket_id,
         )
 
     def _build_docket_only_candidate(
@@ -644,11 +646,12 @@ class CitationVerifier:
         return CandidateMatch(
             case_name=case_name,
             url=docket_url,
-            cluster_id=docket_id,
+            cluster_id=None,
             date_filed="",
             court_id=court_id,
             score=score,
             mismatches=mismatches,
+            docket_id=docket_id,
         )
 
     @staticmethod

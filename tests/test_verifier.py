@@ -338,6 +338,41 @@ class TestRecapFallback:
         assert result.matched_docket_id == 18158469
         assert result.matched_cluster_id is None
 
+    def test_recap_doc_match_sets_matched_docket_id_not_cluster_id(self):
+        """A RECAP doc match (with a specific recap_document) carries a
+        docket_id but no cluster_id — confirm we set the right field."""
+        client = _make_client(
+            search_recap=[
+                {
+                    "caseName": "Bear Warriors United v. Lambert",
+                    "docket_id": 65698058,
+                    "court_id": "flmd",
+                    "docket_absolute_url": "/docket/65698058/",
+                    "recap_documents": [],
+                }
+            ],
+            get_docket_entries=[
+                {
+                    "date_filed": "2024-06-15",
+                    "description": "ORDER granting summary judgment",
+                    "recap_documents": [
+                        {
+                            "short_description": "Opinion",
+                            "absolute_url": "/docket/65698058/42/bear-warriors-v-lambert/",
+                            "page_count": 30,
+                        }
+                    ],
+                }
+            ],
+        )
+        v = CitationVerifier(client)
+        result = v.verify(
+            "Bear Warriors United v. Lambert, No. 6:22-cv-01155 (M.D. Fla. 2024)"
+        )
+
+        assert result.matched_docket_id == 65698058
+        assert result.matched_cluster_id is None
+
     def test_recap_prefers_is_free_on_pacer(self):
         """A doc with is_free_on_pacer=True should be preferred over one without,
         even when descriptions are non-substantive."""
