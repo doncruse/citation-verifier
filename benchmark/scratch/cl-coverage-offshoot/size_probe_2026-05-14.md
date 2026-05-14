@@ -60,3 +60,36 @@ courts within the State_COLR cited tier.
 5. **Switch state COLRs** — replace cal with a state whose COLR writes
    shorter opinions (e.g. NJ, OH, MI, PA). Loses caseload-ranking
    rationale but recovers yield.
+
+---
+
+## Update — probe of ny/tex/fla/ill COLRs (2026-05-14, after option 2)
+
+Ran `probe_state_colr_sizes.py` on the four remaining state COLRs to
+test whether the cap-vs-COLR issue is cal-specific or systemic.
+
+| Court | n clusters | fits ≤25K | min chars | comment |
+|---|---|---|---|---|
+| `cal`  | 12 | **0**  | 39,744 | broken — target=2 unreachable |
+| `ny`   | 41 | **20** |   946  | very loose (lots of "Matter of …" short orders) |
+| `tex`  | 33 | **20** | 1,688  | very loose |
+| `fla`  | 25 | **14** | 2,778  | loose (many "In Re: Amendments to Florida Rules …") |
+| `ill`  | 12 | **3**  | 18,199 | tight but workable — script tries all 12 since pop ≤ buffer |
+
+Full per-cluster data in `state_colr_size_probe.csv`.
+
+**Finding:** the cap problem is cal-specific, not a state-COLR-wide
+issue. ny/tex/fla have substantial procedural-order yield (rule
+amendments, judicial-conduct notices, bar-rule housekeeping); ill is
+tight but still meets target with the shuffle exhaustion.
+
+**Recommendation:** drop `cal` from the mining list. Mining proceeds
+with 15 courts (6 federal + 9 state) totaling 90 citing opinions
+instead of 92. Disclose in writeup. Yield projection for State_COLR
+cited tier:
+
+- 18 state citing opinions × ~3 own-state COLR cite each = ~54
+- 72 federal × ~0.1 State_COLR cite each =  ~7
+
+≈ 61 candidate State_COLR-cited rows in the pool, comfortably above
+the 50/tier stratification target.
