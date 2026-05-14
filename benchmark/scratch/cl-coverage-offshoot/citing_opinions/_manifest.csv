@@ -1,0 +1,3 @@
+cluster_id,court_id,level,case_name,date_filed,char_count,source_url
+10808644,calctapp,state_iac,People v. Martinez CA2/1,2026-03-13,17487,https://www.courtlistener.com/opinion/10808644/people-v-martinez-ca21/
+10809985,calctapp,state_iac,People v. Baul CA2/2,2026-03-17,12840,https://www.courtlistener.com/opinion/10809985/people-v-baul-ca22/
