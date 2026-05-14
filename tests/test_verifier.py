@@ -315,6 +315,29 @@ class TestRecapFallback:
         # Score should be discounted: base ~0.7 * 0.6 = ~0.42
         assert result.confidence < 0.6
 
+    def test_docket_only_sets_matched_docket_id_not_cluster_id(self):
+        """Issue #6: docket-only RECAP fallback must put docket_id in
+        matched_docket_id, not matched_cluster_id (different namespaces).
+        """
+        client = _make_client(
+            search_recap=[
+                {
+                    "caseName": "Lindsay-Stern v. Garamszegi",
+                    "docket_id": 18158469,
+                    "court_id": "cacd",
+                    "docket_absolute_url": "/docket/18158469/",
+                    "recap_documents": [],
+                }
+            ],
+        )
+        v = CitationVerifier(client)
+        result = v.verify(
+            "Lindsay-Stern v. Garamszegi, No. 2:18-cv-01234 (C.D. Cal. 2018)"
+        )
+
+        assert result.matched_docket_id == 18158469
+        assert result.matched_cluster_id is None
+
     def test_recap_prefers_is_free_on_pacer(self):
         """A doc with is_free_on_pacer=True should be preferred over one without,
         even when descriptions are non-substantive."""
