@@ -27,6 +27,7 @@ _OUTPUT_COLUMNS = [
     "citation",
     "status",
     "matched_cluster_id",
+    "matched_docket_id",
     "matched_url",
     "matched_case_name",
     "matched_court_id",
@@ -255,6 +256,22 @@ class TestVerifyBatchCLI:
             canned,
         )
         assert rc != 0
+
+    def test_csv_includes_matched_docket_id_column(self):
+        from citation_verifier.__main__ import _VERIFY_BATCH_OUTPUT_COLUMNS, _result_to_row
+        from citation_verifier.models import VerificationResult, VerificationStatus
+
+        assert "matched_docket_id" in _VERIFY_BATCH_OUTPUT_COLUMNS
+
+        result = VerificationResult(
+            input_citation="Lindsay-Stern v. Garamszegi",
+            status=VerificationStatus.POSSIBLE_MATCH,
+            matched_docket_id=18158469,
+            matched_cluster_id=None,
+        )
+        row = _result_to_row(result)
+        assert row["matched_docket_id"] == "18158469"
+        assert row["matched_cluster_id"] == ""
 
     def test_dispatch_via_main_module(self, tmp_path, monkeypatch):
         """Confirm `python -m citation_verifier verify-batch ...` is wired up."""
