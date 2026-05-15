@@ -1,0 +1,125 @@
+Loaded 525 rows from citations_for_review.csv
+Verifying 525 citations with non-empty citation_text
+  ... 25/525
+  ... 50/525
+  ... 75/525
+  ... 100/525
+  ... 125/525
+  ... 150/525
+  ... 175/525
+  ... 200/525
+  ... 225/525
+  ... 250/525
+  ... 275/525
+  ... 300/525
+  ... 325/525
+  ... 350/525
+  ... 375/525
+  ... 400/525
+  ... 425/525
+  ... 450/525
+  ... 475/525
+  ... 500/525
+  ... 525/525
+
+Distribution (old -> new):
+  status                    old  ->    new
+  (empty)                   171  ->      0
+  LIKELY_REAL                55  ->     58
+  NOT_FOUND                  53  ->     28
+  POSSIBLE_MATCH             65  ->    128
+  VERIFIED                  181  ->    311
+
+220 flips:
+  [approved    ] NOT_FOUND          -> POSSIBLE_MATCH      Lohrmann v. Lohrmann, 148 Md. App. 456 (2002)
+  [            ] (empty)            -> POSSIBLE_MATCH      Townsend v. Meyer, 129 Md. App. 598 (2000)
+  [approved    ] NOT_FOUND          -> POSSIBLE_MATCH      Bowie v. Bowie, 182 Md. App. 57 (2008)
+  [approved    ] LIKELY_REAL        -> VERIFIED            Pickett v. Noba, Inc., 122 Md. App. 566 (1998)
+  [            ] (empty)            -> POSSIBLE_MATCH      Furr v. Furr, 199 Md. App. 1 (2011)
+  [            ] (empty)            -> VERIFIED            Kaplan v. DaimlerChrysler, A.G., 331 F.3d 1251 (11th Cir. 2003)
+  [            ] (empty)            -> VERIFIED            Williams v. McNeil, 557 F.3d 1287 (11th Cir. 2009)
+  [approved    ] VERIFIED           -> POSSIBLE_MATCH      In re Purchasing Power, LLC, 851 F.3d 1219 (11th Cir. 2017)
+  [            ] (empty)            -> VERIFIED            Macort v. Prem, Inc., 208 F. App'x 781 (11th Cir. 2006)
+  [investigate ] NOT_FOUND          -> POSSIBLE_MATCH      Fibertext Corp. v. New Concepts Distribs. Int'l, LLC, No. 20-20720-Civ, 2021 WL 
+  [data        ] NOT_FOUND          -> POSSIBLE_MATCH      Grimshaw v. Metro. Life Ins. Co., No. 11-14165-CIV, 2011 WL 13319575 (S.D. Fla. 
+  [            ] (empty)            -> VERIFIED            Meidinger v. Healthcare Indus. Oligopoly, 391 F. App'x 777 (11th Cir. 2010)
+  [            ] (empty)            -> VERIFIED            Link v. Wabash R. Co., 370 U.S. 626 (U.S. 2006)
+  [            ] (empty)            -> VERIFIED            Malautea v. Suzuki Motor Co. Ltd., 987 F.2d 1536 (11th Cir. 1993)
+  [            ] (empty)            -> POSSIBLE_MATCH      Parekh v. CBS Corp., 820 F. App'x 827 (11th Cir. 2020)
+  [            ] (empty)            -> VERIFIED            In re Shell Oil Refinery, 152 F.R.D. 526 (E.D. La. 1989)
+  [investigate ] POSSIBLE_MATCH     -> LIKELY_REAL         Lopez v. Bank of Am., N.A., No. 14-cv-2524, 2016 WL 4131149 (N.D. Cal. Aug. 3, 2
+  [approved    ] VERIFIED           -> POSSIBLE_MATCH      In re Marriage of Smith, 195 Cal. App. 4th 1007 (2011)
+  [            ] LIKELY_REAL        -> POSSIBLE_MATCH      Button v. Doherty, No. 24 Civ. 5026, 2025 WL 2776069 (S.D.N.Y. Sept. 30, 2025)
+  [            ] (empty)            -> VERIFIED            Ricci v. DeStefano, 557 U.S. 557 (U.S. 2009)
+  [            ] (empty)            -> VERIFIED            O'Brien v. Caterpillar Inc., 900 F.3d 923 (7th Cir. 2018)
+  [            ] (empty)            -> VERIFIED            Bloch v. Frischholz, 587 F.3d 771 (7th Cir. 2009)
+  [            ] (empty)            -> VERIFIED            Hemisphere Bldg. Co., Inc. v. Vill. of Richton Park, 171 F.3d 437 (7th Cir. 1999
+  [            ] (empty)            -> VERIFIED            Good Shepherd Manor Found., Inc. v. City of Momence, 323 F.3d 557 (7th Cir. 2003
+  [            ] (empty)            -> VERIFIED            Daimler AG v. Bauman, 571 U.S. 117 (U.S. 2014)
+  [            ] (empty)            -> VERIFIED            Advanced Tactical Ordnance Sys., LLC v. Real Action Paintball, Inc., 751 F.3d 79
+  [            ] (empty)            -> VERIFIED            Bristol-Myers Squibb Co. v. Superior Ct., 137 S.Ct. 1773 (U.S. 2017)
+  [            ] (empty)            -> VERIFIED            Bristol-Myers Squibb Co. v. Superior Ct., 198 L.Ed.2d 395 (2017)
+  [            ] (empty)            -> VERIFIED            Tamburo v. Dworkin, 601 F.3d 693 (7th Cir. 2010)
+  [approved    ] NOT_FOUND          -> POSSIBLE_MATCH      Younger v. City of Seattle, 70 F.4th 1099 (9th Cir. 2023)
+  [            ] (empty)            -> VERIFIED            Bus. Guides, Inc. v. Chromatic Commc'ns. Enters., Inc., 498 U.S. 533 (U.S. 1991)
+  [            ] (empty)            -> POSSIBLE_MATCH      United States v. Smith, 629 F.3d 1082 (9th Cir. 2011)
+  [            ] (empty)            -> VERIFIED            Gonzaga Univ. v. 15 Doe, 536 U.S. 273 (U.S. 2002)
+  [            ] (empty)            -> VERIFIED            Renenger v. State, 426 P.3d 559 (mont 2018)
+  [investigate; data] NOT_FOUND          -> POSSIBLE_MATCH      Reinlasoder v. City of Billings, 455 P.3d 477 (mont 2020)
+  [            ] (empty)            -> VERIFIED            Monell v. Dep't of Soc. Servs. of the City of N.Y.,436 U.S. 658 (U.S. 1978)
+  [            ] (empty)            -> VERIFIED            Ashcroft v. Iqbal, 556 U.S. 662 (U.S. 2009)
+  [            ] (empty)            -> VERIFIED            Bell Atl. Corp. v. Twombly, 550 U.S. 544 (U.S. 2007)
+  [            ] (empty)            -> VERIFIED            L.A. Lakers, Inc. v. Fed. Ins. Co., 869 F.3d 795 (9th Cir. 2017)
+  [            ] (empty)            -> VERIFIED            Lopez v. Smith, 203 F.3d 1122 (9th Cir. 2000)
+  [            ] (empty)            -> VERIFIED            Genzler v. Longanbach, 410 F.3d 630 (9th Cir. 2005)
+  [            ] (empty)            -> NOT_FOUND           Monell v. Dep 't of Soc. Servs. of the City of New York, 436 U.S. 659 (U.S. 1978
+  [            ] (empty)            -> VERIFIED            Horton v. City of Santa Maria, 915 F.3d 592 (9th Cir. 2019)
+  [            ] (empty)            -> VERIFIED            Polk Cnty. v. Dodson, 454 U.S. 312 (U.S. 1981)
+  [            ] (empty)            -> VERIFIED            Hernandez v. Cnty. of Tulare, 666 F.3d 631 (9th Cir. 2012)
+  [            ] (empty)            -> VERIFIED            Weiner v. San Diego 17 Cnty., 210 F.3d 1025 (9th Cir. 2000)
+  [            ] (empty)            -> VERIFIED            In re Jettv. Dallas Independ. Sch. Dist., 491 U.S. 701 (U.S. 1989)
+  [            ] (empty)            -> POSSIBLE_MATCH      Taylor v. Cnty. of Pima, 913 F.3d 930 (9th Cir. 2019)
+  [            ] (empty)            -> VERIFIED            McMillian v. Monroe Cnty., 520 U.S. 781 (U.S. 2013)
+  [            ] (empty)            -> VERIFIED            Goldstein v. City of Long Beach, 715 F.3d 750 (9th Cir. 2013)
+  ... and 170 more
+
+Flip transitions (old -> new, count):
+  (empty)            -> VERIFIED            129
+  (empty)            -> POSSIBLE_MATCH      33
+  NOT_FOUND          -> POSSIBLE_MATCH      28
+  POSSIBLE_MATCH     -> LIKELY_REAL         7
+  LIKELY_REAL        -> POSSIBLE_MATCH      7
+  (empty)            -> NOT_FOUND           5
+  (empty)            -> LIKELY_REAL         4
+  LIKELY_REAL        -> VERIFIED            3
+  VERIFIED           -> POSSIBLE_MATCH      2
+  NOT_FOUND          -> LIKELY_REAL         2
+
+No qc-approved -> NOT_FOUND regressions.
+
+Other qc-approved status changes (25):
+  NOT_FOUND -> POSSIBLE_MATCH  Lohrmann v. Lohrmann, 148 Md. App. 456 (2002)
+  NOT_FOUND -> POSSIBLE_MATCH  Bowie v. Bowie, 182 Md. App. 57 (2008)
+  LIKELY_REAL -> VERIFIED  Pickett v. Noba, Inc., 122 Md. App. 566 (1998)
+  VERIFIED -> POSSIBLE_MATCH  In re Purchasing Power, LLC, 851 F.3d 1219 (11th Cir. 2017)
+  VERIFIED -> POSSIBLE_MATCH  In re Marriage of Smith, 195 Cal. App. 4th 1007 (2011)
+  NOT_FOUND -> POSSIBLE_MATCH  Younger v. City of Seattle, 70 F.4th 1099 (9th Cir. 2023)
+  LIKELY_REAL -> VERIFIED  Rosenthal v. Cnty. of Madison, 170 P.3d 493 (mont 2007)
+  NOT_FOUND -> POSSIBLE_MATCH  South Pointe Wholesale, Inc. v. Vilardi, No. 16-CV-6758, 2017 WL 11570668 (E.D.N
+  NOT_FOUND -> POSSIBLE_MATCH  Pointe Wholesale, Inc. v. Vilardi, No. 16-CV- 3 6758, 2017 WL 11570668 (E.D.N.Y.
+  LIKELY_REAL -> POSSIBLE_MATCH  White's Roofing, L.L.C. v. Vitolas, No. 119,957, 2019 WL 2306608 (2019)
+  NOT_FOUND -> POSSIBLE_MATCH  Wiles v. American Family Insurance Co., 302 Kan., 355 P.3d 667 (2015)
+  NOT_FOUND -> POSSIBLE_MATCH  Shell Petroleum N.V. v. Republic of Costa Rica, 608 F. Supp. 2d 269 (S.D.N.Y. 20
+  NOT_FOUND -> POSSIBLE_MATCH  Varela v. Varela, 464 S.W.3d 407 (Tex. App. 2015)
+  NOT_FOUND -> POSSIBLE_MATCH  Garrison v. Garrison, 966 S.W.2d 493 (Tex. App. 1998)
+  NOT_FOUND -> POSSIBLE_MATCH  Reed v. State, 810 N.E.2d 1186 (Ind. 2004)
+  NOT_FOUND -> POSSIBLE_MATCH  Thompson v. Best, 118 N.E.3d 299 (Ind. Ct. App.  2019)
+  NOT_FOUND -> POSSIBLE_MATCH  Helmsing v. Fletcher, 871 N.E.2d 725 (indctapp 2007)
+  LIKELY_REAL -> VERIFIED  Snow Ingredients, Inc. v. SnoWizard, Inc., 833 F.3d 512 (5th Cir. 2016)
+  NOT_FOUND -> POSSIBLE_MATCH  Gallagher v. Wilton Enterprises, Inc., 962 F. Supp. 1162 (E.D. Pa. 1997)
+  POSSIBLE_MATCH -> LIKELY_REAL  Bunce v. Visual Tech. Innovations, Inc., No. 23-cv-1740, 2025 WL 662398 (E.D. Pa
+  NOT_FOUND -> POSSIBLE_MATCH  United States v. Tsurkan, 753 F. App'x 768 (11th Cir. 2018)
+  NOT_FOUND -> POSSIBLE_MATCH  United States v. Tsurkan, 753 F. App'x 768 (11th Cir. 2018)
+  LIKELY_REAL -> POSSIBLE_MATCH  Anonymous v. New York City Dep't of Educ., No. 1:24-cv-4232, 2024 WL 3460049 (S.
+  NOT_FOUND -> POSSIBLE_MATCH  Williams v. Equifax Information Services, LLC, 560 F. Supp. 2d 903 (E.D. Va. 200
+  LIKELY_REAL -> POSSIBLE_MATCH  Anonymous v. New York City Dep't of Educ., No. 1:24-cv-4232, 2024 WL 3460049 (S.
