@@ -189,6 +189,165 @@ class TestOpinionSearchFallback:
         assert client.search_opinions.call_count == 1
 
 
+class TestOpinionSearchGates:
+    """Issue #7: temporal + name-token gates on the opinion-search fallback."""
+
+    def test_temporal_gate_rejects_wrong_decade_with_matching_name(self):
+        """A candidate with a matching case name but a wildly wrong decade
+        must be rejected by the temporal gate. Without the gate this would
+        score high enough to surface as a POSSIBLE_MATCH (the bug Sam
+        reported in issue #7)."""
+        client = _make_client(
+            citation_lookup=[],  # forces fallback
+            search_opinions=[
+                {
+                    # Name matches the citation almost exactly — without the
+                    # temporal gate this would clear the POSSIBLE_MATCH
+                    # threshold.
+                    "caseName": "Jovel v. Boiron",
+                    "cluster_id": 4147982,
+                    "dateFiled": "1901-03-14",  # 112-year gap from 2013
+                    "court_id": "tex",
+                    "absolute_url": "/opinion/4147982/jovel-v-boiron/",
+                }
+            ],
+        )
+        v = CitationVerifier(client)
+        result = v.verify("Jovel v. Boiron, 2013 WL 12164622 (C.D. Cal. 2013)")
+
+        assert result.status == VerificationStatus.NOT_FOUND
+        assert result.matched_cluster_id is None
+        # No candidate should have survived the gate
+        assert result.candidates == []
+
+    def test_temporal_gate_keeps_within_window_match(self):
+        """A candidate within the 5-year window with a matching case name
+        passes the gate and gets scored normally."""
+        client = _make_client(
+            citation_lookup=[],
+            search_opinions=[
+                {
+                    "caseName": "Smith v. Jones",
+                    "cluster_id": 1234567,
+                    "dateFiled": "2016-06-01",  # 2-year gap from 2018
+                    "court_id": "cacd",
+                    "absolute_url": "/opinion/1234567/smith-v-jones/",
+                }
+            ],
+        )
+        v = CitationVerifier(client)
+        result = v.verify("Smith v. Jones, 2018 WL 999999 (C.D. Cal. 2018)")
+
+        # Must have a surviving candidate (gate didn't drop it).
+        assert len(result.candidates) == 1
+        assert result.candidates[0].cluster_id == 1234567
+
+    def test_temporal_gate_boundary_exactly_5_years(self):
+        """A 5-year gap is at the boundary — `>5` rejects, so exactly 5
+        years away should still pass."""
+        client = _make_client(
+            citation_lookup=[],
+            search_opinions=[
+                {
+                    "caseName": "Smith v. Jones",
+                    "cluster_id": 1234568,
+                    "dateFiled": "2013-06-01",  # exactly 5 years from 2018
+                    "court_id": "cacd",
+                    "absolute_url": "/opinion/1234568/smith-v-jones/",
+                }
+            ],
+        )
+        v = CitationVerifier(client)
+        result = v.verify("Smith v. Jones, 2018 WL 999999 (C.D. Cal. 2018)")
+
+        # 5-year gap is within the gate window (`abs(diff) > 5` is the
+        # reject condition, so 5 itself is kept).
+        assert len(result.candidates) == 1
+        assert result.candidates[0].cluster_id == 1234568
+
+    def test_token_gate_rejects_no_shared_distinctive_tokens(self):
+        """A candidate whose case name shares no distinctive >=4-char
+        non-stoplist token with the cited case must be rejected by the
+        name-token gate. Without the gate this candidate would score
+        high enough on year+court alone to surface as a POSSIBLE_MATCH.
+
+        Mirrors Sam's example: Harris v. CVS Pharmacy -> Medearis case.
+        """
+        client = _make_client(
+            citation_lookup=[],
+            search_opinions=[
+                {
+                    # No shared >=4-char non-stoplist token with the cited
+                    # case ("Harris", "Pharmacy" stoplisted, "CVS" too
+                    # short). All within the 5-year window so the temporal
+                    # gate doesn't fire.
+                    "caseName": "Medearis v. Whatever",
+                    "cluster_id": 7312533,
+                    "dateFiled": "2014-05-01",
+                    "court_id": "nysd",
+                    "absolute_url": "/opinion/7312533/medearis-v-whatever/",
+                }
+            ],
+        )
+        v = CitationVerifier(client)
+        result = v.verify("Harris v. CVS Pharmacy, 2015 WL 4694047 (S.D.N.Y. 2015)")
+
+        assert result.status == VerificationStatus.NOT_FOUND
+        assert result.matched_cluster_id is None
+        assert result.candidates == []
+
+    def test_token_gate_keeps_shared_distinctive_token(self):
+        """A candidate sharing one distinctive >=4-char non-stoplist
+        token (here: 'Garamszegi') passes the gate."""
+        client = _make_client(
+            citation_lookup=[],
+            search_opinions=[
+                {
+                    "caseName": "Smith v. Garamszegi",
+                    "cluster_id": 9999,
+                    "dateFiled": "2018-04-01",
+                    "court_id": "cacd",
+                    "absolute_url": "/opinion/9999/smith-v-garamszegi/",
+                }
+            ],
+        )
+        v = CitationVerifier(client)
+        result = v.verify(
+            "Lindsay-Stern v. Garamszegi, 2018 WL 1234 (C.D. Cal. 2018)"
+        )
+
+        assert len(result.candidates) == 1
+        assert result.candidates[0].cluster_id == 9999
+
+    def test_token_gate_rejects_stoplist_only_overlap(self):
+        """When the candidate shares ONLY a stoplist token with the
+        citation (here: 'Bank' — both cited and candidate contain it),
+        the gate must still reject. Without the stoplist, 'Bank' alone
+        would falsely qualify them as the same case.
+        """
+        client = _make_client(
+            citation_lookup=[],
+            search_opinions=[
+                {
+                    # Shares only 'bank' (stoplisted) with the cited
+                    # case. No other >=4-char non-stoplist overlap.
+                    "caseName": "Wilson v. Bank of New York",
+                    "cluster_id": 5978123,
+                    "dateFiled": "2019-08-15",
+                    "court_id": "nysd",
+                    "absolute_url": "/opinion/5978123/wilson-v-bony/",
+                }
+            ],
+        )
+        v = CitationVerifier(client)
+        result = v.verify(
+            "Snyder v. Bank of America, 2020 WL 6462400 (S.D.N.Y. 2020)"
+        )
+
+        assert result.status == VerificationStatus.NOT_FOUND
+        assert result.candidates == []
+
+
 # ---------------------------------------------------------------------------
 # Step 3: RECAP fallback
 # ---------------------------------------------------------------------------
@@ -314,6 +473,64 @@ class TestRecapFallback:
         assert "possible docket match" in result.diagnostics[0].message.lower()
         # Score should be discounted: base ~0.7 * 0.6 = ~0.42
         assert result.confidence < 0.6
+
+    def test_docket_only_sets_matched_docket_id_not_cluster_id(self):
+        """Issue #6: docket-only RECAP fallback must put docket_id in
+        matched_docket_id, not matched_cluster_id (different namespaces).
+        """
+        client = _make_client(
+            search_recap=[
+                {
+                    "caseName": "Lindsay-Stern v. Garamszegi",
+                    "docket_id": 18158469,
+                    "court_id": "cacd",
+                    "docket_absolute_url": "/docket/18158469/",
+                    "recap_documents": [],
+                }
+            ],
+        )
+        v = CitationVerifier(client)
+        result = v.verify(
+            "Lindsay-Stern v. Garamszegi, No. 2:18-cv-01234 (C.D. Cal. 2018)"
+        )
+
+        assert result.matched_docket_id == 18158469
+        assert result.matched_cluster_id is None
+
+    def test_recap_doc_match_sets_matched_docket_id_not_cluster_id(self):
+        """A RECAP doc match (with a specific recap_document) carries a
+        docket_id but no cluster_id — confirm we set the right field."""
+        client = _make_client(
+            search_recap=[
+                {
+                    "caseName": "Bear Warriors United v. Lambert",
+                    "docket_id": 65698058,
+                    "court_id": "flmd",
+                    "docket_absolute_url": "/docket/65698058/",
+                    "recap_documents": [],
+                }
+            ],
+            get_docket_entries=[
+                {
+                    "date_filed": "2024-06-15",
+                    "description": "ORDER granting summary judgment",
+                    "recap_documents": [
+                        {
+                            "short_description": "Opinion",
+                            "absolute_url": "/docket/65698058/42/bear-warriors-v-lambert/",
+                            "page_count": 30,
+                        }
+                    ],
+                }
+            ],
+        )
+        v = CitationVerifier(client)
+        result = v.verify(
+            "Bear Warriors United v. Lambert, No. 6:22-cv-01155 (M.D. Fla. 2024)"
+        )
+
+        assert result.matched_docket_id == 65698058
+        assert result.matched_cluster_id is None
 
     def test_recap_prefers_is_free_on_pacer(self):
         """A doc with is_free_on_pacer=True should be preferred over one without,
