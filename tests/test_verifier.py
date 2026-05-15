@@ -192,17 +192,23 @@ class TestOpinionSearchFallback:
 class TestOpinionSearchGates:
     """Issue #7: temporal + name-token gates on the opinion-search fallback."""
 
-    def test_temporal_gate_rejects_year_diff_over_5(self):
-        """Sam's example: Jovel v. Boiron (2013 WL) -> 1901 TX land case."""
+    def test_temporal_gate_rejects_wrong_decade_with_matching_name(self):
+        """A candidate with a matching case name but a wildly wrong decade
+        must be rejected by the temporal gate. Without the gate this would
+        score high enough to surface as a POSSIBLE_MATCH (the bug Sam
+        reported in issue #7)."""
         client = _make_client(
             citation_lookup=[],  # forces fallback
             search_opinions=[
                 {
-                    "caseName": "Some Old Case",
+                    # Name matches the citation almost exactly — without the
+                    # temporal gate this would clear the POSSIBLE_MATCH
+                    # threshold.
+                    "caseName": "Jovel v. Boiron",
                     "cluster_id": 4147982,
-                    "dateFiled": "1901-03-14",
+                    "dateFiled": "1901-03-14",  # 112-year gap from 2013
                     "court_id": "tex",
-                    "absolute_url": "/opinion/4147982/some-old-case/",
+                    "absolute_url": "/opinion/4147982/jovel-v-boiron/",
                 }
             ],
         )
@@ -211,16 +217,19 @@ class TestOpinionSearchGates:
 
         assert result.status == VerificationStatus.NOT_FOUND
         assert result.matched_cluster_id is None
+        # No candidate should have survived the gate
+        assert result.candidates == []
 
-    def test_temporal_gate_allows_year_diff_under_5(self):
-        """A within-window candidate should pass the gate (and get scored normally)."""
+    def test_temporal_gate_keeps_within_window_match(self):
+        """A candidate within the 5-year window with a matching case name
+        passes the gate and gets scored normally."""
         client = _make_client(
             citation_lookup=[],
             search_opinions=[
                 {
                     "caseName": "Smith v. Jones",
                     "cluster_id": 1234567,
-                    "dateFiled": "2016-06-01",
+                    "dateFiled": "2016-06-01",  # 2-year gap from 2018
                     "court_id": "cacd",
                     "absolute_url": "/opinion/1234567/smith-v-jones/",
                 }
@@ -229,13 +238,32 @@ class TestOpinionSearchGates:
         v = CitationVerifier(client)
         result = v.verify("Smith v. Jones, 2018 WL 999999 (C.D. Cal. 2018)")
 
-        # Should not be rejected by temporal gate (3-year diff)
-        # Whether it's MATCH/POSSIBLE/NOT_FOUND depends on the rest of the
-        # scorer; we only assert the gate didn't drop it.
-        assert result.matched_cluster_id == 1234567 or result.status == VerificationStatus.NOT_FOUND
-        # If it did pass, no temporal-rejection diagnostic should appear
-        assert not any("year" in d.message.lower() and "reject" in d.message.lower()
-                       for d in result.diagnostics)
+        # Must have a surviving candidate (gate didn't drop it).
+        assert len(result.candidates) == 1
+        assert result.candidates[0].cluster_id == 1234567
+
+    def test_temporal_gate_boundary_exactly_5_years(self):
+        """A 5-year gap is at the boundary — `>5` rejects, so exactly 5
+        years away should still pass."""
+        client = _make_client(
+            citation_lookup=[],
+            search_opinions=[
+                {
+                    "caseName": "Smith v. Jones",
+                    "cluster_id": 1234568,
+                    "dateFiled": "2013-06-01",  # exactly 5 years from 2018
+                    "court_id": "cacd",
+                    "absolute_url": "/opinion/1234568/smith-v-jones/",
+                }
+            ],
+        )
+        v = CitationVerifier(client)
+        result = v.verify("Smith v. Jones, 2018 WL 999999 (C.D. Cal. 2018)")
+
+        # 5-year gap is within the gate window (`abs(diff) > 5` is the
+        # reject condition, so 5 itself is kept).
+        assert len(result.candidates) == 1
+        assert result.candidates[0].cluster_id == 1234568
 
 
 # ---------------------------------------------------------------------------
