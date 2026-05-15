@@ -320,21 +320,22 @@ class TestOpinionSearchGates:
         assert result.candidates[0].cluster_id == 9999
 
     def test_token_gate_rejects_stoplist_only_overlap(self):
-        """Sharing only a stoplist token (e.g. 'Corp', 'Bank',
-        'Pharmacy') does NOT pass the gate — those are too common to
-        be evidence of identity."""
+        """When the candidate shares ONLY a stoplist token with the
+        citation (here: 'Bank' — both cited and candidate contain it),
+        the gate must still reject. Without the stoplist, 'Bank' alone
+        would falsely qualify them as the same case.
+        """
         client = _make_client(
             citation_lookup=[],
             search_opinions=[
                 {
-                    # 'Bank' is stoplist; 'America' is the only other
-                    # >=4-char word in the cited name and doesn't appear
-                    # in the candidate.
-                    "caseName": "Smith v. Chmielewski",
+                    # Shares only 'bank' (stoplisted) with the cited
+                    # case. No other >=4-char non-stoplist overlap.
+                    "caseName": "Wilson v. Bank of New York",
                     "cluster_id": 5978123,
                     "dateFiled": "2019-08-15",
                     "court_id": "nysd",
-                    "absolute_url": "/opinion/5978123/smith-v-chmielewski/",
+                    "absolute_url": "/opinion/5978123/wilson-v-bony/",
                 }
             ],
         )

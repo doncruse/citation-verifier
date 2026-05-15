@@ -30,15 +30,15 @@ logger = logging.getLogger(__name__)
 # often that they create false positives via ES token recall alone.
 _NAME_TOKEN_STOPLIST = frozenset({
     # Reporter / litigation boilerplate
-    "litig", "liability", "antitrust", "mdl",
+    "litig", "liability", "antitrust",
     # Corporate forms
-    "corp", "inc", "llc", "company", "holdings",
+    "corp", "company", "holdings",
     "communications", "industries", "international",
     # Generic descriptors
     "consumer", "health", "products", "american", "capital",
     "bank", "pharmacy", "services", "systems", "group",
     # Government / agency
-    "ftc", "cftc", "sec", "united", "states", "commission",
+    "cftc", "united", "states", "commission",
     "department", "secretary",
 })
 
