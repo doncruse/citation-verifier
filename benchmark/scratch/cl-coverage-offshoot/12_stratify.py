@@ -104,13 +104,15 @@ _STATE_COLR_HINT_RE = re.compile(
     re.IGNORECASE
 )
 # State IAC: "<state> Ct. App." (default), "App. Div.", "<N>th Dept.",
-# "<N>th Dist." (as appellate district, e.g. Illinois 1st-5th Districts)
+# "<N>th Dist." (as appellate district, e.g. Illinois 1st-5th Districts).
+# NY uses "2d"/"3d" suffix instead of "2nd"/"3rd" — include `d` in the
+# alternation so "3d Dept." matches.
 _STATE_IAC_HINT_RE = re.compile(
     r"\bCt\.?\s*App\.?\b"        # Cal. Ct. App., Ill. Ct. App., etc.
     r"|\bApp\.?\s*Div\.?\b"      # NY Appellate Division
     r"|\bApp\.?\s*Ct\.?\b"       # Mass. App. Ct., Ill. App. Ct.
-    r"|\b\d+(?:st|nd|rd|th)\s+Dept\.?\b"   # NY Appellate Division departments
-    r"|\b\d+(?:st|nd|rd|th)\s+Dist\.?\b"   # Illinois Appellate Court districts
+    r"|\b\d+(?:st|nd|rd|th|d)\s+Dept\.?\b"   # NY Appellate Division departments (3d/4th)
+    r"|\b\d+(?:st|nd|rd|th|d)\s+Dist\.?\b"   # Illinois Appellate Court districts
     # "Ill. App. (Nd)" — Illinois public-domain format hint
     r"|\bIll\.\s*App\.\s*\(\d+(?:st|nd|rd|th|d)\)",
     re.IGNORECASE
@@ -151,9 +153,15 @@ def tier_from_court_hint(hint: str) -> str | None:
 # misses. NY citations sometimes drop the periods ("10 NY3d 706"); the
 # Illinois public-domain neutral format is "2011 IL App (2d) 091123".
 # Order: we run these BEFORE tier_from_cite so they win.
-_NY_NOPERIODS_COLR_RE = re.compile(r"\bNY\s*(?:2d|3d)\s+\d", re.IGNORECASE)
-_NY_NOPERIODS_IAC_RE = re.compile(r"\bAD\s*(?:2d|3d|4th)?\s+\d", re.IGNORECASE)
+# Volume-first patterns also catch pin cites like "28 NY3d at 229"
+# where my earlier "\bNY3d\s+\d" required a digit right after the
+# reporter (and missed "at" pin-cite forms).
+_NY_NOPERIODS_COLR_RE = re.compile(r"\b\d+\s+NY\s*(?:2d|3d)\b", re.IGNORECASE)
+_NY_NOPERIODS_IAC_RE = re.compile(r"\b\d+\s+AD\s*(?:2d|3d|4th)?\b", re.IGNORECASE)
 _IL_PUBLIC_DOMAIN_RE = re.compile(r"\bIL\s+App\b", re.IGNORECASE)
+# F.R.D. = Federal Rules Decisions — district-court reporter; fits the
+# Federal_District tier alongside F. Supp.
+_FED_DIST_REPORTER_RE = re.compile(r"\bF\.?\s*R\.?\s*D\.?\b", re.IGNORECASE)
 
 
 def tier_combined(citation_string: str, court_hint: str) -> str:
@@ -176,6 +184,8 @@ def tier_combined(citation_string: str, court_hint: str) -> str:
         return "State_COLR"
     if _IL_PUBLIC_DOMAIN_RE.search(c):
         return "State_IAC"  # IL App = appellate; IL alone (no "App") = Sup
+    if _FED_DIST_REPORTER_RE.search(c):
+        return "Federal_District"
 
     return tier_from_cite(citation_string)
 
@@ -193,7 +203,8 @@ TARGET_TIERS = ("SCOTUS", "Circuit", "State_COLR", "State_IAC")
 # cites with no reporter context. Don't blanket-match "at N" anywhere because
 # many citations end with ", at 45" as a pin cite within a full reporter cite.
 _SHORTFORM_RES = [
-    re.compile(r"^\s*[Ii]d\.?,?\s*at\s+\d", re.IGNORECASE),
+    # Id., at N / Id at p. N / Id. ¶ N / Id. at p. 450 (Cal style)
+    re.compile(r"^\s*[Ii]d\.?,?\s*(?:at\s+(?:p\.?\s*)?|\xb6\s*|¶\s*)\d", re.IGNORECASE),
     re.compile(r"^\s*[Ii]d\.?$", re.IGNORECASE),
     re.compile(r"^\s*at\s+\d+(?:[-–]\d+)?\s*$", re.IGNORECASE),
     re.compile(r"\bsupra\b", re.IGNORECASE),
@@ -301,6 +312,30 @@ def main() -> int:
     # to reporter for short-form cites without court_hint.
     for r in dedup:
         r["cited_tier"] = tier_combined(r["citation_string"], r.get("court_hint") or "")
+
+    # 5b. Within-cluster Other dedup: if the same (citing_cluster,
+    # citation_string) appears as both a properly-classified tier AND
+    # as Other (no court_hint), drop the Other copy as a short-form
+    # follow-up to an earlier full cite. Per user 2026-05-15: these
+    # second-mention WL pin cites carry no new tier info.
+    by_cs: dict[tuple[Any, str], list[dict[str, Any]]] = defaultdict(list)
+    for r in dedup:
+        by_cs[(r["citing_cluster"], r["citation_string"])].append(r)
+    deduped2: list[dict[str, Any]] = []
+    other_dropped_dup = 0
+    for key, rows in by_cs.items():
+        tiers = {r["cited_tier"] for r in rows}
+        if "Other" in tiers and len(tiers) > 1:
+            # Keep only non-Other rows
+            for r in rows:
+                if r["cited_tier"] != "Other":
+                    deduped2.append(r)
+                else:
+                    other_dropped_dup += 1
+        else:
+            deduped2.extend(rows)
+    dedup = deduped2
+    print(f"After within-cluster Other dedup: {len(dedup)} (dropped {other_dropped_dup} Other-tier dupes)")
 
     # 6. K=5 cap per (citing_cluster, cited_tier)
     by_op_tier: dict[tuple[Any, str], list[dict[str, Any]]] = defaultdict(list)
