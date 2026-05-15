@@ -188,3 +188,25 @@ Out:    C:\Users\Rebecca Fordon\Projects\citation-verifier\.claude\worktrees\pri
   fladistctapp state_iac         2 / 2         2         0         0      0        0
 
   TOTAL: 2 / 2 accepted
+Mining 1 courts; target total = 2 accepted opinions
+Window: 2026-01-01 to 2026-04-30
+Cap:    25,000 chars per opinion
+Floor:  2,000 chars per opinion
+Buffer: 25 candidates per court
+Seed:   42
+Out:    C:\Users\Rebecca Fordon\Projects\citation-verifier\.claude\worktrees\priceless-pasteur-e3667f\benchmark\scratch\cl-coverage-offshoot\citing_opinions
+
+=== fladistctapp (state_iac, target=2) ===
+  fetching cluster list... 2,571 clusters in window  (266.8s)
+  [1/2] 10814726  17,548 chars  Miami-Dade County v. Dr. David Fintan Garavan
+  [2/2] 10783937  14,161 chars  XYZ 300, LLC, Trustee of the Mirror Lake Land Trust UAD Marc
+  -> accepted 2/2; tried 19; rej(long/notext/err)=0/1/0; reused=0
+
+=== SUMMARY ===
+  wall time: 6.5 min
+  manifest:  C:\Users\Rebecca Fordon\Projects\citation-verifier\.claude\worktrees\priceless-pasteur-e3667f\benchmark\scratch\cl-coverage-offshoot\citing_opinions\_manifest.csv
+
+  court        lvl              accepted   tried  too_long  too_short   no_text    err   reused
+  fladistctapp state_iac         2 / 2        19         0         16         1      0        0
+
+  TOTAL: 2 / 2 accepted

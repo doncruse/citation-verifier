@@ -15,7 +15,6 @@ cluster_id,court_id,level,case_name,date_filed,char_count,source_url
 10850074,cand,federal_trial,,2026-01-22,24517,https://www.courtlistener.com/opinion/10850074/securities-and-exchange-commission-v-siliconsage-builders-llc-aka-silicon/
 10850782,cand,federal_trial,,2026-01-22,16254,https://www.courtlistener.com/opinion/10850782/yotta-technologies-inc-v-evolve-bank-trust/
 10851573,cand,federal_trial,,2026-01-22,5376,https://www.courtlistener.com/opinion/10851573/jude-david-smith-v-shoreline-apartments-et-al/
-10775541,dcd,federal_trial,United States v. Kovacik,2026-01-16,1228,https://www.courtlistener.com/opinion/10775541/united-states-v-kovacik/
 10785269,dcd,federal_trial,"United States v. Approximately 1,467,761.163191 Usdt",2026-02-06,18842,https://www.courtlistener.com/opinion/10785269/united-states-v-approximately-1467761163191-usdt/
 10786075,dcd,federal_trial,Hughes v. Superior Court for the District of Columbia,2026-02-09,18440,https://www.courtlistener.com/opinion/10786075/hughes-v-superior-court-for-the-district-of-columbia/
 10795160,dcd,federal_trial,Brutus v. Trump,2026-02-17,4170,https://www.courtlistener.com/opinion/10795160/brutus-v-trump/
@@ -30,8 +29,8 @@ cluster_id,court_id,level,case_name,date_filed,char_count,source_url
 10844072,dcd,federal_trial,Dusenbery v. Trump,2026-04-16,3914,https://www.courtlistener.com/opinion/10844072/dusenbery-v-trump/
 10774891,fla,state_colr,In Re: Amendments to Rules Regulating the Florida Bar and Rules of the Supreme Court Relating to Admissions to the Bar,2026-01-15,22768,https://www.courtlistener.com/opinion/10774891/in-re-amendments-to-rules-regulating-the-florida-bar-and-rules-of-the/
 10839758,fla,state_colr,In Re: Amendments to Florida Rules of Appellate Procedure,2026-04-09,12362,https://www.courtlistener.com/opinion/10839758/in-re-amendments-to-florida-rules-of-appellate-procedure/
-10802964,fladistctapp,state_iac,Green v. State of Florida,2026-03-03,823,https://www.courtlistener.com/opinion/10802964/green-v-state-of-florida/
-10803562,fladistctapp,state_iac,Smith v. State of Florida,2026-03-04,645,https://www.courtlistener.com/opinion/10803562/smith-v-state-of-florida/
+10783937,fladistctapp,state_iac,"XYZ 300, LLC, Trustee of the Mirror Lake Land Trust UAD March 20, 2013 v. City of St. Petersburg",2026-02-04,14161,https://www.courtlistener.com/opinion/10783937/xyz-300-llc-trustee-of-the-mirror-lake-land-trust-uad-march-20-2013-v/
+10814726,fladistctapp,state_iac,Miami-Dade County v. Dr. David Fintan Garavan,2026-03-25,17548,https://www.courtlistener.com/opinion/10814726/miami-dade-county-v-dr-david-fintan-garavan/
 10778711,ill,state_colr,"Griffith Foods International Inc. v. National Union Fire Insurance Company of Pittsburgh, PA",2026-01-23,24260,https://www.courtlistener.com/opinion/10778711/griffith-foods-international-inc-v-national-union-fire-insurance-company/
 10811018,ill,state_colr,"Johnson v. Amazon.com Services, LLC",2026-03-19,18199,https://www.courtlistener.com/opinion/10811018/johnson-v-amazoncom-services-llc/
 10782076,illappct,state_iac,People v. McCall,2026-01-29,20439,https://www.courtlistener.com/opinion/10782076/people-v-mccall/

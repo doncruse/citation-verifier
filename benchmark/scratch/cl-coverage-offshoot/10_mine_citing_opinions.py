@@ -67,6 +67,14 @@ DATE_TO = "2026-04-30"
 # cited tiers mitigates per-tier denominator bias.
 OPINION_CHAR_CAP = 25_000
 
+# 2,000-char floor on opinion text. Opinions shorter than this are
+# overwhelmingly per-curiam affirmances ("Affirmed. PER CURIAM.") with
+# zero citations — they waste an LLM-extraction slot in step 2. Floor
+# chosen by inspection on the first mining run: 3 of 79 opinions came
+# in under 1300 chars with 0 cite-pattern matches each; a 5,158-char
+# Cal Ct App Wende brief had 1 citation, so 2K is a safe cutoff.
+OPINION_CHAR_FLOOR = 2_000
+
 # Per-court candidate buffer. Iterate at most this many random clusters
 # per court before giving up — design expects ~50% to fit under the cap.
 PER_COURT_CANDIDATE_BUFFER = 25
@@ -143,6 +151,7 @@ class CourtStats:
     accepted: int = 0
     skipped_existing: int = 0
     rejected_too_long: int = 0
+    rejected_too_short: int = 0
     rejected_no_text: int = 0
     rejected_error: int = 0
     candidates_tried: int = 0
@@ -241,6 +250,7 @@ def try_accept_cluster(
     court_id_fallback: str,
     level: str,
     char_cap: int,
+    char_floor: int,
 ) -> tuple[str | None, ManifestRow | None, str]:
     """Try to accept one cluster — fetch opinion text via canonical chain.
 
@@ -270,6 +280,8 @@ def try_accept_cluster(
 
     if len(text) > char_cap:
         return None, None, "too_long"
+    if len(text) < char_floor:
+        return None, None, "too_short"
 
     # CL clusters don't expose court_id as a top-level field — it's on
     # the linked docket. Use the spec's court_id (which is exactly what
@@ -293,6 +305,7 @@ def mine_court(
     rng: random.Random,
     out_dir: Path,
     char_cap: int,
+    char_floor: int,
     buffer: int,
 ) -> tuple[list[ManifestRow], CourtStats]:
     """Mine one source court — return (accepted manifest rows, stats)."""
@@ -366,6 +379,7 @@ def mine_court(
             court_id_fallback=spec.court_id,
             level=spec.level,
             char_cap=char_cap,
+            char_floor=char_floor,
         )
         if reason == "ok" and text and row:
             out_file.write_text(text, encoding="utf-8")
@@ -377,6 +391,8 @@ def mine_court(
             )
         elif reason == "too_long":
             stats.rejected_too_long += 1
+        elif reason == "too_short":
+            stats.rejected_too_short += 1
         elif reason == "no_text" or reason == "no_url":
             stats.rejected_no_text += 1
         else:
@@ -456,6 +472,9 @@ def main() -> int:
                     help=f"Candidates tried per court before giving up (default {PER_COURT_CANDIDATE_BUFFER})")
     ap.add_argument("--char-cap", type=int, default=OPINION_CHAR_CAP,
                     help=f"Max opinion text chars (default {OPINION_CHAR_CAP:,})")
+    ap.add_argument("--char-floor", type=int, default=OPINION_CHAR_FLOOR,
+                    help=f"Min opinion text chars (default {OPINION_CHAR_FLOOR:,}; "
+                         "skips per-curiam affirmances with no citations)")
     ap.add_argument("--only-courts", type=str, default="",
                     help="Comma-separated court_ids to mine (default: all). Useful for resuming a single court.")
     args = ap.parse_args()
@@ -477,6 +496,7 @@ def main() -> int:
     print(f"Mining {len(courts)} courts; target total = {target_total} accepted opinions")
     print(f"Window: {DATE_FROM} to {DATE_TO}")
     print(f"Cap:    {args.char_cap:,} chars per opinion")
+    print(f"Floor:  {args.char_floor:,} chars per opinion")
     print(f"Buffer: {args.buffer} candidates per court")
     print(f"Seed:   {args.seed}")
     print(f"Out:    {OUT_DIR}")
@@ -495,6 +515,7 @@ def main() -> int:
             rng=rng,
             out_dir=OUT_DIR,
             char_cap=args.char_cap,
+            char_floor=args.char_floor,
             buffer=args.buffer,
         )
         all_rows.extend(rows)
@@ -506,15 +527,16 @@ def main() -> int:
     print(f"  wall time: {elapsed/60:.1f} min")
     print(f"  manifest:  {MANIFEST_CSV}")
     print()
-    print(f"  {'court':<10} {'lvl':<14} {'accepted':>10}  {'tried':>6}  {'too_long':>8}  {'no_text':>8}  {'err':>5}  {'reused':>7}")
+    print(f"  {'court':<12} {'lvl':<14} {'accepted':>10}  {'tried':>6}  {'too_long':>8}  {'too_short':>9}  {'no_text':>8}  {'err':>5}  {'reused':>7}")
     for s in all_stats:
         spec = next((c for c in courts if c.court_id == s.court_id), None)
         lvl = spec.level if spec else ""
         print(
-            f"  {s.court_id:<10} {lvl:<14} "
+            f"  {s.court_id:<12} {lvl:<14} "
             f"{s.accepted:>4} / {s.target:<3}  {s.candidates_tried:>6}  "
-            f"{s.rejected_too_long:>8}  {s.rejected_no_text:>8}  "
-            f"{s.rejected_error:>5}  {s.skipped_existing:>7}"
+            f"{s.rejected_too_long:>8}  {s.rejected_too_short:>9}  "
+            f"{s.rejected_no_text:>8}  {s.rejected_error:>5}  "
+            f"{s.skipped_existing:>7}"
         )
     total_accepted = sum(s.accepted for s in all_stats)
     total_target = sum(s.target for s in all_stats)
