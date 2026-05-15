@@ -48,7 +48,7 @@ COVERAGE_CSV = HERE / "coverage_per_citation.csv"
 OUT_CSV = HERE / "staged_fallback_per_row.csv"
 OUT_SUMMARY_MD = HERE / "staged_fallback_summary.md"
 
-TARGET_TIERS = ("SCOTUS", "Circuit", "State_COLR", "State_IAC")
+TARGET_TIERS = ("SCOTUS", "Circuit", "State_COLR", "State_IAC", "Federal_District")
 SCORE_THRESHOLD = 0.5  # matches the verifier's credible-match cutoff
 
 

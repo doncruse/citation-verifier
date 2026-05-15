@@ -5,7 +5,7 @@
 - After foreign filter: 1042 (dropped 0)
 - After dedup: 997 (removed 45)
 - After K=5 cap per (citing_cluster, cited_tier): 618 (dropped 379)
-- Stratified sample: 200 rows (target 200)
+- Stratified sample: 250 rows (target 250)
 
 ## Pool distribution by cited tier
 
@@ -15,7 +15,7 @@
 | Circuit | 210 | 50 | 50 |
 | State_COLR | 73 | 50 | 50 |
 | State_IAC | 60 | 50 | 50 |
-| Federal_District | 152 | — | (not sampled) |
+| Federal_District | 152 | 50 | 50 |
 | Other | 2 | — | (not sampled) |
 
 ## Per-target-tier yield from this cohort
@@ -25,6 +25,7 @@ Pool drawn from 79 citing opinions (after cap).
 - Circuit: 210/79 = 2.66 per opinion
 - State_COLR: 73/79 = 0.92 per opinion
 - State_IAC: 60/79 = 0.76 per opinion
+- Federal_District: 152/79 = 1.92 per opinion
 
 ## Caveats
 - Regional reporters (A.3d, P.3d, N.E.3d, etc.) default to State_COLR; actual COLR/IAC split waits on step 4 CL lookup.

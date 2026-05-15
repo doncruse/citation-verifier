@@ -50,7 +50,7 @@ OUT_PER_CITATION = HERE / "coverage_per_citation.csv"
 OUT_PER_TIER = HERE / "coverage_per_tier.csv"
 OUT_SUMMARY_MD = HERE / "coverage_summary.md"
 
-TARGET_TIERS = ("SCOTUS", "Circuit", "State_COLR", "State_IAC")
+TARGET_TIERS = ("SCOTUS", "Circuit", "State_COLR", "State_IAC", "Federal_District")
 
 
 def build_full_citation_str(row: dict) -> str:

@@ -1,8 +1,8 @@
 # Step 4 — coverage results (pre-audit)
 
-- Sample size: 200
-- In CL (any status != NOT_FOUND): 157
-- NOT_FOUND (real gap OR extraction artifact): 43 (21.5%)
+- Sample size: 250
+- In CL (any status != NOT_FOUND): 176
+- NOT_FOUND (real gap OR extraction artifact): 74 (29.6%)
 
 **NOT_FOUND is an upper bound on the true CL gap rate.** Step 5
 audits each NOT_FOUND row to split real gaps from extraction noise
@@ -13,10 +13,10 @@ coverage rate = (n - real_gaps) / n, computed after audit.
 
 | status | n | % |
 |---|---|---|
-| VERIFIED | 156 | 78.0% |
+| VERIFIED | 175 | 70.0% |
 | LIKELY_REAL | 0 | 0.0% |
-| POSSIBLE_MATCH | 1 | 0.5% |
-| NOT_FOUND | 43 | 21.5% |
+| POSSIBLE_MATCH | 1 | 0.4% |
+| NOT_FOUND | 74 | 29.6% |
 
 ## Per-tier coverage (pre-audit)
 
@@ -26,6 +26,7 @@ coverage rate = (n - real_gaps) / n, computed after audit.
 | Circuit | 50 | 42 | 0 | 1 | 7 | 43 | 14.0% |
 | State_COLR | 50 | 41 | 0 | 0 | 9 | 41 | 18.0% |
 | State_IAC | 50 | 26 | 0 | 0 | 24 | 26 | 48.0% |
+| Federal_District | 50 | 19 | 0 | 0 | 31 | 19 | 62.0% |
 
 ## Methodology notes
 

@@ -199,3 +199,53 @@ citing_cluster,citing_court_id,citing_level,citing_case_name,citing_char_count,c
 10789514,nyappdiv,state_iac,People v. Brinson,6453,185 AD3d 1531,People v Hunt,2020,4th Dept.,,State_IAC
 10848865,ilnd,federal_trial,,22624,"736 N.E.2d 1184, 1187","Walker v. Ridgeview Const. Co., Inc.",2000,Ill. App. Ct.,,State_IAC
 10789451,nyappdiv,state_iac,Rogers v. DS Restoration & Residential Servs. Co.,13786,"307 AD2d 749, 749-750",Petit v Board of Educ. of W. Genesee School Dist.,2003,4th Dept,,State_IAC
+10832493,dcd,federal_trial,Gardner v. Haaland,20261,"59 F. Supp. 3d 1, 7",Janvey v. Proskauer Rose,2014,D.D.C.,,Federal_District
+10832493,dcd,federal_trial,Gardner v. Haaland,20261,"123 F. Supp. 3d 30, 39 n.5",Robinson v. Huerta,2015,D.D.C.,,Federal_District
+10785894,ilnd,federal_trial,,18043,2025 WL 3089109,"Bay Valley Foods, LLC v. FFI Grp., LLC",2025,N.D. Ill.,,Federal_District
+10844968,ilnd,federal_trial,,20151,2018 WL 5839955,Falls v. Berryhill,2018,N.D. Ill.,,Federal_District
+10807315,dcd,federal_trial,Shafique v. United States Marshal Service,24704,213 F. Supp. 3d 93,Coulibaly v. Kerry,2016,D.D.C.,,Federal_District
+10769495,cand,federal_trial,,5916,2014 WL 122074,In re Wilson,2014,N.D. Cal.,,Federal_District
+10833791,dcd,federal_trial,American Oversight v. U.S. Department of Justice,21213,"780 F. Supp. 3d 61, 79",Democracy Forward Found. v. Off. of Mgmt. & Budget,2025,D.D.C.,,Federal_District
+10789794,mad,federal_trial,,10411,"2019 WL 5764661, at *2",Waterman v. White Interior Sols.,2019,D. Me.,,Federal_District
+10810840,mad,federal_trial,,23675,470 F. Supp. 3d 81,MIT Fed. Credit Union v. Cordisco,2020,D. Mass.,"citing Haley v. City of Bos., 657 F.3d 39, 46 (1st Cir. 2011)",Federal_District
+10845114,mad,federal_trial,,19916,2024 WL 3446824,ra dias deapocalypse bey v. Clapprood,2024,D. Mass.,"dismissing unlawful arrest claim where ""there was probable cause for the officers to believe [plaintiff] had committed a crime under M.G.L. ch. 90, § 10"" because plaintiff ""admitted that he did not have a driver's license""",Federal_District
+10802819,txsd,federal_trial,"THE YE DARM PRESBYTERIAN CHURCH v. MOUNT VERNON FIRE INSURANCE COMPANY, et al.",6299,2016 WL 5957681,"Mehar Holdings, LLC v. Evanston Ins. Co.",2016,W.D. Tex.,,Federal_District
+10786075,dcd,federal_trial,Hughes v. Superior Court for the District of Columbia,18440,360 F. Supp. 2d,United States v. Freeman,,D.D.C.,,Federal_District
+10802755,ilnd,federal_trial,,2258,2025 WL 2390448,United States v. Williams,2025,N.D. Ill.,,Federal_District
+10811018,ill,state_colr,"Johnson v. Amazon.com Services, LLC",18199,2023 WL 8475658,"Johnson v. Amazon.com Services, LLC",2023,N.D. Ill.,,Federal_District
+10838932,dcd,federal_trial,Coalition for Humane Immigrant Rights v. Mullin,10825,"2025 WL 2800807, *2",Molina v. U.S. Dep't of Homeland Sec.,,D.D.C.,"truly exceptional circumstances"" where relief was both programmatic and individual weigh in favor of pseudonymity where there are ""privacy interests, concrete safety risks, and [] sensitive nature of the underlying personal information"" quoting Doe v. Hill, 141 F.4th 291, 300 (D.C. Cir. 2025)",Federal_District
+10830306,dcd,federal_trial,Doe v. American University,22763,2019 WL 3304707,Gilliard v. McWilliams,2019,D.D.C.,"quoting Durham, 818 F. Supp. 2d at 69",Federal_District
+10845114,mad,federal_trial,,19916,981 F. Supp. 2d 92,Tyler v. Massachusetts,2013,D. Mass.,,Federal_District
+10802819,txsd,federal_trial,"THE YE DARM PRESBYTERIAN CHURCH v. MOUNT VERNON FIRE INSURANCE COMPANY, et al.",6299,2020 WL 1969530,Hazari LLC v. Everest Indem. Ins. Co.,2020,S.D. Tex.,,Federal_District
+10853090,ilnd,federal_trial,,13113,87 F. Supp. 3d at 913,Tarpley v. City Colleges of Chicago,,N.D. Ill.,,Federal_District
+10839087,ilnd,federal_trial,,11890,2023 WL 1863046,In re Loc. TV Advert. Antitrust Litig.,2023,N.D. Ill.,,Federal_District
+10807315,dcd,federal_trial,Shafique v. United States Marshal Service,24704,83 F. Supp. 3d 315,Lyles v. Hughes,2015,D.D.C.,,Federal_District
+10786075,dcd,federal_trial,Hughes v. Superior Court for the District of Columbia,18440,360 F. Supp. 2d 43,United States v. Freeman,2003,D.D.C.,,Federal_District
+10814121,mad,federal_trial,,8006,"834 F. Supp. 46, 54",Palumbo v. Roberti,1993,D. Mass.,"Although technically not itself a pleading, a cross claim must be stated in a pleading . . . .",Federal_District
+10770725,mad,federal_trial,,11894,"2015 WL 13648107, *1",Cabot v. Lewis,2015,D. Mass.,,Federal_District
+10796076,dcd,federal_trial,Powell v. United States Department of Treasury,22965,2015 WL 4077756,Kalu v. IRS,2015,D.D.C.,,Federal_District
+10770795,cand,federal_trial,,8632,2013 WL 6088409,Hunter v. City & Cnty. of San Francisco,2013,N.D. Cal.,"finding a chilling effect on future civil rights litigation where the plaintiff's ""claim of excessive force was significant""",Federal_District
+10841844,ilnd,federal_trial,,16122,2019 WL 2269962,Michael B. v. Berryhill,2019,N.D. Ill.,,Federal_District
+10805616,txsd,federal_trial,,23376,2023 WL 5337430,Preston v. Smith,2023,W.D. La.,,Federal_District
+10850074,cand,federal_trial,,24517,"1990 Bankr. LEXIS 3028, at *9","In re Rose Way, Inc.",1990,Bankr. S.D. Iowa,,Federal_District
+10848865,ilnd,federal_trial,,22624,"702 F. Supp. 711, 713","Isaacs v. Caterpillar, Inc.",1988,C.D. Ill.,,Federal_District
+10785026,ilnd,federal_trial,,21757,794 F. Supp. 261,"In re Oil Spill by the ""Amoco Cadiz""",1992,N.D. Ill.,,Federal_District
+10810840,mad,federal_trial,,23675,2025 WL 2808055,Doe v. Lawrence Gen. Hosp.,2025,D. Mass.,,Federal_District
+10770795,cand,federal_trial,,8632,2009 WL 2392094,Darensburg v. Metro. Transp. Comm'n,,N.D. Cal.,"finding that the issues presented in a civil rights issue were close and difficult because ""[r]esolution of [the] issues was not obvious"" and the case was ""vigorously litigated""",Federal_District
+10809644,txsd,federal_trial,,5305,2021 WL 1165132,"WeInfuse, LLC v. InfuseFlow, LLC",2021,N.D. Tex.,,Federal_District
+10779126,cand,federal_trial,,16966,2022 WL 1261302,Hendrix v. Garcia,2022,D. Kan.,,Federal_District
+10805616,txsd,federal_trial,,23376,2022 WL 18276710,Jackson v. Boone,2022,E.D. La.,,Federal_District
+10850782,cand,federal_trial,,16254,2016 WL 9753979,In re Wilmington Trust Secs. Litig.,2016,D.Del.,,Federal_District
+10785269,dcd,federal_trial,"United States v. Approximately 1,467,761.163191 Usdt",18842,"330 F. Supp. 3d 150, 156",United States v. All Assets Held in Acct. No. XXXXXXXX,2018,D.D.C.,"Traditionally, when exercising in rem jurisdiction, the defendant property is physically present within the court's territorial jurisdiction.",Federal_District
+10779126,cand,federal_trial,,16966,2022 WL 1541750,Hendrix v. Garcia,2022,D. Kan.,,Federal_District
+10770725,mad,federal_trial,,11894,"274 F.R.D. 12, 18",St. John v. Napolitano,2011,D.D.C.,,Federal_District
+10841844,ilnd,federal_trial,,16122,2025 WL 1505405,John S. v. Bisignano,2025,N.D. Ill.,"quoting Michael B. v. Berryhill, 2019 WL 2269962, at *6",Federal_District
+10770725,mad,federal_trial,,11894,174 F.R.D. at 228,Vanderbilt v. Town of Chilmark,,,listing explicit waiver and disclosure as means to waive the privilege,Federal_District
+10785269,dcd,federal_trial,"United States v. Approximately 1,467,761.163191 Usdt",18842,324 F. Supp. 3d at 41,"United States v. $1,071,251.44 of Funds Associated with Mingzheng Int'l Trading Ltd.",2018,D.D.C.,"interpreting this rule to require that the complaint ""establish a reasonable belief that the government could prove by a preponderance of the evidence that [Defendant Property is] subject to civil in rem forfeiture""",Federal_District
+10830306,dcd,federal_trial,Doe v. American University,22763,818 F. Supp. 2d at 69,Durham,,D.D.C.,,Federal_District
+10838932,dcd,federal_trial,Coalition for Humane Immigrant Rights v. Mullin,10825,"307 F.R.D. 1, 8",Doe v. Cabrera,2014,D.D.C.,,Federal_District
+10770725,mad,federal_trial,,11894,274 F.R.D. at 19,St. John v. Napolitano,,,,Federal_District
+10850074,cand,federal_trial,,24517,19 B.R. 125,In re Mansfield Tire & Rubber Co.,1981,Bankr. N.D. Ohio,,Federal_District
+10853104,mad,federal_trial,,11968,2019 WL 5268725,Viken Detection Corp. v. Doe,2019,D. Mass.,"holding that the ""only way the plaintiffs can realistically proceed"" in a lawsuit against a John Doe defendant is to subpoena the ISP for the information connected to the IP address",Federal_District
+10770262,cand,federal_trial,,8042,2020 WL 7862706,Damner v. Facebook Inc.,2020,N.D. Cal.,"dismissing negligence claim where ""Plaintiff's allegation that Facebook owed him a duty of care to keep his personal information safe is contradicted by the terms of the [Statement of Rights and Responsibility], which expressly disclaim such a duty''""",Federal_District
+10796076,dcd,federal_trial,Powell v. United States Department of Treasury,22965,317 F. Supp. 3d 266,Powell v. IRS,2018,D.D.C.,subsequent history omitted,Federal_District

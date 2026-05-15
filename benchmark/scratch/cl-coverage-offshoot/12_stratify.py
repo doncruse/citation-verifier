@@ -47,6 +47,9 @@ EXTRACT_DIR = HERE / "real_extractions"
 MANIFEST = HERE / "citing_opinions" / "_manifest.csv"
 
 FINAL_POOL_CSV = HERE / "final_pool.csv"
+# File name kept for backward compatibility with downstream scripts;
+# actual sample size is now 250 (5 target tiers x 50 per tier) after
+# Federal_District added 2026-05-15.
 FINAL_200_CSV = HERE / "final_200.csv"
 SUMMARY_MD = HERE / "stratify_summary_real.md"
 
@@ -193,7 +196,11 @@ SAMPLE_PER_TIER = 50
 K_PER_OPINION_PER_TIER = 5
 SEED = 20260515  # date of this real run
 
-TARGET_TIERS = ("SCOTUS", "Circuit", "State_COLR", "State_IAC")
+# Federal_District added 2026-05-15 (user observation: federal trial
+# courts are heavily cited — 152 in pool — and were missing from the
+# design's 4 target tiers). Listed LAST so adding it doesn't perturb
+# the prior 4 tiers' deterministic shuffle order.
+TARGET_TIERS = ("SCOTUS", "Circuit", "State_COLR", "State_IAC", "Federal_District")
 
 
 # ---- pre-filters -----------------------------------------------------------

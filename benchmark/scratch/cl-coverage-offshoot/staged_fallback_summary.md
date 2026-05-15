@@ -1,9 +1,9 @@
 # Step 4b — staged fallback rescue
 
-- NOT_FOUND rows from step 4 baseline: 43
-- Stage A (opinion search) rescued: 34
-- Stage B (RECAP search) rescued: 3
-- Still NOT_FOUND after both fallbacks: 6
+- NOT_FOUND rows from step 4 baseline: 74
+- Stage A (opinion search) rescued: 54
+- Stage B (RECAP search) rescued: 8
+- Still NOT_FOUND after both fallbacks: 12
 
 ## Coverage progression by tier
 
@@ -13,12 +13,13 @@
 | Circuit | 50 | 43 | +4 | +2 | 1 | 47/50 = 94.0% | 49/50 = 98.0% |
 | State_COLR | 50 | 41 | +6 | +1 | 2 | 47/50 = 94.0% | 48/50 = 96.0% |
 | State_IAC | 50 | 26 | +21 | +0 | 3 | 47/50 = 94.0% | 47/50 = 94.0% |
+| Federal_District | 50 | 19 | +20 | +5 | 6 | 39/50 = 78.0% | 44/50 = 88.0% |
 
 ## Overall
 
-- citation_lookup baseline: 157/200 = 78.5%
-- after opinion search:     191/200 = 95.5%
-- after RECAP search:       194/200 = 97.0%
+- citation_lookup baseline: 176/250 = 70.4%
+- after opinion search:     230/250 = 92.0%
+- after RECAP search:       238/250 = 95.2%
 
 ## Methodology
 
