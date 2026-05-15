@@ -1,6 +1,6 @@
 # Step 5 — audit of fallback rescues
 
-Audited 44 rescues from the rigorous staged fallback 
+Audited 43 rescues from the rigorous staged fallback 
 (step 4c) to distinguish true matches from false positives. Each 
 rescue had three tests applied:
 
@@ -23,10 +23,10 @@ Verdict logic:
 | tier | VERIFIED_TRUE | LIKELY_FALSE | AMBIGUOUS | CANT_AUDIT |
 |---|---|---|---|---|
 | SCOTUS | 0 | 1 | 0 | 0 |
-| Circuit | 1 | 1 | 0 | 0 |
+| Circuit | 1 | 0 | 0 | 0 |
 | State_COLR | 2 | 1 | 0 | 0 |
 | State_IAC | 8 | 0 | 0 | 0 |
-| Federal_District | 20 | 10 | 0 | 0 |
+| Federal_District | 22 | 7 | 1 | 0 |
 
 ## Corrected per-tier coverage
 
@@ -39,12 +39,12 @@ AMBIGUOUS rows are excluded from numerator (conservative).
 | Circuit | 50 | 43 | +1 | 44 | 88.0% |
 | State_COLR | 50 | 41 | +2 | 43 | 86.0% |
 | State_IAC | 50 | 26 | +8 | 34 | 68.0% |
-| Federal_District | 50 | 19 | +20 | 39 | 78.0% |
+| Federal_District | 50 | 19 | +22 | 41 | 82.0% |
 
 ## Overall
 
 - citation_lookup baseline: 176/250 = 70.4%
-- + audited TRUE rescues:   207/250 = 82.8%
-- audited false positives:  13 (would have inflated coverage by 5.2 pp)
-- ambiguous (excluded from numerator): 0
+- + audited TRUE rescues:   209/250 = 83.6%
+- audited false positives:  9 (would have inflated coverage by 3.6 pp)
+- ambiguous (excluded from numerator): 1
 - can't audit (LLM dropped name): 0
