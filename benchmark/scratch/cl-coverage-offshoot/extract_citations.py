@@ -42,7 +42,13 @@ MODEL = "haiku"  # CLI alias; resolves to claude-haiku-4-5
 # to haiku to see if smaller-per-call overhead clears the cliff. Quality on
 # parenthetical attribution may be lower but extraction is mostly pattern
 # matching — should be acceptable for coverage measurement.
-TIMEOUT_S = 900
+# 600s default for the real run. The 2026-05-14 A/B test
+# (ab_results.csv) found the hang cliff is closer to 24K chars than
+# LIMITATIONS.md's 27-30K estimate — a 24,720-char opinion timed out
+# at 240s on BOTH sonnet and haiku. 600s gives slow-but-completable
+# extractions room to finish without burning excessive wall time on
+# truly-hung opinions in the 24K-25K char band.
+TIMEOUT_S = 600
 
 # One temp dir per process (matches `truncation_experiment.py:_HERMETIC_DIR`).
 _HERMETIC_DIR = Path(tempfile.mkdtemp(prefix="extract_citations_"))
