@@ -476,10 +476,17 @@ class CitationVerifier:
     # Shared result processing (used by both sync and async)
     # ------------------------------------------------------------------
 
+    _TEMPORAL_GATE_YEARS = 5
+
     def _process_results(
         self, results: list[dict[str, Any]], parsed: ParsedCitation
     ) -> list[CandidateMatch]:
-        """Convert API results to scored CandidateMatch objects."""
+        """Convert API results to scored CandidateMatch objects.
+
+        Hard-rejects (issue #7):
+          - Temporal: skip candidates whose date_filed year differs from
+            parsed.year by more than _TEMPORAL_GATE_YEARS.
+        """
         candidates = []
         for r in results:
             case_name = r.get("caseName") or r.get("case_name", "")
@@ -487,6 +494,16 @@ class CitationVerifier:
             if cluster_id is None:
                 continue
             date_filed = r.get("dateFiled") or r.get("date_filed", "")
+
+            # Temporal hard-gate
+            if parsed.year and date_filed and len(date_filed) >= 4:
+                try:
+                    cand_year = int(date_filed[:4])
+                    if abs(cand_year - parsed.year) > self._TEMPORAL_GATE_YEARS:
+                        continue
+                except ValueError:
+                    pass  # unparseable date — let the scorer handle it
+
             court_id = r.get("court_id") or r.get("court", "")
             url = r.get("absolute_url", "")
             if cluster_id and not url:

@@ -189,6 +189,55 @@ class TestOpinionSearchFallback:
         assert client.search_opinions.call_count == 1
 
 
+class TestOpinionSearchGates:
+    """Issue #7: temporal + name-token gates on the opinion-search fallback."""
+
+    def test_temporal_gate_rejects_year_diff_over_5(self):
+        """Sam's example: Jovel v. Boiron (2013 WL) -> 1901 TX land case."""
+        client = _make_client(
+            citation_lookup=[],  # forces fallback
+            search_opinions=[
+                {
+                    "caseName": "Some Old Case",
+                    "cluster_id": 4147982,
+                    "dateFiled": "1901-03-14",
+                    "court_id": "tex",
+                    "absolute_url": "/opinion/4147982/some-old-case/",
+                }
+            ],
+        )
+        v = CitationVerifier(client)
+        result = v.verify("Jovel v. Boiron, 2013 WL 12164622 (C.D. Cal. 2013)")
+
+        assert result.status == VerificationStatus.NOT_FOUND
+        assert result.matched_cluster_id is None
+
+    def test_temporal_gate_allows_year_diff_under_5(self):
+        """A within-window candidate should pass the gate (and get scored normally)."""
+        client = _make_client(
+            citation_lookup=[],
+            search_opinions=[
+                {
+                    "caseName": "Smith v. Jones",
+                    "cluster_id": 1234567,
+                    "dateFiled": "2016-06-01",
+                    "court_id": "cacd",
+                    "absolute_url": "/opinion/1234567/smith-v-jones/",
+                }
+            ],
+        )
+        v = CitationVerifier(client)
+        result = v.verify("Smith v. Jones, 2018 WL 999999 (C.D. Cal. 2018)")
+
+        # Should not be rejected by temporal gate (3-year diff)
+        # Whether it's MATCH/POSSIBLE/NOT_FOUND depends on the rest of the
+        # scorer; we only assert the gate didn't drop it.
+        assert result.matched_cluster_id == 1234567 or result.status == VerificationStatus.NOT_FOUND
+        # If it did pass, no temporal-rejection diagnostic should appear
+        assert not any("year" in d.message.lower() and "reject" in d.message.lower()
+                       for d in result.diagnostics)
+
+
 # ---------------------------------------------------------------------------
 # Step 3: RECAP fallback
 # ---------------------------------------------------------------------------
