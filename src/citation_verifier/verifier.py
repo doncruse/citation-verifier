@@ -513,6 +513,8 @@ class CitationVerifier:
         Hard-rejects (issue #7):
           - Temporal: skip candidates whose date_filed year differs from
             parsed.year by more than _TEMPORAL_GATE_YEARS.
+          - Name-token: skip candidates that share no distinctive
+            (>=4-char, non-stoplist) token with parsed.case_name.
         """
         candidates = []
         for r in results:
