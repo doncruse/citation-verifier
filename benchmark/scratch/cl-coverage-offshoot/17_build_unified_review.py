@@ -6,6 +6,7 @@ with the judgment made at every phase of the analysis pipeline:
   Phase 4          — strict citation_lookup status
   Phase 4c         — rigorous staged fallback (opinion / RECAP)
   Phase 5          — audited verdict on each rescue
+  Phase 6          — short-form dedup + exclusion (this script)
 
 Final classification per row:
   - in_cl_via_citation_lookup  Phase 4 returned VERIFIED/LIKELY_REAL/POSSIBLE_MATCH
@@ -18,15 +19,95 @@ Final classification per row:
   - not_in_cl                  Phase 4c didn't rescue at all
   - extraction_artifact        LLM dropped cited_case_name; can't audit
                                (subset of "not_in_cl")
+  - duplicate_of_fuller_sibling  (Phase 6) Short-form citation that has
+                               a fuller sibling in the same opinion for
+                               the same case — the sibling is canonical.
+                               Dropped from both numerator and denominator.
+  - excluded_incomplete_citation  (Phase 6) Unresolvable short-form
+                               (no fuller sibling in extraction). Excluded
+                               from the denominator — not a measurable miss.
 
 Output: unified_review.csv (UTF-8, plain CSV — Excel-compatible).
 """
 from __future__ import annotations
 
 import csv
+import re
 import sys
+from collections import defaultdict
 from pathlib import Path
 from typing import Any
+
+
+# === Short-form citation detection (Phase 6) ===
+# A "short form" is a pin-cite or stub that cannot be resolved to a unique
+# opinion via CL's citation lookup alone, e.g.:
+#   "594 U.S. at 442"        — pin cite, no start page
+#   "523 U.S."               — volume+reporter, no page at all
+#   "360 F. Supp. 2d"        — reporter stub with no page
+#   "B225051"                — California internal docket number
+#   "Id. at 741", "Jd. at 7" — Id./OCR-garbled short forms
+_SHORT_FORM_PATTERNS = (
+    re.compile(r"^\s*\d+\s+[A-Za-z][\w.\s()]*?\s+at\s", re.IGNORECASE),  # "N REPORTER at P"
+    re.compile(r"^\s*\d+\s+[A-Za-z][\w.\s]*[A-Za-z.]\s*$"),               # "N REPORTER" stub (no page)
+    re.compile(r"^\s*[A-Z]\d{6}\s*$"),                                    # California docket "B225051"
+    re.compile(r"^\s*[IJij]d\.?\s+at\b", re.IGNORECASE),                  # "Id. at P" / OCR-garbled "Jd."
+)
+
+
+def is_short_form(cite: str) -> bool:
+    """True iff the citation string is a short form/stub that can't be
+    resolved to a unique opinion via citation_lookup."""
+    s = (cite or "").strip()
+    if not s:
+        return False
+    return any(p.match(s) for p in _SHORT_FORM_PATTERNS)
+
+
+def _normalize_name(name: str) -> str:
+    """Loose normalize for sibling matching: lowercase, strip punctuation,
+    collapse whitespace. Used only to group short-forms with their fuller
+    antecedents in the same citing opinion."""
+    n = (name or "").lower().strip()
+    n = re.sub(r"[.,]", "", n)
+    n = re.sub(r"\s+", " ", n)
+    return n
+
+
+def find_fuller_siblings(
+    sample_rows: list[dict[str, str]],
+) -> dict[tuple[str, str], str]:
+    """For each (citing_cluster, citation_string) row, return its
+    dedup status:
+      ""                 — not a short-form (no action)
+      "duplicate"        — short-form WITH a fuller sibling in same opinion
+      "excluded"         — short-form WITHOUT a fuller sibling (no name or
+                           no antecedent extracted)
+    """
+    groups: dict[tuple[str, str], list[dict[str, str]]] = defaultdict(list)
+    for r in sample_rows:
+        k = (r.get("citing_cluster", ""), _normalize_name(r.get("cited_case_name", "")))
+        groups[k].append(r)
+
+    status: dict[tuple[str, str], str] = {}
+    for r in sample_rows:
+        cite = r.get("citation_string", "")
+        row_key = (r.get("citing_cluster", ""), cite)
+        if not is_short_form(cite):
+            status[row_key] = ""
+            continue
+        name_key = _normalize_name(r.get("cited_case_name", ""))
+        if not name_key:
+            # No name to match against; can't find a fuller sibling
+            status[row_key] = "excluded"
+            continue
+        sibs = groups.get((r.get("citing_cluster", ""), name_key), [])
+        has_fuller = any(
+            s is not r and not is_short_form(s.get("citation_string", ""))
+            for s in sibs
+        )
+        status[row_key] = "duplicate" if has_fuller else "excluded"
+    return status
 
 HERE = Path(__file__).parent
 SAMPLE_CSV = HERE / "final_200.csv"                          # 250-row sample
@@ -58,6 +139,13 @@ def main() -> int:
 
     print(f"Loaded sample: {len(sample)}, step4: {len(step4)}, "
           f"step4c: {len(step4c)}, step5: {len(step5)}")
+
+    # Phase 6 — short-form dedup + exclusion
+    short_form_status = find_fuller_siblings(sample)
+    n_dup = sum(1 for v in short_form_status.values() if v == "duplicate")
+    n_exc = sum(1 for v in short_form_status.values() if v == "excluded")
+    print(f"Phase 6 short-form: {n_dup} duplicates of fuller siblings, "
+          f"{n_exc} unresolvable (excluded from denominator)")
 
     out_rows = []
     for r in sample:
@@ -96,7 +184,22 @@ def main() -> int:
         p5_cluster_citations = s5.get("matched_cluster_citations", "")
 
         # FINAL CLASSIFICATION
-        if p4_in_cl == "yes":
+        dedup_status = short_form_status.get(k, "")
+
+        # Phase 6 override: a short-form citation that has a fuller sibling
+        # in the same opinion is a duplicate — drop it (the sibling is the
+        # canonical row for this case in this opinion). Applies regardless
+        # of the short-form's own Phase 4/4c/5 outcome.
+        if dedup_status == "duplicate":
+            final_status = "duplicate_of_fuller_sibling"
+            final_reason = "short-form citation; fuller sibling exists in same opinion"
+        # Phase 6 override: a short-form WITHOUT a fuller sibling is only
+        # excluded if it wasn't a lucky citation_lookup hit. A lucky hit is
+        # a real match and should stay in the numerator/denominator.
+        elif dedup_status == "excluded" and p4_in_cl != "yes":
+            final_status = "excluded_incomplete_citation"
+            final_reason = "short-form citation; no antecedent in extraction — not measurable"
+        elif p4_in_cl == "yes":
             # Step 4 already had it in CL via citation_lookup
             final_status = "in_cl_via_citation_lookup"
             final_reason = f"citation_lookup returned {p4_status}"
@@ -206,6 +309,8 @@ def main() -> int:
         "in_cl_via_recap_rescue",
         "rescue_was_false_positive",
         "not_in_cl",
+        "duplicate_of_fuller_sibling",
+        "excluded_incomplete_citation",
         "extraction_artifact_no_name",
         "extraction_artifact_unparseable",
     )
@@ -213,6 +318,34 @@ def main() -> int:
     for t in tiers:
         cells = [f"{by_tier_status.get((t, s), 0):>16}" for s in statuses]
         print(f"  {t:<16}  " + " ".join(cells))
+
+    # Corrected coverage: numerator = any in_cl status; denominator = all
+    # rows except the unmeasurable (duplicate/excluded/extraction_artifact).
+    in_cl_statuses = {
+        "in_cl_via_citation_lookup",
+        "in_cl_via_opinion_rescue",
+        "in_cl_via_recap_rescue",
+    }
+    unmeasurable_statuses = {
+        "duplicate_of_fuller_sibling",
+        "excluded_incomplete_citation",
+        "extraction_artifact_no_name",
+        "extraction_artifact_unparseable",
+    }
+    print("\n=== Corrected coverage (Phase 6 applied) ===")
+    print(f"  {'tier':<16}  {'in_cl':>6} / {'denom':>5}  = {'pct':>6}   (excluded: dup/inc/art)")
+    overall_in = overall_denom = overall_excluded = 0
+    for t in tiers:
+        in_n = sum(by_tier_status.get((t, s), 0) for s in in_cl_statuses)
+        excluded_n = sum(by_tier_status.get((t, s), 0) for s in unmeasurable_statuses)
+        denom = sum(by_tier_status.get((t, s), 0) for s in statuses) - excluded_n
+        pct = 100.0 * in_n / denom if denom else 0.0
+        print(f"  {t:<16}  {in_n:>6} / {denom:>5}  = {pct:>5.1f}%   (excluded: {excluded_n})")
+        overall_in += in_n
+        overall_denom += denom
+        overall_excluded += excluded_n
+    overall_pct = 100.0 * overall_in / overall_denom if overall_denom else 0.0
+    print(f"  {'OVERALL':<16}  {overall_in:>6} / {overall_denom:>5}  = {overall_pct:>5.1f}%   (excluded: {overall_excluded})")
 
     return 0
 

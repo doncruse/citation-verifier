@@ -66,23 +66,65 @@ OUT_SUMMARY_MD = HERE / "staged_fallback_rigorous_summary.md"
 TARGET_TIERS = ("SCOTUS", "Circuit", "State_COLR", "State_IAC", "Federal_District")
 
 
+_MONTH_NAMES = (
+    "",  # 1-indexed
+    "Jan.", "Feb.", "Mar.", "Apr.", "May", "Jun.",
+    "Jul.", "Aug.", "Sep.", "Oct.", "Nov.", "Dec.",
+)
+
+
 def build_full_citation_str(row: dict[str, str]) -> str:
-    """Same format as step 4 — give the parser as much signal as we have."""
+    """Same format as step 4 — give the parser as much signal as we have.
+
+    Per task #7 (2026-05-15): when the extraction captured month/day, emit
+    them in Bluebook form ("Jan. 8, 2014") so the verifier's parser pulls
+    them into ParsedCitation.month/day. When docket_number was captured,
+    append "No. <X>" so the parser stores it on ParsedCitation.docket_number
+    — that's what Stage B's RECAP search uses to find unpublished district
+    court opinions whose captions differ from the cited name (Rule 25(d),
+    SSA anonymization, John Doe reveal).
+    """
     case = (row.get("cited_case_name") or "").strip()
     cite = (row.get("citation_string") or "").strip()
     year = (row.get("year") or "").strip()
     hint = (row.get("court_hint") or "").strip()
-    # Build a parenthetical for the parser: (Court Year)
+    docket = (row.get("docket_number") or "").strip()
+    # Coerce month/day — they may be ints, strings, or empty
+    month = row.get("month")
+    day = row.get("day")
+    try:
+        month_i = int(month) if month not in (None, "", "None") else 0
+    except (TypeError, ValueError):
+        month_i = 0
+    try:
+        day_i = int(day) if day not in (None, "", "None") else 0
+    except (TypeError, ValueError):
+        day_i = 0
+
+    # Bluebook date: "Jan. 8, 2014" / "Jan. 2014" / "2014"
+    date_str = ""
+    if year:
+        if month_i and 1 <= month_i <= 12:
+            mname = _MONTH_NAMES[month_i]
+            if day_i and 1 <= day_i <= 31:
+                date_str = f"{mname} {day_i}, {year}"
+            else:
+                date_str = f"{mname} {year}"
+        else:
+            date_str = year
+
     paren_parts = []
     if hint:
         paren_parts.append(hint)
-    if year:
-        paren_parts.append(year)
-    if paren_parts:
-        return f"{case}, {cite} ({' '.join(paren_parts)})" if case else f"{cite} ({' '.join(paren_parts)})"
+    if date_str:
+        paren_parts.append(date_str)
+
+    paren = f" ({' '.join(paren_parts)})" if paren_parts else ""
+    docket_suffix = f", No. {docket}" if docket else ""
+
     if case:
-        return f"{case}, {cite}"
-    return cite
+        return f"{case}, {cite}{paren}{docket_suffix}"
+    return f"{cite}{paren}{docket_suffix}"
 
 
 async def run_stage_a(

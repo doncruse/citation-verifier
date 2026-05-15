@@ -268,6 +268,14 @@ def load_extractions() -> list[dict[str, Any]]:
                 "citation_string": cite_str,
                 "cited_case_name": (c.get("cited_case_name") or "").strip(),
                 "year": c.get("year"),
+                # month/day/docket_number added 2026-05-15 (task #7) — needed
+                # for district court WL/LEXIS fallback where the cited case
+                # name may change between brief and CL caption (Rule 25(d),
+                # SSA anonymization, John Doe reveal). Older real_extractions
+                # JSON pre-dates these fields; .get() returns None.
+                "month": c.get("month"),
+                "day": c.get("day"),
+                "docket_number": (c.get("docket_number") or "") if c.get("docket_number") else "",
                 "court_hint": c.get("court_hint"),
                 "parenthetical": c.get("parenthetical") or "",
             })

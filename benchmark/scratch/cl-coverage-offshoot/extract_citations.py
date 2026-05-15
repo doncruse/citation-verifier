@@ -55,7 +55,7 @@ _HERMETIC_DIR = Path(tempfile.mkdtemp(prefix="extract_citations_"))
 
 EXTRACTION_PROMPT = """You are extracting every legal citation that appears in a judicial opinion.
 
-For each citation in the opinion, capture these five fields:
+For each citation in the opinion, capture these eight fields:
 
 1. **citation_string** — the reporter citation as written (e.g. "576 U.S. 644", "947 F.3d 240", "2018 WL 301424"). Verbatim — preserve the exact characters, including punctuation. If a citation has multiple parallel reporter cites (e.g. "326 U.S. 310, 66 S.Ct. 154"), capture each parallel cite as a separate entry sharing the other fields.
 
@@ -63,15 +63,21 @@ For each citation in the opinion, capture these five fields:
 
 3. **year** — the year as a 4-digit integer if shown in parentheses with the citation, or null if not present.
 
-4. **court_hint** — the court as you understand it from the citation pattern or surrounding text. Use court_hint values like "U.S. Supreme Court", "1st Cir.", "9th Cir.", "Cal. Supreme Court", "Cal. Ct. App.", "N.Y. Ct. App.", "S.D.N.Y.", etc. Null if unknown.
+4. **month** — the month as a 1-12 integer if a full date is shown in the citation parenthetical (e.g. "(N.D. Cal. Jan. 8, 2014)" → 1; "(June 23, 2019)" → 6). Null if only year is shown.
 
-5. **parenthetical** — the parenthetical text following the citation, if any, with the surrounding parentheses removed. E.g. for `Obergefell v. Hodges, 576 U.S. 644 (2015) (holding that same-sex couples may marry)`, parenthetical is "holding that same-sex couples may marry". Null if no parenthetical.
+5. **day** — the day of month as a 1-31 integer if a full date is shown (e.g. "Jan. 8, 2014" → 8). Null if only year/month is shown.
+
+6. **court_hint** — the court as you understand it from the citation pattern or surrounding text. Use court_hint values like "U.S. Supreme Court", "1st Cir.", "9th Cir.", "Cal. Supreme Court", "Cal. Ct. App.", "N.Y. Ct. App.", "S.D.N.Y.", etc. Null if unknown.
+
+7. **docket_number** — the docket / case number when it appears with the citation (e.g. "No. 1:18-cv-00236", "Case No. 23-cv-02041", "B225051", "20-1234"). Capture the number itself with its prefix if any (e.g. "1:18-cv-00236"). Null if not shown. This is especially important for unpublished district court opinions (WL/LEXIS cites) — the docket number is often a more reliable identifier than the case name (which may change due to Rule 25(d) substitutions, anonymized SSA captions like "John S. v. Bisignano", or John/Jane Doe captions later identified).
+
+8. **parenthetical** — the parenthetical text following the citation, if any, with the surrounding parentheses removed. EXCLUDE the court-and-date parenthetical (e.g. "(N.D. Cal. Jan. 8, 2014)") — those facts go in court_hint/year/month/day fields. Only capture editorial parentheticals describing what the cited case holds or stands for. E.g. for `Obergefell v. Hodges, 576 U.S. 644 (2015) (holding that same-sex couples may marry)`, parenthetical is "holding that same-sex couples may marry". Null if no editorial parenthetical.
 
 Rules:
 - Capture EVERY citation, including string cites and short-form cites like "id." or "supra".
 - Do NOT capture statutes, regulations, or constitutional provisions — only case citations.
 - Do NOT invent citations not in the source text. If you can't find the citation string in the text, omit it.
-- Preserve verbatim text — do not "fix" typos, abbreviations, or spelling.
+- Preserve citation_string verbatim — do not "fix" typos, abbreviations, or spelling.
 - If a citation has no parenthetical, set parenthetical to null — do NOT fabricate one.
 - The opinion may have its own internal heading/preamble — extract citations from the body, not from any "Citations" or "Table of Authorities" section.
 
@@ -85,7 +91,10 @@ Return ONLY a JSON object inside a fenced ```json code block, in this exact shap
       "citation_string": "<verbatim cite>",
       "cited_case_name": "<case name or null>",
       "year": <int or null>,
+      "month": <1-12 int or null>,
+      "day": <1-31 int or null>,
       "court_hint": "<court or null>",
+      "docket_number": "<docket no. or null>",
       "parenthetical": "<text or null>"
     }
   ]
@@ -93,8 +102,6 @@ Return ONLY a JSON object inside a fenced ```json code block, in this exact shap
 ```
 
 No preamble, no explanation outside the fenced block. The JSON must parse with standard json.loads.
-
-(Note: sentence_context can be recovered post-hoc by locating each citation_string in the source text — no need to include it here.)
 
 === OPINION TEXT ===
 {opinion_text}
@@ -252,13 +259,22 @@ def validate_citations(
 
 
 if __name__ == "__main__":
+    # Synthetic smoke test — exercises every field in the schema:
+    #   - published reporter cite with year only (Anderson, Celotex)
+    #   - unpublished WL cite with full date + docket number (Gilliard)
+    #   - SSA-style anonymized caption that would fail name-match alone
+    #     but is rescuable via docket_number (John S. v. Bisignano)
     sample = (
         "The Supreme Court has held that there is no genuine dispute of material fact when the evidence is so one-sided "
         "that one party must prevail as a matter of law. Anderson v. Liberty Lobby, Inc., 477 U.S. 242, 252 (1986). "
-        "This standard mirrors the directed-verdict standard. See also Celotex Corp. v. Catrett, 477 U.S. 317 (1986) "
-        "(clarifying summary judgment burdens)."
+        "See also Celotex Corp. v. Catrett, 477 U.S. 317 (1986) (clarifying summary judgment burdens). "
+        "The district court applied the same standard. Gilliard v. McWilliams, 2019 WL 3304707, at *3 "
+        "(D.D.C. July 23, 2019), No. 1:18-cv-01506. Cf. John S. v. Bisignano, 2025 WL 1505405 "
+        "(N.D. Ill. May 27, 2025), No. 1:23-cv-02041."
     )
     out = extract_citations(sample)
     print(json.dumps(out, indent=2, ensure_ascii=False))
+    valid, halluc = validate_citations(out["citations"], sample)
+    print(f"\nvalid: {len(valid)}, hallucinated: {len(halluc)}")
     valid, halluc = validate_citations(out["citations"], sample)
     print(f"\nvalid: {len(valid)}, hallucinated: {len(halluc)}")
