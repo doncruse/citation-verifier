@@ -25,6 +25,33 @@ from .state_reporter_map import get_states_for_reporter
 logger = logging.getLogger(__name__)
 
 
+# Issue #7: tokens that should NOT count as distinctive when checking
+# name overlap on opinion-search fallback candidates. These show up so
+# often that they create false positives via ES token recall alone.
+_NAME_TOKEN_STOPLIST = frozenset({
+    # Reporter / litigation boilerplate
+    "litig", "liability", "antitrust", "mdl",
+    # Corporate forms
+    "corp", "inc", "llc", "company", "holdings",
+    "communications", "industries", "international",
+    # Generic descriptors
+    "consumer", "health", "products", "american", "capital",
+    "bank", "pharmacy", "services", "systems", "group",
+    # Government / agency
+    "ftc", "cftc", "sec", "united", "states", "commission",
+    "department", "secretary",
+})
+
+
+def _name_tokens(name: str) -> set[str]:
+    """Lowercased word tokens of length >=4, with punctuation stripped
+    and stoplist tokens removed. Used for the fallback name-overlap gate."""
+    if not name:
+        return set()
+    raw = re.findall(r"[a-z0-9]+", name.lower())
+    return {t for t in raw if len(t) >= 4 and t not in _NAME_TOKEN_STOPLIST}
+
+
 class CitationVerifier:
     """Two-step citation verifier using CourtListener APIs."""
 
@@ -503,6 +530,13 @@ class CitationVerifier:
                         continue
                 except ValueError:
                     pass  # unparseable date — let the scorer handle it
+
+            # Name-token hard-gate: at least one shared distinctive token
+            if parsed.case_name and case_name:
+                cited_tokens = _name_tokens(parsed.case_name)
+                cand_tokens = _name_tokens(case_name)
+                if cited_tokens and not (cited_tokens & cand_tokens):
+                    continue
 
             court_id = r.get("court_id") or r.get("court", "")
             url = r.get("absolute_url", "")

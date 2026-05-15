@@ -265,6 +265,87 @@ class TestOpinionSearchGates:
         assert len(result.candidates) == 1
         assert result.candidates[0].cluster_id == 1234568
 
+    def test_token_gate_rejects_no_shared_distinctive_tokens(self):
+        """A candidate whose case name shares no distinctive >=4-char
+        non-stoplist token with the cited case must be rejected by the
+        name-token gate. Without the gate this candidate would score
+        high enough on year+court alone to surface as a POSSIBLE_MATCH.
+
+        Mirrors Sam's example: Harris v. CVS Pharmacy -> Medearis case.
+        """
+        client = _make_client(
+            citation_lookup=[],
+            search_opinions=[
+                {
+                    # No shared >=4-char non-stoplist token with the cited
+                    # case ("Harris", "Pharmacy" stoplisted, "CVS" too
+                    # short). All within the 5-year window so the temporal
+                    # gate doesn't fire.
+                    "caseName": "Medearis v. Whatever",
+                    "cluster_id": 7312533,
+                    "dateFiled": "2014-05-01",
+                    "court_id": "nysd",
+                    "absolute_url": "/opinion/7312533/medearis-v-whatever/",
+                }
+            ],
+        )
+        v = CitationVerifier(client)
+        result = v.verify("Harris v. CVS Pharmacy, 2015 WL 4694047 (S.D.N.Y. 2015)")
+
+        assert result.status == VerificationStatus.NOT_FOUND
+        assert result.matched_cluster_id is None
+        assert result.candidates == []
+
+    def test_token_gate_keeps_shared_distinctive_token(self):
+        """A candidate sharing one distinctive >=4-char non-stoplist
+        token (here: 'Garamszegi') passes the gate."""
+        client = _make_client(
+            citation_lookup=[],
+            search_opinions=[
+                {
+                    "caseName": "Smith v. Garamszegi",
+                    "cluster_id": 9999,
+                    "dateFiled": "2018-04-01",
+                    "court_id": "cacd",
+                    "absolute_url": "/opinion/9999/smith-v-garamszegi/",
+                }
+            ],
+        )
+        v = CitationVerifier(client)
+        result = v.verify(
+            "Lindsay-Stern v. Garamszegi, 2018 WL 1234 (C.D. Cal. 2018)"
+        )
+
+        assert len(result.candidates) == 1
+        assert result.candidates[0].cluster_id == 9999
+
+    def test_token_gate_rejects_stoplist_only_overlap(self):
+        """Sharing only a stoplist token (e.g. 'Corp', 'Bank',
+        'Pharmacy') does NOT pass the gate — those are too common to
+        be evidence of identity."""
+        client = _make_client(
+            citation_lookup=[],
+            search_opinions=[
+                {
+                    # 'Bank' is stoplist; 'America' is the only other
+                    # >=4-char word in the cited name and doesn't appear
+                    # in the candidate.
+                    "caseName": "Smith v. Chmielewski",
+                    "cluster_id": 5978123,
+                    "dateFiled": "2019-08-15",
+                    "court_id": "nysd",
+                    "absolute_url": "/opinion/5978123/smith-v-chmielewski/",
+                }
+            ],
+        )
+        v = CitationVerifier(client)
+        result = v.verify(
+            "Snyder v. Bank of America, 2020 WL 6462400 (S.D.N.Y. 2020)"
+        )
+
+        assert result.status == VerificationStatus.NOT_FOUND
+        assert result.candidates == []
+
 
 # ---------------------------------------------------------------------------
 # Step 3: RECAP fallback
