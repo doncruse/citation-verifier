@@ -27,6 +27,7 @@ _REQUIRED_KEYS = {
     "citation",
     "status",
     "matched_cluster_id",
+    "matched_docket_id",
     "matched_url",
     "matched_case_name",
     "matched_court_id",

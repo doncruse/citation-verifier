@@ -25,6 +25,33 @@ from .state_reporter_map import get_states_for_reporter
 logger = logging.getLogger(__name__)
 
 
+# Issue #7: tokens that should NOT count as distinctive when checking
+# name overlap on opinion-search fallback candidates. These show up so
+# often that they create false positives via ES token recall alone.
+_NAME_TOKEN_STOPLIST = frozenset({
+    # Reporter / litigation boilerplate
+    "litig", "liability", "antitrust",
+    # Corporate forms
+    "corp", "company", "holdings",
+    "communications", "industries", "international",
+    # Generic descriptors
+    "consumer", "health", "products", "american", "capital",
+    "bank", "pharmacy", "services", "systems", "group",
+    # Government / agency
+    "cftc", "united", "states", "commission",
+    "department", "secretary",
+})
+
+
+def _name_tokens(name: str) -> set[str]:
+    """Lowercased word tokens of length >=4, with punctuation stripped
+    and stoplist tokens removed. Used for the fallback name-overlap gate."""
+    if not name:
+        return set()
+    raw = re.findall(r"[a-z0-9]+", name.lower())
+    return {t for t in raw if len(t) >= 4 and t not in _NAME_TOKEN_STOPLIST}
+
+
 class CitationVerifier:
     """Two-step citation verifier using CourtListener APIs."""
 
@@ -205,6 +232,7 @@ class CitationVerifier:
             matched_case_name=best.case_name,
             matched_url=best.url,
             matched_cluster_id=best.cluster_id,
+            matched_docket_id=best.docket_id,
             matched_court=best.court_id or None,
             matched_date=best.date_filed or None,
             matched_description=best.description,
@@ -475,10 +503,19 @@ class CitationVerifier:
     # Shared result processing (used by both sync and async)
     # ------------------------------------------------------------------
 
+    _TEMPORAL_GATE_YEARS = 5
+
     def _process_results(
         self, results: list[dict[str, Any]], parsed: ParsedCitation
     ) -> list[CandidateMatch]:
-        """Convert API results to scored CandidateMatch objects."""
+        """Convert API results to scored CandidateMatch objects.
+
+        Hard-rejects (issue #7):
+          - Temporal: skip candidates whose date_filed year differs from
+            parsed.year by more than _TEMPORAL_GATE_YEARS.
+          - Name-token: skip candidates that share no distinctive
+            (>=4-char, non-stoplist) token with parsed.case_name.
+        """
         candidates = []
         for r in results:
             case_name = r.get("caseName") or r.get("case_name", "")
@@ -486,6 +523,23 @@ class CitationVerifier:
             if cluster_id is None:
                 continue
             date_filed = r.get("dateFiled") or r.get("date_filed", "")
+
+            # Temporal hard-gate
+            if parsed.year and date_filed and len(date_filed) >= 4:
+                try:
+                    cand_year = int(date_filed[:4])
+                    if abs(cand_year - parsed.year) > self._TEMPORAL_GATE_YEARS:
+                        continue
+                except ValueError:
+                    pass  # unparseable date — let the scorer handle it
+
+            # Name-token hard-gate: at least one shared distinctive token
+            if parsed.case_name and case_name:
+                cited_tokens = _name_tokens(parsed.case_name)
+                cand_tokens = _name_tokens(case_name)
+                if cited_tokens and not (cited_tokens & cand_tokens):
+                    continue
+
             court_id = r.get("court_id") or r.get("court", "")
             url = r.get("absolute_url", "")
             if cluster_id and not url:
@@ -595,12 +649,13 @@ class CitationVerifier:
         return CandidateMatch(
             case_name=case_name,
             url=doc_url or docket_url,
-            cluster_id=docket_id,
+            cluster_id=None,
             date_filed=entry_date,
             court_id=court_id,
             score=score,
             description=full_desc or None,
             mismatches=mismatches,
+            docket_id=docket_id,
         )
 
     def _build_docket_only_candidate(
@@ -644,11 +699,12 @@ class CitationVerifier:
         return CandidateMatch(
             case_name=case_name,
             url=docket_url,
-            cluster_id=docket_id,
+            cluster_id=None,
             date_filed="",
             court_id=court_id,
             score=score,
             mismatches=mismatches,
+            docket_id=docket_id,
         )
 
     @staticmethod

@@ -44,12 +44,13 @@ class ParsedCitation:
 class CandidateMatch:
     case_name: str
     url: str
-    cluster_id: int
+    cluster_id: int | None
     date_filed: str
     court_id: str
     score: float = 0.0
     description: str | None = None
     mismatches: list[Diagnostic] = field(default_factory=list)
+    docket_id: int | None = None
 
 
 @dataclass
@@ -60,6 +61,7 @@ class VerificationResult:
     matched_case_name: str | None = None
     matched_url: str | None = None
     matched_cluster_id: int | None = None
+    matched_docket_id: int | None = None
     matched_court: str | None = None
     matched_date: str | None = None
     matched_description: str | None = None

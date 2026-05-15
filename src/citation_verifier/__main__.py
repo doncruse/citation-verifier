@@ -23,10 +23,11 @@ _STATUS_LABELS = {
 def _result_to_json_dict(result: VerificationResult) -> dict:
     """JSON shape for a single-citation verification result.
 
-    The first nine fields are the canonical schema shared with the
+    The first ten fields are the canonical schema shared with the
     verify-batch CSV: ``citation``, ``status``, ``matched_cluster_id``,
-    ``matched_url``, ``matched_case_name``, ``matched_court_id``,
-    ``matched_date_filed``, ``confidence``, ``diagnostics``.
+    ``matched_docket_id``, ``matched_url``, ``matched_case_name``,
+    ``matched_court_id``, ``matched_date_filed``, ``confidence``,
+    ``diagnostics``.
 
     The tail (``candidates``, ``error``) is bonus debug data exposed
     only via ``--json``, not in the CSV. Useful for one-off debugging
@@ -36,6 +37,7 @@ def _result_to_json_dict(result: VerificationResult) -> dict:
         "citation": result.input_citation,
         "status": result.status.value,
         "matched_cluster_id": result.matched_cluster_id,
+        "matched_docket_id": result.matched_docket_id,
         "matched_url": result.matched_url,
         "matched_case_name": result.matched_case_name,
         "matched_court_id": result.matched_court,
@@ -50,6 +52,7 @@ def _result_to_json_dict(result: VerificationResult) -> dict:
                 "case_name": c.case_name,
                 "url": c.url,
                 "cluster_id": c.cluster_id,
+                "docket_id": c.docket_id,
                 "date_filed": c.date_filed,
                 "court_id": c.court_id,
                 "score": c.score,
@@ -388,6 +391,7 @@ _VERIFY_BATCH_OUTPUT_COLUMNS = [
     "citation",
     "status",
     "matched_cluster_id",
+    "matched_docket_id",
     "matched_url",
     "matched_case_name",
     "matched_court_id",
@@ -408,6 +412,11 @@ def _result_to_row(result: VerificationResult) -> dict[str, str]:
         "matched_cluster_id": (
             str(result.matched_cluster_id)
             if result.matched_cluster_id is not None
+            else ""
+        ),
+        "matched_docket_id": (
+            str(result.matched_docket_id)
+            if result.matched_docket_id is not None
             else ""
         ),
         "matched_url": result.matched_url or "",
