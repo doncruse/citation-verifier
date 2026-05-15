@@ -59,6 +59,126 @@ _pilot = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(_pilot)
 tier_from_cite = _pilot.tier_from_cite
 
+
+# ---- court_hint classifier --------------------------------------------------
+# The LLM extracts `court_hint` from the Bluebook date parenthetical
+# (e.g. `(Cal. Ct. App. 2010)` → "Cal. Ct. App."). This is more
+# authoritative than the reporter pattern for ambiguous regional
+# reporters: a "245 P.3d 100" citation could be COLR or IAC, but
+# "Cal. Ct. App." in the parenthetical resolves it.
+#
+# Critical edge cases:
+#   - "N.Y. Ct. App." = New York Court of Appeals = NY's HIGHEST court
+#     (State_COLR), not IAC. NY's intermediate court is "App. Div." /
+#     "<Nth> Dept." All other "Ct. App." patterns = State_IAC.
+#   - "Tex. Crim. App." = Texas Court of Criminal Appeals, the
+#     criminal-side highest court in Texas's bifurcated system
+#     (State_COLR).
+#   - "D.C." alone is ambiguous (DC Court of Appeals = DC's highest
+#     court). "D.C. Cir." is the federal circuit. Defer to D.C. Cir.
+#     pattern for Circuit.
+
+_SCOTUS_HINT_RE = re.compile(r"\bU\.?S\.?\s*Supreme|SCOTUS|S\.\s*Ct\.|\bSupreme\s+Court\s+of\s+the\s+United\s+States",
+                              re.IGNORECASE)
+_CIRCUIT_HINT_RE = re.compile(r"\b(?:\d+(?:st|nd|rd|th)\s*Cir\.?|D\.?C\.?\s*Cir\.?|Fed\.?\s*Cir\.?|Cir\.)\b",
+                               re.IGNORECASE)
+# Federal district: D.D.C. / N.D. Cal. / S.D.N.Y. / E.D. Tex. etc.
+# Match either with explicit "D." or compass+state form.
+_FED_DIST_HINT_RE = re.compile(
+    r"\b(?:N|S|E|W|C|M)\.D\.\s*(?:N\.?Y\.?|Cal\.?|Tex\.?|Ill\.?|Fla\.?|Ohio|Pa\.?|Mass\.?|Mich\.?|Wis\.?|Va\.?|Mo\.?|"
+    r"Ind\.?|Iowa|Tenn\.?|N\.?C\.?|S\.?C\.?|Ga\.?|Md\.?|Ariz\.?|Colo\.?|N\.?M\.?|Nev\.?|Utah|Or\.?|Wash\.?|Alaska|Haw\.?|"
+    r"La\.?|Miss\.?|Ala\.?|Ark\.?|Okla\.?|Kan\.?|Neb\.?|S\.?D\.?|N\.?D\.?|Wyo\.?|Mont\.?|Idaho|Conn\.?|Vt\.?|N\.?H\.?|"
+    r"Me\.?|R\.?I\.?|Del\.?|N\.?J\.?|Pa\.?|Ky\.?|W\.?Va\.?|Minn\.?)\b"
+    r"|\bD\.\s*(?:D\.?C\.?|Mass\.?|Conn\.?|Md\.?|Me\.?|Vt\.?|N\.?H\.?|R\.?I\.?|N\.?J\.?|Del\.?|Kan\.?|Neb\.?|"
+    r"S\.?D\.?|N\.?D\.?|Wyo\.?|Mont\.?|Idaho|Or\.?|Alaska|Haw\.?|Ariz\.?|Colo\.?|Utah|Nev\.?|N\.?M\.?|Minn\.?)\b",
+    re.IGNORECASE
+)
+# State COLR: "<state> Supreme Court" / "Sup. Ct." / NY's "Ct. App." /
+# Texas Crim. App. / Mass. SJC
+_STATE_COLR_HINT_RE = re.compile(
+    r"\b(?:Supreme\s+Court|Sup\.?\s*Ct\.?|SJC)\b"  # X Supreme Court / X Sup. Ct.
+    r"|\bN\.?Y\.?\s*Ct\.\s*App\.?\b"               # NY Court of Appeals (highest)
+    # "NY Court of Appeals" without periods (LLM emits this form sometimes)
+    r"|\bN\.?Y\.?\s+Court\s+of\s+Appeals\b"
+    r"|\b(?:Tex\.?|Okla\.?|Tenn\.?)\s*Crim\.?\s*App\.?\b",  # Bifurcated crim courts
+    re.IGNORECASE
+)
+# State IAC: "<state> Ct. App." (default), "App. Div.", "<N>th Dept.",
+# "<N>th Dist." (as appellate district, e.g. Illinois 1st-5th Districts)
+_STATE_IAC_HINT_RE = re.compile(
+    r"\bCt\.?\s*App\.?\b"        # Cal. Ct. App., Ill. Ct. App., etc.
+    r"|\bApp\.?\s*Div\.?\b"      # NY Appellate Division
+    r"|\bApp\.?\s*Ct\.?\b"       # Mass. App. Ct., Ill. App. Ct.
+    r"|\b\d+(?:st|nd|rd|th)\s+Dept\.?\b"   # NY Appellate Division departments
+    r"|\b\d+(?:st|nd|rd|th)\s+Dist\.?\b"   # Illinois Appellate Court districts
+    # "Ill. App. (Nd)" — Illinois public-domain format hint
+    r"|\bIll\.\s*App\.\s*\(\d+(?:st|nd|rd|th|d)\)",
+    re.IGNORECASE
+)
+
+
+def tier_from_court_hint(hint: str) -> str | None:
+    """Classify by court_hint (parenthetical court abbreviation).
+
+    Returns one of SCOTUS, Circuit, State_COLR, State_IAC,
+    Federal_District — or None if the hint doesn't resolve cleanly
+    (caller should fall back to reporter-based classification).
+
+    Order matters: SCOTUS / Circuit / Fed_District must come first
+    because state-court patterns ("Ct. App.") would otherwise eat
+    things like "Cir." in unrelated contexts.
+    """
+    h = (hint or "").strip()
+    if not h:
+        return None
+
+    if _SCOTUS_HINT_RE.search(h):
+        return "SCOTUS"
+    if _CIRCUIT_HINT_RE.search(h):
+        return "Circuit"
+    if _FED_DIST_HINT_RE.search(h):
+        return "Federal_District"
+    # State_COLR first because "N.Y. Ct. App." would otherwise match
+    # the State_IAC `Ct. App.` pattern. Same for Tex. Crim. App.
+    if _STATE_COLR_HINT_RE.search(h):
+        return "State_COLR"
+    if _STATE_IAC_HINT_RE.search(h):
+        return "State_IAC"
+    return None
+
+
+# Reporter fallback augmentations for forms the pilot's tier_from_cite
+# misses. NY citations sometimes drop the periods ("10 NY3d 706"); the
+# Illinois public-domain neutral format is "2011 IL App (2d) 091123".
+# Order: we run these BEFORE tier_from_cite so they win.
+_NY_NOPERIODS_COLR_RE = re.compile(r"\bNY\s*(?:2d|3d)\s+\d", re.IGNORECASE)
+_NY_NOPERIODS_IAC_RE = re.compile(r"\bAD\s*(?:2d|3d|4th)?\s+\d", re.IGNORECASE)
+_IL_PUBLIC_DOMAIN_RE = re.compile(r"\bIL\s+App\b", re.IGNORECASE)
+
+
+def tier_combined(citation_string: str, court_hint: str) -> str:
+    """Use court_hint if it resolves; else fall back to reporter.
+
+    The court_hint signal is methodologically clean — it's the
+    parenthetical the citing court itself wrote per Bluebook 10.4,
+    extracted by the LLM. No CL data involved, so no measurement
+    bias.
+    """
+    by_hint = tier_from_court_hint(court_hint)
+    if by_hint:
+        return by_hint
+
+    # NY / IL forms missed by the pilot tier_from_cite regexes
+    c = citation_string or ""
+    if _NY_NOPERIODS_IAC_RE.search(c):
+        return "State_IAC"
+    if _NY_NOPERIODS_COLR_RE.search(c):
+        return "State_COLR"
+    if _IL_PUBLIC_DOMAIN_RE.search(c):
+        return "State_IAC"  # IL App = appellate; IL alone (no "App") = Sup
+
+    return tier_from_cite(citation_string)
+
 SAMPLE_PER_TIER = 50
 K_PER_OPINION_PER_TIER = 5
 SEED = 20260515  # date of this real run
@@ -176,9 +296,11 @@ def main() -> int:
         dedup.append(r)
     print(f"After dedup:             {len(dedup)} (removed {len(flat3)-len(dedup)})")
 
-    # 5. Tier-classify
+    # 5. Tier-classify — court_hint (from Bluebook date parenthetical)
+    # takes precedence over reporter pattern when available. Falls back
+    # to reporter for short-form cites without court_hint.
     for r in dedup:
-        r["cited_tier"] = tier_from_cite(r["citation_string"])
+        r["cited_tier"] = tier_combined(r["citation_string"], r.get("court_hint") or "")
 
     # 6. K=5 cap per (citing_cluster, cited_tier)
     by_op_tier: dict[tuple[Any, str], list[dict[str, Any]]] = defaultdict(list)
