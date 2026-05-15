@@ -1,28 +1,38 @@
-# Pilot coverage results
+# Step 4 — coverage results (pre-audit)
 
-- Citations looked up: 158
-- In CL (any non-NOT_FOUND status): 127
-- NOT_FOUND (real CL gap or fabrication — needs spot-check): 31 (19.6%)
+- Sample size: 200
+- In CL (any status != NOT_FOUND): 157
+- NOT_FOUND (real gap OR extraction artifact): 43 (21.5%)
 
-## Per status breakdown
+**NOT_FOUND is an upper bound on the true CL gap rate.** Step 5
+audits each NOT_FOUND row to split real gaps from extraction noise
+(LLM-mis-parsed cites, slip-opinion patterns, etc.). Final per-tier
+coverage rate = (n - real_gaps) / n, computed after audit.
+
+## Status breakdown — overall
 
 | status | n | % |
 |---|---|---|
-| VERIFIED | 124 | 78.5% |
+| VERIFIED | 156 | 78.0% |
 | LIKELY_REAL | 0 | 0.0% |
-| POSSIBLE_MATCH | 3 | 1.9% |
-| NOT_FOUND | 31 | 19.6% |
+| POSSIBLE_MATCH | 1 | 0.5% |
+| NOT_FOUND | 43 | 21.5% |
 
-## Per opinion
+## Per-tier coverage (pre-audit)
 
-| tier | cluster | case | total | in_cl | miss_rate |
-|---|---|---|---|---|---|
-| Circuit_9th | 4695642 | Joseph Wojcicki v. SCANA Corporation | 36 | 35 | 2.8% |
-| Circuit_DC | 2807857 | Randy Brown v. Whole Foods Market Group, Inc | 22 | 20 | 9.1% |
-| SCOTUS | 118395 | Bush v. Gore | 16 | 11 | 31.2% |
-| State_COLR | 2585895 | Caceci v. Di Canio Construction Corp. | 66 | 45 | 31.8% |
-| State_IAC | 4236900 | People v. Smith | 18 | 16 | 11.1% |
+| tier | n | VERIFIED | LIKELY_REAL | POSSIBLE_MATCH | NOT_FOUND | in_cl | NOT_FOUND % |
+|---|---|---|---|---|---|---|---|
+| SCOTUS | 50 | 47 | 0 | 0 | 3 | 47 | 6.0% |
+| Circuit | 50 | 42 | 0 | 1 | 7 | 43 | 14.0% |
+| State_COLR | 50 | 41 | 0 | 0 | 9 | 41 | 18.0% |
+| State_IAC | 50 | 26 | 0 | 0 | 24 | 26 | 48.0% |
 
-## Next step
+## Methodology notes
 
-Manually inspect the 31 NOT_FOUND rows in `coverage_per_citation.csv` — for each, decide whether it's a real CL gap or a model fabrication. (Google the cited_case_name; if it's a real published case, count as CL gap.)
+- `verify_batch(quick_only=True)`: CL citation-lookup API only. No
+  search/RECAP fallback. We measure 'reporter cite indexed in CL',
+  not 'findable by any method'.
+- Cited tier assigned pre-lookup from reporter pattern + court_hint
+  (Bluebook 10.4 parenthetical) — no CL data, no measurement bias.
+- POSSIBLE_MATCH = citation found but case_name mismatch. Counts
+  as in-CL for coverage but is a separate signal worth flagging.

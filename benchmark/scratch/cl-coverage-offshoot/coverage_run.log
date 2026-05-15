@@ -1,0 +1,22 @@
+Loaded 200 sample rows from final_200.csv
+Running verify_batch(quick_only=True) on 200 citations...
+  25/200  elapsed=157.4s  rate=0.16/s  eta=1102s
+  50/200  elapsed=157.4s  rate=0.32/s  eta=472s
+  75/200  elapsed=157.4s  rate=0.48/s  eta=262s
+  100/200  elapsed=157.4s  rate=0.64/s  eta=157s
+  125/200  elapsed=157.4s  rate=0.79/s  eta=94s
+  150/200  elapsed=157.4s  rate=0.95/s  eta=52s
+  175/200  elapsed=157.4s  rate=1.11/s  eta=22s
+  200/200  elapsed=157.4s  rate=1.27/s  eta=0s
+
+Done in 157.4s (2.6 min)
+wrote coverage_per_citation.csv
+wrote coverage_per_tier.csv
+wrote coverage_summary.md
+
+=== COVERAGE (PRE-AUDIT) ===
+  SCOTUS       n=50  VER= 47  LR=  0  PM=  0  NF=  3  in_cl= 47  miss=6.0%
+  Circuit      n=50  VER= 42  LR=  0  PM=  1  NF=  7  in_cl= 43  miss=14.0%
+  State_COLR   n=50  VER= 41  LR=  0  PM=  0  NF=  9  in_cl= 41  miss=18.0%
+  State_IAC    n=50  VER= 26  LR=  0  PM=  0  NF= 24  in_cl= 26  miss=48.0%
+  OVERALL      n=200  in_cl=157  NF=43 (21.5%)
