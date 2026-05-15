@@ -91,22 +91,35 @@ class CourtSpec:
 
 
 COURTS: list[CourtSpec] = [
-    # Federal districts (same 6 as v1) — 12 each → 72
+    # Federal districts (same 6 as v1) — 12 each → originally 72.
+    # `nysd` set to 0: known CL ingestion bug (per user, 2026-05-14) —
+    # CL returns 0 SDNY clusters for 2026 even though 2025 has hundreds.
+    # Keeping the slot here for v1-comparability accounting; gap is
+    # disclosed rather than filled with a substitute district.
     CourtSpec("dcd", 12, "federal_trial"),
     CourtSpec("cand", 12, "federal_trial"),
     CourtSpec("txsd", 12, "federal_trial"),
     CourtSpec("ilnd", 12, "federal_trial"),
-    CourtSpec("nysd", 12, "federal_trial"),
+    CourtSpec("nysd", 0, "federal_trial"),
     CourtSpec("mad", 12, "federal_trial"),
-    # State COLRs + IACs for 5 largest states by caseload — 2 each → 20
-    CourtSpec("cal", 2, "state_colr"),
+    # State COLRs + IACs for 5 largest states by caseload — 2 each.
+    # `cal` set to 0: probe (size_probe_2026-05-14.md) found all 12
+    # Cal Supreme opinions in window are >= 40K chars, none fit under
+    # the 25K claude-p cap.
+    # `texapp` set to 0: CL has the court_id registered but zero
+    # opinions ingested in 2025 or 2026 — TX state appellate isn't in
+    # CL's bulk. Documented gap.
+    CourtSpec("cal", 0, "state_colr"),
     CourtSpec("calctapp", 2, "state_iac"),
     CourtSpec("ny", 2, "state_colr"),
     CourtSpec("nyappdiv", 2, "state_iac"),
     CourtSpec("tex", 2, "state_colr"),
-    CourtSpec("texapp", 2, "state_iac"),
+    CourtSpec("texapp", 0, "state_iac"),
     CourtSpec("fla", 2, "state_colr"),
-    CourtSpec("flaapp", 2, "state_iac"),
+    # FL appellate: original design said `flaapp` but that ID does not
+    # exist on CL. CL's `fladistctapp` ("District Court of Appeal of
+    # Florida") is the umbrella ID and has data.
+    CourtSpec("fladistctapp", 2, "state_iac"),
     CourtSpec("ill", 2, "state_colr"),
     CourtSpec("illappct", 2, "state_iac"),
 ]
@@ -287,6 +300,10 @@ def mine_court(
     accepted: list[ManifestRow] = []
 
     print(f"\n=== {spec.court_id} ({spec.level}, target={spec.target_count}) ===")
+    if spec.target_count <= 0:
+        print("  target=0; skipping (deliberately excluded — see CourtSpec comment)")
+        stats.notes.append("excluded:target=0")
+        return accepted, stats
     print("  fetching cluster list...", end="", flush=True)
     t0 = time.time()
     try:
@@ -380,7 +397,39 @@ def mine_court(
     return accepted, stats
 
 
+def _load_existing_manifest(path: Path) -> dict[int, ManifestRow]:
+    """Load existing manifest CSV (if any) into a cluster_id -> row map."""
+    if not path.exists():
+        return {}
+    out: dict[int, ManifestRow] = {}
+    with path.open(encoding="utf-8", newline="") as f:
+        for r in csv.DictReader(f):
+            try:
+                cid = int(r["cluster_id"])
+            except (KeyError, TypeError, ValueError):
+                continue
+            out[cid] = ManifestRow(
+                cluster_id=cid,
+                court_id=r.get("court_id", ""),
+                level=r.get("level", ""),
+                case_name=r.get("case_name", ""),
+                date_filed=r.get("date_filed", ""),
+                char_count=int(r.get("char_count") or 0),
+                source_url=r.get("source_url", ""),
+            )
+    return out
+
+
 def write_manifest(rows: list[ManifestRow], path: Path) -> None:
+    """Write manifest, merging with any existing rows on disk.
+
+    Partial reruns (--only-courts) should add to the manifest, not
+    clobber rows from earlier whole-cohort runs. Cluster_id is the key.
+    """
+    existing = _load_existing_manifest(path)
+    merged: dict[int, ManifestRow] = dict(existing)
+    for r in rows:
+        merged[r.cluster_id] = r  # this run's row wins on conflict
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("w", encoding="utf-8", newline="") as f:
         w = csv.writer(f)
@@ -388,7 +437,9 @@ def write_manifest(rows: list[ManifestRow], path: Path) -> None:
             "cluster_id", "court_id", "level", "case_name",
             "date_filed", "char_count", "source_url",
         ])
-        for r in sorted(rows, key=lambda x: (x.court_id, x.cluster_id)):
+        for cid in sorted(merged.keys(),
+                          key=lambda c: (merged[c].court_id, c)):
+            r = merged[cid]
             w.writerow([
                 r.cluster_id, r.court_id, r.level, r.case_name,
                 r.date_filed, r.char_count, r.source_url,
