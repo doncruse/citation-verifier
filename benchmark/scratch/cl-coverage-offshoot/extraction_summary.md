@@ -1,13 +1,13 @@
 # Step 2 — extraction summary
 
-- Manifest opinions: 78
-- Extractions completed: 78  (reused 77, fresh 1)
-- Fresh wall time: 1.8 min
-- Fresh cost: $0.11
-- Citations returned: 1297
-- Citations valid: 1122
-- Citations hallucinated: 175  (13.5%)
-- Median opinion size: 12,159 chars
+- Manifest opinions: 82
+- Extractions completed: 82  (reused 78, fresh 4)
+- Fresh wall time: 6.3 min
+- Fresh cost: $0.49
+- Citations returned: 1328
+- Citations valid: 1148
+- Citations hallucinated: 180  (13.6%)
+- Median opinion size: 11,968 chars
 - Timeouts: 0
 - Other errors: 1
 
@@ -17,4 +17,4 @@
 |---|---|---|---|---|
 | federal_trial | 60 | 896 | 146 | 14.0% |
 | state_colr | 8 | 112 | 11 | 8.9% |
-| state_iac | 10 | 114 | 18 | 13.6% |
+| state_iac | 14 | 140 | 23 | 14.1% |

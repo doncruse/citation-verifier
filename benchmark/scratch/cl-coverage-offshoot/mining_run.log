@@ -210,3 +210,27 @@ Out:    C:\Users\Rebecca Fordon\Projects\citation-verifier\.claude\worktrees\pri
   fladistctapp state_iac         2 / 2        19         0         16         1      0        0
 
   TOTAL: 2 / 2 accepted
+Mining 1 courts; target total = 4 accepted opinions
+Window: 2026-01-01 to 2026-04-30
+Cap:    25,000 chars per opinion
+Floor:  2,000 chars per opinion
+Buffer: 25 candidates per court
+Seed:   42
+Out:    C:\Users\Rebecca Fordon\Projects\citation-verifier\.claude\worktrees\priceless-pasteur-e3667f\benchmark\scratch\cl-coverage-offshoot\citing_opinions
+
+=== nyappdiv (state_iac, target=4) ===
+  fetching cluster list... 1,900 clusters in window  (142.2s)
+  [1/4] 10774451   3,225 chars  Metropolitan Partners Group Admin., LLC v. Nerney
+  [2/4] 10803803   4,297 chars  Wong v. 75 Baxter Owner, LLC
+  [3/4] 10784161   7,368 chars  Deutsche Bank Natl. Trust Co. v. Contact Holdings Corp.
+  [4/4] 10849442   6,025 chars  People v. Corinaldi
+  -> accepted 4/4; tried 7; rej(long/notext/err)=0/1/0; reused=0
+
+=== SUMMARY ===
+  wall time: 2.8 min
+  manifest:  C:\Users\Rebecca Fordon\Projects\citation-verifier\.claude\worktrees\priceless-pasteur-e3667f\benchmark\scratch\cl-coverage-offshoot\citing_opinions\_manifest.csv
+
+  court        lvl              accepted   tried  too_long  too_short   no_text    err   reused
+  nyappdiv     state_iac         4 / 4         7         0          2         1      0        0
+
+  TOTAL: 4 / 4 accepted

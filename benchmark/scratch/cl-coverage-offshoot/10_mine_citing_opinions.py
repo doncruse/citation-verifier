@@ -120,7 +120,10 @@ COURTS: list[CourtSpec] = [
     CourtSpec("cal", 0, "state_colr"),
     CourtSpec("calctapp", 2, "state_iac"),
     CourtSpec("ny", 2, "state_colr"),
-    CourtSpec("nyappdiv", 2, "state_iac"),
+    # nyappdiv bumped from 2 to 4 (2026-05-15): pilot State_IAC yield
+    # was 5/op (highest of any court); 2 more closes the 6-row gap
+    # from 44 to ~54 to clear the 50/tier stratification target.
+    CourtSpec("nyappdiv", 4, "state_iac"),
     CourtSpec("tex", 2, "state_colr"),
     CourtSpec("texapp", 0, "state_iac"),
     CourtSpec("fla", 2, "state_colr"),

@@ -29,7 +29,7 @@ cluster_id,court_id,level,case_name,char_count,elapsed_s,cost_usd,raw_response_c
 10844072,dcd,federal_trial,Dusenbery v. Trump,3914,66.1,0.079108,2281,8,7,1,,True
 10774891,fla,state_colr,In Re: Amendments to Rules Regulating the Florida Bar and Rules of the Supreme Court Relating to Admissions to the Bar,22768,21.5,0.034168,33,0,0,0,,True
 10839758,fla,state_colr,In Re: Amendments to Florida Rules of Appellate Procedure,12362,24.2,0.035683,775,3,3,0,,True
-10783937,fladistctapp,state_iac,"XYZ 300, LLC, Trustee of the Mirror Lake Land Trust UAD March 20, 2013 v. City of St. Petersburg",14161,108.7,0.1074028,4464,0,0,0,"INNER_JSON_NOT_FOUND; response[:300]='```json\n{\n  ""citations"": [\n    {\n      ""citation_string"": ""347 So. 3d 533, 536"",\n      ""cited_case_name"": ""State v. Waiters"",\n      ""year"": 2022,\n      ""court_hint"": ""Fla. 2d DCA"",\n      ""parenthetical"": ""[W]e apply de novo review to the trial court\'s interpretation of the statute.""\n    },\n    {\n   '",False
+10783937,fladistctapp,state_iac,"XYZ 300, LLC, Trustee of the Mirror Lake Land Trust UAD March 20, 2013 v. City of St. Petersburg",14161,108.7,0.1074028,4464,0,0,0,"INNER_JSON_NOT_FOUND; response[:300]='```json\n{\n  ""citations"": [\n    {\n      ""citation_string"": ""347 So. 3d 533, 536"",\n      ""cited_case_name"": ""State v. Waiters"",\n      ""year"": 2022,\n      ""court_hint"": ""Fla. 2d DCA"",\n      ""parenthetical"": ""[W]e apply de novo review to the trial court\'s interpretation of the statute.""\n    },\n    {\n   '",True
 10814726,fladistctapp,state_iac,Miami-Dade County v. Dr. David Fintan Garavan,17548,101.5,0.119281,7671,31,26,5,,True
 10778711,ill,state_colr,"Griffith Foods International Inc. v. National Union Fire Insurance Company of Pittsburgh, PA",24260,167.3,0.15862,7744,36,32,4,,True
 10811018,ill,state_colr,"Johnson v. Amazon.com Services, LLC",18199,118.8,0.120273,3924,19,17,2,,True
@@ -61,8 +61,12 @@ cluster_id,court_id,level,case_name,char_count,elapsed_s,cost_usd,raw_response_c
 10856698,mad,federal_trial,,24720,157.7,0.148798,13779,59,51,8,,True
 10794944,ny,state_colr,People v. Dondorfer,12291,82.4,0.082857,6814,38,35,3,,True
 10809924,ny,state_colr,People v. Bender,12159,64.2,0.07186,2392,13,13,0,,True
+10774451,nyappdiv,state_iac,"Metropolitan Partners Group Admin., LLC v. Nerney",3225,45.1,0.114559,236,1,1,0,,False
+10784161,nyappdiv,state_iac,Deutsche Bank Natl. Trust Co. v. Contact Holdings Corp.,7368,121.3,0.183151,2488,12,8,4,,False
 10789451,nyappdiv,state_iac,Rogers v. DS Restoration & Residential Servs. Co.,13786,138.3,0.129983,6893,34,26,8,,True
 10789514,nyappdiv,state_iac,People v. Brinson,6453,69.6,0.069792,1848,10,10,0,,True
+10803803,nyappdiv,state_iac,"Wong v. 75 Baxter Owner, LLC",4297,59.8,0.061637,1778,8,8,0,,False
+10849442,nyappdiv,state_iac,People v. Corinaldi,6025,153.3,0.129567,1871,10,9,1,,False
 10808396,tex,state_colr,"Equinor Energy Lp v. Lindale Pipeline, LLC",17497,107.4,0.110305,2751,12,10,2,,True
 10840757,tex,state_colr,"Executive Workspace–abc–preston Road, LLC A/K/A Executive Workspace–preston Road, LLC; Executive Workspace, LLC; Executive Workspace–preston Trail, LLC; Executive Workspace-Hillcrest, LLC; Executive Workspace-Abc-Tollway, LLC; And Executive Workspacefrisco Station, LLC v. Reserve Capital–preston Grove Spe, LLC",3804,26.0,0.034506,432,2,2,0,,True
 10776075,txsd,federal_trial,,4865,62.8,0.069607,1445,7,7,0,,True

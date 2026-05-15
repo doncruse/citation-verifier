@@ -61,8 +61,12 @@ cluster_id,court_id,level,case_name,date_filed,char_count,source_url
 10856698,mad,federal_trial,,2026-03-13,24720,https://www.courtlistener.com/opinion/10856698/jeffrey-forbes-and-kimberly-michaud-individually-and-on-behalf-of-all/
 10794944,ny,state_colr,People v. Dondorfer,2026-02-17,12291,https://www.courtlistener.com/opinion/10794944/people-v-dondorfer/
 10809924,ny,state_colr,People v. Bender,2026-03-17,12159,https://www.courtlistener.com/opinion/10809924/people-v-bender/
+10774451,nyappdiv,state_iac,"Metropolitan Partners Group Admin., LLC v. Nerney",2026-01-13,3225,https://www.courtlistener.com/opinion/10774451/metropolitan-partners-group-admin-llc-v-nerney/
+10784161,nyappdiv,state_iac,Deutsche Bank Natl. Trust Co. v. Contact Holdings Corp.,2026-02-04,7368,https://www.courtlistener.com/opinion/10784161/deutsche-bank-natl-trust-co-v-contact-holdings-corp/
 10789451,nyappdiv,state_iac,Rogers v. DS Restoration & Residential Servs. Co.,2026-02-11,13786,https://www.courtlistener.com/opinion/10789451/rogers-v-ds-restoration-residential-servs-co/
 10789514,nyappdiv,state_iac,People v. Brinson,2026-02-11,6453,https://www.courtlistener.com/opinion/10789514/people-v-brinson/
+10803803,nyappdiv,state_iac,"Wong v. 75 Baxter Owner, LLC",2026-03-04,4297,https://www.courtlistener.com/opinion/10803803/wong-v-75-baxter-owner-llc/
+10849442,nyappdiv,state_iac,People v. Corinaldi,2026-04-15,6025,https://www.courtlistener.com/opinion/10849442/people-v-corinaldi/
 10808396,tex,state_colr,"Equinor Energy Lp v. Lindale Pipeline, LLC",2026-03-13,17497,https://www.courtlistener.com/opinion/10808396/equinor-energy-lp-v-lindale-pipeline-llc/
 10840757,tex,state_colr,"Executive Workspace–abc–preston Road, LLC A/K/A Executive Workspace–preston Road, LLC; Executive Workspace, LLC; Executive Workspace–preston Trail, LLC; Executive Workspace-Hillcrest, LLC; Executive Workspace-Abc-Tollway, LLC; And Executive Workspacefrisco Station, LLC v. Reserve Capital–preston Grove Spe, LLC",2026-04-10,3804,https://www.courtlistener.com/opinion/10840757/executive-workspaceabcpreston-road-llc-aka-executive-workspacepreston/
 10776075,txsd,federal_trial,,2026-01-16,4865,https://www.courtlistener.com/opinion/10776075/mark-eugene-ricks-v-dr-jessica-khan-et-al/
