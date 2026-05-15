@@ -1,0 +1,164 @@
+citing_cluster,citing_court_id,citing_level,citing_case_name,citing_char_count,citation_string,cited_case_name,year,court_hint,parenthetical,cited_tier
+10845114,mad,federal_trial,,19916,491 U.S. 58,Will v. Michigan Dep't of State Police,1989,U.S. Supreme Court,,SCOTUS
+10845114,mad,federal_trial,,19916,601 U.S. 187,Lindke v. Freed,2024,U.S. Supreme Court,"Section 1983 ""protects against acts attributable to a State, not those of a private person""",SCOTUS
+10779126,cand,federal_trial,,16966,556 U.S. 662,Ashcroft v. Iqbal,2009,U.S. Supreme Court,,SCOTUS
+10789794,mad,federal_trial,,10411,512 U.S. 477,Heck v. Humphrey,1994,U.S. Supreme Court,,SCOTUS
+10805616,txsd,federal_trial,,23376,429 U.S. 97,Estelle v. Gamble,1976,U.S. Supreme Court,,SCOTUS
+10832493,dcd,federal_trial,Gardner v. Haaland,20261,"599 U.S. 555, 566",Arizona v. Navajo Nation,2023,U.S. Supreme Court,,SCOTUS
+10795160,dcd,federal_trial,Brutus v. Trump,4170,"542 U.S. 426, 435",Rumsfeld v. Padilla,2004,U.S. Supreme Court,,SCOTUS
+10833791,dcd,federal_trial,American Oversight v. U.S. Department of Justice,21213,"555 U.S. 7, 24",Winter v. NRDC,2008,U.S. Supreme Court,,SCOTUS
+10839087,ilnd,federal_trial,,11890,452 U.S. 89,Gulf Oil Co. v. Bernard,1981,U.S. Supreme Court,,SCOTUS
+10768378,mad,federal_trial,,5698,"519 U.S. 61, 68",Caterpillar Inc. v. Lewis,1996,U.S. Supreme Court,,SCOTUS
+10832493,dcd,federal_trial,Gardner v. Haaland,20261,145 S. Ct. 550,Jibril v. Mayorkas,2024,U.S. Supreme Court,,SCOTUS
+10789794,mad,federal_trial,,10411,"556 U.S. 662, 676–77",Ashcroft v. Iqbal,2009,U.S. Supreme Court,,SCOTUS
+10850875,txsd,federal_trial,,16613,"477 U.S. 242, 256","Anderson v. Liberty Lobby, Inc.",1986,U.S. Supreme Court,,SCOTUS
+10782555,ilnd,federal_trial,,21207,583 U.S. at 64,District of Columbia v. Wesby,2018,U.S. Supreme Court,,SCOTUS
+10850074,cand,federal_trial,,24517,"2016 U.S. Dist. LEXIS 187607, at *4","Consumer Fin. Prot. Bureau v. Pension Funding, LLC",2016,C.D. Cal.,,SCOTUS
+10782386,txsd,federal_trial,,24509,466 U.S. 668,Strickland v. Washington,1984,U.S. Supreme Court,,SCOTUS
+10796076,dcd,federal_trial,Powell v. United States Department of Treasury,22965,550 U.S. 544,Bell Atl. Corp. v. Twombly,2007,U.S. Supreme Court,,SCOTUS
+10848034,mad,federal_trial,,12465,551 U.S. 89,Erickson v. Pardus,2007,U.S. Supreme Court,per curiam,SCOTUS
+10768445,cand,federal_trial,,12644,545 U.S. 308,"Grable & Sons Metal Prods., Inc. v. Darue Eng'g & Mfg.",2005,U.S. Supreme Court,,SCOTUS
+10848034,mad,federal_trial,,12465,550 U.S. 544,Bell Atl. Corp. v. Twombly,2007,U.S. Supreme Court,,SCOTUS
+10810840,mad,federal_trial,,23675,383 U.S. 715,United Mine Workers of Am. v. Gibbs,1966,U.S. Supreme Court,"It has consistently been recognized that pendent jurisdiction is a doctrine of discretion, not of plaintiff's right. . . . Needless decisions of state law should be avoided both as a matter of comity and to promote justice between the parties, by procuring for them a surer-footed reading of applicable law.  Certainly, if the federal claims are dismissed before trial . . . the state claims should be dismissed as well.",SCOTUS
+10796076,dcd,federal_trial,Powell v. United States Department of Treasury,22965,556 U.S. 662,Ashcroft v. Iqbal,2009,U.S. Supreme Court,"quoting Bell Atl. Corp. v. Twombly, 550 U.S. 544, 555, 570 (2007)",SCOTUS
+10810840,mad,federal_trial,,23675,556 U.S. 662,Ashcroft v. Iqbal,2009,U.S. Supreme Court,,SCOTUS
+10807315,dcd,federal_trial,Shafique v. United States Marshal Service,24704,547 U.S. 332,DaimlerChrysler Corp. v. Cuno,2006,U.S. Supreme Court,,SCOTUS
+10856698,mad,federal_trial,,24720,578 U.S. at 341,"Spokeo, Inc. v. Robins",,U.S. Supreme Court,,SCOTUS
+10853104,mad,federal_trial,,11968,550 U.S. 544,Bell Atl. Corp v. Twombly,2007,U.S. Supreme Court,,SCOTUS
+10807315,dcd,federal_trial,Shafique v. United States Marshal Service,24704,568 U.S. 503,Levin v. United States,2013,U.S. Supreme Court,,SCOTUS
+10782386,txsd,federal_trial,,24509,501 U.S. 722,Coleman v. Thompson,1991,U.S. Supreme Court,,SCOTUS
+10844968,ilnd,federal_trial,,20151,139 S. Ct. 1148,Biestek v. Berryhill,2019,U.S. Supreme Court,citations omitted,SCOTUS
+10839087,ilnd,federal_trial,,11890,431 U.S. 720,Illinois Brick Co. v. Illinois,1977,U.S. Supreme Court,,SCOTUS
+10848034,mad,federal_trial,,12465,443 U.S. 137,Baker v. McCollan,1979,U.S. Supreme Court,,SCOTUS
+10786075,dcd,federal_trial,Hughes v. Superior Court for the District of Columbia,18440,490 U.S. 386,Graham v. Connor,1989,U.S. Supreme Court,,SCOTUS
+10853090,ilnd,federal_trial,,13113,550 U.S. at 555,Bell Atlantic Corp. v. Twombly,,U.S. Supreme Court,,SCOTUS
+10778972,mad,federal_trial,,11011,"550 U.S. 544, 570",Bell Atl. Corp. v. Twombly,2007,U.S. Supreme Court,,SCOTUS
+10850875,txsd,federal_trial,,16613,"544 U.S. 280, 292",Exxon Mobil Corp. v. Saudi Basic Industries Corp.,2005,U.S. Supreme Court,[N]either Rooker nor Feldman supports the notion that properly invoked concurrent jurisdiction vanishes if a state court reaches judgment on the same or related question while the case remains sub judice in a federal court.,SCOTUS
+10848034,mad,federal_trial,,12465,491 U.S. 58,Will v. Michigan Dep't of State Police,1989,U.S. Supreme Court,,SCOTUS
+10796076,dcd,federal_trial,Powell v. United States Department of Treasury,22965,550 U.S. at 555,Bell Atl. Corp. v. Twombly,2007,U.S. Supreme Court,,SCOTUS
+10856698,mad,federal_trial,,24720,504 U.S. at 560,Lujan v. Defs. of Wildlife,,U.S. Supreme Court,,SCOTUS
+10853090,ilnd,federal_trial,,13113,550 U.S. at 556,Bell Atlantic Corp. v. Twombly,,U.S. Supreme Court,,SCOTUS
+10808911,ilnd,federal_trial,,8769,"471 U.S. 261, 266-67",Wilson v. Garcia,1985,U.S. Supreme Court,,SCOTUS
+10807315,dcd,federal_trial,Shafique v. United States Marshal Service,24704,511 U.S. 375,Kokkonen v. Guardian Life Ins. Co. of Am.,1994,U.S. Supreme Court,citations omitted,SCOTUS
+10785269,dcd,federal_trial,"United States v. Approximately 1,467,761.163191 Usdt",18842,"547 U.S. 220, 226",Jones v. Flowers,2006,U.S. Supreme Court,,SCOTUS
+10778972,mad,federal_trial,,11011,556 U.S. at 679,Ashcroft v. Iqbal,,U.S. Supreme Court,"While legal conclusions can provide the framework of a complaint, they must be supported by factual allegations.",SCOTUS
+10782555,ilnd,federal_trial,,21207,"583 U.S. 48, 61",District of Columbia v. Wesby,2018,U.S. Supreme Court,,SCOTUS
+10844072,dcd,federal_trial,Dusenbery v. Trump,3914,550 U.S. at 555,Bell Atl. Corp. v. Twombly,,U.S. Supreme Court,cleaned up,SCOTUS
+10810840,mad,federal_trial,,23675,550 U.S. 544,Bell Atl. Corp. v. Twombly,2007,U.S. Supreme Court,,SCOTUS
+10844072,dcd,federal_trial,Dusenbery v. Trump,3914,"193 U.S. 561, 579",Newburyport Water Co. v. Newburyport,1904,U.S. Supreme Court,,SCOTUS
+10805616,txsd,federal_trial,,23376,511 U.S. at 832,Farmer v. Brennan,,U.S. Supreme Court,,SCOTUS
+10776075,txsd,federal_trial,,4865,144 S. Ct. 73,Carswell v. Camp,2023,U.S. Supreme Court,internal quotations omitted,SCOTUS
+10832493,dcd,federal_trial,Gardner v. Haaland,20261,"404 U.S. 519, 520",Haines v. Kerner,1972,U.S. Supreme Court,,SCOTUS
+10853104,mad,federal_trial,,11968,13 F.4th 43,"Perea v. Ed. Cultural, Inc.",2021,1st Cir.,"quoting Latin Am. Music Co. Inc. v. Media Power Grp., Inc., 705 F.3d 34, 38 (1st Cir. 2013)",Circuit
+10799526,cand,federal_trial,,7351,"381 F.3d 965, 981",Gilbertson v. Albright,2004,9th Cir.,"en banc; when damages are sought and Younger principles apply, federal court should refrain from exercising jurisdiction temporarily and stay claims for damages until state proceeding no longer pending",Circuit
+10832493,dcd,federal_trial,Gardner v. Haaland,20261,583 F.3d at 854,Acceptance Ins. v. United States,,,,Circuit
+10830306,dcd,federal_trial,Doe v. American University,22763,971 F.3d at 327,In re Sealed Case,,D.C. Cir.,,Circuit
+10845114,mad,federal_trial,,19916,956 F.3d 36,Cortés-Ramos v. Martin-Morales,2020,1st Cir.,quotation marks omitted,Circuit
+10807315,dcd,federal_trial,Shafique v. United States Marshal Service,24704,753 F.2d at 1160,"Art Metal-U.S.A., Inc. v. United States",,,,Circuit
+10848865,ilnd,federal_trial,,22624,"20 F.4th 1178, 1181",Lax v. Mayorkas,2021,7th Cir.,,Circuit
+10770795,cand,federal_trial,,8632,231 F.3d 572,Ass'n of Mexican-Am. Educators v. State of California,2000,9th Cir.,en banc,Circuit
+10799526,cand,federal_trial,,7351,"871 F.2d 777, 782",Beltran v. California,1988,9th Cir.,,Circuit
+10796076,dcd,federal_trial,Powell v. United States Department of Treasury,22965,750 F.3d 899,Thomas v. Holder,2014,D.C. Cir.,emphasis added) (citation omitted,Circuit
+10770725,mad,federal_trial,,11894,"284 F.3d 236, 246-47",Cavallaro v. United States,2002,1st Cir.,,Circuit
+10832493,dcd,federal_trial,Gardner v. Haaland,20261,"320 F.3d 265, 271",Waters v. Rumsfeld,2003,D.C. Cir.,"quoting Goble, 684 F.2d at 17",Circuit
+10805616,txsd,federal_trial,,23376,138 F.3d 211,Talib v. Gilley,1998,5th Cir.,,Circuit
+10807315,dcd,federal_trial,Shafique v. United States Marshal Service,24704,789 F.3d 146,"Brown v. Whole Foods Mkt. Grp., Inc.",2015,D.C. Cir.,,Circuit
+10782555,ilnd,federal_trial,,21207,"705 F.3d 237, 246",Thayer v. Chiczewski,2012,7th Cir.,,Circuit
+10844072,dcd,federal_trial,Dusenbery v. Trump,3914,"151 F.3d 1059, 1069 n.9",In re Sealed Case No. 98-3077,1998,D.C. Cir.,"noting that a civil action ""must be initiated by complaint"" (citing Fed. R. Civ. P. 3)",Circuit
+10768445,cand,federal_trial,,12644,"840 F.3d 644, 648",Gonzales v. CarMax Auto Superstores,2016,9th Cir.,internal citation omitted,Circuit
+10779126,cand,federal_trial,,16966,399 F.3d 1047,Headwaters Inc. v. U.S. Forest Serv.,2005,9th Cir.,cleaned up,Circuit
+10848034,mad,federal_trial,,12465,956 F.3d 36,Cortés-Ramos v. Martin-Morales,2020,1st Cir.,quotation marks omitted,Circuit
+10796076,dcd,federal_trial,Powell v. United States Department of Treasury,22965,726 F.3d 208,"Jud. Watch, Inc. v. U.S. Secret Serv.",2013,D.C. Cir.,citation omitted,Circuit
+10807315,dcd,federal_trial,Shafique v. United States Marshal Service,24704,751 F.3d 712,Jackson v. United States,2014,6th Cir.,,Circuit
+10853104,mad,federal_trial,,11968,705 F.3d 34,"Latin Am. Music Co. Inc. v. Media Power Grp., Inc.",2013,1st Cir.,,Circuit
+10805616,txsd,federal_trial,,23376,512 F.3d 193,Hutchins v. McDaniels,2007,5th Cir.,,Circuit
+10808911,ilnd,federal_trial,,8769,"128 F.3d 1057, 1060",Wudtke v. Davel,1997,7th Cir.,"explaining that anonymous placeholders ""do not open the door to relation back under [Rule 15]""",Circuit
+10779211,ilnd,federal_trial,,7065,"163 F.3d 449, 452",Northern Ind. Gun & Outdoor Shows v. City of S. Bend,1998,7th Cir.,,Circuit
+10804727,txsd,federal_trial,,22749,"448 F.3d 783, 789",Pacheco v. Mineta,2006,5th Cir.,,Circuit
+10795160,dcd,federal_trial,Brutus v. Trump,4170,864 F.2d at 810,Chatman-Bey v. Thornburgh,,,,Circuit
+10778711,ill,state_colr,"Griffith Foods International Inc. v. National Union Fire Insurance Company of Pittsburgh, PA",24260,134 F.4th at 490,Griffith Foods International Inc. v. National Union Fire Insurance Co. of Pittsburgh,,,,Circuit
+10800861,dcd,federal_trial,Simmons v. United States Government,9925,"364 F.3d 318, 319",Bos. & Me. Corp. v. Surface Transp. Bd.,2004,D.C. Cir.,,Circuit
+10841844,ilnd,federal_trial,,16122,72 F.4th at 813,Crowell v. Kijakazi,2023,7th Cir.,"quoting Biestek, 587 U.S. at 103",Circuit
+10804727,txsd,federal_trial,,22749,574 F.3d at 258,Lee v. Kansas City S. Ry. Co.,2009,5th Cir.,,Circuit
+10848034,mad,federal_trial,,12465,"DesRosiers, 949 F.2d at 24",DesRosiers v. Moran,,1st Cir.,,Circuit
+10782076,illappct,state_iac,People v. McCall,20439,467 F. 3d 649,United States v. Wurzinger,2006,7th Cir.,,Circuit
+10809644,txsd,federal_trial,,5305,716 F.3d 867,"Wellogix, Inc. v. Accenture, L.L.P.",2013,5th Cir.,same,Circuit
+10810840,mad,federal_trial,,23675,38 F.4th 263,"Frith v. Whole Foods Mkt., Inc.",2022,1st Cir.,"quoting Rodríguez-Reyes v. Molina-Rodríguez, 711 F.3d 49, 53 (1st Cir. 2013)",Circuit
+10837369,txsd,federal_trial,,3909,"434 F3d 303, 308",Guillory v PPG Industries Inc,2005,5th Cir.,,Circuit
+10799526,cand,federal_trial,,7351,"626 F.2d 82, 83-84",Carden v. Montana,1980,9th Cir.,pre-sentence habeas action,Circuit
+10770795,cand,federal_trial,,8632,836 F.3d 1072,Draper v. Rosario,2016,9th Cir.,,Circuit
+10778972,mad,federal_trial,,11011,"412 F.3d 17, 19","Belini v. Washington Mut. Bank, FA",2005,1st Cir.,,Circuit
+10833791,dcd,federal_trial,American Oversight v. U.S. Department of Justice,21213,"846 F.3d 1235, 1242",Citizens for Resp. & Ethics in Washington v. U.S. Dep't of Just.,2017,D.C. Cir.,"This circuit's case law reflects the wide latitude courts possess to fashion remedies under FOIA, including the power to issue prospective injunctive relief.",Circuit
+10785026,ilnd,federal_trial,,21757,579 F.3d,F.T.C. v. Trudeau,,7th Cir.,,Circuit
+10832493,dcd,federal_trial,Gardner v. Haaland,20261,482 F.3d at 576,Greenhill v. Spellings,,,,Circuit
+10810840,mad,federal_trial,,23675,787 F.3d 82,Cardigan Mountain Sch. v. N.H. Ins. Co.,2015,1st Cir.,quoting Fed. R. Civ. P. 8(a)(2),Circuit
+10853090,ilnd,federal_trial,,13113,900 F.3d 515,"Koty v. DuPage Cnty., Illinois",2018,7th Cir.,,Circuit
+10768445,cand,federal_trial,,12644,"704 F.2d 1088, 1090","Kantor v. Wellesley Galleries, Ltd.",1983,9th Cir.,,Circuit
+10851573,cand,federal_trial,,5376,"773 F.2d 1026, 1027 n.1",Kelman,1985,9th Cir.,en banc,Circuit
+10789794,mad,federal_trial,,10411,"597 F.3d 436, 442",S.E.C. v. Tambone,2010,1st Cir.,,Circuit
+10841844,ilnd,federal_trial,,16122,981 F.3d 597,Zoch v. Saul,2020,7th Cir.,The ALJ permissibly discounted Zoch's testimony of incapacitating pain because it conflicted with the objective medical evidence and most of the record.,Circuit
+10848034,mad,federal_trial,,12465,949 F.2d 15,DesRosiers v. Moran,1991,1st Cir.,,Circuit
+10839629,ilnd,federal_trial,,11061,"102 F.4th 438, 440","Thermoflex Waukegan, LLC v. Mitsui Sumitomo Ins. USA, Inc.",2024,7th Cir.,,Circuit
+10785894,ilnd,federal_trial,,18043,879 N.E.2d at 502,Bauer v. Memorial Hospital,,5th Dist.,,State_COLR
+10808396,tex,state_colr,"Equinor Energy Lp v. Lindale Pipeline, LLC",17497,"622 S.W.3d 884, 889","Sundown Energy LP v. HJSA No. 3, L.P.",2021,Tex. Supreme Court,per curiam,State_COLR
+10814726,fladistctapp,state_iac,Miami-Dade County v. Dr. David Fintan Garavan,17548,"404 So. 2d 1066, 1069",City of Miami Beach v. Rocio Corp.,1981,Fla. 3d DCA,,State_COLR
+10782386,txsd,federal_trial,,24509,457 S.W.3d 437,Price v. State,2015,Tex. Crim. App.,,State_COLR
+10808644,calctapp,state_iac,People v. Martinez CA2/1,17487,2 Cal.3d 118,People v. Marsden,1970,Cal. Supreme Court,,State_COLR
+10840757,tex,state_colr,"Executive Workspace–abc–preston Road, LLC A/K/A Executive Workspace–preston Road, LLC; Executive Workspace, LLC; Executive Workspace–preston Trail, LLC; Executive Workspace-Hillcrest, LLC; Executive Workspace-Abc-Tollway, LLC; And Executive Workspacefrisco Station, LLC v. Reserve Capital–preston Grove Spe, LLC",3804,487 S.W.3d 560,"Janvey v. Golf Channel, Inc.",2016,Tex. Supreme Court,,State_COLR
+10782386,txsd,federal_trial,,24509,922 S.W.2d 166,Hutch vy. State,1996,Tex. Crim. App.,,State_COLR
+10814726,fladistctapp,state_iac,Miami-Dade County v. Dr. David Fintan Garavan,17548,"118 So. 3d 904, 913","Aery v. Wallace Lincoln-Mercury, LLC",2013,Fla. 4th DCA,,State_COLR
+10814726,fladistctapp,state_iac,Miami-Dade County v. Dr. David Fintan Garavan,17548,"199 So. 3d 1107, 1109","State, Dep't of Elder Affs. v. Caldwell",2016,Fla. 1st DCA,,State_COLR
+10838331,calctapp,state_iac,Rockwell v. Dept. of Motor Vehicles CA5,12068,57 Cal.4th at p. 221,"Today's Fresh Start, Inc. v. Los Angeles County Office of Education",2013,Cal. Supreme Court,,State_COLR
+10838331,calctapp,state_iac,Rockwell v. Dept. of Motor Vehicles CA5,12068,"57 Cal.4th 197, 215","Today's Fresh Start, Inc. v. Los Angeles County Office of Education",2013,Cal. Supreme Court,,State_COLR
+10785894,ilnd,federal_trial,,18043,"879 N.E.2d 478, 502",Bauer v. Memorial Hospital,2007,5th Dist.,,State_COLR
+10839758,fla,state_colr,In Re: Amendments to Florida Rules of Appellate Procedure,12362,416 So. 3d 242,In re Amendments to Florida Rules of General Practice & Judicial Administration,2025,Fla. Supreme Court,,State_COLR
+10808644,calctapp,state_iac,People v. Martinez CA2/1,17487,15 Cal.5th 1015,People v. McDavid,2024,Cal. Supreme Court,trial court has discretion to strike enhancement and impose lesser included § 12022.53 enhancement or other lesser included enhancement,State_COLR
+10782386,txsd,federal_trial,,24509,415 S.W.3d 289,Nava v. State,2013,Tex. Crim. App.,,State_COLR
+10808396,tex,state_colr,"Equinor Energy Lp v. Lindale Pipeline, LLC",17497,"689 S.W.3d 899, 905","Occidental Permian, Ltd. v. Citation 2002 Inv. LLC",2024,Tex. Supreme Court,,State_COLR
+10848865,ilnd,federal_trial,,22624,"393 N.E.2d 1146, 1149",Pate v. City of Sesser,1979,Ill. App. Ct.,A release extinguishes a cause of action whereas a covenant not to sue affects only the right to bring suit and not the cause of action itself.,State_COLR
+10856698,mad,federal_trial,,24720,"87 N.E.3d 100, 106",Saliba v. City of Worcester,2017,Mass. App. Ct.,"emphasis added) (quoting Mass. Gen. Laws ch. 149, § 19B",State_COLR
+10778972,mad,federal_trial,,11011,"432 Mass. 474, 477",Schaer v. Brandeis Univ.,2000,Mass. Supreme Court,,State_COLR
+10785894,ilnd,federal_trial,,18043,"519 N.E.2d 1197, 1201",Warren v. Coca-Cola Bottling Co. of Chicago,1988,Ill. Ct. App.,,State_COLR
+10848865,ilnd,federal_trial,,22624,"686 N.E.2d 61, 65",Countryman v. Indus. Comm'n,1997,Ill. App. Ct.,,State_COLR
+10800996,illappct,state_iac,People v. Block,9961,"235 Ill. 2d 213, 228",People v. Siguenza-Brito,2009,Ill. Supreme Court,,State_COLR
+10848865,ilnd,federal_trial,,22624,"581 N.E.2d 664, 667",Farm Credit Bank of St. Louis v. Whitlock,1991,Ill. Supreme Court,,State_COLR
+10800996,illappct,state_iac,People v. Block,9961,"185 Ill. 2d 532, 541",People v. Smith,1999,Ill. Supreme Court,,State_COLR
+10848865,ilnd,federal_trial,,22624,"736 N.E.2d 1184, 1187","Walker v. Ridgeview Const. Co., Inc.",2000,Ill. App. Ct.,,State_COLR
+10809985,calctapp,state_iac,People v. Baul CA2/2,12840,26 Cal.4th 181,People v. Mitchell,2001,Cal. Supreme Court,,State_COLR
+10778711,ill,state_colr,"Griffith Foods International Inc. v. National Union Fire Insurance Company of Pittsburgh, PA",24260,177 Ill. 2d at 476,American States Insurance Co. v. Koloms,,,,State_COLR
+10800996,illappct,state_iac,People v. Block,9961,"178 Ill. 2d 1, 32",People v. Howery,1997,Ill. Supreme Court,,State_COLR
+10814726,fladistctapp,state_iac,Miami-Dade County v. Dr. David Fintan Garavan,17548,908 So. 2d at 472,Am. Home Assurance Co. v. Nat'l R.R. Passenger Corp.,,,,State_COLR
+10808396,tex,state_colr,"Equinor Energy Lp v. Lindale Pipeline, LLC",17497,"341 S.W.3d 323, 333","Italian Cowboy Partners, Ltd. v. Prudential Ins. Co. of Am.",2011,Tex. Supreme Court,,State_COLR
+10778711,ill,state_colr,"Griffith Foods International Inc. v. National Union Fire Insurance Company of Pittsburgh, PA",24260,957 N.E.2d 1214,Erie Insurance Exchange v. Imperial Marble Corp.,2011,,,State_COLR
+10814726,fladistctapp,state_iac,Miami-Dade County v. Dr. David Fintan Garavan,17548,"364 So. 3d 1087, 1091",City of Miami v. Robinson,2023,Fla. 3d DCA,,State_COLR
+10808644,calctapp,state_iac,People v. Martinez CA2/1,17487,44 Cal.4th 1101,People v. Mungia,2008,Cal. Supreme Court,,State_COLR
+10785894,ilnd,federal_trial,,18043,"935 N.E.2d 1084, 1092",Brobbey v. Enter. Leasing Co. of Chi.,2010,1st Dist.,,State_COLR
+10840757,tex,state_colr,"Executive Workspace–abc–preston Road, LLC A/K/A Executive Workspace–preston Road, LLC; Executive Workspace, LLC; Executive Workspace–preston Trail, LLC; Executive Workspace-Hillcrest, LLC; Executive Workspace-Abc-Tollway, LLC; And Executive Workspacefrisco Station, LLC v. Reserve Capital–preston Grove Spe, LLC",3804,592 S.W.3d 125,"Janvey v. GMAG, LLC",2019,Tex. Supreme Court,,State_COLR
+10808396,tex,state_colr,"Equinor Energy Lp v. Lindale Pipeline, LLC",17497,"590 S.W.3d 471, 480","Barrow-Shaver Res. Co. v. Carrizo Oil & Gas, Inc.",2019,Tex. Supreme Court,,State_COLR
+10785894,ilnd,federal_trial,,18043,224 Ill.2d 247,Calles v. Scripto–Tokai Corp.,2007,Ill. Supreme Court,,State_COLR
+10778711,ill,state_colr,"Griffith Foods International Inc. v. National Union Fire Insurance Company of Pittsburgh, PA",24260,177 Ill. 2d at 490,American States Insurance Co. v. Koloms,,,,State_COLR
+10808396,tex,state_colr,"Equinor Energy Lp v. Lindale Pipeline, LLC",17497,"196 S.W.3d 774, 781",In re D. Wilson Constr. Co.,2006,Tex. Supreme Court,,State_COLR
+10786075,dcd,federal_trial,Hughes v. Superior Court for the District of Columbia,18440,805 A.2d 930,Phelan v. City of Mount Rainier,2002,D.C.,,State_COLR
+10782076,illappct,state_iac,People v. McCall,20439,193 Ill. 2d 203,People v. Stacey,2000,Ill. Supreme Court,,State_COLR
+10845605,calctapp,state_iac,People v. Montenegro CA6,5158,25 Cal.3d 436,People v. Wende,1979,Cal. Supreme Court,,State_COLR
+10782076,illappct,state_iac,People v. McCall,20439,239 Ill. 2d 205,People v. Alexander,2010,Ill. Supreme Court,,State_COLR
+10782386,txsd,federal_trial,,24509,686 S.W.2d 157,Almanza v. State,1985,Tex. Crim. App.,op. on reh'g,State_COLR
+10782076,illappct,state_iac,People v. McCall,20439,189 Ill. 2d 48,People v. Fern,1999,Ill. Supreme Court,,State_COLR
+10808644,calctapp,state_iac,People v. Martinez CA2/1,17487,45 Cal.4th 390,People v. Doolin,2009,Cal. Supreme Court,,State_COLR
+10845605,calctapp,state_iac,People v. Montenegro CA6,5158,40 Cal.4th 106,People v. Kelly,2006,Cal. Supreme Court,,State_COLR
+10778711,ill,state_colr,"Griffith Foods International Inc. v. National Union Fire Insurance Company of Pittsburgh, PA",24260,177 Ill. 2d at 494,American States Insurance Co. v. Koloms,,,,State_COLR
+10778711,ill,state_colr,"Griffith Foods International Inc. v. National Union Fire Insurance Company of Pittsburgh, PA",24260,687 N.E.2d 72,American States Insurance Co. v. Koloms,1997,,,State_COLR
+10838331,calctapp,state_iac,Rockwell v. Dept. of Motor Vehicles CA5,12068,"15 Cal.5th 72, 85",Boermeester v. Carry,2023,Cal. Supreme Court,,State_COLR
+10785894,ilnd,federal_trial,,18043,404 Ill. App. 3d at 428,Brobbey v. Enter. Leasing Co. of Chi.,,1st Dist.,,State_IAC
+10785894,ilnd,federal_trial,,18043,"292 Ill.App.3d 59, 64","Perona v. Volkswagen of America, Inc.",1997,Ill. Ct. App.,,State_IAC
+10785894,ilnd,federal_trial,,18043,"166 Ill. App. 3d 566, 572",Warren v. Coca-Cola Bottling Co. of Chicago,1988,Ill. Ct. App.,,State_IAC
+10808644,calctapp,state_iac,People v. Martinez CA2/1,17487,85 Cal.App.5th 393,People v. Monroe,2022,Cal. Ct. App.,,State_IAC
+10808644,calctapp,state_iac,People v. Martinez CA2/1,17487,111 Cal.App.5th 829,People v. Grajeda,2025,Cal. Ct. App.,,State_IAC
+10809985,calctapp,state_iac,People v. Baul CA2/2,12840,109 Cal.App.5th 1003,People v. Tang,2025,Cal. Ct. App.,,State_IAC
+10809985,calctapp,state_iac,People v. Baul CA2/2,12840,104 Cal.App.5th at p. 371,People v. Green,,Cal. Ct. App.,,State_IAC
+10809985,calctapp,state_iac,People v. Baul CA2/2,12840,109 Cal.App.5th at p. 1007,People v. Tang,,Cal. Ct. App.,"a stricken enhancement cannot be a 'sentence enhancement that was imposed' under section 1172.75, subdivision (a)",State_IAC
+10838331,calctapp,state_iac,Rockwell v. Dept. of Motor Vehicles CA5,12068,101 Cal.App.5th at p. 198,Knudsen v. Department of Motor Vehicles,2024,Cal. Ct. App.,,State_IAC
+10838331,calctapp,state_iac,Rockwell v. Dept. of Motor Vehicles CA5,12068,101 Cal.App.5th 186,Knudsen v. Department of Motor Vehicles,2024,Cal. Ct. App.,,State_IAC
+10838331,calctapp,state_iac,Rockwell v. Dept. of Motor Vehicles CA5,12068,"172 Cal.App.4th 974, 1001-1002",Molenda v. Department of Motor Vehicles,2009,Cal. Ct. App.,,State_IAC
+10838331,calctapp,state_iac,Rockwell v. Dept. of Motor Vehicles CA5,12068,101 Cal.App.5th at p. 207,Knudsen v. Department of Motor Vehicles,2024,Cal. Ct. App.,,State_IAC
+10838331,calctapp,state_iac,Rockwell v. Dept. of Motor Vehicles CA5,12068,"110 Cal.App.5th 1002, 1018",Romane v. Department of Motor Vehicles,2025,Cal. Ct. App.,,State_IAC
