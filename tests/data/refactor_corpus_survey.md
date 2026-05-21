@@ -101,6 +101,21 @@ This is the index used by future contributors.)
 - not-found-people-campbell | NOT_FOUND | benchmark/unified_review.csv#not_in_cl[people-campbell] | not_in_cl_real_case | Real case absent from CL index
 - not-found-iglesias-hialeah-provisional | NOT_FOUND | benchmark/unified_review.csv#rescue_was_false_positive[iglesias-hialeah] | rescue_was_false_positive | Provisional; Phase 3 may rule. Pre-Phase-3 fallback rescues incorrectly
 
+**Task 4 (VERIFIED display-name-bug + VERIFIED_PARTIAL):**
+
+- verified-rule-25d-gilliard-mcwilliams | VERIFIED | benchmark/manual_corrections.csv#caption_divergence_rule_25d[gilliard-mcwilliams] | rule_25d_substitution | Rule 25(d) substitution; brief caption diverges from CL display
+- verified-rule-25d-preston-smith | VERIFIED | benchmark/manual_corrections.csv#caption_divergence_rule_25d[preston-smith] | rule_25d_substitution | Rule 25(d) substitution; second sample
+- verified-rule-25d-viken-detection | VERIFIED | benchmark/manual_corrections.csv#caption_divergence_rule_25d[viken-detection] | rule_25d_substitution | Rule 25(d) substitution; third sample
+- verified-ssa-pseudonym-michael-b-berryhill | VERIFIED | benchmark/manual_corrections.csv#ssa_pseudonym[michael-b-berryhill] | ssa_pseudonym | SSA plaintiff pseudonym; CL has Buschman v. Berryhill
+- verified-ssa-pseudonym-john-s-bisignano | VERIFIED | benchmark/manual_corrections.csv#ssa_pseudonym[john-s-bisignano] | ssa_pseudonym | SSA plaintiff pseudonym; CL has Sims v. Bisignano
+- named-exemplar-koch | VERIFIED | design_v2_doc#section_4 | named_exemplar | Koch named exemplar; CL case_name 'Ricky Koch v. Tote, Incorporated' diverges from brief 'Koch v. United States'
+- verified-partial-gold-wallace | VERIFIED_PARTIAL | benchmark/manual_corrections.csv#cl_cluster_parallel_cite_missing[gold-wallace] | parallel_cite_ny_adv | A.D.3d primary missing; slip op (2024 NY Slip Op 04376) resolves
+- verified-partial-hersko-hersko | VERIFIED_PARTIAL | benchmark/manual_corrections.csv#cl_cluster_parallel_cite_missing[hersko-hersko] | parallel_cite_ny_adv | A.D.3d primary missing; slip op (2024 NY Slip Op 00894) resolves
+- verified-partial-dondorfer | VERIFIED_PARTIAL | benchmark/manual_corrections.csv#cl_cluster_parallel_cite_missing[dondorfer] | parallel_cite_ny_adv | A.D.3d primary missing; slip op (2024 NY Slip Op 06432) resolves
+- verified-partial-kumar | VERIFIED_PARTIAL | benchmark/manual_corrections.csv#cl_cluster_parallel_cite_missing[kumar] | parallel_cite_ny_adv | A.D.3d primary missing; slip op (2025 NY Slip Op 05977) resolves
+- verified-partial-walker | VERIFIED_PARTIAL | benchmark/manual_corrections.csv#cl_cluster_parallel_cite_missing[walker] | parallel_cite_ny_adv | A.D.3d primary missing; slip op (2024 NY Slip Op 03278) resolves
+- named-exemplar-gilliam | VERIFIED_PARTIAL | design_v2_doc#section_4 | named_exemplar | Gilliam named exemplar; A.D.3d 201 not in CL, slip op 2021 NY Slip Op 06798 resolves to cluster 5305052
+
 ## §4 Named exemplars — sourcing notes
 
 ### Koch (VERIFIED + cl_display_name_data_bug)
