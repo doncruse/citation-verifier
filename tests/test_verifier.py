@@ -2,15 +2,14 @@
 
 All tests mock CourtListenerClient so no real API calls are made.
 
-Migrated to the v0.3 schema (Phase 1, Task 2). The old top-level
-``status``/``confidence``/``matched_*``/``diagnostics``/``candidates``
-fields have been replaced; the helpers below give a thin compatibility
-layer so the assertions read close to the old semantics.
+Migrated to the v0.3 schema (Phase 1, Task 2). Task 1 (Phase 3) removed
+the legacy _DiagnosticLike / _CATEGORY_PATTERNS / _classify_note /
+_diagnostics / _matched_case_name bridge; assertions now read
+result.warnings and _winning_path_entry() directly.
 """
 
 from __future__ import annotations
 
-import re
 from dataclasses import dataclass
 from unittest.mock import MagicMock
 
@@ -21,109 +20,24 @@ from citation_verifier.parser import parse_citation
 from citation_verifier.verifier import CitationVerifier
 
 
-@dataclass
-class _DiagnosticLike:
-    """Backwards-compatible Diagnostic-shaped view of a Warning or
-    resolution_path notes string."""
+def _winning_path_entry(result):
+    """Return the resolution_path entry that drove the result (highest-
+    confidence resolved/partial entry, else the last entry).
 
-    category: str
-    message: str
-
-
-# Prefix-anchored classifier for freeform resolution_path notes. Each
-# pattern is matched against the start of the message so that production
-# messages like "Court X could not be verified" or "Year X could not be
-# verified" land under their proper category rather than silently
-# falling through to "info".
-_CATEGORY_PATTERNS: list[tuple[re.Pattern[str], str]] = [
-    # RECAP docket-match phrasing — checked first because the message
-    # body can begin with "We found..." rather than a category prefix.
-    (re.compile(r"\b(RECAP|docket match)\b", re.IGNORECASE), "recap"),
-    (re.compile(r"^(?:Case )?[Nn]ame\b"), "name"),
-    (re.compile(r"^Court\b"), "court"),
-    (re.compile(r"^(?:Date|Year|Month|Day)\b"), "date"),
-    (re.compile(r"^Docket\b"), "docket"),
-    (re.compile(r"^Citation\b"), "cite"),
-]
-
-
-def _classify_note(piece: str) -> str:
-    for pat, cat in _CATEGORY_PATTERNS:
-        if pat.search(piece):
-            return cat
-    return "info"
-
-
-def _winning_entry(result):
-    """Find the path entry that drove the result, for legacy compat
-    helpers that need the "winning" stage's notes/summary.
-
-    Phase 2 emits one entry per stage attempted, so the last entry is
-    not necessarily the winner (e.g. opinion_search resolved, but
-    recap_docket_search ran afterward as a no_match). The winner is
-    the highest-confidence resolved entry, falling back to the last
-    entry if nothing resolved.
-    """
+    Phase 2 emits one entry per stage attempted; the last is not always
+    the winner (e.g. opinion_search resolved, then recap_docket_search
+    ran afterward as a no_match). This helper picks the entry that
+    actually decided the verdict so tests can assert against its
+    raw_response_summary, notes, etc."""
     if not result.resolution_path:
         return None
     resolved = [
         e for e in result.resolution_path
-        if e.verdict == StageVerdict.resolved or e.verdict == StageVerdict.partial
+        if e.verdict in (StageVerdict.resolved, StageVerdict.partial)
     ]
     if resolved:
         return max(resolved, key=lambda e: e.confidence or 0.0)
     return result.resolution_path[-1]
-
-
-def _diagnostics(result) -> list[_DiagnosticLike]:
-    """Reconstruct an old-style diagnostics list from the new shape.
-
-    Order: structured Warnings first (each maps to a (category, message)
-    pair), then a single freeform entry from the *winning* path entry's
-    ``notes`` if present. Notes that contain "; " separators (the legacy
-    diagnostic join) are split back into multiple entries classified by
-    prefix.
-
-    Phase 2 may emit multiple stage entries; pick the winning one
-    (highest-confidence resolved/partial, else the last entry) so the
-    legacy compat shape lines up with the candidate that actually drove
-    the result.
-    """
-    out: list[_DiagnosticLike] = []
-    for w in result.warnings:
-        # The old citation-lookup name-mismatch was emitted under
-        # category "name"; the new closed-set category is
-        # cl_display_name_data_bug. Map back so legacy assertions pass.
-        if w.category == WarningCategory.cl_display_name_data_bug:
-            out.append(_DiagnosticLike("name", w.message))
-        else:
-            out.append(_DiagnosticLike(w.category.value, w.message))
-    winner = _winning_entry(result)
-    if winner is not None:
-        notes = winner.notes
-        if notes:
-            for piece in notes.split("; "):
-                out.append(_DiagnosticLike(_classify_note(piece), piece))
-    return out
-
-
-def _matched_case_name(result) -> str | None:
-    """Old-style matched_case_name from the new resolution_path summary.
-
-    Phase 2: citation_lookup hits use ``matched_case_name``; opinion_search
-    and recap_*_search use ``best_case_name`` (per the pinned per-stage
-    summary shapes); pre-Phase 2 code used a legacy ``case_name`` key.
-    Look up all three on the winning entry.
-    """
-    winner = _winning_entry(result)
-    if winner is not None:
-        summary = winner.raw_response_summary
-        return (
-            summary.get("matched_case_name")
-            or summary.get("best_case_name")
-            or summary.get("case_name")
-        )
-    return None
 
 
 def _make_client(**overrides):
@@ -133,6 +47,13 @@ def _make_client(**overrides):
     client.search_opinions.return_value = overrides.get("search_opinions", [])
     client.search_recap.return_value = overrides.get("search_recap", [])
     client.get_docket_entries.return_value = overrides.get("get_docket_entries", [])
+    # New for Phase 3 caption_investigation — Task 5 wires the production
+    # call sites; default these to empty dicts so existing tests don't break.
+    client.get_cluster.return_value = overrides.get("get_cluster", {})
+    client.get_docket.return_value = overrides.get("get_docket", {})
+    client.get_opinion_text_with_metadata.return_value = overrides.get(
+        "get_opinion_text_with_metadata", None
+    )
     return client
 
 
@@ -161,7 +82,7 @@ class TestStep1Verified:
 
         assert result.status == Status.VERIFIED
         assert result.headline_confidence == 1.0
-        assert _matched_case_name(result) == "Obergefell v. Hodges"
+        assert _winning_path_entry(result).raw_response_summary.get("matched_case_name") == "Obergefell v. Hodges"
         assert "courtlistener.com" in result.final_ids.absolute_url
 
     def test_verified_builds_url_from_cluster_id(self):
@@ -231,15 +152,18 @@ class TestStep1NameMismatch:
         # WRONG_CASE after caption investigation.
         assert result.status == Status.VERIFIED
         assert result.headline_confidence == 0.3
-        assert _matched_case_name(result) == "Totally Different v. Case"
+        assert (_winning_path_entry(result).raw_response_summary.get("matched_case_name")
+                or _winning_path_entry(result).raw_response_summary.get("best_case_name")) == "Totally Different v. Case"
         assert result.final_ids.cluster_id == 789
         assert any(
             w.category == WarningCategory.cl_display_name_data_bug
             for w in result.warnings
         )
-        diags = _diagnostics(result)
-        assert diags[0].category == "name"
-        assert "Name mismatch" in diags[0].message
+        assert any(
+            w.category == WarningCategory.cl_display_name_data_bug
+            and "Name mismatch" in w.message
+            for w in result.warnings
+        )
 
     def test_possible_match_different_defendant_same_prefix(self):
         """'United States v. Smith' should not verify as 'United States v. Johnson'."""
@@ -265,9 +189,11 @@ class TestStep1NameMismatch:
             w.category == WarningCategory.cl_display_name_data_bug
             for w in result.warnings
         )
-        diags = _diagnostics(result)
-        assert diags[0].category == "name"
-        assert "Name mismatch" in diags[0].message
+        assert any(
+            w.category == WarningCategory.cl_display_name_data_bug
+            and "Name mismatch" in w.message
+            for w in result.warnings
+        )
 
 
 # ---------------------------------------------------------------------------
@@ -296,7 +222,7 @@ class TestOpinionSearchFallback:
         assert result.status == Status.VERIFIED
         assert result.headline_confidence is not None
         assert result.headline_confidence >= 0.85
-        assert _matched_case_name(result) == "Smith v. Jones"
+        assert _winning_path_entry(result).raw_response_summary.get("best_case_name") == "Smith v. Jones"
 
     def test_not_found_when_no_results(self):
         client = _make_client()  # everything returns []
@@ -531,9 +457,9 @@ class TestRecapFallback:
         v = CitationVerifier(client)
         result = v.verify("Smith v. Jones, 2020 WL 999999 (E.D. Mich. June 1, 2020)")
 
-        diags = _diagnostics(result)
-        assert "Order" in diags[0].message
-        assert "Reply" not in diags[0].message
+        winner = _winning_path_entry(result)
+        assert winner is not None and winner.notes and "Order" in winner.notes
+        assert winner is not None and "Reply" not in (winner.notes or "")
 
     def test_recap_queries_exact_date_first(self):
         """When month/day are known and initial docs don't match, queries exact date."""
@@ -589,9 +515,8 @@ class TestRecapFallback:
         v = CitationVerifier(client)
         result = v.verify("Smith v. Jones, 2020 WL 111111 (S.D.N.Y. 2020)")
 
-        diags = _diagnostics(result)
-        assert diags[0].category == "recap"
-        assert "possible docket match" in diags[0].message.lower()
+        winner = _winning_path_entry(result)
+        assert winner is not None and winner.notes and "possible docket match" in winner.notes.lower()
         # Score should be discounted: base ~0.7 * 0.6 = ~0.42
         assert result.headline_confidence is not None
         assert result.headline_confidence < 0.6
@@ -842,15 +767,14 @@ class TestCourtCorroboration:
         result = v.verify("United States v. Craner, 652 F.3d 560, 562 (9th Cir. 2016)")
 
         assert result.status == Status.NOT_FOUND
-        diags = _diagnostics(result)
+        winner = _winning_path_entry(result)
         # Phase 2: per-stage instrumentation removed the synthetic
         # "court corroboration failed" terminal entry; the candidate's
         # actual mismatches now carry the diagnostic. The "Reporter
         # citation ... could not be confirmed" message appears among
         # the candidate's mismatches; the court mismatch is also there.
-        joined = " ".join(d.message.lower() for d in diags)
-        assert "could not be" in joined
-        assert any(d.category == "court" for d in diags)
+        assert winner is not None and winner.notes and "could not be" in winner.notes.lower()
+        assert winner is not None and winner.notes and "Court" in winner.notes
 
     def test_match_allowed_when_court_matches(self):
         """Unverified citation + correct court = still a valid match."""
@@ -1226,8 +1150,8 @@ class TestHelpers:
         assert result.status == Status.VERIFIED
         assert result.headline_confidence is not None
         assert result.headline_confidence >= 0.85
-        diags = _diagnostics(result)
-        assert any("likely match" in d.message for d in diags)
+        winner = _winning_path_entry(result)
+        assert winner is not None and winner.notes and "likely match" in winner.notes
 
     def test_match_word_possible_for_lower_score(self):
         """Lower confidence (0.40-0.85) -> 'possible'."""
@@ -1251,8 +1175,8 @@ class TestHelpers:
             and result.headline_confidence is not None
             and 0.40 <= result.headline_confidence < 0.85
         ):
-            diags = _diagnostics(result)
-            assert any("possible match" in d.message for d in diags)
+            winner = _winning_path_entry(result)
+            assert winner is not None and winner.notes and "possible match" in winner.notes
 
 
 # ---------------------------------------------------------------------------
@@ -1305,7 +1229,11 @@ class TestDocketNumberSearch:
         assert result.status == Status.VERIFIED
         assert result.headline_confidence is not None
         # The unrelated case should have been filtered out
-        assert "Unrelated" not in (_matched_case_name(result) or "")
+        winner = _winning_path_entry(result)
+        matched_name = (winner.raw_response_summary.get("matched_case_name")
+                        or winner.raw_response_summary.get("best_case_name")
+                        or "") if winner else ""
+        assert "Unrelated" not in matched_name
 
     def test_no_match_when_docket_numbers_dont_match(self):
         """If API returns only non-matching docket numbers, no candidates survive."""
@@ -1583,15 +1511,17 @@ class TestCitationLookupNameMatching:
         # Phase 1: citation-lookup name mismatch -> VERIFIED + warning
         assert result.status == Status.VERIFIED
         assert result.headline_confidence == 0.3
-        assert _matched_case_name(result) == "David M. Fink v. James H. Gomez, Director"
+        assert _winning_path_entry(result).raw_response_summary.get("matched_case_name") == "David M. Fink v. James H. Gomez, Director"
         assert result.final_ids.cluster_id == 772039
         assert any(
             w.category == WarningCategory.cl_display_name_data_bug
             for w in result.warnings
         )
-        diags = _diagnostics(result)
-        assert diags[0].category == "name"
-        assert "Name mismatch" in diags[0].message
+        assert any(
+            w.category == WarningCategory.cl_display_name_data_bug
+            and "Name mismatch" in w.message
+            for w in result.warnings
+        )
 
     def test_common_word_surname_rejected(self):
         """'American' as a defendant surname should not match an unrelated 'American National Insurance'."""
@@ -1621,9 +1551,11 @@ class TestCitationLookupNameMatching:
             w.category == WarningCategory.cl_display_name_data_bug
             for w in result.warnings
         )
-        diags = _diagnostics(result)
-        assert diags[0].category == "name"
-        assert "Name mismatch" in diags[0].message
+        assert any(
+            w.category == WarningCategory.cl_display_name_data_bug
+            and "Name mismatch" in w.message
+            for w in result.warnings
+        )
 
     def test_distinctive_org_name_still_matches(self):
         """Non-generic org names like 'Costco' should still match."""
@@ -1965,7 +1897,7 @@ class TestQuickOnly:
 
         assert result.status == Status.VERIFIED
         assert result.headline_confidence == 1.0
-        assert _matched_case_name(result) == "Obergefell v. Hodges"
+        assert _winning_path_entry(result).raw_response_summary.get("matched_case_name") == "Obergefell v. Hodges"
 
     def test_quick_not_found_returns_not_found(self):
         """Citation not in lookup API with quick_only -> NOT_FOUND, no further steps."""
@@ -1977,8 +1909,8 @@ class TestQuickOnly:
 
         assert result.status == Status.NOT_FOUND
         assert result.headline_confidence is None
-        diags = _diagnostics(result)
-        assert "Quick search only" in diags[0].message
+        winner = _winning_path_entry(result)
+        assert winner is not None and winner.notes and "Quick search only" in winner.notes
 
     def test_quick_does_not_call_search(self):
         """quick_only must not call opinion search or RECAP."""
@@ -2021,9 +1953,11 @@ class TestQuickOnly:
             w.category == WarningCategory.cl_display_name_data_bug
             for w in result.warnings
         )
-        diags = _diagnostics(result)
-        assert diags[0].category == "name"
-        assert "Name mismatch" in diags[0].message
+        assert any(
+            w.category == WarningCategory.cl_display_name_data_bug
+            and "Name mismatch" in w.message
+            for w in result.warnings
+        )
 
 
 # ---------------------------------------------------------------------------

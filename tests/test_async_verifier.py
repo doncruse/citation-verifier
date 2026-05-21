@@ -8,20 +8,16 @@ Verifies that:
 
 All tests mock API clients so no real API calls are made.
 
-Migrated to the v0.3 schema (Phase 1, Task 3). The old top-level
-``status``/``confidence``/``matched_*``/``diagnostics`` fields have been
-replaced; the helpers below mirror ``tests/test_verifier.py`` to give a
-thin compatibility layer so the assertions read close to the old
-semantics. Phase 3 can lift both copies into a shared module once the
-warning categories close the gap.
+Migrated to the v0.3 schema (Phase 1, Task 3). Task 1 (Phase 3) removed
+the legacy _DiagnosticLike / _CATEGORY_PATTERNS / _classify_note /
+_diagnostics / _matched_case_name bridge; assertions now read
+result.warnings and _winning_path_entry() directly.
 """
 
 from __future__ import annotations
 
 import asyncio
 import inspect
-import re
-from dataclasses import dataclass
 from unittest.mock import AsyncMock, MagicMock, patch
 
 import pytest
@@ -37,79 +33,24 @@ from citation_verifier.models import (
 from citation_verifier.verifier import CitationVerifier
 
 
-# ---------------------------------------------------------------------------
-# v0.3 compatibility helpers (mirrored from tests/test_verifier.py)
-# ---------------------------------------------------------------------------
+def _winning_path_entry(result):
+    """Return the resolution_path entry that drove the result (highest-
+    confidence resolved/partial entry, else the last entry).
 
-
-@dataclass
-class _DiagnosticLike:
-    """Backwards-compatible Diagnostic-shaped view of a Warning or
-    resolution_path notes string."""
-
-    category: str
-    message: str
-
-    def __eq__(self, other):  # noqa: D401 - dataclass eq w/ flexible field name
-        if not isinstance(other, _DiagnosticLike):
-            return NotImplemented
-        return self.category == other.category and self.message == other.message
-
-
-# Prefix-anchored classifier for freeform resolution_path notes. Each
-# pattern is matched against the start of the message so that production
-# messages like "Court X could not be verified" or "Year X could not be
-# verified" land under their proper category rather than silently
-# falling through to "info".
-_CATEGORY_PATTERNS: list[tuple[re.Pattern[str], str]] = [
-    # RECAP docket-match phrasing — checked first because the message
-    # body can begin with "We found..." rather than a category prefix.
-    (re.compile(r"\b(RECAP|docket match)\b", re.IGNORECASE), "recap"),
-    (re.compile(r"^(?:Case )?[Nn]ame\b"), "name"),
-    (re.compile(r"^Court\b"), "court"),
-    (re.compile(r"^(?:Date|Year|Month|Day)\b"), "date"),
-    (re.compile(r"^Docket\b"), "docket"),
-    (re.compile(r"^Citation\b"), "cite"),
-]
-
-
-def _classify_note(piece: str) -> str:
-    for pat, cat in _CATEGORY_PATTERNS:
-        if pat.search(piece):
-            return cat
-    return "info"
-
-
-def _diagnostics(result) -> list[_DiagnosticLike]:
-    """Reconstruct an old-style diagnostics list from the new shape.
-
-    Order: structured Warnings first (each maps to a (category, message)
-    pair), then a single freeform entry from ``resolution_path[-1].notes``
-    if present. Notes that contain "; " separators (the legacy diagnostic
-    join) are split back into multiple entries classified by prefix.
-    """
-    out: list[_DiagnosticLike] = []
-    for w in result.warnings:
-        # The old citation-lookup name-mismatch was emitted under
-        # category "name"; the new closed-set category is
-        # cl_display_name_data_bug. Map back so legacy assertions pass.
-        if w.category == WarningCategory.cl_display_name_data_bug:
-            out.append(_DiagnosticLike("name", w.message))
-        else:
-            out.append(_DiagnosticLike(w.category.value, w.message))
-    if result.resolution_path:
-        notes = result.resolution_path[-1].notes
-        if notes:
-            for piece in notes.split("; "):
-                out.append(_DiagnosticLike(_classify_note(piece), piece))
-    return out
-
-
-def _matched_case_name(result) -> str | None:
-    """Old-style matched_case_name from the new resolution_path summary."""
-    if result.resolution_path:
-        return result.resolution_path[-1].raw_response_summary.get("case_name")
-    return None
+    Phase 2 emits one entry per stage attempted; the last is not always
+    the winner (e.g. opinion_search resolved, then recap_docket_search
+    ran afterward as a no_match). This helper picks the entry that
+    actually decided the verdict so tests can assert against its
+    raw_response_summary, notes, etc."""
+    if not result.resolution_path:
+        return None
+    resolved = [
+        e for e in result.resolution_path
+        if e.verdict in (StageVerdict.resolved, StageVerdict.partial)
+    ]
+    if resolved:
+        return max(resolved, key=lambda e: e.confidence or 0.0)
+    return result.resolution_path[-1]
 
 
 # ---------------------------------------------------------------------------
@@ -124,6 +65,13 @@ def _make_client(**overrides):
     client.search_opinions.return_value = overrides.get("search_opinions", [])
     client.search_recap.return_value = overrides.get("search_recap", [])
     client.get_docket_entries.return_value = overrides.get("get_docket_entries", [])
+    # New for Phase 3 caption_investigation — Task 5 wires the production
+    # call sites; default these to empty dicts so existing tests don't break.
+    client.get_cluster.return_value = overrides.get("get_cluster", {})
+    client.get_docket.return_value = overrides.get("get_docket", {})
+    client.get_opinion_text_with_metadata.return_value = overrides.get(
+        "get_opinion_text_with_metadata", None
+    )
     return client
 
 
@@ -134,6 +82,13 @@ def _make_async_client(**overrides):
     client.search_opinions.return_value = overrides.get("search_opinions", [])
     client.search_recap.return_value = overrides.get("search_recap", [])
     client.get_docket_entries.return_value = overrides.get("get_docket_entries", [])
+    # New for Phase 3 caption_investigation — Task 5 wires the production
+    # call sites; default these to empty dicts so existing tests don't break.
+    client.get_cluster.return_value = overrides.get("get_cluster", {})
+    client.get_docket.return_value = overrides.get("get_docket", {})
+    client.get_opinion_text_with_metadata.return_value = overrides.get(
+        "get_opinion_text_with_metadata", None
+    )
     return client
 
 
@@ -179,7 +134,8 @@ class TestAsyncSyncParity:
 
         assert sync_r.status == async_r.status == Status.VERIFIED
         assert sync_r.headline_confidence == async_r.headline_confidence == 1.0
-        assert _matched_case_name(sync_r) == _matched_case_name(async_r)
+        assert (_winning_path_entry(sync_r).raw_response_summary.get("matched_case_name")
+                == _winning_path_entry(async_r).raw_response_summary.get("matched_case_name"))
         assert sync_r.final_ids.absolute_url == async_r.final_ids.absolute_url
 
     def test_parity_citation_lookup_name_mismatch(self):
@@ -212,7 +168,9 @@ class TestAsyncSyncParity:
             w.category == WarningCategory.cl_display_name_data_bug
             for w in async_r.warnings
         )
-        assert _diagnostics(sync_r) == _diagnostics(async_r)
+        # Parity: warnings and notes are identical between sync and async paths
+        assert [w.category for w in sync_r.warnings] == [w.category for w in async_r.warnings]
+        assert _winning_path_entry(sync_r).notes == _winning_path_entry(async_r).notes
 
     def test_parity_opinion_search_likely_real(self):
         """Step 2: Fuzzy opinion search finds good match → LIKELY_REAL in both paths."""
@@ -238,7 +196,8 @@ class TestAsyncSyncParity:
         assert sync_r.headline_confidence is not None
         assert sync_r.headline_confidence >= 0.85
         assert sync_r.headline_confidence == async_r.headline_confidence
-        assert _matched_case_name(sync_r) == _matched_case_name(async_r)
+        assert (_winning_path_entry(sync_r).raw_response_summary.get("best_case_name")
+                == _winning_path_entry(async_r).raw_response_summary.get("best_case_name"))
         assert sync_r.final_ids.absolute_url == async_r.final_ids.absolute_url
 
     def test_parity_no_results_not_found(self):
@@ -295,7 +254,8 @@ class TestAsyncSyncParity:
 
         assert sync_r.status == async_r.status
         assert sync_r.headline_confidence == async_r.headline_confidence
-        assert _matched_case_name(sync_r) == _matched_case_name(async_r)
+        assert (_winning_path_entry(sync_r).raw_response_summary.get("best_case_name")
+                == _winning_path_entry(async_r).raw_response_summary.get("best_case_name"))
 
     def test_parity_recap_docket_only_discounted(self):
         """RECAP docket with no docs → 0.6x discount applied by both paths."""
@@ -398,11 +358,11 @@ class TestAsyncSyncParity:
         assert sync_r.status == async_r.status == Status.NOT_FOUND
         assert sync_r.headline_confidence is None
         assert async_r.headline_confidence is None
-        sync_diag = _diagnostics(sync_r)
-        async_diag = _diagnostics(async_r)
-        assert sync_diag, "expected at least one diagnostic"
-        assert "Insufficient data" in sync_diag[0].message
-        assert sync_diag == async_diag
+        sync_winner = _winning_path_entry(sync_r)
+        async_winner = _winning_path_entry(async_r)
+        assert sync_winner is not None and sync_winner.notes, "expected at least one diagnostic"
+        assert "Insufficient data" in sync_winner.notes
+        assert sync_winner.notes == async_winner.notes
 
     def test_parity_quick_only_not_found(self):
         """quick_only: both paths return NOT_FOUND with diagnostic when not in lookup."""
@@ -420,11 +380,11 @@ class TestAsyncSyncParity:
         assert sync_r.status == async_r.status == Status.NOT_FOUND
         assert sync_r.headline_confidence is None
         assert async_r.headline_confidence is None
-        sync_diag = _diagnostics(sync_r)
-        async_diag = _diagnostics(async_r)
-        assert sync_diag, "expected at least one diagnostic"
-        assert "Quick search only" in sync_diag[0].message
-        assert sync_diag == async_diag
+        sync_winner = _winning_path_entry(sync_r)
+        async_winner = _winning_path_entry(async_r)
+        assert sync_winner is not None and sync_winner.notes, "expected at least one diagnostic"
+        assert "Quick search only" in sync_winner.notes
+        assert sync_winner.notes == async_winner.notes
 
     def test_parity_quick_only_verified(self):
         """quick_only: citation found in Step 1 -> VERIFIED in both paths."""
@@ -453,7 +413,8 @@ class TestAsyncSyncParity:
 
         assert sync_r.status == async_r.status == Status.VERIFIED
         assert sync_r.headline_confidence == async_r.headline_confidence == 1.0
-        assert _matched_case_name(sync_r) == _matched_case_name(async_r)
+        assert (_winning_path_entry(sync_r).raw_response_summary.get("matched_case_name")
+                == _winning_path_entry(async_r).raw_response_summary.get("matched_case_name"))
 
     def test_parity_preparsed_citation(self):
         """Pre-parsed citation produces identical results in both paths."""
@@ -523,7 +484,8 @@ class TestAsyncSyncParity:
 
         assert sync_r.status == async_r.status
         assert sync_r.headline_confidence == async_r.headline_confidence
-        assert _matched_case_name(sync_r) == _matched_case_name(async_r)
+        assert (_winning_path_entry(sync_r).raw_response_summary.get("best_case_name")
+                == _winning_path_entry(async_r).raw_response_summary.get("best_case_name"))
 
 
 # ---------------------------------------------------------------------------

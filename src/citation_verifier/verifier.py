@@ -50,6 +50,13 @@ _NAME_TOKEN_STOPLIST = frozenset({
     "department", "secretary",
 })
 
+# Score floor at which an opinion_search / recap_*_search candidate
+# claims resolution. Below this, the stage records `no_match` and the
+# fallback ladder continues. Carried forward unchanged from pre-Phase-3
+# behavior per design v2 §8 "Per-stage confidence thresholds" decision
+# (2026-05-20).
+_VERIFIED_SCORE_THRESHOLD = 0.40
+
 
 def _name_tokens(name: str) -> set[str]:
     """Lowercased word tokens of length >=4, with punctuation stripped
@@ -257,7 +264,7 @@ class CitationVerifier:
         # behavior (preserved): even on NOT_FOUND, propagate the best
         # candidate's cluster_id/docket_id/url to final_ids so callers can
         # link to the closest match.
-        status = Status.VERIFIED if best.score >= 0.40 else Status.NOT_FOUND
+        status = Status.VERIFIED if best.score >= _VERIFIED_SCORE_THRESHOLD else Status.NOT_FOUND
 
         # RECAP-fallback hits (docket-only or specific RECAP doc) have a
         # docket_id but no cluster_id. Use that as the discriminator.
@@ -539,7 +546,7 @@ class CitationVerifier:
                             "best_cluster_id": best.cluster_id,
                         }
                         notes = self._stage_notes_for_candidate(best)
-                        if best.score >= 0.40:
+                        if best.score >= _VERIFIED_SCORE_THRESHOLD:
                             t.resolved(
                                 confidence=best.score,
                                 raw_response_summary=summary,
@@ -590,7 +597,7 @@ class CitationVerifier:
                             "best_case_name": best.case_name,
                         }
                         notes = self._stage_notes_for_candidate(best)
-                        if best.score >= 0.40:
+                        if best.score >= _VERIFIED_SCORE_THRESHOLD:
                             t.resolved(
                                 confidence=best.score,
                                 raw_response_summary=summary,
@@ -631,7 +638,7 @@ class CitationVerifier:
                             "best_case_name": best.case_name,
                         }
                         notes = self._stage_notes_for_candidate(best)
-                        if best.score >= 0.40:
+                        if best.score >= _VERIFIED_SCORE_THRESHOLD:
                             t.resolved(
                                 confidence=best.score,
                                 raw_response_summary=summary,
@@ -666,7 +673,7 @@ class CitationVerifier:
         legacy ``_diagnostics`` test helper reads these notes off the
         winning stage entry.
         """
-        status = Status.VERIFIED if best.score >= 0.40 else Status.NOT_FOUND
+        status = Status.VERIFIED if best.score >= _VERIFIED_SCORE_THRESHOLD else Status.NOT_FOUND
         diagnostics = self._finalize_diagnostics(best.mismatches, best.score, status)
         if not diagnostics:
             return None
@@ -963,7 +970,7 @@ class CitationVerifier:
         to the last diagnostic or as a standalone message.
         """
         diagnostics = list(mismatches)
-        if score >= 0.40:
+        if score >= _VERIFIED_SCORE_THRESHOLD:
             # In Phase 1, LIKELY_REAL and POSSIBLE_MATCH collapse to VERIFIED;
             # the distinction is now on the score itself.
             match_word = "likely" if score >= 0.85 else "possible"
@@ -1635,7 +1642,7 @@ class CitationVerifier:
                             "best_cluster_id": best.cluster_id,
                         }
                         notes = self._stage_notes_for_candidate(best)
-                        if best.score >= 0.40:
+                        if best.score >= _VERIFIED_SCORE_THRESHOLD:
                             t.resolved(
                                 confidence=best.score,
                                 raw_response_summary=summary,
@@ -1688,7 +1695,7 @@ class CitationVerifier:
                             "best_case_name": best.case_name,
                         }
                         notes = self._stage_notes_for_candidate(best)
-                        if best.score >= 0.40:
+                        if best.score >= _VERIFIED_SCORE_THRESHOLD:
                             t.resolved(
                                 confidence=best.score,
                                 raw_response_summary=summary,
@@ -1731,7 +1738,7 @@ class CitationVerifier:
                             "best_case_name": best.case_name,
                         }
                         notes = self._stage_notes_for_candidate(best)
-                        if best.score >= 0.40:
+                        if best.score >= _VERIFIED_SCORE_THRESHOLD:
                             t.resolved(
                                 confidence=best.score,
                                 raw_response_summary=summary,
