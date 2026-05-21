@@ -137,6 +137,14 @@ This is the index used by future contributors.)
 - wrong-case-shell-petroleum | WRONG_CASE | tests/data/known_fake_citations.json#shell-petroleum | wrong_case_real_reporter | Shell Petroleum — 608 F. Supp. 2d 269 resolves to cluster 2467149 (Faghri v. UConn)
 - wrong-case-butler-motors-provisional | WRONG_CASE | tests/data/known_fake_citations.json#butler-motors | wrong_page_number_provisional | Butler Motors wrong page; neither 857 nor 304 resolves — Phase 3 may rule NOT_FOUND
 
+**Task 7 (VERIFICATION_INCOMPLETE — synthetic):**
+
+- named-exemplar-verification-incomplete | VERIFICATION_INCOMPLETE | design_v2_doc#section_4 | named_exemplar | HTTP 500 on citation_lookup (anchor); input is real Obergefell
+- verification-incomplete-rate-limit-exhausted | VERIFICATION_INCOMPLETE | design_v2_doc#section_2_8 | infrastructure_failure_rate_limit | HTTP 429 with no Retry-After, 3 retries exhausted
+- verification-incomplete-opinion-search-timeout | VERIFICATION_INCOMPLETE | design_v2_doc#section_2_8 | infrastructure_failure_timeout | citation_lookup no_match -> opinion_search times out at 15s
+- verification-incomplete-connection-error | VERIFICATION_INCOMPLETE | design_v2_doc#section_2_8 | infrastructure_failure_connection | TCP/DNS-level connection failure on citation_lookup
+- verification-incomplete-json-malformed | VERIFICATION_INCOMPLETE | design_v2_doc#section_2_8 | infrastructure_failure_malformed_response | recap_docket_search returns HTTP 200 with malformed JSON body
+
 ## §4 Named exemplars — sourcing notes
 
 ### Koch (VERIFIED + cl_display_name_data_bug)

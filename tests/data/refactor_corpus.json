@@ -903,6 +903,126 @@
       "category": "wrong_page_number_provisional",
       "phase3_classification_open": true,
       "mock_spec": null
+    },
+    {
+      "id": "named-exemplar-verification-incomplete",
+      "citation": "Obergefell v. Hodges, 576 U.S. 644 (2015)",
+      "expected_status": "VERIFICATION_INCOMPLETE",
+      "expected_resolving_stage": null,
+      "expected_final_ids": {
+        "cluster_id": null,
+        "opinion_id": null,
+        "docket_id": null,
+        "recap_document_id": null,
+        "text_source": null
+      },
+      "expected_warnings_subset": [],
+      "rationale": "Design v2 §4 named exemplar. Simulated HTTP 500 from CourtListener on the primary citation_lookup endpoint. Per design §2.8 internal gate, the verifier must produce VERIFICATION_INCOMPLETE rather than silently degrade to NOT_FOUND. The input citation is real (Obergefell, cluster 2812209 would resolve cleanly under normal conditions) — the mock harness intercepts and substitutes the failure response. Anchor fixture for infrastructure-failure-on-primary-stage.",
+      "source": "design_v2_doc#section_4",
+      "category": "named_exemplar",
+      "phase3_classification_open": false,
+      "mock_spec": {
+        "stage": "citation_lookup",
+        "failure_mode": "http_500",
+        "attempt_idx": 0,
+        "details": "First (and only) attempted call to /api/rest/v4/citation-lookup/ returns HTTP 500 with empty body. Retry policy exhausted."
+      }
+    },
+    {
+      "id": "verification-incomplete-rate-limit-exhausted",
+      "citation": "Bossart v. King Cnty., 2025 WL 459154 (W.D. Wash. Feb. 11, 2025)",
+      "expected_status": "VERIFICATION_INCOMPLETE",
+      "expected_resolving_stage": null,
+      "expected_final_ids": {
+        "cluster_id": null,
+        "opinion_id": null,
+        "docket_id": null,
+        "recap_document_id": null,
+        "text_source": null
+      },
+      "expected_warnings_subset": [],
+      "rationale": "Simulated HTTP 429 from CourtListener on every retry attempt for citation_lookup, with no parseable Retry-After or wait_until field. The verifier's existing 429-retry logic in client.py exhausts after 3 attempts and the stage records verdict=errored. Status: VERIFICATION_INCOMPLETE. Exercises the rate-limit code path that already exists in client.py.",
+      "source": "design_v2_doc#section_2_8",
+      "category": "infrastructure_failure_rate_limit",
+      "phase3_classification_open": false,
+      "mock_spec": {
+        "stage": "citation_lookup",
+        "failure_mode": "http_429_no_retry_after",
+        "attempt_idx": 2,
+        "details": "All 3 retries return HTTP 429 with empty body and no Retry-After header."
+      }
+    },
+    {
+      "id": "verification-incomplete-opinion-search-timeout",
+      "citation": "Anderson v. Furst, No. 17-cv-12676, 2018 WL 4407750 (E.D. Mich. Sept. 17, 2018)",
+      "expected_status": "VERIFICATION_INCOMPLETE",
+      "expected_resolving_stage": null,
+      "expected_final_ids": {
+        "cluster_id": null,
+        "opinion_id": null,
+        "docket_id": null,
+        "recap_document_id": null,
+        "text_source": null
+      },
+      "expected_warnings_subset": [],
+      "rationale": "citation_lookup returns clean no_match (Anderson WL cite not in CL's citation index). opinion_search fallback times out at the 15s client timeout. Per design §2.8: a single late-stage timeout cannot silently degrade to NOT_FOUND. The resolution_path must record citation_lookup with verdict=no_match AND opinion_search with verdict=errored. Status: VERIFICATION_INCOMPLETE. Exercises the multi-stage path where primary succeeds (as no_match) but fallback fails.",
+      "source": "design_v2_doc#section_2_8",
+      "category": "infrastructure_failure_timeout",
+      "phase3_classification_open": false,
+      "mock_spec": {
+        "stage": "opinion_search",
+        "failure_mode": "timeout",
+        "attempt_idx": 0,
+        "details": "citation_lookup returns a normal no_match response; the subsequent opinion_search fuzzy-fallback exceeds the 15s client timeout."
+      }
+    },
+    {
+      "id": "verification-incomplete-connection-error",
+      "citation": "Hanover Shoe, Inc. v. United Shoe Machinery Corp., 392 U.S. 481 (1968)",
+      "expected_status": "VERIFICATION_INCOMPLETE",
+      "expected_resolving_stage": null,
+      "expected_final_ids": {
+        "cluster_id": null,
+        "opinion_id": null,
+        "docket_id": null,
+        "recap_document_id": null,
+        "text_source": null
+      },
+      "expected_warnings_subset": [],
+      "rationale": "Simulated network-level connection error (e.g. DNS resolution failure, TCP RST) on the citation_lookup endpoint. The verifier's HTTP client raises ConnectionError; the stage records verdict=errored; status: VERIFICATION_INCOMPLETE. Input citation is a real SCOTUS case (Hanover Shoe, cluster 107749 under normal conditions) so the mock harness substitutes the failure cleanly.",
+      "source": "design_v2_doc#section_2_8",
+      "category": "infrastructure_failure_connection",
+      "phase3_classification_open": false,
+      "mock_spec": {
+        "stage": "citation_lookup",
+        "failure_mode": "connection_error",
+        "attempt_idx": 0,
+        "details": "First call to /api/rest/v4/citation-lookup/ raises a connection-level exception (DNS failure or TCP reset) before any response bytes."
+      }
+    },
+    {
+      "id": "verification-incomplete-json-malformed",
+      "citation": "Mehar Holdings, LLC v. Evanston Ins. Co., 2016 WL 5957681 (W.D. Tex. Oct. 14, 2016)",
+      "expected_status": "VERIFICATION_INCOMPLETE",
+      "expected_resolving_stage": null,
+      "expected_final_ids": {
+        "cluster_id": null,
+        "opinion_id": null,
+        "docket_id": null,
+        "recap_document_id": null,
+        "text_source": null
+      },
+      "expected_warnings_subset": [],
+      "rationale": "Simulated malformed JSON response from recap_docket_search (citation_lookup + opinion_search both no_match; recap_docket_search returns HTTP 200 with body that fails json.loads). The verifier's parser raises JSONDecodeError; stage records verdict=errored. Status: VERIFICATION_INCOMPLETE. Input is Mehar Holdings (would normally resolve as VIA_RECAP, cluster null + docket 5474769 + doc 18720567); mock harness corrupts the recap_docket_search response.",
+      "source": "design_v2_doc#section_2_8",
+      "category": "infrastructure_failure_malformed_response",
+      "phase3_classification_open": false,
+      "mock_spec": {
+        "stage": "recap_docket_search",
+        "failure_mode": "json_malformed",
+        "attempt_idx": 0,
+        "details": "citation_lookup and opinion_search return clean no_match responses. recap_docket_search returns HTTP 200 but the response body is truncated JSON (e.g. missing closing brace) that fails json.loads."
+      }
     }
   ]
 }
