@@ -28,10 +28,34 @@ from sse_starlette.sse import EventSourceResponse
 
 from citation_verifier.cache import VerificationCache
 from citation_verifier.client import AsyncCourtListenerClient
-from citation_verifier.models import Diagnostic, ParsedCitation, VerificationResult, VerificationStatus
+from citation_verifier.models import (
+    FinalIds,
+    ParsedCitation,
+    ResolutionPathEntry,
+    StageName,
+    StageVerdict,
+    Status,
+    VerificationResult,
+)
 from citation_verifier.name_matcher import CaseNameMatcher
 from citation_verifier.parser import parse_citation
 from citation_verifier.verifier import CitationVerifier
+
+# Status -> display label / CSS class. Phase 1 only emits VERIFIED and
+# NOT_FOUND; the rest are placeholders so Phase 3/4 don't trip on missing
+# keys. The web app's frontend (get.html, index.html, qc.html) has its own
+# JS-side status switches that still recognize the legacy v0.2 names
+# (LIKELY_REAL, POSSIBLE_MATCH) for backward compat with older JSON
+# sidecars on disk; the API only emits v0.3 names going forward.
+_STATUS_DISPLAY = {
+    Status.VERIFIED: ("[OK] VERIFIED", "verified"),
+    Status.VERIFIED_PARTIAL: ("[OK] VERIFIED (partial)", "verified-partial"),
+    Status.VERIFIED_VIA_RECAP: ("[OK] VERIFIED (RECAP)", "verified-recap"),
+    Status.VERIFIED_DOCKET_ONLY: ("[OK] VERIFIED (docket only)", "verified-docket"),
+    Status.WRONG_CASE: ("[!] WRONG CASE", "wrong-case"),
+    Status.NOT_FOUND: ("[X] NOT FOUND", "not-found"),
+    Status.VERIFICATION_INCOMPLETE: ("[?] VERIFICATION INCOMPLETE", "verification-incomplete"),
+}
 
 logger = logging.getLogger(__name__)
 
@@ -215,22 +239,93 @@ _verifier = CitationVerifier()
 _master_csv = MasterCSV()
 
 
+def _matched_case_name(result: VerificationResult) -> str | None:
+    """Pull the matched case name from the final resolution_path entry.
+
+    Mirrors __main__._matched_case_name — Phase 1 stashes the case name in
+    ``resolution_path[-1].raw_response_summary["case_name"]``.
+    """
+    if not result.resolution_path:
+        return None
+    summary = result.resolution_path[-1].raw_response_summary or {}
+    return summary.get("case_name") or None
+
+
+def _stage_notes(result: VerificationResult) -> str:
+    """Concatenated free-form notes for the resolving stage, if any."""
+    if not result.resolution_path:
+        return ""
+    return result.resolution_path[-1].notes or ""
+
+
+def _legacy_diagnostics(result: VerificationResult) -> list[dict[str, str]]:
+    """Synthesize the legacy ``diagnostics`` list (category/message dicts) from
+    v0.3 warnings + the resolving stage's notes. The frontend still reads
+    ``diagnostics`` as a list of {category, message} objects, so emit it
+    alongside the new ``warnings`` key for backward compatibility.
+    """
+    out: list[dict[str, str]] = []
+    for w in result.warnings or []:
+        out.append({"category": w.category.value, "message": w.message})
+    notes = _stage_notes(result)
+    if notes:
+        for note in notes.split("; "):
+            note = note.strip()
+            if note:
+                out.append({"category": "info", "message": note})
+    return out
+
+
 def _result_to_dict(result: VerificationResult) -> dict[str, Any]:
+    """Serialize a VerificationResult for the API/frontend.
+
+    Schema notes:
+    - ``confidence`` is None when no resolved/partial stage exists. The
+      frontend formats `(confidence * 100).toFixed(0) + '%'` and guards on
+      `confidence != null`, so emitting null is fine.
+    - ``matched_court``/``matched_date``/``matched_description`` are dropped
+      from VerificationResult in v0.3. We fall back to the *cited* values
+      from parsed_citation for shape stability; this is the cited court
+      (e.g. "M.D. Ala.") rather than the CL court ID the old shape had.
+    - ``warnings`` is the new structured channel; ``diagnostics`` is
+      synthesized for backward compatibility with the existing frontend JS.
+    """
+    court = None
+    date = None
+    if result.parsed_citation:
+        court = result.parsed_citation.court
+        if result.parsed_citation.year is not None:
+            date = str(result.parsed_citation.year)
+
     return {
-        "input_citation": result.input_citation,
+        # Renamed in v0.3 (input_citation -> citation_as_written), but the
+        # frontend reads `input_citation`, so emit both.
+        "input_citation": result.citation_as_written,
+        "citation_as_written": result.citation_as_written,
         "status": result.status.value,
-        "confidence": result.confidence,
-        "matched_case_name": result.matched_case_name,
-        "matched_url": result.matched_url,
-        "matched_court": result.matched_court,
-        "matched_date": result.matched_date,
-        "matched_description": result.matched_description,
-        "diagnostics": [
-            {"category": d.category, "message": d.message}
-            if hasattr(d, "category") else {"category": "info", "message": str(d)}
-            for d in result.diagnostics
+        "confidence": result.headline_confidence,
+        "matched_case_name": _matched_case_name(result),
+        "matched_url": result.final_ids.absolute_url,
+        # v0.3 doesn't carry CL court/date/description on the result; fall
+        # back to the cited values from parsed_citation for shape stability.
+        "matched_court": court,
+        "matched_date": date,
+        "matched_description": None,
+        # Backward-compat: frontend JS reads `diagnostics` as a list of
+        # {category, message} objects. Synthesize from warnings + stage notes.
+        "diagnostics": _legacy_diagnostics(result),
+        # New structured channels (Phase 2+ consumers).
+        "warnings": [
+            {
+                "category": w.category.value,
+                "message": w.message,
+                "details": w.details,
+            }
+            for w in result.warnings or []
         ],
-        "error": result.error,
+        "stage_notes": _stage_notes(result) or None,
+        # Dropped in v0.3; emit for shape stability (matches __main__.py).
+        "error": None,
     }
 
 
@@ -327,7 +422,7 @@ async def verify(request: Request):
                         result = _verifier._process_citation_lookup_hit(
                             citation_text, parsed_list[i], batch_hits[i]
                         )
-                        if not quick_only or result.status != VerificationStatus.NOT_FOUND:
+                        if not quick_only or result.status != Status.NOT_FOUND:
                             _cache.put(citation_text, result)
                         result_dict = _result_to_dict(result)
                         result_dict["index"] = i
@@ -345,11 +440,17 @@ async def verify(request: Request):
                             "data": json.dumps({
                                 "index": i,
                                 "input_citation": citation_text,
+                                "citation_as_written": citation_text,
                                 "status": "ERROR",
                                 "confidence": 0.0,
                                 "matched_case_name": None,
                                 "matched_url": None,
+                                "matched_court": None,
+                                "matched_date": None,
+                                "matched_description": None,
                                 "diagnostics": [],
+                                "warnings": [],
+                                "stage_notes": None,
                                 "error": str(exc),
                                 "cached": False,
                             }),
@@ -357,10 +458,32 @@ async def verify(request: Request):
                 elif quick_only:
                     # No batch hit + quick mode — return NOT_FOUND
                     result = VerificationResult(
-                        input_citation=citation_text,
-                        status=VerificationStatus.NOT_FOUND,
-                        confidence=0.0,
-                        diagnostics=[Diagnostic("info", "Quick search only: not in citation lookup API")],
+                        citation_as_written=citation_text,
+                        parsed_citation=parsed_list[i],
+                        status=Status.NOT_FOUND,
+                        final_ids=FinalIds(
+                            cluster_id=None,
+                            opinion_id=None,
+                            docket_id=None,
+                            recap_document_id=None,
+                            absolute_url=None,
+                            text_source=None,
+                        ),
+                        resolution_path=[
+                            ResolutionPathEntry(
+                                stage=StageName.citation_lookup,
+                                query={},
+                                raw_response_summary={},
+                                verdict=StageVerdict.no_match,
+                                confidence=None,
+                                notes="Quick search only: not in citation lookup API",
+                                elapsed_ms=0,
+                            )
+                        ],
+                        warnings=[],
+                        gates_failed=[],
+                        timing={},
+                        cache_hit=False,
                     )
                     result_dict = _result_to_dict(result)
                     result_dict["index"] = i
@@ -392,11 +515,17 @@ async def verify(request: Request):
                             "data": json.dumps({
                                 "index": i,
                                 "input_citation": citation_text,
+                                "citation_as_written": citation_text,
                                 "status": "ERROR",
                                 "confidence": 0.0,
                                 "matched_case_name": None,
                                 "matched_url": None,
+                                "matched_court": None,
+                                "matched_date": None,
+                                "matched_description": None,
                                 "diagnostics": [],
+                                "warnings": [],
+                                "stage_notes": None,
                                 "error": str(exc),
                                 "cached": False,
                             }),
@@ -1183,6 +1312,60 @@ _NEW_COLUMNS = [
 ]
 
 
+def _confidence_str(result: VerificationResult) -> str:
+    """Stringify headline_confidence for CSV (empty string when None)."""
+    c = result.headline_confidence
+    return "" if c is None else str(c)
+
+
+def _apply_verification_to_row(
+    row: dict, result: VerificationResult, git_hash: str | None,
+) -> None:
+    """Write v_* columns to a CSV row from a VerificationResult."""
+    row["v_status"] = result.status.value
+    row["v_confidence"] = _confidence_str(result)
+    row["v_url"] = result.final_ids.absolute_url or ""
+    row["v_matched_name"] = _matched_case_name(result) or ""
+    row["v_git_hash"] = git_hash or ""
+    if row.get("qc_status") == "rerun":
+        row["qc_status"] = ""
+        row["qc_notes"] = ""
+
+
+def _sidecar_entry(
+    cite_text: str, row: dict, result: VerificationResult,
+) -> dict[str, Any]:
+    """Build a JSON-sidecar entry mirroring the historical schema, sourced
+    from v0.3 fields. matched_court/date fall back to *cited* values (the
+    v0.3 result no longer stores what CL matched); matched_description is
+    always None in Phase 1.
+    """
+    court = None
+    date = None
+    if result.parsed_citation:
+        court = result.parsed_citation.court
+        if result.parsed_citation.year is not None:
+            date = str(result.parsed_citation.year)
+    return {
+        "citation_text": cite_text,
+        "classification": row.get("classification", ""),
+        "pdf": row.get("pdf", ""),
+        "status": result.status.value,
+        "confidence": result.headline_confidence,
+        "matched_case_name": _matched_case_name(result),
+        "matched_url": result.final_ids.absolute_url,
+        "matched_court": court,
+        "matched_date": date,
+        "matched_description": None,
+        "diagnostics": _legacy_diagnostics(result),
+        "warnings": [
+            {"category": w.category.value, "message": w.message, "details": w.details}
+            for w in result.warnings or []
+        ],
+        "stage_notes": _stage_notes(result) or None,
+    }
+
+
 def _is_actionable(row: dict) -> bool:
     if row.get("qc_status") == "rerun":
         return True
@@ -1370,29 +1553,11 @@ async def qc_run_batch(request: Request):
                             cite_text, parsed, batch_hits[i]
                         )
                         row = to_verify[batch_row_indices[i]]
-                        row["v_status"] = result.status.value
-                        row["v_confidence"] = str(result.confidence)
-                        row["v_url"] = result.matched_url or ""
-                        row["v_matched_name"] = result.matched_case_name or ""
-                        row["v_git_hash"] = git_hash or ""
-                        if row.get("qc_status") == "rerun":
-                            row["qc_status"] = ""
-                            row["qc_notes"] = ""
+                        _apply_verification_to_row(row, result, git_hash)
 
-                        sidecar_entry = {
-                            "citation_text": cite_text,
-                            "classification": row.get("classification", ""),
-                            "pdf": row.get("pdf", ""),
-                            "status": result.status.value,
-                            "confidence": result.confidence,
-                            "matched_case_name": result.matched_case_name,
-                            "matched_url": result.matched_url,
-                            "matched_court": result.matched_court,
-                            "matched_date": result.matched_date,
-                            "matched_description": result.matched_description,
-                            "diagnostics": [{"category": d.category, "message": d.message} for d in result.diagnostics],
-                        }
-                        results_for_sidecar.append(sidecar_entry)
+                        results_for_sidecar.append(
+                            _sidecar_entry(cite_text, row, result)
+                        )
 
                         completed_n += 1
                         yield {
@@ -1401,8 +1566,8 @@ async def qc_run_batch(request: Request):
                                 "index": batch_row_indices[i],
                                 "citation_text": cite_text,
                                 "status": result.status.value,
-                                "confidence": result.confidence,
-                                "matched_case_name": result.matched_case_name,
+                                "confidence": result.headline_confidence,
+                                "matched_case_name": _matched_case_name(result),
                             }),
                         }
                         yield {
@@ -1446,29 +1611,11 @@ async def qc_run_batch(request: Request):
                         row = to_verify[batch_row_indices[i]]
 
                         if status == "ok":
-                            row["v_status"] = result.status.value
-                            row["v_confidence"] = str(result.confidence)
-                            row["v_url"] = result.matched_url or ""
-                            row["v_matched_name"] = result.matched_case_name or ""
-                            row["v_git_hash"] = git_hash or ""
-                            if row.get("qc_status") == "rerun":
-                                row["qc_status"] = ""
-                                row["qc_notes"] = ""
+                            _apply_verification_to_row(row, result, git_hash)
 
-                            sidecar_entry = {
-                                "citation_text": cite_text,
-                                "classification": row.get("classification", ""),
-                                "pdf": row.get("pdf", ""),
-                                "status": result.status.value,
-                                "confidence": result.confidence,
-                                "matched_case_name": result.matched_case_name,
-                                "matched_url": result.matched_url,
-                                "matched_court": result.matched_court,
-                                "matched_date": result.matched_date,
-                                "matched_description": result.matched_description,
-                                "diagnostics": [{"category": d.category, "message": d.message} for d in result.diagnostics],
-                            }
-                            results_for_sidecar.append(sidecar_entry)
+                            results_for_sidecar.append(
+                                _sidecar_entry(cite_text, row, result)
+                            )
 
                             completed_n += 1
                             yield {
@@ -1477,8 +1624,8 @@ async def qc_run_batch(request: Request):
                                     "index": batch_row_indices[i],
                                     "citation_text": cite_text,
                                     "status": result.status.value,
-                                    "confidence": result.confidence,
-                                    "matched_case_name": result.matched_case_name,
+                                    "confidence": result.headline_confidence,
+                                    "matched_case_name": _matched_case_name(result),
                                 }),
                             }
                         else:
