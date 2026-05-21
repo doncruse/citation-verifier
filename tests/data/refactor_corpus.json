@@ -808,6 +808,101 @@
       "category": "docket_only_no_opinion_at_cited_date",
       "phase3_classification_open": true,
       "mock_spec": null
+    },
+    {
+      "id": "named-exemplar-wrong-case",
+      "citation": "Hogan v. AT&T, Inc., 917 F. Supp. 1275, 1280 (S.D. Tex. 1994)",
+      "expected_status": "WRONG_CASE",
+      "expected_resolving_stage": "citation_lookup",
+      "expected_final_ids": {
+        "cluster_id": 2140439,
+        "opinion_id": null,
+        "docket_id": null,
+        "recap_document_id": null,
+        "text_source": "opinion_plain_text"
+      },
+      "expected_warnings_subset": [],
+      "rationale": "Design v2 §4 named exemplar. Real reporter 917 F. Supp. 1275 resolves to cluster 2140439 (case_name 'U.S. ex rel. Green v. Washington', D.D.C. 1994), not 'Hogan v. AT&T'. Court-confirmed hallucination from Gonzalez v. TTRA sanctions order (S.D. Tex. 2025). Classic WRONG_CASE: real reporter, completely different parties. Per design §2.4, expected_final_ids point to the actual case the reporter resolves to, not the brief's fake name.",
+      "source": "tests/data/known_fake_citations.json#hogan-att",
+      "category": "named_exemplar",
+      "phase3_classification_open": false,
+      "mock_spec": null
+    },
+    {
+      "id": "wrong-case-tig-carter",
+      "citation": "TIG Ins. Co. v. Carter, 640 S.W. 2d 232, 237 (Tex. 1982)",
+      "expected_status": "WRONG_CASE",
+      "expected_resolving_stage": "citation_lookup",
+      "expected_final_ids": {
+        "cluster_id": 2418868,
+        "opinion_id": null,
+        "docket_id": null,
+        "recap_document_id": null,
+        "text_source": "opinion_plain_text"
+      },
+      "expected_warnings_subset": [],
+      "rationale": "Real reporter 640 S.W.2d 232 resolves to cluster 2418868 (case_name \"Ogden v. Gibraltar Savings Ass'n\", Tex. 1982 wrongful foreclosure case), not TIG Ins. Co. v. Carter. Court-confirmed wrong-name hallucination from Gonzalez v. TTRA sanctions order — same source as Hogan named exemplar. Second wrong_case_real_reporter sample.",
+      "source": "tests/data/known_fake_citations.json#tig-carter",
+      "category": "wrong_case_real_reporter",
+      "phase3_classification_open": false,
+      "mock_spec": null
+    },
+    {
+      "id": "wrong-case-gallagher-wilton",
+      "citation": "Gallagher v. Wilton Enterprises, Inc., 962 F. Supp. 1162 (E.D. Pa. 1997)",
+      "expected_status": "WRONG_CASE",
+      "expected_resolving_stage": "citation_lookup",
+      "expected_final_ids": {
+        "cluster_id": 2311379,
+        "opinion_id": null,
+        "docket_id": null,
+        "recap_document_id": null,
+        "text_source": "opinion_plain_text"
+      },
+      "expected_warnings_subset": [],
+      "rationale": "Real reporter 962 F. Supp. 1162 resolves to cluster 2311379 (case_name 'Kenro, Inc. v. Fax Daily, Inc.', S.D. Ind. 1997), not Gallagher v. Wilton Enterprises. Notable hybrid hallucination: 'Gallagher v. Wilton Enterprises' does exist as a real First Circuit opinion at a different citation, but the brief paired the real name with the wrong reporter number — court-confirmed hallucination from Nora v. M.A. Transport (N.D. Ill. 2025).",
+      "source": "tests/data/known_fake_citations.json#gallagher-wilton",
+      "category": "wrong_case_real_reporter",
+      "phase3_classification_open": false,
+      "mock_spec": null
+    },
+    {
+      "id": "wrong-case-shell-petroleum",
+      "citation": "Shell Petroleum N.V. v. Republic of Costa Rica, 608 F. Supp. 2d 269 (S.D.N.Y. 2009)",
+      "expected_status": "WRONG_CASE",
+      "expected_resolving_stage": "citation_lookup",
+      "expected_final_ids": {
+        "cluster_id": 2467149,
+        "opinion_id": null,
+        "docket_id": null,
+        "recap_document_id": null,
+        "text_source": "opinion_plain_text"
+      },
+      "expected_warnings_subset": [],
+      "rationale": "Real reporter 608 F. Supp. 2d 269 resolves to cluster 2467149 (case_name 'Faghri v. University of Connecticut', 2009), not Shell Petroleum v. Costa Rica. Court (Flowz Digital LLC, C.D. Cal. 2025) was unable to locate Shell Petroleum after multiple searches; the cited reporter belongs to an unrelated Faghri case. known_fake_citations.json originally tagged this as hallucinated_case, but it actually fits WRONG_CASE more cleanly because the reporter does resolve — to a wholly different case.",
+      "source": "tests/data/known_fake_citations.json#shell-petroleum",
+      "category": "wrong_case_real_reporter",
+      "phase3_classification_open": false,
+      "mock_spec": null
+    },
+    {
+      "id": "wrong-case-butler-motors-provisional",
+      "citation": "Butler Motors, Inc. v. Benosky, 181 N.E.3d 857 (Ind. Ct. App. 2021)",
+      "expected_status": "WRONG_CASE",
+      "expected_resolving_stage": null,
+      "expected_final_ids": {
+        "cluster_id": null,
+        "opinion_id": null,
+        "docket_id": null,
+        "recap_document_id": null,
+        "text_source": null
+      },
+      "expected_warnings_subset": [],
+      "rationale": "Provisional WRONG_CASE per plan §4 footnote. The brief cites 181 N.E.3d 857 (wrong page); the actual case is at 181 N.E.3d 304 (same case, wrong page). However, controller live-verified that neither 181 N.E.3d 857 nor 181 N.E.3d 304 resolves to a CL cluster (both 404). Strict interpretation: status is NOT_FOUND, not WRONG_CASE, because the cite doesn't resolve to anything. Phase 3 may rule on whether 'wrong_page_number' is its own status, NOT_FOUND, or WRONG_CASE. expected_resolving_stage set to null since nothing resolves; expected_final_ids all null. phase3_classification_open: true.",
+      "source": "tests/data/known_fake_citations.json#butler-motors",
+      "category": "wrong_page_number_provisional",
+      "phase3_classification_open": true,
+      "mock_spec": null
     }
   ]
 }

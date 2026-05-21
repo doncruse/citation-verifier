@@ -129,6 +129,14 @@ This is the index used by future contributors.)
 - verified-docket-only-jacks-hertz | VERIFIED_DOCKET_ONLY | live_discovery#jacks-hertz | docket_only_no_available_doc | Live-discovered follow-up; docket 17228083 has no text-bearing docs
 - verified-docket-only-caraballo-berryhill | VERIFIED_DOCKET_ONLY | live_discovery#caraballo-berryhill | docket_only_no_opinion_at_cited_date | Live-discovered follow-up; docket has a 2021 opinion but not the cited 2018 one
 
+**Task 6 (WRONG_CASE):**
+
+- named-exemplar-wrong-case | WRONG_CASE | tests/data/known_fake_citations.json#hogan-att | named_exemplar | Hogan v. AT&T — 917 F. Supp. 1275 actually resolves to cluster 2140439 (U.S. ex rel. Green v. Washington)
+- wrong-case-tig-carter | WRONG_CASE | tests/data/known_fake_citations.json#tig-carter | wrong_case_real_reporter | TIG v. Carter — 640 S.W.2d 232 resolves to cluster 2418868 (Ogden v. Gibraltar Savings)
+- wrong-case-gallagher-wilton | WRONG_CASE | tests/data/known_fake_citations.json#gallagher-wilton | wrong_case_real_reporter | Gallagher — 962 F. Supp. 1162 resolves to cluster 2311379 (Kenro v. Fax Daily); real Gallagher exists at different cite
+- wrong-case-shell-petroleum | WRONG_CASE | tests/data/known_fake_citations.json#shell-petroleum | wrong_case_real_reporter | Shell Petroleum — 608 F. Supp. 2d 269 resolves to cluster 2467149 (Faghri v. UConn)
+- wrong-case-butler-motors-provisional | WRONG_CASE | tests/data/known_fake_citations.json#butler-motors | wrong_page_number_provisional | Butler Motors wrong page; neither 857 nor 304 resolves — Phase 3 may rule NOT_FOUND
+
 ## §4 Named exemplars — sourcing notes
 
 ### Koch (VERIFIED + cl_display_name_data_bug)
