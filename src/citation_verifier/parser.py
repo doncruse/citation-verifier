@@ -73,6 +73,14 @@ _DOCKET_NUMBER_PATTERN = re.compile(
 )
 _DOCKET_JUNK = re.compile(r",?\s*(?:Case\s+)?No\.\s+[^,()]+", re.IGNORECASE)
 
+# ECF / Doc / Dkt document number (design §2.10): "ECF No. 42", "Doc. 17",
+# "Dkt. 17", "Dkt. No. 17". Captures the number (may have an attachment
+# suffix like "142-1"). Case-insensitive on the prefix.
+_ECF_DOC_PATTERN = re.compile(
+    r"\b(?:ECF\s+No\.?|Dkt\.?\s+No\.?|Dkt\.?|Doc\.?)\s+(\d+(?:-\d+)?)\b",
+    re.IGNORECASE,
+)
+
 # Parenthetical with date before court: "(Feb. 5, 2026 SDNY)" or "(Mar. 2020 S.D.N.Y.)"
 _PAREN_DATE_COURT_PATTERN = re.compile(
     r"\(\s*"
@@ -375,6 +383,11 @@ def parse_citation(text: str) -> ParsedCitation:
     if docket_match:
         result.docket_number = docket_match.group(1).strip().rstrip(",")
 
+    # ECF / Doc / Dkt document number (design §2.10)
+    ecf_match = _ECF_DOC_PATTERN.search(text)
+    if ecf_match:
+        result.ecf_document_number = ecf_match.group(1)
+
     # Clean trailing year parentheticals from case name: "Inc. (2022)" → "Inc."
     if result.case_name:
         result.case_name = _SLIP_OPINION_JUNK.sub("", result.case_name)
@@ -474,6 +487,11 @@ def parsed_citation_from_eyecite(
         docket_match = _DOCKET_NUMBER_PATTERN.search(raw_text)
         if docket_match:
             result.docket_number = docket_match.group(1).strip().rstrip(",")
+
+        # ECF / Doc / Dkt document number (design §2.10)
+        ecf_match = _ECF_DOC_PATTERN.search(raw_text)
+        if ecf_match:
+            result.ecf_document_number = ecf_match.group(1)
 
     # --- Clean names (same post-processing as parse_citation) ---
     if result.case_name:
