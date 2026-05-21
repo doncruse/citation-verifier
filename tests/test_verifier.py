@@ -54,13 +54,40 @@ def _classify_note(piece: str) -> str:
     return "info"
 
 
+def _winning_entry(result):
+    """Find the path entry that drove the result, for legacy compat
+    helpers that need the "winning" stage's notes/summary.
+
+    Phase 2 emits one entry per stage attempted, so the last entry is
+    not necessarily the winner (e.g. opinion_search resolved, but
+    recap_docket_search ran afterward as a no_match). The winner is
+    the highest-confidence resolved entry, falling back to the last
+    entry if nothing resolved.
+    """
+    if not result.resolution_path:
+        return None
+    resolved = [
+        e for e in result.resolution_path
+        if e.verdict == StageVerdict.resolved or e.verdict == StageVerdict.partial
+    ]
+    if resolved:
+        return max(resolved, key=lambda e: e.confidence or 0.0)
+    return result.resolution_path[-1]
+
+
 def _diagnostics(result) -> list[_DiagnosticLike]:
     """Reconstruct an old-style diagnostics list from the new shape.
 
     Order: structured Warnings first (each maps to a (category, message)
-    pair), then a single freeform entry from ``resolution_path[-1].notes``
-    if present. Notes that contain "; " separators (the legacy diagnostic
-    join) are split back into multiple entries classified by prefix.
+    pair), then a single freeform entry from the *winning* path entry's
+    ``notes`` if present. Notes that contain "; " separators (the legacy
+    diagnostic join) are split back into multiple entries classified by
+    prefix.
+
+    Phase 2 may emit multiple stage entries; pick the winning one
+    (highest-confidence resolved/partial, else the last entry) so the
+    legacy compat shape lines up with the candidate that actually drove
+    the result.
     """
     out: list[_DiagnosticLike] = []
     for w in result.warnings:
@@ -71,8 +98,9 @@ def _diagnostics(result) -> list[_DiagnosticLike]:
             out.append(_DiagnosticLike("name", w.message))
         else:
             out.append(_DiagnosticLike(w.category.value, w.message))
-    if result.resolution_path:
-        notes = result.resolution_path[-1].notes
+    winner = _winning_entry(result)
+    if winner is not None:
+        notes = winner.notes
         if notes:
             for piece in notes.split("; "):
                 out.append(_DiagnosticLike(_classify_note(piece), piece))
@@ -82,13 +110,19 @@ def _diagnostics(result) -> list[_DiagnosticLike]:
 def _matched_case_name(result) -> str | None:
     """Old-style matched_case_name from the new resolution_path summary.
 
-    Phase 2: citation_lookup hits use ``matched_case_name`` (per the
-    pinned per-stage summary shape); the fallback path keeps the legacy
-    ``case_name`` key. Look both up.
+    Phase 2: citation_lookup hits use ``matched_case_name``; opinion_search
+    and recap_*_search use ``best_case_name`` (per the pinned per-stage
+    summary shapes); pre-Phase 2 code used a legacy ``case_name`` key.
+    Look up all three on the winning entry.
     """
-    if result.resolution_path:
-        summary = result.resolution_path[-1].raw_response_summary
-        return summary.get("matched_case_name") or summary.get("case_name")
+    winner = _winning_entry(result)
+    if winner is not None:
+        summary = winner.raw_response_summary
+        return (
+            summary.get("matched_case_name")
+            or summary.get("best_case_name")
+            or summary.get("case_name")
+        )
     return None
 
 
@@ -809,7 +843,14 @@ class TestCourtCorroboration:
 
         assert result.status == Status.NOT_FOUND
         diags = _diagnostics(result)
-        assert "could not be verified" in diags[0].message.lower()
+        # Phase 2: per-stage instrumentation removed the synthetic
+        # "court corroboration failed" terminal entry; the candidate's
+        # actual mismatches now carry the diagnostic. The "Reporter
+        # citation ... could not be confirmed" message appears among
+        # the candidate's mismatches; the court mismatch is also there.
+        joined = " ".join(d.message.lower() for d in diags)
+        assert "could not be" in joined
+        assert any(d.category == "court" for d in diags)
 
     def test_match_allowed_when_court_matches(self):
         """Unverified citation + correct court = still a valid match."""
@@ -2207,6 +2248,117 @@ class TestResolutionPathShape:
         # Falls through to opinion_search per existing Phase 1 behavior.
         assert len(result.resolution_path) >= 2
         assert result.resolution_path[1].stage == StageName.opinion_search
+
+    def test_opinion_search_hit_after_citation_lookup_miss(self):
+        client = _make_client(
+            citation_lookup=[],
+            search_opinions=[{
+                "caseName": "Foo v. Bar",
+                "cluster_id": 200,
+                "dateFiled": "2020-06-15",
+                "court_id": "scotus",
+                "absolute_url": "/opinion/200/",
+                "citation": ["100 U.S. 1"],
+                "docketNumber": "",
+            }],
+        )
+        verifier = CitationVerifier(client=client)
+        result = verifier.verify("Foo v. Bar, 100 U.S. 1 (Sup. Ct. 2020)")
+
+        stages = [e.stage for e in result.resolution_path]
+        assert stages == [StageName.citation_lookup, StageName.opinion_search]
+        assert result.resolution_path[0].verdict == StageVerdict.no_match
+        assert result.resolution_path[1].verdict == StageVerdict.resolved
+        # raw_response_summary shape on opinion_search resolved
+        summary = result.resolution_path[1].raw_response_summary
+        assert summary["candidate_count"] >= 1
+        assert "best_score" in summary
+        assert summary["best_case_name"] == "Foo v. Bar"
+        assert summary["best_cluster_id"] == 200
+
+    def test_recap_docket_search_attempted_when_opinion_search_misses(self):
+        client = _make_client(
+            citation_lookup=[],
+            search_opinions=[],
+            search_recap=[{
+                "caseName": "Smith v. Jones",
+                "docket_id": 500,
+                "court_id": "cand",
+                "docket_absolute_url": "/docket/500/",
+                "recap_documents": [{
+                    "short_description": "Opinion and order",
+                    "date_filed": "2020-06-15",
+                    "is_free_on_pacer": True,
+                    "page_count": 20,
+                    "absolute_url": "/recap/500/1/",
+                    "entry_date_filed": "2020-06-15",
+                    "entry_description": "ORDER granting motion to dismiss",
+                }],
+            }],
+        )
+        verifier = CitationVerifier(client=client)
+        result = verifier.verify("Smith v. Jones, No. 20-cv-1234 (N.D. Cal. June 15, 2020)")
+
+        stages = [e.stage for e in result.resolution_path]
+        # docket_number present -> recap_document_search runs;
+        # case_name present -> recap_docket_search runs after.
+        assert StageName.citation_lookup in stages
+        assert StageName.opinion_search in stages
+        assert StageName.recap_docket_search in stages or StageName.recap_document_search in stages
+        # The RECAP stage that resolved should be a `resolved` verdict.
+        recap_entries = [
+            e for e in result.resolution_path
+            if e.stage in (StageName.recap_document_search, StageName.recap_docket_search)
+        ]
+        assert any(e.verdict == StageVerdict.resolved for e in recap_entries)
+
+    def test_all_stages_miss_produces_no_match_path(self):
+        client = _make_client(
+            citation_lookup=[],
+            search_opinions=[],
+            search_recap=[],
+        )
+        verifier = CitationVerifier(client=client)
+        result = verifier.verify("Foo v. Bar, 999 F.3d 999 (1st Cir. 2099)")
+
+        assert result.status == Status.NOT_FOUND
+        stages = [e.stage for e in result.resolution_path]
+        # Must include citation_lookup + opinion_search at minimum.
+        assert stages[0] == StageName.citation_lookup
+        assert StageName.opinion_search in stages
+        # Every entry's verdict is no_match (no errored or resolved).
+        assert all(
+            e.verdict == StageVerdict.no_match for e in result.resolution_path
+        )
+
+    def test_state_court_skips_recap_stages(self):
+        """RECAP is federal PACER data only. State-court citations should
+        not emit recap_*_search entries (the guard is in _search_fallback)."""
+        client = _make_client(
+            citation_lookup=[],
+            search_opinions=[],
+            search_recap=[],
+        )
+        verifier = CitationVerifier(client=client)
+        # "(Cal. Ct. App. 2020)" -> state court
+        result = verifier.verify("Foo v. Bar, 99 Cal.App.5th 99 (Cal. Ct. App. 2020)")
+
+        stages = [e.stage for e in result.resolution_path]
+        assert StageName.recap_document_search not in stages
+        assert StageName.recap_docket_search not in stages
+
+    def test_opinion_search_error_falls_through_to_recap(self):
+        client = _make_client(citation_lookup=[])
+        client.search_opinions.side_effect = ConnectionError("opinion search down")
+        client.search_recap.return_value = []
+        verifier = CitationVerifier(client=client)
+        result = verifier.verify("Foo v. Bar, 100 F.3d 100 (1st Cir. 2020)")
+
+        entries_by_stage = {e.stage: e for e in result.resolution_path}
+        assert entries_by_stage[StageName.opinion_search].verdict == StageVerdict.errored
+        assert entries_by_stage[StageName.opinion_search].raw_response_summary == {
+            "error_type": "ConnectionError",
+        }
 
 
 class TestFinalizeResultTerminalShape:
