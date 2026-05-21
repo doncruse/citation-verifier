@@ -2188,6 +2188,30 @@ class TestSyllabusPreservation:
 # ---------------------------------------------------------------------------
 
 
+REQUIRED_KEYS = {
+    (StageName.citation_lookup, StageVerdict.resolved): {
+        "matched_cluster_id", "matched_case_name", "clusters_returned",
+    },
+    (StageName.citation_lookup, StageVerdict.no_match): {"clusters_returned"},
+    (StageName.citation_lookup, StageVerdict.errored): {"error_type"},
+    (StageName.opinion_search, StageVerdict.resolved): {
+        "candidate_count", "best_score", "best_case_name", "best_cluster_id",
+    },
+    (StageName.opinion_search, StageVerdict.no_match): {"candidate_count"},
+    (StageName.opinion_search, StageVerdict.errored): {"error_type"},
+    (StageName.recap_document_search, StageVerdict.resolved): {
+        "docket_count", "best_score", "best_docket_id", "best_case_name",
+    },
+    (StageName.recap_document_search, StageVerdict.no_match): {"docket_count"},
+    (StageName.recap_document_search, StageVerdict.errored): {"error_type"},
+    (StageName.recap_docket_search, StageVerdict.resolved): {
+        "docket_count", "best_score", "best_docket_id", "best_case_name",
+    },
+    (StageName.recap_docket_search, StageVerdict.no_match): {"docket_count"},
+    (StageName.recap_docket_search, StageVerdict.errored): {"error_type"},
+}
+
+
 class TestResolutionPathShape:
     """Phase 2 path-shape coverage for the citation_lookup stage.
 
@@ -2359,6 +2383,92 @@ class TestResolutionPathShape:
         assert entries_by_stage[StageName.opinion_search].raw_response_summary == {
             "error_type": "ConnectionError",
         }
+
+    @pytest.mark.parametrize("scenario_name,citation,client_kwargs,quick_only", [
+        (
+            "citation_lookup_resolved",
+            "Foo v. Bar, 100 U.S. 1 (2020)",
+            {"citation_lookup": [{"clusters": [
+                {"id": 1, "case_name": "Foo v. Bar", "absolute_url": "/opinion/1/"},
+            ]}]},
+            False,
+        ),
+        (
+            "citation_lookup_no_match_quick_only",
+            "Foo v. Bar, 999 F.3d 999 (1st Cir. 2099)",
+            {"citation_lookup": []},
+            True,
+        ),
+        (
+            "opinion_search_resolved",
+            "Foo v. Bar, 100 F.3d 100 (1st Cir. 2020)",
+            {"citation_lookup": [], "search_opinions": [{
+                "caseName": "Foo v. Bar", "cluster_id": 200,
+                "dateFiled": "2020-06-15", "court_id": "ca1",
+                "absolute_url": "/opinion/200/", "citation": ["100 F.3d 100"],
+                "docketNumber": "",
+            }]},
+            False,
+        ),
+        (
+            "opinion_search_no_match",
+            "Foo v. Bar, 100 F.3d 100 (1st Cir. 2020)",
+            {"citation_lookup": [], "search_opinions": [], "search_recap": []},
+            False,
+        ),
+        (
+            "recap_resolved",
+            "Smith v. Jones, No. 20-cv-1234 (N.D. Cal. June 15, 2020)",
+            {"citation_lookup": [], "search_opinions": [], "search_recap": [{
+                "caseName": "Smith v. Jones", "docket_id": 500, "court_id": "cand",
+                "docket_absolute_url": "/docket/500/",
+                "recap_documents": [{
+                    "short_description": "Opinion and order",
+                    "date_filed": "2020-06-15", "is_free_on_pacer": True,
+                    "page_count": 20, "absolute_url": "/recap/500/1/",
+                    "entry_date_filed": "2020-06-15",
+                    "entry_description": "ORDER granting motion to dismiss",
+                }],
+            }]},
+            False,
+        ),
+    ])
+    def test_raw_response_summary_required_keys_per_stage_verdict(
+        self, scenario_name, citation, client_kwargs, quick_only,
+    ):
+        """Every (stage, verdict) tuple has a documented minimum key set
+        in raw_response_summary. Each scenario exercises a different stage
+        combination; the assertion runs across every entry produced."""
+        client = _make_client(**client_kwargs)
+        verifier = CitationVerifier(client=client)
+        result = verifier.verify(citation, quick_only=quick_only)
+        assert result.resolution_path, f"{scenario_name}: empty resolution_path"
+        for entry in result.resolution_path:
+            required = REQUIRED_KEYS.get((entry.stage, entry.verdict))
+            assert required is not None, (
+                f"{scenario_name}: no required-keys spec for "
+                f"({entry.stage}, {entry.verdict}) — update REQUIRED_KEYS or fix the verdict"
+            )
+            missing = required - entry.raw_response_summary.keys()
+            assert not missing, (
+                f"{scenario_name}: stage {entry.stage}, verdict {entry.verdict}: "
+                f"missing keys {missing} in raw_response_summary={entry.raw_response_summary}"
+            )
+
+    @pytest.mark.parametrize("error_target", [
+        "citation_lookup", "search_opinions", "search_recap",
+    ])
+    def test_errored_entry_carries_error_type_key(self, error_target):
+        """Errored stage entries must have raw_response_summary={'error_type': ...}.
+        Exercises each stage's error path independently."""
+        client = _make_client(citation_lookup=[], search_opinions=[], search_recap=[])
+        getattr(client, error_target).side_effect = ConnectionError("down")
+        verifier = CitationVerifier(client=client)
+        result = verifier.verify("Foo v. Bar, 100 F.3d 100 (1st Cir. 2020)")
+        errored = [e for e in result.resolution_path if e.verdict == StageVerdict.errored]
+        assert errored, f"expected at least one errored entry when {error_target} raises"
+        for e in errored:
+            assert e.raw_response_summary == {"error_type": "ConnectionError"}
 
 
 class TestFinalizeResultTerminalShape:
