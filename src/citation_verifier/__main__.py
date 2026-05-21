@@ -7,17 +7,67 @@ import asyncio
 import json
 import sys
 
+from .brief_pipeline import _DOWNLOADABLE_STATUSES
 from .cache import VerificationCache
-from .models import VerificationResult, VerificationStatus
+from .models import Status, VerificationResult
 from .verifier import CitationVerifier
 
-# Status -> display style
+# Status -> display style.
+# Phase 1 only emits Status.VERIFIED and Status.NOT_FOUND; the other entries
+# are placeholders so Phase 3/4 don't trip on missing keys.
 _STATUS_LABELS = {
-    VerificationStatus.VERIFIED: "[OK] VERIFIED",
-    VerificationStatus.LIKELY_REAL: "[~] LIKELY REAL",
-    VerificationStatus.POSSIBLE_MATCH: "[?] POSSIBLE MATCH",
-    VerificationStatus.NOT_FOUND: "[X] NOT FOUND",
+    Status.VERIFIED: "[OK] VERIFIED",
+    Status.VERIFIED_PARTIAL: "[OK] VERIFIED (partial)",
+    Status.VERIFIED_VIA_RECAP: "[OK] VERIFIED (RECAP)",
+    Status.VERIFIED_DOCKET_ONLY: "[OK] VERIFIED (docket only)",
+    Status.WRONG_CASE: "[!] WRONG CASE",
+    Status.NOT_FOUND: "[X] NOT FOUND",
+    Status.VERIFICATION_INCOMPLETE: "[?] VERIFICATION INCOMPLETE",
 }
+
+
+# Map old v0.2 status names from user-maintained workflow CSVs (in scratch/)
+# onto v0.3 Status values. The CSV writer always emits v0.3 names; the reader
+# is permissive for backward compatibility.
+_LEGACY_STATUS_MAP = {
+    "VERIFIED": Status.VERIFIED,
+    "LIKELY_REAL": Status.VERIFIED,
+    "POSSIBLE_MATCH": Status.VERIFIED,
+    "NOT_FOUND": Status.NOT_FOUND,
+}
+
+
+def _read_status_from_csv(value: str) -> Status | None:
+    """Accept both v0.3 status names and the four legacy names from
+    user-maintained workflow CSVs in scratch/. Returns None for empty
+    strings (so callers can skip rows with no status). Raises ValueError
+    for an unrecognized non-empty value.
+    """
+    if not value:
+        return None
+    if value in _LEGACY_STATUS_MAP:
+        return _LEGACY_STATUS_MAP[value]
+    return Status(value)
+
+
+def _matched_case_name(result: VerificationResult) -> str | None:
+    """Pull the matched case name from the final resolution_path entry, if any.
+
+    Phase 1's verifier stashes the case name in
+    ``resolution_path[-1].raw_response_summary["case_name"]`` (see
+    ``verifier._build_result``).
+    """
+    if not result.resolution_path:
+        return None
+    summary = result.resolution_path[-1].raw_response_summary or {}
+    return summary.get("case_name") or None
+
+
+def _stage_notes(result: VerificationResult) -> str:
+    """Concatenated free-form notes for the resolving stage, if any."""
+    if not result.resolution_path:
+        return ""
+    return result.resolution_path[-1].notes or ""
 
 
 def _result_to_json_dict(result: VerificationResult) -> dict:
@@ -30,41 +80,47 @@ def _result_to_json_dict(result: VerificationResult) -> dict:
     ``diagnostics``.
 
     The tail (``candidates``, ``error``) is bonus debug data exposed
-    only via ``--json``, not in the CSV. Useful for one-off debugging
-    of POSSIBLE_MATCH and NOT_FOUND outcomes.
+    only via ``--json``. Phase 1 doesn't carry candidates or a structured
+    error channel on VerificationResult, so those are emitted as the
+    empty default (``[]`` and ``None``) for shape stability. They become
+    real again in Phase 3/4 when candidate tracking returns.
     """
+    diagnostics: list[dict[str, str]] = []
+    # v0.3 warnings (structured)
+    for w in result.warnings or []:
+        diagnostics.append({
+            "category": w.category.value,
+            "message": w.message,
+        })
+    # Legacy stage notes for backward-compat with downstream consumers
+    notes = _stage_notes(result)
+    if notes:
+        diagnostics.append({"category": "info", "message": notes})
+
+    # matched_court_id / matched_date_filed: the v0.3 result no longer
+    # stores what CL matched; we surface what was *cited* (best-available
+    # proxy for the JSON contract).
+    court = None
+    date = None
+    if result.parsed_citation:
+        court = result.parsed_citation.court
+        if result.parsed_citation.year is not None:
+            date = str(result.parsed_citation.year)
+
     return {
-        "citation": result.input_citation,
+        "citation": result.citation_as_written,
         "status": result.status.value,
-        "matched_cluster_id": result.matched_cluster_id,
-        "matched_docket_id": result.matched_docket_id,
-        "matched_url": result.matched_url,
-        "matched_case_name": result.matched_case_name,
-        "matched_court_id": result.matched_court,
-        "matched_date_filed": result.matched_date,
-        "confidence": result.confidence,
-        "diagnostics": [
-            {"category": d.category, "message": d.message}
-            for d in (result.diagnostics or [])
-        ],
-        "candidates": [
-            {
-                "case_name": c.case_name,
-                "url": c.url,
-                "cluster_id": c.cluster_id,
-                "docket_id": c.docket_id,
-                "date_filed": c.date_filed,
-                "court_id": c.court_id,
-                "score": c.score,
-                "description": c.description,
-                "mismatches": [
-                    {"category": d.category, "message": d.message}
-                    for d in (c.mismatches or [])
-                ],
-            }
-            for c in (result.candidates or [])
-        ],
-        "error": result.error,
+        "matched_cluster_id": result.final_ids.cluster_id,
+        "matched_docket_id": result.final_ids.docket_id,
+        "matched_url": result.final_ids.absolute_url,
+        "matched_case_name": _matched_case_name(result),
+        "matched_court_id": court,
+        "matched_date_filed": date,
+        "confidence": result.headline_confidence if result.headline_confidence is not None else 0.0,
+        "diagnostics": diagnostics,
+        # Phase 1 placeholders for the bonus debug fields.
+        "candidates": [],
+        "error": None,
     }
 
 
@@ -75,33 +131,29 @@ def _print_result(result: VerificationResult, json_mode: bool) -> None:
         return
 
     label = _STATUS_LABELS.get(result.status, result.status.value)
-    print(f"\n  Citation: {result.input_citation}")
+    confidence = result.headline_confidence if result.headline_confidence is not None else 0.0
+    matched_name = _matched_case_name(result)
+    print(f"\n  Citation: {result.citation_as_written}")
     print(f"  Status:   {label}")
-    print(f"  Confidence: {result.confidence:.0%}")
+    print(f"  Confidence: {confidence:.0%}")
 
-    if result.matched_case_name:
-        print(f"  Match:    {result.matched_case_name}")
-    if result.matched_url:
-        print(f"  URL:      {result.matched_url}")
+    if matched_name:
+        print(f"  Match:    {matched_name}")
+    if result.final_ids.absolute_url:
+        print(f"  URL:      {result.final_ids.absolute_url}")
 
-    if result.diagnostics:
+    issue_lines: list[str] = []
+    for w in result.warnings or []:
+        issue_lines.append(f"[{w.category.value}] {w.message}")
+    notes = _stage_notes(result)
+    if notes:
+        issue_lines.append(notes)
+    if issue_lines:
         print("  Issues:")
-        for diagnostic in result.diagnostics:
-            print(f"    - {diagnostic}")
+        for line in issue_lines:
+            print(f"    - {line}")
 
-    if result.candidates and result.status in (
-        VerificationStatus.POSSIBLE_MATCH,
-        VerificationStatus.NOT_FOUND,
-    ):
-        print("  Candidates:")
-        for c in result.candidates[:3]:
-            print(
-                f"    - {c.case_name} ({c.date_filed}, {c.court_id}) "
-                f"score={c.score:.2f}  {c.url}"
-            )
-
-    if result.error:
-        print(f"  Error:    {result.error}")
+    # Candidates are not tracked on VerificationResult in Phase 1.
     print()
 
 
@@ -209,7 +261,7 @@ def main(argv: list[str] | None = None) -> int:
     for result in results:
         assert result is not None
         _print_result(result, args.json_mode)
-        if result.status == VerificationStatus.NOT_FOUND:
+        if result.status == Status.NOT_FOUND:
             any_not_found = True
 
     return 1 if any_not_found else 0
@@ -360,7 +412,8 @@ def verify_brief_main(argv: list[str] | None = None) -> int:
         verified_cites = set()
         with open(vr_path, newline="", encoding="utf-8") as f:
             for row in csv_mod.DictReader(f):
-                if row.get("status") in ("VERIFIED", "LIKELY_REAL", "POSSIBLE_MATCH"):
+                status = _read_status_from_csv(row.get("status", "") or "")
+                if status is not None and status in _DOWNLOADABLE_STATUSES:
                     verified_cites.add(row.get("citation", ""))
         miss_indices = [
             i for i, c in enumerate(citations) if c not in verified_cites
@@ -402,28 +455,42 @@ _VERIFY_BATCH_OUTPUT_COLUMNS = [
 
 
 def _result_to_row(result: VerificationResult) -> dict[str, str]:
-    diagnostics = [
-        {"category": d.category, "message": d.message}
-        for d in (result.diagnostics or [])
-    ]
+    diagnostics: list[dict[str, str]] = []
+    for w in result.warnings or []:
+        diagnostics.append({"category": w.category.value, "message": w.message})
+    notes = _stage_notes(result)
+    if notes:
+        diagnostics.append({"category": "info", "message": notes})
+
+    # The new schema dropped matched_court / matched_date — fall back to
+    # the parsed citation for the CSV columns (best-available proxy).
+    court = ""
+    date = ""
+    if result.parsed_citation:
+        court = result.parsed_citation.court or ""
+        if result.parsed_citation.year is not None:
+            date = str(result.parsed_citation.year)
+
+    confidence = result.headline_confidence if result.headline_confidence is not None else 0.0
+
     return {
-        "citation": result.input_citation,
+        "citation": result.citation_as_written,
         "status": result.status.value,
         "matched_cluster_id": (
-            str(result.matched_cluster_id)
-            if result.matched_cluster_id is not None
+            str(result.final_ids.cluster_id)
+            if result.final_ids.cluster_id is not None
             else ""
         ),
         "matched_docket_id": (
-            str(result.matched_docket_id)
-            if result.matched_docket_id is not None
+            str(result.final_ids.docket_id)
+            if result.final_ids.docket_id is not None
             else ""
         ),
-        "matched_url": result.matched_url or "",
-        "matched_case_name": result.matched_case_name or "",
-        "matched_court_id": result.matched_court or "",
-        "matched_date_filed": result.matched_date or "",
-        "confidence": f"{result.confidence}",
+        "matched_url": result.final_ids.absolute_url or "",
+        "matched_case_name": _matched_case_name(result) or "",
+        "matched_court_id": court,
+        "matched_date_filed": date,
+        "confidence": f"{confidence}",
         "diagnostics_json": json.dumps(diagnostics, ensure_ascii=False),
     }
 
@@ -563,27 +630,31 @@ def _classify_fallback_path(
     """Attribute which production path resolved (or didn't resolve) a citation.
 
     - ``citation-lookup`` if the quick (citation-lookup-only) pass already
-      returned a hit (VERIFIED or LIKELY_REAL). The chunking fix matters
-      here: a citation that missed in an old run can recover in a fresh
-      one without needing search fallback.
-    - ``RECAP`` if the full pipeline returned a hit AND any diagnostic on
-      the result has category ``recap`` (the verifier annotates RECAP-
-      sourced candidates with this category).
+      returned a verified-class hit. The chunking fix matters here: a
+      citation that missed in an old run can recover in a fresh one
+      without needing search fallback.
+    - ``RECAP`` if the full pipeline returned a hit AND any warning or
+      stage-note on the result mentions RECAP. Phase 1 doesn't yet emit
+      structured RECAP-source metadata, so we look at the resolving
+      stage's notes for "recap" (case-insensitive).
     - ``opinion-search`` if the full pipeline returned a hit with no
-      ``recap`` diagnostic — implying the opinion-search step resolved it.
-    - ``no_match`` if the full pipeline still returned NOT_FOUND.
+      RECAP signal — implying the opinion-search step resolved it.
+    - ``no_match`` if the full pipeline still returned NOT_FOUND (or
+      another non-verified status).
     """
-    if quick_result is not None and quick_result.status in (
-        VerificationStatus.VERIFIED,
-        VerificationStatus.LIKELY_REAL,
-        VerificationStatus.POSSIBLE_MATCH,
-    ):
+    if quick_result is not None and quick_result.status in _DOWNLOADABLE_STATUSES:
         return "citation-lookup"
-    if full_result is None or full_result.status == VerificationStatus.NOT_FOUND:
+    if full_result is None or full_result.status not in _DOWNLOADABLE_STATUSES:
         return "no_match"
-    has_recap = any(
-        (d.category or "").lower() == "recap" for d in (full_result.diagnostics or [])
-    )
+    # Look at the resolving stage's notes for a recap marker, and at any
+    # warnings with category names mentioning recap.
+    notes = (_stage_notes(full_result) or "").lower()
+    has_recap = "recap" in notes
+    if not has_recap:
+        for w in full_result.warnings or []:
+            if "recap" in w.category.value.lower() or "recap" in w.message.lower():
+                has_recap = True
+                break
     return "RECAP" if has_recap else "opinion-search"
 
 
@@ -596,8 +667,7 @@ def audit_misses_main(argv: list[str] | None = None) -> int:
          (e.g. fixed by recent chunking changes). Path attributed as
          ``citation-lookup``.
       2. ``verify_batch()`` (full) on the quick-misses — runs opinion-
-         search and, for federal courts, RECAP. Diagnostics tell us
-         which step matched.
+         search and, for federal courts, RECAP.
     """
     import csv as csv_mod
     from pathlib import Path
@@ -698,7 +768,7 @@ def audit_misses_main(argv: list[str] | None = None) -> int:
     # Identify the indices that need the full pipeline.
     miss_indices: list[int] = [
         i for i, r in enumerate(quick_results)
-        if r.status == VerificationStatus.NOT_FOUND
+        if r.status == Status.NOT_FOUND
     ]
 
     full_results: dict[int, VerificationResult] = {}
@@ -730,14 +800,21 @@ def audit_misses_main(argv: list[str] | None = None) -> int:
             full = full_results.get(idx)
             chosen = full if full is not None else quick
             path = _classify_fallback_path(quick, full)
+            chosen_conf = chosen.headline_confidence if chosen.headline_confidence is not None else 0.0
+            chosen_court = ""
+            chosen_date = ""
+            if chosen.parsed_citation:
+                chosen_court = chosen.parsed_citation.court or ""
+                if chosen.parsed_citation.year is not None:
+                    chosen_date = str(chosen.parsed_citation.year)
             out_row = dict(row)
             out_row["fallback_status"] = chosen.status.value
             out_row["fallback_path"] = path
-            out_row["fallback_confidence"] = f"{chosen.confidence}"
-            out_row["fallback_url"] = chosen.matched_url or ""
-            out_row["fallback_matched_name"] = chosen.matched_case_name or ""
-            out_row["fallback_court_id"] = chosen.matched_court or ""
-            out_row["fallback_date_filed"] = chosen.matched_date or ""
+            out_row["fallback_confidence"] = f"{chosen_conf}"
+            out_row["fallback_url"] = chosen.final_ids.absolute_url or ""
+            out_row["fallback_matched_name"] = _matched_case_name(chosen) or ""
+            out_row["fallback_court_id"] = chosen_court
+            out_row["fallback_date_filed"] = chosen_date
             writer.writerow(out_row)
 
     # Per-path summary to stderr
