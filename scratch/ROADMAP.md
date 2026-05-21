@@ -63,6 +63,13 @@ CL supports `semantic=true` for `type=o` searches. Could help with abbreviation 
 ### Justia cross-reference diagnostic
 One-off script to compare NOT_FOUND citations against Justia to distinguish: real hallucinations, CL data gaps, our search bugs. Diagnostic only — helps prioritize what to fix.
 
+### Configurable verification depth (generalize `quick_only`)
+`verify_batch()` already accepts `quick_only=True` to stop after stage 1 (citation lookup). Generalize to `max_depth: StageName` (or similar) so callers can choose to run stage 1+2 but skip RECAP, or stop wherever else along the ladder. Useful when the caller knows they only care about high-confidence hits, or wants a fast first pass before deciding whether to invest in deeper fallback (e.g., a batch job that processes 10K citations and is fine accepting NOT_FOUND for whatever doesn't resolve in the first two stages).
+
+Implementation note: this is a flag on the existing per-citation iteration, not a pipeline-by-stage restructure. The batch-by-stage version was considered (run all stage-2 calls before any stage-3 calls, etc.) but only the citation-lookup endpoint is a true wire-level batch; opinion search and RECAP are one-call-per-citation, so reordering by stage trades real costs (more in-flight state, a slow stage-2 call blocking the whole stage-3 wave, `resolution_path` entry ordering decoupling from wall-clock ordering) for orchestration-only benefit. Depth control is the actual user-facing value; achieve it with the smaller change.
+
+Open questions: stage-name vs. integer-depth parameter shape (stage names are semantic but brittle to future stage additions; integers are opaque); whether depth-capped results stay `NOT_FOUND` with a warning or get a distinct status like `VERIFICATION_TRUNCATED`. Surfaced 2026-05-21 conversation while mid-refactor; deliberately deferred to keep refactor scope clean.
+
 ## Scale & Distribution
 
 ### Package for other legal tech tools
