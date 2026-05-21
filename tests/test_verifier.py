@@ -426,7 +426,9 @@ class TestRecapFallback:
             "(E.D. Mich. Sept. 17, 2018)"
         )
 
-        assert result.status == Status.VERIFIED
+        # Phase 3 Task 4: RECAP doc "Order on Motion to Compel" has no
+        # opinion keyword, so strict gate fails -> VERIFIED_DOCKET_ONLY.
+        assert result.status == Status.VERIFIED_DOCKET_ONLY
         assert result.headline_confidence is not None
         assert "anderson-v-furst" in result.final_ids.absolute_url
 
@@ -1225,8 +1227,9 @@ class TestDocketNumberSearch:
             "2020 WL 2571387, at *4 n.3 (E.D. Cal. May 21, 2020)"
         )
 
-        # Should find a match via docket number (different case name is OK)
-        assert result.status == Status.VERIFIED
+        # Phase 3 Task 4: RECAP doc "Order" has no opinion keyword and no
+        # id field, so strict gate fails -> VERIFIED_DOCKET_ONLY.
+        assert result.status == Status.VERIFIED_DOCKET_ONLY
         assert result.headline_confidence is not None
         # The unrelated case should have been filtered out
         winner = _winning_path_entry(result)
@@ -2515,3 +2518,119 @@ class TestVerifiedPartial:
         v = CitationVerifier(client)
         result = v.verify("Some Case, 2020 WL 123456 (D. Md. 2020)")
         assert result.status == Status.VERIFIED
+
+
+class TestVerifiedViaRecapVsDocketOnly:
+    """Phase 3 Task 4: strict VIA_RECAP gate per maintainer Q1.
+
+    Tests at the doc-type + date-match boundary. Cabot/Hunter shape:
+    has-text-but-procedural-order -> DOCKET_ONLY. Mehar shape:
+    opinion-typed + date-matched -> VIA_RECAP.
+    """
+
+    def test_via_recap_when_opinion_typed_doc_matches_date(self):
+        client = _make_client(
+            citation_lookup=[],          # no opinion cluster
+            search_opinions=[],
+            search_recap=[
+                {
+                    "caseName": "Mehar Holdings LLC v. Evanston Ins. Co.",
+                    "docket_id": 5474769,
+                    "id": 5474769,
+                    "court_id": "txwd",
+                    "docket_absolute_url": "/docket/5474769/mehar/",
+                    "dateFiled": "2016-10-14",
+                    "docketNumber": "1:16-cv-00059",
+                    "recap_documents": [
+                        {
+                            "id": 18720567,
+                            "entry_date_filed": "2016-10-14",
+                            "short_description": "OPINION on motion to dismiss",
+                            "page_count": 12,
+                            "is_free_on_pacer": True,
+                        }
+                    ],
+                }
+            ],
+        )
+        v = CitationVerifier(client)
+        result = v.verify(
+            "Mehar Holdings, LLC v. Evanston Ins. Co., "
+            "2016 WL 5957681 (W.D. Tex. Oct. 14, 2016)"
+        )
+        assert result.status == Status.VERIFIED_VIA_RECAP
+        assert result.final_ids.docket_id == 5474769
+        assert result.final_ids.recap_document_id == 18720567
+        assert result.final_ids.cluster_id is None
+        assert result.final_ids.text_source.value == "recap_document"
+
+    def test_docket_only_when_doc_is_procedural_order(self):
+        """Cabot v. Lewis shape: order certifying interlocutory appeal
+        is text-bearing but procedural. Strict reading: DOCKET_ONLY."""
+        client = _make_client(
+            citation_lookup=[],
+            search_opinions=[],
+            search_recap=[
+                {
+                    "caseName": "Cabot v. Lewis",
+                    "docket_id": 4275225,
+                    "id": 4275225,
+                    "court_id": "mad",
+                    "docket_absolute_url": "/docket/4275225/cabot/",
+                    "dateFiled": "2015-07-09",
+                    "docketNumber": "1:13-cv-11903",
+                    "recap_documents": [
+                        {
+                            "id": 5338694,
+                            "entry_date_filed": "2015-07-09",
+                            "short_description": "ORDER CERTIFYING INTERLOCUTORY APPEAL",
+                            "page_count": 2,
+                            "is_free_on_pacer": False,
+                        }
+                    ],
+                }
+            ],
+        )
+        v = CitationVerifier(client)
+        result = v.verify(
+            "Cabot v. Lewis, 2015 WL 13648107 (D. Mass. July 9, 2015)"
+        )
+        assert result.status == Status.VERIFIED_DOCKET_ONLY
+        assert result.final_ids.docket_id == 4275225
+        assert result.final_ids.recap_document_id is None
+        assert result.final_ids.text_source is None
+
+    def test_docket_only_when_date_mismatches(self):
+        """Menges-actual shape: docket exists, doc on docket is dated
+        June 12 but cited May 31 — outside ±14 day window. DOCKET_ONLY."""
+        client = _make_client(
+            citation_lookup=[],
+            search_opinions=[],
+            search_recap=[
+                {
+                    "caseName": "Menges v. Cliffs Drilling Co.",
+                    "docket_id": 10993603,
+                    "id": 10993603,
+                    "court_id": "laed",
+                    "docket_absolute_url": "/docket/10993603/menges/",
+                    "dateFiled": "1999-07-16",
+                    "docketNumber": "99-2061",
+                    "recap_documents": [
+                        {
+                            "id": 476627754,
+                            "entry_date_filed": "2000-06-12",
+                            "short_description": "ORDER & REASONS on motion in limine",
+                            "page_count": 4,
+                            "is_free_on_pacer": False,
+                        }
+                    ],
+                }
+            ],
+        )
+        v = CitationVerifier(client)
+        result = v.verify(
+            "Menges v. Cliffs Drilling Co., 2000 WL 765082 (E.D. La. May 31, 2000)"
+        )
+        assert result.status == Status.VERIFIED_DOCKET_ONLY
+        assert result.final_ids.docket_id == 10993603
+        assert result.final_ids.recap_document_id is None

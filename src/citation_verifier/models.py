@@ -182,6 +182,7 @@ class CandidateMatch:
     description: str | None = None
     mismatches: list[Diagnostic] = field(default_factory=list)
     docket_id: int | None = None
+    recap_document_id: int | None = None   # Phase 3 Task 4
 
 
 # ---------------------------------------------------------------------------

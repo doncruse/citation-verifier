@@ -87,6 +87,7 @@ class CitationVerifier:
         status: Status,
         cluster_id: int | None = None,
         docket_id: int | None = None,
+        recap_document_id: int | None = None,
         absolute_url: str | None = None,
         text_source: TextSource | None = None,
         warnings: list[Warning] | None = None,
@@ -106,7 +107,7 @@ class CitationVerifier:
                 cluster_id=cluster_id,
                 opinion_id=None,
                 docket_id=docket_id,
-                recap_document_id=None,
+                recap_document_id=recap_document_id,
                 absolute_url=absolute_url,
                 text_source=text_source,
             ),
@@ -295,14 +296,26 @@ class CitationVerifier:
         # RECAP-fallback hits (docket-only or specific RECAP doc) have a
         # docket_id but no cluster_id. Use that as the discriminator.
         is_recap_match = best.docket_id is not None and best.cluster_id is None
-        text_source = (
-            None if is_recap_match
-            else (
-                TextSource.opinion_plain_text
-                if status == Status.VERIFIED and best.cluster_id
-                else None
-            )
-        )
+        text_source: TextSource | None
+        recap_document_id: int | None = None
+
+        if is_recap_match and status == Status.VERIFIED:
+            # Phase 3: strict VIA_RECAP gate (design v2 §2.2, maintainer Q1).
+            desc = best.description or ""
+            if best.recap_document_id and self._recap_doc_is_cited_opinion(
+                parsed, desc, best.date_filed,
+            ):
+                status = Status.VERIFIED_VIA_RECAP
+                text_source = TextSource.recap_document
+                recap_document_id = best.recap_document_id
+            else:
+                status = Status.VERIFIED_DOCKET_ONLY
+                text_source = None
+        elif status == Status.VERIFIED and best.cluster_id:
+            text_source = TextSource.opinion_plain_text
+        else:
+            text_source = None
+
         return self._finalize_result(
             builder,
             citation_text=citation_text,
@@ -312,6 +325,7 @@ class CitationVerifier:
             docket_id=best.docket_id,
             absolute_url=best.url,
             text_source=text_source,
+            recap_document_id=recap_document_id,
         )
 
     def _docket_date_ranges(
@@ -934,6 +948,7 @@ class CitationVerifier:
             description=full_desc or None,
             mismatches=mismatches,
             docket_id=docket_id,
+            recap_document_id=doc.get("id"),   # Phase 3 Task 4
         )
 
     def _build_docket_only_candidate(
@@ -1167,6 +1182,76 @@ class CitationVerifier:
             tier = 0
 
         return (tier, min(page_count, 50))
+
+    @staticmethod
+    def _recap_doc_is_cited_opinion(
+        parsed: ParsedCitation,
+        desc: str,
+        entry_date: str,
+        has_wl_cite_in_cluster: bool = False,
+    ) -> bool:
+        """Strict VIA_RECAP gate (design v2 §2.2 + Phase 3 maintainer Q1).
+
+        A RECAPDocument qualifies as the cited opinion when all of:
+          (a) The cited date is within ±14 days of the doc's entry_date_filed.
+              (Tolerance accounts for Westlaw publication lag from filing.)
+          (b) The doc description matches opinion-typed keywords AND does
+              NOT match procedural-order keywords (interlocutory appeal,
+              taxation of costs, motion in limine, objections, etc.).
+          (c) Optionally — if we know the cluster's citations include the
+              brief's WL number — we trust the match unconditionally.
+
+        When parsed.year is missing or entry_date is unparseable, this
+        function returns False (cannot prove the doc is the cited opinion).
+        """
+        desc_lower = (desc or "").lower()
+        if has_wl_cite_in_cluster:
+            return True
+
+        # (a) Date proximity check.
+        if not (parsed.year and entry_date and len(entry_date) >= 10):
+            return False
+        try:
+            from datetime import date as _date
+            cited_y = parsed.year
+            cited_m = parsed.month or 6
+            cited_d = parsed.day or 15
+            ey = int(entry_date[0:4])
+            em = int(entry_date[5:7])
+            ed = int(entry_date[8:10])
+            delta_days = abs(
+                (_date(cited_y, cited_m, cited_d) - _date(ey, em, ed)).days
+            )
+            if delta_days > 14:
+                return False
+        except (ValueError, TypeError):
+            return False
+
+        # (b) Opinion-typed vs procedural-order signal.
+        # Note: "motion to" and "motion for" are intentionally excluded
+        # because they appear as substrings in opinion descriptions like
+        # "OPINION on motion to dismiss". Use specific compound phrases
+        # (e.g. "motion in limine") only.
+        _PROCEDURAL_KEYWORDS = (
+            "certifying interlocutory appeal",
+            "taxation of costs", "taxation order",
+            "motion in limine", "in limine",
+            "objections to", "objection to",
+            "stipulation", "scheduling order",
+            "minute order", "minute entry",
+            "certificate of service",
+        )
+        if any(kw in desc_lower for kw in _PROCEDURAL_KEYWORDS):
+            return False
+
+        _OPINION_KEYWORDS = (
+            "opinion", "memorandum",
+            "order & reasons", "order and reasons",
+            "findings of fact", "report and recommendation",
+            "report & recommendation",
+            "memorandum and order", "memorandum & order",
+        )
+        return any(kw in desc_lower for kw in _OPINION_KEYWORDS)
 
     @staticmethod
     def _extract_surname(party_name: str) -> str:
