@@ -121,13 +121,28 @@ def test_rationale_and_source_nonempty(corpus):
         assert fx.source.strip(), fx.id
 
 
+# Per-status minimum fixture counts. Phase 2.5 set the default floor to 5.
+# Phase 3 §0.3 demoted Darensburg (VIA_RECAP -> DOCKET_ONLY per Westlaw
+# disambiguation finding), and Task 6.4b will reclassify Cabot + Hunter
+# (VIA_RECAP -> DOCKET_ONLY per strict opinion-typed gate). The plan
+# explicitly authorizes lowering this floor — see Task 6.4b: "accept that
+# the corpus minimum drops to 3 and update the test_refactor_corpus.py
+# minimum threshold." VIA_RECAP minimum is 3.
+_STATUS_MIN_FIXTURES = {s: 5 for s in _VALID_STATUSES}
+_STATUS_MIN_FIXTURES["VERIFIED_VIA_RECAP"] = 3
+
+
 @pytest.mark.parametrize("status", sorted(_VALID_STATUSES))
 def test_minimum_fixtures_per_status(corpus, status):
-    """Design §3 Phase 2.5 acceptance: each status has at least 5 fixtures."""
+    """Design §3 Phase 2.5 acceptance: each status has the per-status
+    minimum number of fixtures. VIA_RECAP floor lowered to 3 per Phase 3
+    §0.3 + Task 6.4b (Westlaw-disambiguation + strict opinion-typed gate
+    reclassifications)."""
     _, fixtures = corpus
     grouped = fixtures_by_status(fixtures)
-    assert len(grouped[status]) >= 5, (
-        f"{status}: only {len(grouped[status])} fixtures (need >= 5)"
+    minimum = _STATUS_MIN_FIXTURES[status]
+    assert len(grouped[status]) >= minimum, (
+        f"{status}: only {len(grouped[status])} fixtures (need >= {minimum})"
     )
 
 
@@ -136,7 +151,12 @@ def test_minimum_fixtures_per_status(corpus, status):
     [
         ("named-exemplar-koch", "VERIFIED"),
         ("named-exemplar-gilliam", "VERIFIED_PARTIAL"),
-        ("named-exemplar-menges", "VERIFIED_VIA_RECAP"),
+        # Phase 3 §0.3: VIA_RECAP named exemplar moved from
+        # named-exemplar-menges (Darensburg substitution) to Mehar Holdings
+        # after Westlaw lookup showed 2009 WL 2392094 actually maps to the
+        # Aug 4 procedural costs-taxation order, not the July 7 opinion the
+        # fixture originally pinned. See docs/notes/wl-disambiguation-limit.md.
+        ("named-exemplar-mehar-holdings", "VERIFIED_VIA_RECAP"),
         ("named-exemplar-wrong-case", "WRONG_CASE"),
         ("named-exemplar-verification-incomplete", "VERIFICATION_INCOMPLETE"),
     ],
