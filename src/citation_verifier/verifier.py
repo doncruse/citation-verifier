@@ -27,6 +27,7 @@ from .models import (
 )
 from .name_matcher import CaseNameMatcher
 from .parser import parse_citation
+from .resolution_path import ResolutionPathBuilder, _StageToken  # _StageToken imported for type hints only
 from .state_reporter_map import get_states_for_reporter
 
 logger = logging.getLogger(__name__)
@@ -67,49 +68,29 @@ class CitationVerifier:
         self.name_matcher = CaseNameMatcher()
 
     # ------------------------------------------------------------------
-    # v0.3 result-construction sugar (Phase 1)
+    # Shared helpers (pure logic, no I/O)
     # ------------------------------------------------------------------
 
-    def _build_result(
+    def _finalize_result(
         self,
+        builder: ResolutionPathBuilder,
         *,
         citation_text: str,
         parsed: ParsedCitation | None,
         status: Status,
-        stage: StageName | None,
-        verdict: StageVerdict | None,
-        confidence: float | None,
-        case_name: str | None = None,
         cluster_id: int | None = None,
         docket_id: int | None = None,
         absolute_url: str | None = None,
         text_source: TextSource | None = None,
         warnings: list[Warning] | None = None,
-        notes: str | None = None,
-        elapsed_ms: int = 0,
     ) -> VerificationResult:
-        """Construct a Phase-1-shape VerificationResult.
+        """Terminal helper: wrap the accumulated resolution_path into a result.
 
-        Phase 1 emits at most one ResolutionPathEntry — the resolving stage —
-        so the confidence number that used to be a top-level field has a home.
-        Phase 2 wraps every stage and replaces this helper with the full
-        instrumentation.
+        Phase 2 of the v0.3 refactor. Replaces Phase 1's _build_result.
+        The caller has already recorded each stage attempt via
+        builder.stage(...) context managers; this helper just collects the
+        entries, packs the FinalIds, and returns the VerificationResult.
         """
-        assert (stage is None) == (verdict is None), \
-            "stage and verdict must be both set or both None"
-        path: list[ResolutionPathEntry] = []
-        if stage is not None and verdict is not None:
-            path.append(
-                ResolutionPathEntry(
-                    stage=stage,
-                    query={},
-                    raw_response_summary={"case_name": case_name} if case_name else {},
-                    verdict=verdict,
-                    confidence=confidence,
-                    notes=notes,
-                    elapsed_ms=elapsed_ms,
-                )
-            )
         return VerificationResult(
             citation_as_written=citation_text,
             parsed_citation=parsed,
@@ -122,24 +103,31 @@ class CitationVerifier:
                 absolute_url=absolute_url,
                 text_source=text_source,
             ),
-            resolution_path=path,
+            resolution_path=builder.entries(),
             warnings=warnings or [],
             gates_failed=[],
             timing={},
             cache_hit=False,
         )
 
-    # ------------------------------------------------------------------
-    # Shared helpers (pure logic, no I/O)
-    # ------------------------------------------------------------------
-
     def _process_citation_lookup_hit(
         self,
+        builder: ResolutionPathBuilder,
+        token: _StageToken,
         citation_text: str,
         parsed: ParsedCitation,
         cluster: dict[str, Any],
-    ) -> VerificationResult:
-        """Process a single cluster from the Citation Lookup API (Step 1)."""
+        clusters_returned: int,
+    ) -> dict[str, Any]:
+        """Process a single cluster from the Citation Lookup API.
+
+        The caller has already opened a builder.stage() block and yielded
+        the token; this helper sets the token's resolved-verdict state and
+        returns a dict of finalize kwargs (cluster_id, absolute_url,
+        text_source, warnings) so the caller can invoke ``_finalize_result``
+        *after* the ``with`` block exits (the path entry is appended in the
+        block's ``finally``).
+        """
         case_name = cluster.get("case_name", "")
         cluster_id = cluster.get("id")
         url = cluster.get("absolute_url", "")
@@ -148,23 +136,22 @@ class CitationVerifier:
         elif cluster_id and not url:
             url = f"https://www.courtlistener.com/opinion/{cluster_id}/"
 
+        summary = {
+            "matched_cluster_id": cluster_id,
+            "matched_case_name": case_name,
+            "clusters_returned": clusters_returned,
+        }
+
         # Name-mismatch case: citation resolves but caption disagrees.
-        # TODO(phase-3): this is the WRONG_CASE candidate path. Phase 3
-        # adds full-caption investigation to distinguish CL display-name
+        # TODO(phase-3): caption investigation distinguishes CL display-name
         # data bug (stays VERIFIED) from genuine WRONG_CASE.
         if parsed.case_name and case_name and not self._names_match_citation_lookup(parsed, case_name):
-            return self._build_result(
-                citation_text=citation_text,
-                parsed=parsed,
-                status=Status.VERIFIED,
-                stage=StageName.citation_lookup,
-                verdict=StageVerdict.resolved,
-                confidence=0.3,
-                case_name=case_name,
-                cluster_id=cluster_id,
-                absolute_url=url,
-                text_source=TextSource.opinion_plain_text if cluster_id else None,
-                warnings=[Warning(
+            token.resolved(confidence=0.3, raw_response_summary=summary)
+            return {
+                "cluster_id": cluster_id,
+                "absolute_url": url,
+                "text_source": TextSource.opinion_plain_text if cluster_id else None,
+                "warnings": [Warning(
                     category=WarningCategory.cl_display_name_data_bug,
                     message=(
                         f"Name mismatch: citation exists at this reporter "
@@ -172,20 +159,15 @@ class CitationVerifier:
                         f"will run caption investigation to classify."
                     ),
                 )],
-            )
+            }
 
-        return self._build_result(
-            citation_text=citation_text,
-            parsed=parsed,
-            status=Status.VERIFIED,
-            stage=StageName.citation_lookup,
-            verdict=StageVerdict.resolved,
-            confidence=1.0,
-            case_name=case_name,
-            cluster_id=cluster_id,
-            absolute_url=url,
-            text_source=TextSource.opinion_plain_text if cluster_id else None,
-        )
+        token.resolved(confidence=1.0, raw_response_summary=summary)
+        return {
+            "cluster_id": cluster_id,
+            "absolute_url": url,
+            "text_source": TextSource.opinion_plain_text if cluster_id else None,
+            "warnings": None,
+        }
 
     def _build_search_params(
         self, parsed: ParsedCitation
@@ -222,6 +204,7 @@ class CitationVerifier:
 
     def _build_fallback_result(
         self,
+        builder: ResolutionPathBuilder,
         citation_text: str,
         parsed: ParsedCitation,
         candidates: list[CandidateMatch],
@@ -229,18 +212,23 @@ class CitationVerifier:
     ) -> VerificationResult:
         """Build the final result from search fallback candidates.
 
-        Handles: empty candidates, sorting, court-mismatch guard,
-        insufficient-data guard, threshold logic, and diagnostics.
+        Task 2 interim: emits one opinion_search (or recap_document_search
+        for RECAP-fallback winners) entry for the aggregate fallback outcome.
+        Matches Phase 1's single-entry behavior, just routed through the
+        builder. Task 3 will replace this with per-stage entries inside
+        _search_fallback.
         """
         if not candidates:
-            return self._build_result(
+            with builder.stage(StageName.opinion_search) as t:
+                t.no_match(
+                    raw_response_summary={"candidate_count": 0},
+                    notes="No matching cases found in CourtListener opinions or RECAP",
+                )
+            return self._finalize_result(
+                builder,
                 citation_text=citation_text,
                 parsed=parsed,
                 status=Status.NOT_FOUND,
-                stage=StageName.opinion_search,
-                verdict=StageVerdict.no_match,
-                confidence=None,
-                notes="No matching cases found in CourtListener opinions or RECAP",
             )
 
         # Sort by score descending
@@ -253,35 +241,39 @@ class CitationVerifier:
             (parsed.volume and parsed.reporter and parsed.page) or parsed.wl_number
         )
         if has_unverified_cite and court_id and best.court_id != court_id:
-            return self._build_result(
+            with builder.stage(StageName.opinion_search) as t:
+                t.no_match(
+                    raw_response_summary={"candidate_count": len(candidates)},
+                    notes=(
+                        f"Reporter citation could not be verified, and no matching "
+                        f"cases were found in {parsed.court}"
+                    ),
+                )
+            return self._finalize_result(
+                builder,
                 citation_text=citation_text,
                 parsed=parsed,
                 status=Status.NOT_FOUND,
-                stage=StageName.opinion_search,
-                verdict=StageVerdict.no_match,
-                confidence=None,
-                notes=(
-                    f"Reporter citation could not be verified, and no matching "
-                    f"cases were found in {parsed.court}"
-                ),
             )
 
         # When both court and date are missing from the parsed citation,
         # we don't have enough signal to verify reliably.
         if not parsed.court and not parsed.year:
-            return self._build_result(
+            with builder.stage(StageName.opinion_search) as t:
+                t.no_match(
+                    raw_response_summary={"candidate_count": len(candidates)},
+                    notes=(
+                        "Insufficient data to verify: citation text is missing "
+                        "both court and date. A match cannot be confirmed with "
+                        "name alone. Try adding the court and year parenthetical "
+                        "(e.g. '(E.D. Tenn. 2020)') to the citation text."
+                    ),
+                )
+            return self._finalize_result(
+                builder,
                 citation_text=citation_text,
                 parsed=parsed,
                 status=Status.NOT_FOUND,
-                stage=StageName.opinion_search,
-                verdict=StageVerdict.no_match,
-                confidence=None,
-                notes=(
-                    "Insufficient data to verify: citation text is missing "
-                    "both court and date. A match cannot be confirmed with "
-                    "name alone. Try adding the court and year parenthetical "
-                    "(e.g. '(E.D. Tenn. 2020)') to the citation text."
-                ),
             )
 
         # Per Phase 1 mapping (design §3): LIKELY_REAL and POSSIBLE_MATCH
@@ -289,10 +281,8 @@ class CitationVerifier:
         # resolution_path entry below. NOT_FOUND stays NOT_FOUND.
         if best.score >= 0.40:
             status = Status.VERIFIED
-            verdict = StageVerdict.resolved
         else:
             status = Status.NOT_FOUND
-            verdict = StageVerdict.no_match
 
         # Phase 1 retains the existing diagnostic->warning bridge as a
         # lightweight conversion: each Diagnostic becomes a notes string on
@@ -315,19 +305,25 @@ class CitationVerifier:
                 else None
             )
 
-        return self._build_result(
+        # Task-2 interim shape: minimal {"case_name": ...}. Task 3 replaces
+        # this with the richer per-stage summary defined in the plan's
+        # raw_response_summary table.
+        summary = {"case_name": best.case_name} if best.case_name else {}
+        with builder.stage(stage) as t:
+            if status == Status.VERIFIED:
+                t.resolved(confidence=best.score, raw_response_summary=summary, notes=notes)
+            else:
+                t.no_match(raw_response_summary=summary, notes=notes)
+
+        return self._finalize_result(
+            builder,
             citation_text=citation_text,
             parsed=parsed,
             status=status,
-            stage=stage,
-            verdict=verdict,
-            confidence=best.score,
-            case_name=best.case_name,
             cluster_id=best.cluster_id,
             docket_id=best.docket_id,
             absolute_url=best.url,
             text_source=text_source,
-            notes=notes,
         )
 
     def _docket_date_ranges(
@@ -414,16 +410,27 @@ class CitationVerifier:
         parsed: ParsedCitation | None = None,
         quick_only: bool = False,
     ) -> VerificationResult:
-        """Verify a citation string through the two-step pipeline.
+        """Verify a citation string through the resolution pipeline.
 
-        Step 1: Try the Citation Lookup API (fast, precise).
-        Step 2: Parse and fuzzy-search as fallback.
+        Stages attempted, in order:
+          1. citation_lookup       (always)
+          2. opinion_search        (if (1) misses and not quick_only)
+          3. recap_document_search (if (2) doesn't yield a credible match
+                                     and parsed.docket_number is present
+                                     and court is federal)
+          4. recap_docket_search   (if (2) doesn't yield a credible match
+                                     and parsed.case_name is present
+                                     and court is federal)
+
+        Each stage attempted produces one ResolutionPathEntry. Stages not
+        attempted (quick_only short-circuit, state-court guard, already-have-
+        credible-match guard, missing-input guard) are absent from the path.
 
         Parameters
         ----------
         citation_text : str
             Raw citation string used for the citation-lookup API call
-            and stored in ``VerificationResult.input_citation``.
+            and stored in ``VerificationResult.citation_as_written``.
         parsed : ParsedCitation | None
             Pre-parsed citation metadata.  When provided the internal
             ``parse_citation()`` call is skipped, preserving fields
@@ -435,40 +442,78 @@ class CitationVerifier:
             immediately without falling through to Steps 1B/2/3.
         """
         citation_text = citation_text.strip()
-
-        # Step 1: Citation Lookup API
         if parsed is None:
             parsed = parse_citation(citation_text)
-        try:
-            lookup_results = self.client.citation_lookup(citation_text)
-            for lr in lookup_results:
-                clusters = lr.get("clusters", [])
-                for cluster in clusters:
-                    return self._process_citation_lookup_hit(
-                        citation_text, parsed, cluster
-                    )
-        except Exception:
-            # Citation lookup failed; fall through to search
-            logger.debug("Citation lookup failed", exc_info=True)
+
+        builder = ResolutionPathBuilder()
+
+        # Stage 1: Citation Lookup API
+        hit_finalize: dict[str, Any] | None = None
+        with builder.stage(
+            StageName.citation_lookup,
+            query={"text": citation_text[:200]},
+        ) as t:
+            try:
+                lookup_results = self.client.citation_lookup(citation_text)
+                clusters_returned = sum(
+                    len(lr.get("clusters", [])) for lr in lookup_results
+                )
+                for lr in lookup_results:
+                    clusters = lr.get("clusters", [])
+                    for cluster in clusters:
+                        hit_finalize = self._process_citation_lookup_hit(
+                            builder, t, citation_text, parsed, cluster, clusters_returned,
+                        )
+                        break
+                    if hit_finalize is not None:
+                        break
+                if hit_finalize is None:
+                    # No clusters in any of the lookup results.
+                    # In quick_only mode, the legacy "Quick search only" note
+                    # is preserved on the (terminal) citation_lookup entry so
+                    # the _diagnostics compat helper keeps working.
+                    if quick_only:
+                        t.no_match(
+                            raw_response_summary={"clusters_returned": 0},
+                            notes="Quick search only: not in citation lookup API",
+                        )
+                    else:
+                        t.no_match(raw_response_summary={"clusters_returned": 0})
+            except Exception as exc:
+                logger.debug("Citation lookup failed", exc_info=True)
+                t.errored(error_type=type(exc).__name__, notes=f"{type(exc).__name__}: {exc}")
+
+        if hit_finalize is not None:
+            return self._finalize_result(
+                builder,
+                citation_text=citation_text,
+                parsed=parsed,
+                status=Status.VERIFIED,
+                **hit_finalize,
+            )
 
         if quick_only:
-            return self._build_result(
+            return self._finalize_result(
+                builder,
                 citation_text=citation_text,
                 parsed=parsed,
                 status=Status.NOT_FOUND,
-                stage=StageName.citation_lookup,
-                verdict=StageVerdict.no_match,
-                confidence=None,
-                notes="Quick search only: not in citation lookup API",
             )
 
-        # Step 2: Fuzzy search fallback
-        return self._search_fallback(citation_text, parsed)
+        # Stage 2+: Fuzzy search fallback (instrumented in Task 3)
+        return self._search_fallback(builder, citation_text, parsed)
 
     def _search_fallback(
-        self, citation_text: str, parsed: ParsedCitation
+        self,
+        builder: ResolutionPathBuilder,
+        citation_text: str,
+        parsed: ParsedCitation,
     ) -> VerificationResult:
-        """Search CourtListener using parsed citation metadata."""
+        """Search CourtListener using parsed citation metadata.
+
+        Task 2 only wires the builder through. Task 3 will wrap each stage
+        inside this method in its own builder.stage() context manager.
+        """
         court_id, filed_after, filed_before = self._build_search_params(parsed)
 
         candidates: list[CandidateMatch] = []
@@ -519,7 +564,7 @@ class CitationVerifier:
             except Exception:
                 logger.debug("RECAP search failed", exc_info=True)
 
-        return self._build_fallback_result(citation_text, parsed, candidates, court_id)
+        return self._build_fallback_result(builder, citation_text, parsed, candidates, court_id)
 
     def _process_recap_results(
         self, results: list[dict[str, Any]], parsed: ParsedCitation
@@ -1355,39 +1400,72 @@ class CitationVerifier:
         if parsed is None:
             parsed = parse_citation(citation_text)
 
-        # Step 1: Citation Lookup API
-        try:
-            lookup_results = await async_client.citation_lookup(citation_text)
-            for lr in lookup_results:
-                clusters = lr.get("clusters", [])
-                for cluster in clusters:
-                    return self._process_citation_lookup_hit(
-                        citation_text, parsed, cluster
-                    )
-        except Exception:
-            logger.debug("Citation lookup failed", exc_info=True)
+        builder = ResolutionPathBuilder()
+
+        # Stage 1: Citation Lookup API
+        hit_finalize: dict[str, Any] | None = None
+        with builder.stage(
+            StageName.citation_lookup,
+            query={"text": citation_text[:200]},
+        ) as t:
+            try:
+                lookup_results = await async_client.citation_lookup(citation_text)
+                clusters_returned = sum(
+                    len(lr.get("clusters", [])) for lr in lookup_results
+                )
+                for lr in lookup_results:
+                    clusters = lr.get("clusters", [])
+                    for cluster in clusters:
+                        hit_finalize = self._process_citation_lookup_hit(
+                            builder, t, citation_text, parsed, cluster, clusters_returned,
+                        )
+                        break
+                    if hit_finalize is not None:
+                        break
+                if hit_finalize is None:
+                    if quick_only:
+                        t.no_match(
+                            raw_response_summary={"clusters_returned": 0},
+                            notes="Quick search only: not in citation lookup API",
+                        )
+                    else:
+                        t.no_match(raw_response_summary={"clusters_returned": 0})
+            except Exception as exc:
+                logger.debug("Citation lookup failed", exc_info=True)
+                t.errored(error_type=type(exc).__name__, notes=f"{type(exc).__name__}: {exc}")
+
+        if hit_finalize is not None:
+            return self._finalize_result(
+                builder,
+                citation_text=citation_text,
+                parsed=parsed,
+                status=Status.VERIFIED,
+                **hit_finalize,
+            )
 
         if quick_only:
-            return self._build_result(
+            return self._finalize_result(
+                builder,
                 citation_text=citation_text,
                 parsed=parsed,
                 status=Status.NOT_FOUND,
-                stage=StageName.citation_lookup,
-                verdict=StageVerdict.no_match,
-                confidence=None,
-                notes="Quick search only: not in citation lookup API",
             )
 
         # Step 2: Fuzzy search fallback
-        return await self._search_fallback_async(async_client, citation_text, parsed)
+        return await self._search_fallback_async(builder, async_client, citation_text, parsed)
 
     async def _search_fallback_async(
         self,
+        builder: ResolutionPathBuilder,
         async_client: AsyncCourtListenerClient,
         citation_text: str,
         parsed: ParsedCitation,
     ) -> VerificationResult:
-        """Async version of _search_fallback()."""
+        """Async version of _search_fallback().
+
+        Task 2 only wires the builder through. Task 3 will wrap each stage
+        inside this method in its own builder.stage() context manager.
+        """
         court_id, filed_after, filed_before = self._build_search_params(parsed)
 
         candidates: list[CandidateMatch] = []
@@ -1442,7 +1520,7 @@ class CitationVerifier:
             except Exception:
                 logger.debug("RECAP search failed", exc_info=True)
 
-        return self._build_fallback_result(citation_text, parsed, candidates, court_id)
+        return self._build_fallback_result(builder, citation_text, parsed, candidates, court_id)
 
     async def _process_recap_results_async(
         self,
@@ -1678,10 +1756,27 @@ class CitationVerifier:
             # Batch citation lookup (single API call for all citations)
             batch_hits = await self._batch_citation_lookup(client, stripped)
 
-            # Process batch hits immediately (no API call needed)
+            # Process batch hits immediately (no API call needed).
+            # Each citation gets a fresh builder; the citation_lookup
+            # stage is opened so the resulting result carries a
+            # resolution_path entry like the sync surface does.
             for idx, cluster in batch_hits.items():
-                results[idx] = self._process_citation_lookup_hit(
-                    stripped[idx], parsed_list[idx], cluster
+                builder = ResolutionPathBuilder()
+                hit_finalize: dict[str, Any] | None = None
+                with builder.stage(
+                    StageName.citation_lookup,
+                    query={"text": stripped[idx][:200], "via": "batch"},
+                ) as t:
+                    hit_finalize = self._process_citation_lookup_hit(
+                        builder, t, stripped[idx], parsed_list[idx], cluster,
+                        clusters_returned=1,
+                    )
+                results[idx] = self._finalize_result(
+                    builder,
+                    citation_text=stripped[idx],
+                    parsed=parsed_list[idx],
+                    status=Status.VERIFIED,
+                    **(hit_finalize or {}),
                 )
                 completed += 1
                 if progress_callback:
@@ -1693,24 +1788,41 @@ class CitationVerifier:
             if quick_only:
                 # No fallback — return NOT_FOUND for misses
                 for idx in miss_indices:
-                    results[idx] = self._build_result(
+                    builder = ResolutionPathBuilder()
+                    with builder.stage(
+                        StageName.citation_lookup,
+                        query={"text": stripped[idx][:200], "via": "batch"},
+                    ) as t:
+                        t.no_match(
+                            raw_response_summary={"clusters_returned": 0, "via": "batch"},
+                            notes="Quick search only: not in citation lookup API",
+                        )
+                    results[idx] = self._finalize_result(
+                        builder,
                         citation_text=stripped[idx],
                         parsed=parsed_list[idx],
                         status=Status.NOT_FOUND,
-                        stage=StageName.citation_lookup,
-                        verdict=StageVerdict.no_match,
-                        confidence=None,
-                        notes="Quick search only: not in citation lookup API",
                     )
                     completed += 1
                     if progress_callback:
                         progress_callback(completed, total)
             else:
-                # Search fallback for misses (opinion search + RECAP)
+                # Search fallback for misses (opinion search + RECAP).
+                # Each citation gets a fresh builder. The citation_lookup
+                # stage records a no_match (Task 5 will refine batch
+                # instrumentation) before delegating to the search fallback.
                 async def _fallback(idx: int) -> None:
                     nonlocal completed
+                    builder = ResolutionPathBuilder()
+                    with builder.stage(
+                        StageName.citation_lookup,
+                        query={"text": stripped[idx][:200], "via": "batch"},
+                    ) as t:
+                        t.no_match(
+                            raw_response_summary={"clusters_returned": 0, "via": "batch"},
+                        )
                     results[idx] = await self._search_fallback_async(
-                        client, stripped[idx], parsed_list[idx]
+                        builder, client, stripped[idx], parsed_list[idx]
                     )
                     completed += 1
                     if progress_callback:

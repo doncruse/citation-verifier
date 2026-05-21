@@ -16,7 +16,7 @@ from unittest.mock import MagicMock
 
 import pytest
 
-from citation_verifier.models import Status, WarningCategory
+from citation_verifier.models import StageName, StageVerdict, Status, WarningCategory
 from citation_verifier.parser import parse_citation
 from citation_verifier.verifier import CitationVerifier
 
@@ -80,9 +80,15 @@ def _diagnostics(result) -> list[_DiagnosticLike]:
 
 
 def _matched_case_name(result) -> str | None:
-    """Old-style matched_case_name from the new resolution_path summary."""
+    """Old-style matched_case_name from the new resolution_path summary.
+
+    Phase 2: citation_lookup hits use ``matched_case_name`` (per the
+    pinned per-stage summary shape); the fallback path keeps the legacy
+    ``case_name`` key. Look both up.
+    """
     if result.resolution_path:
-        return result.resolution_path[-1].raw_response_summary.get("case_name")
+        summary = result.resolution_path[-1].raw_response_summary
+        return summary.get("matched_case_name") or summary.get("case_name")
     return None
 
 
@@ -2134,3 +2140,85 @@ class TestSyllabusPreservation:
         result = v.verify("King v. Ill. Cent. R.R., 337 F.3d 550 (5th Cir. 2003)")
 
         assert result.matched_syllabus is None
+
+
+# ---------------------------------------------------------------------------
+# Phase 2: ResolutionPath shape + terminal finalize helper
+# ---------------------------------------------------------------------------
+
+
+class TestResolutionPathShape:
+    """Phase 2 path-shape coverage for the citation_lookup stage.
+
+    These tests assert on path entries directly (not via the
+    _diagnostics compat helper), because the entries are what
+    Phase 2 instruments. The compat helper covers warnings+notes
+    legacy reads; this class covers structured path-entry reads.
+    """
+
+    def test_citation_lookup_hit_produces_one_resolved_entry(self):
+        client = _make_client(citation_lookup=[
+            {"clusters": [{"id": 100, "case_name": "Foo v. Bar", "absolute_url": "/opinion/100/"}]},
+        ])
+        verifier = CitationVerifier(client=client)
+        result = verifier.verify("100 U.S. 1 (2020)")
+
+        assert result.status == Status.VERIFIED
+        assert len(result.resolution_path) == 1
+        entry = result.resolution_path[0]
+        assert entry.stage == StageName.citation_lookup
+        assert entry.verdict == StageVerdict.resolved
+        assert entry.confidence == 1.0
+        assert entry.raw_response_summary == {
+            "matched_cluster_id": 100,
+            "matched_case_name": "Foo v. Bar",
+            "clusters_returned": 1,
+        }
+        assert entry.query["text"].startswith("100 U.S. 1")
+        assert entry.elapsed_ms >= 0
+
+    def test_citation_lookup_miss_quick_only_records_no_match_entry(self):
+        client = _make_client(citation_lookup=[])
+        verifier = CitationVerifier(client=client)
+        result = verifier.verify("999 U.S. 999 (2099)", quick_only=True)
+
+        assert result.status == Status.NOT_FOUND
+        assert len(result.resolution_path) == 1
+        entry = result.resolution_path[0]
+        assert entry.stage == StageName.citation_lookup
+        assert entry.verdict == StageVerdict.no_match
+        assert entry.raw_response_summary == {"clusters_returned": 0}
+
+    def test_citation_lookup_error_records_errored_entry_then_falls_through(self):
+        """The §2.8 internal API-error gate lands in Phase 4. In Phase 2,
+        an errored citation_lookup entry must still appear in the path,
+        and the verifier must still fall through to opinion_search (no
+        behavior change vs. Phase 1)."""
+        client = _make_client()
+        client.citation_lookup.side_effect = ConnectionError("network down")
+        verifier = CitationVerifier(client=client)
+        result = verifier.verify("Smith v. Jones, 1 F.3d 1 (1st Cir. 1990)")
+
+        # First entry is citation_lookup, errored.
+        assert result.resolution_path[0].stage == StageName.citation_lookup
+        assert result.resolution_path[0].verdict == StageVerdict.errored
+        assert result.resolution_path[0].raw_response_summary == {"error_type": "ConnectionError"}
+        assert "ConnectionError" in (result.resolution_path[0].notes or "")
+        # Falls through to opinion_search per existing Phase 1 behavior.
+        assert len(result.resolution_path) >= 2
+        assert result.resolution_path[1].stage == StageName.opinion_search
+
+
+class TestFinalizeResultTerminalShape:
+    """The terminal helper wraps the builder's accumulated entries into
+    a VerificationResult and is the only public producer of results
+    inside the verifier. Phase 1's _build_result is gone."""
+
+    def test_verifier_module_does_not_expose_build_result(self):
+        from citation_verifier import verifier as v
+        # Phase 1's _build_result is replaced by _finalize_result in Phase 2.
+        # If you see _build_result on the class, the migration is incomplete.
+        assert not hasattr(v.CitationVerifier, "_build_result"), (
+            "_build_result should be removed in Phase 2; use _finalize_result"
+        )
+        assert hasattr(v.CitationVerifier, "_finalize_result")
