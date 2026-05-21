@@ -784,7 +784,7 @@
         "text_source": null
       },
       "expected_warnings_subset": [],
-      "rationale": "Live-discovered follow-up. WL cite resolves via recap_docket_search to docket 17228083 (case_name 'Jacks v. Hertz Corp'). No text-bearing docs found on first 20 entries (is_available=false across all checked docs). No retrievable opinion text. Status: VERIFIED_DOCKET_ONLY.",
+      "rationale": "Live-discovered follow-up. WL cite (issued by D. Del. on 2020-03-30) resolves via recap_docket_search to CL docket 17228083 in the Bankr. N.D. Tex. (txnb) court — the case was transferred from D. Del. to txnb shortly after the WL opinion was issued, and CL's docket reflects the receiving court (docket_number 20-04044, filed 2020-06-05). No text-bearing docs found on first 20 entries (is_available=false across all checked docs). No retrievable opinion text. Status: VERIFIED_DOCKET_ONLY.",
       "source": "live_discovery#jacks-hertz",
       "category": "docket_only_no_available_doc",
       "phase3_classification_open": false,
@@ -792,7 +792,7 @@
     },
     {
       "id": "verified-docket-only-caraballo-berryhill",
-      "citation": "Caraballo v. Berryhill, 2018 WL 4677729 (M.D. Tenn.)",
+      "citation": "Caraballo v. Berryhill, 2018 WL 4677729",
       "expected_status": "VERIFIED_DOCKET_ONLY",
       "expected_resolving_stage": "recap_docket_search",
       "expected_final_ids": {
@@ -803,7 +803,7 @@
         "text_source": null
       },
       "expected_warnings_subset": [],
-      "rationale": "Live-discovered follow-up. Brief cites the 2018 SSA decision (2018 WL 4677729); live-discovered docket 6698093 exists but the only text-bearing doc is a 2021 attorney-fees OPINION (doc 183723709), not the cited 2018 opinion. Strict interpretation: no opinion text for cited date, so DOCKET_ONLY. Phase 3 may reclassify VIA_RECAP if it accepts a different opinion on the same docket. phase3_classification_open: true.",
+      "rationale": "Live-discovered follow-up. WL cite resolves via recap_docket_search to CL docket 6698093 (case_name 'Caraballo v. Berryhill', court S.D.N.Y. White Plains, docket_number 7:17-cv-07205-NSR-LMS, filed 2017-09-21 — the controller's initial candidate had mistakenly listed M.D. Tenn. as the court, corrected here by dropping the court parenthetical). The docket's only text-bearing doc is a 2021 attorney-fees OPINION (doc 183723709), not the cited 2018 SSA decision. Strict interpretation: no opinion text for cited date, so DOCKET_ONLY. Phase 3 may reclassify VIA_RECAP if it accepts a different opinion on the same docket. phase3_classification_open: true.",
       "source": "live_discovery#caraballo-berryhill",
       "category": "docket_only_no_opinion_at_cited_date",
       "phase3_classification_open": true,
