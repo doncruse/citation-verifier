@@ -27,11 +27,6 @@ logger = logging.getLogger(__name__)
 DEFAULT_CACHE_PATH = Path(".citation_cache.json")
 
 
-def _enum_value(v: Any) -> Any:
-    """Return ``v.value`` if v is an Enum, else v."""
-    return v.value if hasattr(v, "value") and not isinstance(v, (str, int, bool)) else v
-
-
 def _serialize_path_entry(e: ResolutionPathEntry) -> dict[str, Any]:
     return {
         "stage": e.stage.value,

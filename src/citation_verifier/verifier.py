@@ -95,6 +95,8 @@ class CitationVerifier:
         Phase 2 wraps every stage and replaces this helper with the full
         instrumentation.
         """
+        assert (stage is None) == (verdict is None), \
+            "stage and verdict must be both set or both None"
         path: list[ResolutionPathEntry] = []
         if stage is not None and verdict is not None:
             path.append(

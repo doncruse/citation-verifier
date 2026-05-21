@@ -10,6 +10,7 @@ layer so the assertions read close to the old semantics.
 
 from __future__ import annotations
 
+import re
 from dataclasses import dataclass
 from unittest.mock import MagicMock
 
@@ -29,13 +30,37 @@ class _DiagnosticLike:
     message: str
 
 
+# Prefix-anchored classifier for freeform resolution_path notes. Each
+# pattern is matched against the start of the message so that production
+# messages like "Court X could not be verified" or "Year X could not be
+# verified" land under their proper category rather than silently
+# falling through to "info".
+_CATEGORY_PATTERNS: list[tuple[re.Pattern[str], str]] = [
+    # RECAP docket-match phrasing — checked first because the message
+    # body can begin with "We found..." rather than a category prefix.
+    (re.compile(r"\b(RECAP|docket match)\b", re.IGNORECASE), "recap"),
+    (re.compile(r"^(?:Case )?[Nn]ame\b"), "name"),
+    (re.compile(r"^Court\b"), "court"),
+    (re.compile(r"^(?:Date|Year|Month|Day)\b"), "date"),
+    (re.compile(r"^Docket\b"), "docket"),
+    (re.compile(r"^Citation\b"), "cite"),
+]
+
+
+def _classify_note(piece: str) -> str:
+    for pat, cat in _CATEGORY_PATTERNS:
+        if pat.search(piece):
+            return cat
+    return "info"
+
+
 def _diagnostics(result) -> list[_DiagnosticLike]:
     """Reconstruct an old-style diagnostics list from the new shape.
 
     Order: structured Warnings first (each maps to a (category, message)
     pair), then a single freeform entry from ``resolution_path[-1].notes``
     if present. Notes that contain "; " separators (the legacy diagnostic
-    join) are split back into multiple entries with category "info".
+    join) are split back into multiple entries classified by prefix.
     """
     out: list[_DiagnosticLike] = []
     for w in result.warnings:
@@ -50,24 +75,7 @@ def _diagnostics(result) -> list[_DiagnosticLike]:
         notes = result.resolution_path[-1].notes
         if notes:
             for piece in notes.split("; "):
-                # Heuristic: classify the freeform note by content. The
-                # old test assertions care about substring matches so the
-                # category only needs to match where tests check it.
-                lower = piece.lower()
-                if "name" in lower and "mismatch" in lower:
-                    out.append(_DiagnosticLike("name", piece))
-                elif "court" in lower and "mismatch" in lower:
-                    out.append(_DiagnosticLike("court", piece))
-                elif "date" in lower and ("mismatch" in lower or "close" in lower):
-                    out.append(_DiagnosticLike("date", piece))
-                elif "docket" in lower and "mismatch" in lower:
-                    out.append(_DiagnosticLike("docket", piece))
-                elif "citation" in lower and "mismatch" in lower:
-                    out.append(_DiagnosticLike("cite", piece))
-                elif "recap" in lower or "docket match" in lower:
-                    out.append(_DiagnosticLike("recap", piece))
-                else:
-                    out.append(_DiagnosticLike("info", piece))
+                out.append(_DiagnosticLike(_classify_note(piece), piece))
     return out
 
 
