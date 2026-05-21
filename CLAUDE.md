@@ -16,7 +16,7 @@ Uses a forked [eyecite](https://github.com/freelawproject/eyecite) (rlfordon/eye
 
 The schema rewrite lives on branch `refactor/v0.3` (design: `docs/plans/2026-05-20-citation-verifier-refactor-design-v2.md`). For the duration of the refactor:
 
-- **Work in a dedicated worktree:** `.claude/worktrees/refactor-v0.3`. Do not work on the refactor from the main worktree. Each worktree gets its own venv (Windows: `venv/Scripts/python.exe`).
+- **Work in a dedicated worktree:** `.claude/worktrees/refactor-v0.3`. Do not work on the refactor from the main worktree. Each worktree gets its own venv (Windows: `venv/Scripts/python.exe`) AND its own `.env` — `client.py`'s `load_dotenv` is path-explicit and doesn't walk up to the parent repo.
 - **Push to `refactor/v0.3` every session.** Cross-machine sync depends on it.
 - **Merge `origin/main` into the refactor branch at each phase boundary** to absorb conflicts while they're small.
 - **Tag each phase acceptance:** `refactor/phase-1-acceptance`, `refactor/phase-2-acceptance`, etc. Push tags.
