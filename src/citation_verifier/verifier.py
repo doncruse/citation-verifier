@@ -14,9 +14,16 @@ from .court_map import is_federal_court, lookup_court_id
 from .models import (
     CandidateMatch,
     Diagnostic,
+    FinalIds,
     ParsedCitation,
+    ResolutionPathEntry,
+    StageName,
+    StageVerdict,
+    Status,
+    TextSource,
     VerificationResult,
-    VerificationStatus,
+    Warning,
+    WarningCategory,
 )
 from .name_matcher import CaseNameMatcher
 from .parser import parse_citation
@@ -60,6 +67,67 @@ class CitationVerifier:
         self.name_matcher = CaseNameMatcher()
 
     # ------------------------------------------------------------------
+    # v0.3 result-construction sugar (Phase 1)
+    # ------------------------------------------------------------------
+
+    def _build_result(
+        self,
+        *,
+        citation_text: str,
+        parsed: ParsedCitation | None,
+        status: Status,
+        stage: StageName | None,
+        verdict: StageVerdict | None,
+        confidence: float | None,
+        case_name: str | None = None,
+        cluster_id: int | None = None,
+        docket_id: int | None = None,
+        absolute_url: str | None = None,
+        text_source: TextSource | None = None,
+        warnings: list[Warning] | None = None,
+        notes: str | None = None,
+        elapsed_ms: int = 0,
+    ) -> VerificationResult:
+        """Construct a Phase-1-shape VerificationResult.
+
+        Phase 1 emits at most one ResolutionPathEntry — the resolving stage —
+        so the confidence number that used to be a top-level field has a home.
+        Phase 2 wraps every stage and replaces this helper with the full
+        instrumentation.
+        """
+        path: list[ResolutionPathEntry] = []
+        if stage is not None and verdict is not None:
+            path.append(
+                ResolutionPathEntry(
+                    stage=stage,
+                    query={},
+                    raw_response_summary={"case_name": case_name} if case_name else {},
+                    verdict=verdict,
+                    confidence=confidence,
+                    notes=notes,
+                    elapsed_ms=elapsed_ms,
+                )
+            )
+        return VerificationResult(
+            citation_as_written=citation_text,
+            parsed_citation=parsed,
+            status=status,
+            final_ids=FinalIds(
+                cluster_id=cluster_id,
+                opinion_id=None,
+                docket_id=docket_id,
+                recap_document_id=None,
+                absolute_url=absolute_url,
+                text_source=text_source,
+            ),
+            resolution_path=path,
+            warnings=warnings or [],
+            gates_failed=[],
+            timing={},
+            cache_hit=False,
+        )
+
+    # ------------------------------------------------------------------
     # Shared helpers (pure logic, no I/O)
     # ------------------------------------------------------------------
 
@@ -69,10 +137,7 @@ class CitationVerifier:
         parsed: ParsedCitation,
         cluster: dict[str, Any],
     ) -> VerificationResult:
-        """Process a single cluster from the Citation Lookup API (Step 1).
-
-        Returns VERIFIED or POSSIBLE_MATCH depending on name matching.
-        """
+        """Process a single cluster from the Citation Lookup API (Step 1)."""
         case_name = cluster.get("case_name", "")
         cluster_id = cluster.get("id")
         url = cluster.get("absolute_url", "")
@@ -81,44 +146,43 @@ class CitationVerifier:
         elif cluster_id and not url:
             url = f"https://www.courtlistener.com/opinion/{cluster_id}/"
 
-        # Build syllabus from available metadata
-        syllabus_parts = []
-        if cluster.get("syllabus"):
-            syllabus_parts.append(cluster["syllabus"])
-        if cluster.get("nature_of_suit"):
-            syllabus_parts.append(cluster["nature_of_suit"])
-        syllabus = "; ".join(syllabus_parts) if syllabus_parts else None
+        # Name-mismatch case: citation resolves but caption disagrees.
+        # TODO(phase-3): this is the WRONG_CASE candidate path. Phase 3
+        # adds full-caption investigation to distinguish CL display-name
+        # data bug (stays VERIFIED) from genuine WRONG_CASE.
+        if parsed.case_name and case_name and not self._names_match_citation_lookup(parsed, case_name):
+            return self._build_result(
+                citation_text=citation_text,
+                parsed=parsed,
+                status=Status.VERIFIED,
+                stage=StageName.citation_lookup,
+                verdict=StageVerdict.resolved,
+                confidence=0.3,
+                case_name=case_name,
+                cluster_id=cluster_id,
+                absolute_url=url,
+                text_source=TextSource.opinion_plain_text if cluster_id else None,
+                warnings=[Warning(
+                    category=WarningCategory.cl_display_name_data_bug,
+                    message=(
+                        f"Name mismatch: citation exists at this reporter "
+                        f'location but CL caption is "{case_name}". Phase 3 '
+                        f"will run caption investigation to classify."
+                    ),
+                )],
+            )
 
-        # Verify the case name actually matches before calling it VERIFIED
-        if parsed.case_name and case_name:
-            if not self._names_match_citation_lookup(parsed, case_name):
-                return VerificationResult(
-                    input_citation=citation_text,
-                    status=VerificationStatus.POSSIBLE_MATCH,
-                    confidence=0.3,
-                    matched_case_name=case_name,
-                    matched_url=url,
-                    matched_cluster_id=cluster_id,
-                    matched_court=cluster.get("court") or cluster.get("court_id") or None,
-                    matched_date=cluster.get("date_filed") or None,
-                    matched_syllabus=syllabus,
-                    diagnostics=[Diagnostic(
-                        "name",
-                        f'Name mismatch: citation exists at this reporter location '
-                        f'but belongs to "{case_name}"',
-                    )],
-                )
-
-        return VerificationResult(
-            input_citation=citation_text,
-            status=VerificationStatus.VERIFIED,
+        return self._build_result(
+            citation_text=citation_text,
+            parsed=parsed,
+            status=Status.VERIFIED,
+            stage=StageName.citation_lookup,
+            verdict=StageVerdict.resolved,
             confidence=1.0,
-            matched_case_name=case_name,
-            matched_url=url,
-            matched_cluster_id=cluster_id,
-            matched_court=cluster.get("court") or cluster.get("court_id") or None,
-            matched_date=cluster.get("date_filed") or None,
-            matched_syllabus=syllabus,
+            case_name=case_name,
+            cluster_id=cluster_id,
+            absolute_url=url,
+            text_source=TextSource.opinion_plain_text if cluster_id else None,
         )
 
     def _build_search_params(
@@ -167,14 +231,14 @@ class CitationVerifier:
         insufficient-data guard, threshold logic, and diagnostics.
         """
         if not candidates:
-            return VerificationResult(
-                input_citation=citation_text,
-                status=VerificationStatus.NOT_FOUND,
-                confidence=0.0,
-                diagnostics=[Diagnostic(
-                    "info",
-                    "No matching cases found in CourtListener opinions or RECAP",
-                )],
+            return self._build_result(
+                citation_text=citation_text,
+                parsed=parsed,
+                status=Status.NOT_FOUND,
+                stage=StageName.opinion_search,
+                verdict=StageVerdict.no_match,
+                confidence=None,
+                notes="No matching cases found in CourtListener opinions or RECAP",
             )
 
         # Sort by score descending
@@ -187,57 +251,81 @@ class CitationVerifier:
             (parsed.volume and parsed.reporter and parsed.page) or parsed.wl_number
         )
         if has_unverified_cite and court_id and best.court_id != court_id:
-            return VerificationResult(
-                input_citation=citation_text,
-                status=VerificationStatus.NOT_FOUND,
-                confidence=0.0,
-                candidates=candidates[:5],
-                diagnostics=[Diagnostic(
-                    "cite",
+            return self._build_result(
+                citation_text=citation_text,
+                parsed=parsed,
+                status=Status.NOT_FOUND,
+                stage=StageName.opinion_search,
+                verdict=StageVerdict.no_match,
+                confidence=None,
+                notes=(
                     f"Reporter citation could not be verified, and no matching "
-                    f"cases were found in {parsed.court}",
-                )],
+                    f"cases were found in {parsed.court}"
+                ),
             )
 
         # When both court and date are missing from the parsed citation,
         # we don't have enough signal to verify reliably.
         if not parsed.court and not parsed.year:
-            return VerificationResult(
-                input_citation=citation_text,
-                status=VerificationStatus.NOT_FOUND,
-                confidence=0.0,
-                candidates=candidates[:5],
-                diagnostics=[Diagnostic(
-                    "info",
+            return self._build_result(
+                citation_text=citation_text,
+                parsed=parsed,
+                status=Status.NOT_FOUND,
+                stage=StageName.opinion_search,
+                verdict=StageVerdict.no_match,
+                confidence=None,
+                notes=(
                     "Insufficient data to verify: citation text is missing "
                     "both court and date. A match cannot be confirmed with "
                     "name alone. Try adding the court and year parenthetical "
-                    "(e.g. '(E.D. Tenn. 2020)') to the citation text.",
-                )],
+                    "(e.g. '(E.D. Tenn. 2020)') to the citation text."
+                ),
             )
 
-        if best.score >= 0.85:
-            status = VerificationStatus.LIKELY_REAL
-        elif best.score >= 0.40:
-            status = VerificationStatus.POSSIBLE_MATCH
+        # Per Phase 1 mapping (design §3): LIKELY_REAL and POSSIBLE_MATCH
+        # collapse into VERIFIED; the distinguishing number lives on the
+        # resolution_path entry below. NOT_FOUND stays NOT_FOUND.
+        if best.score >= 0.40:
+            status = Status.VERIFIED
+            verdict = StageVerdict.resolved
         else:
-            status = VerificationStatus.NOT_FOUND
+            status = Status.NOT_FOUND
+            verdict = StageVerdict.no_match
 
+        # Phase 1 retains the existing diagnostic->warning bridge as a
+        # lightweight conversion: each Diagnostic becomes a notes string on
+        # the stage entry (no closed-set WarningCategory exists for the
+        # legacy mismatch categories until Phase 3 audits them).
         diagnostics = self._finalize_diagnostics(best.mismatches, best.score, status)
+        notes = "; ".join(d.message for d in diagnostics) if diagnostics else None
 
-        return VerificationResult(
-            input_citation=citation_text,
+        # RECAP-fallback hits (docket-only or specific RECAP doc) have a
+        # docket_id but no cluster_id. Use that as the discriminator.
+        is_recap_match = best.docket_id is not None and best.cluster_id is None
+        if is_recap_match:
+            stage = StageName.recap_document_search
+            text_source = None
+        else:
+            stage = StageName.opinion_search
+            text_source = (
+                TextSource.opinion_plain_text
+                if status == Status.VERIFIED and best.cluster_id
+                else None
+            )
+
+        return self._build_result(
+            citation_text=citation_text,
+            parsed=parsed,
             status=status,
+            stage=stage,
+            verdict=verdict,
             confidence=best.score,
-            matched_case_name=best.case_name,
-            matched_url=best.url,
-            matched_cluster_id=best.cluster_id,
-            matched_docket_id=best.docket_id,
-            matched_court=best.court_id or None,
-            matched_date=best.date_filed or None,
-            matched_description=best.description,
-            candidates=candidates[:5],
-            diagnostics=diagnostics,
+            case_name=best.case_name,
+            cluster_id=best.cluster_id,
+            docket_id=best.docket_id,
+            absolute_url=best.url,
+            text_source=text_source,
+            notes=notes,
         )
 
     def _docket_date_ranges(
@@ -362,11 +450,14 @@ class CitationVerifier:
             logger.debug("Citation lookup failed", exc_info=True)
 
         if quick_only:
-            return VerificationResult(
-                input_citation=citation_text,
-                status=VerificationStatus.NOT_FOUND,
-                confidence=0.0,
-                diagnostics=[Diagnostic("info", "Quick search only: not in citation lookup API")],
+            return self._build_result(
+                citation_text=citation_text,
+                parsed=parsed,
+                status=Status.NOT_FOUND,
+                stage=StageName.citation_lookup,
+                verdict=StageVerdict.no_match,
+                confidence=None,
+                notes="Quick search only: not in citation lookup API",
             )
 
         # Step 2: Fuzzy search fallback
@@ -711,7 +802,7 @@ class CitationVerifier:
     def _finalize_diagnostics(
         mismatches: list[Diagnostic],
         score: float,
-        status: VerificationStatus,
+        status: Status,
     ) -> list[Diagnostic]:
         """Finalize diagnostics by appending match language for non-verified results.
 
@@ -720,9 +811,9 @@ class CitationVerifier:
         """
         diagnostics = list(mismatches)
         if score >= 0.40:
-            match_word = (
-                "likely" if status == VerificationStatus.LIKELY_REAL else "possible"
-            )
+            # In Phase 1, LIKELY_REAL and POSSIBLE_MATCH collapse to VERIFIED;
+            # the distinction is now on the score itself.
+            match_word = "likely" if score >= 0.85 else "possible"
             if diagnostics:
                 last = diagnostics[-1]
                 if last.message.endswith("could be verified"):
@@ -1275,11 +1366,14 @@ class CitationVerifier:
             logger.debug("Citation lookup failed", exc_info=True)
 
         if quick_only:
-            return VerificationResult(
-                input_citation=citation_text,
-                status=VerificationStatus.NOT_FOUND,
-                confidence=0.0,
-                diagnostics=[Diagnostic("info", "Quick search only: not in citation lookup API")],
+            return self._build_result(
+                citation_text=citation_text,
+                parsed=parsed,
+                status=Status.NOT_FOUND,
+                stage=StageName.citation_lookup,
+                verdict=StageVerdict.no_match,
+                confidence=None,
+                notes="Quick search only: not in citation lookup API",
             )
 
         # Step 2: Fuzzy search fallback
@@ -1597,13 +1691,14 @@ class CitationVerifier:
             if quick_only:
                 # No fallback — return NOT_FOUND for misses
                 for idx in miss_indices:
-                    results[idx] = VerificationResult(
-                        input_citation=stripped[idx],
-                        status=VerificationStatus.NOT_FOUND,
-                        confidence=0.0,
-                        diagnostics=[
-                            Diagnostic("info", "Quick search only: not in citation lookup API")
-                        ],
+                    results[idx] = self._build_result(
+                        citation_text=stripped[idx],
+                        parsed=parsed_list[idx],
+                        status=Status.NOT_FOUND,
+                        stage=StageName.citation_lookup,
+                        verdict=StageVerdict.no_match,
+                        confidence=None,
+                        notes="Quick search only: not in citation lookup API",
                     )
                     completed += 1
                     if progress_callback:

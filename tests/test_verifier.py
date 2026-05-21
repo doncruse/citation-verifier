@@ -1,17 +1,81 @@
 """Tests for the citation verification pipeline.
 
 All tests mock CourtListenerClient so no real API calls are made.
+
+Migrated to the v0.3 schema (Phase 1, Task 2). The old top-level
+``status``/``confidence``/``matched_*``/``diagnostics``/``candidates``
+fields have been replaced; the helpers below give a thin compatibility
+layer so the assertions read close to the old semantics.
 """
 
 from __future__ import annotations
 
+from dataclasses import dataclass
 from unittest.mock import MagicMock
 
 import pytest
 
-from citation_verifier.models import VerificationStatus
+from citation_verifier.models import Status, WarningCategory
 from citation_verifier.parser import parse_citation
 from citation_verifier.verifier import CitationVerifier
+
+
+@dataclass
+class _DiagnosticLike:
+    """Backwards-compatible Diagnostic-shaped view of a Warning or
+    resolution_path notes string."""
+
+    category: str
+    message: str
+
+
+def _diagnostics(result) -> list[_DiagnosticLike]:
+    """Reconstruct an old-style diagnostics list from the new shape.
+
+    Order: structured Warnings first (each maps to a (category, message)
+    pair), then a single freeform entry from ``resolution_path[-1].notes``
+    if present. Notes that contain "; " separators (the legacy diagnostic
+    join) are split back into multiple entries with category "info".
+    """
+    out: list[_DiagnosticLike] = []
+    for w in result.warnings:
+        # The old citation-lookup name-mismatch was emitted under
+        # category "name"; the new closed-set category is
+        # cl_display_name_data_bug. Map back so legacy assertions pass.
+        if w.category == WarningCategory.cl_display_name_data_bug:
+            out.append(_DiagnosticLike("name", w.message))
+        else:
+            out.append(_DiagnosticLike(w.category.value, w.message))
+    if result.resolution_path:
+        notes = result.resolution_path[-1].notes
+        if notes:
+            for piece in notes.split("; "):
+                # Heuristic: classify the freeform note by content. The
+                # old test assertions care about substring matches so the
+                # category only needs to match where tests check it.
+                lower = piece.lower()
+                if "name" in lower and "mismatch" in lower:
+                    out.append(_DiagnosticLike("name", piece))
+                elif "court" in lower and "mismatch" in lower:
+                    out.append(_DiagnosticLike("court", piece))
+                elif "date" in lower and ("mismatch" in lower or "close" in lower):
+                    out.append(_DiagnosticLike("date", piece))
+                elif "docket" in lower and "mismatch" in lower:
+                    out.append(_DiagnosticLike("docket", piece))
+                elif "citation" in lower and "mismatch" in lower:
+                    out.append(_DiagnosticLike("cite", piece))
+                elif "recap" in lower or "docket match" in lower:
+                    out.append(_DiagnosticLike("recap", piece))
+                else:
+                    out.append(_DiagnosticLike("info", piece))
+    return out
+
+
+def _matched_case_name(result) -> str | None:
+    """Old-style matched_case_name from the new resolution_path summary."""
+    if result.resolution_path:
+        return result.resolution_path[-1].raw_response_summary.get("case_name")
+    return None
 
 
 def _make_client(**overrides):
@@ -47,10 +111,10 @@ class TestStep1Verified:
         v = CitationVerifier(client)
         result = v.verify("Obergefell v. Hodges, 576 U.S. 644 (2015)")
 
-        assert result.status == VerificationStatus.VERIFIED
-        assert result.confidence == 1.0
-        assert result.matched_case_name == "Obergefell v. Hodges"
-        assert "courtlistener.com" in result.matched_url
+        assert result.status == Status.VERIFIED
+        assert result.headline_confidence == 1.0
+        assert _matched_case_name(result) == "Obergefell v. Hodges"
+        assert "courtlistener.com" in result.final_ids.absolute_url
 
     def test_verified_builds_url_from_cluster_id(self):
         client = _make_client(
@@ -65,8 +129,8 @@ class TestStep1Verified:
         v = CitationVerifier(client)
         result = v.verify("Smith v. Jones, 100 F.3d 200 (2d Cir. 2020)")
 
-        assert result.status == VerificationStatus.VERIFIED
-        assert result.matched_url == "https://www.courtlistener.com/opinion/456/"
+        assert result.status == Status.VERIFIED
+        assert result.final_ids.absolute_url == "https://www.courtlistener.com/opinion/456/"
 
     def test_verified_prepends_domain_to_relative_url(self):
         client = _make_client(
@@ -86,7 +150,7 @@ class TestStep1Verified:
         result = v.verify("Smith v. Jones, 100 F.3d 200 (2d Cir. 2020)")
 
         assert (
-            result.matched_url
+            result.final_ids.absolute_url
             == "https://www.courtlistener.com/opinion/456/smith-v-jones/"
         )
 
@@ -114,12 +178,20 @@ class TestStep1NameMismatch:
         v = CitationVerifier(client)
         result = v.verify("Smith v. Jones, 100 F.3d 200 (2d Cir. 2020)")
 
-        assert result.status == VerificationStatus.POSSIBLE_MATCH
-        assert result.confidence == 0.3
-        assert result.matched_case_name == "Totally Different v. Case"
-        assert result.matched_cluster_id == 789
-        assert result.diagnostics[0].category == "name"
-        assert "Name mismatch" in result.diagnostics[0].message
+        # Phase 1: citation-lookup name mismatch maps to VERIFIED + a
+        # cl_display_name_data_bug warning. Phase 3 will reclassify as
+        # WRONG_CASE after caption investigation.
+        assert result.status == Status.VERIFIED
+        assert result.headline_confidence == 0.3
+        assert _matched_case_name(result) == "Totally Different v. Case"
+        assert result.final_ids.cluster_id == 789
+        assert any(
+            w.category == WarningCategory.cl_display_name_data_bug
+            for w in result.warnings
+        )
+        diags = _diagnostics(result)
+        assert diags[0].category == "name"
+        assert "Name mismatch" in diags[0].message
 
     def test_possible_match_different_defendant_same_prefix(self):
         """'United States v. Smith' should not verify as 'United States v. Johnson'."""
@@ -139,10 +211,15 @@ class TestStep1NameMismatch:
         v = CitationVerifier(client)
         result = v.verify("United States v. Smith, 500 F.3d 100 (9th Cir. 2018)")
 
-        assert result.status == VerificationStatus.POSSIBLE_MATCH
-        assert result.confidence == 0.3
-        assert result.diagnostics[0].category == "name"
-        assert "Name mismatch" in result.diagnostics[0].message
+        assert result.status == Status.VERIFIED
+        assert result.headline_confidence == 0.3
+        assert any(
+            w.category == WarningCategory.cl_display_name_data_bug
+            for w in result.warnings
+        )
+        diags = _diagnostics(result)
+        assert diags[0].category == "name"
+        assert "Name mismatch" in diags[0].message
 
 
 # ---------------------------------------------------------------------------
@@ -168,16 +245,18 @@ class TestOpinionSearchFallback:
         v = CitationVerifier(client)
         result = v.verify("Smith v. Jones, 500 F.3d 200 (2d Cir. 2020)")
 
-        assert result.status == VerificationStatus.LIKELY_REAL
-        assert result.matched_case_name == "Smith v. Jones"
+        assert result.status == Status.VERIFIED
+        assert result.headline_confidence is not None
+        assert result.headline_confidence >= 0.85
+        assert _matched_case_name(result) == "Smith v. Jones"
 
     def test_not_found_when_no_results(self):
         client = _make_client()  # everything returns []
         v = CitationVerifier(client)
         result = v.verify("Fakename v. Nobody, 999 F.3d 1 (S.D.N.Y. 2020)")
 
-        assert result.status == VerificationStatus.NOT_FOUND
-        assert result.confidence == 0.0
+        assert result.status == Status.NOT_FOUND
+        assert result.headline_confidence is None
 
     def test_no_retry_without_court_filter(self):
         """Opinion search does NOT retry without court filter (removed: never found correct matches)."""
@@ -215,10 +294,8 @@ class TestOpinionSearchGates:
         v = CitationVerifier(client)
         result = v.verify("Jovel v. Boiron, 2013 WL 12164622 (C.D. Cal. 2013)")
 
-        assert result.status == VerificationStatus.NOT_FOUND
-        assert result.matched_cluster_id is None
-        # No candidate should have survived the gate
-        assert result.candidates == []
+        assert result.status == Status.NOT_FOUND
+        assert result.final_ids.cluster_id is None
 
     def test_temporal_gate_keeps_within_window_match(self):
         """A candidate within the 5-year window with a matching case name
@@ -238,9 +315,8 @@ class TestOpinionSearchGates:
         v = CitationVerifier(client)
         result = v.verify("Smith v. Jones, 2018 WL 999999 (C.D. Cal. 2018)")
 
-        # Must have a surviving candidate (gate didn't drop it).
-        assert len(result.candidates) == 1
-        assert result.candidates[0].cluster_id == 1234567
+        # Candidate survived the gate and bubbled up as the match.
+        assert result.final_ids.cluster_id == 1234567
 
     def test_temporal_gate_boundary_exactly_5_years(self):
         """A 5-year gap is at the boundary — `>5` rejects, so exactly 5
@@ -262,8 +338,7 @@ class TestOpinionSearchGates:
 
         # 5-year gap is within the gate window (`abs(diff) > 5` is the
         # reject condition, so 5 itself is kept).
-        assert len(result.candidates) == 1
-        assert result.candidates[0].cluster_id == 1234568
+        assert result.final_ids.cluster_id == 1234568
 
     def test_token_gate_rejects_no_shared_distinctive_tokens(self):
         """A candidate whose case name shares no distinctive >=4-char
@@ -292,9 +367,8 @@ class TestOpinionSearchGates:
         v = CitationVerifier(client)
         result = v.verify("Harris v. CVS Pharmacy, 2015 WL 4694047 (S.D.N.Y. 2015)")
 
-        assert result.status == VerificationStatus.NOT_FOUND
-        assert result.matched_cluster_id is None
-        assert result.candidates == []
+        assert result.status == Status.NOT_FOUND
+        assert result.final_ids.cluster_id is None
 
     def test_token_gate_keeps_shared_distinctive_token(self):
         """A candidate sharing one distinctive >=4-char non-stoplist
@@ -316,8 +390,7 @@ class TestOpinionSearchGates:
             "Lindsay-Stern v. Garamszegi, 2018 WL 1234 (C.D. Cal. 2018)"
         )
 
-        assert len(result.candidates) == 1
-        assert result.candidates[0].cluster_id == 9999
+        assert result.final_ids.cluster_id == 9999
 
     def test_token_gate_rejects_stoplist_only_overlap(self):
         """When the candidate shares ONLY a stoplist token with the
@@ -344,8 +417,8 @@ class TestOpinionSearchGates:
             "Snyder v. Bank of America, 2020 WL 6462400 (S.D.N.Y. 2020)"
         )
 
-        assert result.status == VerificationStatus.NOT_FOUND
-        assert result.candidates == []
+        assert result.status == Status.NOT_FOUND
+        assert result.final_ids.cluster_id is None
 
 
 # ---------------------------------------------------------------------------
@@ -379,11 +452,9 @@ class TestRecapFallback:
             "(E.D. Mich. Sept. 17, 2018)"
         )
 
-        assert result.status in (
-            VerificationStatus.LIKELY_REAL,
-            VerificationStatus.POSSIBLE_MATCH,
-        )
-        assert "anderson-v-furst" in result.matched_url
+        assert result.status == Status.VERIFIED
+        assert result.headline_confidence is not None
+        assert "anderson-v-furst" in result.final_ids.absolute_url
 
     def test_recap_prefers_substantive_over_procedural(self):
         """An Order should be preferred over a Reply brief at the same score."""
@@ -412,8 +483,9 @@ class TestRecapFallback:
         v = CitationVerifier(client)
         result = v.verify("Smith v. Jones, 2020 WL 999999 (E.D. Mich. June 1, 2020)")
 
-        assert "Order" in result.diagnostics[0].message
-        assert "Reply" not in result.diagnostics[0].message
+        diags = _diagnostics(result)
+        assert "Order" in diags[0].message
+        assert "Reply" not in diags[0].message
 
     def test_recap_queries_exact_date_first(self):
         """When month/day are known and initial docs don't match, queries exact date."""
@@ -469,10 +541,12 @@ class TestRecapFallback:
         v = CitationVerifier(client)
         result = v.verify("Smith v. Jones, 2020 WL 111111 (S.D.N.Y. 2020)")
 
-        assert result.diagnostics[0].category == "recap"
-        assert "possible docket match" in result.diagnostics[0].message.lower()
+        diags = _diagnostics(result)
+        assert diags[0].category == "recap"
+        assert "possible docket match" in diags[0].message.lower()
         # Score should be discounted: base ~0.7 * 0.6 = ~0.42
-        assert result.confidence < 0.6
+        assert result.headline_confidence is not None
+        assert result.headline_confidence < 0.6
 
     def test_docket_only_sets_matched_docket_id_not_cluster_id(self):
         """Issue #6: docket-only RECAP fallback must put docket_id in
@@ -494,8 +568,8 @@ class TestRecapFallback:
             "Lindsay-Stern v. Garamszegi, No. 2:18-cv-01234 (C.D. Cal. 2018)"
         )
 
-        assert result.matched_docket_id == 18158469
-        assert result.matched_cluster_id is None
+        assert result.final_ids.docket_id == 18158469
+        assert result.final_ids.cluster_id is None
 
     def test_recap_doc_match_sets_matched_docket_id_not_cluster_id(self):
         """A RECAP doc match (with a specific recap_document) carries a
@@ -529,8 +603,8 @@ class TestRecapFallback:
             "Bear Warriors United v. Lambert, No. 6:22-cv-01155 (M.D. Fla. 2024)"
         )
 
-        assert result.matched_docket_id == 65698058
-        assert result.matched_cluster_id is None
+        assert result.final_ids.docket_id == 65698058
+        assert result.final_ids.cluster_id is None
 
     def test_recap_prefers_is_free_on_pacer(self):
         """A doc with is_free_on_pacer=True should be preferred over one without,
@@ -563,7 +637,7 @@ class TestRecapFallback:
         result = v.verify("Smith v. Jones, 2020 WL 999999 (S.D.N.Y. June 1, 2020)")
 
         # The free-on-PACER doc (entry 11) should be selected
-        assert "/11/" in result.matched_url
+        assert "/11/" in result.final_ids.absolute_url
 
     def test_recap_date_proximity_beats_is_free_on_pacer(self):
         """A doc with an exact date match should beat a free-on-PACER doc
@@ -597,7 +671,7 @@ class TestRecapFallback:
 
         # The date-matching R&R (entry 21) should win over the free-on-PACER
         # order that is 4 months away
-        assert "/21/" in result.matched_url
+        assert "/21/" in result.final_ids.absolute_url
 
     def test_opinion_keyword_beats_is_free_alone(self):
         """An opinion doc without is_free beats a non-opinion doc with is_free
@@ -630,7 +704,7 @@ class TestRecapFallback:
         result = v.verify("Smith v. Jones, 2020 WL 999999 (S.D.N.Y. June 1, 2020)")
 
         # Opinion (tier 2) should beat Attachment+is_free (tier 1)
-        assert "/11/" in result.matched_url
+        assert "/11/" in result.final_ids.absolute_url
 
     def test_progressive_date_widening(self):
         """When exact date returns nothing, month ± 1 query should fire
@@ -688,7 +762,7 @@ class TestRecapFallback:
         # Month ± 1 query should have fired (2 calls: exact date + month range)
         assert call_count["n"] == 2
         # The opinion from the month range should be selected
-        assert "/40/" in result.matched_url
+        assert "/40/" in result.final_ids.absolute_url
 
 
 # ---------------------------------------------------------------------------
@@ -719,8 +793,9 @@ class TestCourtCorroboration:
         v = CitationVerifier(client)
         result = v.verify("United States v. Craner, 652 F.3d 560, 562 (9th Cir. 2016)")
 
-        assert result.status == VerificationStatus.NOT_FOUND
-        assert "could not be verified" in result.diagnostics[0].message.lower()
+        assert result.status == Status.NOT_FOUND
+        diags = _diagnostics(result)
+        assert "could not be verified" in diags[0].message.lower()
 
     def test_match_allowed_when_court_matches(self):
         """Unverified citation + correct court = still a valid match."""
@@ -744,7 +819,7 @@ class TestCourtCorroboration:
         v = CitationVerifier(client)
         result = v.verify("Smith v. Jones, 500 F.3d 200 (S.D.N.Y. 2020)")
 
-        assert result.status != VerificationStatus.NOT_FOUND
+        assert result.status != Status.NOT_FOUND
 
 
 # ---------------------------------------------------------------------------
@@ -1077,8 +1152,8 @@ class TestHelpers:
         assert ol("opinion", False, 30) > ol("opinion", False, 10)
 
     def test_match_word_follows_status(self):
-        """LIKELY_REAL says 'likely', POSSIBLE_MATCH says 'possible'."""
-        # High-scoring match → LIKELY_REAL → "likely"
+        """High confidence (>=0.85) -> 'likely', mid confidence -> 'possible'."""
+        # High-scoring match → confidence >= 0.85 → "likely"
         client = _make_client(
             search_opinions=[
                 {
@@ -1093,11 +1168,14 @@ class TestHelpers:
         )
         v = CitationVerifier(client)
         result = v.verify("Smith v. Jones, 500 F.3d 200 (S.D.N.Y. 2020)")
-        assert result.status == VerificationStatus.LIKELY_REAL
-        assert any("likely match" in d.message for d in result.diagnostics)
+        assert result.status == Status.VERIFIED
+        assert result.headline_confidence is not None
+        assert result.headline_confidence >= 0.85
+        diags = _diagnostics(result)
+        assert any("likely match" in d.message for d in diags)
 
     def test_match_word_possible_for_lower_score(self):
-        """Lower confidence → POSSIBLE_MATCH → 'possible'."""
+        """Lower confidence (0.40-0.85) -> 'possible'."""
         client = _make_client(
             search_opinions=[
                 {
@@ -1113,8 +1191,13 @@ class TestHelpers:
         v = CitationVerifier(client)
         # Wrong court, wrong date → lower score
         result = v.verify("Smith v. Jones, 500 F.3d 200 (S.D.N.Y. 2020)")
-        if result.status == VerificationStatus.POSSIBLE_MATCH:
-            assert any("possible match" in d.message for d in result.diagnostics)
+        if (
+            result.status == Status.VERIFIED
+            and result.headline_confidence is not None
+            and 0.40 <= result.headline_confidence < 0.85
+        ):
+            diags = _diagnostics(result)
+            assert any("possible match" in d.message for d in diags)
 
 
 # ---------------------------------------------------------------------------
@@ -1164,12 +1247,10 @@ class TestDocketNumberSearch:
         )
 
         # Should find a match via docket number (different case name is OK)
-        assert result.status in (
-            VerificationStatus.LIKELY_REAL,
-            VerificationStatus.POSSIBLE_MATCH,
-        )
+        assert result.status == Status.VERIFIED
+        assert result.headline_confidence is not None
         # The unrelated case should have been filtered out
-        assert "Unrelated" not in (result.matched_case_name or "")
+        assert "Unrelated" not in (_matched_case_name(result) or "")
 
     def test_no_match_when_docket_numbers_dont_match(self):
         """If API returns only non-matching docket numbers, no candidates survive."""
@@ -1188,7 +1269,7 @@ class TestDocketNumberSearch:
         v = CitationVerifier(client)
         result = v.verify("Test v. Case, Case No. 1:13-CV-1483 (E.D. Cal. 2020)")
 
-        assert result.status == VerificationStatus.NOT_FOUND
+        assert result.status == Status.NOT_FOUND
 
 
 # ---------------------------------------------------------------------------
@@ -1404,7 +1485,7 @@ class TestCitationLookupNameMatching:
         v = CitationVerifier(client)
         result = v.verify("Fink v. Gomez, 239 F.3d 989 (9th Cir. 2001)")
 
-        assert result.status == VerificationStatus.VERIFIED
+        assert result.status == Status.VERIFIED
 
     def test_none_plaintiff_trusts_citation_lookup(self):
         """When eyecite fails to parse plaintiff ('None v. X'), trust citation lookup."""
@@ -1424,7 +1505,7 @@ class TestCitationLookupNameMatching:
         v = CitationVerifier(client)
         result = v.verify("None v. Daou Systems, Inc., 411 F.3d 1006 (2005)")
 
-        assert result.status == VerificationStatus.VERIFIED
+        assert result.status == Status.VERIFIED
 
     def test_completely_wrong_name_returns_possible_match(self):
         """Fabricated name + real citation should return POSSIBLE_MATCH with the actual case."""
@@ -1444,12 +1525,18 @@ class TestCitationLookupNameMatching:
         v = CitationVerifier(client)
         result = v.verify("Johnson v. Microsoft Corp., 239 F.3d 989 (9th Cir. 2001)")
 
-        assert result.status == VerificationStatus.POSSIBLE_MATCH
-        assert result.confidence == 0.3
-        assert result.matched_case_name == "David M. Fink v. James H. Gomez, Director"
-        assert result.matched_cluster_id == 772039
-        assert result.diagnostics[0].category == "name"
-        assert "Name mismatch" in result.diagnostics[0].message
+        # Phase 1: citation-lookup name mismatch -> VERIFIED + warning
+        assert result.status == Status.VERIFIED
+        assert result.headline_confidence == 0.3
+        assert _matched_case_name(result) == "David M. Fink v. James H. Gomez, Director"
+        assert result.final_ids.cluster_id == 772039
+        assert any(
+            w.category == WarningCategory.cl_display_name_data_bug
+            for w in result.warnings
+        )
+        diags = _diagnostics(result)
+        assert diags[0].category == "name"
+        assert "Name mismatch" in diags[0].message
 
     def test_common_word_surname_rejected(self):
         """'American' as a defendant surname should not match an unrelated 'American National Insurance'."""
@@ -1472,10 +1559,16 @@ class TestCitationLookupNameMatching:
             "(N.D. Ala. 1961)"
         )
         # "American" is nondistinctive; "Pettway" is distinctive but not in CL name
-        assert result.status == VerificationStatus.POSSIBLE_MATCH
-        assert result.confidence == 0.3
-        assert result.diagnostics[0].category == "name"
-        assert "Name mismatch" in result.diagnostics[0].message
+        # Phase 1: citation-lookup name mismatch -> VERIFIED + warning
+        assert result.status == Status.VERIFIED
+        assert result.headline_confidence == 0.3
+        assert any(
+            w.category == WarningCategory.cl_display_name_data_bug
+            for w in result.warnings
+        )
+        diags = _diagnostics(result)
+        assert diags[0].category == "name"
+        assert "Name mismatch" in diags[0].message
 
     def test_distinctive_org_name_still_matches(self):
         """Non-generic org names like 'Costco' should still match."""
@@ -1494,7 +1587,7 @@ class TestCitationLookupNameMatching:
         )
         v = CitationVerifier(client)
         result = v.verify("Costco v. Omega, 562 U.S. 40 (2010)")
-        assert result.status == VerificationStatus.VERIFIED
+        assert result.status == Status.VERIFIED
 
     def test_all_nondistinctive_surnames_trusts_lookup(self):
         """When all extracted surnames are generic, trust the citation lookup."""
@@ -1514,7 +1607,7 @@ class TestCitationLookupNameMatching:
         v = CitationVerifier(client)
         result = v.verify("First National v. Federal Reserve, 100 U.S. 50 (1990)")
         # Both "First" and "Federal" are nondistinctive → trusts lookup
-        assert result.status == VerificationStatus.VERIFIED
+        assert result.status == Status.VERIFIED
 
     def test_defendant_only_match_sufficient(self):
         """If just the defendant surname matches, accept it (plaintiff may be 'Estate of X')."""
@@ -1537,7 +1630,7 @@ class TestCitationLookupNameMatching:
         # But "Elkins" IS in both. Let's test the right thing:
         result = v.verify("Elkins v. Pelayo, 100 F.3d 200 (2001)")
         # "Elkins" appears in CL name → passes surname check
-        assert result.status == VerificationStatus.VERIFIED
+        assert result.status == Status.VERIFIED
 
 
 # ---------------------------------------------------------------------------
@@ -1725,8 +1818,8 @@ class TestVerifyWithParsedCitation:
             "Obergefell v. Hodges, 576 U.S. 644 (2015)", parsed=parsed
         )
 
-        assert result.status == VerificationStatus.VERIFIED
-        assert result.confidence == 1.0
+        assert result.status == Status.VERIFIED
+        assert result.headline_confidence == 1.0
 
     def test_preparsed_preserves_month_day(self):
         """Pre-parsed citation with month/day should flow through to scoring."""
@@ -1762,7 +1855,9 @@ class TestVerifyWithParsedCitation:
             parsed=parsed,
         )
 
-        assert result.status == VerificationStatus.LIKELY_REAL
+        assert result.status == Status.VERIFIED
+        assert result.headline_confidence is not None
+        assert result.headline_confidence >= 0.85
 
     def test_existing_callers_unaffected(self):
         """Calling verify() with only citation_text still works (backward compat)."""
@@ -1782,7 +1877,7 @@ class TestVerifyWithParsedCitation:
         v = CitationVerifier(client)
         result = v.verify("Smith v. Jones, 100 F.3d 200 (2d Cir. 2020)")
 
-        assert result.status == VerificationStatus.VERIFIED
+        assert result.status == Status.VERIFIED
 
 
 # ---------------------------------------------------------------------------
@@ -1813,9 +1908,9 @@ class TestQuickOnly:
             "Obergefell v. Hodges, 576 U.S. 644 (2015)", quick_only=True
         )
 
-        assert result.status == VerificationStatus.VERIFIED
-        assert result.confidence == 1.0
-        assert result.matched_case_name == "Obergefell v. Hodges"
+        assert result.status == Status.VERIFIED
+        assert result.headline_confidence == 1.0
+        assert _matched_case_name(result) == "Obergefell v. Hodges"
 
     def test_quick_not_found_returns_not_found(self):
         """Citation not in lookup API with quick_only -> NOT_FOUND, no further steps."""
@@ -1825,9 +1920,10 @@ class TestQuickOnly:
             "Smith v. Jones, 100 F.3d 200 (2d Cir. 2020)", quick_only=True
         )
 
-        assert result.status == VerificationStatus.NOT_FOUND
-        assert result.confidence == 0.0
-        assert "Quick search only" in result.diagnostics[0].message
+        assert result.status == Status.NOT_FOUND
+        assert result.headline_confidence is None
+        diags = _diagnostics(result)
+        assert "Quick search only" in diags[0].message
 
     def test_quick_does_not_call_search(self):
         """quick_only must not call opinion search or RECAP."""
@@ -1863,10 +1959,16 @@ class TestQuickOnly:
             "Smith v. Jones, 100 F.3d 200 (2d Cir. 2020)", quick_only=True
         )
 
-        assert result.status == VerificationStatus.POSSIBLE_MATCH
-        assert result.confidence == 0.3
-        assert result.diagnostics[0].category == "name"
-        assert "Name mismatch" in result.diagnostics[0].message
+        # Phase 1: citation-lookup name mismatch -> VERIFIED + warning
+        assert result.status == Status.VERIFIED
+        assert result.headline_confidence == 0.3
+        assert any(
+            w.category == WarningCategory.cl_display_name_data_bug
+            for w in result.warnings
+        )
+        diags = _diagnostics(result)
+        assert diags[0].category == "name"
+        assert "Name mismatch" in diags[0].message
 
 
 # ---------------------------------------------------------------------------
@@ -1965,6 +2067,12 @@ class TestDocketNormalization:
 # ---------------------------------------------------------------------------
 
 
+@pytest.mark.skip(
+    reason="v0.3: matched_syllabus dropped from VerificationResult. "
+    "Phase 1 only persists final_ids + resolution_path; cluster-level "
+    "syllabus metadata is no longer surfaced. Revisit if a consumer "
+    "needs it (would belong in resolution_path[*].raw_response_summary)."
+)
 class TestSyllabusPreservation:
     """Verify that syllabus data from citation-lookup is preserved."""
 
