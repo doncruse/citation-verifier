@@ -1263,3 +1263,85 @@ class TestAsyncResolutionPathShape:
         assert stages[0] == StageName.citation_lookup
         assert StageName.opinion_search in stages
         assert result.status == Status.NOT_FOUND
+
+
+class TestBatchPathShape:
+    """Phase 2, Task 5: assert verify_batch produces per-citation
+    resolution_path entries. Batch hits get a one-entry path
+    (citation_lookup, resolved, via=batch). Batch misses lead with a
+    citation_lookup no_match entry, then accumulate fallback stages
+    via _search_fallback_async."""
+
+    def test_batch_hits_produce_one_entry_paths(self):
+        verifier = CitationVerifier()
+
+        async def _run():
+            with patch.object(
+                verifier,
+                "_batch_citation_lookup",
+                AsyncMock(
+                    return_value={
+                        0: {
+                            "id": 100,
+                            "case_name": "Foo v. Bar",
+                            "absolute_url": "/opinion/100/",
+                        },
+                        1: {
+                            "id": 200,
+                            "case_name": "Baz v. Qux",
+                            "absolute_url": "/opinion/200/",
+                        },
+                    }
+                ),
+            ), patch(
+                "citation_verifier.verifier.AsyncCourtListenerClient"
+            ) as MockClient:
+                client = AsyncMock()
+                client.__aenter__ = AsyncMock(return_value=client)
+                client.__aexit__ = AsyncMock(return_value=None)
+                MockClient.return_value = client
+                return await verifier.verify_batch(
+                    [
+                        "Foo v. Bar, 100 U.S. 1 (2020)",
+                        "Baz v. Qux, 200 U.S. 2 (2021)",
+                    ]
+                )
+
+        results = asyncio.run(_run())
+        for r in results:
+            assert len(r.resolution_path) == 1
+            assert r.resolution_path[0].stage == StageName.citation_lookup
+            assert r.resolution_path[0].verdict == StageVerdict.resolved
+            # Batch-hit confidence is 1.0 (same as single citation_lookup hit)
+            assert r.resolution_path[0].confidence == 1.0
+
+    def test_batch_miss_falls_through_to_fallback_with_path(self):
+        verifier = CitationVerifier()
+
+        async def _run():
+            # Mock the batch call to return empty (miss for all).
+            # _search_fallback_async will be called for each citation.
+            with patch.object(
+                verifier, "_batch_citation_lookup", AsyncMock(return_value={})
+            ), patch(
+                "citation_verifier.verifier.AsyncCourtListenerClient"
+            ) as MockClient:
+                client = AsyncMock()
+                client.search_opinions.return_value = []
+                client.search_recap.return_value = []
+                client.__aenter__ = AsyncMock(return_value=client)
+                client.__aexit__ = AsyncMock(return_value=None)
+                MockClient.return_value = client
+                return await verifier.verify_batch(
+                    ["Foo v. Bar, 999 F.3d 999 (1st Cir. 2099)"]
+                )
+
+        results = asyncio.run(_run())
+        r = results[0]
+        # Batch-miss path: citation_lookup (no_match) + opinion_search
+        # (no_match) at minimum.
+        assert r.resolution_path[0].stage == StageName.citation_lookup
+        assert r.resolution_path[0].verdict == StageVerdict.no_match
+        assert any(
+            e.stage == StageName.opinion_search for e in r.resolution_path
+        )
