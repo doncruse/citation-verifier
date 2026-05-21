@@ -7,19 +7,103 @@ Verifies that:
 4. Exponential backoff formula (intentionally stricter than sync to avoid 429 storms)
 
 All tests mock API clients so no real API calls are made.
+
+Migrated to the v0.3 schema (Phase 1, Task 3). The old top-level
+``status``/``confidence``/``matched_*``/``diagnostics`` fields have been
+replaced; the helpers below mirror ``tests/test_verifier.py`` to give a
+thin compatibility layer so the assertions read close to the old
+semantics. Phase 3 can lift both copies into a shared module once the
+warning categories close the gap.
 """
 
 from __future__ import annotations
 
 import asyncio
 import inspect
+import re
+from dataclasses import dataclass
 from unittest.mock import AsyncMock, MagicMock, patch
 
 import pytest
 
 from citation_verifier.client import AsyncCourtListenerClient, CourtListenerClient
-from citation_verifier.models import ParsedCitation, VerificationStatus
+from citation_verifier.models import ParsedCitation, Status, WarningCategory
 from citation_verifier.verifier import CitationVerifier
+
+
+# ---------------------------------------------------------------------------
+# v0.3 compatibility helpers (mirrored from tests/test_verifier.py)
+# ---------------------------------------------------------------------------
+
+
+@dataclass
+class _DiagnosticLike:
+    """Backwards-compatible Diagnostic-shaped view of a Warning or
+    resolution_path notes string."""
+
+    category: str
+    message: str
+
+    def __eq__(self, other):  # noqa: D401 - dataclass eq w/ flexible field name
+        if not isinstance(other, _DiagnosticLike):
+            return NotImplemented
+        return self.category == other.category and self.message == other.message
+
+
+# Prefix-anchored classifier for freeform resolution_path notes. Each
+# pattern is matched against the start of the message so that production
+# messages like "Court X could not be verified" or "Year X could not be
+# verified" land under their proper category rather than silently
+# falling through to "info".
+_CATEGORY_PATTERNS: list[tuple[re.Pattern[str], str]] = [
+    # RECAP docket-match phrasing — checked first because the message
+    # body can begin with "We found..." rather than a category prefix.
+    (re.compile(r"\b(RECAP|docket match)\b", re.IGNORECASE), "recap"),
+    (re.compile(r"^(?:Case )?[Nn]ame\b"), "name"),
+    (re.compile(r"^Court\b"), "court"),
+    (re.compile(r"^(?:Date|Year|Month|Day)\b"), "date"),
+    (re.compile(r"^Docket\b"), "docket"),
+    (re.compile(r"^Citation\b"), "cite"),
+]
+
+
+def _classify_note(piece: str) -> str:
+    for pat, cat in _CATEGORY_PATTERNS:
+        if pat.search(piece):
+            return cat
+    return "info"
+
+
+def _diagnostics(result) -> list[_DiagnosticLike]:
+    """Reconstruct an old-style diagnostics list from the new shape.
+
+    Order: structured Warnings first (each maps to a (category, message)
+    pair), then a single freeform entry from ``resolution_path[-1].notes``
+    if present. Notes that contain "; " separators (the legacy diagnostic
+    join) are split back into multiple entries classified by prefix.
+    """
+    out: list[_DiagnosticLike] = []
+    for w in result.warnings:
+        # The old citation-lookup name-mismatch was emitted under
+        # category "name"; the new closed-set category is
+        # cl_display_name_data_bug. Map back so legacy assertions pass.
+        if w.category == WarningCategory.cl_display_name_data_bug:
+            out.append(_DiagnosticLike("name", w.message))
+        else:
+            out.append(_DiagnosticLike(w.category.value, w.message))
+    if result.resolution_path:
+        notes = result.resolution_path[-1].notes
+        if notes:
+            for piece in notes.split("; "):
+                out.append(_DiagnosticLike(_classify_note(piece), piece))
+    return out
+
+
+def _matched_case_name(result) -> str | None:
+    """Old-style matched_case_name from the new resolution_path summary."""
+    if result.resolution_path:
+        return result.resolution_path[-1].raw_response_summary.get("case_name")
+    return None
 
 
 # ---------------------------------------------------------------------------
@@ -87,13 +171,14 @@ class TestAsyncSyncParity:
             api, "Obergefell v. Hodges, 576 U.S. 644 (2015)"
         )
 
-        assert sync_r.status == async_r.status == VerificationStatus.VERIFIED
-        assert sync_r.confidence == async_r.confidence == 1.0
-        assert sync_r.matched_case_name == async_r.matched_case_name
-        assert sync_r.matched_url == async_r.matched_url
+        assert sync_r.status == async_r.status == Status.VERIFIED
+        assert sync_r.headline_confidence == async_r.headline_confidence == 1.0
+        assert _matched_case_name(sync_r) == _matched_case_name(async_r)
+        assert sync_r.final_ids.absolute_url == async_r.final_ids.absolute_url
 
     def test_parity_citation_lookup_name_mismatch(self):
-        """Step 1: Citation exists but wrong case → POSSIBLE_MATCH in both paths."""
+        """Step 1: Citation exists but wrong case → VERIFIED with display-name
+        Warning (was POSSIBLE_MATCH at 0.3 in the old schema)."""
         api = {
             "citation_lookup": [
                 {
@@ -111,9 +196,17 @@ class TestAsyncSyncParity:
             api, "Smith v. Jones, 100 F.3d 200 (2d Cir. 2020)"
         )
 
-        assert sync_r.status == async_r.status == VerificationStatus.POSSIBLE_MATCH
-        assert sync_r.confidence == async_r.confidence == 0.3
-        assert sync_r.diagnostics == async_r.diagnostics
+        assert sync_r.status == async_r.status == Status.VERIFIED
+        assert sync_r.headline_confidence == async_r.headline_confidence == 0.3
+        assert any(
+            w.category == WarningCategory.cl_display_name_data_bug
+            for w in sync_r.warnings
+        )
+        assert any(
+            w.category == WarningCategory.cl_display_name_data_bug
+            for w in async_r.warnings
+        )
+        assert _diagnostics(sync_r) == _diagnostics(async_r)
 
     def test_parity_opinion_search_likely_real(self):
         """Step 2: Fuzzy opinion search finds good match → LIKELY_REAL in both paths."""
@@ -133,10 +226,14 @@ class TestAsyncSyncParity:
             api, "Smith v. Jones, 500 F.3d 200 (2d Cir. 2020)"
         )
 
-        assert sync_r.status == async_r.status == VerificationStatus.LIKELY_REAL
-        assert sync_r.confidence == async_r.confidence
-        assert sync_r.matched_case_name == async_r.matched_case_name
-        assert sync_r.matched_url == async_r.matched_url
+        # Old LIKELY_REAL band: VERIFIED with confidence >= 0.85 from a
+        # fallback (opinion-search) stage entry.
+        assert sync_r.status == async_r.status == Status.VERIFIED
+        assert sync_r.headline_confidence is not None
+        assert sync_r.headline_confidence >= 0.85
+        assert sync_r.headline_confidence == async_r.headline_confidence
+        assert _matched_case_name(sync_r) == _matched_case_name(async_r)
+        assert sync_r.final_ids.absolute_url == async_r.final_ids.absolute_url
 
     def test_parity_no_results_not_found(self):
         """All searches return empty → NOT_FOUND in both paths."""
@@ -145,8 +242,11 @@ class TestAsyncSyncParity:
             api, "Fakename v. Nobody, 999 F.3d 1 (S.D.N.Y. 2020)"
         )
 
-        assert sync_r.status == async_r.status == VerificationStatus.NOT_FOUND
-        assert sync_r.confidence == async_r.confidence == 0.0
+        assert sync_r.status == async_r.status == Status.NOT_FOUND
+        # NOT_FOUND has no resolving stage, so headline_confidence is None
+        # in the new schema (was 0.0 default in old VerificationResult).
+        assert sync_r.headline_confidence is None
+        assert async_r.headline_confidence is None
 
     def test_parity_opinion_search_call_count(self):
         """Both paths call opinion search the same number of times."""
@@ -188,8 +288,8 @@ class TestAsyncSyncParity:
         )
 
         assert sync_r.status == async_r.status
-        assert sync_r.confidence == async_r.confidence
-        assert sync_r.matched_case_name == async_r.matched_case_name
+        assert sync_r.headline_confidence == async_r.headline_confidence
+        assert _matched_case_name(sync_r) == _matched_case_name(async_r)
 
     def test_parity_recap_docket_only_discounted(self):
         """RECAP docket with no docs → 0.6x discount applied by both paths."""
@@ -209,8 +309,9 @@ class TestAsyncSyncParity:
         )
 
         assert sync_r.status == async_r.status
-        assert sync_r.confidence == async_r.confidence
-        assert sync_r.confidence < 0.6  # 0.6x discount
+        assert sync_r.headline_confidence == async_r.headline_confidence
+        assert sync_r.headline_confidence is not None
+        assert sync_r.headline_confidence < 0.6  # 0.6x discount
 
     def test_parity_docket_only_sets_matched_docket_id(self):
         """Async parity for issue #6 docket-only path."""
@@ -232,8 +333,8 @@ class TestAsyncSyncParity:
                 "Lindsay-Stern v. Garamszegi, No. 2:18-cv-01234 (C.D. Cal. 2018)",
             )
         )
-        assert result.matched_docket_id == 18158469
-        assert result.matched_cluster_id is None
+        assert result.final_ids.docket_id == 18158469
+        assert result.final_ids.cluster_id is None
 
     def test_parity_court_corroboration_required(self):
         """Unverified citation + wrong court → NOT_FOUND in both paths."""
@@ -258,7 +359,7 @@ class TestAsyncSyncParity:
             api, "United States v. Craner, 652 F.3d 560, 562 (9th Cir. 2016)"
         )
 
-        assert sync_r.status == async_r.status == VerificationStatus.NOT_FOUND
+        assert sync_r.status == async_r.status == Status.NOT_FOUND
 
     def test_parity_insufficient_data_guard(self):
         """Missing both court and date → NOT_FOUND with diagnostic in both paths."""
@@ -288,10 +389,14 @@ class TestAsyncSyncParity:
             api, "Smith v. Jones, 100 F.3d 200", parsed=parsed
         )
 
-        assert sync_r.status == async_r.status == VerificationStatus.NOT_FOUND
-        assert sync_r.confidence == async_r.confidence == 0.0
-        assert "Insufficient data" in sync_r.diagnostics[0].message
-        assert sync_r.diagnostics == async_r.diagnostics
+        assert sync_r.status == async_r.status == Status.NOT_FOUND
+        assert sync_r.headline_confidence is None
+        assert async_r.headline_confidence is None
+        sync_diag = _diagnostics(sync_r)
+        async_diag = _diagnostics(async_r)
+        assert sync_diag, "expected at least one diagnostic"
+        assert "Insufficient data" in sync_diag[0].message
+        assert sync_diag == async_diag
 
     def test_parity_quick_only_not_found(self):
         """quick_only: both paths return NOT_FOUND with diagnostic when not in lookup."""
@@ -306,10 +411,14 @@ class TestAsyncSyncParity:
             v.verify_async(async_client, citation, quick_only=True)
         )
 
-        assert sync_r.status == async_r.status == VerificationStatus.NOT_FOUND
-        assert sync_r.confidence == async_r.confidence == 0.0
-        assert "Quick search only" in sync_r.diagnostics[0].message
-        assert sync_r.diagnostics == async_r.diagnostics
+        assert sync_r.status == async_r.status == Status.NOT_FOUND
+        assert sync_r.headline_confidence is None
+        assert async_r.headline_confidence is None
+        sync_diag = _diagnostics(sync_r)
+        async_diag = _diagnostics(async_r)
+        assert sync_diag, "expected at least one diagnostic"
+        assert "Quick search only" in sync_diag[0].message
+        assert sync_diag == async_diag
 
     def test_parity_quick_only_verified(self):
         """quick_only: citation found in Step 1 -> VERIFIED in both paths."""
@@ -336,9 +445,9 @@ class TestAsyncSyncParity:
             v.verify_async(async_client, citation, quick_only=True)
         )
 
-        assert sync_r.status == async_r.status == VerificationStatus.VERIFIED
-        assert sync_r.confidence == async_r.confidence == 1.0
-        assert sync_r.matched_case_name == async_r.matched_case_name
+        assert sync_r.status == async_r.status == Status.VERIFIED
+        assert sync_r.headline_confidence == async_r.headline_confidence == 1.0
+        assert _matched_case_name(sync_r) == _matched_case_name(async_r)
 
     def test_parity_preparsed_citation(self):
         """Pre-parsed citation produces identical results in both paths."""
@@ -370,8 +479,8 @@ class TestAsyncSyncParity:
             api, "Obergefell v. Hodges, 576 U.S. 644 (2015)", parsed=parsed
         )
 
-        assert sync_r.status == async_r.status == VerificationStatus.VERIFIED
-        assert sync_r.confidence == async_r.confidence == 1.0
+        assert sync_r.status == async_r.status == Status.VERIFIED
+        assert sync_r.headline_confidence == async_r.headline_confidence == 1.0
 
     def test_parity_recap_docket_entries_query(self):
         """When RECAP docs don't match cited date, both paths query docket-entries API."""
@@ -407,8 +516,8 @@ class TestAsyncSyncParity:
         sync_r, async_r = _verify_parity(api, citation)
 
         assert sync_r.status == async_r.status
-        assert sync_r.confidence == async_r.confidence
-        assert sync_r.matched_case_name == async_r.matched_case_name
+        assert sync_r.headline_confidence == async_r.headline_confidence
+        assert _matched_case_name(sync_r) == _matched_case_name(async_r)
 
 
 # ---------------------------------------------------------------------------
@@ -469,8 +578,8 @@ class TestVerifyBatch:
             results = asyncio.run(v.verify_batch(citations))
 
         assert len(results) == 2
-        assert results[0].status == VerificationStatus.VERIFIED
-        assert results[1].status == VerificationStatus.NOT_FOUND
+        assert results[0].status == Status.VERIFIED
+        assert results[1].status == Status.NOT_FOUND
 
     def test_batch_calls_progress_callback(self):
         """Progress callback receives (completed, total) after each citation."""
@@ -540,7 +649,7 @@ class TestVerifyBatch:
             )
 
         assert len(results) == 1
-        assert results[0].status == VerificationStatus.VERIFIED
+        assert results[0].status == Status.VERIFIED
 
     def test_batch_empty_input(self):
         """Empty citation list returns empty results."""
@@ -573,7 +682,7 @@ class TestVerifyBatch:
 
         assert len(results) == n
         # All should complete (NOT_FOUND since mocks return empty)
-        assert all(r.status == VerificationStatus.NOT_FOUND for r in results)
+        assert all(r.status == Status.NOT_FOUND for r in results)
 
 
 # ---------------------------------------------------------------------------
@@ -818,8 +927,8 @@ class TestVerifyBatchIntegration:
         ):
             results = asyncio.run(v.verify_batch([citation]))
 
-        assert results[0].status == VerificationStatus.VERIFIED
-        assert results[0].matched_cluster_id == 123
+        assert results[0].status == Status.VERIFIED
+        assert results[0].final_ids.cluster_id == 123
         # Only one citation_lookup call (the batch), no search calls
         assert mock_client.citation_lookup.call_count == 1
         mock_client.search_opinions.assert_not_called()
@@ -847,7 +956,10 @@ class TestVerifyBatchIntegration:
         ):
             results = asyncio.run(v.verify_batch([citation]))
 
-        assert results[0].status == VerificationStatus.LIKELY_REAL
+        # Old LIKELY_REAL: VERIFIED via fallback opinion-search.
+        assert results[0].status == Status.VERIFIED
+        assert results[0].headline_confidence is not None
+        assert results[0].headline_confidence >= 0.85
         mock_client.search_opinions.assert_called()
 
     def test_mixed_hits_and_misses_in_order(self):
@@ -901,11 +1013,11 @@ class TestVerifyBatchIntegration:
             results = asyncio.run(v.verify_batch(citations))
 
         assert len(results) == 3
-        assert results[0].status == VerificationStatus.VERIFIED
-        assert results[0].matched_cluster_id == 1
-        assert results[1].status == VerificationStatus.NOT_FOUND
-        assert results[2].status == VerificationStatus.VERIFIED
-        assert results[2].matched_cluster_id == 2
+        assert results[0].status == Status.VERIFIED
+        assert results[0].final_ids.cluster_id == 1
+        assert results[1].status == Status.NOT_FOUND
+        assert results[2].status == Status.VERIFIED
+        assert results[2].final_ids.cluster_id == 2
 
     def test_quick_only_batch_misses_return_not_found(self):
         """With quick_only, batch misses return NOT_FOUND without fallback."""
@@ -939,8 +1051,8 @@ class TestVerifyBatchIntegration:
                 v.verify_batch(citations, quick_only=True)
             )
 
-        assert results[0].status == VerificationStatus.VERIFIED
-        assert results[1].status == VerificationStatus.NOT_FOUND
+        assert results[0].status == Status.VERIFIED
+        assert results[1].status == Status.NOT_FOUND
         # No search calls should have been made
         mock_client.search_opinions.assert_not_called()
         mock_client.search_recap.assert_not_called()
