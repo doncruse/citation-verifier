@@ -917,7 +917,7 @@
         "text_source": null
       },
       "expected_warnings_subset": [],
-      "rationale": "Design v2 §4 named exemplar. Simulated HTTP 500 from CourtListener on the primary citation_lookup endpoint. Per design §2.8 internal gate, the verifier must produce VERIFICATION_INCOMPLETE rather than silently degrade to NOT_FOUND. The input citation is real (Obergefell, cluster 2812209 would resolve cleanly under normal conditions) — the mock harness intercepts and substitutes the failure response. Anchor fixture for infrastructure-failure-on-primary-stage.",
+      "rationale": "Design v2 §4 named exemplar — the canonical reference fixture for the VERIFICATION_INCOMPLETE status. §4 specifies this case to test that a primary-stage infrastructure failure does NOT silently degrade to NOT_FOUND; the verifier must surface the error in resolution_path and emit VERIFICATION_INCOMPLETE. Simulated HTTP 500 from CourtListener on the primary citation_lookup endpoint. Per design §2.8 internal gate, the verifier must produce VERIFICATION_INCOMPLETE rather than silently degrade to NOT_FOUND. The input citation is real (Obergefell, cluster 2812209 would resolve cleanly under normal conditions) — the mock harness intercepts and substitutes the failure response. Anchor fixture for infrastructure-failure-on-primary-stage.",
       "source": "design_v2_doc#section_4",
       "category": "named_exemplar",
       "phase3_classification_open": false,
@@ -925,7 +925,7 @@
         "stage": "citation_lookup",
         "failure_mode": "http_500",
         "attempt_idx": 0,
-        "details": "First (and only) attempted call to /api/rest/v4/citation-lookup/ returns HTTP 500 with empty body. Retry policy exhausted."
+        "details": "First (and only) attempted call to /api/rest/v4/citation-lookup/ returns HTTP 500 with empty body. Client.py does not retry 5xx errors (only 429); the stage records verdict=errored on the first attempt."
       }
     },
     {

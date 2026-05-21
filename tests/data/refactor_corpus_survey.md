@@ -145,6 +145,8 @@ This is the index used by future contributors.)
 - verification-incomplete-connection-error | VERIFICATION_INCOMPLETE | design_v2_doc#section_2_8 | infrastructure_failure_connection | TCP/DNS-level connection failure on citation_lookup
 - verification-incomplete-json-malformed | VERIFICATION_INCOMPLETE | design_v2_doc#section_2_8 | infrastructure_failure_malformed_response | recap_docket_search returns HTTP 200 with malformed JSON body
 
+**Task 7 coverage gaps (deferred to Phase 3 harness build):** the loader's valid `failure_mode` set also includes `http_502` and `http_503`, which Phase 2.5 does not have fixtures for. These behave equivalently to `http_500` from the verifier's perspective (client.py doesn't retry 5xx); the harness exercises that path via the existing http_500 fixture. Explicit 502/503 fixtures can be added in Phase 3 if the harness needs to distinguish them. The mock_spec stages also do not yet exercise `recap_document_search`, `plain_docket_search`, or `caption_investigation` — those stages don't yet exist in the verifier and Phase 3 will add fixtures as it implements each one.
+
 ## §4 Named exemplars — sourcing notes
 
 ### Koch (VERIFIED + cl_display_name_data_bug)
