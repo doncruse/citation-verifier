@@ -1,4 +1,11 @@
-"""Tests for the brief verification pipeline."""
+"""Tests for the brief verification pipeline.
+
+Migrated to the v0.3 schema (Phase 1, Task 4). The old top-level
+``status``/``confidence``/``matched_*``/``diagnostics`` fields have been
+replaced; ``_make_result`` now builds the v0.3 shape directly, and the
+sibling-swap assertions read through ``final_ids`` and
+``resolution_path[-1].notes``.
+"""
 import asyncio
 import csv
 import json
@@ -6,7 +13,14 @@ import pytest
 from pathlib import Path
 from unittest.mock import patch, AsyncMock, MagicMock
 from citation_verifier.brief_pipeline import merge_claims, MergeStats, _normalize_quote_text, check_quotes, QuoteCheckStats
-from citation_verifier.models import VerificationResult, VerificationStatus, Diagnostic
+from citation_verifier.models import (
+    FinalIds,
+    ResolutionPathEntry,
+    StageName,
+    StageVerdict,
+    Status,
+    VerificationResult,
+)
 
 
 @pytest.fixture
@@ -75,14 +89,63 @@ class TestMergeClaims:
 # --- Helper for wave tests ---
 
 def _make_result(status, url="", case_name=""):
+    """Build a v0.3 VerificationResult for tests.
+
+    When ``status`` is one of the VERIFIED_* statuses, emit a resolved
+    resolution_path entry carrying ``case_name`` so brief_pipeline's CSV
+    writer and download path can find it (mirrors verifier.py's
+    ``_build_result`` shape).
+    """
+    is_verified = status in (
+        Status.VERIFIED,
+        Status.VERIFIED_PARTIAL,
+        Status.VERIFIED_VIA_RECAP,
+        Status.VERIFIED_DOCKET_ONLY,
+    )
+    cluster_id_match = None
+    if url:
+        import re as _re
+        m = _re.search(r"/opinion/(\d+)/", url)
+        if m:
+            try:
+                cluster_id_match = int(m.group(1))
+            except ValueError:
+                cluster_id_match = 123
+        else:
+            cluster_id_match = 123
+
+    path = []
+    if is_verified:
+        path.append(
+            ResolutionPathEntry(
+                stage=StageName.citation_lookup,
+                query={},
+                raw_response_summary=(
+                    {"case_name": case_name} if case_name else {}
+                ),
+                verdict=StageVerdict.resolved,
+                confidence=1.0,
+                notes=None,
+                elapsed_ms=0,
+            )
+        )
     return VerificationResult(
-        input_citation="test",
+        citation_as_written="test",
+        parsed_citation=None,
         status=status,
-        confidence=1.0 if status == VerificationStatus.VERIFIED else 0.0,
-        matched_url=url,
-        matched_case_name=case_name,
-        matched_cluster_id=123 if url else None,
-        diagnostics=[],
+        final_ids=FinalIds(
+            cluster_id=cluster_id_match,
+            opinion_id=None,
+            docket_id=None,
+            recap_document_id=None,
+            absolute_url=url or None,
+            text_source=None,
+        ),
+        resolution_path=path,
+        warnings=[],
+        gates_failed=[],
+        timing={},
+        cache_hit=False,
     )
 
 
@@ -99,8 +162,8 @@ class TestWave1:
         # verify_batch returns both as VERIFIED
         mock_verifier = mock_verifier_cls.return_value
         mock_verifier.verify_batch = AsyncMock(return_value=[
-            _make_result(VerificationStatus.VERIFIED, "https://cl/opinion/1/", "Case A"),
-            _make_result(VerificationStatus.VERIFIED, "https://cl/opinion/2/", "Case B"),
+            _make_result(Status.VERIFIED, "https://cl/opinion/1/", "Case A"),
+            _make_result(Status.VERIFIED, "https://cl/opinion/2/", "Case B"),
         ])
 
         # Client returns text for both
@@ -138,7 +201,8 @@ class TestWave1:
         mock_verifier = mock_verifier_cls.return_value
         mock_verifier.verify_batch = AsyncMock(return_value=[
             _make_result(
-                VerificationStatus.POSSIBLE_MATCH,
+                # Phase 1 collapses LIKELY_REAL/POSSIBLE_MATCH into VERIFIED.
+                Status.VERIFIED,
                 "https://www.courtlistener.com/opinion/10124964/hertz/",
                 "In re Hertz",
             ),
@@ -175,12 +239,16 @@ class TestWave1:
         result = asyncio.run(wave1_verify_and_download(tmp_path, citations))
 
         assert result.download_stats["downloaded"] == 1
-        # The swap should have updated matched_url and matched_cluster_id
+        # The swap should have updated final_ids.absolute_url and
+        # final_ids.cluster_id.
         vr = result.results[0]
-        assert "10265999" in (vr.matched_url or "")
-        assert vr.matched_cluster_id == 10265999
-        # And the diagnostic should record the swap
-        assert any("swapped to sibling" in d.message for d in vr.diagnostics)
+        assert "10265999" in (vr.final_ids.absolute_url or "")
+        assert vr.final_ids.cluster_id == 10265999
+        # And the swap note should be recorded in resolution_path[-1].notes
+        # (Phase 1 uses the legacy diagnostic bridge for operational notes;
+        # Phase 3 may add a sibling_swap WarningCategory).
+        notes = vr.resolution_path[-1].notes or ""
+        assert "swapped to sibling" in notes
         # verification_results.csv should also reflect the new URL
         vr_csv = (tmp_path / "verification_results.csv").read_text()
         assert "10265999" in vr_csv
@@ -195,8 +263,8 @@ class TestWave1:
 
         mock_verifier = mock_verifier_cls.return_value
         mock_verifier.verify_batch = AsyncMock(return_value=[
-            _make_result(VerificationStatus.VERIFIED, "https://cl/opinion/1/", "Found"),
-            _make_result(VerificationStatus.NOT_FOUND),
+            _make_result(Status.VERIFIED, "https://cl/opinion/1/", "Found"),
+            _make_result(Status.NOT_FOUND),
         ])
 
         mock_client = AsyncMock()
@@ -227,8 +295,9 @@ class TestWave2:
         # verify_batch (full pipeline, not quick_only) resolves Miss1
         mock_verifier = mock_verifier_cls.return_value
         mock_verifier.verify_batch = AsyncMock(return_value=[
-            _make_result(VerificationStatus.LIKELY_REAL, "https://cl/opinion/10/", "Miss One"),
-            _make_result(VerificationStatus.NOT_FOUND),
+            # Phase 1 collapses LIKELY_REAL into VERIFIED.
+            _make_result(Status.VERIFIED, "https://cl/opinion/10/", "Miss One"),
+            _make_result(Status.NOT_FOUND),
         ])
 
         mock_client = AsyncMock()
@@ -273,7 +342,7 @@ class TestFullPipeline:
         mock_verifier = mock_verifier_cls.return_value
         # wave1 (quick_only) finds it
         mock_verifier.verify_batch = AsyncMock(return_value=[
-            _make_result(VerificationStatus.VERIFIED, "https://cl/opinion/1/", "Case A"),
+            _make_result(Status.VERIFIED, "https://cl/opinion/1/", "Case A"),
         ])
 
         mock_client = AsyncMock()

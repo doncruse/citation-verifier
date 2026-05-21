@@ -11,7 +11,7 @@ from pathlib import Path
 from typing import Any
 
 from .client import AsyncCourtListenerClient
-from .models import Diagnostic, VerificationResult, VerificationStatus
+from .models import Status, VerificationResult
 from .report_template import generate_report_html
 from .verifier import CitationVerifier
 
@@ -156,20 +156,37 @@ def _write_verification_csv(
         if write_header:
             writer.writeheader()
         for cite, result in zip(citations, results):
-            diag_cats = []
-            diag_msgs = []
-            for d in result.diagnostics:
-                diag_cats.append(d.category)
-                diag_msgs.append(d.message)
+            # v0.3 shape: structured Warnings replace Diagnostics; the legacy
+            # diagnostic-bridge text lives in resolution_path[-1].notes
+            # (Task 2 packs old Diagnostics there).
+            warn_cats = [w.category.value for w in result.warnings]
+            warn_msgs = [w.message for w in result.warnings]
+            stage_notes = ""
+            matched_name = ""
+            if result.resolution_path:
+                last = result.resolution_path[-1]
+                if last.notes:
+                    stage_notes = last.notes
+                matched_name = last.raw_response_summary.get("case_name", "") or ""
+            confidence = result.headline_confidence or 0.0
+            # Combine warning messages and stage notes for the diagnostic
+            # message column, preserving the old "; "-joined freeform shape.
+            diag_msg_parts = list(warn_msgs)
+            if stage_notes:
+                diag_msg_parts.append(stage_notes)
             writer.writerow({
                 "citation": cite,
                 "status": result.status.value,
-                "confidence": f"{result.confidence:.2f}",
-                "cl_url": result.matched_url or "",
-                "matched_name": result.matched_case_name or "",
-                "diagnostics_cat": "; ".join(diag_cats),
-                "diagnostics_msg": "; ".join(diag_msgs),
-                "syllabus": result.matched_syllabus or "",
+                "confidence": f"{confidence:.2f}",
+                "cl_url": result.final_ids.absolute_url or "",
+                "matched_name": matched_name,
+                "diagnostics_cat": "; ".join(warn_cats),
+                "diagnostics_msg": "; ".join(diag_msg_parts),
+                # Phase 1: syllabus is no longer surfaced on VerificationResult.
+                # Phase 3 will re-evaluate whether to add it to FinalIds; for
+                # now this column blanks (no current consumer breaks — the
+                # metadata_check path reads claims.csv, which is merge-fed).
+                "syllabus": "",
             })
 
 
@@ -177,10 +194,14 @@ def _write_verification_csv(
 # Opinion downloading
 # ---------------------------------------------------------------------------
 
+# Phase 1: only Status.VERIFIED is *produced* (per Phase 1 mapping).
+# The other VERIFIED_* members are included so Phase 3 (which starts
+# producing them) doesn't have to revisit this set.
 _DOWNLOADABLE_STATUSES = {
-    VerificationStatus.VERIFIED,
-    VerificationStatus.LIKELY_REAL,
-    VerificationStatus.POSSIBLE_MATCH,
+    Status.VERIFIED,
+    Status.VERIFIED_PARTIAL,
+    Status.VERIFIED_VIA_RECAP,
+    Status.VERIFIED_DOCKET_ONLY,
 }
 
 # Threshold (chars of visible text) below which we suspect a downloaded
@@ -278,7 +299,8 @@ async def _download_opinion(
     citation: str,
 ) -> str | None:
     """Download opinion text for a verified result. Returns saved filename or None."""
-    if not result.matched_url:
+    matched_url = result.final_ids.absolute_url
+    if not matched_url:
         return None
 
     opinions_dir = workdir / "opinions"
@@ -286,7 +308,7 @@ async def _download_opinion(
 
     try:
         data = await client.get_opinion_text_with_metadata(
-            result.matched_url, prefer_html=True,
+            matched_url, prefer_html=True,
         )
         if not data:
             return None
@@ -296,30 +318,50 @@ async def _download_opinion(
         # carrying the substantive merits opinion and swap to that.
         if _visible_text_len(data) < _SHORT_OPINION_THRESHOLD:
             better = await _find_substantive_sibling(
-                client, result.matched_url, _visible_text_len(data),
+                client, matched_url, _visible_text_len(data),
             )
             if better is not None:
                 new_url = better["source_url"]
                 m = re.search(r"/opinion/(\d+)/", new_url)
-                result.diagnostics.append(Diagnostic(
-                    "info",
+                swap_note = (
                     f"Matched cluster looked like a short order "
                     f"({_visible_text_len(data)} chars); swapped to sibling "
                     f"cluster {m.group(1) if m else '?'} on same docket with "
-                    f"substantive content ({_visible_text_len(better)} chars).",
-                ))
+                    f"substantive content ({_visible_text_len(better)} chars)."
+                )
+                # TODO(phase-3): consider adding a `sibling_swap` WarningCategory
+                # for this operational note. Phase 1's closed-set WarningCategory
+                # has no slot for it (design §2.6); adding one requires a schema
+                # CHANGELOG entry which is out of scope for Task 4. Until then,
+                # we append to the resolving stage's notes (the legacy
+                # diagnostic bridge).
+                if result.resolution_path:
+                    last = result.resolution_path[-1]
+                    last.notes = (
+                        f"{last.notes}; {swap_note}" if last.notes else swap_note
+                    )
                 data = better
-                result.matched_url = new_url
+                # Update FinalIds to reflect the swap so verification_results.csv
+                # persists the new URL (CLAUDE.md: CSV is written after downloads).
+                result.final_ids.absolute_url = new_url
                 if m:
                     try:
-                        result.matched_cluster_id = int(m.group(1))
+                        result.final_ids.cluster_id = int(m.group(1))
                     except ValueError:
                         pass
-                if better.get("case_name"):
-                    result.matched_case_name = better["case_name"]
+                if better.get("case_name") and result.resolution_path:
+                    result.resolution_path[-1].raw_response_summary["case_name"] = (
+                        better["case_name"]
+                    )
 
         fmt = data.get("format", "text")
-        case_name = result.matched_case_name or data.get("case_name", "")
+        matched_case_name = ""
+        if result.resolution_path:
+            matched_case_name = (
+                result.resolution_path[-1].raw_response_summary.get("case_name", "")
+                or ""
+            )
+        case_name = matched_case_name or data.get("case_name", "")
         if not case_name:
             # Fall back to citation name
             case_name = citation.split(",")[0].strip()
@@ -376,8 +418,9 @@ async def wave1_verify_and_download(
         if r.status not in _DOWNLOADABLE_STATUSES
     ]
 
-    # Download opinions for hits (may mutate result.matched_url if the
-    # pipeline swaps to a substantive sibling cluster — see _download_opinion)
+    # Download opinions for hits (may mutate result.final_ids.absolute_url
+    # if the pipeline swaps to a substantive sibling cluster — see
+    # _download_opinion)
     download_stats = {"downloaded": 0, "failed": 0, "skipped": 0}
 
     async with AsyncCourtListenerClient() as client:
@@ -430,7 +473,8 @@ async def wave2_fallback_and_download(
     )
 
     # Download opinions for newly resolved citations (may mutate
-    # result.matched_url when swapping to a substantive sibling cluster)
+    # result.final_ids.absolute_url when swapping to a substantive sibling
+    # cluster)
     download_stats = {"downloaded": 0, "failed": 0, "skipped": 0}
 
     async with AsyncCourtListenerClient() as client:
