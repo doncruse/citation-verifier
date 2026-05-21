@@ -9,7 +9,7 @@ from pathlib import Path
 import pytest
 
 from citation_verifier import CitationVerifier
-from citation_verifier.models import VerificationStatus
+from citation_verifier.models import Status
 
 
 # Load test corpus
@@ -53,29 +53,43 @@ def test_known_real_citation(test_case):
     verifier = CitationVerifier()
     result = verifier.verify(citation)
 
+    matched_case_name = (
+        result.resolution_path[-1].raw_response_summary.get("case_name")
+        if result.resolution_path else None
+    )
+    warnings_str = "; ".join(w.message for w in result.warnings)
+    stage_notes = (
+        result.resolution_path[-1].notes
+        if result.resolution_path and result.resolution_path[-1].notes
+        else ""
+    )
+
     # Should find the case (not NOT_FOUND)
-    assert result.status != VerificationStatus.NOT_FOUND, (
+    assert result.status != Status.NOT_FOUND, (
         f"False negative for {category}: {citation}\n"
         f"Notes: {notes}\n"
         f"Expected cluster ID: {expected_cluster_id}\n"
-        f"Diagnostics: {result.diagnostics}"
+        f"Warnings: {warnings_str}\n"
+        f"Stage notes: {stage_notes}"
     )
 
     # If we have an expected cluster ID, verify it matches
     if expected_cluster_id:
-        assert result.matched_cluster_id == expected_cluster_id, (
+        assert result.final_ids.cluster_id == expected_cluster_id, (
             f"Found a case but wrong cluster ID for: {citation}\n"
             f"Expected: {expected_cluster_id}\n"
-            f"Got: {result.matched_cluster_id}\n"
-            f"Matched case: {result.matched_case_name}\n"
-            f"URL: {result.matched_url}"
+            f"Got: {result.final_ids.cluster_id}\n"
+            f"Matched case: {matched_case_name}\n"
+            f"URL: {result.final_ids.absolute_url}"
         )
 
     # Print success info
     print(f"\n[OK] {category}: {result.status.value}")
     print(f"     Citation: {citation[:70]}...")
-    print(f"     Matched: {result.matched_case_name}")
-    print(f"     Confidence: {result.confidence:.0%}")
+    print(f"     Matched: {matched_case_name}")
+    conf = result.headline_confidence
+    if conf is not None:
+        print(f"     Confidence: {conf:.0%}")
     if notes:
         print(f"     Notes: {notes}")
 
