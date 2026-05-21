@@ -2418,3 +2418,100 @@ class TestFinalizeResultTerminalShape:
             "_build_result should be removed in Phase 2; use _finalize_result"
         )
         assert hasattr(v.CitationVerifier, "_finalize_result")
+
+
+# ---------------------------------------------------------------------------
+# Phase 3 Task 3: VERIFIED_PARTIAL detection (silent partial verification)
+# ---------------------------------------------------------------------------
+
+
+class TestVerifiedPartial:
+    """Phase 3: silent partial verification (design §2.2 VERIFIED_PARTIAL)."""
+
+    def test_partial_when_primary_reporter_not_in_cluster_citations(self):
+        """NY A.D.3d + slip op pattern: parallel resolves, primary does not."""
+        client = _make_client(
+            citation_lookup=[
+                {
+                    "clusters": [
+                        {
+                            "case_name": "Gilliam v. Uni Holdings",
+                            "id": 5305052,
+                            "absolute_url": "/opinion/5305052/gilliam/",
+                            # CL's citation index has the slip op but NOT
+                            # the A.D.3d reporter — that's what makes it
+                            # the silent-partial case.
+                            "citations": [
+                                {"volume": "2021", "reporter": "NY Slip Op",
+                                 "page": "06798", "type": 1},
+                            ],
+                        }
+                    ]
+                }
+            ]
+        )
+        v = CitationVerifier(client)
+        result = v.verify(
+            "Gilliam v. Uni Holdings, 201 A.D.3d 83, 88-89, "
+            "2021 NY Slip Op 06798 (N.Y. App. Div. 2021)"
+        )
+        assert result.status == Status.VERIFIED_PARTIAL
+        assert any(
+            w.category == WarningCategory.silent_partial_verification
+            for w in result.warnings
+        )
+        # The citation_lookup stage still resolved — confidence stays high.
+        assert _winning_path_entry(result).verdict == StageVerdict.resolved
+
+    def test_verified_not_partial_when_primary_in_cluster_citations(self):
+        """Peerenboom-shape: A.D.3d IS in CL — VERIFIED not PARTIAL."""
+        client = _make_client(
+            citation_lookup=[
+                {
+                    "clusters": [
+                        {
+                            "case_name": "Peerenboom v. Marvel Entertainment",
+                            "id": 4376072,
+                            "absolute_url": "/opinion/4376072/peerenboom/",
+                            "citations": [
+                                {"volume": "148", "reporter": "A.D.3d",
+                                 "page": "531", "type": 1},
+                            ],
+                        }
+                    ]
+                }
+            ]
+        )
+        v = CitationVerifier(client)
+        result = v.verify(
+            "Peerenboom v. Marvel Entertainment, LLC, 148 A.D.3d 531 "
+            "(N.Y. App. Div. 2017)"
+        )
+        assert result.status == Status.VERIFIED
+        assert not any(
+            w.category == WarningCategory.silent_partial_verification
+            for w in result.warnings
+        )
+
+    def test_verified_when_wl_only_input(self):
+        """A WL-only citation (no parallel reporter) is VERIFIED, not PARTIAL."""
+        client = _make_client(
+            citation_lookup=[
+                {
+                    "clusters": [
+                        {
+                            "case_name": "Some Case",
+                            "id": 999,
+                            "absolute_url": "/opinion/999/",
+                            "citations": [
+                                {"volume": "2020", "reporter": "WL",
+                                 "page": "123456", "type": 9},
+                            ],
+                        }
+                    ]
+                }
+            ]
+        )
+        v = CitationVerifier(client)
+        result = v.verify("Some Case, 2020 WL 123456 (D. Md. 2020)")
+        assert result.status == Status.VERIFIED

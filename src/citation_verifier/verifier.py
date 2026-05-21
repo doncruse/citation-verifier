@@ -168,6 +168,32 @@ class CitationVerifier:
                 )],
             }
 
+        # Partial-verification check (design §2.2): primary reporter cited by
+        # the brief is silently absent from CL's citation index, only the
+        # parallel resolved. Status: VERIFIED_PARTIAL + silent_partial_verification.
+        if parsed.case_name and case_name and self._names_match_citation_lookup(parsed, case_name):
+            primary_present = self._cited_primary_reporter_in_cluster(parsed, cluster)
+            if not primary_present:
+                token.resolved(confidence=1.0, raw_response_summary=summary, notes="Primary reporter not in CL citation index")
+                return {
+                    "cluster_id": cluster_id,
+                    "absolute_url": url,
+                    "text_source": TextSource.opinion_plain_text if cluster_id else None,
+                    "warnings": [Warning(
+                        category=WarningCategory.silent_partial_verification,
+                        message=(
+                            f"Primary reporter '{parsed.volume} {parsed.reporter} {parsed.page}' "
+                            f"is not in CourtListener's citation index. The parallel cite "
+                            f"resolved but the primary reporter is unconfirmed."
+                        ),
+                        details={
+                            "cited_primary": f"{parsed.volume} {parsed.reporter} {parsed.page}",
+                            "cluster_citations": cluster.get("citations") or [],
+                        },
+                    )],
+                    "status_override": Status.VERIFIED_PARTIAL,
+                }
+
         token.resolved(confidence=1.0, raw_response_summary=summary)
         return {
             "cluster_id": cluster_id,
@@ -446,11 +472,12 @@ class CitationVerifier:
                 t.errored(error_type=type(exc).__name__, notes=f"{type(exc).__name__}: {exc}")
 
         if hit_finalize is not None:
+            status = hit_finalize.pop("status_override", Status.VERIFIED)
             return self._finalize_result(
                 builder,
                 citation_text=citation_text,
                 parsed=parsed,
-                status=Status.VERIFIED,
+                status=status,
                 **hit_finalize,
             )
 
@@ -1153,6 +1180,44 @@ class CitationVerifier:
             return ""
         return party_name.split()[0].rstrip(",.")
 
+    @staticmethod
+    def _cited_primary_reporter_in_cluster(
+        parsed: ParsedCitation, cluster: dict[str, Any],
+    ) -> bool:
+        """Return True iff the brief's primary reporter cite (volume +
+        reporter + page) appears in the cluster's `citations` list.
+
+        Returns True when the brief had no parsed reporter cite (e.g. WL-
+        only input — nothing for the cluster to be missing) so a missing
+        primary cannot be inferred. Returns True when the cluster's
+        citations field is absent or unparseable (defensive: better to
+        under-call partial than over-call).
+        """
+        if not (parsed.volume and parsed.reporter and parsed.page):
+            return True   # No primary to be silently dropped.
+        if "citations" not in cluster:
+            return True   # Absent citations field — defensive: don't over-call partial.
+        cl_citations = cluster.get("citations") or []
+        if not cl_citations:
+            return True   # Empty list is also indeterminate — be conservative.
+        cited_vol = str(parsed.volume).strip()
+        cited_rep = str(parsed.reporter).strip().lower().replace(".", "").replace(" ", "")
+        cited_page = str(parsed.page).strip()
+        for c in cl_citations:
+            if isinstance(c, dict):
+                vol = str(c.get("volume", "")).strip()
+                rep = str(c.get("reporter", "")).strip().lower().replace(".", "").replace(" ", "")
+                page = str(c.get("page", "")).strip()
+            else:
+                # String form: "201 A.D.3d 83" — coarse contains check
+                s = str(c).lower().replace(".", "").replace(" ", "")
+                if cited_vol.lower() in s and cited_rep in s and cited_page.lower() in s:
+                    return True
+                continue
+            if vol == cited_vol and rep == cited_rep and page == cited_page:
+                return True
+        return False
+
     _NONDISTINCTIVE_SURNAMES = frozenset({
         "american", "national", "united", "general", "federal",
         "first", "central", "western", "eastern", "northern",
@@ -1548,11 +1613,12 @@ class CitationVerifier:
                 t.errored(error_type=type(exc).__name__, notes=f"{type(exc).__name__}: {exc}")
 
         if hit_finalize is not None:
+            status = hit_finalize.pop("status_override", Status.VERIFIED)
             return self._finalize_result(
                 builder,
                 citation_text=citation_text,
                 parsed=parsed,
-                status=Status.VERIFIED,
+                status=status,
                 **hit_finalize,
             )
 
