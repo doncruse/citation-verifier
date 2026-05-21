@@ -899,6 +899,97 @@ class TestBatchCitationLookup:
 
 
 # ---------------------------------------------------------------------------
+# Sync / async / batch resolution_path parity
+# ---------------------------------------------------------------------------
+
+
+class TestSyncAsyncBatchPathParity:
+    """Same mock data should produce the same resolution_path shape
+    through sync verify(), async verify_async(), and batch verify_batch().
+
+    "Same shape" = same sequence of (stage, verdict) tuples and same
+    headline_confidence. Per-entry elapsed_ms is allowed to differ.
+    """
+
+    @staticmethod
+    def _shape(result):
+        return (
+            [(e.stage, e.verdict) for e in result.resolution_path],
+            result.headline_confidence,
+        )
+
+    def test_citation_lookup_hit_parity(self):
+        cite = "Obergefell v. Hodges, 576 U.S. 644 (2015)"
+        lookup_payload = [{
+            "clusters": [{"id": 100, "case_name": "Obergefell v. Hodges",
+                          "absolute_url": "/opinion/100/"}],
+        }]
+
+        # Sync
+        sync_client = MagicMock()
+        sync_client.citation_lookup.return_value = lookup_payload
+        sync_verifier = CitationVerifier(client=sync_client)
+        sync_result = sync_verifier.verify(cite)
+
+        # Async (single)
+        async_client = AsyncMock(spec=AsyncCourtListenerClient)
+        async_client.citation_lookup.return_value = lookup_payload
+        async_client.__aenter__ = AsyncMock(return_value=async_client)
+        async_client.__aexit__ = AsyncMock(return_value=None)
+        async_verifier = CitationVerifier()
+        async_result = asyncio.run(async_verifier.verify_async(async_client, cite))
+
+        # Batch (one citation)
+        batch_verifier = CitationVerifier()
+        async def _run_batch():
+            with patch.object(batch_verifier, "_batch_citation_lookup",
+                              AsyncMock(return_value={0: lookup_payload[0]["clusters"][0]})):
+                return await batch_verifier.verify_batch([cite])
+        batch_results = asyncio.run(_run_batch())
+
+        assert self._shape(sync_result) == self._shape(async_result) == self._shape(batch_results[0]), (
+            f"sync={self._shape(sync_result)}  "
+            f"async={self._shape(async_result)}  "
+            f"batch={self._shape(batch_results[0])}"
+        )
+
+    def test_all_stages_miss_parity(self):
+        cite = "Foo v. Bar, 999 F.3d 999 (1st Cir. 2099)"
+
+        sync_client = MagicMock()
+        sync_client.citation_lookup.return_value = []
+        sync_client.search_opinions.return_value = []
+        sync_client.search_recap.return_value = []
+        sync_result = CitationVerifier(client=sync_client).verify(cite)
+
+        async_client = AsyncMock(spec=AsyncCourtListenerClient)
+        async_client.citation_lookup.return_value = []
+        async_client.search_opinions.return_value = []
+        async_client.search_recap.return_value = []
+        async_client.__aenter__ = AsyncMock(return_value=async_client)
+        async_client.__aexit__ = AsyncMock(return_value=None)
+        async_result = asyncio.run(
+            CitationVerifier().verify_async(async_client, cite)
+        )
+
+        batch_verifier = CitationVerifier()
+        async def _run_batch():
+            with patch.object(batch_verifier, "_batch_citation_lookup",
+                              AsyncMock(return_value={})), \
+                 patch("citation_verifier.verifier.AsyncCourtListenerClient") as MockClient:
+                client = AsyncMock()
+                client.search_opinions.return_value = []
+                client.search_recap.return_value = []
+                client.__aenter__ = AsyncMock(return_value=client)
+                client.__aexit__ = AsyncMock(return_value=None)
+                MockClient.return_value = client
+                return await batch_verifier.verify_batch([cite])
+        batch_results = asyncio.run(_run_batch())
+
+        assert self._shape(sync_result) == self._shape(async_result) == self._shape(batch_results[0])
+
+
+# ---------------------------------------------------------------------------
 # verify_batch integration with batch lookup
 # ---------------------------------------------------------------------------
 
