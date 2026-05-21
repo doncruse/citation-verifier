@@ -27,7 +27,13 @@ from unittest.mock import AsyncMock, MagicMock, patch
 import pytest
 
 from citation_verifier.client import AsyncCourtListenerClient, CourtListenerClient
-from citation_verifier.models import ParsedCitation, Status, WarningCategory
+from citation_verifier.models import (
+    ParsedCitation,
+    StageName,
+    StageVerdict,
+    Status,
+    WarningCategory,
+)
 from citation_verifier.verifier import CitationVerifier
 
 
@@ -1220,3 +1226,40 @@ class TestAsyncClientAPIParity:
         since concurrency is also gated by the semaphore."""
         assert AsyncCourtListenerClient.MIN_REQUEST_INTERVAL < 1.0
         assert AsyncCourtListenerClient.MIN_REQUEST_INTERVAL == 0.5
+
+
+class TestAsyncResolutionPathShape:
+    """Phase 2: assert async path produces the same resolution_path
+    shape as the sync path. Per-stage parity is the load-bearing
+    invariant for the sync/async/batch parity test in Task 7."""
+
+    def test_async_citation_lookup_hit_one_entry(self):
+        client = AsyncMock(spec=AsyncCourtListenerClient)
+        client.citation_lookup.return_value = [{
+            "clusters": [{"id": 100, "case_name": "Foo v. Bar", "absolute_url": "/opinion/100/"}],
+        }]
+        client.__aenter__ = AsyncMock(return_value=client)
+        client.__aexit__ = AsyncMock(return_value=None)
+        verifier = CitationVerifier()
+        result = asyncio.run(verifier.verify_async(client, "100 U.S. 1 (2020)"))
+
+        assert len(result.resolution_path) == 1
+        assert result.resolution_path[0].stage == StageName.citation_lookup
+        assert result.resolution_path[0].verdict == StageVerdict.resolved
+
+    def test_async_all_stages_miss(self):
+        client = AsyncMock(spec=AsyncCourtListenerClient)
+        client.citation_lookup.return_value = []
+        client.search_opinions.return_value = []
+        client.search_recap.return_value = []
+        client.__aenter__ = AsyncMock(return_value=client)
+        client.__aexit__ = AsyncMock(return_value=None)
+        verifier = CitationVerifier()
+        result = asyncio.run(verifier.verify_async(
+            client, "Foo v. Bar, 999 F.3d 999 (1st Cir. 2099)",
+        ))
+
+        stages = [e.stage for e in result.resolution_path]
+        assert stages[0] == StageName.citation_lookup
+        assert StageName.opinion_search in stages
+        assert result.status == Status.NOT_FOUND

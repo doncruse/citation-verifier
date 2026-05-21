@@ -474,6 +474,40 @@ class CitationVerifier:
         """
         court_id, filed_after, filed_before = self._build_search_params(parsed)
 
+        # Insufficient-data short-circuit: without both court and date we
+        # don't have enough signal to verify reliably. Record a no_match
+        # opinion_search entry with the legacy diagnostic message and
+        # return NOT_FOUND without running any fallback API calls. (The
+        # same guard fires post-search in ``_build_fallback_result`` for
+        # other callers, but skipping the stages here keeps the resolved
+        # opinion_search entry off the path so ``headline_confidence``
+        # correctly reads None.)
+        if not parsed.court and not parsed.year:
+            with builder.stage(
+                StageName.opinion_search,
+                query={
+                    "q": parsed.case_name,
+                    "court": court_id,
+                    "filed_after": filed_after,
+                    "filed_before": filed_before,
+                },
+            ) as t:
+                t.no_match(
+                    raw_response_summary={"candidate_count": 0},
+                    notes=(
+                        "Insufficient data to verify: citation text is missing "
+                        "both court and date. A match cannot be confirmed with "
+                        "name alone. Try adding the court and year parenthetical "
+                        "(e.g. '(E.D. Tenn. 2020)') to the citation text."
+                    ),
+                )
+            return self._finalize_result(
+                builder,
+                citation_text=citation_text,
+                parsed=parsed,
+                status=Status.NOT_FOUND,
+            )
+
         opinion_candidates: list[CandidateMatch] = []
         recap_candidates: list[CandidateMatch] = []
 
@@ -1535,64 +1569,192 @@ class CitationVerifier:
     ) -> VerificationResult:
         """Async version of _search_fallback().
 
-        Task 2 only wires the builder through. Task 3 will wrap each stage
-        inside this method in its own builder.stage() context manager.
+        Phase 2 / Task 4: mirrors `_search_fallback`'s per-stage
+        `builder.stage(...)` instrumentation one-for-one. The
+        builder.stage() context manager is sync; only the I/O calls
+        inside the block are awaited.
         """
         court_id, filed_after, filed_before = self._build_search_params(parsed)
 
-        candidates: list[CandidateMatch] = []
+        # Insufficient-data short-circuit (mirror of sync): without both
+        # court and date we don't have enough signal to verify reliably.
+        if not parsed.court and not parsed.year:
+            with builder.stage(
+                StageName.opinion_search,
+                query={
+                    "q": parsed.case_name,
+                    "court": court_id,
+                    "filed_after": filed_after,
+                    "filed_before": filed_before,
+                },
+            ) as t:
+                t.no_match(
+                    raw_response_summary={"candidate_count": 0},
+                    notes=(
+                        "Insufficient data to verify: citation text is missing "
+                        "both court and date. A match cannot be confirmed with "
+                        "name alone. Try adding the court and year parenthetical "
+                        "(e.g. '(E.D. Tenn. 2020)') to the citation text."
+                    ),
+                )
+            return self._finalize_result(
+                builder,
+                citation_text=citation_text,
+                parsed=parsed,
+                status=Status.NOT_FOUND,
+            )
 
+        opinion_candidates: list[CandidateMatch] = []
+        recap_candidates: list[CandidateMatch] = []
+
+        # Stage: opinion_search
         if parsed.case_name:
-            try:
-                results = await async_client.search_opinions(
-                    q=parsed.case_name,
-                    court=court_id,
-                    filed_after=filed_after,
-                    filed_before=filed_before,
-                )
-                candidates = self._process_results(results, parsed)
-            except Exception:
-                logger.debug("Opinion search failed", exc_info=True)
-
-        # Step 3: RECAP fallback
-        is_state_court = court_id and not is_federal_court(court_id)
-        has_credible_match = any(c.score >= 0.5 for c in candidates)
-
-        if not has_credible_match and not is_state_court and parsed.docket_number:
-            try:
-                results = await async_client.search_recap(
-                    docket_number=parsed.docket_number
-                )
-                cited_dn = self._normalize_docket_number(parsed.docket_number)
-                results = [
-                    r
-                    for r in results
-                    if self._normalize_docket_number(
-                        r.get("docketNumber") or r.get("docket_number") or ""
+            with builder.stage(
+                StageName.opinion_search,
+                query={
+                    "q": parsed.case_name,
+                    "court": court_id,
+                    "filed_after": filed_after,
+                    "filed_before": filed_before,
+                },
+            ) as t:
+                try:
+                    results = await async_client.search_opinions(
+                        q=parsed.case_name,
+                        court=court_id,
+                        filed_after=filed_after,
+                        filed_before=filed_before,
                     )
-                    == cited_dn
-                ]
-                recap_candidates = await self._process_recap_results_async(
-                    async_client, results, parsed
-                )
-                candidates.extend(recap_candidates)
-            except Exception:
-                logger.debug("RECAP search by docket number failed", exc_info=True)
+                    opinion_candidates = self._process_results(results, parsed)
+                    if opinion_candidates:
+                        best = max(opinion_candidates, key=lambda c: c.score)
+                        summary = {
+                            "candidate_count": len(opinion_candidates),
+                            "best_score": best.score,
+                            "best_case_name": best.case_name,
+                            "best_cluster_id": best.cluster_id,
+                        }
+                        notes = self._stage_notes_for_candidate(best)
+                        if best.score >= 0.40:
+                            t.resolved(
+                                confidence=best.score,
+                                raw_response_summary=summary,
+                                notes=notes,
+                            )
+                        else:
+                            t.no_match(raw_response_summary=summary, notes=notes)
+                    else:
+                        t.no_match(raw_response_summary={"candidate_count": 0})
+                except Exception as exc:
+                    logger.debug("Opinion search failed", exc_info=True)
+                    t.errored(
+                        error_type=type(exc).__name__,
+                        notes=f"{type(exc).__name__}: {exc}",
+                    )
 
+        # Guards for RECAP: federal-only, no credible match yet.
+        is_state_court = court_id and not is_federal_court(court_id)
+        has_credible_match = any(c.score >= 0.5 for c in opinion_candidates)
+
+        # Stage: recap_document_search (by docket_number)
+        if not has_credible_match and not is_state_court and parsed.docket_number:
+            with builder.stage(
+                StageName.recap_document_search,
+                query={"docket_number": parsed.docket_number},
+            ) as t:
+                try:
+                    results = await async_client.search_recap(
+                        docket_number=parsed.docket_number
+                    )
+                    cited_dn = self._normalize_docket_number(parsed.docket_number)
+                    results = [
+                        r
+                        for r in results
+                        if self._normalize_docket_number(
+                            r.get("docketNumber") or r.get("docket_number") or ""
+                        )
+                        == cited_dn
+                    ]
+                    rd_candidates = await self._process_recap_results_async(
+                        async_client, results, parsed
+                    )
+                    recap_candidates.extend(rd_candidates)
+                    if rd_candidates:
+                        best = max(rd_candidates, key=lambda c: c.score)
+                        summary = {
+                            "docket_count": len(rd_candidates),
+                            "best_score": best.score,
+                            "best_docket_id": best.docket_id,
+                            "best_case_name": best.case_name,
+                        }
+                        notes = self._stage_notes_for_candidate(best)
+                        if best.score >= 0.40:
+                            t.resolved(
+                                confidence=best.score,
+                                raw_response_summary=summary,
+                                notes=notes,
+                            )
+                        else:
+                            t.no_match(raw_response_summary=summary, notes=notes)
+                    else:
+                        t.no_match(raw_response_summary={"docket_count": 0})
+                except Exception as exc:
+                    logger.debug(
+                        "RECAP search by docket number failed", exc_info=True
+                    )
+                    t.errored(
+                        error_type=type(exc).__name__,
+                        notes=f"{type(exc).__name__}: {exc}",
+                    )
+
+        # Stage: recap_docket_search (by case_name)
         if not has_credible_match and not is_state_court and parsed.case_name:
-            try:
-                results = await async_client.search_recap(
-                    q=parsed.case_name,
-                    court=court_id,
-                )
-                recap_candidates = await self._process_recap_results_async(
-                    async_client, results, parsed
-                )
-                candidates.extend(recap_candidates)
-            except Exception:
-                logger.debug("RECAP search failed", exc_info=True)
+            with builder.stage(
+                StageName.recap_docket_search,
+                query={"q": parsed.case_name, "court": court_id},
+            ) as t:
+                try:
+                    results = await async_client.search_recap(
+                        q=parsed.case_name,
+                        court=court_id,
+                    )
+                    rd_candidates = await self._process_recap_results_async(
+                        async_client, results, parsed
+                    )
+                    recap_candidates.extend(rd_candidates)
+                    if rd_candidates:
+                        best = max(rd_candidates, key=lambda c: c.score)
+                        summary = {
+                            "docket_count": len(rd_candidates),
+                            "best_score": best.score,
+                            "best_docket_id": best.docket_id,
+                            "best_case_name": best.case_name,
+                        }
+                        notes = self._stage_notes_for_candidate(best)
+                        if best.score >= 0.40:
+                            t.resolved(
+                                confidence=best.score,
+                                raw_response_summary=summary,
+                                notes=notes,
+                            )
+                        else:
+                            t.no_match(raw_response_summary=summary, notes=notes)
+                    else:
+                        t.no_match(raw_response_summary={"docket_count": 0})
+                except Exception as exc:
+                    logger.debug("RECAP search failed", exc_info=True)
+                    t.errored(
+                        error_type=type(exc).__name__,
+                        notes=f"{type(exc).__name__}: {exc}",
+                    )
 
-        return self._build_fallback_result(builder, citation_text, parsed, candidates, court_id)
+        # Aggregate across stages and finalize. The per-stage entries are
+        # already appended above; _build_fallback_result does NOT touch the
+        # builder — it only picks the winning candidate and finalizes.
+        candidates = opinion_candidates + recap_candidates
+        return self._build_fallback_result(
+            builder, citation_text, parsed, candidates, court_id,
+        )
 
     async def _process_recap_results_async(
         self,
