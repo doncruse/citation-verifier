@@ -1,22 +1,149 @@
-"""Data structures for citation verification."""
+"""Data structures for citation verification (v0.3 schema)."""
 
 from __future__ import annotations
 
 from dataclasses import dataclass, field
 from enum import Enum
+from typing import Any
 
 
-class VerificationStatus(Enum):
+# ---------------------------------------------------------------------------
+# Status taxonomy (design §2.2)
+# ---------------------------------------------------------------------------
+
+
+class Status(Enum):
+    # Resolved-clean
     VERIFIED = "VERIFIED"
-    LIKELY_REAL = "LIKELY_REAL"
-    POSSIBLE_MATCH = "POSSIBLE_MATCH"
+    VERIFIED_PARTIAL = "VERIFIED_PARTIAL"
+    VERIFIED_VIA_RECAP = "VERIFIED_VIA_RECAP"
+    VERIFIED_DOCKET_ONLY = "VERIFIED_DOCKET_ONLY"
+    # Resolved-but-wrong
+    WRONG_CASE = "WRONG_CASE"
+    # Unresolved
     NOT_FOUND = "NOT_FOUND"
+    VERIFICATION_INCOMPLETE = "VERIFICATION_INCOMPLETE"
+
+
+# ---------------------------------------------------------------------------
+# Resolution path (design §2.5) — fully wired in Phase 2; Phase 1 emits at
+# most a single entry for the resolving stage so that the confidence number
+# previously held at the top level has a home.
+# ---------------------------------------------------------------------------
+
+
+class StageName(Enum):
+    citation_lookup = "citation_lookup"
+    opinion_search = "opinion_search"
+    recap_document_search = "recap_document_search"
+    recap_docket_search = "recap_docket_search"
+    plain_docket_search = "plain_docket_search"
+    caption_investigation = "caption_investigation"
+
+
+class StageVerdict(Enum):
+    resolved = "resolved"
+    no_match = "no_match"
+    partial = "partial"
+    errored = "errored"
+    skipped = "skipped"
+
+
+@dataclass
+class ResolutionPathEntry:
+    stage: StageName
+    query: dict[str, Any]
+    raw_response_summary: dict[str, Any]   # Free-form per stage; see design §2.5
+    verdict: StageVerdict
+    confidence: float | None
+    notes: str | None
+    elapsed_ms: int
+
+
+# ---------------------------------------------------------------------------
+# Final IDs (design §2.4)
+# ---------------------------------------------------------------------------
+
+
+class TextSource(Enum):
+    opinion_plain_text = "opinion_plain_text"
+    opinion_html = "opinion_html"
+    recap_document = "recap_document"
+
+
+@dataclass
+class FinalIds:
+    cluster_id: int | None
+    opinion_id: int | None
+    docket_id: int | None
+    recap_document_id: int | None
+    absolute_url: str | None
+    text_source: TextSource | None
+
+
+# ---------------------------------------------------------------------------
+# Warnings (design §2.6)
+# ---------------------------------------------------------------------------
+
+
+class WarningCategory(Enum):
+    silent_partial_verification = "silent_partial_verification"
+    cl_display_name_data_bug = "cl_display_name_data_bug"
+    court_mismatch_noted = "court_mismatch_noted"
+    date_close_not_exact = "date_close_not_exact"
+    name_formatting_noise = "name_formatting_noise"
+    unparseable_citation = "unparseable_citation"
+    extraction_contamination_detected = "extraction_contamination_detected"
+
+
+@dataclass
+class Warning:
+    category: WarningCategory
+    message: str
+    details: dict[str, Any] | None = None
+
+
+# ---------------------------------------------------------------------------
+# Gates (design §2.7) — Phase 1 defines the types; gate evaluation lands in
+# Phase 4. Phase 1's verifier always emits an empty gates_failed list.
+# ---------------------------------------------------------------------------
+
+
+class GateName(Enum):
+    no_not_found = "no_not_found"
+    no_wrong_case = "no_wrong_case"
+    no_verification_incomplete = "no_verification_incomplete"
+    no_partial_verification = "no_partial_verification"
+    require_primary_reporter_resolved = "require_primary_reporter_resolved"
+    require_caption_investigation_on_mismatch = (
+        "require_caption_investigation_on_mismatch"
+    )
+
+
+@dataclass
+class GateSpec:
+    name: GateName
+    config: dict[str, Any] | None = None
+
+
+@dataclass
+class GateFailure:
+    gate: GateName
+    reason: str
+    details: dict[str, Any] | None = None
+
+
+# ---------------------------------------------------------------------------
+# Diagnostic + CandidateMatch — unchanged. Still used by verifier.py stage
+# internals. Warnings replace Diagnostics only at the VerificationResult
+# boundary.
+# ---------------------------------------------------------------------------
 
 
 @dataclass
 class Diagnostic:
     category: str   # name, court, date, docket, cite, recap, info
-    message: str    # human-readable detail
+    message: str
 
     def __str__(self) -> str:
         return self.message
@@ -38,6 +165,7 @@ class ParsedCitation:
     docket_number: str | None = None
     is_westlaw: bool = False
     wl_number: str | None = None
+    ecf_document_number: str | None = None   # design §2.10 + §8 disposition
 
 
 @dataclass
@@ -53,19 +181,43 @@ class CandidateMatch:
     docket_id: int | None = None
 
 
+# ---------------------------------------------------------------------------
+# VerificationResult (design §2.1) — the contract with every consumer.
+# ---------------------------------------------------------------------------
+
+
 @dataclass
 class VerificationResult:
-    input_citation: str
-    status: VerificationStatus
-    confidence: float = 0.0
-    matched_case_name: str | None = None
-    matched_url: str | None = None
-    matched_cluster_id: int | None = None
-    matched_docket_id: int | None = None
-    matched_court: str | None = None
-    matched_date: str | None = None
-    matched_description: str | None = None
-    matched_syllabus: str | None = None
-    candidates: list[CandidateMatch] = field(default_factory=list)
-    diagnostics: list[Diagnostic] = field(default_factory=list)
-    error: str | None = None
+    citation_as_written: str
+    parsed_citation: ParsedCitation | None
+    status: Status
+    final_ids: FinalIds
+    resolution_path: list[ResolutionPathEntry]
+    warnings: list[Warning]
+    gates_failed: list[GateFailure]
+    timing: dict[str, Any]
+    cache_hit: bool
+
+    @property
+    def headline_confidence(self) -> float | None:
+        """Per design §2.5: walk resolution_path in reverse, return the
+        confidence of the first entry whose verdict is `resolved` or
+        `partial`. Returns None if no such entry exists."""
+        for entry in reversed(self.resolution_path):
+            if entry.verdict in (StageVerdict.resolved, StageVerdict.partial):
+                return entry.confidence
+        return None
+
+
+@dataclass
+class BatchError:
+    citation: str
+    error: str
+
+
+@dataclass
+class BatchVerificationResult:
+    total: int
+    by_status: dict[Status, list[VerificationResult]]
+    errors: list[BatchError]
+    elapsed_ms: int
