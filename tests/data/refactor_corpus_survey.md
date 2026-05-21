@@ -78,7 +78,28 @@ added, in this format:
 
 This is the index used by future contributors.)
 
-(empty — populated by Tasks 3–7 below)
+**Task 3 (VERIFIED + NOT_FOUND):**
+
+- verified-obergefell | VERIFIED | tests/data/known_real_citations.json#obergefell | happy_path | Landmark SCOTUS anchor
+- verified-bossart-xfailed | VERIFIED | tests/data/known_real_citations.json#bossart | xfailed_abbreviation_normalization | Pre-Phase-3 cluster-ID-drift xfail (Cnty. normalization)
+- verified-busha-xfailed | VERIFIED | tests/data/known_real_citations.json#busha | xfailed_abbreviation_normalization | Pre-Phase-3 cluster-ID-drift xfail (Dep't normalization)
+- verified-townsley-xfailed | VERIFIED | tests/data/known_real_citations.json#townsley | xfailed_docket_number_shorthand | Pre-Phase-3 cluster-ID-drift xfail (C15 shorthand)
+- verified-anderson-furst-xfailed | VERIFIED | tests/data/known_real_citations.json#anderson-furst | xfailed_recap_with_exact_date | Pre-Phase-3 cluster-ID-drift xfail (RECAP date match)
+- verified-hanover-shoe-scotus | VERIFIED | benchmark/unified_review.csv#in_cl_via_citation_lookup[SCOTUS] | happy_path_scotus | SCOTUS happy-path tier sample
+- verified-steir-circuit | VERIFIED | benchmark/unified_review.csv#in_cl_via_citation_lookup[Circuit] | happy_path_circuit | Circuit happy-path tier sample
+- verified-janvey-federal-district | VERIFIED | benchmark/unified_review.csv#in_cl_via_citation_lookup[Federal_District] | happy_path_federal_district | Federal District happy-path tier sample
+- verified-howery-state-colr | VERIFIED | benchmark/unified_review.csv#in_cl_via_citation_lookup[State_COLR] | happy_path_state_colr | State COLR happy-path tier sample
+- verified-peerenboom-state-iac | VERIFIED | benchmark/unified_review.csv#in_cl_via_citation_lookup[State_IAC] | happy_path_state_iac | State IAC happy-path tier sample (A.D.3d that IS in CL)
+- verified-isaacs-caterpillar-bonus | VERIFIED | benchmark/unified_review.csv#in_cl_via_citation_lookup[Federal_District:abbrev] | happy_path_abbreviation | Bonus abbreviation-normalization sample
+- verified-occidental-permian-fallback | VERIFIED | benchmark/manual_corrections.csv#cl_cluster_citations_empty[occidental-permian] | fallback_opinion_search | citations[] empty -> opinion_search fallback
+- verified-sundown-energy-fallback | VERIFIED | benchmark/manual_corrections.csv#cl_cluster_citations_empty[sundown-energy] | fallback_opinion_search | citations[] empty -> opinion_search fallback
+- not-found-bloomberg | NOT_FOUND | tests/data/known_fake_citations.json#bloomberg | hallucinated_case | Court-confirmed AI hallucination (Gonzalez v. TTRA)
+- not-found-head-chicora | NOT_FOUND | tests/data/known_fake_citations.json#head-chicora | hallucinated_case | Court-confirmed AI hallucination (Gonzalez v. TTRA)
+- not-found-gibbs-wright | NOT_FOUND | tests/data/known_fake_citations.json#gibbs-wright | hallucinated_case | Court-confirmed AI hallucination (Hardy v. Ford)
+- not-found-terry-blacks-bbq | NOT_FOUND | benchmark/unified_review.csv#not_in_cl[terry-blacks-bbq] | not_in_cl_real_case | Real case absent from CL index
+- not-found-azad-realty | NOT_FOUND | benchmark/unified_review.csv#not_in_cl[azad-realty] | not_in_cl_real_case | Real case absent from CL index
+- not-found-people-campbell | NOT_FOUND | benchmark/unified_review.csv#not_in_cl[people-campbell] | not_in_cl_real_case | Real case absent from CL index
+- not-found-iglesias-hialeah-provisional | NOT_FOUND | benchmark/unified_review.csv#rescue_was_false_positive[iglesias-hialeah] | rescue_was_false_positive | Provisional; Phase 3 may rule. Pre-Phase-3 fallback rescues incorrectly
 
 ## §4 Named exemplars — sourcing notes
 

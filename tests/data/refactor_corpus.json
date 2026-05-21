@@ -10,5 +10,386 @@
     "Provisional classifications use phase3_classification_open: true so Phase 3 can rule without re-curating.",
     "expected_warnings_subset uses subset semantics — Phase 3 may add other warning categories without breaking the fixture."
   ],
-  "fixtures": []
+  "fixtures": [
+    {
+      "id": "verified-obergefell",
+      "citation": "Obergefell v. Hodges, 576 U.S. 644 (2015)",
+      "expected_status": "VERIFIED",
+      "expected_resolving_stage": "citation_lookup",
+      "expected_final_ids": {
+        "cluster_id": 2812209,
+        "opinion_id": null,
+        "docket_id": null,
+        "recap_document_id": null,
+        "text_source": "opinion_plain_text"
+      },
+      "expected_warnings_subset": [],
+      "rationale": "Landmark SCOTUS case; primary citation_lookup resolves cleanly. Anchor fixture for the standard VERIFIED happy path.",
+      "source": "tests/data/known_real_citations.json#obergefell",
+      "category": "happy_path",
+      "phase3_classification_open": false,
+      "mock_spec": null
+    },
+    {
+      "id": "verified-bossart-xfailed",
+      "citation": "Bossart v. King Cnty., Case No. 2:24-cv-01776-JHC, 2025 WL 459154, at *1 (W.D. Wash. Feb. 11, 2025)",
+      "expected_status": "VERIFIED",
+      "expected_resolving_stage": "citation_lookup",
+      "expected_final_ids": {
+        "cluster_id": 69346061,
+        "opinion_id": null,
+        "docket_id": null,
+        "recap_document_id": null,
+        "text_source": "opinion_plain_text"
+      },
+      "expected_warnings_subset": [],
+      "rationale": "Pre-Phase-3 xfail (CL cluster-ID drift). Phase 3's caption_investigation may rescue. expected_final_ids.cluster_id pinned to the originally-canonical ID; Phase 3 confirms or updates. Abbreviation normalization (Cnty.) needed in the resolution path.",
+      "source": "tests/data/known_real_citations.json#bossart",
+      "category": "xfailed_abbreviation_normalization",
+      "phase3_classification_open": true,
+      "mock_spec": null
+    },
+    {
+      "id": "verified-busha-xfailed",
+      "citation": "Busha v. SC Dep't of Mental Health, No. 6:18-CV-02337-DCC, 2019 WL 651680 (D.S.C. Feb. 13, 2019)",
+      "expected_status": "VERIFIED",
+      "expected_resolving_stage": "citation_lookup",
+      "expected_final_ids": {
+        "cluster_id": 14553775,
+        "opinion_id": null,
+        "docket_id": null,
+        "recap_document_id": null,
+        "text_source": "opinion_plain_text"
+      },
+      "expected_warnings_subset": [],
+      "rationale": "Pre-Phase-3 xfail (CL cluster-ID drift). Phase 3's caption_investigation may rescue. Dep't -> Department abbreviation normalization + judge suffix stripping. cluster_id pinned to known_real_citations.json value; Phase 3 confirms or updates.",
+      "source": "tests/data/known_real_citations.json#busha",
+      "category": "xfailed_abbreviation_normalization",
+      "phase3_classification_open": true,
+      "mock_spec": null
+    },
+    {
+      "id": "verified-townsley-xfailed",
+      "citation": "Townsley v. Lifewise Assurance Co., Case No. C15-1228-JCC, 2016 WL 1393548, at *3 (W.D. Wash. April 8, 2016)",
+      "expected_status": "VERIFIED",
+      "expected_resolving_stage": "citation_lookup",
+      "expected_final_ids": {
+        "cluster_id": 5352576,
+        "opinion_id": null,
+        "docket_id": null,
+        "recap_document_id": null,
+        "text_source": "opinion_plain_text"
+      },
+      "expected_warnings_subset": [],
+      "rationale": "Pre-Phase-3 xfail (CL cluster-ID drift). Phase 3's caption_investigation may rescue. Docket number shorthand expansion (C15 -> 15-cv) + judge suffix. CL has different defendant name. cluster_id pinned to known_real_citations.json value; Phase 3 confirms or updates.",
+      "source": "tests/data/known_real_citations.json#townsley",
+      "category": "xfailed_docket_number_shorthand",
+      "phase3_classification_open": true,
+      "mock_spec": null
+    },
+    {
+      "id": "verified-anderson-furst-xfailed",
+      "citation": "Anderson v. Furst, No. 17-cv-12676, 2018 WL 4407750, at *2 (E.D. Mich. Sept. 17, 2018)",
+      "expected_status": "VERIFIED",
+      "expected_resolving_stage": "citation_lookup",
+      "expected_final_ids": {
+        "cluster_id": 6264209,
+        "opinion_id": null,
+        "docket_id": null,
+        "recap_document_id": null,
+        "text_source": "opinion_plain_text"
+      },
+      "expected_warnings_subset": [],
+      "rationale": "Pre-Phase-3 xfail (CL cluster-ID drift). RECAP with exact date matching. Phase 3's caption_investigation may rescue. cluster_id pinned to known_real_citations.json value; Phase 3 confirms or updates.",
+      "source": "tests/data/known_real_citations.json#anderson-furst",
+      "category": "xfailed_recap_with_exact_date",
+      "phase3_classification_open": true,
+      "mock_spec": null
+    },
+    {
+      "id": "verified-hanover-shoe-scotus",
+      "citation": "Hanover Shoe, Inc. v. United Shoe Machinery Corp., 392 U.S. 481 (1968)",
+      "expected_status": "VERIFIED",
+      "expected_resolving_stage": "citation_lookup",
+      "expected_final_ids": {
+        "cluster_id": 107749,
+        "opinion_id": null,
+        "docket_id": null,
+        "recap_document_id": null,
+        "text_source": "opinion_plain_text"
+      },
+      "expected_warnings_subset": [],
+      "rationale": "SCOTUS happy-path sample. citation_lookup resolves on first call. Source pool: benchmark in_cl_via_citation_lookup (45 SCOTUS rows).",
+      "source": "benchmark/unified_review.csv#in_cl_via_citation_lookup[SCOTUS]",
+      "category": "happy_path_scotus",
+      "phase3_classification_open": false,
+      "mock_spec": null
+    },
+    {
+      "id": "verified-steir-circuit",
+      "citation": "Steir v. Girl Scouts of the USA, 383 F.3d 7, 12 (1st Cir. 2004)",
+      "expected_status": "VERIFIED",
+      "expected_resolving_stage": "citation_lookup",
+      "expected_final_ids": {
+        "cluster_id": 201318,
+        "opinion_id": null,
+        "docket_id": null,
+        "recap_document_id": null,
+        "text_source": "opinion_plain_text"
+      },
+      "expected_warnings_subset": [],
+      "rationale": "Circuit (1st Cir.) happy-path sample. citation_lookup resolves on first call. Source pool: benchmark in_cl_via_citation_lookup (43 Circuit rows).",
+      "source": "benchmark/unified_review.csv#in_cl_via_citation_lookup[Circuit]",
+      "category": "happy_path_circuit",
+      "phase3_classification_open": false,
+      "mock_spec": null
+    },
+    {
+      "id": "verified-janvey-federal-district",
+      "citation": "Janvey v. Proskauer Rose, LLP, 59 F. Supp. 3d 1, 7 (D.D.C. 2014)",
+      "expected_status": "VERIFIED",
+      "expected_resolving_stage": "citation_lookup",
+      "expected_final_ids": {
+        "cluster_id": 2685607,
+        "opinion_id": null,
+        "docket_id": null,
+        "recap_document_id": null,
+        "text_source": "opinion_plain_text"
+      },
+      "expected_warnings_subset": [],
+      "rationale": "Federal District happy-path sample. citation_lookup resolves on first call. Source pool: benchmark in_cl_via_citation_lookup (18 Federal_District rows).",
+      "source": "benchmark/unified_review.csv#in_cl_via_citation_lookup[Federal_District]",
+      "category": "happy_path_federal_district",
+      "phase3_classification_open": false,
+      "mock_spec": null
+    },
+    {
+      "id": "verified-howery-state-colr",
+      "citation": "People v. Howery, 178 Ill. 2d 1, 32 (Ill. 1997)",
+      "expected_status": "VERIFIED",
+      "expected_resolving_stage": "citation_lookup",
+      "expected_final_ids": {
+        "cluster_id": 2229858,
+        "opinion_id": null,
+        "docket_id": null,
+        "recap_document_id": null,
+        "text_source": "opinion_plain_text"
+      },
+      "expected_warnings_subset": [],
+      "rationale": "State court of last resort (Illinois Supreme) happy-path sample. citation_lookup resolves on first call. Source pool: benchmark in_cl_via_citation_lookup (38 State_COLR rows).",
+      "source": "benchmark/unified_review.csv#in_cl_via_citation_lookup[State_COLR]",
+      "category": "happy_path_state_colr",
+      "phase3_classification_open": false,
+      "mock_spec": null
+    },
+    {
+      "id": "verified-peerenboom-state-iac",
+      "citation": "Peerenboom v. Marvel Entertainment, LLC, 148 A.D.3d 531 (N.Y. App. Div. 2017)",
+      "expected_status": "VERIFIED",
+      "expected_resolving_stage": "citation_lookup",
+      "expected_final_ids": {
+        "cluster_id": 4376072,
+        "opinion_id": null,
+        "docket_id": null,
+        "recap_document_id": null,
+        "text_source": "opinion_plain_text"
+      },
+      "expected_warnings_subset": [],
+      "rationale": "State intermediate appellate court (NY App. Div.) happy-path sample where the A.D.3d cite IS in CL's citation index — contrasts with the cl_cluster_parallel_cite_missing VERIFIED_PARTIAL fixtures. Source pool: benchmark in_cl_via_citation_lookup (26 State_IAC rows).",
+      "source": "benchmark/unified_review.csv#in_cl_via_citation_lookup[State_IAC]",
+      "category": "happy_path_state_iac",
+      "phase3_classification_open": false,
+      "mock_spec": null
+    },
+    {
+      "id": "verified-isaacs-caterpillar-bonus",
+      "citation": "Isaacs v. Caterpillar, Inc., 702 F. Supp. 711, 713 (S.D. Ohio 1988)",
+      "expected_status": "VERIFIED",
+      "expected_resolving_stage": "citation_lookup",
+      "expected_final_ids": {
+        "cluster_id": 2252696,
+        "opinion_id": null,
+        "docket_id": null,
+        "recap_document_id": null,
+        "text_source": "opinion_plain_text"
+      },
+      "expected_warnings_subset": [],
+      "rationale": "Bonus Federal District sample exercising abbreviation expansion in the case name (Inc.). citation_lookup resolves on first call. Source pool: benchmark in_cl_via_citation_lookup.",
+      "source": "benchmark/unified_review.csv#in_cl_via_citation_lookup[Federal_District:abbrev]",
+      "category": "happy_path_abbreviation",
+      "phase3_classification_open": false,
+      "mock_spec": null
+    },
+    {
+      "id": "verified-occidental-permian-fallback",
+      "citation": "Occidental Permian, Ltd. v. Citation 2002 Inv. LLC, 689 S.W.3d 899, 905 (Tex. 2024)",
+      "expected_status": "VERIFIED",
+      "expected_resolving_stage": "opinion_search",
+      "expected_final_ids": {
+        "cluster_id": 9505188,
+        "opinion_id": null,
+        "docket_id": null,
+        "recap_document_id": null,
+        "text_source": "opinion_plain_text"
+      },
+      "expected_warnings_subset": [],
+      "rationale": "Cluster exists in CL but its citations[] field is empty — primary citation_lookup misses, opinion_search fuzzy fallback resolves to the same cluster. Sub-case of VERIFIED via fallback path. Resolving stage is opinion_search, not citation_lookup.",
+      "source": "benchmark/manual_corrections.csv#cl_cluster_citations_empty[occidental-permian]",
+      "category": "fallback_opinion_search",
+      "phase3_classification_open": false,
+      "mock_spec": null
+    },
+    {
+      "id": "verified-sundown-energy-fallback",
+      "citation": "Sundown Energy LP v. HJSA No. 3, L.P., 622 S.W.3d 884, 889 (Tex. 2021)",
+      "expected_status": "VERIFIED",
+      "expected_resolving_stage": "opinion_search",
+      "expected_final_ids": {
+        "cluster_id": 4872528,
+        "opinion_id": null,
+        "docket_id": null,
+        "recap_document_id": null,
+        "text_source": "opinion_plain_text"
+      },
+      "expected_warnings_subset": [],
+      "rationale": "Cluster exists in CL but its citations[] field is empty — primary citation_lookup misses, opinion_search fuzzy fallback resolves. Second cl_cluster_citations_empty sample for sub-case variety.",
+      "source": "benchmark/manual_corrections.csv#cl_cluster_citations_empty[sundown-energy]",
+      "category": "fallback_opinion_search",
+      "phase3_classification_open": false,
+      "mock_spec": null
+    },
+    {
+      "id": "not-found-bloomberg",
+      "citation": "Bloomberg L.P. v. Bd. of Govs. of the Fed. Reserve Sys., 649 F. 3d 651, 657 (D.C. Cir. 2011)",
+      "expected_status": "NOT_FOUND",
+      "expected_resolving_stage": null,
+      "expected_final_ids": {
+        "cluster_id": null,
+        "opinion_id": null,
+        "docket_id": null,
+        "recap_document_id": null,
+        "text_source": null
+      },
+      "expected_warnings_subset": [],
+      "rationale": "Court-confirmed hallucinated citation from a sanctioned AI-generated brief (Gonzalez v. TTRA, S.D. Tex. 2025). Plausible D.C. Cir. format; no case exists.",
+      "source": "tests/data/known_fake_citations.json#bloomberg",
+      "category": "hallucinated_case",
+      "phase3_classification_open": false,
+      "mock_spec": null
+    },
+    {
+      "id": "not-found-head-chicora",
+      "citation": "Head v. Chicora Life Ctr., LLC, 290 F. Supp. 3d 883, 893 (S.D. Tex. 2018)",
+      "expected_status": "NOT_FOUND",
+      "expected_resolving_stage": null,
+      "expected_final_ids": {
+        "cluster_id": null,
+        "opinion_id": null,
+        "docket_id": null,
+        "recap_document_id": null,
+        "text_source": null
+      },
+      "expected_warnings_subset": [],
+      "rationale": "Court-confirmed hallucinated citation from the same Gonzalez v. TTRA sanctions order. Fabricated.",
+      "source": "tests/data/known_fake_citations.json#head-chicora",
+      "category": "hallucinated_case",
+      "phase3_classification_open": false,
+      "mock_spec": null
+    },
+    {
+      "id": "not-found-gibbs-wright",
+      "citation": "Gibbs v. Wright, 2020 WL 1877661, at *2 (E.D. Tenn. Apr. 15, 2020)",
+      "expected_status": "NOT_FOUND",
+      "expected_resolving_stage": null,
+      "expected_final_ids": {
+        "cluster_id": null,
+        "opinion_id": null,
+        "docket_id": null,
+        "recap_document_id": null,
+        "text_source": null
+      },
+      "expected_warnings_subset": [],
+      "rationale": "Court-confirmed hallucinated WL cite from Hardy v. Ford Motor Co. sanctions discussion. Fabricated.",
+      "source": "tests/data/known_fake_citations.json#gibbs-wright",
+      "category": "hallucinated_case",
+      "phase3_classification_open": false,
+      "mock_spec": null
+    },
+    {
+      "id": "not-found-terry-blacks-bbq",
+      "citation": "Terry Black's Barbecue, L.L.C. v. State Auto. Mut. Ins. Co., 22 F.4th 450, 459 (5th Cir. 2022)",
+      "expected_status": "NOT_FOUND",
+      "expected_resolving_stage": null,
+      "expected_final_ids": {
+        "cluster_id": null,
+        "opinion_id": null,
+        "docket_id": null,
+        "recap_document_id": null,
+        "text_source": null
+      },
+      "expected_warnings_subset": [],
+      "rationale": "Benchmark-classified not_in_cl: case is real but absent from CL's index across all stages. Useful as a non-hallucinated NOT_FOUND fixture (real case, just not in CL).",
+      "source": "benchmark/unified_review.csv#not_in_cl[terry-blacks-bbq]",
+      "category": "not_in_cl_real_case",
+      "phase3_classification_open": false,
+      "mock_spec": null
+    },
+    {
+      "id": "not-found-azad-realty",
+      "citation": "Azad v. 270 5th Realty Corp., 10 N.Y.3d 706 (N.Y. 2008)",
+      "expected_status": "NOT_FOUND",
+      "expected_resolving_stage": null,
+      "expected_final_ids": {
+        "cluster_id": null,
+        "opinion_id": null,
+        "docket_id": null,
+        "recap_document_id": null,
+        "text_source": null
+      },
+      "expected_warnings_subset": [],
+      "rationale": "Benchmark-classified not_in_cl: NY Court of Appeals memorandum decision absent from CL's index. Real case, not in CL.",
+      "source": "benchmark/unified_review.csv#not_in_cl[azad-realty]",
+      "category": "not_in_cl_real_case",
+      "phase3_classification_open": false,
+      "mock_spec": null
+    },
+    {
+      "id": "not-found-people-campbell",
+      "citation": "People v. Campbell, 243 A.D.3d 1221 (N.Y. App. Div. 2024)",
+      "expected_status": "NOT_FOUND",
+      "expected_resolving_stage": null,
+      "expected_final_ids": {
+        "cluster_id": null,
+        "opinion_id": null,
+        "docket_id": null,
+        "recap_document_id": null,
+        "text_source": null
+      },
+      "expected_warnings_subset": [],
+      "rationale": "Benchmark-classified not_in_cl: NY App Div decision absent from CL's index. Real case, not in CL.",
+      "source": "benchmark/unified_review.csv#not_in_cl[people-campbell]",
+      "category": "not_in_cl_real_case",
+      "phase3_classification_open": false,
+      "mock_spec": null
+    },
+    {
+      "id": "not-found-iglesias-hialeah-provisional",
+      "citation": "Iglesias v. City of Hialeah, 305 So. 3d 20 (Fla. Dist. Ct. App. 2020)",
+      "expected_status": "NOT_FOUND",
+      "expected_resolving_stage": null,
+      "expected_final_ids": {
+        "cluster_id": null,
+        "opinion_id": null,
+        "docket_id": null,
+        "recap_document_id": null,
+        "text_source": null
+      },
+      "expected_warnings_subset": [],
+      "rationale": "Benchmark-classified rescue_was_false_positive: pre-Phase-3 fallback ladder rescued this incorrectly. Phase 3 stricter logic should return NOT_FOUND. Exploratory; phase3_classification_open: true until confirmed.",
+      "source": "benchmark/unified_review.csv#rescue_was_false_positive[iglesias-hialeah]",
+      "category": "rescue_was_false_positive",
+      "phase3_classification_open": true,
+      "mock_spec": null
+    }
+  ]
 }
