@@ -88,9 +88,13 @@ class TestAbbreviationMatching:
         )
 
         # Should find it via our normalization
-        assert result.matched_case_name is not None
-        assert "Bossart" in result.matched_case_name
-        print(f"\n[OK] Found via normalization: {result.matched_case_name}")
+        matched_case_name = (
+            result.resolution_path[-1].raw_response_summary.get("case_name")
+            if result.resolution_path else None
+        )
+        assert matched_case_name is not None
+        assert "Bossart" in matched_case_name
+        print(f"\n[OK] Found via normalization: {matched_case_name}")
 
 
 class TestDocketParameterReliability:

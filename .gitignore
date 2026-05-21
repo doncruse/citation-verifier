@@ -16,6 +16,10 @@ tests/data/results/verification_*.json
 # Large PDFs — synced separately
 scratch/hallucination_opinions/
 
+# Web app smoke-test log output (regenerable, file-locked on Windows)
+scratch/app_stderr.log
+scratch/app_stdout.log
+
 # Pilot A opinion-text caches (regenerable, ~5-25 MB each)
 benchmark/pilot_a/cited_opinion_cache/
 benchmark/pilot_a/dcd_citing_opinion_cache/
