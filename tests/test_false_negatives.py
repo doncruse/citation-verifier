@@ -46,6 +46,10 @@ def test_known_real_citation(test_case):
     category = test_case.get("category", "unknown")
     notes = test_case.get("notes", "")
 
+    xfail_reason = test_case.get("xfail_reason")
+    if xfail_reason:
+        pytest.xfail(xfail_reason)
+
     verifier = CitationVerifier()
     result = verifier.verify(citation)
 
