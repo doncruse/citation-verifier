@@ -618,6 +618,196 @@
       "category": "named_exemplar",
       "phase3_classification_open": false,
       "mock_spec": null
+    },
+    {
+      "id": "verified-via-recap-mehar-holdings",
+      "citation": "Mehar Holdings, LLC v. Evanston Ins. Co., 2016 WL 5957681 (W.D. Tex. Oct. 14, 2016)",
+      "expected_status": "VERIFIED_VIA_RECAP",
+      "expected_resolving_stage": "recap_docket_search",
+      "expected_final_ids": {
+        "cluster_id": null,
+        "opinion_id": null,
+        "docket_id": 5474769,
+        "recap_document_id": 18720567,
+        "text_source": "recap_document"
+      },
+      "expected_warnings_subset": [],
+      "rationale": "WL cite. citation_lookup misses (no opinion cluster in CL). opinion_search misses. RECAP archive has the docket with an opinion-typed RECAPDocument carrying plain_text. Status: VERIFIED_VIA_RECAP. Sub-case: recap_doc_opinion_not_ingested.",
+      "source": "benchmark/recap_diagnosis.csv#recap_doc_opinion_not_ingested[mehar-holdings]",
+      "category": "recap_doc_opinion_not_ingested",
+      "phase3_classification_open": false,
+      "mock_spec": null
+    },
+    {
+      "id": "verified-via-recap-doe-lawrence",
+      "citation": "Doe v. Lawrence Gen. Hosp., 2025 WL 2808055",
+      "expected_status": "VERIFIED_VIA_RECAP",
+      "expected_resolving_stage": "recap_docket_search",
+      "expected_final_ids": {
+        "cluster_id": null,
+        "opinion_id": null,
+        "docket_id": 69539673,
+        "recap_document_id": 454203499,
+        "text_source": "recap_document"
+      },
+      "expected_warnings_subset": [],
+      "rationale": "WL cite. Opinion cluster not ingested; RECAP has the docket with a 'Memorandum & Order' RECAPDocument carrying plain_text. Status: VERIFIED_VIA_RECAP via recap_doc_opinion_not_ingested.",
+      "source": "benchmark/recap_diagnosis.csv#recap_doc_opinion_not_ingested[doe-lawrence]",
+      "category": "recap_doc_opinion_not_ingested",
+      "phase3_classification_open": false,
+      "mock_spec": null
+    },
+    {
+      "id": "named-exemplar-menges",
+      "citation": "Darensburg v. Metro. Transp. Comm'n, 2009 WL 2392094 (N.D. Cal. Aug. 4, 2009)",
+      "expected_status": "VERIFIED_VIA_RECAP",
+      "expected_resolving_stage": "recap_docket_search",
+      "expected_final_ids": {
+        "cluster_id": null,
+        "opinion_id": null,
+        "docket_id": 4182878,
+        "recap_document_id": 13644995,
+        "text_source": "recap_document"
+      },
+      "expected_warnings_subset": [],
+      "rationale": "Design v2 §4 named exemplar (substituted). The original Menges v. Cliffs Drilling cite (2000 WL 765082) does NOT cleanly resolve as VERIFIED_VIA_RECAP — live lookup shows its docket 10993603 has 2 text-bearing in-limine orders from 2000-06-12, not the cited 2000-05-31 opinion. Per plan §4 escape hatch, substituted with Darensburg v. Metro. Transp. Comm'n (2009 WL 2392094), a clean recap_doc_opinion_not_ingested case with an 'OPINION ON DEFENDANT\\'S MOTION FOR ATTORNEYS\\' FEES' RECAPDocument carrying plain_text. Walks the citation_lookup -> opinion_search -> recap_docket_search fallback ladder cleanly. The actual Menges citation appears under verified-docket-only-menges-actual.",
+      "source": "design_v2_doc#section_4",
+      "category": "named_exemplar",
+      "phase3_classification_open": false,
+      "mock_spec": null
+    },
+    {
+      "id": "verified-via-recap-cabot-lewis-provisional",
+      "citation": "Cabot v. Lewis, 2015 WL 13648107, at *1 (D. Mass. July 9, 2015)",
+      "expected_status": "VERIFIED_VIA_RECAP",
+      "expected_resolving_stage": "recap_docket_search",
+      "expected_final_ids": {
+        "cluster_id": null,
+        "opinion_id": null,
+        "docket_id": 4275225,
+        "recap_document_id": 5338694,
+        "text_source": "recap_document"
+      },
+      "expected_warnings_subset": [],
+      "rationale": "Provisional VIA_RECAP. Docket has an available RECAP document with plain_text, but the document is not strictly opinion-typed (description: 'ORDER CERTIFYING INTERLOCUTORY APPEAL'). Per plan §1.4 Phase 3 must decide whether 'has-text-but-not-opinion-typed' is VIA_RECAP or DOCKET_ONLY. Pinned to VIA_RECAP because the doc has substantial reasoned text; Phase 3 may reclassify to DOCKET_ONLY.",
+      "source": "benchmark/recap_diagnosis.csv#recap_doc_not_opinion_typed[cabot-lewis]",
+      "category": "recap_doc_not_opinion_typed",
+      "phase3_classification_open": true,
+      "mock_spec": null
+    },
+    {
+      "id": "verified-via-recap-hunter-ccsf-provisional",
+      "citation": "Hunter v. City & Cnty. of San Francisco, 2013 WL 6088409",
+      "expected_status": "VERIFIED_VIA_RECAP",
+      "expected_resolving_stage": "recap_docket_search",
+      "expected_final_ids": {
+        "cluster_id": null,
+        "opinion_id": null,
+        "docket_id": 5929390,
+        "recap_document_id": 20032027,
+        "text_source": "recap_document"
+      },
+      "expected_warnings_subset": [],
+      "rationale": "Provisional VIA_RECAP. Docket has a RECAP document with plain_text but not strictly opinion-typed (description starts 'ORDER RE: PLAINTIFFS MOTION FOR REVIEW OF CLERKS TAXATION OF...'). Per plan §1.4 Phase 3 gray area. Second recap_doc_not_opinion_typed sample.",
+      "source": "benchmark/recap_diagnosis.csv#recap_doc_not_opinion_typed[hunter-ccsf]",
+      "category": "recap_doc_not_opinion_typed",
+      "phase3_classification_open": true,
+      "mock_spec": null
+    },
+    {
+      "id": "verified-docket-only-dias-clapprood",
+      "citation": "ra dias deapocalypse bey v. Clapprood, 2024 WL 3446824",
+      "expected_status": "VERIFIED_DOCKET_ONLY",
+      "expected_resolving_stage": "recap_docket_search",
+      "expected_final_ids": {
+        "cluster_id": null,
+        "opinion_id": null,
+        "docket_id": 66969331,
+        "recap_document_id": null,
+        "text_source": null
+      },
+      "expected_warnings_subset": [],
+      "rationale": "Docket exists in RECAP but no available RECAP document for the cited entry (is_available=false on the best-match Memorandum & Order doc). No retrievable opinion text. Status: VERIFIED_DOCKET_ONLY via recap_doc_unavailable.",
+      "source": "benchmark/recap_diagnosis.csv#recap_doc_unavailable[dias-clapprood]",
+      "category": "recap_doc_unavailable",
+      "phase3_classification_open": false,
+      "mock_spec": null
+    },
+    {
+      "id": "verified-docket-only-hazari-llc",
+      "citation": "Hazari LLC v. Everest Indem. Ins. Co., 2020 WL 1969530 (S.D. Tex. Apr. 24, 2020)",
+      "expected_status": "VERIFIED_DOCKET_ONLY",
+      "expected_resolving_stage": "recap_docket_search",
+      "expected_final_ids": {
+        "cluster_id": null,
+        "opinion_id": null,
+        "docket_id": 16348672,
+        "recap_document_id": null,
+        "text_source": null
+      },
+      "expected_warnings_subset": [],
+      "rationale": "Docket exists in RECAP but the 'Order on Motion to Remand' best-match doc has is_available=false. No retrievable opinion text. Second recap_doc_unavailable sample.",
+      "source": "benchmark/recap_diagnosis.csv#recap_doc_unavailable[hazari-llc]",
+      "category": "recap_doc_unavailable",
+      "phase3_classification_open": false,
+      "mock_spec": null
+    },
+    {
+      "id": "verified-docket-only-menges-actual",
+      "citation": "Menges v. Cliffs Drilling Co., 2000 WL 765082 (E.D. La. May 31, 2000)",
+      "expected_status": "VERIFIED_DOCKET_ONLY",
+      "expected_resolving_stage": "recap_docket_search",
+      "expected_final_ids": {
+        "cluster_id": null,
+        "opinion_id": null,
+        "docket_id": 10993603,
+        "recap_document_id": null,
+        "text_source": null
+      },
+      "expected_warnings_subset": [],
+      "rationale": "Actual Menges v. Cliffs Drilling cite from design v2 §4. Live-discovered docket 10993603 (case_name 'Menges v. Cliffs Drlg Co'). Has 2 text-bearing 'ORDER & REASONS' docs from 2000-06-12 (motions in limine, doc_ids 476627754, 476627755) but NOT the cited 2000-05-31 opinion. Strict reading: no opinion-typed doc matches the cited date, so DOCKET_ONLY. Phase 3 may relax classification to VIA_RECAP if it accepts related in-limine orders as opinion-substitute text. phase3_classification_open: true.",
+      "source": "design_v2_doc#section_4_live_lookup",
+      "category": "docket_only_no_opinion_at_cited_date",
+      "phase3_classification_open": true,
+      "mock_spec": null
+    },
+    {
+      "id": "verified-docket-only-jacks-hertz",
+      "citation": "Jacks v. Hertz Corp., 2020 WL 1530747 (Bankr. D. Del. Mar. 30, 2020)",
+      "expected_status": "VERIFIED_DOCKET_ONLY",
+      "expected_resolving_stage": "recap_docket_search",
+      "expected_final_ids": {
+        "cluster_id": null,
+        "opinion_id": null,
+        "docket_id": 17228083,
+        "recap_document_id": null,
+        "text_source": null
+      },
+      "expected_warnings_subset": [],
+      "rationale": "Live-discovered follow-up. WL cite resolves via recap_docket_search to docket 17228083 (case_name 'Jacks v. Hertz Corp'). No text-bearing docs found on first 20 entries (is_available=false across all checked docs). No retrievable opinion text. Status: VERIFIED_DOCKET_ONLY.",
+      "source": "live_discovery#jacks-hertz",
+      "category": "docket_only_no_available_doc",
+      "phase3_classification_open": false,
+      "mock_spec": null
+    },
+    {
+      "id": "verified-docket-only-caraballo-berryhill",
+      "citation": "Caraballo v. Berryhill, 2018 WL 4677729 (M.D. Tenn.)",
+      "expected_status": "VERIFIED_DOCKET_ONLY",
+      "expected_resolving_stage": "recap_docket_search",
+      "expected_final_ids": {
+        "cluster_id": null,
+        "opinion_id": null,
+        "docket_id": 6698093,
+        "recap_document_id": null,
+        "text_source": null
+      },
+      "expected_warnings_subset": [],
+      "rationale": "Live-discovered follow-up. Brief cites the 2018 SSA decision (2018 WL 4677729); live-discovered docket 6698093 exists but the only text-bearing doc is a 2021 attorney-fees OPINION (doc 183723709), not the cited 2018 opinion. Strict interpretation: no opinion text for cited date, so DOCKET_ONLY. Phase 3 may reclassify VIA_RECAP if it accepts a different opinion on the same docket. phase3_classification_open: true.",
+      "source": "live_discovery#caraballo-berryhill",
+      "category": "docket_only_no_opinion_at_cited_date",
+      "phase3_classification_open": true,
+      "mock_spec": null
     }
   ]
 }

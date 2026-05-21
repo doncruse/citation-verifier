@@ -65,7 +65,7 @@ classifier; `recap_diagnosis.csv` `subreason` sub-classifies the
 |---|---|---|---|
 | `recap_doc_opinion_not_ingested` | 3 | `VERIFIED_VIA_RECAP` | Opinion-typed doc with text exists; opinion cluster not ingested. Phase 3 verifier will return the RECAP doc as the text source. Include all 3. |
 | `recap_doc_unavailable` | 2 | `VERIFIED_DOCKET_ONLY` | No available RECAP document. `text_source: null`. Include both. |
-| `recap_doc_not_opinion_typed` | 2 | **provisional (Phase 3 decides)** | Has text but isn't opinion-typed. Mark `phase3_classification_open: true`. Include both — Phase 3 needs them to settle the classification. |
+| `recap_doc_not_opinion_typed` | 2 | **provisional VIA_RECAP (Phase 3 decides)** | Has text but isn't strictly opinion-typed. Phase 2.5 pinned to VERIFIED_VIA_RECAP with `phase3_classification_open: true` (rationale: the docs have substantial reasoned text). Phase 3 may reclassify to VERIFIED_DOCKET_ONLY. Cabot v. Lewis + Hunter v. CCSF. |
 
 ## §3 Fixture inventory (filled in by Tasks 3–7)
 
@@ -116,6 +116,19 @@ This is the index used by future contributors.)
 - verified-partial-walker | VERIFIED_PARTIAL | benchmark/manual_corrections.csv#cl_cluster_parallel_cite_missing[walker] | parallel_cite_ny_adv | A.D.3d primary missing; slip op (2024 NY Slip Op 03278) resolves
 - named-exemplar-gilliam | VERIFIED_PARTIAL | design_v2_doc#section_4 | named_exemplar | Gilliam named exemplar; A.D.3d 201 not in CL, slip op 2021 NY Slip Op 06798 resolves to cluster 5305052
 
+**Task 5 (VERIFIED_VIA_RECAP + VERIFIED_DOCKET_ONLY):**
+
+- verified-via-recap-mehar-holdings | VERIFIED_VIA_RECAP | benchmark/recap_diagnosis.csv#recap_doc_opinion_not_ingested[mehar-holdings] | recap_doc_opinion_not_ingested | Opinion-typed RECAPDoc with plain_text (docket 5474769, doc 18720567)
+- verified-via-recap-doe-lawrence | VERIFIED_VIA_RECAP | benchmark/recap_diagnosis.csv#recap_doc_opinion_not_ingested[doe-lawrence] | recap_doc_opinion_not_ingested | Memorandum & Order RECAPDoc with text (docket 69539673, doc 454203499)
+- named-exemplar-menges | VERIFIED_VIA_RECAP | design_v2_doc#section_4 | named_exemplar | Substituted with Darensburg v. MTC (2009 WL 2392094) per §4 escape hatch — original Menges cite has no usable RECAPDoc at the cited 2000-05-31 date
+- verified-via-recap-cabot-lewis-provisional | VERIFIED_VIA_RECAP | benchmark/recap_diagnosis.csv#recap_doc_not_opinion_typed[cabot-lewis] | recap_doc_not_opinion_typed | Has-text-but-not-strictly-opinion-typed; provisional VIA_RECAP (Phase 3 may reclassify)
+- verified-via-recap-hunter-ccsf-provisional | VERIFIED_VIA_RECAP | benchmark/recap_diagnosis.csv#recap_doc_not_opinion_typed[hunter-ccsf] | recap_doc_not_opinion_typed | Second has-text-but-not-strictly-opinion-typed; provisional VIA_RECAP
+- verified-docket-only-dias-clapprood | VERIFIED_DOCKET_ONLY | benchmark/recap_diagnosis.csv#recap_doc_unavailable[dias-clapprood] | recap_doc_unavailable | Docket exists, no available doc (is_available=false)
+- verified-docket-only-hazari-llc | VERIFIED_DOCKET_ONLY | benchmark/recap_diagnosis.csv#recap_doc_unavailable[hazari-llc] | recap_doc_unavailable | Docket exists, no available doc
+- verified-docket-only-menges-actual | VERIFIED_DOCKET_ONLY | design_v2_doc#section_4_live_lookup | docket_only_no_opinion_at_cited_date | Actual Menges; live data shows docket exists, has off-target in-limine orders only
+- verified-docket-only-jacks-hertz | VERIFIED_DOCKET_ONLY | live_discovery#jacks-hertz | docket_only_no_available_doc | Live-discovered follow-up; docket 17228083 has no text-bearing docs
+- verified-docket-only-caraballo-berryhill | VERIFIED_DOCKET_ONLY | live_discovery#caraballo-berryhill | docket_only_no_opinion_at_cited_date | Live-discovered follow-up; docket has a 2021 opinion but not the cited 2018 one
+
 ## §4 Named exemplars — sourcing notes
 
 ### Koch (VERIFIED + cl_display_name_data_bug)
@@ -154,6 +167,7 @@ This is the index used by future contributors.)
   substitute from the 3 `recap_doc_opinion_not_ingested` rows
   (Mehar Holdings / Doe v. Lawrence / Darensburg v. MTC are all
   confirmed RECAP-text-available). Document the substitution here.
+- **Substitution result (Phase 2.5 implementation):** Live lookup of `2000 WL 765082` confirmed the original Menges case resolves to RECAP docket 10993603 (case_name "Menges v. Cliffs Drlg Co", E.D. La., filed 1999-07-16). The docket has 2 text-bearing "ORDER & REASONS" docs from 2000-06-12 (motions in limine, doc_ids 476627754 and 476627755), but neither matches the cited 2000-05-31 opinion. The `2000 WL 765082` opinion itself isn't in RECAP. Substituted: `named-exemplar-menges` fixture uses Darensburg v. Metro. Transp. Comm'n (2009 WL 2392094) data — a clean `recap_doc_opinion_not_ingested` case with an "OPINION ON DEFENDANT'S MOTION FOR ATTORNEYS' FEES" doc that has plain_text. The actual Menges cite appears separately as `verified-docket-only-menges-actual` so Phase 3 still has a fixture to exercise the actual-Menges resolution path.
 
 ### WRONG_CASE (pick from `known_fake_citations.json`)
 - Best candidate: `Hogan v. AT&T, Inc., 917 F. Supp. 1275, 1280 (S.D. Tex. 1994)`
