@@ -12,6 +12,18 @@ Uses a forked [eyecite](https://github.com/freelawproject/eyecite) (rlfordon/eye
 - **Never write important information only to Claude memory.** Memory files are per-machine and per-project-path — they don't sync across computers. Anything that should persist (retrospectives, test feedback, design decisions, session notes) must be written to a file in the repo so it gets committed and pushed. Memory is fine for caching preferences and shortcuts, but not for unique artifacts.
 - **"Save this somewhere"** means write it to a file in the repo (e.g., `scratch/`, `briefs/`, `docs/`), never to memory. Ask where if the right location isn't obvious.
 
+## Refactor Workflow (Phases 1–4, ongoing)
+
+The schema rewrite lives on branch `refactor/v0.3` (design: `docs/plans/2026-05-20-citation-verifier-refactor-design-v2.md`). For the duration of the refactor:
+
+- **Work in a dedicated worktree:** `.claude/worktrees/refactor-v0.3`. Do not work on the refactor from the main worktree. Each worktree gets its own venv (Windows: `venv/Scripts/python.exe`).
+- **Push to `refactor/v0.3` every session.** Cross-machine sync depends on it.
+- **Merge `origin/main` into the refactor branch at each phase boundary** to absorb conflicts while they're small.
+- **Tag each phase acceptance:** `refactor/phase-1-acceptance`, `refactor/phase-2-acceptance`, etc. Push tags.
+- **Do NOT push to main until Phase 4 acceptance passes.** No `git push origin HEAD:main` from the refactor branch before then.
+- **Per-phase implementation plans live in `docs/plans/`.** Plan first (writing-plans skill), then implement. Phase N+1's plan is written after Phase N lands, when the implementer knows what shipped.
+- **At final acceptance:** merge to main with a merge commit (don't squash — preserve per-phase history), tag `v0.3.0`, and **delete this section from CLAUDE.md**.
+
 ## Architecture
 
 Three-step verification pipeline in `src/citation_verifier/verifier.py`:
