@@ -63,6 +63,23 @@ CL supports `semantic=true` for `type=o` searches. Could help with abbreviation 
 ### Justia cross-reference diagnostic
 One-off script to compare NOT_FOUND citations against Justia to distinguish: real hallucinations, CL data gaps, our search bugs. Diagnostic only — helps prioritize what to fix.
 
+### Surface multiple candidates when the verifier has uncertainty
+Today `VerificationResult.final_ids` carries one cluster_id / docket_id / recap_document_id — the verifier picks the single best match and (when uncertain) flags concerns via warnings. Per design v2 §1.2 ("Anything in between — heuristic guesses, probabilistic classifications, vibes — gets pushed up to the consumer"), warnings push uncertainty up *qualitatively* but the schema has no way to push it up *concretely*. Add an optional `candidates: list[CandidateMatch]` field (or similar) on `VerificationResult` that carries the runners-up the verifier considered, ranked, so a consumer can second-guess the pick without having to re-run the pipeline.
+
+Motivating cases:
+- CL has duplicate clusters for the same opinion and the verifier scored a non-canonical one higher (Anderson v. Furst class of bug). Today: VERIFIED with a `cl_duplicate_clusters` warning. With candidates: VERIFIED + warning + both cluster IDs listed, so a downstream QC tool or skill can show the alternatives.
+- Opinion search returns two real cases with similar scores against an ambiguous brief name. Today: pick the higher score, possibly warn. With candidates: pick + show the runner-up so the consumer can spot when the pick was a coin flip.
+- VIA_RECAP vs DOCKET_ONLY borderline cases where two RECAP documents on the docket could each plausibly be the cited opinion.
+
+Design questions (non-trivial, do not fold into the in-progress refactor):
+- Is the candidates list always populated, or only when uncertainty crosses a threshold?
+- Ranked by confidence, or flat with per-candidate confidence?
+- Does adding the list make Status harder to use (every VERIFIED might still have alternatives)?
+- How does it interact with the `cl_duplicate_clusters` / `cl_display_name_data_bug` warnings — are they redundant once candidates is populated, or complementary (warnings carry the *reason*, candidates carry the *evidence*)?
+- The pre-refactor `VerificationResult` had a `candidates: list[CandidateMatch]` field that was dropped during Phase 1; does the v0.3 version inherit that shape or design something different?
+
+Should be its own post-Phase-4 design conversation, not absorbed into Phase 3 (whose scope is status taxonomy + caption_investigation, not schema additions). Surfaced 2026-05-22 conversation; relates to the same "push uncertainty up to the consumer" principle that motivates the warnings system. Schema change would be additive per §1.6 (minor-version bump, CHANGELOG entry).
+
 ### Configurable verification depth (generalize `quick_only`)
 `verify_batch()` already accepts `quick_only=True` to stop after stage 1 (citation lookup). Generalize to `max_depth: StageName` (or similar) so callers can choose to run stage 1+2 but skip RECAP, or stop wherever else along the ladder. Useful when the caller knows they only care about high-confidence hits, or wants a fast first pass before deciding whether to invest in deeper fallback (e.g., a batch job that processes 10K citations and is fine accepting NOT_FOUND for whatever doesn't resolve in the first two stages).
 
