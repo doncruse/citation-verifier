@@ -620,7 +620,7 @@
       "mock_spec": null
     },
     {
-      "id": "verified-via-recap-mehar-holdings",
+      "id": "named-exemplar-mehar-holdings",
       "citation": "Mehar Holdings, LLC v. Evanston Ins. Co., 2016 WL 5957681 (W.D. Tex. Oct. 14, 2016)",
       "expected_status": "VERIFIED_VIA_RECAP",
       "expected_resolving_stage": "recap_docket_search",
@@ -632,9 +632,9 @@
         "text_source": "recap_document"
       },
       "expected_warnings_subset": [],
-      "rationale": "WL cite. citation_lookup misses (no opinion cluster in CL). opinion_search misses. RECAP archive has the docket with an opinion-typed RECAPDocument carrying plain_text. Status: VERIFIED_VIA_RECAP. Sub-case: recap_doc_opinion_not_ingested.",
+      "rationale": "Design v2 §4 named VIA_RECAP exemplar (substituted, second-pass). Original Menges (2000 WL 765082) was substituted with Darensburg (2009 WL 2392094) in Phase 2.5; per Phase 3 §0.3 (Q1 Westlaw lookup), Darensburg's WL number actually maps to the Aug 4, 2009 procedural costs-taxation order (doc #460), NOT the July 7, 2009 attorneys' fees opinion (doc #452) the fixture originally pinned. Because Phase 3's strict VIA_RECAP gate (±14 days from cited date + opinion-typed keywords) cannot disambiguate, Darensburg is demoted to verified-docket-only-darensburg-wl-disambiguation. Mehar is the clean substitute: 2016-10-14 cited date matches RECAPDoc 18720567's entry_date_filed exactly, description 'OPINION on motion to dismiss' is opinion-typed under Phase 3 gating. Sub-case: recap_doc_opinion_not_ingested.",
       "source": "benchmark/recap_diagnosis.csv#recap_doc_opinion_not_ingested[mehar-holdings]",
-      "category": "recap_doc_opinion_not_ingested",
+      "category": "named_exemplar",
       "phase3_classification_open": false,
       "mock_spec": null
     },
@@ -658,22 +658,23 @@
       "mock_spec": null
     },
     {
-      "id": "named-exemplar-menges",
+      "id": "verified-docket-only-darensburg-wl-disambiguation",
       "citation": "Darensburg v. Metro. Transp. Comm'n, 2009 WL 2392094 (N.D. Cal. Aug. 4, 2009)",
-      "expected_status": "VERIFIED_VIA_RECAP",
+      "expected_status": "VERIFIED_DOCKET_ONLY",
       "expected_resolving_stage": "recap_docket_search",
       "expected_final_ids": {
         "cluster_id": null,
         "opinion_id": null,
         "docket_id": 4182878,
-        "recap_document_id": 13644995,
-        "text_source": "recap_document"
+        "recap_document_id": null,
+        "text_source": null
       },
       "expected_warnings_subset": [],
-      "rationale": "Design v2 §4 named exemplar (substituted). The original Menges v. Cliffs Drilling cite (2000 WL 765082) does NOT cleanly resolve as VERIFIED_VIA_RECAP — live lookup shows its docket 10993603 has 2 text-bearing in-limine orders from 2000-06-12, not the cited 2000-05-31 opinion. Per plan §4 escape hatch, substituted with Darensburg v. Metro. Transp. Comm'n (2009 WL 2392094), a clean recap_doc_opinion_not_ingested case with an 'OPINION ON DEFENDANT\\'S MOTION FOR ATTORNEYS\\' FEES' RECAPDocument carrying plain_text. Walks the citation_lookup -> opinion_search -> recap_docket_search fallback ladder cleanly. The actual Menges citation appears under verified-docket-only-menges-actual.",
-      "source": "design_v2_doc#section_4",
-      "category": "named_exemplar",
+      "rationale": "Documents a known Phase 3 limitation surfaced by §0.3 (Q1 Westlaw lookup). 2009 WL 2392094 actually maps to the Aug 4, 2009 procedural costs-taxation order (doc #460: 'ORDER GRANTING PLAINTIFFS' MOTION FOR REVIEW OF CLERK'S TAXATION OF COSTS'), NOT the July 7, 2009 substantive attorneys' fees opinion (doc #452: 'OPINION ON DEFENDANT'S MOTION FOR ATTORNEYS' FEES'). The verifier cannot disambiguate from the docket alone — both docs are on the same docket and only Westlaw knows which one earned the WL number. Under Phase 3 strict VIA_RECAP gating: doc #460 fails the opinion-typed test (procedural ORDER keywords) so it doesn't qualify as VIA_RECAP; doc #452 is outside the ±14 day window from cited Aug 4 (28-day delta) so it isn't considered. Result: DOCKET_ONLY. This fixture pins that behavior. Demoted from named-exemplar (was previously named-exemplar-menges); the named VIA_RECAP slot moved to Mehar Holdings.",
+      "source": "design_v2_doc#section_4_phase3_validation",
+      "category": "recap_wl_disambiguation_limit",
       "phase3_classification_open": false,
+      "phase3_ruling": "Reclassified VIA_RECAP -> DOCKET_ONLY per §0.3 Westlaw lookup. The cited WL number maps to a procedural order, not the substantive opinion the prior fixture assumed. Verifier has no way to know this from docket data alone.",
       "mock_spec": null
     },
     {
