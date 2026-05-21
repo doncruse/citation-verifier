@@ -1,0 +1,14 @@
+{
+  "schema_version": "1",
+  "description": "Phase 2.5 corpus for citation-verifier refactor v0.3 status taxonomy. Each fixture declares an input citation and the expected verifier result under the six-status taxonomy in models.Status. Consumed by Phase 3 acceptance tests. See tests/data/refactor_corpus_survey.md for provenance and selection criteria.",
+  "selection_criteria": [
+    "Each of the six statuses has at least 5 fixtures (hard minimum).",
+    "The named exemplars from design v2 §4 (Koch, Gilliam, Menges, WRONG_CASE, VERIFICATION_INCOMPLETE) are all present and tagged with category 'named_exemplar'.",
+    "Primary source: ~/Projects/case-law-proposition-benchmark/scratch/cl-coverage-offshoot/ — 250 ground-truthed citations with hand-classified diagnoses.",
+    "Secondary sources: tests/data/known_real_citations.json (anchors), tests/data/known_fake_citations.json (WRONG_CASE + hallucinated NOT_FOUND).",
+    "VERIFICATION_INCOMPLETE fixtures are synthetic (mock_spec field declares the simulated failure mode; Phase 3 builds the mock harness).",
+    "Provisional classifications use phase3_classification_open: true so Phase 3 can rule without re-curating.",
+    "expected_warnings_subset uses subset semantics — Phase 3 may add other warning categories without breaking the fixture."
+  ],
+  "fixtures": []
+}
