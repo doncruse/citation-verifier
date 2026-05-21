@@ -134,3 +134,19 @@ class TestBatchVerificationResult:
             total=0, by_status={}, errors=[], elapsed_ms=0,
         )
         assert batch.total == 0
+
+
+def test_warning_category_has_cl_duplicate_clusters():
+    """Per Phase 3 plan Task 2 (maintainer Q3 pre-decision): CL has
+    multiple clusters for the same case; caption_investigation emits
+    this warning instead of privileging one canonical cluster ID."""
+    from citation_verifier.models import WarningCategory
+    assert WarningCategory.cl_duplicate_clusters.value == "cl_duplicate_clusters"
+
+
+def test_warning_category_has_wrong_page_number():
+    """Per Phase 3 plan Task 2 (maintainer Q2 pre-decision): name
+    resolves to a known case at a different reporter location than
+    cited. Fires during caption_investigation."""
+    from citation_verifier.models import WarningCategory
+    assert WarningCategory.wrong_page_number.value == "wrong_page_number"

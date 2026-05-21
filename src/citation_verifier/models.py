@@ -94,6 +94,9 @@ class WarningCategory(Enum):
     name_formatting_noise = "name_formatting_noise"
     unparseable_citation = "unparseable_citation"
     extraction_contamination_detected = "extraction_contamination_detected"
+    # Phase 3 additions (design v2 §2.6 amendment workflow; see CHANGELOG.md)
+    cl_duplicate_clusters = "cl_duplicate_clusters"
+    wrong_page_number = "wrong_page_number"
 
 
 @dataclass
