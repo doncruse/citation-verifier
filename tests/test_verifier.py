@@ -2602,7 +2602,10 @@ class TestVerifiedViaRecapVsDocketOnly:
 
     def test_docket_only_when_date_mismatches(self):
         """Menges-actual shape: docket exists, doc on docket is dated
-        June 12 but cited May 31 — outside ±14 day window. DOCKET_ONLY."""
+        June 12 but cited May 31 (12-day delta — actually WITHIN ±14 day
+        window). DOCKET_ONLY here because the doc description matches the
+        'motion in limine' procedural keyword, not because of date. See
+        test_phase3_corpus_acceptance.py for a true outside-window case."""
         client = _make_client(
             citation_lookup=[],
             search_opinions=[],
