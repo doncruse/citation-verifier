@@ -69,6 +69,7 @@ def _make_client(**overrides):
     # call sites; default these to empty dicts so existing tests don't break.
     client.get_cluster.return_value = overrides.get("get_cluster", {})
     client.get_docket.return_value = overrides.get("get_docket", {})
+    client.get_opinion_text.return_value = overrides.get("get_opinion_text", None)
     client.get_opinion_text_with_metadata.return_value = overrides.get(
         "get_opinion_text_with_metadata", None
     )
@@ -86,6 +87,7 @@ def _make_async_client(**overrides):
     # call sites; default these to empty dicts so existing tests don't break.
     client.get_cluster.return_value = overrides.get("get_cluster", {})
     client.get_docket.return_value = overrides.get("get_docket", {})
+    client.get_opinion_text.return_value = overrides.get("get_opinion_text", None)
     client.get_opinion_text_with_metadata.return_value = overrides.get(
         "get_opinion_text_with_metadata", None
     )
@@ -139,8 +141,8 @@ class TestAsyncSyncParity:
         assert sync_r.final_ids.absolute_url == async_r.final_ids.absolute_url
 
     def test_parity_citation_lookup_name_mismatch(self):
-        """Step 1: Citation exists but wrong case → VERIFIED with display-name
-        Warning (was POSSIBLE_MATCH at 0.3 in the old schema)."""
+        """Step 1: Citation exists but wrong case → WRONG_CASE after investigation
+        (no party overlap; was VERIFIED + cl_display_name_data_bug in Phase 1)."""
         api = {
             "citation_lookup": [
                 {
@@ -158,19 +160,15 @@ class TestAsyncSyncParity:
             api, "Smith v. Jones, 100 F.3d 200 (2d Cir. 2020)"
         )
 
-        assert sync_r.status == async_r.status == Status.VERIFIED
-        assert sync_r.headline_confidence == async_r.headline_confidence == 0.3
-        assert any(
-            w.category == WarningCategory.cl_display_name_data_bug
-            for w in sync_r.warnings
-        )
-        assert any(
-            w.category == WarningCategory.cl_display_name_data_bug
-            for w in async_r.warnings
-        )
-        # Parity: warnings and notes are identical between sync and async paths
-        assert [w.category for w in sync_r.warnings] == [w.category for w in async_r.warnings]
-        assert _winning_path_entry(sync_r).notes == _winning_path_entry(async_r).notes
+        # Phase 3: caption_investigation finds no party overlap → WRONG_CASE.
+        assert sync_r.status == async_r.status == Status.WRONG_CASE
+        # Parity: final_ids populated with actual CL cluster per design §2.4
+        assert sync_r.final_ids.cluster_id == async_r.final_ids.cluster_id == 789
+        # Parity: both paths include caption_investigation stage
+        stages_sync = [e.stage for e in sync_r.resolution_path]
+        stages_async = [e.stage for e in async_r.resolution_path]
+        assert StageName.caption_investigation in stages_sync
+        assert StageName.caption_investigation in stages_async
 
     def test_parity_opinion_search_likely_real(self):
         """Step 2: Fuzzy opinion search finds good match → LIKELY_REAL in both paths."""
@@ -1624,3 +1622,124 @@ class TestVerifiedViaRecapVsDocketOnly:
         assert result.status == Status.VERIFIED_DOCKET_ONLY
         assert result.final_ids.docket_id == 10993603
         assert result.final_ids.recap_document_id is None
+
+
+# ---------------------------------------------------------------------------
+# Phase 3 Task 5 Async parity: caption_investigation
+# ---------------------------------------------------------------------------
+
+
+class TestCaptionInvestigationAsyncParity:
+    """Async mirrors of tests/test_caption_investigation.py.
+
+    Per design v2 §1: the async surface must be preserved — identical
+    mock data must produce identical results in sync and async paths.
+    """
+
+    def _make_mismatch_api(
+        self,
+        cl_case_name: str,
+        cluster_id: int,
+        case_name_full: str = "",
+        docket_id: int | None = None,
+        docket_case_name: str = "",
+        opinion_text: str = "",
+    ) -> dict:
+        """Build API response dict for both sync and async mocks."""
+        return {
+            "citation_lookup": [
+                {
+                    "clusters": [
+                        {
+                            "case_name": cl_case_name,
+                            "id": cluster_id,
+                            "absolute_url": f"/opinion/{cluster_id}/",
+                            "citations": [
+                                {"volume": "857", "reporter": "F.3d", "page": "267"},
+                            ],
+                        }
+                    ]
+                }
+            ],
+            "get_cluster": {
+                "id": cluster_id,
+                "case_name_full": case_name_full,
+                "docket_id": docket_id,
+            },
+            "get_docket": {"case_name": docket_case_name} if docket_id else {},
+            "get_opinion_text": opinion_text or None,
+        }
+
+    def test_async_path_includes_caption_investigation_stage(self):
+        """Async mirror: caption_investigation stage appears in resolution_path."""
+        api = self._make_mismatch_api(
+            "Thompson v. Brown",
+            cluster_id=4390987,
+            case_name_full="Thompson v. Brown",
+            docket_id=12345,
+            docket_case_name="Morrison v. Green",
+        )
+        async_client = _make_async_client(**api)
+        v = CitationVerifier()
+        result = asyncio.run(
+            v.verify_async(async_client, "Morrison v. Green, 857 F.3d 267 (5th Cir. 2017)")
+        )
+        stages = [e.stage for e in result.resolution_path]
+        assert StageName.caption_investigation in stages
+
+    def test_async_parity_party_overlap_yields_verified(self):
+        """Async mirror: docket caption matches → VERIFIED + cl_display_name_data_bug."""
+        api = self._make_mismatch_api(
+            "Thompson v. Brown",
+            cluster_id=4390987,
+            case_name_full="Thompson v. Brown",
+            docket_id=12345,
+            docket_case_name="Morrison v. Green",
+        )
+        sync_client = _make_client(**api)
+        async_client = _make_async_client(**api)
+
+        v_sync = CitationVerifier(sync_client)
+        sync_result = v_sync.verify("Morrison v. Green, 857 F.3d 267 (5th Cir. 2017)")
+
+        v_async = CitationVerifier()
+        async_result = asyncio.run(
+            v_async.verify_async(async_client, "Morrison v. Green, 857 F.3d 267 (5th Cir. 2017)")
+        )
+
+        assert sync_result.status == async_result.status == Status.VERIFIED
+        assert any(
+            w.category == WarningCategory.cl_display_name_data_bug
+            for w in sync_result.warnings
+        )
+        assert any(
+            w.category == WarningCategory.cl_display_name_data_bug
+            for w in async_result.warnings
+        )
+
+    def test_async_parity_no_overlap_yields_wrong_case(self):
+        """Async mirror: no party overlap → WRONG_CASE in both paths."""
+        api = self._make_mismatch_api(
+            "U.S. ex rel. Green v. Washington",
+            cluster_id=2140439,
+            case_name_full="United States ex rel. Green v. Washington",
+            docket_id=999,
+            docket_case_name="United States ex rel. Green v. Washington",
+            opinion_text=(
+                "UNITED STATES OF AMERICA EX REL. RICHARD GREEN, "
+                "Plaintiff, v. WASHINGTON, et al. Defendants."
+            ),
+        )
+        sync_client = _make_client(**api)
+        async_client = _make_async_client(**api)
+
+        v_sync = CitationVerifier(sync_client)
+        sync_result = v_sync.verify("Hogan v. AT&T, Inc., 917 F. Supp. 1275 (S.D. Tex. 1994)")
+
+        v_async = CitationVerifier()
+        async_result = asyncio.run(
+            v_async.verify_async(async_client, "Hogan v. AT&T, Inc., 917 F. Supp. 1275 (S.D. Tex. 1994)")
+        )
+
+        assert sync_result.status == async_result.status == Status.WRONG_CASE
+        assert sync_result.final_ids.cluster_id == async_result.final_ids.cluster_id == 2140439

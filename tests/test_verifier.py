@@ -51,6 +51,7 @@ def _make_client(**overrides):
     # call sites; default these to empty dicts so existing tests don't break.
     client.get_cluster.return_value = overrides.get("get_cluster", {})
     client.get_docket.return_value = overrides.get("get_docket", {})
+    client.get_opinion_text.return_value = overrides.get("get_opinion_text", None)
     client.get_opinion_text_with_metadata.return_value = overrides.get(
         "get_opinion_text_with_metadata", None
     )
@@ -147,23 +148,16 @@ class TestStep1NameMismatch:
         v = CitationVerifier(client)
         result = v.verify("Smith v. Jones, 100 F.3d 200 (2d Cir. 2020)")
 
-        # Phase 1: citation-lookup name mismatch maps to VERIFIED + a
-        # cl_display_name_data_bug warning. Phase 3 will reclassify as
-        # WRONG_CASE after caption investigation.
-        assert result.status == Status.VERIFIED
-        assert result.headline_confidence == 0.3
-        assert (_winning_path_entry(result).raw_response_summary.get("matched_case_name")
-                or _winning_path_entry(result).raw_response_summary.get("best_case_name")) == "Totally Different v. Case"
+        # Phase 3: caption_investigation finds no party overlap between
+        # "Smith v. Jones" and "Totally Different v. Case" → WRONG_CASE.
+        # Per design §2.4: final_ids still populate with the actual CL cluster.
+        assert result.status == Status.WRONG_CASE
         assert result.final_ids.cluster_id == 789
-        assert any(
-            w.category == WarningCategory.cl_display_name_data_bug
-            for w in result.warnings
-        )
-        assert any(
-            w.category == WarningCategory.cl_display_name_data_bug
-            and "Name mismatch" in w.message
-            for w in result.warnings
-        )
+        # The citation_lookup stage resolved (confidence=1.0 internally) and
+        # caption_investigation ran; path has both entries.
+        stages = [e.stage for e in result.resolution_path]
+        assert StageName.citation_lookup in stages
+        assert StageName.caption_investigation in stages
 
     def test_possible_match_different_defendant_same_prefix(self):
         """'United States v. Smith' should not verify as 'United States v. Johnson'."""
@@ -183,17 +177,10 @@ class TestStep1NameMismatch:
         v = CitationVerifier(client)
         result = v.verify("United States v. Smith, 500 F.3d 100 (9th Cir. 2018)")
 
-        assert result.status == Status.VERIFIED
-        assert result.headline_confidence == 0.3
-        assert any(
-            w.category == WarningCategory.cl_display_name_data_bug
-            for w in result.warnings
-        )
-        assert any(
-            w.category == WarningCategory.cl_display_name_data_bug
-            and "Name mismatch" in w.message
-            for w in result.warnings
-        )
+        # Phase 3: caption_investigation — "Smith" is not in "Johnson",
+        # common-prefix case, distinctive-word overlap fails → WRONG_CASE.
+        assert result.status == Status.WRONG_CASE
+        assert result.final_ids.cluster_id == 111
 
 
 # ---------------------------------------------------------------------------
@@ -1493,8 +1480,8 @@ class TestCitationLookupNameMatching:
 
         assert result.status == Status.VERIFIED
 
-    def test_completely_wrong_name_returns_possible_match(self):
-        """Fabricated name + real citation should return POSSIBLE_MATCH with the actual case."""
+    def test_completely_wrong_name_returns_wrong_case(self):
+        """Fabricated name + real citation should return WRONG_CASE after investigation."""
         client = _make_client(
             citation_lookup=[
                 {
@@ -1511,20 +1498,11 @@ class TestCitationLookupNameMatching:
         v = CitationVerifier(client)
         result = v.verify("Johnson v. Microsoft Corp., 239 F.3d 989 (9th Cir. 2001)")
 
-        # Phase 1: citation-lookup name mismatch -> VERIFIED + warning
-        assert result.status == Status.VERIFIED
-        assert result.headline_confidence == 0.3
-        assert _winning_path_entry(result).raw_response_summary.get("matched_case_name") == "David M. Fink v. James H. Gomez, Director"
+        # Phase 3: no party overlap between "Johnson v. Microsoft" and
+        # "David M. Fink v. James H. Gomez" → WRONG_CASE.
+        # Per design §2.4: final_ids still populate with the actual CL cluster.
+        assert result.status == Status.WRONG_CASE
         assert result.final_ids.cluster_id == 772039
-        assert any(
-            w.category == WarningCategory.cl_display_name_data_bug
-            for w in result.warnings
-        )
-        assert any(
-            w.category == WarningCategory.cl_display_name_data_bug
-            and "Name mismatch" in w.message
-            for w in result.warnings
-        )
 
     def test_common_word_surname_rejected(self):
         """'American' as a defendant surname should not match an unrelated 'American National Insurance'."""
@@ -1546,19 +1524,10 @@ class TestCitationLookupNameMatching:
             "Pettway v. American Savings & Loan Association, 197 F. Supp. 489 "
             "(N.D. Ala. 1961)"
         )
-        # "American" is nondistinctive; "Pettway" is distinctive but not in CL name
-        # Phase 1: citation-lookup name mismatch -> VERIFIED + warning
-        assert result.status == Status.VERIFIED
-        assert result.headline_confidence == 0.3
-        assert any(
-            w.category == WarningCategory.cl_display_name_data_bug
-            for w in result.warnings
-        )
-        assert any(
-            w.category == WarningCategory.cl_display_name_data_bug
-            and "Name mismatch" in w.message
-            for w in result.warnings
-        )
+        # Phase 3: "Pettway" is distinctive but not in CL name, "American" is
+        # shared but not distinctive enough to pass party-overlap → WRONG_CASE.
+        assert result.status == Status.WRONG_CASE
+        assert result.final_ids.cluster_id == 999
 
     def test_distinctive_org_name_still_matches(self):
         """Non-generic org names like 'Costco' should still match."""
@@ -1929,8 +1898,8 @@ class TestQuickOnly:
         assert client.search_opinions.call_count == 0
         assert client.search_recap.call_count == 0
 
-    def test_quick_name_mismatch_returns_possible_match(self):
-        """Citation exists but wrong case with quick_only -> POSSIBLE_MATCH."""
+    def test_quick_name_mismatch_returns_wrong_case(self):
+        """Citation exists but wrong case with quick_only -> WRONG_CASE after investigation."""
         client = _make_client(
             citation_lookup=[
                 {
@@ -1949,18 +1918,10 @@ class TestQuickOnly:
             "Smith v. Jones, 100 F.3d 200 (2d Cir. 2020)", quick_only=True
         )
 
-        # Phase 1: citation-lookup name mismatch -> VERIFIED + warning
-        assert result.status == Status.VERIFIED
-        assert result.headline_confidence == 0.3
-        assert any(
-            w.category == WarningCategory.cl_display_name_data_bug
-            for w in result.warnings
-        )
-        assert any(
-            w.category == WarningCategory.cl_display_name_data_bug
-            and "Name mismatch" in w.message
-            for w in result.warnings
-        )
+        # Phase 3: caption_investigation runs even in quick_only mode when
+        # citation_lookup flagged a name mismatch. No party overlap → WRONG_CASE.
+        assert result.status == Status.WRONG_CASE
+        assert result.final_ids.cluster_id == 789
 
 
 # ---------------------------------------------------------------------------

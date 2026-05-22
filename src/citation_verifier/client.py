@@ -267,6 +267,31 @@ class CourtListenerClient:
             params = {}
         return results
 
+    def get_cluster(self, cluster_id: int) -> dict[str, Any]:
+        """Fetch a single opinion cluster by ID.
+
+        Used by caption_investigation (Phase 3) to read `case_name_full`,
+        `citations`, `sub_opinions`, and `docket_id` for a cluster that
+        citation_lookup resolved.
+
+        Returns the parsed JSON dict; raises on HTTP error so the caller
+        can record verdict=errored on the caption_investigation stage.
+        """
+        url = f"{self.BASE_URL}/clusters/{cluster_id}/"
+        resp = self._request_with_retry("GET", url)
+        return resp.json()
+
+    def get_docket(self, docket_id: int) -> dict[str, Any]:
+        """Fetch a single docket by ID.
+
+        Used by caption_investigation (Phase 3) for the second step in the
+        three-step caption lookup: cluster case_name_full -> docket
+        case_name -> opinion plain_text first 500 chars.
+        """
+        url = f"{self.BASE_URL}/dockets/{docket_id}/"
+        resp = self._request_with_retry("GET", url)
+        return resp.json()
+
     def get_opinion_text(self, matched_url: str) -> str | None:
         """Fetch the plain text of an opinion or RECAP document (sync).
 
@@ -692,6 +717,16 @@ class AsyncCourtListenerClient:
             url = data.get("next")
             params = {}
         return results
+
+    async def get_cluster(self, cluster_id: int) -> dict[str, Any]:
+        """Async version of get_cluster()."""
+        url = f"{self.BASE_URL}/clusters/{cluster_id}/"
+        return await self._request_with_retry("GET", url)
+
+    async def get_docket(self, docket_id: int) -> dict[str, Any]:
+        """Async version of get_docket()."""
+        url = f"{self.BASE_URL}/dockets/{docket_id}/"
+        return await self._request_with_retry("GET", url)
 
     STORAGE_BASE = "https://storage.courtlistener.com/"
 

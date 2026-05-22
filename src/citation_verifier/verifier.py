@@ -151,22 +151,24 @@ class CitationVerifier:
         }
 
         # Name-mismatch case: citation resolves but caption disagrees.
-        # TODO(phase-3): caption investigation distinguishes CL display-name
-        # data bug (stays VERIFIED) from genuine WRONG_CASE.
+        # Phase 3 (Task 5): the caller runs caption_investigation to classify
+        # the mismatch (formatting noise / data bug / wrong case / duplicate
+        # cluster / wrong page). Token confidence stays at 1.0 because the
+        # citation itself resolved cleanly; the investigation may downgrade
+        # the status to WRONG_CASE but it should not pre-decide that here.
         if parsed.case_name and case_name and not self._names_match_citation_lookup(parsed, case_name):
-            token.resolved(confidence=0.3, raw_response_summary=summary)
+            token.resolved(
+                confidence=1.0,
+                raw_response_summary=summary,
+                notes="name mismatch flagged for caption_investigation",
+            )
             return {
                 "cluster_id": cluster_id,
                 "absolute_url": url,
                 "text_source": TextSource.opinion_plain_text if cluster_id else None,
-                "warnings": [Warning(
-                    category=WarningCategory.cl_display_name_data_bug,
-                    message=(
-                        f"Name mismatch: citation exists at this reporter "
-                        f'location but CL caption is "{case_name}". Phase 3 '
-                        f"will run caption investigation to classify."
-                    ),
-                )],
+                "warnings": None,
+                "needs_caption_investigation": True,
+                "_cluster_for_investigation": cluster,
             }
 
         # Partial-verification check (design §2.2): primary reporter cited by
@@ -486,6 +488,47 @@ class CitationVerifier:
                 t.errored(error_type=type(exc).__name__, notes=f"{type(exc).__name__}: {exc}")
 
         if hit_finalize is not None:
+            # Phase 3 Task 5: caption_investigation runs in its own stage block
+            # when _process_citation_lookup_hit flagged a name mismatch.
+            if hit_finalize.pop("needs_caption_investigation", False):
+                cluster = hit_finalize.pop("_cluster_for_investigation")
+                with builder.stage(
+                    StageName.caption_investigation,
+                    query={
+                        "cluster_id": cluster.get("id"),
+                        "cited_case_name": parsed.case_name,
+                        "cl_case_name": cluster.get("case_name", ""),
+                    },
+                ) as inv_t:
+                    try:
+                        inv_result = self._investigate_caption(parsed, cluster)
+                        inv_t.resolved(
+                            confidence=inv_result["confidence"],
+                            raw_response_summary=inv_result["raw_response_summary"],
+                            notes=inv_result["notes"],
+                        )
+                        hit_finalize["warnings"] = inv_result["warnings"] or None
+                        hit_finalize["status_override"] = inv_result["status"]
+                    except Exception as exc:
+                        logger.debug("caption_investigation failed", exc_info=True)
+                        inv_t.errored(
+                            error_type=type(exc).__name__,
+                            notes=f"{type(exc).__name__}: {exc}",
+                        )
+                        # Defensive fallback: investigation errored. Emit the
+                        # pre-Task-5 cl_display_name_data_bug warning so the
+                        # consumer still knows a mismatch was flagged but the
+                        # verifier could not classify it. Phase 4's gates will
+                        # decide whether this fail-soft path needs upgrading.
+                        hit_finalize["warnings"] = [Warning(
+                            category=WarningCategory.cl_display_name_data_bug,
+                            message=(
+                                f'Name mismatch flagged by citation_lookup but '
+                                f'caption_investigation could not complete '
+                                f'({type(exc).__name__}). Treating as VERIFIED + warning.'
+                            ),
+                        )]
+
             status = hit_finalize.pop("status_override", Status.VERIFIED)
             return self._finalize_result(
                 builder,
@@ -1303,6 +1346,372 @@ class CitationVerifier:
                 return True
         return False
 
+    @staticmethod
+    def _party_overlap_ok(parsed: ParsedCitation, candidate_caption: str) -> bool:
+        """Phase 3 maintainer Q4 pre-decision: WRONG_CASE escalation gate.
+
+        Returns True iff the candidate caption has at least one plaintiff
+        token AND at least one defendant token in common with the brief's
+        parsed case name, after lowercasing + punctuation stripping +
+        stopword removal. Common-prefix cases (United States v. X, State v.
+        X, In re X) compare distinctive-word overlap only.
+
+        The implementer is expected to calibrate the precise stopword and
+        normalization choices against the corpus's WRONG_CASE fixtures
+        (especially named-exemplar-wrong-case = Hogan v. AT&T resolving
+        to U.S. ex rel. Green v. Washington) and the cl_display_name_data_bug
+        fixtures (Koch, Gilliard, SSA pseudonyms). The reference cases:
+        Hogan/Green has zero token overlap on either side -> WRONG_CASE;
+        Koch v. United States vs. Ricky Koch v. Tote has plaintiff
+        overlap on 'koch' -> same case + cl_display_name_data_bug.
+        """
+        if not parsed.case_name:
+            return True  # Nothing to compare — trust citation_lookup.
+
+        _STOPWORDS = frozenset({
+            "the", "of", "and", "for", "in", "re", "matter", "ex", "rel",
+            "v", "vs", "versus", "et", "al", "inc", "llc", "ltd", "co",
+            "corp", "company", "corporation", "lp", "llp", "pllc", "pc",
+            "limited", "holdings", "group", "intl", "international",
+        })
+        # Prefix words to strip from common-prefix case names before token
+        # comparison, so "United States v. Smith" and "United States v. Johnson"
+        # don't compare only on "united"/"states" tokens.
+        _PREFIX_WORDS = frozenset({
+            "united", "states", "state", "commonwealth", "people", "government",
+            "usa", "u.s.", "u.s",
+        })
+
+        def _toks(s: str) -> set[str]:
+            return {
+                t for t in re.findall(r"[a-z0-9]+", (s or "").lower())
+                if len(t) >= 3 and t not in _STOPWORDS
+            }
+
+        # Common-prefix detection (United States v. X, State v. X, etc.)
+        cited_lower = parsed.case_name.lower()
+        common_prefixes = (
+            "united states v",
+            "state v", "state of ", "commonwealth v", "commonwealth of",
+            "people v", "people of",
+            "in re ", "in the matter",
+            "u.s. ex rel", "us ex rel",
+        )
+        is_common_prefix = any(cited_lower.startswith(p) for p in common_prefixes)
+
+        cited_caption_toks = _toks(parsed.case_name)
+        candidate_toks = _toks(candidate_caption)
+
+        if is_common_prefix:
+            # Distinctive-word overlap only; strip the common prefix tokens
+            # from both sides so "United States v. Smith" and "United States
+            # v. Johnson" don't falsely match on "united"/"states".
+            cited_distinctive = cited_caption_toks - _PREFIX_WORDS
+            cand_distinctive = candidate_toks - _PREFIX_WORDS
+            # For "In re" cases there may be no "v." so compare full distinctive tokens.
+            return bool(cited_distinctive & cand_distinctive)
+
+        # Regular case: separate plaintiff vs defendant.
+        cited_plaintiff_toks = _toks(parsed.plaintiff or "")
+        cited_defendant_toks = _toks(parsed.defendant or "")
+        if not (cited_plaintiff_toks or cited_defendant_toks):
+            # Couldn't extract parties — fall back to full overlap.
+            return bool(cited_caption_toks & candidate_toks)
+
+        # Split the candidate caption on " v. " (or " v "); both sides matter.
+        cand_lower = (candidate_caption or "").lower()
+        parts = re.split(r"\s+v\.?\s+", cand_lower, maxsplit=1)
+        cand_left = _toks(parts[0]) if parts else set()
+        cand_right = _toks(parts[1]) if len(parts) > 1 else set()
+
+        if cand_left or cand_right:
+            # Match in EITHER direction (party swap tolerated): at least
+            # one plaintiff-side hit and one defendant-side hit, but the
+            # "sides" don't have to line up.
+            all_cand = cand_left | cand_right
+            plaintiff_hit = bool(cited_plaintiff_toks & all_cand) if cited_plaintiff_toks else True
+            defendant_hit = bool(cited_defendant_toks & all_cand) if cited_defendant_toks else True
+            return plaintiff_hit and defendant_hit
+
+        return bool(cited_caption_toks & candidate_toks)
+
+    @staticmethod
+    def _captions_differ_only_in_formatting(a: str, b: str) -> bool:
+        """Return True iff strings differ only in abbreviation / punctuation
+        / whitespace. Used by _investigate_caption to choose between
+        name_formatting_noise and cl_display_name_data_bug."""
+        _ABBREV_MAP = {
+            "incorporated": "inc", "corporation": "corp", "company": "co",
+            "limited": "ltd", "department": "dept", "county": "cnty",
+        }
+
+        def _norm(s: str) -> str:
+            s = (s or "").lower()
+            for long, short in _ABBREV_MAP.items():
+                s = re.sub(rf"\b{long}\b", short, s)
+            return re.sub(r"[^a-z0-9]+", "", s)
+
+        return _norm(a) == _norm(b) and _norm(a) != ""
+
+    def _investigate_caption(
+        self,
+        parsed: ParsedCitation,
+        cluster: dict[str, Any],
+    ) -> dict[str, Any]:
+        """Phase 3 caption_investigation sub-pipeline (design v2 §2.5).
+
+        Called from verify()/verify_async() after the citation_lookup
+        stage's `with` block has exited, when _process_citation_lookup_hit
+        flagged a name mismatch. This helper does the actual three-step
+        lookup but is itself wrapped in a separate
+        `builder.stage(StageName.caption_investigation, ...)` block by the
+        caller — the caller sets verdict/notes on the investigation token
+        from this helper's return value.
+
+        Returns a dict with:
+          status: Status   (VERIFIED or WRONG_CASE)
+          warnings: list[Warning]
+          raw_response_summary: dict (for the investigation stage entry)
+          notes: str | None
+          confidence: float
+
+        The verifier helper performs three lookups (any of which can
+        contribute to the decision; errors are caught at the call site so
+        a single API failure doesn't cascade):
+          1. Cluster's `case_name_full` is often richer than `case_name`
+             (Rule 25(d) substitutions, SSA pseudonyms, etc.).
+          2. Docket's `case_name` is the long-form caption as originally
+             filed; matches the brief's caption more often.
+          3. Opinion text's first 500 characters carry the caption header.
+
+        Decision rules (in order):
+          - If party-overlap passes against any of (cluster.case_name_full,
+            docket.case_name, opinion.head_500): VERIFIED with the most-
+            appropriate cosmetic-divergence warning (name_formatting_noise
+            when the captions match modulo punctuation/abbreviations;
+            cl_display_name_data_bug otherwise).
+          - Else: WRONG_CASE.
+
+        Q2/Q3 sibling checks (wrong_page_number, cl_duplicate_clusters) are
+        deferred to Phase 3.5/4. When no party-overlap is found, this
+        function returns WRONG_CASE directly without searching for siblings.
+        See docs/plans/ Phase 3 plan Task 5 note on MAY-implement status.
+        """
+        cluster_id = cluster.get("id")
+        cl_case_name = cluster.get("case_name", "")
+
+        # Step 1: cluster case_name_full
+        case_name_full = ""
+        docket_id = None
+        try:
+            cluster_detail = self.client.get_cluster(cluster_id)
+            case_name_full = cluster_detail.get("case_name_full", "") or ""
+            docket_id = cluster_detail.get("docket_id") or cluster_detail.get("docket")
+        except Exception:
+            cluster_detail = {}
+
+        # Step 2: docket case_name
+        docket_case_name = ""
+        if docket_id:
+            try:
+                docket = self.client.get_docket(docket_id)
+                docket_case_name = (
+                    docket.get("case_name_full")
+                    or docket.get("case_name")
+                    or ""
+                )
+            except Exception:
+                pass
+
+        # Step 3: opinion plain_text first 500 chars (caption header)
+        opinion_head = ""
+        abs_url = cluster.get("absolute_url", "")
+        if abs_url and not abs_url.startswith("http"):
+            abs_url_full = f"https://www.courtlistener.com{abs_url}"
+        elif abs_url:
+            abs_url_full = abs_url
+        else:
+            abs_url_full = f"https://www.courtlistener.com/opinion/{cluster_id}/"
+        try:
+            text = self.client.get_opinion_text(abs_url_full)
+            if text:
+                opinion_head = text[:500]
+        except Exception:
+            pass
+
+        # Pool of caption candidates the brief might be matching against.
+        candidates = [
+            ("cluster_case_name", cl_case_name),
+            ("cluster_case_name_full", case_name_full),
+            ("docket_case_name", docket_case_name),
+            ("opinion_head_500", opinion_head),
+        ]
+        overlap_hits = [
+            (label, cap) for (label, cap) in candidates
+            if cap and self._party_overlap_ok(parsed, cap)
+        ]
+
+        summary = {
+            "investigated_cluster_id": cluster_id,
+            "cl_case_name": cl_case_name,
+            "case_name_full": case_name_full,
+            "docket_case_name": docket_case_name,
+            "opinion_head_500_present": bool(opinion_head),
+            "overlap_hits": [lbl for (lbl, _) in overlap_hits],
+        }
+
+        if overlap_hits:
+            # Same case under at least one caption source.
+            # Refine the warning category:
+            #   - name_formatting_noise: captions match modulo
+            #     abbreviation/punctuation (e.g. "Inc." vs "Incorporated")
+            #   - cl_display_name_data_bug: captions semantically differ
+            #     but party-overlap still passes (Rule 25(d) substitution,
+            #     SSA pseudonyms, the Koch "Ricky Koch v. Tote" shape).
+            is_pure_formatting = self._captions_differ_only_in_formatting(
+                parsed.case_name or "", cl_case_name,
+            )
+            category = (
+                WarningCategory.name_formatting_noise if is_pure_formatting
+                else WarningCategory.cl_display_name_data_bug
+            )
+            return {
+                "status": Status.VERIFIED,
+                "warnings": [Warning(
+                    category=category,
+                    message=(
+                        f'Brief caption "{parsed.case_name}" differs from '
+                        f'CL caption "{cl_case_name}" but party-overlap '
+                        f'confirms it is the same case.'
+                    ),
+                    details={"caption_sources_matched": [lbl for lbl, _ in overlap_hits]},
+                )],
+                "raw_response_summary": summary,
+                "notes": f"party-overlap match via {overlap_hits[0][0]}",
+                "confidence": 1.0,
+            }
+
+        # No party-overlap match anywhere.
+        # Q2 / Q3 sibling checks (wrong_page_number, cl_duplicate_clusters)
+        # are deferred to Phase 3.5/4. The corpus does not pin specific
+        # wrong_page_number positive fixtures (Butler Motors is NOT_FOUND
+        # under strict reading), and the duplicate-cluster sibling search is
+        # exercised mostly by the 4 xfailed known_real_citations.json entries
+        # which require live API access. Direct WRONG_CASE per plan guidance.
+        return {
+            "status": Status.WRONG_CASE,
+            "warnings": [],
+            "raw_response_summary": summary,
+            "notes": "no party-overlap across cluster/docket/opinion sources",
+            "confidence": 1.0,
+        }
+
+    async def _investigate_caption_async(
+        self,
+        parsed: ParsedCitation,
+        cluster: dict[str, Any],
+        async_client: AsyncCourtListenerClient,
+    ) -> dict[str, Any]:
+        """Async mirror of _investigate_caption().
+
+        Awaits async_client.get_cluster, get_docket, and get_opinion_text
+        instead of the sync client. The decision tree is identical.
+        """
+        cluster_id = cluster.get("id")
+        cl_case_name = cluster.get("case_name", "")
+
+        # Step 1: cluster case_name_full
+        case_name_full = ""
+        docket_id = None
+        try:
+            cluster_detail = await async_client.get_cluster(cluster_id)
+            case_name_full = cluster_detail.get("case_name_full", "") or ""
+            docket_id = cluster_detail.get("docket_id") or cluster_detail.get("docket")
+        except Exception:
+            pass
+
+        # Step 2: docket case_name
+        docket_case_name = ""
+        if docket_id:
+            try:
+                docket = await async_client.get_docket(docket_id)
+                docket_case_name = (
+                    docket.get("case_name_full")
+                    or docket.get("case_name")
+                    or ""
+                )
+            except Exception:
+                pass
+
+        # Step 3: opinion plain_text first 500 chars (caption header)
+        opinion_head = ""
+        abs_url = cluster.get("absolute_url", "")
+        if abs_url and not abs_url.startswith("http"):
+            abs_url_full = f"https://www.courtlistener.com{abs_url}"
+        elif abs_url:
+            abs_url_full = abs_url
+        else:
+            abs_url_full = f"https://www.courtlistener.com/opinion/{cluster_id}/"
+        try:
+            text = await async_client.get_opinion_text(abs_url_full)
+            if text:
+                opinion_head = text[:500]
+        except Exception:
+            pass
+
+        # Pool of caption candidates
+        candidates = [
+            ("cluster_case_name", cl_case_name),
+            ("cluster_case_name_full", case_name_full),
+            ("docket_case_name", docket_case_name),
+            ("opinion_head_500", opinion_head),
+        ]
+        overlap_hits = [
+            (label, cap) for (label, cap) in candidates
+            if cap and self._party_overlap_ok(parsed, cap)
+        ]
+
+        summary = {
+            "investigated_cluster_id": cluster_id,
+            "cl_case_name": cl_case_name,
+            "case_name_full": case_name_full,
+            "docket_case_name": docket_case_name,
+            "opinion_head_500_present": bool(opinion_head),
+            "overlap_hits": [lbl for (lbl, _) in overlap_hits],
+        }
+
+        if overlap_hits:
+            is_pure_formatting = self._captions_differ_only_in_formatting(
+                parsed.case_name or "", cl_case_name,
+            )
+            category = (
+                WarningCategory.name_formatting_noise if is_pure_formatting
+                else WarningCategory.cl_display_name_data_bug
+            )
+            return {
+                "status": Status.VERIFIED,
+                "warnings": [Warning(
+                    category=category,
+                    message=(
+                        f'Brief caption "{parsed.case_name}" differs from '
+                        f'CL caption "{cl_case_name}" but party-overlap '
+                        f'confirms it is the same case.'
+                    ),
+                    details={"caption_sources_matched": [lbl for lbl, _ in overlap_hits]},
+                )],
+                "raw_response_summary": summary,
+                "notes": f"party-overlap match via {overlap_hits[0][0]}",
+                "confidence": 1.0,
+            }
+
+        return {
+            "status": Status.WRONG_CASE,
+            "warnings": [],
+            "raw_response_summary": summary,
+            "notes": "no party-overlap across cluster/docket/opinion sources",
+            "confidence": 1.0,
+        }
+
     _NONDISTINCTIVE_SURNAMES = frozenset({
         "american", "national", "united", "general", "federal",
         "first", "central", "western", "eastern", "northern",
@@ -1698,6 +2107,43 @@ class CitationVerifier:
                 t.errored(error_type=type(exc).__name__, notes=f"{type(exc).__name__}: {exc}")
 
         if hit_finalize is not None:
+            # Phase 3 Task 5: caption_investigation (async mirror of sync verify()).
+            if hit_finalize.pop("needs_caption_investigation", False):
+                cluster = hit_finalize.pop("_cluster_for_investigation")
+                with builder.stage(
+                    StageName.caption_investigation,
+                    query={
+                        "cluster_id": cluster.get("id"),
+                        "cited_case_name": parsed.case_name,
+                        "cl_case_name": cluster.get("case_name", ""),
+                    },
+                ) as inv_t:
+                    try:
+                        inv_result = await self._investigate_caption_async(
+                            parsed, cluster, async_client
+                        )
+                        inv_t.resolved(
+                            confidence=inv_result["confidence"],
+                            raw_response_summary=inv_result["raw_response_summary"],
+                            notes=inv_result["notes"],
+                        )
+                        hit_finalize["warnings"] = inv_result["warnings"] or None
+                        hit_finalize["status_override"] = inv_result["status"]
+                    except Exception as exc:
+                        logger.debug("caption_investigation failed", exc_info=True)
+                        inv_t.errored(
+                            error_type=type(exc).__name__,
+                            notes=f"{type(exc).__name__}: {exc}",
+                        )
+                        hit_finalize["warnings"] = [Warning(
+                            category=WarningCategory.cl_display_name_data_bug,
+                            message=(
+                                f'Name mismatch flagged by citation_lookup but '
+                                f'caption_investigation could not complete '
+                                f'({type(exc).__name__}). Treating as VERIFIED + warning.'
+                            ),
+                        )]
+
             status = hit_finalize.pop("status_override", Status.VERIFIED)
             return self._finalize_result(
                 builder,
