@@ -9,8 +9,6 @@ from __future__ import annotations
 
 import asyncio
 
-import pytest
-
 from citation_verifier.client import (
     AsyncCourtListenerClient,
     CourtListenerClient,
@@ -58,6 +56,11 @@ class TestSyncWiring:
         }):
             result = v.verify("Hanover Shoe, Inc. v. United Shoe, 392 U.S. 481 (1968)")
         assert result.status == Status.VERIFICATION_INCOMPLETE
+        stages_errored = [
+            e.stage for e in result.resolution_path
+            if e.verdict == StageVerdict.errored
+        ]
+        assert StageName.citation_lookup in stages_errored
 
     def test_timeout_on_opinion_search_produces_incomplete(self, monkeypatch):
         """citation_lookup returns clean no_match; opinion_search times out.
@@ -90,6 +93,11 @@ class TestSyncWiring:
             result = v.verify("Bossart v. King Cnty., 2025 WL 459154 "
                               "(W.D. Wash. Feb. 11, 2025)")
         assert result.status == Status.VERIFICATION_INCOMPLETE
+        stages_errored = [
+            e.stage for e in result.resolution_path
+            if e.verdict == StageVerdict.errored
+        ]
+        assert StageName.citation_lookup in stages_errored
 
     def test_json_malformed_on_recap_docket_search_produces_incomplete(
         self, monkeypatch,
@@ -105,6 +113,11 @@ class TestSyncWiring:
                 "2016 WL 5957681 (W.D. Tex. Oct. 14, 2016)"
             )
         assert result.status == Status.VERIFICATION_INCOMPLETE
+        stages_errored = [
+            e.stage for e in result.resolution_path
+            if e.verdict == StageVerdict.errored
+        ]
+        assert StageName.recap_docket_search in stages_errored
 
     def test_clean_no_match_everywhere_still_produces_not_found(
         self, monkeypatch,

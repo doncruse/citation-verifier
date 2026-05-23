@@ -560,7 +560,7 @@ class CitationVerifier:
                         # Defensive fallback: investigation errored. Emit the
                         # pre-Task-5 cl_display_name_data_bug warning so the
                         # consumer still knows a mismatch was flagged but the
-                        # verifier could not classify it. Per design §2.8 §1.5:
+                        # verifier could not classify it. Per design §2.8:
                         # refinement-stage failures do not trigger
                         # VERIFICATION_INCOMPLETE — the underlying verification
                         # (cluster exists, citation maps to it) still stands.
@@ -2181,6 +2181,13 @@ class CitationVerifier:
                             error_type=type(exc).__name__,
                             notes=f"{type(exc).__name__}: {exc}",
                         )
+                        # Defensive fallback: investigation errored. Emit the
+                        # pre-Task-5 cl_display_name_data_bug warning so the
+                        # consumer still knows a mismatch was flagged but the
+                        # verifier could not classify it. Per design §2.8:
+                        # refinement-stage failures do not trigger
+                        # VERIFICATION_INCOMPLETE — the underlying verification
+                        # (cluster exists, citation maps to it) still stands.
                         hit_finalize["warnings"] = [Warning(
                             category=WarningCategory.cl_display_name_data_bug,
                             message=(
