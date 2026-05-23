@@ -11,12 +11,14 @@ target stage's pattern raise the spec's exception type; everything
 else returns an empty-but-well-formed response shape.
 
 The patcher operates at the _request_with_retry layer, so the
-existing 429 retry loop in client.py is NOT exercised. When the
-spec says "http_429_no_retry_after" with attempt_idx=N, the harness
-simulates "all retries exhausted" by raising the terminal HTTPError
-on the first call. The retry loop's correctness is verified
-separately by the existing client tests; this harness focuses on
-what the verifier sees post-exhaustion.
+existing 429 retry loop in client.py is NOT exercised. The harness
+simulates the post-exhaustion state by raising the terminal exception
+on the FIRST call to the target stage. ``attempt_idx`` from the
+corpus mock_spec is recorded on the spec for documentation purposes
+but does NOT affect when the failure fires — the firing condition is
+simply ``stage == target_stage``. The retry loop's correctness is
+verified separately by the existing client tests; this harness
+focuses on what the verifier sees post-exhaustion.
 """
 from __future__ import annotations
 
@@ -46,6 +48,7 @@ _STAGE_URL_PATTERNS: dict[str, re.Pattern[str]] = {
     # recap-documents, opinion-text) and is not a clean URL pattern;
     # Phase 4 does not have a mock_spec.stage="caption_investigation"
     # fixture, so this entry is forward-looking only.
+    # TODO(phase-5): wire if a fixture surfaces for caption_investigation.
     "caption_investigation": re.compile(r"/(?:clusters|dockets|recap-documents)/\d+/"),
 }
 
@@ -183,11 +186,12 @@ class MockSpecPatcher:
         with MockSpecPatcher(client, spec=fixture.mock_spec):
             result = verifier.verify(fixture.citation)
 
-    The patcher tracks per-stage call counts so attempt_idx is honored:
-    only when the call count for the target stage reaches the spec's
-    attempt_idx does the configured exception fire. Calls before that
-    return _CLEAN_NO_MATCH for the stage. (For attempt_idx=0 — the
-    common case — the first call fires.)
+    The harness fires the configured exception on the FIRST call to the
+    target stage. ``attempt_idx`` from the corpus mock_spec is recorded
+    for documentation but does NOT affect when the failure fires — the
+    firing condition is simply ``stage == target_stage``. This models
+    the post-exhaustion state the verifier sees after the client's
+    internal retry loop has given up.
 
     Non-target-stage calls always return a stubbed clean no-match
     response, making the harness CI-safe: no live API calls are made,
@@ -203,35 +207,38 @@ class MockSpecPatcher:
         self.spec = spec
         self.target_stage: str = spec["stage"]
         self.failure_mode: str = spec["failure_mode"]
-        self.target_attempt_idx: int = int(spec.get("attempt_idx", 0))
+        self.target_attempt_idx: int = int(spec.get("attempt_idx", 0))  # doc only
         self._stage_call_counts: dict[str, int] = {}
         self._original: Callable[..., Any] | None = None
 
     def __enter__(self) -> "MockSpecPatcher":
         self._original = self.client._request_with_retry
-        self.client._request_with_retry = self._build_wrapped(self._original)  # type: ignore[assignment]
+        self.client._request_with_retry = self._build_wrapped()  # type: ignore[assignment]
         return self
 
     def __exit__(self, *exc_info: Any) -> None:
         # Restore the original bound method.
-        self.client._request_with_retry = self._original  # type: ignore[assignment]
+        if self._original is not None:
+            self.client._request_with_retry = self._original  # type: ignore[assignment]
 
-    def _build_wrapped(
-        self, original: Callable[..., Any],
-    ) -> Callable[..., Any]:
+    def _build_wrapped(self) -> Callable[..., Any]:
+        import copy
+
         def wrapped(method: str, url: str, **kwargs: Any) -> Any:
             params = kwargs.get("params")
             stage = _classify_url(url, params=params)
-            count = self._stage_call_counts.get(stage, 0)
-            self._stage_call_counts[stage] = count + 1
+            self._stage_call_counts[stage] = self._stage_call_counts.get(stage, 0) + 1
 
-            if stage == self.target_stage and count == self.target_attempt_idx:
+            if stage == self.target_stage:
                 _raise_for_failure_mode(self.failure_mode, stage)
 
-            # Non-target call (or target call before attempt_idx): return a
-            # stubbed clean response. The sync _request_with_retry returns a
-            # requests.Response, so wrap the payload in _StubResponse.
-            payload = _CLEAN_NO_MATCH.get(stage, _CLEAN_NO_MATCH["_default"])
+            # Non-target call: return a stubbed clean response.
+            # The sync _request_with_retry returns a requests.Response, so
+            # wrap the payload in _StubResponse. Copy the payload so future
+            # callers cannot mutate the shared _CLEAN_NO_MATCH template.
+            payload = copy.copy(
+                _CLEAN_NO_MATCH.get(stage, _CLEAN_NO_MATCH["_default"])
+            )
             return _StubResponse(payload)
 
         return wrapped
@@ -249,6 +256,10 @@ class AsyncMockSpecPatcher:
     (not a requests.Response), so this patcher returns the payload bare
     — no _StubResponse wrapper needed.
 
+    The harness fires the configured exception on the FIRST call to the
+    target stage. ``attempt_idx`` from the corpus mock_spec is recorded
+    for documentation but does NOT affect when the failure fires.
+
     Usage::
 
         async with AsyncMockSpecPatcher(async_client, spec=fixture.mock_spec):
@@ -260,29 +271,32 @@ class AsyncMockSpecPatcher:
         self.spec = spec
         self.target_stage: str = spec["stage"]
         self.failure_mode: str = spec["failure_mode"]
-        self.target_attempt_idx: int = int(spec.get("attempt_idx", 0))
+        self.target_attempt_idx: int = int(spec.get("attempt_idx", 0))  # doc only
         self._stage_call_counts: dict[str, int] = {}
         self._original: Callable[..., Any] | None = None
 
     async def __aenter__(self) -> "AsyncMockSpecPatcher":
         self._original = self.client._request_with_retry
-        self.client._request_with_retry = self._build_wrapped(self._original)  # type: ignore[assignment]
+        self.client._request_with_retry = self._build_wrapped()  # type: ignore[assignment]
         return self
 
     async def __aexit__(self, *exc_info: Any) -> None:
-        self.client._request_with_retry = self._original  # type: ignore[assignment]
+        if self._original is not None:
+            self.client._request_with_retry = self._original  # type: ignore[assignment]
 
-    def _build_wrapped(
-        self, original: Callable[..., Any],
-    ) -> Callable[..., Any]:
+    def _build_wrapped(self) -> Callable[..., Any]:
+        import copy
+
         async def wrapped(method: str, url: str, **kwargs: Any) -> Any:
             params = kwargs.get("params")
             stage = _classify_url(url, params=params)
-            count = self._stage_call_counts.get(stage, 0)
-            self._stage_call_counts[stage] = count + 1
-            if stage == self.target_stage and count == self.target_attempt_idx:
+            self._stage_call_counts[stage] = self._stage_call_counts.get(stage, 0) + 1
+            if stage == self.target_stage:
                 _raise_for_failure_mode(self.failure_mode, stage)
             # Async _request_with_retry returns a dict directly.
-            return _CLEAN_NO_MATCH.get(stage, _CLEAN_NO_MATCH["_default"])
+            # Copy the payload so callers cannot mutate the shared template.
+            return copy.copy(
+                _CLEAN_NO_MATCH.get(stage, _CLEAN_NO_MATCH["_default"])
+            )
 
         return wrapped

@@ -6,15 +6,21 @@ live CL API.
 """
 from __future__ import annotations
 
+import asyncio
 import json
 
 import pytest
 import requests
 
-from citation_verifier.client import CourtListenerClient
+from citation_verifier.client import AsyncCourtListenerClient, CourtListenerClient
 from citation_verifier.models import StageName, StageVerdict
 from citation_verifier.verifier import CitationVerifier
-from tests.mock_spec_harness import MockSpecPatcher, _STAGE_URL_PATTERNS
+from tests.mock_spec_harness import (
+    AsyncMockSpecPatcher,
+    MockSpecPatcher,
+    _STAGE_URL_PATTERNS,
+    _classify_url,
+)
 
 
 def _client(monkeypatch) -> CourtListenerClient:
@@ -123,3 +129,84 @@ class TestVerifierEndToEndUnderHarness:
         assert entries[0].verdict == StageVerdict.errored
         # Phase 4 Task 2 will assert status==VERIFICATION_INCOMPLETE here;
         # this test only confirms the harness wired the error correctly.
+
+
+class TestAttemptIdxIgnored:
+    """C1 regression: attempt_idx > 0 must NOT delay firing.
+
+    The harness wraps _request_with_retry (the OUTER retry boundary) which the
+    verifier calls exactly once per stage per verify(). A gate of
+    ``count == attempt_idx`` with attempt_idx=2 would never fire. The fix is
+    to fire on the first matching-stage call regardless of attempt_idx.
+    """
+
+    def test_attempt_idx_ignored_fires_on_first_call(self, monkeypatch):
+        """Spec with attempt_idx=2 must still raise on the very first call."""
+        client = _client(monkeypatch)
+        with MockSpecPatcher(
+            client,
+            spec={"stage": "citation_lookup", "failure_mode": "http_429_no_retry_after",
+                  "attempt_idx": 2, "details": ""},
+        ):
+            with pytest.raises(requests.HTTPError) as exc_info:
+                client.citation_lookup("Bossart v. King Cnty., 2025 WL 459154")
+        assert exc_info.value.response.status_code == 429
+
+
+class TestClassifyUrlWithParams:
+    """I3: _classify_url must route via params['type'] (the production path),
+    not only the regex fallback that TestStageRouting covers."""
+
+    def test_search_opinion_via_params(self):
+        assert _classify_url(
+            "https://www.courtlistener.com/api/rest/v4/search/",
+            params={"type": "o", "q": "foo"},
+        ) == "opinion_search"
+
+    def test_search_recap_docket_via_params(self):
+        assert _classify_url(
+            "https://www.courtlistener.com/api/rest/v4/search/",
+            params={"type": "r", "q": "foo"},
+        ) == "recap_docket_search"
+
+    def test_search_recap_document_via_params(self):
+        assert _classify_url(
+            "https://www.courtlistener.com/api/rest/v4/search/",
+            params={"type": "rd", "q": "foo"},
+        ) == "recap_document_search"
+
+    def test_citation_lookup_url_path_classified(self):
+        assert _classify_url(
+            "https://www.courtlistener.com/api/rest/v4/citation-lookup/",
+            params=None,
+        ) == "citation_lookup"
+
+    def test_search_plain_docket_via_params(self):
+        assert _classify_url(
+            "https://www.courtlistener.com/api/rest/v4/search/",
+            params={"type": "d", "q": "foo"},
+        ) == "plain_docket_search"
+
+
+class TestAsyncFailureInjection:
+    """I1: async harness mirrors sync failure injection.
+
+    Uses asyncio.run() (matching the convention in test_async_verifier.py)
+    rather than @pytest.mark.asyncio, since pytest-asyncio is not installed
+    in this environment.
+    """
+
+    def test_async_http_500_on_citation_lookup_raises(self):
+        async def _run():
+            async with AsyncCourtListenerClient(api_token="test-token-not-used") as client:
+                async with AsyncMockSpecPatcher(
+                    client,
+                    spec={"stage": "citation_lookup", "failure_mode": "http_500",
+                          "attempt_idx": 0, "details": ""},
+                ):
+                    await client.citation_lookup(
+                        "Obergefell v. Hodges, 576 U.S. 644 (2015)"
+                    )
+
+        with pytest.raises(requests.HTTPError):
+            asyncio.run(_run())
