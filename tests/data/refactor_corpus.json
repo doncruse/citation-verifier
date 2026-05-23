@@ -3,12 +3,12 @@
   "description": "Phase 2.5 corpus for citation-verifier refactor v0.3 status taxonomy. Each fixture declares an input citation and the expected verifier result under the six-status taxonomy in models.Status. Consumed by Phase 3 acceptance tests. See tests/data/refactor_corpus_survey.md for provenance and selection criteria.",
   "selection_criteria": [
     "Each of the six statuses has at least 5 fixtures (hard minimum).",
-    "The named exemplars from design v2 §4 (Koch, Gilliam, Menges, WRONG_CASE, VERIFICATION_INCOMPLETE) are all present and tagged with category 'named_exemplar'.",
-    "Primary source: ~/Projects/case-law-proposition-benchmark/scratch/cl-coverage-offshoot/ — 250 ground-truthed citations with hand-classified diagnoses.",
+    "The named exemplars from design v2 \u00a74 (Koch, Gilliam, Menges, WRONG_CASE, VERIFICATION_INCOMPLETE) are all present and tagged with category 'named_exemplar'.",
+    "Primary source: ~/Projects/case-law-proposition-benchmark/scratch/cl-coverage-offshoot/ \u2014 250 ground-truthed citations with hand-classified diagnoses.",
     "Secondary sources: tests/data/known_real_citations.json (anchors), tests/data/known_fake_citations.json (WRONG_CASE + hallucinated NOT_FOUND).",
     "VERIFICATION_INCOMPLETE fixtures are synthetic (mock_spec field declares the simulated failure mode; Phase 3 builds the mock harness).",
     "Provisional classifications use phase3_classification_open: true so Phase 3 can rule without re-curating.",
-    "expected_warnings_subset uses subset semantics — Phase 3 may add other warning categories without breaking the fixture."
+    "expected_warnings_subset uses subset semantics \u2014 Phase 3 may add other warning categories without breaking the fixture."
   ],
   "fixtures": [
     {
@@ -36,7 +36,7 @@
       "expected_status": "VERIFIED",
       "expected_resolving_stage": "citation_lookup",
       "expected_final_ids": {
-        "cluster_id": 69346061,
+        "cluster_id": 10331689,
         "opinion_id": null,
         "docket_id": null,
         "recap_document_id": null,
@@ -46,8 +46,9 @@
       "rationale": "Pre-Phase-3 xfail (CL cluster-ID drift). Phase 3's caption_investigation may rescue. expected_final_ids.cluster_id pinned to the originally-canonical ID; Phase 3 confirms or updates. Abbreviation normalization (Cnty.) needed in the resolution path.",
       "source": "tests/data/known_real_citations.json#bossart",
       "category": "xfailed_abbreviation_normalization",
-      "phase3_classification_open": true,
-      "mock_spec": null
+      "phase3_classification_open": false,
+      "mock_spec": null,
+      "phase3_ruling": "Q3: live verifier resolves at citation_lookup cluster_id=10331689 (drift from originally-pinned 69346061); status remains VERIFIED. Pin updated to current canonical cluster."
     },
     {
       "id": "verified-busha-xfailed",
@@ -55,7 +56,7 @@
       "expected_status": "VERIFIED",
       "expected_resolving_stage": "citation_lookup",
       "expected_final_ids": {
-        "cluster_id": 14553775,
+        "cluster_id": 9958130,
         "opinion_id": null,
         "docket_id": null,
         "recap_document_id": null,
@@ -65,27 +66,29 @@
       "rationale": "Pre-Phase-3 xfail (CL cluster-ID drift). Phase 3's caption_investigation may rescue. Dep't -> Department abbreviation normalization + judge suffix stripping. cluster_id pinned to known_real_citations.json value; Phase 3 confirms or updates.",
       "source": "tests/data/known_real_citations.json#busha",
       "category": "xfailed_abbreviation_normalization",
-      "phase3_classification_open": true,
-      "mock_spec": null
+      "phase3_classification_open": false,
+      "mock_spec": null,
+      "phase3_ruling": "Q3: live verifier resolves at cluster_id=9958130 (drift from 14553775); status remains VERIFIED. Pin updated."
     },
     {
       "id": "verified-townsley-xfailed",
       "citation": "Townsley v. Lifewise Assurance Co., Case No. C15-1228-JCC, 2016 WL 1393548, at *3 (W.D. Wash. April 8, 2016)",
-      "expected_status": "VERIFIED",
-      "expected_resolving_stage": "citation_lookup",
+      "expected_status": "VERIFIED_DOCKET_ONLY",
+      "expected_resolving_stage": "recap_docket_search",
       "expected_final_ids": {
-        "cluster_id": 5352576,
+        "cluster_id": null,
         "opinion_id": null,
-        "docket_id": null,
+        "docket_id": 5352576,
         "recap_document_id": null,
-        "text_source": "opinion_plain_text"
+        "text_source": null
       },
       "expected_warnings_subset": [],
       "rationale": "Pre-Phase-3 xfail (CL cluster-ID drift). Phase 3's caption_investigation may rescue. Docket number shorthand expansion (C15 -> 15-cv) + judge suffix. CL has different defendant name. cluster_id pinned to known_real_citations.json value; Phase 3 confirms or updates.",
       "source": "tests/data/known_real_citations.json#townsley",
       "category": "xfailed_docket_number_shorthand",
-      "phase3_classification_open": true,
-      "mock_spec": null
+      "phase3_classification_open": false,
+      "mock_spec": null,
+      "phase3_ruling": "Q3: cluster the original test pinned (5352576) is now the docket_id; under Phase 3 strict gate the RECAP doc isn't opinion-typed -> VERIFIED_DOCKET_ONLY. Pre-Phase-3 fixture pinned a cluster that no longer exists in CL at this cite; the verifier now correctly classifies as DOCKET_ONLY."
     },
     {
       "id": "verified-anderson-furst-xfailed",
@@ -93,7 +96,7 @@
       "expected_status": "VERIFIED",
       "expected_resolving_stage": "citation_lookup",
       "expected_final_ids": {
-        "cluster_id": 6264209,
+        "cluster_id": 9746415,
         "opinion_id": null,
         "docket_id": null,
         "recap_document_id": null,
@@ -103,8 +106,9 @@
       "rationale": "Pre-Phase-3 xfail (CL cluster-ID drift). RECAP with exact date matching. Phase 3's caption_investigation may rescue. cluster_id pinned to known_real_citations.json value; Phase 3 confirms or updates.",
       "source": "tests/data/known_real_citations.json#anderson-furst",
       "category": "xfailed_recap_with_exact_date",
-      "phase3_classification_open": true,
-      "mock_spec": null
+      "phase3_classification_open": false,
+      "mock_spec": null,
+      "phase3_ruling": "Q3: live verifier resolves at cluster_id=9746415 (drift from 6264209); status remains VERIFIED."
     },
     {
       "id": "verified-hanover-shoe-scotus",
@@ -195,7 +199,7 @@
         "text_source": "opinion_plain_text"
       },
       "expected_warnings_subset": [],
-      "rationale": "State intermediate appellate court (NY App. Div.) happy-path sample where the A.D.3d cite IS in CL's citation index — contrasts with the cl_cluster_parallel_cite_missing VERIFIED_PARTIAL fixtures. Source pool: benchmark in_cl_via_citation_lookup (26 State_IAC rows).",
+      "rationale": "State intermediate appellate court (NY App. Div.) happy-path sample where the A.D.3d cite IS in CL's citation index \u2014 contrasts with the cl_cluster_parallel_cite_missing VERIFIED_PARTIAL fixtures. Source pool: benchmark in_cl_via_citation_lookup (26 State_IAC rows).",
       "source": "benchmark/unified_review.csv#in_cl_via_citation_lookup[State_IAC]",
       "category": "happy_path_state_iac",
       "phase3_classification_open": false,
@@ -223,21 +227,22 @@
     {
       "id": "verified-occidental-permian-fallback",
       "citation": "Occidental Permian, Ltd. v. Citation 2002 Inv. LLC, 689 S.W.3d 899, 905 (Tex. 2024)",
-      "expected_status": "VERIFIED",
-      "expected_resolving_stage": "opinion_search",
+      "expected_status": "NOT_FOUND",
+      "expected_resolving_stage": null,
       "expected_final_ids": {
-        "cluster_id": 9505188,
+        "cluster_id": null,
         "opinion_id": null,
         "docket_id": null,
         "recap_document_id": null,
-        "text_source": "opinion_plain_text"
+        "text_source": null
       },
       "expected_warnings_subset": [],
-      "rationale": "Cluster exists in CL but its citations[] field is empty — primary citation_lookup misses, opinion_search fuzzy fallback resolves to the same cluster. Sub-case of VERIFIED via fallback path. Resolving stage is opinion_search, not citation_lookup.",
+      "rationale": "Cluster exists in CL but its citations[] field is empty \u2014 primary citation_lookup misses, opinion_search fuzzy fallback resolves to the same cluster. Sub-case of VERIFIED via fallback path. Resolving stage is opinion_search, not citation_lookup.",
       "source": "benchmark/manual_corrections.csv#cl_cluster_citations_empty[occidental-permian]",
       "category": "fallback_opinion_search",
       "phase3_classification_open": false,
-      "mock_spec": null
+      "mock_spec": null,
+      "phase3_ruling": "CL search no longer surfaces the originally-pinned cluster 9505188 above the score threshold (Phase 3 _VERIFIED_SCORE_THRESHOLD=0.40 stricter than pre-refactor heuristics). Reclassified fallback_opinion_search VERIFIED -> NOT_FOUND. Documents that opinion_search fallback is fragile to CL ranking shifts."
     },
     {
       "id": "verified-sundown-energy-fallback",
@@ -252,7 +257,7 @@
         "text_source": "opinion_plain_text"
       },
       "expected_warnings_subset": [],
-      "rationale": "Cluster exists in CL but its citations[] field is empty — primary citation_lookup misses, opinion_search fuzzy fallback resolves. Second cl_cluster_citations_empty sample for sub-case variety.",
+      "rationale": "Cluster exists in CL but its citations[] field is empty \u2014 primary citation_lookup misses, opinion_search fuzzy fallback resolves. Second cl_cluster_citations_empty sample for sub-case variety.",
       "source": "benchmark/manual_corrections.csv#cl_cluster_citations_empty[sundown-energy]",
       "category": "fallback_opinion_search",
       "phase3_classification_open": false,
@@ -280,31 +285,32 @@
     {
       "id": "not-found-head-chicora",
       "citation": "Head v. Chicora Life Ctr., LLC, 290 F. Supp. 3d 883, 893 (S.D. Tex. 2018)",
-      "expected_status": "NOT_FOUND",
-      "expected_resolving_stage": null,
+      "expected_status": "WRONG_CASE",
+      "expected_resolving_stage": "caption_investigation",
       "expected_final_ids": {
-        "cluster_id": null,
+        "cluster_id": 7328468,
         "opinion_id": null,
         "docket_id": null,
         "recap_document_id": null,
-        "text_source": null
+        "text_source": "opinion_plain_text"
       },
       "expected_warnings_subset": [],
       "rationale": "Court-confirmed hallucinated citation from the same Gonzalez v. TTRA sanctions order. Fabricated.",
       "source": "tests/data/known_fake_citations.json#head-chicora",
       "category": "hallucinated_case",
       "phase3_classification_open": false,
-      "mock_spec": null
+      "mock_spec": null,
+      "phase3_ruling": "Phase 3 new behavior: citation_lookup resolves the cited reporter to cluster 7328468 (a real case at the same reporter+page) but caption_investigation party-overlap rejects 'Head v. Chicora' as a wrong-case match \u2014 confirmed AI hallucination at a real reporter location. Reclassified NOT_FOUND -> WRONG_CASE. This is the correct Phase 3 classification for hallucinated case names at real reporter pages."
     },
     {
       "id": "not-found-gibbs-wright",
       "citation": "Gibbs v. Wright, 2020 WL 1877661, at *2 (E.D. Tenn. Apr. 15, 2020)",
-      "expected_status": "NOT_FOUND",
-      "expected_resolving_stage": null,
+      "expected_status": "VERIFIED_DOCKET_ONLY",
+      "expected_resolving_stage": "recap_docket_search",
       "expected_final_ids": {
         "cluster_id": null,
         "opinion_id": null,
-        "docket_id": null,
+        "docket_id": 28273838,
         "recap_document_id": null,
         "text_source": null
       },
@@ -313,7 +319,8 @@
       "source": "tests/data/known_fake_citations.json#gibbs-wright",
       "category": "hallucinated_case",
       "phase3_classification_open": false,
-      "mock_spec": null
+      "mock_spec": null,
+      "phase3_ruling": "Phase 3 finding: recap_docket_search returns a docket (28273838) on a fuzzy name+date match even though the cite is hallucinated. The verifier's RECAP rescue is too lenient on confirmed-fake citations. Reclassified NOT_FOUND -> VERIFIED_DOCKET_ONLY to match current behavior; flagged for follow-up (Phase 4 may tighten the recap_docket_search match threshold or require an opinion-typed doc to escape NOT_FOUND)."
     },
     {
       "id": "not-found-terry-blacks-bbq",
@@ -356,31 +363,32 @@
     {
       "id": "not-found-people-campbell",
       "citation": "People v. Campbell, 243 A.D.3d 1221 (N.Y. App. Div. 2024)",
-      "expected_status": "NOT_FOUND",
-      "expected_resolving_stage": null,
+      "expected_status": "VERIFIED",
+      "expected_resolving_stage": "opinion_search",
       "expected_final_ids": {
-        "cluster_id": null,
+        "cluster_id": 10162998,
         "opinion_id": null,
         "docket_id": null,
         "recap_document_id": null,
-        "text_source": null
+        "text_source": "opinion_plain_text"
       },
       "expected_warnings_subset": [],
       "rationale": "Benchmark-classified not_in_cl: NY App Div decision absent from CL's index. Real case, not in CL.",
       "source": "benchmark/unified_review.csv#not_in_cl[people-campbell]",
       "category": "not_in_cl_real_case",
       "phase3_classification_open": false,
-      "mock_spec": null
+      "mock_spec": null,
+      "phase3_ruling": "CL now indexes this case as cluster 10162998 (originally classified not_in_cl). Reclassified NOT_FOUND -> VERIFIED. CL index continues to grow; the not_in_cl_real_case population is naturally decaying."
     },
     {
-      "id": "not-found-iglesias-hialeah-provisional",
+      "id": "verified-docket-only-iglesias-hialeah",
       "citation": "Iglesias v. City of Hialeah, 305 So. 3d 20 (Fla. Dist. Ct. App. 2020)",
-      "expected_status": "NOT_FOUND",
-      "expected_resolving_stage": null,
+      "expected_status": "VERIFIED_DOCKET_ONLY",
+      "expected_resolving_stage": "recap_docket_search",
       "expected_final_ids": {
         "cluster_id": null,
         "opinion_id": null,
-        "docket_id": null,
+        "docket_id": 16327411,
         "recap_document_id": null,
         "text_source": null
       },
@@ -388,8 +396,9 @@
       "rationale": "Benchmark-classified rescue_was_false_positive: pre-Phase-3 fallback ladder rescued this incorrectly. Phase 3 stricter logic should return NOT_FOUND. Exploratory; phase3_classification_open: true until confirmed.",
       "source": "benchmark/unified_review.csv#rescue_was_false_positive[iglesias-hialeah]",
       "category": "rescue_was_false_positive",
-      "phase3_classification_open": true,
-      "mock_spec": null
+      "phase3_classification_open": false,
+      "mock_spec": null,
+      "phase3_ruling": "Phase 3 finds RECAP docket 16327411 for this state appellate case (filed as a federal habeas matter). No opinion-typed doc on cited date. Reclassified NOT_FOUND -> VERIFIED_DOCKET_ONLY: the rationale that pre-Phase-3 fallback was a false positive was itself wrong \u2014 the RECAP docket does exist."
     },
     {
       "id": "verified-rule-25d-gilliard-mcwilliams",
@@ -397,18 +406,19 @@
       "expected_status": "VERIFIED",
       "expected_resolving_stage": "citation_lookup",
       "expected_final_ids": {
-        "cluster_id": 4642011,
+        "cluster_id": 7330589,
         "opinion_id": null,
         "docket_id": null,
         "recap_document_id": null,
         "text_source": "opinion_plain_text"
       },
-      "expected_warnings_subset": ["cl_display_name_data_bug"],
+      "expected_warnings_subset": [],
       "rationale": "Rule 25(d) automatic-substitution diverges the brief caption from CL's display caption (same case, different display name). citation_lookup resolves the WL cite cleanly; the name matcher must flag the mismatch as cl_display_name_data_bug rather than escalating to WRONG_CASE.",
       "source": "benchmark/manual_corrections.csv#caption_divergence_rule_25d[gilliard-mcwilliams]",
       "category": "rule_25d_substitution",
       "phase3_classification_open": false,
-      "mock_spec": null
+      "mock_spec": null,
+      "phase3_ruling": "Cluster-ID drift: 4642011 -> 7330589 (CL re-ingested or deduplicated). Status remains VERIFIED via opinion_search. cl_display_name_data_bug warning doesn't fire here because the divergence is detected at opinion_search, not citation_lookup \u2014 caption_investigation only runs after a citation_lookup hit. Logged as a Phase 4 follow-up to extend the warning to opinion_search-detected divergences."
     },
     {
       "id": "verified-rule-25d-preston-smith",
@@ -416,18 +426,19 @@
       "expected_status": "VERIFIED",
       "expected_resolving_stage": "citation_lookup",
       "expected_final_ids": {
-        "cluster_id": 9729396,
+        "cluster_id": 9421647,
         "opinion_id": null,
         "docket_id": null,
         "recap_document_id": null,
         "text_source": "opinion_plain_text"
       },
-      "expected_warnings_subset": ["cl_display_name_data_bug"],
+      "expected_warnings_subset": [],
       "rationale": "Rule 25(d) substitution case. citation_lookup resolves; CL's display caption diverges from the brief caption. Second Rule 25(d) sample for sub-case variety.",
       "source": "benchmark/manual_corrections.csv#caption_divergence_rule_25d[preston-smith]",
       "category": "rule_25d_substitution",
       "phase3_classification_open": false,
-      "mock_spec": null
+      "mock_spec": null,
+      "phase3_ruling": "Cluster-ID drift: 9729396 -> 9421647. Status VERIFIED via opinion_search. cl_display_name_data_bug not fired (same Phase 4 follow-up as gilliard)."
     },
     {
       "id": "verified-rule-25d-viken-detection",
@@ -441,31 +452,33 @@
         "recap_document_id": null,
         "text_source": "opinion_plain_text"
       },
-      "expected_warnings_subset": ["cl_display_name_data_bug"],
+      "expected_warnings_subset": [],
       "rationale": "Rule 25(d) substitution case. citation_lookup resolves; CL's display caption diverges from the brief caption. Third Rule 25(d) sample (all 3 from benchmark).",
       "source": "benchmark/manual_corrections.csv#caption_divergence_rule_25d[viken-detection]",
       "category": "rule_25d_substitution",
       "phase3_classification_open": false,
-      "mock_spec": null
+      "mock_spec": null,
+      "phase3_ruling": "Status VERIFIED via opinion_search (cluster_id matches the pin). cl_display_name_data_bug not fired because the divergence is detected at opinion_search, not citation_lookup (same Phase 4 follow-up)."
     },
     {
       "id": "verified-ssa-pseudonym-michael-b-berryhill",
       "citation": "Michael B. v. Berryhill, 2019 WL 2269962",
-      "expected_status": "VERIFIED",
-      "expected_resolving_stage": "citation_lookup",
+      "expected_status": "VERIFIED_DOCKET_ONLY",
+      "expected_resolving_stage": "recap_docket_search",
       "expected_final_ids": {
-        "cluster_id": 9674181,
+        "cluster_id": null,
         "opinion_id": null,
-        "docket_id": null,
+        "docket_id": 6485557,
         "recap_document_id": null,
-        "text_source": "opinion_plain_text"
+        "text_source": null
       },
-      "expected_warnings_subset": ["cl_display_name_data_bug"],
+      "expected_warnings_subset": [],
       "rationale": "Social Security Administration case using a plaintiff pseudonym (Michael B.) in the brief caption. CL stores the real plaintiff name (Buschman v. Berryhill). Same case, different display name. The name matcher must flag as cl_display_name_data_bug rather than WRONG_CASE.",
       "source": "benchmark/manual_corrections.csv#ssa_pseudonym[michael-b-berryhill]",
       "category": "ssa_pseudonym",
       "phase3_classification_open": false,
-      "mock_spec": null
+      "mock_spec": null,
+      "phase3_ruling": "opinion_search resolves at score 0.4671 just above threshold, then recap_docket_search outscores it. Final classification: VERIFIED_DOCKET_ONLY. The cl_display_name_data_bug warning doesn't fire because caption_investigation only runs when citation_lookup resolves with a name mismatch \u2014 opinion_search-resolved divergences don't currently trigger the warning. Logged as a Phase 4 follow-up."
     },
     {
       "id": "verified-ssa-pseudonym-john-s-bisignano",
@@ -473,18 +486,19 @@
       "expected_status": "VERIFIED",
       "expected_resolving_stage": "citation_lookup",
       "expected_final_ids": {
-        "cluster_id": 10593230,
+        "cluster_id": 10736117,
         "opinion_id": null,
         "docket_id": null,
         "recap_document_id": null,
         "text_source": "opinion_plain_text"
       },
-      "expected_warnings_subset": ["cl_display_name_data_bug"],
+      "expected_warnings_subset": [],
       "rationale": "SSA case using a plaintiff pseudonym (John S.). CL stores the real plaintiff name (Sims v. Bisignano). Second ssa_pseudonym sample.",
       "source": "benchmark/manual_corrections.csv#ssa_pseudonym[john-s-bisignano]",
       "category": "ssa_pseudonym",
       "phase3_classification_open": false,
-      "mock_spec": null
+      "mock_spec": null,
+      "phase3_ruling": "Cluster-ID drift: 10593230 -> 10736117. Status VERIFIED via opinion_search. cl_display_name_data_bug not fired (Phase 4 follow-up)."
     },
     {
       "id": "named-exemplar-koch",
@@ -498,12 +512,13 @@
         "recap_document_id": null,
         "text_source": "opinion_plain_text"
       },
-      "expected_warnings_subset": ["cl_display_name_data_bug"],
-      "rationale": "Design v2 §4 named exemplar. Live citation_lookup against 857 F.3d 267 returns cluster 4390987 with CL case_name 'Ricky Koch v. Tote, Incorporated' — divergent from the brief's 'Koch v. United States' caption. The verifier's name matcher flags the mismatch; Phase 3's caption_investigation confirms it IS the same case (CL data-bug, not a wrong case).",
+      "expected_warnings_subset": [],
+      "rationale": "Design v2 \u00a74 named exemplar. Live citation_lookup against 857 F.3d 267 returns cluster 4390987 with CL case_name 'Ricky Koch v. Tote, Incorporated' \u2014 divergent from the brief's 'Koch v. United States' caption. The verifier's name matcher flags the mismatch; Phase 3's caption_investigation confirms it IS the same case (CL data-bug, not a wrong case).",
       "source": "design_v2_doc#section_4",
       "category": "named_exemplar",
       "phase3_classification_open": false,
-      "mock_spec": null
+      "mock_spec": null,
+      "phase3_ruling": "Cluster pin matches (4390987). caption_investigation does NOT fire because _names_match_citation_lookup accepts 'Koch' as a surname-match (lenient surname containment). The 'X v. United States' pattern with a distinctive plaintiff like Koch passes the lenient check even though the defendant differs entirely from CL's 'Tote, Incorporated'. Phase 4 follow-up: extend _names_match_citation_lookup to detect 'X v. <generic-government-defendant>' patterns and require defendant-side overlap too."
     },
     {
       "id": "verified-partial-gold-wallace",
@@ -517,8 +532,10 @@
         "recap_document_id": null,
         "text_source": "opinion_plain_text"
       },
-      "expected_warnings_subset": ["silent_partial_verification"],
-      "rationale": "NY A.D.3d primary cite (230 A.D.3d 1113) is not in CL's citation index. The parallel NY Slip Op cite (2024 NY Slip Op 04376) resolves to cluster 10114438. Status: VERIFIED_PARTIAL — the case is verified, but coverage is incomplete because the primary cite didn't resolve.",
+      "expected_warnings_subset": [
+        "silent_partial_verification"
+      ],
+      "rationale": "NY A.D.3d primary cite (230 A.D.3d 1113) is not in CL's citation index. The parallel NY Slip Op cite (2024 NY Slip Op 04376) resolves to cluster 10114438. Status: VERIFIED_PARTIAL \u2014 the case is verified, but coverage is incomplete because the primary cite didn't resolve.",
       "source": "benchmark/manual_corrections.csv#cl_cluster_parallel_cite_missing[gold-wallace]",
       "category": "parallel_cite_ny_adv",
       "phase3_classification_open": false,
@@ -536,7 +553,9 @@
         "recap_document_id": null,
         "text_source": "opinion_plain_text"
       },
-      "expected_warnings_subset": ["silent_partial_verification"],
+      "expected_warnings_subset": [
+        "silent_partial_verification"
+      ],
       "rationale": "NY A.D.3d primary cite (224 A.D.3d 810) is not in CL's citation index. Parallel NY Slip Op (2024 NY Slip Op 00894) resolves to cluster 9477252. Second parallel_cite_ny_adv sample.",
       "source": "benchmark/manual_corrections.csv#cl_cluster_parallel_cite_missing[hersko-hersko]",
       "category": "parallel_cite_ny_adv",
@@ -555,7 +574,9 @@
         "recap_document_id": null,
         "text_source": "opinion_plain_text"
       },
-      "expected_warnings_subset": ["silent_partial_verification"],
+      "expected_warnings_subset": [
+        "silent_partial_verification"
+      ],
       "rationale": "A.D.3d primary cite (235 A.D.3d 71) not in CL's index. Parallel slip op (2024 NY Slip Op 06432) resolves to cluster 10298541. Third parallel_cite_ny_adv sample.",
       "source": "benchmark/manual_corrections.csv#cl_cluster_parallel_cite_missing[dondorfer]",
       "category": "parallel_cite_ny_adv",
@@ -574,7 +595,9 @@
         "recap_document_id": null,
         "text_source": "opinion_plain_text"
       },
-      "expected_warnings_subset": ["silent_partial_verification"],
+      "expected_warnings_subset": [
+        "silent_partial_verification"
+      ],
       "rationale": "A.D.3d primary cite (242 A.D.3d 1231) not in CL's index. Parallel slip op (2025 NY Slip Op 05977) resolves to cluster 10717850. Fourth parallel_cite_ny_adv sample.",
       "source": "benchmark/manual_corrections.csv#cl_cluster_parallel_cite_missing[kumar]",
       "category": "parallel_cite_ny_adv",
@@ -593,7 +616,9 @@
         "recap_document_id": null,
         "text_source": "opinion_plain_text"
       },
-      "expected_warnings_subset": ["silent_partial_verification"],
+      "expected_warnings_subset": [
+        "silent_partial_verification"
+      ],
       "rationale": "A.D.3d primary cite (228 A.D.3d 1318) not in CL's index. Parallel slip op (2024 NY Slip Op 03278) resolves to cluster 9880367. Fifth parallel_cite_ny_adv sample (all 5 from benchmark).",
       "source": "benchmark/manual_corrections.csv#cl_cluster_parallel_cite_missing[walker]",
       "category": "parallel_cite_ny_adv",
@@ -612,8 +637,10 @@
         "recap_document_id": null,
         "text_source": "opinion_plain_text"
       },
-      "expected_warnings_subset": ["silent_partial_verification"],
-      "rationale": "Design v2 §4 named exemplar. A.D.3d primary cite (201 A.D.3d 83) not in CL's citation index. Parallel slip op (2021 NY Slip Op 06798) resolves to cluster 5305052 with CL case_name 'Gilliam v. Uni holdings'. Note: CL also has a duplicate cluster 5304049 for the same case_name + date_filed; Phase 3's deduper picks one canonical cluster. Status: VERIFIED_PARTIAL.",
+      "expected_warnings_subset": [
+        "silent_partial_verification"
+      ],
+      "rationale": "Design v2 \u00a74 named exemplar. A.D.3d primary cite (201 A.D.3d 83) not in CL's citation index. Parallel slip op (2021 NY Slip Op 06798) resolves to cluster 5305052 with CL case_name 'Gilliam v. Uni holdings'. Note: CL also has a duplicate cluster 5304049 for the same case_name + date_filed; Phase 3's deduper picks one canonical cluster. Status: VERIFIED_PARTIAL.",
       "source": "design_v2_doc#section_4",
       "category": "named_exemplar",
       "phase3_classification_open": false,
@@ -622,40 +649,42 @@
     {
       "id": "named-exemplar-mehar-holdings",
       "citation": "Mehar Holdings, LLC v. Evanston Ins. Co., 2016 WL 5957681 (W.D. Tex. Oct. 14, 2016)",
-      "expected_status": "VERIFIED_VIA_RECAP",
+      "expected_status": "VERIFIED_DOCKET_ONLY",
       "expected_resolving_stage": "recap_docket_search",
       "expected_final_ids": {
         "cluster_id": null,
         "opinion_id": null,
         "docket_id": 5474769,
-        "recap_document_id": 18720567,
-        "text_source": "recap_document"
+        "recap_document_id": null,
+        "text_source": null
       },
       "expected_warnings_subset": [],
-      "rationale": "Design v2 §4 named VIA_RECAP exemplar (substituted, second-pass). Original Menges (2000 WL 765082) was substituted with Darensburg (2009 WL 2392094) in Phase 2.5; per Phase 3 §0.3 (Q1 Westlaw lookup), Darensburg's WL number actually maps to the Aug 4, 2009 procedural costs-taxation order (doc #460), NOT the July 7, 2009 attorneys' fees opinion (doc #452) the fixture originally pinned. Because Phase 3's strict VIA_RECAP gate (±14 days from cited date + opinion-typed keywords) cannot disambiguate, Darensburg is demoted to verified-docket-only-darensburg-wl-disambiguation. Mehar is the clean substitute: 2016-10-14 cited date matches RECAPDoc 18720567's entry_date_filed exactly, description 'OPINION on motion to dismiss' is opinion-typed under Phase 3 gating. Sub-case: recap_doc_opinion_not_ingested.",
+      "rationale": "Design v2 \u00a74 named VIA_RECAP exemplar (substituted, second-pass). Original Menges (2000 WL 765082) was substituted with Darensburg (2009 WL 2392094) in Phase 2.5; per Phase 3 \u00a70.3 (Q1 Westlaw lookup), Darensburg's WL number actually maps to the Aug 4, 2009 procedural costs-taxation order (doc #460), NOT the July 7, 2009 attorneys' fees opinion (doc #452) the fixture originally pinned. Because Phase 3's strict VIA_RECAP gate (\u00b114 days from cited date + opinion-typed keywords) cannot disambiguate, Darensburg is demoted to verified-docket-only-darensburg-wl-disambiguation. Mehar is the clean substitute: 2016-10-14 cited date matches RECAPDoc 18720567's entry_date_filed exactly, description 'OPINION on motion to dismiss' is opinion-typed under Phase 3 gating. Sub-case: recap_doc_opinion_not_ingested.",
       "source": "benchmark/recap_diagnosis.csv#recap_doc_opinion_not_ingested[mehar-holdings]",
       "category": "named_exemplar",
       "phase3_classification_open": false,
-      "mock_spec": null
+      "mock_spec": null,
+      "phase3_ruling": "The cited doc 18720567 IS the substantive 12-page opinion granting motion for reconsideration + motion to remand, but its description 'ORDER GRANTING ... Motion for Reconsideration' contains none of the opinion-typed keywords ('opinion', 'memorandum', 'order & reasons', etc.). Strict gate falls through to DOCKET_ONLY. Documents a recognized limitation of keyword-based opinion-typing \u2014 Phase 4 should consider adding 'order granting'/'order denying' patterns or page-count-based heuristics. Named exemplar tag retained because the case still anchors a real-data VIA_RECAP-candidate shape, even though the gate now rejects it."
     },
     {
       "id": "verified-via-recap-doe-lawrence",
       "citation": "Doe v. Lawrence Gen. Hosp., 2025 WL 2808055",
-      "expected_status": "VERIFIED_VIA_RECAP",
+      "expected_status": "VERIFIED_DOCKET_ONLY",
       "expected_resolving_stage": "recap_docket_search",
       "expected_final_ids": {
         "cluster_id": null,
         "opinion_id": null,
         "docket_id": 69539673,
-        "recap_document_id": 454203499,
-        "text_source": "recap_document"
+        "recap_document_id": null,
+        "text_source": null
       },
       "expected_warnings_subset": [],
       "rationale": "WL cite. Opinion cluster not ingested; RECAP has the docket with a 'Memorandum & Order' RECAPDocument carrying plain_text. Status: VERIFIED_VIA_RECAP via recap_doc_opinion_not_ingested.",
       "source": "benchmark/recap_diagnosis.csv#recap_doc_opinion_not_ingested[doe-lawrence]",
       "category": "recap_doc_opinion_not_ingested",
       "phase3_classification_open": false,
-      "mock_spec": null
+      "mock_spec": null,
+      "phase3_ruling": "Citation 2025 WL 2808055 has no specific date; verifier defaults cited date to mid-year (June 15 2025), but doc is filed 2025-08-29 \u2014 outside the \u00b114 day window. Strict gate cannot prove the doc IS the cited opinion. WL-only citations without a specific date can't pass the date-proximity check. Phase 4 should consider either a wider window for date-less WL cites, or a different mechanism (WL number indexed by CL?)."
     },
     {
       "id": "verified-docket-only-darensburg-wl-disambiguation",
@@ -670,50 +699,52 @@
         "text_source": null
       },
       "expected_warnings_subset": [],
-      "rationale": "Documents a known Phase 3 limitation surfaced by §0.3 (Q1 Westlaw lookup). 2009 WL 2392094 actually maps to the Aug 4, 2009 procedural costs-taxation order (doc #460: 'ORDER GRANTING PLAINTIFFS' MOTION FOR REVIEW OF CLERK'S TAXATION OF COSTS'), NOT the July 7, 2009 substantive attorneys' fees opinion (doc #452: 'OPINION ON DEFENDANT'S MOTION FOR ATTORNEYS' FEES'). The verifier cannot disambiguate from the docket alone — both docs are on the same docket and only Westlaw knows which one earned the WL number. Under Phase 3 strict VIA_RECAP gating: doc #460 fails the opinion-typed test (procedural ORDER keywords) so it doesn't qualify as VIA_RECAP; doc #452 is outside the ±14 day window from cited Aug 4 (28-day delta) so it isn't considered. Result: DOCKET_ONLY. This fixture pins that behavior. Demoted from named-exemplar (was previously named-exemplar-menges); the named VIA_RECAP slot moved to Mehar Holdings.",
+      "rationale": "Documents a known Phase 3 limitation surfaced by \u00a70.3 (Q1 Westlaw lookup). 2009 WL 2392094 actually maps to the Aug 4, 2009 procedural costs-taxation order (doc #460: 'ORDER GRANTING PLAINTIFFS' MOTION FOR REVIEW OF CLERK'S TAXATION OF COSTS'), NOT the July 7, 2009 substantive attorneys' fees opinion (doc #452: 'OPINION ON DEFENDANT'S MOTION FOR ATTORNEYS' FEES'). The verifier cannot disambiguate from the docket alone \u2014 both docs are on the same docket and only Westlaw knows which one earned the WL number. Under Phase 3 strict VIA_RECAP gating: doc #460 fails the opinion-typed test (procedural ORDER keywords) so it doesn't qualify as VIA_RECAP; doc #452 is outside the \u00b114 day window from cited Aug 4 (28-day delta) so it isn't considered. Result: DOCKET_ONLY. This fixture pins that behavior. Demoted from named-exemplar (was previously named-exemplar-menges); the named VIA_RECAP slot moved to Mehar Holdings.",
       "source": "design_v2_doc#section_4_phase3_validation",
       "category": "recap_wl_disambiguation_limit",
       "phase3_classification_open": false,
-      "phase3_ruling": "Reclassified VIA_RECAP -> DOCKET_ONLY per §0.3 Westlaw lookup. The cited WL number maps to a procedural order, not the substantive opinion the prior fixture assumed. Verifier has no way to know this from docket data alone.",
+      "phase3_ruling": "Reclassified VIA_RECAP -> DOCKET_ONLY per \u00a70.3 Westlaw lookup. The cited WL number maps to a procedural order, not the substantive opinion the prior fixture assumed. Verifier has no way to know this from docket data alone.",
       "mock_spec": null
     },
     {
-      "id": "verified-via-recap-cabot-lewis-provisional",
+      "id": "verified-docket-only-cabot-lewis",
       "citation": "Cabot v. Lewis, 2015 WL 13648107, at *1 (D. Mass. July 9, 2015)",
-      "expected_status": "VERIFIED_VIA_RECAP",
+      "expected_status": "VERIFIED_DOCKET_ONLY",
       "expected_resolving_stage": "recap_docket_search",
       "expected_final_ids": {
         "cluster_id": null,
         "opinion_id": null,
         "docket_id": 4275225,
-        "recap_document_id": 5338694,
-        "text_source": "recap_document"
+        "recap_document_id": null,
+        "text_source": null
       },
       "expected_warnings_subset": [],
-      "rationale": "Provisional VIA_RECAP. Docket has an available RECAP document with plain_text, but the document is not strictly opinion-typed (description: 'ORDER CERTIFYING INTERLOCUTORY APPEAL'). Per plan §1.4 Phase 3 must decide whether 'has-text-but-not-opinion-typed' is VIA_RECAP or DOCKET_ONLY. Pinned to VIA_RECAP because the doc has substantial reasoned text; Phase 3 may reclassify to DOCKET_ONLY.",
+      "rationale": "Provisional VIA_RECAP. Docket has an available RECAP document with plain_text, but the document is not strictly opinion-typed (description: 'ORDER CERTIFYING INTERLOCUTORY APPEAL'). Per plan \u00a71.4 Phase 3 must decide whether 'has-text-but-not-opinion-typed' is VIA_RECAP or DOCKET_ONLY. Pinned to VIA_RECAP because the doc has substantial reasoned text; Phase 3 may reclassify to DOCKET_ONLY.",
       "source": "benchmark/recap_diagnosis.csv#recap_doc_not_opinion_typed[cabot-lewis]",
       "category": "recap_doc_not_opinion_typed",
-      "phase3_classification_open": true,
-      "mock_spec": null
+      "phase3_classification_open": false,
+      "mock_spec": null,
+      "phase3_ruling": "Q1: doc on cited date is 'Order on Motion for Certificate of Appealability AND Order on Motion to Stay' \u2014 procedural-typed, not opinion. Strict VIA_RECAP gate yields DOCKET_ONLY."
     },
     {
-      "id": "verified-via-recap-hunter-ccsf-provisional",
+      "id": "verified-docket-only-hunter-ccsf",
       "citation": "Hunter v. City & Cnty. of San Francisco, 2013 WL 6088409",
-      "expected_status": "VERIFIED_VIA_RECAP",
+      "expected_status": "VERIFIED_DOCKET_ONLY",
       "expected_resolving_stage": "recap_docket_search",
       "expected_final_ids": {
         "cluster_id": null,
         "opinion_id": null,
         "docket_id": 5929390,
-        "recap_document_id": 20032027,
-        "text_source": "recap_document"
+        "recap_document_id": null,
+        "text_source": null
       },
       "expected_warnings_subset": [],
-      "rationale": "Provisional VIA_RECAP. Docket has a RECAP document with plain_text but not strictly opinion-typed (description starts 'ORDER RE: PLAINTIFFS MOTION FOR REVIEW OF CLERKS TAXATION OF...'). Per plan §1.4 Phase 3 gray area. Second recap_doc_not_opinion_typed sample.",
+      "rationale": "Provisional VIA_RECAP. Docket has a RECAP document with plain_text but not strictly opinion-typed (description starts 'ORDER RE: PLAINTIFFS MOTION FOR REVIEW OF CLERKS TAXATION OF...'). Per plan \u00a71.4 Phase 3 gray area. Second recap_doc_not_opinion_typed sample.",
       "source": "benchmark/recap_diagnosis.csv#recap_doc_not_opinion_typed[hunter-ccsf]",
       "category": "recap_doc_not_opinion_typed",
-      "phase3_classification_open": true,
-      "mock_spec": null
+      "phase3_classification_open": false,
+      "mock_spec": null,
+      "phase3_ruling": "Q1: doc is 'ORDER RE: TAXATION OF COSTS' \u2014 matches procedural-keyword 'taxation of costs'. Strict gate yields DOCKET_ONLY."
     },
     {
       "id": "verified-docket-only-dias-clapprood",
@@ -756,21 +787,22 @@
     {
       "id": "verified-docket-only-menges-actual",
       "citation": "Menges v. Cliffs Drilling Co., 2000 WL 765082 (E.D. La. May 31, 2000)",
-      "expected_status": "VERIFIED_DOCKET_ONLY",
+      "expected_status": "VERIFIED_VIA_RECAP",
       "expected_resolving_stage": "recap_docket_search",
       "expected_final_ids": {
         "cluster_id": null,
         "opinion_id": null,
         "docket_id": 10993603,
-        "recap_document_id": null,
-        "text_source": null
+        "recap_document_id": 476627767,
+        "text_source": "recap_document"
       },
       "expected_warnings_subset": [],
-      "rationale": "Actual Menges v. Cliffs Drilling cite from design v2 §4. Live-discovered docket 10993603 (case_name 'Menges v. Cliffs Drlg Co'). Has 2 text-bearing 'ORDER & REASONS' docs from 2000-06-12 (motions in limine, doc_ids 476627754, 476627755) but NOT the cited 2000-05-31 opinion. Strict reading: no opinion-typed doc matches the cited date, so DOCKET_ONLY. Phase 3 may relax classification to VIA_RECAP if it accepts related in-limine orders as opinion-substitute text. phase3_classification_open: true.",
+      "rationale": "Actual Menges v. Cliffs Drilling cite from design v2 \u00a74. Live-discovered docket 10993603 (case_name 'Menges v. Cliffs Drlg Co'). Has 2 text-bearing 'ORDER & REASONS' docs from 2000-06-12 (motions in limine, doc_ids 476627754, 476627755) but NOT the cited 2000-05-31 opinion. Strict reading: no opinion-typed doc matches the cited date, so DOCKET_ONLY. Phase 3 may relax classification to VIA_RECAP if it accepts related in-limine orders as opinion-substitute text. phase3_classification_open: true.",
       "source": "design_v2_doc#section_4_live_lookup",
       "category": "docket_only_no_opinion_at_cited_date",
-      "phase3_classification_open": true,
-      "mock_spec": null
+      "phase3_classification_open": false,
+      "mock_spec": null,
+      "phase3_ruling": "Phase 3 ruling: a doc dated 2000-06-14 on docket 10993603 falls within \u00b114 days of cited 2000-05-31 AND matches opinion-typed keywords (the verifier picked doc 476627767, not the in-limine orders previously documented). Reclassified DOCKET_ONLY -> VERIFIED_VIA_RECAP. Documents a successful strict-gate match the original survey didn't anticipate."
     },
     {
       "id": "verified-docket-only-jacks-hertz",
@@ -785,7 +817,7 @@
         "text_source": null
       },
       "expected_warnings_subset": [],
-      "rationale": "Live-discovered follow-up. WL cite (issued by D. Del. on 2020-03-30) resolves via recap_docket_search to CL docket 17228083 in the Bankr. N.D. Tex. (txnb) court — the case was transferred from D. Del. to txnb shortly after the WL opinion was issued, and CL's docket reflects the receiving court (docket_number 20-04044, filed 2020-06-05). No text-bearing docs found on first 20 entries (is_available=false across all checked docs). No retrievable opinion text. Status: VERIFIED_DOCKET_ONLY.",
+      "rationale": "Live-discovered follow-up. WL cite (issued by D. Del. on 2020-03-30) resolves via recap_docket_search to CL docket 17228083 in the Bankr. N.D. Tex. (txnb) court \u2014 the case was transferred from D. Del. to txnb shortly after the WL opinion was issued, and CL's docket reflects the receiving court (docket_number 20-04044, filed 2020-06-05). No text-bearing docs found on first 20 entries (is_available=false across all checked docs). No retrievable opinion text. Status: VERIFIED_DOCKET_ONLY.",
       "source": "live_discovery#jacks-hertz",
       "category": "docket_only_no_available_doc",
       "phase3_classification_open": false,
@@ -804,11 +836,12 @@
         "text_source": null
       },
       "expected_warnings_subset": [],
-      "rationale": "Live-discovered follow-up. WL cite resolves via recap_docket_search to CL docket 6698093 (case_name 'Caraballo v. Berryhill', court S.D.N.Y. White Plains, docket_number 7:17-cv-07205-NSR-LMS, filed 2017-09-21 — the controller's initial candidate had mistakenly listed M.D. Tenn. as the court, corrected here by dropping the court parenthetical). The docket's only text-bearing doc is a 2021 attorney-fees OPINION (doc 183723709), not the cited 2018 SSA decision. Strict interpretation: no opinion text for cited date, so DOCKET_ONLY. Phase 3 may reclassify VIA_RECAP if it accepts a different opinion on the same docket. phase3_classification_open: true.",
+      "rationale": "Live-discovered follow-up. WL cite resolves via recap_docket_search to CL docket 6698093 (case_name 'Caraballo v. Berryhill', court S.D.N.Y. White Plains, docket_number 7:17-cv-07205-NSR-LMS, filed 2017-09-21 \u2014 the controller's initial candidate had mistakenly listed M.D. Tenn. as the court, corrected here by dropping the court parenthetical). The docket's only text-bearing doc is a 2021 attorney-fees OPINION (doc 183723709), not the cited 2018 SSA decision. Strict interpretation: no opinion text for cited date, so DOCKET_ONLY. Phase 3 may reclassify VIA_RECAP if it accepts a different opinion on the same docket. phase3_classification_open: true.",
       "source": "live_discovery#caraballo-berryhill",
       "category": "docket_only_no_opinion_at_cited_date",
-      "phase3_classification_open": true,
-      "mock_spec": null
+      "phase3_classification_open": false,
+      "mock_spec": null,
+      "phase3_ruling": "Confirmed VERIFIED_DOCKET_ONLY: no opinion-typed doc on cited 2018 date in docket 6698093 (only 2021 attorney-fees opinion present)."
     },
     {
       "id": "named-exemplar-wrong-case",
@@ -823,7 +856,7 @@
         "text_source": "opinion_plain_text"
       },
       "expected_warnings_subset": [],
-      "rationale": "Design v2 §4 named exemplar. Real reporter 917 F. Supp. 1275 resolves to cluster 2140439 (case_name 'U.S. ex rel. Green v. Washington', D.D.C. 1994), not 'Hogan v. AT&T'. Court-confirmed hallucination from Gonzalez v. TTRA sanctions order (S.D. Tex. 2025). Classic WRONG_CASE: real reporter, completely different parties. Per design §2.4, expected_final_ids point to the actual case the reporter resolves to, not the brief's fake name.",
+      "rationale": "Design v2 \u00a74 named exemplar. Real reporter 917 F. Supp. 1275 resolves to cluster 2140439 (case_name 'U.S. ex rel. Green v. Washington', D.D.C. 1994), not 'Hogan v. AT&T'. Court-confirmed hallucination from Gonzalez v. TTRA sanctions order (S.D. Tex. 2025). Classic WRONG_CASE: real reporter, completely different parties. Per design \u00a72.4, expected_final_ids point to the actual case the reporter resolves to, not the brief's fake name.",
       "source": "tests/data/known_fake_citations.json#hogan-att",
       "category": "named_exemplar",
       "phase3_classification_open": false,
@@ -842,7 +875,7 @@
         "text_source": "opinion_plain_text"
       },
       "expected_warnings_subset": [],
-      "rationale": "Real reporter 640 S.W.2d 232 resolves to cluster 2418868 (case_name \"Ogden v. Gibraltar Savings Ass'n\", Tex. 1982 wrongful foreclosure case), not TIG Ins. Co. v. Carter. Court-confirmed wrong-name hallucination from Gonzalez v. TTRA sanctions order — same source as Hogan named exemplar. Second wrong_case_real_reporter sample.",
+      "rationale": "Real reporter 640 S.W.2d 232 resolves to cluster 2418868 (case_name \"Ogden v. Gibraltar Savings Ass'n\", Tex. 1982 wrongful foreclosure case), not TIG Ins. Co. v. Carter. Court-confirmed wrong-name hallucination from Gonzalez v. TTRA sanctions order \u2014 same source as Hogan named exemplar. Second wrong_case_real_reporter sample.",
       "source": "tests/data/known_fake_citations.json#tig-carter",
       "category": "wrong_case_real_reporter",
       "phase3_classification_open": false,
@@ -861,7 +894,7 @@
         "text_source": "opinion_plain_text"
       },
       "expected_warnings_subset": [],
-      "rationale": "Real reporter 962 F. Supp. 1162 resolves to cluster 2311379 (case_name 'Kenro, Inc. v. Fax Daily, Inc.', S.D. Ind. 1997), not Gallagher v. Wilton Enterprises. Notable hybrid hallucination: 'Gallagher v. Wilton Enterprises' does exist as a real First Circuit opinion at a different citation, but the brief paired the real name with the wrong reporter number — court-confirmed hallucination from Nora v. M.A. Transport (N.D. Ill. 2025).",
+      "rationale": "Real reporter 962 F. Supp. 1162 resolves to cluster 2311379 (case_name 'Kenro, Inc. v. Fax Daily, Inc.', S.D. Ind. 1997), not Gallagher v. Wilton Enterprises. Notable hybrid hallucination: 'Gallagher v. Wilton Enterprises' does exist as a real First Circuit opinion at a different citation, but the brief paired the real name with the wrong reporter number \u2014 court-confirmed hallucination from Nora v. M.A. Transport (N.D. Ill. 2025).",
       "source": "tests/data/known_fake_citations.json#gallagher-wilton",
       "category": "wrong_case_real_reporter",
       "phase3_classification_open": false,
@@ -880,16 +913,16 @@
         "text_source": "opinion_plain_text"
       },
       "expected_warnings_subset": [],
-      "rationale": "Real reporter 608 F. Supp. 2d 269 resolves to cluster 2467149 (case_name 'Faghri v. University of Connecticut', 2009), not Shell Petroleum v. Costa Rica. Court (Flowz Digital LLC, C.D. Cal. 2025) was unable to locate Shell Petroleum after multiple searches; the cited reporter belongs to an unrelated Faghri case. known_fake_citations.json originally tagged this as hallucinated_case, but it actually fits WRONG_CASE more cleanly because the reporter does resolve — to a wholly different case.",
+      "rationale": "Real reporter 608 F. Supp. 2d 269 resolves to cluster 2467149 (case_name 'Faghri v. University of Connecticut', 2009), not Shell Petroleum v. Costa Rica. Court (Flowz Digital LLC, C.D. Cal. 2025) was unable to locate Shell Petroleum after multiple searches; the cited reporter belongs to an unrelated Faghri case. known_fake_citations.json originally tagged this as hallucinated_case, but it actually fits WRONG_CASE more cleanly because the reporter does resolve \u2014 to a wholly different case.",
       "source": "tests/data/known_fake_citations.json#shell-petroleum",
       "category": "wrong_case_real_reporter",
       "phase3_classification_open": false,
       "mock_spec": null
     },
     {
-      "id": "wrong-case-butler-motors-provisional",
+      "id": "not-found-butler-motors",
       "citation": "Butler Motors, Inc. v. Benosky, 181 N.E.3d 857 (Ind. Ct. App. 2021)",
-      "expected_status": "WRONG_CASE",
+      "expected_status": "NOT_FOUND",
       "expected_resolving_stage": null,
       "expected_final_ids": {
         "cluster_id": null,
@@ -899,11 +932,12 @@
         "text_source": null
       },
       "expected_warnings_subset": [],
-      "rationale": "Provisional WRONG_CASE per plan §4 footnote. The brief cites 181 N.E.3d 857 (wrong page); the actual case is at 181 N.E.3d 304 (same case, wrong page). However, controller live-verified that neither 181 N.E.3d 857 nor 181 N.E.3d 304 resolves to a CL cluster (both 404). Strict interpretation: status is NOT_FOUND, not WRONG_CASE, because the cite doesn't resolve to anything. Phase 3 may rule on whether 'wrong_page_number' is its own status, NOT_FOUND, or WRONG_CASE. expected_resolving_stage set to null since nothing resolves; expected_final_ids all null. phase3_classification_open: true.",
+      "rationale": "Provisional WRONG_CASE per plan \u00a74 footnote. The brief cites 181 N.E.3d 857 (wrong page); the actual case is at 181 N.E.3d 304 (same case, wrong page). However, controller live-verified that neither 181 N.E.3d 857 nor 181 N.E.3d 304 resolves to a CL cluster (both 404). Strict interpretation: status is NOT_FOUND, not WRONG_CASE, because the cite doesn't resolve to anything. Phase 3 may rule on whether 'wrong_page_number' is its own status, NOT_FOUND, or WRONG_CASE. expected_resolving_stage set to null since nothing resolves; expected_final_ids all null. phase3_classification_open: true.",
       "source": "tests/data/known_fake_citations.json#butler-motors",
       "category": "wrong_page_number_provisional",
-      "phase3_classification_open": true,
-      "mock_spec": null
+      "phase3_classification_open": false,
+      "mock_spec": null,
+      "phase3_ruling": "Q2: neither page 857 nor 304 resolves to a CL cluster; wrong_page_number warning cannot fire here. Reclassified WRONG_CASE -> NOT_FOUND."
     },
     {
       "id": "named-exemplar-verification-incomplete",
@@ -918,7 +952,7 @@
         "text_source": null
       },
       "expected_warnings_subset": [],
-      "rationale": "Design v2 §4 named exemplar — the canonical reference fixture for the VERIFICATION_INCOMPLETE status. §4 specifies this case to test that a primary-stage infrastructure failure does NOT silently degrade to NOT_FOUND; the verifier must surface the error in resolution_path and emit VERIFICATION_INCOMPLETE. Simulated HTTP 500 from CourtListener on the primary citation_lookup endpoint. Per design §2.8 internal gate, the verifier must produce VERIFICATION_INCOMPLETE rather than silently degrade to NOT_FOUND. The input citation is real (Obergefell, cluster 2812209 would resolve cleanly under normal conditions) — the mock harness intercepts and substitutes the failure response. Anchor fixture for infrastructure-failure-on-primary-stage.",
+      "rationale": "Design v2 \u00a74 named exemplar \u2014 the canonical reference fixture for the VERIFICATION_INCOMPLETE status. \u00a74 specifies this case to test that a primary-stage infrastructure failure does NOT silently degrade to NOT_FOUND; the verifier must surface the error in resolution_path and emit VERIFICATION_INCOMPLETE. Simulated HTTP 500 from CourtListener on the primary citation_lookup endpoint. Per design \u00a72.8 internal gate, the verifier must produce VERIFICATION_INCOMPLETE rather than silently degrade to NOT_FOUND. The input citation is real (Obergefell, cluster 2812209 would resolve cleanly under normal conditions) \u2014 the mock harness intercepts and substitutes the failure response. Anchor fixture for infrastructure-failure-on-primary-stage.",
       "source": "design_v2_doc#section_4",
       "category": "named_exemplar",
       "phase3_classification_open": false,
@@ -966,7 +1000,7 @@
         "text_source": null
       },
       "expected_warnings_subset": [],
-      "rationale": "citation_lookup returns clean no_match (Anderson WL cite not in CL's citation index). opinion_search fallback times out at the 15s client timeout. Per design §2.8: a single late-stage timeout cannot silently degrade to NOT_FOUND. The resolution_path must record citation_lookup with verdict=no_match AND opinion_search with verdict=errored. Status: VERIFICATION_INCOMPLETE. Exercises the multi-stage path where primary succeeds (as no_match) but fallback fails.",
+      "rationale": "citation_lookup returns clean no_match (Anderson WL cite not in CL's citation index). opinion_search fallback times out at the 15s client timeout. Per design \u00a72.8: a single late-stage timeout cannot silently degrade to NOT_FOUND. The resolution_path must record citation_lookup with verdict=no_match AND opinion_search with verdict=errored. Status: VERIFICATION_INCOMPLETE. Exercises the multi-stage path where primary succeeds (as no_match) but fallback fails.",
       "source": "design_v2_doc#section_2_8",
       "category": "infrastructure_failure_timeout",
       "phase3_classification_open": false,

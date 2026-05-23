@@ -127,9 +127,18 @@ def test_rationale_and_source_nonempty(corpus):
 # (VIA_RECAP -> DOCKET_ONLY per strict opinion-typed gate). The plan
 # explicitly authorizes lowering this floor — see Task 6.4b: "accept that
 # the corpus minimum drops to 3 and update the test_refactor_corpus.py
-# minimum threshold." VIA_RECAP minimum is 3.
+# minimum threshold." VIA_RECAP minimum lowered again in Phase 3 Task 6
+# after live-API validation: of the 4 originally-pinned VIA_RECAP
+# fixtures, all but Menges-actual were reclassified to DOCKET_ONLY under
+# strict gating (recap_doc_not_opinion_typed for Cabot/Hunter per Q1;
+# Mehar's "ORDER GRANTING Motion for Reconsideration" description
+# matches no opinion keywords; Doe v. Lawrence's WL-only citation has
+# no specific date to compare against doc filing date). The Phase 3
+# §3.1 ruling documents this — the floor of 1 is intentional under
+# strict Phase 3 logic. Phase 4 may loosen the strict gate and raise
+# the floor back up.
 _STATUS_MIN_FIXTURES = {s: 5 for s in _VALID_STATUSES}
-_STATUS_MIN_FIXTURES["VERIFIED_VIA_RECAP"] = 3
+_STATUS_MIN_FIXTURES["VERIFIED_VIA_RECAP"] = 1
 
 
 @pytest.mark.parametrize("status", sorted(_VALID_STATUSES))
@@ -156,7 +165,13 @@ def test_minimum_fixtures_per_status(corpus, status):
         # after Westlaw lookup showed 2009 WL 2392094 actually maps to the
         # Aug 4 procedural costs-taxation order, not the July 7 opinion the
         # fixture originally pinned. See docs/notes/wl-disambiguation-limit.md.
-        ("named-exemplar-mehar-holdings", "VERIFIED_VIA_RECAP"),
+        # Phase 3 Task 6 follow-up: Mehar's doc description "ORDER GRANTING
+        # Motion for Reconsideration" matches no opinion-typed keyword under
+        # the strict Phase 3 gate, so its expected_status was downgraded to
+        # VERIFIED_DOCKET_ONLY. The named_exemplar tag stays for traceability;
+        # see survey §3.1 for full ruling. The VIA_RECAP named-exemplar slot
+        # is currently empty by design.
+        ("named-exemplar-mehar-holdings", "VERIFIED_DOCKET_ONLY"),
         ("named-exemplar-wrong-case", "WRONG_CASE"),
         ("named-exemplar-verification-incomplete", "VERIFICATION_INCOMPLETE"),
     ],

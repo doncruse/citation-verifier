@@ -1,0 +1,1978 @@
+[
+  {
+    "id": "verified-obergefell",
+    "citation": "Obergefell v. Hodges, 576 U.S. 644 (2015)",
+    "expected_status": "VERIFIED",
+    "actual_status": "VERIFIED",
+    "expected_final_ids": {
+      "cluster_id": 2812209,
+      "opinion_id": null,
+      "docket_id": null,
+      "recap_document_id": null,
+      "text_source": "opinion_plain_text"
+    },
+    "actual_final_ids": {
+      "cluster_id": 2812209,
+      "opinion_id": null,
+      "docket_id": null,
+      "recap_document_id": null,
+      "absolute_url": "https://www.courtlistener.com/opinion/2812209/obergefell-v-hodges/",
+      "text_source": "opinion_plain_text"
+    },
+    "expected_warnings": [],
+    "actual_warnings": [],
+    "resolution_path": [
+      {
+        "stage": "citation_lookup",
+        "verdict": "resolved",
+        "confidence": 1.0,
+        "notes": ""
+      }
+    ],
+    "category": "happy_path",
+    "phase3_classification_open": false,
+    "rationale": "Landmark SCOTUS case; primary citation_lookup resolves cleanly. Anchor fixture for the standard VERIFIED happy path."
+  },
+  {
+    "id": "verified-bossart-xfailed",
+    "citation": "Bossart v. King Cnty., Case No. 2:24-cv-01776-JHC, 2025 WL 459154, at *1 (W.D. Wash. Feb. 11, 2025)",
+    "expected_status": "VERIFIED",
+    "actual_status": "VERIFIED",
+    "expected_final_ids": {
+      "cluster_id": 69346061,
+      "opinion_id": null,
+      "docket_id": null,
+      "recap_document_id": null,
+      "text_source": "opinion_plain_text"
+    },
+    "actual_final_ids": {
+      "cluster_id": 10331689,
+      "opinion_id": null,
+      "docket_id": null,
+      "recap_document_id": null,
+      "absolute_url": "https://www.courtlistener.com/opinion/10331689/bossart-v-king-county/",
+      "text_source": "opinion_plain_text"
+    },
+    "expected_warnings": [],
+    "actual_warnings": [],
+    "resolution_path": [
+      {
+        "stage": "citation_lookup",
+        "verdict": "no_match",
+        "confidence": null,
+        "notes": ""
+      },
+      {
+        "stage": "opinion_search",
+        "verdict": "resolved",
+        "confidence": 0.95,
+        "notes": "Reporter citation 2025 WL 459154 could not be confirmed (CourtListener has no reporter citations on file for this case), but we identified a likely match."
+      }
+    ],
+    "category": "xfailed_abbreviation_normalization",
+    "phase3_classification_open": true,
+    "rationale": "Pre-Phase-3 xfail (CL cluster-ID drift). Phase 3's caption_investigation may rescue. expected_final_ids.cluster_id pinned to the originally-canonical ID; Phase 3 confirms or updates. Abbreviation normalization (Cnty.) needed in the resolution path."
+  },
+  {
+    "id": "verified-busha-xfailed",
+    "citation": "Busha v. SC Dep't of Mental Health, No. 6:18-CV-02337-DCC, 2019 WL 651680 (D.S.C. Feb. 13, 2019)",
+    "expected_status": "VERIFIED",
+    "actual_status": "VERIFIED",
+    "expected_final_ids": {
+      "cluster_id": 14553775,
+      "opinion_id": null,
+      "docket_id": null,
+      "recap_document_id": null,
+      "text_source": "opinion_plain_text"
+    },
+    "actual_final_ids": {
+      "cluster_id": 9958130,
+      "opinion_id": null,
+      "docket_id": null,
+      "recap_document_id": null,
+      "absolute_url": "https://www.courtlistener.com/opinion/9958130/busha-v-sc-department-of-mental-health/",
+      "text_source": "opinion_plain_text"
+    },
+    "expected_warnings": [],
+    "actual_warnings": [],
+    "resolution_path": [
+      {
+        "stage": "citation_lookup",
+        "verdict": "no_match",
+        "confidence": null,
+        "notes": ""
+      },
+      {
+        "stage": "opinion_search",
+        "verdict": "resolved",
+        "confidence": 0.85,
+        "notes": "Date close: cited 2019 vs filed 2020-09-29; Reporter citation 2019 WL 651680 could not be confirmed (CourtListener has no reporter citations on file for this case), but we identified a likely match."
+      }
+    ],
+    "category": "xfailed_abbreviation_normalization",
+    "phase3_classification_open": true,
+    "rationale": "Pre-Phase-3 xfail (CL cluster-ID drift). Phase 3's caption_investigation may rescue. Dep't -> Department abbreviation normalization + judge suffix stripping. cluster_id pinned to known_real_citations.json value; Phase 3 confirms or updates."
+  },
+  {
+    "id": "verified-townsley-xfailed",
+    "citation": "Townsley v. Lifewise Assurance Co., Case No. C15-1228-JCC, 2016 WL 1393548, at *3 (W.D. Wash. April 8, 2016)",
+    "expected_status": "VERIFIED",
+    "actual_status": "VERIFIED_DOCKET_ONLY",
+    "expected_final_ids": {
+      "cluster_id": 5352576,
+      "opinion_id": null,
+      "docket_id": null,
+      "recap_document_id": null,
+      "text_source": "opinion_plain_text"
+    },
+    "actual_final_ids": {
+      "cluster_id": null,
+      "opinion_id": null,
+      "docket_id": 5352576,
+      "recap_document_id": null,
+      "absolute_url": "https://www.courtlistener.com/docket/5352576/42/townsley-v-snc-lavalin-constructors-inc/",
+      "text_source": null
+    },
+    "expected_warnings": [],
+    "actual_warnings": [],
+    "resolution_path": [
+      {
+        "stage": "citation_lookup",
+        "verdict": "no_match",
+        "confidence": null,
+        "notes": ""
+      },
+      {
+        "stage": "opinion_search",
+        "verdict": "no_match",
+        "confidence": null,
+        "notes": ""
+      },
+      {
+        "stage": "recap_document_search",
+        "verdict": "resolved",
+        "confidence": 0.5549,
+        "notes": "Found in RECAP (not in opinions database). Document dated 2016-04-08: ORDER granting defendant LifeWise's  36   Motion for Summary Judgment and denyin...; Name mismatch: cited \"Townsley v. Lifewise As"
+      },
+      {
+        "stage": "recap_docket_search",
+        "verdict": "resolved",
+        "confidence": 0.5549,
+        "notes": "Found in RECAP (not in opinions database). Document dated 2016-04-08; Name mismatch: cited \"Townsley v. Lifewise Assurance Co.\" vs found \"Townsley v. SNC-Lavalin Constructors Inc\"; Reporter citation 2"
+      }
+    ],
+    "category": "xfailed_docket_number_shorthand",
+    "phase3_classification_open": true,
+    "rationale": "Pre-Phase-3 xfail (CL cluster-ID drift). Phase 3's caption_investigation may rescue. Docket number shorthand expansion (C15 -> 15-cv) + judge suffix. CL has different defendant name. cluster_id pinned to known_real_citations.json value; Phase 3 confirms or updates."
+  },
+  {
+    "id": "verified-anderson-furst-xfailed",
+    "citation": "Anderson v. Furst, No. 17-cv-12676, 2018 WL 4407750, at *2 (E.D. Mich. Sept. 17, 2018)",
+    "expected_status": "VERIFIED",
+    "actual_status": "VERIFIED",
+    "expected_final_ids": {
+      "cluster_id": 6264209,
+      "opinion_id": null,
+      "docket_id": null,
+      "recap_document_id": null,
+      "text_source": "opinion_plain_text"
+    },
+    "actual_final_ids": {
+      "cluster_id": 9746415,
+      "opinion_id": null,
+      "docket_id": null,
+      "recap_document_id": null,
+      "absolute_url": "https://www.courtlistener.com/opinion/9746415/anderson-v-furst/",
+      "text_source": "opinion_plain_text"
+    },
+    "expected_warnings": [],
+    "actual_warnings": [],
+    "resolution_path": [
+      {
+        "stage": "citation_lookup",
+        "verdict": "no_match",
+        "confidence": null,
+        "notes": ""
+      },
+      {
+        "stage": "opinion_search",
+        "verdict": "resolved",
+        "confidence": 0.85,
+        "notes": "Date close: cited 2018 vs filed 2019-12-02; Reporter citation 2018 WL 4407750 could not be confirmed (CourtListener has no reporter citations on file for this case), but we identified a likely match."
+      }
+    ],
+    "category": "xfailed_recap_with_exact_date",
+    "phase3_classification_open": true,
+    "rationale": "Pre-Phase-3 xfail (CL cluster-ID drift). RECAP with exact date matching. Phase 3's caption_investigation may rescue. cluster_id pinned to known_real_citations.json value; Phase 3 confirms or updates."
+  },
+  {
+    "id": "verified-hanover-shoe-scotus",
+    "citation": "Hanover Shoe, Inc. v. United Shoe Machinery Corp., 392 U.S. 481 (1968)",
+    "expected_status": "VERIFIED",
+    "actual_status": "VERIFIED",
+    "expected_final_ids": {
+      "cluster_id": 107749,
+      "opinion_id": null,
+      "docket_id": null,
+      "recap_document_id": null,
+      "text_source": "opinion_plain_text"
+    },
+    "actual_final_ids": {
+      "cluster_id": 107749,
+      "opinion_id": null,
+      "docket_id": null,
+      "recap_document_id": null,
+      "absolute_url": "https://www.courtlistener.com/opinion/107749/hanover-shoe-inc-v-united-shoe-machinery-corp/",
+      "text_source": "opinion_plain_text"
+    },
+    "expected_warnings": [],
+    "actual_warnings": [],
+    "resolution_path": [
+      {
+        "stage": "citation_lookup",
+        "verdict": "resolved",
+        "confidence": 1.0,
+        "notes": ""
+      }
+    ],
+    "category": "happy_path_scotus",
+    "phase3_classification_open": false,
+    "rationale": "SCOTUS happy-path sample. citation_lookup resolves on first call. Source pool: benchmark in_cl_via_citation_lookup (45 SCOTUS rows)."
+  },
+  {
+    "id": "verified-steir-circuit",
+    "citation": "Steir v. Girl Scouts of the USA, 383 F.3d 7, 12 (1st Cir. 2004)",
+    "expected_status": "VERIFIED",
+    "actual_status": "VERIFIED",
+    "expected_final_ids": {
+      "cluster_id": 201318,
+      "opinion_id": null,
+      "docket_id": null,
+      "recap_document_id": null,
+      "text_source": "opinion_plain_text"
+    },
+    "actual_final_ids": {
+      "cluster_id": 201318,
+      "opinion_id": null,
+      "docket_id": null,
+      "recap_document_id": null,
+      "absolute_url": "https://www.courtlistener.com/opinion/201318/steir-v-girl-scouts-of-the-u/",
+      "text_source": "opinion_plain_text"
+    },
+    "expected_warnings": [],
+    "actual_warnings": [],
+    "resolution_path": [
+      {
+        "stage": "citation_lookup",
+        "verdict": "resolved",
+        "confidence": 1.0,
+        "notes": ""
+      }
+    ],
+    "category": "happy_path_circuit",
+    "phase3_classification_open": false,
+    "rationale": "Circuit (1st Cir.) happy-path sample. citation_lookup resolves on first call. Source pool: benchmark in_cl_via_citation_lookup (43 Circuit rows)."
+  },
+  {
+    "id": "verified-janvey-federal-district",
+    "citation": "Janvey v. Proskauer Rose, LLP, 59 F. Supp. 3d 1, 7 (D.D.C. 2014)",
+    "expected_status": "VERIFIED",
+    "actual_status": "VERIFIED",
+    "expected_final_ids": {
+      "cluster_id": 2685607,
+      "opinion_id": null,
+      "docket_id": null,
+      "recap_document_id": null,
+      "text_source": "opinion_plain_text"
+    },
+    "actual_final_ids": {
+      "cluster_id": 2685607,
+      "opinion_id": null,
+      "docket_id": null,
+      "recap_document_id": null,
+      "absolute_url": "https://www.courtlistener.com/opinion/2685607/janvey-v-proskauer-rose-llp/",
+      "text_source": "opinion_plain_text"
+    },
+    "expected_warnings": [],
+    "actual_warnings": [],
+    "resolution_path": [
+      {
+        "stage": "citation_lookup",
+        "verdict": "resolved",
+        "confidence": 1.0,
+        "notes": ""
+      }
+    ],
+    "category": "happy_path_federal_district",
+    "phase3_classification_open": false,
+    "rationale": "Federal District happy-path sample. citation_lookup resolves on first call. Source pool: benchmark in_cl_via_citation_lookup (18 Federal_District rows)."
+  },
+  {
+    "id": "verified-howery-state-colr",
+    "citation": "People v. Howery, 178 Ill. 2d 1, 32 (Ill. 1997)",
+    "expected_status": "VERIFIED",
+    "actual_status": "VERIFIED",
+    "expected_final_ids": {
+      "cluster_id": 2229858,
+      "opinion_id": null,
+      "docket_id": null,
+      "recap_document_id": null,
+      "text_source": "opinion_plain_text"
+    },
+    "actual_final_ids": {
+      "cluster_id": 2229858,
+      "opinion_id": null,
+      "docket_id": null,
+      "recap_document_id": null,
+      "absolute_url": "https://www.courtlistener.com/opinion/2229858/people-v-howery/",
+      "text_source": "opinion_plain_text"
+    },
+    "expected_warnings": [],
+    "actual_warnings": [],
+    "resolution_path": [
+      {
+        "stage": "citation_lookup",
+        "verdict": "resolved",
+        "confidence": 1.0,
+        "notes": ""
+      }
+    ],
+    "category": "happy_path_state_colr",
+    "phase3_classification_open": false,
+    "rationale": "State court of last resort (Illinois Supreme) happy-path sample. citation_lookup resolves on first call. Source pool: benchmark in_cl_via_citation_lookup (38 State_COLR rows)."
+  },
+  {
+    "id": "verified-peerenboom-state-iac",
+    "citation": "Peerenboom v. Marvel Entertainment, LLC, 148 A.D.3d 531 (N.Y. App. Div. 2017)",
+    "expected_status": "VERIFIED",
+    "actual_status": "VERIFIED",
+    "expected_final_ids": {
+      "cluster_id": 4376072,
+      "opinion_id": null,
+      "docket_id": null,
+      "recap_document_id": null,
+      "text_source": "opinion_plain_text"
+    },
+    "actual_final_ids": {
+      "cluster_id": 4376072,
+      "opinion_id": null,
+      "docket_id": null,
+      "recap_document_id": null,
+      "absolute_url": "https://www.courtlistener.com/opinion/4376072/peerenboom-v-marvel-entertainment-llc/",
+      "text_source": "opinion_plain_text"
+    },
+    "expected_warnings": [],
+    "actual_warnings": [],
+    "resolution_path": [
+      {
+        "stage": "citation_lookup",
+        "verdict": "resolved",
+        "confidence": 1.0,
+        "notes": ""
+      }
+    ],
+    "category": "happy_path_state_iac",
+    "phase3_classification_open": false,
+    "rationale": "State intermediate appellate court (NY App. Div.) happy-path sample where the A.D.3d cite IS in CL's citation index \u2014 contrasts with the cl_cluster_parallel_cite_missing VERIFIED_PARTIAL fixtures. Source pool: benchmark in_cl_via_citation_lookup (26 State_IAC rows)."
+  },
+  {
+    "id": "verified-isaacs-caterpillar-bonus",
+    "citation": "Isaacs v. Caterpillar, Inc., 702 F. Supp. 711, 713 (S.D. Ohio 1988)",
+    "expected_status": "VERIFIED",
+    "actual_status": "VERIFIED",
+    "expected_final_ids": {
+      "cluster_id": 2252696,
+      "opinion_id": null,
+      "docket_id": null,
+      "recap_document_id": null,
+      "text_source": "opinion_plain_text"
+    },
+    "actual_final_ids": {
+      "cluster_id": 2252696,
+      "opinion_id": null,
+      "docket_id": null,
+      "recap_document_id": null,
+      "absolute_url": "https://www.courtlistener.com/opinion/2252696/isaacs-v-caterpillar-inc/",
+      "text_source": "opinion_plain_text"
+    },
+    "expected_warnings": [],
+    "actual_warnings": [],
+    "resolution_path": [
+      {
+        "stage": "citation_lookup",
+        "verdict": "resolved",
+        "confidence": 1.0,
+        "notes": ""
+      }
+    ],
+    "category": "happy_path_abbreviation",
+    "phase3_classification_open": false,
+    "rationale": "Bonus Federal District sample exercising abbreviation expansion in the case name (Inc.). citation_lookup resolves on first call. Source pool: benchmark in_cl_via_citation_lookup."
+  },
+  {
+    "id": "verified-occidental-permian-fallback",
+    "citation": "Occidental Permian, Ltd. v. Citation 2002 Inv. LLC, 689 S.W.3d 899, 905 (Tex. 2024)",
+    "expected_status": "VERIFIED",
+    "actual_status": "NOT_FOUND",
+    "expected_final_ids": {
+      "cluster_id": 9505188,
+      "opinion_id": null,
+      "docket_id": null,
+      "recap_document_id": null,
+      "text_source": "opinion_plain_text"
+    },
+    "actual_final_ids": {
+      "cluster_id": null,
+      "opinion_id": null,
+      "docket_id": 65759673,
+      "recap_document_id": null,
+      "absolute_url": "https://www.courtlistener.com/docket/65759673/103/frio-energy-partners-llc-v-finance-technology-leverage-llc/",
+      "text_source": null
+    },
+    "expected_warnings": [],
+    "actual_warnings": [],
+    "resolution_path": [
+      {
+        "stage": "citation_lookup",
+        "verdict": "no_match",
+        "confidence": null,
+        "notes": ""
+      },
+      {
+        "stage": "opinion_search",
+        "verdict": "no_match",
+        "confidence": null,
+        "notes": ""
+      },
+      {
+        "stage": "recap_docket_search",
+        "verdict": "no_match",
+        "confidence": null,
+        "notes": "Found in RECAP (not in opinions database). Document dated 2024-10-15: Memorandum & Opinion; Name mismatch: cited \"Occidental Permian, Ltd. v. Citation 2002 Inv. LLC\" vs found \"Frio Energy Partners, LL"
+      }
+    ],
+    "category": "fallback_opinion_search",
+    "phase3_classification_open": false,
+    "rationale": "Cluster exists in CL but its citations[] field is empty \u2014 primary citation_lookup misses, opinion_search fuzzy fallback resolves to the same cluster. Sub-case of VERIFIED via fallback path. Resolving stage is opinion_search, not citation_lookup."
+  },
+  {
+    "id": "verified-sundown-energy-fallback",
+    "citation": "Sundown Energy LP v. HJSA No. 3, L.P., 622 S.W.3d 884, 889 (Tex. 2021)",
+    "expected_status": "VERIFIED",
+    "actual_status": "VERIFIED",
+    "expected_final_ids": {
+      "cluster_id": 4872528,
+      "opinion_id": null,
+      "docket_id": null,
+      "recap_document_id": null,
+      "text_source": "opinion_plain_text"
+    },
+    "actual_final_ids": {
+      "cluster_id": 4872528,
+      "opinion_id": null,
+      "docket_id": null,
+      "recap_document_id": null,
+      "absolute_url": "https://www.courtlistener.com/opinion/4872528/sundown-energy-lp-smc-2000-lp-pgp-holdings-1-llc-smith-allen-oil-gas/",
+      "text_source": "opinion_plain_text"
+    },
+    "expected_warnings": [],
+    "actual_warnings": [],
+    "resolution_path": [
+      {
+        "stage": "citation_lookup",
+        "verdict": "no_match",
+        "confidence": null,
+        "notes": ""
+      },
+      {
+        "stage": "opinion_search",
+        "verdict": "resolved",
+        "confidence": 0.4369,
+        "notes": "Name mismatch: cited \"Sundown Energy LP v. HJSA, L.P.\" vs found \"Sundown Energy Lp Smc 2000 Lp, Pgp Holdings 1, LLC Smith Allen Oil & Gas, LLP Transmountain Exploration LLC Fortune Natural Resources C"
+      },
+      {
+        "stage": "recap_document_search",
+        "verdict": "no_match",
+        "confidence": null,
+        "notes": ""
+      },
+      {
+        "stage": "recap_docket_search",
+        "verdict": "no_match",
+        "confidence": null,
+        "notes": "Found in RECAP (not in opinions database). Document dated 2021-08-18: Order on Motion for Protective Order AND Order on Motion to Supplement AND Order...; Name mismatch: cited \"Sundown Energy LP v. HJ"
+      }
+    ],
+    "category": "fallback_opinion_search",
+    "phase3_classification_open": false,
+    "rationale": "Cluster exists in CL but its citations[] field is empty \u2014 primary citation_lookup misses, opinion_search fuzzy fallback resolves. Second cl_cluster_citations_empty sample for sub-case variety."
+  },
+  {
+    "id": "not-found-bloomberg",
+    "citation": "Bloomberg L.P. v. Bd. of Govs. of the Fed. Reserve Sys., 649 F. 3d 651, 657 (D.C. Cir. 2011)",
+    "expected_status": "NOT_FOUND",
+    "actual_status": "NOT_FOUND",
+    "expected_final_ids": {
+      "cluster_id": null,
+      "opinion_id": null,
+      "docket_id": null,
+      "recap_document_id": null,
+      "text_source": null
+    },
+    "actual_final_ids": {
+      "cluster_id": null,
+      "opinion_id": null,
+      "docket_id": 72095497,
+      "recap_document_id": null,
+      "absolute_url": "https://www.courtlistener.com/docket/72095497/01208811717/chamber-of-commerce-of-the-united-states-of-ameri-v-dhs/",
+      "text_source": null
+    },
+    "expected_warnings": [],
+    "actual_warnings": [],
+    "resolution_path": [
+      {
+        "stage": "citation_lookup",
+        "verdict": "no_match",
+        "confidence": null,
+        "notes": ""
+      },
+      {
+        "stage": "opinion_search",
+        "verdict": "no_match",
+        "confidence": null,
+        "notes": ""
+      },
+      {
+        "stage": "recap_docket_search",
+        "verdict": "no_match",
+        "confidence": null,
+        "notes": "Found in RECAP (not in opinions database). Document dated 2026-01-09: JOINT APPENDIX [2153669] filed by Chamber of Commerce of the United States of Am...; Name mismatch: cited \"Bloomberg L.P. v. Board"
+      }
+    ],
+    "category": "hallucinated_case",
+    "phase3_classification_open": false,
+    "rationale": "Court-confirmed hallucinated citation from a sanctioned AI-generated brief (Gonzalez v. TTRA, S.D. Tex. 2025). Plausible D.C. Cir. format; no case exists."
+  },
+  {
+    "id": "not-found-head-chicora",
+    "citation": "Head v. Chicora Life Ctr., LLC, 290 F. Supp. 3d 883, 893 (S.D. Tex. 2018)",
+    "expected_status": "NOT_FOUND",
+    "actual_status": "WRONG_CASE",
+    "expected_final_ids": {
+      "cluster_id": null,
+      "opinion_id": null,
+      "docket_id": null,
+      "recap_document_id": null,
+      "text_source": null
+    },
+    "actual_final_ids": {
+      "cluster_id": 7328468,
+      "opinion_id": null,
+      "docket_id": null,
+      "recap_document_id": null,
+      "absolute_url": "https://www.courtlistener.com/opinion/7328468/troyer-v-natl-futures-assn/",
+      "text_source": "opinion_plain_text"
+    },
+    "expected_warnings": [],
+    "actual_warnings": [],
+    "resolution_path": [
+      {
+        "stage": "citation_lookup",
+        "verdict": "resolved",
+        "confidence": 1.0,
+        "notes": "name mismatch flagged for caption_investigation"
+      },
+      {
+        "stage": "caption_investigation",
+        "verdict": "resolved",
+        "confidence": 1.0,
+        "notes": "no party-overlap across cluster/docket/opinion sources"
+      }
+    ],
+    "category": "hallucinated_case",
+    "phase3_classification_open": false,
+    "rationale": "Court-confirmed hallucinated citation from the same Gonzalez v. TTRA sanctions order. Fabricated."
+  },
+  {
+    "id": "not-found-gibbs-wright",
+    "citation": "Gibbs v. Wright, 2020 WL 1877661, at *2 (E.D. Tenn. Apr. 15, 2020)",
+    "expected_status": "NOT_FOUND",
+    "actual_status": "VERIFIED_DOCKET_ONLY",
+    "expected_final_ids": {
+      "cluster_id": null,
+      "opinion_id": null,
+      "docket_id": null,
+      "recap_document_id": null,
+      "text_source": null
+    },
+    "actual_final_ids": {
+      "cluster_id": null,
+      "opinion_id": null,
+      "docket_id": 28273838,
+      "recap_document_id": null,
+      "absolute_url": "https://www.courtlistener.com/docket/28273838/united-states-v-draughn/",
+      "text_source": null
+    },
+    "expected_warnings": [],
+    "actual_warnings": [],
+    "resolution_path": [
+      {
+        "stage": "citation_lookup",
+        "verdict": "no_match",
+        "confidence": null,
+        "notes": ""
+      },
+      {
+        "stage": "opinion_search",
+        "verdict": "no_match",
+        "confidence": null,
+        "notes": ""
+      },
+      {
+        "stage": "recap_docket_search",
+        "verdict": "resolved",
+        "confidence": 0.4291,
+        "notes": "Found in RECAP (not in opinions database). Document dated 2020-03-03; Name mismatch: cited \"Gibbs v. Wright\" vs found \"United States v. Draughn\"; Date close: cited 2020-04-15 vs filed 2020-03-03; Repo"
+      }
+    ],
+    "category": "hallucinated_case",
+    "phase3_classification_open": false,
+    "rationale": "Court-confirmed hallucinated WL cite from Hardy v. Ford Motor Co. sanctions discussion. Fabricated."
+  },
+  {
+    "id": "not-found-terry-blacks-bbq",
+    "citation": "Terry Black's Barbecue, L.L.C. v. State Auto. Mut. Ins. Co., 22 F.4th 450, 459 (5th Cir. 2022)",
+    "expected_status": "NOT_FOUND",
+    "actual_status": "NOT_FOUND",
+    "expected_final_ids": {
+      "cluster_id": null,
+      "opinion_id": null,
+      "docket_id": null,
+      "recap_document_id": null,
+      "text_source": null
+    },
+    "actual_final_ids": {
+      "cluster_id": 9389319,
+      "opinion_id": null,
+      "docket_id": null,
+      "recap_document_id": null,
+      "absolute_url": "https://www.courtlistener.com/opinion/9389319/s-orthopaedic-spclt-v-state-farm-fire/",
+      "text_source": null
+    },
+    "expected_warnings": [],
+    "actual_warnings": [],
+    "resolution_path": [
+      {
+        "stage": "citation_lookup",
+        "verdict": "no_match",
+        "confidence": null,
+        "notes": ""
+      },
+      {
+        "stage": "opinion_search",
+        "verdict": "no_match",
+        "confidence": null,
+        "notes": "Name mismatch: cited \"Terry Black's Barbecue, L.L.C. v. State Auto. Mut. Insurance. Co.\" vs found \"S Orthopaedic Spclt v. State Farm Fire\"; Date close: cited 2022 vs filed 2023-04-04; Reporter citatio"
+      },
+      {
+        "stage": "recap_docket_search",
+        "verdict": "no_match",
+        "confidence": null,
+        "notes": "Found in RECAP (not in opinions database). Document dated 2023-10-06: Published Opinion; Name mismatch: cited \"Terry Black's Barbecue, L.L.C. v. State Auto. Mut. Insurance. Co.\" vs found \"Princeton Ex"
+      }
+    ],
+    "category": "not_in_cl_real_case",
+    "phase3_classification_open": false,
+    "rationale": "Benchmark-classified not_in_cl: case is real but absent from CL's index across all stages. Useful as a non-hallucinated NOT_FOUND fixture (real case, just not in CL)."
+  },
+  {
+    "id": "not-found-azad-realty",
+    "citation": "Azad v. 270 5th Realty Corp., 10 N.Y.3d 706 (N.Y. 2008)",
+    "expected_status": "NOT_FOUND",
+    "actual_status": "NOT_FOUND",
+    "expected_final_ids": {
+      "cluster_id": null,
+      "opinion_id": null,
+      "docket_id": null,
+      "recap_document_id": null,
+      "text_source": null
+    },
+    "actual_final_ids": {
+      "cluster_id": null,
+      "opinion_id": null,
+      "docket_id": null,
+      "recap_document_id": null,
+      "absolute_url": null,
+      "text_source": null
+    },
+    "expected_warnings": [],
+    "actual_warnings": [],
+    "resolution_path": [
+      {
+        "stage": "citation_lookup",
+        "verdict": "no_match",
+        "confidence": null,
+        "notes": ""
+      },
+      {
+        "stage": "opinion_search",
+        "verdict": "no_match",
+        "confidence": null,
+        "notes": ""
+      }
+    ],
+    "category": "not_in_cl_real_case",
+    "phase3_classification_open": false,
+    "rationale": "Benchmark-classified not_in_cl: NY Court of Appeals memorandum decision absent from CL's index. Real case, not in CL."
+  },
+  {
+    "id": "not-found-people-campbell",
+    "citation": "People v. Campbell, 243 A.D.3d 1221 (N.Y. App. Div. 2024)",
+    "expected_status": "NOT_FOUND",
+    "actual_status": "VERIFIED",
+    "expected_final_ids": {
+      "cluster_id": null,
+      "opinion_id": null,
+      "docket_id": null,
+      "recap_document_id": null,
+      "text_source": null
+    },
+    "actual_final_ids": {
+      "cluster_id": 10162998,
+      "opinion_id": null,
+      "docket_id": null,
+      "recap_document_id": null,
+      "absolute_url": "https://www.courtlistener.com/opinion/10162998/people-v-campbell/",
+      "text_source": "opinion_plain_text"
+    },
+    "expected_warnings": [],
+    "actual_warnings": [],
+    "resolution_path": [
+      {
+        "stage": "citation_lookup",
+        "verdict": "no_match",
+        "confidence": null,
+        "notes": ""
+      },
+      {
+        "stage": "opinion_search",
+        "verdict": "resolved",
+        "confidence": 0.9,
+        "notes": "Citation mismatch: cited 243 A.D.3d 1221 but CourtListener has 2024 NY Slip Op 05355, but we identified a likely match."
+      }
+    ],
+    "category": "not_in_cl_real_case",
+    "phase3_classification_open": false,
+    "rationale": "Benchmark-classified not_in_cl: NY App Div decision absent from CL's index. Real case, not in CL."
+  },
+  {
+    "id": "not-found-iglesias-hialeah-provisional",
+    "citation": "Iglesias v. City of Hialeah, 305 So. 3d 20 (Fla. Dist. Ct. App. 2020)",
+    "expected_status": "NOT_FOUND",
+    "actual_status": "VERIFIED_DOCKET_ONLY",
+    "expected_final_ids": {
+      "cluster_id": null,
+      "opinion_id": null,
+      "docket_id": null,
+      "recap_document_id": null,
+      "text_source": null
+    },
+    "actual_final_ids": {
+      "cluster_id": null,
+      "opinion_id": null,
+      "docket_id": 16327411,
+      "recap_document_id": null,
+      "absolute_url": "https://www.courtlistener.com/docket/16327411/48/dipietro-v-city-of-hialeah/",
+      "text_source": null
+    },
+    "expected_warnings": [],
+    "actual_warnings": [],
+    "resolution_path": [
+      {
+        "stage": "citation_lookup",
+        "verdict": "no_match",
+        "confidence": null,
+        "notes": ""
+      },
+      {
+        "stage": "opinion_search",
+        "verdict": "no_match",
+        "confidence": null,
+        "notes": "Name mismatch: cited \"Iglesias v. City of Hialeah\" vs found \"Henry v. Somerton, City of\"; Court mismatch: cited fladistctapp vs found azd; Date close: cited 2020 vs filed 2021-06-17; Reporter citation"
+      },
+      {
+        "stage": "recap_docket_search",
+        "verdict": "resolved",
+        "confidence": 0.4587,
+        "notes": "Found in RECAP (not in opinions database). Document dated 2020-07-24: Continue; Name mismatch: cited \"Iglesias v. City of Hialeah\" vs found \"DIPIETRO v. CITY OF HIALEAH\"; Court mismatch: cited fladist"
+      }
+    ],
+    "category": "rescue_was_false_positive",
+    "phase3_classification_open": true,
+    "rationale": "Benchmark-classified rescue_was_false_positive: pre-Phase-3 fallback ladder rescued this incorrectly. Phase 3 stricter logic should return NOT_FOUND. Exploratory; phase3_classification_open: true until confirmed."
+  },
+  {
+    "id": "verified-rule-25d-gilliard-mcwilliams",
+    "citation": "Gilliard v. McWilliams, 2019 WL 3304707",
+    "expected_status": "VERIFIED",
+    "actual_status": "VERIFIED",
+    "expected_final_ids": {
+      "cluster_id": 4642011,
+      "opinion_id": null,
+      "docket_id": null,
+      "recap_document_id": null,
+      "text_source": "opinion_plain_text"
+    },
+    "actual_final_ids": {
+      "cluster_id": 7330589,
+      "opinion_id": null,
+      "docket_id": null,
+      "recap_document_id": null,
+      "absolute_url": "https://www.courtlistener.com/opinion/7330589/gilliard-v-mcwilliams/",
+      "text_source": "opinion_plain_text"
+    },
+    "expected_warnings": [
+      "cl_display_name_data_bug"
+    ],
+    "actual_warnings": [],
+    "resolution_path": [
+      {
+        "stage": "citation_lookup",
+        "verdict": "no_match",
+        "confidence": null,
+        "notes": ""
+      },
+      {
+        "stage": "opinion_search",
+        "verdict": "resolved",
+        "confidence": 0.7667,
+        "notes": "Low confidence: court not available in citation text; Date close: cited 2019 vs filed 2018-06-26; Citation mismatch: cited 2019 WL 3304707 but CourtListener has 315 F. Supp. 3d 402, but we identified "
+      }
+    ],
+    "category": "rule_25d_substitution",
+    "phase3_classification_open": false,
+    "rationale": "Rule 25(d) automatic-substitution diverges the brief caption from CL's display caption (same case, different display name). citation_lookup resolves the WL cite cleanly; the name matcher must flag the mismatch as cl_display_name_data_bug rather than escalating to WRONG_CASE."
+  },
+  {
+    "id": "verified-rule-25d-preston-smith",
+    "citation": "Preston v. Smith, 2023 WL 5337430",
+    "expected_status": "VERIFIED",
+    "actual_status": "VERIFIED",
+    "expected_final_ids": {
+      "cluster_id": 9729396,
+      "opinion_id": null,
+      "docket_id": null,
+      "recap_document_id": null,
+      "text_source": "opinion_plain_text"
+    },
+    "actual_final_ids": {
+      "cluster_id": 9421647,
+      "opinion_id": null,
+      "docket_id": null,
+      "recap_document_id": null,
+      "absolute_url": "https://www.courtlistener.com/opinion/9421647/donald-w-taylor-v-clark-aspy-madison-preston-and-naman-howell-smith/",
+      "text_source": "opinion_plain_text"
+    },
+    "expected_warnings": [
+      "cl_display_name_data_bug"
+    ],
+    "actual_warnings": [],
+    "resolution_path": [
+      {
+        "stage": "citation_lookup",
+        "verdict": "no_match",
+        "confidence": null,
+        "notes": ""
+      },
+      {
+        "stage": "opinion_search",
+        "verdict": "resolved",
+        "confidence": 0.7667,
+        "notes": "Low confidence: court not available in citation text; Reporter citation 2023 WL 5337430 could not be confirmed (CourtListener has no reporter citations on file for this case), but we identified a poss"
+      }
+    ],
+    "category": "rule_25d_substitution",
+    "phase3_classification_open": false,
+    "rationale": "Rule 25(d) substitution case. citation_lookup resolves; CL's display caption diverges from the brief caption. Second Rule 25(d) sample for sub-case variety."
+  },
+  {
+    "id": "verified-rule-25d-viken-detection",
+    "citation": "Viken Detection Corp. v. Doe, 2019 WL 5268725",
+    "expected_status": "VERIFIED",
+    "actual_status": "VERIFIED",
+    "expected_final_ids": {
+      "cluster_id": 9731515,
+      "opinion_id": null,
+      "docket_id": null,
+      "recap_document_id": null,
+      "text_source": "opinion_plain_text"
+    },
+    "actual_final_ids": {
+      "cluster_id": 9731515,
+      "opinion_id": null,
+      "docket_id": null,
+      "recap_document_id": null,
+      "absolute_url": "https://www.courtlistener.com/opinion/9731515/viken-detection-corporation-v-bradshaw/",
+      "text_source": "opinion_plain_text"
+    },
+    "expected_warnings": [
+      "cl_display_name_data_bug"
+    ],
+    "actual_warnings": [],
+    "resolution_path": [
+      {
+        "stage": "citation_lookup",
+        "verdict": "no_match",
+        "confidence": null,
+        "notes": ""
+      },
+      {
+        "stage": "opinion_search",
+        "verdict": "resolved",
+        "confidence": 0.5789,
+        "notes": "Low confidence: court not available in citation text; Name mismatch: cited \"Viken Detection Corp. v. Doe\" vs found \"Viken Detection Corporation v. Bradshaw\"; Reporter citation 2019 WL 5268725 could no"
+      }
+    ],
+    "category": "rule_25d_substitution",
+    "phase3_classification_open": false,
+    "rationale": "Rule 25(d) substitution case. citation_lookup resolves; CL's display caption diverges from the brief caption. Third Rule 25(d) sample (all 3 from benchmark)."
+  },
+  {
+    "id": "verified-ssa-pseudonym-michael-b-berryhill",
+    "citation": "Michael B. v. Berryhill, 2019 WL 2269962",
+    "expected_status": "VERIFIED",
+    "actual_status": "VERIFIED_DOCKET_ONLY",
+    "expected_final_ids": {
+      "cluster_id": 9674181,
+      "opinion_id": null,
+      "docket_id": null,
+      "recap_document_id": null,
+      "text_source": "opinion_plain_text"
+    },
+    "actual_final_ids": {
+      "cluster_id": null,
+      "opinion_id": null,
+      "docket_id": 6485557,
+      "recap_document_id": null,
+      "absolute_url": "https://www.courtlistener.com/docket/6485557/20/michael-b-v-berryhill/",
+      "text_source": null
+    },
+    "expected_warnings": [
+      "cl_display_name_data_bug"
+    ],
+    "actual_warnings": [],
+    "resolution_path": [
+      {
+        "stage": "citation_lookup",
+        "verdict": "no_match",
+        "confidence": null,
+        "notes": ""
+      },
+      {
+        "stage": "opinion_search",
+        "verdict": "resolved",
+        "confidence": 0.4671,
+        "notes": "Low confidence: court not available in citation text; Name mismatch: cited \"Michael B. v. Berryhill\" vs found \"Smith v. Berryhill\"; Citation mismatch: cited 2019 WL 2269962 but CourtListener has 587 U"
+      },
+      {
+        "stage": "recap_docket_search",
+        "verdict": "resolved",
+        "confidence": 0.7667,
+        "notes": "Found in RECAP (not in opinions database). Document dated 2018-08-30: Judgment-Clerk (Form Attached); Low confidence: court not available in citation text; Date close: cited 2019 vs filed 2018-08-30; "
+      }
+    ],
+    "category": "ssa_pseudonym",
+    "phase3_classification_open": false,
+    "rationale": "Social Security Administration case using a plaintiff pseudonym (Michael B.) in the brief caption. CL stores the real plaintiff name (Buschman v. Berryhill). Same case, different display name. The name matcher must flag as cl_display_name_data_bug rather than WRONG_CASE."
+  },
+  {
+    "id": "verified-ssa-pseudonym-john-s-bisignano",
+    "citation": "John S. v. Bisignano, 2025 WL 1505405",
+    "expected_status": "VERIFIED",
+    "actual_status": "VERIFIED",
+    "expected_final_ids": {
+      "cluster_id": 10593230,
+      "opinion_id": null,
+      "docket_id": null,
+      "recap_document_id": null,
+      "text_source": "opinion_plain_text"
+    },
+    "actual_final_ids": {
+      "cluster_id": 10736117,
+      "opinion_id": null,
+      "docket_id": null,
+      "recap_document_id": null,
+      "absolute_url": "https://www.courtlistener.com/opinion/10736117/john-a-s-v-frank-bisignano-commissioner-of-social-security/",
+      "text_source": "opinion_plain_text"
+    },
+    "expected_warnings": [
+      "cl_display_name_data_bug"
+    ],
+    "actual_warnings": [],
+    "resolution_path": [
+      {
+        "stage": "citation_lookup",
+        "verdict": "no_match",
+        "confidence": null,
+        "notes": ""
+      },
+      {
+        "stage": "opinion_search",
+        "verdict": "resolved",
+        "confidence": 0.7667,
+        "notes": "Low confidence: court not available in citation text; Reporter citation 2025 WL 1505405 could not be confirmed (CourtListener has no reporter citations on file for this case), but we identified a poss"
+      }
+    ],
+    "category": "ssa_pseudonym",
+    "phase3_classification_open": false,
+    "rationale": "SSA case using a plaintiff pseudonym (John S.). CL stores the real plaintiff name (Sims v. Bisignano). Second ssa_pseudonym sample."
+  },
+  {
+    "id": "named-exemplar-koch",
+    "citation": "Koch v. United States, 857 F.3d 267 (5th Cir. 2017)",
+    "expected_status": "VERIFIED",
+    "actual_status": "VERIFIED",
+    "expected_final_ids": {
+      "cluster_id": 4390987,
+      "opinion_id": null,
+      "docket_id": null,
+      "recap_document_id": null,
+      "text_source": "opinion_plain_text"
+    },
+    "actual_final_ids": {
+      "cluster_id": 4390987,
+      "opinion_id": null,
+      "docket_id": null,
+      "recap_document_id": null,
+      "absolute_url": "https://www.courtlistener.com/opinion/4390987/ricky-koch-v-tote-incorporated/",
+      "text_source": "opinion_plain_text"
+    },
+    "expected_warnings": [
+      "cl_display_name_data_bug"
+    ],
+    "actual_warnings": [],
+    "resolution_path": [
+      {
+        "stage": "citation_lookup",
+        "verdict": "resolved",
+        "confidence": 1.0,
+        "notes": ""
+      }
+    ],
+    "category": "named_exemplar",
+    "phase3_classification_open": false,
+    "rationale": "Design v2 \u00a74 named exemplar. Live citation_lookup against 857 F.3d 267 returns cluster 4390987 with CL case_name 'Ricky Koch v. Tote, Incorporated' \u2014 divergent from the brief's 'Koch v. United States' caption. The verifier's name matcher flags the mismatch; Phase 3's caption_investigation confirms i"
+  },
+  {
+    "id": "verified-partial-gold-wallace",
+    "citation": "Gold v. Wallace, 230 A.D.3d 1113, 2024 NY Slip Op 04376 (N.Y. App. Div. 2024)",
+    "expected_status": "VERIFIED_PARTIAL",
+    "actual_status": "VERIFIED_PARTIAL",
+    "expected_final_ids": {
+      "cluster_id": 10114438,
+      "opinion_id": null,
+      "docket_id": null,
+      "recap_document_id": null,
+      "text_source": "opinion_plain_text"
+    },
+    "actual_final_ids": {
+      "cluster_id": 10114438,
+      "opinion_id": null,
+      "docket_id": null,
+      "recap_document_id": null,
+      "absolute_url": "https://www.courtlistener.com/opinion/10114438/gold-v-wallace/",
+      "text_source": "opinion_plain_text"
+    },
+    "expected_warnings": [
+      "silent_partial_verification"
+    ],
+    "actual_warnings": [
+      {
+        "category": "silent_partial_verification",
+        "message": "Primary reporter '230 A.D.3d 1113' is not in CourtListener's citation index. The parallel cite resolved but the primary reporter is unconfirmed."
+      }
+    ],
+    "resolution_path": [
+      {
+        "stage": "citation_lookup",
+        "verdict": "resolved",
+        "confidence": 1.0,
+        "notes": "Primary reporter not in CL citation index"
+      }
+    ],
+    "category": "parallel_cite_ny_adv",
+    "phase3_classification_open": false,
+    "rationale": "NY A.D.3d primary cite (230 A.D.3d 1113) is not in CL's citation index. The parallel NY Slip Op cite (2024 NY Slip Op 04376) resolves to cluster 10114438. Status: VERIFIED_PARTIAL \u2014 the case is verified, but coverage is incomplete because the primary cite didn't resolve."
+  },
+  {
+    "id": "verified-partial-hersko-hersko",
+    "citation": "Hersko v. Hersko, 224 A.D.3d 810, 2024 NY Slip Op 00894 (N.Y. App. Div. 2024)",
+    "expected_status": "VERIFIED_PARTIAL",
+    "actual_status": "VERIFIED_PARTIAL",
+    "expected_final_ids": {
+      "cluster_id": 9477252,
+      "opinion_id": null,
+      "docket_id": null,
+      "recap_document_id": null,
+      "text_source": "opinion_plain_text"
+    },
+    "actual_final_ids": {
+      "cluster_id": 9477252,
+      "opinion_id": null,
+      "docket_id": null,
+      "recap_document_id": null,
+      "absolute_url": "https://www.courtlistener.com/opinion/9477252/hersko-v-hersko/",
+      "text_source": "opinion_plain_text"
+    },
+    "expected_warnings": [
+      "silent_partial_verification"
+    ],
+    "actual_warnings": [
+      {
+        "category": "silent_partial_verification",
+        "message": "Primary reporter '224 A.D.3d 810' is not in CourtListener's citation index. The parallel cite resolved but the primary reporter is unconfirmed."
+      }
+    ],
+    "resolution_path": [
+      {
+        "stage": "citation_lookup",
+        "verdict": "resolved",
+        "confidence": 1.0,
+        "notes": "Primary reporter not in CL citation index"
+      }
+    ],
+    "category": "parallel_cite_ny_adv",
+    "phase3_classification_open": false,
+    "rationale": "NY A.D.3d primary cite (224 A.D.3d 810) is not in CL's citation index. Parallel NY Slip Op (2024 NY Slip Op 00894) resolves to cluster 9477252. Second parallel_cite_ny_adv sample."
+  },
+  {
+    "id": "verified-partial-dondorfer",
+    "citation": "People v. Dondorfer, 235 A.D.3d 71, 2024 NY Slip Op 06432 (N.Y. App. Div. 2024)",
+    "expected_status": "VERIFIED_PARTIAL",
+    "actual_status": "VERIFIED_PARTIAL",
+    "expected_final_ids": {
+      "cluster_id": 10298541,
+      "opinion_id": null,
+      "docket_id": null,
+      "recap_document_id": null,
+      "text_source": "opinion_plain_text"
+    },
+    "actual_final_ids": {
+      "cluster_id": 10298541,
+      "opinion_id": null,
+      "docket_id": null,
+      "recap_document_id": null,
+      "absolute_url": "https://www.courtlistener.com/opinion/10298541/people-v-dondorfer/",
+      "text_source": "opinion_plain_text"
+    },
+    "expected_warnings": [
+      "silent_partial_verification"
+    ],
+    "actual_warnings": [
+      {
+        "category": "silent_partial_verification",
+        "message": "Primary reporter '235 A.D.3d 71' is not in CourtListener's citation index. The parallel cite resolved but the primary reporter is unconfirmed."
+      }
+    ],
+    "resolution_path": [
+      {
+        "stage": "citation_lookup",
+        "verdict": "resolved",
+        "confidence": 1.0,
+        "notes": "Primary reporter not in CL citation index"
+      }
+    ],
+    "category": "parallel_cite_ny_adv",
+    "phase3_classification_open": false,
+    "rationale": "A.D.3d primary cite (235 A.D.3d 71) not in CL's index. Parallel slip op (2024 NY Slip Op 06432) resolves to cluster 10298541. Third parallel_cite_ny_adv sample."
+  },
+  {
+    "id": "verified-partial-kumar",
+    "citation": "People v. Kumar, 242 A.D.3d 1231, 2025 NY Slip Op 05977 (N.Y. App. Div. 2025)",
+    "expected_status": "VERIFIED_PARTIAL",
+    "actual_status": "VERIFIED_PARTIAL",
+    "expected_final_ids": {
+      "cluster_id": 10717850,
+      "opinion_id": null,
+      "docket_id": null,
+      "recap_document_id": null,
+      "text_source": "opinion_plain_text"
+    },
+    "actual_final_ids": {
+      "cluster_id": 10717850,
+      "opinion_id": null,
+      "docket_id": null,
+      "recap_document_id": null,
+      "absolute_url": "https://www.courtlistener.com/opinion/10717850/people-v-kumar/",
+      "text_source": "opinion_plain_text"
+    },
+    "expected_warnings": [
+      "silent_partial_verification"
+    ],
+    "actual_warnings": [
+      {
+        "category": "silent_partial_verification",
+        "message": "Primary reporter '242 A.D.3d 1231' is not in CourtListener's citation index. The parallel cite resolved but the primary reporter is unconfirmed."
+      }
+    ],
+    "resolution_path": [
+      {
+        "stage": "citation_lookup",
+        "verdict": "resolved",
+        "confidence": 1.0,
+        "notes": "Primary reporter not in CL citation index"
+      }
+    ],
+    "category": "parallel_cite_ny_adv",
+    "phase3_classification_open": false,
+    "rationale": "A.D.3d primary cite (242 A.D.3d 1231) not in CL's index. Parallel slip op (2025 NY Slip Op 05977) resolves to cluster 10717850. Fourth parallel_cite_ny_adv sample."
+  },
+  {
+    "id": "verified-partial-walker",
+    "citation": "People v. Walker, 228 A.D.3d 1318, 2024 NY Slip Op 03278 (N.Y. App. Div. 2024)",
+    "expected_status": "VERIFIED_PARTIAL",
+    "actual_status": "VERIFIED_PARTIAL",
+    "expected_final_ids": {
+      "cluster_id": 9880367,
+      "opinion_id": null,
+      "docket_id": null,
+      "recap_document_id": null,
+      "text_source": "opinion_plain_text"
+    },
+    "actual_final_ids": {
+      "cluster_id": 9880367,
+      "opinion_id": null,
+      "docket_id": null,
+      "recap_document_id": null,
+      "absolute_url": "https://www.courtlistener.com/opinion/9880367/people-v-walker/",
+      "text_source": "opinion_plain_text"
+    },
+    "expected_warnings": [
+      "silent_partial_verification"
+    ],
+    "actual_warnings": [
+      {
+        "category": "silent_partial_verification",
+        "message": "Primary reporter '228 A.D.3d 1318' is not in CourtListener's citation index. The parallel cite resolved but the primary reporter is unconfirmed."
+      }
+    ],
+    "resolution_path": [
+      {
+        "stage": "citation_lookup",
+        "verdict": "resolved",
+        "confidence": 1.0,
+        "notes": "Primary reporter not in CL citation index"
+      }
+    ],
+    "category": "parallel_cite_ny_adv",
+    "phase3_classification_open": false,
+    "rationale": "A.D.3d primary cite (228 A.D.3d 1318) not in CL's index. Parallel slip op (2024 NY Slip Op 03278) resolves to cluster 9880367. Fifth parallel_cite_ny_adv sample (all 5 from benchmark)."
+  },
+  {
+    "id": "named-exemplar-gilliam",
+    "citation": "Gilliam v. Uni Holdings, 201 A.D.3d 83, 88-89, 2021 NY Slip Op 06798 (N.Y. App. Div. 2021)",
+    "expected_status": "VERIFIED_PARTIAL",
+    "actual_status": "VERIFIED_PARTIAL",
+    "expected_final_ids": {
+      "cluster_id": 5305052,
+      "opinion_id": null,
+      "docket_id": null,
+      "recap_document_id": null,
+      "text_source": "opinion_plain_text"
+    },
+    "actual_final_ids": {
+      "cluster_id": 5305052,
+      "opinion_id": null,
+      "docket_id": null,
+      "recap_document_id": null,
+      "absolute_url": "https://www.courtlistener.com/opinion/5305052/gilliam-v-uni-holdings/",
+      "text_source": "opinion_plain_text"
+    },
+    "expected_warnings": [
+      "silent_partial_verification"
+    ],
+    "actual_warnings": [
+      {
+        "category": "silent_partial_verification",
+        "message": "Primary reporter '201 A.D.3d 83' is not in CourtListener's citation index. The parallel cite resolved but the primary reporter is unconfirmed."
+      }
+    ],
+    "resolution_path": [
+      {
+        "stage": "citation_lookup",
+        "verdict": "resolved",
+        "confidence": 1.0,
+        "notes": "Primary reporter not in CL citation index"
+      }
+    ],
+    "category": "named_exemplar",
+    "phase3_classification_open": false,
+    "rationale": "Design v2 \u00a74 named exemplar. A.D.3d primary cite (201 A.D.3d 83) not in CL's citation index. Parallel slip op (2021 NY Slip Op 06798) resolves to cluster 5305052 with CL case_name 'Gilliam v. Uni holdings'. Note: CL also has a duplicate cluster 5304049 for the same case_name + date_filed; Phase 3's "
+  },
+  {
+    "id": "named-exemplar-mehar-holdings",
+    "citation": "Mehar Holdings, LLC v. Evanston Ins. Co., 2016 WL 5957681 (W.D. Tex. Oct. 14, 2016)",
+    "expected_status": "VERIFIED_VIA_RECAP",
+    "actual_status": "VERIFIED_DOCKET_ONLY",
+    "expected_final_ids": {
+      "cluster_id": null,
+      "opinion_id": null,
+      "docket_id": 5474769,
+      "recap_document_id": 18720567,
+      "text_source": "recap_document"
+    },
+    "actual_final_ids": {
+      "cluster_id": null,
+      "opinion_id": null,
+      "docket_id": 5474769,
+      "recap_document_id": null,
+      "absolute_url": "https://www.courtlistener.com/docket/5474769/19/mehar-holdings-llc-v-evanston-insurance-company/",
+      "text_source": null
+    },
+    "expected_warnings": [],
+    "actual_warnings": [],
+    "resolution_path": [
+      {
+        "stage": "citation_lookup",
+        "verdict": "no_match",
+        "confidence": null,
+        "notes": ""
+      },
+      {
+        "stage": "opinion_search",
+        "verdict": "no_match",
+        "confidence": null,
+        "notes": ""
+      },
+      {
+        "stage": "recap_docket_search",
+        "verdict": "resolved",
+        "confidence": 0.9,
+        "notes": "Found in RECAP (not in opinions database). Document dated 2016-10-14: ORDER GRANTING 14 Motion for Reconsideration re 13 Order. The Court GRANTS 4 Mot...; Reporter citation 2016 WL 5957681 could not b"
+      }
+    ],
+    "category": "named_exemplar",
+    "phase3_classification_open": false,
+    "rationale": "Design v2 \u00a74 named VIA_RECAP exemplar (substituted, second-pass). Original Menges (2000 WL 765082) was substituted with Darensburg (2009 WL 2392094) in Phase 2.5; per Phase 3 \u00a70.3 (Q1 Westlaw lookup), Darensburg's WL number actually maps to the Aug 4, 2009 procedural costs-taxation order (doc #460),"
+  },
+  {
+    "id": "verified-via-recap-doe-lawrence",
+    "citation": "Doe v. Lawrence Gen. Hosp., 2025 WL 2808055",
+    "expected_status": "VERIFIED_VIA_RECAP",
+    "actual_status": "VERIFIED_DOCKET_ONLY",
+    "expected_final_ids": {
+      "cluster_id": null,
+      "opinion_id": null,
+      "docket_id": 69539673,
+      "recap_document_id": 454203499,
+      "text_source": "recap_document"
+    },
+    "actual_final_ids": {
+      "cluster_id": null,
+      "opinion_id": null,
+      "docket_id": 69539673,
+      "recap_document_id": null,
+      "absolute_url": "https://www.courtlistener.com/docket/69539673/41/doe-v-lawrence-general-hospital/",
+      "text_source": null
+    },
+    "expected_warnings": [],
+    "actual_warnings": [],
+    "resolution_path": [
+      {
+        "stage": "citation_lookup",
+        "verdict": "no_match",
+        "confidence": null,
+        "notes": ""
+      },
+      {
+        "stage": "opinion_search",
+        "verdict": "resolved",
+        "confidence": 0.4399,
+        "notes": "Low confidence: court not available in citation text; Name mismatch: cited \"Doe v. Lawrence General. Hospital.\" vs found \"Lawrence v. Charlotte Hungerford Hospital\"; Reporter citation 2025 WL 2808055 "
+      },
+      {
+        "stage": "recap_docket_search",
+        "verdict": "resolved",
+        "confidence": 0.8667,
+        "notes": "Found in RECAP (not in opinions database). Document dated 2025-08-29: Report and Recommendations; Low confidence: court not available in citation text; Reporter citation 2025 WL 2808055 could not be c"
+      }
+    ],
+    "category": "recap_doc_opinion_not_ingested",
+    "phase3_classification_open": false,
+    "rationale": "WL cite. Opinion cluster not ingested; RECAP has the docket with a 'Memorandum & Order' RECAPDocument carrying plain_text. Status: VERIFIED_VIA_RECAP via recap_doc_opinion_not_ingested."
+  },
+  {
+    "id": "verified-docket-only-darensburg-wl-disambiguation",
+    "citation": "Darensburg v. Metro. Transp. Comm'n, 2009 WL 2392094 (N.D. Cal. Aug. 4, 2009)",
+    "expected_status": "VERIFIED_DOCKET_ONLY",
+    "actual_status": "VERIFIED_DOCKET_ONLY",
+    "expected_final_ids": {
+      "cluster_id": null,
+      "opinion_id": null,
+      "docket_id": 4182878,
+      "recap_document_id": null,
+      "text_source": null
+    },
+    "actual_final_ids": {
+      "cluster_id": null,
+      "opinion_id": null,
+      "docket_id": 4182878,
+      "recap_document_id": null,
+      "absolute_url": "https://www.courtlistener.com/docket/4182878/460/darensburg-v-metropolitan-transportation-commission/",
+      "text_source": null
+    },
+    "expected_warnings": [],
+    "actual_warnings": [],
+    "resolution_path": [
+      {
+        "stage": "citation_lookup",
+        "verdict": "no_match",
+        "confidence": null,
+        "notes": ""
+      },
+      {
+        "stage": "opinion_search",
+        "verdict": "no_match",
+        "confidence": null,
+        "notes": ""
+      },
+      {
+        "stage": "recap_docket_search",
+        "verdict": "resolved",
+        "confidence": 0.6908,
+        "notes": "Found in RECAP (not in opinions database). Document dated 2009-08-04; Name mismatch: cited \"Darensburg v. Metro. Transportation. Commission\" vs found \"Darensburg v. Metropolitan Transportation Commiss"
+      }
+    ],
+    "category": "recap_wl_disambiguation_limit",
+    "phase3_classification_open": false,
+    "rationale": "Documents a known Phase 3 limitation surfaced by \u00a70.3 (Q1 Westlaw lookup). 2009 WL 2392094 actually maps to the Aug 4, 2009 procedural costs-taxation order (doc #460: 'ORDER GRANTING PLAINTIFFS' MOTION FOR REVIEW OF CLERK'S TAXATION OF COSTS'), NOT the July 7, 2009 substantive attorneys' fees opinio"
+  },
+  {
+    "id": "verified-via-recap-cabot-lewis-provisional",
+    "citation": "Cabot v. Lewis, 2015 WL 13648107, at *1 (D. Mass. July 9, 2015)",
+    "expected_status": "VERIFIED_VIA_RECAP",
+    "actual_status": "VERIFIED_DOCKET_ONLY",
+    "expected_final_ids": {
+      "cluster_id": null,
+      "opinion_id": null,
+      "docket_id": 4275225,
+      "recap_document_id": 5338694,
+      "text_source": "recap_document"
+    },
+    "actual_final_ids": {
+      "cluster_id": null,
+      "opinion_id": null,
+      "docket_id": 4275225,
+      "recap_document_id": null,
+      "absolute_url": "https://www.courtlistener.com/docket/4275225/cabot-v-lewis/",
+      "text_source": null
+    },
+    "expected_warnings": [],
+    "actual_warnings": [],
+    "resolution_path": [
+      {
+        "stage": "citation_lookup",
+        "verdict": "no_match",
+        "confidence": null,
+        "notes": ""
+      },
+      {
+        "stage": "opinion_search",
+        "verdict": "no_match",
+        "confidence": null,
+        "notes": ""
+      },
+      {
+        "stage": "recap_docket_search",
+        "verdict": "resolved",
+        "confidence": 0.9,
+        "notes": "Found in RECAP (not in opinions database). Document dated 2015-07-09: Order on Motion for Certificate of Appealability AND Order on Motion to Stay; Reporter citation 2015 WL 13648107 could not be conf"
+      }
+    ],
+    "category": "recap_doc_not_opinion_typed",
+    "phase3_classification_open": true,
+    "rationale": "Provisional VIA_RECAP. Docket has an available RECAP document with plain_text, but the document is not strictly opinion-typed (description: 'ORDER CERTIFYING INTERLOCUTORY APPEAL'). Per plan \u00a71.4 Phase 3 must decide whether 'has-text-but-not-opinion-typed' is VIA_RECAP or DOCKET_ONLY. Pinned to VIA_"
+  },
+  {
+    "id": "verified-via-recap-hunter-ccsf-provisional",
+    "citation": "Hunter v. City & Cnty. of San Francisco, 2013 WL 6088409",
+    "expected_status": "VERIFIED_VIA_RECAP",
+    "actual_status": "VERIFIED_DOCKET_ONLY",
+    "expected_final_ids": {
+      "cluster_id": null,
+      "opinion_id": null,
+      "docket_id": 5929390,
+      "recap_document_id": 20032027,
+      "text_source": "recap_document"
+    },
+    "actual_final_ids": {
+      "cluster_id": null,
+      "opinion_id": null,
+      "docket_id": 5929390,
+      "recap_document_id": null,
+      "absolute_url": "https://www.courtlistener.com/docket/5929390/185/hunter-v-city-and-county-of-san-francisco/",
+      "text_source": null
+    },
+    "expected_warnings": [],
+    "actual_warnings": [],
+    "resolution_path": [
+      {
+        "stage": "citation_lookup",
+        "verdict": "no_match",
+        "confidence": null,
+        "notes": ""
+      },
+      {
+        "stage": "opinion_search",
+        "verdict": "resolved",
+        "confidence": 0.437,
+        "notes": "Low confidence: court not available in citation text; Name mismatch: cited \"Hunter v. City & County. of San Francisco\" vs found \"Sharon Black v. City and County of Honolulu\"; Citation mismatch: cited "
+      },
+      {
+        "stage": "recap_docket_search",
+        "verdict": "resolved",
+        "confidence": 0.8667,
+        "notes": "Found in RECAP (not in opinions database). Document dated 2013-08-02: ORDER  granting  184   Proposed Pretrial Order re: equipment filed by Darrell  H...; Low confidence: court not available in citati"
+      }
+    ],
+    "category": "recap_doc_not_opinion_typed",
+    "phase3_classification_open": true,
+    "rationale": "Provisional VIA_RECAP. Docket has a RECAP document with plain_text but not strictly opinion-typed (description starts 'ORDER RE: PLAINTIFFS MOTION FOR REVIEW OF CLERKS TAXATION OF...'). Per plan \u00a71.4 Phase 3 gray area. Second recap_doc_not_opinion_typed sample."
+  },
+  {
+    "id": "verified-docket-only-dias-clapprood",
+    "citation": "ra dias deapocalypse bey v. Clapprood, 2024 WL 3446824",
+    "expected_status": "VERIFIED_DOCKET_ONLY",
+    "actual_status": "VERIFIED_DOCKET_ONLY",
+    "expected_final_ids": {
+      "cluster_id": null,
+      "opinion_id": null,
+      "docket_id": 66969331,
+      "recap_document_id": null,
+      "text_source": null
+    },
+    "actual_final_ids": {
+      "cluster_id": null,
+      "opinion_id": null,
+      "docket_id": 66969331,
+      "recap_document_id": null,
+      "absolute_url": "https://www.courtlistener.com/docket/66969331/43/dias-deapocalypse-bey-v-clapprood/",
+      "text_source": null
+    },
+    "expected_warnings": [],
+    "actual_warnings": [],
+    "resolution_path": [
+      {
+        "stage": "citation_lookup",
+        "verdict": "no_match",
+        "confidence": null,
+        "notes": ""
+      },
+      {
+        "stage": "opinion_search",
+        "verdict": "no_match",
+        "confidence": null,
+        "notes": ""
+      },
+      {
+        "stage": "recap_docket_search",
+        "verdict": "resolved",
+        "confidence": 0.815,
+        "notes": "Found in RECAP (not in opinions database). Document dated 2024-03-14: Memorandum & Order; Low confidence: court not available in citation text; Reporter citation 2024 WL 3446824 could not be confirmed"
+      }
+    ],
+    "category": "recap_doc_unavailable",
+    "phase3_classification_open": false,
+    "rationale": "Docket exists in RECAP but no available RECAP document for the cited entry (is_available=false on the best-match Memorandum & Order doc). No retrievable opinion text. Status: VERIFIED_DOCKET_ONLY via recap_doc_unavailable."
+  },
+  {
+    "id": "verified-docket-only-hazari-llc",
+    "citation": "Hazari LLC v. Everest Indem. Ins. Co., 2020 WL 1969530 (S.D. Tex. Apr. 24, 2020)",
+    "expected_status": "VERIFIED_DOCKET_ONLY",
+    "actual_status": "VERIFIED_DOCKET_ONLY",
+    "expected_final_ids": {
+      "cluster_id": null,
+      "opinion_id": null,
+      "docket_id": 16348672,
+      "recap_document_id": null,
+      "text_source": null
+    },
+    "actual_final_ids": {
+      "cluster_id": null,
+      "opinion_id": null,
+      "docket_id": 16348672,
+      "recap_document_id": null,
+      "absolute_url": "https://www.courtlistener.com/docket/16348672/26/hazari-llc-dba-stay-express-inn-suites-v-everest-indemnity-insurance/",
+      "text_source": null
+    },
+    "expected_warnings": [],
+    "actual_warnings": [],
+    "resolution_path": [
+      {
+        "stage": "citation_lookup",
+        "verdict": "no_match",
+        "confidence": null,
+        "notes": ""
+      },
+      {
+        "stage": "opinion_search",
+        "verdict": "no_match",
+        "confidence": null,
+        "notes": ""
+      },
+      {
+        "stage": "recap_docket_search",
+        "verdict": "resolved",
+        "confidence": 0.6059,
+        "notes": "Found in RECAP (not in opinions database). Document dated 2020-04-14: Order on Motion to Remand; Name mismatch: cited \"Hazari LLC v. Everest Indem. Insurance. Co.\" vs found \"Hazari LLC dba Stay Expres"
+      }
+    ],
+    "category": "recap_doc_unavailable",
+    "phase3_classification_open": false,
+    "rationale": "Docket exists in RECAP but the 'Order on Motion to Remand' best-match doc has is_available=false. No retrievable opinion text. Second recap_doc_unavailable sample."
+  },
+  {
+    "id": "verified-docket-only-menges-actual",
+    "citation": "Menges v. Cliffs Drilling Co., 2000 WL 765082 (E.D. La. May 31, 2000)",
+    "expected_status": "VERIFIED_DOCKET_ONLY",
+    "actual_status": "VERIFIED_VIA_RECAP",
+    "expected_final_ids": {
+      "cluster_id": null,
+      "opinion_id": null,
+      "docket_id": 10993603,
+      "recap_document_id": null,
+      "text_source": null
+    },
+    "actual_final_ids": {
+      "cluster_id": null,
+      "opinion_id": null,
+      "docket_id": 10993603,
+      "recap_document_id": 476627767,
+      "absolute_url": "https://www.courtlistener.com/docket/10993603/63/menges-v-cliffs-drlg-co/",
+      "text_source": "recap_document"
+    },
+    "expected_warnings": [],
+    "actual_warnings": [],
+    "resolution_path": [
+      {
+        "stage": "citation_lookup",
+        "verdict": "no_match",
+        "confidence": null,
+        "notes": ""
+      },
+      {
+        "stage": "opinion_search",
+        "verdict": "no_match",
+        "confidence": null,
+        "notes": ""
+      },
+      {
+        "stage": "recap_docket_search",
+        "verdict": "resolved",
+        "confidence": 0.6417,
+        "notes": "Found in RECAP (not in opinions database). Document dated 2000-06-14; Name mismatch: cited \"Menges v. Cliffs Drilling Co.\" vs found \"Menges v. Cliffs Drlg Co\"; Date close: cited 2000-05-31 vs filed 20"
+      }
+    ],
+    "category": "docket_only_no_opinion_at_cited_date",
+    "phase3_classification_open": true,
+    "rationale": "Actual Menges v. Cliffs Drilling cite from design v2 \u00a74. Live-discovered docket 10993603 (case_name 'Menges v. Cliffs Drlg Co'). Has 2 text-bearing 'ORDER & REASONS' docs from 2000-06-12 (motions in limine, doc_ids 476627754, 476627755) but NOT the cited 2000-05-31 opinion. Strict reading: no opinio"
+  },
+  {
+    "id": "verified-docket-only-jacks-hertz",
+    "citation": "Jacks v. Hertz Corp., 2020 WL 1530747 (Bankr. D. Del. Mar. 30, 2020)",
+    "expected_status": "VERIFIED_DOCKET_ONLY",
+    "actual_status": "VERIFIED_DOCKET_ONLY",
+    "expected_final_ids": {
+      "cluster_id": null,
+      "opinion_id": null,
+      "docket_id": 17228083,
+      "recap_document_id": null,
+      "text_source": null
+    },
+    "actual_final_ids": {
+      "cluster_id": null,
+      "opinion_id": null,
+      "docket_id": 17228083,
+      "recap_document_id": null,
+      "absolute_url": "https://www.courtlistener.com/docket/17228083/8/jacks-v-hertz-corp/",
+      "text_source": null
+    },
+    "expected_warnings": [],
+    "actual_warnings": [],
+    "resolution_path": [
+      {
+        "stage": "citation_lookup",
+        "verdict": "no_match",
+        "confidence": null,
+        "notes": ""
+      },
+      {
+        "stage": "opinion_search",
+        "verdict": "no_match",
+        "confidence": null,
+        "notes": ""
+      },
+      {
+        "stage": "recap_docket_search",
+        "verdict": "resolved",
+        "confidence": 0.65,
+        "notes": "Found in RECAP (not in opinions database). Document dated 2020-06-18: BNC certificate of mailing - PDF document; Court mismatch: cited deb vs found txnb; Date close: cited 2020-03-30 vs filed 2020-06-"
+      }
+    ],
+    "category": "docket_only_no_available_doc",
+    "phase3_classification_open": false,
+    "rationale": "Live-discovered follow-up. WL cite (issued by D. Del. on 2020-03-30) resolves via recap_docket_search to CL docket 17228083 in the Bankr. N.D. Tex. (txnb) court \u2014 the case was transferred from D. Del. to txnb shortly after the WL opinion was issued, and CL's docket reflects the receiving court (dock"
+  },
+  {
+    "id": "verified-docket-only-caraballo-berryhill",
+    "citation": "Caraballo v. Berryhill, 2018 WL 4677729",
+    "expected_status": "VERIFIED_DOCKET_ONLY",
+    "actual_status": "VERIFIED_DOCKET_ONLY",
+    "expected_final_ids": {
+      "cluster_id": null,
+      "opinion_id": null,
+      "docket_id": 6698093,
+      "recap_document_id": null,
+      "text_source": null
+    },
+    "actual_final_ids": {
+      "cluster_id": null,
+      "opinion_id": null,
+      "docket_id": 6698093,
+      "recap_document_id": null,
+      "absolute_url": "https://www.courtlistener.com/docket/6698093/22/caraballo-v-berryhill/",
+      "text_source": null
+    },
+    "expected_warnings": [],
+    "actual_warnings": [],
+    "resolution_path": [
+      {
+        "stage": "citation_lookup",
+        "verdict": "no_match",
+        "confidence": null,
+        "notes": ""
+      },
+      {
+        "stage": "opinion_search",
+        "verdict": "resolved",
+        "confidence": 0.4923,
+        "notes": "Low confidence: court not available in citation text; Name mismatch: cited \"Caraballo v. Berryhill\" vs found \"Armata v. Berryhill\"; Reporter citation 2018 WL 4677729 could not be confirmed (CourtListe"
+      },
+      {
+        "stage": "recap_docket_search",
+        "verdict": "resolved",
+        "confidence": 0.8667,
+        "notes": "Found in RECAP (not in opinions database). Document dated 2018-12-03; Low confidence: court not available in citation text; Reporter citation 2018 WL 4677729 could not be confirmed (CourtListener has "
+      }
+    ],
+    "category": "docket_only_no_opinion_at_cited_date",
+    "phase3_classification_open": true,
+    "rationale": "Live-discovered follow-up. WL cite resolves via recap_docket_search to CL docket 6698093 (case_name 'Caraballo v. Berryhill', court S.D.N.Y. White Plains, docket_number 7:17-cv-07205-NSR-LMS, filed 2017-09-21 \u2014 the controller's initial candidate had mistakenly listed M.D. Tenn. as the court, correct"
+  },
+  {
+    "id": "named-exemplar-wrong-case",
+    "citation": "Hogan v. AT&T, Inc., 917 F. Supp. 1275, 1280 (S.D. Tex. 1994)",
+    "expected_status": "WRONG_CASE",
+    "actual_status": "WRONG_CASE",
+    "expected_final_ids": {
+      "cluster_id": 2140439,
+      "opinion_id": null,
+      "docket_id": null,
+      "recap_document_id": null,
+      "text_source": "opinion_plain_text"
+    },
+    "actual_final_ids": {
+      "cluster_id": 2140439,
+      "opinion_id": null,
+      "docket_id": null,
+      "recap_document_id": null,
+      "absolute_url": "https://www.courtlistener.com/opinion/2140439/united-states-ex-rel-green-v-washington/",
+      "text_source": "opinion_plain_text"
+    },
+    "expected_warnings": [],
+    "actual_warnings": [],
+    "resolution_path": [
+      {
+        "stage": "citation_lookup",
+        "verdict": "resolved",
+        "confidence": 1.0,
+        "notes": "name mismatch flagged for caption_investigation"
+      },
+      {
+        "stage": "caption_investigation",
+        "verdict": "resolved",
+        "confidence": 1.0,
+        "notes": "no party-overlap across cluster/docket/opinion sources"
+      }
+    ],
+    "category": "named_exemplar",
+    "phase3_classification_open": false,
+    "rationale": "Design v2 \u00a74 named exemplar. Real reporter 917 F. Supp. 1275 resolves to cluster 2140439 (case_name 'U.S. ex rel. Green v. Washington', D.D.C. 1994), not 'Hogan v. AT&T'. Court-confirmed hallucination from Gonzalez v. TTRA sanctions order (S.D. Tex. 2025). Classic WRONG_CASE: real reporter, complete"
+  },
+  {
+    "id": "wrong-case-tig-carter",
+    "citation": "TIG Ins. Co. v. Carter, 640 S.W. 2d 232, 237 (Tex. 1982)",
+    "expected_status": "WRONG_CASE",
+    "actual_status": "WRONG_CASE",
+    "expected_final_ids": {
+      "cluster_id": 2418868,
+      "opinion_id": null,
+      "docket_id": null,
+      "recap_document_id": null,
+      "text_source": "opinion_plain_text"
+    },
+    "actual_final_ids": {
+      "cluster_id": 2418868,
+      "opinion_id": null,
+      "docket_id": null,
+      "recap_document_id": null,
+      "absolute_url": "https://www.courtlistener.com/opinion/2418868/ogden-v-gibraltar-savings-assn/",
+      "text_source": "opinion_plain_text"
+    },
+    "expected_warnings": [],
+    "actual_warnings": [],
+    "resolution_path": [
+      {
+        "stage": "citation_lookup",
+        "verdict": "resolved",
+        "confidence": 1.0,
+        "notes": "name mismatch flagged for caption_investigation"
+      },
+      {
+        "stage": "caption_investigation",
+        "verdict": "resolved",
+        "confidence": 1.0,
+        "notes": "no party-overlap across cluster/docket/opinion sources"
+      }
+    ],
+    "category": "wrong_case_real_reporter",
+    "phase3_classification_open": false,
+    "rationale": "Real reporter 640 S.W.2d 232 resolves to cluster 2418868 (case_name \"Ogden v. Gibraltar Savings Ass'n\", Tex. 1982 wrongful foreclosure case), not TIG Ins. Co. v. Carter. Court-confirmed wrong-name hallucination from Gonzalez v. TTRA sanctions order \u2014 same source as Hogan named exemplar. Second wrong"
+  },
+  {
+    "id": "wrong-case-gallagher-wilton",
+    "citation": "Gallagher v. Wilton Enterprises, Inc., 962 F. Supp. 1162 (E.D. Pa. 1997)",
+    "expected_status": "WRONG_CASE",
+    "actual_status": "WRONG_CASE",
+    "expected_final_ids": {
+      "cluster_id": 2311379,
+      "opinion_id": null,
+      "docket_id": null,
+      "recap_document_id": null,
+      "text_source": "opinion_plain_text"
+    },
+    "actual_final_ids": {
+      "cluster_id": 2311379,
+      "opinion_id": null,
+      "docket_id": null,
+      "recap_document_id": null,
+      "absolute_url": "https://www.courtlistener.com/opinion/2311379/kenro-inc-v-fax-daily-inc/",
+      "text_source": "opinion_plain_text"
+    },
+    "expected_warnings": [],
+    "actual_warnings": [],
+    "resolution_path": [
+      {
+        "stage": "citation_lookup",
+        "verdict": "resolved",
+        "confidence": 1.0,
+        "notes": "name mismatch flagged for caption_investigation"
+      },
+      {
+        "stage": "caption_investigation",
+        "verdict": "resolved",
+        "confidence": 1.0,
+        "notes": "no party-overlap across cluster/docket/opinion sources"
+      }
+    ],
+    "category": "wrong_case_real_reporter",
+    "phase3_classification_open": false,
+    "rationale": "Real reporter 962 F. Supp. 1162 resolves to cluster 2311379 (case_name 'Kenro, Inc. v. Fax Daily, Inc.', S.D. Ind. 1997), not Gallagher v. Wilton Enterprises. Notable hybrid hallucination: 'Gallagher v. Wilton Enterprises' does exist as a real First Circuit opinion at a different citation, but the b"
+  },
+  {
+    "id": "wrong-case-shell-petroleum",
+    "citation": "Shell Petroleum N.V. v. Republic of Costa Rica, 608 F. Supp. 2d 269 (S.D.N.Y. 2009)",
+    "expected_status": "WRONG_CASE",
+    "actual_status": "WRONG_CASE",
+    "expected_final_ids": {
+      "cluster_id": 2467149,
+      "opinion_id": null,
+      "docket_id": null,
+      "recap_document_id": null,
+      "text_source": "opinion_plain_text"
+    },
+    "actual_final_ids": {
+      "cluster_id": 2467149,
+      "opinion_id": null,
+      "docket_id": null,
+      "recap_document_id": null,
+      "absolute_url": "https://www.courtlistener.com/opinion/2467149/faghri-v-university-of-connecticut/",
+      "text_source": "opinion_plain_text"
+    },
+    "expected_warnings": [],
+    "actual_warnings": [],
+    "resolution_path": [
+      {
+        "stage": "citation_lookup",
+        "verdict": "resolved",
+        "confidence": 1.0,
+        "notes": "name mismatch flagged for caption_investigation"
+      },
+      {
+        "stage": "caption_investigation",
+        "verdict": "resolved",
+        "confidence": 1.0,
+        "notes": "no party-overlap across cluster/docket/opinion sources"
+      }
+    ],
+    "category": "wrong_case_real_reporter",
+    "phase3_classification_open": false,
+    "rationale": "Real reporter 608 F. Supp. 2d 269 resolves to cluster 2467149 (case_name 'Faghri v. University of Connecticut', 2009), not Shell Petroleum v. Costa Rica. Court (Flowz Digital LLC, C.D. Cal. 2025) was unable to locate Shell Petroleum after multiple searches; the cited reporter belongs to an unrelated"
+  },
+  {
+    "id": "wrong-case-butler-motors-provisional",
+    "citation": "Butler Motors, Inc. v. Benosky, 181 N.E.3d 857 (Ind. Ct. App. 2021)",
+    "expected_status": "WRONG_CASE",
+    "actual_status": "NOT_FOUND",
+    "expected_final_ids": {
+      "cluster_id": null,
+      "opinion_id": null,
+      "docket_id": null,
+      "recap_document_id": null,
+      "text_source": null
+    },
+    "actual_final_ids": {
+      "cluster_id": null,
+      "opinion_id": null,
+      "docket_id": 18749317,
+      "recap_document_id": null,
+      "absolute_url": "https://www.courtlistener.com/docket/18749317/122/the-state-of-texas-v-google-llc/",
+      "text_source": null
+    },
+    "expected_warnings": [],
+    "actual_warnings": [],
+    "resolution_path": [
+      {
+        "stage": "citation_lookup",
+        "verdict": "no_match",
+        "confidence": null,
+        "notes": ""
+      },
+      {
+        "stage": "opinion_search",
+        "verdict": "no_match",
+        "confidence": null,
+        "notes": ""
+      },
+      {
+        "stage": "recap_docket_search",
+        "verdict": "no_match",
+        "confidence": null,
+        "notes": "Found in RECAP (not in opinions database). Document dated 2021-05-20: Memorandum & Opinion; Name mismatch: cited \"Butler Motors, Inc. v. Benosky\" vs found \"The State Of Texas V Google, LLC\"; Court mis"
+      }
+    ],
+    "category": "wrong_page_number_provisional",
+    "phase3_classification_open": true,
+    "rationale": "Provisional WRONG_CASE per plan \u00a74 footnote. The brief cites 181 N.E.3d 857 (wrong page); the actual case is at 181 N.E.3d 304 (same case, wrong page). However, controller live-verified that neither 181 N.E.3d 857 nor 181 N.E.3d 304 resolves to a CL cluster (both 404). Strict interpretation: status "
+  }
+]
