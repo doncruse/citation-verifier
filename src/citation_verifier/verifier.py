@@ -74,6 +74,35 @@ class CitationVerifier:
         self.client = client or CourtListenerClient()
         self.name_matcher = CaseNameMatcher()
 
+    @staticmethod
+    def _promote_to_incomplete_if_only_errored(
+        status: Status,
+        resolution_path: list[ResolutionPathEntry],
+    ) -> Status:
+        """Design §2.8 internal gate: API errors must not silently degrade
+        to NOT_FOUND. If any stage entry has verdict=errored AND no entry
+        has verdict in (resolved, partial), promote to VERIFICATION_INCOMPLETE.
+
+        A resolved or partial stage trumps later errors — the verification
+        question was answered at that stage, and a downstream error during
+        a refinement / fallback is not a verifier-integrity failure.
+
+        Pre-promoted statuses (anything other than NOT_FOUND) are not
+        re-evaluated: an already-resolved status carries its own truth.
+        """
+        if status != Status.NOT_FOUND:
+            return status
+        has_errored = any(
+            e.verdict == StageVerdict.errored for e in resolution_path
+        )
+        has_resolved = any(
+            e.verdict in (StageVerdict.resolved, StageVerdict.partial)
+            for e in resolution_path
+        )
+        if has_errored and not has_resolved:
+            return Status.VERIFICATION_INCOMPLETE
+        return status
+
     # ------------------------------------------------------------------
     # Shared helpers (pure logic, no I/O)
     # ------------------------------------------------------------------
@@ -99,6 +128,19 @@ class CitationVerifier:
         builder.stage(...) context managers; this helper just collects the
         entries, packs the FinalIds, and returns the VerificationResult.
         """
+        path = builder.entries()
+        # Phase 4 Task 2: design §2.8 internal gate. Promote NOT_FOUND to
+        # VERIFICATION_INCOMPLETE when only errored stages exist.
+        status = self._promote_to_incomplete_if_only_errored(status, path)
+        # When promoting to INCOMPLETE, also null out any partial IDs the
+        # caller may have set — the verifier did not authoritatively answer
+        # and consumers must not treat partial IDs as truth.
+        if status == Status.VERIFICATION_INCOMPLETE:
+            cluster_id = None
+            docket_id = None
+            recap_document_id = None
+            absolute_url = None
+            text_source = None
         return VerificationResult(
             citation_as_written=citation_text,
             parsed_citation=parsed,
@@ -111,7 +153,7 @@ class CitationVerifier:
                 absolute_url=absolute_url,
                 text_source=text_source,
             ),
-            resolution_path=builder.entries(),
+            resolution_path=path,
             warnings=warnings or [],
             gates_failed=[],
             timing={},
@@ -518,14 +560,18 @@ class CitationVerifier:
                         # Defensive fallback: investigation errored. Emit the
                         # pre-Task-5 cl_display_name_data_bug warning so the
                         # consumer still knows a mismatch was flagged but the
-                        # verifier could not classify it. Phase 4's gates will
-                        # decide whether this fail-soft path needs upgrading.
+                        # verifier could not classify it. Per design §2.8 §1.5:
+                        # refinement-stage failures do not trigger
+                        # VERIFICATION_INCOMPLETE — the underlying verification
+                        # (cluster exists, citation maps to it) still stands.
                         hit_finalize["warnings"] = [Warning(
                             category=WarningCategory.cl_display_name_data_bug,
                             message=(
-                                f'Name mismatch flagged by citation_lookup but '
-                                f'caption_investigation could not complete '
-                                f'({type(exc).__name__}). Treating as VERIFIED + warning.'
+                                f"Citation_lookup resolved the cluster, but caption_investigation "
+                                f"could not complete ({type(exc).__name__}). The citation is verified "
+                                f"(the cluster exists); the case-name divergence between the brief "
+                                f"and CL's caption is unclassified. Per design §2.8, refinement-stage "
+                                f"failures do not trigger VERIFICATION_INCOMPLETE."
                             ),
                         )]
 
@@ -2138,9 +2184,11 @@ class CitationVerifier:
                         hit_finalize["warnings"] = [Warning(
                             category=WarningCategory.cl_display_name_data_bug,
                             message=(
-                                f'Name mismatch flagged by citation_lookup but '
-                                f'caption_investigation could not complete '
-                                f'({type(exc).__name__}). Treating as VERIFIED + warning.'
+                                f"Citation_lookup resolved the cluster, but caption_investigation "
+                                f"could not complete ({type(exc).__name__}). The citation is verified "
+                                f"(the cluster exists); the case-name divergence between the brief "
+                                f"and CL's caption is unclassified. Per design §2.8, refinement-stage "
+                                f"failures do not trigger VERIFICATION_INCOMPLETE."
                             ),
                         )]
 
