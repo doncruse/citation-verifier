@@ -80,6 +80,8 @@ Design questions (non-trivial, do not fold into the in-progress refactor):
 
 Should be its own post-Phase-4 design conversation, not absorbed into Phase 3 (whose scope is status taxonomy + caption_investigation, not schema additions). Surfaced 2026-05-22 conversation; relates to the same "push uncertainty up to the consumer" principle that motivates the warnings system. Schema change would be additive per §1.6 (minor-version bump, CHANGELOG entry).
 
+**Phase 4 disposition (2026-05-23, Task 7 — Q6):** deferred to Phase 5+. Rationale: the `cl_duplicate_clusters` warning's `details` dict already carries candidate enumeration for the duplicate-cluster case, so the most common motivating shape has a workaround today. Broader use cases for a typed `candidates` list will emerge with Phase 5+ work (MCP server, diagnostic runner). Adding speculatively in v0.3.0 risks fixing the shape before grounded callers constrain it. The open design questions above (always-populated vs. uncertainty-threshold, ranked vs. flat, status-impact, warning-redundancy) remain unresolved without those grounded use cases.
+
 ### Configurable verification depth (generalize `quick_only`)
 `verify_batch()` already accepts `quick_only=True` to stop after stage 1 (citation lookup). Generalize to `max_depth: StageName` (or similar) so callers can choose to run stage 1+2 but skip RECAP, or stop wherever else along the ladder. Useful when the caller knows they only care about high-confidence hits, or wants a fast first pass before deciding whether to invest in deeper fallback (e.g., a batch job that processes 10K citations and is fine accepting NOT_FOUND for whatever doesn't resolve in the first two stages).
 
