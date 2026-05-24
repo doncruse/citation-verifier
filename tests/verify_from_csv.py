@@ -424,9 +424,14 @@ def main() -> None:
     print(f"JSON sidecar: {sidecar_path}")
     print(f"Git hash: {git_hash or 'unknown'}")
 
-    # Highlight items needing QC
+    # Highlight items needing QC. v0.3 statuses requiring human review:
+    # NOT_FOUND (potential hallucination), WRONG_CASE (cite resolves to a
+    # different case -- highest priority), VERIFICATION_INCOMPLETE (infra
+    # failure, needs rerun). POSSIBLE_MATCH kept for backward-compat with
+    # reviewers reading old sidecars from pre-v0.3 runs.
     needs_qc = [r for r in results_for_sidecar
-                if r["status"] in ("NOT_FOUND", "POSSIBLE_MATCH")]
+                if r["status"] in ("NOT_FOUND", "WRONG_CASE",
+                                   "VERIFICATION_INCOMPLETE", "POSSIBLE_MATCH")]
     if needs_qc:
         print(f"\n{'='*80}")
         print(f"NEEDS QC ({len(needs_qc)} items) - review in JSON sidecar:")
