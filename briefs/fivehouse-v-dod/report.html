@@ -3,139 +3,311 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Citation Verification Report — Fivehouse v. DOD</title>
+<title>Proposition Verification Report — </title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
 <style>
-  body { font-family: Georgia, serif; max-width: 960px; margin: 2em auto; padding: 0 1em; color: #222; line-height: 1.5; }
-  h1 { font-size: 1.4em; border-bottom: 2px solid #333; padding-bottom: 0.3em; }
-  h2 { font-size: 1.1em; margin-top: 2em; }
-  .meta { color: #555; font-size: 0.9em; margin-bottom: 2em; }
-  .stats { display: flex; gap: 1.5em; margin: 1em 0; }
-  .stat { padding: 0.5em 1em; border-radius: 4px; font-weight: bold; }
-  .stat-green { background: #d4edda; color: #155724; }
-  .stat-yellow { background: #fff3cd; color: #856404; }
-  .stat-red { background: #f8d7da; color: #721c24; }
-  table { width: 100%; border-collapse: collapse; margin-top: 1em; font-size: 0.9em; }
-  th { background: #f0f0f0; text-align: left; padding: 0.5em; border: 1px solid #ccc; }
-  td { padding: 0.5em; border: 1px solid #ccc; vertical-align: top; }
-  .green { background: #d4edda; }
-  .yellow { background: #fff3cd; }
-  .red { background: #f8d7da; }
-  blockquote { margin: 0.5em 0; padding: 0.3em 0.8em; border-left: 3px solid #999; font-style: italic; font-size: 0.9em; background: #f9f9f9; }
-  a { color: #0056b3; }
-  .page-num { white-space: nowrap; text-align: center; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  color: #2d2d2d;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+  background: #fafaf8;
+}
+h1, h2, h3 { font-family: 'Lora', serif; }
+h1 { font-size: 1.6rem; margin-bottom: 0.3rem; color: #1a1a1a; }
+h2 { font-size: 1.25rem; margin: 2rem 0 0.8rem; color: #333; border-bottom: 1px solid #ddd; padding-bottom: 0.3rem; }
+h3 { font-size: 1.05rem; margin: 1rem 0 0.5rem; }
+
+.meta { color: #666; font-size: 0.9rem; margin-bottom: 1.5rem; }
+.meta span { display: inline-block; margin-right: 1.5rem; }
+
+.dashboard { background: #fff; border: 1px solid #e0e0e0; border-radius: 6px; padding: 1.2rem 1.5rem; margin-bottom: 2rem; }
+.stats { display: flex; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 1rem; }
+.stat { text-align: center; }
+.stat-num { font-size: 1.8rem; font-weight: 600; }
+.stat-label { font-size: 0.8rem; color: #666; text-transform: uppercase; letter-spacing: 0.05em; }
+.stat-red .stat-num { color: #c0392b; }
+.stat-yellow .stat-num { color: #d4a017; }
+.stat-green .stat-num { color: #27ae60; }
+.stat-gray .stat-num { color: #888; }
+
+.issue-list { list-style: none; padding: 0; }
+.issue-list li {
+  padding: 0.5rem 0.7rem;
+  margin-bottom: 0.4rem;
+  border-left: 4px solid #ccc;
+  background: #fefefe;
+  font-size: 0.9rem;
+}
+.issue-list li.sev-red { border-left-color: #c0392b; background: #fdf2f2; }
+.issue-list li.sev-yellow { border-left-color: #d4a017; background: #fefcf0; }
+.issue-list li.sev-gray { border-left-color: #999; background: #f5f5f5; }
+.issue-list a { color: inherit; text-decoration: none; }
+.issue-list a:hover { text-decoration: underline; }
+
+.badge {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.15rem 0.5rem;
+  border-radius: 3px;
+  vertical-align: middle;
+}
+.badge-red { background: #f8d7da; color: #721c24; }
+.badge-yellow { background: #fff3cd; color: #856404; }
+.badge-orange { background: #ffe0b2; color: #8a4500; }
+.badge-green { background: #d4edda; color: #155724; }
+.badge-blue { background: #d1ecf1; color: #0c5460; }
+.badge-gray { background: #e9ecef; color: #495057; }
+
+.bq-brief {
+  border-left: 4px solid #e67e22;
+  background: #fef9f3;
+  padding: 0.7rem 1rem;
+  margin: 0.5rem 0;
+  font-size: 0.9rem;
+}
+.bq-opinion {
+  border-left: 4px solid #27ae60;
+  background: #f0faf4;
+  padding: 0.7rem 1rem;
+  margin: 0.5rem 0;
+  font-size: 0.9rem;
+}
+.bq-label { font-weight: 600; font-size: 0.8rem; color: #666; margin-bottom: 0.2rem; }
+
+details { margin-bottom: 0.8rem; }
+summary {
+  cursor: pointer;
+  padding: 0.6rem 0.8rem;
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  list-style: none;
+}
+summary::-webkit-details-marker { display: none; }
+summary::before { content: "\25B6\00a0"; font-size: 0.7rem; color: #888; }
+details[open] > summary::before { content: "\25BC\00a0"; }
+details[open] > summary { border-radius: 4px 4px 0 0; border-bottom: none; }
+.finding-body {
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-top: none;
+  border-radius: 0 0 4px 4px;
+  padding: 1rem;
+}
+.case-name { font-family: 'Lora', serif; font-style: italic; }
+.explanation { margin-top: 0.7rem; font-size: 0.9rem; line-height: 1.5; }
+.analysis { margin-top: 0.8rem; font-size: 0.92rem; line-height: 1.55; color: #2d2d2d; }
+.analysis p { margin-bottom: 0.6rem; }
+.analysis p:last-child { margin-bottom: 0; }
+.prop-list { margin: 0.3rem 0 0.6rem 1.2rem; font-size: 0.9rem; }
+.prop-list li { margin-bottom: 0.25rem; }
+
+.controls { margin-bottom: 0.5rem; font-size: 0.8rem; }
+.controls button {
+  background: none;
+  border: none;
+  color: #2980b9;
+  cursor: pointer;
+  font-size: 0.8rem;
+  padding: 0.2rem 0.4rem;
+}
+.controls button:hover { text-decoration: underline; }
+
+.verified-item {
+  padding: 0.3rem 0;
+  font-size: 0.85rem;
+  border-bottom: 1px solid #f0f0f0;
+}
+.checkmark { color: #27ae60; font-weight: bold; }
+
+.methodology { font-size: 0.85rem; color: #555; margin-top: 2rem; }
+.methodology h2 { font-size: 1.1rem; }
+.methodology ul { padding-left: 1.2rem; }
+.methodology li { margin-bottom: 0.5rem; }
+
+@media print {
+  details { open: true; }
+  details[open] > summary { border-bottom: 1px solid #e0e0e0; }
+  body { max-width: 100%; padding: 1rem; font-size: 12px; }
+  .controls { display: none; }
+  .dashboard { box-shadow: none; }
+}
 </style>
+<script>
+function expandAll() { document.querySelectorAll('details').forEach(d => d.open = true); }
+function collapseAll() { document.querySelectorAll('details').forEach(d => d.open = false); }
+</script>
 </head>
 <body>
 
-<h1>Citation Verification Report</h1>
+<h1>Proposition Verification Report</h1>
 <div class="meta">
-  <strong>Brief:</strong> Fivehouse v. DOD — Response in Opposition to Plaintiff's Motion to Supplement the Record<br>
-  <strong>Court:</strong> E.D.N.C., No. 2:25-cv-00041-M-RN<br>
-  <strong>Date analyzed:</strong> 2026-03-09<br>
-  <strong>Total claims:</strong> 13 proposition-case pairs across 5 unique cases
+  <span><strong>Brief:</strong> </span><br>
+  <span><strong>Case:</strong> <em></em>, </span><br>
+  <span><strong>Filed:</strong> </span>
+  <span><strong>Report generated:</strong> </span>
 </div>
 
-<div class="stats">
-  <div class="stat stat-green">4 Green</div>
-  <div class="stat stat-yellow">2 Yellow</div>
-  <div class="stat stat-red">7 Red</div>
+
+<div class="dashboard">
+  <h2 style="border:none; margin-top:0; padding:0;">Summary</h2>
+  <div class="stats">
+    <div class="stat"><div class="stat-num">13</div><div class="stat-label">Claims checked</div></div>
+    <div class="stat stat-red"><div class="stat-num">7</div><div class="stat-label">Serious issues</div></div>
+    <div class="stat stat-yellow"><div class="stat-num">2</div><div class="stat-label">Concerns</div></div>
+    <div class="stat stat-green"><div class="stat-num">4</div><div class="stat-label">Verified</div></div>
+    <div class="stat stat-gray"><div class="stat-num">0</div><div class="stat-label">Unable to verify</div></div>
+  </div>
+  <h3>Issues</h3>
+  <ul class="issue-list">
+    <li class="sev-yellow"><a href="#finding-1"><span class="badge badge-yellow">Overstated -- case partially supports</span> p. 2 &mdash; <em>Ohio Valley Envtl. Coal. v. Aracoma Coal Co.</em>, 556 F.3d 177, 201 (4th Cir. 2009) &mdash; </a></li>
+<li class="sev-red"><a href="#finding-2"><span class="badge badge-red">Not supported by cited case</span> p. 3 &mdash; <em>Ohio Valley Envtl. Coal. v. Aracoma Coal Co.</em>, 556 F.3d 177, 201 (4th Cir. 2009) &mdash; </a></li>
+<li class="sev-red"><a href="#finding-3"><span class="badge badge-red">Not supported by cited case</span> p. 4 &mdash; <em>Dow AgroSciences LLC v. National Marine Fisheries Service</em>, 637 F.3d 259, 268-69 (4th Cir. 2011) &mdash; </a></li>
+<li class="sev-red"><a href="#finding-4"><span class="badge badge-red">Not supported by cited case</span> p. 4 &mdash; <em>Sierra Club v. U.S. Department of the Interior</em>, 899 F.3d 260, 295-96 (4th Cir. 2018) &mdash; </a></li>
+<li class="sev-red"><a href="#finding-5"><span class="badge badge-red">Not supported by cited case</span> p. 5 &mdash; <em>Ohio Valley Envtl. Coal. v. Aracoma Coal Co.</em>, 556 F.3d 177, 201 (4th Cir. 2009) &mdash; </a></li>
+<li class="sev-red"><a href="#finding-6"><span class="badge badge-red">Not supported by cited case</span> p. 6 &mdash; <em>Ohio Valley Envtl. Coal. v. Aracoma Coal Co.</em>, 556 F.3d 177, 201 (4th Cir. 2009) &mdash; </a></li>
+<li class="sev-red"><a href="#finding-7"><span class="badge badge-red">Not supported by cited case</span> p. 6 &mdash; <em>Dow AgroSciences LLC v. National Marine Fisheries Service</em>, 637 F.3d 259, 269 (4th Cir. 2011) &mdash; </a></li>
+<li class="sev-yellow"><a href="#finding-8"><span class="badge badge-yellow">Overstated -- case partially supports</span> p. 6 &mdash; <em>Citizens to Preserve Overton Park</em>, Inc. v. Volpe, 401 U.S. 402, 420 (1971) &mdash; </a></li>
+<li class="sev-red"><a href="#finding-9"><span class="badge badge-red">Not supported by cited case</span> p. 7 &mdash; <em>Dow AgroSciences LLC v. National Marine Fisheries Service</em>, 637 F.3d 259, 268 (4th Cir. 2011) &mdash; </a></li>
+  </ul>
 </div>
+<h2>Findings</h2>
+<div class="controls"><button onclick="expandAll()">Expand All</button> | <button onclick="collapseAll()">Collapse All</button></div>
+<details id="finding-1">
+  <summary>
+    <strong>p. 2</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/1027825/ohio-valley-environmental-coalition-v-aracoma-coal-co/"><span class="case-name">Ohio Valley Envtl. Coal. v. Aracoma Coal Co.</span></a>, 556 F.3d 177, 201 (4th Cir. 2009)
+    &mdash; <span class="badge badge-yellow">Overstated -- case partially supports</span>
+  </summary>
+  <div class="finding-body">
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief">APA review &quot;is limited to the administrative record that was before the agency at the time of its decision.&quot;</div>
+    
+    
+  </div>
+</details><details id="finding-2">
+  <summary>
+    <strong>p. 3</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/1027825/ohio-valley-environmental-coalition-v-aracoma-coal-co/"><span class="case-name">Ohio Valley Envtl. Coal. v. Aracoma Coal Co.</span></a>, 556 F.3d 177, 201 (4th Cir. 2009)
+    &mdash; <span class="badge badge-red">Not supported by cited case</span>
+  </summary>
+  <div class="finding-body">
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief">Efforts to rely on extra-record materials should be rejected where plaintiffs fail to overcome the presumption that the record was complete.</div>
+    
+    
+  </div>
+</details><details id="finding-3">
+  <summary>
+    <strong>p. 4</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/205823/dow-agrosciences-llc-v-national-marine-fisheries-service/"><span class="case-name">Dow AgroSciences LLC v. National Marine Fisheries Service</span></a>, 637 F.3d 259, 268-69 (4th Cir. 2011)
+    &mdash; <span class="badge badge-red">Not supported by cited case</span>
+  </summary>
+  <div class="finding-body">
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief">Denial of extra-record evidence affirmed where plaintiffs sought to challenge the agency's reasoning rather than the completeness of the record.</div>
+    
+    
+  </div>
+</details><details id="finding-4">
+  <summary>
+    <strong>p. 4</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/4524080/sierra-club-v-us-dept-of-the-interior/"><span class="case-name">Sierra Club v. U.S. Department of the Interior</span></a>, 899 F.3d 260, 295-96 (4th Cir. 2018)
+    &mdash; <span class="badge badge-red">Not supported by cited case</span>
+  </summary>
+  <div class="finding-body">
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief">Extra-record evidence is not permitted merely because plaintiffs believe additional materials would be helpful.</div>
+    
+    
+  </div>
+</details><details id="finding-5">
+  <summary>
+    <strong>p. 5</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/1027825/ohio-valley-environmental-coalition-v-aracoma-coal-co/"><span class="case-name">Ohio Valley Envtl. Coal. v. Aracoma Coal Co.</span></a>, 556 F.3d 177, 201 (4th Cir. 2009)
+    &mdash; <span class="badge badge-red">Not supported by cited case</span>
+  </summary>
+  <div class="finding-body">
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief">The court rejected claims that the record must be incomplete where plaintiffs offered no evidence that specific materials were omitted; &quot;[m]ere allegations&quot; or assumptions about what the agency &quot;must have considered&quot; do not rebut the presumption of completeness.</div>
+    
+    
+  </div>
+</details><details id="finding-6">
+  <summary>
+    <strong>p. 6</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/1027825/ohio-valley-environmental-coalition-v-aracoma-coal-co/"><span class="case-name">Ohio Valley Envtl. Coal. v. Aracoma Coal Co.</span></a>, 556 F.3d 177, 201 (4th Cir. 2009)
+    &mdash; <span class="badge badge-red">Not supported by cited case</span>
+  </summary>
+  <div class="finding-body">
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief">Speculation that additional documents &quot;may exist&quot; does not justify supplementation.</div>
+    
+    
+  </div>
+</details><details id="finding-7">
+  <summary>
+    <strong>p. 6</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/205823/dow-agrosciences-llc-v-national-marine-fisheries-service/"><span class="case-name">Dow AgroSciences LLC v. National Marine Fisheries Service</span></a>, 637 F.3d 259, 269 (4th Cir. 2011)
+    &mdash; <span class="badge badge-red">Not supported by cited case</span>
+  </summary>
+  <div class="finding-body">
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief">Supplementation rejected where the issues were legal and policy-based, not technical.</div>
+    
+    
+  </div>
+</details><details id="finding-8">
+  <summary>
+    <strong>p. 6</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/108283/citizens-to-preserve-overton-park-inc-v-volpe/"><span class="case-name">Citizens to Preserve Overton Park</span></a>, Inc. v. Volpe, 401 U.S. 402, 420 (1971)
+    &mdash; <span class="badge badge-yellow">Overstated -- case partially supports</span>
+  </summary>
+  <div class="finding-body">
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief">Bad faith requires a strong, concrete showing, not conjecture.</div>
+    
+    
+  </div>
+</details><details id="finding-9">
+  <summary>
+    <strong>p. 7</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/205823/dow-agrosciences-llc-v-national-marine-fisheries-service/"><span class="case-name">Dow AgroSciences LLC v. National Marine Fisheries Service</span></a>, 637 F.3d 259, 268 (4th Cir. 2011)
+    &mdash; <span class="badge badge-red">Not supported by cited case</span>
+  </summary>
+  <div class="finding-body">
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief">&quot;The APA does not provide for a broad right of discovery.&quot;</div>
+    
+    
+  </div>
+</details>
 
-<h2>Red Assessments (7)</h2>
-
-<table>
-<tr><th class="page-num">Pg</th><th>Proposition</th><th>Cited Case</th><th>Assessment</th><th>Analysis</th></tr>
-
-<tr>
-<td class="page-num">3</td>
-<td>Efforts to rely on extra-record materials should be rejected where plaintiffs fail to overcome the presumption that the record was complete.</td>
-<td><a href="https://www.courtlistener.com/opinion/1027825/ohio-valley-environmental-coalition-v-aracoma-coal-co/">Ohio Valley v. Aracoma Coal, 556 F.3d 177, 201 (4th Cir. 2009)</a></td>
-<td class="red">Red</td>
-<td><blockquote>The opinion never discusses a "presumption that the record was complete" or the rejection of extra-record materials for failure to overcome such a presumption. The discussion at page 201 actually notes that "in the NEPA context, courts generally have been willing to look outside the record." The opinion's concern is about courts substituting plaintiffs' experts for agency experts, not about record completeness.</blockquote></td>
-</tr>
-
-<tr>
-<td class="page-num">4</td>
-<td>Denial of extra-record evidence affirmed where plaintiffs sought to challenge the agency's reasoning rather than the completeness of the record.</td>
-<td><a href="https://www.courtlistener.com/opinion/205823/dow-agrosciences-llc-v-national-marine-fisheries-service/">Dow AgroSciences v. NMFS, 637 F.3d 259, 268-69 (4th Cir. 2011)</a></td>
-<td class="red">Red</td>
-<td><blockquote>The opinion addresses whether a biological opinion is judicially reviewable under the APA and whether FIFRA provides an adequate alternative remedy. Pages 268-69 discuss jurisdiction and ripeness. The opinion contains no discussion of extra-record evidence, record supplementation, or challenging the agency's reasoning versus the completeness of the record.</blockquote></td>
-</tr>
-
-<tr>
-<td class="page-num">4</td>
-<td>Extra-record evidence is not permitted merely because plaintiffs believe additional materials would be helpful.</td>
-<td><a href="https://www.courtlistener.com/opinion/4524080/sierra-club-v-us-dept-of-the-interior/">Sierra Club v. U.S. Dep't of the Interior, 899 F.3d 260, 295-96 (4th Cir. 2018)</a></td>
-<td class="red">Red</td>
-<td><blockquote>The opinion addresses FWS's Incidental Take Statement under the Endangered Species Act and NPS's right-of-way permit for the Atlantic Coast Pipeline. It contains no discussion of extra-record evidence, administrative record supplementation, or when additional materials outside the record may be considered. The proposition is entirely absent from this opinion.</blockquote></td>
-</tr>
-
-<tr>
-<td class="page-num">5</td>
-<td>The court rejected claims that the record must be incomplete where plaintiffs offered no evidence that specific materials were omitted; "[m]ere allegations" or assumptions about what the agency "must have considered" do not rebut the presumption of completeness.</td>
-<td><a href="https://www.courtlistener.com/opinion/1027825/ohio-valley-environmental-coalition-v-aracoma-coal-co/">Ohio Valley v. Aracoma Coal, 556 F.3d 177, 201 (4th Cir. 2009)</a></td>
-<td class="red">Red</td>
-<td><blockquote>The phrase "mere allegations" does not appear anywhere in the opinion. The opinion never discusses whether plaintiffs offered evidence that specific materials were omitted, nor does it address any "presumption of completeness." The page 201 discussion is about extra-record expert testimony in NEPA cases — an entirely different issue.</blockquote></td>
-</tr>
-
-<tr>
-<td class="page-num">6</td>
-<td>Speculation that additional documents "may exist" does not justify supplementation.</td>
-<td><a href="https://www.courtlistener.com/opinion/1027825/ohio-valley-environmental-coalition-v-aracoma-coal-co/">Ohio Valley v. Aracoma Coal, 556 F.3d 177, 201 (4th Cir. 2009)</a></td>
-<td class="red">Red</td>
-<td><blockquote>The opinion never uses the word "speculation" or the phrase "may exist," and does not discuss supplementation of the administrative record. The page 201 discussion is about deference to agency methodology in NEPA expert testimony, not record supplementation.</blockquote></td>
-</tr>
-
-<tr>
-<td class="page-num">6</td>
-<td>Supplementation rejected where the issues were legal and policy-based, not technical.</td>
-<td><a href="https://www.courtlistener.com/opinion/205823/dow-agrosciences-llc-v-national-marine-fisheries-service/">Dow AgroSciences v. NMFS, 637 F.3d 259, 269 (4th Cir. 2011)</a></td>
-<td class="red">Red</td>
-<td><blockquote>Page 269 discusses ripeness, not record supplementation. No passage in this opinion addresses supplementation of an administrative record. The court's analysis concerns whether a challenge to a biological opinion is ripe for review.</blockquote></td>
-</tr>
-
-<tr>
-<td class="page-num">7</td>
-<td>"The APA does not provide for a broad right of discovery."</td>
-<td><a href="https://www.courtlistener.com/opinion/205823/dow-agrosciences-llc-v-national-marine-fisheries-service/">Dow AgroSciences v. NMFS, 637 F.3d 259, 268 (4th Cir. 2011)</a></td>
-<td class="red">Red</td>
-<td><blockquote>The quoted phrase "The APA does not provide for a broad right of discovery" does not appear anywhere in this opinion. Page 268 discusses whether a biological opinion is reviewable under the APA given FIFRA's judicial review provisions. The opinion never mentions discovery.</blockquote></td>
-</tr>
-
-</table>
-
-<h2>Yellow Assessments (2)</h2>
-
-<table>
-<tr><th class="page-num">Pg</th><th>Proposition</th><th>Cited Case</th><th>Assessment</th><th>Analysis</th></tr>
-
-<tr>
-<td class="page-num">2</td>
-<td>APA review "is limited to the administrative record that was before the agency at the time of its decision."</td>
-<td><a href="https://www.courtlistener.com/opinion/1027825/ohio-valley-environmental-coalition-v-aracoma-coal-co/">Ohio Valley v. Aracoma Coal, 556 F.3d 177, 201 (4th Cir. 2009)</a></td>
-<td class="yellow">Yellow</td>
-<td><blockquote>The opinion states this principle but as a foil — the very next clause distinguishes NEPA cases where "courts generally have been willing to look outside the record." The quoted principle appears as background, not as the holding.</blockquote></td>
-</tr>
-
-<tr>
-<td class="page-num">6</td>
-<td>Bad faith requires a strong, concrete showing, not conjecture.</td>
-<td><a href="https://www.courtlistener.com/opinion/108283/citizens-to-preserve-overton-park-inc-v-volpe/">Overton Park, 401 U.S. 402, 420 (1971)</a></td>
-<td class="yellow">Yellow</td>
-<td><blockquote>The opinion requires a "strong showing of bad faith or improper behavior" but does not use the words "concrete" or "not conjecture." The proposition adds a gloss not found in this opinion.</blockquote></td>
-</tr>
-
-</table>
-
-<h2>Green Assessments (4)</h2>
-
-<table>
-<tr><th class="page-num">Pg</th><th>Proposition</th><th>Cited Case</th><th>Assessment</th></tr>
-<tr><td class="page-num">2</td><td>Judicial review under the APA is limited to the administrative record; "the focal point for judicial review should be the administrative record already in existence, not some new record made initially in the reviewing court."</td><td><a href="https://www.courtlistener.com/opinion/108752/camp-v-pitts/">Camp v. Pitts, 411 U.S. 138, 142 (1973)</a></td><td class="green">Green</td></tr>
-<tr><td class="page-num">2</td><td>Courts must assess agency action based on the materials actually considered by the agency, rejecting de novo review.</td><td><a href="https://www.courtlistener.com/opinion/108283/citizens-to-preserve-overton-park-inc-v-volpe/">Overton Park, 401 U.S. 402, 420 (1971)</a></td><td class="green">Green</td></tr>
-<tr><td class="page-num">3</td><td>Agency actions are entitled to a presumption of regularity.</td><td><a href="https://www.courtlistener.com/opinion/108283/citizens-to-preserve-overton-park-inc-v-volpe/">Overton Park, 401 U.S. 402, 415 (1971)</a></td><td class="green">Green</td></tr>
-<tr><td class="page-num">4</td><td>Extra-record inquiry is allowed only upon a "strong showing" of bad faith or improper behavior.</td><td><a href="https://www.courtlistener.com/opinion/108283/citizens-to-preserve-overton-park-inc-v-volpe/">Overton Park, 401 U.S. 402, 420 (1971)</a></td><td class="green">Green</td></tr>
-</table>
+<h2>Verified Citations</h2>
+<details>
+  <summary>4 citation-proposition pairs verified &mdash; click to expand</summary>
+  <div class="finding-body">
+    <div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 2</strong> &mdash; <a href="https://www.courtlistener.com/opinion/108752/camp-v-pitts/"><em>Camp v. Pitts</em></a>, 411 U.S. 138, 142 (1973) &mdash; Judicial review under the APA is limited to the administrative record that was before the agency at the time of the challenged decision; &quot;the focal point for judicial review should be the administrative record already in existence, not some new record made initially in the reviewing court.&quot; <span class="badge badge-green">Supported</span> &mdash; <span style="color:#555;font-size:0.85em;">"(1) Supports: &quot;the focal point for judicial review should be the administrative record already in existence, not some new record made initially in the reviewing court.&quot; This exact language appears at page 142 of the opinion."</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 2</strong> &mdash; <a href="https://www.courtlistener.com/opinion/108283/citizens-to-preserve-overton-park-inc-v-volpe/"><em>Citizens to Preserve Overton Park</em></a>, Inc. v. Volpe, 401 U.S. 402, 420 (1971) &mdash; Courts must assess agency action based on the materials actually considered by the agency, rejecting de novo review. <span class="badge badge-green">Supported</span> &mdash; <span style="color:#555;font-size:0.85em;">"(1) Supports: &quot;That review is to be based on the full administrative record that was before the Secretary at the time he made his decision.&quot; (2) Supports rejection of de novo review: &quot;Neither of these standards is, however, applicable.&quot; (discussing de novo review under s 706(2)(F))"</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 3</strong> &mdash; <a href="https://www.courtlistener.com/opinion/108283/citizens-to-preserve-overton-park-inc-v-volpe/"><em>Citizens to Preserve Overton Park</em></a>, Inc. v. Volpe, 401 U.S. 402, 415 (1971) &mdash; Agency actions are entitled to a presumption of regularity. <span class="badge badge-green">Supported</span> &mdash; <span style="color:#555;font-size:0.85em;">"(1) Supports: &quot;Certainly, the Secretary's decision is entitled to a presumption of regularity.&quot;"</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 4</strong> &mdash; <a href="https://www.courtlistener.com/opinion/108283/citizens-to-preserve-overton-park-inc-v-volpe/"><em>Citizens to Preserve Overton Park</em></a>, Inc. v. Volpe, 401 U.S. 402, 420 (1971) &mdash; Extra-record inquiry is allowed only upon a &quot;strong showing&quot; of bad faith or improper behavior. <span class="badge badge-green">Supported</span> &mdash; <span style="color:#555;font-size:0.85em;">"(1) Supports: &quot;there must be a strong showing of bad faith or improper behavior before such inquiry may be made.&quot;"</span></div>
+  </div>
+</details>
+<div class="methodology">
+  <h2>Methodology &amp; Limitations</h2>
+  <ul>
+    <li><strong>Quote verification</strong> is near-deterministic but limited by the quality of CourtListener's text. Minor discrepancies may reflect OCR artifacts in the source database rather than errors in the brief.</li>
+    <li><strong>Propositional support</strong> assessment is an AI judgment. It reflects Claude's reading of the opinion text and should be verified by counsel. Reasonable lawyers may disagree about whether a case "supports" a given proposition.</li>
+    <li>This report checks whether cited cases say what the brief claims they say. It does not assess the overall legal merit of the brief's arguments or whether the cited cases are the best authorities available.</li>
+    <li>Cases marked "unable to verify" should be checked through other sources (Westlaw, Lexis, etc.).</li>
+  </ul>
+  <h3>Verification method disclosure</h3>
+  <p>The following opinions were <strong>retrieved from CourtListener</strong> and verified against their full text:</p>
+  <ul>
+    <li><em>Camp v. Pitts</em>, 411 U.S. 138, 142 (1973) (cluster 108752)</li>
+<li><em>Citizens to Preserve Overton Park, Inc. v. Volpe</em>, Inc. v. Volpe, 401 U.S. 402, 420 (1971) (cluster 108283)</li>
+<li><em>Ohio Valley Environmental Coalition v. Aracoma Coal Co.</em>, 556 F.3d 177, 201 (4th Cir. 2009) (cluster 1027825)</li>
+<li><em>Dow Agrosciences LLC v. National Marine Fisheries Service</em>, 637 F.3d 259, 268 (4th Cir. 2011) (cluster 205823)</li>
+<li><em>Sierra Club v. U.S. Dep't of the Interior</em>, 899 F.3d 260, 295-96 (4th Cir. 2018) (cluster 4524080)</li>
+  </ul>
+  
+  <p>No opinions in this report were assessed from training knowledge. All assessments are based on retrieved opinion text.</p>
+</div>
 
 </body>
 </html>
