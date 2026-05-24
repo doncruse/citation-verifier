@@ -431,10 +431,15 @@
 
   function badgeClass(status) {
     switch (status) {
-      case 'VERIFIED': return 'badge-verified';
+      case 'VERIFIED':
+      case 'VERIFIED_VIA_RECAP': return 'badge-verified';
+      case 'VERIFIED_DOCKET_ONLY': return 'badge-possible';
+      case 'VERIFIED_PARTIAL': return 'badge-possible';
       case 'LIKELY_REAL': return 'badge-likely';
       case 'POSSIBLE_MATCH': return 'badge-possible';
+      case 'WRONG_CASE': return 'badge-notfound';
       case 'NOT_FOUND': return 'badge-notfound';
+      case 'VERIFICATION_INCOMPLETE': return 'badge-notfound';
       case 'SKIPPED': return 'badge-skipped';
       default: return '';
     }
@@ -443,9 +448,14 @@
   function statusLabel(status) {
     switch (status) {
       case 'VERIFIED': return 'Verified';
+      case 'VERIFIED_VIA_RECAP': return 'Verified (RECAP)';
+      case 'VERIFIED_DOCKET_ONLY': return 'Docket Only';
+      case 'VERIFIED_PARTIAL': return 'Partial';
       case 'LIKELY_REAL': return 'Likely Real';
       case 'POSSIBLE_MATCH': return 'Possible';
+      case 'WRONG_CASE': return 'Wrong Case';
       case 'NOT_FOUND': return 'Not Found';
+      case 'VERIFICATION_INCOMPLETE': return 'Incomplete';
       case 'SKIPPED': return 'Skipped';
       default: return status || '--';
     }

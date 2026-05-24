@@ -319,10 +319,15 @@ Terry v. Ohio, 392 U.S. 1 (1968)"></textarea>
 
   function badgeClass(status) {
     switch (status) {
-      case 'VERIFIED': return 'badge-verified';
+      case 'VERIFIED':
+      case 'VERIFIED_VIA_RECAP': return 'badge-verified';
+      case 'VERIFIED_DOCKET_ONLY': return 'badge-info';
+      case 'VERIFIED_PARTIAL': return 'badge-possible';
       case 'LIKELY_REAL': return 'badge-likely';
       case 'POSSIBLE_MATCH': return 'badge-possible';
+      case 'WRONG_CASE': return 'badge-notfound';
       case 'NOT_FOUND': return 'badge-notfound';
+      case 'VERIFICATION_INCOMPLETE': return 'badge-error';
       case 'ERROR': return 'badge-error';
       default: return 'badge-pending';
     }
@@ -331,9 +336,14 @@ Terry v. Ohio, 392 U.S. 1 (1968)"></textarea>
   function statusLabel(status) {
     switch (status) {
       case 'VERIFIED': return 'Verified';
+      case 'VERIFIED_VIA_RECAP': return 'Verified (RECAP)';
+      case 'VERIFIED_DOCKET_ONLY': return 'Docket Only';
+      case 'VERIFIED_PARTIAL': return 'Partial';
       case 'LIKELY_REAL': return 'Likely Real';
       case 'POSSIBLE_MATCH': return 'Possible';
+      case 'WRONG_CASE': return 'Wrong Case';
       case 'NOT_FOUND': return 'Not Found';
+      case 'VERIFICATION_INCOMPLETE': return 'Incomplete';
       case 'ERROR': return 'Error';
       default: return 'Pending';
     }
@@ -343,6 +353,16 @@ Terry v. Ohio, 392 U.S. 1 (1968)"></textarea>
     switch (status) {
       case 'VERIFIED':
         return [{ label: 'Verified', cls: 'badge-verified' }];
+      case 'VERIFIED_VIA_RECAP':
+        return [{ label: 'Verified (RECAP)', cls: 'badge-verified', tip: 'Verified via RECAP (PACER docket archive)' }];
+      case 'VERIFIED_DOCKET_ONLY':
+        return [{ label: 'Docket Only', cls: 'badge-info', tip: 'Case docket exists on CourtListener but the specific cited opinion could not be identified' }];
+      case 'VERIFIED_PARTIAL':
+        return [{ label: 'Partial', cls: 'badge-possible', tip: 'A parallel cite resolved but the primary reporter did not' }];
+      case 'WRONG_CASE':
+        return [{ label: 'Wrong Case', cls: 'badge-notfound', tip: 'The reporter citation resolves to a different case than the one named' }];
+      case 'VERIFICATION_INCOMPLETE':
+        return [{ label: 'Incomplete', cls: 'badge-error', tip: 'Verification incomplete due to a CourtListener infrastructure error; try again' }];
       case 'LIKELY_REAL':
         return [{ label: 'Likely Real', cls: 'badge-likely' }];
       case 'POSSIBLE_MATCH': {

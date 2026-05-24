@@ -474,6 +474,16 @@ Terry v. Ohio, 392 U.S. 1 (1968)"></textarea>
       case 'VERIFIED':
       case 'LIKELY_REAL':
         return [{ label: 'Ready', cls: 'badge-ready' }];
+      case 'VERIFIED_VIA_RECAP':
+        return [{ label: 'Ready (RECAP)', cls: 'badge-ready', tip: 'Verified via RECAP (PACER docket archive)' }];
+      case 'VERIFIED_DOCKET_ONLY':
+        return [{ label: 'Docket Only', cls: 'badge-info', tip: 'Case docket exists on CourtListener but the specific cited opinion could not be identified' }];
+      case 'VERIFIED_PARTIAL':
+        return [{ label: 'Partial', cls: 'badge-review', tip: 'A parallel cite resolved but the primary reporter did not' }];
+      case 'WRONG_CASE':
+        return [{ label: 'Wrong Case', cls: 'badge-notfound', tip: 'The reporter citation resolves to a different case than the one named' }];
+      case 'VERIFICATION_INCOMPLETE':
+        return [{ label: 'Retry', cls: 'badge-error', tip: 'Verification incomplete due to a CourtListener infrastructure error; try again' }];
       case 'POSSIBLE_MATCH': {
         var badges = [];
         if (diagnostics && diagnostics.length) {
