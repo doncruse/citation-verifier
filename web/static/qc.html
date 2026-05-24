@@ -45,9 +45,14 @@
   .chip:hover { border-color: #999; }
   .chip.active { background: #4a6fa5; color: #fff; border-color: #4a6fa5; }
   .chip[data-filter="NOT_FOUND"].active { background: #dc3545; border-color: #dc3545; }
+  .chip[data-filter="WRONG_CASE"].active { background: #b21f1f; border-color: #b21f1f; }
+  .chip[data-filter="VERIFICATION_INCOMPLETE"].active { background: #856404; border-color: #856404; }
   .chip[data-filter="POSSIBLE_MATCH"].active { background: #856404; border-color: #856404; }
   .chip[data-filter="LIKELY_REAL"].active { background: #004085; border-color: #004085; }
   .chip[data-filter="VERIFIED"].active { background: #155724; border-color: #155724; }
+  .chip[data-filter="VERIFIED_PARTIAL"].active { background: #1d7e3a; border-color: #1d7e3a; }
+  .chip[data-filter="VERIFIED_VIA_RECAP"].active { background: #1d7e3a; border-color: #1d7e3a; }
+  .chip[data-filter="VERIFIED_DOCKET_ONLY"].active { background: #1d7e3a; border-color: #1d7e3a; }
   .chip[data-filter="SKIPPED"].active { background: #6c757d; border-color: #6c757d; }
 
   /* Progress badges */
@@ -378,9 +383,14 @@
 <div class="filters" id="filters" style="display:none;">
   <span class="chip active" data-filter="ALL">ALL</span>
   <span class="chip active" data-filter="NOT_FOUND">NOT_FOUND</span>
+  <span class="chip active" data-filter="WRONG_CASE">WRONG_CASE</span>
+  <span class="chip active" data-filter="VERIFICATION_INCOMPLETE">INCOMPLETE</span>
   <span class="chip active" data-filter="POSSIBLE_MATCH">POSSIBLE</span>
   <span class="chip" data-filter="LIKELY_REAL">LIKELY_REAL</span>
   <span class="chip" data-filter="VERIFIED">VERIFIED</span>
+  <span class="chip" data-filter="VERIFIED_PARTIAL">PARTIAL</span>
+  <span class="chip" data-filter="VERIFIED_VIA_RECAP">VIA_RECAP</span>
+  <span class="chip" data-filter="VERIFIED_DOCKET_ONLY">DOCKET_ONLY</span>
   <span class="chip" data-filter="SKIPPED">SKIPPED</span>
 </div>
 
@@ -418,7 +428,12 @@
   var allResults = [];
   var selectedIdx = -1;  // index into filteredResults
   var expandedIdx = -1;
-  var activeFilters = new Set(['NOT_FOUND', 'POSSIBLE_MATCH']);
+  // Default-active: actionable triage categories under v0.3 taxonomy.
+  // WRONG_CASE = cite resolves to different case (highest priority);
+  // VERIFICATION_INCOMPLETE = CL infra failure (needs rerun);
+  // NOT_FOUND = potential hallucination; POSSIBLE_MATCH = legacy v0.2
+  // compatibility for old sidecars on disk.
+  var activeFilters = new Set(['NOT_FOUND', 'WRONG_CASE', 'VERIFICATION_INCOMPLETE', 'POSSIBLE_MATCH']);
   var allFilterActive = false;  // "ALL" chip toggles everything
 
   // --- Utilities ---
