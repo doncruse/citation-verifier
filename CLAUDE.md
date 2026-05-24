@@ -12,18 +12,6 @@ Uses a forked [eyecite](https://github.com/freelawproject/eyecite) (rlfordon/eye
 - **Never write important information only to Claude memory.** Memory files are per-machine and per-project-path — they don't sync across computers. Anything that should persist (retrospectives, test feedback, design decisions, session notes) must be written to a file in the repo so it gets committed and pushed. Memory is fine for caching preferences and shortcuts, but not for unique artifacts.
 - **"Save this somewhere"** means write it to a file in the repo (e.g., `scratch/`, `briefs/`, `docs/`), never to memory. Ask where if the right location isn't obvious.
 
-## Refactor Workflow (Phases 1–4, ongoing)
-
-The schema rewrite lives on branch `refactor/v0.3` (design: `docs/plans/2026-05-20-citation-verifier-refactor-design-v2.md`). For the duration of the refactor:
-
-- **Work in a dedicated worktree:** `.claude/worktrees/refactor-v0.3`. Do not work on the refactor from the main worktree. Each worktree gets its own venv (Windows: `venv/Scripts/python.exe`) AND its own `.env` — `client.py`'s `load_dotenv` is path-explicit and doesn't walk up to the parent repo.
-- **Push to `refactor/v0.3` every session.** Cross-machine sync depends on it.
-- **Merge `origin/main` into the refactor branch at each phase boundary** to absorb conflicts while they're small.
-- **Tag each phase acceptance:** `refactor/phase-1-acceptance`, `refactor/phase-2-acceptance`, etc. Push tags.
-- **Do NOT push to main until Phase 4 acceptance passes.** No `git push origin HEAD:main` from the refactor branch before then.
-- **Per-phase implementation plans live in `docs/plans/`.** Plan first (writing-plans skill), then implement. Phase N+1's plan is written after Phase N lands, when the implementer knows what shipped.
-- **At final acceptance:** merge to main with a merge commit (don't squash — preserve per-phase history), tag `v0.3.0`, and **delete this section from CLAUDE.md**.
-
 ## Architecture
 
 Three-step verification pipeline in `src/citation_verifier/verifier.py`:
@@ -231,5 +219,4 @@ The web app's batch loop is parallelized (asyncio.Queue with MAX_CONCURRENT=5). 
 - **Windows console**: Avoid Unicode emoji in CLI output -- use ASCII status labels like `[OK]`, `[?]`, `[X]`.
 - **Windows Git Bash**: `head`, `tail`, `grep`, `cut` are not available. Use Python or dedicated tools instead. `taskkill` flags need `//` prefix (e.g. `taskkill //PID 1234 //F`) to avoid MSYS2 path conversion. The Python executable is `venv/Scripts/python.exe` (not `python` or `python3`).
 - **eyecite on Windows**: `hyperscan` module is not available. Use `AhocorasickTokenizer` instead of `HyperscanTokenizer` for citation extraction.
-- **VerificationResult fields** (pre-refactor v0.2 schema — refactor/v0.3 branch reshaped this; the description below applies on `main`): URL attribute is `matched_url` (not `court_listener_url`). For citation-lookup and opinion-search matches, the CL cluster id is in `matched_cluster_id` and resolves at `/api/rest/v4/clusters/<id>/`. For RECAP-fallback matches (either a specific document or a docket-only match), the docket id is in `matched_docket_id` and resolves at `/api/rest/v4/dockets/<id>/`; `matched_cluster_id` is `None` for those. Only one of the two namespace fields is populated per result — use `matched_docket_id is not None` as the discriminator if you need to choose an endpoint. `diagnostics` is `List[Diagnostic]` — each has `.category` (name/court/date/docket/cite/recap/info) and `.message` (human-readable text). `__str__` returns `.message` for backwards compatibility. Join `.message` with `"; "` when displaying as a single string.
-- **VerificationResult fields on refactor/v0.3** (Phase 1–3): top-level `matched_*` and `diagnostics` are gone; everything moved under `result.final_ids` (cluster_id, opinion_id, docket_id, **recap_document_id** (Phase 3), absolute_url, text_source) and `result.warnings` (typed `Warning` with `.category` enum). Use `result.final_ids.docket_id is not None and result.final_ids.cluster_id is None` as the RECAP-vs-opinion discriminator. `VERIFIED_VIA_RECAP` populates `recap_document_id`; `VERIFIED_DOCKET_ONLY` leaves it `None`. See `src/citation_verifier/models.py` and `docs/plans/2026-05-20-citation-verifier-refactor-design-v2.md` for the full schema.
+- **VerificationResult fields**: top-level `matched_*` and `diagnostics` are gone; everything moved under `result.final_ids` (cluster_id, opinion_id, docket_id, recap_document_id, absolute_url, text_source) and `result.warnings` (typed `Warning` with `.category` enum). Use `result.final_ids.docket_id is not None and result.final_ids.cluster_id is None` as the RECAP-vs-opinion discriminator. `VERIFIED_VIA_RECAP` populates `recap_document_id`; `VERIFIED_DOCKET_ONLY` leaves it `None`. `VERIFICATION_INCOMPLETE` nulls all final_ids per design §2.8 (consumers must not mistake INCOMPLETE for partial verification). See `src/citation_verifier/models.py`, `docs/plans/2026-05-20-citation-verifier-refactor-design-v2.md`, and `docs/consumer-surface-manifest.md` for the full schema and consumer audit.
