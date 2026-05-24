@@ -7,6 +7,11 @@ Verifies that:
 4. Exponential backoff formula (intentionally stricter than sync to avoid 429 storms)
 
 All tests mock API clients so no real API calls are made.
+
+Migrated to the v0.3 schema (Phase 1, Task 3). Task 1 (Phase 3) removed
+the legacy _DiagnosticLike / _CATEGORY_PATTERNS / _classify_note /
+_diagnostics / _matched_case_name bridge; assertions now read
+result.warnings and _winning_path_entry() directly.
 """
 
 from __future__ import annotations
@@ -18,8 +23,34 @@ from unittest.mock import AsyncMock, MagicMock, patch
 import pytest
 
 from citation_verifier.client import AsyncCourtListenerClient, CourtListenerClient
-from citation_verifier.models import ParsedCitation, VerificationStatus
+from citation_verifier.models import (
+    ParsedCitation,
+    StageName,
+    StageVerdict,
+    Status,
+    WarningCategory,
+)
 from citation_verifier.verifier import CitationVerifier
+
+
+def _winning_path_entry(result):
+    """Return the resolution_path entry that drove the result (highest-
+    confidence resolved/partial entry, else the last entry).
+
+    Phase 2 emits one entry per stage attempted; the last is not always
+    the winner (e.g. opinion_search resolved, then recap_docket_search
+    ran afterward as a no_match). This helper picks the entry that
+    actually decided the verdict so tests can assert against its
+    raw_response_summary, notes, etc."""
+    if not result.resolution_path:
+        return None
+    resolved = [
+        e for e in result.resolution_path
+        if e.verdict in (StageVerdict.resolved, StageVerdict.partial)
+    ]
+    if resolved:
+        return max(resolved, key=lambda e: e.confidence or 0.0)
+    return result.resolution_path[-1]
 
 
 # ---------------------------------------------------------------------------
@@ -34,6 +65,14 @@ def _make_client(**overrides):
     client.search_opinions.return_value = overrides.get("search_opinions", [])
     client.search_recap.return_value = overrides.get("search_recap", [])
     client.get_docket_entries.return_value = overrides.get("get_docket_entries", [])
+    # New for Phase 3 caption_investigation — Task 5 wires the production
+    # call sites; default these to empty dicts so existing tests don't break.
+    client.get_cluster.return_value = overrides.get("get_cluster", {})
+    client.get_docket.return_value = overrides.get("get_docket", {})
+    client.get_opinion_text.return_value = overrides.get("get_opinion_text", None)
+    client.get_opinion_text_with_metadata.return_value = overrides.get(
+        "get_opinion_text_with_metadata", None
+    )
     return client
 
 
@@ -44,6 +83,20 @@ def _make_async_client(**overrides):
     client.search_opinions.return_value = overrides.get("search_opinions", [])
     client.search_recap.return_value = overrides.get("search_recap", [])
     client.get_docket_entries.return_value = overrides.get("get_docket_entries", [])
+    # New for Phase 3 caption_investigation — Task 5 wires the production
+    # call sites; default these to empty dicts so existing tests don't break.
+    client.get_cluster.return_value = overrides.get("get_cluster", {})
+    client.get_docket.return_value = overrides.get("get_docket", {})
+    client.get_opinion_text.return_value = overrides.get("get_opinion_text", None)
+    client.get_opinion_text_with_metadata.return_value = overrides.get(
+        "get_opinion_text_with_metadata", None
+    )
+    # Phase 4 Task 4 doc-detail fetch for VIA_RECAP score gate refinement.
+    recap_doc_metadata = overrides.get("recap_document_metadata", None)
+    if isinstance(recap_doc_metadata, Exception):
+        client.get_recap_document_metadata.side_effect = recap_doc_metadata
+    else:
+        client.get_recap_document_metadata.return_value = recap_doc_metadata
     return client
 
 
@@ -87,13 +140,15 @@ class TestAsyncSyncParity:
             api, "Obergefell v. Hodges, 576 U.S. 644 (2015)"
         )
 
-        assert sync_r.status == async_r.status == VerificationStatus.VERIFIED
-        assert sync_r.confidence == async_r.confidence == 1.0
-        assert sync_r.matched_case_name == async_r.matched_case_name
-        assert sync_r.matched_url == async_r.matched_url
+        assert sync_r.status == async_r.status == Status.VERIFIED
+        assert sync_r.headline_confidence == async_r.headline_confidence == 1.0
+        assert (_winning_path_entry(sync_r).raw_response_summary.get("matched_case_name")
+                == _winning_path_entry(async_r).raw_response_summary.get("matched_case_name"))
+        assert sync_r.final_ids.absolute_url == async_r.final_ids.absolute_url
 
     def test_parity_citation_lookup_name_mismatch(self):
-        """Step 1: Citation exists but wrong case → POSSIBLE_MATCH in both paths."""
+        """Step 1: Citation exists but wrong case → WRONG_CASE after investigation
+        (no party overlap; was VERIFIED + cl_display_name_data_bug in Phase 1)."""
         api = {
             "citation_lookup": [
                 {
@@ -111,9 +166,15 @@ class TestAsyncSyncParity:
             api, "Smith v. Jones, 100 F.3d 200 (2d Cir. 2020)"
         )
 
-        assert sync_r.status == async_r.status == VerificationStatus.POSSIBLE_MATCH
-        assert sync_r.confidence == async_r.confidence == 0.3
-        assert sync_r.diagnostics == async_r.diagnostics
+        # Phase 3: caption_investigation finds no party overlap → WRONG_CASE.
+        assert sync_r.status == async_r.status == Status.WRONG_CASE
+        # Parity: final_ids populated with actual CL cluster per design §2.4
+        assert sync_r.final_ids.cluster_id == async_r.final_ids.cluster_id == 789
+        # Parity: both paths include caption_investigation stage
+        stages_sync = [e.stage for e in sync_r.resolution_path]
+        stages_async = [e.stage for e in async_r.resolution_path]
+        assert StageName.caption_investigation in stages_sync
+        assert StageName.caption_investigation in stages_async
 
     def test_parity_opinion_search_likely_real(self):
         """Step 2: Fuzzy opinion search finds good match → LIKELY_REAL in both paths."""
@@ -133,10 +194,15 @@ class TestAsyncSyncParity:
             api, "Smith v. Jones, 500 F.3d 200 (2d Cir. 2020)"
         )
 
-        assert sync_r.status == async_r.status == VerificationStatus.LIKELY_REAL
-        assert sync_r.confidence == async_r.confidence
-        assert sync_r.matched_case_name == async_r.matched_case_name
-        assert sync_r.matched_url == async_r.matched_url
+        # Old LIKELY_REAL band: VERIFIED with confidence >= 0.85 from a
+        # fallback (opinion-search) stage entry.
+        assert sync_r.status == async_r.status == Status.VERIFIED
+        assert sync_r.headline_confidence is not None
+        assert sync_r.headline_confidence >= 0.85
+        assert sync_r.headline_confidence == async_r.headline_confidence
+        assert (_winning_path_entry(sync_r).raw_response_summary.get("best_case_name")
+                == _winning_path_entry(async_r).raw_response_summary.get("best_case_name"))
+        assert sync_r.final_ids.absolute_url == async_r.final_ids.absolute_url
 
     def test_parity_no_results_not_found(self):
         """All searches return empty → NOT_FOUND in both paths."""
@@ -145,8 +211,11 @@ class TestAsyncSyncParity:
             api, "Fakename v. Nobody, 999 F.3d 1 (S.D.N.Y. 2020)"
         )
 
-        assert sync_r.status == async_r.status == VerificationStatus.NOT_FOUND
-        assert sync_r.confidence == async_r.confidence == 0.0
+        assert sync_r.status == async_r.status == Status.NOT_FOUND
+        # NOT_FOUND has no resolving stage, so headline_confidence is None
+        # in the new schema (was 0.0 default in old VerificationResult).
+        assert sync_r.headline_confidence is None
+        assert async_r.headline_confidence is None
 
     def test_parity_opinion_search_call_count(self):
         """Both paths call opinion search the same number of times."""
@@ -188,8 +257,9 @@ class TestAsyncSyncParity:
         )
 
         assert sync_r.status == async_r.status
-        assert sync_r.confidence == async_r.confidence
-        assert sync_r.matched_case_name == async_r.matched_case_name
+        assert sync_r.headline_confidence == async_r.headline_confidence
+        assert (_winning_path_entry(sync_r).raw_response_summary.get("best_case_name")
+                == _winning_path_entry(async_r).raw_response_summary.get("best_case_name"))
 
     def test_parity_recap_docket_only_discounted(self):
         """RECAP docket with no docs → 0.6x discount applied by both paths."""
@@ -209,8 +279,9 @@ class TestAsyncSyncParity:
         )
 
         assert sync_r.status == async_r.status
-        assert sync_r.confidence == async_r.confidence
-        assert sync_r.confidence < 0.6  # 0.6x discount
+        assert sync_r.headline_confidence == async_r.headline_confidence
+        assert sync_r.headline_confidence is not None
+        assert sync_r.headline_confidence < 0.6  # 0.6x discount
 
     def test_parity_docket_only_sets_matched_docket_id(self):
         """Async parity for issue #6 docket-only path."""
@@ -232,8 +303,8 @@ class TestAsyncSyncParity:
                 "Lindsay-Stern v. Garamszegi, No. 2:18-cv-01234 (C.D. Cal. 2018)",
             )
         )
-        assert result.matched_docket_id == 18158469
-        assert result.matched_cluster_id is None
+        assert result.final_ids.docket_id == 18158469
+        assert result.final_ids.cluster_id is None
 
     def test_parity_court_corroboration_required(self):
         """Unverified citation + wrong court → NOT_FOUND in both paths."""
@@ -258,7 +329,7 @@ class TestAsyncSyncParity:
             api, "United States v. Craner, 652 F.3d 560, 562 (9th Cir. 2016)"
         )
 
-        assert sync_r.status == async_r.status == VerificationStatus.NOT_FOUND
+        assert sync_r.status == async_r.status == Status.NOT_FOUND
 
     def test_parity_insufficient_data_guard(self):
         """Missing both court and date → NOT_FOUND with diagnostic in both paths."""
@@ -288,10 +359,14 @@ class TestAsyncSyncParity:
             api, "Smith v. Jones, 100 F.3d 200", parsed=parsed
         )
 
-        assert sync_r.status == async_r.status == VerificationStatus.NOT_FOUND
-        assert sync_r.confidence == async_r.confidence == 0.0
-        assert "Insufficient data" in sync_r.diagnostics[0].message
-        assert sync_r.diagnostics == async_r.diagnostics
+        assert sync_r.status == async_r.status == Status.NOT_FOUND
+        assert sync_r.headline_confidence is None
+        assert async_r.headline_confidence is None
+        sync_winner = _winning_path_entry(sync_r)
+        async_winner = _winning_path_entry(async_r)
+        assert sync_winner is not None and sync_winner.notes, "expected at least one diagnostic"
+        assert "Insufficient data" in sync_winner.notes
+        assert sync_winner.notes == async_winner.notes
 
     def test_parity_quick_only_not_found(self):
         """quick_only: both paths return NOT_FOUND with diagnostic when not in lookup."""
@@ -306,10 +381,14 @@ class TestAsyncSyncParity:
             v.verify_async(async_client, citation, quick_only=True)
         )
 
-        assert sync_r.status == async_r.status == VerificationStatus.NOT_FOUND
-        assert sync_r.confidence == async_r.confidence == 0.0
-        assert "Quick search only" in sync_r.diagnostics[0].message
-        assert sync_r.diagnostics == async_r.diagnostics
+        assert sync_r.status == async_r.status == Status.NOT_FOUND
+        assert sync_r.headline_confidence is None
+        assert async_r.headline_confidence is None
+        sync_winner = _winning_path_entry(sync_r)
+        async_winner = _winning_path_entry(async_r)
+        assert sync_winner is not None and sync_winner.notes, "expected at least one diagnostic"
+        assert "Quick search only" in sync_winner.notes
+        assert sync_winner.notes == async_winner.notes
 
     def test_parity_quick_only_verified(self):
         """quick_only: citation found in Step 1 -> VERIFIED in both paths."""
@@ -336,9 +415,10 @@ class TestAsyncSyncParity:
             v.verify_async(async_client, citation, quick_only=True)
         )
 
-        assert sync_r.status == async_r.status == VerificationStatus.VERIFIED
-        assert sync_r.confidence == async_r.confidence == 1.0
-        assert sync_r.matched_case_name == async_r.matched_case_name
+        assert sync_r.status == async_r.status == Status.VERIFIED
+        assert sync_r.headline_confidence == async_r.headline_confidence == 1.0
+        assert (_winning_path_entry(sync_r).raw_response_summary.get("matched_case_name")
+                == _winning_path_entry(async_r).raw_response_summary.get("matched_case_name"))
 
     def test_parity_preparsed_citation(self):
         """Pre-parsed citation produces identical results in both paths."""
@@ -370,8 +450,8 @@ class TestAsyncSyncParity:
             api, "Obergefell v. Hodges, 576 U.S. 644 (2015)", parsed=parsed
         )
 
-        assert sync_r.status == async_r.status == VerificationStatus.VERIFIED
-        assert sync_r.confidence == async_r.confidence == 1.0
+        assert sync_r.status == async_r.status == Status.VERIFIED
+        assert sync_r.headline_confidence == async_r.headline_confidence == 1.0
 
     def test_parity_recap_docket_entries_query(self):
         """When RECAP docs don't match cited date, both paths query docket-entries API."""
@@ -407,8 +487,9 @@ class TestAsyncSyncParity:
         sync_r, async_r = _verify_parity(api, citation)
 
         assert sync_r.status == async_r.status
-        assert sync_r.confidence == async_r.confidence
-        assert sync_r.matched_case_name == async_r.matched_case_name
+        assert sync_r.headline_confidence == async_r.headline_confidence
+        assert (_winning_path_entry(sync_r).raw_response_summary.get("best_case_name")
+                == _winning_path_entry(async_r).raw_response_summary.get("best_case_name"))
 
 
 # ---------------------------------------------------------------------------
@@ -469,8 +550,8 @@ class TestVerifyBatch:
             results = asyncio.run(v.verify_batch(citations))
 
         assert len(results) == 2
-        assert results[0].status == VerificationStatus.VERIFIED
-        assert results[1].status == VerificationStatus.NOT_FOUND
+        assert results[0].status == Status.VERIFIED
+        assert results[1].status == Status.NOT_FOUND
 
     def test_batch_calls_progress_callback(self):
         """Progress callback receives (completed, total) after each citation."""
@@ -540,7 +621,7 @@ class TestVerifyBatch:
             )
 
         assert len(results) == 1
-        assert results[0].status == VerificationStatus.VERIFIED
+        assert results[0].status == Status.VERIFIED
 
     def test_batch_empty_input(self):
         """Empty citation list returns empty results."""
@@ -573,7 +654,7 @@ class TestVerifyBatch:
 
         assert len(results) == n
         # All should complete (NOT_FOUND since mocks return empty)
-        assert all(r.status == VerificationStatus.NOT_FOUND for r in results)
+        assert all(r.status == Status.NOT_FOUND for r in results)
 
 
 # ---------------------------------------------------------------------------
@@ -784,6 +865,97 @@ class TestBatchCitationLookup:
 
 
 # ---------------------------------------------------------------------------
+# Sync / async / batch resolution_path parity
+# ---------------------------------------------------------------------------
+
+
+class TestSyncAsyncBatchPathParity:
+    """Same mock data should produce the same resolution_path shape
+    through sync verify(), async verify_async(), and batch verify_batch().
+
+    "Same shape" = same sequence of (stage, verdict) tuples and same
+    headline_confidence. Per-entry elapsed_ms is allowed to differ.
+    """
+
+    @staticmethod
+    def _shape(result):
+        return (
+            [(e.stage, e.verdict) for e in result.resolution_path],
+            result.headline_confidence,
+        )
+
+    def test_citation_lookup_hit_parity(self):
+        cite = "Obergefell v. Hodges, 576 U.S. 644 (2015)"
+        lookup_payload = [{
+            "clusters": [{"id": 100, "case_name": "Obergefell v. Hodges",
+                          "absolute_url": "/opinion/100/"}],
+        }]
+
+        # Sync
+        sync_client = MagicMock()
+        sync_client.citation_lookup.return_value = lookup_payload
+        sync_verifier = CitationVerifier(client=sync_client)
+        sync_result = sync_verifier.verify(cite)
+
+        # Async (single)
+        async_client = AsyncMock(spec=AsyncCourtListenerClient)
+        async_client.citation_lookup.return_value = lookup_payload
+        async_client.__aenter__ = AsyncMock(return_value=async_client)
+        async_client.__aexit__ = AsyncMock(return_value=None)
+        async_verifier = CitationVerifier()
+        async_result = asyncio.run(async_verifier.verify_async(async_client, cite))
+
+        # Batch (one citation)
+        batch_verifier = CitationVerifier()
+        async def _run_batch():
+            with patch.object(batch_verifier, "_batch_citation_lookup",
+                              AsyncMock(return_value={0: lookup_payload[0]["clusters"][0]})):
+                return await batch_verifier.verify_batch([cite])
+        batch_results = asyncio.run(_run_batch())
+
+        assert self._shape(sync_result) == self._shape(async_result) == self._shape(batch_results[0]), (
+            f"sync={self._shape(sync_result)}  "
+            f"async={self._shape(async_result)}  "
+            f"batch={self._shape(batch_results[0])}"
+        )
+
+    def test_all_stages_miss_parity(self):
+        cite = "Foo v. Bar, 999 F.3d 999 (1st Cir. 2099)"
+
+        sync_client = MagicMock()
+        sync_client.citation_lookup.return_value = []
+        sync_client.search_opinions.return_value = []
+        sync_client.search_recap.return_value = []
+        sync_result = CitationVerifier(client=sync_client).verify(cite)
+
+        async_client = AsyncMock(spec=AsyncCourtListenerClient)
+        async_client.citation_lookup.return_value = []
+        async_client.search_opinions.return_value = []
+        async_client.search_recap.return_value = []
+        async_client.__aenter__ = AsyncMock(return_value=async_client)
+        async_client.__aexit__ = AsyncMock(return_value=None)
+        async_result = asyncio.run(
+            CitationVerifier().verify_async(async_client, cite)
+        )
+
+        batch_verifier = CitationVerifier()
+        async def _run_batch():
+            with patch.object(batch_verifier, "_batch_citation_lookup",
+                              AsyncMock(return_value={})), \
+                 patch("citation_verifier.verifier.AsyncCourtListenerClient") as MockClient:
+                client = AsyncMock()
+                client.search_opinions.return_value = []
+                client.search_recap.return_value = []
+                client.__aenter__ = AsyncMock(return_value=client)
+                client.__aexit__ = AsyncMock(return_value=None)
+                MockClient.return_value = client
+                return await batch_verifier.verify_batch([cite])
+        batch_results = asyncio.run(_run_batch())
+
+        assert self._shape(sync_result) == self._shape(async_result) == self._shape(batch_results[0])
+
+
+# ---------------------------------------------------------------------------
 # verify_batch integration with batch lookup
 # ---------------------------------------------------------------------------
 
@@ -818,8 +990,8 @@ class TestVerifyBatchIntegration:
         ):
             results = asyncio.run(v.verify_batch([citation]))
 
-        assert results[0].status == VerificationStatus.VERIFIED
-        assert results[0].matched_cluster_id == 123
+        assert results[0].status == Status.VERIFIED
+        assert results[0].final_ids.cluster_id == 123
         # Only one citation_lookup call (the batch), no search calls
         assert mock_client.citation_lookup.call_count == 1
         mock_client.search_opinions.assert_not_called()
@@ -847,7 +1019,10 @@ class TestVerifyBatchIntegration:
         ):
             results = asyncio.run(v.verify_batch([citation]))
 
-        assert results[0].status == VerificationStatus.LIKELY_REAL
+        # Old LIKELY_REAL: VERIFIED via fallback opinion-search.
+        assert results[0].status == Status.VERIFIED
+        assert results[0].headline_confidence is not None
+        assert results[0].headline_confidence >= 0.85
         mock_client.search_opinions.assert_called()
 
     def test_mixed_hits_and_misses_in_order(self):
@@ -901,11 +1076,11 @@ class TestVerifyBatchIntegration:
             results = asyncio.run(v.verify_batch(citations))
 
         assert len(results) == 3
-        assert results[0].status == VerificationStatus.VERIFIED
-        assert results[0].matched_cluster_id == 1
-        assert results[1].status == VerificationStatus.NOT_FOUND
-        assert results[2].status == VerificationStatus.VERIFIED
-        assert results[2].matched_cluster_id == 2
+        assert results[0].status == Status.VERIFIED
+        assert results[0].final_ids.cluster_id == 1
+        assert results[1].status == Status.NOT_FOUND
+        assert results[2].status == Status.VERIFIED
+        assert results[2].final_ids.cluster_id == 2
 
     def test_quick_only_batch_misses_return_not_found(self):
         """With quick_only, batch misses return NOT_FOUND without fallback."""
@@ -939,8 +1114,8 @@ class TestVerifyBatchIntegration:
                 v.verify_batch(citations, quick_only=True)
             )
 
-        assert results[0].status == VerificationStatus.VERIFIED
-        assert results[1].status == VerificationStatus.NOT_FOUND
+        assert results[0].status == Status.VERIFIED
+        assert results[1].status == Status.NOT_FOUND
         # No search calls should have been made
         mock_client.search_opinions.assert_not_called()
         mock_client.search_recap.assert_not_called()
@@ -1108,3 +1283,680 @@ class TestAsyncClientAPIParity:
         since concurrency is also gated by the semaphore."""
         assert AsyncCourtListenerClient.MIN_REQUEST_INTERVAL < 1.0
         assert AsyncCourtListenerClient.MIN_REQUEST_INTERVAL == 0.5
+
+
+class TestAsyncResolutionPathShape:
+    """Phase 2: assert async path produces the same resolution_path
+    shape as the sync path. Per-stage parity is the load-bearing
+    invariant for the sync/async/batch parity test in Task 7."""
+
+    def test_async_citation_lookup_hit_one_entry(self):
+        client = AsyncMock(spec=AsyncCourtListenerClient)
+        client.citation_lookup.return_value = [{
+            "clusters": [{"id": 100, "case_name": "Foo v. Bar", "absolute_url": "/opinion/100/"}],
+        }]
+        client.__aenter__ = AsyncMock(return_value=client)
+        client.__aexit__ = AsyncMock(return_value=None)
+        verifier = CitationVerifier()
+        result = asyncio.run(verifier.verify_async(client, "100 U.S. 1 (2020)"))
+
+        assert len(result.resolution_path) == 1
+        assert result.resolution_path[0].stage == StageName.citation_lookup
+        assert result.resolution_path[0].verdict == StageVerdict.resolved
+
+    def test_async_all_stages_miss(self):
+        client = AsyncMock(spec=AsyncCourtListenerClient)
+        client.citation_lookup.return_value = []
+        client.search_opinions.return_value = []
+        client.search_recap.return_value = []
+        client.__aenter__ = AsyncMock(return_value=client)
+        client.__aexit__ = AsyncMock(return_value=None)
+        verifier = CitationVerifier()
+        result = asyncio.run(verifier.verify_async(
+            client, "Foo v. Bar, 999 F.3d 999 (1st Cir. 2099)",
+        ))
+
+        stages = [e.stage for e in result.resolution_path]
+        assert stages[0] == StageName.citation_lookup
+        assert StageName.opinion_search in stages
+        assert result.status == Status.NOT_FOUND
+
+
+class TestBatchPathShape:
+    """Phase 2, Task 5: assert verify_batch produces per-citation
+    resolution_path entries. Batch hits get a one-entry path
+    (citation_lookup, resolved, via=batch). Batch misses lead with a
+    citation_lookup no_match entry, then accumulate fallback stages
+    via _search_fallback_async."""
+
+    def test_batch_hits_produce_one_entry_paths(self):
+        verifier = CitationVerifier()
+
+        async def _run():
+            with patch.object(
+                verifier,
+                "_batch_citation_lookup",
+                AsyncMock(
+                    return_value={
+                        0: {
+                            "id": 100,
+                            "case_name": "Foo v. Bar",
+                            "absolute_url": "/opinion/100/",
+                        },
+                        1: {
+                            "id": 200,
+                            "case_name": "Baz v. Qux",
+                            "absolute_url": "/opinion/200/",
+                        },
+                    }
+                ),
+            ), patch(
+                "citation_verifier.verifier.AsyncCourtListenerClient"
+            ) as MockClient:
+                client = AsyncMock()
+                client.__aenter__ = AsyncMock(return_value=client)
+                client.__aexit__ = AsyncMock(return_value=None)
+                MockClient.return_value = client
+                return await verifier.verify_batch(
+                    [
+                        "Foo v. Bar, 100 U.S. 1 (2020)",
+                        "Baz v. Qux, 200 U.S. 2 (2021)",
+                    ]
+                )
+
+        results = asyncio.run(_run())
+        for r in results:
+            assert len(r.resolution_path) == 1
+            assert r.resolution_path[0].stage == StageName.citation_lookup
+            assert r.resolution_path[0].verdict == StageVerdict.resolved
+            # Batch-hit confidence is 1.0 (same as single citation_lookup hit)
+            assert r.resolution_path[0].confidence == 1.0
+
+    def test_batch_miss_falls_through_to_fallback_with_path(self):
+        verifier = CitationVerifier()
+
+        async def _run():
+            # Mock the batch call to return empty (miss for all).
+            # _search_fallback_async will be called for each citation.
+            with patch.object(
+                verifier, "_batch_citation_lookup", AsyncMock(return_value={})
+            ), patch(
+                "citation_verifier.verifier.AsyncCourtListenerClient"
+            ) as MockClient:
+                client = AsyncMock()
+                client.search_opinions.return_value = []
+                client.search_recap.return_value = []
+                client.__aenter__ = AsyncMock(return_value=client)
+                client.__aexit__ = AsyncMock(return_value=None)
+                MockClient.return_value = client
+                return await verifier.verify_batch(
+                    ["Foo v. Bar, 999 F.3d 999 (1st Cir. 2099)"]
+                )
+
+        results = asyncio.run(_run())
+        r = results[0]
+        # Batch-miss path: citation_lookup (no_match) + opinion_search
+        # (no_match) at minimum.
+        assert r.resolution_path[0].stage == StageName.citation_lookup
+        assert r.resolution_path[0].verdict == StageVerdict.no_match
+        assert any(
+            e.stage == StageName.opinion_search for e in r.resolution_path
+        )
+
+
+# ---------------------------------------------------------------------------
+# Phase 3 Task 3: VERIFIED_PARTIAL detection (silent partial verification)
+# ---------------------------------------------------------------------------
+
+
+class TestVerifiedPartial:
+    """Phase 3: silent partial verification (design §2.2 VERIFIED_PARTIAL).
+    Async parity per design v2 §1."""
+
+    def test_partial_when_primary_reporter_not_in_cluster_citations(self):
+        """NY A.D.3d + slip op pattern: parallel resolves, primary does not."""
+        api = {
+            "citation_lookup": [
+                {
+                    "clusters": [
+                        {
+                            "case_name": "Gilliam v. Uni Holdings",
+                            "id": 5305052,
+                            "absolute_url": "/opinion/5305052/gilliam/",
+                            # CL's citation index has the slip op but NOT
+                            # the A.D.3d reporter — that's what makes it
+                            # the silent-partial case.
+                            "citations": [
+                                {"volume": "2021", "reporter": "NY Slip Op",
+                                 "page": "06798", "type": 1},
+                            ],
+                        }
+                    ]
+                }
+            ]
+        }
+        citation = (
+            "Gilliam v. Uni Holdings, 201 A.D.3d 83, 88-89, "
+            "2021 NY Slip Op 06798 (N.Y. App. Div. 2021)"
+        )
+        async_client = _make_async_client(**api)
+        v = CitationVerifier()
+        result = asyncio.run(v.verify_async(async_client, citation))
+        assert result.status == Status.VERIFIED_PARTIAL
+        assert any(
+            w.category == WarningCategory.silent_partial_verification
+            for w in result.warnings
+        )
+        # The citation_lookup stage still resolved — confidence stays high.
+        assert _winning_path_entry(result).verdict == StageVerdict.resolved
+
+    def test_verified_not_partial_when_primary_in_cluster_citations(self):
+        """Peerenboom-shape: A.D.3d IS in CL — VERIFIED not PARTIAL."""
+        api = {
+            "citation_lookup": [
+                {
+                    "clusters": [
+                        {
+                            "case_name": "Peerenboom v. Marvel Entertainment",
+                            "id": 4376072,
+                            "absolute_url": "/opinion/4376072/peerenboom/",
+                            "citations": [
+                                {"volume": "148", "reporter": "A.D.3d",
+                                 "page": "531", "type": 1},
+                            ],
+                        }
+                    ]
+                }
+            ]
+        }
+        citation = (
+            "Peerenboom v. Marvel Entertainment, LLC, 148 A.D.3d 531 "
+            "(N.Y. App. Div. 2017)"
+        )
+        async_client = _make_async_client(**api)
+        v = CitationVerifier()
+        result = asyncio.run(v.verify_async(async_client, citation))
+        assert result.status == Status.VERIFIED
+        assert not any(
+            w.category == WarningCategory.silent_partial_verification
+            for w in result.warnings
+        )
+
+    def test_verified_when_wl_only_input(self):
+        """A WL-only citation (no parallel reporter) is VERIFIED, not PARTIAL."""
+        api = {
+            "citation_lookup": [
+                {
+                    "clusters": [
+                        {
+                            "case_name": "Some Case",
+                            "id": 999,
+                            "absolute_url": "/opinion/999/",
+                            "citations": [
+                                {"volume": "2020", "reporter": "WL",
+                                 "page": "123456", "type": 9},
+                            ],
+                        }
+                    ]
+                }
+            ]
+        }
+        citation = "Some Case, 2020 WL 123456 (D. Md. 2020)"
+        async_client = _make_async_client(**api)
+        v = CitationVerifier()
+        result = asyncio.run(v.verify_async(async_client, citation))
+        assert result.status == Status.VERIFIED
+
+
+# ---------------------------------------------------------------------------
+# Phase 3 Task 4: VERIFIED_VIA_RECAP / VERIFIED_DOCKET_ONLY branching
+# ---------------------------------------------------------------------------
+
+
+class TestVerifiedViaRecapVsDocketOnly:
+    """Phase 3 Task 4: strict VIA_RECAP gate per maintainer Q1.
+    Async parity per design v2 §1."""
+
+    def test_via_recap_when_opinion_typed_doc_matches_date(self):
+        """Mehar shape: opinion-typed doc + date-matched -> VIA_RECAP."""
+        api = {
+            "citation_lookup": [],
+            "search_opinions": [],
+            "search_recap": [
+                {
+                    "caseName": "Mehar Holdings LLC v. Evanston Ins. Co.",
+                    "docket_id": 5474769,
+                    "id": 5474769,
+                    "court_id": "txwd",
+                    "docket_absolute_url": "/docket/5474769/mehar/",
+                    "dateFiled": "2016-10-14",
+                    "docketNumber": "1:16-cv-00059",
+                    "recap_documents": [
+                        {
+                            "id": 18720567,
+                            "entry_date_filed": "2016-10-14",
+                            "short_description": "OPINION on motion to dismiss",
+                            "page_count": 12,
+                            "is_free_on_pacer": True,
+                        }
+                    ],
+                }
+            ],
+        }
+        citation = (
+            "Mehar Holdings, LLC v. Evanston Ins. Co., "
+            "2016 WL 5957681 (W.D. Tex. Oct. 14, 2016)"
+        )
+        async_client = _make_async_client(**api)
+        v = CitationVerifier()
+        result = asyncio.run(v.verify_async(async_client, citation))
+        assert result.status == Status.VERIFIED_VIA_RECAP
+        assert result.final_ids.docket_id == 5474769
+        assert result.final_ids.recap_document_id == 18720567
+        assert result.final_ids.cluster_id is None
+        assert result.final_ids.text_source.value == "recap_document"
+
+    def test_docket_only_when_doc_is_procedural_order(self):
+        """Cabot v. Lewis shape: order certifying interlocutory appeal
+        is text-bearing but procedural. Strict reading: DOCKET_ONLY."""
+        api = {
+            "citation_lookup": [],
+            "search_opinions": [],
+            "search_recap": [
+                {
+                    "caseName": "Cabot v. Lewis",
+                    "docket_id": 4275225,
+                    "id": 4275225,
+                    "court_id": "mad",
+                    "docket_absolute_url": "/docket/4275225/cabot/",
+                    "dateFiled": "2015-07-09",
+                    "docketNumber": "1:13-cv-11903",
+                    "recap_documents": [
+                        {
+                            "id": 5338694,
+                            "entry_date_filed": "2015-07-09",
+                            "short_description": "ORDER CERTIFYING INTERLOCUTORY APPEAL",
+                            "page_count": 2,
+                            "is_free_on_pacer": False,
+                        }
+                    ],
+                }
+            ],
+        }
+        citation = "Cabot v. Lewis, 2015 WL 13648107 (D. Mass. July 9, 2015)"
+        async_client = _make_async_client(**api)
+        v = CitationVerifier()
+        result = asyncio.run(v.verify_async(async_client, citation))
+        assert result.status == Status.VERIFIED_DOCKET_ONLY
+        assert result.final_ids.docket_id == 4275225
+        assert result.final_ids.recap_document_id is None
+        assert result.final_ids.text_source is None
+
+    def test_docket_only_when_date_mismatches(self):
+        """Menges-actual shape: docket exists, doc description contains
+        'motion in limine' (procedural keyword) -> DOCKET_ONLY."""
+        api = {
+            "citation_lookup": [],
+            "search_opinions": [],
+            "search_recap": [
+                {
+                    "caseName": "Menges v. Cliffs Drilling Co.",
+                    "docket_id": 10993603,
+                    "id": 10993603,
+                    "court_id": "laed",
+                    "docket_absolute_url": "/docket/10993603/menges/",
+                    "dateFiled": "1999-07-16",
+                    "docketNumber": "99-2061",
+                    "recap_documents": [
+                        {
+                            "id": 476627754,
+                            "entry_date_filed": "2000-06-12",
+                            "short_description": "ORDER & REASONS on motion in limine",
+                            "page_count": 4,
+                            "is_free_on_pacer": False,
+                        }
+                    ],
+                }
+            ],
+        }
+        citation = (
+            "Menges v. Cliffs Drilling Co., 2000 WL 765082 (E.D. La. May 31, 2000)"
+        )
+        async_client = _make_async_client(**api)
+        v = CitationVerifier()
+        result = asyncio.run(v.verify_async(async_client, citation))
+        assert result.status == Status.VERIFIED_DOCKET_ONLY
+        assert result.final_ids.docket_id == 10993603
+        assert result.final_ids.recap_document_id is None
+
+
+# ---------------------------------------------------------------------------
+# Phase 3 Task 5 Async parity: caption_investigation
+# ---------------------------------------------------------------------------
+
+
+class TestCaptionInvestigationAsyncParity:
+    """Async mirrors of tests/test_caption_investigation.py.
+
+    Per design v2 §1: the async surface must be preserved — identical
+    mock data must produce identical results in sync and async paths.
+    """
+
+    def _make_mismatch_api(
+        self,
+        cl_case_name: str,
+        cluster_id: int,
+        case_name_full: str = "",
+        docket_id: int | None = None,
+        docket_case_name: str = "",
+        opinion_text: str = "",
+    ) -> dict:
+        """Build API response dict for both sync and async mocks."""
+        return {
+            "citation_lookup": [
+                {
+                    "clusters": [
+                        {
+                            "case_name": cl_case_name,
+                            "id": cluster_id,
+                            "absolute_url": f"/opinion/{cluster_id}/",
+                            "citations": [
+                                {"volume": "857", "reporter": "F.3d", "page": "267"},
+                            ],
+                        }
+                    ]
+                }
+            ],
+            "get_cluster": {
+                "id": cluster_id,
+                "case_name_full": case_name_full,
+                "docket_id": docket_id,
+            },
+            "get_docket": {"case_name": docket_case_name} if docket_id else {},
+            "get_opinion_text": opinion_text or None,
+        }
+
+    def test_async_path_includes_caption_investigation_stage(self):
+        """Async mirror: caption_investigation stage appears in resolution_path."""
+        api = self._make_mismatch_api(
+            "Thompson v. Brown",
+            cluster_id=4390987,
+            case_name_full="Thompson v. Brown",
+            docket_id=12345,
+            docket_case_name="Morrison v. Green",
+        )
+        async_client = _make_async_client(**api)
+        v = CitationVerifier()
+        result = asyncio.run(
+            v.verify_async(async_client, "Morrison v. Green, 857 F.3d 267 (5th Cir. 2017)")
+        )
+        stages = [e.stage for e in result.resolution_path]
+        assert StageName.caption_investigation in stages
+
+    def test_async_parity_party_overlap_yields_verified(self):
+        """Async mirror: docket caption matches → VERIFIED + cl_display_name_data_bug."""
+        api = self._make_mismatch_api(
+            "Thompson v. Brown",
+            cluster_id=4390987,
+            case_name_full="Thompson v. Brown",
+            docket_id=12345,
+            docket_case_name="Morrison v. Green",
+        )
+        sync_client = _make_client(**api)
+        async_client = _make_async_client(**api)
+
+        v_sync = CitationVerifier(sync_client)
+        sync_result = v_sync.verify("Morrison v. Green, 857 F.3d 267 (5th Cir. 2017)")
+
+        v_async = CitationVerifier()
+        async_result = asyncio.run(
+            v_async.verify_async(async_client, "Morrison v. Green, 857 F.3d 267 (5th Cir. 2017)")
+        )
+
+        assert sync_result.status == async_result.status == Status.VERIFIED
+        assert any(
+            w.category == WarningCategory.cl_display_name_data_bug
+            for w in sync_result.warnings
+        )
+        assert any(
+            w.category == WarningCategory.cl_display_name_data_bug
+            for w in async_result.warnings
+        )
+
+    def test_async_parity_no_overlap_yields_wrong_case(self):
+        """Async mirror: no party overlap → WRONG_CASE in both paths."""
+        api = self._make_mismatch_api(
+            "U.S. ex rel. Green v. Washington",
+            cluster_id=2140439,
+            case_name_full="United States ex rel. Green v. Washington",
+            docket_id=999,
+            docket_case_name="United States ex rel. Green v. Washington",
+            opinion_text=(
+                "UNITED STATES OF AMERICA EX REL. RICHARD GREEN, "
+                "Plaintiff, v. WASHINGTON, et al. Defendants."
+            ),
+        )
+        sync_client = _make_client(**api)
+        async_client = _make_async_client(**api)
+
+        v_sync = CitationVerifier(sync_client)
+        sync_result = v_sync.verify("Hogan v. AT&T, Inc., 917 F. Supp. 1275 (S.D. Tex. 1994)")
+
+        v_async = CitationVerifier()
+        async_result = asyncio.run(
+            v_async.verify_async(async_client, "Hogan v. AT&T, Inc., 917 F. Supp. 1275 (S.D. Tex. 1994)")
+        )
+
+        assert sync_result.status == async_result.status == Status.WRONG_CASE
+        assert sync_result.final_ids.cluster_id == async_result.final_ids.cluster_id == 2140439
+
+
+# ---------------------------------------------------------------------------
+# Phase 4 Task 4: score-based VIA_RECAP gate (Q2) — async parity
+# ---------------------------------------------------------------------------
+
+
+class TestVerifiedViaRecapScoreGate:
+    """Phase 4 Task 4 (Q2): score-based VIA_RECAP gate catches
+    substantive-but-keyword-poor opinion descriptions like Mehar
+    Holdings' 'ORDER GRANTING Motion for Reconsideration'.
+    Async parity per design v2 §1."""
+
+    def test_score_based_gate_accepts_substantive_long_form_doc(self):
+        """Mehar Holdings shape: 12-page is_free_on_pacer doc with
+        'ORDER GRANTING' description -> VIA_RECAP via score gate."""
+        api = {
+            "citation_lookup": [],
+            "search_opinions": [],
+            "search_recap": [
+                {
+                    "caseName": "Mehar Holdings LLC v. Evanston Ins. Co.",
+                    "docket_id": 5474769,
+                    "id": 5474769,
+                    "court_id": "txwd",
+                    "docket_absolute_url": "/docket/5474769/mehar/",
+                    "dateFiled": "2016-10-14",
+                    "docketNumber": "1:16-cv-00059",
+                    "recap_documents": [
+                        {
+                            "id": 18720567,
+                            "entry_date_filed": "2016-10-14",
+                            "short_description": (
+                                "ORDER GRANTING 14 Motion for Reconsideration "
+                                "re 13 Order on Motion to Dismiss"
+                            ),
+                            "page_count": 12,
+                            "is_free_on_pacer": True,
+                        }
+                    ],
+                }
+            ],
+        }
+        citation = (
+            "Mehar Holdings, LLC v. Evanston Ins. Co., "
+            "2016 WL 5957681 (W.D. Tex. Oct. 14, 2016)"
+        )
+        async_client = _make_async_client(**api)
+        v = CitationVerifier()
+        result = asyncio.run(v.verify_async(async_client, citation))
+        assert result.status == Status.VERIFIED_VIA_RECAP
+        assert result.final_ids.recap_document_id == 18720567
+
+    def test_score_gate_does_not_override_procedural_keywords(self):
+        """Cabot v. Lewis shape: 'ORDER CERTIFYING INTERLOCUTORY APPEAL'
+        matches a procedural keyword and stays DOCKET_ONLY even with
+        a 8-page count + is_free_on_pacer."""
+        api = {
+            "citation_lookup": [],
+            "search_opinions": [],
+            "search_recap": [
+                {
+                    "caseName": "Cabot v. Lewis",
+                    "docket_id": 4275225,
+                    "id": 4275225,
+                    "court_id": "mad",
+                    "docket_absolute_url": "/docket/4275225/cabot/",
+                    "dateFiled": "2015-07-09",
+                    "docketNumber": "1:13-cv-11903",
+                    "recap_documents": [
+                        {
+                            "id": 5338694,
+                            "entry_date_filed": "2015-07-09",
+                            "short_description": (
+                                "ORDER CERTIFYING INTERLOCUTORY APPEAL"
+                            ),
+                            "page_count": 8,
+                            "is_free_on_pacer": True,
+                        }
+                    ],
+                }
+            ],
+        }
+        citation = "Cabot v. Lewis, 2015 WL 13648107 (D. Mass. July 9, 2015)"
+        async_client = _make_async_client(**api)
+        v = CitationVerifier()
+        result = asyncio.run(v.verify_async(async_client, citation))
+        assert result.status == Status.VERIFIED_DOCKET_ONLY
+
+    def test_score_gate_requires_both_page_count_and_is_free(self):
+        """A short doc (page_count < 5) fails the score gate even with
+        a non-procedural description and is_free_on_pacer=True."""
+        api = {
+            "citation_lookup": [],
+            "search_opinions": [],
+            "search_recap": [
+                {
+                    "caseName": "Short Case",
+                    "docket_id": 9999,
+                    "id": 9999,
+                    "court_id": "txwd",
+                    "docket_absolute_url": "/docket/9999/short/",
+                    "dateFiled": "2020-06-15",
+                    "docketNumber": "1:20-cv-00001",
+                    "recap_documents": [
+                        {
+                            "id": 12345,
+                            "entry_date_filed": "2020-06-15",
+                            "short_description": "ORDER on motion",
+                            "page_count": 2,
+                            "is_free_on_pacer": True,
+                        }
+                    ],
+                }
+            ],
+        }
+        citation = "Short Case v. Other, 2020 WL 999999 (W.D. Tex. June 15, 2020)"
+        async_client = _make_async_client(**api)
+        v = CitationVerifier()
+        result = asyncio.run(v.verify_async(async_client, citation))
+        assert result.status == Status.VERIFIED_DOCKET_ONLY
+
+    def test_score_gate_fetches_doc_detail_when_search_omits_metadata(self):
+        """Async parity: search_recap returns page_count=None/is_free_on_pacer=None.
+
+        The async verifier must fetch /recap-documents/{id}/ and re-apply the
+        score gate. If the detail populates page_count>=5 and is_free_on_pacer,
+        the result should be VERIFIED_VIA_RECAP.
+        """
+        api = {
+            "citation_lookup": [],
+            "search_opinions": [],
+            "search_recap": [
+                {
+                    "caseName": "Mehar Holdings LLC v. Evanston Ins. Co.",
+                    "docket_id": 5474769,
+                    "id": 5474769,
+                    "court_id": "txwd",
+                    "docket_absolute_url": "/docket/5474769/mehar/",
+                    "dateFiled": "2016-10-14",
+                    "docketNumber": "1:16-cv-00059",
+                    "recap_documents": [
+                        {
+                            "id": 18720567,
+                            "entry_date_filed": "2016-10-14",
+                            "short_description": (
+                                "ORDER GRANTING 14 Motion for Reconsideration "
+                                "re 13 Order on Motion to Dismiss"
+                            ),
+                            "page_count": None,
+                            "is_free_on_pacer": None,
+                        }
+                    ],
+                }
+            ],
+            "recap_document_metadata": {
+                "id": 18720567,
+                "page_count": 12,
+                "is_free_on_pacer": True,
+            },
+        }
+        citation = (
+            "Mehar Holdings, LLC v. Evanston Ins. Co., "
+            "2016 WL 5957681 (W.D. Tex. Oct. 14, 2016)"
+        )
+        async_client = _make_async_client(**api)
+        v = CitationVerifier()
+        result = asyncio.run(v.verify_async(async_client, citation))
+        assert result.status == Status.VERIFIED_VIA_RECAP
+        assert result.final_ids.recap_document_id == 18720567
+        async_client.get_recap_document_metadata.assert_called_once_with(18720567)
+
+    def test_score_gate_doc_detail_fetch_failure_falls_back_to_docket_only(self):
+        """Async parity: a failed doc-detail fetch leaves DOCKET_ONLY (no exception raised)."""
+        api = {
+            "citation_lookup": [],
+            "search_opinions": [],
+            "search_recap": [
+                {
+                    "caseName": "Mehar Holdings LLC v. Evanston Ins. Co.",
+                    "docket_id": 5474769,
+                    "id": 5474769,
+                    "court_id": "txwd",
+                    "docket_absolute_url": "/docket/5474769/mehar/",
+                    "dateFiled": "2016-10-14",
+                    "docketNumber": "1:16-cv-00059",
+                    "recap_documents": [
+                        {
+                            "id": 18720567,
+                            "entry_date_filed": "2016-10-14",
+                            "short_description": (
+                                "ORDER GRANTING 14 Motion for Reconsideration "
+                                "re 13 Order on Motion to Dismiss"
+                            ),
+                            "page_count": None,
+                            "is_free_on_pacer": None,
+                        }
+                    ],
+                }
+            ],
+            "recap_document_metadata": ConnectionError("simulated network failure"),
+        }
+        citation = (
+            "Mehar Holdings, LLC v. Evanston Ins. Co., "
+            "2016 WL 5957681 (W.D. Tex. Oct. 14, 2016)"
+        )
+        async_client = _make_async_client(**api)
+        v = CitationVerifier()
+        result = asyncio.run(v.verify_async(async_client, citation))
+        assert result.status == Status.VERIFIED_DOCKET_ONLY
+        assert result.status != Status.VERIFICATION_INCOMPLETE

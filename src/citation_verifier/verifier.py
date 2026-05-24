@@ -14,12 +14,20 @@ from .court_map import is_federal_court, lookup_court_id
 from .models import (
     CandidateMatch,
     Diagnostic,
+    FinalIds,
     ParsedCitation,
+    ResolutionPathEntry,
+    StageName,
+    StageVerdict,
+    Status,
+    TextSource,
     VerificationResult,
-    VerificationStatus,
+    Warning,
+    WarningCategory,
 )
 from .name_matcher import CaseNameMatcher
 from .parser import parse_citation
+from .resolution_path import ResolutionPathBuilder, _StageToken  # _StageToken imported for type hints only
 from .state_reporter_map import get_states_for_reporter
 
 logger = logging.getLogger(__name__)
@@ -42,6 +50,13 @@ _NAME_TOKEN_STOPLIST = frozenset({
     "department", "secretary",
 })
 
+# Score floor at which an opinion_search / recap_*_search candidate
+# claims resolution. Below this, the stage records `no_match` and the
+# fallback ladder continues. Carried forward unchanged from pre-Phase-3
+# behavior per design v2 §8 "Per-stage confidence thresholds" decision
+# (2026-05-20).
+_VERIFIED_SCORE_THRESHOLD = 0.40
+
 
 def _name_tokens(name: str) -> set[str]:
     """Lowercased word tokens of length >=4, with punctuation stripped
@@ -59,19 +74,109 @@ class CitationVerifier:
         self.client = client or CourtListenerClient()
         self.name_matcher = CaseNameMatcher()
 
+    @staticmethod
+    def _promote_to_incomplete_if_only_errored(
+        status: Status,
+        resolution_path: list[ResolutionPathEntry],
+    ) -> Status:
+        """Design §2.8 internal gate: API errors must not silently degrade
+        to NOT_FOUND. If any stage entry has verdict=errored AND no entry
+        has verdict in (resolved, partial), promote to VERIFICATION_INCOMPLETE.
+
+        A resolved or partial stage trumps later errors — the verification
+        question was answered at that stage, and a downstream error during
+        a refinement / fallback is not a verifier-integrity failure.
+
+        Pre-promoted statuses (anything other than NOT_FOUND) are not
+        re-evaluated: an already-resolved status carries its own truth.
+        """
+        if status != Status.NOT_FOUND:
+            return status
+        has_errored = any(
+            e.verdict == StageVerdict.errored for e in resolution_path
+        )
+        has_resolved = any(
+            e.verdict in (StageVerdict.resolved, StageVerdict.partial)
+            for e in resolution_path
+        )
+        if has_errored and not has_resolved:
+            return Status.VERIFICATION_INCOMPLETE
+        return status
+
     # ------------------------------------------------------------------
     # Shared helpers (pure logic, no I/O)
     # ------------------------------------------------------------------
 
+    def _finalize_result(
+        self,
+        builder: ResolutionPathBuilder,
+        *,
+        citation_text: str,
+        parsed: ParsedCitation | None,
+        status: Status,
+        cluster_id: int | None = None,
+        docket_id: int | None = None,
+        recap_document_id: int | None = None,
+        absolute_url: str | None = None,
+        text_source: TextSource | None = None,
+        warnings: list[Warning] | None = None,
+    ) -> VerificationResult:
+        """Terminal helper: wrap the accumulated resolution_path into a result.
+
+        Phase 2 of the v0.3 refactor. Replaces Phase 1's _build_result.
+        The caller has already recorded each stage attempt via
+        builder.stage(...) context managers; this helper just collects the
+        entries, packs the FinalIds, and returns the VerificationResult.
+        """
+        path = builder.entries()
+        # Phase 4 Task 2: design §2.8 internal gate. Promote NOT_FOUND to
+        # VERIFICATION_INCOMPLETE when only errored stages exist.
+        status = self._promote_to_incomplete_if_only_errored(status, path)
+        # When promoting to INCOMPLETE, also null out any partial IDs the
+        # caller may have set — the verifier did not authoritatively answer
+        # and consumers must not treat partial IDs as truth.
+        if status == Status.VERIFICATION_INCOMPLETE:
+            cluster_id = None
+            docket_id = None
+            recap_document_id = None
+            absolute_url = None
+            text_source = None
+        return VerificationResult(
+            citation_as_written=citation_text,
+            parsed_citation=parsed,
+            status=status,
+            final_ids=FinalIds(
+                cluster_id=cluster_id,
+                opinion_id=None,
+                docket_id=docket_id,
+                recap_document_id=recap_document_id,
+                absolute_url=absolute_url,
+                text_source=text_source,
+            ),
+            resolution_path=path,
+            warnings=warnings or [],
+            gates_failed=[],
+            timing={},
+            cache_hit=False,
+        )
+
     def _process_citation_lookup_hit(
         self,
+        builder: ResolutionPathBuilder,
+        token: _StageToken,
         citation_text: str,
         parsed: ParsedCitation,
         cluster: dict[str, Any],
-    ) -> VerificationResult:
-        """Process a single cluster from the Citation Lookup API (Step 1).
+        clusters_returned: int,
+    ) -> dict[str, Any]:
+        """Process a single cluster from the Citation Lookup API.
 
-        Returns VERIFIED or POSSIBLE_MATCH depending on name matching.
+        The caller has already opened a builder.stage() block and yielded
+        the token; this helper sets the token's resolved-verdict state and
+        returns a dict of finalize kwargs (cluster_id, absolute_url,
+        text_source, warnings) so the caller can invoke ``_finalize_result``
+        *after* the ``with`` block exits (the path entry is appended in the
+        block's ``finally``).
         """
         case_name = cluster.get("case_name", "")
         cluster_id = cluster.get("id")
@@ -81,45 +186,66 @@ class CitationVerifier:
         elif cluster_id and not url:
             url = f"https://www.courtlistener.com/opinion/{cluster_id}/"
 
-        # Build syllabus from available metadata
-        syllabus_parts = []
-        if cluster.get("syllabus"):
-            syllabus_parts.append(cluster["syllabus"])
-        if cluster.get("nature_of_suit"):
-            syllabus_parts.append(cluster["nature_of_suit"])
-        syllabus = "; ".join(syllabus_parts) if syllabus_parts else None
+        summary = {
+            "matched_cluster_id": cluster_id,
+            "matched_case_name": case_name,
+            "clusters_returned": clusters_returned,
+        }
 
-        # Verify the case name actually matches before calling it VERIFIED
-        if parsed.case_name and case_name:
-            if not self._names_match_citation_lookup(parsed, case_name):
-                return VerificationResult(
-                    input_citation=citation_text,
-                    status=VerificationStatus.POSSIBLE_MATCH,
-                    confidence=0.3,
-                    matched_case_name=case_name,
-                    matched_url=url,
-                    matched_cluster_id=cluster_id,
-                    matched_court=cluster.get("court") or cluster.get("court_id") or None,
-                    matched_date=cluster.get("date_filed") or None,
-                    matched_syllabus=syllabus,
-                    diagnostics=[Diagnostic(
-                        "name",
-                        f'Name mismatch: citation exists at this reporter location '
-                        f'but belongs to "{case_name}"',
+        # Name-mismatch case: citation resolves but caption disagrees.
+        # Phase 3 (Task 5): the caller runs caption_investigation to classify
+        # the mismatch (formatting noise / data bug / wrong case / duplicate
+        # cluster / wrong page). Token confidence stays at 1.0 because the
+        # citation itself resolved cleanly; the investigation may downgrade
+        # the status to WRONG_CASE but it should not pre-decide that here.
+        if parsed.case_name and case_name and not self._names_match_citation_lookup(parsed, case_name):
+            token.resolved(
+                confidence=1.0,
+                raw_response_summary=summary,
+                notes="name mismatch flagged for caption_investigation",
+            )
+            return {
+                "cluster_id": cluster_id,
+                "absolute_url": url,
+                "text_source": TextSource.opinion_plain_text if cluster_id else None,
+                "warnings": None,
+                "needs_caption_investigation": True,
+                "_cluster_for_investigation": cluster,
+            }
+
+        # Partial-verification check (design §2.2): primary reporter cited by
+        # the brief is silently absent from CL's citation index, only the
+        # parallel resolved. Status: VERIFIED_PARTIAL + silent_partial_verification.
+        if parsed.case_name and case_name and self._names_match_citation_lookup(parsed, case_name):
+            primary_present = self._cited_primary_reporter_in_cluster(parsed, cluster)
+            if not primary_present:
+                token.resolved(confidence=1.0, raw_response_summary=summary, notes="Primary reporter not in CL citation index")
+                return {
+                    "cluster_id": cluster_id,
+                    "absolute_url": url,
+                    "text_source": TextSource.opinion_plain_text if cluster_id else None,
+                    "warnings": [Warning(
+                        category=WarningCategory.silent_partial_verification,
+                        message=(
+                            f"Primary reporter '{parsed.volume} {parsed.reporter} {parsed.page}' "
+                            f"is not in CourtListener's citation index. The parallel cite "
+                            f"resolved but the primary reporter is unconfirmed."
+                        ),
+                        details={
+                            "cited_primary": f"{parsed.volume} {parsed.reporter} {parsed.page}",
+                            "cluster_citations": cluster.get("citations") or [],
+                        },
                     )],
-                )
+                    "status_override": Status.VERIFIED_PARTIAL,
+                }
 
-        return VerificationResult(
-            input_citation=citation_text,
-            status=VerificationStatus.VERIFIED,
-            confidence=1.0,
-            matched_case_name=case_name,
-            matched_url=url,
-            matched_cluster_id=cluster_id,
-            matched_court=cluster.get("court") or cluster.get("court_id") or None,
-            matched_date=cluster.get("date_filed") or None,
-            matched_syllabus=syllabus,
-        )
+        token.resolved(confidence=1.0, raw_response_summary=summary)
+        return {
+            "cluster_id": cluster_id,
+            "absolute_url": url,
+            "text_source": TextSource.opinion_plain_text if cluster_id else None,
+            "warnings": None,
+        }
 
     def _build_search_params(
         self, parsed: ParsedCitation
@@ -156,25 +282,41 @@ class CitationVerifier:
 
     def _build_fallback_result(
         self,
+        builder: ResolutionPathBuilder,
         citation_text: str,
         parsed: ParsedCitation,
         candidates: list[CandidateMatch],
         court_id: str | None,
+        _doc_detail_fn: Callable[[int], dict[str, Any] | None] | None = None,
     ) -> VerificationResult:
-        """Build the final result from search fallback candidates.
+        """Pick the winning candidate across pooled stages and finalize.
 
-        Handles: empty candidates, sorting, court-mismatch guard,
-        insufficient-data guard, threshold logic, and diagnostics.
+        Per-stage path entries were already appended in ``_search_fallback``.
+        This helper does NOT append any new entries; it only chooses
+        ``final_ids`` and ``status`` from the pooled candidates.
+
+        Parameters
+        ----------
+        _doc_detail_fn : callable or None
+            Optional callable ``(doc_id: int) -> dict | None`` used to fetch
+            /recap-documents/{id}/ when the search response omits
+            ``is_free_on_pacer`` (the field is absent from the RECAP search
+            index and only populated on the detail endpoint). When the
+            keyword/date gate path (b) fails but a candidate doc_id exists
+            and ``is_free_on_pacer`` is not yet confirmed True, this callable
+            is invoked to get the real ``is_free_on_pacer`` (and ``page_count``
+            when also missing) before re-applying the score gate (path c). A
+            failed fetch (callable returns None or raises) is treated as a
+            non-fatal refinement failure — the result falls through to
+            DOCKET_ONLY. Async callers set this to None and use
+            ``_build_fallback_result_async`` instead.
         """
         if not candidates:
-            return VerificationResult(
-                input_citation=citation_text,
-                status=VerificationStatus.NOT_FOUND,
-                confidence=0.0,
-                diagnostics=[Diagnostic(
-                    "info",
-                    "No matching cases found in CourtListener opinions or RECAP",
-                )],
+            return self._finalize_result(
+                builder,
+                citation_text=citation_text,
+                parsed=parsed,
+                status=Status.NOT_FOUND,
             )
 
         # Sort by score descending
@@ -187,57 +329,209 @@ class CitationVerifier:
             (parsed.volume and parsed.reporter and parsed.page) or parsed.wl_number
         )
         if has_unverified_cite and court_id and best.court_id != court_id:
-            return VerificationResult(
-                input_citation=citation_text,
-                status=VerificationStatus.NOT_FOUND,
-                confidence=0.0,
-                candidates=candidates[:5],
-                diagnostics=[Diagnostic(
-                    "cite",
-                    f"Reporter citation could not be verified, and no matching "
-                    f"cases were found in {parsed.court}",
-                )],
+            return self._finalize_result(
+                builder,
+                citation_text=citation_text,
+                parsed=parsed,
+                status=Status.NOT_FOUND,
             )
 
         # When both court and date are missing from the parsed citation,
         # we don't have enough signal to verify reliably.
         if not parsed.court and not parsed.year:
-            return VerificationResult(
-                input_citation=citation_text,
-                status=VerificationStatus.NOT_FOUND,
-                confidence=0.0,
-                candidates=candidates[:5],
-                diagnostics=[Diagnostic(
-                    "info",
-                    "Insufficient data to verify: citation text is missing "
-                    "both court and date. A match cannot be confirmed with "
-                    "name alone. Try adding the court and year parenthetical "
-                    "(e.g. '(E.D. Tenn. 2020)') to the citation text.",
-                )],
+            return self._finalize_result(
+                builder,
+                citation_text=citation_text,
+                parsed=parsed,
+                status=Status.NOT_FOUND,
             )
 
-        if best.score >= 0.85:
-            status = VerificationStatus.LIKELY_REAL
-        elif best.score >= 0.40:
-            status = VerificationStatus.POSSIBLE_MATCH
+        # Per Phase 1 mapping (design §3): LIKELY_REAL and POSSIBLE_MATCH
+        # collapse into VERIFIED; the distinguishing number lives on the
+        # resolution_path entry. NOT_FOUND stays NOT_FOUND. Existing
+        # behavior (preserved): even on NOT_FOUND, propagate the best
+        # candidate's cluster_id/docket_id/url to final_ids so callers can
+        # link to the closest match.
+        status = Status.VERIFIED if best.score >= _VERIFIED_SCORE_THRESHOLD else Status.NOT_FOUND
+
+        # RECAP-fallback hits (docket-only or specific RECAP doc) have a
+        # docket_id but no cluster_id. Use that as the discriminator.
+        is_recap_match = best.docket_id is not None and best.cluster_id is None
+        text_source: TextSource | None
+        recap_document_id: int | None = None
+
+        if is_recap_match and status == Status.VERIFIED:
+            # Phase 3: strict VIA_RECAP gate (design v2 §2.2, maintainer Q1).
+            # Phase 4 Task 4: also pass page_count + is_free_on_pacer for Q2 score gate.
+            desc = best.description or ""
+            gate_passed = best.recap_document_id and self._recap_doc_is_cited_opinion(
+                parsed, desc, best.date_filed,
+                page_count=best.page_count,
+                is_free_on_pacer=best.is_free_on_pacer,
+            )
+
+            # Phase 4 Task 4 doc-detail refinement: search_recap may return
+            # docs where is_free_on_pacer=None (field absent from the search
+            # index; only populated on /recap-documents/{id}/ detail endpoint).
+            # When the gate fails AND is_free_on_pacer is not True (i.e. the
+            # search did not confirm it), fetch the doc detail to get the real
+            # is_free_on_pacer (and page_count when also missing) before
+            # deciding whether path (c) can fire.
+            # Condition: gate failed, a candidate doc id exists, is_free not
+            # already confirmed True (so we might gain information by fetching).
+            if not gate_passed and best.recap_document_id and not best.is_free_on_pacer and _doc_detail_fn:
+                try:
+                    detail = _doc_detail_fn(best.recap_document_id)
+                    if detail:
+                        real_page_count = int(detail.get("page_count") or 0)
+                        real_is_free = bool(detail.get("is_free_on_pacer"))
+                        if real_page_count != best.page_count or real_is_free != best.is_free_on_pacer:
+                            best.page_count = real_page_count
+                            best.is_free_on_pacer = real_is_free
+                            gate_passed = self._recap_doc_is_cited_opinion(
+                                parsed, desc, best.date_filed,
+                                page_count=best.page_count,
+                                is_free_on_pacer=best.is_free_on_pacer,
+                            )
+                except Exception:
+                    logger.debug(
+                        "doc-detail fetch for recap_document_id=%s failed; "
+                        "leaving DOCKET_ONLY",
+                        best.recap_document_id,
+                        exc_info=True,
+                    )
+
+            if gate_passed:
+                status = Status.VERIFIED_VIA_RECAP
+                text_source = TextSource.recap_document
+                recap_document_id = best.recap_document_id
+            else:
+                status = Status.VERIFIED_DOCKET_ONLY
+                text_source = None
+        elif status == Status.VERIFIED and best.cluster_id:
+            text_source = TextSource.opinion_plain_text
         else:
-            status = VerificationStatus.NOT_FOUND
+            text_source = None
 
-        diagnostics = self._finalize_diagnostics(best.mismatches, best.score, status)
-
-        return VerificationResult(
-            input_citation=citation_text,
+        return self._finalize_result(
+            builder,
+            citation_text=citation_text,
+            parsed=parsed,
             status=status,
-            confidence=best.score,
-            matched_case_name=best.case_name,
-            matched_url=best.url,
-            matched_cluster_id=best.cluster_id,
-            matched_docket_id=best.docket_id,
-            matched_court=best.court_id or None,
-            matched_date=best.date_filed or None,
-            matched_description=best.description,
-            candidates=candidates[:5],
-            diagnostics=diagnostics,
+            cluster_id=best.cluster_id,
+            docket_id=best.docket_id,
+            absolute_url=best.url,
+            text_source=text_source,
+            recap_document_id=recap_document_id,
+        )
+
+    async def _build_fallback_result_async(
+        self,
+        builder: ResolutionPathBuilder,
+        citation_text: str,
+        parsed: ParsedCitation,
+        candidates: list[CandidateMatch],
+        court_id: str | None,
+        async_client: AsyncCourtListenerClient,
+    ) -> VerificationResult:
+        """Async mirror of ``_build_fallback_result``.
+
+        Identical logic except the doc-detail fetch awaits
+        ``async_client.get_recap_document_metadata()``. Called from
+        ``_search_fallback_async`` and ``verify_batch`` when a RECAP
+        candidate needs refinement.
+        """
+        if not candidates:
+            return self._finalize_result(
+                builder,
+                citation_text=citation_text,
+                parsed=parsed,
+                status=Status.NOT_FOUND,
+            )
+
+        candidates.sort(key=lambda c: c.score, reverse=True)
+        best = candidates[0]
+
+        has_unverified_cite = bool(
+            (parsed.volume and parsed.reporter and parsed.page) or parsed.wl_number
+        )
+        if has_unverified_cite and court_id and best.court_id != court_id:
+            return self._finalize_result(
+                builder,
+                citation_text=citation_text,
+                parsed=parsed,
+                status=Status.NOT_FOUND,
+            )
+
+        if not parsed.court and not parsed.year:
+            return self._finalize_result(
+                builder,
+                citation_text=citation_text,
+                parsed=parsed,
+                status=Status.NOT_FOUND,
+            )
+
+        status = Status.VERIFIED if best.score >= _VERIFIED_SCORE_THRESHOLD else Status.NOT_FOUND
+
+        is_recap_match = best.docket_id is not None and best.cluster_id is None
+        text_source: TextSource | None
+        recap_document_id: int | None = None
+
+        if is_recap_match and status == Status.VERIFIED:
+            desc = best.description or ""
+            gate_passed = best.recap_document_id and self._recap_doc_is_cited_opinion(
+                parsed, desc, best.date_filed,
+                page_count=best.page_count,
+                is_free_on_pacer=best.is_free_on_pacer,
+            )
+
+            # Async doc-detail refinement (same logic as sync path).
+            if not gate_passed and best.recap_document_id and not best.is_free_on_pacer:
+                try:
+                    detail = await async_client.get_recap_document_metadata(
+                        best.recap_document_id
+                    )
+                    if detail:
+                        real_page_count = int(detail.get("page_count") or 0)
+                        real_is_free = bool(detail.get("is_free_on_pacer"))
+                        if real_page_count != best.page_count or real_is_free != best.is_free_on_pacer:
+                            best.page_count = real_page_count
+                            best.is_free_on_pacer = real_is_free
+                            gate_passed = self._recap_doc_is_cited_opinion(
+                                parsed, desc, best.date_filed,
+                                page_count=best.page_count,
+                                is_free_on_pacer=best.is_free_on_pacer,
+                            )
+                except Exception:
+                    logger.debug(
+                        "async doc-detail fetch for recap_document_id=%s failed; "
+                        "leaving DOCKET_ONLY",
+                        best.recap_document_id,
+                        exc_info=True,
+                    )
+
+            if gate_passed:
+                status = Status.VERIFIED_VIA_RECAP
+                text_source = TextSource.recap_document
+                recap_document_id = best.recap_document_id
+            else:
+                status = Status.VERIFIED_DOCKET_ONLY
+                text_source = None
+        elif status == Status.VERIFIED and best.cluster_id:
+            text_source = TextSource.opinion_plain_text
+        else:
+            text_source = None
+
+        return self._finalize_result(
+            builder,
+            citation_text=citation_text,
+            parsed=parsed,
+            status=status,
+            cluster_id=best.cluster_id,
+            docket_id=best.docket_id,
+            absolute_url=best.url,
+            text_source=text_source,
+            recap_document_id=recap_document_id,
         )
 
     def _docket_date_ranges(
@@ -324,16 +618,27 @@ class CitationVerifier:
         parsed: ParsedCitation | None = None,
         quick_only: bool = False,
     ) -> VerificationResult:
-        """Verify a citation string through the two-step pipeline.
+        """Verify a citation string through the resolution pipeline.
 
-        Step 1: Try the Citation Lookup API (fast, precise).
-        Step 2: Parse and fuzzy-search as fallback.
+        Stages attempted, in order:
+          1. citation_lookup       (always)
+          2. opinion_search        (if (1) misses and not quick_only)
+          3. recap_document_search (if (2) doesn't yield a credible match
+                                     and parsed.docket_number is present
+                                     and court is federal)
+          4. recap_docket_search   (if (2) doesn't yield a credible match
+                                     and parsed.case_name is present
+                                     and court is federal)
+
+        Each stage attempted produces one ResolutionPathEntry. Stages not
+        attempted (quick_only short-circuit, state-court guard, already-have-
+        credible-match guard, missing-input guard) are absent from the path.
 
         Parameters
         ----------
         citation_text : str
             Raw citation string used for the citation-lookup API call
-            and stored in ``VerificationResult.input_citation``.
+            and stored in ``VerificationResult.citation_as_written``.
         parsed : ParsedCitation | None
             Pre-parsed citation metadata.  When provided the internal
             ``parse_citation()`` call is skipped, preserving fields
@@ -345,88 +650,329 @@ class CitationVerifier:
             immediately without falling through to Steps 1B/2/3.
         """
         citation_text = citation_text.strip()
-
-        # Step 1: Citation Lookup API
         if parsed is None:
             parsed = parse_citation(citation_text)
-        try:
-            lookup_results = self.client.citation_lookup(citation_text)
-            for lr in lookup_results:
-                clusters = lr.get("clusters", [])
-                for cluster in clusters:
-                    return self._process_citation_lookup_hit(
-                        citation_text, parsed, cluster
-                    )
-        except Exception:
-            # Citation lookup failed; fall through to search
-            logger.debug("Citation lookup failed", exc_info=True)
 
-        if quick_only:
-            return VerificationResult(
-                input_citation=citation_text,
-                status=VerificationStatus.NOT_FOUND,
-                confidence=0.0,
-                diagnostics=[Diagnostic("info", "Quick search only: not in citation lookup API")],
+        builder = ResolutionPathBuilder()
+
+        # Stage 1: Citation Lookup API
+        hit_finalize: dict[str, Any] | None = None
+        with builder.stage(
+            StageName.citation_lookup,
+            query={"text": citation_text[:200]},
+        ) as t:
+            try:
+                lookup_results = self.client.citation_lookup(citation_text)
+                clusters_returned = sum(
+                    len(lr.get("clusters", [])) for lr in lookup_results
+                )
+                for lr in lookup_results:
+                    clusters = lr.get("clusters", [])
+                    for cluster in clusters:
+                        hit_finalize = self._process_citation_lookup_hit(
+                            builder, t, citation_text, parsed, cluster, clusters_returned,
+                        )
+                        break
+                    if hit_finalize is not None:
+                        break
+                if hit_finalize is None:
+                    # No clusters in any of the lookup results.
+                    # In quick_only mode, the legacy "Quick search only" note
+                    # is preserved on the (terminal) citation_lookup entry so
+                    # the _diagnostics compat helper keeps working.
+                    if quick_only:
+                        t.no_match(
+                            raw_response_summary={"clusters_returned": 0},
+                            notes="Quick search only: not in citation lookup API",
+                        )
+                    else:
+                        t.no_match(raw_response_summary={"clusters_returned": 0})
+            except Exception as exc:
+                logger.debug("Citation lookup failed", exc_info=True)
+                t.errored(error_type=type(exc).__name__, notes=f"{type(exc).__name__}: {exc}")
+
+        if hit_finalize is not None:
+            # Phase 3 Task 5: caption_investigation runs in its own stage block
+            # when _process_citation_lookup_hit flagged a name mismatch.
+            if hit_finalize.pop("needs_caption_investigation", False):
+                cluster = hit_finalize.pop("_cluster_for_investigation")
+                with builder.stage(
+                    StageName.caption_investigation,
+                    query={
+                        "cluster_id": cluster.get("id"),
+                        "cited_case_name": parsed.case_name,
+                        "cl_case_name": cluster.get("case_name", ""),
+                    },
+                ) as inv_t:
+                    try:
+                        inv_result = self._investigate_caption(parsed, cluster)
+                        inv_t.resolved(
+                            confidence=inv_result["confidence"],
+                            raw_response_summary=inv_result["raw_response_summary"],
+                            notes=inv_result["notes"],
+                        )
+                        hit_finalize["warnings"] = inv_result["warnings"] or None
+                        hit_finalize["status_override"] = inv_result["status"]
+                    except Exception as exc:
+                        logger.debug("caption_investigation failed", exc_info=True)
+                        inv_t.errored(
+                            error_type=type(exc).__name__,
+                            notes=f"{type(exc).__name__}: {exc}",
+                        )
+                        # Defensive fallback: investigation errored. Emit the
+                        # pre-Task-5 cl_display_name_data_bug warning so the
+                        # consumer still knows a mismatch was flagged but the
+                        # verifier could not classify it. Per design §2.8:
+                        # refinement-stage failures do not trigger
+                        # VERIFICATION_INCOMPLETE — the underlying verification
+                        # (cluster exists, citation maps to it) still stands.
+                        hit_finalize["warnings"] = [Warning(
+                            category=WarningCategory.cl_display_name_data_bug,
+                            message=(
+                                f"Citation_lookup resolved the cluster, but caption_investigation "
+                                f"could not complete ({type(exc).__name__}). The citation is verified "
+                                f"(the cluster exists); the case-name divergence between the brief "
+                                f"and CL's caption is unclassified. Per design §2.8, refinement-stage "
+                                f"failures do not trigger VERIFICATION_INCOMPLETE."
+                            ),
+                        )]
+
+            status = hit_finalize.pop("status_override", Status.VERIFIED)
+            return self._finalize_result(
+                builder,
+                citation_text=citation_text,
+                parsed=parsed,
+                status=status,
+                **hit_finalize,
             )
 
-        # Step 2: Fuzzy search fallback
-        return self._search_fallback(citation_text, parsed)
+        if quick_only:
+            return self._finalize_result(
+                builder,
+                citation_text=citation_text,
+                parsed=parsed,
+                status=Status.NOT_FOUND,
+            )
+
+        # Stage 2+: Fuzzy search fallback (instrumented in Task 3)
+        return self._search_fallback(builder, citation_text, parsed)
 
     def _search_fallback(
-        self, citation_text: str, parsed: ParsedCitation
+        self,
+        builder: ResolutionPathBuilder,
+        citation_text: str,
+        parsed: ParsedCitation,
     ) -> VerificationResult:
-        """Search CourtListener using parsed citation metadata."""
+        """Search CourtListener using parsed citation metadata.
+
+        Phase 2 / Task 3: each of opinion_search, recap_document_search, and
+        recap_docket_search is wrapped in its own ``builder.stage(...)``
+        block. ``_build_fallback_result`` no longer touches the builder; it
+        only picks the winning candidate from the pooled stages and
+        finalizes the result.
+        """
         court_id, filed_after, filed_before = self._build_search_params(parsed)
 
-        candidates: list[CandidateMatch] = []
+        # Insufficient-data short-circuit: without both court and date we
+        # don't have enough signal to verify reliably. Record a no_match
+        # opinion_search entry with the legacy diagnostic message and
+        # return NOT_FOUND without running any fallback API calls. (The
+        # same guard fires post-search in ``_build_fallback_result`` for
+        # other callers, but skipping the stages here keeps the resolved
+        # opinion_search entry off the path so ``headline_confidence``
+        # correctly reads None.)
+        if not parsed.court and not parsed.year:
+            with builder.stage(
+                StageName.opinion_search,
+                query={
+                    "q": parsed.case_name,
+                    "court": court_id,
+                    "filed_after": filed_after,
+                    "filed_before": filed_before,
+                },
+            ) as t:
+                t.no_match(
+                    raw_response_summary={"candidate_count": 0},
+                    notes=(
+                        "Insufficient data to verify: citation text is missing "
+                        "both court and date. A match cannot be confirmed with "
+                        "name alone. Try adding the court and year parenthetical "
+                        "(e.g. '(E.D. Tenn. 2020)') to the citation text."
+                    ),
+                )
+            return self._finalize_result(
+                builder,
+                citation_text=citation_text,
+                parsed=parsed,
+                status=Status.NOT_FOUND,
+            )
 
-        # First search: with court filter (from parsed court or inferred from reporter)
+        opinion_candidates: list[CandidateMatch] = []
+        recap_candidates: list[CandidateMatch] = []
+
+        # Stage: opinion_search
         if parsed.case_name:
-            try:
-                results = self.client.search_opinions(
-                    q=parsed.case_name,
-                    court=court_id,
-                    filed_after=filed_after,
-                    filed_before=filed_before,
-                )
-                candidates = self._process_results(results, parsed)
-            except Exception:
-                logger.debug("Opinion search failed", exc_info=True)
-
-        # Step 3: RECAP fallback (docket entries, orders, PACER documents)
-        # Skip RECAP for state courts — RECAP is federal PACER data only.
-        is_state_court = court_id and not is_federal_court(court_id)
-        has_credible_match = any(c.score >= 0.5 for c in candidates)
-
-        if not has_credible_match and not is_state_court and parsed.docket_number:
-            try:
-                results = self.client.search_recap(docket_number=parsed.docket_number)
-                cited_dn = self._normalize_docket_number(parsed.docket_number)
-                results = [
-                    r
-                    for r in results
-                    if self._normalize_docket_number(
-                        r.get("docketNumber") or r.get("docket_number") or ""
+            with builder.stage(
+                StageName.opinion_search,
+                query={
+                    "q": parsed.case_name,
+                    "court": court_id,
+                    "filed_after": filed_after,
+                    "filed_before": filed_before,
+                },
+            ) as t:
+                try:
+                    results = self.client.search_opinions(
+                        q=parsed.case_name,
+                        court=court_id,
+                        filed_after=filed_after,
+                        filed_before=filed_before,
                     )
-                    == cited_dn
-                ]
-                recap_candidates = self._process_recap_results(results, parsed)
-                candidates.extend(recap_candidates)
-            except Exception:
-                logger.debug("RECAP search by docket number failed", exc_info=True)
+                    opinion_candidates = self._process_results(results, parsed)
+                    if opinion_candidates:
+                        best = max(opinion_candidates, key=lambda c: c.score)
+                        summary = {
+                            "candidate_count": len(opinion_candidates),
+                            "best_score": best.score,
+                            "best_case_name": best.case_name,
+                            "best_cluster_id": best.cluster_id,
+                        }
+                        notes = self._stage_notes_for_candidate(best)
+                        if best.score >= _VERIFIED_SCORE_THRESHOLD:
+                            t.resolved(
+                                confidence=best.score,
+                                raw_response_summary=summary,
+                                notes=notes,
+                            )
+                        else:
+                            t.no_match(raw_response_summary=summary, notes=notes)
+                    else:
+                        t.no_match(raw_response_summary={"candidate_count": 0})
+                except Exception as exc:
+                    logger.debug("Opinion search failed", exc_info=True)
+                    t.errored(
+                        error_type=type(exc).__name__,
+                        notes=f"{type(exc).__name__}: {exc}",
+                    )
 
+        # Guards for RECAP: federal-only, no credible match yet.
+        is_state_court = court_id and not is_federal_court(court_id)
+        has_credible_match = any(c.score >= 0.5 for c in opinion_candidates)
+
+        # Stage: recap_document_search (by docket_number)
+        if not has_credible_match and not is_state_court and parsed.docket_number:
+            with builder.stage(
+                StageName.recap_document_search,
+                query={"docket_number": parsed.docket_number},
+            ) as t:
+                try:
+                    results = self.client.search_recap(
+                        docket_number=parsed.docket_number
+                    )
+                    cited_dn = self._normalize_docket_number(parsed.docket_number)
+                    results = [
+                        r
+                        for r in results
+                        if self._normalize_docket_number(
+                            r.get("docketNumber") or r.get("docket_number") or ""
+                        )
+                        == cited_dn
+                    ]
+                    rd_candidates = self._process_recap_results(results, parsed)
+                    recap_candidates.extend(rd_candidates)
+                    if rd_candidates:
+                        best = max(rd_candidates, key=lambda c: c.score)
+                        summary = {
+                            "docket_count": len(rd_candidates),
+                            "best_score": best.score,
+                            "best_docket_id": best.docket_id,
+                            "best_case_name": best.case_name,
+                        }
+                        notes = self._stage_notes_for_candidate(best)
+                        if best.score >= _VERIFIED_SCORE_THRESHOLD:
+                            t.resolved(
+                                confidence=best.score,
+                                raw_response_summary=summary,
+                                notes=notes,
+                            )
+                        else:
+                            t.no_match(raw_response_summary=summary, notes=notes)
+                    else:
+                        t.no_match(raw_response_summary={"docket_count": 0})
+                except Exception as exc:
+                    logger.debug(
+                        "RECAP search by docket number failed", exc_info=True
+                    )
+                    t.errored(
+                        error_type=type(exc).__name__,
+                        notes=f"{type(exc).__name__}: {exc}",
+                    )
+
+        # Stage: recap_docket_search (by case_name)
         if not has_credible_match and not is_state_court and parsed.case_name:
-            try:
-                results = self.client.search_recap(
-                    q=parsed.case_name,
-                    court=court_id,
-                )
-                recap_candidates = self._process_recap_results(results, parsed)
-                candidates.extend(recap_candidates)
-            except Exception:
-                logger.debug("RECAP search failed", exc_info=True)
+            with builder.stage(
+                StageName.recap_docket_search,
+                query={"q": parsed.case_name, "court": court_id},
+            ) as t:
+                try:
+                    results = self.client.search_recap(
+                        q=parsed.case_name,
+                        court=court_id,
+                    )
+                    rd_candidates = self._process_recap_results(results, parsed)
+                    recap_candidates.extend(rd_candidates)
+                    if rd_candidates:
+                        best = max(rd_candidates, key=lambda c: c.score)
+                        summary = {
+                            "docket_count": len(rd_candidates),
+                            "best_score": best.score,
+                            "best_docket_id": best.docket_id,
+                            "best_case_name": best.case_name,
+                        }
+                        notes = self._stage_notes_for_candidate(best)
+                        if best.score >= _VERIFIED_SCORE_THRESHOLD:
+                            t.resolved(
+                                confidence=best.score,
+                                raw_response_summary=summary,
+                                notes=notes,
+                            )
+                        else:
+                            t.no_match(raw_response_summary=summary, notes=notes)
+                    else:
+                        t.no_match(raw_response_summary={"docket_count": 0})
+                except Exception as exc:
+                    logger.debug("RECAP search failed", exc_info=True)
+                    t.errored(
+                        error_type=type(exc).__name__,
+                        notes=f"{type(exc).__name__}: {exc}",
+                    )
 
-        return self._build_fallback_result(citation_text, parsed, candidates, court_id)
+        # Aggregate across stages and finalize. The per-stage entries are
+        # already appended above; _build_fallback_result does NOT touch the
+        # builder — it only picks the winning candidate and finalizes.
+        # Pass the doc-detail fetch callable so the gate can refine
+        # page_count + is_free_on_pacer when search_recap omits them.
+        candidates = opinion_candidates + recap_candidates
+        return self._build_fallback_result(
+            builder, citation_text, parsed, candidates, court_id,
+            _doc_detail_fn=self.client.get_recap_document_metadata,
+        )
+
+    def _stage_notes_for_candidate(self, best: CandidateMatch) -> str | None:
+        """Build the joined-diagnostic-message notes string for a stage's
+        best candidate.
+
+        Computes the status the candidate would yield in isolation (per the
+        same 0.40 threshold used by ``_build_fallback_result``) and runs
+        ``_finalize_diagnostics`` to produce the joined-message string. The
+        legacy ``_diagnostics`` test helper reads these notes off the
+        winning stage entry.
+        """
+        status = Status.VERIFIED if best.score >= _VERIFIED_SCORE_THRESHOLD else Status.NOT_FOUND
+        diagnostics = self._finalize_diagnostics(best.mismatches, best.score, status)
+        if not diagnostics:
+            return None
+        return "; ".join(d.message for d in diagnostics)
 
     def _process_recap_results(
         self, results: list[dict[str, Any]], parsed: ParsedCitation
@@ -656,6 +1202,9 @@ class CitationVerifier:
             description=full_desc or None,
             mismatches=mismatches,
             docket_id=docket_id,
+            recap_document_id=doc.get("id"),          # Phase 3 Task 4
+            page_count=int(doc.get("page_count") or 0),    # Phase 4 Task 4 (Q2)
+            is_free_on_pacer=bool(doc.get("is_free_on_pacer")),  # Phase 4 Task 4 (Q2)
         )
 
     def _build_docket_only_candidate(
@@ -711,7 +1260,7 @@ class CitationVerifier:
     def _finalize_diagnostics(
         mismatches: list[Diagnostic],
         score: float,
-        status: VerificationStatus,
+        status: Status,
     ) -> list[Diagnostic]:
         """Finalize diagnostics by appending match language for non-verified results.
 
@@ -719,10 +1268,10 @@ class CitationVerifier:
         to the last diagnostic or as a standalone message.
         """
         diagnostics = list(mismatches)
-        if score >= 0.40:
-            match_word = (
-                "likely" if status == VerificationStatus.LIKELY_REAL else "possible"
-            )
+        if score >= _VERIFIED_SCORE_THRESHOLD:
+            # In Phase 1, LIKELY_REAL and POSSIBLE_MATCH collapse to VERIFIED;
+            # the distinction is now on the score itself.
+            match_word = "likely" if score >= 0.85 else "possible"
             if diagnostics:
                 last = diagnostics[-1]
                 if last.message.endswith("could be verified"):
@@ -891,6 +1440,105 @@ class CitationVerifier:
         return (tier, min(page_count, 50))
 
     @staticmethod
+    def _date_within_window(parsed: ParsedCitation, entry_date: str, days: int = 14) -> bool:
+        """Return True iff the doc's entry_date is within ±days of parsed's cited date.
+
+        When parsed.year is missing or entry_date is unparseable, returns False.
+        Missing month defaults to June (6); missing day defaults to 15.
+        """
+        if not (parsed.year and entry_date and len(entry_date) >= 10):
+            return False
+        try:
+            from datetime import date as _date
+            cited_y = parsed.year
+            cited_m = parsed.month or 6
+            cited_d = parsed.day or 15
+            ey = int(entry_date[0:4])
+            em = int(entry_date[5:7])
+            ed = int(entry_date[8:10])
+            delta_days = abs(
+                (_date(cited_y, cited_m, cited_d) - _date(ey, em, ed)).days
+            )
+            return delta_days <= days
+        except (ValueError, TypeError):
+            return False
+
+    @staticmethod
+    def _recap_doc_is_cited_opinion(
+        parsed: ParsedCitation,
+        desc: str,
+        entry_date: str,
+        has_wl_cite_in_cluster: bool = False,
+        page_count: int = 0,
+        is_free_on_pacer: bool = False,
+    ) -> bool:
+        """Strict VIA_RECAP gate (design v2 §2.2 + Phase 3 Q1 + Phase 4 Q2).
+
+        A RECAPDocument qualifies as the cited opinion when:
+          (a) has_wl_cite_in_cluster is True, OR
+          (b) The description matches opinion-typed keywords AND the date
+              is within ±14 days of cited date AND no procedural-order
+              keywords match, OR
+          (c) The score-based gate fires: page_count >= 5 AND
+              is_free_on_pacer AND no procedural-order keywords match
+              (substantive long-form opinion regardless of description
+              wording; the score-based fallback handles "ORDER GRANTING ..."
+              style descriptions that are substantive but keyword-poor).
+
+        Note: "motion to" and "motion for" are intentionally excluded from
+        the procedural keywords because they appear as substrings in opinion
+        descriptions like "OPINION on motion to dismiss". Use specific
+        compound phrases (e.g. "motion in limine") only.
+
+        When parsed.year is missing or entry_date is unparseable, path (b)
+        cannot fire (date window returns False). Path (c) does not require
+        a date and can fire on page_count + is_free_on_pacer alone.
+        """
+        desc_lower = (desc or "").lower()
+
+        # Procedural-keyword guard runs first; never accept a doc whose
+        # description matches a procedural type, regardless of score.
+        _PROCEDURAL_KEYWORDS = (
+            "certifying interlocutory appeal",
+            "taxation of costs", "taxation order",
+            "motion in limine", "in limine",
+            "objections to", "objection to",
+            "stipulation", "scheduling order",
+            "minute order", "minute entry",
+            "notice of",
+            "certificate of service",
+            "stipulated protective order",
+        )
+        if any(kw in desc_lower for kw in _PROCEDURAL_KEYWORDS):
+            return False
+
+        # Path (a): WL cite in cluster → unconditional trust.
+        if has_wl_cite_in_cluster:
+            return True
+
+        # Path (b): opinion keyword + date window.
+        _OPINION_KEYWORDS = (
+            "opinion", "memorandum",
+            "order & reasons", "order and reasons",
+            "findings of fact", "report and recommendation",
+            "report & recommendation",
+            "memorandum and order", "memorandum & order",
+        )
+        has_opinion_keyword = any(kw in desc_lower for kw in _OPINION_KEYWORDS)
+
+        if has_opinion_keyword and CitationVerifier._date_within_window(parsed, entry_date, days=14):
+            return True
+
+        # Path (c) — score-based fallback for substantive-but-keyword-poor docs.
+        # page_count >= 5 AND is_free_on_pacer strongly suggests a substantive
+        # opinion even when the description wording doesn't match opinion keywords
+        # (e.g. "ORDER GRANTING Motion for Reconsideration" — Mehar Holdings).
+        if page_count >= 5 and is_free_on_pacer:
+            return True
+
+        return False
+
+    @staticmethod
     def _extract_surname(party_name: str) -> str:
         """Extract the likely surname from a party name.
 
@@ -901,6 +1549,410 @@ class CitationVerifier:
         if not party_name or party_name.lower() in ("none", ""):
             return ""
         return party_name.split()[0].rstrip(",.")
+
+    @staticmethod
+    def _cited_primary_reporter_in_cluster(
+        parsed: ParsedCitation, cluster: dict[str, Any],
+    ) -> bool:
+        """Return True iff the brief's primary reporter cite (volume +
+        reporter + page) appears in the cluster's `citations` list.
+
+        Returns True when the brief had no parsed reporter cite (e.g. WL-
+        only input — nothing for the cluster to be missing) so a missing
+        primary cannot be inferred. Returns True when the cluster's
+        citations field is absent or unparseable (defensive: better to
+        under-call partial than over-call).
+        """
+        if not (parsed.volume and parsed.reporter and parsed.page):
+            return True   # No primary to be silently dropped.
+        if "citations" not in cluster:
+            return True   # Absent citations field — defensive: don't over-call partial.
+        cl_citations = cluster.get("citations") or []
+        if not cl_citations:
+            return True   # Empty list is also indeterminate — be conservative.
+        cited_vol = str(parsed.volume).strip()
+        cited_rep = str(parsed.reporter).strip().lower().replace(".", "").replace(" ", "")
+        cited_page = str(parsed.page).strip()
+        for c in cl_citations:
+            if isinstance(c, dict):
+                vol = str(c.get("volume", "")).strip()
+                rep = str(c.get("reporter", "")).strip().lower().replace(".", "").replace(" ", "")
+                page = str(c.get("page", "")).strip()
+            else:
+                # String form: "201 A.D.3d 83" — coarse contains check
+                s = str(c).lower().replace(".", "").replace(" ", "")
+                if cited_vol.lower() in s and cited_rep in s and cited_page.lower() in s:
+                    return True
+                continue
+            if vol == cited_vol and rep == cited_rep and page == cited_page:
+                return True
+        return False
+
+    @staticmethod
+    def _party_overlap_ok(parsed: ParsedCitation, candidate_caption: str) -> bool:
+        """Phase 3 maintainer Q4 pre-decision: WRONG_CASE escalation gate.
+
+        Returns True iff the candidate caption has at least one plaintiff
+        token AND at least one defendant token in common with the brief's
+        parsed case name, after lowercasing + punctuation stripping +
+        stopword removal. Common-prefix cases (United States v. X, State v.
+        X, In re X) compare distinctive-word overlap only.
+
+        The implementer is expected to calibrate the precise stopword and
+        normalization choices against the corpus's WRONG_CASE fixtures
+        (especially named-exemplar-wrong-case = Hogan v. AT&T resolving
+        to U.S. ex rel. Green v. Washington) and the cl_display_name_data_bug
+        fixtures (Koch, Gilliard, SSA pseudonyms). The reference cases:
+        Hogan/Green has zero token overlap on either side -> WRONG_CASE;
+        Koch v. United States vs. Ricky Koch v. Tote has plaintiff
+        overlap on 'koch' -> same case + cl_display_name_data_bug.
+        """
+        if not parsed.case_name:
+            return True  # Nothing to compare — trust citation_lookup.
+
+        _STOPWORDS = frozenset({
+            "the", "of", "and", "for", "in", "re", "matter", "ex", "rel",
+            "v", "vs", "versus", "et", "al", "inc", "llc", "ltd", "co",
+            "corp", "company", "corporation", "lp", "llp", "pllc", "pc",
+            "limited", "holdings", "group", "intl", "international",
+        })
+        # Prefix words to strip from common-prefix case names before token
+        # comparison, so "United States v. Smith" and "United States v. Johnson"
+        # don't compare only on "united"/"states" tokens.
+        _PREFIX_WORDS = frozenset({
+            "united", "states", "state", "commonwealth", "people", "government",
+            "usa", "u.s.", "u.s",
+        })
+
+        def _toks(s: str) -> set[str]:
+            return {
+                t for t in re.findall(r"[a-z0-9]+", (s or "").lower())
+                if len(t) >= 3 and t not in _STOPWORDS
+            }
+
+        # Common-prefix detection (United States v. X, State v. X, etc.)
+        cited_lower = parsed.case_name.lower()
+        common_prefixes = (
+            "united states v",
+            "state v", "state of ", "commonwealth v", "commonwealth of",
+            "people v", "people of",
+            "in re ", "in the matter",
+            "u.s. ex rel", "us ex rel",
+        )
+        is_common_prefix = any(cited_lower.startswith(p) for p in common_prefixes)
+
+        cited_caption_toks = _toks(parsed.case_name)
+        candidate_toks = _toks(candidate_caption)
+
+        if is_common_prefix:
+            # Distinctive-word overlap only; strip the common prefix tokens
+            # from both sides so "United States v. Smith" and "United States
+            # v. Johnson" don't falsely match on "united"/"states".
+            cited_distinctive = cited_caption_toks - _PREFIX_WORDS
+            cand_distinctive = candidate_toks - _PREFIX_WORDS
+            # For "In re" cases there may be no "v." so compare full distinctive tokens.
+            return bool(cited_distinctive & cand_distinctive)
+
+        # Regular case: separate plaintiff vs defendant.
+        cited_plaintiff_toks = _toks(parsed.plaintiff or "")
+        cited_defendant_toks = _toks(parsed.defendant or "")
+        if not (cited_plaintiff_toks or cited_defendant_toks):
+            # Couldn't extract parties — fall back to full overlap.
+            return bool(cited_caption_toks & candidate_toks)
+
+        # Split the candidate caption on " v. " (or " v "); both sides matter.
+        cand_lower = (candidate_caption or "").lower()
+        parts = re.split(r"\s+v\.?\s+", cand_lower, maxsplit=1)
+        cand_left = _toks(parts[0]) if parts else set()
+        cand_right = _toks(parts[1]) if len(parts) > 1 else set()
+
+        if cand_left or cand_right:
+            # Match in EITHER direction (party swap tolerated): at least
+            # one plaintiff-side hit and one defendant-side hit, but the
+            # "sides" don't have to line up.
+            all_cand = cand_left | cand_right
+            plaintiff_hit = bool(cited_plaintiff_toks & all_cand) if cited_plaintiff_toks else True
+            defendant_hit = bool(cited_defendant_toks & all_cand) if cited_defendant_toks else True
+            return plaintiff_hit and defendant_hit
+
+        return bool(cited_caption_toks & candidate_toks)
+
+    @staticmethod
+    def _captions_differ_only_in_formatting(a: str, b: str) -> bool:
+        """Return True iff strings differ only in abbreviation / punctuation
+        / whitespace. Used by _investigate_caption to choose between
+        name_formatting_noise and cl_display_name_data_bug."""
+        _ABBREV_MAP = {
+            "incorporated": "inc", "corporation": "corp", "company": "co",
+            "limited": "ltd", "department": "dept", "county": "cnty",
+        }
+
+        def _norm(s: str) -> str:
+            s = (s or "").lower()
+            for long, short in _ABBREV_MAP.items():
+                s = re.sub(rf"\b{long}\b", short, s)
+            return re.sub(r"[^a-z0-9]+", "", s)
+
+        return _norm(a) == _norm(b) and _norm(a) != ""
+
+    def _investigate_caption(
+        self,
+        parsed: ParsedCitation,
+        cluster: dict[str, Any],
+    ) -> dict[str, Any]:
+        """Phase 3 caption_investigation sub-pipeline (design v2 §2.5).
+
+        Called from verify()/verify_async() after the citation_lookup
+        stage's `with` block has exited, when _process_citation_lookup_hit
+        flagged a name mismatch. This helper does the actual three-step
+        lookup but is itself wrapped in a separate
+        `builder.stage(StageName.caption_investigation, ...)` block by the
+        caller — the caller sets verdict/notes on the investigation token
+        from this helper's return value.
+
+        Returns a dict with:
+          status: Status   (VERIFIED or WRONG_CASE)
+          warnings: list[Warning]
+          raw_response_summary: dict (for the investigation stage entry)
+          notes: str | None
+          confidence: float
+
+        The verifier helper performs three lookups (any of which can
+        contribute to the decision; errors are caught at the call site so
+        a single API failure doesn't cascade):
+          1. Cluster's `case_name_full` is often richer than `case_name`
+             (Rule 25(d) substitutions, SSA pseudonyms, etc.).
+          2. Docket's `case_name` is the long-form caption as originally
+             filed; matches the brief's caption more often.
+          3. Opinion text's first 500 characters carry the caption header.
+
+        Decision rules (in order):
+          - If party-overlap passes against any of (cluster.case_name_full,
+            docket.case_name, opinion.head_500): VERIFIED with the most-
+            appropriate cosmetic-divergence warning (name_formatting_noise
+            when the captions match modulo punctuation/abbreviations;
+            cl_display_name_data_bug otherwise).
+          - Else: WRONG_CASE.
+
+        Q2/Q3 sibling checks (wrong_page_number, cl_duplicate_clusters) are
+        deferred to Phase 3.5/4. When no party-overlap is found, this
+        function returns WRONG_CASE directly without searching for siblings.
+        See docs/plans/ Phase 3 plan Task 5 note on MAY-implement status.
+        """
+        cluster_id = cluster.get("id")
+        cl_case_name = cluster.get("case_name", "")
+
+        # Step 1: cluster case_name_full
+        case_name_full = ""
+        docket_id = None
+        try:
+            cluster_detail = self.client.get_cluster(cluster_id)
+            case_name_full = cluster_detail.get("case_name_full", "") or ""
+            docket_id = cluster_detail.get("docket_id") or cluster_detail.get("docket")
+        except Exception:
+            cluster_detail = {}
+
+        # Step 2: docket case_name
+        docket_case_name = ""
+        if docket_id:
+            try:
+                docket = self.client.get_docket(docket_id)
+                docket_case_name = (
+                    docket.get("case_name_full")
+                    or docket.get("case_name")
+                    or ""
+                )
+            except Exception:
+                pass
+
+        # Step 3: opinion plain_text first 500 chars (caption header)
+        opinion_head = ""
+        abs_url = cluster.get("absolute_url", "")
+        if abs_url and not abs_url.startswith("http"):
+            abs_url_full = f"https://www.courtlistener.com{abs_url}"
+        elif abs_url:
+            abs_url_full = abs_url
+        else:
+            abs_url_full = f"https://www.courtlistener.com/opinion/{cluster_id}/"
+        try:
+            text = self.client.get_opinion_text(abs_url_full)
+            if text:
+                opinion_head = text[:500]
+        except Exception:
+            pass
+
+        # Pool of caption candidates the brief might be matching against.
+        candidates = [
+            ("cluster_case_name", cl_case_name),
+            ("cluster_case_name_full", case_name_full),
+            ("docket_case_name", docket_case_name),
+            ("opinion_head_500", opinion_head),
+        ]
+        overlap_hits = [
+            (label, cap) for (label, cap) in candidates
+            if cap and self._party_overlap_ok(parsed, cap)
+        ]
+
+        summary = {
+            "investigated_cluster_id": cluster_id,
+            "cl_case_name": cl_case_name,
+            "case_name_full": case_name_full,
+            "docket_case_name": docket_case_name,
+            "opinion_head_500_present": bool(opinion_head),
+            "overlap_hits": [lbl for (lbl, _) in overlap_hits],
+        }
+
+        if overlap_hits:
+            # Same case under at least one caption source.
+            # Refine the warning category:
+            #   - name_formatting_noise: captions match modulo
+            #     abbreviation/punctuation (e.g. "Inc." vs "Incorporated")
+            #   - cl_display_name_data_bug: captions semantically differ
+            #     but party-overlap still passes (Rule 25(d) substitution,
+            #     SSA pseudonyms, the Koch "Ricky Koch v. Tote" shape).
+            is_pure_formatting = self._captions_differ_only_in_formatting(
+                parsed.case_name or "", cl_case_name,
+            )
+            category = (
+                WarningCategory.name_formatting_noise if is_pure_formatting
+                else WarningCategory.cl_display_name_data_bug
+            )
+            return {
+                "status": Status.VERIFIED,
+                "warnings": [Warning(
+                    category=category,
+                    message=(
+                        f'Brief caption "{parsed.case_name}" differs from '
+                        f'CL caption "{cl_case_name}" but party-overlap '
+                        f'confirms it is the same case.'
+                    ),
+                    details={"caption_sources_matched": [lbl for lbl, _ in overlap_hits]},
+                )],
+                "raw_response_summary": summary,
+                "notes": f"party-overlap match via {overlap_hits[0][0]}",
+                "confidence": 1.0,
+            }
+
+        # No party-overlap match anywhere.
+        # Q2 / Q3 sibling checks (wrong_page_number, cl_duplicate_clusters)
+        # are deferred to Phase 3.5/4. The corpus does not pin specific
+        # wrong_page_number positive fixtures (Butler Motors is NOT_FOUND
+        # under strict reading), and the duplicate-cluster sibling search is
+        # exercised mostly by the 4 xfailed known_real_citations.json entries
+        # which require live API access. Direct WRONG_CASE per plan guidance.
+        return {
+            "status": Status.WRONG_CASE,
+            "warnings": [],
+            "raw_response_summary": summary,
+            "notes": "no party-overlap across cluster/docket/opinion sources",
+            "confidence": 1.0,
+        }
+
+    async def _investigate_caption_async(
+        self,
+        parsed: ParsedCitation,
+        cluster: dict[str, Any],
+        async_client: AsyncCourtListenerClient,
+    ) -> dict[str, Any]:
+        """Async mirror of _investigate_caption().
+
+        Awaits async_client.get_cluster, get_docket, and get_opinion_text
+        instead of the sync client. The decision tree is identical.
+        """
+        cluster_id = cluster.get("id")
+        cl_case_name = cluster.get("case_name", "")
+
+        # Step 1: cluster case_name_full
+        case_name_full = ""
+        docket_id = None
+        try:
+            cluster_detail = await async_client.get_cluster(cluster_id)
+            case_name_full = cluster_detail.get("case_name_full", "") or ""
+            docket_id = cluster_detail.get("docket_id") or cluster_detail.get("docket")
+        except Exception:
+            pass
+
+        # Step 2: docket case_name
+        docket_case_name = ""
+        if docket_id:
+            try:
+                docket = await async_client.get_docket(docket_id)
+                docket_case_name = (
+                    docket.get("case_name_full")
+                    or docket.get("case_name")
+                    or ""
+                )
+            except Exception:
+                pass
+
+        # Step 3: opinion plain_text first 500 chars (caption header)
+        opinion_head = ""
+        abs_url = cluster.get("absolute_url", "")
+        if abs_url and not abs_url.startswith("http"):
+            abs_url_full = f"https://www.courtlistener.com{abs_url}"
+        elif abs_url:
+            abs_url_full = abs_url
+        else:
+            abs_url_full = f"https://www.courtlistener.com/opinion/{cluster_id}/"
+        try:
+            text = await async_client.get_opinion_text(abs_url_full)
+            if text:
+                opinion_head = text[:500]
+        except Exception:
+            pass
+
+        # Pool of caption candidates
+        candidates = [
+            ("cluster_case_name", cl_case_name),
+            ("cluster_case_name_full", case_name_full),
+            ("docket_case_name", docket_case_name),
+            ("opinion_head_500", opinion_head),
+        ]
+        overlap_hits = [
+            (label, cap) for (label, cap) in candidates
+            if cap and self._party_overlap_ok(parsed, cap)
+        ]
+
+        summary = {
+            "investigated_cluster_id": cluster_id,
+            "cl_case_name": cl_case_name,
+            "case_name_full": case_name_full,
+            "docket_case_name": docket_case_name,
+            "opinion_head_500_present": bool(opinion_head),
+            "overlap_hits": [lbl for (lbl, _) in overlap_hits],
+        }
+
+        if overlap_hits:
+            is_pure_formatting = self._captions_differ_only_in_formatting(
+                parsed.case_name or "", cl_case_name,
+            )
+            category = (
+                WarningCategory.name_formatting_noise if is_pure_formatting
+                else WarningCategory.cl_display_name_data_bug
+            )
+            return {
+                "status": Status.VERIFIED,
+                "warnings": [Warning(
+                    category=category,
+                    message=(
+                        f'Brief caption "{parsed.case_name}" differs from '
+                        f'CL caption "{cl_case_name}" but party-overlap '
+                        f'confirms it is the same case.'
+                    ),
+                    details={"caption_sources_matched": [lbl for lbl, _ in overlap_hits]},
+                )],
+                "raw_response_summary": summary,
+                "notes": f"party-overlap match via {overlap_hits[0][0]}",
+                "confidence": 1.0,
+            }
+
+        return {
+            "status": Status.WRONG_CASE,
+            "warnings": [],
+            "raw_response_summary": summary,
+            "notes": "no party-overlap across cluster/docket/opinion sources",
+            "confidence": 1.0,
+        }
 
     _NONDISTINCTIVE_SURNAMES = frozenset({
         "american", "national", "united", "general", "federal",
@@ -954,6 +2006,30 @@ class CitationVerifier:
                     return defendant_surname.lower() in cl_lower
                 # If we can't extract defendant surname, fall back to full match check
                 return defendant_lower in cl_lower
+
+        # For generic-government-DEFENDANT cases (X v. United States, X v. State,
+        # X v. Commonwealth, X v. People), the defendant is not distinctive.
+        # Require that CL's caption also has a generic-government suffix; if not,
+        # reject so caption_investigation fires and can emit cl_display_name_data_bug.
+        # If CL does have the suffix, compare plaintiff tokens for the match.
+        _DEFENDANT_GENERIC_SUFFIXES = (
+            " v. united states", " v united states",
+            " v. state", " v state",
+            " v. commonwealth", " v commonwealth",
+            " v. people", " v people",
+        )
+        cited_lower = parsed.case_name.lower()
+        if any(cited_lower.endswith(s) for s in _DEFENDANT_GENERIC_SUFFIXES):
+            cl_has_suffix = any(s in cl_lower for s in _DEFENDANT_GENERIC_SUFFIXES)
+            if not cl_has_suffix:
+                return False
+            # CL also has a generic-government defendant — compare plaintiff tokens.
+            cited_plaintiff = (parsed.plaintiff or cited_lower.split(" v")[0]).lower()
+            cited_plaintiff_norm = re.sub(r"[^a-z0-9 ]+", "", cited_plaintiff).strip()
+            tokens = [t for t in re.findall(r"[a-z0-9]+", cited_plaintiff_norm) if len(t) >= 3]
+            if tokens:
+                return any(t in cl_lower for t in tokens)
+            return True  # no distinctive tokens; trust citation lookup
 
         # For regular cases, extract surnames from cited parties
         cited_surnames = []
@@ -1262,91 +2338,305 @@ class CitationVerifier:
         if parsed is None:
             parsed = parse_citation(citation_text)
 
-        # Step 1: Citation Lookup API
-        try:
-            lookup_results = await async_client.citation_lookup(citation_text)
-            for lr in lookup_results:
-                clusters = lr.get("clusters", [])
-                for cluster in clusters:
-                    return self._process_citation_lookup_hit(
-                        citation_text, parsed, cluster
-                    )
-        except Exception:
-            logger.debug("Citation lookup failed", exc_info=True)
+        builder = ResolutionPathBuilder()
+
+        # Stage 1: Citation Lookup API
+        hit_finalize: dict[str, Any] | None = None
+        with builder.stage(
+            StageName.citation_lookup,
+            query={"text": citation_text[:200]},
+        ) as t:
+            try:
+                lookup_results = await async_client.citation_lookup(citation_text)
+                clusters_returned = sum(
+                    len(lr.get("clusters", [])) for lr in lookup_results
+                )
+                for lr in lookup_results:
+                    clusters = lr.get("clusters", [])
+                    for cluster in clusters:
+                        hit_finalize = self._process_citation_lookup_hit(
+                            builder, t, citation_text, parsed, cluster, clusters_returned,
+                        )
+                        break
+                    if hit_finalize is not None:
+                        break
+                if hit_finalize is None:
+                    if quick_only:
+                        t.no_match(
+                            raw_response_summary={"clusters_returned": 0},
+                            notes="Quick search only: not in citation lookup API",
+                        )
+                    else:
+                        t.no_match(raw_response_summary={"clusters_returned": 0})
+            except Exception as exc:
+                logger.debug("Citation lookup failed", exc_info=True)
+                t.errored(error_type=type(exc).__name__, notes=f"{type(exc).__name__}: {exc}")
+
+        if hit_finalize is not None:
+            # Phase 3 Task 5: caption_investigation (async mirror of sync verify()).
+            if hit_finalize.pop("needs_caption_investigation", False):
+                cluster = hit_finalize.pop("_cluster_for_investigation")
+                with builder.stage(
+                    StageName.caption_investigation,
+                    query={
+                        "cluster_id": cluster.get("id"),
+                        "cited_case_name": parsed.case_name,
+                        "cl_case_name": cluster.get("case_name", ""),
+                    },
+                ) as inv_t:
+                    try:
+                        inv_result = await self._investigate_caption_async(
+                            parsed, cluster, async_client
+                        )
+                        inv_t.resolved(
+                            confidence=inv_result["confidence"],
+                            raw_response_summary=inv_result["raw_response_summary"],
+                            notes=inv_result["notes"],
+                        )
+                        hit_finalize["warnings"] = inv_result["warnings"] or None
+                        hit_finalize["status_override"] = inv_result["status"]
+                    except Exception as exc:
+                        logger.debug("caption_investigation failed", exc_info=True)
+                        inv_t.errored(
+                            error_type=type(exc).__name__,
+                            notes=f"{type(exc).__name__}: {exc}",
+                        )
+                        # Defensive fallback: investigation errored. Emit the
+                        # pre-Task-5 cl_display_name_data_bug warning so the
+                        # consumer still knows a mismatch was flagged but the
+                        # verifier could not classify it. Per design §2.8:
+                        # refinement-stage failures do not trigger
+                        # VERIFICATION_INCOMPLETE — the underlying verification
+                        # (cluster exists, citation maps to it) still stands.
+                        hit_finalize["warnings"] = [Warning(
+                            category=WarningCategory.cl_display_name_data_bug,
+                            message=(
+                                f"Citation_lookup resolved the cluster, but caption_investigation "
+                                f"could not complete ({type(exc).__name__}). The citation is verified "
+                                f"(the cluster exists); the case-name divergence between the brief "
+                                f"and CL's caption is unclassified. Per design §2.8, refinement-stage "
+                                f"failures do not trigger VERIFICATION_INCOMPLETE."
+                            ),
+                        )]
+
+            status = hit_finalize.pop("status_override", Status.VERIFIED)
+            return self._finalize_result(
+                builder,
+                citation_text=citation_text,
+                parsed=parsed,
+                status=status,
+                **hit_finalize,
+            )
 
         if quick_only:
-            return VerificationResult(
-                input_citation=citation_text,
-                status=VerificationStatus.NOT_FOUND,
-                confidence=0.0,
-                diagnostics=[Diagnostic("info", "Quick search only: not in citation lookup API")],
+            return self._finalize_result(
+                builder,
+                citation_text=citation_text,
+                parsed=parsed,
+                status=Status.NOT_FOUND,
             )
 
         # Step 2: Fuzzy search fallback
-        return await self._search_fallback_async(async_client, citation_text, parsed)
+        return await self._search_fallback_async(builder, async_client, citation_text, parsed)
 
     async def _search_fallback_async(
         self,
+        builder: ResolutionPathBuilder,
         async_client: AsyncCourtListenerClient,
         citation_text: str,
         parsed: ParsedCitation,
     ) -> VerificationResult:
-        """Async version of _search_fallback()."""
+        """Async version of _search_fallback().
+
+        Phase 2 / Task 4: mirrors `_search_fallback`'s per-stage
+        `builder.stage(...)` instrumentation one-for-one. The
+        builder.stage() context manager is sync; only the I/O calls
+        inside the block are awaited.
+        """
         court_id, filed_after, filed_before = self._build_search_params(parsed)
 
-        candidates: list[CandidateMatch] = []
+        # Insufficient-data short-circuit (mirror of sync): without both
+        # court and date we don't have enough signal to verify reliably.
+        if not parsed.court and not parsed.year:
+            with builder.stage(
+                StageName.opinion_search,
+                query={
+                    "q": parsed.case_name,
+                    "court": court_id,
+                    "filed_after": filed_after,
+                    "filed_before": filed_before,
+                },
+            ) as t:
+                t.no_match(
+                    raw_response_summary={"candidate_count": 0},
+                    notes=(
+                        "Insufficient data to verify: citation text is missing "
+                        "both court and date. A match cannot be confirmed with "
+                        "name alone. Try adding the court and year parenthetical "
+                        "(e.g. '(E.D. Tenn. 2020)') to the citation text."
+                    ),
+                )
+            return self._finalize_result(
+                builder,
+                citation_text=citation_text,
+                parsed=parsed,
+                status=Status.NOT_FOUND,
+            )
 
+        opinion_candidates: list[CandidateMatch] = []
+        recap_candidates: list[CandidateMatch] = []
+
+        # Stage: opinion_search
         if parsed.case_name:
-            try:
-                results = await async_client.search_opinions(
-                    q=parsed.case_name,
-                    court=court_id,
-                    filed_after=filed_after,
-                    filed_before=filed_before,
-                )
-                candidates = self._process_results(results, parsed)
-            except Exception:
-                logger.debug("Opinion search failed", exc_info=True)
-
-        # Step 3: RECAP fallback
-        is_state_court = court_id and not is_federal_court(court_id)
-        has_credible_match = any(c.score >= 0.5 for c in candidates)
-
-        if not has_credible_match and not is_state_court and parsed.docket_number:
-            try:
-                results = await async_client.search_recap(
-                    docket_number=parsed.docket_number
-                )
-                cited_dn = self._normalize_docket_number(parsed.docket_number)
-                results = [
-                    r
-                    for r in results
-                    if self._normalize_docket_number(
-                        r.get("docketNumber") or r.get("docket_number") or ""
+            with builder.stage(
+                StageName.opinion_search,
+                query={
+                    "q": parsed.case_name,
+                    "court": court_id,
+                    "filed_after": filed_after,
+                    "filed_before": filed_before,
+                },
+            ) as t:
+                try:
+                    results = await async_client.search_opinions(
+                        q=parsed.case_name,
+                        court=court_id,
+                        filed_after=filed_after,
+                        filed_before=filed_before,
                     )
-                    == cited_dn
-                ]
-                recap_candidates = await self._process_recap_results_async(
-                    async_client, results, parsed
-                )
-                candidates.extend(recap_candidates)
-            except Exception:
-                logger.debug("RECAP search by docket number failed", exc_info=True)
+                    opinion_candidates = self._process_results(results, parsed)
+                    if opinion_candidates:
+                        best = max(opinion_candidates, key=lambda c: c.score)
+                        summary = {
+                            "candidate_count": len(opinion_candidates),
+                            "best_score": best.score,
+                            "best_case_name": best.case_name,
+                            "best_cluster_id": best.cluster_id,
+                        }
+                        notes = self._stage_notes_for_candidate(best)
+                        if best.score >= _VERIFIED_SCORE_THRESHOLD:
+                            t.resolved(
+                                confidence=best.score,
+                                raw_response_summary=summary,
+                                notes=notes,
+                            )
+                        else:
+                            t.no_match(raw_response_summary=summary, notes=notes)
+                    else:
+                        t.no_match(raw_response_summary={"candidate_count": 0})
+                except Exception as exc:
+                    logger.debug("Opinion search failed", exc_info=True)
+                    t.errored(
+                        error_type=type(exc).__name__,
+                        notes=f"{type(exc).__name__}: {exc}",
+                    )
 
+        # Guards for RECAP: federal-only, no credible match yet.
+        is_state_court = court_id and not is_federal_court(court_id)
+        has_credible_match = any(c.score >= 0.5 for c in opinion_candidates)
+
+        # Stage: recap_document_search (by docket_number)
+        if not has_credible_match and not is_state_court and parsed.docket_number:
+            with builder.stage(
+                StageName.recap_document_search,
+                query={"docket_number": parsed.docket_number},
+            ) as t:
+                try:
+                    results = await async_client.search_recap(
+                        docket_number=parsed.docket_number
+                    )
+                    cited_dn = self._normalize_docket_number(parsed.docket_number)
+                    results = [
+                        r
+                        for r in results
+                        if self._normalize_docket_number(
+                            r.get("docketNumber") or r.get("docket_number") or ""
+                        )
+                        == cited_dn
+                    ]
+                    rd_candidates = await self._process_recap_results_async(
+                        async_client, results, parsed
+                    )
+                    recap_candidates.extend(rd_candidates)
+                    if rd_candidates:
+                        best = max(rd_candidates, key=lambda c: c.score)
+                        summary = {
+                            "docket_count": len(rd_candidates),
+                            "best_score": best.score,
+                            "best_docket_id": best.docket_id,
+                            "best_case_name": best.case_name,
+                        }
+                        notes = self._stage_notes_for_candidate(best)
+                        if best.score >= _VERIFIED_SCORE_THRESHOLD:
+                            t.resolved(
+                                confidence=best.score,
+                                raw_response_summary=summary,
+                                notes=notes,
+                            )
+                        else:
+                            t.no_match(raw_response_summary=summary, notes=notes)
+                    else:
+                        t.no_match(raw_response_summary={"docket_count": 0})
+                except Exception as exc:
+                    logger.debug(
+                        "RECAP search by docket number failed", exc_info=True
+                    )
+                    t.errored(
+                        error_type=type(exc).__name__,
+                        notes=f"{type(exc).__name__}: {exc}",
+                    )
+
+        # Stage: recap_docket_search (by case_name)
         if not has_credible_match and not is_state_court and parsed.case_name:
-            try:
-                results = await async_client.search_recap(
-                    q=parsed.case_name,
-                    court=court_id,
-                )
-                recap_candidates = await self._process_recap_results_async(
-                    async_client, results, parsed
-                )
-                candidates.extend(recap_candidates)
-            except Exception:
-                logger.debug("RECAP search failed", exc_info=True)
+            with builder.stage(
+                StageName.recap_docket_search,
+                query={"q": parsed.case_name, "court": court_id},
+            ) as t:
+                try:
+                    results = await async_client.search_recap(
+                        q=parsed.case_name,
+                        court=court_id,
+                    )
+                    rd_candidates = await self._process_recap_results_async(
+                        async_client, results, parsed
+                    )
+                    recap_candidates.extend(rd_candidates)
+                    if rd_candidates:
+                        best = max(rd_candidates, key=lambda c: c.score)
+                        summary = {
+                            "docket_count": len(rd_candidates),
+                            "best_score": best.score,
+                            "best_docket_id": best.docket_id,
+                            "best_case_name": best.case_name,
+                        }
+                        notes = self._stage_notes_for_candidate(best)
+                        if best.score >= _VERIFIED_SCORE_THRESHOLD:
+                            t.resolved(
+                                confidence=best.score,
+                                raw_response_summary=summary,
+                                notes=notes,
+                            )
+                        else:
+                            t.no_match(raw_response_summary=summary, notes=notes)
+                    else:
+                        t.no_match(raw_response_summary={"docket_count": 0})
+                except Exception as exc:
+                    logger.debug("RECAP search failed", exc_info=True)
+                    t.errored(
+                        error_type=type(exc).__name__,
+                        notes=f"{type(exc).__name__}: {exc}",
+                    )
 
-        return self._build_fallback_result(citation_text, parsed, candidates, court_id)
+        # Aggregate across stages and finalize. The per-stage entries are
+        # already appended above; _build_fallback_result_async does NOT touch
+        # the builder — it only picks the winning candidate and finalizes.
+        # Uses the async doc-detail fetch to refine page_count + is_free_on_pacer
+        # when search_recap omits them (those fields only populate on the
+        # /recap-documents/{id}/ detail endpoint).
+        candidates = opinion_candidates + recap_candidates
+        return await self._build_fallback_result_async(
+            builder, citation_text, parsed, candidates, court_id, async_client,
+        )
 
     async def _process_recap_results_async(
         self,
@@ -1582,10 +2872,27 @@ class CitationVerifier:
             # Batch citation lookup (single API call for all citations)
             batch_hits = await self._batch_citation_lookup(client, stripped)
 
-            # Process batch hits immediately (no API call needed)
+            # Process batch hits immediately (no API call needed).
+            # Each citation gets a fresh builder; the citation_lookup
+            # stage is opened so the resulting result carries a
+            # resolution_path entry like the sync surface does.
             for idx, cluster in batch_hits.items():
-                results[idx] = self._process_citation_lookup_hit(
-                    stripped[idx], parsed_list[idx], cluster
+                builder = ResolutionPathBuilder()
+                hit_finalize: dict[str, Any] | None = None
+                with builder.stage(
+                    StageName.citation_lookup,
+                    query={"text": stripped[idx][:200], "via": "batch"},
+                ) as t:
+                    hit_finalize = self._process_citation_lookup_hit(
+                        builder, t, stripped[idx], parsed_list[idx], cluster,
+                        clusters_returned=1,
+                    )
+                results[idx] = self._finalize_result(
+                    builder,
+                    citation_text=stripped[idx],
+                    parsed=parsed_list[idx],
+                    status=Status.VERIFIED,
+                    **(hit_finalize or {}),
                 )
                 completed += 1
                 if progress_callback:
@@ -1597,23 +2904,41 @@ class CitationVerifier:
             if quick_only:
                 # No fallback — return NOT_FOUND for misses
                 for idx in miss_indices:
-                    results[idx] = VerificationResult(
-                        input_citation=stripped[idx],
-                        status=VerificationStatus.NOT_FOUND,
-                        confidence=0.0,
-                        diagnostics=[
-                            Diagnostic("info", "Quick search only: not in citation lookup API")
-                        ],
+                    builder = ResolutionPathBuilder()
+                    with builder.stage(
+                        StageName.citation_lookup,
+                        query={"text": stripped[idx][:200], "via": "batch"},
+                    ) as t:
+                        t.no_match(
+                            raw_response_summary={"clusters_returned": 0, "via": "batch"},
+                            notes="Quick search only: not in citation lookup API",
+                        )
+                    results[idx] = self._finalize_result(
+                        builder,
+                        citation_text=stripped[idx],
+                        parsed=parsed_list[idx],
+                        status=Status.NOT_FOUND,
                     )
                     completed += 1
                     if progress_callback:
                         progress_callback(completed, total)
             else:
-                # Search fallback for misses (opinion search + RECAP)
+                # Search fallback for misses (opinion search + RECAP).
+                # Each citation gets a fresh builder. The citation_lookup
+                # stage records a no_match (Task 5 will refine batch
+                # instrumentation) before delegating to the search fallback.
                 async def _fallback(idx: int) -> None:
                     nonlocal completed
+                    builder = ResolutionPathBuilder()
+                    with builder.stage(
+                        StageName.citation_lookup,
+                        query={"text": stripped[idx][:200], "via": "batch"},
+                    ) as t:
+                        t.no_match(
+                            raw_response_summary={"clusters_returned": 0, "via": "batch"},
+                        )
                     results[idx] = await self._search_fallback_async(
-                        client, stripped[idx], parsed_list[idx]
+                        builder, client, stripped[idx], parsed_list[idx]
                     )
                     completed += 1
                     if progress_callback:

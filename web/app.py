@@ -28,10 +28,30 @@ from sse_starlette.sse import EventSourceResponse
 
 from citation_verifier.cache import VerificationCache
 from citation_verifier.client import AsyncCourtListenerClient
-from citation_verifier.models import Diagnostic, ParsedCitation, VerificationResult, VerificationStatus
+from citation_verifier.models import (
+    ParsedCitation,
+    Status,
+    VerificationResult,
+)
 from citation_verifier.name_matcher import CaseNameMatcher
-from citation_verifier.parser import parse_citation
 from citation_verifier.verifier import CitationVerifier
+
+# Status -> display label / CSS class.  All v0.3 statuses are emitted in
+# production.  Frontend JS in web/static/{get,index,qc}.html switches
+# cover the full v0.3 enum (see tests/test_frontend_status_coverage.py).
+# Legacy v0.2 names (LIKELY_REAL, POSSIBLE_MATCH) still appear in old
+# on-disk JSON sidecars under tests/data/results/ and in the master CSV's
+# pre-v0.3 rows; the QC page's badgeClass/statusLabel keep cases for them
+# so historical data renders correctly.  The API only emits v0.3.
+_STATUS_DISPLAY = {
+    Status.VERIFIED: ("[OK] VERIFIED", "verified"),
+    Status.VERIFIED_PARTIAL: ("[OK] VERIFIED (partial)", "verified-partial"),
+    Status.VERIFIED_VIA_RECAP: ("[OK] VERIFIED (RECAP)", "verified-recap"),
+    Status.VERIFIED_DOCKET_ONLY: ("[OK] VERIFIED (docket only)", "verified-docket"),
+    Status.WRONG_CASE: ("[!] WRONG CASE", "wrong-case"),
+    Status.NOT_FOUND: ("[X] NOT FOUND", "not-found"),
+    Status.VERIFICATION_INCOMPLETE: ("[?] VERIFICATION INCOMPLETE", "verification-incomplete"),
+}
 
 logger = logging.getLogger(__name__)
 
@@ -215,22 +235,93 @@ _verifier = CitationVerifier()
 _master_csv = MasterCSV()
 
 
+def _matched_case_name(result: VerificationResult) -> str | None:
+    """Pull the matched case name from the final resolution_path entry.
+
+    Mirrors __main__._matched_case_name — Phase 1 stashes the case name in
+    ``resolution_path[-1].raw_response_summary["case_name"]``.
+    """
+    if not result.resolution_path:
+        return None
+    summary = result.resolution_path[-1].raw_response_summary or {}
+    return summary.get("case_name") or None
+
+
+def _stage_notes(result: VerificationResult) -> str:
+    """Concatenated free-form notes for the resolving stage, if any."""
+    if not result.resolution_path:
+        return ""
+    return result.resolution_path[-1].notes or ""
+
+
+def _legacy_diagnostics(result: VerificationResult) -> list[dict[str, str]]:
+    """Synthesize the legacy ``diagnostics`` list (category/message dicts) from
+    v0.3 warnings + the resolving stage's notes. The frontend still reads
+    ``diagnostics`` as a list of {category, message} objects, so emit it
+    alongside the new ``warnings`` key for backward compatibility.
+    """
+    out: list[dict[str, str]] = []
+    for w in result.warnings or []:
+        out.append({"category": w.category.value, "message": w.message})
+    notes = _stage_notes(result)
+    if notes:
+        for note in notes.split("; "):
+            note = note.strip()
+            if note:
+                out.append({"category": "info", "message": note})
+    return out
+
+
 def _result_to_dict(result: VerificationResult) -> dict[str, Any]:
+    """Serialize a VerificationResult for the API/frontend.
+
+    Schema notes:
+    - ``confidence`` is None when no resolved/partial stage exists. The
+      frontend formats `(confidence * 100).toFixed(0) + '%'` and guards on
+      `confidence != null`, so emitting null is fine.
+    - ``matched_court``/``matched_date``/``matched_description`` are dropped
+      from VerificationResult in v0.3. We fall back to the *cited* values
+      from parsed_citation for shape stability; this is the cited court
+      (e.g. "M.D. Ala.") rather than the CL court ID the old shape had.
+    - ``warnings`` is the new structured channel; ``diagnostics`` is
+      synthesized for backward compatibility with the existing frontend JS.
+    """
+    court = None
+    date = None
+    if result.parsed_citation:
+        court = result.parsed_citation.court
+        if result.parsed_citation.year is not None:
+            date = str(result.parsed_citation.year)
+
     return {
-        "input_citation": result.input_citation,
+        # Renamed in v0.3 (input_citation -> citation_as_written), but the
+        # frontend reads `input_citation`, so emit both.
+        "input_citation": result.citation_as_written,
+        "citation_as_written": result.citation_as_written,
         "status": result.status.value,
-        "confidence": result.confidence,
-        "matched_case_name": result.matched_case_name,
-        "matched_url": result.matched_url,
-        "matched_court": result.matched_court,
-        "matched_date": result.matched_date,
-        "matched_description": result.matched_description,
-        "diagnostics": [
-            {"category": d.category, "message": d.message}
-            if hasattr(d, "category") else {"category": "info", "message": str(d)}
-            for d in result.diagnostics
+        "confidence": result.headline_confidence,
+        "matched_case_name": _matched_case_name(result),
+        "matched_url": result.final_ids.absolute_url,
+        # v0.3 doesn't carry CL court/date/description on the result; fall
+        # back to the cited values from parsed_citation for shape stability.
+        "matched_court": court,
+        "matched_date": date,
+        "matched_description": None,
+        # Backward-compat: frontend JS reads `diagnostics` as a list of
+        # {category, message} objects. Synthesize from warnings + stage notes.
+        "diagnostics": _legacy_diagnostics(result),
+        # New structured channels (Phase 2+ consumers).
+        "warnings": [
+            {
+                "category": w.category.value,
+                "message": w.message,
+                "details": w.details,
+            }
+            for w in result.warnings or []
         ],
-        "error": result.error,
+        "stage_notes": _stage_notes(result) or None,
+        # Dropped in v0.3; emit for shape stability (matches __main__.py).
+        "error": None,
     }
 
 
@@ -314,54 +405,24 @@ async def verify(request: Request):
         }
 
         async with AsyncCourtListenerClient(api_token=token) as client:
-            # Batch citation lookup — resolve most citations in one API call
-            parsed_list = [parse_citation(c) for c in citations]
-            batch_hits = await _verifier._batch_citation_lookup(
-                client, citations
-            )
-
+            # Per-citation verify_async() through the public API. The pre-v0.3
+            # batch fast path manually called private helpers whose signatures
+            # changed during the schema rewrite (e.g. _process_citation_lookup_hit
+            # now takes (builder, token, citation_text, parsed, cluster,
+            # clusters_returned) and returns finalize kwargs, not a result).
+            # Routing every citation through verify_async() means the web app
+            # gets the same code path as the CLI and unit tests, so schema
+            # changes don't silently break it. Trade-off: one citation_lookup
+            # API call per citation instead of one shared batched call. For
+            # typical web usage (1-10 citations) the per-request overhead is
+            # negligible against CL's own response time.
             for i, citation_text in enumerate(citations):
-                if i in batch_hits:
-                    # Batch hit — process immediately, no per-citation API call
-                    try:
-                        result = _verifier._process_citation_lookup_hit(
-                            citation_text, parsed_list[i], batch_hits[i]
-                        )
-                        if not quick_only or result.status != VerificationStatus.NOT_FOUND:
-                            _cache.put(citation_text, result)
-                        result_dict = _result_to_dict(result)
-                        result_dict["index"] = i
-                        result_dict["cached"] = False
-                        yield {
-                            "event": "result",
-                            "data": json.dumps(result_dict),
-                        }
-                    except Exception as exc:
-                        logger.exception(
-                            "Error processing batch hit: %s", citation_text
-                        )
-                        yield {
-                            "event": "result",
-                            "data": json.dumps({
-                                "index": i,
-                                "input_citation": citation_text,
-                                "status": "ERROR",
-                                "confidence": 0.0,
-                                "matched_case_name": None,
-                                "matched_url": None,
-                                "diagnostics": [],
-                                "error": str(exc),
-                                "cached": False,
-                            }),
-                        }
-                elif quick_only:
-                    # No batch hit + quick mode — return NOT_FOUND
-                    result = VerificationResult(
-                        input_citation=citation_text,
-                        status=VerificationStatus.NOT_FOUND,
-                        confidence=0.0,
-                        diagnostics=[Diagnostic("info", "Quick search only: not in citation lookup API")],
+                try:
+                    result = await _verifier.verify_async(
+                        client, citation_text, quick_only=quick_only,
                     )
+                    if not quick_only or result.status != Status.NOT_FOUND:
+                        _cache.put(citation_text, result)
                     result_dict = _result_to_dict(result)
                     result_dict["index"] = i
                     result_dict["cached"] = False
@@ -369,38 +430,30 @@ async def verify(request: Request):
                         "event": "result",
                         "data": json.dumps(result_dict),
                     }
-                else:
-                    # No batch hit — search fallback (opinion search + RECAP)
-                    try:
-                        result = await _verifier._search_fallback_async(
-                            client, citation_text, parsed_list[i]
-                        )
-                        _cache.put(citation_text, result)
-                        result_dict = _result_to_dict(result)
-                        result_dict["index"] = i
-                        result_dict["cached"] = False
-                        yield {
-                            "event": "result",
-                            "data": json.dumps(result_dict),
-                        }
-                    except Exception as exc:
-                        logger.exception(
-                            "Error verifying citation: %s", citation_text
-                        )
-                        yield {
-                            "event": "result",
-                            "data": json.dumps({
-                                "index": i,
-                                "input_citation": citation_text,
-                                "status": "ERROR",
-                                "confidence": 0.0,
-                                "matched_case_name": None,
-                                "matched_url": None,
-                                "diagnostics": [],
-                                "error": str(exc),
-                                "cached": False,
-                            }),
-                        }
+                except Exception as exc:
+                    logger.exception(
+                        "Error verifying citation: %s", citation_text
+                    )
+                    yield {
+                        "event": "result",
+                        "data": json.dumps({
+                            "index": i,
+                            "input_citation": citation_text,
+                            "citation_as_written": citation_text,
+                            "status": "ERROR",
+                            "confidence": 0.0,
+                            "matched_case_name": None,
+                            "matched_url": None,
+                            "matched_court": None,
+                            "matched_date": None,
+                            "matched_description": None,
+                            "diagnostics": [],
+                            "warnings": [],
+                            "stage_notes": None,
+                            "error": str(exc),
+                            "cached": False,
+                        }),
+                    }
 
                 yield {
                     "event": "progress",
@@ -1183,6 +1236,60 @@ _NEW_COLUMNS = [
 ]
 
 
+def _confidence_str(result: VerificationResult) -> str:
+    """Stringify headline_confidence for CSV (empty string when None)."""
+    c = result.headline_confidence
+    return "" if c is None else str(c)
+
+
+def _apply_verification_to_row(
+    row: dict, result: VerificationResult, git_hash: str | None,
+) -> None:
+    """Write v_* columns to a CSV row from a VerificationResult."""
+    row["v_status"] = result.status.value
+    row["v_confidence"] = _confidence_str(result)
+    row["v_url"] = result.final_ids.absolute_url or ""
+    row["v_matched_name"] = _matched_case_name(result) or ""
+    row["v_git_hash"] = git_hash or ""
+    if row.get("qc_status") == "rerun":
+        row["qc_status"] = ""
+        row["qc_notes"] = ""
+
+
+def _sidecar_entry(
+    cite_text: str, row: dict, result: VerificationResult,
+) -> dict[str, Any]:
+    """Build a JSON-sidecar entry mirroring the historical schema, sourced
+    from v0.3 fields. matched_court/date fall back to *cited* values (the
+    v0.3 result no longer stores what CL matched); matched_description is
+    always None in Phase 1.
+    """
+    court = None
+    date = None
+    if result.parsed_citation:
+        court = result.parsed_citation.court
+        if result.parsed_citation.year is not None:
+            date = str(result.parsed_citation.year)
+    return {
+        "citation_text": cite_text,
+        "classification": row.get("classification", ""),
+        "pdf": row.get("pdf", ""),
+        "status": result.status.value,
+        "confidence": result.headline_confidence,
+        "matched_case_name": _matched_case_name(result),
+        "matched_url": result.final_ids.absolute_url,
+        "matched_court": court,
+        "matched_date": date,
+        "matched_description": None,
+        "diagnostics": _legacy_diagnostics(result),
+        "warnings": [
+            {"category": w.category.value, "message": w.message, "details": w.details}
+            for w in result.warnings or []
+        ],
+        "stage_notes": _stage_notes(result) or None,
+    }
+
+
 def _is_actionable(row: dict) -> bool:
     if row.get("qc_status") == "rerun":
         return True
@@ -1348,61 +1455,43 @@ async def qc_run_batch(request: Request):
             batch_parsed.append(_parsed_citation_from_row(row))
             batch_row_indices.append(seq)
 
-        # Verify batch — batch citation lookup first, then search fallback
-        # for misses.  The async client's semaphore (MAX_CONCURRENT=5) and
-        # rate limiter (MIN_REQUEST_INTERVAL=0.5s) keep CourtListener happy.
+        # Phase 5 Task 2: route through per-citation verify_async() instead
+        # of the pre-v0.3 private-helper batch path.  The old code called
+        # _verifier._batch_citation_lookup + _process_citation_lookup_hit
+        # + _search_fallback_async with v0.2 positional signatures that
+        # changed during the refactor (e.g. _search_fallback_async now
+        # takes (builder, async_client, citation_text, parsed) — the old
+        # 3-arg call raised TypeError on every miss).  Routing every
+        # citation through verify_async() means the QC batch endpoint gets
+        # the same code path as the CLI and unit tests, so schema changes
+        # don't silently break it.  Trade-off: one citation_lookup API call
+        # per citation instead of one shared batched call.  Phase 6+ may
+        # restore batching via verify_batch() once the latent caption-
+        # investigation handling bug in verify_batch is fixed (it splats
+        # hit_finalize into _finalize_result without popping the
+        # needs_caption_investigation / _cluster_for_investigation keys —
+        # see docs/consumer-surface-manifest.md "Known issues").
         if batch_citations:
             completed_n = 0
-
             async with AsyncCourtListenerClient() as client:
-                # Batch citation lookup — one API call for all citations
-                batch_hits = await _verifier._batch_citation_lookup(
-                    client, batch_citations
-                )
-
-                # Process batch hits immediately (no per-citation API call)
-                miss_indices: list[int] = []
                 for i, (cite_text, parsed) in enumerate(
                     zip(batch_citations, batch_parsed)
                 ):
-                    if i in batch_hits:
-                        result = _verifier._process_citation_lookup_hit(
-                            cite_text, parsed, batch_hits[i]
+                    row = to_verify[batch_row_indices[i]]
+                    try:
+                        result = await _verifier.verify_async(
+                            client, cite_text, parsed=parsed,
                         )
-                        row = to_verify[batch_row_indices[i]]
-                        row["v_status"] = result.status.value
-                        row["v_confidence"] = str(result.confidence)
-                        row["v_url"] = result.matched_url or ""
-                        row["v_matched_name"] = result.matched_case_name or ""
-                        row["v_git_hash"] = git_hash or ""
-                        if row.get("qc_status") == "rerun":
-                            row["qc_status"] = ""
-                            row["qc_notes"] = ""
-
-                        sidecar_entry = {
-                            "citation_text": cite_text,
-                            "classification": row.get("classification", ""),
-                            "pdf": row.get("pdf", ""),
-                            "status": result.status.value,
-                            "confidence": result.confidence,
-                            "matched_case_name": result.matched_case_name,
-                            "matched_url": result.matched_url,
-                            "matched_court": result.matched_court,
-                            "matched_date": result.matched_date,
-                            "matched_description": result.matched_description,
-                            "diagnostics": [{"category": d.category, "message": d.message} for d in result.diagnostics],
-                        }
-                        results_for_sidecar.append(sidecar_entry)
-
+                    except Exception as exc:
+                        logger.exception("Batch verify error: %s", cite_text)
                         completed_n += 1
                         yield {
                             "event": "result",
                             "data": json.dumps({
                                 "index": batch_row_indices[i],
                                 "citation_text": cite_text,
-                                "status": result.status.value,
-                                "confidence": result.confidence,
-                                "matched_case_name": result.matched_case_name,
+                                "status": "ERROR",
+                                "error": str(exc),
                             }),
                         }
                         yield {
@@ -1412,96 +1501,30 @@ async def qc_run_batch(request: Request):
                                 "total": len(to_verify),
                             }),
                         }
-                    else:
-                        miss_indices.append(i)
+                        continue
 
-                # Search fallback for misses — run concurrently
-                if miss_indices:
-                    queue: asyncio.Queue = asyncio.Queue()
-
-                    async def _verify_miss(
-                        idx: int, cite_text: str, parsed: ParsedCitation,
-                        cl_client: AsyncCourtListenerClient,
-                    ) -> None:
-                        try:
-                            result = await _verifier._search_fallback_async(
-                                cl_client, cite_text, parsed
-                            )
-                            await queue.put(("ok", idx, cite_text, result, None))
-                        except Exception as exc:
-                            logger.exception("Batch verify error: %s", cite_text)
-                            await queue.put(("error", idx, cite_text, None, exc))
-
-                    tasks = [
-                        asyncio.create_task(
-                            _verify_miss(
-                                i, batch_citations[i], batch_parsed[i], client
-                            )
-                        )
-                        for i in miss_indices
-                    ]
-
-                    for _ in range(len(tasks)):
-                        status, i, cite_text, result, exc = await queue.get()
-                        row = to_verify[batch_row_indices[i]]
-
-                        if status == "ok":
-                            row["v_status"] = result.status.value
-                            row["v_confidence"] = str(result.confidence)
-                            row["v_url"] = result.matched_url or ""
-                            row["v_matched_name"] = result.matched_case_name or ""
-                            row["v_git_hash"] = git_hash or ""
-                            if row.get("qc_status") == "rerun":
-                                row["qc_status"] = ""
-                                row["qc_notes"] = ""
-
-                            sidecar_entry = {
-                                "citation_text": cite_text,
-                                "classification": row.get("classification", ""),
-                                "pdf": row.get("pdf", ""),
-                                "status": result.status.value,
-                                "confidence": result.confidence,
-                                "matched_case_name": result.matched_case_name,
-                                "matched_url": result.matched_url,
-                                "matched_court": result.matched_court,
-                                "matched_date": result.matched_date,
-                                "matched_description": result.matched_description,
-                                "diagnostics": [{"category": d.category, "message": d.message} for d in result.diagnostics],
-                            }
-                            results_for_sidecar.append(sidecar_entry)
-
-                            completed_n += 1
-                            yield {
-                                "event": "result",
-                                "data": json.dumps({
-                                    "index": batch_row_indices[i],
-                                    "citation_text": cite_text,
-                                    "status": result.status.value,
-                                    "confidence": result.confidence,
-                                    "matched_case_name": result.matched_case_name,
-                                }),
-                            }
-                        else:
-                            completed_n += 1
-                            yield {
-                                "event": "result",
-                                "data": json.dumps({
-                                    "index": batch_row_indices[i],
-                                    "citation_text": cite_text,
-                                    "status": "ERROR",
-                                    "error": str(exc),
-                                }),
-                            }
-
-                        yield {
-                            "event": "progress",
-                            "data": json.dumps({
-                                "completed": completed_n + len(skipped),
-                                "total": len(to_verify),
-                            }),
-                        }
-
-                    await asyncio.gather(*tasks)
+                    _apply_verification_to_row(row, result, git_hash)
+                    results_for_sidecar.append(
+                        _sidecar_entry(cite_text, row, result)
+                    )
+                    completed_n += 1
+                    yield {
+                        "event": "result",
+                        "data": json.dumps({
+                            "index": batch_row_indices[i],
+                            "citation_text": cite_text,
+                            "status": result.status.value,
+                            "confidence": result.headline_confidence,
+                            "matched_case_name": _matched_case_name(result),
+                        }),
+                    }
+                    yield {
+                        "event": "progress",
+                        "data": json.dumps({
+                            "completed": completed_n + len(skipped),
+                            "total": len(to_verify),
+                        }),
+                    }
 
         # Write CSV back
         bak = csv_path.with_suffix(".csv.bak")

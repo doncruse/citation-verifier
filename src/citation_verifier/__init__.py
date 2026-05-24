@@ -4,8 +4,8 @@ from .client import CourtListenerClient
 from .models import (
     CandidateMatch,
     ParsedCitation,
+    Status,
     VerificationResult,
-    VerificationStatus,
 )
 from .parser import parse_citation
 from .verifier import CitationVerifier
@@ -15,7 +15,7 @@ __all__ = [
     "CourtListenerClient",
     "CandidateMatch",
     "ParsedCitation",
+    "Status",
     "VerificationResult",
-    "VerificationStatus",
     "parse_citation",
 ]

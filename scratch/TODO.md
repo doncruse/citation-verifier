@@ -28,6 +28,9 @@ Extracted 7 shared helpers (`_process_citation_lookup_hit`, `_check_adjacent_pag
 
 ## Priority 1 — Bugs (wrong results)
 
+### Phase 3 Task 4: narrow VIA_RECAP false-positive on "Motion for ... Opinion" descriptions
+Filed by Task 4 code-quality review (2026-05-22). `_recap_doc_is_cited_opinion` removed `"motion for"` from `_PROCEDURAL_KEYWORDS` because it would block legitimate `"OPINION on motion for reconsideration"` (false negative). Reciprocal gap: a PACER doc described as `"MOTION FOR RECONSIDERATION OF OPINION"` now matches the `"opinion"` keyword and the procedural filter doesn't fire — yielding false VIA_RECAP. In practice these descriptions exist but are uncommon, and the date ±14 day gate provides a partial backstop. Hardening option: add `"motion for reconsideration"` as a specific compound to `_PROCEDURAL_KEYWORDS`, or anchor `"motion for"` to start-of-description. Phase 4 or later.
+
 ### Citation mismatch detection ("Check Cite" status)
 When the opinion search (step 2) finds a case by name but the reporter citation doesn't match (e.g., searched for `742 F. Supp. 2d 672` but CL has `759 F. Supp. 2d 822`), the result currently shows as VERIFIED/LIKELY_REAL. A wrong volume/page is a big deal — it means the citation in the brief is incorrect even though the case is real.
 

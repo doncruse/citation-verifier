@@ -474,6 +474,16 @@ Terry v. Ohio, 392 U.S. 1 (1968)"></textarea>
       case 'VERIFIED':
       case 'LIKELY_REAL':
         return [{ label: 'Ready', cls: 'badge-ready' }];
+      case 'VERIFIED_VIA_RECAP':
+        return [{ label: 'Ready (RECAP)', cls: 'badge-ready', tip: 'Verified via RECAP (PACER docket archive)' }];
+      case 'VERIFIED_DOCKET_ONLY':
+        return [{ label: 'Docket Only', cls: 'badge-info', tip: 'Case docket exists on CourtListener but the specific cited opinion could not be identified' }];
+      case 'VERIFIED_PARTIAL':
+        return [{ label: 'Partial', cls: 'badge-review', tip: 'A parallel cite resolved but the primary reporter did not' }];
+      case 'WRONG_CASE':
+        return [{ label: 'Wrong Case', cls: 'badge-notfound', tip: 'The reporter citation resolves to a different case than the one named' }];
+      case 'VERIFICATION_INCOMPLETE':
+        return [{ label: 'Retry', cls: 'badge-error', tip: 'Verification incomplete due to a CourtListener infrastructure error; try again' }];
       case 'POSSIBLE_MATCH': {
         var badges = [];
         if (diagnostics && diagnostics.length) {
@@ -689,11 +699,14 @@ Terry v. Ohio, 392 U.S. 1 (1968)"></textarea>
       updateDownloadBtn();
       searchMode = 'idle';
 
-      // Count remaining NOT_FOUND/ERROR after deep search
+      // Count remaining NOT_FOUND/ERROR/VERIFICATION_INCOMPLETE after deep search.
+      // VERIFICATION_INCOMPLETE is by design the CL-infra-failure case
+      // (5xx / timeout per verifier design §2.8); it joins the "still
+      // missing" set so the user sees an accurate retry count.
       var stillMissing = 0;
       for (var si = 0; si < quickNotFoundIndices.length; si++) {
         var idx = quickNotFoundIndices[si];
-        if (results[idx] && (results[idx].status === 'NOT_FOUND' || results[idx].status === 'ERROR')) stillMissing++;
+        if (results[idx] && (results[idx].status === 'NOT_FOUND' || results[idx].status === 'ERROR' || results[idx].status === 'VERIFICATION_INCOMPLETE')) stillMissing++;
       }
       var foundCount = allCitations.length - stillMissing;
       updateResultsSummary(foundCount, stillMissing);
@@ -764,8 +777,11 @@ Terry v. Ohio, 392 U.S. 1 (1968)"></textarea>
       results[rowIndex] = data;
       updateRow(rowIndex, data);
 
-      // Track NOT_FOUND and ERROR during quick search for deep retry
-      if (searchMode === 'quick' && (data.status === 'NOT_FOUND' || data.status === 'ERROR')) {
+      // Track NOT_FOUND, ERROR, and VERIFICATION_INCOMPLETE during quick
+      // search for deep retry. INCOMPLETE represents CL infrastructure
+      // failures (5xx, timeout, connection error per verifier design §2.8)
+      // -- exactly the case the deep-search retry was built for.
+      if (searchMode === 'quick' && (data.status === 'NOT_FOUND' || data.status === 'ERROR' || data.status === 'VERIFICATION_INCOMPLETE')) {
         quickNotFoundIndices.push(rowIndex);
       }
       updateDownloadBtn();

@@ -87,10 +87,28 @@ class TestAbbreviationMatching:
             "2025 WL 459154 (W.D. Wash. Feb. 11, 2025)"
         )
 
-        # Should find it via our normalization
-        assert result.matched_case_name is not None
-        assert "Bossart" in result.matched_case_name
-        print(f"\n[OK] Found via normalization: {result.matched_case_name}")
+        # Should find it via our normalization. Phase 2: each stage
+        # emits its own path entry, so look across the resolved entries
+        # for the matched case name (citation_lookup uses
+        # ``matched_case_name``; opinion_search / recap_*_search use
+        # ``best_case_name``).
+        from citation_verifier.models import StageVerdict
+        matched_case_name = None
+        for entry in result.resolution_path:
+            if entry.verdict != StageVerdict.resolved:
+                continue
+            summary = entry.raw_response_summary
+            candidate = (
+                summary.get("matched_case_name")
+                or summary.get("best_case_name")
+                or summary.get("case_name")
+            )
+            if candidate:
+                matched_case_name = candidate
+                break
+        assert matched_case_name is not None
+        assert "Bossart" in matched_case_name
+        print(f"\n[OK] Found via normalization: {matched_case_name}")
 
 
 class TestDocketParameterReliability:

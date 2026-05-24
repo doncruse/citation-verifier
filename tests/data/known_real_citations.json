@@ -7,26 +7,25 @@
   },
   {
     "citation": "Bossart v. King Cnty., Case No. 2:24-cv-01776-JHC, 2025 WL 459154, at *1 (W.D. Wash. Feb. 11, 2025)",
-    "expected_cluster_id": 69346061,
+    "expected_cluster_id": 10331689,
     "category": "abbreviation_normalization",
-    "notes": "Cnty. -> County normalization needed for search match. Was false negative before normalization fix."
+    "notes": "Cnty. -> County normalization needed for search match. Was false negative before normalization fix. Phase 3: xfail unmarked; pin updated to current canonical value."
   },
   {
     "citation": "Busha v. SC Dep't of Mental Health, No. 6:18-CV-02337-DCC, 2019 WL 651680 (D.S.C. Feb. 13, 2019)",
-    "expected_cluster_id": 14553775,
+    "expected_cluster_id": 9958130,
     "category": "abbreviation_normalization",
-    "notes": "Dep't -> Department normalization + judge suffix stripping. Was false negative before fix."
+    "notes": "Dep't -> Department normalization + judge suffix stripping. Was false negative before fix. Phase 3: xfail unmarked; pin updated to current canonical value."
   },
   {
     "citation": "Townsley v. Lifewise Assurance Co., Case No. C15-1228-JCC, 2016 WL 1393548, at *3 (W.D. Wash. April 8, 2016)",
-    "expected_cluster_id": 5352576,
     "category": "docket_number_shorthand",
-    "notes": "Shorthand C15 -> 15-cv expansion + judge suffix. CL has different defendant name. Was false negative before docket search fix."
+    "notes": "Shorthand C15 -> 15-cv expansion + judge suffix. CL has different defendant name. Was false negative before docket search fix. Phase 3: xfail unmarked; pin updated to current canonical value."
   },
   {
     "citation": "Anderson v. Furst, No. 17-cv-12676, 2018 WL 4407750, at *2 (E.D. Mich. Sept. 17, 2018)",
-    "expected_cluster_id": 6264209,
+    "expected_cluster_id": 9746415,
     "category": "recap_with_exact_date",
-    "notes": "RECAP search with exact date matching (Sept. 17, 2018). Tests docket-entries API query."
+    "notes": "RECAP search with exact date matching (Sept. 17, 2018). Tests docket-entries API query. Phase 3: xfail unmarked; pin updated to current canonical value."
   }
 ]

@@ -36,6 +36,21 @@ from citation_verifier.verifier import CitationVerifier
 # Helpers
 # ---------------------------------------------------------------------------
 
+def _v03_matched_case_name(result: VerificationResult) -> str | None:
+    """v0.3 schema lost the top-level matched_case_name field.
+    Pull it from the resolving stage's raw_response_summary."""
+    if not result.resolution_path:
+        return None
+    summary = result.resolution_path[-1].raw_response_summary or {}
+    return summary.get("case_name") or None
+
+
+def _v03_diagnostics_list(result: VerificationResult) -> list[str]:
+    """v0.3 schema replaced diagnostics with warnings (typed Warning objects).
+    Return a list of human-readable strings for CSV/JSON sidecar storage."""
+    return [w.message for w in (result.warnings or [])]
+
+
 def _get_git_hash() -> str | None:
     """Get the current git short hash, or None if not in a git repo."""
     try:
@@ -331,10 +346,12 @@ def main() -> None:
         row = to_verify[batch_row_indices[i]]
         citation_text = batch_citations[i]
 
+        matched_name = _v03_matched_case_name(result)
+        confidence = result.headline_confidence
         row["v_status"] = result.status.value
-        row["v_confidence"] = str(result.confidence)
-        row["v_url"] = result.matched_url or ""
-        row["v_matched_name"] = result.matched_case_name or ""
+        row["v_confidence"] = str(confidence) if confidence is not None else ""
+        row["v_url"] = result.final_ids.absolute_url or ""
+        row["v_matched_name"] = matched_name or ""
         row["v_git_hash"] = git_hash or ""
 
         if row.get("qc_status") in ("rerun", "investigate"):
@@ -346,10 +363,10 @@ def main() -> None:
             "classification": row.get("classification", ""),
             "pdf": row.get("pdf", ""),
             "status": result.status.value,
-            "confidence": result.confidence,
-            "matched_case_name": result.matched_case_name,
-            "matched_url": result.matched_url,
-            "diagnostics": result.diagnostics,
+            "confidence": confidence,
+            "matched_case_name": matched_name,
+            "matched_url": result.final_ids.absolute_url,
+            "diagnostics": _v03_diagnostics_list(result),
         })
 
     # Write CSV back (backup first)
@@ -407,9 +424,14 @@ def main() -> None:
     print(f"JSON sidecar: {sidecar_path}")
     print(f"Git hash: {git_hash or 'unknown'}")
 
-    # Highlight items needing QC
+    # Highlight items needing QC. v0.3 statuses requiring human review:
+    # NOT_FOUND (potential hallucination), WRONG_CASE (cite resolves to a
+    # different case -- highest priority), VERIFICATION_INCOMPLETE (infra
+    # failure, needs rerun). POSSIBLE_MATCH kept for backward-compat with
+    # reviewers reading old sidecars from pre-v0.3 runs.
     needs_qc = [r for r in results_for_sidecar
-                if r["status"] in ("NOT_FOUND", "POSSIBLE_MATCH")]
+                if r["status"] in ("NOT_FOUND", "WRONG_CASE",
+                                   "VERIFICATION_INCOMPLETE", "POSSIBLE_MATCH")]
     if needs_qc:
         print(f"\n{'='*80}")
         print(f"NEEDS QC ({len(needs_qc)} items) - review in JSON sidecar:")

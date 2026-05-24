@@ -63,6 +63,38 @@ CL supports `semantic=true` for `type=o` searches. Could help with abbreviation 
 ### Justia cross-reference diagnostic
 One-off script to compare NOT_FOUND citations against Justia to distinguish: real hallucinations, CL data gaps, our search bugs. Diagnostic only — helps prioritize what to fix.
 
+### Surface multiple candidates when the verifier has uncertainty
+Today `VerificationResult.final_ids` carries one cluster_id / docket_id / recap_document_id — the verifier picks the single best match and (when uncertain) flags concerns via warnings. Per design v2 §1.2 ("Anything in between — heuristic guesses, probabilistic classifications, vibes — gets pushed up to the consumer"), warnings push uncertainty up *qualitatively* but the schema has no way to push it up *concretely*. Add an optional `candidates: list[CandidateMatch]` field (or similar) on `VerificationResult` that carries the runners-up the verifier considered, ranked, so a consumer can second-guess the pick without having to re-run the pipeline.
+
+Motivating cases:
+- CL has duplicate clusters for the same opinion and the verifier scored a non-canonical one higher (Anderson v. Furst class of bug). Today: VERIFIED with a `cl_duplicate_clusters` warning. With candidates: VERIFIED + warning + both cluster IDs listed, so a downstream QC tool or skill can show the alternatives.
+- Opinion search returns two real cases with similar scores against an ambiguous brief name. Today: pick the higher score, possibly warn. With candidates: pick + show the runner-up so the consumer can spot when the pick was a coin flip.
+- VIA_RECAP vs DOCKET_ONLY borderline cases where two RECAP documents on the docket could each plausibly be the cited opinion.
+
+Design questions (non-trivial, do not fold into the in-progress refactor):
+- Is the candidates list always populated, or only when uncertainty crosses a threshold?
+- Ranked by confidence, or flat with per-candidate confidence?
+- Does adding the list make Status harder to use (every VERIFIED might still have alternatives)?
+- How does it interact with the `cl_duplicate_clusters` / `cl_display_name_data_bug` warnings — are they redundant once candidates is populated, or complementary (warnings carry the *reason*, candidates carry the *evidence*)?
+- The pre-refactor `VerificationResult` had a `candidates: list[CandidateMatch]` field that was dropped during Phase 1; does the v0.3 version inherit that shape or design something different?
+
+Should be its own post-Phase-4 design conversation, not absorbed into Phase 3 (whose scope is status taxonomy + caption_investigation, not schema additions). Surfaced 2026-05-22 conversation; relates to the same "push uncertainty up to the consumer" principle that motivates the warnings system. Schema change would be additive per §1.6 (minor-version bump, CHANGELOG entry).
+
+**Phase 4 disposition (2026-05-23, Task 7 — Q6):** deferred to Phase 5+. Rationale: the `cl_duplicate_clusters` warning's `details` dict already carries candidate enumeration for the duplicate-cluster case, so the most common motivating shape has a workaround today. Broader use cases for a typed `candidates` list will emerge with Phase 5+ work (MCP server, diagnostic runner). Adding speculatively in v0.3.0 risks fixing the shape before grounded callers constrain it. The open design questions above (always-populated vs. uncertainty-threshold, ranked vs. flat, status-impact, warning-redundancy) remain unresolved without those grounded use cases.
+
+### Caption-divergence detection on opinion_search and recap_docket_search resolutions
+
+`caption_investigation` only fires after `citation_lookup` resolves. When the verification resolves via `opinion_search` or `recap_docket_search` instead, no caption_investigation runs — so a divergence between the brief's caption and CL's resolved cluster/docket caption goes unflagged. Phase 3 retro S3 surfaced this for opinion_search (5 Rule-25(d)/SSA-pseudonym fixtures). Phase 4 Task 4 + Townsley fixture upgrade surfaced the same limit for recap_docket_search-resolved matches (Townsley v. Lifewise resolves to docket whose CL caption is Townsley v. SNC-Lavalin — score gate accepts the doc as substantive without checking caption similarity).
+
+Phase 5+ work: extend caption_investigation (or add a parallel post-resolution hook) to emit `cl_display_name_data_bug` / `WRONG_CASE` based on party-overlap when opinion_search or recap_docket_search resolves with a divergent CL case_name. The gate already exists in `_names_match` / `_party_overlap`; it just needs to fire on the additional resolution paths.
+
+### Configurable verification depth (generalize `quick_only`)
+`verify_batch()` already accepts `quick_only=True` to stop after stage 1 (citation lookup). Generalize to `max_depth: StageName` (or similar) so callers can choose to run stage 1+2 but skip RECAP, or stop wherever else along the ladder. Useful when the caller knows they only care about high-confidence hits, or wants a fast first pass before deciding whether to invest in deeper fallback (e.g., a batch job that processes 10K citations and is fine accepting NOT_FOUND for whatever doesn't resolve in the first two stages).
+
+Implementation note: this is a flag on the existing per-citation iteration, not a pipeline-by-stage restructure. The batch-by-stage version was considered (run all stage-2 calls before any stage-3 calls, etc.) but only the citation-lookup endpoint is a true wire-level batch; opinion search and RECAP are one-call-per-citation, so reordering by stage trades real costs (more in-flight state, a slow stage-2 call blocking the whole stage-3 wave, `resolution_path` entry ordering decoupling from wall-clock ordering) for orchestration-only benefit. Depth control is the actual user-facing value; achieve it with the smaller change.
+
+Open questions: stage-name vs. integer-depth parameter shape (stage names are semantic but brittle to future stage additions; integers are opaque); whether depth-capped results stay `NOT_FOUND` with a warning or get a distinct status like `VERIFICATION_TRUNCATED`. Surfaced 2026-05-21 conversation while mid-refactor; deliberately deferred to keep refactor scope clean.
+
 ## Scale & Distribution
 
 ### Package for other legal tech tools

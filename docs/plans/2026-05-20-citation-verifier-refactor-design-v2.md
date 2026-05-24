@@ -201,6 +201,8 @@ Enumerated warning categories (closed set; see amendment workflow below):
 - `name_formatting_noise` — case name differs from CL purely on abbreviation/punctuation; full-caption investigation confirmed it's the same case
 - `unparseable_citation` — eyecite could not parse cleanly; verifier used regex fallback
 - `extraction_contamination_detected` — surrounding text may have contaminated name extraction
+- `cl_duplicate_clusters` — caption investigation found that CL has multiple clusters matching the same case (e.g., a case ingested twice with different cluster IDs). The verifier emits VERIFIED but the warning names both candidate clusters; consumers should not assume the picked cluster is uniquely canonical. Added Phase 3 (2026-05-22); see CHANGELOG.md.
+- `wrong_page_number` — caption investigation found the cited case at a different reporter page than the brief cited. The case is real and at the cited volume + reporter, but at a different page number than the citation claims. Hallucination signal. Added Phase 3 (2026-05-22); see CHANGELOG.md.
 
 **Amendment workflow.** The closed set is closed against silent expansion, not against considered expansion. Phase 3 will surface warning categories not anticipated above; when it does, the addition is a schema change with a changelog entry and a minor-version bump. Removals are a major-version bump (consumers may key on category names). New categories should follow the same rule as initial ones: facts about *how the verifier reached its answer* or *quirks the consumer should know about the underlying data* — not editorialization, not heuristic guesses.
 

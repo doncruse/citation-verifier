@@ -1,17 +1,43 @@
 """Tests for the citation verification pipeline.
 
 All tests mock CourtListenerClient so no real API calls are made.
+
+Migrated to the v0.3 schema (Phase 1, Task 2). Task 1 (Phase 3) removed
+the legacy _DiagnosticLike / _CATEGORY_PATTERNS / _classify_note /
+_diagnostics / _matched_case_name bridge; assertions now read
+result.warnings and _winning_path_entry() directly.
 """
 
 from __future__ import annotations
 
+from dataclasses import dataclass
 from unittest.mock import MagicMock
 
 import pytest
 
-from citation_verifier.models import VerificationStatus
+from citation_verifier.models import StageName, StageVerdict, Status, WarningCategory
 from citation_verifier.parser import parse_citation
 from citation_verifier.verifier import CitationVerifier
+
+
+def _winning_path_entry(result):
+    """Return the resolution_path entry that drove the result (highest-
+    confidence resolved/partial entry, else the last entry).
+
+    Phase 2 emits one entry per stage attempted; the last is not always
+    the winner (e.g. opinion_search resolved, then recap_docket_search
+    ran afterward as a no_match). This helper picks the entry that
+    actually decided the verdict so tests can assert against its
+    raw_response_summary, notes, etc."""
+    if not result.resolution_path:
+        return None
+    resolved = [
+        e for e in result.resolution_path
+        if e.verdict in (StageVerdict.resolved, StageVerdict.partial)
+    ]
+    if resolved:
+        return max(resolved, key=lambda e: e.confidence or 0.0)
+    return result.resolution_path[-1]
 
 
 def _make_client(**overrides):
@@ -21,6 +47,22 @@ def _make_client(**overrides):
     client.search_opinions.return_value = overrides.get("search_opinions", [])
     client.search_recap.return_value = overrides.get("search_recap", [])
     client.get_docket_entries.return_value = overrides.get("get_docket_entries", [])
+    # New for Phase 3 caption_investigation — Task 5 wires the production
+    # call sites; default these to empty dicts so existing tests don't break.
+    client.get_cluster.return_value = overrides.get("get_cluster", {})
+    client.get_docket.return_value = overrides.get("get_docket", {})
+    client.get_opinion_text.return_value = overrides.get("get_opinion_text", None)
+    client.get_opinion_text_with_metadata.return_value = overrides.get(
+        "get_opinion_text_with_metadata", None
+    )
+    # Phase 4 Task 4 doc-detail fetch for VIA_RECAP score gate refinement.
+    # Default to None (no detail available); tests that exercise the fetch
+    # path set recap_document_metadata to a dict.
+    recap_doc_metadata = overrides.get("recap_document_metadata", None)
+    if isinstance(recap_doc_metadata, Exception):
+        client.get_recap_document_metadata.side_effect = recap_doc_metadata
+    else:
+        client.get_recap_document_metadata.return_value = recap_doc_metadata
     return client
 
 
@@ -47,10 +89,10 @@ class TestStep1Verified:
         v = CitationVerifier(client)
         result = v.verify("Obergefell v. Hodges, 576 U.S. 644 (2015)")
 
-        assert result.status == VerificationStatus.VERIFIED
-        assert result.confidence == 1.0
-        assert result.matched_case_name == "Obergefell v. Hodges"
-        assert "courtlistener.com" in result.matched_url
+        assert result.status == Status.VERIFIED
+        assert result.headline_confidence == 1.0
+        assert _winning_path_entry(result).raw_response_summary.get("matched_case_name") == "Obergefell v. Hodges"
+        assert "courtlistener.com" in result.final_ids.absolute_url
 
     def test_verified_builds_url_from_cluster_id(self):
         client = _make_client(
@@ -65,8 +107,8 @@ class TestStep1Verified:
         v = CitationVerifier(client)
         result = v.verify("Smith v. Jones, 100 F.3d 200 (2d Cir. 2020)")
 
-        assert result.status == VerificationStatus.VERIFIED
-        assert result.matched_url == "https://www.courtlistener.com/opinion/456/"
+        assert result.status == Status.VERIFIED
+        assert result.final_ids.absolute_url == "https://www.courtlistener.com/opinion/456/"
 
     def test_verified_prepends_domain_to_relative_url(self):
         client = _make_client(
@@ -86,7 +128,7 @@ class TestStep1Verified:
         result = v.verify("Smith v. Jones, 100 F.3d 200 (2d Cir. 2020)")
 
         assert (
-            result.matched_url
+            result.final_ids.absolute_url
             == "https://www.courtlistener.com/opinion/456/smith-v-jones/"
         )
 
@@ -114,12 +156,16 @@ class TestStep1NameMismatch:
         v = CitationVerifier(client)
         result = v.verify("Smith v. Jones, 100 F.3d 200 (2d Cir. 2020)")
 
-        assert result.status == VerificationStatus.POSSIBLE_MATCH
-        assert result.confidence == 0.3
-        assert result.matched_case_name == "Totally Different v. Case"
-        assert result.matched_cluster_id == 789
-        assert result.diagnostics[0].category == "name"
-        assert "Name mismatch" in result.diagnostics[0].message
+        # Phase 3: caption_investigation finds no party overlap between
+        # "Smith v. Jones" and "Totally Different v. Case" → WRONG_CASE.
+        # Per design §2.4: final_ids still populate with the actual CL cluster.
+        assert result.status == Status.WRONG_CASE
+        assert result.final_ids.cluster_id == 789
+        # The citation_lookup stage resolved (confidence=1.0 internally) and
+        # caption_investigation ran; path has both entries.
+        stages = [e.stage for e in result.resolution_path]
+        assert StageName.citation_lookup in stages
+        assert StageName.caption_investigation in stages
 
     def test_possible_match_different_defendant_same_prefix(self):
         """'United States v. Smith' should not verify as 'United States v. Johnson'."""
@@ -139,10 +185,10 @@ class TestStep1NameMismatch:
         v = CitationVerifier(client)
         result = v.verify("United States v. Smith, 500 F.3d 100 (9th Cir. 2018)")
 
-        assert result.status == VerificationStatus.POSSIBLE_MATCH
-        assert result.confidence == 0.3
-        assert result.diagnostics[0].category == "name"
-        assert "Name mismatch" in result.diagnostics[0].message
+        # Phase 3: caption_investigation — "Smith" is not in "Johnson",
+        # common-prefix case, distinctive-word overlap fails → WRONG_CASE.
+        assert result.status == Status.WRONG_CASE
+        assert result.final_ids.cluster_id == 111
 
 
 # ---------------------------------------------------------------------------
@@ -168,16 +214,18 @@ class TestOpinionSearchFallback:
         v = CitationVerifier(client)
         result = v.verify("Smith v. Jones, 500 F.3d 200 (2d Cir. 2020)")
 
-        assert result.status == VerificationStatus.LIKELY_REAL
-        assert result.matched_case_name == "Smith v. Jones"
+        assert result.status == Status.VERIFIED
+        assert result.headline_confidence is not None
+        assert result.headline_confidence >= 0.85
+        assert _winning_path_entry(result).raw_response_summary.get("best_case_name") == "Smith v. Jones"
 
     def test_not_found_when_no_results(self):
         client = _make_client()  # everything returns []
         v = CitationVerifier(client)
         result = v.verify("Fakename v. Nobody, 999 F.3d 1 (S.D.N.Y. 2020)")
 
-        assert result.status == VerificationStatus.NOT_FOUND
-        assert result.confidence == 0.0
+        assert result.status == Status.NOT_FOUND
+        assert result.headline_confidence is None
 
     def test_no_retry_without_court_filter(self):
         """Opinion search does NOT retry without court filter (removed: never found correct matches)."""
@@ -215,10 +263,8 @@ class TestOpinionSearchGates:
         v = CitationVerifier(client)
         result = v.verify("Jovel v. Boiron, 2013 WL 12164622 (C.D. Cal. 2013)")
 
-        assert result.status == VerificationStatus.NOT_FOUND
-        assert result.matched_cluster_id is None
-        # No candidate should have survived the gate
-        assert result.candidates == []
+        assert result.status == Status.NOT_FOUND
+        assert result.final_ids.cluster_id is None
 
     def test_temporal_gate_keeps_within_window_match(self):
         """A candidate within the 5-year window with a matching case name
@@ -238,9 +284,8 @@ class TestOpinionSearchGates:
         v = CitationVerifier(client)
         result = v.verify("Smith v. Jones, 2018 WL 999999 (C.D. Cal. 2018)")
 
-        # Must have a surviving candidate (gate didn't drop it).
-        assert len(result.candidates) == 1
-        assert result.candidates[0].cluster_id == 1234567
+        # Candidate survived the gate and bubbled up as the match.
+        assert result.final_ids.cluster_id == 1234567
 
     def test_temporal_gate_boundary_exactly_5_years(self):
         """A 5-year gap is at the boundary — `>5` rejects, so exactly 5
@@ -262,8 +307,7 @@ class TestOpinionSearchGates:
 
         # 5-year gap is within the gate window (`abs(diff) > 5` is the
         # reject condition, so 5 itself is kept).
-        assert len(result.candidates) == 1
-        assert result.candidates[0].cluster_id == 1234568
+        assert result.final_ids.cluster_id == 1234568
 
     def test_token_gate_rejects_no_shared_distinctive_tokens(self):
         """A candidate whose case name shares no distinctive >=4-char
@@ -292,9 +336,8 @@ class TestOpinionSearchGates:
         v = CitationVerifier(client)
         result = v.verify("Harris v. CVS Pharmacy, 2015 WL 4694047 (S.D.N.Y. 2015)")
 
-        assert result.status == VerificationStatus.NOT_FOUND
-        assert result.matched_cluster_id is None
-        assert result.candidates == []
+        assert result.status == Status.NOT_FOUND
+        assert result.final_ids.cluster_id is None
 
     def test_token_gate_keeps_shared_distinctive_token(self):
         """A candidate sharing one distinctive >=4-char non-stoplist
@@ -316,8 +359,7 @@ class TestOpinionSearchGates:
             "Lindsay-Stern v. Garamszegi, 2018 WL 1234 (C.D. Cal. 2018)"
         )
 
-        assert len(result.candidates) == 1
-        assert result.candidates[0].cluster_id == 9999
+        assert result.final_ids.cluster_id == 9999
 
     def test_token_gate_rejects_stoplist_only_overlap(self):
         """When the candidate shares ONLY a stoplist token with the
@@ -344,8 +386,8 @@ class TestOpinionSearchGates:
             "Snyder v. Bank of America, 2020 WL 6462400 (S.D.N.Y. 2020)"
         )
 
-        assert result.status == VerificationStatus.NOT_FOUND
-        assert result.candidates == []
+        assert result.status == Status.NOT_FOUND
+        assert result.final_ids.cluster_id is None
 
 
 # ---------------------------------------------------------------------------
@@ -379,11 +421,11 @@ class TestRecapFallback:
             "(E.D. Mich. Sept. 17, 2018)"
         )
 
-        assert result.status in (
-            VerificationStatus.LIKELY_REAL,
-            VerificationStatus.POSSIBLE_MATCH,
-        )
-        assert "anderson-v-furst" in result.matched_url
+        # Phase 3 Task 4: RECAP doc "Order on Motion to Compel" has no
+        # opinion keyword, so strict gate fails -> VERIFIED_DOCKET_ONLY.
+        assert result.status == Status.VERIFIED_DOCKET_ONLY
+        assert result.headline_confidence is not None
+        assert "anderson-v-furst" in result.final_ids.absolute_url
 
     def test_recap_prefers_substantive_over_procedural(self):
         """An Order should be preferred over a Reply brief at the same score."""
@@ -412,8 +454,9 @@ class TestRecapFallback:
         v = CitationVerifier(client)
         result = v.verify("Smith v. Jones, 2020 WL 999999 (E.D. Mich. June 1, 2020)")
 
-        assert "Order" in result.diagnostics[0].message
-        assert "Reply" not in result.diagnostics[0].message
+        winner = _winning_path_entry(result)
+        assert winner is not None and winner.notes and "Order" in winner.notes
+        assert winner is not None and "Reply" not in (winner.notes or "")
 
     def test_recap_queries_exact_date_first(self):
         """When month/day are known and initial docs don't match, queries exact date."""
@@ -469,10 +512,11 @@ class TestRecapFallback:
         v = CitationVerifier(client)
         result = v.verify("Smith v. Jones, 2020 WL 111111 (S.D.N.Y. 2020)")
 
-        assert result.diagnostics[0].category == "recap"
-        assert "possible docket match" in result.diagnostics[0].message.lower()
+        winner = _winning_path_entry(result)
+        assert winner is not None and winner.notes and "possible docket match" in winner.notes.lower()
         # Score should be discounted: base ~0.7 * 0.6 = ~0.42
-        assert result.confidence < 0.6
+        assert result.headline_confidence is not None
+        assert result.headline_confidence < 0.6
 
     def test_docket_only_sets_matched_docket_id_not_cluster_id(self):
         """Issue #6: docket-only RECAP fallback must put docket_id in
@@ -494,8 +538,8 @@ class TestRecapFallback:
             "Lindsay-Stern v. Garamszegi, No. 2:18-cv-01234 (C.D. Cal. 2018)"
         )
 
-        assert result.matched_docket_id == 18158469
-        assert result.matched_cluster_id is None
+        assert result.final_ids.docket_id == 18158469
+        assert result.final_ids.cluster_id is None
 
     def test_recap_doc_match_sets_matched_docket_id_not_cluster_id(self):
         """A RECAP doc match (with a specific recap_document) carries a
@@ -529,8 +573,8 @@ class TestRecapFallback:
             "Bear Warriors United v. Lambert, No. 6:22-cv-01155 (M.D. Fla. 2024)"
         )
 
-        assert result.matched_docket_id == 65698058
-        assert result.matched_cluster_id is None
+        assert result.final_ids.docket_id == 65698058
+        assert result.final_ids.cluster_id is None
 
     def test_recap_prefers_is_free_on_pacer(self):
         """A doc with is_free_on_pacer=True should be preferred over one without,
@@ -563,7 +607,7 @@ class TestRecapFallback:
         result = v.verify("Smith v. Jones, 2020 WL 999999 (S.D.N.Y. June 1, 2020)")
 
         # The free-on-PACER doc (entry 11) should be selected
-        assert "/11/" in result.matched_url
+        assert "/11/" in result.final_ids.absolute_url
 
     def test_recap_date_proximity_beats_is_free_on_pacer(self):
         """A doc with an exact date match should beat a free-on-PACER doc
@@ -597,7 +641,7 @@ class TestRecapFallback:
 
         # The date-matching R&R (entry 21) should win over the free-on-PACER
         # order that is 4 months away
-        assert "/21/" in result.matched_url
+        assert "/21/" in result.final_ids.absolute_url
 
     def test_opinion_keyword_beats_is_free_alone(self):
         """An opinion doc without is_free beats a non-opinion doc with is_free
@@ -630,7 +674,7 @@ class TestRecapFallback:
         result = v.verify("Smith v. Jones, 2020 WL 999999 (S.D.N.Y. June 1, 2020)")
 
         # Opinion (tier 2) should beat Attachment+is_free (tier 1)
-        assert "/11/" in result.matched_url
+        assert "/11/" in result.final_ids.absolute_url
 
     def test_progressive_date_widening(self):
         """When exact date returns nothing, month ± 1 query should fire
@@ -688,7 +732,7 @@ class TestRecapFallback:
         # Month ± 1 query should have fired (2 calls: exact date + month range)
         assert call_count["n"] == 2
         # The opinion from the month range should be selected
-        assert "/40/" in result.matched_url
+        assert "/40/" in result.final_ids.absolute_url
 
 
 # ---------------------------------------------------------------------------
@@ -719,8 +763,15 @@ class TestCourtCorroboration:
         v = CitationVerifier(client)
         result = v.verify("United States v. Craner, 652 F.3d 560, 562 (9th Cir. 2016)")
 
-        assert result.status == VerificationStatus.NOT_FOUND
-        assert "could not be verified" in result.diagnostics[0].message.lower()
+        assert result.status == Status.NOT_FOUND
+        winner = _winning_path_entry(result)
+        # Phase 2: per-stage instrumentation removed the synthetic
+        # "court corroboration failed" terminal entry; the candidate's
+        # actual mismatches now carry the diagnostic. The "Reporter
+        # citation ... could not be confirmed" message appears among
+        # the candidate's mismatches; the court mismatch is also there.
+        assert winner is not None and winner.notes and "could not be" in winner.notes.lower()
+        assert winner is not None and winner.notes and "Court" in winner.notes
 
     def test_match_allowed_when_court_matches(self):
         """Unverified citation + correct court = still a valid match."""
@@ -744,7 +795,7 @@ class TestCourtCorroboration:
         v = CitationVerifier(client)
         result = v.verify("Smith v. Jones, 500 F.3d 200 (S.D.N.Y. 2020)")
 
-        assert result.status != VerificationStatus.NOT_FOUND
+        assert result.status != Status.NOT_FOUND
 
 
 # ---------------------------------------------------------------------------
@@ -1077,8 +1128,8 @@ class TestHelpers:
         assert ol("opinion", False, 30) > ol("opinion", False, 10)
 
     def test_match_word_follows_status(self):
-        """LIKELY_REAL says 'likely', POSSIBLE_MATCH says 'possible'."""
-        # High-scoring match → LIKELY_REAL → "likely"
+        """High confidence (>=0.85) -> 'likely', mid confidence -> 'possible'."""
+        # High-scoring match → confidence >= 0.85 → "likely"
         client = _make_client(
             search_opinions=[
                 {
@@ -1093,11 +1144,14 @@ class TestHelpers:
         )
         v = CitationVerifier(client)
         result = v.verify("Smith v. Jones, 500 F.3d 200 (S.D.N.Y. 2020)")
-        assert result.status == VerificationStatus.LIKELY_REAL
-        assert any("likely match" in d.message for d in result.diagnostics)
+        assert result.status == Status.VERIFIED
+        assert result.headline_confidence is not None
+        assert result.headline_confidence >= 0.85
+        winner = _winning_path_entry(result)
+        assert winner is not None and winner.notes and "likely match" in winner.notes
 
     def test_match_word_possible_for_lower_score(self):
-        """Lower confidence → POSSIBLE_MATCH → 'possible'."""
+        """Lower confidence (0.40-0.85) -> 'possible'."""
         client = _make_client(
             search_opinions=[
                 {
@@ -1113,8 +1167,13 @@ class TestHelpers:
         v = CitationVerifier(client)
         # Wrong court, wrong date → lower score
         result = v.verify("Smith v. Jones, 500 F.3d 200 (S.D.N.Y. 2020)")
-        if result.status == VerificationStatus.POSSIBLE_MATCH:
-            assert any("possible match" in d.message for d in result.diagnostics)
+        if (
+            result.status == Status.VERIFIED
+            and result.headline_confidence is not None
+            and 0.40 <= result.headline_confidence < 0.85
+        ):
+            winner = _winning_path_entry(result)
+            assert winner is not None and winner.notes and "possible match" in winner.notes
 
 
 # ---------------------------------------------------------------------------
@@ -1163,13 +1222,16 @@ class TestDocketNumberSearch:
             "2020 WL 2571387, at *4 n.3 (E.D. Cal. May 21, 2020)"
         )
 
-        # Should find a match via docket number (different case name is OK)
-        assert result.status in (
-            VerificationStatus.LIKELY_REAL,
-            VerificationStatus.POSSIBLE_MATCH,
-        )
+        # Phase 3 Task 4: RECAP doc "Order" has no opinion keyword and no
+        # id field, so strict gate fails -> VERIFIED_DOCKET_ONLY.
+        assert result.status == Status.VERIFIED_DOCKET_ONLY
+        assert result.headline_confidence is not None
         # The unrelated case should have been filtered out
-        assert "Unrelated" not in (result.matched_case_name or "")
+        winner = _winning_path_entry(result)
+        matched_name = (winner.raw_response_summary.get("matched_case_name")
+                        or winner.raw_response_summary.get("best_case_name")
+                        or "") if winner else ""
+        assert "Unrelated" not in matched_name
 
     def test_no_match_when_docket_numbers_dont_match(self):
         """If API returns only non-matching docket numbers, no candidates survive."""
@@ -1188,7 +1250,7 @@ class TestDocketNumberSearch:
         v = CitationVerifier(client)
         result = v.verify("Test v. Case, Case No. 1:13-CV-1483 (E.D. Cal. 2020)")
 
-        assert result.status == VerificationStatus.NOT_FOUND
+        assert result.status == Status.NOT_FOUND
 
 
 # ---------------------------------------------------------------------------
@@ -1404,7 +1466,7 @@ class TestCitationLookupNameMatching:
         v = CitationVerifier(client)
         result = v.verify("Fink v. Gomez, 239 F.3d 989 (9th Cir. 2001)")
 
-        assert result.status == VerificationStatus.VERIFIED
+        assert result.status == Status.VERIFIED
 
     def test_none_plaintiff_trusts_citation_lookup(self):
         """When eyecite fails to parse plaintiff ('None v. X'), trust citation lookup."""
@@ -1424,10 +1486,10 @@ class TestCitationLookupNameMatching:
         v = CitationVerifier(client)
         result = v.verify("None v. Daou Systems, Inc., 411 F.3d 1006 (2005)")
 
-        assert result.status == VerificationStatus.VERIFIED
+        assert result.status == Status.VERIFIED
 
-    def test_completely_wrong_name_returns_possible_match(self):
-        """Fabricated name + real citation should return POSSIBLE_MATCH with the actual case."""
+    def test_completely_wrong_name_returns_wrong_case(self):
+        """Fabricated name + real citation should return WRONG_CASE after investigation."""
         client = _make_client(
             citation_lookup=[
                 {
@@ -1444,12 +1506,11 @@ class TestCitationLookupNameMatching:
         v = CitationVerifier(client)
         result = v.verify("Johnson v. Microsoft Corp., 239 F.3d 989 (9th Cir. 2001)")
 
-        assert result.status == VerificationStatus.POSSIBLE_MATCH
-        assert result.confidence == 0.3
-        assert result.matched_case_name == "David M. Fink v. James H. Gomez, Director"
-        assert result.matched_cluster_id == 772039
-        assert result.diagnostics[0].category == "name"
-        assert "Name mismatch" in result.diagnostics[0].message
+        # Phase 3: no party overlap between "Johnson v. Microsoft" and
+        # "David M. Fink v. James H. Gomez" → WRONG_CASE.
+        # Per design §2.4: final_ids still populate with the actual CL cluster.
+        assert result.status == Status.WRONG_CASE
+        assert result.final_ids.cluster_id == 772039
 
     def test_common_word_surname_rejected(self):
         """'American' as a defendant surname should not match an unrelated 'American National Insurance'."""
@@ -1471,11 +1532,10 @@ class TestCitationLookupNameMatching:
             "Pettway v. American Savings & Loan Association, 197 F. Supp. 489 "
             "(N.D. Ala. 1961)"
         )
-        # "American" is nondistinctive; "Pettway" is distinctive but not in CL name
-        assert result.status == VerificationStatus.POSSIBLE_MATCH
-        assert result.confidence == 0.3
-        assert result.diagnostics[0].category == "name"
-        assert "Name mismatch" in result.diagnostics[0].message
+        # Phase 3: "Pettway" is distinctive but not in CL name, "American" is
+        # shared but not distinctive enough to pass party-overlap → WRONG_CASE.
+        assert result.status == Status.WRONG_CASE
+        assert result.final_ids.cluster_id == 999
 
     def test_distinctive_org_name_still_matches(self):
         """Non-generic org names like 'Costco' should still match."""
@@ -1494,7 +1554,7 @@ class TestCitationLookupNameMatching:
         )
         v = CitationVerifier(client)
         result = v.verify("Costco v. Omega, 562 U.S. 40 (2010)")
-        assert result.status == VerificationStatus.VERIFIED
+        assert result.status == Status.VERIFIED
 
     def test_all_nondistinctive_surnames_trusts_lookup(self):
         """When all extracted surnames are generic, trust the citation lookup."""
@@ -1514,7 +1574,7 @@ class TestCitationLookupNameMatching:
         v = CitationVerifier(client)
         result = v.verify("First National v. Federal Reserve, 100 U.S. 50 (1990)")
         # Both "First" and "Federal" are nondistinctive → trusts lookup
-        assert result.status == VerificationStatus.VERIFIED
+        assert result.status == Status.VERIFIED
 
     def test_defendant_only_match_sufficient(self):
         """If just the defendant surname matches, accept it (plaintiff may be 'Estate of X')."""
@@ -1537,7 +1597,7 @@ class TestCitationLookupNameMatching:
         # But "Elkins" IS in both. Let's test the right thing:
         result = v.verify("Elkins v. Pelayo, 100 F.3d 200 (2001)")
         # "Elkins" appears in CL name → passes surname check
-        assert result.status == VerificationStatus.VERIFIED
+        assert result.status == Status.VERIFIED
 
 
 # ---------------------------------------------------------------------------
@@ -1725,8 +1785,8 @@ class TestVerifyWithParsedCitation:
             "Obergefell v. Hodges, 576 U.S. 644 (2015)", parsed=parsed
         )
 
-        assert result.status == VerificationStatus.VERIFIED
-        assert result.confidence == 1.0
+        assert result.status == Status.VERIFIED
+        assert result.headline_confidence == 1.0
 
     def test_preparsed_preserves_month_day(self):
         """Pre-parsed citation with month/day should flow through to scoring."""
@@ -1762,7 +1822,9 @@ class TestVerifyWithParsedCitation:
             parsed=parsed,
         )
 
-        assert result.status == VerificationStatus.LIKELY_REAL
+        assert result.status == Status.VERIFIED
+        assert result.headline_confidence is not None
+        assert result.headline_confidence >= 0.85
 
     def test_existing_callers_unaffected(self):
         """Calling verify() with only citation_text still works (backward compat)."""
@@ -1782,7 +1844,7 @@ class TestVerifyWithParsedCitation:
         v = CitationVerifier(client)
         result = v.verify("Smith v. Jones, 100 F.3d 200 (2d Cir. 2020)")
 
-        assert result.status == VerificationStatus.VERIFIED
+        assert result.status == Status.VERIFIED
 
 
 # ---------------------------------------------------------------------------
@@ -1813,9 +1875,9 @@ class TestQuickOnly:
             "Obergefell v. Hodges, 576 U.S. 644 (2015)", quick_only=True
         )
 
-        assert result.status == VerificationStatus.VERIFIED
-        assert result.confidence == 1.0
-        assert result.matched_case_name == "Obergefell v. Hodges"
+        assert result.status == Status.VERIFIED
+        assert result.headline_confidence == 1.0
+        assert _winning_path_entry(result).raw_response_summary.get("matched_case_name") == "Obergefell v. Hodges"
 
     def test_quick_not_found_returns_not_found(self):
         """Citation not in lookup API with quick_only -> NOT_FOUND, no further steps."""
@@ -1825,9 +1887,10 @@ class TestQuickOnly:
             "Smith v. Jones, 100 F.3d 200 (2d Cir. 2020)", quick_only=True
         )
 
-        assert result.status == VerificationStatus.NOT_FOUND
-        assert result.confidence == 0.0
-        assert "Quick search only" in result.diagnostics[0].message
+        assert result.status == Status.NOT_FOUND
+        assert result.headline_confidence is None
+        winner = _winning_path_entry(result)
+        assert winner is not None and winner.notes and "Quick search only" in winner.notes
 
     def test_quick_does_not_call_search(self):
         """quick_only must not call opinion search or RECAP."""
@@ -1843,8 +1906,8 @@ class TestQuickOnly:
         assert client.search_opinions.call_count == 0
         assert client.search_recap.call_count == 0
 
-    def test_quick_name_mismatch_returns_possible_match(self):
-        """Citation exists but wrong case with quick_only -> POSSIBLE_MATCH."""
+    def test_quick_name_mismatch_returns_wrong_case(self):
+        """Citation exists but wrong case with quick_only -> WRONG_CASE after investigation."""
         client = _make_client(
             citation_lookup=[
                 {
@@ -1863,10 +1926,10 @@ class TestQuickOnly:
             "Smith v. Jones, 100 F.3d 200 (2d Cir. 2020)", quick_only=True
         )
 
-        assert result.status == VerificationStatus.POSSIBLE_MATCH
-        assert result.confidence == 0.3
-        assert result.diagnostics[0].category == "name"
-        assert "Name mismatch" in result.diagnostics[0].message
+        # Phase 3: caption_investigation runs even in quick_only mode when
+        # citation_lookup flagged a name mismatch. No party overlap → WRONG_CASE.
+        assert result.status == Status.WRONG_CASE
+        assert result.final_ids.cluster_id == 789
 
 
 # ---------------------------------------------------------------------------
@@ -1965,6 +2028,12 @@ class TestDocketNormalization:
 # ---------------------------------------------------------------------------
 
 
+@pytest.mark.skip(
+    reason="v0.3: matched_syllabus dropped from VerificationResult. "
+    "Phase 1 only persists final_ids + resolution_path; cluster-level "
+    "syllabus metadata is no longer surfaced. Revisit if a consumer "
+    "needs it (would belong in resolution_path[*].raw_response_summary)."
+)
 class TestSyllabusPreservation:
     """Verify that syllabus data from citation-lookup is preserved."""
 
@@ -2018,3 +2087,780 @@ class TestSyllabusPreservation:
         result = v.verify("King v. Ill. Cent. R.R., 337 F.3d 550 (5th Cir. 2003)")
 
         assert result.matched_syllabus is None
+
+
+# ---------------------------------------------------------------------------
+# Phase 2: ResolutionPath shape + terminal finalize helper
+# ---------------------------------------------------------------------------
+
+
+REQUIRED_KEYS = {
+    (StageName.citation_lookup, StageVerdict.resolved): {
+        "matched_cluster_id", "matched_case_name", "clusters_returned",
+    },
+    (StageName.citation_lookup, StageVerdict.no_match): {"clusters_returned"},
+    (StageName.citation_lookup, StageVerdict.errored): {"error_type"},
+    (StageName.opinion_search, StageVerdict.resolved): {
+        "candidate_count", "best_score", "best_case_name", "best_cluster_id",
+    },
+    (StageName.opinion_search, StageVerdict.no_match): {"candidate_count"},
+    (StageName.opinion_search, StageVerdict.errored): {"error_type"},
+    (StageName.recap_document_search, StageVerdict.resolved): {
+        "docket_count", "best_score", "best_docket_id", "best_case_name",
+    },
+    (StageName.recap_document_search, StageVerdict.no_match): {"docket_count"},
+    (StageName.recap_document_search, StageVerdict.errored): {"error_type"},
+    (StageName.recap_docket_search, StageVerdict.resolved): {
+        "docket_count", "best_score", "best_docket_id", "best_case_name",
+    },
+    (StageName.recap_docket_search, StageVerdict.no_match): {"docket_count"},
+    (StageName.recap_docket_search, StageVerdict.errored): {"error_type"},
+}
+
+
+class TestResolutionPathShape:
+    """Phase 2 path-shape coverage for the citation_lookup stage.
+
+    These tests assert on path entries directly (not via the
+    _diagnostics compat helper), because the entries are what
+    Phase 2 instruments. The compat helper covers warnings+notes
+    legacy reads; this class covers structured path-entry reads.
+    """
+
+    def test_citation_lookup_hit_produces_one_resolved_entry(self):
+        client = _make_client(citation_lookup=[
+            {"clusters": [{"id": 100, "case_name": "Foo v. Bar", "absolute_url": "/opinion/100/"}]},
+        ])
+        verifier = CitationVerifier(client=client)
+        result = verifier.verify("100 U.S. 1 (2020)")
+
+        assert result.status == Status.VERIFIED
+        assert len(result.resolution_path) == 1
+        entry = result.resolution_path[0]
+        assert entry.stage == StageName.citation_lookup
+        assert entry.verdict == StageVerdict.resolved
+        assert entry.confidence == 1.0
+        assert entry.raw_response_summary == {
+            "matched_cluster_id": 100,
+            "matched_case_name": "Foo v. Bar",
+            "clusters_returned": 1,
+        }
+        assert entry.query["text"].startswith("100 U.S. 1")
+        assert entry.elapsed_ms >= 0
+
+    def test_citation_lookup_miss_quick_only_records_no_match_entry(self):
+        client = _make_client(citation_lookup=[])
+        verifier = CitationVerifier(client=client)
+        result = verifier.verify("999 U.S. 999 (2099)", quick_only=True)
+
+        assert result.status == Status.NOT_FOUND
+        assert len(result.resolution_path) == 1
+        entry = result.resolution_path[0]
+        assert entry.stage == StageName.citation_lookup
+        assert entry.verdict == StageVerdict.no_match
+        assert entry.raw_response_summary == {"clusters_returned": 0}
+
+    def test_citation_lookup_error_records_errored_entry_then_falls_through(self):
+        """The §2.8 internal API-error gate lands in Phase 4. In Phase 2,
+        an errored citation_lookup entry must still appear in the path,
+        and the verifier must still fall through to opinion_search (no
+        behavior change vs. Phase 1)."""
+        client = _make_client()
+        client.citation_lookup.side_effect = ConnectionError("network down")
+        verifier = CitationVerifier(client=client)
+        result = verifier.verify("Smith v. Jones, 1 F.3d 1 (1st Cir. 1990)")
+
+        # First entry is citation_lookup, errored.
+        assert result.resolution_path[0].stage == StageName.citation_lookup
+        assert result.resolution_path[0].verdict == StageVerdict.errored
+        assert result.resolution_path[0].raw_response_summary == {"error_type": "ConnectionError"}
+        assert "ConnectionError" in (result.resolution_path[0].notes or "")
+        # Falls through to opinion_search per existing Phase 1 behavior.
+        assert len(result.resolution_path) >= 2
+        assert result.resolution_path[1].stage == StageName.opinion_search
+
+    def test_opinion_search_hit_after_citation_lookup_miss(self):
+        client = _make_client(
+            citation_lookup=[],
+            search_opinions=[{
+                "caseName": "Foo v. Bar",
+                "cluster_id": 200,
+                "dateFiled": "2020-06-15",
+                "court_id": "scotus",
+                "absolute_url": "/opinion/200/",
+                "citation": ["100 U.S. 1"],
+                "docketNumber": "",
+            }],
+        )
+        verifier = CitationVerifier(client=client)
+        result = verifier.verify("Foo v. Bar, 100 U.S. 1 (Sup. Ct. 2020)")
+
+        stages = [e.stage for e in result.resolution_path]
+        assert stages == [StageName.citation_lookup, StageName.opinion_search]
+        assert result.resolution_path[0].verdict == StageVerdict.no_match
+        assert result.resolution_path[1].verdict == StageVerdict.resolved
+        # raw_response_summary shape on opinion_search resolved
+        summary = result.resolution_path[1].raw_response_summary
+        assert summary["candidate_count"] >= 1
+        assert "best_score" in summary
+        assert summary["best_case_name"] == "Foo v. Bar"
+        assert summary["best_cluster_id"] == 200
+
+    def test_recap_docket_search_attempted_when_opinion_search_misses(self):
+        client = _make_client(
+            citation_lookup=[],
+            search_opinions=[],
+            search_recap=[{
+                "caseName": "Smith v. Jones",
+                "docket_id": 500,
+                "court_id": "cand",
+                "docket_absolute_url": "/docket/500/",
+                "recap_documents": [{
+                    "short_description": "Opinion and order",
+                    "date_filed": "2020-06-15",
+                    "is_free_on_pacer": True,
+                    "page_count": 20,
+                    "absolute_url": "/recap/500/1/",
+                    "entry_date_filed": "2020-06-15",
+                    "entry_description": "ORDER granting motion to dismiss",
+                }],
+            }],
+        )
+        verifier = CitationVerifier(client=client)
+        result = verifier.verify("Smith v. Jones, No. 20-cv-1234 (N.D. Cal. June 15, 2020)")
+
+        stages = [e.stage for e in result.resolution_path]
+        # docket_number present -> recap_document_search runs;
+        # case_name present -> recap_docket_search runs after.
+        assert StageName.citation_lookup in stages
+        assert StageName.opinion_search in stages
+        assert StageName.recap_docket_search in stages or StageName.recap_document_search in stages
+        # The RECAP stage that resolved should be a `resolved` verdict.
+        recap_entries = [
+            e for e in result.resolution_path
+            if e.stage in (StageName.recap_document_search, StageName.recap_docket_search)
+        ]
+        assert any(e.verdict == StageVerdict.resolved for e in recap_entries)
+
+    def test_all_stages_miss_produces_no_match_path(self):
+        client = _make_client(
+            citation_lookup=[],
+            search_opinions=[],
+            search_recap=[],
+        )
+        verifier = CitationVerifier(client=client)
+        result = verifier.verify("Foo v. Bar, 999 F.3d 999 (1st Cir. 2099)")
+
+        assert result.status == Status.NOT_FOUND
+        stages = [e.stage for e in result.resolution_path]
+        # Must include citation_lookup + opinion_search at minimum.
+        assert stages[0] == StageName.citation_lookup
+        assert StageName.opinion_search in stages
+        # Every entry's verdict is no_match (no errored or resolved).
+        assert all(
+            e.verdict == StageVerdict.no_match for e in result.resolution_path
+        )
+
+    def test_state_court_skips_recap_stages(self):
+        """RECAP is federal PACER data only. State-court citations should
+        not emit recap_*_search entries (the guard is in _search_fallback)."""
+        client = _make_client(
+            citation_lookup=[],
+            search_opinions=[],
+            search_recap=[],
+        )
+        verifier = CitationVerifier(client=client)
+        # "(Cal. Ct. App. 2020)" -> state court
+        result = verifier.verify("Foo v. Bar, 99 Cal.App.5th 99 (Cal. Ct. App. 2020)")
+
+        stages = [e.stage for e in result.resolution_path]
+        assert StageName.recap_document_search not in stages
+        assert StageName.recap_docket_search not in stages
+
+    def test_opinion_search_error_falls_through_to_recap(self):
+        client = _make_client(citation_lookup=[])
+        client.search_opinions.side_effect = ConnectionError("opinion search down")
+        client.search_recap.return_value = []
+        verifier = CitationVerifier(client=client)
+        result = verifier.verify("Foo v. Bar, 100 F.3d 100 (1st Cir. 2020)")
+
+        entries_by_stage = {e.stage: e for e in result.resolution_path}
+        assert entries_by_stage[StageName.opinion_search].verdict == StageVerdict.errored
+        assert entries_by_stage[StageName.opinion_search].raw_response_summary == {
+            "error_type": "ConnectionError",
+        }
+
+    @pytest.mark.parametrize("scenario_name,citation,client_kwargs,quick_only", [
+        (
+            "citation_lookup_resolved",
+            "Foo v. Bar, 100 U.S. 1 (2020)",
+            {"citation_lookup": [{"clusters": [
+                {"id": 1, "case_name": "Foo v. Bar", "absolute_url": "/opinion/1/"},
+            ]}]},
+            False,
+        ),
+        (
+            "citation_lookup_no_match_quick_only",
+            "Foo v. Bar, 999 F.3d 999 (1st Cir. 2099)",
+            {"citation_lookup": []},
+            True,
+        ),
+        (
+            "opinion_search_resolved",
+            "Foo v. Bar, 100 F.3d 100 (1st Cir. 2020)",
+            {"citation_lookup": [], "search_opinions": [{
+                "caseName": "Foo v. Bar", "cluster_id": 200,
+                "dateFiled": "2020-06-15", "court_id": "ca1",
+                "absolute_url": "/opinion/200/", "citation": ["100 F.3d 100"],
+                "docketNumber": "",
+            }]},
+            False,
+        ),
+        (
+            "opinion_search_no_match",
+            "Foo v. Bar, 100 F.3d 100 (1st Cir. 2020)",
+            {"citation_lookup": [], "search_opinions": [], "search_recap": []},
+            False,
+        ),
+        (
+            "recap_resolved",
+            "Smith v. Jones, No. 20-cv-1234 (N.D. Cal. June 15, 2020)",
+            {"citation_lookup": [], "search_opinions": [], "search_recap": [{
+                "caseName": "Smith v. Jones", "docket_id": 500, "court_id": "cand",
+                "docket_absolute_url": "/docket/500/",
+                "recap_documents": [{
+                    "short_description": "Opinion and order",
+                    "date_filed": "2020-06-15", "is_free_on_pacer": True,
+                    "page_count": 20, "absolute_url": "/recap/500/1/",
+                    "entry_date_filed": "2020-06-15",
+                    "entry_description": "ORDER granting motion to dismiss",
+                }],
+            }]},
+            False,
+        ),
+    ])
+    def test_raw_response_summary_required_keys_per_stage_verdict(
+        self, scenario_name, citation, client_kwargs, quick_only,
+    ):
+        """Every (stage, verdict) tuple has a documented minimum key set
+        in raw_response_summary. Each scenario exercises a different stage
+        combination; the assertion runs across every entry produced."""
+        client = _make_client(**client_kwargs)
+        verifier = CitationVerifier(client=client)
+        result = verifier.verify(citation, quick_only=quick_only)
+        assert result.resolution_path, f"{scenario_name}: empty resolution_path"
+        for entry in result.resolution_path:
+            required = REQUIRED_KEYS.get((entry.stage, entry.verdict))
+            assert required is not None, (
+                f"{scenario_name}: no required-keys spec for "
+                f"({entry.stage}, {entry.verdict}) — update REQUIRED_KEYS or fix the verdict"
+            )
+            missing = required - entry.raw_response_summary.keys()
+            assert not missing, (
+                f"{scenario_name}: stage {entry.stage}, verdict {entry.verdict}: "
+                f"missing keys {missing} in raw_response_summary={entry.raw_response_summary}"
+            )
+
+    @pytest.mark.parametrize("error_target", [
+        "citation_lookup", "search_opinions", "search_recap",
+    ])
+    def test_errored_entry_carries_error_type_key(self, error_target):
+        """Errored stage entries must have raw_response_summary={'error_type': ...}.
+        Exercises each stage's error path independently."""
+        client = _make_client(citation_lookup=[], search_opinions=[], search_recap=[])
+        getattr(client, error_target).side_effect = ConnectionError("down")
+        verifier = CitationVerifier(client=client)
+        result = verifier.verify("Foo v. Bar, 100 F.3d 100 (1st Cir. 2020)")
+        errored = [e for e in result.resolution_path if e.verdict == StageVerdict.errored]
+        assert errored, f"expected at least one errored entry when {error_target} raises"
+        for e in errored:
+            assert e.raw_response_summary == {"error_type": "ConnectionError"}
+
+
+class TestFinalizeResultTerminalShape:
+    """The terminal helper wraps the builder's accumulated entries into
+    a VerificationResult and is the only public producer of results
+    inside the verifier. Phase 1's _build_result is gone."""
+
+    def test_verifier_module_does_not_expose_build_result(self):
+        from citation_verifier import verifier as v
+        # Phase 1's _build_result is replaced by _finalize_result in Phase 2.
+        # If you see _build_result on the class, the migration is incomplete.
+        assert not hasattr(v.CitationVerifier, "_build_result"), (
+            "_build_result should be removed in Phase 2; use _finalize_result"
+        )
+        assert hasattr(v.CitationVerifier, "_finalize_result")
+
+
+# ---------------------------------------------------------------------------
+# Phase 3 Task 3: VERIFIED_PARTIAL detection (silent partial verification)
+# ---------------------------------------------------------------------------
+
+
+class TestVerifiedPartial:
+    """Phase 3: silent partial verification (design §2.2 VERIFIED_PARTIAL)."""
+
+    def test_partial_when_primary_reporter_not_in_cluster_citations(self):
+        """NY A.D.3d + slip op pattern: parallel resolves, primary does not."""
+        client = _make_client(
+            citation_lookup=[
+                {
+                    "clusters": [
+                        {
+                            "case_name": "Gilliam v. Uni Holdings",
+                            "id": 5305052,
+                            "absolute_url": "/opinion/5305052/gilliam/",
+                            # CL's citation index has the slip op but NOT
+                            # the A.D.3d reporter — that's what makes it
+                            # the silent-partial case.
+                            "citations": [
+                                {"volume": "2021", "reporter": "NY Slip Op",
+                                 "page": "06798", "type": 1},
+                            ],
+                        }
+                    ]
+                }
+            ]
+        )
+        v = CitationVerifier(client)
+        result = v.verify(
+            "Gilliam v. Uni Holdings, 201 A.D.3d 83, 88-89, "
+            "2021 NY Slip Op 06798 (N.Y. App. Div. 2021)"
+        )
+        assert result.status == Status.VERIFIED_PARTIAL
+        assert any(
+            w.category == WarningCategory.silent_partial_verification
+            for w in result.warnings
+        )
+        # The citation_lookup stage still resolved — confidence stays high.
+        assert _winning_path_entry(result).verdict == StageVerdict.resolved
+
+    def test_verified_not_partial_when_primary_in_cluster_citations(self):
+        """Peerenboom-shape: A.D.3d IS in CL — VERIFIED not PARTIAL."""
+        client = _make_client(
+            citation_lookup=[
+                {
+                    "clusters": [
+                        {
+                            "case_name": "Peerenboom v. Marvel Entertainment",
+                            "id": 4376072,
+                            "absolute_url": "/opinion/4376072/peerenboom/",
+                            "citations": [
+                                {"volume": "148", "reporter": "A.D.3d",
+                                 "page": "531", "type": 1},
+                            ],
+                        }
+                    ]
+                }
+            ]
+        )
+        v = CitationVerifier(client)
+        result = v.verify(
+            "Peerenboom v. Marvel Entertainment, LLC, 148 A.D.3d 531 "
+            "(N.Y. App. Div. 2017)"
+        )
+        assert result.status == Status.VERIFIED
+        assert not any(
+            w.category == WarningCategory.silent_partial_verification
+            for w in result.warnings
+        )
+
+    def test_verified_when_wl_only_input(self):
+        """A WL-only citation (no parallel reporter) is VERIFIED, not PARTIAL."""
+        client = _make_client(
+            citation_lookup=[
+                {
+                    "clusters": [
+                        {
+                            "case_name": "Some Case",
+                            "id": 999,
+                            "absolute_url": "/opinion/999/",
+                            "citations": [
+                                {"volume": "2020", "reporter": "WL",
+                                 "page": "123456", "type": 9},
+                            ],
+                        }
+                    ]
+                }
+            ]
+        )
+        v = CitationVerifier(client)
+        result = v.verify("Some Case, 2020 WL 123456 (D. Md. 2020)")
+        assert result.status == Status.VERIFIED
+
+
+class TestVerifiedViaRecapVsDocketOnly:
+    """Phase 3 Task 4: strict VIA_RECAP gate per maintainer Q1.
+
+    Tests at the doc-type + date-match boundary. Cabot/Hunter shape:
+    has-text-but-procedural-order -> DOCKET_ONLY. Mehar shape:
+    opinion-typed + date-matched -> VIA_RECAP.
+    """
+
+    def test_via_recap_when_opinion_typed_doc_matches_date(self):
+        client = _make_client(
+            citation_lookup=[],          # no opinion cluster
+            search_opinions=[],
+            search_recap=[
+                {
+                    "caseName": "Mehar Holdings LLC v. Evanston Ins. Co.",
+                    "docket_id": 5474769,
+                    "id": 5474769,
+                    "court_id": "txwd",
+                    "docket_absolute_url": "/docket/5474769/mehar/",
+                    "dateFiled": "2016-10-14",
+                    "docketNumber": "1:16-cv-00059",
+                    "recap_documents": [
+                        {
+                            "id": 18720567,
+                            "entry_date_filed": "2016-10-14",
+                            "short_description": "OPINION on motion to dismiss",
+                            "page_count": 12,
+                            "is_free_on_pacer": True,
+                        }
+                    ],
+                }
+            ],
+        )
+        v = CitationVerifier(client)
+        result = v.verify(
+            "Mehar Holdings, LLC v. Evanston Ins. Co., "
+            "2016 WL 5957681 (W.D. Tex. Oct. 14, 2016)"
+        )
+        assert result.status == Status.VERIFIED_VIA_RECAP
+        assert result.final_ids.docket_id == 5474769
+        assert result.final_ids.recap_document_id == 18720567
+        assert result.final_ids.cluster_id is None
+        assert result.final_ids.text_source.value == "recap_document"
+
+    def test_docket_only_when_doc_is_procedural_order(self):
+        """Cabot v. Lewis shape: order certifying interlocutory appeal
+        is text-bearing but procedural. Strict reading: DOCKET_ONLY."""
+        client = _make_client(
+            citation_lookup=[],
+            search_opinions=[],
+            search_recap=[
+                {
+                    "caseName": "Cabot v. Lewis",
+                    "docket_id": 4275225,
+                    "id": 4275225,
+                    "court_id": "mad",
+                    "docket_absolute_url": "/docket/4275225/cabot/",
+                    "dateFiled": "2015-07-09",
+                    "docketNumber": "1:13-cv-11903",
+                    "recap_documents": [
+                        {
+                            "id": 5338694,
+                            "entry_date_filed": "2015-07-09",
+                            "short_description": "ORDER CERTIFYING INTERLOCUTORY APPEAL",
+                            "page_count": 2,
+                            "is_free_on_pacer": False,
+                        }
+                    ],
+                }
+            ],
+        )
+        v = CitationVerifier(client)
+        result = v.verify(
+            "Cabot v. Lewis, 2015 WL 13648107 (D. Mass. July 9, 2015)"
+        )
+        assert result.status == Status.VERIFIED_DOCKET_ONLY
+        assert result.final_ids.docket_id == 4275225
+        assert result.final_ids.recap_document_id is None
+        assert result.final_ids.text_source is None
+
+    def test_docket_only_when_date_mismatches(self):
+        """Menges-actual shape: docket exists, doc on docket is dated
+        June 12 but cited May 31 (12-day delta — actually WITHIN ±14 day
+        window). DOCKET_ONLY here because the doc description matches the
+        'motion in limine' procedural keyword, not because of date. See
+        test_phase3_corpus_acceptance.py for a true outside-window case."""
+        client = _make_client(
+            citation_lookup=[],
+            search_opinions=[],
+            search_recap=[
+                {
+                    "caseName": "Menges v. Cliffs Drilling Co.",
+                    "docket_id": 10993603,
+                    "id": 10993603,
+                    "court_id": "laed",
+                    "docket_absolute_url": "/docket/10993603/menges/",
+                    "dateFiled": "1999-07-16",
+                    "docketNumber": "99-2061",
+                    "recap_documents": [
+                        {
+                            "id": 476627754,
+                            "entry_date_filed": "2000-06-12",
+                            "short_description": "ORDER & REASONS on motion in limine",
+                            "page_count": 4,
+                            "is_free_on_pacer": False,
+                        }
+                    ],
+                }
+            ],
+        )
+        v = CitationVerifier(client)
+        result = v.verify(
+            "Menges v. Cliffs Drilling Co., 2000 WL 765082 (E.D. La. May 31, 2000)"
+        )
+        assert result.status == Status.VERIFIED_DOCKET_ONLY
+        assert result.final_ids.docket_id == 10993603
+        assert result.final_ids.recap_document_id is None
+
+
+# ---------------------------------------------------------------------------
+# Phase 4 Task 4: score-based VIA_RECAP gate (Q2)
+# ---------------------------------------------------------------------------
+
+
+class TestVerifiedViaRecapScoreGate:
+    """Phase 4 Task 4 (Q2): score-based VIA_RECAP gate catches
+    substantive-but-keyword-poor opinion descriptions like Mehar
+    Holdings' 'ORDER GRANTING Motion for Reconsideration'."""
+
+    def test_score_based_gate_accepts_substantive_long_form_doc(self):
+        """Mehar Holdings shape: 12-page is_free_on_pacer doc with
+        'ORDER GRANTING' description -> VIA_RECAP via score gate."""
+        client = _make_client(
+            citation_lookup=[],
+            search_opinions=[],
+            search_recap=[
+                {
+                    "caseName": "Mehar Holdings LLC v. Evanston Ins. Co.",
+                    "docket_id": 5474769,
+                    "id": 5474769,
+                    "court_id": "txwd",
+                    "docket_absolute_url": "/docket/5474769/mehar/",
+                    "dateFiled": "2016-10-14",
+                    "docketNumber": "1:16-cv-00059",
+                    "recap_documents": [
+                        {
+                            "id": 18720567,
+                            "entry_date_filed": "2016-10-14",
+                            "short_description": (
+                                "ORDER GRANTING 14 Motion for Reconsideration "
+                                "re 13 Order on Motion to Dismiss"
+                            ),
+                            "page_count": 12,
+                            "is_free_on_pacer": True,
+                        }
+                    ],
+                }
+            ],
+        )
+        v = CitationVerifier(client)
+        result = v.verify(
+            "Mehar Holdings, LLC v. Evanston Ins. Co., "
+            "2016 WL 5957681 (W.D. Tex. Oct. 14, 2016)"
+        )
+        assert result.status == Status.VERIFIED_VIA_RECAP
+        assert result.final_ids.recap_document_id == 18720567
+
+    def test_score_gate_does_not_override_procedural_keywords(self):
+        """Cabot v. Lewis shape: 'ORDER CERTIFYING INTERLOCUTORY APPEAL'
+        matches a procedural keyword and stays DOCKET_ONLY even with
+        a 5-page count + is_free_on_pacer."""
+        client = _make_client(
+            citation_lookup=[],
+            search_opinions=[],
+            search_recap=[
+                {
+                    "caseName": "Cabot v. Lewis",
+                    "docket_id": 4275225,
+                    "id": 4275225,
+                    "court_id": "mad",
+                    "docket_absolute_url": "/docket/4275225/cabot/",
+                    "dateFiled": "2015-07-09",
+                    "docketNumber": "1:13-cv-11903",
+                    "recap_documents": [
+                        {
+                            "id": 5338694,
+                            "entry_date_filed": "2015-07-09",
+                            "short_description": (
+                                "ORDER CERTIFYING INTERLOCUTORY APPEAL"
+                            ),
+                            "page_count": 8,
+                            "is_free_on_pacer": True,
+                        }
+                    ],
+                }
+            ],
+        )
+        v = CitationVerifier(client)
+        result = v.verify(
+            "Cabot v. Lewis, 2015 WL 13648107 (D. Mass. July 9, 2015)"
+        )
+        assert result.status == Status.VERIFIED_DOCKET_ONLY
+
+    def test_score_gate_requires_both_page_count_and_is_free(self):
+        """A short doc (page_count < 5) fails the score gate even with
+        a non-procedural description and is_free_on_pacer=True."""
+        client = _make_client(
+            citation_lookup=[],
+            search_opinions=[],
+            search_recap=[
+                {
+                    "caseName": "Short Case",
+                    "docket_id": 9999,
+                    "id": 9999,
+                    "court_id": "txwd",
+                    "docket_absolute_url": "/docket/9999/short/",
+                    "dateFiled": "2020-06-15",
+                    "docketNumber": "1:20-cv-00001",
+                    "recap_documents": [
+                        {
+                            "id": 12345,
+                            "entry_date_filed": "2020-06-15",
+                            "short_description": "ORDER on motion",
+                            "page_count": 2,
+                            "is_free_on_pacer": True,
+                        }
+                    ],
+                }
+            ],
+        )
+        v = CitationVerifier(client)
+        result = v.verify("Short Case v. Other, 2020 WL 999999 (W.D. Tex. June 15, 2020)")
+        assert result.status == Status.VERIFIED_DOCKET_ONLY
+
+    def test_score_gate_fetches_doc_detail_when_search_omits_metadata(self):
+        """search_recap may return docs with page_count=None / is_free_on_pacer=None.
+
+        Those fields are only populated on /recap-documents/{id}/. When the
+        keyword/date gate path (b) fails AND page_count==0 (the zero sentinel
+        meaning "not populated"), the verifier fetches the doc detail and re-
+        applies the score gate. If the detail says page_count>=5 and
+        is_free_on_pacer=True, the result should be VERIFIED_VIA_RECAP.
+        """
+        client = _make_client(
+            citation_lookup=[],
+            search_opinions=[],
+            search_recap=[
+                {
+                    "caseName": "Mehar Holdings LLC v. Evanston Ins. Co.",
+                    "docket_id": 5474769,
+                    "id": 5474769,
+                    "court_id": "txwd",
+                    "docket_absolute_url": "/docket/5474769/mehar/",
+                    "dateFiled": "2016-10-14",
+                    "docketNumber": "1:16-cv-00059",
+                    "recap_documents": [
+                        {
+                            "id": 18720567,
+                            "entry_date_filed": "2016-10-14",
+                            # No opinion keyword, no date window match → path (b) fails.
+                            # page_count/is_free_on_pacer omitted by search → zero/False.
+                            "short_description": (
+                                "ORDER GRANTING 14 Motion for Reconsideration "
+                                "re 13 Order on Motion to Dismiss"
+                            ),
+                            "page_count": None,
+                            "is_free_on_pacer": None,
+                        }
+                    ],
+                }
+            ],
+            # doc-detail fetch supplies the real values
+            recap_document_metadata={
+                "id": 18720567,
+                "page_count": 12,
+                "is_free_on_pacer": True,
+            },
+        )
+        v = CitationVerifier(client)
+        result = v.verify(
+            "Mehar Holdings, LLC v. Evanston Ins. Co., "
+            "2016 WL 5957681 (W.D. Tex. Oct. 14, 2016)"
+        )
+        assert result.status == Status.VERIFIED_VIA_RECAP
+        assert result.final_ids.recap_document_id == 18720567
+        # Verify the doc-detail fetch was actually called
+        client.get_recap_document_metadata.assert_called_once_with(18720567)
+
+    def test_score_gate_doc_detail_fetch_failure_falls_back_to_docket_only(self):
+        """If the doc-detail fetch raises, the gate stays DOCKET_ONLY.
+
+        A failed refinement must NOT promote to VERIFICATION_INCOMPLETE /
+        errored — it should silently leave the result at DOCKET_ONLY.
+        """
+        client = _make_client(
+            citation_lookup=[],
+            search_opinions=[],
+            search_recap=[
+                {
+                    "caseName": "Mehar Holdings LLC v. Evanston Ins. Co.",
+                    "docket_id": 5474769,
+                    "id": 5474769,
+                    "court_id": "txwd",
+                    "docket_absolute_url": "/docket/5474769/mehar/",
+                    "dateFiled": "2016-10-14",
+                    "docketNumber": "1:16-cv-00059",
+                    "recap_documents": [
+                        {
+                            "id": 18720567,
+                            "entry_date_filed": "2016-10-14",
+                            "short_description": (
+                                "ORDER GRANTING 14 Motion for Reconsideration "
+                                "re 13 Order on Motion to Dismiss"
+                            ),
+                            "page_count": None,
+                            "is_free_on_pacer": None,
+                        }
+                    ],
+                }
+            ],
+            # Simulate a network/API failure on the doc-detail fetch.
+            recap_document_metadata=ConnectionError("simulated network failure"),
+        )
+        v = CitationVerifier(client)
+        result = v.verify(
+            "Mehar Holdings, LLC v. Evanston Ins. Co., "
+            "2016 WL 5957681 (W.D. Tex. Oct. 14, 2016)"
+        )
+        # Refinement failed → fall through to DOCKET_ONLY, no exception raised.
+        assert result.status == Status.VERIFIED_DOCKET_ONLY
+        assert result.status != Status.VERIFICATION_INCOMPLETE
+
+
+class TestNamesMatchXvUnitedStates:
+    """Phase 4 Task 5 (Q3): generic-government-defendant patterns must
+    require defendant-side overlap, mirroring the existing United-
+    States-as-plaintiff logic."""
+
+    @pytest.fixture
+    def parser(self):
+        from citation_verifier.parser import parse_citation
+        return parse_citation
+
+    def test_koch_v_us_with_different_us_defendant_fails_match(self, parser):
+        """Brief: 'Koch v. United States'. CL returns: 'Ricky Koch v. Tote,
+        Incorporated'. The defendant (United States) and CL's defendant
+        (Tote) don't overlap; the new gate must return False so
+        caption_investigation fires and emits cl_display_name_data_bug."""
+        parsed = parser("Koch v. United States, 857 F.3d 267 (5th Cir. 2017)")
+        v = CitationVerifier(client=None)
+        result = v._names_match_citation_lookup(parsed, "Ricky Koch v. Tote, Incorporated")
+        assert result is False, (
+            "X v. United States with a CL-side different defendant must "
+            "NOT lenient-match; caption_investigation must fire."
+        )
+
+    def test_koch_v_us_with_same_us_defendant_passes_match(self, parser):
+        """Sanity: when CL also has 'X v. United States' shape with the
+        same plaintiff, the lenient match still works."""
+        parsed = parser("Koch v. United States, 857 F.3d 267 (5th Cir. 2017)")
+        v = CitationVerifier(client=None)
+        result = v._names_match_citation_lookup(parsed, "Koch v. United States")
+        assert result is True
+
+    def test_x_v_state_pattern_requires_defendant_overlap(self, parser):
+        parsed = parser("Smith v. State, 100 So. 3d 100 (Ala. 2020)")
+        v = CitationVerifier(client=None)
+        result = v._names_match_citation_lookup(parsed, "Smith v. ABC Corp")
+        assert result is False
+
+    def test_x_v_commonwealth_pattern_requires_defendant_overlap(self, parser):
+        parsed = parser("Doe v. Commonwealth, 200 S.E.2d 200 (Va. 2020)")
+        v = CitationVerifier(client=None)
+        result = v._names_match_citation_lookup(parsed, "Doe v. XYZ Inc.")
+        assert result is False
