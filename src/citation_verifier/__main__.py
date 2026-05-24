@@ -765,10 +765,14 @@ def audit_misses_main(argv: list[str] | None = None) -> int:
         quick_kwargs["parsed_citations"] = parsed_citations
     quick_results = asyncio.run(verifier.verify_batch(citations, **quick_kwargs))
 
-    # Identify the indices that need the full pipeline.
+    # Identify the indices that need the full pipeline.  NOT_FOUND is
+    # the obvious case (quick lookup didn't find it; try full pipeline).
+    # VERIFICATION_INCOMPLETE means the quick stage errored out (CL infra
+    # failure -- 5xx / timeout per design §2.8); the full pipeline's
+    # search-fallback path may recover via opinion-search or RECAP.
     miss_indices: list[int] = [
         i for i, r in enumerate(quick_results)
-        if r.status == Status.NOT_FOUND
+        if r.status in (Status.NOT_FOUND, Status.VERIFICATION_INCOMPLETE)
     ]
 
     full_results: dict[int, VerificationResult] = {}

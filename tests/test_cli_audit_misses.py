@@ -385,3 +385,67 @@ class TestAuditMissesCLI:
 
         assert rc == 0
         assert out_path.exists()
+
+    def test_retries_verification_incomplete_in_full_pass(self, tmp_path):
+        """Phase 5 Task 7 (audit row C6): VERIFICATION_INCOMPLETE in the
+        quick pass should be retried by the full pass, alongside NOT_FOUND.
+        Per design §2.8, INCOMPLETE means the quick stage errored out
+        (CL infra failure); the full pipeline's search-fallback may recover.
+        """
+        rows = [
+            {"cite": "1 F.3d 1", "case_name": "Real v. Case",
+             "court": "ca9", "year": "1995"},
+            {"cite": "2 F.3d 2", "case_name": "Infra v. Failure",
+             "court": "ca9", "year": "1995"},
+            {"cite": "3 F.3d 3", "case_name": "Truly v. Missing",
+             "court": "ca9", "year": "1995"},
+        ]
+        in_path = _build_input_csv(
+            tmp_path, rows, ["cite", "case_name", "court", "year"]
+        )
+        out_path = tmp_path / "out.csv"
+
+        # Quick pass: row 0 = VERIFIED (no retry needed),
+        # row 1 = VERIFICATION_INCOMPLETE (must be retried),
+        # row 2 = NOT_FOUND (must be retried).
+        incomplete = _make_result(
+            citation=rows[1]["cite"],
+            status=Status.VERIFICATION_INCOMPLETE,
+            confidence=None,
+            stage_notes="HTTP 500 from citation lookup API",
+        )
+        quick_results = [
+            _verified_via_lookup(rows[0]["cite"]),
+            incomplete,
+            _not_found(rows[2]["cite"]),
+        ]
+        # Full pass on the two retried rows: row 1 recovers via search,
+        # row 2 stays NOT_FOUND.
+        full_results = [
+            _verified_via_search(rows[1]["cite"]),
+            _not_found(rows[2]["cite"]),
+        ]
+
+        rc, captured = _patched_run(
+            [
+                str(in_path),
+                "--column", "cite",
+                "--name-column", "case_name",
+                "--court-column", "court",
+                "--year-column", "year",
+                "--output", str(out_path),
+            ],
+            quick_results,
+            full_results,
+        )
+
+        assert rc == 0
+        # Quick on all 3; full pass on the 2 retried (rows 1 and 2).
+        assert len(captured["calls"]) == 2
+        assert captured["calls"][1]["quick_only"] is False
+        assert captured["calls"][1]["citations"] == [rows[1]["cite"], rows[2]["cite"]]
+
+        out_rows = list(csv.DictReader(out_path.open(encoding="utf-8")))
+        # Row 1 (was INCOMPLETE in quick) now VERIFIED via search.
+        assert out_rows[1]["fallback_status"] == "VERIFIED"
+        assert out_rows[1]["fallback_path"] == "opinion-search"
