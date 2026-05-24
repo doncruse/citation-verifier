@@ -73,14 +73,14 @@
     {
       "id": "verified-townsley-xfailed",
       "citation": "Townsley v. Lifewise Assurance Co., Case No. C15-1228-JCC, 2016 WL 1393548, at *3 (W.D. Wash. April 8, 2016)",
-      "expected_status": "VERIFIED_DOCKET_ONLY",
+      "expected_status": "VERIFIED_VIA_RECAP",
       "expected_resolving_stage": "recap_docket_search",
       "expected_final_ids": {
         "cluster_id": null,
         "opinion_id": null,
         "docket_id": 5352576,
-        "recap_document_id": null,
-        "text_source": null
+        "recap_document_id": 18473814,
+        "text_source": "recap_document"
       },
       "expected_warnings_subset": [],
       "rationale": "Pre-Phase-3 xfail (CL cluster-ID drift). Phase 3's caption_investigation may rescue. Docket number shorthand expansion (C15 -> 15-cv) + judge suffix. CL has different defendant name. cluster_id pinned to known_real_citations.json value; Phase 3 confirms or updates.",
@@ -88,7 +88,8 @@
       "category": "xfailed_docket_number_shorthand",
       "phase3_classification_open": false,
       "mock_spec": null,
-      "phase3_ruling": "Q3: cluster the original test pinned (5352576) is now the docket_id; under Phase 3 strict gate the RECAP doc isn't opinion-typed -> VERIFIED_DOCKET_ONLY. Pre-Phase-3 fixture pinned a cluster that no longer exists in CL at this cite; the verifier now correctly classifies as DOCKET_ONLY."
+      "phase3_ruling": "Q3: cluster the original test pinned (5352576) is now the docket_id; under Phase 3 strict gate the RECAP doc isn't opinion-typed -> VERIFIED_DOCKET_ONLY. Pre-Phase-3 fixture pinned a cluster that no longer exists in CL at this cite; the verifier now correctly classifies as DOCKET_ONLY.",
+      "phase4_ruling": "Status upgraded to VERIFIED_VIA_RECAP by Task 4's score-based gate (page_count >= 5 AND is_free_on_pacer on doc 18473814 after doc-detail fetch). Note: CL's docket caption is 'Townsley v. SNC-Lavalin Constructors, Inc.' (different defendant than the brief's 'Lifewise Assurance Co.'). The verifier does not surface this caption divergence because recap_docket_search-resolved matches don't trigger caption_investigation (which only runs after citation_lookup). This is the same limit as Phase 3 retro S3 (opinion_search divergence detection) generalized to recap_docket_search. Tracked as Phase 5+ work in ROADMAP."
     },
     {
       "id": "verified-anderson-furst-xfailed",

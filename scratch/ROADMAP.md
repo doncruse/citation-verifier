@@ -82,6 +82,12 @@ Should be its own post-Phase-4 design conversation, not absorbed into Phase 3 (w
 
 **Phase 4 disposition (2026-05-23, Task 7 — Q6):** deferred to Phase 5+. Rationale: the `cl_duplicate_clusters` warning's `details` dict already carries candidate enumeration for the duplicate-cluster case, so the most common motivating shape has a workaround today. Broader use cases for a typed `candidates` list will emerge with Phase 5+ work (MCP server, diagnostic runner). Adding speculatively in v0.3.0 risks fixing the shape before grounded callers constrain it. The open design questions above (always-populated vs. uncertainty-threshold, ranked vs. flat, status-impact, warning-redundancy) remain unresolved without those grounded use cases.
 
+### Caption-divergence detection on opinion_search and recap_docket_search resolutions
+
+`caption_investigation` only fires after `citation_lookup` resolves. When the verification resolves via `opinion_search` or `recap_docket_search` instead, no caption_investigation runs — so a divergence between the brief's caption and CL's resolved cluster/docket caption goes unflagged. Phase 3 retro S3 surfaced this for opinion_search (5 Rule-25(d)/SSA-pseudonym fixtures). Phase 4 Task 4 + Townsley fixture upgrade surfaced the same limit for recap_docket_search-resolved matches (Townsley v. Lifewise resolves to docket whose CL caption is Townsley v. SNC-Lavalin — score gate accepts the doc as substantive without checking caption similarity).
+
+Phase 5+ work: extend caption_investigation (or add a parallel post-resolution hook) to emit `cl_display_name_data_bug` / `WRONG_CASE` based on party-overlap when opinion_search or recap_docket_search resolves with a divergent CL case_name. The gate already exists in `_names_match` / `_party_overlap`; it just needs to fire on the additional resolution paths.
+
 ### Configurable verification depth (generalize `quick_only`)
 `verify_batch()` already accepts `quick_only=True` to stop after stage 1 (citation lookup). Generalize to `max_depth: StageName` (or similar) so callers can choose to run stage 1+2 but skip RECAP, or stop wherever else along the ladder. Useful when the caller knows they only care about high-confidence hits, or wants a fast first pass before deciding whether to invest in deeper fallback (e.g., a batch job that processes 10K citations and is fine accepting NOT_FOUND for whatever doesn't resolve in the first two stages).
 

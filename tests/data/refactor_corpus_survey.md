@@ -212,6 +212,40 @@ After Phase 3 rulings, status distribution shifted:
 
 Likewise, the corpus no longer has a clean `named_exemplar` for VIA_RECAP — Mehar Holdings retains the tag for traceability even though its status is now DOCKET_ONLY.
 
+## §3.2 Phase 4 rulings on retrospective open questions
+
+### Q1 — VERIFICATION_INCOMPLETE production wiring (Tasks 1 + 2 + 3)
+
+Design §2.8 internal gate now lives in `_finalize_result`: when status would be `NOT_FOUND` and the resolution path has any `errored` stage and no `resolved`/`partial` stage, promote to `VERIFICATION_INCOMPLETE` and null all `final_ids`. The 5 corpus INCOMPLETE fixtures pass via the new `MockSpecPatcher` harness (Task 1) — no live-API dependency. Caption_investigation defensive fallback preserved per design §1.5: when citation_lookup resolves the cluster but caption_investigation errors (network/parse failure), status stays VERIFIED + `cl_display_name_data_bug` warning fires with the refinement-failure context in the message text. Refinement-stage failures do not promote.
+
+### Q2 — opinion-typing gate refinement (Task 4)
+
+`named-exemplar-mehar-holdings` restored to VERIFIED_VIA_RECAP via the new score-based gate. `_recap_doc_is_cited_opinion` accepts a doc when (a) the cluster carries the WL cite, OR (b) the description matches opinion-typed keywords AND the doc is within ±14 days of the cited date, OR (c) page_count >= 5 AND is_free_on_pacer AND no procedural-order keywords match. The procedural-keyword guard still rejects Cabot v. Lewis and similar genuinely-procedural docs.
+
+Implementation note: `search_recap` returns docket dicts with `page_count=None` and `is_free_on_pacer=None`. Those fields are only populated on `/recap-documents/{id}/`. When `is_free_on_pacer` isn't already True on the candidate, the verifier fetches doc detail before applying path (c). One extra API call per RECAP-only no-keyword-match citation.
+
+Doe v. Lawrence stays VERIFIED_DOCKET_ONLY — the doc detail confirms `is_free_on_pacer` is None/False for the recommended report-and-recommendations entry on that docket. The original Phase 3 retro S4 disposition (WL-only no-specific-date citations have other limits) is unchanged.
+
+Townsley v. Lifewise was upgraded VIA_RECAP by the new gate (doc 18473814 has page_count=12, is_free=True). CL's docket caption ("Townsley v. SNC-Lavalin Constructors, Inc.") differs from the brief's ("Townsley v. Lifewise Assurance Co.") — but recap_docket_search-resolved matches don't trigger caption_investigation, so the divergence isn't surfaced. Same limit as Phase 3 S3 generalized to recap_docket_search; tracked as Phase 5+ work in ROADMAP.
+
+### Q3 — X v. United States caption_investigation (Task 5)
+
+`_names_match_citation_lookup` now detects generic-government-defendant patterns (`v. United States`, `v. State`, `v. Commonwealth`, `v. People`) and requires CL's caption to also have a generic-government suffix; otherwise the lenient match rejects and caption_investigation fires. Koch named exemplar recovers its `cl_display_name_data_bug` warning.
+
+The 5 Rule-25(d)/SSA fixtures (`verified-rule-25d-gilliard-mcwilliams`, `verified-rule-25d-preston-smith`, `verified-rule-25d-viken-detection`, `verified-ssa-pseudonym-john-s-bisignano`, `verified-ssa-pseudonym-michael-b-berryhill`) STILL don't recover the warning: they resolve via `opinion_search` (citation_lookup returns no_match for them), so `caption_investigation` doesn't fire there even with the new gate. Same Phase 5+ work as Q1's broader caption-divergence-detection follow-up.
+
+### Q4 — `wrong_page_number` fixture decision (Task 6)
+
+Document-only. No fixture synthesized in Phase 4. Rationale: removal is a major-version bump per §2.6 amendment workflow; keeping the category supports future Phase 5+ corpus expansion via the diagnostic runner. The verifier's code path that emits `wrong_page_number` is correct as designed; deleting unused-but-correct code is unwise.
+
+### Q5 — `cl_duplicate_clusters` fixture decision (Task 6)
+
+Document-only. Same reasoning as Q4. The 4 unmarked xfails (Bossart, Busha, Townsley, Anderson-Furst) were ruled in Phase 3 as single-cluster pin updates, not duplicate-cluster cases. The category stays in WarningCategory for forward-looking use; the diagnostic runner may surface real-world duplicate-cluster fixtures in Phase 5+.
+
+### Q6 — `candidates` field on `VerificationResult` (Task 7)
+
+Deferred to Phase 5+. The `cl_duplicate_clusters` warning's `details` dict already carries candidate enumeration for the duplicate-cluster case. Broader use cases for a typed `candidates` list emerge with Phase 5+ work (MCP server, diagnostic runner). Adding the field speculatively in v0.3.0 risks fixing the shape before grounded callers constrain the open design questions (always-populated vs. uncertainty-threshold, ranked vs. flat, status-impact, warning-redundancy). Captured in `scratch/ROADMAP.md` under "Surface multiple candidates when the verifier has uncertainty."
+
 ## §4 Named exemplars — sourcing notes
 
 ### Koch (VERIFIED + cl_display_name_data_bug)
