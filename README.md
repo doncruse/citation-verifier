@@ -33,10 +33,13 @@ Input: "Smith v. Jones, 2018 WL 301424 (S.D.N.Y. Mar. 5, 2018)"
 
 | Status | Meaning |
 |--------|---------|
-| `VERIFIED` | Citation lookup found the exact case |
-| `LIKELY_REAL` | Strong fuzzy match (>= 85% confidence) |
-| `POSSIBLE_MATCH` | Partial match found (>= 40% confidence) |
+| `VERIFIED` | Citation lookup or opinion search resolved to the cited case |
+| `VERIFIED_PARTIAL` | A parallel cite resolved; the primary reporter didn't (e.g. NY A.D.3d + slip op) |
+| `VERIFIED_VIA_RECAP` | Matched to a specific RECAP document (federal PACER) |
+| `VERIFIED_DOCKET_ONLY` | Docket found, but the specific cited opinion couldn't be pinned |
+| `WRONG_CASE` | Citation resolves, but to a different case (caption divergence + party-overlap fails) |
 | `NOT_FOUND` | No match found in any search step |
+| `VERIFICATION_INCOMPLETE` | CourtListener infrastructure failure (5xx / timeout); rerun |
 
 ### Diagnostics
 
@@ -107,7 +110,10 @@ python -m citation_verifier --file citations.txt
 python -m citation_verifier --json "Obergefell v. Hodges, 576 U.S. 644 (2015)"
 ```
 
-Exit code is `1` if any citation is `NOT_FOUND` (useful for scripting/CI).
+Exit codes (useful for scripting/CI):
+- `0` — all citations verified (or skipped)
+- `1` — at least one `NOT_FOUND`
+- `2` — at least one `VERIFICATION_INCOMPLETE` (infra failure; rerun). Wins over `NOT_FOUND` if both appear.
 
 ### Python API
 
@@ -117,9 +123,11 @@ from citation_verifier import CitationVerifier
 verifier = CitationVerifier()
 result = verifier.verify("Obergefell v. Hodges, 576 U.S. 644 (2015)")
 
-print(result.status)          # VerificationStatus.VERIFIED
-print(result.matched_url)     # https://www.courtlistener.com/opinion/2812209/...
-print(result.diagnostics)     # [] (List[Diagnostic], each with .category and .message)
+print(result.status)                       # Status.VERIFIED
+print(result.final_ids.absolute_url)       # https://www.courtlistener.com/opinion/2812209/...
+print(result.headline_confidence)          # 0.96 (or None)
+for w in result.warnings:                  # List[Warning], each with .category and .message
+    print(f"[{w.category.value}] {w.message}")
 ```
 
 #### Pre-parsed citations (batch pipelines)

@@ -23,7 +23,7 @@ python tests/verify_from_csv.py --sample-size 50
 
 # 2. QC review
 #    Open the JSON sidecar (tests/data/results/verification_*.json)
-#    Review NOT_FOUND and POSSIBLE_MATCH items
+#    Review NOT_FOUND, WRONG_CASE, and VERIFICATION_INCOMPLETE items
 #    Update qc_status and qc_notes in the CSV
 
 # 3. After code fixes, re-verify affected rows
@@ -49,7 +49,7 @@ The CSV has 25 columns. The first 18 come from the extraction pipeline (pdf, cit
 
 | Column | Values | Purpose |
 |--------|--------|---------|
-| `v_status` | `VERIFIED`, `LIKELY_REAL`, `POSSIBLE_MATCH`, `NOT_FOUND`, `SKIPPED`, (empty) | Verifier result. Empty = not yet run. |
+| `v_status` | `VERIFIED`, `VERIFIED_PARTIAL`, `VERIFIED_VIA_RECAP`, `VERIFIED_DOCKET_ONLY`, `WRONG_CASE`, `NOT_FOUND`, `VERIFICATION_INCOMPLETE`, `SKIPPED`, (empty) | Verifier result. Empty = not yet run. Old rows may carry v0.2 `LIKELY_REAL`/`POSSIBLE_MATCH`; `verify_from_csv.py` reads both. |
 | `v_confidence` | 0.0-1.0, (empty) | Confidence score |
 | `v_url` | URL or empty | CourtListener match URL for QC |
 | `v_matched_name` | case name or empty | What CL matched (for comparison) |
@@ -70,7 +70,7 @@ The CSV has 25 columns. The first 18 come from the extraction pipeline (pdf, cit
 
 After each `verify_from_csv.py` run:
 
-1. Review NOT_FOUND and POSSIBLE_MATCH items from the JSON sidecar
+1. Review NOT_FOUND, WRONG_CASE, and VERIFICATION_INCOMPLETE items from the JSON sidecar
 2. Set `qc_status` on reviewed rows in the CSV
 3. Add any new `investigate` items to `TODO.md`
 4. Add any new `data` items to `flp_contributions.md` section 6

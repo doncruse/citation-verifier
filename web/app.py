@@ -36,12 +36,13 @@ from citation_verifier.models import (
 from citation_verifier.name_matcher import CaseNameMatcher
 from citation_verifier.verifier import CitationVerifier
 
-# Status -> display label / CSS class. Phase 1 only emits VERIFIED and
-# NOT_FOUND; the rest are placeholders so Phase 3/4 don't trip on missing
-# keys. The web app's frontend (get.html, index.html, qc.html) has its own
-# JS-side status switches that still recognize the legacy v0.2 names
-# (LIKELY_REAL, POSSIBLE_MATCH) for backward compat with older JSON
-# sidecars on disk; the API only emits v0.3 names going forward.
+# Status -> display label / CSS class.  All v0.3 statuses are emitted in
+# production.  Frontend JS in web/static/{get,index,qc}.html switches
+# cover the full v0.3 enum (see tests/test_frontend_status_coverage.py).
+# Legacy v0.2 names (LIKELY_REAL, POSSIBLE_MATCH) still appear in old
+# on-disk JSON sidecars under tests/data/results/ and in the master CSV's
+# pre-v0.3 rows; the QC page's badgeClass/statusLabel keep cases for them
+# so historical data renders correctly.  The API only emits v0.3.
 _STATUS_DISPLAY = {
     Status.VERIFIED: ("[OK] VERIFIED", "verified"),
     Status.VERIFIED_PARTIAL: ("[OK] VERIFIED (partial)", "verified-partial"),
