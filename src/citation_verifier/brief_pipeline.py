@@ -194,14 +194,29 @@ def _write_verification_csv(
 # Opinion downloading
 # ---------------------------------------------------------------------------
 
-# Phase 1: only Status.VERIFIED is *produced* (per Phase 1 mapping).
-# The other VERIFIED_* members are included so Phase 3 (which starts
-# producing them) doesn't have to revisit this set.
+# Phase 3 produces all four VERIFIED_* statuses; Phase 4 confirms each
+# has a populated absolute_url and is download-eligible. WRONG_CASE,
+# NOT_FOUND, and VERIFICATION_INCOMPLETE stay excluded -- downloading
+# their (missing) opinion text doesn't make sense.
 _DOWNLOADABLE_STATUSES = {
     Status.VERIFIED,
     Status.VERIFIED_PARTIAL,
     Status.VERIFIED_VIA_RECAP,
     Status.VERIFIED_DOCKET_ONLY,
+}
+
+
+# Phase 4 Task 8: deterministic status -> badge-label fallback for the
+# report-finding badge when the agent-authored badge_label is absent
+# (legacy claims.csv or pre-agent runs). The agent-authored path is
+# unchanged; this only governs the fallback render. Mapped by status
+# value string (matches the cl_status column in claims.csv).
+_STATUS_BADGE_FALLBACK: dict[str, str] = {
+    "WRONG_CASE": "Case mismatch -- cite resolves to a different case",
+    "VERIFIED_PARTIAL": "Verified -- parallel cite only",
+    "VERIFIED_VIA_RECAP": "Verified via RECAP",
+    "VERIFIED_DOCKET_ONLY": "Docket only -- no opinion text",
+    "VERIFICATION_INCOMPLETE": "Verification incomplete -- infrastructure error",
 }
 
 # Threshold (chars of visible text) below which we suspect a downloaded
@@ -1030,9 +1045,11 @@ def generate_report(
                 parts_legacy = [p for p in (legacy_overview, legacy_explanation) if p]
                 finding_analysis = "\n\n".join(parts_legacy)
 
-            badge_label = claim.get("badge_label", "").strip() or (
-                "Not supported by cited case" if severity == "red"
-                else "Overstated -- case partially supports"
+            badge_label = (
+                claim.get("badge_label", "").strip()
+                or _STATUS_BADGE_FALLBACK.get(cl_status)
+                or ("Not supported by cited case" if severity == "red"
+                    else "Overstated -- case partially supports")
             )
 
             # Agent-authored quote blocks (optional). When present they
