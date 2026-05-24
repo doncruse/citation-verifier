@@ -1454,43 +1454,43 @@ async def qc_run_batch(request: Request):
             batch_parsed.append(_parsed_citation_from_row(row))
             batch_row_indices.append(seq)
 
-        # Verify batch — batch citation lookup first, then search fallback
-        # for misses.  The async client's semaphore (MAX_CONCURRENT=5) and
-        # rate limiter (MIN_REQUEST_INTERVAL=0.5s) keep CourtListener happy.
+        # Phase 5 Task 2: route through per-citation verify_async() instead
+        # of the pre-v0.3 private-helper batch path.  The old code called
+        # _verifier._batch_citation_lookup + _process_citation_lookup_hit
+        # + _search_fallback_async with v0.2 positional signatures that
+        # changed during the refactor (e.g. _search_fallback_async now
+        # takes (builder, async_client, citation_text, parsed) — the old
+        # 3-arg call raised TypeError on every miss).  Routing every
+        # citation through verify_async() means the QC batch endpoint gets
+        # the same code path as the CLI and unit tests, so schema changes
+        # don't silently break it.  Trade-off: one citation_lookup API call
+        # per citation instead of one shared batched call.  Phase 6+ may
+        # restore batching via verify_batch() once the latent caption-
+        # investigation handling bug in verify_batch is fixed (it splats
+        # hit_finalize into _finalize_result without popping the
+        # needs_caption_investigation / _cluster_for_investigation keys —
+        # see docs/consumer-surface-manifest.md "Known issues").
         if batch_citations:
             completed_n = 0
-
             async with AsyncCourtListenerClient() as client:
-                # Batch citation lookup — one API call for all citations
-                batch_hits = await _verifier._batch_citation_lookup(
-                    client, batch_citations
-                )
-
-                # Process batch hits immediately (no per-citation API call)
-                miss_indices: list[int] = []
                 for i, (cite_text, parsed) in enumerate(
                     zip(batch_citations, batch_parsed)
                 ):
-                    if i in batch_hits:
-                        result = _verifier._process_citation_lookup_hit(
-                            cite_text, parsed, batch_hits[i]
+                    row = to_verify[batch_row_indices[i]]
+                    try:
+                        result = await _verifier.verify_async(
+                            client, cite_text, parsed=parsed,
                         )
-                        row = to_verify[batch_row_indices[i]]
-                        _apply_verification_to_row(row, result, git_hash)
-
-                        results_for_sidecar.append(
-                            _sidecar_entry(cite_text, row, result)
-                        )
-
+                    except Exception as exc:
+                        logger.exception("Batch verify error: %s", cite_text)
                         completed_n += 1
                         yield {
                             "event": "result",
                             "data": json.dumps({
                                 "index": batch_row_indices[i],
                                 "citation_text": cite_text,
-                                "status": result.status.value,
-                                "confidence": result.headline_confidence,
-                                "matched_case_name": _matched_case_name(result),
+                                "status": "ERROR",
+                                "error": str(exc),
                             }),
                         }
                         yield {
@@ -1500,78 +1500,30 @@ async def qc_run_batch(request: Request):
                                 "total": len(to_verify),
                             }),
                         }
-                    else:
-                        miss_indices.append(i)
+                        continue
 
-                # Search fallback for misses — run concurrently
-                if miss_indices:
-                    queue: asyncio.Queue = asyncio.Queue()
-
-                    async def _verify_miss(
-                        idx: int, cite_text: str, parsed: ParsedCitation,
-                        cl_client: AsyncCourtListenerClient,
-                    ) -> None:
-                        try:
-                            result = await _verifier._search_fallback_async(
-                                cl_client, cite_text, parsed
-                            )
-                            await queue.put(("ok", idx, cite_text, result, None))
-                        except Exception as exc:
-                            logger.exception("Batch verify error: %s", cite_text)
-                            await queue.put(("error", idx, cite_text, None, exc))
-
-                    tasks = [
-                        asyncio.create_task(
-                            _verify_miss(
-                                i, batch_citations[i], batch_parsed[i], client
-                            )
-                        )
-                        for i in miss_indices
-                    ]
-
-                    for _ in range(len(tasks)):
-                        status, i, cite_text, result, exc = await queue.get()
-                        row = to_verify[batch_row_indices[i]]
-
-                        if status == "ok":
-                            _apply_verification_to_row(row, result, git_hash)
-
-                            results_for_sidecar.append(
-                                _sidecar_entry(cite_text, row, result)
-                            )
-
-                            completed_n += 1
-                            yield {
-                                "event": "result",
-                                "data": json.dumps({
-                                    "index": batch_row_indices[i],
-                                    "citation_text": cite_text,
-                                    "status": result.status.value,
-                                    "confidence": result.headline_confidence,
-                                    "matched_case_name": _matched_case_name(result),
-                                }),
-                            }
-                        else:
-                            completed_n += 1
-                            yield {
-                                "event": "result",
-                                "data": json.dumps({
-                                    "index": batch_row_indices[i],
-                                    "citation_text": cite_text,
-                                    "status": "ERROR",
-                                    "error": str(exc),
-                                }),
-                            }
-
-                        yield {
-                            "event": "progress",
-                            "data": json.dumps({
-                                "completed": completed_n + len(skipped),
-                                "total": len(to_verify),
-                            }),
-                        }
-
-                    await asyncio.gather(*tasks)
+                    _apply_verification_to_row(row, result, git_hash)
+                    results_for_sidecar.append(
+                        _sidecar_entry(cite_text, row, result)
+                    )
+                    completed_n += 1
+                    yield {
+                        "event": "result",
+                        "data": json.dumps({
+                            "index": batch_row_indices[i],
+                            "citation_text": cite_text,
+                            "status": result.status.value,
+                            "confidence": result.headline_confidence,
+                            "matched_case_name": _matched_case_name(result),
+                        }),
+                    }
+                    yield {
+                        "event": "progress",
+                        "data": json.dumps({
+                            "completed": completed_n + len(skipped),
+                            "total": len(to_verify),
+                        }),
+                    }
 
         # Write CSV back
         bak = csv_path.with_suffix(".csv.bak")

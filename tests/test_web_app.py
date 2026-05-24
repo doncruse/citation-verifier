@@ -26,6 +26,7 @@ import pytest
 from fastapi.testclient import TestClient
 
 import web.app as web_app
+from citation_verifier import verifier as cv_verifier
 from citation_verifier.models import Status
 
 
@@ -99,8 +100,15 @@ class _StubAsyncCLClient:
 
 @pytest.fixture
 def client():
-    """FastAPI TestClient with the stubbed CL client patched in."""
-    with patch.object(web_app, "AsyncCourtListenerClient", _StubAsyncCLClient):
+    """FastAPI TestClient with the stubbed CL client patched in.
+
+    Patches BOTH web.app.AsyncCourtListenerClient AND
+    citation_verifier.verifier.AsyncCourtListenerClient. The web app
+    instantiates the former directly; the verifier's verify_batch()
+    instantiates the latter internally. Patching both keeps the stub in
+    force regardless of which API path the route takes."""
+    with patch.object(web_app, "AsyncCourtListenerClient", _StubAsyncCLClient), \
+         patch.object(cv_verifier, "AsyncCourtListenerClient", _StubAsyncCLClient):
         yield TestClient(web_app.app)
 
 
