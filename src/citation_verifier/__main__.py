@@ -256,15 +256,28 @@ def main(argv: list[str] | None = None) -> int:
                 if cache:
                     cache.put(cite_text, result)
 
-    # Print all results in original order
-    any_not_found = False
+    # Print all results in original order. Exit codes (Phase 5 Task 8):
+    #   0 = all citations verified or skipped
+    #   1 = at least one NOT_FOUND (potential hallucination)
+    #   2 = at least one VERIFICATION_INCOMPLETE (CL infra failure; rerun)
+    # Per design §2.8 "fail-closed at verifier integrity," INCOMPLETE means
+    # "we couldn't tell," not "verified," so CI callers must distinguish
+    # it from a confirmed-fake citation.  When a batch contains BOTH a
+    # NOT_FOUND and an INCOMPLETE, INCOMPLETE wins (exit 2) -- if any
+    # verification didn't complete, the batch's NOT_FOUND signal is itself
+    # not fully trustworthy and a retry should come first.  NOT_FOUND
+    # keeps exit 1 for backward compat with pre-Phase-5 callers that
+    # treated any non-zero as "fake".
+    exit_code = 0
     for result in results:
         assert result is not None
         _print_result(result, args.json_mode)
         if result.status == Status.NOT_FOUND:
-            any_not_found = True
+            exit_code = max(exit_code, 1)
+        elif result.status == Status.VERIFICATION_INCOMPLETE:
+            exit_code = max(exit_code, 2)
 
-    return 1 if any_not_found else 0
+    return exit_code
 
 
 def verify_brief_main(argv: list[str] | None = None) -> int:

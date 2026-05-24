@@ -277,3 +277,72 @@ class TestMultiCitationJsonMode:
             json.loads(ln)  # raises if any non-JSON sneaks in
         # stderr should contain the progress text
         assert "Verifying" in captured.err
+
+
+class TestExitCodes:
+    """Phase 5 Task 8 (audit row C7): the single-citation CLI must return
+    distinct exit codes by Status so CI callers can distinguish "definitely
+    fake" from "couldn't check".  Mapping:
+        0 = verified
+        1 = at least one NOT_FOUND
+        2 = at least one VERIFICATION_INCOMPLETE (wins over NOT_FOUND too --
+            if any verification didn't complete, the batch's signal is
+            itself not fully trustworthy; retry first)
+    """
+
+    @staticmethod
+    def _incomplete_result() -> VerificationResult:
+        return _make_result(
+            citation="Some v. Citation, 1 U.S. 1 (2099)",
+            status=Status.VERIFICATION_INCOMPLETE,
+            confidence=None,
+        )
+
+    @staticmethod
+    def _run_with_results(results: list[VerificationResult]) -> int:
+        async def fake_verify_batch(citations, **kwargs):
+            return results
+
+        # The N=1 path in main() uses synchronous verify(), not verify_batch.
+        # Stub both: verify() returns the first result, verify_batch returns
+        # the full list.
+        def fake_verify(cite_text):
+            return results[0]
+
+        with patch("citation_verifier.__main__.CitationVerifier") as MockVerifier:
+            instance = MockVerifier.return_value
+            instance.verify_batch = AsyncMock(side_effect=fake_verify_batch)
+            instance.verify = MagicMock(side_effect=fake_verify)
+            with patch("citation_verifier.__main__.VerificationCache") as MockCache:
+                cache_instance = MockCache.return_value
+                cache_instance.get = MagicMock(return_value=None)
+                cache_instance.put = MagicMock(return_value=None)
+                buf = io.StringIO()
+                with redirect_stdout(buf):
+                    rc = main([
+                        "--no-cache",
+                        *(r.citation_as_written for r in results),
+                    ])
+                return rc
+
+    def test_all_verified_exits_zero(self):
+        rc = self._run_with_results([_verified_result()])
+        assert rc == 0
+
+    def test_not_found_exits_one(self):
+        rc = self._run_with_results([_verified_result(), _not_found_result()])
+        assert rc == 1
+
+    def test_verification_incomplete_exits_two(self):
+        rc = self._run_with_results([self._incomplete_result()])
+        assert rc == 2
+
+    def test_incomplete_beats_not_found(self):
+        """When both classes are present, INCOMPLETE (exit 2) takes precedence
+        -- if any verification didn't complete, the NOT_FOUND signal is also
+        not fully trustworthy and the batch should be retried first."""
+        rc = self._run_with_results([
+            _not_found_result(),
+            self._incomplete_result(),
+        ])
+        assert rc == 2
