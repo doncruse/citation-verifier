@@ -2820,3 +2820,47 @@ class TestVerifiedViaRecapScoreGate:
         # Refinement failed → fall through to DOCKET_ONLY, no exception raised.
         assert result.status == Status.VERIFIED_DOCKET_ONLY
         assert result.status != Status.VERIFICATION_INCOMPLETE
+
+
+class TestNamesMatchXvUnitedStates:
+    """Phase 4 Task 5 (Q3): generic-government-defendant patterns must
+    require defendant-side overlap, mirroring the existing United-
+    States-as-plaintiff logic."""
+
+    @pytest.fixture
+    def parser(self):
+        from citation_verifier.parser import parse_citation
+        return parse_citation
+
+    def test_koch_v_us_with_different_us_defendant_fails_match(self, parser):
+        """Brief: 'Koch v. United States'. CL returns: 'Ricky Koch v. Tote,
+        Incorporated'. The defendant (United States) and CL's defendant
+        (Tote) don't overlap; the new gate must return False so
+        caption_investigation fires and emits cl_display_name_data_bug."""
+        parsed = parser("Koch v. United States, 857 F.3d 267 (5th Cir. 2017)")
+        v = CitationVerifier(client=None)
+        result = v._names_match_citation_lookup(parsed, "Ricky Koch v. Tote, Incorporated")
+        assert result is False, (
+            "X v. United States with a CL-side different defendant must "
+            "NOT lenient-match; caption_investigation must fire."
+        )
+
+    def test_koch_v_us_with_same_us_defendant_passes_match(self, parser):
+        """Sanity: when CL also has 'X v. United States' shape with the
+        same plaintiff, the lenient match still works."""
+        parsed = parser("Koch v. United States, 857 F.3d 267 (5th Cir. 2017)")
+        v = CitationVerifier(client=None)
+        result = v._names_match_citation_lookup(parsed, "Koch v. United States")
+        assert result is True
+
+    def test_x_v_state_pattern_requires_defendant_overlap(self, parser):
+        parsed = parser("Smith v. State, 100 So. 3d 100 (Ala. 2020)")
+        v = CitationVerifier(client=None)
+        result = v._names_match_citation_lookup(parsed, "Smith v. ABC Corp")
+        assert result is False
+
+    def test_x_v_commonwealth_pattern_requires_defendant_overlap(self, parser):
+        parsed = parser("Doe v. Commonwealth, 200 S.E.2d 200 (Va. 2020)")
+        v = CitationVerifier(client=None)
+        result = v._names_match_citation_lookup(parsed, "Doe v. XYZ Inc.")
+        assert result is False

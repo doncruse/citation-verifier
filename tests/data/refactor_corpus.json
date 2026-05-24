@@ -418,7 +418,8 @@
       "category": "rule_25d_substitution",
       "phase3_classification_open": false,
       "mock_spec": null,
-      "phase3_ruling": "Cluster-ID drift: 4642011 -> 7330589 (CL re-ingested or deduplicated). Status remains VERIFIED via opinion_search. cl_display_name_data_bug warning doesn't fire here because the divergence is detected at opinion_search, not citation_lookup \u2014 caption_investigation only runs after a citation_lookup hit. Logged as a Phase 4 follow-up to extend the warning to opinion_search-detected divergences."
+      "phase3_ruling": "Cluster-ID drift: 4642011 -> 7330589 (CL re-ingested or deduplicated). Status remains VERIFIED via opinion_search. cl_display_name_data_bug warning doesn't fire here because the divergence is detected at opinion_search, not citation_lookup \u2014 caption_investigation only runs after a citation_lookup hit. Logged as a Phase 4 follow-up to extend the warning to opinion_search-detected divergences.",
+      "phase4_ruling": "Task 5 fix does not recover cl_display_name_data_bug for this fixture: still resolves via opinion_search rather than citation_lookup (citation_lookup returns no_match), so caption_investigation does not fire. Out of Phase 4 scope (Phase 5+ candidate: opinion_search divergence-detection plumbing)."
     },
     {
       "id": "verified-rule-25d-preston-smith",
@@ -438,7 +439,8 @@
       "category": "rule_25d_substitution",
       "phase3_classification_open": false,
       "mock_spec": null,
-      "phase3_ruling": "Cluster-ID drift: 9729396 -> 9421647. Status VERIFIED via opinion_search. cl_display_name_data_bug not fired (same Phase 4 follow-up as gilliard)."
+      "phase3_ruling": "Cluster-ID drift: 9729396 -> 9421647. Status VERIFIED via opinion_search. cl_display_name_data_bug not fired (same Phase 4 follow-up as gilliard).",
+      "phase4_ruling": "Task 5 fix does not recover cl_display_name_data_bug for this fixture: still resolves via opinion_search rather than citation_lookup (citation_lookup returns no_match), so caption_investigation does not fire. Out of Phase 4 scope (Phase 5+ candidate: opinion_search divergence-detection plumbing)."
     },
     {
       "id": "verified-rule-25d-viken-detection",
@@ -458,7 +460,8 @@
       "category": "rule_25d_substitution",
       "phase3_classification_open": false,
       "mock_spec": null,
-      "phase3_ruling": "Status VERIFIED via opinion_search (cluster_id matches the pin). cl_display_name_data_bug not fired because the divergence is detected at opinion_search, not citation_lookup (same Phase 4 follow-up)."
+      "phase3_ruling": "Status VERIFIED via opinion_search (cluster_id matches the pin). cl_display_name_data_bug not fired because the divergence is detected at opinion_search, not citation_lookup (same Phase 4 follow-up).",
+      "phase4_ruling": "Task 5 fix does not recover cl_display_name_data_bug for this fixture: still resolves via opinion_search rather than citation_lookup (citation_lookup returns no_match), so caption_investigation does not fire. Out of Phase 4 scope (Phase 5+ candidate: opinion_search divergence-detection plumbing)."
     },
     {
       "id": "verified-ssa-pseudonym-michael-b-berryhill",
@@ -478,7 +481,8 @@
       "category": "ssa_pseudonym",
       "phase3_classification_open": false,
       "mock_spec": null,
-      "phase3_ruling": "opinion_search resolves at score 0.4671 just above threshold, then recap_docket_search outscores it. Final classification: VERIFIED_DOCKET_ONLY. The cl_display_name_data_bug warning doesn't fire because caption_investigation only runs when citation_lookup resolves with a name mismatch \u2014 opinion_search-resolved divergences don't currently trigger the warning. Logged as a Phase 4 follow-up."
+      "phase3_ruling": "opinion_search resolves at score 0.4671 just above threshold, then recap_docket_search outscores it. Final classification: VERIFIED_DOCKET_ONLY. The cl_display_name_data_bug warning doesn't fire because caption_investigation only runs when citation_lookup resolves with a name mismatch \u2014 opinion_search-resolved divergences don't currently trigger the warning. Logged as a Phase 4 follow-up.",
+      "phase4_ruling": "Task 5 fix does not recover cl_display_name_data_bug for this fixture: still resolves via opinion_search rather than citation_lookup (citation_lookup returns no_match), so caption_investigation does not fire. Out of Phase 4 scope (Phase 5+ candidate: opinion_search divergence-detection plumbing)."
     },
     {
       "id": "verified-ssa-pseudonym-john-s-bisignano",
@@ -498,13 +502,14 @@
       "category": "ssa_pseudonym",
       "phase3_classification_open": false,
       "mock_spec": null,
-      "phase3_ruling": "Cluster-ID drift: 10593230 -> 10736117. Status VERIFIED via opinion_search. cl_display_name_data_bug not fired (Phase 4 follow-up)."
+      "phase3_ruling": "Cluster-ID drift: 10593230 -> 10736117. Status VERIFIED via opinion_search. cl_display_name_data_bug not fired (Phase 4 follow-up).",
+      "phase4_ruling": "Task 5 fix does not recover cl_display_name_data_bug for this fixture: still resolves via opinion_search rather than citation_lookup (citation_lookup returns no_match), so caption_investigation does not fire. Out of Phase 4 scope (Phase 5+ candidate: opinion_search divergence-detection plumbing)."
     },
     {
       "id": "named-exemplar-koch",
       "citation": "Koch v. United States, 857 F.3d 267 (5th Cir. 2017)",
       "expected_status": "VERIFIED",
-      "expected_resolving_stage": "citation_lookup",
+      "expected_resolving_stage": "caption_investigation",
       "expected_final_ids": {
         "cluster_id": 4390987,
         "opinion_id": null,
@@ -512,13 +517,16 @@
         "recap_document_id": null,
         "text_source": "opinion_plain_text"
       },
-      "expected_warnings_subset": [],
+      "expected_warnings_subset": [
+        "cl_display_name_data_bug"
+      ],
       "rationale": "Design v2 \u00a74 named exemplar. Live citation_lookup against 857 F.3d 267 returns cluster 4390987 with CL case_name 'Ricky Koch v. Tote, Incorporated' \u2014 divergent from the brief's 'Koch v. United States' caption. The verifier's name matcher flags the mismatch; Phase 3's caption_investigation confirms it IS the same case (CL data-bug, not a wrong case).",
       "source": "design_v2_doc#section_4",
       "category": "named_exemplar",
       "phase3_classification_open": false,
       "mock_spec": null,
-      "phase3_ruling": "Cluster pin matches (4390987). caption_investigation does NOT fire because _names_match_citation_lookup accepts 'Koch' as a surname-match (lenient surname containment). The 'X v. United States' pattern with a distinctive plaintiff like Koch passes the lenient check even though the defendant differs entirely from CL's 'Tote, Incorporated'. Phase 4 follow-up: extend _names_match_citation_lookup to detect 'X v. <generic-government-defendant>' patterns and require defendant-side overlap too."
+      "phase3_ruling": "Cluster pin matches (4390987). caption_investigation does NOT fire because _names_match_citation_lookup accepts 'Koch' as a surname-match (lenient surname containment). The 'X v. United States' pattern with a distinctive plaintiff like Koch passes the lenient check even though the defendant differs entirely from CL's 'Tote, Incorporated'. Phase 4 follow-up: extend _names_match_citation_lookup to detect 'X v. <generic-government-defendant>' patterns and require defendant-side overlap too.",
+      "phase4_ruling": "cl_display_name_data_bug restored to expected_warnings_subset per Task 5: _names_match_citation_lookup now detects X v. United States defendant-side pattern and rejects lenient match when CL caption lacks the generic suffix. caption_investigation now fires and emits the warning."
     },
     {
       "id": "verified-partial-gold-wallace",

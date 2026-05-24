@@ -2007,6 +2007,30 @@ class CitationVerifier:
                 # If we can't extract defendant surname, fall back to full match check
                 return defendant_lower in cl_lower
 
+        # For generic-government-DEFENDANT cases (X v. United States, X v. State,
+        # X v. Commonwealth, X v. People), the defendant is not distinctive.
+        # Require that CL's caption also has a generic-government suffix; if not,
+        # reject so caption_investigation fires and can emit cl_display_name_data_bug.
+        # If CL does have the suffix, compare plaintiff tokens for the match.
+        _DEFENDANT_GENERIC_SUFFIXES = (
+            " v. united states", " v united states",
+            " v. state", " v state",
+            " v. commonwealth", " v commonwealth",
+            " v. people", " v people",
+        )
+        cited_lower = parsed.case_name.lower()
+        if any(cited_lower.endswith(s) for s in _DEFENDANT_GENERIC_SUFFIXES):
+            cl_has_suffix = any(s in cl_lower for s in _DEFENDANT_GENERIC_SUFFIXES)
+            if not cl_has_suffix:
+                return False
+            # CL also has a generic-government defendant — compare plaintiff tokens.
+            cited_plaintiff = (parsed.plaintiff or cited_lower.split(" v")[0]).lower()
+            cited_plaintiff_norm = re.sub(r"[^a-z0-9 ]+", "", cited_plaintiff).strip()
+            tokens = [t for t in re.findall(r"[a-z0-9]+", cited_plaintiff_norm) if len(t) >= 3]
+            if tokens:
+                return any(t in cl_lower for t in tokens)
+            return True  # no distinctive tokens; trust citation lookup
+
         # For regular cases, extract surnames from cited parties
         cited_surnames = []
         plaintiff_surname = self._extract_surname(parsed.plaintiff)
