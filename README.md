@@ -2,6 +2,8 @@
 
 Verify legal citations against [CourtListener](https://www.courtlistener.com/). Catches hallucinated case citations from AI tools by checking whether a citation actually exists and belongs to the case it claims to.
 
+> **Upgrading from v0.2?** The v0.3 release reshapes `VerificationResult` and the `Status` enum (no more `LIKELY_REAL` / `POSSIBLE_MATCH`; new `WRONG_CASE` / `VERIFIED_VIA_RECAP` / `VERIFICATION_INCOMPLETE`). See [`CHANGELOG.md`](CHANGELOG.md#migrating-from-v02-to-v03) for the field-by-field migration table.
+
 ## Try It
 
 **[Verify and Retrieve](https://verify-and-retrieve.replit.app/)** -- paste citations, verify them against CourtListener, and download the opinion text or PDFs. No installation needed.

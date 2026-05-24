@@ -4,6 +4,68 @@ All notable schema-level changes to citation-verifier. Per design v2 §2.6 / §5
 
 ## v0.3.0 — 2026-05-24
 
+### Migrating from v0.2 to v0.3
+
+Most upgrades touch only two surfaces:
+
+**1. `VerificationResult` field renames** (top-level fields collapsed under `final_ids`):
+
+| v0.2 | v0.3 |
+|------|------|
+| `result.matched_url` | `result.final_ids.absolute_url` |
+| `result.matched_cluster_id` | `result.final_ids.cluster_id` |
+| `result.matched_docket_id` | `result.final_ids.docket_id` |
+| `result.confidence` | `result.headline_confidence` |
+| `result.diagnostics` | `result.warnings` |
+
+`matched_court`, `matched_date`, `matched_description` were dropped from `VerificationResult` (they were not consistently populated). Use `result.parsed_citation.court` and `result.parsed_citation.year` for the *cited* values, or read the CL cluster directly via `final_ids.cluster_id`.
+
+**2. `Status` taxonomy** (`LIKELY_REAL` and `POSSIBLE_MATCH` removed):
+
+| v0.2 status | What to do in v0.3 |
+|---|---|
+| `LIKELY_REAL` | No longer emitted. Treat as `VERIFIED`. |
+| `POSSIBLE_MATCH` | No longer emitted. Caption-divergence cases now produce `VERIFIED` + a warning, or `WRONG_CASE`. |
+
+**New v0.3 statuses to handle:**
+- `VERIFIED_PARTIAL` — parallel cite resolved, primary didn't (e.g. NY A.D.3d + slip op)
+- `VERIFIED_VIA_RECAP` — matched a specific RECAP document (federal PACER)
+- `VERIFIED_DOCKET_ONLY` — docket found, specific cited opinion not pinned
+- `WRONG_CASE` — reporter cite resolves to a different case (caption divergence + party-overlap fails)
+- `VERIFICATION_INCOMPLETE` — CL infrastructure failure (5xx / timeout); rerun
+
+**Code patterns that change:**
+
+```python
+# v0.2: "any verified-class" check
+if result.status in (Status.VERIFIED, Status.LIKELY_REAL):
+    ...
+
+# v0.3: covers all five verified-class statuses
+if result.status.value.startswith("VERIFIED"):
+    ...
+
+# v0.3: RECAP vs opinion-cluster discriminator
+if result.final_ids.docket_id and not result.final_ids.cluster_id:
+    # RECAP match (no opinion cluster)
+```
+
+**Diagnostic messages** (legacy `result.diagnostics`) are now structured `Warning` objects on `result.warnings`. Both have `.category` and `.message`; the v0.3 categories are a closed enum (see `WarningCategory`). To get a flat string list:
+```python
+diagnostic_strs = [w.message for w in result.warnings]
+```
+
+**CLI exit codes** (single-citation `python -m citation_verifier`):
+- `0` — all verified (unchanged)
+- `1` — at least one `NOT_FOUND` (unchanged)
+- `2` — at least one `VERIFICATION_INCOMPLETE` (NEW). Wins over `NOT_FOUND` when both appear — if any verification didn't complete, the `NOT_FOUND` signal isn't fully trustworthy either.
+
+**Cache and disk artifacts** (no action needed):
+- `.citation_cache.json` from v0.2 — safe to keep. The cache catches `ValueError` on unknown status and falls through to re-verify.
+- Old JSON sidecars under `tests/data/results/` — read correctly by the QC page (frontend keeps legacy `LIKELY_REAL`/`POSSIBLE_MATCH` cases for historical data).
+
+**Consumer surface checklist:** `docs/consumer-surface-manifest.md` enumerates every consumer in this repo and what fields each one reads. Use it as a model when auditing your own codebase for the v0.3 upgrade.
+
 ### Schema (models.py)
 
 - **New `Status` taxonomy**: six states (VERIFIED, VERIFIED_PARTIAL, VERIFIED_VIA_RECAP, VERIFIED_DOCKET_ONLY, WRONG_CASE, NOT_FOUND, VERIFICATION_INCOMPLETE) replacing the legacy four (VERIFIED, LIKELY_REAL, POSSIBLE_MATCH, NOT_FOUND). LIKELY_REAL and POSSIBLE_MATCH collapsed into VERIFIED with per-stage confidence on resolution_path. See design v2 §2.2.
