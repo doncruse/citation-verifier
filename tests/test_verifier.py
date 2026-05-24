@@ -55,6 +55,14 @@ def _make_client(**overrides):
     client.get_opinion_text_with_metadata.return_value = overrides.get(
         "get_opinion_text_with_metadata", None
     )
+    # Phase 4 Task 4 doc-detail fetch for VIA_RECAP score gate refinement.
+    # Default to None (no detail available); tests that exercise the fetch
+    # path set recap_document_metadata to a dict.
+    recap_doc_metadata = overrides.get("recap_document_metadata", None)
+    if isinstance(recap_doc_metadata, Exception):
+        client.get_recap_document_metadata.side_effect = recap_doc_metadata
+    else:
+        client.get_recap_document_metadata.return_value = recap_doc_metadata
     return client
 
 
@@ -2598,3 +2606,217 @@ class TestVerifiedViaRecapVsDocketOnly:
         assert result.status == Status.VERIFIED_DOCKET_ONLY
         assert result.final_ids.docket_id == 10993603
         assert result.final_ids.recap_document_id is None
+
+
+# ---------------------------------------------------------------------------
+# Phase 4 Task 4: score-based VIA_RECAP gate (Q2)
+# ---------------------------------------------------------------------------
+
+
+class TestVerifiedViaRecapScoreGate:
+    """Phase 4 Task 4 (Q2): score-based VIA_RECAP gate catches
+    substantive-but-keyword-poor opinion descriptions like Mehar
+    Holdings' 'ORDER GRANTING Motion for Reconsideration'."""
+
+    def test_score_based_gate_accepts_substantive_long_form_doc(self):
+        """Mehar Holdings shape: 12-page is_free_on_pacer doc with
+        'ORDER GRANTING' description -> VIA_RECAP via score gate."""
+        client = _make_client(
+            citation_lookup=[],
+            search_opinions=[],
+            search_recap=[
+                {
+                    "caseName": "Mehar Holdings LLC v. Evanston Ins. Co.",
+                    "docket_id": 5474769,
+                    "id": 5474769,
+                    "court_id": "txwd",
+                    "docket_absolute_url": "/docket/5474769/mehar/",
+                    "dateFiled": "2016-10-14",
+                    "docketNumber": "1:16-cv-00059",
+                    "recap_documents": [
+                        {
+                            "id": 18720567,
+                            "entry_date_filed": "2016-10-14",
+                            "short_description": (
+                                "ORDER GRANTING 14 Motion for Reconsideration "
+                                "re 13 Order on Motion to Dismiss"
+                            ),
+                            "page_count": 12,
+                            "is_free_on_pacer": True,
+                        }
+                    ],
+                }
+            ],
+        )
+        v = CitationVerifier(client)
+        result = v.verify(
+            "Mehar Holdings, LLC v. Evanston Ins. Co., "
+            "2016 WL 5957681 (W.D. Tex. Oct. 14, 2016)"
+        )
+        assert result.status == Status.VERIFIED_VIA_RECAP
+        assert result.final_ids.recap_document_id == 18720567
+
+    def test_score_gate_does_not_override_procedural_keywords(self):
+        """Cabot v. Lewis shape: 'ORDER CERTIFYING INTERLOCUTORY APPEAL'
+        matches a procedural keyword and stays DOCKET_ONLY even with
+        a 5-page count + is_free_on_pacer."""
+        client = _make_client(
+            citation_lookup=[],
+            search_opinions=[],
+            search_recap=[
+                {
+                    "caseName": "Cabot v. Lewis",
+                    "docket_id": 4275225,
+                    "id": 4275225,
+                    "court_id": "mad",
+                    "docket_absolute_url": "/docket/4275225/cabot/",
+                    "dateFiled": "2015-07-09",
+                    "docketNumber": "1:13-cv-11903",
+                    "recap_documents": [
+                        {
+                            "id": 5338694,
+                            "entry_date_filed": "2015-07-09",
+                            "short_description": (
+                                "ORDER CERTIFYING INTERLOCUTORY APPEAL"
+                            ),
+                            "page_count": 8,
+                            "is_free_on_pacer": True,
+                        }
+                    ],
+                }
+            ],
+        )
+        v = CitationVerifier(client)
+        result = v.verify(
+            "Cabot v. Lewis, 2015 WL 13648107 (D. Mass. July 9, 2015)"
+        )
+        assert result.status == Status.VERIFIED_DOCKET_ONLY
+
+    def test_score_gate_requires_both_page_count_and_is_free(self):
+        """A short doc (page_count < 5) fails the score gate even with
+        a non-procedural description and is_free_on_pacer=True."""
+        client = _make_client(
+            citation_lookup=[],
+            search_opinions=[],
+            search_recap=[
+                {
+                    "caseName": "Short Case",
+                    "docket_id": 9999,
+                    "id": 9999,
+                    "court_id": "txwd",
+                    "docket_absolute_url": "/docket/9999/short/",
+                    "dateFiled": "2020-06-15",
+                    "docketNumber": "1:20-cv-00001",
+                    "recap_documents": [
+                        {
+                            "id": 12345,
+                            "entry_date_filed": "2020-06-15",
+                            "short_description": "ORDER on motion",
+                            "page_count": 2,
+                            "is_free_on_pacer": True,
+                        }
+                    ],
+                }
+            ],
+        )
+        v = CitationVerifier(client)
+        result = v.verify("Short Case v. Other, 2020 WL 999999 (W.D. Tex. June 15, 2020)")
+        assert result.status == Status.VERIFIED_DOCKET_ONLY
+
+    def test_score_gate_fetches_doc_detail_when_search_omits_metadata(self):
+        """search_recap may return docs with page_count=None / is_free_on_pacer=None.
+
+        Those fields are only populated on /recap-documents/{id}/. When the
+        keyword/date gate path (b) fails AND page_count==0 (the zero sentinel
+        meaning "not populated"), the verifier fetches the doc detail and re-
+        applies the score gate. If the detail says page_count>=5 and
+        is_free_on_pacer=True, the result should be VERIFIED_VIA_RECAP.
+        """
+        client = _make_client(
+            citation_lookup=[],
+            search_opinions=[],
+            search_recap=[
+                {
+                    "caseName": "Mehar Holdings LLC v. Evanston Ins. Co.",
+                    "docket_id": 5474769,
+                    "id": 5474769,
+                    "court_id": "txwd",
+                    "docket_absolute_url": "/docket/5474769/mehar/",
+                    "dateFiled": "2016-10-14",
+                    "docketNumber": "1:16-cv-00059",
+                    "recap_documents": [
+                        {
+                            "id": 18720567,
+                            "entry_date_filed": "2016-10-14",
+                            # No opinion keyword, no date window match → path (b) fails.
+                            # page_count/is_free_on_pacer omitted by search → zero/False.
+                            "short_description": (
+                                "ORDER GRANTING 14 Motion for Reconsideration "
+                                "re 13 Order on Motion to Dismiss"
+                            ),
+                            "page_count": None,
+                            "is_free_on_pacer": None,
+                        }
+                    ],
+                }
+            ],
+            # doc-detail fetch supplies the real values
+            recap_document_metadata={
+                "id": 18720567,
+                "page_count": 12,
+                "is_free_on_pacer": True,
+            },
+        )
+        v = CitationVerifier(client)
+        result = v.verify(
+            "Mehar Holdings, LLC v. Evanston Ins. Co., "
+            "2016 WL 5957681 (W.D. Tex. Oct. 14, 2016)"
+        )
+        assert result.status == Status.VERIFIED_VIA_RECAP
+        assert result.final_ids.recap_document_id == 18720567
+        # Verify the doc-detail fetch was actually called
+        client.get_recap_document_metadata.assert_called_once_with(18720567)
+
+    def test_score_gate_doc_detail_fetch_failure_falls_back_to_docket_only(self):
+        """If the doc-detail fetch raises, the gate stays DOCKET_ONLY.
+
+        A failed refinement must NOT promote to VERIFICATION_INCOMPLETE /
+        errored — it should silently leave the result at DOCKET_ONLY.
+        """
+        client = _make_client(
+            citation_lookup=[],
+            search_opinions=[],
+            search_recap=[
+                {
+                    "caseName": "Mehar Holdings LLC v. Evanston Ins. Co.",
+                    "docket_id": 5474769,
+                    "id": 5474769,
+                    "court_id": "txwd",
+                    "docket_absolute_url": "/docket/5474769/mehar/",
+                    "dateFiled": "2016-10-14",
+                    "docketNumber": "1:16-cv-00059",
+                    "recap_documents": [
+                        {
+                            "id": 18720567,
+                            "entry_date_filed": "2016-10-14",
+                            "short_description": (
+                                "ORDER GRANTING 14 Motion for Reconsideration "
+                                "re 13 Order on Motion to Dismiss"
+                            ),
+                            "page_count": None,
+                            "is_free_on_pacer": None,
+                        }
+                    ],
+                }
+            ],
+            # Simulate a network/API failure on the doc-detail fetch.
+            recap_document_metadata=ConnectionError("simulated network failure"),
+        )
+        v = CitationVerifier(client)
+        result = v.verify(
+            "Mehar Holdings, LLC v. Evanston Ins. Co., "
+            "2016 WL 5957681 (W.D. Tex. Oct. 14, 2016)"
+        )
+        # Refinement failed → fall through to DOCKET_ONLY, no exception raised.
+        assert result.status == Status.VERIFIED_DOCKET_ONLY
+        assert result.status != Status.VERIFICATION_INCOMPLETE

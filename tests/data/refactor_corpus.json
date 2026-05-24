@@ -649,22 +649,23 @@
     {
       "id": "named-exemplar-mehar-holdings",
       "citation": "Mehar Holdings, LLC v. Evanston Ins. Co., 2016 WL 5957681 (W.D. Tex. Oct. 14, 2016)",
-      "expected_status": "VERIFIED_DOCKET_ONLY",
+      "expected_status": "VERIFIED_VIA_RECAP",
       "expected_resolving_stage": "recap_docket_search",
       "expected_final_ids": {
         "cluster_id": null,
         "opinion_id": null,
         "docket_id": 5474769,
-        "recap_document_id": null,
-        "text_source": null
+        "recap_document_id": 18720567,
+        "text_source": "recap_document"
       },
       "expected_warnings_subset": [],
-      "rationale": "Design v2 \u00a74 named VIA_RECAP exemplar (substituted, second-pass). Original Menges (2000 WL 765082) was substituted with Darensburg (2009 WL 2392094) in Phase 2.5; per Phase 3 \u00a70.3 (Q1 Westlaw lookup), Darensburg's WL number actually maps to the Aug 4, 2009 procedural costs-taxation order (doc #460), NOT the July 7, 2009 attorneys' fees opinion (doc #452) the fixture originally pinned. Because Phase 3's strict VIA_RECAP gate (\u00b114 days from cited date + opinion-typed keywords) cannot disambiguate, Darensburg is demoted to verified-docket-only-darensburg-wl-disambiguation. Mehar is the clean substitute: 2016-10-14 cited date matches RECAPDoc 18720567's entry_date_filed exactly, description 'OPINION on motion to dismiss' is opinion-typed under Phase 3 gating. Sub-case: recap_doc_opinion_not_ingested.",
+      "rationale": "Design v2 \u00a74 named VIA_RECAP exemplar (substituted, second-pass). Original Menges (2000 WL 765082) was substituted with Darensburg (2009 WL 2392094) in Phase 2.5; per Phase 3 \u00a70.3 (Q1 Westlaw lookup), Darensburg's WL number actually maps to the Aug 4, 2009 procedural costs-taxation order (doc #460), NOT the July 7, 2009 attorneys' fees opinion (doc #452) the fixture originally pinned. Because Phase 3's strict VIA_RECAP gate (\u00b114 days from cited date + opinion-typed keywords) cannot disambiguate, Darensburg is demoted to verified-docket-only-darensburg-wl-disambiguation. Mehar is the clean substitute: 2016-10-14 cited date matches RECAPDoc 18720567's entry_date_filed exactly; the doc is a 12-page is_free_on_pacer document. Sub-case: recap_doc_opinion_not_ingested.",
       "source": "benchmark/recap_diagnosis.csv#recap_doc_opinion_not_ingested[mehar-holdings]",
       "category": "named_exemplar",
       "phase3_classification_open": false,
       "mock_spec": null,
-      "phase3_ruling": "The cited doc 18720567 IS the substantive 12-page opinion granting motion for reconsideration + motion to remand, but its description 'ORDER GRANTING ... Motion for Reconsideration' contains none of the opinion-typed keywords ('opinion', 'memorandum', 'order & reasons', etc.). Strict gate falls through to DOCKET_ONLY. Documents a recognized limitation of keyword-based opinion-typing \u2014 Phase 4 should consider adding 'order granting'/'order denying' patterns or page-count-based heuristics. Named exemplar tag retained because the case still anchors a real-data VIA_RECAP-candidate shape, even though the gate now rejects it."
+      "phase3_ruling": "The cited doc 18720567 IS the substantive 12-page opinion granting motion for reconsideration + motion to remand, but its description 'ORDER GRANTING ... Motion for Reconsideration' contains none of the opinion-typed keywords ('opinion', 'memorandum', 'order & reasons', etc.). Strict gate falls through to DOCKET_ONLY. Documents a recognized limitation of keyword-based opinion-typing \u2014 Phase 4 should consider adding 'order granting'/'order denying' patterns or page-count-based heuristics. Named exemplar tag retained because the case still anchors a real-data VIA_RECAP-candidate shape, even though the gate now rejects it.",
+      "phase4_ruling": "Restored to VERIFIED_VIA_RECAP per Q2: the score-based gate (page_count >= 5 AND is_free_on_pacer, gated by procedural-keyword exclusion) accepts substantive 'ORDER GRANTING Motion for X' rulings even when the description lacks opinion keywords. recap_document_id=18720567, text_source=recap_document."
     },
     {
       "id": "verified-via-recap-doe-lawrence",
@@ -684,7 +685,8 @@
       "category": "recap_doc_opinion_not_ingested",
       "phase3_classification_open": false,
       "mock_spec": null,
-      "phase3_ruling": "Citation 2025 WL 2808055 has no specific date; verifier defaults cited date to mid-year (June 15 2025), but doc is filed 2025-08-29 \u2014 outside the \u00b114 day window. Strict gate cannot prove the doc IS the cited opinion. WL-only citations without a specific date can't pass the date-proximity check. Phase 4 should consider either a wider window for date-less WL cites, or a different mechanism (WL number indexed by CL?)."
+      "phase3_ruling": "Citation 2025 WL 2808055 has no specific date; verifier defaults cited date to mid-year (June 15 2025), but doc is filed 2025-08-29 \u2014 outside the \u00b114 day window. Strict gate cannot prove the doc IS the cited opinion. WL-only citations without a specific date can't pass the date-proximity check. Phase 4 should consider either a wider window for date-less WL cites, or a different mechanism (WL number indexed by CL?).",
+      "phase4_ruling": "Score-based gate (Phase 4 Q2) does NOT flip this fixture to VIA_RECAP. Live API check confirms all RECAP documents for docket 69539673 have is_free_on_pacer=None/False (not PACER free opinion docs). Gate path (c) requires is_free_on_pacer=True; without it the gate cannot fire. Fixture stays VERIFIED_DOCKET_ONLY. Root cause unchanged from Phase 3: WL-only citation without a specific date + no is_free_on_pacer signal."
     },
     {
       "id": "verified-docket-only-darensburg-wl-disambiguation",

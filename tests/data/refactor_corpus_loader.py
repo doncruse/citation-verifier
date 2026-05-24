@@ -52,6 +52,7 @@ class Fixture:
     mock_spec: dict[str, Any] | None = None
     expected_warnings_exact: bool = False
     phase3_ruling: str | None = None
+    phase4_ruling: str | None = None
 
 
 def load_corpus(path: Path | None = None) -> tuple[dict[str, Any], list[Fixture]]:

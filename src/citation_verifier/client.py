@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import asyncio
+import logging
 import os
 import re
 import ssl
@@ -10,6 +11,8 @@ import time
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
+
+logger = logging.getLogger(__name__)
 
 import aiohttp
 import certifi
@@ -291,6 +294,26 @@ class CourtListenerClient:
         url = f"{self.BASE_URL}/dockets/{docket_id}/"
         resp = self._request_with_retry("GET", url)
         return resp.json()
+
+    def get_recap_document_metadata(self, doc_id: int) -> dict[str, Any] | None:
+        """Fetch metadata for a single RECAP document.
+
+        Calls /api/rest/v4/recap-documents/{doc_id}/ and returns the parsed
+        JSON dict. Useful for retrieving ``page_count`` and
+        ``is_free_on_pacer`` when the search API omits them (returns None).
+
+        Returns None on any HTTP or network error so callers can treat a
+        failed fetch as a non-fatal refinement failure.
+        """
+        url = f"{self.BASE_URL}/recap-documents/{doc_id}/"
+        try:
+            resp = self._request_with_retry("GET", url)
+            return resp.json()
+        except Exception:
+            logger.debug(
+                "get_recap_document_metadata(%s) failed", doc_id, exc_info=True
+            )
+            return None
 
     def get_opinion_text(self, matched_url: str) -> str | None:
         """Fetch the plain text of an opinion or RECAP document (sync).
@@ -727,6 +750,21 @@ class AsyncCourtListenerClient:
         """Async version of get_docket()."""
         url = f"{self.BASE_URL}/dockets/{docket_id}/"
         return await self._request_with_retry("GET", url)
+
+    async def get_recap_document_metadata(self, doc_id: int) -> dict[str, Any] | None:
+        """Async version of CourtListenerClient.get_recap_document_metadata().
+
+        Fetches /api/rest/v4/recap-documents/{doc_id}/ and returns the parsed
+        JSON dict, or None on any error.
+        """
+        url = f"{self.BASE_URL}/recap-documents/{doc_id}/"
+        try:
+            return await self._request_with_retry("GET", url)
+        except Exception:
+            logger.debug(
+                "async get_recap_document_metadata(%s) failed", doc_id, exc_info=True
+            )
+            return None
 
     STORAGE_BASE = "https://storage.courtlistener.com/"
 

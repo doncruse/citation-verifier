@@ -165,13 +165,14 @@ def test_minimum_fixtures_per_status(corpus, status):
         # after Westlaw lookup showed 2009 WL 2392094 actually maps to the
         # Aug 4 procedural costs-taxation order, not the July 7 opinion the
         # fixture originally pinned. See docs/notes/wl-disambiguation-limit.md.
-        # Phase 3 Task 6 follow-up: Mehar's doc description "ORDER GRANTING
-        # Motion for Reconsideration" matches no opinion-typed keyword under
-        # the strict Phase 3 gate, so its expected_status was downgraded to
-        # VERIFIED_DOCKET_ONLY. The named_exemplar tag stays for traceability;
-        # see survey §3.1 for full ruling. The VIA_RECAP named-exemplar slot
-        # is currently empty by design.
-        ("named-exemplar-mehar-holdings", "VERIFIED_DOCKET_ONLY"),
+        # Phase 3 Task 6 follow-up: Mehar was temporarily downgraded to
+        # VERIFIED_DOCKET_ONLY because its description "ORDER GRANTING Motion
+        # for Reconsideration" matched no opinion keyword under the strict
+        # Phase 3 gate (see survey §3.1).
+        # Phase 4 Task 4 (Q2): restored to VERIFIED_VIA_RECAP by the
+        # score-based gate (page_count >= 5 AND is_free_on_pacer). Mehar's
+        # 12-page free doc qualifies regardless of description wording.
+        ("named-exemplar-mehar-holdings", "VERIFIED_VIA_RECAP"),
         ("named-exemplar-wrong-case", "WRONG_CASE"),
         ("named-exemplar-verification-incomplete", "VERIFICATION_INCOMPLETE"),
     ],

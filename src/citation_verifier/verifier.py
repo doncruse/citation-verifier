@@ -287,12 +287,29 @@ class CitationVerifier:
         parsed: ParsedCitation,
         candidates: list[CandidateMatch],
         court_id: str | None,
+        _doc_detail_fn: Callable[[int], dict[str, Any] | None] | None = None,
     ) -> VerificationResult:
         """Pick the winning candidate across pooled stages and finalize.
 
         Per-stage path entries were already appended in ``_search_fallback``.
         This helper does NOT append any new entries; it only chooses
         ``final_ids`` and ``status`` from the pooled candidates.
+
+        Parameters
+        ----------
+        _doc_detail_fn : callable or None
+            Optional callable ``(doc_id: int) -> dict | None`` used to fetch
+            /recap-documents/{id}/ when the search response omits
+            ``is_free_on_pacer`` (the field is absent from the RECAP search
+            index and only populated on the detail endpoint). When the
+            keyword/date gate path (b) fails but a candidate doc_id exists
+            and ``is_free_on_pacer`` is not yet confirmed True, this callable
+            is invoked to get the real ``is_free_on_pacer`` (and ``page_count``
+            when also missing) before re-applying the score gate (path c). A
+            failed fetch (callable returns None or raises) is treated as a
+            non-fatal refinement failure — the result falls through to
+            DOCKET_ONLY. Async callers set this to None and use
+            ``_build_fallback_result_async`` instead.
         """
         if not candidates:
             return self._finalize_result(
@@ -345,10 +362,155 @@ class CitationVerifier:
 
         if is_recap_match and status == Status.VERIFIED:
             # Phase 3: strict VIA_RECAP gate (design v2 §2.2, maintainer Q1).
+            # Phase 4 Task 4: also pass page_count + is_free_on_pacer for Q2 score gate.
             desc = best.description or ""
-            if best.recap_document_id and self._recap_doc_is_cited_opinion(
+            gate_passed = best.recap_document_id and self._recap_doc_is_cited_opinion(
                 parsed, desc, best.date_filed,
-            ):
+                page_count=best.page_count,
+                is_free_on_pacer=best.is_free_on_pacer,
+            )
+
+            # Phase 4 Task 4 doc-detail refinement: search_recap may return
+            # docs where is_free_on_pacer=None (field absent from the search
+            # index; only populated on /recap-documents/{id}/ detail endpoint).
+            # When the gate fails AND is_free_on_pacer is not True (i.e. the
+            # search did not confirm it), fetch the doc detail to get the real
+            # is_free_on_pacer (and page_count when also missing) before
+            # deciding whether path (c) can fire.
+            # Condition: gate failed, a candidate doc id exists, is_free not
+            # already confirmed True (so we might gain information by fetching).
+            if not gate_passed and best.recap_document_id and not best.is_free_on_pacer and _doc_detail_fn:
+                try:
+                    detail = _doc_detail_fn(best.recap_document_id)
+                    if detail:
+                        real_page_count = int(detail.get("page_count") or 0)
+                        real_is_free = bool(detail.get("is_free_on_pacer"))
+                        if real_page_count != best.page_count or real_is_free != best.is_free_on_pacer:
+                            best.page_count = real_page_count
+                            best.is_free_on_pacer = real_is_free
+                            gate_passed = self._recap_doc_is_cited_opinion(
+                                parsed, desc, best.date_filed,
+                                page_count=best.page_count,
+                                is_free_on_pacer=best.is_free_on_pacer,
+                            )
+                except Exception:
+                    logger.debug(
+                        "doc-detail fetch for recap_document_id=%s failed; "
+                        "leaving DOCKET_ONLY",
+                        best.recap_document_id,
+                        exc_info=True,
+                    )
+
+            if gate_passed:
+                status = Status.VERIFIED_VIA_RECAP
+                text_source = TextSource.recap_document
+                recap_document_id = best.recap_document_id
+            else:
+                status = Status.VERIFIED_DOCKET_ONLY
+                text_source = None
+        elif status == Status.VERIFIED and best.cluster_id:
+            text_source = TextSource.opinion_plain_text
+        else:
+            text_source = None
+
+        return self._finalize_result(
+            builder,
+            citation_text=citation_text,
+            parsed=parsed,
+            status=status,
+            cluster_id=best.cluster_id,
+            docket_id=best.docket_id,
+            absolute_url=best.url,
+            text_source=text_source,
+            recap_document_id=recap_document_id,
+        )
+
+    async def _build_fallback_result_async(
+        self,
+        builder: ResolutionPathBuilder,
+        citation_text: str,
+        parsed: ParsedCitation,
+        candidates: list[CandidateMatch],
+        court_id: str | None,
+        async_client: AsyncCourtListenerClient,
+    ) -> VerificationResult:
+        """Async mirror of ``_build_fallback_result``.
+
+        Identical logic except the doc-detail fetch awaits
+        ``async_client.get_recap_document_metadata()``. Called from
+        ``_search_fallback_async`` and ``verify_batch`` when a RECAP
+        candidate needs refinement.
+        """
+        if not candidates:
+            return self._finalize_result(
+                builder,
+                citation_text=citation_text,
+                parsed=parsed,
+                status=Status.NOT_FOUND,
+            )
+
+        candidates.sort(key=lambda c: c.score, reverse=True)
+        best = candidates[0]
+
+        has_unverified_cite = bool(
+            (parsed.volume and parsed.reporter and parsed.page) or parsed.wl_number
+        )
+        if has_unverified_cite and court_id and best.court_id != court_id:
+            return self._finalize_result(
+                builder,
+                citation_text=citation_text,
+                parsed=parsed,
+                status=Status.NOT_FOUND,
+            )
+
+        if not parsed.court and not parsed.year:
+            return self._finalize_result(
+                builder,
+                citation_text=citation_text,
+                parsed=parsed,
+                status=Status.NOT_FOUND,
+            )
+
+        status = Status.VERIFIED if best.score >= _VERIFIED_SCORE_THRESHOLD else Status.NOT_FOUND
+
+        is_recap_match = best.docket_id is not None and best.cluster_id is None
+        text_source: TextSource | None
+        recap_document_id: int | None = None
+
+        if is_recap_match and status == Status.VERIFIED:
+            desc = best.description or ""
+            gate_passed = best.recap_document_id and self._recap_doc_is_cited_opinion(
+                parsed, desc, best.date_filed,
+                page_count=best.page_count,
+                is_free_on_pacer=best.is_free_on_pacer,
+            )
+
+            # Async doc-detail refinement (same logic as sync path).
+            if not gate_passed and best.recap_document_id and not best.is_free_on_pacer:
+                try:
+                    detail = await async_client.get_recap_document_metadata(
+                        best.recap_document_id
+                    )
+                    if detail:
+                        real_page_count = int(detail.get("page_count") or 0)
+                        real_is_free = bool(detail.get("is_free_on_pacer"))
+                        if real_page_count != best.page_count or real_is_free != best.is_free_on_pacer:
+                            best.page_count = real_page_count
+                            best.is_free_on_pacer = real_is_free
+                            gate_passed = self._recap_doc_is_cited_opinion(
+                                parsed, desc, best.date_filed,
+                                page_count=best.page_count,
+                                is_free_on_pacer=best.is_free_on_pacer,
+                            )
+                except Exception:
+                    logger.debug(
+                        "async doc-detail fetch for recap_document_id=%s failed; "
+                        "leaving DOCKET_ONLY",
+                        best.recap_document_id,
+                        exc_info=True,
+                    )
+
+            if gate_passed:
                 status = Status.VERIFIED_VIA_RECAP
                 text_source = TextSource.recap_document
                 recap_document_id = best.recap_document_id
@@ -788,9 +950,12 @@ class CitationVerifier:
         # Aggregate across stages and finalize. The per-stage entries are
         # already appended above; _build_fallback_result does NOT touch the
         # builder — it only picks the winning candidate and finalizes.
+        # Pass the doc-detail fetch callable so the gate can refine
+        # page_count + is_free_on_pacer when search_recap omits them.
         candidates = opinion_candidates + recap_candidates
         return self._build_fallback_result(
             builder, citation_text, parsed, candidates, court_id,
+            _doc_detail_fn=self.client.get_recap_document_metadata,
         )
 
     def _stage_notes_for_candidate(self, best: CandidateMatch) -> str | None:
@@ -1037,7 +1202,9 @@ class CitationVerifier:
             description=full_desc or None,
             mismatches=mismatches,
             docket_id=docket_id,
-            recap_document_id=doc.get("id"),   # Phase 3 Task 4
+            recap_document_id=doc.get("id"),          # Phase 3 Task 4
+            page_count=int(doc.get("page_count") or 0),    # Phase 4 Task 4 (Q2)
+            is_free_on_pacer=bool(doc.get("is_free_on_pacer")),  # Phase 4 Task 4 (Q2)
         )
 
     def _build_docket_only_candidate(
@@ -1273,31 +1440,12 @@ class CitationVerifier:
         return (tier, min(page_count, 50))
 
     @staticmethod
-    def _recap_doc_is_cited_opinion(
-        parsed: ParsedCitation,
-        desc: str,
-        entry_date: str,
-        has_wl_cite_in_cluster: bool = False,
-    ) -> bool:
-        """Strict VIA_RECAP gate (design v2 §2.2 + Phase 3 maintainer Q1).
+    def _date_within_window(parsed: ParsedCitation, entry_date: str, days: int = 14) -> bool:
+        """Return True iff the doc's entry_date is within ±days of parsed's cited date.
 
-        A RECAPDocument qualifies as the cited opinion when all of:
-          (a) The cited date is within ±14 days of the doc's entry_date_filed.
-              (Tolerance accounts for Westlaw publication lag from filing.)
-          (b) The doc description matches opinion-typed keywords AND does
-              NOT match procedural-order keywords (interlocutory appeal,
-              taxation of costs, motion in limine, objections, etc.).
-          (c) Optionally — if we know the cluster's citations include the
-              brief's WL number — we trust the match unconditionally.
-
-        When parsed.year is missing or entry_date is unparseable, this
-        function returns False (cannot prove the doc is the cited opinion).
+        When parsed.year is missing or entry_date is unparseable, returns False.
+        Missing month defaults to June (6); missing day defaults to 15.
         """
-        desc_lower = (desc or "").lower()
-        if has_wl_cite_in_cluster:
-            return True
-
-        # (a) Date proximity check.
         if not (parsed.year and entry_date and len(entry_date) >= 10):
             return False
         try:
@@ -1311,16 +1459,45 @@ class CitationVerifier:
             delta_days = abs(
                 (_date(cited_y, cited_m, cited_d) - _date(ey, em, ed)).days
             )
-            if delta_days > 14:
-                return False
+            return delta_days <= days
         except (ValueError, TypeError):
             return False
 
-        # (b) Opinion-typed vs procedural-order signal.
-        # Note: "motion to" and "motion for" are intentionally excluded
-        # because they appear as substrings in opinion descriptions like
-        # "OPINION on motion to dismiss". Use specific compound phrases
-        # (e.g. "motion in limine") only.
+    @staticmethod
+    def _recap_doc_is_cited_opinion(
+        parsed: ParsedCitation,
+        desc: str,
+        entry_date: str,
+        has_wl_cite_in_cluster: bool = False,
+        page_count: int = 0,
+        is_free_on_pacer: bool = False,
+    ) -> bool:
+        """Strict VIA_RECAP gate (design v2 §2.2 + Phase 3 Q1 + Phase 4 Q2).
+
+        A RECAPDocument qualifies as the cited opinion when:
+          (a) has_wl_cite_in_cluster is True, OR
+          (b) The description matches opinion-typed keywords AND the date
+              is within ±14 days of cited date AND no procedural-order
+              keywords match, OR
+          (c) The score-based gate fires: page_count >= 5 AND
+              is_free_on_pacer AND no procedural-order keywords match
+              (substantive long-form opinion regardless of description
+              wording; the score-based fallback handles "ORDER GRANTING ..."
+              style descriptions that are substantive but keyword-poor).
+
+        Note: "motion to" and "motion for" are intentionally excluded from
+        the procedural keywords because they appear as substrings in opinion
+        descriptions like "OPINION on motion to dismiss". Use specific
+        compound phrases (e.g. "motion in limine") only.
+
+        When parsed.year is missing or entry_date is unparseable, path (b)
+        cannot fire (date window returns False). Path (c) does not require
+        a date and can fire on page_count + is_free_on_pacer alone.
+        """
+        desc_lower = (desc or "").lower()
+
+        # Procedural-keyword guard runs first; never accept a doc whose
+        # description matches a procedural type, regardless of score.
         _PROCEDURAL_KEYWORDS = (
             "certifying interlocutory appeal",
             "taxation of costs", "taxation order",
@@ -1328,11 +1505,18 @@ class CitationVerifier:
             "objections to", "objection to",
             "stipulation", "scheduling order",
             "minute order", "minute entry",
+            "notice of",
             "certificate of service",
+            "stipulated protective order",
         )
         if any(kw in desc_lower for kw in _PROCEDURAL_KEYWORDS):
             return False
 
+        # Path (a): WL cite in cluster → unconditional trust.
+        if has_wl_cite_in_cluster:
+            return True
+
+        # Path (b): opinion keyword + date window.
         _OPINION_KEYWORDS = (
             "opinion", "memorandum",
             "order & reasons", "order and reasons",
@@ -1340,7 +1524,19 @@ class CitationVerifier:
             "report & recommendation",
             "memorandum and order", "memorandum & order",
         )
-        return any(kw in desc_lower for kw in _OPINION_KEYWORDS)
+        has_opinion_keyword = any(kw in desc_lower for kw in _OPINION_KEYWORDS)
+
+        if has_opinion_keyword and CitationVerifier._date_within_window(parsed, entry_date, days=14):
+            return True
+
+        # Path (c) — score-based fallback for substantive-but-keyword-poor docs.
+        # page_count >= 5 AND is_free_on_pacer strongly suggests a substantive
+        # opinion even when the description wording doesn't match opinion keywords
+        # (e.g. "ORDER GRANTING Motion for Reconsideration" — Mehar Holdings).
+        if page_count >= 5 and is_free_on_pacer:
+            return True
+
+        return False
 
     @staticmethod
     def _extract_surname(party_name: str) -> str:
@@ -2408,11 +2604,14 @@ class CitationVerifier:
                     )
 
         # Aggregate across stages and finalize. The per-stage entries are
-        # already appended above; _build_fallback_result does NOT touch the
-        # builder — it only picks the winning candidate and finalizes.
+        # already appended above; _build_fallback_result_async does NOT touch
+        # the builder — it only picks the winning candidate and finalizes.
+        # Uses the async doc-detail fetch to refine page_count + is_free_on_pacer
+        # when search_recap omits them (those fields only populate on the
+        # /recap-documents/{id}/ detail endpoint).
         candidates = opinion_candidates + recap_candidates
-        return self._build_fallback_result(
-            builder, citation_text, parsed, candidates, court_id,
+        return await self._build_fallback_result_async(
+            builder, citation_text, parsed, candidates, court_id, async_client,
         )
 
     async def _process_recap_results_async(

@@ -183,6 +183,8 @@ class CandidateMatch:
     mismatches: list[Diagnostic] = field(default_factory=list)
     docket_id: int | None = None
     recap_document_id: int | None = None   # Phase 3 Task 4
+    page_count: int = 0                    # Phase 4 Task 4 (Q2)
+    is_free_on_pacer: bool = False         # Phase 4 Task 4 (Q2)
 
 
 # ---------------------------------------------------------------------------
