@@ -29,16 +29,11 @@ from sse_starlette.sse import EventSourceResponse
 from citation_verifier.cache import VerificationCache
 from citation_verifier.client import AsyncCourtListenerClient
 from citation_verifier.models import (
-    FinalIds,
     ParsedCitation,
-    ResolutionPathEntry,
-    StageName,
-    StageVerdict,
     Status,
     VerificationResult,
 )
 from citation_verifier.name_matcher import CaseNameMatcher
-from citation_verifier.parser import parse_citation
 from citation_verifier.verifier import CitationVerifier
 
 # Status -> display label / CSS class. Phase 1 only emits VERIFIED and
@@ -409,82 +404,24 @@ async def verify(request: Request):
         }
 
         async with AsyncCourtListenerClient(api_token=token) as client:
-            # Batch citation lookup — resolve most citations in one API call
-            parsed_list = [parse_citation(c) for c in citations]
-            batch_hits = await _verifier._batch_citation_lookup(
-                client, citations
-            )
-
+            # Per-citation verify_async() through the public API. The pre-v0.3
+            # batch fast path manually called private helpers whose signatures
+            # changed during the schema rewrite (e.g. _process_citation_lookup_hit
+            # now takes (builder, token, citation_text, parsed, cluster,
+            # clusters_returned) and returns finalize kwargs, not a result).
+            # Routing every citation through verify_async() means the web app
+            # gets the same code path as the CLI and unit tests, so schema
+            # changes don't silently break it. Trade-off: one citation_lookup
+            # API call per citation instead of one shared batched call. For
+            # typical web usage (1-10 citations) the per-request overhead is
+            # negligible against CL's own response time.
             for i, citation_text in enumerate(citations):
-                if i in batch_hits:
-                    # Batch hit — process immediately, no per-citation API call
-                    try:
-                        result = _verifier._process_citation_lookup_hit(
-                            citation_text, parsed_list[i], batch_hits[i]
-                        )
-                        if not quick_only or result.status != Status.NOT_FOUND:
-                            _cache.put(citation_text, result)
-                        result_dict = _result_to_dict(result)
-                        result_dict["index"] = i
-                        result_dict["cached"] = False
-                        yield {
-                            "event": "result",
-                            "data": json.dumps(result_dict),
-                        }
-                    except Exception as exc:
-                        logger.exception(
-                            "Error processing batch hit: %s", citation_text
-                        )
-                        yield {
-                            "event": "result",
-                            "data": json.dumps({
-                                "index": i,
-                                "input_citation": citation_text,
-                                "citation_as_written": citation_text,
-                                "status": "ERROR",
-                                "confidence": 0.0,
-                                "matched_case_name": None,
-                                "matched_url": None,
-                                "matched_court": None,
-                                "matched_date": None,
-                                "matched_description": None,
-                                "diagnostics": [],
-                                "warnings": [],
-                                "stage_notes": None,
-                                "error": str(exc),
-                                "cached": False,
-                            }),
-                        }
-                elif quick_only:
-                    # No batch hit + quick mode — return NOT_FOUND
-                    result = VerificationResult(
-                        citation_as_written=citation_text,
-                        parsed_citation=parsed_list[i],
-                        status=Status.NOT_FOUND,
-                        final_ids=FinalIds(
-                            cluster_id=None,
-                            opinion_id=None,
-                            docket_id=None,
-                            recap_document_id=None,
-                            absolute_url=None,
-                            text_source=None,
-                        ),
-                        resolution_path=[
-                            ResolutionPathEntry(
-                                stage=StageName.citation_lookup,
-                                query={},
-                                raw_response_summary={},
-                                verdict=StageVerdict.no_match,
-                                confidence=None,
-                                notes="Quick search only: not in citation lookup API",
-                                elapsed_ms=0,
-                            )
-                        ],
-                        warnings=[],
-                        gates_failed=[],
-                        timing={},
-                        cache_hit=False,
+                try:
+                    result = await _verifier.verify_async(
+                        client, citation_text, quick_only=quick_only,
                     )
+                    if not quick_only or result.status != Status.NOT_FOUND:
+                        _cache.put(citation_text, result)
                     result_dict = _result_to_dict(result)
                     result_dict["index"] = i
                     result_dict["cached"] = False
@@ -492,44 +429,30 @@ async def verify(request: Request):
                         "event": "result",
                         "data": json.dumps(result_dict),
                     }
-                else:
-                    # No batch hit — search fallback (opinion search + RECAP)
-                    try:
-                        result = await _verifier._search_fallback_async(
-                            client, citation_text, parsed_list[i]
-                        )
-                        _cache.put(citation_text, result)
-                        result_dict = _result_to_dict(result)
-                        result_dict["index"] = i
-                        result_dict["cached"] = False
-                        yield {
-                            "event": "result",
-                            "data": json.dumps(result_dict),
-                        }
-                    except Exception as exc:
-                        logger.exception(
-                            "Error verifying citation: %s", citation_text
-                        )
-                        yield {
-                            "event": "result",
-                            "data": json.dumps({
-                                "index": i,
-                                "input_citation": citation_text,
-                                "citation_as_written": citation_text,
-                                "status": "ERROR",
-                                "confidence": 0.0,
-                                "matched_case_name": None,
-                                "matched_url": None,
-                                "matched_court": None,
-                                "matched_date": None,
-                                "matched_description": None,
-                                "diagnostics": [],
-                                "warnings": [],
-                                "stage_notes": None,
-                                "error": str(exc),
-                                "cached": False,
-                            }),
-                        }
+                except Exception as exc:
+                    logger.exception(
+                        "Error verifying citation: %s", citation_text
+                    )
+                    yield {
+                        "event": "result",
+                        "data": json.dumps({
+                            "index": i,
+                            "input_citation": citation_text,
+                            "citation_as_written": citation_text,
+                            "status": "ERROR",
+                            "confidence": 0.0,
+                            "matched_case_name": None,
+                            "matched_url": None,
+                            "matched_court": None,
+                            "matched_date": None,
+                            "matched_description": None,
+                            "diagnostics": [],
+                            "warnings": [],
+                            "stage_notes": None,
+                            "error": str(exc),
+                            "cached": False,
+                        }),
+                    }
 
                 yield {
                     "event": "progress",
