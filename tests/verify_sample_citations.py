@@ -22,6 +22,7 @@ import pdfplumber
 
 # Add parent directory to path
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
+from citation_verifier.models import Status
 from citation_verifier.verifier import CitationVerifier
 from citation_verifier.text_cleaner import clean_case_name
 
@@ -130,15 +131,13 @@ def verify_citations_batch(citations: list[dict]) -> dict[str, list[dict]]:
     """Verify a batch of citations and organize by result status.
 
     Returns:
-        Dict with keys: verified, possible_match, likely_real, not_found, skipped
+        Dict keyed by every Status enum value plus the 'SKIPPED' script-
+        internal sentinel for short cites with no case name.
     """
-    results = {
-        'VERIFIED': [],
-        'LIKELY_REAL': [],
-        'POSSIBLE_MATCH': [],
-        'NOT_FOUND': [],
-        'SKIPPED': []
-    }
+    # Phase 5 Task 9: build the bucket dict from the Status enum so future
+    # status additions auto-bucket without script edits.
+    results: dict[str, list[dict]] = {s.value: [] for s in Status}
+    results['SKIPPED'] = []  # script-internal sentinel
 
     # Initialize verifier
     verifier = CitationVerifier()
@@ -204,20 +203,32 @@ def verify_citations_batch(citations: list[dict]) -> dict[str, list[dict]]:
         try:
             result = verifier.verify(simple_citation)
 
-            print(f"  Status: {result.status.value}")
-            if result.matched_url:
-                print(f"  Found: {result.matched_url}")
+            # Phase 5 Task 9: v0.3 schema accessors (matched_url etc. were
+            # dropped from the top-level VerificationResult; everything
+            # moved under result.final_ids and result.warnings).
+            matched_url = result.final_ids.absolute_url
+            matched_cluster_id = result.final_ids.cluster_id
+            confidence = result.headline_confidence
+            matched_case_name = (
+                result.resolution_path[-1].raw_response_summary.get("case_name")
+                if result.resolution_path else None
+            )
+            diagnostics_strs = [w.message for w in (result.warnings or [])]
 
-            # Organize by status
+            print(f"  Status: {result.status.value}")
+            if matched_url:
+                print(f"  Found: {matched_url}")
+
             cite_result = {
                 'citation': simple_citation,
                 'original': citation_text,
                 'source_pdf': source_pdf,
                 'status': result.status.value,
-                'matched_url': result.matched_url,
-                'matched_cluster_id': result.matched_cluster_id,
-                'confidence': result.confidence,
-                'diagnostics': result.diagnostics
+                'matched_url': matched_url,
+                'matched_cluster_id': matched_cluster_id,
+                'matched_case_name': matched_case_name,
+                'confidence': confidence,
+                'diagnostics': diagnostics_strs,
             }
 
             results[result.status.value].append(cite_result)
