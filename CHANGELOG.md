@@ -26,9 +26,21 @@ All notable schema-level changes to citation-verifier. Per design v2 §2.6 / §5
 - **X v. United States caption_investigation gap** (Phase 3 retro Q3): `_names_match_citation_lookup` now detects generic-government-defendant patterns (`v. United States`, `v. State`, `v. Commonwealth`, `v. People`). Koch named exemplar recovers its `cl_display_name_data_bug` warning.
 - **Brief pipeline status-aware badges** (Phase 3 retro carry-forward): `brief_pipeline.py` now consults a `_STATUS_BADGE_FALLBACK` map when the agent-authored `badge_label` is absent. WRONG_CASE, VERIFIED_PARTIAL, VERIFIED_VIA_RECAP, VERIFIED_DOCKET_ONLY, VERIFICATION_INCOMPLETE get distinguishable labels. The agent-authored path is unchanged.
 
+### Phase 5 behavior (consumer compatibility sweep)
+
+- **Web app `/api/qc/run-batch` regression fix** (audit row C1): the QC batch endpoint previously called `_search_fallback_async(client, cite, parsed)` with the v0.2 3-arg signature, raising TypeError on every miss. Routed through per-citation `verify_async()` for consistency with `/api/verify`'s addendum fix. Same code path as CLI + unit tests; schema changes can no longer silently break it.
+- **Single-citation CLI exit codes** (audit row C7): now distinguishes `NOT_FOUND` (exit 1) from `VERIFICATION_INCOMPLETE` (exit 2). When a batch contains both, INCOMPLETE wins — if any verification didn't complete, the NOT_FOUND signal is itself not fully trustworthy.
+- **`audit-misses` CLI** (audit row C6): retries `VERIFICATION_INCOMPLETE` quick-results in the full pass alongside `NOT_FOUND` (design §2.8: INCOMPLETE is exactly the case the full pipeline's fallback was built for).
+- **`tests/verify_sample_citations.py`** (audit row C2): migrated to v0.3 schema (was crashing on every successful verify due to `result.matched_url` / `result.diagnostics` AttributeErrors). Results dict now built from `Status` enum so future additions auto-bucket.
+- **`tests/verify_from_csv.py`** (audit row C5): post-run "NEEDS QC" highlight now includes `WRONG_CASE` and `VERIFICATION_INCOMPLETE` alongside `NOT_FOUND` and `POSSIBLE_MATCH`.
+- **Frontend coverage** (audit row C3, C4, plus addendum sweep): every `Status` enum value has a `case` block in each of `web/static/{get,index,qc}.html`'s JS switches (test in `tests/test_frontend_status_coverage.py`). QC page filter chips cover all v0.3 statuses; default-active set is `NOT_FOUND` + `WRONG_CASE` + `VERIFICATION_INCOMPLETE` + `POSSIBLE_MATCH`. Deep-search retry includes `VERIFICATION_INCOMPLETE`.
+- **Web app integration test infrastructure** lands as `tests/test_web_app.py`. Regression-pattern coverage of `/api/verify`, `/api/qc/run-batch`, `/api/qc/runs`, `/api/qc/save`, `/api/flag-for-flp`, `/api/download-pdfs`, `/api/health`, and the public-mode middleware. Stubs `AsyncCourtListenerClient` at both module boundaries (web.app and verifier).
+- **`docs/consumer-surface-manifest.md`** enumerates every consumer of `VerificationResult` and `Status` — checklist artifact for future schema changes. Includes "Known issues" section tracking `verify_batch()`'s deferred `needs_caption_investigation` bug and client-injection gap.
+
 ### Testing infrastructure
 
 - **`MockSpecPatcher` / `AsyncMockSpecPatcher`** in `tests/mock_spec_harness.py`: reusable test harness that wraps `client._request_with_retry` (sync + async) to inject stage-targeted API failures per a corpus `mock_spec` dict. URL/params-based stage classification; clean no-match stubs for non-target stages. Used by `tests/test_phase3_corpus_acceptance.py::test_corpus_fixture_incomplete_status_via_mock` to drive the 5 VERIFICATION_INCOMPLETE corpus fixtures without a CL token.
+- **Phase 5 additions**: `tests/test_web_app.py` (14 tests, FastAPI TestClient + stubbed CL client), `tests/test_frontend_status_coverage.py` (5 tests, static JS switch-body checks with brace-balanced extraction), plus per-task unit tests in `test_cli_audit_misses.py` and `test_cli_verify_json.py`. Test count: 362 → 386.
 
 ### Cross-repo consumers
 
