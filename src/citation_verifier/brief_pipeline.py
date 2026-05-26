@@ -182,11 +182,11 @@ def _write_verification_csv(
                 "matched_name": matched_name,
                 "diagnostics_cat": "; ".join(warn_cats),
                 "diagnostics_msg": "; ".join(diag_msg_parts),
-                # Phase 1: syllabus is no longer surfaced on VerificationResult.
-                # Phase 3 will re-evaluate whether to add it to FinalIds; for
-                # now this column blanks (no current consumer breaks — the
-                # metadata_check path reads claims.csv, which is merge-fed).
-                "syllabus": "",
+                # Surfaced via VerificationResult.syllabus accessor, which
+                # walks resolution_path to the citation_lookup entry's
+                # raw_response_summary (joined syllabus + nature_of_suit).
+                # Restored from Phase 1 retro Q5 (Path A).
+                "syllabus": result.syllabus or "",
             })
 
 

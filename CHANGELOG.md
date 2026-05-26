@@ -2,6 +2,22 @@
 
 All notable schema-level changes to citation-verifier. Per design v2 §2.6 / §5: additions to closed-set enums are minor-version changes, removals are major.
 
+## v0.3.1 — 2026-05-23
+
+### Schema (models.py)
+
+- **New `VerificationResult.syllabus` property**: walks `resolution_path` in reverse looking for a `citation_lookup` entry with `verdict=resolved`/`partial`, and returns the joined `syllabus` + `nature_of_suit` strings from its `raw_response_summary` (joined with `"; "` per the pre-refactor convention). Returns `None` when no citation_lookup entry exists or neither metadata field is populated. Additive, no removed surfaces. Mirrors `headline_confidence`'s walk-the-path accessor pattern (design §2.5).
+
+### Behavior
+
+- **`raw_response_summary` for `citation_lookup` entries now carries `syllabus` and `nature_of_suit`** keys when the CL cluster response includes them (omitted when absent to avoid storing empty strings). Per design §2.5, `raw_response_summary` is free-form per stage; this is an addition to the citation_lookup stage's documented shape, not a contract break.
+- **`brief_pipeline._write_verification_csv` re-populates the `syllabus` CSV column** via `result.syllabus`. The column had been blank since the Phase 1 schema migration (which deferred the question to "Phase 3 re-evaluates whether to add to FinalIds"); restored here as Phase 1 retro Q5 / Path A (raw_response_summary + accessor rather than top-level field, since syllabus is per-stage metadata not a verifier-side ID).
+- **Verify-brief skill's syllabus-based topic-mismatch triage works again**: `SKILL.md` Phase 1d's "Syllabus check" print path and Phase 2a's "Syllabus vs. proposition topic mismatch" full-Opus trigger now receive data. SKILL.md prose was already correct; only the upstream data plumbing was missing.
+
+### Roadmap cleanup
+
+- Removed `scratch/ROADMAP.md` entry "Fabricated quote detection (separate criterion)" — audit confirmed all three claims are realized (quote_check_worst produces FABRICATED status; SKILL.md Phase 2a triage uses it as a full-Opus trigger; Phase 2c assessment matrix treats FABRICATED as its own axis with dedicated badge labels).
+
 ## v0.3.0 — 2026-05-24
 
 ### Migrating from v0.2 to v0.3

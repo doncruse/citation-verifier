@@ -88,13 +88,17 @@ class TestMergeClaims:
 
 # --- Helper for wave tests ---
 
-def _make_result(status, url="", case_name=""):
+def _make_result(status, url="", case_name="", syllabus="", nature_of_suit=""):
     """Build a v0.3 VerificationResult for tests.
 
     When ``status`` is one of the VERIFIED_* statuses, emit a resolved
     resolution_path entry carrying ``case_name`` so brief_pipeline's CSV
     writer and download path can find it (mirrors verifier.py's
-    ``_build_result`` shape).
+    ``_build_result`` shape). When ``syllabus`` or ``nature_of_suit`` are
+    provided, they are added to the citation_lookup entry's
+    raw_response_summary (matches verifier._process_citation_lookup_hit's
+    behavior post Phase 1 retro Q5 restoration) so consumer paths that
+    rely on VerificationResult.syllabus can be exercised.
     """
     is_verified = status in (
         Status.VERIFIED,
@@ -116,13 +120,18 @@ def _make_result(status, url="", case_name=""):
 
     path = []
     if is_verified:
+        summary: dict = {}
+        if case_name:
+            summary["case_name"] = case_name
+        if syllabus:
+            summary["syllabus"] = syllabus
+        if nature_of_suit:
+            summary["nature_of_suit"] = nature_of_suit
         path.append(
             ResolutionPathEntry(
                 stage=StageName.citation_lookup,
                 query={},
-                raw_response_summary=(
-                    {"case_name": case_name} if case_name else {}
-                ),
+                raw_response_summary=summary,
                 verdict=StageVerdict.resolved,
                 confidence=1.0,
                 notes=None,
@@ -405,6 +414,60 @@ class TestMergePassthroughColumns:
 
         merged = list(csv.DictReader((tmp_path / "claims.csv").open()))
         assert merged[0]["quote_check_worst"] == "VERBATIM"
+
+
+class TestWriteVerificationCsvSyllabus:
+    """Restored in fix/restore-syllabus (Phase 1 retro Q5, Path A):
+    _write_verification_csv populates the syllabus column from
+    VerificationResult.syllabus (which walks resolution_path to the
+    citation_lookup entry's raw_response_summary)."""
+
+    def test_syllabus_column_populated_when_present(self, tmp_path):
+        from citation_verifier.brief_pipeline import _write_verification_csv
+
+        result = _make_result(
+            Status.VERIFIED,
+            url="https://www.courtlistener.com/opinion/19782/tompkins-v-cyr/",
+            case_name="Tompkins v. Cyr",
+            syllabus="RICO; anti-abortion protesters",
+            nature_of_suit="Civil Rights",
+        )
+        _write_verification_csv(
+            tmp_path, ["Tompkins v. Cyr, 202 F.3d 770 (5th Cir. 2000)"], [result],
+        )
+
+        rows = list(csv.DictReader((tmp_path / "verification_results.csv").open()))
+        assert len(rows) == 1
+        assert rows[0]["syllabus"] == "RICO; anti-abortion protesters; Civil Rights"
+
+    def test_syllabus_column_blank_when_absent(self, tmp_path):
+        from citation_verifier.brief_pipeline import _write_verification_csv
+
+        result = _make_result(
+            Status.VERIFIED,
+            url="https://www.courtlistener.com/opinion/123/",
+            case_name="Obergefell v. Hodges",
+            # no syllabus / nature_of_suit
+        )
+        _write_verification_csv(
+            tmp_path, ["Obergefell v. Hodges, 576 U.S. 644 (2015)"], [result],
+        )
+
+        rows = list(csv.DictReader((tmp_path / "verification_results.csv").open()))
+        assert rows[0]["syllabus"] == ""
+
+    def test_syllabus_column_blank_for_not_found(self, tmp_path):
+        from citation_verifier.brief_pipeline import _write_verification_csv
+
+        # NOT_FOUND results have no citation_lookup resolved entry, so the
+        # accessor returns None and the CSV column blanks.
+        result = _make_result(Status.NOT_FOUND)
+        _write_verification_csv(
+            tmp_path, ["Made Up v. Fake, 999 U.S. 999 (2099)"], [result],
+        )
+
+        rows = list(csv.DictReader((tmp_path / "verification_results.csv").open()))
+        assert rows[0]["syllabus"] == ""
 
 
 # --- Task 2: _normalize_quote_text ---

@@ -214,6 +214,37 @@ class VerificationResult:
                 return entry.confidence
         return None
 
+    @property
+    def syllabus(self) -> str | None:
+        """Surface CourtListener-provided syllabus / nature_of_suit metadata
+        from the citation_lookup stage entry, when present.
+
+        Walks resolution_path in reverse looking for a citation_lookup entry
+        whose verdict is `resolved` or `partial`. Joins the entry's
+        raw_response_summary `syllabus` and `nature_of_suit` keys with '; '
+        (preserving the pre-refactor convention from
+        verifier._process_citation_lookup_hit). Returns None when no
+        citation_lookup entry exists in the path or neither key is populated.
+
+        Centralizes the per-stage shape coupling so consumers
+        (notably brief_pipeline / the verify-brief skill) don't have to know
+        the raw_response_summary internals. Restoration of the pre-refactor
+        syllabus surface, deferred from Phase 1 (retro Q5)."""
+        for entry in reversed(self.resolution_path):
+            if entry.stage is not StageName.citation_lookup:
+                continue
+            if entry.verdict not in (StageVerdict.resolved, StageVerdict.partial):
+                continue
+            parts = []
+            syl = entry.raw_response_summary.get("syllabus")
+            if syl:
+                parts.append(syl)
+            nos = entry.raw_response_summary.get("nature_of_suit")
+            if nos:
+                parts.append(nos)
+            return "; ".join(parts) if parts else None
+        return None
+
 
 @dataclass
 class BatchError:
