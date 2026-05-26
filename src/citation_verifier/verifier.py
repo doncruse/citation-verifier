@@ -191,6 +191,15 @@ class CitationVerifier:
             "matched_case_name": case_name,
             "clusters_returned": clusters_returned,
         }
+        # Path A of Phase 1 retro Q5 (CSV syllabus column): surface syllabus
+        # + nature_of_suit metadata when CL returns them, so consumers
+        # (notably brief_pipeline / the verify-brief skill's topic-mismatch
+        # triage) can use them without re-querying the cluster endpoint.
+        # Keys omitted when absent so empty strings don't pollute the summary.
+        if cluster.get("syllabus"):
+            summary["syllabus"] = cluster["syllabus"]
+        if cluster.get("nature_of_suit"):
+            summary["nature_of_suit"] = cluster["nature_of_suit"]
 
         # Name-mismatch case: citation resolves but caption disagrees.
         # Phase 3 (Task 5): the caller runs caption_investigation to classify

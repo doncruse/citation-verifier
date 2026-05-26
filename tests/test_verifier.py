@@ -134,6 +134,157 @@ class TestStep1Verified:
 
 
 # ---------------------------------------------------------------------------
+# Step 1: Citation Lookup — syllabus passthrough (Phase 1 retro Q5)
+# ---------------------------------------------------------------------------
+
+
+class TestStep1SyllabusPassthrough:
+    """Restored in fix/restore-syllabus: citation_lookup raw_response_summary
+    carries `syllabus` and `nature_of_suit` when CL provides them, and
+    VerificationResult.syllabus accessor joins them."""
+
+    def test_syllabus_present_in_raw_response_summary(self):
+        client = _make_client(
+            citation_lookup=[
+                {
+                    "clusters": [
+                        {
+                            "case_name": "Tompkins v. Cyr",
+                            "id": 19782,
+                            "absolute_url": "/opinion/19782/tompkins-v-cyr/",
+                            "syllabus": "RICO; anti-abortion protesters; harassment",
+                            "nature_of_suit": "Civil Rights",
+                        }
+                    ]
+                }
+            ]
+        )
+        v = CitationVerifier(client)
+        result = v.verify("Tompkins v. Cyr, 202 F.3d 770 (5th Cir. 2000)")
+
+        winning = _winning_path_entry(result)
+        assert winning.raw_response_summary.get("syllabus") == (
+            "RICO; anti-abortion protesters; harassment"
+        )
+        assert winning.raw_response_summary.get("nature_of_suit") == "Civil Rights"
+
+    def test_keys_absent_when_cluster_has_neither_field(self):
+        client = _make_client(
+            citation_lookup=[
+                {
+                    "clusters": [
+                        {
+                            "case_name": "Obergefell v. Hodges",
+                            "id": 123,
+                            "absolute_url": "/opinion/123/obergefell-v-hodges/",
+                        }
+                    ]
+                }
+            ]
+        )
+        v = CitationVerifier(client)
+        result = v.verify("Obergefell v. Hodges, 576 U.S. 644 (2015)")
+
+        winning = _winning_path_entry(result)
+        # Per the implementation: omit empty keys rather than store None / ""
+        assert "syllabus" not in winning.raw_response_summary
+        assert "nature_of_suit" not in winning.raw_response_summary
+
+    def test_keys_absent_when_cluster_has_empty_strings(self):
+        client = _make_client(
+            citation_lookup=[
+                {
+                    "clusters": [
+                        {
+                            "case_name": "Obergefell v. Hodges",
+                            "id": 123,
+                            "absolute_url": "/opinion/123/",
+                            "syllabus": "",
+                            "nature_of_suit": "",
+                        }
+                    ]
+                }
+            ]
+        )
+        v = CitationVerifier(client)
+        result = v.verify("Obergefell v. Hodges, 576 U.S. 644 (2015)")
+
+        winning = _winning_path_entry(result)
+        assert "syllabus" not in winning.raw_response_summary
+        assert "nature_of_suit" not in winning.raw_response_summary
+
+    def test_accessor_joins_syllabus_and_nature_of_suit(self):
+        client = _make_client(
+            citation_lookup=[
+                {
+                    "clusters": [
+                        {
+                            "case_name": "Tompkins v. Cyr",
+                            "id": 19782,
+                            "absolute_url": "/opinion/19782/",
+                            "syllabus": "RICO; anti-abortion protesters",
+                            "nature_of_suit": "Civil Rights",
+                        }
+                    ]
+                }
+            ]
+        )
+        v = CitationVerifier(client)
+        result = v.verify("Tompkins v. Cyr, 202 F.3d 770 (5th Cir. 2000)")
+
+        assert result.syllabus == "RICO; anti-abortion protesters; Civil Rights"
+
+    def test_accessor_returns_syllabus_alone_when_nature_of_suit_missing(self):
+        client = _make_client(
+            citation_lookup=[
+                {
+                    "clusters": [
+                        {
+                            "case_name": "Tompkins v. Cyr",
+                            "id": 19782,
+                            "absolute_url": "/opinion/19782/",
+                            "syllabus": "RICO; anti-abortion protesters",
+                        }
+                    ]
+                }
+            ]
+        )
+        v = CitationVerifier(client)
+        result = v.verify("Tompkins v. Cyr, 202 F.3d 770 (5th Cir. 2000)")
+
+        assert result.syllabus == "RICO; anti-abortion protesters"
+
+    def test_accessor_returns_none_when_no_citation_lookup_entry(self):
+        # No citation_lookup hit; falls through to NOT_FOUND with no
+        # opinion_search / RECAP candidates. resolution_path will not
+        # contain a resolved citation_lookup entry.
+        client = _make_client(citation_lookup=[])
+        v = CitationVerifier(client)
+        result = v.verify("Made Up v. Fake Case, 999 U.S. 999 (2099)")
+
+        assert result.syllabus is None
+
+    def test_accessor_returns_none_when_citation_lookup_entry_lacks_syllabus(self):
+        client = _make_client(
+            citation_lookup=[
+                {
+                    "clusters": [
+                        {
+                            "case_name": "Obergefell v. Hodges",
+                            "id": 123,
+                            "absolute_url": "/opinion/123/",
+                        }
+                    ]
+                }
+            ]
+        )
+        v = CitationVerifier(client)
+        result = v.verify("Obergefell v. Hodges, 576 U.S. 644 (2015)")
+
+        assert result.syllabus is None
+
+
+# ---------------------------------------------------------------------------
 # Step 1: Citation Lookup — NOT_FOUND (name mismatch)
 # ---------------------------------------------------------------------------
 
