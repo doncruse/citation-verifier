@@ -1,0 +1,42 @@
+[
+  {
+    "row_index": 1,
+    "assessment": "Green",
+    "badge_label": "Supported",
+    "brief_block": "Cincinnati v. Kelley, 47 Ohio St.2d 94 (1976). Memo: \"The Ohio Supreme Court held that actual physical control requires a person to be in the driver's seat, behind the steering wheel, in possession of the ignition key, and physically capable of starting the engine. The statutory definition in R.C. 4511.194(A)(2) is a near-verbatim codification of two of the four Kelley factors.\" Quoted text: \"actual physical control . . . requires that a person be in the driver's seat of a vehicle, behind the steering wheel, in possession of the ignition key, and in such condition that he is physically capable of starting the engine and causing the vehicle to move.\"",
+    "opinion_block": "Therefore, the term \"actual physical control,\" as employed in the subject ordinance, requires that a person be in the driver's seat of a vehicle, behind the steering wheel, in possession of the ignition key, and in such condition that he is physically capable of starting the engine and causing the vehicle to move.",
+    "finding_analysis": "The proposition is directly supported by the Kelley opinion. The CourtListener OCR of the source page contains characteristic artifacts (\"driver's seát,\" \"behind the'steering wheel,\" \"ignition.key,\" \"snch condition,\" \"hie is physically capable,\" \"causing-the vehicle\"), which fully account for the ~0.77 similarity drag. After silently correcting those OCR errors, the opinion's holding language is verbatim identical to the memo's quote. The memo's gloss that R.C. 4511.194(A)(2) codifies two of Kelley's four factors (driver's position and possession of the ignition key, but not steering-wheel posture or physical capability to start the engine) is a fair characterization of the statutory text quoted in the memo."
+  },
+  {
+    "row_index": 2,
+    "assessment": "Green",
+    "badge_label": "Supported",
+    "brief_block": "State v. Cleary, 22 Ohio St.3d 198 (1986). Memo: \"Pre-2004 Supreme Court broadening of 'operation' under former R.C. 4511.19 — a person in the driver's position in the front seat with the ignition key in his possession indicating either actual or potential movement of the vehicle while under the influence can be found in violation.\" Quoted text: \"a person in the driver's position in the front seat with the ignition key in his possession indicating either his actual or potential movement of the vehicle while under the influence of alcohol or any drug of abuse can be found in violation of R.C. 4511.19(A)(1).\"",
+    "opinion_block": "Operation of a motor vehicle within contemplation of the statute is a broader term than mere driving and a person in the driver's position in the front seat with the ignition key in his possession indicating either his actual or potential movement of the vehicle while under the influence of alcohol or any drug of abuse can be found in violation of R.C. 4511.19(A)(1).",
+    "finding_analysis": "The quoted language appears verbatim at page 199 of the Cleary opinion. The ~0.80 similarity score is a function of CourtListener OCR artifacts in the surrounding text rather than any divergence in the substance of the quote. The memo's proposition — that Cleary represents the pre-2004 Supreme Court's broadening of \"operation\" under former R.C. 4511.19 — is well supported: Cleary expressly held that \"operating\" is broader than \"driving\" and reached a defendant found asleep in the driver's seat of a parked car with the motor running, affirming conviction on a strict-liability rationale."
+  },
+  {
+    "row_index": 3,
+    "assessment": "Green",
+    "badge_label": "Supported",
+    "brief_block": "State v. Gill, 70 Ohio St.3d 150 (1994). Memo: \"Clarifies that the statutory purpose is to discourage persons from putting themselves in a position to potentially cause vehicle movement while intoxicated; prohibition of potentially harmful conduct need not await occurrence of the act.\" Quoted text: \"[a] clear purpose of R.C. 4511.19 is to discourage persons from putting themselves in the position in which they can potentially cause the movement of a motor vehicle while intoxicated . . . . Prohibition of potentially harmful conduct need not await occurrence of the act.\"",
+    "opinion_block": "A clear purpose of R.C. 4511.19 is to discourage persons from putting themselves in the position in which they can potentially cause the movement of a motor vehicle while intoxicated or under the influence of any drug of abuse. ... Prohibition of potentially harmful conduct need not await occurrence of the act.",
+    "finding_analysis": "Both quoted sentences appear at page 154 of the Gill opinion, in consecutive sentences within the same paragraph. The memo's ellipsis silently elides only the phrase \"or under the influence of any drug of abuse\" and the closing of the first sentence, neither of which alters the meaning. The ~0.79 similarity drag is OCR-noise in the CourtListener text, not paraphrase. The memo's proposition — that Gill clarifies the statutory purpose as discouraging position-of-potential-movement and rejects the need to await the harmful act — is precisely Gill's reasoning and is the basis on which the Court extended Cleary/McGlone to defendants whose engines were not running."
+  },
+  {
+    "row_index": 4,
+    "assessment": "Green",
+    "badge_label": "Supported",
+    "brief_block": "State v. McGlone, 59 Ohio St.3d 122 (1991). Memo: \"Holds that driver's seat plus key in ignition sufficed for operation under former R.C. 4511.19; part of the pre-2004 doctrinal expansion.\"",
+    "opinion_block": "We hold that an intoxicated person who is in the driver's seat of a motor vehicle parked on private or public property with the key in the ignition is operating the vehicle in violation of R.C. 4511.19(A)(1).",
+    "finding_analysis": "No direct quote was attributed to McGlone in the memo, so there is no quote-accuracy issue. The memo's substantive proposition is directly supported: McGlone's syllabus and concluding paragraph hold that an intoxicated person in the driver's seat of a parked vehicle with the key in the ignition is \"operating\" the vehicle in violation of former R.C. 4511.19(A)(1). The memo's characterization of McGlone as part of the pre-2004 doctrinal expansion of \"operation\" is consistent with both McGlone's own reliance on Cleary and the later Gill court's treatment of McGlone as part of that progression."
+  },
+  {
+    "row_index": 5,
+    "assessment": "Green",
+    "badge_label": "Supported",
+    "brief_block": "State v. Wallace, 166 Ohio App.3d 845, 2006-Ohio-2477 (1st Dist.). Memo: \"Traces S.B. 123 legislative history; explains the post-2004 split between OVI (operation/movement) and physical control (no movement).\"",
+    "opinion_block": "",
+    "finding_analysis": "No direct quote was attributed to Wallace in the memo, so there is no quote-accuracy issue. The memo's proposition is directly supported by the body of the opinion, particularly paragraphs 8 through 14. Wallace expressly recites that until Sub.S.B. No. 123 took effect on January 1, 2004, the meaning of \"operate\" had been exclusively a matter of judicial interpretation; it walks through Cleary, McGlone, and Gill; it identifies the statutory redefinition of \"operate\" in R.C. 4511.01(HHH) as \"to cause or have caused movement of a vehicle\"; and it explicitly notes that \"the General Assembly also created in R.C. 4511.194 the new offense of having physical control of a vehicle while under the influence\" to address the Gill-type no-movement scenarios. That is exactly the legislative-history-and-post-2004-split account the memo attributes to it."
+  }
+]

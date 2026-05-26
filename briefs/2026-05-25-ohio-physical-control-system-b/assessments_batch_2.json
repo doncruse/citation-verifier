@@ -1,0 +1,79 @@
+[
+  {
+    "row_index": 6,
+    "case": "State v. Schultz, 2008-Ohio-4448 (8th Dist.)",
+    "proposition": "Pfeifer J. dissent in Gill described the pre-2004 doctrinal expansion as motivated by concern about drunk radio listeners or people who use their cars as a four-wheeled heated hotel room.",
+    "support": "Supported",
+    "color": "Green",
+    "badge": "Supported",
+    "brief_block": "[I]n a series the Court of Appeals later described as motivated by concern about \"drunk radio listeners, or people who use their cars as a four-wheeled, heated hotel room.\" State v. Schultz, 2008-Ohio-4448, ¶ 19 (8th Dist.) (quoting Pfeifer, J., dissenting in State v. Gill).",
+    "opinion_block": "This modification narrows the definition of \"operate,\" which effectively eliminates \"drunk radio listeners, or people who use their cars as a four-wheeled, heated hotel room\" from being convicted of OVI. Gill, 70 Ohio St.3d at 157-158 (Pfeifer, J., dissenting). [Schultz ¶ 19, with footnote 2 reproducing the longer Pfeifer dissent: \"The legislature's intent was to deter and to punish drunk drivers, not to punish drunk radio listeners, or people who use their cars as a four-wheeled, heated hotel room.\"]",
+    "finding_analysis": "The quoted phrase is verbatim and is correctly attributed to Pfeifer, J., dissenting in Gill (Schultz ¶ 19 quotes the dissent directly, and footnote 2 of Schultz reproduces the surrounding passage in full). The memo's framing is essentially accurate: Pfeifer's dissent criticized the Cleary/McGlone/Gill line of expansion and argued the legislature's intent was to deter drunk drivers, not drunk radio listeners. The memo characterizes that expansion line as the target of Pfeifer's criticism, which is fair. One subtle point: Schultz uses the quote to describe what the 2004 narrowing of \"operate\" eliminates from OVI, not directly to say the expansion was \"motivated by\" that concern — but the underlying Pfeifer dissent does function as a critique of the prior expansion's reach, so the proposition fairly captures the citation's role. Supported."
+  },
+  {
+    "row_index": 7,
+    "case": "State v. Schultz, 2008-Ohio-4448 (8th Dist.)",
+    "proposition": "Schultz footnote 6 holds that an impaired passenger cannot be convicted of a physical control violation under R.C. 4511.194 because he is not in the driver's seat.",
+    "support": "Supported",
+    "color": "Green",
+    "badge": "Supported",
+    "brief_block": "Schultz observed in footnote 6 that \"the term 'operate' is still broad enough to encompass an impaired passenger who grabs the steering wheel of a moving vehicle. . . . But an impaired passenger cannot be convicted of a physical control violation because he is not in the driver's seat. See R.C. 4511.194(A)(2).\" Id. fn. 6 (emphasis added).",
+    "opinion_block": "The term \"operate\" is still broad enough to encompass an impaired passenger who grabs the steering wheel of a moving vehicle. See Wallace, supra. But an impaired passenger cannot be convicted of a physical control violation because he is not in the driver's seat. See R.C. 4511.194(A)(2). [Schultz footnote 6.]",
+    "finding_analysis": "The quote in the memo is essentially verbatim against footnote 6 of Schultz. The memo's ellipsis (\". . .\") elides only the citation signal \"See Wallace, supra.\" between the two sentences — a fair editorial omission that does not alter meaning. The 0.79 similarity flag is attributable to that omitted signal plus CL OCR noise; the substance is verbatim. The proposition (Schultz fn 6 says an impaired passenger cannot be convicted of physical control because not in the driver's seat) is directly stated by the footnote. Note that fn 6 is dictum (Schultz's holding is about whether physical control is an \"equivalent offense\" for OVI enhancement), but the memo accurately characterizes it as a footnote observation, not as a holding of the case's primary issue. Supported."
+  },
+  {
+    "row_index": 8,
+    "case": "Lakewood v. Zingale, 2007-Ohio-2779 (8th Dist.)",
+    "proposition": "Probable cause for physical control / OVI is not vitiated by keys being out of the ignition with the vehicle legally parked and the motor off.",
+    "support": "Supported",
+    "color": "Green",
+    "badge": "Supported",
+    "brief_block": "The Eighth District held there was probable cause to arrest him for both OVI and physical control, and stated: \"probable cause is not vitiated by the fact that appellant was legally parked, with the motor turned off, and the keys not in the ignition.\" Id. ¶ 23.",
+    "opinion_block": "Given these facts, the police had probable cause to arrest appellant on the scene. Further, based on the previously mentioned analysis, probable cause is not vitiated by the fact that appellant was legally parked, with the motor turned off, and the keys not in the ignition. [Zingale ¶ 23.]",
+    "finding_analysis": "The quoted language is verbatim against Zingale ¶ 23. The proposition is directly supported. The facts in Zingale match the memo's framing: defendant was found lying across the driver's seat into the passenger's seat with the keys in his right hand, vehicle parked, motor off, keys not in ignition; the court affirmed probable cause for both OVI and the physical control charge. Supported."
+  },
+  {
+    "row_index": 9,
+    "case": "Lakewood v. Zingale, 2007-Ohio-2779 (8th Dist.)",
+    "proposition": "Quoting Broadview Heights v. Soukup, the Eighth District held that the ignition key need only be in close proximity to the defendant to constitute sufficient evidence of operation within the meaning of state DUI laws.",
+    "support": "Supported",
+    "color": "Green",
+    "badge": "Supported",
+    "brief_block": "The court quoted approvingly from its earlier decision in Broadview Heights v. Soukup, Cuyahoga App. No. 64918 (Mar. 10, 1994): \"the ignition key of his vehicle need only be in close proximity to a defendant to constitute sufficient evidence defendant was operating his vehicle within the meaning of state DUI laws.\" Zingale, ¶ 20.",
+    "opinion_block": "Similarly, this court held in Broadview Heights v. Soukup (Mar. 10, 1994), Cuyahoga App. No. 64918, that \"a defendant's possession of the ignition key is sufficient to indicate 'potential movement of the vehicle.' Indeed, the ignition key of his vehicle need only be in close proximity to a defendant to constitute sufficient evidence defendant was operating his vehicle within the meaning of state DUI laws.\" [Zingale ¶ 20.]",
+    "finding_analysis": "The quoted language is verbatim against Zingale ¶ 20, which itself quotes Soukup. The proposition accurately describes the Eighth District's adoption of Soukup's \"close proximity\" formulation. Supported."
+  },
+  {
+    "row_index": 10,
+    "case": "State v. Vanderkooi, 82 Ohio App.3d 173 (3d Dist. 1992)",
+    "proposition": "Keys retrieved by officer from the back seat in plain view were 'within her reach from the driver's seat'; the court held the defendant had possession of the ignition key.",
+    "support": "Supported",
+    "color": "Green",
+    "badge": "Supported",
+    "brief_block": "In State v. Vanderkooi, 82 Ohio App.3d 173 (3d Dist. 1992), the keys were retrieved by the officer from the back seat in plain view; the court held they were \"within her reach from the driver's seat\" and that \"she had possession of the ignition key.\" Id. at 175.",
+    "opinion_block": "As appellant's keys were within her reach from the driver's seat, she had possession of the ignition key. Therefore, there was a potential for movement of the appellant's vehicle. [Vanderkooi at 175.] . . . Herein, the patrolman testified that he retrieved appellant's keys from plain view in the back seat.",
+    "finding_analysis": "Both quoted snippets are verbatim against the opinion. The factual framing is accurate: Jimmie threw the keys to appellant in the back seat; the patrolman observed them in plain view in the back seat and retrieved them; the court at p. 175 held that because the keys were \"within her reach from the driver's seat,\" she had \"possession of the ignition key.\" The 0.78 similarity flag reflects CL OCR/whitespace noise rather than any substantive divergence; the substance is verbatim. Supported."
+  },
+  {
+    "row_index": 11,
+    "case": "State v. Barger, 78 Ohio App.3d 451 (5th Dist. 1992)",
+    "proposition": "Driver's seat plus key in possession (not in ignition) sufficient for 'operation' under former R.C. 4511.19.",
+    "support": "Supported",
+    "color": "Green",
+    "badge": "Supported",
+    "brief_block": "State v. Barger, 78 Ohio App.3d 451 (5th Dist. 1992) . . . reached the same conclusion where the defendant was in the driver's seat with the key in her possession but not in the ignition.",
+    "opinion_block": "In construing the evidence in the light most favorable to the prosecution, the evidence shows that (1) the headlights were on, (2) defendant was leaning out the driver's side of the truck and, then, sat up in the driver's seat, (3) the motor was not running and (4) the keys were not in the ignition, but defendant produced the keys from her person when later requested. . . . [T]he defendant had the ignition key in her possession, which indicated her \"potential movement of the vehicle.\" Based upon the foregoing evidence, we find that there was sufficient evidence upon which a rational trier of fact could find that the defendant operated the truck.",
+    "finding_analysis": "No direct quotes in the memo for this row, so no quote check is needed. The proposition is directly supported: Barger affirmed an R.C. 4511.19(A)(1) conviction where (a) defendant was in the driver's seat (leaning out the driver's side then sitting up), (b) keys were not in the ignition but produced from her person on request, and (c) the motor was not running. Note: a wrinkle the memo does not flag — the Barger court also relied on the headlights being on, which is a factor beyond \"driver's seat + key in possession.\" That additional factor does not undermine the memo's narrower proposition, but Barger is not as cleanly limited to driver's-seat-plus-key as the memo's one-sentence framing implies. Still, the holding squarely supports the proposition. Supported. (The memo's [MEDIUM] confidence tag is conservative; Barger's holding on these facts is clear.)"
+  },
+  {
+    "row_index": 12,
+    "case": "State v. Jenkins, 75 Ohio App.3d 63 (4th Dist. 1991)",
+    "proposition": "Surveys the Kelley/Cleary/McGlone trilogy and observes that the Ohio Supreme Court had not expressly held that R.C. 4511.19 is violated where the intoxicated driver is behind the wheel and has possession of the ignition key but it is not in the ignition.",
+    "support": "Partially supported",
+    "color": "Yellow",
+    "badge": "Overstated — case partially supports",
+    "brief_block": "State v. Jenkins, 75 Ohio App.3d 63, 70 (4th Dist. 1991), read the same way, then-uncertainly: \"It does not appear that the Ohio Supreme Court has expressly held that R.C. 4511.19 is violated where the intoxicated driver is behind the wheel and has possession of the ignition key but it is not in the ignition.\" Jenkins surveyed the Kelley/Cleary/McGlone trilogy and concluded . . . that out-of-ignition possession sufficed.",
+    "opinion_block": "It does not appear that the Ohio Supreme Court has expressly held that R.C. 4511.19 is violated where the intoxicated driver is behind the wheel and has possession of the ignition key but it is not in the ignition. The Ohio Supreme held in Cincinnati v. Kelly (1976), 47 Ohio St.2d 94, . . . that \"[t]o be in actual physical control of an automobile . . . a person must be in the driver's seat of the vehicle, behind the steering wheel, in possession of the ignition key, and be in such condition that he is physically capable of starting the engine and causing the vehicle to move.\" [Jenkins at 70-71.]",
+    "finding_analysis": "The verbatim quote is accurate against Jenkins at p. 70. The substantive observation (Ohio Supreme Court had not expressly held that out-of-ignition possession violates R.C. 4511.19) is directly supported. However, the memo's framing that Jenkins \"surveys the Kelley/Cleary/McGlone trilogy\" is overstated: Jenkins discusses Cleary at length and discusses Kelley once (in the very passage that contains the quoted sentence), but does not cite or discuss McGlone at all (a grep of the opinion for \"McGlone\" returns zero hits). Jenkins is therefore better described as surveying Kelley and Cleary, not the full \"trilogy.\" The proposition also says Jenkins \"concluded . . . that out-of-ignition possession sufficed\" — the majority did affirm the conviction on a broad operation theory and reasoned that \"the danger is as great to the public if the accused has possession of the key but has not placed it in the ignition,\" so this part is fairly characterized, though Jenkins reached that conclusion under Crim.R. 52(B) plain-error review (no objection had been preserved) and the court expressly noted the question was \"open to question.\" Partial support overall: the verbatim observation is accurate, but the memo's characterization of Jenkins as surveying the McGlone case is inaccurate."
+  }
+]

@@ -1,0 +1,47 @@
+[Cite as State v. Miller, 2024-Ohio-2009.]
+
+IN THE COURT OF APPEALS OF OHIO
+SECOND APPELLATE DISTRICT
+DARKE COUNTY
+
+STATE OF OHIO, Appellee
+v.
+DOUGLAS MILLER, Appellant
+
+C.A. No. 2023-CA-22 / Trial Court Case No. 22CR00254
+(Criminal Appeal from Common Pleas Court)
+
+OPINION — Rendered on May 24, 2024
+HUFFMAN, J.
+
+{¶ 1} Defendant-Appellant Douglas Miller appeals from his conviction for operating a motor vehicle while under the influence of alcohol or a drug of abuse (OVI), with five prior OVI convictions in the previous 20 years. For the reasons outlined below, we modify the judgment of the trial court, affirm the judgment as modified, and remand for resentencing.
+
+I. Factual and Procedural Background
+
+{¶ 2} The charges against Miller arose from allegations that, on September 30, 2022, he was found by Darke County Sheriff's Deputy William Toomey slumped over the steering wheel of a vehicle stopped in a ditch on the side of a rural road. In October 2022, Miller was indicted on several counts: one count of OVI with five prior OVI convictions within the previous 20 years in violation of R.C. 4511.19(A)(1)(b)/(G)(1)(d), a felony of the fourth degree; one count of having physical control of a motor vehicle while under the influence of alcohol or drug of abuse in violation of R.C. 4511.194(B)(1), a misdemeanor of the first degree; and one count of driving under suspension in violation of R.C. 4510.11(A), a misdemeanor of the first degree. Miller pled not guilty to all the charges.
+
+{¶ 3} At a bench trial on August 25, 2023, Deputy Toomey testified that on September 30, 2022, at approximately 1:58 a.m., he was traveling in his cruiser near Harrison-Bradford Road in Darke County when he found a vehicle in the south ditch of the roadway; it was off the road with its lights on, it was not moving, and it appeared to have been involved in a crash.
+
+{¶ 4} Upon approaching the vehicle, Deputy Toomey observed Miller alone in the vehicle behind the steering wheel. He tapped on the window several times until Miller woke up. When Toomey asked Miller if he had his driver's license, Miller replied that his license had been suspended. Toomey could not recall if the vehicle had been running or if the keys were in the ignition, and he testified that he never saw Miller move the vehicle. He believed Miller to be disoriented with glassy bloodshot eyes and slurred speech, observed alcoholic beverages on the passenger's seat and in a cooler on the floor, and noted that the vehicle's windows were foggy.
+
+[¶¶ 5-10 omitted — procedural details, blood test results, trial court findings]
+
+{¶ 7} The trial court found Miller guilty of all charges, although it noted that the State had not presented direct evidence that Miller had possessed the vehicle's ignition key or other ignition device or that law enforcement officers had observed Miller driving the vehicle. In finding Miller guilty of OVI, the trial court reasoned that the circumstances of the situation, including the location of the vehicle on a rural road, the time of day, the location of Miller in the driver's seat with the vehicle's lights on, and Miller's being the only person around in the rural area, were sufficient to conclude beyond a reasonable doubt that Miller had not only had "physical control" of the vehicle but also had been "operating/driving" it. The trial court merged the OVI and physical control offenses and sentenced Miller on the OVI and driving under suspension offenses.
+
+{¶ 11} In his first assignment of error, Miller initially contends that his conviction for OVI was not supported by legally sufficient evidence. In so arguing, Miller points out that Deputy Toomey could not recall if the engine had been running or if the keys had been in the ignition when he found Miller, and Toomey had no specific information regarding whether Miller himself had driven the vehicle into the ditch. **Miller concedes that he was in physical control of the vehicle but argues that he was not operating the vehicle within the meaning of R.C. 4511.01(HHH).** We disagree.
+
+{¶ 12} We note that Miller was charged with one count of having physical control of a motor vehicle while under the influence of alcohol or drug of abuse in violation of R.C. 4511.194(B)(1). R.C. 4511.194(B)(1) provides, in part, that no person shall be in physical control of a vehicle if, at the time of the physical control, the person is under the influence of alcohol, a drug of abuse, or a combination of them. In this circumstance, "physical control" means being in the driver's position of the front seat of a vehicle and having possession of the vehicle's ignition key or other ignition device. R.C. 4511.194(A)(2).
+
+{¶ 13} Miller was also charged with one count of OVI with five prior OVI convictions within the last 20 years in violation of R.C. 4511.19(A)(1)(b)/(G)(1)(d). R.C. 4511.19 states, in part, that no person shall operate any vehicle within the state if, at the time of operation, the person is under the influence of alcohol, a drug of abuse, or a combination of them. "Operate" means to cause or have caused movement of a vehicle. R.C. 4511.01(HHH).
+
+{¶ 14} "[T]he difference between an OVI and a physical control violation, besides the penalties, is that an OVI requires actual movement of the vehicle, whereas a physical control violation does not." State v. Schultz, 8th Dist. Cuyahoga No. 90412, 2008-Ohio-4448, ¶ 25. Thus, "if there is no evidence that the person moved or caused the vehicle to move, that person cannot be convicted of OVI, but may be convicted of being in physical control of a vehicle while under the influence." Id.
+
+{¶ 15} Still, "a person who is found passed out in his vehicle on the side of the highway may be convicted of an OVI because a jury could infer that the vehicle was moved to that location." Id. at ¶ 25.
+
+{¶ 16} In this case, Miller's blood test following his arrest was positive for methamphetamine at a concentration exceeding the legal limit. The State set forth evidence that Miller was found slumped over the steering wheel in the driver's seat of a vehicle in a ditch on a rural road at around 2:00 a.m. **Although there was no evidence that the keys were in the ignition or the engine was running**, Deputy Toomey observed Miller alone in the vehicle, behind the steering wheel, and there was no one else at the scene. Toomey had to tap several times to wake Miller up and noticed that Miller was disoriented with glassy bloodshot eyes and slurred speech, that there were alcoholic beverages in the vehicle, and that the vehicle's lights were on. We agree with the trial court that these facts constituted circumstantial evidence that Miller had operated the vehicle to bring it to the side of the rural road where it was found. Thus, in viewing the evidence in a light most favorable to the prosecution, we conclude that the State put forth sufficient evidence that, if believed, allowed a trier of fact to find Miller guilty of OVI in violation of R.C. 4511.19.
+
+[¶¶ 17-23 omitted — LEADS-printout issue and prior-conviction proof analysis; trial court erred on the felony enhancement]
+
+{¶ 24} As set forth above, Miller's assignments of error are sustained in part and overruled in part. The judgment of the trial court is modified to reflect Miller's conviction on a first-degree misdemeanor rather than a fourth-degree felony, and the conviction is affirmed as modified. The matter will be remanded to the trial court for resentencing.
+
+WELBAUM, J. and TUCKER, J., concur.
