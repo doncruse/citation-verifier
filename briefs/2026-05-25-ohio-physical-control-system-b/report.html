@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Proposition Verification Report — </title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  color: #2d2d2d;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+  background: #fafaf8;
+}
+h1, h2, h3 { font-family: 'Lora', serif; }
+h1 { font-size: 1.6rem; margin-bottom: 0.3rem; color: #1a1a1a; }
+h2 { font-size: 1.25rem; margin: 2rem 0 0.8rem; color: #333; border-bottom: 1px solid #ddd; padding-bottom: 0.3rem; }
+h3 { font-size: 1.05rem; margin: 1rem 0 0.5rem; }
+
+.meta { color: #666; font-size: 0.9rem; margin-bottom: 1.5rem; }
+.meta span { display: inline-block; margin-right: 1.5rem; }
+
+.dashboard { background: #fff; border: 1px solid #e0e0e0; border-radius: 6px; padding: 1.2rem 1.5rem; margin-bottom: 2rem; }
+.stats { display: flex; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 1rem; }
+.stat { text-align: center; }
+.stat-num { font-size: 1.8rem; font-weight: 600; }
+.stat-label { font-size: 0.8rem; color: #666; text-transform: uppercase; letter-spacing: 0.05em; }
+.stat-red .stat-num { color: #c0392b; }
+.stat-yellow .stat-num { color: #d4a017; }
+.stat-green .stat-num { color: #27ae60; }
+.stat-gray .stat-num { color: #888; }
+
+.issue-list { list-style: none; padding: 0; }
+.issue-list li {
+  padding: 0.5rem 0.7rem;
+  margin-bottom: 0.4rem;
+  border-left: 4px solid #ccc;
+  background: #fefefe;
+  font-size: 0.9rem;
+}
+.issue-list li.sev-red { border-left-color: #c0392b; background: #fdf2f2; }
+.issue-list li.sev-yellow { border-left-color: #d4a017; background: #fefcf0; }
+.issue-list li.sev-gray { border-left-color: #999; background: #f5f5f5; }
+.issue-list a { color: inherit; text-decoration: none; }
+.issue-list a:hover { text-decoration: underline; }
+
+.badge {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.15rem 0.5rem;
+  border-radius: 3px;
+  vertical-align: middle;
+}
+.badge-red { background: #f8d7da; color: #721c24; }
+.badge-yellow { background: #fff3cd; color: #856404; }
+.badge-orange { background: #ffe0b2; color: #8a4500; }
+.badge-green { background: #d4edda; color: #155724; }
+.badge-blue { background: #d1ecf1; color: #0c5460; }
+.badge-gray { background: #e9ecef; color: #495057; }
+
+.bq-brief {
+  border-left: 4px solid #e67e22;
+  background: #fef9f3;
+  padding: 0.7rem 1rem;
+  margin: 0.5rem 0;
+  font-size: 0.9rem;
+}
+.bq-opinion {
+  border-left: 4px solid #27ae60;
+  background: #f0faf4;
+  padding: 0.7rem 1rem;
+  margin: 0.5rem 0;
+  font-size: 0.9rem;
+}
+.bq-label { font-weight: 600; font-size: 0.8rem; color: #666; margin-bottom: 0.2rem; }
+
+details { margin-bottom: 0.8rem; }
+summary {
+  cursor: pointer;
+  padding: 0.6rem 0.8rem;
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  list-style: none;
+}
+summary::-webkit-details-marker { display: none; }
+summary::before { content: "\25B6\00a0"; font-size: 0.7rem; color: #888; }
+details[open] > summary::before { content: "\25BC\00a0"; }
+details[open] > summary { border-radius: 4px 4px 0 0; border-bottom: none; }
+.finding-body {
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-top: none;
+  border-radius: 0 0 4px 4px;
+  padding: 1rem;
+}
+.case-name { font-family: 'Lora', serif; font-style: italic; }
+.explanation { margin-top: 0.7rem; font-size: 0.9rem; line-height: 1.5; }
+.analysis { margin-top: 0.8rem; font-size: 0.92rem; line-height: 1.55; color: #2d2d2d; }
+.analysis p { margin-bottom: 0.6rem; }
+.analysis p:last-child { margin-bottom: 0; }
+.prop-list { margin: 0.3rem 0 0.6rem 1.2rem; font-size: 0.9rem; }
+.prop-list li { margin-bottom: 0.25rem; }
+
+.controls { margin-bottom: 0.5rem; font-size: 0.8rem; }
+.controls button {
+  background: none;
+  border: none;
+  color: #2980b9;
+  cursor: pointer;
+  font-size: 0.8rem;
+  padding: 0.2rem 0.4rem;
+}
+.controls button:hover { text-decoration: underline; }
+
+.verified-item {
+  padding: 0.3rem 0;
+  font-size: 0.85rem;
+  border-bottom: 1px solid #f0f0f0;
+}
+.checkmark { color: #27ae60; font-weight: bold; }
+
+.methodology { font-size: 0.85rem; color: #555; margin-top: 2rem; }
+.methodology h2 { font-size: 1.1rem; }
+.methodology ul { padding-left: 1.2rem; }
+.methodology li { margin-bottom: 0.5rem; }
+
+@media print {
+  details { open: true; }
+  details[open] > summary { border-bottom: 1px solid #e0e0e0; }
+  body { max-width: 100%; padding: 1rem; font-size: 12px; }
+  .controls { display: none; }
+  .dashboard { box-shadow: none; }
+}
+</style>
+<script>
+function expandAll() { document.querySelectorAll('details').forEach(d => d.open = true); }
+function collapseAll() { document.querySelectorAll('details').forEach(d => d.open = false); }
+</script>
+</head>
+<body>
+
+<h1>Proposition Verification Report</h1>
+<div class="meta">
+  <span><strong>Brief:</strong> </span><br>
+  <span><strong>Case:</strong> <em></em>, </span><br>
+  <span><strong>Filed:</strong> </span>
+  <span><strong>Report generated:</strong> </span>
+</div>
+
+<div style="background:#d4edda;border:1px solid #c3e6cb;border-radius:6px;padding:1rem;margin-bottom:1rem;"><strong>No serious issues found.</strong> 20 concerns noted below.</div>
+<div class="dashboard">
+  <h2 style="border:none; margin-top:0; padding:0;">Summary</h2>
+  <div class="stats">
+    <div class="stat"><div class="stat-num">21</div><div class="stat-label">Claims checked</div></div>
+    <div class="stat stat-red"><div class="stat-num">0</div><div class="stat-label">Serious issues</div></div>
+    <div class="stat stat-yellow"><div class="stat-num">20</div><div class="stat-label">Concerns</div></div>
+    <div class="stat stat-green"><div class="stat-num">0</div><div class="stat-label">Verified</div></div>
+    <div class="stat stat-gray"><div class="stat-num">1</div><div class="stat-label">Unable to verify</div></div>
+  </div>
+  <h3>Issues</h3>
+  <ul class="issue-list">
+    <li class="sev-yellow"><a href="#finding-1"><span class="badge badge-yellow">Overstated -- case partially supports</span> p. 1 &mdash; <em>Cincinnati v. Kelley</em>, 47 Ohio St.2d 94 (1976) &mdash; </a></li>
+<li class="sev-yellow"><a href="#finding-2"><span class="badge badge-yellow">Overstated -- case partially supports</span> p. 1 &mdash; <em>State v. Cleary</em>, 22 Ohio St.3d 198 (1986) &mdash; </a></li>
+<li class="sev-yellow"><a href="#finding-3"><span class="badge badge-yellow">Overstated -- case partially supports</span> p. 1 &mdash; <em>State v. Gill</em>, 70 Ohio St.3d 150 (1994) &mdash; </a></li>
+<li class="sev-yellow"><a href="#finding-4"><span class="badge badge-yellow">Overstated -- case partially supports</span> p. 1 &mdash; <em>State v. McGlone</em>, 59 Ohio St.3d 122 (1991) &mdash; </a></li>
+<li class="sev-yellow"><a href="#finding-5"><span class="badge badge-yellow">Overstated -- case partially supports</span> p. 1 &mdash; <em>State v. Wallace</em>, 166 Ohio App.3d 845, 2006-Ohio-2477 (1st Dist.) &mdash; </a></li>
+<li class="sev-yellow"><a href="#finding-6"><span class="badge badge-yellow">Overstated -- case partially supports</span> p. 1 &mdash; <em>State v. Schultz</em>, 2008-Ohio-4448 (8th Dist.) &mdash; </a></li>
+<li class="sev-yellow"><a href="#finding-7"><span class="badge badge-yellow">Overstated -- case partially supports</span> p. 1 &mdash; <em>State v. Schultz</em>, 2008-Ohio-4448 (8th Dist.) &mdash; </a></li>
+<li class="sev-yellow"><a href="#finding-8"><span class="badge badge-yellow">Overstated -- case partially supports</span> p. 1 &mdash; <em>Lakewood v. Zingale</em>, 2007-Ohio-2779 (8th Dist.) &mdash; </a></li>
+<li class="sev-yellow"><a href="#finding-9"><span class="badge badge-yellow">Overstated -- case partially supports</span> p. 1 &mdash; <em>Lakewood v. Zingale</em>, 2007-Ohio-2779 (8th Dist.) &mdash; </a></li>
+<li class="sev-yellow"><a href="#finding-10"><span class="badge badge-yellow">Overstated -- case partially supports</span> p. 1 &mdash; <em>State v. Vanderkooi</em>, 82 Ohio App.3d 173 (3d Dist. 1992) &mdash; </a></li>
+<li class="sev-yellow"><a href="#finding-11"><span class="badge badge-yellow">Overstated -- case partially supports</span> p. 1 &mdash; <em>State v. Barger</em>, 78 Ohio App.3d 451 (5th Dist. 1992) &mdash; </a></li>
+<li class="sev-yellow"><a href="#finding-12"><span class="badge badge-yellow">Overstated -- case partially supports</span> p. 1 &mdash; <em>State v. Jenkins</em>, 75 Ohio App.3d 63 (4th Dist. 1991) &mdash; </a></li>
+<li class="sev-yellow"><a href="#finding-13"><span class="badge badge-yellow">Overstated -- case partially supports</span> p. 1 &mdash; <em>State v. Kincaid</em>, 83 Ohio App.3d 341 (4th Dist. 1992) &mdash; </a></li>
+<li class="sev-yellow"><a href="#finding-14"><span class="badge badge-yellow">Overstated -- case partially supports</span> p. 1 &mdash; <em>State v. Miller</em>, 2024-Ohio-2009 (2d Dist.) &mdash; </a></li>
+<li class="sev-yellow"><a href="#finding-15"><span class="badge badge-yellow">Overstated -- case partially supports</span> p. 1 &mdash; <em>State v. Adams</em>, 2024-Ohio-174 (2d Dist.) &mdash; </a></li>
+<li class="sev-yellow"><a href="#finding-16"><span class="badge badge-yellow">Overstated -- case partially supports</span> p. 1 &mdash; <em>State v. Hankerson</em>, 70 Ohio St.2d 87 (1982) &mdash; </a></li>
+<li class="sev-yellow"><a href="#finding-17"><span class="badge badge-yellow">Overstated -- case partially supports</span> p. 1 &mdash; <em>State v. Zaragoza</em>, 221 Ariz. 49 (2009) &mdash; </a></li>
+<li class="sev-yellow"><a href="#finding-18"><span class="badge badge-yellow">Overstated -- case partially supports</span> p. 1 &mdash; <em>State v. Fitzgerald</em>, 63 So. 3d 75 (Fla. 2d DCA 2011) &mdash; </a></li>
+<li class="sev-yellow"><a href="#finding-19"><span class="badge badge-yellow">Overstated -- case partially supports</span> p. 1 &mdash; <em>Fieselman v. State</em>, 537 So. 2d 603 (Fla. 1988) &mdash; </a></li>
+<li class="sev-yellow"><a href="#finding-20"><span class="badge badge-yellow">Overstated -- case partially supports</span> p. 1 &mdash; <em>Atkinson v. State</em>, 331 Md. 199 (1993) &mdash; </a></li>
+<li class="sev-gray"><a href="#finding-uv-21"><span class="badge badge-gray">Unable to verify</span> <em>Broadview Heights v. Soukup</em>, Cuyahoga App. No. 64918 (Mar. 10, 1994) &mdash; Not on CourtListener</a></li>
+  </ul>
+</div>
+<h2>Findings</h2>
+<div class="controls"><button onclick="expandAll()">Expand All</button> | <button onclick="collapseAll()">Collapse All</button></div>
+<details id="finding-1">
+  <summary>
+    <strong>p. 1</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/6865730/city-of-cincinnati-v-kelley/"><span class="case-name">Cincinnati v. Kelley</span></a>, 47 Ohio St.2d 94 (1976)
+    &mdash; <span class="badge badge-yellow">Overstated -- case partially supports</span>
+  </summary>
+  <div class="finding-body">
+    <div class="bq-label">Quoted in brief:</div><div class="bq-brief" style="font-style:italic;">“actual physical control . . . requires that a person be in the driver's seat of a vehicle, behind the steering wheel, in possession of the ignition key, and in such condition that he is physically capable of starting the engine and causing the vehicle to move”</div>
+    <div class="bq-label">Actual language in opinion:</div><div class="bq-opinion">… hicles by persons whose faculties are appreciably impaired from the consumption of alcohol or use of drugs of abuse. &quot; : Therefore, the term “actual physical control,” as employed in the subject ordinance, requires that a person be in the driver’s seát of a vehicle, behind the'steering wheel, *98 in possession'of the ignition.key, and.in snch condition that hie is physically capable of starting the engine and causing-the vehicle to move. 4 Under this test, the instant record supports a conclusion that appellee was under the influence of alcoh …</div>
+    
+  </div>
+</details><details id="finding-2">
+  <summary>
+    <strong>p. 1</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/6868024/state-v-cleary/"><span class="case-name">State v. Cleary</span></a>, 22 Ohio St.3d 198 (1986)
+    &mdash; <span class="badge badge-yellow">Overstated -- case partially supports</span>
+  </summary>
+  <div class="finding-body">
+    <div class="bq-label">Quoted in brief:</div><div class="bq-brief" style="font-style:italic;">“a person in the driver's position in the front seat with the ignition key in his possession indicating either his actual or potential movement of the vehicle while under the influence of alcohol or any drug of abuse can be found in violation of R.C. 4511.19(A)(1)”</div>
+    <div class="bq-label">Actual language in opinion:</div><div class="bq-opinion">… urisdictions have found that a person may operate a vehicle even though the vehicle is not moving. Operation of a motor vehicle within contemplation of the statute is a broader term than mere driving and a person in the driver’s position in the front seat with the ignition key in his possession indicating either his actual or potential movement of the vehicle while under the influence of alcohol or any drug of abuse can be found in violation of R.C. 4511.19(A)(1). 1 The question before this court is whether the conduct described in the instant case …</div>
+    
+  </div>
+</details><details id="finding-3">
+  <summary>
+    <strong>p. 1</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/6877618/state-v-gill/"><span class="case-name">State v. Gill</span></a>, 70 Ohio St.3d 150 (1994)
+    &mdash; <span class="badge badge-yellow">Overstated -- case partially supports</span>
+  </summary>
+  <div class="finding-body">
+    <div class="bq-label">Quoted in brief:</div><div class="bq-brief" style="font-style:italic;">“[a] clear purpose of R.C. 4511.19 is to discourage persons from putting themselves in the position in which they can potentially cause the movement of a motor vehicle while intoxicated . . . . Prohibition of potentially harmful conduct need not await occurrence of the act.”</div>
+    <div class="bq-label">Actual language in opinion:</div><div class="bq-opinion">… vehicle’s engine after consuming alcohol or that the engine was running at the time the defendant is apprehended. A clear purpose of R.C. 4511.19 is to discourage persons from putting themselves in the position in which they can potentially cause the movement of a motor vehicle while intoxicated or under the influence of any drug of abuse. Accord Cleary and McGlone, supra. Prohibition of potentially harmful conduct need not await occurrence of the act. As we, in effect, held in Cleary , the intent of the legislature in enacting strong legislation involving …</div>
+    
+  </div>
+</details><details id="finding-4">
+  <summary>
+    <strong>p. 1</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/6870977/state-v-mcglone/"><span class="case-name">State v. McGlone</span></a>, 59 Ohio St.3d 122 (1991)
+    &mdash; <span class="badge badge-yellow">Overstated -- case partially supports</span>
+  </summary>
+  <div class="finding-body">
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief">Holds that driver's seat plus key in ignition sufficed for operation under former R.C. 4511.19; part of the pre-2004 doctrinal expansion.</div>
+    
+    
+  </div>
+</details><details id="finding-5">
+  <summary>
+    <strong>p. 1</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/3971491/state-v-wallace/"><span class="case-name">State v. Wallace</span></a>, 166 Ohio App.3d 845, 2006-Ohio-2477 (1st Dist.)
+    &mdash; <span class="badge badge-yellow">Overstated -- case partially supports</span>
+  </summary>
+  <div class="finding-body">
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief">Traces S.B. 123 legislative history; explains the post-2004 split between OVI (operation/movement) and physical control (no movement).</div>
+    
+    
+  </div>
+</details><details id="finding-6">
+  <summary>
+    <strong>p. 1</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/4020054/state-v-schultz-90412-9-4-2008/"><span class="case-name">State v. Schultz</span></a>, 2008-Ohio-4448 (8th Dist.)
+    &mdash; <span class="badge badge-yellow">Overstated -- case partially supports</span>
+  </summary>
+  <div class="finding-body">
+    <div class="bq-label">Quoted in brief:</div><div class="bq-brief" style="font-style:italic;">“drunk radio listeners, or people who use their cars as a four-wheeled, heated hotel room”</div>
+    <div class="bq-label">Actual language in opinion:</div><div class="bq-opinion">… modification narrows the definition of &quot;operate,&quot; which effectively eliminates &quot;drunk radio listeners, or people who use their cars as a four-wheeled, heated hotel room&quot; from being convicted of OVI. …</div>
+    
+  </div>
+</details><details id="finding-7">
+  <summary>
+    <strong>p. 1</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/4020054/state-v-schultz-90412-9-4-2008/"><span class="case-name">State v. Schultz</span></a>, 2008-Ohio-4448 (8th Dist.)
+    &mdash; <span class="badge badge-yellow">Overstated -- case partially supports</span>
+  </summary>
+  <div class="finding-body">
+    <div class="bq-label">Quoted in brief:</div><div class="bq-brief" style="font-style:italic;">“the term 'operate' is still broad enough to encompass an impaired passenger who grabs the steering wheel of a moving vehicle. . . . But an impaired passenger cannot be convicted of a physical control violation because he is not in the driver's seat. See R.C. 4511.194(A)(2)”</div>
+    <div class="bq-label">Actual language in opinion:</div><div class="bq-opinion">… ordinance' and `municipal OVI offense' mean any municipal ordinance prohibiting a person from operating a vehicle while under the influence of alcohol, a drug of abuse, * * *.&quot; 6 The term &quot;operate&quot; is still broad enough to encompass an impaired passenger who grabs the steering wheel of a moving vehicle. See Wallace , supra. But an impaired passenger cannot be convicted of a physical control violation because he is not in the driver's seat. See R.C. 4511.194 (A)(2). 7 &quot;Equivalent offenses&quot; include involuntary manslaughter with an impaired driving finding under R. …</div>
+    
+  </div>
+</details><details id="finding-8">
+  <summary>
+    <strong>p. 1</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/4003441/lakewood-v-zingale-88498-6-7-2007/"><span class="case-name">Lakewood v. Zingale</span></a>, 2007-Ohio-2779 (8th Dist.)
+    &mdash; <span class="badge badge-yellow">Overstated -- case partially supports</span>
+  </summary>
+  <div class="finding-body">
+    <div class="bq-label">Quoted in brief:</div><div class="bq-brief" style="font-style:italic;">“probable cause is not vitiated by the fact that appellant was legally parked, with the motor turned off, and the keys not in the ignition.”</div>
+    <div class="bq-label">Actual language in opinion:</div><div class="bq-opinion">… Further, based on the previously mentioned analysis, probable cause is not vitiated by the fact that appellant was legally parked, with the motor turned off, and the keys not in the ignition. {&amp;#182; 24} Accordingly, appellant's first assignment of error is overruled. …</div>
+    
+  </div>
+</details><details id="finding-9">
+  <summary>
+    <strong>p. 1</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/4003441/lakewood-v-zingale-88498-6-7-2007/"><span class="case-name">Lakewood v. Zingale</span></a>, 2007-Ohio-2779 (8th Dist.)
+    &mdash; <span class="badge badge-yellow">Overstated -- case partially supports</span>
+  </summary>
+  <div class="finding-body">
+    <div class="bq-label">Quoted in brief:</div><div class="bq-brief" style="font-style:italic;">“the ignition key of his vehicle need only be in close proximity to a defendant to constitute sufficient evidence defendant was operating his vehicle within the meaning of state DUI laws.”</div>
+    <div class="bq-label">Actual language in opinion:</div><div class="bq-opinion">… tion key is sufficient to indicate `potential movement of the vehicle.' Indeed, the ignition key of his vehicle need only be in close proximity to a defendant to constitute sufficient evidence defendant was operating his vehicle within the meaning of state DUI laws.&quot; {&amp;#182; 21} In this case, the police responded to a report of a male driving a …</div>
+    
+  </div>
+</details><details id="finding-10">
+  <summary>
+    <strong>p. 1</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/3985011/state-v-vanderkooi/"><span class="case-name">State v. Vanderkooi</span></a>, 82 Ohio App.3d 173 (3d Dist. 1992)
+    &mdash; <span class="badge badge-yellow">Overstated -- case partially supports</span>
+  </summary>
+  <div class="finding-body">
+    <div class="bq-label">Quoted in brief:</div><div class="bq-brief" style="font-style:italic;">“within her reach from the driver's seat” … “she had possession of the ignition key”</div>
+    <div class="bq-label">Actual language in opinion:</div><div class="bq-opinion">… 4511.19(A)(1). As appellant’s keys were within her reach from the driver’s seat, she had possession of the ignition key. …</div><div class="bq-label">Actual language in opinion:</div><div class="bq-opinion">… As appellant’s keys were within her reach from the driver’s seat, she had possession of the ignition key. Therefore, there was a potential for movement of the appellant’s vehicle. …</div>
+    
+  </div>
+</details><details id="finding-11">
+  <summary>
+    <strong>p. 1</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/3992424/state-v-barger/"><span class="case-name">State v. Barger</span></a>, 78 Ohio App.3d 451 (5th Dist. 1992)
+    &mdash; <span class="badge badge-yellow">Overstated -- case partially supports</span>
+  </summary>
+  <div class="finding-body">
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief">Driver's seat plus key in possession (not in ignition) sufficient for 'operation' under former R.C. 4511.19.</div>
+    
+    
+  </div>
+</details><details id="finding-12">
+  <summary>
+    <strong>p. 1</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/3959443/state-v-jenkins/"><span class="case-name">State v. Jenkins</span></a>, 75 Ohio App.3d 63 (4th Dist. 1991)
+    &mdash; <span class="badge badge-yellow">Overstated -- case partially supports</span>
+  </summary>
+  <div class="finding-body">
+    <div class="bq-label">Quoted in brief:</div><div class="bq-brief" style="font-style:italic;">“It does not appear that the Ohio Supreme Court has expressly held that R.C. 4511.19 is violated where the intoxicated driver is behind the wheel and has possession of the ignition key but it is not in the ignition.”</div>
+    <div class="bq-label">Actual language in opinion:</div><div class="bq-opinion">… arising from the facts of the specific case before the court for adjudication.” It does not appear that the Ohio Supreme Court has expressly held that R.C. 4511.19 is violated where the intoxicated driver is behind the wheel and has possession of the ignition key but it is not in the ignition. The Ohio Supreme held in Cincinnati v. …</div>
+    
+  </div>
+</details><details id="finding-13">
+  <summary>
+    <strong>p. 1</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/3983624/state-v-kincaid/"><span class="case-name">State v. Kincaid</span></a>, 83 Ohio App.3d 341 (4th Dist. 1992)
+    &mdash; <span class="badge badge-yellow">Overstated -- case partially supports</span>
+  </summary>
+  <div class="finding-body">
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief">Outlier reversing OVI conviction where defendant was asleep in the driver's seat with the key in the car ashtray; lead opinion applied pre-2004 McGlone 'key in ignition' formulation literally. Effectively superseded by 2004 statute and by Gill.</div>
+    
+    
+  </div>
+</details><details id="finding-14">
+  <summary>
+    <strong>p. 1</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/9507043/state-v-miller/"><span class="case-name">State v. Miller</span></a>, 2024-Ohio-2009 (2d Dist.)
+    &mdash; <span class="badge badge-yellow">Overstated -- case partially supports</span>
+  </summary>
+  <div class="finding-body">
+    <div class="bq-label">Quoted in brief:</div><div class="bq-brief" style="font-style:italic;">“no evidence that the keys were in the ignition or the engine was running”</div>
+    
+    
+  </div>
+</details><details id="finding-15">
+  <summary>
+    <strong>p. 1</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/9467462/state-v-adams/"><span class="case-name">State v. Adams</span></a>, 2024-Ohio-174 (2d Dist.)
+    &mdash; <span class="badge badge-yellow">Overstated -- case partially supports</span>
+  </summary>
+  <div class="finding-body">
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief">Recent application of R.C. 4511.194 to an impaired driver found unconscious in the driver's seat; possession-within-the-vehicle treated as established by the keys being inside the cabin.</div>
+    
+    
+  </div>
+</details><details id="finding-16">
+  <summary>
+    <strong>p. 1</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/6867038/state-v-hankerson/"><span class="case-name">State v. Hankerson</span></a>, 70 Ohio St.2d 87 (1982)
+    &mdash; <span class="badge badge-yellow">Overstated -- case partially supports</span>
+  </summary>
+  <div class="finding-body">
+    <div class="bq-label">Quoted in brief:</div><div class="bq-brief" style="font-style:italic;">“[c]onstructive possession exists when an individual knowingly exercises dominion and control over an object, even though that object may not be within his immediate physical possession.”</div>
+    <div class="bq-label">Actual language in opinion:</div><div class="bq-opinion">… of stolen property is not a requisite of the offense of receiving stolen property, but that a conviction may be based on the accused’s constructive possession of the property. Constructive possession exists when an individual exercises dominion and control over an object, even though that object may not be within his immediate physical possession. State v. Wolery, supra. …</div>
+    
+  </div>
+</details><details id="finding-17">
+  <summary>
+    <strong>p. 1</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/867307/state-v-zaragoza/"><span class="case-name">State v. Zaragoza</span></a>, 221 Ariz. 49 (2009)
+    &mdash; <span class="badge badge-yellow">Overstated -- case partially supports</span>
+  </summary>
+  <div class="finding-body">
+    <div class="bq-label">Quoted in brief:</div><div class="bq-brief" style="font-style:italic;">“whether the vehicle was running or the ignition was on; where the key was located; where and in what position the driver was found in the vehicle; whether the person was awake or asleep; if the vehicle's headlights were on; where the vehicle was stopped (in the road or legally parked); whether the driver had voluntarily pulled off the road; time of day and weather conditions; if the heater or air conditioner was on; whether the windows were up or down; and any explanation of the circumstances advanced by the defense.” … “a present or imminent risk of putting the vehicle in motion”</div>
+    <div class="bq-label">Actual language in opinion:</div><div class="bq-opinion">… e trier of fact to consider the totality of the circumstances in determining whether defendant was in actual physical control of his vehicle.” Id. at 326, 897 P.2d at 628 . The Court listed several factors to be considered in determining whether a defendant exercised actual physical control, including whether the vehicle was running or the ignition was on; where the key was located; where and in what position the driver was found in the vehicle; whether the person was awake or asleep; if the vehicle’s headlights were on; where the vehicle was stopped (in the road or legally parked); whether the driver had voluntarily pulled off the road; time of day and weather conditions; if the heater or air conditioner was on; whether the windows were up or down; and any explanation of the circumstances advanced by the defense. Id. (citing Atkinson v. State, 331 Md. 199 , 627 A.2d 1019, 1027 (1993)). …</div>
+    
+  </div>
+</details><details id="finding-18">
+  <summary>
+    <strong>p. 1</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/2494234/state-v-fitzgerald/"><span class="case-name">State v. Fitzgerald</span></a>, 63 So. 3d 75 (Fla. 2d DCA 2011)
+    &mdash; <span class="badge badge-yellow">Overstated -- case partially supports</span>
+  </summary>
+  <div class="finding-body">
+    <div class="bq-label">Quoted in brief:</div><div class="bq-brief" style="font-style:italic;">“physically in or on the vehicle” … “the capability to operate”</div>
+    <div class="bq-label">Actual language in opinion:</div><div class="bq-opinion">… To prove this element, “the defendant must be physically in or on the vehicle and have the capability to operate the vehicle, regardless of whether [he][she] …</div><div class="bq-label">Actual language in opinion:</div><div class="bq-opinion">… ve the charge with evidence that the defendant was physically in a vehicle with the capability to operate it, regardless of whether she was actually operating it at the time. …</div>
+    
+  </div>
+</details><details id="finding-19">
+  <summary>
+    <strong>p. 1</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/1130447/fieselman-v-state/"><span class="case-name">Fieselman v. State</span></a>, 537 So. 2d 603 (Fla. 1988)
+    &mdash; <span class="badge badge-yellow">Overstated -- case partially supports</span>
+  </summary>
+  <div class="finding-body">
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief">Foundational Florida totality-of-circumstances articulation widely treated as the source of the camp-2 multifactor line.</div>
+    
+    
+  </div>
+</details><details id="finding-20">
+  <summary>
+    <strong>p. 1</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/2337244/atkinson-v-state/"><span class="case-name">Atkinson v. State</span></a>, 331 Md. 199 (1993)
+    &mdash; <span class="badge badge-yellow">Overstated -- case partially supports</span>
+  </summary>
+  <div class="finding-body">
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief">Maryland's leading articulation of the multifactor totality test; Zaragoza adopts its factor list verbatim.</div>
+    
+    
+  </div>
+</details>
+<details id="finding-uv-21">
+  <summary>
+    <span class="case-name">Broadview Heights v. Soukup</span>, Cuyahoga App. No. 64918 (Mar. 10, 1994)
+    
+    &mdash; <span class="badge badge-gray">Unable to verify -- opinion text unavailable</span>
+  </summary>
+  <div class="finding-body">
+    <div class="bq-label">Propositions the brief attributes to this case:</div><ul class="prop-list"><li><strong>p. 1:</strong> Unpublished pre-May-1-2002 decision quoted approvingly in Zingale. Not officially controlling under Ohio Rule for Reporting Opinions 3.4 (effective May 1 2002); cited as persuasive only. <em style="color:#666;">(quotes brief: “the ignition key of his vehicle need only be in close proximity to a defendant to constitute sufficient evidence defendant was operating his vehicle within the meaning of state DUI laws.”)</em></li></ul>
+    <div class="explanation">Case not found on CourtListener. Cannot verify against opinion text.</div>
+  </div>
+</details>
+
+<div class="methodology">
+  <h2>Methodology &amp; Limitations</h2>
+  <ul>
+    <li><strong>Quote verification</strong> is near-deterministic but limited by the quality of CourtListener's text. Minor discrepancies may reflect OCR artifacts in the source database rather than errors in the brief.</li>
+    <li><strong>Propositional support</strong> assessment is an AI judgment. It reflects Claude's reading of the opinion text and should be verified by counsel. Reasonable lawyers may disagree about whether a case "supports" a given proposition.</li>
+    <li>This report checks whether cited cases say what the brief claims they say. It does not assess the overall legal merit of the brief's arguments or whether the cited cases are the best authorities available.</li>
+    <li>Cases marked "unable to verify" should be checked through other sources (Westlaw, Lexis, etc.).</li>
+  </ul>
+  <h3>Verification method disclosure</h3>
+  <p>The following opinions were <strong>retrieved from CourtListener</strong> and verified against their full text:</p>
+  <ul>
+    
+  </ul>
+  <p>The following opinions were <strong>not available on CourtListener</strong> and could not be verified against opinion text:</p>
+  <ul>
+    <li><em>Broadview Heights v. Soukup</em>, Cuyahoga App. No. 64918 (Mar. 10, 1994) &mdash; Not in CourtListener database</li>
+  </ul>
+  <p>No opinions in this report were assessed from training knowledge. All assessments are based on retrieved opinion text.</p>
+</div>
+
+</body>
+</html>
