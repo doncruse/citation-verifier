@@ -1495,15 +1495,26 @@ class CitationVerifier:
               style descriptions that are substantive but keyword-poor).
 
         Note: "motion to" and "motion for" are intentionally excluded from
-        the procedural keywords because they appear as substrings in opinion
-        descriptions like "OPINION on motion to dismiss". Use specific
-        compound phrases (e.g. "motion in limine") only.
+        the substring procedural keywords because they appear inside opinion
+        descriptions like "OPINION on motion to dismiss". They ARE rejected
+        when they anchor the description (e.g. "MOTION FOR RECONSIDERATION
+        OF OPINION") — a description that starts with "motion to "/"motion
+        for " is a party filing, not the court's opinion, regardless of
+        what the rest of the string says.
 
         When parsed.year is missing or entry_date is unparseable, path (b)
         cannot fire (date window returns False). Path (c) does not require
         a date and can fire on page_count + is_free_on_pacer alone.
         """
-        desc_lower = (desc or "").lower()
+        desc_lower = (desc or "").lstrip().lower()
+
+        # Anchored procedural guard: a description that STARTS with a motion
+        # prefix is a party filing, not an opinion — even if the rest of the
+        # string mentions "opinion" (e.g. "MOTION FOR RECONSIDERATION OF
+        # OPINION"). Mirrors the anchoring _is_substantive_doc applies to its
+        # _NON_SUBSTANTIVE_PATTERNS tuple.
+        if desc_lower.startswith("motion to ") or desc_lower.startswith("motion for "):
+            return False
 
         # Procedural-keyword guard runs first; never accept a doc whose
         # description matches a procedural type, regardless of score.

@@ -2684,6 +2684,48 @@ class TestVerifiedViaRecapVsDocketOnly:
         assert result.final_ids.cluster_id is None
         assert result.final_ids.text_source.value == "recap_document"
 
+    def test_docket_only_when_doc_is_motion_filing_mentioning_opinion(self):
+        """Reciprocal gap to Mehar: a party-filed motion whose description
+        mentions 'OPINION' as the target of the motion (e.g.
+        'MOTION FOR RECONSIDERATION OF OPINION') must NOT be accepted as the
+        cited opinion, even though it contains the 'opinion' keyword and
+        falls within the ±14 day date window. Phase 3 Task 4 code-review
+        follow-up: '_PROCEDURAL_KEYWORDS' deliberately excludes the
+        'motion for' substring so that 'OPINION on motion for X' is still
+        accepted, but a doc whose description *starts* with 'motion for'
+        is a party filing, not the court's opinion."""
+        client = _make_client(
+            citation_lookup=[],
+            search_opinions=[],
+            search_recap=[
+                {
+                    "caseName": "Sample v. Counterparty",
+                    "docket_id": 99999001,
+                    "id": 99999001,
+                    "court_id": "txwd",
+                    "docket_absolute_url": "/docket/99999001/sample/",
+                    "dateFiled": "2020-05-01",
+                    "docketNumber": "1:20-cv-00001",
+                    "recap_documents": [
+                        {
+                            "id": 99999101,
+                            "entry_date_filed": "2020-05-01",
+                            "short_description": "MOTION FOR RECONSIDERATION OF OPINION",
+                            "page_count": 4,
+                            "is_free_on_pacer": False,
+                        }
+                    ],
+                }
+            ],
+        )
+        v = CitationVerifier(client)
+        result = v.verify(
+            "Sample v. Counterparty, 2020 WL 1234567 (W.D. Tex. May 1, 2020)"
+        )
+        assert result.status == Status.VERIFIED_DOCKET_ONLY
+        assert result.final_ids.docket_id == 99999001
+        assert result.final_ids.recap_document_id is None
+
     def test_docket_only_when_doc_is_procedural_order(self):
         """Cabot v. Lewis shape: order certifying interlocutory appeal
         is text-bearing but procedural. Strict reading: DOCKET_ONLY."""
