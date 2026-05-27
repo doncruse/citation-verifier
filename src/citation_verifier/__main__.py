@@ -23,6 +23,7 @@ _STATUS_LABELS = {
     Status.WRONG_CASE: "[!] WRONG CASE",
     Status.NOT_FOUND: "[X] NOT FOUND",
     Status.VERIFICATION_INCOMPLETE: "[?] VERIFICATION INCOMPLETE",
+    Status.INSUFFICIENT_DATA: "[?] INSUFFICIENT DATA",
 }
 
 
@@ -256,18 +257,20 @@ def main(argv: list[str] | None = None) -> int:
                 if cache:
                     cache.put(cite_text, result)
 
-    # Print all results in original order. Exit codes (Phase 5 Task 8):
+    # Print all results in original order. Exit codes:
     #   0 = all citations verified or skipped
     #   1 = at least one NOT_FOUND (potential hallucination)
     #   2 = at least one VERIFICATION_INCOMPLETE (CL infra failure; rerun)
-    # Per design §2.8 "fail-closed at verifier integrity," INCOMPLETE means
-    # "we couldn't tell," not "verified," so CI callers must distinguish
-    # it from a confirmed-fake citation.  When a batch contains BOTH a
-    # NOT_FOUND and an INCOMPLETE, INCOMPLETE wins (exit 2) -- if any
-    # verification didn't complete, the batch's NOT_FOUND signal is itself
-    # not fully trustworthy and a retry should come first.  NOT_FOUND
-    # keeps exit 1 for backward compat with pre-Phase-5 callers that
-    # treated any non-zero as "fake".
+    #   3 = at least one INSUFFICIENT_DATA (parse too weak to verify; fix
+    #       the input by adding court + year parenthetical and rerun)
+    # Per design §2.8 "fail-closed at verifier integrity," INCOMPLETE and
+    # INSUFFICIENT_DATA both mean "we couldn't tell," not "verified," so
+    # CI callers must distinguish them from a confirmed-fake citation.
+    # In a mixed batch, max() wins; INSUFFICIENT_DATA (3) > INCOMPLETE (2)
+    # > NOT_FOUND (1) reflects "we don't know" outranking "we tried and
+    # found nothing" — fix the most fundamental confidence issue first.
+    # NOT_FOUND keeps exit 1 for backward compat with pre-Phase-5 callers
+    # that treated any non-zero as "fake".
     exit_code = 0
     for result in results:
         assert result is not None
@@ -276,6 +279,8 @@ def main(argv: list[str] | None = None) -> int:
             exit_code = max(exit_code, 1)
         elif result.status == Status.VERIFICATION_INCOMPLETE:
             exit_code = max(exit_code, 2)
+        elif result.status == Status.INSUFFICIENT_DATA:
+            exit_code = max(exit_code, 3)
 
     return exit_code
 

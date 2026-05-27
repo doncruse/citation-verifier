@@ -328,6 +328,7 @@ Terry v. Ohio, 392 U.S. 1 (1968)"></textarea>
       case 'WRONG_CASE': return 'badge-notfound';
       case 'NOT_FOUND': return 'badge-notfound';
       case 'VERIFICATION_INCOMPLETE': return 'badge-error';
+      case 'INSUFFICIENT_DATA': return 'badge-possible';
       case 'ERROR': return 'badge-error';
       default: return 'badge-pending';
     }
@@ -344,6 +345,7 @@ Terry v. Ohio, 392 U.S. 1 (1968)"></textarea>
       case 'WRONG_CASE': return 'Wrong Case';
       case 'NOT_FOUND': return 'Not Found';
       case 'VERIFICATION_INCOMPLETE': return 'Incomplete';
+      case 'INSUFFICIENT_DATA': return 'Insufficient Data';
       case 'ERROR': return 'Error';
       default: return 'Pending';
     }
@@ -363,6 +365,8 @@ Terry v. Ohio, 392 U.S. 1 (1968)"></textarea>
         return [{ label: 'Wrong Case', cls: 'badge-notfound', tip: 'The reporter citation resolves to a different case than the one named' }];
       case 'VERIFICATION_INCOMPLETE':
         return [{ label: 'Incomplete', cls: 'badge-error', tip: 'Verification incomplete due to a CourtListener infrastructure error; try again' }];
+      case 'INSUFFICIENT_DATA':
+        return [{ label: 'Insufficient Data', cls: 'badge-possible', tip: 'The citation lacks both court and year, so the verifier could not anchor a fallback search. Add the court and year parenthetical (e.g. "(E.D. Tenn. 2020)") and re-run.' }];
       case 'LIKELY_REAL':
         return [{ label: 'Likely Real', cls: 'badge-likely' }];
       case 'POSSIBLE_MATCH': {

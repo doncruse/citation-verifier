@@ -484,6 +484,8 @@ Terry v. Ohio, 392 U.S. 1 (1968)"></textarea>
         return [{ label: 'Wrong Case', cls: 'badge-notfound', tip: 'The reporter citation resolves to a different case than the one named' }];
       case 'VERIFICATION_INCOMPLETE':
         return [{ label: 'Retry', cls: 'badge-error', tip: 'Verification incomplete due to a CourtListener infrastructure error; try again' }];
+      case 'INSUFFICIENT_DATA':
+        return [{ label: 'Insufficient Data', cls: 'badge-review', tip: 'The citation lacks both court and year, so the verifier could not anchor a fallback search. Add the court and year parenthetical (e.g. "(E.D. Tenn. 2020)") and re-run.' }];
       case 'POSSIBLE_MATCH': {
         var badges = [];
         if (diagnostics && diagnostics.length) {

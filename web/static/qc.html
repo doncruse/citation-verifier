@@ -47,6 +47,7 @@
   .chip[data-filter="NOT_FOUND"].active { background: #dc3545; border-color: #dc3545; }
   .chip[data-filter="WRONG_CASE"].active { background: #b21f1f; border-color: #b21f1f; }
   .chip[data-filter="VERIFICATION_INCOMPLETE"].active { background: #856404; border-color: #856404; }
+  .chip[data-filter="INSUFFICIENT_DATA"].active { background: #856404; border-color: #856404; }
   .chip[data-filter="POSSIBLE_MATCH"].active { background: #856404; border-color: #856404; }
   .chip[data-filter="LIKELY_REAL"].active { background: #004085; border-color: #004085; }
   .chip[data-filter="VERIFIED"].active { background: #155724; border-color: #155724; }
@@ -385,6 +386,7 @@
   <span class="chip active" data-filter="NOT_FOUND">NOT_FOUND</span>
   <span class="chip active" data-filter="WRONG_CASE">WRONG_CASE</span>
   <span class="chip active" data-filter="VERIFICATION_INCOMPLETE">INCOMPLETE</span>
+  <span class="chip active" data-filter="INSUFFICIENT_DATA">INSUFFICIENT</span>
   <span class="chip active" data-filter="POSSIBLE_MATCH">POSSIBLE</span>
   <span class="chip" data-filter="LIKELY_REAL">LIKELY_REAL</span>
   <span class="chip" data-filter="VERIFIED">VERIFIED</span>
@@ -455,6 +457,7 @@
       case 'WRONG_CASE': return 'badge-notfound';
       case 'NOT_FOUND': return 'badge-notfound';
       case 'VERIFICATION_INCOMPLETE': return 'badge-notfound';
+      case 'INSUFFICIENT_DATA': return 'badge-possible';
       case 'SKIPPED': return 'badge-skipped';
       default: return '';
     }
@@ -471,6 +474,7 @@
       case 'WRONG_CASE': return 'Wrong Case';
       case 'NOT_FOUND': return 'Not Found';
       case 'VERIFICATION_INCOMPLETE': return 'Incomplete';
+      case 'INSUFFICIENT_DATA': return 'Insufficient';
       case 'SKIPPED': return 'Skipped';
       default: return status || '--';
     }

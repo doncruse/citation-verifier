@@ -217,6 +217,7 @@ _STATUS_BADGE_FALLBACK: dict[str, str] = {
     "VERIFIED_VIA_RECAP": "Verified via RECAP",
     "VERIFIED_DOCKET_ONLY": "Docket only -- no opinion text",
     "VERIFICATION_INCOMPLETE": "Verification incomplete -- infrastructure error",
+    "INSUFFICIENT_DATA": "Insufficient data -- citation lacks court and year",
 }
 
 # Threshold (chars of visible text) below which we suspect a downloaded

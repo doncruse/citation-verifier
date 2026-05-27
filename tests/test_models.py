@@ -21,7 +21,7 @@ from citation_verifier.models import (
 
 
 class TestStatusEnum:
-    def test_has_six_states(self):
+    def test_has_expected_states(self):
         assert {s.value for s in Status} == {
             "VERIFIED",
             "VERIFIED_PARTIAL",
@@ -30,7 +30,8 @@ class TestStatusEnum:
             "WRONG_CASE",
             "NOT_FOUND",
             "VERIFICATION_INCOMPLETE",
-        } - {"VERIFICATION_INCOMPLETE"} | {"VERIFICATION_INCOMPLETE"}
+            "INSUFFICIENT_DATA",
+        }
 
 
 class TestVerificationResult:

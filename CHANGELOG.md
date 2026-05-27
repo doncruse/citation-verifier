@@ -2,6 +2,32 @@
 
 All notable schema-level changes to citation-verifier. Per design v2 §2.6 / §5: additions to closed-set enums are minor-version changes, removals are major.
 
+## v0.3.2 — 2026-05-27
+
+### Schema (models.py)
+
+- **New `Status.INSUFFICIENT_DATA`** in the "Unresolved" group. Additive minor-version change per design v2 §2.6. Distinguishes "the parser couldn't extract enough metadata to anchor a confident verification" from `NOT_FOUND` ("we tried everything we have and found nothing convincing"). Carries no `final_ids` — promotion nulls cluster_id, docket_id, recap_document_id, absolute_url, and text_source, mirroring the `VERIFICATION_INCOMPLETE` design §2.8 pattern.
+
+### Behavior
+
+- **NOT_FOUND → INSUFFICIENT_DATA promotion in `_finalize_result`**: when the final status would be `NOT_FOUND` AND `parsed_citation.court is None` AND `parsed_citation.year is None`, the verifier promotes to `INSUFFICIENT_DATA`. Runs after the existing INCOMPLETE promotion, so `VERIFICATION_INCOMPLETE` (CL infra failure — rerun) still wins when both conditions apply. The pre-existing `_search_fallback` short-circuit (which already skipped opinion_search and RECAP when court+year are both missing) is preserved; this change only relabels the terminal status. The "Insufficient data to verify..." note remains on the synthetic opinion_search resolution_path entry.
+- **Single-citation CLI exit codes** (`__main__.py`): new exit code `3` for `INSUFFICIENT_DATA`. Priority in a mixed batch via `max()`: `3 (INSUFFICIENT_DATA) > 2 (INCOMPLETE) > 1 (NOT_FOUND) > 0`. Rationale: "we couldn't tell because the input was too weak" outranks the other failure modes because retry / hallucination analysis are moot until the parse is fixed.
+
+### Consumer surface
+
+- **Frontend coverage** (`web/static/{get,index,qc}.html`): added `case 'INSUFFICIENT_DATA':` blocks to every Status switch (badgeClass, statusLabel, statusBadges per page). Badge style mirrors `POSSIBLE_MATCH` / `VERIFIED_DOCKET_ONLY` warning treatment. The Phase 5 `test_every_status_has_case_in_every_switch` test enforces coverage.
+- **QC filter chip** (`qc.html`): new `data-filter='INSUFFICIENT_DATA'` chip in the default-active set alongside `NOT_FOUND` / `WRONG_CASE` / `VERIFICATION_INCOMPLETE` / `POSSIBLE_MATCH`. Active-state chip styling matches INCOMPLETE (`#856404`).
+- **Deep-search retry exclusion** (`get.html`): `INSUFFICIENT_DATA` is intentionally NOT included in the `quickNotFoundIndices` retry trigger. The retry escalates the lookup — it cannot fix a parser failure. Same reasoning excludes it from `audit-misses`'s full-pipeline retry pass.
+- **`brief_pipeline._STATUS_BADGE_FALLBACK`**: new mapping for the report-finding fallback label ("Insufficient data — citation lacks court and year") for legacy claims.csv runs without an agent-authored badge_label.
+- **`tests/verify_from_csv.py`**: post-run "NEEDS QC" highlight now includes `INSUFFICIENT_DATA` alongside `NOT_FOUND`, `WRONG_CASE`, `VERIFICATION_INCOMPLETE`, and `POSSIBLE_MATCH`.
+
+### Testing
+
+- New `TestInsufficientData` class in `test_verifier.py` (5 tests): main promotion, final_ids nulling, court-set blocking, year-set blocking, lookup-success blocking.
+- `test_async_verifier.py::test_parity_insufficient_data_guard` updated from `Status.NOT_FOUND` to `Status.INSUFFICIENT_DATA`.
+- `test_models.py::TestStatusEnum::test_has_six_states` renamed to `test_has_expected_states` and updated to include the new enum value.
+- 2 new CLI exit-code tests in `test_cli_verify_json.py::TestExitCodes`: `test_insufficient_data_exits_three` and `test_insufficient_data_beats_other_failures`.
+
 ## v0.3.1 — 2026-05-23
 
 ### Schema (models.py)

@@ -288,6 +288,9 @@ class TestExitCodes:
         2 = at least one VERIFICATION_INCOMPLETE (wins over NOT_FOUND too --
             if any verification didn't complete, the batch's signal is
             itself not fully trustworthy; retry first)
+        3 = at least one INSUFFICIENT_DATA (wins over INCOMPLETE and
+            NOT_FOUND -- the input was too weak to even attempt a
+            confident determination; fix the input and rerun)
     """
 
     @staticmethod
@@ -295,6 +298,14 @@ class TestExitCodes:
         return _make_result(
             citation="Some v. Citation, 1 U.S. 1 (2099)",
             status=Status.VERIFICATION_INCOMPLETE,
+            confidence=None,
+        )
+
+    @staticmethod
+    def _insufficient_data_result() -> VerificationResult:
+        return _make_result(
+            citation="Doe v. Roe",
+            status=Status.INSUFFICIENT_DATA,
             confidence=None,
         )
 
@@ -346,3 +357,19 @@ class TestExitCodes:
             self._incomplete_result(),
         ])
         assert rc == 2
+
+    def test_insufficient_data_exits_three(self):
+        rc = self._run_with_results([self._insufficient_data_result()])
+        assert rc == 3
+
+    def test_insufficient_data_beats_other_failures(self):
+        """In a mixed batch with NOT_FOUND + INCOMPLETE + INSUFFICIENT_DATA,
+        the INSUFFICIENT_DATA exit (3) wins -- 'we couldn't tell because
+        the input was too weak' outranks the other failure modes because
+        retry / hallucination analysis are moot until the parse is fixed."""
+        rc = self._run_with_results([
+            _not_found_result(),
+            self._incomplete_result(),
+            self._insufficient_data_result(),
+        ])
+        assert rc == 3

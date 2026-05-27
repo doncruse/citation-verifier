@@ -332,7 +332,13 @@ class TestAsyncSyncParity:
         assert sync_r.status == async_r.status == Status.NOT_FOUND
 
     def test_parity_insufficient_data_guard(self):
-        """Missing both court and date → NOT_FOUND with diagnostic in both paths."""
+        """Missing both court and date → INSUFFICIENT_DATA in both paths.
+
+        Before the INSUFFICIENT_DATA promotion landed, this returned
+        NOT_FOUND with the "Insufficient data" note. The status now
+        distinguishes "we couldn't tell because the input was too weak"
+        from "we tried and found nothing convincing" — the note is still
+        on the resolution_path entry for context."""
         # Use pre-parsed citation with no court/year to guarantee the guard fires
         parsed = ParsedCitation(
             raw_text="Smith v. Jones, 100 F.3d 200",
@@ -359,7 +365,7 @@ class TestAsyncSyncParity:
             api, "Smith v. Jones, 100 F.3d 200", parsed=parsed
         )
 
-        assert sync_r.status == async_r.status == Status.NOT_FOUND
+        assert sync_r.status == async_r.status == Status.INSUFFICIENT_DATA
         assert sync_r.headline_confidence is None
         assert async_r.headline_confidence is None
         sync_winner = _winning_path_entry(sync_r)

@@ -103,6 +103,33 @@ class CitationVerifier:
             return Status.VERIFICATION_INCOMPLETE
         return status
 
+    @staticmethod
+    def _promote_to_insufficient_data_if_no_anchors(
+        status: Status,
+        parsed: ParsedCitation | None,
+    ) -> Status:
+        """Promote NOT_FOUND to INSUFFICIENT_DATA when the parsed citation
+        lacks both court and year. Distinguishes "we couldn't tell because
+        the input was too weak" from "we tried and found nothing convincing".
+
+        Only NOT_FOUND is promoted — other statuses each carry more
+        actionable signal than INSUFFICIENT_DATA would: WRONG_CASE has a
+        cluster URL, INCOMPLETE means rerun, VERIFIED resolved despite the
+        weak metadata. Runs AFTER the INCOMPLETE promotion so the
+        infrastructure-failure signal wins when both apply.
+
+        See scratch/TODO.md (Priority 1: INSUFFICIENT_DATA short-circuit)
+        and the matching _search_fallback short-circuit at the same
+        court+year-missing condition.
+        """
+        if status != Status.NOT_FOUND:
+            return status
+        if parsed is None:
+            return status
+        if parsed.court is None and parsed.year is None:
+            return Status.INSUFFICIENT_DATA
+        return status
+
     # ------------------------------------------------------------------
     # Shared helpers (pure logic, no I/O)
     # ------------------------------------------------------------------
@@ -132,10 +159,16 @@ class CitationVerifier:
         # Phase 4 Task 2: design §2.8 internal gate. Promote NOT_FOUND to
         # VERIFICATION_INCOMPLETE when only errored stages exist.
         status = self._promote_to_incomplete_if_only_errored(status, path)
-        # When promoting to INCOMPLETE, also null out any partial IDs the
-        # caller may have set — the verifier did not authoritatively answer
-        # and consumers must not treat partial IDs as truth.
-        if status == Status.VERIFICATION_INCOMPLETE:
+        # Promote NOT_FOUND to INSUFFICIENT_DATA when parsed.court and
+        # parsed.year are both None — input was too weak to anchor the
+        # fallback search on. Runs after the INCOMPLETE promotion so the
+        # infrastructure-failure signal wins when both conditions apply.
+        status = self._promote_to_insufficient_data_if_no_anchors(status, parsed)
+        # When promoting to INCOMPLETE or INSUFFICIENT_DATA, null out any
+        # partial IDs the caller may have set — neither is an authoritative
+        # answer, and consumers must not mistake either for partial
+        # verification (design §2.8).
+        if status in (Status.VERIFICATION_INCOMPLETE, Status.INSUFFICIENT_DATA):
             cluster_id = None
             docket_id = None
             recap_document_id = None

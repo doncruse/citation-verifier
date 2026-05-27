@@ -3057,3 +3057,122 @@ class TestNamesMatchXvUnitedStates:
         v = CitationVerifier(client=None)
         result = v._names_match_citation_lookup(parsed, "Doe v. XYZ Inc.")
         assert result is False
+
+
+# ---------------------------------------------------------------------------
+# INSUFFICIENT_DATA short-circuit — promote NOT_FOUND when the parsed citation
+# lacks both court and year anchors. Distinct from NOT_FOUND because "we
+# couldn't tell" is a different signal than "we tried and found nothing
+# convincing". See scratch/TODO.md "INSUFFICIENT_DATA" entry.
+# ---------------------------------------------------------------------------
+
+
+class TestInsufficientData:
+    """Promotion fires only when status would otherwise be NOT_FOUND AND
+    parsed.court is None AND parsed.year is None. Other statuses keep
+    their semantics — they each carry more actionable signal than the
+    INSUFFICIENT_DATA promotion would."""
+
+    def _parsed_with(self, *, court: str | None, year: int | None):
+        from citation_verifier.models import ParsedCitation
+        return ParsedCitation(
+            raw_text="Doe v. Roe",
+            case_name="Doe v. Roe",
+            plaintiff="Doe",
+            defendant="Roe",
+            court=court,
+            year=year,
+        )
+
+    def test_promotes_to_insufficient_data_when_court_and_year_missing(self):
+        """Main case: lookup misses, opinion_search misses, court+year both
+        None → INSUFFICIENT_DATA (not NOT_FOUND)."""
+        client = _make_client(
+            citation_lookup=[],
+            search_opinions=[],
+            search_recap=[],
+        )
+        v = CitationVerifier(client)
+        result = v.verify(
+            "Doe v. Roe",
+            parsed=self._parsed_with(court=None, year=None),
+        )
+        assert result.status == Status.INSUFFICIENT_DATA
+
+    def test_promotion_nulls_final_ids(self):
+        """Mirrors the VERIFICATION_INCOMPLETE pattern (design v2 §2.8):
+        consumers cannot mistake INSUFFICIENT_DATA for partial verification.
+        All FinalIds are nulled on promotion."""
+        client = _make_client(
+            citation_lookup=[],
+            search_opinions=[],
+            search_recap=[],
+        )
+        v = CitationVerifier(client)
+        result = v.verify(
+            "Doe v. Roe",
+            parsed=self._parsed_with(court=None, year=None),
+        )
+        assert result.status == Status.INSUFFICIENT_DATA
+        assert result.final_ids.cluster_id is None
+        assert result.final_ids.docket_id is None
+        assert result.final_ids.recap_document_id is None
+        assert result.final_ids.absolute_url is None
+        assert result.final_ids.text_source is None
+
+    def test_no_promotion_when_court_is_set(self):
+        """Court present blocks promotion — opinion_search could filter by
+        court even if year is missing. Stay NOT_FOUND."""
+        client = _make_client(
+            citation_lookup=[],
+            search_opinions=[],
+            search_recap=[],
+        )
+        v = CitationVerifier(client)
+        result = v.verify(
+            "Doe v. Roe",
+            parsed=self._parsed_with(court="ca9", year=None),
+        )
+        assert result.status == Status.NOT_FOUND
+
+    def test_no_promotion_when_year_is_set(self):
+        """Year present blocks promotion — even without court, opinion_search
+        gets a date window. Stay NOT_FOUND."""
+        client = _make_client(
+            citation_lookup=[],
+            search_opinions=[],
+            search_recap=[],
+        )
+        v = CitationVerifier(client)
+        result = v.verify(
+            "Doe v. Roe",
+            parsed=self._parsed_with(court=None, year=2020),
+        )
+        assert result.status == Status.NOT_FOUND
+
+    def test_no_promotion_when_lookup_succeeds(self):
+        """VERIFIED keeps its semantics regardless of parse weakness — we
+        actually found the case via citation_lookup, the parse quality is
+        moot. Promotion only fires on NOT_FOUND."""
+        client = _make_client(
+            citation_lookup=[
+                {
+                    "clusters": [
+                        {
+                            "case_name": "Doe v. Roe",
+                            "id": 12345,
+                            "absolute_url": "/opinion/12345/doe-v-roe/",
+                        }
+                    ]
+                }
+            ],
+            search_opinions=[],
+            search_recap=[],
+        )
+        v = CitationVerifier(client)
+        result = v.verify(
+            "Doe v. Roe",
+            parsed=self._parsed_with(court=None, year=None),
+        )
+        assert result.status == Status.VERIFIED
+        assert result.final_ids.cluster_id == 12345

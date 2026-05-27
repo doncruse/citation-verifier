@@ -23,6 +23,7 @@ class Status(Enum):
     # Unresolved
     NOT_FOUND = "NOT_FOUND"
     VERIFICATION_INCOMPLETE = "VERIFICATION_INCOMPLETE"
+    INSUFFICIENT_DATA = "INSUFFICIENT_DATA"
 
 
 # ---------------------------------------------------------------------------
