@@ -191,21 +191,6 @@ Tracked in `tests/data/cl_api_issues.json`. All have workarounds implemented.
 
 ## Testing
 
-### Test failures (2026-05-17)
-
-Five pre-existing failures observed when running `pytest tests/` against `origin/main` (independent of the benchmark spinout — reproduces without those changes). Need investigation:
-
-**`tests/test_false_negatives.py` — 4 cases match a different cluster than expected.** The verifier still finds *a* case, but a different cluster ID than what the test was written against. Could be CL data drift (newly-added duplicate clusters now winning the score) or a genuine scoring regression. Each case has a real CourtListener match for the cited WL number — the question is whether the score is picking the *right* cluster.
-
-- `Anderson v. Furst, No. 17-cv-12676, 2018 WL 4407750, at *2 (E.D. Mich. Sept. 17, 2018)` — expected cluster `6264209`, got `9746415`. Matched cluster: https://www.courtlistener.com/opinion/9746415/anderson-v-furst/. Diagnostic: "Reporter citation 2018 WL 4407750 could not be confirmed (CL has no reporter citations on file for this case)" — i.e., the WL cite isn't on `9746415` at all, so the scoring chose it without confirming the reporter. Suggests the expected cluster `6264209` is the right one but lost the score (date-closeness or name-similarity tiebreaker).
-- `Bossart v. King Cnty., Case No. 2:24-cv-01776-JHC, 2025 WL 4...`
-- `Busha v. SC Dep't of Mental Health, No. 6:18-CV-02337-DCC, 2...`
-- `Townsley v. Lifewise Assurance Co., Case No. C15-1228-JCC, 2...`
-
-First step: re-run all 4 with verbose output, capture expected-vs-got cluster IDs + URLs + mismatches, then decide per-case whether to update the expected cluster (data drift) or fix scoring (regression).
-
-**`tests/test_report_template.py::TestReportGeneration::test_contains_red_finding` — fixture/template mismatch.** The fixture passes a claim with proposition text containing "anti-abortion protesters" (the `Tompkins v. Cyr` finding), but the rendered HTML doesn't include that string. The template appears to render `case_name`, `citation`, "Not supported by cited case" assessment, and the methodology disclosure — but not the per-finding proposition text. Either the template changed to drop proposition rendering for Reds (and the test needs updating), or there's a bug where proposition text isn't rendered when it should be. Inspect `src/citation_verifier/report_template.py` and the fixture in the test file.
-
 ### Justia diagnostic script
 One-off script to compare NOT_FOUND citations against Justia to distinguish: real hallucinations, CL data gaps, our search bugs. Diagnostic only.
 
