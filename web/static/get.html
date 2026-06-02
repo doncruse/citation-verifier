@@ -701,14 +701,17 @@ Terry v. Ohio, 392 U.S. 1 (1968)"></textarea>
       updateDownloadBtn();
       searchMode = 'idle';
 
-      // Count remaining NOT_FOUND/ERROR/VERIFICATION_INCOMPLETE after deep search.
-      // VERIFICATION_INCOMPLETE is by design the CL-infra-failure case
-      // (5xx / timeout per verifier design §2.8); it joins the "still
-      // missing" set so the user sees an accurate retry count.
+      // Count remaining NOT_FOUND/ERROR/VERIFICATION_INCOMPLETE/INSUFFICIENT_DATA
+      // after deep search.  VERIFICATION_INCOMPLETE is the CL-infra-failure case
+      // (5xx / timeout per verifier design §2.8) and INSUFFICIENT_DATA is the
+      // weak-parse short-circuit (no court + no year, nothing to anchor a
+      // search on); both join the "still missing" set so the count stays
+      // honest — neither produces a matched_url, so they'd otherwise look
+      // like "found" but be undownloadable.
       var stillMissing = 0;
       for (var si = 0; si < quickNotFoundIndices.length; si++) {
         var idx = quickNotFoundIndices[si];
-        if (results[idx] && (results[idx].status === 'NOT_FOUND' || results[idx].status === 'ERROR' || results[idx].status === 'VERIFICATION_INCOMPLETE')) stillMissing++;
+        if (results[idx] && (results[idx].status === 'NOT_FOUND' || results[idx].status === 'ERROR' || results[idx].status === 'VERIFICATION_INCOMPLETE' || results[idx].status === 'INSUFFICIENT_DATA')) stillMissing++;
       }
       var foundCount = allCitations.length - stillMissing;
       updateResultsSummary(foundCount, stillMissing);
@@ -779,11 +782,15 @@ Terry v. Ohio, 392 U.S. 1 (1968)"></textarea>
       results[rowIndex] = data;
       updateRow(rowIndex, data);
 
-      // Track NOT_FOUND, ERROR, and VERIFICATION_INCOMPLETE during quick
-      // search for deep retry. INCOMPLETE represents CL infrastructure
-      // failures (5xx, timeout, connection error per verifier design §2.8)
-      // -- exactly the case the deep-search retry was built for.
-      if (searchMode === 'quick' && (data.status === 'NOT_FOUND' || data.status === 'ERROR' || data.status === 'VERIFICATION_INCOMPLETE')) {
+      // Track NOT_FOUND, ERROR, VERIFICATION_INCOMPLETE, and
+      // INSUFFICIENT_DATA during quick search for deep retry.
+      // INCOMPLETE represents CL infrastructure failures (5xx, timeout,
+      // connection error per verifier design §2.8) -- exactly the case
+      // the deep-search retry was built for.  INSUFFICIENT_DATA flags
+      // citations the parser couldn't anchor (no court + no year); deep
+      // search won't help, but they belong in the "not found" bucket so
+      // the count matches the downloadable rows.
+      if (searchMode === 'quick' && (data.status === 'NOT_FOUND' || data.status === 'ERROR' || data.status === 'VERIFICATION_INCOMPLETE' || data.status === 'INSUFFICIENT_DATA')) {
         quickNotFoundIndices.push(rowIndex);
       }
       updateDownloadBtn();

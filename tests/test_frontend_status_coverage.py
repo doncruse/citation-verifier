@@ -151,30 +151,42 @@ def test_qc_filter_chips_cover_actionable_v03_statuses():
     )
 
 
-def test_get_html_deep_search_retries_on_verification_incomplete():
-    """The deep-search retry condition in get.html's runSSE handler must
-    include VERIFICATION_INCOMPLETE alongside NOT_FOUND and ERROR. Otherwise
-    transient CL hiccups leave citations stuck at INCOMPLETE forever (audit
-    row C4)."""
+_GET_HTML_MISS_BUCKET = (
+    "NOT_FOUND",
+    "ERROR",
+    "VERIFICATION_INCOMPLETE",
+    "INSUFFICIENT_DATA",
+)
+
+
+def test_get_html_miss_bucket_covers_undownloadable_statuses():
+    """The "still missing" / deep-search-retry bucket in get.html's runSSE
+    handler must cover every status that doesn't produce a matched_url.
+
+    Otherwise the page reports them as "found" (because the bucket check
+    is the only thing that takes a status *out* of the found tally) while
+    showing no download checkbox -- the displayed found-count exceeds the
+    available-to-download count, which is exactly what tripped the user
+    after INSUFFICIENT_DATA shipped (commit f7c9203) without a matching
+    frontend update. VERIFICATION_INCOMPLETE was the original case from
+    audit row C4; INSUFFICIENT_DATA joined the bucket later.
+    """
     html = (_STATIC_DIR / "get.html").read_text(encoding="utf-8")
-    has_all_three = (
-        "NOT_FOUND" in html
-        and "VERIFICATION_INCOMPLETE" in html
-        and "ERROR" in html
-    )
-    assert has_all_three, (
-        "get.html must reference all three of NOT_FOUND, ERROR, and "
-        "VERIFICATION_INCOMPLETE for the deep-search retry trigger to work "
-        "(audit row C4)."
-    )
+    for needle in _GET_HTML_MISS_BUCKET:
+        assert needle in html, (
+            f"get.html must reference {needle} for the not-found / "
+            f"deep-search retry trigger to work."
+        )
     lines = html.split("\n")
     for i, line in enumerate(lines):
         if "NOT_FOUND" in line and "ERROR" in line:
             window = "\n".join(lines[max(0, i-2):i+3])
-            if "VERIFICATION_INCOMPLETE" in window:
+            if all(s in window for s in _GET_HTML_MISS_BUCKET):
                 return  # found the retry-condition site
     pytest.fail(
-        "get.html has NOT_FOUND + ERROR + VERIFICATION_INCOMPLETE somewhere, "
-        "but not in the same retry-condition expression. Confirm the deep-"
-        "search retry trigger includes VERIFICATION_INCOMPLETE."
+        "get.html has each status name somewhere, but not all of "
+        f"{_GET_HTML_MISS_BUCKET} appear in the same retry-condition "
+        "expression. The frontend's not-found bucket must cover every "
+        "status that produces no matched_url, otherwise the found-count "
+        "drifts above the downloadable-count."
     )
