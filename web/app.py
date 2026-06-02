@@ -404,64 +404,44 @@ async def verify(request: Request):
             "data": json.dumps({"total": len(citations)}),
         }
 
+        # Single batched citation_lookup for hits; misses fan out to the
+        # opinion-search + RECAP fallback inside verify_batch.  Results are
+        # collected then streamed as a burst — UX trades the per-citation
+        # trickle of "result" events (~15-25s for 10 cites) for one shared
+        # round-trip (~3-5s for 10 cites) plus a single render pass.  See
+        # plans/steady-wandering-eich.md for the trade-off rationale.
         async with AsyncCourtListenerClient(api_token=token) as client:
-            # Per-citation verify_async() through the public API. The pre-v0.3
-            # batch fast path manually called private helpers whose signatures
-            # changed during the schema rewrite (e.g. _process_citation_lookup_hit
-            # now takes (builder, token, citation_text, parsed, cluster,
-            # clusters_returned) and returns finalize kwargs, not a result).
-            # Routing every citation through verify_async() means the web app
-            # gets the same code path as the CLI and unit tests, so schema
-            # changes don't silently break it. Trade-off: one citation_lookup
-            # API call per citation instead of one shared batched call. For
-            # typical web usage (1-10 citations) the per-request overhead is
-            # negligible against CL's own response time.
-            for i, citation_text in enumerate(citations):
-                try:
-                    result = await _verifier.verify_async(
-                        client, citation_text, quick_only=quick_only,
-                    )
-                    if not quick_only or result.status != Status.NOT_FOUND:
-                        _cache.put(citation_text, result)
-                    result_dict = _result_to_dict(result)
-                    result_dict["index"] = i
-                    result_dict["cached"] = False
-                    yield {
-                        "event": "result",
-                        "data": json.dumps(result_dict),
-                    }
-                except Exception as exc:
-                    logger.exception(
-                        "Error verifying citation: %s", citation_text
-                    )
-                    yield {
-                        "event": "result",
-                        "data": json.dumps({
-                            "index": i,
-                            "input_citation": citation_text,
-                            "citation_as_written": citation_text,
-                            "status": "ERROR",
-                            "confidence": 0.0,
-                            "matched_case_name": None,
-                            "matched_url": None,
-                            "matched_court": None,
-                            "matched_date": None,
-                            "matched_description": None,
-                            "diagnostics": [],
-                            "warnings": [],
-                            "stage_notes": None,
-                            "error": str(exc),
-                            "cached": False,
-                        }),
-                    }
-
+            try:
+                results = await _verifier.verify_batch(
+                    citations,
+                    quick_only=quick_only,
+                    client=client,
+                )
+            except Exception as exc:
+                logger.exception("verify_batch failed for %d citations", len(citations))
                 yield {
-                    "event": "progress",
-                    "data": json.dumps({
-                        "completed": i + 1,
-                        "total": len(citations),
-                    }),
+                    "event": "error",
+                    "data": json.dumps({"error": str(exc)}),
                 }
+                return
+
+        for i, (citation_text, result) in enumerate(zip(citations, results)):
+            if not quick_only or result.status != Status.NOT_FOUND:
+                _cache.put(citation_text, result)
+            result_dict = _result_to_dict(result)
+            result_dict["index"] = i
+            result_dict["cached"] = False
+            yield {
+                "event": "result",
+                "data": json.dumps(result_dict),
+            }
+            yield {
+                "event": "progress",
+                "data": json.dumps({
+                    "completed": i + 1,
+                    "total": len(citations),
+                }),
+            }
 
         yield {"event": "done", "data": json.dumps({"total": len(citations)})}
 
@@ -1455,76 +1435,57 @@ async def qc_run_batch(request: Request):
             batch_parsed.append(_parsed_citation_from_row(row))
             batch_row_indices.append(seq)
 
-        # Phase 5 Task 2: route through per-citation verify_async() instead
-        # of the pre-v0.3 private-helper batch path.  The old code called
-        # _verifier._batch_citation_lookup + _process_citation_lookup_hit
-        # + _search_fallback_async with v0.2 positional signatures that
-        # changed during the refactor (e.g. _search_fallback_async now
-        # takes (builder, async_client, citation_text, parsed) — the old
-        # 3-arg call raised TypeError on every miss).  Routing every
-        # citation through verify_async() means the QC batch endpoint gets
-        # the same code path as the CLI and unit tests, so schema changes
-        # don't silently break it.  Trade-off: one citation_lookup API call
-        # per citation instead of one shared batched call.  Phase 6+ may
-        # restore batching via verify_batch() once the latent caption-
-        # investigation handling bug in verify_batch is fixed (it splats
-        # hit_finalize into _finalize_result without popping the
-        # needs_caption_investigation / _cluster_for_investigation keys —
-        # see docs/consumer-surface-manifest.md "Known issues").
+        # Single batched citation_lookup for all rows; misses fan out
+        # through verify_batch's internal opinion-search + RECAP fallback.
+        # The QC page UI (qc.html) only consumes start/progress/done events
+        # — per-result events are not rendered — so collecting all results
+        # before streaming them is UX-neutral here.
         if batch_citations:
             completed_n = 0
             async with AsyncCourtListenerClient() as client:
-                for i, (cite_text, parsed) in enumerate(
-                    zip(batch_citations, batch_parsed)
-                ):
-                    row = to_verify[batch_row_indices[i]]
-                    try:
-                        result = await _verifier.verify_async(
-                            client, cite_text, parsed=parsed,
-                        )
-                    except Exception as exc:
-                        logger.exception("Batch verify error: %s", cite_text)
-                        completed_n += 1
-                        yield {
-                            "event": "result",
-                            "data": json.dumps({
-                                "index": batch_row_indices[i],
-                                "citation_text": cite_text,
-                                "status": "ERROR",
-                                "error": str(exc),
-                            }),
-                        }
-                        yield {
-                            "event": "progress",
-                            "data": json.dumps({
-                                "completed": completed_n + len(skipped),
-                                "total": len(to_verify),
-                            }),
-                        }
-                        continue
-
-                    _apply_verification_to_row(row, result, git_hash)
-                    results_for_sidecar.append(
-                        _sidecar_entry(cite_text, row, result)
+                try:
+                    batch_results = await _verifier.verify_batch(
+                        batch_citations,
+                        parsed_citations=batch_parsed,
+                        client=client,
                     )
-                    completed_n += 1
+                except Exception as exc:
+                    logger.exception(
+                        "verify_batch failed for %d citations",
+                        len(batch_citations),
+                    )
                     yield {
-                        "event": "result",
-                        "data": json.dumps({
-                            "index": batch_row_indices[i],
-                            "citation_text": cite_text,
-                            "status": result.status.value,
-                            "confidence": result.headline_confidence,
-                            "matched_case_name": _matched_case_name(result),
-                        }),
+                        "event": "error",
+                        "data": json.dumps({"error": str(exc)}),
                     }
-                    yield {
-                        "event": "progress",
-                        "data": json.dumps({
-                            "completed": completed_n + len(skipped),
-                            "total": len(to_verify),
-                        }),
-                    }
+                    return
+
+            for i, (cite_text, result) in enumerate(
+                zip(batch_citations, batch_results)
+            ):
+                row = to_verify[batch_row_indices[i]]
+                _apply_verification_to_row(row, result, git_hash)
+                results_for_sidecar.append(
+                    _sidecar_entry(cite_text, row, result)
+                )
+                completed_n += 1
+                yield {
+                    "event": "result",
+                    "data": json.dumps({
+                        "index": batch_row_indices[i],
+                        "citation_text": cite_text,
+                        "status": result.status.value,
+                        "confidence": result.headline_confidence,
+                        "matched_case_name": _matched_case_name(result),
+                    }),
+                }
+                yield {
+                    "event": "progress",
+                    "data": json.dumps({
+                        "completed": completed_n + len(skipped),
+                        "total": len(to_verify),
+                    }),
+                }
 
         # Write CSV back
         bak = csv_path.with_suffix(".csv.bak")

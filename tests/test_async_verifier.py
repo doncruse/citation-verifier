@@ -1966,3 +1966,181 @@ class TestVerifiedViaRecapScoreGate:
         result = asyncio.run(v.verify_async(async_client, citation))
         assert result.status == Status.VERIFIED_DOCKET_ONLY
         assert result.status != Status.VERIFICATION_INCOMPLETE
+
+
+# ---------------------------------------------------------------------------
+# verify_batch hit-processing path (regression: pre-fix this crashed with
+# TypeError because the dict returned by _process_citation_lookup_hit can
+# carry needs_caption_investigation/_cluster_for_investigation/status_override
+# keys that _finalize_result doesn't accept. The single-citation pipeline
+# pops them; verify_batch used to splat them straight in.)
+# ---------------------------------------------------------------------------
+
+
+def _make_batch_client_with_api(**api):
+    """`_make_async_client` + the context-manager dunders verify_batch needs
+    when patched in as the AsyncCourtListenerClient constructor result."""
+    client = _make_async_client(**api)
+    client.__aenter__ = AsyncMock(return_value=client)
+    client.__aexit__ = AsyncMock(return_value=False)
+    return client
+
+
+class TestBatchPathHitProcessing:
+    """Regression coverage for verify_batch's batch-hit branch.
+
+    Pre-fix, both tests below crashed with
+    `TypeError: _finalize_result() got an unexpected keyword argument ...`
+    because the batch-hit splat at verifier.py:2948 passed
+    `needs_caption_investigation` (name-mismatch path) or `status_override`
+    (silent-partial path) into a fixed-signature kwargs target. The fix
+    ports the pop-and-handle block from verify_async (verifier.py:2428-2482)
+    into verify_batch.
+    """
+
+    def test_batch_hit_name_mismatch_runs_caption_investigation(self):
+        """Cluster case_name disagrees with brief caption → batch path must
+        open a caption_investigation stage instead of crashing."""
+        # Use the same mismatch shape as
+        # TestCaptionInvestigationAsyncParity.test_async_parity_no_overlap_yields_wrong_case
+        # so the investigation reaches WRONG_CASE deterministically.
+        citation = "Hogan v. AT&T, Inc., 917 F. Supp. 1275 (S.D. Tex. 1994)"
+        api = {
+            "citation_lookup": [
+                {
+                    # start_index/end_index let _batch_citation_lookup map
+                    # the response back to the original citation slot.
+                    "start_index": 0,
+                    "end_index": len(citation),
+                    "clusters": [
+                        {
+                            "case_name": "U.S. ex rel. Green v. Washington",
+                            "id": 2140439,
+                            "absolute_url": "/opinion/2140439/",
+                            "citations": [
+                                {"volume": "917", "reporter": "F. Supp.", "page": "1275"},
+                            ],
+                        }
+                    ]
+                }
+            ],
+            "get_cluster": {
+                "id": 2140439,
+                "case_name_full": "United States ex rel. Green v. Washington",
+                "docket_id": 999,
+            },
+            "get_docket": {
+                "case_name": "United States ex rel. Green v. Washington",
+            },
+            "get_opinion_text": (
+                "UNITED STATES OF AMERICA EX REL. RICHARD GREEN, "
+                "Plaintiff, v. WASHINGTON, et al. Defendants."
+            ),
+        }
+        mock_client = _make_batch_client_with_api(**api)
+
+        v = CitationVerifier()
+        with patch(
+            "citation_verifier.verifier.AsyncCourtListenerClient",
+            return_value=mock_client,
+        ):
+            results = asyncio.run(v.verify_batch([citation]))
+
+        result = results[0]
+        stages = [e.stage for e in result.resolution_path]
+        assert StageName.caption_investigation in stages, (
+            f"expected caption_investigation stage in batch path, got {stages}"
+        )
+        # Investigation classifies as WRONG_CASE (matches the verify_async
+        # parity test); the underlying cluster id is still recorded.
+        assert result.status == Status.WRONG_CASE
+        assert result.final_ids.cluster_id == 2140439
+
+    def test_batch_hit_silent_partial_returns_verified_partial(self):
+        """Cluster matches name but primary reporter is missing from CL's
+        citation index → status_override=VERIFIED_PARTIAL must flow through."""
+        # Mirrors TestVerifiedPartial.test_partial_when_primary_reporter_not_in_cluster_citations
+        # (line ~1422) but driven through verify_batch.
+        citation = (
+            "Gilliam v. Uni Holdings, 201 A.D.3d 83, 88-89, "
+            "2021 NY Slip Op 06798 (N.Y. App. Div. 2021)"
+        )
+        api = {
+            "citation_lookup": [
+                {
+                    "start_index": 0,
+                    "end_index": len(citation),
+                    "clusters": [
+                        {
+                            "case_name": "Gilliam v. Uni Holdings",
+                            "id": 5305052,
+                            "absolute_url": "/opinion/5305052/gilliam/",
+                            "citations": [
+                                {"volume": "2021", "reporter": "NY Slip Op",
+                                 "page": "06798", "type": 1},
+                            ],
+                        }
+                    ]
+                }
+            ],
+        }
+        mock_client = _make_batch_client_with_api(**api)
+
+        v = CitationVerifier()
+        with patch(
+            "citation_verifier.verifier.AsyncCourtListenerClient",
+            return_value=mock_client,
+        ):
+            results = asyncio.run(v.verify_batch([citation]))
+
+        result = results[0]
+        assert result.status == Status.VERIFIED_PARTIAL
+        assert any(
+            w.category == WarningCategory.silent_partial_verification
+            for w in result.warnings
+        )
+
+    def test_batch_uses_provided_client_and_does_not_construct_its_own(self):
+        """verify_batch(client=...) must reuse the caller's client so BYOK
+        tokens (carried on web/app.py's per-request AsyncCourtListenerClient)
+        reach the batched citation_lookup call."""
+        citation = "Obergefell v. Hodges, 576 U.S. 644 (2015)"
+        api = {
+            "citation_lookup": [
+                {
+                    "start_index": 0,
+                    "end_index": len(citation),
+                    "clusters": [
+                        {
+                            "case_name": "Obergefell v. Hodges",
+                            "id": 123,
+                            "absolute_url": "/opinion/123/obergefell/",
+                        }
+                    ],
+                }
+            ]
+        }
+        provided_client = _make_batch_client_with_api(**api)
+
+        v = CitationVerifier()
+        # Patch the constructor to a sentinel that errors if called. If
+        # verify_batch ignores the `client=` kwarg and constructs its own,
+        # this will raise inside the function and the test fails.
+        def _boom(*_a, **_kw):
+            raise AssertionError(
+                "verify_batch must not construct its own AsyncCourtListenerClient "
+                "when one is passed via client="
+            )
+
+        with patch(
+            "citation_verifier.verifier.AsyncCourtListenerClient",
+            side_effect=_boom,
+        ):
+            results = asyncio.run(
+                v.verify_batch([citation], client=provided_client)
+            )
+
+        assert results[0].status == Status.VERIFIED
+        assert results[0].final_ids.cluster_id == 123
+        # And the provided client actually got used.
+        provided_client.citation_lookup.assert_called()

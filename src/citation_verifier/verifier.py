@@ -2881,6 +2881,8 @@ class CitationVerifier:
         parsed_citations: list[ParsedCitation | None] | None = None,
         progress_callback: Callable[[int, int], None] | None = None,
         quick_only: bool = False,
+        *,
+        client: AsyncCourtListenerClient | None = None,
     ) -> list[VerificationResult]:
         """Verify multiple citations concurrently.
 
@@ -2902,6 +2904,11 @@ class CitationVerifier:
         quick_only : bool
             When True, only run the citation lookup.  Citations without
             a batch hit return NOT_FOUND immediately.
+        client : AsyncCourtListenerClient, optional
+            Caller-owned client (e.g. one carrying a per-request BYOK token
+            from a web route). When supplied, the caller owns its lifecycle
+            and ``verify_batch`` will not open/close its own client.
+            When ``None`` (default), an internal client is opened.
 
         Returns results in the same order as the input citations.
         """
@@ -2918,86 +2925,157 @@ class CitationVerifier:
             stripped.append(s)
             parsed_list.append(pre_parsed if pre_parsed is not None else parse_citation(s))
 
+        if client is not None:
+            return await self._run_batch(
+                client, stripped, parsed_list, total,
+                progress_callback, quick_only,
+            )
+        async with AsyncCourtListenerClient() as owned_client:
+            return await self._run_batch(
+                owned_client, stripped, parsed_list, total,
+                progress_callback, quick_only,
+            )
+
+    async def _run_batch(
+        self,
+        client: AsyncCourtListenerClient,
+        stripped: list[str],
+        parsed_list: list[ParsedCitation],
+        total: int,
+        progress_callback: Callable[[int, int], None] | None,
+        quick_only: bool,
+    ) -> list[VerificationResult]:
+        """Inner batch driver shared by both the owned-client and
+        caller-supplied-client paths of ``verify_batch``.
+        """
         completed = 0
         results: list[VerificationResult | None] = [None] * total
 
-        async with AsyncCourtListenerClient() as client:
-            # Batch citation lookup (single API call for all citations)
-            batch_hits = await self._batch_citation_lookup(client, stripped)
+        # Batch citation lookup (single API call for all citations)
+        batch_hits = await self._batch_citation_lookup(client, stripped)
 
-            # Process batch hits immediately (no API call needed).
-            # Each citation gets a fresh builder; the citation_lookup
-            # stage is opened so the resulting result carries a
-            # resolution_path entry like the sync surface does.
-            for idx, cluster in batch_hits.items():
+        # Process batch hits.  Each citation gets a fresh builder; the
+        # citation_lookup stage is opened so the resulting result carries
+        # a resolution_path entry like the sync surface does.  If the
+        # hit flags a name-mismatch, run caption_investigation in its
+        # own stage block (mirror of verify_async at verifier.py:2428-2482).
+        for idx, cluster in batch_hits.items():
+            builder = ResolutionPathBuilder()
+            hit_finalize: dict[str, Any] | None = None
+            with builder.stage(
+                StageName.citation_lookup,
+                query={"text": stripped[idx][:200], "via": "batch"},
+            ) as t:
+                hit_finalize = self._process_citation_lookup_hit(
+                    builder, t, stripped[idx], parsed_list[idx], cluster,
+                    clusters_returned=1,
+                )
+
+            if hit_finalize is not None and hit_finalize.pop(
+                "needs_caption_investigation", False
+            ):
+                inv_cluster = hit_finalize.pop("_cluster_for_investigation")
+                with builder.stage(
+                    StageName.caption_investigation,
+                    query={
+                        "cluster_id": inv_cluster.get("id"),
+                        "cited_case_name": parsed_list[idx].case_name,
+                        "cl_case_name": inv_cluster.get("case_name", ""),
+                    },
+                ) as inv_t:
+                    try:
+                        inv_result = await self._investigate_caption_async(
+                            parsed_list[idx], inv_cluster, client
+                        )
+                        inv_t.resolved(
+                            confidence=inv_result["confidence"],
+                            raw_response_summary=inv_result["raw_response_summary"],
+                            notes=inv_result["notes"],
+                        )
+                        hit_finalize["warnings"] = inv_result["warnings"] or None
+                        hit_finalize["status_override"] = inv_result["status"]
+                    except Exception as exc:
+                        logger.debug("caption_investigation failed", exc_info=True)
+                        inv_t.errored(
+                            error_type=type(exc).__name__,
+                            notes=f"{type(exc).__name__}: {exc}",
+                        )
+                        # Same defensive fallback as verify_async: surface the
+                        # mismatch as a cl_display_name_data_bug warning rather
+                        # than promoting to VERIFICATION_INCOMPLETE.  See
+                        # design §2.8 — refinement-stage failures preserve the
+                        # underlying verification (the cluster exists, the
+                        # citation maps to it).
+                        hit_finalize["warnings"] = [Warning(
+                            category=WarningCategory.cl_display_name_data_bug,
+                            message=(
+                                f"Citation_lookup resolved the cluster, but caption_investigation "
+                                f"could not complete ({type(exc).__name__}). The citation is verified "
+                                f"(the cluster exists); the case-name divergence between the brief "
+                                f"and CL's caption is unclassified. Per design §2.8, refinement-stage "
+                                f"failures do not trigger VERIFICATION_INCOMPLETE."
+                            ),
+                        )]
+
+            status = (hit_finalize or {}).pop("status_override", Status.VERIFIED)
+            results[idx] = self._finalize_result(
+                builder,
+                citation_text=stripped[idx],
+                parsed=parsed_list[idx],
+                status=status,
+                **(hit_finalize or {}),
+            )
+            completed += 1
+            if progress_callback:
+                progress_callback(completed, total)
+
+        # Identify misses
+        miss_indices = [i for i in range(total) if i not in batch_hits]
+
+        if quick_only:
+            # No fallback — return NOT_FOUND for misses
+            for idx in miss_indices:
                 builder = ResolutionPathBuilder()
-                hit_finalize: dict[str, Any] | None = None
                 with builder.stage(
                     StageName.citation_lookup,
                     query={"text": stripped[idx][:200], "via": "batch"},
                 ) as t:
-                    hit_finalize = self._process_citation_lookup_hit(
-                        builder, t, stripped[idx], parsed_list[idx], cluster,
-                        clusters_returned=1,
+                    t.no_match(
+                        raw_response_summary={"clusters_returned": 0, "via": "batch"},
+                        notes="Quick search only: not in citation lookup API",
                     )
                 results[idx] = self._finalize_result(
                     builder,
                     citation_text=stripped[idx],
                     parsed=parsed_list[idx],
-                    status=Status.VERIFIED,
-                    **(hit_finalize or {}),
+                    status=Status.NOT_FOUND,
+                )
+                completed += 1
+                if progress_callback:
+                    progress_callback(completed, total)
+        else:
+            # Search fallback for misses (opinion search + RECAP).
+            # Each citation gets a fresh builder. The citation_lookup
+            # stage records a no_match (Task 5 will refine batch
+            # instrumentation) before delegating to the search fallback.
+            async def _fallback(idx: int) -> None:
+                nonlocal completed
+                builder = ResolutionPathBuilder()
+                with builder.stage(
+                    StageName.citation_lookup,
+                    query={"text": stripped[idx][:200], "via": "batch"},
+                ) as t:
+                    t.no_match(
+                        raw_response_summary={"clusters_returned": 0, "via": "batch"},
+                    )
+                results[idx] = await self._search_fallback_async(
+                    builder, client, stripped[idx], parsed_list[idx]
                 )
                 completed += 1
                 if progress_callback:
                     progress_callback(completed, total)
 
-            # Identify misses
-            miss_indices = [i for i in range(total) if i not in batch_hits]
-
-            if quick_only:
-                # No fallback — return NOT_FOUND for misses
-                for idx in miss_indices:
-                    builder = ResolutionPathBuilder()
-                    with builder.stage(
-                        StageName.citation_lookup,
-                        query={"text": stripped[idx][:200], "via": "batch"},
-                    ) as t:
-                        t.no_match(
-                            raw_response_summary={"clusters_returned": 0, "via": "batch"},
-                            notes="Quick search only: not in citation lookup API",
-                        )
-                    results[idx] = self._finalize_result(
-                        builder,
-                        citation_text=stripped[idx],
-                        parsed=parsed_list[idx],
-                        status=Status.NOT_FOUND,
-                    )
-                    completed += 1
-                    if progress_callback:
-                        progress_callback(completed, total)
-            else:
-                # Search fallback for misses (opinion search + RECAP).
-                # Each citation gets a fresh builder. The citation_lookup
-                # stage records a no_match (Task 5 will refine batch
-                # instrumentation) before delegating to the search fallback.
-                async def _fallback(idx: int) -> None:
-                    nonlocal completed
-                    builder = ResolutionPathBuilder()
-                    with builder.stage(
-                        StageName.citation_lookup,
-                        query={"text": stripped[idx][:200], "via": "batch"},
-                    ) as t:
-                        t.no_match(
-                            raw_response_summary={"clusters_returned": 0, "via": "batch"},
-                        )
-                    results[idx] = await self._search_fallback_async(
-                        builder, client, stripped[idx], parsed_list[idx]
-                    )
-                    completed += 1
-                    if progress_callback:
-                        progress_callback(completed, total)
-
-                tasks = [_fallback(idx) for idx in miss_indices]
-                await asyncio.gather(*tasks)
+            tasks = [_fallback(idx) for idx in miss_indices]
+            await asyncio.gather(*tasks)
 
         return list(results)  # type: ignore[arg-type]
