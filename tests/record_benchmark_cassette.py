@@ -16,7 +16,13 @@ from __future__ import annotations
 
 import argparse
 import json
+import sys
 from pathlib import Path
+
+# Allow running directly (`python tests/record_benchmark_cassette.py`):
+# the `tests.` import below needs the repo root on sys.path, which pytest's
+# conftest provides but a direct invocation does not.
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from citation_verifier import CitationVerifier
 from citation_verifier.client import CourtListenerClient
