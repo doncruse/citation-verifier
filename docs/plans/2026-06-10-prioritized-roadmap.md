@@ -103,14 +103,19 @@ block anything; roughly highest-value first.
    shared Step-4 root cause and a unit matrix, but not end-to-end in the live
    corpus. Need their citation strings (QC_TRIAGE / coverage CSV) to add them
    to `known_fake_citations.json` or a state-leak corpus.
-4. **Charlotin fake-mining pipeline** (raised this session). The scaled
-   false-positive source (~1,598 court-confirmed hallucination cases). Two
-   blockers: (a) access — the site and its CSV 403 automated fetchers, so a
-   human must download `…/hallucinations/download.csv`; (b) extraction — the
-   data is case-level (ruling links + prose), so pulling clean fabricated
-   citation strings means processing the linked rulings (how the existing 8
-   court-confirmed fakes were built). A real sub-project; the right next lever
-   for FP scale, since the benchmark/coverage corpora are real-case-only.
+4. **Charlotin fake-mining pipeline** — ✅ **candidate corpus built
+   (2026-06-10)**; live measurement run pending. Both original blockers
+   dissolved: (a) the CSV was manually downloaded to
+   `scratch/Charlotin-hallucination_cases.csv`; (b) extraction did NOT need
+   the linked rulings — the `Hallucination Items` field quotes fabricated
+   citations verbatim. `tests/build_charlotin_corpus.py` (offline, 10 unit
+   tests) mined **547 unique court-confirmed fakes** →
+   `tests/data/charlotin_corpus.json` (29x the 19-entry fake corpus). Pilot
+   adjudication via the CL MCP: 30/30 genuinely fake (16 not in CL, 14
+   resolve to a different case — the Step 3 "Check Cite" pattern). **Next:**
+   `python tests/record_benchmark_cassette.py --corpus-name charlotin` on a
+   token-equipped machine; `found (resolved)` = false positives to triage.
+   Details: `docs/retrospectives/2026-06-10-charlotin-fake-mining.md`.
 5. **Threshold/constant calibration.** Several fixes use hand-tuned constants:
    `_VERIFIED_SCORE_THRESHOLD = 0.40`, `_PARTY_MISMATCH_NAME_FACTOR = 0.25`,
    `_RECAP_PACER_ERA_FLOOR = 1990`, the cap value (`threshold − 0.01`). Muldrow
@@ -129,6 +134,23 @@ block anything; roughly highest-value first.
 
 ## Status log
 
+- **2026-06-10 (Charlotin candidate corpus — follow-up #4 unblocked):** The
+  manually-downloaded CSV (`scratch/Charlotin-hallucination_cases.csv`, 1,598
+  rulings / 1,115 USA) turned out to quote fabricated citations **verbatim**
+  in `Hallucination Items` — no linked-ruling processing needed for the first
+  pass. Built `tests/build_charlotin_corpus.py` (TDD, 10 tests): eyecite
+  span extraction with quote/em-dash repairs, contrast-marker flagging (49
+  REAL contrast cases excluded — e.g. "identified only an unrelated Jackson
+  v. Lew" — the main poisoning risk), dedup. **Output:
+  `tests/data/charlotin_corpus.json`, 547 unique court-confirmed fakes**
+  (29x scale-up). Pilot adjudication via CL MCP `analyze_citations`: 30/30
+  genuinely fake — 16 not in CL, 14 resolve to a *different* case (≈50%
+  are the wrong-case hybrids Step 3 "Check Cite" targets, so this corpus is
+  Step 3's test bed). Offline suite 459 passed. **Pending (needs token):**
+  `python tests/record_benchmark_cassette.py --corpus-name charlotin` —
+  for a fake corpus, `found` = false positives; triage every resolved
+  candidate (our FP vs. corpus mislabel) before promoting assertions.
+  Retro: `docs/retrospectives/2026-06-10-charlotin-fake-mining.md`.
 - **2026-06-10:** Plan written. Started Tier 1 Step 1 (fake-citation corpus expansion). Live-API runs must happen on a machine with `COURTLISTENER_API_TOKEN` (remote dev container has no token).
 - **2026-06-10 (later):** Tier 1 Step 1 corpus work done: `known_fake_citations.json` 8 → 19 entries (QC_TRIAGE promotions), new `tests/test_false_positives.py` (live tests + schema tests). **Measurement run pending:** `pytest tests/test_false_positives.py -m live_api -v` on a token-equipped machine tells us which v0.2 false positives v0.3 already fixed → that decides Step 2 scope. Side fixes while in there: `test_web_app.py` QC run-batch test no longer writes stub NOT_FOUNDs into the real master CSV (tmp-copy isolation — the Phase 5 retro "CSV side-effect"); `test_false_negatives.py` and the two API-hitting classes in `test_cl_api_issues.py` now carry the `live_api` mark, so a tokenless `pytest` run is green (413 passed / 0 failed). Also verified tokenless/403 behavior is already correct: stages error → `VERIFICATION_INCOMPLETE`, not bogus `NOT_FOUND`.
 - **2026-06-10 (fallback regression corpus):** Closed the coverage-gap caveat from the benchmark harness. Built a 51-citation **fallback** corpus from the May-2026 FLP coverage study's lookup misses (`coverage_per_citation.csv`, `lookup_status=NOT_FOUND` — real cases that bypass citation-lookup). `tests/build_fallback_corpus.py` reconstructs full cites; recorded via the harness (`--corpus-name fallback`). **32/51 resolve, 100% via fallback stages (23 opinion_search, 9 recap_docket_search, 0 citation_lookup)** — so it actually exercises the RECAP/opinion-search scoring Levers 1-3 + Step 4 changed. `tests/test_fallback_regression.py` (offline ~3s) guards no-new-FN, no-silent-path-migration, and that the corpus keeps hitting fallback. 18 NOT_FOUND are real CL gaps the memo catalogued. Full offline suite 449 passed. Details in `docs/retrospectives/2026-06-10-benchmark-replay-harness.md`.
