@@ -177,15 +177,23 @@ class TestVerifyEndpointA1Class:
                 f"ERROR with: {data.get('error')!r}"
             )
 
-    def test_post_qc_run_batch_no_typeerror(self, client):
+    def test_post_qc_run_batch_no_typeerror(self, client, tmp_path, monkeypatch):
         """QC run-batch (audit row C1 — broken at HEAD before Task 2).
         Under the stub (all CL methods return empty), every citation
         should resolve to NOT_FOUND. Any ERROR-status result event is a
         signature-shape regression — the stub never raises, so the only
         way ERROR appears is if a private-helper call signature has
-        drifted and the route's except-block synthesized an ERROR event."""
+        drifted and the route's except-block synthesized an ERROR event.
+
+        The route saves results back to its CSV, so point it at a tmp
+        copy — otherwise every test run writes stub-driven NOT_FOUND
+        rows into the real scratch/citations_for_review.csv (the 'CSV
+        side-effect' flagged in the Phase 5 retrospective)."""
         if not web_app._default_csv.exists():
             pytest.skip("master CSV not present in this checkout")
+        tmp_csv = tmp_path / "citations_for_review_test.csv"
+        tmp_csv.write_bytes(web_app._default_csv.read_bytes())
+        monkeypatch.setattr(web_app, "_default_csv", tmp_csv)
         response = client.post(
             "/api/qc/run-batch",
             json={"sample_size": 3, "rerun_only": False},

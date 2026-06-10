@@ -194,8 +194,8 @@ Tracked in `tests/data/cl_api_issues.json`. All have workarounds implemented.
 ### Justia diagnostic script
 One-off script to compare NOT_FOUND citations against Justia to distinguish: real hallucinations, CL data gaps, our search bugs. Diagnostic only.
 
-### Expand fake citations corpus
-`tests/data/known_fake_citations.json` has 8 entries. Categories planned: hallucinated_case_name, wrong_name_real_citation, wrong_court, future_date, invalid_reporter, out_of_range_page. See `tests/data/README.md`.
+### ~~Expand fake citations corpus~~ DONE (2026-06-10)
+Expanded 8 → 19 entries: promoted 11 QC-confirmed hallucinations from `QC_TRIAGE.md` (Lopez, Reed v. ZipRecruiter, In re Tenn. DHS, Johnson v. Mitchell, both Thompson v. Best variants, both Pointe Wholesale variants, Mavy, Marion, In re Hudson). New `tests/test_false_positives.py` runs them live (`pytest tests/test_false_positives.py -m live_api`) asserting no VERIFIED-family status. **Next: run live on a token-equipped machine** — the prior_result fields show which were v0.2 false positives; the live run shows which v0.3 already fixed (Tier 1 Step 1 measurement in `docs/plans/2026-06-10-prioritized-roadmap.md`). Excluded for conflicting labels: Hayes (TODO says real, QC says fake — resolve), Benjamin v. Costco + Mungo 486 Md. (possible CL data gaps), Avery v. Ward + Morgan v. Cmty. (calibration cases, not confirmed fakes).
 
 ## verify-brief Skill
 

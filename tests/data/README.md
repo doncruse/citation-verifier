@@ -77,26 +77,47 @@ Corpus of verified real citations for regression testing. Each entry:
 3. Add to the JSON file with appropriate category
 4. Run tests to verify: `pytest tests/test_false_negatives.py -v`
 
-### `known_fake_citations.json` (TODO)
+### `known_fake_citations.json`
 
-Corpus of known-fake citations (AI hallucinations, fabricated cases) that we should reject.
+Corpus of known-fake citations (AI hallucinations, fabricated cases) that we
+must reject. 19 entries (2026-06-10): 8 court-confirmed fakes from sanctions
+orders + 11 QC-confirmed fakes promoted from `scratch/QC_TRIAGE.md`.
+Tested by `tests/test_false_positives.py` (live tests marked `live_api`;
+schema tests run in the default suite).
 
 ```json
 {
   "citation": "Fakename v. Nobody, 999 F.3d 1 (S.D.N.Y. 2020)",
-  "category": "hallucinated_case_name",
-  "notes": "Completely fabricated case name with plausible citation format",
-  "expected_status": "NOT_FOUND"
+  "category": "hallucinated_case",
+  "qc_finding": "How/where it was confirmed fake (court order or QC review)",
+  "prior_result": {"engine": "v0.2", "status": "POSSIBLE_MATCH", "confidence": 0.65, "matched_url": "..."},
+  "expected_status": "NOT_FOUND",
+  "notes": "Why this is a test case / which scoring fix it motivates"
 }
 ```
 
-**Categories (planned):**
-- `hallucinated_case_name` - Fake names with real citation format
+`prior_result` records the verdict that motivated inclusion (most were v0.2
+false positives at 0.4–0.65). `expected_status` is always `NOT_FOUND`; the
+test itself also accepts `WRONG_CASE` and `INSUFFICIENT_DATA` — anything
+outside the VERIFIED family. Entries can carry `xfail_reason` to park a
+known-broken case without deleting it.
+
+**Categories:**
+- `hallucinated_case` - Fake names with real citation format
 - `wrong_name_real_citation` - Real citation but wrong case name
 - `wrong_court` - Real case but wrong court
 - `future_date` - Citation dated in the future
 - `invalid_reporter` - Non-existent reporter abbreviation
 - `out_of_range_page` - Page number beyond reporter volume limits
+
+**Deliberately excluded (conflicting/ambiguous labels, 2026-06-10):**
+- *U.S. v. Hayes, 763 F. Supp. 3d 1054 (E.D. Cal. 2025)* — TODO.md says
+  "confirmed real"; QC notes say "confirmed hallucination". Resolve before
+  adding to either corpus.
+- *Benjamin v. Costco, 779 F. Supp. 3d 341* and *Mungo v. State, 486 Md.
+  158* — QC notes suggest possible CL data gaps, not fabrications.
+- *Avery v. Ward* and *Morgan v. Cmty. Against Violence* — wrong-match
+  score-calibration cases, not confirmed fakes.
 
 ## Usage
 

@@ -75,5 +75,104 @@
     "context": "Making matters worse, Hardy's brief includes fake citations. ECF No. 59, PageID.413 (citing \"Moore v. Ford Motor co.,755 F.2d 510, 513 (6th Cir. 1985)\" and \"Gibbs v. Wright, 2020 WL 1877661, at *2 (E.D. Tenn. Apr. 15, 2020)\"). The Court suspects that the fake citations result from Hardy using generative artificial intelligence (AI).",
     "expected_status": "NOT_FOUND",
     "notes": "Confirmed fake citation. Court explicitly calls it fake. Extraction pipeline mangled this as 'In re Wright, 2020 WL 1877661' (wrong case name, lost court and date) due to PDF line break splitting the parenthetical. With the correct full citation, our verifier correctly returns NOT_FOUND."
+  },
+  {
+    "citation": "Lopez v. Bank of Am., N.A., No. 14-cv-2524, 2016 WL 4131149 (N.D. Cal. Aug. 3, 2016)",
+    "category": "hallucinated_case",
+    "source_document": "Button_v._Mccawley_USA_4_February_2026.pdf",
+    "qc_finding": "Confirmed hallucination in QC review (2026-02-21). Docket number and date do not match the real Lopez v. Bank of America docket the verifier matched.",
+    "prior_result": {"engine": "v0.2", "status": "POSSIBLE_MATCH", "confidence": 0.6522, "matched_url": "https://www.courtlistener.com/docket/5887170/85/lopez-v-bank-of-america-na/"},
+    "expected_status": "NOT_FOUND",
+    "notes": "A real docket with a similar caption exists, but the cited docket number, WL number, and date belong to no real document. v0.2 scored it 0.65 on surname similarity alone — the motivating case for docket/date mismatch penalties (TODO Priority 1)."
+  },
+  {
+    "citation": "Reed v. ZipRecruiter, Inc., 2021 WL 4453429 (C.D. Cal. July 19, 2021)",
+    "category": "hallucinated_case",
+    "source_document": "buchanan_v_vuori_inc_11-20-2025_order.pdf",
+    "qc_finding": "Confirmed hallucination in QC review (2026-02-21). Matched case name does not match; matched document is non-substantive.",
+    "prior_result": {"engine": "v0.2", "status": "POSSIBLE_MATCH", "confidence": 0.4226, "matched_url": "https://www.courtlistener.com/docket/60079470/13/aram-adzhikosyan-v-att-corp/"},
+    "expected_status": "NOT_FOUND",
+    "notes": "v0.2 matched a completely unrelated RECAP docket (Adzhikosyan v. AT&T)."
+  },
+  {
+    "citation": "In re Tenn. Dep't of Homeland Sec., 985 F3d 544 (6th Cir. 2021)",
+    "category": "hallucinated_case",
+    "source_document": "gov.uscourts.mied.376829.74.0.pdf",
+    "qc_finding": "Confirmed hallucination in QC review (2026-02-22).",
+    "prior_result": {"engine": "v0.2", "status": "POSSIBLE_MATCH", "confidence": 0.4877, "matched_url": "https://www.courtlistener.com/docket/66755230/24/weatherford-us-lp-v-us-department-of-labor-arb/"},
+    "expected_status": "NOT_FOUND",
+    "notes": "Citation text preserved as extracted ('985 F3d' without period). v0.2 matched an unrelated DOL administrative-review docket. Also an example of eyecite plaintiff truncation producing an 'In re' caption."
+  },
+  {
+    "citation": "Johnson v. Mitchell, 2:20-cv-1882, 2020 WL 5649609 (S.D. Ohio Sept. 23, 2020)",
+    "category": "hallucinated_case",
+    "source_document": "mardis_v_dealer_loyalty_protection_02-18-2026_opinion_and_order.pdf",
+    "qc_finding": "Confirmed hallucination in QC review (2026-02-22). Docket mismatch, name mismatch, inexact date — QC note: 'should be much much lower.'",
+    "prior_result": {"engine": "v0.2", "status": "POSSIBLE_MATCH", "confidence": 0.5776, "matched_url": "https://www.courtlistener.com/docket/16105716/26/laile-v-mitchell/"},
+    "expected_status": "NOT_FOUND",
+    "notes": "v0.2 matched Laile v. Mitchell on defendant surname despite plaintiff, docket number, and date all mismatching."
+  },
+  {
+    "citation": "Thompson v. Best, 989 N.E.2d 299 (Ind. Ct. App. 2013)",
+    "category": "hallucinated_case",
+    "source_document": "melissa_wilcox_v._matthew_a._gingrich.pdf",
+    "qc_finding": "Confirmed hallucination in QC review (2026-02-21). Wrong court, not the same case name.",
+    "prior_result": {"engine": "v0.2", "status": "POSSIBLE_MATCH", "confidence": 0.625, "matched_url": "https://www.courtlistener.com/opinion/2693170/thompson-v-thompson/"},
+    "expected_status": "NOT_FOUND",
+    "notes": "v0.2 matched Thompson v. Thompson in a different court. Common-surname score inflation — the motivating case for a defendant-mismatch penalty (TODO Priority 1)."
+  },
+  {
+    "citation": "Thompson v. Best, 118 N.E.3d 299 (Ind. Ct. App.  2019)",
+    "category": "hallucinated_case",
+    "source_document": "melissa_wilcox_v._matthew_a._gingrich.pdf",
+    "qc_finding": "Confirmed hallucination in QC review; v0.2 correctly returned NOT_FOUND (qc_status=approved).",
+    "prior_result": {"engine": "v0.2", "status": "NOT_FOUND", "confidence": 0.0},
+    "expected_status": "NOT_FOUND",
+    "notes": "Variant of the Thompson v. Best hallucination with a different fabricated reporter cite. Regression pin: v0.2 already rejected this one."
+  },
+  {
+    "citation": "South Pointe Wholesale, Inc. v. Vilardi, No. 16-CV-6758, 2017 WL 11570668 (E.D.N.Y. May 2, 2017)",
+    "category": "hallucinated_case",
+    "source_document": "anthony_c_hill_v_workday_inc_9-5-2025_order.pdf",
+    "qc_finding": "Confirmed hallucination in QC review (qc_status=approved on the NOT_FOUND result).",
+    "prior_result": {"engine": "v0.2", "status": "NOT_FOUND", "confidence": 0.0},
+    "expected_status": "NOT_FOUND",
+    "notes": "A real South Pointe Wholesale v. Vilardi exists in W.D. Ky. (No. 1:17-CV-00052) — but this E.D.N.Y. cite with this WL number is fabricated. Regression pin: v0.2 rejected the clean parse."
+  },
+  {
+    "citation": "Pointe Wholesale, Inc. v. 5 Vilardi, No. 16-CV-6758, 2017 WL 11570668 (E.D.N.Y. May 2, 2017)",
+    "category": "hallucinated_case",
+    "source_document": "anthony_c_hill_v_workday_inc_9-5-2025_order.pdf",
+    "qc_finding": "Same fabricated citation as the South Pointe entry, extracted with PDF line-number noise ('5 Vilardi') in the party name.",
+    "prior_result": {"engine": "v0.2", "status": "POSSIBLE_MATCH", "confidence": 0.4665, "matched_url": "https://www.courtlistener.com/docket/13440058/5/thompson-v-martuscello/"},
+    "expected_status": "NOT_FOUND",
+    "notes": "The noisy-parse variant scored 0.47 against a completely unrelated case (Thompson v. Martuscello) while the clean parse was correctly rejected. Pins both the parser noise-tolerance and the score floor."
+  },
+  {
+    "citation": "Mavy v. Comm 'n of Soc. Security Admin., 2025 WL 232355222 (D. Ariz. Aug. 14, 2025)",
+    "category": "hallucinated_case",
+    "source_document": "Thornton_v._Flathead_County_USA_23_January_2026.pdf",
+    "qc_finding": "Confirmed wrong-case match in QC review (2026-02-21). Citation has an impossible 9-digit WL number.",
+    "prior_result": {"engine": "v0.2", "status": "POSSIBLE_MATCH", "confidence": 0.4511, "matched_url": "https://www.courtlistener.com/docket/14504530/1204/nina-alley-v-county-of-pima/"},
+    "expected_status": "NOT_FOUND",
+    "notes": "WL numbers are at most 8 digits; 232355222 cannot exist. v0.2 matched Alley v. County of Pima (unrelated). The smart-quote split in \"Comm 'n\" is preserved from extraction."
+  },
+  {
+    "citation": "Marion v. Hollis Cobb Assocs., 2025 WL 1275828 (N.D. Ga. Feb. 14, 2025)",
+    "category": "hallucinated_case",
+    "source_document": "anthony_c_hill_v_workday_inc_9-5-2025_order.pdf",
+    "qc_finding": "Confirmed wrong match in QC review (2026-02-21/22): wrong name, wrong date, no case number.",
+    "prior_result": {"engine": "v0.2", "status": "POSSIBLE_MATCH", "confidence": 0.4063, "matched_url": "https://www.courtlistener.com/docket/69958782/15/winer-v-mohammad/"},
+    "expected_status": "NOT_FOUND",
+    "notes": "v0.2 matched Winer v. Mohammad — zero party overlap with the cited caption. TODO Priority 1 calls this one out: 'wrong name, wrong date, should be well below threshold.'"
+  },
+  {
+    "citation": "In re Hudson, 11 U.S. 225 (U.S. 1812)",
+    "category": "hallucinated_case",
+    "source_document": "maryvel_suday_and_the_estate_of_olga_tamez_de_suday_v._jesus_lozano_suday.pdf",
+    "qc_finding": "QC review (2026-02-21): 'wildly wrong date! 1812 vs. 2018.'",
+    "prior_result": {"engine": "v0.2", "status": "POSSIBLE_MATCH", "confidence": 0.5, "matched_url": "https://www.courtlistener.com/docket/7786215/4/in-re-hudson/"},
+    "expected_status": "NOT_FOUND",
+    "notes": "v0.2 matched a 2018 bankruptcy docket captioned In re: Hudson against an 1812 U.S. Reports cite — a 206-year date gap scored 0.50. The motivating case for a hard date-mismatch gate (TODO Priority 1)."
   }
 ]

@@ -11,6 +11,10 @@ import pytest
 from citation_verifier import CitationVerifier
 from citation_verifier.models import Status
 
+# Every test here hits the real CourtListener API. Deselected from the
+# default suite (pyproject addopts); run with: pytest -m live_api
+pytestmark = pytest.mark.live_api
+
 
 # Load test corpus
 _DATA_DIR = Path(__file__).parent / "data"

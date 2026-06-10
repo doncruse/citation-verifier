@@ -39,6 +39,8 @@ class TestAbbreviationMatching:
     Actual: No match unless we normalize first
     """
 
+    pytestmark = pytest.mark.live_api
+
     @pytest.mark.skip(reason="Known API limitation - tracked in cl_api_issues.json")
     def test_cnty_abbreviation_search(self):
         """Search should match 'Cnty.' to 'County'."""
@@ -117,6 +119,8 @@ class TestDocketParameterReliability:
     Issue: The 'docket' param appears to be ignored by the API
     Workaround: Use 'q' with quoted docket number, filter client-side
     """
+
+    pytestmark = pytest.mark.live_api
 
     @pytest.mark.skip(reason="Known API bug - tracked in cl_api_issues.json")
     def test_docket_param_filters_results(self):
