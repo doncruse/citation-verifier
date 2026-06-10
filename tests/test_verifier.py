@@ -3176,3 +3176,104 @@ class TestInsufficientData:
         )
         assert result.status == Status.VERIFIED
         assert result.final_ids.cluster_id == 12345
+
+
+class TestRecapHardGates:
+    """Lever 1 (Tier 1 Step 2): the RECAP path must apply the same
+    name-token and temporal hard-gates the opinion-search path
+    (_process_results) already applies -- with the temporal gate made
+    ONE-SIDED, because a RECAP result's dateFiled is the case *filing*
+    date, not the opinion date. An opinion cannot predate its own case,
+    so a cite far *before* the filing year is impossible and gets
+    rejected; a cite *after* filing (an opinion issued years into a
+    long-running case) is legitimate and must be kept. See
+    docs/retrospectives/2026-06-10-tier1-step1-measurement.md.
+    """
+
+    def test_name_token_gate_rejects_zero_overlap_docket(self):
+        """A RECAP docket sharing no distinctive name token with the cited
+        caption is gated out. South Pointe Wholesale -> Thompson v.
+        Martuscello was a v0.3 false positive (VERIFIED_DOCKET_ONLY 0.42)."""
+        v = CitationVerifier(_make_client())
+        parsed = parse_citation(
+            "South Pointe Wholesale, Inc. v. Vilardi, No. 16-CV-6758, "
+            "2017 WL 11570668 (E.D.N.Y. May 2, 2017)"
+        )
+        results = [{
+            "caseName": "Thompson v. Martuscello",
+            "docket_id": 13440058,
+            "court_id": "nyed",
+            "dateFiled": "2017-03-01",
+            "recap_documents": [],
+        }]
+        assert v._process_recap_results(results, parsed) == []
+
+    def test_temporal_gate_rejects_cite_far_before_filing(self):
+        """In re Hudson: an 1812 cite against a 2018-filed docket is
+        impossible (an opinion cannot predate its case). The name token
+        'hudson' matches, so ONLY the temporal gate can reject it -- this
+        was a v0.3 false positive (VERIFIED_DOCKET_ONLY 0.50)."""
+        v = CitationVerifier(_make_client())
+        parsed = parse_citation("In re Hudson, 11 U.S. 225 (U.S. 1812)")
+        results = [{
+            "caseName": "In re Hudson",
+            "docket_id": 7786215,
+            "court_id": "txsb",
+            "dateFiled": "2018-06-01",
+            "recap_documents": [],
+        }]
+        assert v._process_recap_results(results, parsed) == []
+
+    def test_temporal_gate_rejects_pre_pacer_cite_with_null_filing_date(self):
+        """In re Hudson actually resolves to a null-dateFiled appellate
+        docket (CL never populated date_filed for it), so the date-diff
+        check can't fire. An 1812 cite predates PACER's electronic records
+        entirely, so a bare RECAP docket match on the surname 'hudson' is
+        impossible -> reject via the PACER-era floor. This is the residual
+        the dated-docket temporal test above does not cover."""
+        v = CitationVerifier(_make_client())
+        parsed = parse_citation("In re Hudson, 11 U.S. 225 (U.S. 1812)")
+        results = [{
+            "caseName": "In re: Hudson",
+            "docket_id": 67311035,
+            "court_id": "ca6",
+            "dateFiled": None,
+            "docketNumber": "16-6270",
+            "recap_documents": [],
+        }]
+        assert v._process_recap_results(results, parsed) == []
+
+    def test_temporal_gate_keeps_cite_long_after_filing(self):
+        """ONE-SIDED guard: Oracle v. Google cites a 2016 opinion in a
+        2010-filed case (6-year gap). A symmetric +/-5yr gate would
+        wrongly reject this real citation; the one-sided gate keeps it."""
+        v = CitationVerifier(_make_client())
+        parsed = parse_citation(
+            "Oracle Am., Inc. v. Google Inc., No. C 10-03561 WHA, "
+            "2016 WL 3181206 (N.D. Cal. June 8, 2016)"
+        )
+        results = [{
+            "caseName": "Oracle America, Inc. v. Google Inc.",
+            "docket_id": 4177532,
+            "court_id": "cand",
+            "dateFiled": "2010-08-12",
+            "recap_documents": [],
+        }]
+        assert len(v._process_recap_results(results, parsed)) == 1
+
+    def test_name_token_gate_keeps_shared_token_docket(self):
+        """A docket sharing a distinctive token with a plausible filing
+        date is kept (guards against over-gating real RECAP matches)."""
+        v = CitationVerifier(_make_client())
+        parsed = parse_citation(
+            "Marlite, Inc. v. Eckenrod, No. 10-23641-CIV, "
+            "2012 WL 3614212 (S.D. Fla. Aug. 22, 2012)"
+        )
+        results = [{
+            "caseName": "Marlite, Inc. v. Eckenrod",
+            "docket_id": 4233374,
+            "court_id": "flsd",
+            "dateFiled": "2010-10-08",
+            "recap_documents": [],
+        }]
+        assert len(v._process_recap_results(results, parsed)) == 1

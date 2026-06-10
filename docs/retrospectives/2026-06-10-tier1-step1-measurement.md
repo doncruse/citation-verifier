@@ -141,3 +141,38 @@ never on absent.
 Re-run **both** `test_false_positives.py` and `test_false_negatives.py`
 (`-m live_api`) after each lever — they are the regression harness in both
 directions.
+
+## Lever 1 — IMPLEMENTED (2026-06-09)
+
+RECAP hard-gate parity landed. New `_recap_result_gated()` helper, wired
+into both `_process_recap_results` (sync) and `_process_recap_results_async`,
+applies before the docket-entries fetch:
+
+- **Name-token gate** — reuses `_name_tokens`; rejects a docket sharing no
+  distinctive token with the cited caption (mirrors `_process_results`).
+- **One-sided temporal gate** — rejects only when
+  `filing_year - parsed.year > _TEMPORAL_GATE_YEARS` (cite predates filing),
+  never the reverse. Reads the result's `dateFiled` (the docket *filing*
+  date, confirmed live).
+- **PACER-era floor** (`_RECAP_PACER_ERA_FLOOR = 1990`) — added during
+  implementation when In re Hudson turned out to resolve, on live data, to a
+  *null-`dateFiled`* appellate docket (number `16-6270`) that the date-diff
+  check can't evaluate. RECAP is electronic PACER data that doesn't predate
+  ~1990, so a pre-1990 cite reaching the RECAP fallback can't be a real
+  docket match. Corpus's oldest real RECAP cite is 2006 → ample margin.
+
+**Results (live):**
+- False positives **11 → 3**. All 7 zero-overlap RECAP matches + In re
+  Hudson now NOT_FOUND. Remaining 3 are exactly the Lever 2/3 cases
+  (Johnson v. Mitchell, Thompson v. Best → Lever 2; Lopez → Lever 3), now
+  marked `xfail` in `known_fake_citations.json` so they xpass-alert when
+  fixed.
+- False negatives **14/14 held** — no real cite over-gated; Oracle (date-gap
+  guard), Marlite, and Moore all still resolve.
+- Unit coverage: `TestRecapHardGates` (5 mocked tests, TDD). Full mocked
+  suite 263 passed.
+
+Tests: `tests/test_verifier.py::TestRecapHardGates`. Code:
+`verifier.py::_recap_result_gated` + the two call sites.
+
+**Next: Lever 2** (symmetric party-mismatch penalty in `_score_match`).

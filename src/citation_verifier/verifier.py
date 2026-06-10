@@ -1016,6 +1016,58 @@ class CitationVerifier:
             return None
         return "; ".join(d.message for d in diagnostics)
 
+    def _recap_result_gated(
+        self, parsed: ParsedCitation, case_name: str, date_filed: str
+    ) -> bool:
+        """Hard-gate a RECAP search result before it becomes a candidate.
+
+        Mirrors the two hard-gates the opinion-search path applies in
+        ``_process_results`` (issue #7), with ONE deliberate difference: the
+        temporal gate is one-sided.
+
+        - Name-token gate: require at least one shared distinctive
+          (>=4-char, non-stoplist) token between the cited caption and the
+          docket caption. A zero-overlap match (e.g. cited "South Pointe
+          Wholesale v. Vilardi" -> docket "Thompson v. Martuscello") is
+          surname/score-inflation noise, not a real match.
+
+        - One-sided temporal gate: a RECAP ``dateFiled`` is the case
+          *filing* date, not the opinion date. An opinion cannot predate
+          its own case, so a cite whose year is far *before* the filing
+          year is impossible -> reject (In re Hudson: 1812 cite vs a
+          2018-filed docket). A cite *after* the filing year is a
+          legitimate opinion issued later in a long-running case -> keep
+          (Oracle v. Google: 2016 opinion in a 2010-filed case). A
+          symmetric +/-N gate here would be a false-negative bug; see
+          docs/retrospectives/2026-06-10-tier1-step1-measurement.md.
+        """
+        if parsed.case_name and case_name:
+            cited_tokens = _name_tokens(parsed.case_name)
+            cand_tokens = _name_tokens(case_name)
+            if cited_tokens and not (cited_tokens & cand_tokens):
+                return True
+
+        if parsed.year and date_filed and len(date_filed) >= 4:
+            try:
+                filing_year = int(date_filed[:4])
+                if filing_year - parsed.year > self._TEMPORAL_GATE_YEARS:
+                    return True
+            except ValueError:
+                pass  # unparseable date — let the scorer handle it
+
+        # PACER-era floor: RECAP is electronic PACER docket data, which does
+        # not predate ~1990. A cite older than that reaching the RECAP
+        # fallback means opinion search already failed; a bare-surname match
+        # on a modern docket is impossible, not a real resolution. This
+        # catches the case the date-diff above misses when the docket's
+        # dateFiled is null (In re Hudson 1812 -> a null-date appellate
+        # docket). The oldest real RECAP cite in the false-negative corpus
+        # is 2006, so the floor has ample margin.
+        if parsed.year and parsed.year < self._RECAP_PACER_ERA_FLOOR:
+            return True
+
+        return False
+
     def _process_recap_results(
         self, results: list[dict[str, Any]], parsed: ParsedCitation
     ) -> list[CandidateMatch]:
@@ -1042,6 +1094,13 @@ class CitationVerifier:
             if docket_id in seen_dockets:
                 continue
             seen_dockets.add(docket_id)
+
+            # Hard-gate before the (expensive) docket-entries fetch: skip
+            # dockets with no name overlap or an impossible cite-before-filing
+            # date. Parity with the opinion-search path's gates (Lever 1).
+            date_filed = r.get("dateFiled") or r.get("date_filed", "")
+            if self._recap_result_gated(parsed, case_name, date_filed):
+                continue
 
             docs = r.get("recap_documents", [])
 
@@ -1092,6 +1151,13 @@ class CitationVerifier:
     # ------------------------------------------------------------------
 
     _TEMPORAL_GATE_YEARS = 5
+
+    # RECAP/PACER electronic dockets do not predate ~1990. A citation older
+    # than this that falls through to the RECAP path cannot legitimately
+    # resolve to a PACER docket (used only by the one-sided RECAP temporal
+    # gate; the opinion-search path is unaffected). See
+    # docs/retrospectives/2026-06-10-tier1-step1-measurement.md.
+    _RECAP_PACER_ERA_FLOOR = 1990
 
     def _process_results(
         self, results: list[dict[str, Any]], parsed: ParsedCitation
@@ -2715,6 +2781,13 @@ class CitationVerifier:
             if docket_id in seen_dockets:
                 continue
             seen_dockets.add(docket_id)
+
+            # Hard-gate before the (expensive) docket-entries fetch: skip
+            # dockets with no name overlap or an impossible cite-before-filing
+            # date. Parity with the opinion-search path's gates (Lever 1).
+            date_filed = r.get("dateFiled") or r.get("date_filed", "")
+            if self._recap_result_gated(parsed, case_name, date_filed):
+                continue
 
             docs = r.get("recap_documents", [])
 

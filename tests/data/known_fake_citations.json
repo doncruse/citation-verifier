@@ -83,6 +83,7 @@
     "qc_finding": "Confirmed hallucination in QC review (2026-02-21). Docket number and date do not match the real Lopez v. Bank of America docket the verifier matched.",
     "prior_result": {"engine": "v0.2", "status": "POSSIBLE_MATCH", "confidence": 0.6522, "matched_url": "https://www.courtlistener.com/docket/5887170/85/lopez-v-bank-of-america-na/"},
     "expected_status": "NOT_FOUND",
+    "xfail_reason": "Lever 3 (docket#/WL contradiction penalty) not yet implemented. v0.3+Lever1 still VERIFIED_DOCKET_ONLY 0.85: name+court match a real Lopez/Bank of America docket, only the cited docket#, WL number, and date contradict. Name-token + temporal gates (Lever 1) don't catch it. Remove this xfail when Lever 3 lands.",
     "notes": "A real docket with a similar caption exists, but the cited docket number, WL number, and date belong to no real document. v0.2 scored it 0.65 on surname similarity alone — the motivating case for docket/date mismatch penalties (TODO Priority 1)."
   },
   {
@@ -110,6 +111,7 @@
     "qc_finding": "Confirmed hallucination in QC review (2026-02-22). Docket mismatch, name mismatch, inexact date — QC note: 'should be much much lower.'",
     "prior_result": {"engine": "v0.2", "status": "POSSIBLE_MATCH", "confidence": 0.5776, "matched_url": "https://www.courtlistener.com/docket/16105716/26/laile-v-mitchell/"},
     "expected_status": "NOT_FOUND",
+    "xfail_reason": "Lever 2 (symmetric party-mismatch penalty) not yet implemented. v0.3+Lever1 resolves via opinion search to Scudder v. Mitchell @ VERIFIED 0.5 — defendant 'Mitchell' matches, plaintiff 'Johnson' absent. Shares the 'mitchell' token so the name-token gate passes; same year so temporal passes. Remove this xfail when Lever 2 lands.",
     "notes": "v0.2 matched Laile v. Mitchell on defendant surname despite plaintiff, docket number, and date all mismatching."
   },
   {
@@ -119,6 +121,7 @@
     "qc_finding": "Confirmed hallucination in QC review (2026-02-21). Wrong court, not the same case name.",
     "prior_result": {"engine": "v0.2", "status": "POSSIBLE_MATCH", "confidence": 0.625, "matched_url": "https://www.courtlistener.com/opinion/2693170/thompson-v-thompson/"},
     "expected_status": "NOT_FOUND",
+    "xfail_reason": "Lever 2 (symmetric party-mismatch penalty) not yet implemented. v0.3+Lever1 resolves via opinion search to Thompson v. Thompson @ VERIFIED 0.625 — plaintiff 'Thompson' matches, defendant 'Best' absent. Shares the 'thompson' token so the name-token gate passes. Remove this xfail when Lever 2 lands.",
     "notes": "v0.2 matched Thompson v. Thompson in a different court. Common-surname score inflation — the motivating case for a defendant-mismatch penalty (TODO Priority 1)."
   },
   {
