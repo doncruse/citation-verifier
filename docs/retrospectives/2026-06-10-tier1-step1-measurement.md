@@ -85,6 +85,20 @@ Reuses existing, tested logic. Directly kills #1, #3, #4, #7, #8, #9, #10.
   the candidate level (like `_process_results` does), reading the docket
   `dateFiled` — **not** in `_score_match`.
 
+  **⚠ Asymmetry required (caught in post-run review):** RECAP docket
+  `dateFiled` is the *case filing date*, not the opinion date (see CLAUDE.md
+  architecture note). A symmetric ±5-year gate like the opinion path's would
+  wrongly reject real citations to opinions issued >5 years into a
+  long-running case (cited year ≫ filing year is legitimate). The impossible
+  direction is the other one: an opinion cannot predate its case's filing.
+  So the RECAP gate must be **one-sided** — reject when
+  `parsed.year < filing_year - tolerance` (In re Hudson: 1812 < 2018 ✓
+  rejected), never when the cited year is *after* filing. The opinion-search
+  path keeps its symmetric gate because cluster `dateFiled` there IS the
+  decision date. Note the 5-entry false-negative corpus is too small to catch
+  this regression on its own — don't rely on it to validate the gate
+  direction.
+
 ### Lever 2: both-sides party-mismatch penalty in `_score_match`
 For the 2 opinion-search FPs that pass the name-token gate on a *shared*
 surname:
