@@ -3466,6 +3466,24 @@ class TestContradictionCap:
         )
         assert score >= _VERIFIED_SCORE_THRESHOLD
 
+    def test_parallel_reporter_citation_not_capped(self):
+        """A real case cited by a PARALLEL reporter must not be capped.
+        Muldrow v. City of St. Louis is cited '144 S. Ct. 967' but CL lists
+        the '601 U.S. 346' parallel cite; name + court match, so this is the
+        same case, not a contradiction. (Found by the 204-case benchmark
+        replay: Lever 3's reporter-cite arm was capping it to 0.39 ->
+        NOT_FOUND. Reporter mismatches are too often benign parallel cites to
+        trigger the cap; only docket-number contradictions do.)"""
+        v = self._scorer()
+        parsed = parse_citation(
+            "Muldrow v. City of St. Louis, 144 S. Ct. 967 (U.S. 2024)"
+        )
+        result = {"citation": ["601 U.S. 346"]}
+        score, _ = v._score_match(
+            parsed, "Muldrow v. City of St. Louis", "scotus", "2024-04-17", result
+        )
+        assert score >= _VERIFIED_SCORE_THRESHOLD
+
     def test_docket_contradiction_escaped_when_cite_matches(self):
         """A docket-number contradiction is forgiven when the reporter cite
         positively matches -- the cite vouches for the record (a typo'd

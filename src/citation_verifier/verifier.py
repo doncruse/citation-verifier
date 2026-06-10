@@ -2340,12 +2340,16 @@ class CitationVerifier:
         # reporter cite vouches for the record regardless of the caption.
         cite_corroborated = False
         docket_corroborated = False
-        # Whether the cited docket number / reporter-cite is PRESENT on both
-        # the citation and the candidate record but DIFFERS (an active
-        # contradiction, as opposed to merely absent). Drives the Lever 3
-        # contradiction arm of the no-corroboration cap below.
+        # Whether the cited docket number is PRESENT on both the citation and
+        # the candidate record but DIFFERS (an active contradiction, as
+        # opposed to merely absent). Drives the Lever 3 contradiction arm of
+        # the no-corroboration cap below. NOTE: we deliberately do NOT track a
+        # reporter/WL contradiction here — a cited reporter that CL lists
+        # under a different *parallel* reporter (e.g. cited 144 S. Ct. 967,
+        # CL has 601 U.S. 346) is the SAME case, not a contradiction, and
+        # capping on it produced a real false negative (Muldrow, found by the
+        # benchmark replay). Docket numbers have no benign "parallel" form.
         docket_contradicted = False
-        cite_contradicted = False
 
         # Case name similarity - using multi-factor matcher
         if parsed.case_name and result_case_name:
@@ -2498,7 +2502,6 @@ class CitationVerifier:
                     f"(CourtListener has no reporter citations on file for this case)",
                 ))
             else:
-                cite_contradicted = True
                 mismatches.append(Diagnostic(
                     "cite",
                     f"Citation mismatch: cited {cite_str} "
@@ -2515,7 +2518,6 @@ class CitationVerifier:
                     f"(CourtListener has no citations on file for this case)",
                 ))
             else:
-                cite_contradicted = True
                 mismatches.append(Diagnostic(
                     "cite",
                     f"WL number {parsed.wl_number} not found "
@@ -2526,19 +2528,22 @@ class CitationVerifier:
         # record when a strong negative signal fires and nothing positively
         # vouches for it. Strong negatives:
         #   - party mismatch (Lever 2): caption matches only one cited party;
-        #   - docket/cite contradiction (Lever 3): the cited docket number or
-        #     reporter/WL cite is present on both sides but DIFFERS — the fake
-        #     names a real case but a fabricated pinpoint (Lopez v. Bank of
-        #     Am. -> the real BofA docket at a different docket number).
+        #   - docket-number contradiction (Lever 3): the cited docket number is
+        #     present on both sides but DIFFERS — the fake names a real case
+        #     but a fabricated pinpoint (Lopez v. Bank of Am. -> the real BofA
+        #     docket at a different docket number).
+        # A reporter/WL *mismatch* is intentionally NOT a strong negative: a
+        # cited reporter that CL lists under a different parallel reporter is
+        # the same case (Muldrow: cited 144 S. Ct. 967, CL has 601 U.S. 346),
+        # so capping on it is a false negative. Docket numbers have no benign
+        # parallel form, so a docket contradiction is reliable.
         # Court+date agreement alone is coincidence (these fakes are crafted
         # to name a plausible real court and year). The escape hatch is a
         # positive docket-number or reporter/WL match, which vouches for the
         # record even when its CL display name or a typo'd pinpoint disagrees.
         # Contradiction is gated on PRESENT-and-differing, never absent, so a
         # real cite that CL simply has no docket/cite on file for is untouched.
-        strong_negative = (
-            not party_overlap or docket_contradicted or cite_contradicted
-        )
+        strong_negative = not party_overlap or docket_contradicted
         if strong_negative and not cite_corroborated and not docket_corroborated:
             score = min(score, _VERIFIED_SCORE_THRESHOLD - 0.01)
 
