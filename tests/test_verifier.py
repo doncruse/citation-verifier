@@ -17,7 +17,7 @@ import pytest
 
 from citation_verifier.models import StageName, StageVerdict, Status, WarningCategory
 from citation_verifier.parser import parse_citation
-from citation_verifier.verifier import CitationVerifier
+from citation_verifier.verifier import CitationVerifier, _VERIFIED_SCORE_THRESHOLD
 
 
 def _winning_path_entry(result):
@@ -2893,7 +2893,10 @@ class TestVerifiedViaRecapScoreGate:
             search_opinions=[],
             search_recap=[
                 {
-                    "caseName": "Short Case",
+                    # Full caption (both cited parties) so the party-mismatch
+                    # cap does not fire — this test isolates the page_count /
+                    # is_free score gate, not name matching.
+                    "caseName": "Short Case v. Other",
                     "docket_id": 9999,
                     "id": 9999,
                     "court_id": "txwd",
@@ -3277,3 +3280,86 @@ class TestRecapHardGates:
             "recap_documents": [],
         }]
         assert len(v._process_recap_results(results, parsed)) == 1
+
+
+class TestPartyMismatchPenalty:
+    """Lever 2 (Tier 1 Step 2): _score_match must penalize a candidate that
+    matches only ONE cited party while the other cited party is entirely
+    absent -- surname-coincidence inflation. The penalty hits the name
+    component only, so a real opinion whose court/date corroborate (a
+    cl_display_name_data_bug case) survives; the false positives, which are
+    wrong-court matches, drop below the resolution threshold. See
+    docs/retrospectives/2026-06-10-tier1-step1-measurement.md.
+    """
+
+    def _scorer(self):
+        return CitationVerifier(_make_client())
+
+    def test_defendant_only_match_drops_below_threshold(self):
+        """Johnson v. Mitchell -> Scudder v. Mitchell: defendant 'Mitchell'
+        matches, plaintiff 'Johnson' absent. Reconstructs the live v0.3
+        false positive (VERIFIED 0.50): the wrong case is in the SAME court
+        (ohsd) with an off-by-one date, so court+date corroborate and only
+        the party-mismatch penalty can sink it."""
+        v = self._scorer()
+        parsed = parse_citation(
+            "Johnson v. Mitchell, 2:20-cv-1882, 2020 WL 5649609 "
+            "(S.D. Ohio Sept. 23, 2020)"
+        )
+        score, _ = v._score_match(
+            parsed, "Scudder v. Mitchell", "ohsd", "2021-03-29", {}
+        )
+        assert score < _VERIFIED_SCORE_THRESHOLD
+
+    def test_plaintiff_only_match_drops_below_threshold(self):
+        """Thompson v. Best -> Thompson v. Thompson: plaintiff 'Thompson'
+        matches, defendant 'Best' absent. Reconstructs the live v0.3 false
+        positive (VERIFIED 0.625): wrong court but same year (2013), so the
+        date credit must be overcome by the penalty."""
+        v = self._scorer()
+        parsed = parse_citation("Thompson v. Best, 989 N.E.2d 299 (Ind. Ct. App. 2013)")
+        score, _ = v._score_match(
+            parsed, "Thompson v. Thompson", "ind", "2013-08-30", {}
+        )
+        assert score < _VERIFIED_SCORE_THRESHOLD
+
+    def test_party_mismatch_with_corroborating_court_date_still_capped(self):
+        """Johnson v. Mitchell -> Laile v. Mitchell via RECAP: the wrong
+        case sits in the SAME court (ohsd) with a 2020 document, so
+        court+date alone reach ~0.45 regardless of the penalized name. The
+        cited WL number is not in the candidate, so the match is
+        uncorroborated and must be capped below threshold. The name-only
+        multiplier is insufficient when court+date coincidentally match --
+        this is why the cap (party mismatch AND no cite corroboration)
+        exists. Discovered when Lever 2's opinion-path fix pushed Johnson
+        down into a RECAP docket-only match on the same surname."""
+        v = self._scorer()
+        parsed = parse_citation(
+            "Johnson v. Mitchell, 2:20-cv-1882, 2020 WL 5649609 "
+            "(S.D. Ohio Sept. 23, 2020)"
+        )
+        score, _ = v._score_match(parsed, "Laile v. Mitchell", "ohsd", "2020-09-23", {})
+        assert score < _VERIFIED_SCORE_THRESHOLD
+
+    def test_party_mismatch_escapes_cap_when_cite_corroborates(self):
+        """Safety hatch: a real opinion whose CL *display name* lists a
+        different party (cl_display_name_data_bug) but whose reporter cite
+        matches must NOT be capped -- the cite vouches for it. Same
+        party-mismatch shape as above, but the candidate carries the cited
+        reporter cite, so it stays resolvable."""
+        v = self._scorer()
+        parsed = parse_citation("Johnson v. Mitchell, 123 F.3d 456 (6th Cir. 2020)")
+        result = {"citation": ["123 F.3d 456"]}
+        score, _ = v._score_match(parsed, "Laile v. Mitchell", "ca6", "2020-06-01", result)
+        assert score >= _VERIFIED_SCORE_THRESHOLD
+
+    def test_both_parties_match_not_penalized(self):
+        """Control: when both cited parties are present in the candidate
+        (the real case, right court + date), the score stays resolvable --
+        the penalty must not fire."""
+        v = self._scorer()
+        parsed = parse_citation("Thompson v. Best, 989 N.E.2d 299 (Ind. Ct. App. 2013)")
+        score, _ = v._score_match(
+            parsed, "Thompson v. Best", "indctapp", "2013-05-01", {}
+        )
+        assert score >= _VERIFIED_SCORE_THRESHOLD

@@ -57,6 +57,16 @@ _NAME_TOKEN_STOPLIST = frozenset({
 # (2026-05-20).
 _VERIFIED_SCORE_THRESHOLD = 0.40
 
+# Lever 2 (Tier 1 Step 2): multiplier applied to the case-name similarity
+# when a candidate matches only ONE cited party and the other cited party is
+# absent (surname-coincidence inflation, e.g. Thompson v. Best ->
+# Thompson v. Thompson). Tuned (2026-06-09) so the two measured opinion-search
+# false positives drop below _VERIFIED_SCORE_THRESHOLD while retaining enough
+# name signal that a real opinion whose CL *display name* lists a different
+# party (cl_display_name_data_bug) still resolves on its corroborating
+# court/date/cite. See docs/retrospectives/2026-06-10-tier1-step1-measurement.md.
+_PARTY_MISMATCH_NAME_FACTOR = 0.25
+
 
 def _name_tokens(name: str) -> set[str]:
     """Lowercased word tokens of length >=4, with punctuation stripped
@@ -1423,8 +1433,10 @@ class CitationVerifier:
         if m:
             dn = f"{m.group(1)}-cv-{m.group(2)}"
         # Strip trailing space-separated alpha tokens (judge initials after
-        # space, e.g. "C 09-02727 WHA" → "C 09-02727")
-        dn = re.sub(r"\s+[A-Za-z]{2,4}$", "", dn)
+        # space, e.g. "C 09-02727 WHA" → "C 09-02727"). Repeat the group so
+        # paired District + Magistrate initials are both removed
+        # ("1:13-CV-1483 AWI SAB" → "1:13-CV-1483").
+        dn = re.sub(r"(\s+[A-Za-z]{2,4})+$", "", dn)
         # Strip all trailing hyphen-separated judge-initial segments
         # (e.g. "-JPH-MJD", "-DC", "-WHO")
         dn = re.sub(r"(-[A-Za-z]{2,4})+$", "", dn)
@@ -2284,13 +2296,47 @@ class CitationVerifier:
         # --- Score each component ---
         score = 0.0
 
+        # Whether the candidate has at least one cited party on each side
+        # (True when there is nothing to compare). Drives the Lever 2
+        # party-mismatch penalty and the no-corroboration cap below.
+        party_overlap = (
+            self._party_overlap_ok(parsed, result_case_name)
+            if (parsed.case_name and result_case_name) else True
+        )
+        # Whether the cited reporter/WL cite or docket number was positively
+        # found on the candidate's record (set in the citation/docket blocks
+        # below). Either match is an escape hatch that lets a real record
+        # survive the cap even when its CL display name shows a different
+        # party (cl_display_name_data_bug): a matching docket number or
+        # reporter cite vouches for the record regardless of the caption.
+        cite_corroborated = False
+        docket_corroborated = False
+
         # Case name similarity - using multi-factor matcher
         if parsed.case_name and result_case_name:
             name_sim = self.name_matcher.calculate_similarity(
                 parsed.case_name,
                 result_case_name
             )
-            score += w_name * name_sim
+
+            # Party-mismatch penalty (Lever 2): when the candidate caption
+            # matches only ONE cited party and the other is absent, the name
+            # similarity is surname-coincidence inflation, not a real match
+            # (Johnson v. Mitchell -> Scudder v. Mitchell; Thompson v. Best ->
+            # Thompson v. Thompson). Discount the name contribution only —
+            # court/date/cite still score, so a real opinion whose CL display
+            # name lists a different party survives on those signals. The
+            # threshold-bucket diagnostics below intentionally read the
+            # original (un-penalized) name_sim so their wording is unchanged.
+            scored_name_sim = name_sim
+            if not party_overlap:
+                scored_name_sim *= _PARTY_MISMATCH_NAME_FACTOR
+                mismatches.append(Diagnostic(
+                    "name",
+                    f'Party mismatch: found "{result_case_name}" shares only '
+                    f'one party with cited "{parsed.case_name}"',
+                ))
+            score += w_name * scored_name_sim
 
             if name_sim < 0.6:
                 mismatches.append(Diagnostic(
@@ -2384,6 +2430,7 @@ class CitationVerifier:
                 found_dn = self._normalize_docket_number(result_docket)
                 if cited_dn == found_dn:
                     score += w_docket
+                    docket_corroborated = True
                 else:
                     mismatches.append(Diagnostic(
                         "docket",
@@ -2407,6 +2454,7 @@ class CitationVerifier:
             if (cite_str.lower() in result_citation.lower()
                     or cite_normalized in result_normalized):
                 score += w_cite
+                cite_corroborated = True
             elif not result_citation.strip():
                 mismatches.append(Diagnostic(
                     "cite",
@@ -2422,6 +2470,7 @@ class CitationVerifier:
         elif parsed.wl_number:
             if parsed.wl_number in result_citation:
                 score += w_cite
+                cite_corroborated = True
             elif not result_citation.strip():
                 mismatches.append(Diagnostic(
                     "cite",
@@ -2434,6 +2483,17 @@ class CitationVerifier:
                     f"WL number {parsed.wl_number} not found "
                     f"in CourtListener citations: {result_citation}",
                 ))
+
+        # No-corroboration cap (Lever 2): a party-mismatched candidate whose
+        # cited citation AND docket number are NOT positively confirmed on the
+        # record is the wrong case — court+date agreement alone is coincidence
+        # (these fake cites are crafted to name a plausible real court and
+        # year, so some real case in that court/year scores ~0.40 on
+        # court+date). Cap below the resolution threshold. A reporter/WL cite
+        # match or a docket-number match is the escape hatch for a real record
+        # whose CL display name lists a different party.
+        if not party_overlap and not cite_corroborated and not docket_corroborated:
+            score = min(score, _VERIFIED_SCORE_THRESHOLD - 0.01)
 
         return round(score, 4), mismatches
 

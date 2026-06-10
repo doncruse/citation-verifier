@@ -1852,7 +1852,10 @@ class TestVerifiedViaRecapScoreGate:
             "search_opinions": [],
             "search_recap": [
                 {
-                    "caseName": "Short Case",
+                    # Full caption (both cited parties) so the party-mismatch
+                    # cap does not fire — this test isolates the page_count /
+                    # is_free score gate, not name matching.
+                    "caseName": "Short Case v. Other",
                     "docket_id": 9999,
                     "id": 9999,
                     "court_id": "txwd",

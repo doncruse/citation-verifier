@@ -111,8 +111,8 @@
     "qc_finding": "Confirmed hallucination in QC review (2026-02-22). Docket mismatch, name mismatch, inexact date — QC note: 'should be much much lower.'",
     "prior_result": {"engine": "v0.2", "status": "POSSIBLE_MATCH", "confidence": 0.5776, "matched_url": "https://www.courtlistener.com/docket/16105716/26/laile-v-mitchell/"},
     "expected_status": "NOT_FOUND",
-    "xfail_reason": "Lever 2 (symmetric party-mismatch penalty) not yet implemented. v0.3+Lever1 resolves via opinion search to Scudder v. Mitchell @ VERIFIED 0.5 — defendant 'Mitchell' matches, plaintiff 'Johnson' absent. Shares the 'mitchell' token so the name-token gate passes; same year so temporal passes. Remove this xfail when Lever 2 lands.",
-    "notes": "v0.2 matched Laile v. Mitchell on defendant surname despite plaintiff, docket number, and date all mismatching."
+    "xfail_reason": "Lever 3 (docket#/WL contradiction) not yet implemented. Lever 2 (party-mismatch penalty + cap) eliminated the earlier party-mismatch matches (Scudder v. Mitchell opinion 0.50; Laile v. Mitchell docket): it now falls through to a real 'Johnson v. Mitchell' RECAP docket at VERIFIED_DOCKET_ONLY 0.42. Party names genuinely match, so only the cited docket# (2:20-cv-1882) and WL number (5649609) contradicting the matched docket can reject it. Remove when Lever 3 lands.",
+    "notes": "v0.2 matched Laile v. Mitchell on defendant surname. Lever 2 killed that match; the residual is a same-name docket with a contradicting docket#/WL (Lever 3)."
   },
   {
     "citation": "Thompson v. Best, 989 N.E.2d 299 (Ind. Ct. App. 2013)",
@@ -121,8 +121,8 @@
     "qc_finding": "Confirmed hallucination in QC review (2026-02-21). Wrong court, not the same case name.",
     "prior_result": {"engine": "v0.2", "status": "POSSIBLE_MATCH", "confidence": 0.625, "matched_url": "https://www.courtlistener.com/opinion/2693170/thompson-v-thompson/"},
     "expected_status": "NOT_FOUND",
-    "xfail_reason": "Lever 2 (symmetric party-mismatch penalty) not yet implemented. v0.3+Lever1 resolves via opinion search to Thompson v. Thompson @ VERIFIED 0.625 — plaintiff 'Thompson' matches, defendant 'Best' absent. Shares the 'thompson' token so the name-token gate passes. Remove this xfail when Lever 2 lands.",
-    "notes": "v0.2 matched Thompson v. Thompson in a different court. Common-surname score inflation — the motivating case for a defendant-mismatch penalty (TODO Priority 1)."
+    "xfail_reason": "Lever 3 (reporter-cite contradiction) not yet implemented. Lever 2 (party-mismatch penalty) eliminated the Thompson v. Thompson opinion match (0.625): it now falls through to a 'Thompson v. Best Buy Co.' RECAP docket at VERIFIED_DOCKET_ONLY 0.425. Party overlap is genuinely TRUE here because the cited defendant 'Best' is a substring of 'Best Buy', so the party penalty does not fire — only the cited reporter cite (989 N.E.2d 299) contradicting the matched docket can reject it. Remove when Lever 3 lands.",
+    "notes": "v0.2 matched Thompson v. Thompson. Lever 2 killed that opinion match; the residual is a 'Thompson v. Best Buy' docket where 'Best' substring-matches 'Best Buy' (party overlap True), needing reporter-cite contradiction (Lever 3)."
   },
   {
     "citation": "Thompson v. Best, 118 N.E.3d 299 (Ind. Ct. App.  2019)",

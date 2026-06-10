@@ -176,3 +176,51 @@ Tests: `tests/test_verifier.py::TestRecapHardGates`. Code:
 `verifier.py::_recap_result_gated` + the two call sites.
 
 **Next: Lever 2** (symmetric party-mismatch penalty in `_score_match`).
+
+## Lever 2 — IMPLEMENTED (2026-06-09)
+
+Symmetric party-mismatch handling in `_score_match`, in three parts (each
+discovered by following the live evidence):
+
+1. **Name-similarity penalty** (`_PARTY_MISMATCH_NAME_FACTOR = 0.25`) — when
+   `_party_overlap_ok` is False (candidate matches only one cited party, the
+   other absent), the name contribution is discounted. Reuses the existing,
+   calibrated `_party_overlap_ok`. Killed the opinion-search FPs
+   (Johnson → Scudder v. Mitchell; Thompson → Thompson v. Thompson).
+2. **No-corroboration cap** — the penalty alone was insufficient: these fakes
+   are crafted to name a plausible real court + year, so a *different* wrong
+   case in that court/year scores ~0.40 on court+date regardless of name
+   (Johnson then matched a 2020 S.D. Ohio doc, Laile v. Mitchell, at 0.43).
+   So when party overlap fails AND neither the reporter/WL cite NOR the
+   docket number is positively confirmed, cap the score below threshold. A
+   cite-match or docket-match is the escape hatch protecting
+   cl_display_name_data_bug cases (a real record whose CL caption lists a
+   different party).
+3. **Docket-normalizer fix** — adding the docket-match escape surfaced that
+   `_normalize_docket_number` stripped only ONE trailing judge token, so
+   paired District+Magistrate initials ("1:13-CV-1483 AWI SAB") never matched
+   "1:13-cv-01483". Changed to strip all trailing judge tokens. This both
+   restores the Elkins display-name fixture and is a real normalizer
+   improvement.
+
+**Results (live):** false negatives **14/14 held**. False positives stay at
+**3**, but the *failure mode converged*: Lever 2 eliminated every
+party-mismatch / surname-inflation match, and the 3 remaining FPs are now a
+single coherent class — name-plausible records (a real "Johnson v. Mitchell"
+docket; "Thompson v. **Best** Buy", where cited "Best" substring-matches;
+Lopez's real BofA docket) where only the **cited docket#/reporter cite
+contradicts**. That is exactly Lever 3. Scores also dropped (Johnson
+0.50→0.42, Thompson 0.625→0.425). Count unchanged but the verdict is closer to
+the threshold and the remaining work is unified.
+
+Unit coverage: `TestPartyMismatchPenalty` (5 mocked tests, TDD — penalty,
+cap, cite-escape, docket-escape via the Elkins fixture, control). Full mocked
+suite 268 passed. The 3 FPs are `xfail` in the corpus with Lever-3 reasons.
+
+Tests: `tests/test_verifier.py::TestPartyMismatchPenalty`. Code:
+`verifier.py::_score_match` (party penalty + no-corroboration cap) and
+`_normalize_docket_number`.
+
+**Next: Lever 3** (docket#/reporter-cite contradiction penalty) — now the
+sole remaining false-positive class: Lopez (0.85), Johnson (0.42),
+Thompson (0.425).
