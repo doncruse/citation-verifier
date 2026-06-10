@@ -1,5 +1,15 @@
 # TODO
 
+> **2026-06-10 — accuracy work status lives in
+> [`docs/plans/2026-06-10-prioritized-roadmap.md`](../docs/plans/2026-06-10-prioritized-roadmap.md).**
+> Tier 1 false-positive work is **done**: fake corpus 0/19, published reals
+> 203/204, fallback reals 32/32, all replayable offline (cassette harness).
+> The "Citation mismatch detection (Check Cite)" item below is Tier 1 Step 3,
+> still open. New follow-ups that emerged during execution (parallel-citation
+> robustness, triaging 18 fallback NOT_FOUNDs, pinning the other state-leak
+> reproducers, Charlotin fake-mining, threshold calibration) are in that
+> roadmap's "Follow-ups discovered during execution" section.
+
 ## PDF Download Feature (in progress)
 
 Added checkboxes + "Download PDFs" button to main page (`localhost:8000`). Backend resolves `matched_url` to downloadable PDF, bundles into zip.

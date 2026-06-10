@@ -20,17 +20,24 @@ Items that recent commits resolved — checked against the working tree before w
 
 The core mission. Everything here compounds; do in order.
 
-1. **Expand the fake-citation regression corpus, then measure.** Convert the QC-confirmed hallucinations and wrong-document matches from `scratch/QC_TRIAGE.md` into `tests/data/known_fake_citations.json` entries (8 → ~25) with categories per `tests/data/README.md`. Add a parametrized live-API test (`test_false_positives.py`, marked like `test_false_negatives.py`) asserting each scores below threshold / returns NOT_FOUND. **Run it before tuning anything** — it tells us which QC items v0.3 already fixed and which still fail.
-2. **False-positive scoring fixes**, driven by whatever Step 1 shows still failing. Known candidates from TODO Priority 1:
-   - Hard date-mismatch gate (In re Hudson: 1812 vs 2018 scored 0.50)
-   - Defendant-mismatch penalty (Thompson v. Best → Thompson v. Thompson, 0.62)
-   - Docket-number-mismatch penalty (Lopez 0.65, Johnson v. Mitchell 0.58)
-   - While in `_score_match()` (currently 935 lines, `verifier.py:2148–3082`): opportunistically extract the per-factor scoring into testable helpers. Not a standalone refactor — only as needed for these fixes.
-3. **"Check Cite" status** (TODO Priority 1 "Citation mismatch detection"). Case found by name via opinion search but cited volume/page doesn't match any of the case's citations → currently shows VERIFIED. This is the exact signature of `wrong_page_number` / hybrid hallucinations (Butler Motors, Gallagher v. Wilton). Likely a new warning category + status or `VERIFIED_PARTIAL` reuse — design against the v0.3 taxonomy, don't bolt on.
+> **Status (2026-06-10):** Steps 1, 2, and the RECAP-leak half of 4 are
+> **done** — fake corpus **0/19**, published reals **203/204**, fallback
+> reals **32/32** guarded, all replayable offline. Remaining: Step 3
+> ("Check Cite"), the cross-state opinion-match half of Step 4 (Graves),
+> Step 5 (web app onto `verify_batch()`). See the Status log and the
+> "Follow-ups discovered during execution" section below.
+
+1. ✅ **DONE — Expand the fake-citation regression corpus, then measure.** Convert the QC-confirmed hallucinations and wrong-document matches from `scratch/QC_TRIAGE.md` into `tests/data/known_fake_citations.json` entries (8 → ~25) with categories per `tests/data/README.md`. Add a parametrized live-API test (`test_false_positives.py`, marked like `test_false_negatives.py`) asserting each scores below threshold / returns NOT_FOUND. **Run it before tuning anything** — it tells us which QC items v0.3 already fixed and which still fail.
+2. ✅ **DONE — False-positive scoring fixes.** Became four levers, not the three originally guessed (the measurement reshaped the plan — the dominant fix was RECAP hard-gate *parity*, not the per-factor penalties first imagined):
+   - Lever 1: port name-token + one-sided temporal hard-gates to the RECAP path + PACER-era floor (In re Hudson).
+   - Lever 2: symmetric party-mismatch penalty + no-corroboration cap (Thompson→Thompson, Johnson→Scudder/Laile).
+   - Lever 3: docket-number contradiction cap + bare-docket parse (Lopez, Johnson). *Reporter-cite contradiction arm was removed after the benchmark replay caught it causing the Muldrow false negative — see follow-ups.*
+   - The per-factor scoring was NOT extracted into helpers (the fixes didn't require it; `_score_match` grew but stayed coherent).
+3. ⬜ **TODO — "Check Cite" status** (TODO Priority 1 "Citation mismatch detection"). Case found by name via opinion search but cited volume/page doesn't match any of the case's citations → currently shows VERIFIED. This is the exact signature of `wrong_page_number` / hybrid hallucinations (Butler Motors, Gallagher v. Wilton). Likely a new warning category + status or `VERIFIED_PARTIAL` reuse — design against the v0.3 taxonomy, don't bolt on.
 4. **State-court leaks:**
-   - RECAP leak despite `is_federal_court()` gate (Oddi-Sampson `ind`, Reinlasoder `mont`, Keaau P.3d) — TODO says gate should work; needs a debugging session, possibly one shared root cause.
-   - Cross-state opinion match (Graves v. State, Ind. cite matched other state's Graves v. State at 0.70) — state mismatch should disqualify.
-5. **Web app back onto `verify_batch()`** — the bug it was working around is fixed (e391209); restore the batched-lookup API savings in `/api/verify` and `/api/qc/run-batch`.
+   - ✅ **DONE — RECAP leak** despite `is_federal_court()` gate (Oddi-Sampson `ind`, Reinlasoder `mont`, Keaau P.3d, Thompson `indctapp`). One shared root cause: the guard keyed off the federal-only `court_id` (None for state courts). Fixed via `_is_state_court_citation()` (court OR regional-reporter signal). Only Thompson was in the live corpus; the others are covered by the shared fix + a 7-case unit matrix — see follow-up "pin the other reproducers."
+   - ⬜ **TODO — Cross-state opinion match** (Graves v. State, Ind. cite matched another state's Graves v. State at 0.70) — different mechanism (opinion-search state disqualification, not RECAP gating); not addressed.
+5. ⬜ **TODO — Web app back onto `verify_batch()`** — the bug it was working around is fixed (e391209); restore the batched-lookup API savings in `/api/verify` and `/api/qc/run-batch`.
 
 ## Tier 2 — Cheap wins on existing investments (slot in anytime)
 
@@ -59,6 +66,66 @@ The core mission. Everything here compounds; do in order.
 - Statute/rule verification (scope expansion)
 - Packaging for third-party tools
 - Playwright browser tests for the web frontend
+
+## Current automated coverage (2026-06-10)
+
+The accuracy work is now guarded by three corpora, all replayable **offline**
+in seconds via the cassette harness (`tests/cassette_client.py`):
+
+| Corpus | What it guards | Size / result | Mode |
+|---|---|---|---|
+| `known_fake_citations.json` (`test_false_positives.py`) | fakes must not verify | **0/19** false positives | live (`-m live_api`) |
+| `known_real_citations.json` (`test_false_negatives.py`) | curated real cites resolve; incl. RECAP/WL + date-gap guard | **14/14** | live |
+| `benchmark_*` (`test_benchmark_regression.py`) | real published cases still found (citation-lookup path) | **203/204** | offline replay |
+| `fallback_*` (`test_fallback_regression.py`) | real cases that resolve via opinion-search/RECAP | **32/32** guarded, 100% via fallback stages | offline replay |
+
+Re-record the cassettes periodically (live) to catch CourtListener drift;
+`--from-cassette` re-derives verdicts offline after an interpretation change.
+
+## Follow-ups discovered during execution (not in the original plan)
+
+These surfaced while doing Tier 1 Steps 1–4 and the test-harness work. None
+block anything; roughly highest-value first.
+
+1. **Parallel-citation robustness (S. Ct. vs U.S.).** Muldrow exposed that a
+   recent SCOTUS case cited by its `S. Ct.` reporter misses citation-lookup
+   (CL indexes the `U.S.` parallel cite) and only resolves because
+   opinion-search clears threshold by a hair. We fixed the cap regression,
+   but the underlying path is threshold-fragile. Consider parallel-reporter
+   normalization or a name+court lookup for recent SCOTUS so these resolve
+   robustly instead of by a 0.01 margin.
+2. **Triage the 18 fallback NOT_FOUNDs** (`fallback_baseline.json`). Split
+   genuine CL coverage gaps (the coverage memo already named several: Rose
+   Way, Wilson, Iglesias, Terry Black's, etc.) from any real fallback
+   false-negatives we should fix. The memo's Step 5 audit is a head start.
+3. **Pin the other RECAP-leak reproducers as live regressions** —
+   Oddi-Sampson (`ind`), Reinlasoder (`mont`), Keaau (P.3d). Fixed by the
+   shared Step-4 root cause and a unit matrix, but not end-to-end in the live
+   corpus. Need their citation strings (QC_TRIAGE / coverage CSV) to add them
+   to `known_fake_citations.json` or a state-leak corpus.
+4. **Charlotin fake-mining pipeline** (raised this session). The scaled
+   false-positive source (~1,598 court-confirmed hallucination cases). Two
+   blockers: (a) access — the site and its CSV 403 automated fetchers, so a
+   human must download `…/hallucinations/download.csv`; (b) extraction — the
+   data is case-level (ruling links + prose), so pulling clean fabricated
+   citation strings means processing the linked rulings (how the existing 8
+   court-confirmed fakes were built). A real sub-project; the right next lever
+   for FP scale, since the benchmark/coverage corpora are real-case-only.
+5. **Threshold/constant calibration.** Several fixes use hand-tuned constants:
+   `_VERIFIED_SCORE_THRESHOLD = 0.40`, `_PARTY_MISMATCH_NAME_FACTOR = 0.25`,
+   `_RECAP_PACER_ERA_FLOOR = 1990`, the cap value (`threshold − 0.01`). Muldrow
+   showed 0.01 margins decide outcomes. A larger labeled set (esp. from #4)
+   could validate or tune these rather than leaving them eyeballed.
+6. **Harness maintenance / extension.** (a) Periodically re-record cassettes
+   for CL drift. (b) Optionally extend record/replay to the fake + curated-real
+   corpora so the *entire* accuracy suite runs offline (and becomes CI-able
+   without a token). (c) The `benchmark_baseline.json` predates the
+   `winning_stage` field — regenerate (`--from-cassette`) for consistency if
+   we want path-migration guarding there too.
+7. **Bare-docket parser coverage.** `_BARE_DOCKET_PATTERN` only handles the
+   federal `N:NN-cv-N` form. State/other docket formats seen in the coverage
+   data (`B225051`, `2024 IL App (4th) 230931`) aren't extracted — only matters
+   if a future docket-contradiction case needs them. Low priority.
 
 ## Status log
 
