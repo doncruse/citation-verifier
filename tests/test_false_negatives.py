@@ -47,6 +47,7 @@ def test_known_real_citation(test_case):
     """
     citation = test_case["citation"]
     expected_cluster_id = test_case.get("expected_cluster_id")
+    expected_docket_id = test_case.get("expected_docket_id")
     category = test_case.get("category", "unknown")
     notes = test_case.get("notes", "")
 
@@ -83,6 +84,20 @@ def test_known_real_citation(test_case):
             f"Found a case but wrong cluster ID for: {citation}\n"
             f"Expected: {expected_cluster_id}\n"
             f"Got: {result.final_ids.cluster_id}\n"
+            f"Matched case: {matched_case_name}\n"
+            f"URL: {result.final_ids.absolute_url}"
+        )
+
+    # RECAP docket-only / VIA_RECAP entries pin the docket instead of a
+    # cluster. Pinning the docket (not just "not NOT_FOUND") is what makes
+    # the date-gap guard real: Oracle v. Google must keep resolving to its
+    # 2010-filed docket from a 2016 cite, so a future RECAP temporal gate
+    # can't be the symmetric +/-5yr kind without failing this.
+    if expected_docket_id:
+        assert result.final_ids.docket_id == expected_docket_id, (
+            f"Found a case but wrong docket ID for: {citation}\n"
+            f"Expected: {expected_docket_id}\n"
+            f"Got: {result.final_ids.docket_id}\n"
             f"Matched case: {matched_case_name}\n"
             f"URL: {result.final_ids.absolute_url}"
         )

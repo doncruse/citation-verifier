@@ -27,5 +27,59 @@
     "expected_cluster_id": 9746415,
     "category": "recap_with_exact_date",
     "notes": "RECAP search with exact date matching (Sept. 17, 2018). Tests docket-entries API query. Phase 3: xfail unmarked; pin updated to current canonical value."
+  },
+  {
+    "citation": "Oracle Am., Inc. v. Google Inc., No. C 10-03561 WHA, 2016 WL 3181206 (N.D. Cal. June 8, 2016)",
+    "expected_docket_id": 4177532,
+    "category": "recap_long_running_date_gap",
+    "notes": "DATE-GAP GUARD for the one-sided RECAP temporal gate (Tier 1 Step 2 Lever 1). Docket filed 2010-08-12 (date_filed = case filing date), cited opinion issued 2016 -- a 6-year gap. Resolves VERIFIED_VIA_RECAP. A naive symmetric +/-5yr gate on the RECAP path would see filing year 2010 vs cited 2016 and WRONGLY reject this real citation. The gate must be one-sided (reject only cited < filing - tolerance, never cited > filing). See docs/retrospectives/2026-06-10-tier1-step1-measurement.md. Verified live under v0.3 2026-06-09."
+  },
+  {
+    "citation": "Moore v. Hillman, No. 4:06-CV-43, 2006 WL 1313880 (W.D. Mich. May 12, 2006)",
+    "expected_docket_id": 4697246,
+    "category": "recap_no_court_paren",
+    "notes": "RECAP VIA_RECAP match. No court parenthetical in the original -> exercises the weight-redistribution path in _score_match (the docstring's motivating example). Confirms the RECAP path still resolves once Lever 1 adds hard-gates. Verified live under v0.3 2026-06-09."
+  },
+  {
+    "citation": "Marlite, Inc. v. Eckenrod, No. 10-23641-CIV, 2012 WL 3614212 (S.D. Fla. Aug. 22, 2012)",
+    "expected_docket_id": 4233374,
+    "category": "recap_docket_only",
+    "notes": "RECAP VERIFIED_DOCKET_ONLY match (cluster_id None). Docket filed 2010, cited opinion 2012 -- cited-after-filing, a smaller cousin of the Oracle date-gap guard. Exercises the docket-only candidate path (_build_docket_only_candidate) that Lever 1's name-token + temporal gates must not over-reject. Verified live under v0.3 2026-06-09."
+  },
+  {
+    "citation": "Shaw v. Cooper, 32 U.S. 292 (1833)",
+    "expected_cluster_id": 85831,
+    "category": "old_scotus",
+    "notes": "Very old U.S. Reports citation (1833). Tests citation-lookup resolution for pre-modern reporters. Verified live under v0.3 2026-06-09 (cluster 85831)."
+  },
+  {
+    "citation": "United States v. Straker, 800 F.3d 570 (2015)",
+    "expected_cluster_id": 2832658,
+    "category": "common_prefix_plaintiff",
+    "notes": "Common-prefix plaintiff (United States v. X). Exercises the common-prefix defendant comparison in name matching. Verified live under v0.3 2026-06-09 (cluster 2832658)."
+  },
+  {
+    "citation": "Postell v. United States, 282 A.2d 551 (1971)",
+    "expected_cluster_id": 1969207,
+    "category": "state_common_prefix_defendant",
+    "notes": "D.C. Court of Appeals, A.2d state-equivalent reporter, with a generic-government defendant (v. United States). Tests both state-court coverage and the generic-defendant name path. Verified live under v0.3 2026-06-09 (cluster 1969207)."
+  },
+  {
+    "citation": "Addis v. Steele, 648 N.E.2d 773 (1995)",
+    "expected_cluster_id": 6585074,
+    "category": "state_reporter",
+    "notes": "Massachusetts Appeals Court, N.E.2d regional reporter. State-court coverage (the prior corpus had zero state cases). Verified live under v0.3 2026-06-09 (cluster 6585074)."
+  },
+  {
+    "citation": "Rosenthal v. Cnty. of Madison, 170 P.3d 493 (Mont. 2007)",
+    "expected_cluster_id": 887862,
+    "category": "state_reporter_montana",
+    "notes": "Montana Supreme Court, P.3d reporter. 'mont' is one of the state courts flagged for RECAP-leak issues (roadmap Tier 1 Step 4) -- pins that the legitimate state-opinion match still resolves. Also exercises Cnty. -> County normalization. Verified live under v0.3 2026-06-09 (cluster 887862)."
+  },
+  {
+    "citation": "Brown v. Whole Foods Mkt. Grp., Inc., 789 F.3d 146 (2015)",
+    "expected_cluster_id": 2807857,
+    "category": "standard_reporter",
+    "notes": "D.C. Circuit F.3d opinion with heavy abbreviation (Mkt. Grp.). Verified live under v0.3 2026-06-09 (cluster 2807857)."
   }
 ]

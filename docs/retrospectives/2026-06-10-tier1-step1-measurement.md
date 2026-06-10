@@ -95,9 +95,17 @@ Reuses existing, tested logic. Directly kills #1, #3, #4, #7, #8, #9, #10.
   `parsed.year < filing_year - tolerance` (In re Hudson: 1812 < 2018 ✓
   rejected), never when the cited year is *after* filing. The opinion-search
   path keeps its symmetric gate because cluster `dateFiled` there IS the
-  decision date. Note the 5-entry false-negative corpus is too small to catch
-  this regression on its own — don't rely on it to validate the gate
-  direction.
+  decision date.
+
+  **Guard now in place:** the false-negative corpus was widened 5 → 14
+  (2026-06-09) specifically to cover this. `recap_long_running_date_gap`
+  pins **Oracle Am. v. Google, 2016 WL 3181206** — docket filed 2010-08-12,
+  cited opinion 2016, resolves `VERIFIED_VIA_RECAP` to docket 4177532. The
+  test asserts the docket id (not just "not NOT_FOUND"), so a symmetric
+  ±5yr RECAP gate would fail it. `test_false_negatives.py` gained
+  `expected_docket_id` support for this. Lever 1 must keep both
+  `test_false_positives.py` (In re Hudson rejected) and
+  `test_false_negatives.py` (Oracle accepted) green.
 
 ### Lever 2: both-sides party-mismatch penalty in `_score_match`
 For the 2 opinion-search FPs that pass the name-token gate on a *shared*
