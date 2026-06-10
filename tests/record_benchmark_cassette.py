@@ -43,7 +43,20 @@ def main() -> None:
              "(offline, no API calls). Use after an interpretation-logic "
              "change to refresh expected verdicts without re-recording.",
     )
+    ap.add_argument(
+        "--corpus-name", default="benchmark",
+        help="corpus prefix: reads data/<name>_*.json for corpus/cassette/"
+             "baseline (default 'benchmark'; use 'fallback' for the coverage-"
+             "study lookup-miss corpus built by build_fallback_corpus.py)",
+    )
     args = ap.parse_args()
+
+    global _CORPUS, _CASSETTE, _BASELINE
+    if args.corpus_name != "benchmark":
+        n = args.corpus_name
+        _CORPUS = _DATA / f"{n}_corpus.json"
+        _CASSETTE = _DATA / f"{n}_cassette.json"
+        _BASELINE = _DATA / f"{n}_baseline.json"
 
     corpus = json.loads(_CORPUS.read_text(encoding="utf-8"))
     if args.limit:
@@ -67,11 +80,16 @@ def main() -> None:
             r = verifier.verify(cite)
             status = r.status.value
             cluster = r.final_ids.cluster_id
+            resolved_stages = [
+                e.stage.value for e in r.resolution_path
+                if e.verdict.value in ("resolved", "partial")
+            ]
             baseline[cite] = {
                 "status": status,
                 "cluster_id": cluster,
                 "docket_id": r.final_ids.docket_id,
                 "confidence": r.headline_confidence,
+                "winning_stage": resolved_stages[-1] if resolved_stages else None,
                 "expected_cluster_id": entry.get("expected_cluster_id"),
             }
             if r.status is Status.VERIFICATION_INCOMPLETE:

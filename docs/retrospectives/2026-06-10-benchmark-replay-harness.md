@@ -80,6 +80,35 @@ create new false negatives. Full mocked suite 446 passed.
   CourtListener data changes; `--from-cassette` only re-derives verdicts from
   the existing snapshot.
 
+## Fallback corpus — closes the coverage gap (2026-06-10)
+
+The benchmark corpus resolves almost entirely at citation-lookup, so it does
+not exercise the fallback scoring our recent work changed. Rebecca's May-2026
+FLP coverage study (`case-law-proposition-benchmark/scratch/cl-coverage-
+offshoot/coverage_memo.docx` + `coverage_per_citation.csv`) already mapped
+this: it ran `quick_only=True` (lookup only) over 250 real cited citations, so
+every `lookup_status=NOT_FOUND` row is a real case that *bypasses* lookup and
+drives the fallback.
+
+`tests/build_fallback_corpus.py` reconstructs full citations from those 74
+lookup misses (name + cite + court/year), keeping the 51 standalone ones
+(dropping pinpoint/short forms like "189 AD3d at 90"). Recorded with the same
+harness (`--corpus-name fallback`); the baseline now also stores the
+`winning_stage`.
+
+**Result: 32/51 resolve, and 100% of them via fallback stages — 23 via
+opinion_search, 9 via recap_docket_search (0 via citation_lookup).** Status
+mix: 23 VERIFIED, 7 VERIFIED_DOCKET_ONLY, 2 VERIFIED_VIA_RECAP — i.e. it
+actually drives the RECAP/opinion-search code Levers 1-3 + Step 4 touch. The
+remaining 18 NOT_FOUND are real CL coverage gaps the memo already catalogued
+(WL/Lexis-only district orders, scraper misses) — not our bug; left unguarded.
+
+`tests/test_fallback_regression.py` (offline, ~3s) guards three things: no new
+fallback false negatives, **no silent resolution-path migration** (a cite that
+resolved via opinion_search must keep doing so — catches a fallback-scoring
+change that flips the winning stage even when the verdict label holds), and a
+sanity check that the corpus still exercises fallback stages.
+
 ## Open / not done
 
 - **Fake mining (Damien Charlotin's database, ~1,598 court-confirmed

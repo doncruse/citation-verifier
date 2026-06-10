@@ -1,0 +1,410 @@
+{
+  "Terry Black's Barbecue, L.L.C. v. State Auto. Mut. Ins. Co., 22 F.4th 450, 459 (5th Cir. 2022)": {
+    "status": "NOT_FOUND",
+    "cluster_id": 9389319,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Frankling Incorporated v. BA CE Services, Incorporated, 50 F 4th 432 (5th Cir. 2022)": {
+    "status": "INSUFFICIENT_DATA",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "United States ex rel. Sargent v. Collins, 165 F.4th 102, 107 (1st Cir. 2026)": {
+    "status": "VERIFIED",
+    "cluster_id": 10778237,
+    "docket_id": null,
+    "confidence": 0.9,
+    "winning_stage": "opinion_search",
+    "expected_cluster_id": null
+  },
+  "Occidental Permian, Ltd. v. Citation 2002 Inv. LLC, 689 S.W.3d 899, 905 (Tex. Supreme Court 2024)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Sundown Energy LP v. HJSA No. 3, L.P., 622 S.W.3d 884, 889 (Tex. Supreme Court 2021)": {
+    "status": "VERIFICATION_INCOMPLETE",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Azad v 270 5th Realty Corp., 10 NY3d 706 (NY Court of Appeals 2008)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "People v. McDavid, 15 Cal.5th 1015 (Cal. Supreme Court 2024)": {
+    "status": "VERIFIED",
+    "cluster_id": 9502426,
+    "docket_id": null,
+    "confidence": 0.7,
+    "winning_stage": "opinion_search",
+    "expected_cluster_id": null
+  },
+  "Iglesias v. City of Hialeah, 305 So. 3d 20 (Fla. 3d DCA 2019)": {
+    "status": "NOT_FOUND",
+    "cluster_id": 9568679,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "In re Amendments to Florida Rules of General Practice & Judicial Administration, 416 So. 3d 242 (Fla. Supreme Court 2025)": {
+    "status": "VERIFIED",
+    "cluster_id": 10589841,
+    "docket_id": null,
+    "confidence": 0.7,
+    "winning_stage": "opinion_search",
+    "expected_cluster_id": null
+  },
+  "People v. Grajeda, 111 Cal.App.5th 829 (Cal. Ct. App. 2025)": {
+    "status": "VERIFIED",
+    "cluster_id": 10597586,
+    "docket_id": null,
+    "confidence": 0.9,
+    "winning_stage": "opinion_search",
+    "expected_cluster_id": null
+  },
+  "People v. Tang, 109 Cal.App.5th 1003 (Cal. Ct. App. 2025)": {
+    "status": "VERIFIED",
+    "cluster_id": 10357662,
+    "docket_id": null,
+    "confidence": 0.9,
+    "winning_stage": "opinion_search",
+    "expected_cluster_id": null
+  },
+  "People v Kumar, 242 AD3d 1231 (N.Y. App. Div.)": {
+    "status": "INSUFFICIENT_DATA",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "People v Campbell, 243 AD3d 1221 (4th Dept. 2025)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Hersko v Hersko, 224 AD3d 810 (Appellate Division, Second Department)": {
+    "status": "INSUFFICIENT_DATA",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "People v. Monroe, 85 Cal.App.5th 393 (Cal. Ct. App. 2022)": {
+    "status": "VERIFIED",
+    "cluster_id": 8511938,
+    "docket_id": null,
+    "confidence": 0.9,
+    "winning_stage": "opinion_search",
+    "expected_cluster_id": null
+  },
+  "Gold v Wallace, 230 AD3d 1113 (Appellate Division, Second Department)": {
+    "status": "INSUFFICIENT_DATA",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "People v Walker, 228 AD3d 1318 (4th Dept. 2024)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "People v Dondorfer, 235 AD3d 71 (4th Dept. 2024)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Knudsen v. Department of Motor Vehicles, 101 Cal.App.5th 186 (Cal. Ct. App. 2024)": {
+    "status": "VERIFIED",
+    "cluster_id": 9490917,
+    "docket_id": null,
+    "confidence": 0.9,
+    "winning_stage": "opinion_search",
+    "expected_cluster_id": null
+  },
+  "Romane v. Department of Motor Vehicles, 110 Cal.App.5th 1002, 1018 (Cal. Ct. App. 2025)": {
+    "status": "VERIFIED",
+    "cluster_id": 10382811,
+    "docket_id": null,
+    "confidence": 0.9,
+    "winning_stage": "opinion_search",
+    "expected_cluster_id": null
+  },
+  "Bay Valley Foods, LLC v. FFI Grp., LLC, 2025 WL 3089109 (N.D. Ill. 2025)": {
+    "status": "VERIFIED",
+    "cluster_id": 10731532,
+    "docket_id": null,
+    "confidence": 0.65,
+    "winning_stage": "opinion_search",
+    "expected_cluster_id": null
+  },
+  "Falls v. Berryhill, 2018 WL 5839955 (N.D. Ill. 2018)": {
+    "status": "VERIFIED",
+    "cluster_id": 9673077,
+    "docket_id": null,
+    "confidence": 0.9,
+    "winning_stage": "opinion_search",
+    "expected_cluster_id": null
+  },
+  "In re Wilson, 2014 WL 122074 (N.D. Cal. 2014)": {
+    "status": "VERIFIED_DOCKET_ONLY",
+    "cluster_id": null,
+    "docket_id": 5959065,
+    "confidence": 0.6106,
+    "winning_stage": "recap_docket_search",
+    "expected_cluster_id": null
+  },
+  "Democracy Forward Found. v. Off. of Mgmt. & Budget, 780 F. Supp. 3d 61, 79 (D.D.C. 2025)": {
+    "status": "VERIFIED",
+    "cluster_id": 10375489,
+    "docket_id": null,
+    "confidence": 0.729,
+    "winning_stage": "opinion_search",
+    "expected_cluster_id": null
+  },
+  "Waterman v. White Interior Sols., 2019 WL 5764661, at *2 (D. Me. 2019)": {
+    "status": "VERIFIED",
+    "cluster_id": 9743797,
+    "docket_id": null,
+    "confidence": 0.7208,
+    "winning_stage": "opinion_search",
+    "expected_cluster_id": null
+  },
+  "MIT Fed. Credit Union v. Cordisco, 470 F. Supp. 3d 81 (D. Mass. 2020)": {
+    "status": "VERIFIED",
+    "cluster_id": 9732438,
+    "docket_id": null,
+    "confidence": 0.6672,
+    "winning_stage": "opinion_search",
+    "expected_cluster_id": null
+  },
+  "ra dias deapocalypse bey v. Clapprood, 2024 WL 3446824 (D. Mass. 2024)": {
+    "status": "VERIFIED_DOCKET_ONLY",
+    "cluster_id": null,
+    "docket_id": 66969331,
+    "confidence": 0.8613,
+    "winning_stage": "recap_docket_search",
+    "expected_cluster_id": null
+  },
+  "Mehar Holdings, LLC v. Evanston Ins. Co., 2016 WL 5957681 (W.D. Tex. 2016)": {
+    "status": "VERIFIED_VIA_RECAP",
+    "cluster_id": null,
+    "docket_id": 5474769,
+    "confidence": 0.9,
+    "winning_stage": "recap_docket_search",
+    "expected_cluster_id": null
+  },
+  "United States v. Freeman, 360 F. Supp. 2d (D.D.C.)": {
+    "status": "INSUFFICIENT_DATA",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "United States v. Williams, 2025 WL 2390448 (N.D. Ill. 2025)": {
+    "status": "VERIFIED",
+    "cluster_id": 10656271,
+    "docket_id": null,
+    "confidence": 0.9,
+    "winning_stage": "opinion_search",
+    "expected_cluster_id": null
+  },
+  "Johnson v. Amazon.com Services, LLC, 2023 WL 8475658 (N.D. Ill. 2023)": {
+    "status": "VERIFIED",
+    "cluster_id": 9683197,
+    "docket_id": null,
+    "confidence": 0.9,
+    "winning_stage": "opinion_search",
+    "expected_cluster_id": null
+  },
+  "Molina v. U.S. Dep't of Homeland Sec., 2025 WL 2800807, *2 (D.D.C.)": {
+    "status": "VERIFIED",
+    "cluster_id": 10855295,
+    "docket_id": null,
+    "confidence": 0.5967,
+    "winning_stage": "opinion_search",
+    "expected_cluster_id": null
+  },
+  "Gilliard v. McWilliams, 2019 WL 3304707 (D.D.C. 2019)": {
+    "status": "NOT_FOUND",
+    "cluster_id": 4642011,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Hazari LLC v. Everest Indem. Ins. Co., 2020 WL 1969530 (S.D. Tex. 2020)": {
+    "status": "VERIFIED_DOCKET_ONLY",
+    "cluster_id": null,
+    "docket_id": 16348672,
+    "confidence": 0.6259,
+    "winning_stage": "recap_docket_search",
+    "expected_cluster_id": null
+  },
+  "In re Loc. TV Advert. Antitrust Litig., 2023 WL 1863046 (N.D. Ill. 2023)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Cabot v. Lewis, 2015 WL 13648107, *1 (D. Mass. 2015)": {
+    "status": "VERIFIED_DOCKET_ONLY",
+    "cluster_id": null,
+    "docket_id": 4275225,
+    "confidence": 0.9,
+    "winning_stage": "recap_docket_search",
+    "expected_cluster_id": null
+  },
+  "Kalu v. IRS, 2015 WL 4077756 (D.D.C. 2015)": {
+    "status": "NOT_FOUND",
+    "cluster_id": 2813648,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Hunter v. City & Cnty. of San Francisco, 2013 WL 6088409 (N.D. Cal. 2013)": {
+    "status": "VERIFIED_DOCKET_ONLY",
+    "cluster_id": null,
+    "docket_id": 5929390,
+    "confidence": 0.9,
+    "winning_stage": "recap_docket_search",
+    "expected_cluster_id": null
+  },
+  "Michael B. v. Berryhill, 2019 WL 2269962 (N.D. Ill. 2019)": {
+    "status": "NOT_FOUND",
+    "cluster_id": 9674302,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Preston v. Smith, 2023 WL 5337430 (W.D. La. 2023)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": 66979287,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "In re Rose Way, Inc., 1990 Bankr. LEXIS 3028, at *9 (Bankr. S.D. Iowa 1990)": {
+    "status": "VERIFIED",
+    "cluster_id": 1989947,
+    "docket_id": null,
+    "confidence": 0.619,
+    "winning_stage": "opinion_search",
+    "expected_cluster_id": null
+  },
+  "Doe v. Lawrence Gen. Hosp., 2025 WL 2808055 (D. Mass. 2025)": {
+    "status": "VERIFIED_DOCKET_ONLY",
+    "cluster_id": null,
+    "docket_id": 69539673,
+    "confidence": 0.9,
+    "winning_stage": "recap_docket_search",
+    "expected_cluster_id": null
+  },
+  "Darensburg v. Metro. Transp. Comm'n, 2009 WL 2392094 (N.D. Cal.)": {
+    "status": "VERIFIED_VIA_RECAP",
+    "cluster_id": null,
+    "docket_id": 4182878,
+    "confidence": 0.5877,
+    "winning_stage": "recap_docket_search",
+    "expected_cluster_id": null
+  },
+  "WeInfuse, LLC v. InfuseFlow, LLC, 2021 WL 1165132 (N.D. Tex. 2021)": {
+    "status": "VERIFIED",
+    "cluster_id": 9983326,
+    "docket_id": null,
+    "confidence": 0.7346,
+    "winning_stage": "opinion_search",
+    "expected_cluster_id": null
+  },
+  "Hendrix v. Garcia, 2022 WL 1261302 (D. Kan. 2022)": {
+    "status": "VERIFIED",
+    "cluster_id": 9708891,
+    "docket_id": null,
+    "confidence": 0.9,
+    "winning_stage": "opinion_search",
+    "expected_cluster_id": null
+  },
+  "Jackson v. Boone, 2022 WL 18276710 (E.D. La. 2022)": {
+    "status": "VERIFIED",
+    "cluster_id": 9720068,
+    "docket_id": null,
+    "confidence": 0.8,
+    "winning_stage": "opinion_search",
+    "expected_cluster_id": null
+  },
+  "In re Wilmington Trust Secs. Litig., 2016 WL 9753979 (D.Del. 2016)": {
+    "status": "VERIFIED_DOCKET_ONLY",
+    "cluster_id": null,
+    "docket_id": 4219261,
+    "confidence": 0.6238,
+    "winning_stage": "recap_docket_search",
+    "expected_cluster_id": null
+  },
+  "Hendrix v. Garcia, 2022 WL 1541750 (D. Kan. 2022)": {
+    "status": "VERIFIED",
+    "cluster_id": 9708891,
+    "docket_id": null,
+    "confidence": 0.9,
+    "winning_stage": "opinion_search",
+    "expected_cluster_id": null
+  },
+  "John S. v. Bisignano, 2025 WL 1505405 (N.D. Ill. 2025)": {
+    "status": "VERIFIED",
+    "cluster_id": 10750393,
+    "docket_id": null,
+    "confidence": 0.5491,
+    "winning_stage": "opinion_search",
+    "expected_cluster_id": null
+  },
+  "Viken Detection Corp. v. Doe, 2019 WL 5268725 (D. Mass. 2019)": {
+    "status": "NOT_FOUND",
+    "cluster_id": 9731515,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Damner v. Facebook Inc., 2020 WL 7862706 (N.D. Cal. 2020)": {
+    "status": "VERIFIED",
+    "cluster_id": 9599677,
+    "docket_id": null,
+    "confidence": 0.9,
+    "winning_stage": "opinion_search",
+    "expected_cluster_id": null
+  }
+}
