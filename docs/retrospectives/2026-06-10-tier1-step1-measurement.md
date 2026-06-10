@@ -279,3 +279,46 @@ RECAP leak, now the motivating case for **Tier 1 Step 4** (state-court
 leaks), tracked with Oddi-Sampson (`ind`), Reinlasoder (`mont`), Keaau
 (P.3d), and the cross-state Graves match. No scoring lever can reach it; the
 fix is gating RECAP on `is_federal_court()`.
+
+## Tier 1 Step 4 (RECAP-leak half) — IMPLEMENTED (2026-06-10)
+
+**Root cause** (one shared bug, confirmed by tracing): the RECAP guard was
+`is_state_court = court_id and not is_federal_court(court_id)`. `court_id`
+is `lookup_court_id(parsed.court)`, and the court map is **federal-only**, so
+a state court (`indctapp`) maps to `None` → `is_state_court` is falsy →
+RECAP runs. The reporter-inference fallback (`_infer_court_and_dates`) only
+rescues this when the reporter maps to a *single* state; Thompson's `N.E.2d`
+maps to five, so `court_id` stayed `None`. (This is exactly why the existing
+`test_state_court_skips_recap_stages` passed with `Cal.App.5th` — a
+single-state reporter — while `N.E.2d` leaked.)
+
+**Fix:** new `_is_state_court_citation(parsed, court_id)` used by both the
+sync and async RECAP guards. Flags state via either the effective court id
+(`court_id or parsed.court`) being non-federal, OR the reporter being a
+regional/state reporter (`get_states_for_reporter` non-empty) regardless of
+how many states it spans. Federal/neutral reporters (F.3d, U.S., S. Ct., WL)
+map to no states and are never flagged.
+
+**Results (live): false positives 1 → 0** — Thompson now NOT_FOUND. **False
+negatives 14/14 held** (the guard gates only the RECAP stages, not opinion
+search, so state-reporter cites that resolve via opinion search — Postell
+A.2d, Addis N.E.2d, Rosenthal P.3d — are unaffected). Coverage:
+`test_state_court_skips_recap_multi_state_reporter` (the Thompson integration
+repro) + a 7-case `_is_state_court_citation` unit matrix (ind, mont, P.3d-no-
+court flagged; F.3d, WL, U.S. not). Full mocked suite 284 passed.
+
+**Caveat — what's NOT done:** only Thompson is in the live corpus; the other
+RECAP-leak reproducers (Oddi-Sampson, Reinlasoder, Keaau) are covered by the
+unit matrix and the shared root-cause fix but were not re-run end-to-end (not
+in `known_fake_citations.json`). The **cross-state opinion match** half of
+Step 4 (Graves v. State, Ind. cite matching another state's Graves v. State
+via *opinion search* at 0.70) is a different mechanism — opinion-search
+state disqualification, not RECAP gating — and remains open.
+
+## Corpus status (2026-06-10)
+
+**False positives 0 / 19. False negatives 14 / 14.** Every fake-citation
+corpus entry is rejected and every known-real entry resolves. Remaining Tier
+1 work: Step 3 ("Check Cite" wrong-volume/page detection), Step 4's
+cross-state opinion-match half (Graves), and Step 5 (web app onto
+`verify_batch()`).

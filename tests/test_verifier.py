@@ -2428,6 +2428,63 @@ class TestResolutionPathShape:
         assert StageName.recap_document_search not in stages
         assert StageName.recap_docket_search not in stages
 
+    def test_state_court_skips_recap_multi_state_reporter(self):
+        """Regression (Tier 1 Step 4): a state-court cite whose reporter maps
+        to MULTIPLE states (N.E.2d -> ill/ind/mass/ny/ohio) and whose court
+        id is absent from the federal map (indctapp -> lookup_court_id None)
+        must still skip RECAP. Reporter-inference only sets court_id for a
+        single-state reporter, so court_id stays None here and the old guard
+        (keyed off court_id alone) leaked -> Thompson v. Best matched a
+        federal Thompson v. Best Buy docket."""
+        client = _make_client(
+            citation_lookup=[],
+            search_opinions=[],
+            search_recap=[
+                {
+                    "caseName": "Thompson v. Best Buy Co.",
+                    "docket_id": 4383785,
+                    "court_id": "innd",
+                    "docketNumber": "1:13-cv-00001",
+                    "recap_documents": [
+                        {
+                            "entry_date_filed": "2013-06-01",
+                            "short_description": "Order",
+                            "absolute_url": "/docket/4383785/32/",
+                        }
+                    ],
+                }
+            ],
+        )
+        v = CitationVerifier(client)
+        result = v.verify("Thompson v. Best, 989 N.E.2d 299 (Ind. Ct. App. 2013)")
+
+        stages = [e.stage for e in result.resolution_path]
+        assert StageName.recap_document_search not in stages
+        assert StageName.recap_docket_search not in stages
+        client.search_recap.assert_not_called()
+        assert result.status == Status.NOT_FOUND
+
+    @pytest.mark.parametrize("citation,expect_state", [
+        # State courts (must skip RECAP). Cover the Step 4 reproducers.
+        ("Thompson v. Best, 989 N.E.2d 299 (Ind. Ct. App. 2013)", True),   # multi-state reporter + unmapped court
+        ("Oddi-Sampson v. Doe, 50 N.E.3d 1 (Ind. 2016)", True),            # explicit 'ind'
+        ("Reinlasoder v. Doe, 300 P.3d 1 (Mont. 2013)", True),            # explicit 'mont'
+        ("Keaau v. Doe, 400 P.3d 1 (2017)", True),                        # P.3d, no explicit court
+        # Federal / neutral (must NOT be flagged — RECAP stays available).
+        ("Smith v. Jones, 100 F.3d 100 (9th Cir. 2016)", False),
+        ("Moore v. Hillman, No. 4:06-CV-43, 2006 WL 1313880 (W.D. Mich. 2006)", False),
+        ("Obergefell v. Hodges, 576 U.S. 644 (2015)", False),
+    ])
+    def test_is_state_court_citation_classification(self, citation, expect_state):
+        """The state-court guard must flag state cites via court id OR a
+        regional reporter, and must never flag a federal/neutral cite."""
+        from citation_verifier.parser import parse_citation
+        from citation_verifier.court_map import lookup_court_id
+        parsed = parse_citation(citation)
+        court_id = lookup_court_id(parsed.court) if parsed.court else None
+        v = CitationVerifier(_make_client())
+        assert v._is_state_court_citation(parsed, court_id) is expect_state
+
     def test_opinion_search_error_falls_through_to_recap(self):
         client = _make_client(citation_lookup=[])
         client.search_opinions.side_effect = ConnectionError("opinion search down")

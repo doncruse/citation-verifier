@@ -908,7 +908,7 @@ class CitationVerifier:
                     )
 
         # Guards for RECAP: federal-only, no credible match yet.
-        is_state_court = court_id and not is_federal_court(court_id)
+        is_state_court = self._is_state_court_citation(parsed, court_id)
         has_credible_match = any(c.score >= 0.5 for c in opinion_candidates)
 
         # Stage: recap_document_search (by docket_number)
@@ -1025,6 +1025,35 @@ class CitationVerifier:
         if not diagnostics:
             return None
         return "; ".join(d.message for d in diagnostics)
+
+    @staticmethod
+    def _is_state_court_citation(
+        parsed: ParsedCitation, court_id: str | None
+    ) -> bool:
+        """True when the citation is to a state court, which must skip RECAP
+        (RECAP is federal PACER data only).
+
+        ``court_id`` is the federal-mapped id (``lookup_court_id``), which is
+        ``None`` for state courts, so it cannot be the sole signal — keying
+        the guard off it alone was the Tier 1 Step 4 leak. Two more signals
+        survive when ``court_id`` is None:
+
+        - the raw parsed court id: eyecite returns state CL ids directly
+          (e.g. ``indctapp``), and ``is_federal_court`` knows they are not
+          federal;
+        - the reporter: a regional/state reporter (N.E.2d, P.3d, A.2d, ...)
+          is never a federal citation. This catches multi-state reporters
+          (N.E.2d -> ill/ind/mass/ny/ohio) where the single-state court
+          inference in ``_infer_court_and_dates`` does not fire, so the
+          earlier reporter-only path missed them. Federal/neutral reporters
+          (F.3d, U.S., S. Ct., WL) map to no states and are not flagged.
+        """
+        court = court_id or parsed.court
+        if court and not is_federal_court(court):
+            return True
+        if parsed.reporter and get_states_for_reporter(parsed.reporter):
+            return True
+        return False
 
     def _recap_result_gated(
         self, parsed: ParsedCitation, case_name: str, date_filed: str
@@ -2729,7 +2758,7 @@ class CitationVerifier:
                     )
 
         # Guards for RECAP: federal-only, no credible match yet.
-        is_state_court = court_id and not is_federal_court(court_id)
+        is_state_court = self._is_state_court_citation(parsed, court_id)
         has_credible_match = any(c.score >= 0.5 for c in opinion_candidates)
 
         # Stage: recap_document_search (by docket_number)

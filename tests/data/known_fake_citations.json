@@ -119,8 +119,7 @@
     "qc_finding": "Confirmed hallucination in QC review (2026-02-21). Wrong court, not the same case name.",
     "prior_result": {"engine": "v0.2", "status": "POSSIBLE_MATCH", "confidence": 0.625, "matched_url": "https://www.courtlistener.com/opinion/2693170/thompson-v-thompson/"},
     "expected_status": "NOT_FOUND",
-    "xfail_reason": "STATE-COURT RECAP LEAK (Tier 1 Step 4), not a scoring issue. Cited court is 'indctapp' (Indiana Court of Appeals); is_federal_court('indctapp') is False, so RECAP (federal PACER data) should never have been searched. It leaks anyway and matches a federal 'Thompson v. Best Buy Co.' docket at VERIFIED_DOCKET_ONLY 0.425. Lever 3's contradiction cap can't catch it: the matched docket carries no reporter cite, so the cited 989 N.E.2d 299 is ABSENT (not contradicted), and 'Best' substring-matches 'Best Buy' so party overlap is True. Fix belongs with the shared state-court-leak root cause (Oddi-Sampson 'ind', Reinlasoder 'mont', Keaau P.3d). Remove when Step 4 lands.",
-    "notes": "v0.2 matched Thompson v. Thompson. Lever 2 killed that opinion match; Lever 3 left it because it is actually a state-court RECAP leak (Step 4), not a cite contradiction — the cited Indiana state cite reached federal PACER search at all."
+    "notes": "v0.2 matched Thompson v. Thompson. Step 4 (state-court RECAP gate, 2026-06-10) fixed it: cited court 'indctapp' and reporter 'N.E.2d' are both non-federal, so RECAP (federal PACER) is now skipped and it returns NOT_FOUND. Root cause was the guard keying off the federal-mapped court_id, which is None for state courts; the multi-state N.E.2d reporter also blocked the single-state inference fallback."
   },
   {
     "citation": "Thompson v. Best, 118 N.E.3d 299 (Ind. Ct. App.  2019)",
