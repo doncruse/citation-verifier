@@ -224,3 +224,58 @@ Tests: `tests/test_verifier.py::TestPartyMismatchPenalty`. Code:
 **Next: Lever 3** (docket#/reporter-cite contradiction penalty) — now the
 sole remaining false-positive class: Lopez (0.85), Johnson (0.42),
 Thompson (0.425).
+
+## Lever 3 — IMPLEMENTED (2026-06-10)
+
+Inspecting the 3 residual FPs showed they were **not** one class (the Lever 2
+note's "all cite/docket contradiction" was too optimistic):
+
+- **Lopez** (cand, federal): cited docket# `14-cv-2524` vs the real BofA
+  docket `3:10-cv-01207` — a true docket contradiction.
+- **Johnson** (ohsd, federal): cited `2:20-cv-1882` vs the real
+  Johnson v. Mitchell docket `2:02-cv-00236` — also a contradiction, but the
+  parser **dropped the bare docket#** (it only extracted docket numbers with
+  a `No.` prefix), so there was nothing to contradict.
+- **Thompson** (`indctapp`, **state**): `is_federal_court('indctapp')` is
+  False, so RECAP should never have run. This is a **state-court RECAP leak
+  (Step 4)**, not a scoring issue. Its matched docket carries no reporter
+  cite, so the cited `989 N.E.2d 299` is *absent* (not contradicted), and
+  `Best` substring-matches `Best Buy` (party overlap True) — no scoring arm
+  can reach it.
+
+Two changes, both TDD:
+
+1. **Contradiction arm on the no-corroboration cap** (`_score_match`): track
+   `docket_contradicted` / `cite_contradicted` (cited value present on both
+   sides but differing) and extend the Lever 2 cap so the strong-negative
+   trigger is `party_mismatch OR docket_contradicted OR cite_contradicted`.
+   Escape hatch unchanged (a positive docket or cite match). **Gated on
+   present-and-differing, never absent** — a real cite CL has no docket/cite
+   on file for is untouched (`test_absent_docket_number_not_capped`).
+2. **Bare-docket parser fallback** (`parser.py` `_BARE_DOCKET_PATTERN`):
+   extract `2:20-cv-1882`-style docket numbers without a `No.` prefix. The
+   `office:yy-type-number` shape (colon + cv/cr/bk/...) doesn't collide with
+   reporter cites. Wired into both `parse_citation` and the eyecite factory.
+
+**Results (live):** false positives **3 → 1** (Lopez + Johnson now NOT_FOUND),
+false negatives **14/14 held** — real cites with docket numbers (Anderson,
+Marlite, Oracle, Townsley, Moore) all still resolve; their dockets
+corroborate rather than contradict. The lone remaining FP, **Thompson**, is
+the state-court leak handed to Step 4. Unit coverage:
+`TestContradictionCap` (3) + `test_parser_bare_docket.py` (3). Full mocked
+suite 283 passed.
+
+## Tier 1 Step 2 — DONE
+
+| Stage | False positives | False negatives |
+|---|---|---|
+| v0.3 baseline (measured) | 11 / 19 | 14 / 14 |
+| + Lever 1 (RECAP hard-gates) | 3 | 14 / 14 |
+| + Lever 2 (party-mismatch penalty + cap) | 3 (converged) | 14 / 14 |
+| + Lever 3 (contradiction cap + bare-docket parse) | **1** | **14 / 14** |
+
+The one remaining false positive (**Thompson v. Best**) is a state-court
+RECAP leak, now the motivating case for **Tier 1 Step 4** (state-court
+leaks), tracked with Oddi-Sampson (`ind`), Reinlasoder (`mont`), Keaau
+(P.3d), and the cross-state Graves match. No scoring lever can reach it; the
+fix is gating RECAP on `is_federal_court()`.

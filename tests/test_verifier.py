@@ -3363,3 +3363,63 @@ class TestPartyMismatchPenalty:
             parsed, "Thompson v. Best", "indctapp", "2013-05-01", {}
         )
         assert score >= _VERIFIED_SCORE_THRESHOLD
+
+
+class TestContradictionCap:
+    """Lever 3 (Tier 1 Step 2): a candidate whose cited docket number or
+    reporter/WL cite is PRESENT on both sides but CONTRADICTS the matched
+    record is the wrong record -- even when name + court + date corroborate
+    (the fake names a real case but a fabricated pinpoint cite). Cap below
+    threshold, unless the cite or docket independently corroborates. The cap
+    must never fire on an ABSENT value: real cites where CL simply lacks the
+    WL/reporter number on the record keep passing. See
+    docs/retrospectives/2026-06-10-tier1-step1-measurement.md.
+    """
+
+    def _scorer(self):
+        return CitationVerifier(_make_client())
+
+    def test_docket_number_contradiction_caps_score(self):
+        """Lopez v. Bank of Am., No. 14-cv-2524 -> the real Lopez/BofA
+        docket 3:10-cv-01207. Name+court+date match the real docket; only
+        the docket number contradicts (14-cv vs 10-cv). Was a v0.3 false
+        positive (VERIFIED_DOCKET_ONLY 0.85)."""
+        v = self._scorer()
+        parsed = parse_citation(
+            "Lopez v. Bank of Am., N.A., No. 14-cv-2524, 2016 WL 4131149 "
+            "(N.D. Cal. Aug. 3, 2016)"
+        )
+        result = {"docketNumber": "3:10-cv-01207"}
+        score, _ = v._score_match(
+            parsed, "Lopez v. Bank of America, N.A.", "cand", "2016-08-03", result
+        )
+        assert score < _VERIFIED_SCORE_THRESHOLD
+
+    def test_absent_docket_number_not_capped(self):
+        """Same cite, but the candidate record carries NO docket number ->
+        absent, not contradicting -> must NOT cap. Real RECAP matches often
+        lack a docket number on the search result."""
+        v = self._scorer()
+        parsed = parse_citation(
+            "Lopez v. Bank of Am., N.A., No. 14-cv-2524, 2016 WL 4131149 "
+            "(N.D. Cal. Aug. 3, 2016)"
+        )
+        score, _ = v._score_match(
+            parsed, "Lopez v. Bank of America, N.A.", "cand", "2016-08-03", {}
+        )
+        assert score >= _VERIFIED_SCORE_THRESHOLD
+
+    def test_docket_contradiction_escaped_when_cite_matches(self):
+        """A docket-number contradiction is forgiven when the reporter cite
+        positively matches -- the cite vouches for the record (a typo'd
+        docket on an otherwise-correct citation)."""
+        v = self._scorer()
+        parsed = parse_citation(
+            "Lopez v. Bank of Am., N.A., No. 14-cv-2524, 789 F.3d 146 "
+            "(9th Cir. 2016)"
+        )
+        result = {"docketNumber": "3:10-cv-01207", "citation": ["789 F.3d 146"]}
+        score, _ = v._score_match(
+            parsed, "Lopez v. Bank of America, N.A.", "ca9", "2016-08-03", result
+        )
+        assert score >= _VERIFIED_SCORE_THRESHOLD

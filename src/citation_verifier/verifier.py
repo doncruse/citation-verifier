@@ -2311,6 +2311,12 @@ class CitationVerifier:
         # reporter cite vouches for the record regardless of the caption.
         cite_corroborated = False
         docket_corroborated = False
+        # Whether the cited docket number / reporter-cite is PRESENT on both
+        # the citation and the candidate record but DIFFERS (an active
+        # contradiction, as opposed to merely absent). Drives the Lever 3
+        # contradiction arm of the no-corroboration cap below.
+        docket_contradicted = False
+        cite_contradicted = False
 
         # Case name similarity - using multi-factor matcher
         if parsed.case_name and result_case_name:
@@ -2432,6 +2438,7 @@ class CitationVerifier:
                     score += w_docket
                     docket_corroborated = True
                 else:
+                    docket_contradicted = True
                     mismatches.append(Diagnostic(
                         "docket",
                         f"Docket mismatch: cited {parsed.docket_number} "
@@ -2462,6 +2469,7 @@ class CitationVerifier:
                     f"(CourtListener has no reporter citations on file for this case)",
                 ))
             else:
+                cite_contradicted = True
                 mismatches.append(Diagnostic(
                     "cite",
                     f"Citation mismatch: cited {cite_str} "
@@ -2478,21 +2486,31 @@ class CitationVerifier:
                     f"(CourtListener has no citations on file for this case)",
                 ))
             else:
+                cite_contradicted = True
                 mismatches.append(Diagnostic(
                     "cite",
                     f"WL number {parsed.wl_number} not found "
                     f"in CourtListener citations: {result_citation}",
                 ))
 
-        # No-corroboration cap (Lever 2): a party-mismatched candidate whose
-        # cited citation AND docket number are NOT positively confirmed on the
-        # record is the wrong case — court+date agreement alone is coincidence
-        # (these fake cites are crafted to name a plausible real court and
-        # year, so some real case in that court/year scores ~0.40 on
-        # court+date). Cap below the resolution threshold. A reporter/WL cite
-        # match or a docket-number match is the escape hatch for a real record
-        # whose CL display name lists a different party.
-        if not party_overlap and not cite_corroborated and not docket_corroborated:
+        # No-corroboration cap (Levers 2 + 3): the candidate is the wrong
+        # record when a strong negative signal fires and nothing positively
+        # vouches for it. Strong negatives:
+        #   - party mismatch (Lever 2): caption matches only one cited party;
+        #   - docket/cite contradiction (Lever 3): the cited docket number or
+        #     reporter/WL cite is present on both sides but DIFFERS — the fake
+        #     names a real case but a fabricated pinpoint (Lopez v. Bank of
+        #     Am. -> the real BofA docket at a different docket number).
+        # Court+date agreement alone is coincidence (these fakes are crafted
+        # to name a plausible real court and year). The escape hatch is a
+        # positive docket-number or reporter/WL match, which vouches for the
+        # record even when its CL display name or a typo'd pinpoint disagrees.
+        # Contradiction is gated on PRESENT-and-differing, never absent, so a
+        # real cite that CL simply has no docket/cite on file for is untouched.
+        strong_negative = (
+            not party_overlap or docket_contradicted or cite_contradicted
+        )
+        if strong_negative and not cite_corroborated and not docket_corroborated:
             score = min(score, _VERIFIED_SCORE_THRESHOLD - 0.01)
 
         return round(score, 4), mismatches

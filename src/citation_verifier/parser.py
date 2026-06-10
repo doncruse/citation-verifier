@@ -73,6 +73,15 @@ _DOCKET_NUMBER_PATTERN = re.compile(
 )
 _DOCKET_JUNK = re.compile(r",?\s*(?:Case\s+)?No\.\s+[^,()]+", re.IGNORECASE)
 
+# Bare federal docket number written without a "No." prefix, e.g.
+# "Johnson v. Mitchell, 2:20-cv-1882, ...". The office:yy-type-number shape
+# (with a colon and a cv/cr/bk/md/mc/mj case-type) is distinctive enough not
+# to collide with reporter citations ("989 N.E.2d 299" has no colon/type).
+# Used only as a fallback when the "No."-prefixed pattern finds nothing.
+_BARE_DOCKET_PATTERN = re.compile(
+    r"\b(\d{1,2}:\d{2}-(?:cv|cr|bk|md|mc|mj)-\d+)", re.IGNORECASE
+)
+
 # ECF / Doc / Dkt document number (design §2.10): "ECF No. 42", "Doc. 17",
 # "Dkt. 17", "Dkt. No. 17". Captures the number (may have an attachment
 # suffix like "142-1"). Case-insensitive on the prefix.
@@ -382,6 +391,10 @@ def parse_citation(text: str) -> ParsedCitation:
     docket_match = _DOCKET_NUMBER_PATTERN.search(text)
     if docket_match:
         result.docket_number = docket_match.group(1).strip().rstrip(",")
+    else:
+        bare_docket = _BARE_DOCKET_PATTERN.search(text)
+        if bare_docket:
+            result.docket_number = bare_docket.group(1).strip()
 
     # ECF / Doc / Dkt document number (design §2.10)
     ecf_match = _ECF_DOC_PATTERN.search(text)
@@ -487,6 +500,10 @@ def parsed_citation_from_eyecite(
         docket_match = _DOCKET_NUMBER_PATTERN.search(raw_text)
         if docket_match:
             result.docket_number = docket_match.group(1).strip().rstrip(",")
+        else:
+            bare_docket = _BARE_DOCKET_PATTERN.search(raw_text)
+            if bare_docket:
+                result.docket_number = bare_docket.group(1).strip()
 
         # ECF / Doc / Dkt document number (design §2.10)
         ecf_match = _ECF_DOC_PATTERN.search(raw_text)
