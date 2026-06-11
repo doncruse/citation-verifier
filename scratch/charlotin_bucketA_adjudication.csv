@@ -41,7 +41,7 @@ A39,"Chambers v. Time Warner, Inc., 282 F.3d 147, 152-53 (2d Cir. 2002)",corpus_
 A40,In re Marriage of L.B. (2018) 30 Cal.App.5th 1076,verifier_bug1_parser_name_drop,,VERIFIED
 A41,In re Marriage of C.T. and R.T. (2017) 12 Cal.App.5th 982,verifier_bug1_parser_name_drop,,VERIFIED
 A42,In re Marriage of Facter (2016) 1 Cal.App.5th 526,verifier_bug1_parser_name_drop,,VERIFIED
-A43,In re Marriage of Manfer (2006) 144 Cal.App.4th 925,verifier_bug1_parser_name_drop,,VERIFIED
+A43,In re Marriage of Manfer (2006) 144 Cal.App.4th 925,corpus_mislabel_real_case,re-adjudicated 2026-06-10 session: CL resolves cite to cluster Manfer v. Manfer (same case); court complaint was inconsistent citations not nonexistence,VERIFIED
 A44,"Henlsey v. Alcon Labs, 277 F.3d 535 (4th Cir. 2002)",corpus_mislabel_real_case,Hensley v. Alcon real; brief typo Henlsey,VERIFIED
 A45,"State v. Nye County, 129 Nev. 521 (2013)",verifier_bug2_caption_inv_generic_overlap,"cluster_case_name: generic ""State""/""County"" overlap (Eighth Judicial District)",VERIFIED
 A46,"D.F., 201 Ill. 2d 476 (2002)",corpus_mislabel_real_case+verifier_bug1_parser_name_drop,In re D.F. 201 Ill.2d 476 real,VERIFIED

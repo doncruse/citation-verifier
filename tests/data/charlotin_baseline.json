@@ -272,7 +272,7 @@
     "expected_cluster_id": null
   },
   "(La. App. 4 Cir. 10/30/13), 127 So.3d 156": {
-    "status": "VERIFIED",
+    "status": "VERIFIED_PARTIAL",
     "cluster_id": 4996210,
     "docket_id": null,
     "confidence": 1.0,
@@ -368,7 +368,7 @@
     "expected_cluster_id": null
   },
   "Wing Cheung Wong, 802 F. App'x 280, 282 (9th Cir. 2020)": {
-    "status": "NOT_FOUND",
+    "status": "VERIFICATION_INCOMPLETE",
     "cluster_id": null,
     "docket_id": null,
     "confidence": null,
@@ -380,14 +380,6 @@
     "cluster_id": null,
     "docket_id": 16777982,
     "confidence": 0.8263,
-    "winning_stage": "recap_docket_search",
-    "expected_cluster_id": null
-  },
-  "Curtis v. Oliver, 479 F. Supp. 3d 1039, 1088 (D.N.M. 2020)": {
-    "status": "VERIFIED_DOCKET_ONLY",
-    "cluster_id": null,
-    "docket_id": 17377803,
-    "confidence": 0.9,
     "winning_stage": "recap_docket_search",
     "expected_cluster_id": null
   },
@@ -407,20 +399,12 @@
     "winning_stage": "caption_investigation",
     "expected_cluster_id": null
   },
-  "Lampe v. Genuine Parts Co., 463 F. Supp. 2d 928, 934 (E.D. Wis. 2006)": {
-    "status": "VERIFIED",
-    "cluster_id": 2319555,
-    "docket_id": null,
-    "confidence": 1.0,
-    "winning_stage": "citation_lookup",
-    "expected_cluster_id": null
-  },
   "In re Amica Mut. Ins. Co., 85 A.D.3d 1510 (3rd Dept. 2011)": {
-    "status": "VERIFIED_PARTIAL",
+    "status": "WRONG_CASE",
     "cluster_id": 5968437,
     "docket_id": null,
     "confidence": 1.0,
-    "winning_stage": "citation_lookup",
+    "winning_stage": "caption_investigation",
     "expected_cluster_id": null
   },
   "In re Marcus, 491 F.2d 56, 60 (2nd Cir. 1974)": {
@@ -519,14 +503,6 @@
     "winning_stage": null,
     "expected_cluster_id": null
   },
-  "Navient Sols., LLC v. Law Offices of Jeffrey Lohman, 2020 WL 1867939 (E.D. Va. Apr. 14, 2020)": {
-    "status": "VERIFIED",
-    "cluster_id": 10221296,
-    "docket_id": null,
-    "confidence": 0.7828,
-    "winning_stage": "opinion_search",
-    "expected_cluster_id": null
-  },
   "Fire Insurance Company v. Flota Mercante Grancolombiana, S.A., 35 F.3d 1134 (6th Cir. 1994)": {
     "status": "WRONG_CASE",
     "cluster_id": 678539,
@@ -541,14 +517,6 @@
     "docket_id": null,
     "confidence": 1.0,
     "winning_stage": "caption_investigation",
-    "expected_cluster_id": null
-  },
-  "Tubra v. Cooke, 233 Or App 339, 225 P3d 862 (2010)": {
-    "status": "VERIFIED",
-    "cluster_id": 2538939,
-    "docket_id": null,
-    "confidence": 1.0,
-    "winning_stage": "citation_lookup",
     "expected_cluster_id": null
   },
   "Su\u00e1rez v. CMI Caribe, 180 DPR 367, 376 (2010)": {
@@ -581,22 +549,6 @@
     "docket_id": null,
     "confidence": 1.0,
     "winning_stage": "caption_investigation",
-    "expected_cluster_id": null
-  },
-  "Col\u00f3n v. Romero Barcel\u00f3, 112 DPR 573 (1982)": {
-    "status": "VERIFIED",
-    "cluster_id": 8587166,
-    "docket_id": null,
-    "confidence": 1.0,
-    "winning_stage": "citation_lookup",
-    "expected_cluster_id": null
-  },
-  "Lozada v. E.L.A., 174 DPR 650 (2008)": {
-    "status": "VERIFIED_DOCKET_ONLY",
-    "cluster_id": null,
-    "docket_id": 4171666,
-    "confidence": 0.4374,
-    "winning_stage": "recap_docket_search",
     "expected_cluster_id": null
   },
   "DeMars v. DeMars, 590 N.W.2d 116, 120-21 (Minn. Ct. App. 1999)": {
@@ -647,14 +599,6 @@
     "winning_stage": "caption_investigation",
     "expected_cluster_id": null
   },
-  "(In re Delta-T Corp.), 475 B.R. 495 (Bankr. E.D. Va. 2012)": {
-    "status": "VERIFIED",
-    "cluster_id": 8522445,
-    "docket_id": null,
-    "confidence": 1.0,
-    "winning_stage": "citation_lookup",
-    "expected_cluster_id": null
-  },
   "Hall v. United States, 2018 WL 1620923 (D. Colo. Apr. 3, 2018)": {
     "status": "VERIFIED_DOCKET_ONLY",
     "cluster_id": null,
@@ -664,11 +608,11 @@
     "expected_cluster_id": null
   },
   "In re SunEdison, Inc. Sec. Litig., 314 F.R.D. 139, 143 (S.D.N.Y. 2016)": {
-    "status": "VERIFIED_PARTIAL",
+    "status": "WRONG_CASE",
     "cluster_id": 8791223,
     "docket_id": null,
     "confidence": 1.0,
-    "winning_stage": "citation_lookup",
+    "winning_stage": "caption_investigation",
     "expected_cluster_id": null
   },
   "Nevada Power Co. v. Monsanto Co., 151 F.3d 1201, 1205 (9th Cir. 1998)": {
@@ -696,7 +640,7 @@
     "expected_cluster_id": null
   },
   "Bauer v Cravath, Swain & Moore, LLP, 177 AD3d 479 [1st Dept 2019]": {
-    "status": "NOT_FOUND",
+    "status": "VERIFICATION_INCOMPLETE",
     "cluster_id": null,
     "docket_id": null,
     "confidence": null,
@@ -704,7 +648,7 @@
     "expected_cluster_id": null
   },
   "Pine v AJA Delivery, Inc., 201 AD3d 640 [2d Dept 2022]": {
-    "status": "NOT_FOUND",
+    "status": "VERIFICATION_INCOMPLETE",
     "cluster_id": null,
     "docket_id": null,
     "confidence": null,
@@ -807,20 +751,12 @@
     "winning_stage": null,
     "expected_cluster_id": null
   },
-  "Kidd v. Mando Am. Corp., 731 F.3d 1196, 1200 (11th Cir. 2013)": {
-    "status": "VERIFIED",
-    "cluster_id": 3045202,
-    "docket_id": null,
-    "confidence": 1.0,
-    "winning_stage": "citation_lookup",
-    "expected_cluster_id": null
-  },
   "of Osorio v. Miami-Dade Cnty., 2023 WL 4003457 (S.D. Fla. June 15, 2023)": {
-    "status": "VERIFIED_DOCKET_ONLY",
+    "status": "VERIFICATION_INCOMPLETE",
     "cluster_id": null,
-    "docket_id": 6092251,
-    "confidence": 0.6579,
-    "winning_stage": "recap_docket_search",
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
     "expected_cluster_id": null
   },
   "Greer v. DeKalb County, 2009 WL 10101675, at *4 (N.D. Ga. July 13, 2009)": {
@@ -856,11 +792,11 @@
     "expected_cluster_id": null
   },
   "Corp. v. SEC, 955 F. Supp. 3d 441 (S.D.N.Y. 2025)": {
-    "status": "VERIFIED_DOCKET_ONLY",
-    "cluster_id": null,
-    "docket_id": 11724069,
-    "confidence": 0.4365,
-    "winning_stage": "recap_docket_search",
+    "status": "NOT_FOUND",
+    "cluster_id": 10621733,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
     "expected_cluster_id": null
   },
   "Roe v. Bernabei & Katz, PLLC, 314 F. Supp. 3d 200,209 (D.D.C. 2018)": {
@@ -944,7 +880,7 @@
     "expected_cluster_id": null
   },
   "Shapiro v JPMorgan Chase & Co., No. 1:13-cv-09764-PGG, 2014 WL 1224546": {
-    "status": "NOT_FOUND",
+    "status": "VERIFICATION_INCOMPLETE",
     "cluster_id": null,
     "docket_id": null,
     "confidence": null,
@@ -1080,7 +1016,7 @@
     "expected_cluster_id": null
   },
   "Inc. v. United States, 12 Cl. Ct. 33 (1987)": {
-    "status": "VERIFIED",
+    "status": "WRONG_CASE",
     "cluster_id": 6929481,
     "docket_id": null,
     "confidence": 1.0,
@@ -1256,11 +1192,11 @@
     "expected_cluster_id": null
   },
   "Waitz, 255 Ga. 474 (1986)": {
-    "status": "VERIFIED",
+    "status": "WRONG_CASE",
     "cluster_id": 1237823,
     "docket_id": null,
     "confidence": 1.0,
-    "winning_stage": "citation_lookup",
+    "winning_stage": "caption_investigation",
     "expected_cluster_id": null
   },
   "Braham v. Cty. of Washington, No. 2:19-CV01128, 2020 WL 1166395, at *6": {
@@ -1280,7 +1216,7 @@
     "expected_cluster_id": null
   },
   "of Wallace v. Palmer, 103 Wn. App. 1064 (2000)": {
-    "status": "NOT_FOUND",
+    "status": "VERIFICATION_INCOMPLETE",
     "cluster_id": null,
     "docket_id": null,
     "confidence": null,
@@ -1288,11 +1224,11 @@
     "expected_cluster_id": null
   },
   "In re Estate of Powers, 255 Ill. App. 3d 1006 (1994)": {
-    "status": "VERIFIED",
-    "cluster_id": 2121804,
+    "status": "NOT_FOUND",
+    "cluster_id": 2127688,
     "docket_id": null,
-    "confidence": 0.6503,
-    "winning_stage": "opinion_search",
+    "confidence": null,
+    "winning_stage": null,
     "expected_cluster_id": null
   },
   "McIntosh v. McIntosh, 282 Ga. 610, 652 S.E.2d 546 (2007)": {
@@ -1304,11 +1240,11 @@
     "expected_cluster_id": null
   },
   "In re Estate of Griffith, 327 P.3d 612 (Colo. 2014)": {
-    "status": "VERIFIED",
+    "status": "NOT_FOUND",
     "cluster_id": 2745477,
     "docket_id": null,
-    "confidence": 0.4383,
-    "winning_stage": "opinion_search",
+    "confidence": null,
+    "winning_stage": null,
     "expected_cluster_id": null
   },
   "Whittaker v. Otto, 2014 WL 37845": {
@@ -1328,7 +1264,7 @@
     "expected_cluster_id": null
   },
   "(In re Chionis, 2013 WL 6840485 (9th Cir. BAP Dec. 27, 2013))": {
-    "status": "NOT_FOUND",
+    "status": "VERIFICATION_INCOMPLETE",
     "cluster_id": null,
     "docket_id": null,
     "confidence": null,
@@ -1456,7 +1392,7 @@
     "expected_cluster_id": null
   },
   "Friedman v. Southern New Hampshire University, 104 A.D. 3d 617 (N.Y. App. Div. 2013)": {
-    "status": "VERIFIED",
+    "status": "WRONG_CASE",
     "cluster_id": 6046791,
     "docket_id": null,
     "confidence": 1.0,
@@ -1557,14 +1493,6 @@
     "docket_id": null,
     "confidence": null,
     "winning_stage": null,
-    "expected_cluster_id": null
-  },
-  "Norg v. City of Seattle, 200 Wn.2d 749 (2023)": {
-    "status": "VERIFIED",
-    "cluster_id": 10798048,
-    "docket_id": null,
-    "confidence": 0.9,
-    "winning_stage": "opinion_search",
     "expected_cluster_id": null
   },
   "Myers v. Passport Health, 2013 WL 5819270 (S.D. Ind. Oct. 29, 2013)": {
@@ -1671,30 +1599,6 @@
     "winning_stage": "caption_investigation",
     "expected_cluster_id": null
   },
-  "Stenehjem v. FreeEats.com Inc., 712 N.W.2d 828, 841 (N.D. 2006)": {
-    "status": "VERIFIED",
-    "cluster_id": 897824,
-    "docket_id": null,
-    "confidence": 1.0,
-    "winning_stage": "citation_lookup",
-    "expected_cluster_id": null
-  },
-  "State v. Clark, 2012 ND 135": {
-    "status": "VERIFIED",
-    "cluster_id": 8280702,
-    "docket_id": null,
-    "confidence": 1.0,
-    "winning_stage": "citation_lookup",
-    "expected_cluster_id": null
-  },
-  "State v. $44,140.00 U.S. Currency, 2012 ND 176": {
-    "status": "VERIFIED",
-    "cluster_id": 899299,
-    "docket_id": null,
-    "confidence": 1.0,
-    "winning_stage": "citation_lookup",
-    "expected_cluster_id": null
-  },
   "Olson v. City of Fargo, 250 N.W.2d 558 (N.D. 1977)": {
     "status": "NOT_FOUND",
     "cluster_id": 2130898,
@@ -1736,7 +1640,7 @@
     "expected_cluster_id": null
   },
   "Kennedy v Kennedy, 192 AD3d 111 (1st Dept 2020)": {
-    "status": "NOT_FOUND",
+    "status": "VERIFICATION_INCOMPLETE",
     "cluster_id": null,
     "docket_id": null,
     "confidence": null,
@@ -1760,11 +1664,11 @@
     "expected_cluster_id": null
   },
   "Marriage of Smith, 195 Cal. App. 4th 1007, 1018 (2011)": {
-    "status": "VERIFIED",
+    "status": "WRONG_CASE",
     "cluster_id": 5810272,
     "docket_id": null,
     "confidence": 1.0,
-    "winning_stage": "citation_lookup",
+    "winning_stage": "caption_investigation",
     "expected_cluster_id": null
   },
   "Harris v. City of Auburn, 2018 WL 3329858 (M.D. Ala. July 6, 2018)": {
@@ -1904,19 +1808,19 @@
     "expected_cluster_id": null
   },
   "Harris v Seward Park Housing Corp., 147 AD3d 589 (1st Dep't 2017)": {
-    "status": "VERIFIED",
+    "status": "WRONG_CASE",
     "cluster_id": 4369449,
     "docket_id": null,
     "confidence": 1.0,
-    "winning_stage": "citation_lookup",
+    "winning_stage": "caption_investigation",
     "expected_cluster_id": null
   },
   "DiLorenzo v D.C. & D. Transp. Corp., 39 AD2d 950 (2nd Dept, 1972)": {
-    "status": "VERIFIED",
+    "status": "WRONG_CASE",
     "cluster_id": 5926354,
     "docket_id": null,
     "confidence": 1.0,
-    "winning_stage": "citation_lookup",
+    "winning_stage": "caption_investigation",
     "expected_cluster_id": null
   },
   "Holt v. Crown Builders, Inc., 627 So.2d 1221 (Fla. 2d DCA 1993)": {
@@ -1983,14 +1887,6 @@
     "winning_stage": "caption_investigation",
     "expected_cluster_id": null
   },
-  "Matchett v. Dretke, 380 F.3d 844 (5th Cir. 2004)": {
-    "status": "VERIFIED",
-    "cluster_id": 35985,
-    "docket_id": null,
-    "confidence": 1.0,
-    "winning_stage": "citation_lookup",
-    "expected_cluster_id": null
-  },
   "Hinzo v. State of N.M., 79 F.4th 1164, 1175 (10th Cir. 2023)": {
     "status": "NOT_FOUND",
     "cluster_id": null,
@@ -2008,27 +1904,27 @@
     "expected_cluster_id": null
   },
   "of Knapp v Knapp, 225 AD2d 1010 (4th Dept 1996)": {
-    "status": "VERIFIED",
+    "status": "WRONG_CASE",
     "cluster_id": 6134740,
     "docket_id": null,
     "confidence": 1.0,
-    "winning_stage": "citation_lookup",
+    "winning_stage": "caption_investigation",
     "expected_cluster_id": null
   },
   "of Polizzi v Polizzi, 226 AD2d 581 (2d Dept 1996)": {
-    "status": "VERIFIED",
+    "status": "WRONG_CASE",
     "cluster_id": 6135572,
     "docket_id": null,
     "confidence": 1.0,
-    "winning_stage": "citation_lookup",
+    "winning_stage": "caption_investigation",
     "expected_cluster_id": null
   },
   "of Negron v St. Charles Hosp. & Rehab. Ctr., 121 AD3d 1427 (2d Dept 2014)": {
-    "status": "VERIFIED",
+    "status": "WRONG_CASE",
     "cluster_id": 6152440,
     "docket_id": null,
     "confidence": 1.0,
-    "winning_stage": "citation_lookup",
+    "winning_stage": "caption_investigation",
     "expected_cluster_id": null
   },
   "Rivas v. Jennings, No. 1:20-cv-02731-JLT, 2020 WL 2537748, at 6 (E.D. Cal. May 18, 2020)": {
@@ -2128,11 +2024,11 @@
     "expected_cluster_id": null
   },
   "Barlow, 59 B.R. 707": {
-    "status": "VERIFIED",
+    "status": "WRONG_CASE",
     "cluster_id": 1805701,
     "docket_id": null,
     "confidence": 1.0,
-    "winning_stage": "citation_lookup",
+    "winning_stage": "caption_investigation",
     "expected_cluster_id": null
   },
   "Sturdivant v. BAC Home Loans, 159 Cal.Rptr.3d 113": {
@@ -2165,14 +2061,6 @@
     "docket_id": null,
     "confidence": 0.5991,
     "winning_stage": "opinion_search",
-    "expected_cluster_id": null
-  },
-  "Perez v. Zazo, 498 So. 2d 463, 465 (Fla. 3d DCA 1986)": {
-    "status": "VERIFIED",
-    "cluster_id": 1740097,
-    "docket_id": null,
-    "confidence": 1.0,
-    "winning_stage": "citation_lookup",
     "expected_cluster_id": null
   },
   "Byrd v. Shumann, 2013 WL 12091938, at *2 (S.D. Fla. Jan. 28, 2013)": {
@@ -2239,14 +2127,6 @@
     "winning_stage": "caption_investigation",
     "expected_cluster_id": null
   },
-  "Wilson v. State, 277 Ga. 195 (2003)": {
-    "status": "VERIFIED",
-    "cluster_id": 1330331,
-    "docket_id": null,
-    "confidence": 1.0,
-    "winning_stage": "citation_lookup",
-    "expected_cluster_id": null
-  },
   "Bank v. Tien, No. 05-60821, 2008 WL 11333017 (S.D. Fla. Feb. 12, 2008)": {
     "status": "NOT_FOUND",
     "cluster_id": 1443916,
@@ -2264,11 +2144,11 @@
     "expected_cluster_id": null
   },
   "(Backus v. City of Rochester, 148 AD3d 1697 [4th Dept 2017])": {
-    "status": "VERIFIED",
+    "status": "WRONG_CASE",
     "cluster_id": 6234646,
     "docket_id": null,
     "confidence": 1.0,
-    "winning_stage": "citation_lookup",
+    "winning_stage": "caption_investigation",
     "expected_cluster_id": null
   },
   "Chi v. Nevada Employment Security Division, 2020 WL 708272 (D. Nev. Feb. 12, 2020)": {
@@ -2304,11 +2184,11 @@
     "expected_cluster_id": null
   },
   "Kelly v. St. Francis Medical Center, 899 N.W.2d 869 (Neb. 2017)": {
-    "status": "VERIFIED",
+    "status": "WRONG_CASE",
     "cluster_id": 8282149,
     "docket_id": null,
     "confidence": 1.0,
-    "winning_stage": "citation_lookup",
+    "winning_stage": "caption_investigation",
     "expected_cluster_id": null
   },
   "In re D.C. Judicial Conflicts of Interest, 540 F.2d 711 (D.C. Cir. 1976)": {
@@ -2360,7 +2240,7 @@
     "expected_cluster_id": null
   },
   "Citation 849 F. Supp. 1206 (N.D. Ind. 1994)": {
-    "status": "VERIFIED",
+    "status": "VERIFIED_PARTIAL",
     "cluster_id": 2140022,
     "docket_id": null,
     "confidence": 1.0,
@@ -2624,7 +2504,7 @@
     "expected_cluster_id": null
   },
   "Medina, 2012 WL 1368983": {
-    "status": "NOT_FOUND",
+    "status": "VERIFICATION_INCOMPLETE",
     "cluster_id": null,
     "docket_id": null,
     "confidence": null,
@@ -2759,22 +2639,6 @@
     "winning_stage": null,
     "expected_cluster_id": null
   },
-  "Jones v.\nJones, No. M201801746COAR3CV, 2019 WL 1036077": {
-    "status": "VERIFIED",
-    "cluster_id": 10606804,
-    "docket_id": null,
-    "confidence": 0.7667,
-    "winning_stage": "opinion_search",
-    "expected_cluster_id": null
-  },
-  "Nandigam Neurology, PLC v. Beavers, 639 S.W.3d 651 (Tenn. Ct. App. 2021)": {
-    "status": "VERIFIED",
-    "cluster_id": 4893405,
-    "docket_id": null,
-    "confidence": 0.7393,
-    "winning_stage": "opinion_search",
-    "expected_cluster_id": null
-  },
   "Doe v. Roe, 477 S.W.3d 321, 326 (Tenn. Ct. App. 2015)": {
     "status": "WRONG_CASE",
     "cluster_id": 4287360,
@@ -2872,9 +2736,9 @@
     "expected_cluster_id": null
   },
   "of Turner v. Palo Alto Networks, Inc., 2023 WL 4567762 (E.D. Tex. 2023)": {
-    "status": "NOT_FOUND",
+    "status": "VERIFICATION_INCOMPLETE",
     "cluster_id": null,
-    "docket_id": 4386244,
+    "docket_id": null,
     "confidence": null,
     "winning_stage": null,
     "expected_cluster_id": null
@@ -2904,11 +2768,11 @@
     "expected_cluster_id": null
   },
   "Estate of Layton (1938) 29 Cal.App.2d 599": {
-    "status": "VERIFIED",
+    "status": "WRONG_CASE",
     "cluster_id": 1298772,
     "docket_id": null,
     "confidence": 1.0,
-    "winning_stage": "citation_lookup",
+    "winning_stage": "caption_investigation",
     "expected_cluster_id": null
   },
   "Riddle v. Harmon (1865) 5 Cal. 491": {
@@ -2920,7 +2784,7 @@
     "expected_cluster_id": null
   },
   "Estate of Kraus (1970) 8 Cal.App.3d 429": {
-    "status": "NOT_FOUND",
+    "status": "VERIFICATION_INCOMPLETE",
     "cluster_id": null,
     "docket_id": null,
     "confidence": null,
@@ -2928,11 +2792,11 @@
     "expected_cluster_id": null
   },
   "Estate of Hermon (1973) 16 Cal.App.3d 421": {
-    "status": "VERIFIED",
+    "status": "WRONG_CASE",
     "cluster_id": 2120316,
     "docket_id": null,
     "confidence": 1.0,
-    "winning_stage": "citation_lookup",
+    "winning_stage": "caption_investigation",
     "expected_cluster_id": null
   },
   "Ayala v. Holmes, 29 F.4th 1015": {
@@ -2944,11 +2808,11 @@
     "expected_cluster_id": null
   },
   "EEOC v. Ironworkers Local 28, 2012 WL 4339035 (S.D.N.Y. 2012)": {
-    "status": "VERIFICATION_INCOMPLETE",
+    "status": "VERIFIED_DOCKET_ONLY",
     "cluster_id": null,
-    "docket_id": null,
-    "confidence": null,
-    "winning_stage": null,
+    "docket_id": 4357625,
+    "confidence": 0.5072,
+    "winning_stage": "recap_docket_search",
     "expected_cluster_id": null
   },
   "Operating Engineers Local 406 JATC, 271 NLRB 1396 (1984)": {
@@ -2999,36 +2863,12 @@
     "winning_stage": "recap_docket_search",
     "expected_cluster_id": null
   },
-  "Morgan v. State of California, 157 Cal. App. 4th 914, 922 (2007)'; the Court found no case of that name and noted the intended citation was Chamberlain v. Cocola Assocs., 958 F.2d 282 (9th Cir. 1992)": {
-    "status": "WRONG_CASE",
-    "cluster_id": 2255301,
-    "docket_id": null,
-    "confidence": 1.0,
-    "winning_stage": "caption_investigation",
-    "expected_cluster_id": null
-  },
-  "Chamberlain v. Cocola Assocs., 958 F.2d 282 (9th Cir. 1992)": {
-    "status": "VERIFIED",
-    "cluster_id": 578738,
-    "docket_id": null,
-    "confidence": 1.0,
-    "winning_stage": "citation_lookup",
-    "expected_cluster_id": null
-  },
   "Humphries v. Rice, 88 Cal. App. 4th 1413, 1424 (2001)": {
     "status": "WRONG_CASE",
     "cluster_id": 2280522,
     "docket_id": null,
     "confidence": 1.0,
     "winning_stage": "caption_investigation",
-    "expected_cluster_id": null
-  },
-  "Eddy v. Sharp, 199 Cal. App. 3d 858 (1988)": {
-    "status": "VERIFIED",
-    "cluster_id": 2180494,
-    "docket_id": null,
-    "confidence": 1.0,
-    "winning_stage": "citation_lookup",
     "expected_cluster_id": null
   },
   "Bolin v. Story, 225 F.3d 1234, 1239 (6th Cir. 2000)": {
@@ -3053,14 +2893,6 @@
     "docket_id": null,
     "confidence": 1.0,
     "winning_stage": "caption_investigation",
-    "expected_cluster_id": null
-  },
-  "United States v. Martinez, 608 Fed. Appx. 692 (10th Cir. 2015)": {
-    "status": "VERIFIED",
-    "cluster_id": 2810545,
-    "docket_id": null,
-    "confidence": 1.0,
-    "winning_stage": "citation_lookup",
     "expected_cluster_id": null
   },
   "Cornell v. Precision Valve & Automation, Inc., 2011 WL 1420182 (D.N.M. 2011)": {
@@ -3088,11 +2920,11 @@
     "expected_cluster_id": null
   },
   "Nat\u2019l Bank of Paris v. Midwest Agri-Dev. Corp., 887 F.2d 1128, 1134 (7th Cir. 1989)": {
-    "status": "VERIFIED",
+    "status": "WRONG_CASE",
     "cluster_id": 8982241,
     "docket_id": null,
     "confidence": 1.0,
-    "winning_stage": "citation_lookup",
+    "winning_stage": "caption_investigation",
     "expected_cluster_id": null
   },
   "S.G. v. SafeSport, 74 F.4th 864, 870 (7th Cir. 2023)": {
@@ -3168,7 +3000,7 @@
     "expected_cluster_id": null
   },
   "Parke-Davis Sec. Litig., 177 F.R.D. 246, 250 N.6 (E.D. Mich. 1997)": {
-    "status": "NOT_FOUND",
+    "status": "VERIFICATION_INCOMPLETE",
     "cluster_id": null,
     "docket_id": null,
     "confidence": null,
@@ -3256,11 +3088,11 @@
     "expected_cluster_id": null
   },
   "Co. v. United States, 157 Ct. Cl. 196, 206 (1962)": {
-    "status": "VERIFIED_PARTIAL",
+    "status": "WRONG_CASE",
     "cluster_id": 8613959,
     "docket_id": null,
     "confidence": 1.0,
-    "winning_stage": "citation_lookup",
+    "winning_stage": "caption_investigation",
     "expected_cluster_id": null
   },
   "Burns v. State, 813 So.2d 574 (La. App. 1 Cir. 2001)": {
@@ -3280,7 +3112,7 @@
     "expected_cluster_id": null
   },
   "(La. App. 3 Cir. 7/10/02), 833 So.2d 1136": {
-    "status": "VERIFIED",
+    "status": "VERIFIED_PARTIAL",
     "cluster_id": 1670674,
     "docket_id": null,
     "confidence": 1.0,
@@ -3328,7 +3160,7 @@
     "expected_cluster_id": null
   },
   "(PGA Nat'l Resort, LLC v. Liberty Mut. Fire Ins. Co., 2016 WL 8716673, at *3 (S.D. Fla. Oct. 24, 2016))": {
-    "status": "NOT_FOUND",
+    "status": "VERIFICATION_INCOMPLETE",
     "cluster_id": null,
     "docket_id": null,
     "confidence": null,
@@ -3344,9 +3176,9 @@
     "expected_cluster_id": null
   },
   "of Trustees v. RBS Group, 2008 WL 5127215": {
-    "status": "NOT_FOUND",
+    "status": "VERIFICATION_INCOMPLETE",
     "cluster_id": null,
-    "docket_id": 4174901,
+    "docket_id": null,
     "confidence": null,
     "winning_stage": null,
     "expected_cluster_id": null
@@ -3413,14 +3245,6 @@
     "docket_id": null,
     "confidence": 1.0,
     "winning_stage": "caption_investigation",
-    "expected_cluster_id": null
-  },
-  "City of Monticello v. Christensen, 788 P.2d 513 (Utah 1990)": {
-    "status": "VERIFIED",
-    "cluster_id": 1293366,
-    "docket_id": null,
-    "confidence": 1.0,
-    "winning_stage": "citation_lookup",
     "expected_cluster_id": null
   },
   "Ivey v. United States, 2019 WL 2080027 (Fed. Cl. 2019)": {
@@ -3503,14 +3327,6 @@
     "winning_stage": null,
     "expected_cluster_id": null
   },
-  "Chambers v. Time Warner, Inc., 282 F.3d 147, 152-53 (2d Cir. 2002)": {
-    "status": "VERIFIED",
-    "cluster_id": 7103595,
-    "docket_id": null,
-    "confidence": 1.0,
-    "winning_stage": "citation_lookup",
-    "expected_cluster_id": null
-  },
   "Quinn v. Levine (2021) 62 Cal.App.5th 366": {
     "status": "NOT_FOUND",
     "cluster_id": null,
@@ -3520,23 +3336,23 @@
     "expected_cluster_id": null
   },
   "In re Marriage of L.B. (2018) 30 Cal.App.5th 1076": {
-    "status": "VERIFIED",
+    "status": "WRONG_CASE",
     "cluster_id": 6240164,
     "docket_id": null,
     "confidence": 1.0,
-    "winning_stage": "citation_lookup",
+    "winning_stage": "caption_investigation",
     "expected_cluster_id": null
   },
   "In re Marriage of C.T. and R.T. (2017) 12 Cal.App.5th 982": {
-    "status": "VERIFIED",
+    "status": "WRONG_CASE",
     "cluster_id": 6238852,
     "docket_id": null,
     "confidence": 1.0,
-    "winning_stage": "citation_lookup",
+    "winning_stage": "caption_investigation",
     "expected_cluster_id": null
   },
   "In re Marriage of Mathews (2005) 133 Cal.App.4th 1407": {
-    "status": "NOT_FOUND",
+    "status": "VERIFICATION_INCOMPLETE",
     "cluster_id": null,
     "docket_id": null,
     "confidence": null,
@@ -3544,19 +3360,11 @@
     "expected_cluster_id": null
   },
   "In re Marriage of Facter (2016) 1 Cal.App.5th 526": {
-    "status": "VERIFIED",
+    "status": "WRONG_CASE",
     "cluster_id": 4238125,
     "docket_id": null,
     "confidence": 1.0,
-    "winning_stage": "citation_lookup",
-    "expected_cluster_id": null
-  },
-  "In re Marriage of Manfer (2006) 144 Cal.App.4th 925": {
-    "status": "VERIFIED",
-    "cluster_id": 5809422,
-    "docket_id": null,
-    "confidence": 1.0,
-    "winning_stage": "citation_lookup",
+    "winning_stage": "caption_investigation",
     "expected_cluster_id": null
   },
   "Concepcion v. City of New York, No. 05 Civ. 8501 (RJS), 2008 WL 5395720, at *4 (S.D.N.Y. Dec. 17, 2008)": {
@@ -3703,14 +3511,6 @@
     "winning_stage": "recap_docket_search",
     "expected_cluster_id": null
   },
-  "Henlsey v. Alcon Labs, 277 F.3d 535 (4th Cir. 2002)": {
-    "status": "VERIFIED",
-    "cluster_id": 776216,
-    "docket_id": null,
-    "confidence": 1.0,
-    "winning_stage": "citation_lookup",
-    "expected_cluster_id": null
-  },
   "Matherne v. Cytec Corp., 78 F. App'x 977, 978 (5th Cir. 2003)": {
     "status": "WRONG_CASE",
     "cluster_id": 32821,
@@ -3792,7 +3592,7 @@
     "expected_cluster_id": null
   },
   "(United States v. City of Los Angeles, 595 F.3d 1006 (9th Cir. 2010))": {
-    "status": "NOT_FOUND",
+    "status": "VERIFICATION_INCOMPLETE",
     "cluster_id": null,
     "docket_id": null,
     "confidence": null,
@@ -3896,19 +3696,11 @@
     "expected_cluster_id": null
   },
   "State v. Nye County, 129 Nev. 521 (2013)": {
-    "status": "VERIFIED",
+    "status": "WRONG_CASE",
     "cluster_id": 8086060,
     "docket_id": null,
     "confidence": 1.0,
     "winning_stage": "caption_investigation",
-    "expected_cluster_id": null
-  },
-  "D.F., 201 Ill. 2d 476 (2002)": {
-    "status": "VERIFIED",
-    "cluster_id": 3134892,
-    "docket_id": null,
-    "confidence": 1.0,
-    "winning_stage": "citation_lookup",
     "expected_cluster_id": null
   },
   "Doe v. Jindal, No. 11-388, 2011 WL 3664490, at *3 (E.D. La. Aug. 19, 2011)": {
@@ -3920,11 +3712,11 @@
     "expected_cluster_id": null
   },
   "of Medical Transport v NY State Dept of Health, 294 A.D.2d 574 (2d Dept 2002)": {
-    "status": "VERIFIED",
+    "status": "WRONG_CASE",
     "cluster_id": 6218960,
     "docket_id": null,
     "confidence": 1.0,
-    "winning_stage": "citation_lookup",
+    "winning_stage": "caption_investigation",
     "expected_cluster_id": null
   },
   "Parker v. Blauvelt Volunteer Fire Co., 93 F.3d 65, 69 (2d Cir. 1996)": {
@@ -3951,14 +3743,6 @@
     "winning_stage": "caption_investigation",
     "expected_cluster_id": null
   },
-  "Vargas v. Sotelo, 2017 NY Slip Op 50417(U)(Civ. Ct., Bronx Cty. 2017)": {
-    "status": "VERIFIED_DOCKET_ONLY",
-    "cluster_id": null,
-    "docket_id": 30451544,
-    "confidence": 0.7667,
-    "winning_stage": "recap_docket_search",
-    "expected_cluster_id": null
-  },
   "Mut. Ins. Co. v. Huntsville, 141 So. 3d 415 (Ala. 2013)": {
     "status": "WRONG_CASE",
     "cluster_id": 5001424,
@@ -3976,11 +3760,11 @@
     "expected_cluster_id": null
   },
   "Kelley v. City of Birmingham, 2021 WL 1118031, at *2 (N.D. Ala. Mar. 24, 2021)": {
-    "status": "VERIFIED_VIA_RECAP",
+    "status": "NOT_FOUND",
     "cluster_id": null,
-    "docket_id": 5476954,
-    "confidence": 0.4365,
-    "winning_stage": "recap_docket_search",
+    "docket_id": 18352928,
+    "confidence": null,
+    "winning_stage": null,
     "expected_cluster_id": null
   },
   "Greer v. Warden, FCC Coleman I, 2020 WL 3060362, at *2 (M.D. Fla. June 9, 2020)": {
@@ -4023,22 +3807,6 @@
     "winning_stage": null,
     "expected_cluster_id": null
   },
-  "Jones v. PNC Bank, N.A., No. 10-CV-01077LHK, 2010 U.S. Dist. LEXIS 92866 (N.D. Cal. Aug. 20, 2010)": {
-    "status": "NOT_FOUND",
-    "cluster_id": null,
-    "docket_id": 5888168,
-    "confidence": null,
-    "winning_stage": null,
-    "expected_cluster_id": null
-  },
-  "and Jones v. PNC Bank, N.A., 630 F. Supp. 3d 959 (N.D. Ill. 2022)": {
-    "status": "VERIFIED",
-    "cluster_id": 9681043,
-    "docket_id": null,
-    "confidence": 0.8457,
-    "winning_stage": "opinion_search",
-    "expected_cluster_id": null
-  },
   "Miller v. Citizens Bank, N.A., No. 23-10563, 2025 U.S. Dist. LEXIS 93011 (E.D. Mich. May 15, 2025)": {
     "status": "NOT_FOUND",
     "cluster_id": 10585287,
@@ -4047,28 +3815,20 @@
     "winning_stage": null,
     "expected_cluster_id": null
   },
-  "(In re Davis), 447 B.R. 738 (Bankr. D. Md. 2011)": {
-    "status": "VERIFIED",
-    "cluster_id": 2197104,
-    "docket_id": null,
-    "confidence": 1.0,
-    "winning_stage": "citation_lookup",
-    "expected_cluster_id": null
-  },
   "R.G. v. State, 180 Conn. App. 387, 393 (2018)": {
-    "status": "VERIFIED",
-    "cluster_id": 7923708,
+    "status": "NOT_FOUND",
+    "cluster_id": 4550658,
     "docket_id": null,
-    "confidence": 0.5896,
-    "winning_stage": "opinion_search",
+    "confidence": null,
+    "winning_stage": null,
     "expected_cluster_id": null
   },
   "Jager, 344 B.R. 349 (Bankr. D. Colo. 2006)": {
-    "status": "VERIFIED",
+    "status": "WRONG_CASE",
     "cluster_id": 1541167,
     "docket_id": null,
     "confidence": 1.0,
-    "winning_stage": "citation_lookup",
+    "winning_stage": "caption_investigation",
     "expected_cluster_id": null
   },
   "Segarra-Miranda v. Acosta-Rivera, 597 F.3d 1": {
@@ -4093,14 +3853,6 @@
     "docket_id": null,
     "confidence": null,
     "winning_stage": null,
-    "expected_cluster_id": null
-  },
-  "Grapevine Imports, Ltd. v. United States, 71 Fed. Cl. 324, 326 (2006)": {
-    "status": "VERIFIED",
-    "cluster_id": 6771964,
-    "docket_id": null,
-    "confidence": 1.0,
-    "winning_stage": "citation_lookup",
     "expected_cluster_id": null
   },
   "Lewis v. CCPOA, 2009 WL 890585, at *4 (E.D. Cal. Mar. 31, 2009)": {
@@ -4133,22 +3885,6 @@
     "docket_id": null,
     "confidence": 1.0,
     "winning_stage": "caption_investigation",
-    "expected_cluster_id": null
-  },
-  "Lin Zhong v. DOJ, 489 F.3d 126 (2d Cir. 2007)": {
-    "status": "VERIFIED",
-    "cluster_id": 797993,
-    "docket_id": null,
-    "confidence": 1.0,
-    "winning_stage": "citation_lookup",
-    "expected_cluster_id": null
-  },
-  "Young v. New Haven Advocate, 315 F.3d 256 (4th Cir. 2002)": {
-    "status": "VERIFIED",
-    "cluster_id": 2967712,
-    "docket_id": null,
-    "confidence": 1.0,
-    "winning_stage": "citation_lookup",
     "expected_cluster_id": null
   },
   "Ortiz v. Ford Motor Co. (2020) 50 Cal.App.5th 665": {
@@ -4327,28 +4063,12 @@
     "winning_stage": null,
     "expected_cluster_id": null
   },
-  "People v. Ayala (2000) 24 Cal.4th 243": {
-    "status": "VERIFIED",
-    "cluster_id": 2594572,
-    "docket_id": null,
-    "confidence": 1.0,
-    "winning_stage": "citation_lookup",
-    "expected_cluster_id": null
-  },
   "Estate of Green (1955) 135 Cal.App.2d 495": {
-    "status": "NOT_FOUND",
+    "status": "VERIFICATION_INCOMPLETE",
     "cluster_id": null,
     "docket_id": null,
     "confidence": null,
     "winning_stage": null,
-    "expected_cluster_id": null
-  },
-  "Staggs v. Atchison, Topeka & Santa Fe Railway (1955) 135 Cal.App.2d 492": {
-    "status": "VERIFIED",
-    "cluster_id": 1227289,
-    "docket_id": null,
-    "confidence": 1.0,
-    "winning_stage": "citation_lookup",
     "expected_cluster_id": null
   },
   "Kerrigan v. O\u2019Meara (1926) 71 Cal.App. 346": {
@@ -4365,14 +4085,6 @@
     "docket_id": null,
     "confidence": 1.0,
     "winning_stage": "caption_investigation",
-    "expected_cluster_id": null
-  },
-  "Martinez (330 S.W.3d 891)": {
-    "status": "VERIFIED",
-    "cluster_id": 2270284,
-    "docket_id": null,
-    "confidence": 1.0,
-    "winning_stage": "citation_lookup",
     "expected_cluster_id": null
   }
 }

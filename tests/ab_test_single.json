@@ -1,0 +1,14 @@
+{
+  "brief": "payne-proposed",
+  "cases": [
+    {
+      "id": 11,
+      "opinion_file": "opinions/Manzano_v_State.html",
+      "proposition": "A justification charge does not require a charge on citizen's arrest unless the facts specifically support that additional theory",
+      "cited_case": "Manzano v. State, 282 Ga. 557 (2007)",
+      "expected_assessment": "Red",
+      "reason": "Manzano v. State addresses involuntary manslaughter and cross-examination. Never discusses justification charges or citizen arrest.",
+      "quote_check_worst": "NO_QUOTES"
+    }
+  ]
+}

@@ -165,6 +165,90 @@ is ≈ 95/520 (~18%): ~28 from Bugs 1–3 (fixable now, offline-testable)
 and ~60+ from the missing Step 3 "Check Cite" (B + most of C). **Step 3
 is now the single biggest lever and has a ready-made motivating corpus.**
 
+## Fix session — DONE (2026-06-10/11 follow-up session)
+
+All three bugs fixed (TDD, offline) + corpus hygiene executed. Corpus
+**547 → 511** (509 fakes + 2 relabeled real-case targets); baseline
+recomputed by cassette replay (`--from-cassette`, no API):
+
+| | live run (pre-fix) | replay (post-fix) |
+|---|---|---|
+| found (FPs) | 122 | **59** (57 fakes + Holden/Bolin relabels) |
+| rejected | 393 | 412 |
+| INCOMPLETE | 24 | 40 (see mop-up note) |
+
+Zero rejected→found regressions; benchmark 203/204 and fallback 32/32
+held; full offline suite 527 passed.
+
+### What landed
+
+1. **Corpus hygiene (builder `tests/build_charlotin_corpus.py`):**
+   - New contrast markers (closest match / intended to cite / citation
+     maps-points to / traced to / falls within / search retrieved / may
+     relate to / nearby real citation / the only real / appear-to-match /
+     likely intended). Bare "court found" deliberately NOT added.
+   - `_ADJUDICATED` table (keyed by normalized cite): 2 marker-proof
+     poisoned drops (Lampe A2, Curtis C), 10 bucket-A mislabel drops,
+     Holden→`charlotin_real_case_wrong_pincite`,
+     Bolin→`charlotin_real_case_wrong_court` (future detection targets,
+     not NOT_FOUND assertions).
+   - **B/C sweep findings** (the "not yet swept" item above): Norg
+     (intended-to-cite, caught by marker), Jones v. PNC ×2 (appear-to-
+     match marker), Navient 2020 WL 1867939 (likely-intended marker),
+     and explicit drops for Jones v. Jones 2019 WL 1036077 ("returns"),
+     Nandigam 639 S.W.3d 651 ("There is a..."), Vargas v. Sotelo (the
+     party's offered *replacement*, not a confirmed fake), Lozada 174
+     DPR 650 (fabricated quote, same ruling as A5 Colón).
+   - **A43 Manfer re-adjudicated**: post-fix replay showed CL resolves
+     144 Cal.App.4th 925 to cluster "Manfer v. Manfer" = same case →
+     mislabel, dropped (adjudication CSV updated).
+2. **Bug 1 — parser (`parser.py`, `tests/test_parser_name_forms.py`):**
+   "v"-without-period (NY), truncated leading "of "/paren-led repair,
+   "Marriage of/Estate of" prefixes + Cal. "(year) cite" terminator in
+   the non-adversarial fallback, surname-only last resort ("Waitz, 255
+   Ga. 474"). Genuinely nameless forms (La. App. paren-led, "Citation
+   849 F. Supp....") stay None by design.
+3. **Bug 1 — policy (`verifier.py` `_process_citation_lookup_hit`,
+   shared by sync/async/batch):** lookup hit with no comparable name on
+   either side → **VERIFIED_PARTIAL + new `name_unverified` warning**,
+   never blind VERIFIED@1.0.
+4. **Bugs 2+3 — shared `_GENERIC_NAME_TOKENS` guard** consumed by
+   `_party_overlap_ok` and `_names_match_citation_lookup`: generic
+   tokens (United States/State/St./Inc./Co./County/medical/...) never
+   establish overlap alone; a side with only generic tokens is vacuous;
+   no distinctive evidence anywhere → fail. Surname matcher: all-generic
+   or sub-3-char surnames → escalate to caption_investigation instead of
+   blind-trust (A35 Midwest, "NY"). Generic-defendant-suffix branch same
+   (A36 Co. v. United States). **A11 resolved:** not a multi-case page —
+   the opinion head names the *judge* (Marcy S. Friedman) and "New York
+   County"; the guard kills the "new" token, so the judge-surname hit
+   dies with it. **Acronym bridge** added after the benchmark caught
+   St. Louis Baptist Temple v. FDIC regressing: an all-caps cited party
+   matches a caption side whose word-initials prefix-align ("fdic" ↔
+   "...Federal Deposit Insurance[ Corporation, a United States ...]").
+
+### Remaining found (59) — all expected
+
+- 54 = Step 3 "Check Cite" class (25 opinion_search + 29 RECAP),
+  untouched by design; motivating corpus for the next session.
+- 3 = nameless citation-lookup hits now VERIFIED_PARTIAL +
+  `name_unverified` (La. App. ×2, "Citation 849 F. Supp.") — policy-
+  correct, flagged, no longer blind 1.0.
+- 2 = Holden (wrong_pincite) + Bolin (wrong_court) relabeled targets.
+
+### Needs a live run (token machine)
+
+- **40 INCOMPLETE**: 23 pre-existing transients + 17 CassetteMiss-
+  induced (parser now extracts names → new fallback/investigation calls
+  not in the cassette). Run
+  `python tests/record_benchmark_cassette.py --corpus-name charlotin`
+  (resumes; retries transients) to mop up and confirm replay verdicts
+  live.
+- Live fake/real corpora (`pytest -m live_api`) should be re-run once to
+  confirm no live-only drift from the name-matcher changes.
+
+## Notes / limitations
+
 - Labels are Charlotin's (court-confirmed per the rulings), not ours; the
   pilot suggests high precision but the live run's resolved set must be
   hand-checked before any entry is promoted to a hard assertion.

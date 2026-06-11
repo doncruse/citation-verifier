@@ -121,3 +121,114 @@ class TestExtractCandidates:
             "did not exist; the Court required corrected citations."
         )
         assert cands == []
+
+
+import pytest  # noqa: E402
+
+
+class TestNewContrastMarkers:
+    """2026-06-11 triage: 15 bucket-A FPs were poisoned extractions — the
+    court's named REAL case entered the fake corpus. These finder-verb
+    markers (documented in the charlotin retro) introduce the real case."""
+
+    @pytest.mark.parametrize(
+        "finder_phrase",
+        [
+            "the closest match is",
+            "the closest possible match is",
+            "counsel intended to cite",
+            "the intended citation was",
+            "the citation maps to",
+            "the citation points to",
+            "the Court traced to a page within",
+            "the cited page falls within",
+            "the court's search retrieved",
+            "the citation may relate to",
+            "the nearby real citation was",
+            "the only real",
+            # B/C sweep additions (same finder-verb family):
+            "found two cases that appear to match the named parties:",
+            "Plaintiff likely intended",
+        ],
+    )
+    def test_finder_phrase_flags_following_citation(self, finder_phrase):
+        text = (
+            "Plaintiff cited 'Bogus v. Fake, 100 F.3d 1 (2d Cir. 1996)', "
+            f"which the court could not locate; {finder_phrase} "
+            "Genuine v. Case, 200 F.3d 2 (2d Cir. 1999)."
+        )
+        cands = extract_candidates(text)
+        kept = [c for c in cands if not c.flags]
+        flagged = [c for c in cands if "real_contrast" in c.flags]
+        assert len(kept) == 1 and "Bogus" in kept[0].citation
+        assert len(flagged) == 1 and "Genuine" in flagged[0].citation
+
+    def test_bare_court_found_is_not_a_marker(self):
+        """'court found' is ambiguous ('court found the citation to FAKE'
+        vs 'court found REAL instead') — must NOT flag. Documented in the
+        charlotin retro; Lampe-style items are handled by the adjudicated
+        drop list instead."""
+        cands = extract_candidates(
+            "Court found the citation to 'Bogus v. Fake, 100 F.3d 1 "
+            "(2d Cir. 1996)' does not exist as cited."
+        )
+        kept = [c for c in cands if not c.flags]
+        assert len(kept) == 1 and "Bogus" in kept[0].citation
+
+
+class TestAdjudicatedEntries:
+    """Per-entry adjudication of the 2026-06-11 live run
+    (scratch/charlotin_bucketA_adjudication.csv): corpus mislabels and
+    marker-proof poisoned extractions are dropped or relabeled by
+    normalized cite key."""
+
+    def _decide(self, citation):
+        from tests.build_charlotin_corpus import adjudication_for
+
+        return adjudication_for(citation)
+
+    @pytest.mark.parametrize(
+        "citation",
+        [
+            # Poisoned, no safe marker catches the item text:
+            "Lampe v. Genuine Parts Co., 463 F. Supp. 2d 928, 934 (E.D. Wis. 2006)",
+            "Curtis v. Oliver, 479 F. Supp. 3d 1039, 1088 (D.N.M. 2020)",
+            # Charlotin mislabels — real, correctly-cited cases:
+            "Tubra v. Cooke, 233 Or App 339, 225 P3d 862 (2010)",
+            "Kidd v. Mando Am. Corp., 731 F.3d 1196, 1200 (11th Cir. 2013)",
+            "State v. Clark, 2012 ND 135",
+            "Perez v. Zazo, 498 So. 2d 463, 465 (Fla. 3d DCA 1986)",
+            "Chambers v. Time Warner, Inc., 282 F.3d 147, 152-53 (2d Cir. 2002)",
+            # B/C sweep (2026-06-10 session): real cases named by the court
+            # with finder verbs too generic to be markers:
+            "Jones v.\nJones, No. M201801746COAR3CV, 2019 WL 1036077",
+            "Nandigam Neurology, PLC v. Beavers, 639 S.W.3d 651 (Tenn. Ct. App. 2021)",
+            "Vargas v. Sotelo, 2017 NY Slip Op 50417(U)(Civ. Ct., Bronx Cty. 2017)",
+            "Lozada v. E.L.A., 174 DPR 650 (2008)",
+            # Post-fix replay (2026-06-10 session): CL resolves the cite to
+            # cluster "Manfer v. Manfer" — same case, so the entry is a
+            # mislabel (court's complaint was inconsistent citations):
+            "In re Marriage of Manfer (2006) 144 Cal.App.4th 925",
+        ],
+    )
+    def test_dropped_entries(self, citation):
+        action, reason = self._decide(citation)
+        assert action == "drop"
+        assert reason
+
+    def test_holden_relabeled_wrong_pincite(self):
+        action, _ = self._decide(
+            "Holden v. Holiday Inn Club Vacations, Inc., 98 F.4th 1359"
+        )
+        assert action == "relabel:charlotin_real_case_wrong_pincite"
+
+    def test_bolin_relabeled_wrong_court(self):
+        action, _ = self._decide(
+            "Bolin v. Story, 225 F.3d 1234, 1239 (6th Cir. 2000)"
+        )
+        assert action == "relabel:charlotin_real_case_wrong_court"
+
+    def test_unadjudicated_citation_returns_none(self):
+        assert self._decide(
+            "City of Grenada v. Harrelson, 84 So. 3d 35, 38 (Miss. Ct. App. 2012)"
+        ) is None

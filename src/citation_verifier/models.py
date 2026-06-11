@@ -98,6 +98,11 @@ class WarningCategory(Enum):
     # Phase 3 additions (design v2 §2.6 amendment workflow; see CHANGELOG.md)
     cl_duplicate_clusters = "cl_duplicate_clusters"
     wrong_page_number = "wrong_page_number"
+    # Charlotin Bug 1 (2026-06-11 triage): citation-lookup hit with no
+    # comparable case name (parse produced none, or the CL cluster lacks a
+    # caption). The citation string resolved but the *case* is unconfirmed —
+    # status is VERIFIED_PARTIAL, never VERIFIED@1.0.
+    name_unverified = "name_unverified"
 
 
 @dataclass

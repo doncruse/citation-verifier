@@ -16,7 +16,7 @@ Uses a forked [eyecite](https://github.com/freelawproject/eyecite) (rlfordon/eye
 
 Three-step verification pipeline in `src/citation_verifier/verifier.py`:
 
-1. **Citation Lookup API** (`/api/rest/v4/citation-lookup/`) - Resolves reporter citations (e.g. `576 U.S. 644`). If found, verifies case name matches before returning VERIFIED. If the citation exists but belongs to a different case, returns POSSIBLE_MATCH with a name-mismatch diagnostic.
+1. **Citation Lookup API** (`/api/rest/v4/citation-lookup/`) - Resolves reporter citations (e.g. `576 U.S. 644`). If found, verifies case name matches before returning VERIFIED. If the citation exists but belongs to a different case, returns POSSIBLE_MATCH with a name-mismatch diagnostic. If there is no comparable case name on either side (parse produced none, or the CL cluster lacks a caption), returns VERIFIED_PARTIAL with a `name_unverified` warning — never blind VERIFIED@1.0 (Charlotin Bug 1 policy, 2026-06-11).
 
 2. **Opinion Search** (`/api/rest/v4/search/?type=o`) - Fuzzy search by case name, court, and date range (+/- 1 year). Retries without court filter if no results.
 

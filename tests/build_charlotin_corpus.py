@@ -51,12 +51,73 @@ _TOKENIZER = AhocorasickTokenizer()
 # span starts after one of these is flagged, not kept.
 _CONTRAST_MARKERS = re.compile(
     r"unrelated|actual(?:ly)?\b|instead|correct citation|correct cite"
-    r"|real (?:case|decision|opinion)|appears to (?:be|refer)"
+    r"|real (?:case|decision|opinion)|appears? to (?:be|refer|match)"
+    r"|likely intended"
     r"|similar(?:ly)? (?:titled|named)|identified only|in fact"
     r"|corresponds to|belongs to|refers to a different"
-    r"|corrected (?:by|to|as)|different case|existing case",
+    r"|corrected (?:by|to|as)|different case|existing case"
+    # 2026-06-11 triage additions (charlotin retro "Corpus hygiene"): the
+    # finder verbs that poisoned 15 bucket-A entries. Bare "court found" is
+    # deliberately NOT a marker — ambiguous between "court found the
+    # citation to FAKE" and "court found REAL instead"; those items are
+    # handled by _ADJUDICATED instead.
+    r"|closest (?:possible )?match|intended (?:citation was|to cite)"
+    r"|citation maps to|citation points to|traced to|falls within"
+    r"|search retrieved|may relate to|nearby real citation|the only real",
     re.IGNORECASE,
 )
+
+# Per-entry adjudication from the 2026-06-11 live run
+# (scratch/charlotin_bucketA_adjudication.csv), keyed by _core_cite_key.
+# ("drop", reason): poisoned extraction with no safe marker, or a Charlotin
+# mislabel (real, correctly-cited case). ("relabel:<label>", reason): real
+# case with a fabricated *detail* — kept as a future detection target, not
+# a NOT_FOUND assertion.
+_ADJUDICATED: dict[str, tuple[str, str]] = {
+    # Poisoned extractions whose item text defeats the markers:
+    "463|fsupp2d|928": ("drop", "A2: court found Lampe instead; 'court found' too ambiguous to mark"),
+    "479|fsupp3d|1039": ("drop", "C: court located Curtis v. Oliver instead of fake Wallace cite"),
+    # Charlotin mislabels — real, correctly-cited cases:
+    "233|orapp|339": ("drop", "A4: Tubra v. Cooke is real at 233 Or App 339"),
+    "112|dpr|573": ("drop", "A5: Colon v. Romero Barcelo real; fabricated QUOTE, not case"),
+    "731|f3d|1196": ("drop", "A8: Kidd v. Mando real 11th Cir. case"),
+    "712|nw2d|828": ("drop", "A13: State ex rel. Stenehjem v. FreeEats.com real"),
+    "2012|nd|135": ("drop", "A14: State v. Clark, 2012 ND 135 real"),
+    "2012|nd|176": ("drop", "A15: State v. $44,140.00, 2012 ND 176 real"),
+    "498|so2d|463": ("drop", "A24: Perez v. Zazo real Fla. 3d DCA case"),
+    "282|f3d|147": ("drop", "A39: Chambers v. Time Warner real; quote fabricated"),
+    "277|f3d|535": ("drop", "A44: Hensley v. Alcon real; brief typo 'Henlsey'"),
+    "201|ill2d|476": ("drop", "A46: In re D.F., 201 Ill. 2d 476 real"),
+    # B/C sweep (2026-06-10 session): poisoned/mislabeled entries whose
+    # finder verbs are too generic to be markers ("returns", "There is a"):
+    "2019WL1036077": ("drop", "B: real Jones v. Jones the Doe v. Roe docket number 'returns'"),
+    "639|sw3d|651": ("drop", "B: 'There is a Nandigam...' = real case; fake was typo'd 2022 WLE 1512346"),
+    "2017|nyslipop|50417": ("drop", "C: party's offered REPLACEMENT for the fakes, not a court-confirmed fake"),
+    "174|dpr|650": ("drop", "C: fabricated QUOTE, not case (same ruling/pattern as A5 Colon)"),
+    # Post-fix replay finding: CL resolves 144 Cal.App.4th 925 to cluster
+    # "Manfer v. Manfer" = In re Marriage of Manfer — real case, name
+    # matches. Charlotin's court complained of inconsistent citations, not
+    # nonexistence (A43 was misclassified as Bug 1 in the adjudication CSV).
+    "144|calapp4th|925": ("drop", "A43: In re Marriage of Manfer real (CL cluster Manfer v. Manfer)"),
+    # Real cases with a fabricated detail — future detection targets:
+    "98|f4th|1359": (
+        "relabel:charlotin_real_case_wrong_pincite",
+        "A12: Holden real; fabricated pinpoint 1371 > opinion end 1369",
+    ),
+    "225|f3d|1234": (
+        "relabel:charlotin_real_case_wrong_court",
+        "A33: Bolin v. Story real but 11th Cir., cited as 6th Cir.",
+    ),
+}
+
+
+def adjudication_for(citation: str) -> tuple[str, str] | None:
+    """(action, reason) for a manually adjudicated citation, else None.
+
+    action is "drop" or "relabel:<new label>".
+    """
+    key = _core_cite_key(citation)
+    return _ADJUDICATED.get(key) if key else None
 
 # A fabricated-citation item description usually introduces the fake with a
 # citing verb; used only for stats, not filtering.
@@ -174,6 +235,8 @@ def build() -> tuple[list[dict], dict]:
         "flagged_spans_prose": 0,
         "dup_within": 0,
         "dup_known_fakes": 0,
+        "adjudicated_drop": 0,
+        "adjudicated_relabel": 0,
     }
     for row in usa:
         for category, description in split_items(row["Hallucination Items"]):
@@ -196,6 +259,10 @@ def build() -> tuple[list[dict], dict]:
                 key = _core_cite_key(cand.citation)
                 if key is None:
                     continue
+                adj = _ADJUDICATED.get(key)
+                if adj is not None and adj[0] == "drop":
+                    stats["adjudicated_drop"] += 1
+                    continue
                 if key in seen:
                     stats["dup_within"] += 1
                     continue
@@ -203,10 +270,14 @@ def build() -> tuple[list[dict], dict]:
                     stats["dup_known_fakes"] += 1
                     continue
                 seen.add(key)
+                label = "charlotin_court_confirmed_fake"
+                if adj is not None:
+                    label = adj[0].split(":", 1)[1]
+                    stats["adjudicated_relabel"] += 1
                 corpus.append(
                     {
                         "citation": cand.citation,
-                        "label": "charlotin_court_confirmed_fake",
+                        "label": label,
                         "charlotin_case": row["Case Name"],
                         "charlotin_court": row["Court"],
                         "charlotin_date": row["Date"],

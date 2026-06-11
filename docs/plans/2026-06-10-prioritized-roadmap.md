@@ -134,6 +134,33 @@ block anything; roughly highest-value first.
 
 ## Status log
 
+- **2026-06-11 (Charlotin bugs 1–3 fixed + corpus hygiene — FP 122 → 59):**
+  Follow-up session executed the triage plan, all offline/TDD. **(1)
+  Corpus hygiene:** builder gained the retro's safe contrast markers
+  (+ appear-to-match, likely-intended from the B/C sweep) and a
+  per-entry `_ADJUDICATED` table; corpus 547 → **511** (35 dropped —
+  15 poisoned A, 10+1 mislabels incl. Manfer found post-fix, 6 B/C-sweep
+  poisonings incl. Norg/Curtis, 1 junk extraction; Holden/Bolin
+  relabeled `charlotin_real_case_wrong_pincite`/`_wrong_court` as future
+  targets). **(2) Bug 1:** parser now names NY v-without-period,
+  truncated "of X v Y", paren-led, Marriage-of/Estate-of + Cal. "(year)
+  cite", and surname-only forms (`tests/test_parser_name_forms.py`);
+  nameless lookup hits return **VERIFIED_PARTIAL + new `name_unverified`
+  warning** (policy at `_process_citation_lookup_hit`, shared
+  sync/async/batch). **(3) Bugs 2+3:** shared `_GENERIC_NAME_TOKENS`
+  guard in `_party_overlap_ok` + `_names_match_citation_lookup`;
+  all-generic/short surnames escalate to caption_investigation; acronym
+  bridge (FDIC ↔ Federal Deposit Insurance) added after the benchmark
+  replay caught the one regression. **Replay recompute: found 122 → 59
+  (57 fakes + 2 relabeled reals), zero rejected→found regressions;
+  benchmark 203/204, fallback 32/32, offline suite 527 passed.** The 57
+  remaining fake FPs ≈ 11% are: 54 Step-3 "Check Cite" class (next
+  session's design doc) + 3 nameless-but-flagged VERIFIED_PARTIALs.
+  **Needs token machine:** charlotin recorder rerun (40 INCOMPLETE: 23
+  old transients + 17 CassetteMiss from new fallback calls) and one
+  `-m live_api` pass to confirm no live drift. Details in the charlotin
+  retro "Fix session" section.
+
 - **2026-06-11 (Charlotin live run + triage — three verifier bugs found):**
   Live recording done (547 fakes, cassette 81MB committed f142dc9):
   **393 rejected (210 WRONG_CASE + 183 NOT_FOUND), 122 false positives.**

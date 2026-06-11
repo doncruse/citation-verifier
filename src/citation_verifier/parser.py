@@ -44,8 +44,27 @@ _PAREN_PATTERN = re.compile(
 # Regex for case name: "Plaintiff v. Defendant" before a citation number
 # Uses .+? (non-greedy) to stop at the citation number while still matching
 # commas, apostrophes, periods in party names like "Macy's Texas, Inc." or "D.A. Adams & Co."
-# Matches before ", <digits>" (federal) or " (<year>) <digits>" (California)
-_CASE_NAME_PATTERN = re.compile(r"^(.+?)\s+v\.\s+(.+?)(?:,\s+\d|\s+\(\d{4}\)\s+\d)")
+# Matches before ", <digits>" (federal) or " (<year>) <digits>" (California).
+# "v" may lack the period (NY style: "Harris v Seward Park Housing Corp.").
+_CASE_NAME_PATTERN = re.compile(r"^(.+?)\s+v\.?\s+(.+?)(?:,\s+\d|\s+\(\d{4}\)\s+\d)")
+
+# Non-adversarial case-name prefixes ("In re X", "Matter of X", and the
+# California family/probate styles "Marriage of X" / "Estate of X").
+# Terminates at ", <digit>" (reporter volume), ", No." (docket), or the
+# California " (<year>) <digit>" year-before-reporter style.
+_NON_ADVERSARIAL_NAME_PATTERN = re.compile(
+    r"^((?:In\s+re|Ex\s+parte|(?:In\s+the\s+)?Matter\s+of|Estate\s+of|Marriage\s+of)\s+.+?)"
+    r"(?:,\s+(?:\d|(?:Case\s+)?No\.)|\s+\(\d{4}\)\s+\d)",
+    re.IGNORECASE,
+)
+
+# Last-resort surname-only form: "Waitz, 255 Ga. 474" / "Barlow, 59 B.R. 707"
+# (usually a truncated "In re X"). Letters-only token(s) directly before
+# ", <volume> <Reporter>" — the digit-free charset keeps junk like
+# "(La. App. 4 Cir. 10/30/13), 127 So.3d 156" from matching.
+_SURNAME_ONLY_PATTERN = re.compile(
+    r"^([A-Z][A-Za-z.'’&\- ]{0,40}?),\s+\d{1,4}\s+[A-Z]"
+)
 
 # California-style year before reporter: "Case Name (2022) 76 Cal.App.5th 685"
 _CAL_YEAR_PATTERN = re.compile(r"\((\d{4})\)\s+\d")
@@ -353,8 +372,13 @@ def parse_citation(text: str) -> ParsedCitation:
             result.reporter = std_match.group(2)
             result.page = std_match.group(3)
 
+    # Name extraction works on a lightly repaired copy: a leading "(" or
+    # "[" (paren-led citations) and a leading truncated "of " (extraction
+    # lost the "Matter" of "Matter of") block the anchored patterns.
+    name_text = re.sub(r"^of\s+", "", text.lstrip("([ "))
+
     # Extract case name
-    name_match = _CASE_NAME_PATTERN.search(text)
+    name_match = _CASE_NAME_PATTERN.search(name_text)
     if name_match:
         result.plaintiff = name_match.group(1).strip()
         result.defendant = name_match.group(2).strip()
@@ -362,13 +386,13 @@ def parse_citation(text: str) -> ParsedCitation:
 
     # Fallback case name extraction: everything before ", <digits>" or the first
     # reporter citation, whichever comes first
-    if result.case_name is None and "v." in text:
-        fallback_match = re.match(r"^(.+?\s+v\.\s+.+?),\s+\d", text)
+    if result.case_name is None and re.search(r"\bv\.?\s", name_text):
+        fallback_match = re.match(r"^(.+?\s+v\.?\s+.+?),\s+\d", name_text)
         if fallback_match:
             result.case_name = fallback_match.group(1).strip()
         else:
-            # Last resort: split on " v. " and take surrounding text
-            parts = text.split(" v. ", 1)
+            # Last resort: split on " v. " / " v " and take surrounding text
+            parts = re.split(r"\s+v\.?\s+", name_text, maxsplit=1)
             if len(parts) == 2:
                 plaintiff = parts[0].strip()
                 # Defendant is everything up to the first number sequence
@@ -376,16 +400,20 @@ def parse_citation(text: str) -> ParsedCitation:
                 if plaintiff and defendant:
                     result.case_name = f"{plaintiff} v. {defendant}"
 
-    # Fallback for "In re" / "Ex parte" / "Matter of" cases (no "v.")
-    # Stop at ", <digit>" (reporter volume) or ", No." / ", Case No." (docket number)
+    # Fallback for non-adversarial names: "In re X", "Matter of X",
+    # "Estate of X", "Marriage of X" (incl. Cal. "(year) cite" style)
     if result.case_name is None:
-        in_re_match = re.match(
-            r"^((?:In\s+re|Ex\s+parte|Matter\s+of)\s+.+?)(?:,\s+(?:\d|(?:Case\s+)?No\.))",
-            text,
-            re.IGNORECASE,
-        )
+        in_re_match = _NON_ADVERSARIAL_NAME_PATTERN.match(name_text)
         if in_re_match:
             result.case_name = in_re_match.group(1).strip()
+
+    # Last resort: bare surname before the cite ("Waitz, 255 Ga. 474") —
+    # usually a truncated "In re X". Only when a citation was actually
+    # parsed, so prose strings don't grow junk names.
+    if result.case_name is None and result.volume:
+        surname_match = _SURNAME_ONLY_PATTERN.match(name_text)
+        if surname_match:
+            result.case_name = surname_match.group(1).strip()
 
     # Extract docket number before cleaning it from the case name
     docket_match = _DOCKET_NUMBER_PATTERN.search(text)
@@ -408,6 +436,9 @@ def parse_citation(text: str) -> ParsedCitation:
         result.case_name = _DOCKET_JUNK.sub("", result.case_name)
         result.case_name = _JUDGE_INITIALS.sub("", result.case_name)
         result.case_name = _TRAILING_PAREN_JUNK.sub("", result.case_name)
+        # Unbalanced close paren from paren-led citations: "In re Davis)"
+        if "(" not in result.case_name:
+            result.case_name = result.case_name.rstrip(")").rstrip()
         result.case_name = _normalize_case_name(result.case_name)
     if result.defendant:
         result.defendant = _SLIP_OPINION_JUNK.sub("", result.defendant)

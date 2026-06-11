@@ -244,13 +244,45 @@ class CitationVerifier:
         if cluster.get("nature_of_suit"):
             summary["nature_of_suit"] = cluster["nature_of_suit"]
 
+        # Nameless-hit policy (Charlotin Bug 1, 2026-06-11 triage): when
+        # there is no comparable case name on either side — the parse
+        # produced none (NY/Cal./paren-led forms the parser can't name) or
+        # CL's cluster lacks a caption — the name check below is impossible.
+        # The citation string resolved, but nothing confirmed the *case*:
+        # VERIFIED_PARTIAL + name_unverified, never blind VERIFIED@1.0.
+        if not parsed.case_name or not case_name:
+            token.resolved(
+                confidence=1.0,
+                raw_response_summary=summary,
+                notes="citation resolved; no case name available to compare",
+            )
+            return {
+                "cluster_id": cluster_id,
+                "absolute_url": url,
+                "text_source": TextSource.opinion_plain_text if cluster_id else None,
+                "warnings": [Warning(
+                    category=WarningCategory.name_unverified,
+                    message=(
+                        "The citation resolved in CourtListener's index, but no "
+                        "case name was available to compare "
+                        f"({'no name parsed from the citation' if not parsed.case_name else 'CL cluster has no caption'}). "
+                        "The cited case is unconfirmed — treat as partial verification."
+                    ),
+                    details={
+                        "cited_case_name": parsed.case_name,
+                        "cluster_case_name": case_name,
+                    },
+                )],
+                "status_override": Status.VERIFIED_PARTIAL,
+            }
+
         # Name-mismatch case: citation resolves but caption disagrees.
         # Phase 3 (Task 5): the caller runs caption_investigation to classify
         # the mismatch (formatting noise / data bug / wrong case / duplicate
         # cluster / wrong page). Token confidence stays at 1.0 because the
         # citation itself resolved cleanly; the investigation may downgrade
         # the status to WRONG_CASE but it should not pre-decide that here.
-        if parsed.case_name and case_name and not self._names_match_citation_lookup(parsed, case_name):
+        if not self._names_match_citation_lookup(parsed, case_name):
             token.resolved(
                 confidence=1.0,
                 raw_response_summary=summary,
@@ -268,28 +300,28 @@ class CitationVerifier:
         # Partial-verification check (design §2.2): primary reporter cited by
         # the brief is silently absent from CL's citation index, only the
         # parallel resolved. Status: VERIFIED_PARTIAL + silent_partial_verification.
-        if parsed.case_name and case_name and self._names_match_citation_lookup(parsed, case_name):
-            primary_present = self._cited_primary_reporter_in_cluster(parsed, cluster)
-            if not primary_present:
-                token.resolved(confidence=1.0, raw_response_summary=summary, notes="Primary reporter not in CL citation index")
-                return {
-                    "cluster_id": cluster_id,
-                    "absolute_url": url,
-                    "text_source": TextSource.opinion_plain_text if cluster_id else None,
-                    "warnings": [Warning(
-                        category=WarningCategory.silent_partial_verification,
-                        message=(
-                            f"Primary reporter '{parsed.volume} {parsed.reporter} {parsed.page}' "
-                            f"is not in CourtListener's citation index. The parallel cite "
-                            f"resolved but the primary reporter is unconfirmed."
-                        ),
-                        details={
-                            "cited_primary": f"{parsed.volume} {parsed.reporter} {parsed.page}",
-                            "cluster_citations": cluster.get("citations") or [],
-                        },
-                    )],
-                    "status_override": Status.VERIFIED_PARTIAL,
-                }
+        # (Names are present and matched — the branches above returned otherwise.)
+        primary_present = self._cited_primary_reporter_in_cluster(parsed, cluster)
+        if not primary_present:
+            token.resolved(confidence=1.0, raw_response_summary=summary, notes="Primary reporter not in CL citation index")
+            return {
+                "cluster_id": cluster_id,
+                "absolute_url": url,
+                "text_source": TextSource.opinion_plain_text if cluster_id else None,
+                "warnings": [Warning(
+                    category=WarningCategory.silent_partial_verification,
+                    message=(
+                        f"Primary reporter '{parsed.volume} {parsed.reporter} {parsed.page}' "
+                        f"is not in CourtListener's citation index. The parallel cite "
+                        f"resolved but the primary reporter is unconfirmed."
+                    ),
+                    details={
+                        "cited_primary": f"{parsed.volume} {parsed.reporter} {parsed.page}",
+                        "cluster_citations": cluster.get("citations") or [],
+                    },
+                )],
+                "status_override": Status.VERIFIED_PARTIAL,
+            }
 
         token.resolved(confidence=1.0, raw_response_summary=summary)
         return {
@@ -1776,19 +1808,41 @@ class CitationVerifier:
             "corp", "company", "corporation", "lp", "llp", "pllc", "pc",
             "limited", "holdings", "group", "intl", "international",
         })
-        # Prefix words to strip from common-prefix case names before token
-        # comparison, so "United States v. Smith" and "United States v. Johnson"
-        # don't compare only on "united"/"states" tokens.
-        _PREFIX_WORDS = frozenset({
-            "united", "states", "state", "commonwealth", "people", "government",
-            "usa", "u.s.", "u.s",
-        })
+        _GENERIC = CitationVerifier._GENERIC_NAME_TOKENS
 
         def _toks(s: str) -> set[str]:
             return {
                 t for t in re.findall(r"[a-z0-9]+", (s or "").lower())
                 if len(t) >= 3 and t not in _STOPWORDS
             }
+
+        def _initials(s: str) -> str:
+            _skip = {"the", "of", "and", "for", "in", "et", "al", "a", "an"}
+            words = [
+                w for w in re.findall(r"[a-z0-9]+", (s or "").lower())
+                if w not in _skip
+            ]
+            return "".join(w[0] for w in words)
+
+        def _acronym_bridge(cited_party: str, cand_sides: list[str]) -> bool:
+            # An all-caps cited party ("FDIC") matches a candidate side
+            # whose word-initials line up with it. Prefix-tolerant in both
+            # directions because CL display captions truncate ("...Federal
+            # Deposit Insurance" -> "fdi") and case_name_full appends extra
+            # parties ("... CORPORATION, a United States Corporation, and
+            # Harold E. Bray ..." -> "fdicausc...").
+            acrs = {
+                t.lower() for t in re.findall(r"\b[A-Z]{3,8}\b", cited_party or "")
+            } - CitationVerifier._GENERIC_NAME_TOKENS
+            if not acrs:
+                return False
+            for side in cand_sides:
+                ini = _initials(side)
+                if len(ini) >= 3 and any(
+                    a.startswith(ini) or ini.startswith(a) for a in acrs
+                ):
+                    return True
+            return False
 
         # Common-prefix detection (United States v. X, State v. X, etc.)
         cited_lower = parsed.case_name.lower()
@@ -1805,20 +1859,28 @@ class CitationVerifier:
         candidate_toks = _toks(candidate_caption)
 
         if is_common_prefix:
-            # Distinctive-word overlap only; strip the common prefix tokens
-            # from both sides so "United States v. Smith" and "United States
-            # v. Johnson" don't falsely match on "united"/"states".
-            cited_distinctive = cited_caption_toks - _PREFIX_WORDS
-            cand_distinctive = candidate_toks - _PREFIX_WORDS
+            # Distinctive-word overlap only; strip generic tokens from both
+            # sides so "State v. Nye County" and "State v. Eighth Judicial
+            # District Court ... County of Clark" don't falsely match on
+            # "state"/"county" (Charlotin Bug 2).
+            cited_distinctive = cited_caption_toks - _GENERIC
+            cand_distinctive = candidate_toks - _GENERIC
             # For "In re" cases there may be no "v." so compare full distinctive tokens.
             return bool(cited_distinctive & cand_distinctive)
 
-        # Regular case: separate plaintiff vs defendant.
-        cited_plaintiff_toks = _toks(parsed.plaintiff or "")
-        cited_defendant_toks = _toks(parsed.defendant or "")
+        # Regular case: separate plaintiff vs defendant. Only DISTINCTIVE
+        # tokens count as overlap evidence; a side whose tokens are all
+        # generic is vacuous (Koch v. United States ≈ Ricky Koch v. Tote:
+        # "koch" carries the match, "United States" abstains). When NEITHER
+        # side has a distinctive token there is no evidence at all — fail
+        # ("Inc. v. United States" must not pass via Johns-Manville's
+        # "United States"; Charlotin Bug 2).
+        cited_plaintiff_toks = _toks(parsed.plaintiff or "") - _GENERIC
+        cited_defendant_toks = _toks(parsed.defendant or "") - _GENERIC
         if not (cited_plaintiff_toks or cited_defendant_toks):
-            # Couldn't extract parties — fall back to full overlap.
-            return bool(cited_caption_toks & candidate_toks)
+            # No distinctive party tokens — fall back to distinctive tokens
+            # of the full caption (covers surname-only parses like "Waitz").
+            return bool((cited_caption_toks - _GENERIC) & candidate_toks)
 
         # Split the candidate caption on " v. " (or " v "); both sides matter.
         cand_lower = (candidate_caption or "").lower()
@@ -1829,13 +1891,19 @@ class CitationVerifier:
         if cand_left or cand_right:
             # Match in EITHER direction (party swap tolerated): at least
             # one plaintiff-side hit and one defendant-side hit, but the
-            # "sides" don't have to line up.
+            # "sides" don't have to line up. A side with no distinctive
+            # tokens is vacuous; a missed side gets one more chance via the
+            # acronym bridge (FDIC ↔ Federal Deposit Insurance ...).
             all_cand = cand_left | cand_right
             plaintiff_hit = bool(cited_plaintiff_toks & all_cand) if cited_plaintiff_toks else True
             defendant_hit = bool(cited_defendant_toks & all_cand) if cited_defendant_toks else True
+            if not plaintiff_hit:
+                plaintiff_hit = _acronym_bridge(parsed.plaintiff or "", parts)
+            if not defendant_hit:
+                defendant_hit = _acronym_bridge(parsed.defendant or "", parts)
             return plaintiff_hit and defendant_hit
 
-        return bool(cited_caption_toks & candidate_toks)
+        return bool((cited_caption_toks - _GENERIC) & candidate_toks)
 
     @staticmethod
     def _captions_differ_only_in_formatting(a: str, b: str) -> bool:
@@ -2122,6 +2190,32 @@ class CitationVerifier:
         "associated", "consolidated", "independent", "community",
     })
 
+    # Shared generic-token guard (Charlotin Bugs 2+3, 2026-06-11 triage):
+    # tokens that must never, on their own, establish that two captions
+    # name the same case. Used by _party_overlap_ok (caption_investigation)
+    # and _names_match_citation_lookup. Superset of
+    # _NONDISTINCTIVE_SURNAMES; evidence: "Inc. v. United States" ≈
+    # Johns-Manville (shared "United States"), "State v. Nye County" ≈
+    # State v. Eighth Judicial District (shared "State"/"County"),
+    # "In re SunEdison, Inc." ≈ Wal-Mart Stores (shared "Inc."),
+    # "Kelly v. St. Francis" ≈ St. Jude Medical (shared "St.").
+    _GENERIC_NAME_TOKENS = _NONDISTINCTIVE_SURNAMES | frozenset({
+        # government parties
+        "states", "usa", "government", "people", "commonwealth",
+        # corporate suffixes
+        "inc", "llc", "ltd", "corp", "corporation", "company", "co",
+        "lp", "llp", "pllc", "limited", "holdings", "group",
+        # case-style boilerplate
+        "sec", "litig", "litigation", "matter", "estate", "marriage",
+        "medical",
+        # geographic / institutional modifiers
+        "county", "city", "town", "village", "district", "court",
+        "judicial", "north", "south", "east", "west", "midwest",
+        "northwest", "southwest", "northeast", "southeast",
+        # honorific / abbreviation fragments
+        "st", "saint", "mut",
+    })
+
     def _names_match_citation_lookup(self, parsed: ParsedCitation, cl_case_name: str) -> bool:
         """Lenient name check for citation-lookup matches.
 
@@ -2146,7 +2240,7 @@ class CitationVerifier:
             words = [w.rstrip(",.") for w in parsed.case_name.lower().split() if len(w) > 2]
             distinctive = [
                 w for w in words
-                if w not in _skip and w not in self._NONDISTINCTIVE_SURNAMES
+                if w not in _skip and w not in self._GENERIC_NAME_TOKENS
             ]
             if not distinctive:
                 return True  # nothing to check, trust citation lookup
@@ -2186,10 +2280,16 @@ class CitationVerifier:
             # CL also has a generic-government defendant — compare plaintiff tokens.
             cited_plaintiff = (parsed.plaintiff or cited_lower.split(" v")[0]).lower()
             cited_plaintiff_norm = re.sub(r"[^a-z0-9 ]+", "", cited_plaintiff).strip()
-            tokens = [t for t in re.findall(r"[a-z0-9]+", cited_plaintiff_norm) if len(t) >= 3]
+            tokens = [
+                t for t in re.findall(r"[a-z0-9]+", cited_plaintiff_norm)
+                if len(t) >= 3 and t not in self._GENERIC_NAME_TOKENS
+            ]
             if tokens:
                 return any(t in cl_lower for t in tokens)
-            return True  # no distinctive tokens; trust citation lookup
+            # No distinctive plaintiff tokens ("Co. v. United States") —
+            # don't blind-trust; escalate to caption_investigation
+            # (Charlotin Bug 3, A36).
+            return False
 
         # For regular cases, extract surnames from cited parties
         cited_surnames = []
@@ -2203,11 +2303,19 @@ class CitationVerifier:
         if not cited_surnames:
             return True  # nothing to check against
 
-        # Filter out common generic first-words (e.g. "American", "National")
-        # that cause false matches against unrelated organization names
-        distinctive = [s for s in cited_surnames if s not in self._NONDISTINCTIVE_SURNAMES]
+        # Filter out generic first-words (e.g. "American", "St.", "Midwest")
+        # that cause false matches against unrelated organization names,
+        # and 1-2 char fragments ("NY") whose substring containment is noise
+        distinctive = [
+            s for s in cited_surnames
+            if len(s) >= 3 and s not in self._GENERIC_NAME_TOKENS
+        ]
         if not distinctive:
-            return True  # all words too generic, trust citation lookup
+            # All extracted surnames are generic ("Nat'l Bank ..." v.
+            # "Midwest Agri-Dev.") — don't blind-trust; escalate to
+            # caption_investigation, which compares full-name tokens
+            # (Charlotin Bug 3, A35).
+            return False
 
         # At least one distinctive surname must appear in the CL case name
         return any(name in cl_lower for name in distinctive)

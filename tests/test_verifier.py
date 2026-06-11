@@ -343,6 +343,247 @@ class TestStep1NameMismatch:
 
 
 # ---------------------------------------------------------------------------
+# Step 1: generic-token guard (Charlotin Bugs 2+3, 2026-06-11 triage)
+# ---------------------------------------------------------------------------
+
+
+class TestGenericTokenGuard:
+    """Generic tokens ("United States", "State", "St.", "Inc.", "Co.",
+    "County", ...) must not, on their own, establish party overlap — in
+    caption_investigation (Bug 2) or in the lenient citation-lookup name
+    matcher (Bug 3). Shapes are the adjudicated Charlotin FPs."""
+
+    @staticmethod
+    def _lookup_client(cl_case_name, **extra):
+        return _make_client(
+            citation_lookup=[
+                {
+                    "clusters": [
+                        {
+                            "case_name": cl_case_name,
+                            "id": 999,
+                            "absolute_url": "/opinion/999/",
+                        }
+                    ]
+                }
+            ],
+            **extra,
+        )
+
+    # --- Bug 2: caption_investigation _party_overlap_ok ---
+
+    def test_generic_united_states_overlap_rejected(self):
+        """A9: 'Inc. v. United States' has no distinctive token; sharing
+        'United States' with Johns-Manville is not overlap."""
+        client = self._lookup_client("Johns-Manville Corp. v. United States")
+        v = CitationVerifier(client)
+        result = v.verify("Inc. v. United States, 12 Cl. Ct. 33 (1987)")
+        assert result.status == Status.WRONG_CASE
+
+    def test_generic_state_county_overlap_rejected(self):
+        """A45: 'State v. Nye County' vs the Eighth Judicial District
+        caption shares only 'State'/'County'."""
+        client = self._lookup_client(
+            "State v. Eighth Judicial District Court of the State of "
+            "Nevada ex rel. County of Clark"
+        )
+        v = CitationVerifier(client)
+        result = v.verify("State v. Nye County, 129 Nev. 521 (2013)")
+        assert result.status == Status.WRONG_CASE
+
+    def test_judge_name_in_opinion_head_not_overlap(self):
+        """A11: the opinion head names the judge (Marcy S. Friedman, J.)
+        and 'New York County' — neither is party-overlap evidence for
+        'Friedman v. Southern New Hampshire University'."""
+        client = self._lookup_client(
+            "Pietropinto v. Benjamin",
+            get_cluster={"case_name_full": "Laura J. Pietropinto v. Raschell Benjamin"},
+            get_opinion_text=(
+                "Order, Supreme Court, New York County (Marcy S. Friedman, J.), "
+                "entered July 18, 2012, which, upon reargument, in this action "
+                "for personal injuries allegedly sustained when plaintiff "
+                "pedestrian was struck by defendant's vehicle..."
+            ),
+        )
+        v = CitationVerifier(client)
+        result = v.verify(
+            "Friedman v. Southern New Hampshire University, "
+            "104 A.D. 3d 617 (N.Y. App. Div. 2013)"
+        )
+        assert result.status == Status.WRONG_CASE
+
+    # --- Bug 3: _names_match_citation_lookup leniency ---
+
+    def test_generic_inc_token_not_a_lookup_match(self):
+        """A7: 'In re SunEdison, Inc. Sec. Litig.' must not match
+        Wal-Mart Stores via the shared 'Inc.'."""
+        client = self._lookup_client(
+            "Wal-Mart Stores, Inc. v. City of Pontiac General "
+            "Employees' Retirement System"
+        )
+        v = CitationVerifier(client)
+        result = v.verify(
+            "In re SunEdison, Inc. Sec. Litig., 314 F.R.D. 139, 143 (S.D.N.Y. 2016)"
+        )
+        assert result.status == Status.WRONG_CASE
+
+    def test_generic_co_token_not_a_lookup_match(self):
+        """A3: 'In re Amica Mut. Ins. Co.' must not match Leto v. Amrex
+        Chemical Co. via the shared 'Co.'."""
+        client = self._lookup_client("Leto v. Amrex Chemical Co.")
+        v = CitationVerifier(client)
+        result = v.verify("In re Amica Mut. Ins. Co., 85 A.D.3d 1510 (3rd Dept. 2011)")
+        assert result.status == Status.WRONG_CASE
+
+    def test_st_prefix_not_a_lookup_match(self):
+        """A27: 'Kelly v. St. Francis Medical Center' must not match
+        St. Jude Medical via the 'St.' surname."""
+        client = self._lookup_client("St. Jude Medical, Inc. v. Carter")
+        v = CitationVerifier(client)
+        result = v.verify(
+            "Kelly v. St. Francis Medical Center, 899 N.W.2d 869 (Neb. 2017)"
+        )
+        assert result.status == Status.WRONG_CASE
+
+    def test_generic_only_plaintiff_with_us_defendant_rejected(self):
+        """A36: 'Co. v. United States' (truncated plaintiff) must not
+        blind-trust through the generic-defendant-suffix branch."""
+        client = self._lookup_client("Salz v. United States")
+        v = CitationVerifier(client)
+        result = v.verify("Co. v. United States, 157 Ct. Cl. 196, 206 (1962)")
+        assert result.status == Status.WRONG_CASE
+
+    def test_medical_and_short_surnames_not_a_lookup_match(self):
+        """'Medical Transport v. NY State Dept of Health' must not match
+        Liberty Mutual/Spine Americare Medical via the generic 'medical'
+        surname or the 2-char 'NY' substring."""
+        client = self._lookup_client(
+            "Liberty Mutual Insurance v. Spine Americare Medical, P.C."
+        )
+        v = CitationVerifier(client)
+        result = v.verify(
+            "of Medical Transport v NY State Dept of Health, "
+            "294 A.D.2d 574 (2d Dept 2002)"
+        )
+        assert result.status == Status.WRONG_CASE
+
+    def test_all_generic_surnames_escalate_to_investigation(self):
+        """A35: when both extracted surnames are generic ('National',
+        'Midwest'), the lookup matcher must escalate instead of trusting —
+        investigation then compares full-name tokens and rejects."""
+        client = self._lookup_client("Midwest Precision Services, Inc. v. PTM Industries Corp.")
+        v = CitationVerifier(client)
+        result = v.verify(
+            "Nat'l Bank of Paris v. Midwest Agri-Dev. Corp., "
+            "887 F.2d 1128, 1134 (7th Cir. 1989)"
+        )
+        assert result.status == Status.WRONG_CASE
+
+    # --- positive guards: distinctive overlap still verifies ---
+
+    def test_distinctive_plaintiff_with_generic_defendant_still_verifies(self):
+        """Koch shape: 'Koch v. United States' vs 'Ricky Koch v. Tote
+        Services' — distinctive plaintiff overlap carries the match."""
+        client = self._lookup_client("Ricky Koch v. Tote Services, Inc.")
+        v = CitationVerifier(client)
+        result = v.verify("Koch v. United States, 857 F.3d 1000 (11th Cir. 2017)")
+        assert result.status == Status.VERIFIED
+        assert any(
+            w.category == WarningCategory.cl_display_name_data_bug
+            for w in result.warnings
+        )
+
+    def test_distinctive_county_case_still_verifies(self):
+        """'Riley v. City of Tupelo' vs longer CL caption: 'city' is
+        generic but 'riley'/'tupelo' carry the match."""
+        client = self._lookup_client("Riley v. City of Tupelo, Mississippi")
+        v = CitationVerifier(client)
+        result = v.verify("Riley v. City of Tupelo, 100 F.3d 200 (N.D. Miss. 2020)")
+        assert result.status == Status.VERIFIED
+
+    def test_acronym_party_still_verifies(self):
+        """Benchmark guard (St. Louis Baptist Temple v. FDIC): a cited
+        all-caps acronym must overlap with CL's spelled-out caption —
+        even CL's TRUNCATED display caption ('...Federal Deposit
+        Insurance', initials 'fdi' vs acronym 'fdic'). Before the
+        generic-token guard this passed via the generic 'st' substring —
+        right answer, wrong reason."""
+        client = self._lookup_client(
+            # Real CL display caption — truncated, no "Corporation".
+            "St. Louis Baptist Temple, Inc. v. Federal Deposit Insurance"
+        )
+        v = CitationVerifier(client)
+        result = v.verify(
+            "St. Louis Baptist Temple, Inc. v. FDIC, 605 F.2d 1169 (10th Cir. 1979)"
+        )
+        assert result.status == Status.VERIFIED
+
+
+# ---------------------------------------------------------------------------
+# Step 1: Citation Lookup — nameless-hit policy (Charlotin Bug 1, 2026-06-11)
+# ---------------------------------------------------------------------------
+
+
+class TestNamelessLookupPolicy:
+    """A lookup hit with no comparable case name must not blind-VERIFY at
+    1.0: the citation string resolved, but nothing confirmed the *case*.
+    Policy: VERIFIED_PARTIAL + name_unverified warning."""
+
+    _LOOKUP = {
+        "citation_lookup": [
+            {
+                "clusters": [
+                    {
+                        "case_name": "State v. Duplantis",
+                        "id": 4996210,
+                        "absolute_url": "/opinion/4996210/state-v-duplantis/",
+                    }
+                ]
+            }
+        ]
+    }
+
+    def test_nameless_parse_returns_verified_partial_with_warning(self):
+        client = _make_client(**self._LOOKUP)
+        v = CitationVerifier(client)
+        # La. App. paren-led form: no case name is recoverable from the text.
+        result = v.verify("(La. App. 4 Cir. 10/30/13), 127 So.3d 156")
+
+        assert result.status == Status.VERIFIED_PARTIAL
+        assert any(
+            w.category == WarningCategory.name_unverified for w in result.warnings
+        )
+        assert result.final_ids.cluster_id == 4996210
+
+    def test_empty_cluster_case_name_returns_verified_partial(self):
+        client = _make_client(
+            citation_lookup=[
+                {"clusters": [{"case_name": "", "id": 555, "absolute_url": ""}]}
+            ]
+        )
+        v = CitationVerifier(client)
+        result = v.verify("Smith v. Jones, 100 F.3d 200 (2d Cir. 2020)")
+
+        assert result.status == Status.VERIFIED_PARTIAL
+        assert any(
+            w.category == WarningCategory.name_unverified for w in result.warnings
+        )
+        assert result.final_ids.cluster_id == 555
+
+    def test_warning_details_carry_both_names(self):
+        client = _make_client(**self._LOOKUP)
+        v = CitationVerifier(client)
+        result = v.verify("(La. App. 4 Cir. 10/30/13), 127 So.3d 156")
+
+        w = next(
+            w for w in result.warnings
+            if w.category == WarningCategory.name_unverified
+        )
+        assert w.details.get("cluster_case_name") == "State v. Duplantis"
+        assert w.details.get("cited_case_name") is None
+
+
+# ---------------------------------------------------------------------------
 # Step 2: Opinion search fallback
 # ---------------------------------------------------------------------------
 
@@ -2285,7 +2526,10 @@ class TestResolutionPathShape:
         verifier = CitationVerifier(client=client)
         result = verifier.verify("100 U.S. 1 (2020)")
 
-        assert result.status == Status.VERIFIED
+        # Nameless citation: lookup resolves the cite string, but the
+        # Bug-1 policy (2026-06-11) caps the status at VERIFIED_PARTIAL
+        # because no case name was available to compare.
+        assert result.status == Status.VERIFIED_PARTIAL
         assert len(result.resolution_path) == 1
         entry = result.resolution_path[0]
         assert entry.stage == StageName.citation_lookup

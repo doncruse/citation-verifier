@@ -1415,6 +1415,36 @@ class TestBatchPathShape:
 # ---------------------------------------------------------------------------
 
 
+class TestNamelessLookupPolicyParity:
+    """Charlotin Bug 1 policy: nameless lookup hit → VERIFIED_PARTIAL +
+    name_unverified, identical across sync and async paths."""
+
+    def test_parity_nameless_lookup_hit(self):
+        api = {
+            "citation_lookup": [
+                {
+                    "clusters": [
+                        {
+                            "case_name": "State v. Duplantis",
+                            "id": 4996210,
+                            "absolute_url": "/opinion/4996210/state-v-duplantis/",
+                        }
+                    ]
+                }
+            ]
+        }
+        sync_result, async_result = _verify_parity(
+            api, "(La. App. 4 Cir. 10/30/13), 127 So.3d 156"
+        )
+        for result in (sync_result, async_result):
+            assert result.status == Status.VERIFIED_PARTIAL
+            assert any(
+                w.category == WarningCategory.name_unverified
+                for w in result.warnings
+            )
+            assert result.final_ids.cluster_id == 4996210
+
+
 class TestVerifiedPartial:
     """Phase 3: silent partial verification (design §2.2 VERIFIED_PARTIAL).
     Async parity per design v2 §1."""
