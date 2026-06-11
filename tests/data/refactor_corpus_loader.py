@@ -53,6 +53,9 @@ class Fixture:
     expected_warnings_exact: bool = False
     phase3_ruling: str | None = None
     phase4_ruling: str | None = None
+    # Tier 1 FP-tightening era (2026-06): re-adjudications after the
+    # Lever 1-3 / Step 4 gates and the Charlotin bug fixes.
+    tier1_ruling: str | None = None
 
 
 def load_corpus(path: Path | None = None) -> tuple[dict[str, Any], list[Fixture]]:

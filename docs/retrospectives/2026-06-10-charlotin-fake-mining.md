@@ -275,6 +275,41 @@ opinion searches not in the cassette → INCOMPLETE (10 total). **One
 more recorder rerun** (same resume command) settles them; expect
 Kennedy/James to return as Step-3-class finds.
 
+(Second resume run settled all 6: Kaszovitz/Bauer/Pine/Stadtlander →
+NOT_FOUND, Kennedy → VERIFIED 0.825 (the predicted Step-3 find), James
+→ WRONG_CASE — better than its pre-fix 0.87 FP. **Final: 67/511 found
+= 65 fake FPs (12.7%) + Holden/Bolin relabels.** 4 stubborn transients
+remain: Shapiro, Frey, Gonzalez/CoreCivic, Chavez — bracket/asterisk
+junk in the citation strings repeatedly errors live.)
+
+### `-m live_api` triage — DONE (2026-06-11)
+
+Full live suite after the session's changes: **14 failures, all in the
+Phase-3 acceptance corpus; the headline corpora held** (19 fakes
+rejected, 14 curated reals found). Adjudication, with a worktree A/B
+against pre-session code (7c0f4e0) for the persistent five — **none is
+a regression from this session**:
+
+- **Transients (2): Campbell, Hersko** — pass on a clean re-run. Cause:
+  the suite ran concurrently with the charlotin recorder, and the two
+  competed for the rate-limited API. Lesson: don't run two live API
+  consumers at once. (Campbell now resolves at 0.9 with the exact
+  pinned cluster via the new nyappdiv filter.)
+- **Stale fixtures (3), updated with `tier1_ruling` notes:**
+  gibbs-wright → NOT_FOUND (the Lever-1 RECAP gates delivered the
+  tightening its own phase3_ruling asked for); iglesias-hialeah →
+  NOT_FOUND (Step-4 state gate; restores the original benchmark
+  classification); michael-b-berryhill → VIA_RECAP on docket 13436892
+  (RECAP data drift, stable across three runs).
+- **Real findings (2), fixtures deliberately NOT updated:**
+  sundown-energy and viken-detection are REAL cases the June-9 Lever 2
+  party-mismatch penalty turned into false negatives (viken is the
+  Rule 25(d) fixture — the penalty is structurally blind to party
+  substitution; sundown is compounded by `_DOCKET_JUNK` stripping
+  ", No. 3" from the party name). Logged in `scratch/TODO.md`
+  Priority 1; the acceptance suite stays red on these two until the
+  accept-vs-refine decision is made.
+
 ## Notes / limitations
 
 - Labels are Charlotin's (court-confirmed per the rulings), not ours; the

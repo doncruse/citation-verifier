@@ -306,12 +306,12 @@
     {
       "id": "not-found-gibbs-wright",
       "citation": "Gibbs v. Wright, 2020 WL 1877661, at *2 (E.D. Tenn. Apr. 15, 2020)",
-      "expected_status": "VERIFIED_DOCKET_ONLY",
-      "expected_resolving_stage": "recap_docket_search",
+      "expected_status": "NOT_FOUND",
+      "expected_resolving_stage": null,
       "expected_final_ids": {
         "cluster_id": null,
         "opinion_id": null,
-        "docket_id": 28273838,
+        "docket_id": null,
         "recap_document_id": null,
         "text_source": null
       },
@@ -321,7 +321,8 @@
       "category": "hallucinated_case",
       "phase3_classification_open": false,
       "mock_spec": null,
-      "phase3_ruling": "Phase 3 finding: recap_docket_search returns a docket (28273838) on a fuzzy name+date match even though the cite is hallucinated. The verifier's RECAP rescue is too lenient on confirmed-fake citations. Reclassified NOT_FOUND -> VERIFIED_DOCKET_ONLY to match current behavior; flagged for follow-up (Phase 4 may tighten the recap_docket_search match threshold or require an opinion-typed doc to escape NOT_FOUND)."
+      "phase3_ruling": "Phase 3 finding: recap_docket_search returns a docket (28273838) on a fuzzy name+date match even though the cite is hallucinated. The verifier's RECAP rescue is too lenient on confirmed-fake citations. Reclassified NOT_FOUND -> VERIFIED_DOCKET_ONLY to match current behavior; flagged for follow-up (Phase 4 may tighten the recap_docket_search match threshold or require an opinion-typed doc to escape NOT_FOUND).",
+      "tier1_ruling": "2026-06-11: restored to NOT_FOUND. The Tier 1 Lever 1 RECAP hard gates (2026-06-09) delivered exactly the tightening the phase3_ruling asked for: this confirmed-fake WL cite no longer rescues via a fuzzy docket match. Confirmed identical on pre-Charlotin-session code (7c0f4e0), so the change came from the lever work, not the Charlotin fixes. docket_id unpinned (NOT_FOUND may surface a drifting best-candidate docket; the live one moved 28273838 -> 68021372)."
     },
     {
       "id": "not-found-terry-blacks-bbq",
@@ -384,12 +385,12 @@
     {
       "id": "verified-docket-only-iglesias-hialeah",
       "citation": "Iglesias v. City of Hialeah, 305 So. 3d 20 (Fla. Dist. Ct. App. 2020)",
-      "expected_status": "VERIFIED_DOCKET_ONLY",
-      "expected_resolving_stage": "recap_docket_search",
+      "expected_status": "NOT_FOUND",
+      "expected_resolving_stage": null,
       "expected_final_ids": {
         "cluster_id": null,
         "opinion_id": null,
-        "docket_id": 16327411,
+        "docket_id": null,
         "recap_document_id": null,
         "text_source": null
       },
@@ -399,7 +400,8 @@
       "category": "rescue_was_false_positive",
       "phase3_classification_open": false,
       "mock_spec": null,
-      "phase3_ruling": "Phase 3 finds RECAP docket 16327411 for this state appellate case (filed as a federal habeas matter). No opinion-typed doc on cited date. Reclassified NOT_FOUND -> VERIFIED_DOCKET_ONLY: the rationale that pre-Phase-3 fallback was a false positive was itself wrong \u2014 the RECAP docket does exist."
+      "phase3_ruling": "Phase 3 finds RECAP docket 16327411 for this state appellate case (filed as a federal habeas matter). No opinion-typed doc on cited date. Reclassified NOT_FOUND -> VERIFIED_DOCKET_ONLY: the rationale that pre-Phase-3 fallback was a false positive was itself wrong \u2014 the RECAP docket does exist.",
+      "tier1_ruling": "2026-06-11: restored to NOT_FOUND (the original benchmark classification). The Tier 1 Step 4 state-court gate (2026-06-10, _is_state_court_citation) deliberately blocks RECAP for state citations \u2014 So. 3d is a regional reporter, so this Fla. appellate cite never reaches the federal docket the phase3_ruling matched. Confirmed identical on pre-Charlotin-session code (7c0f4e0)."
     },
     {
       "id": "verified-rule-25d-gilliard-mcwilliams",
@@ -467,12 +469,12 @@
     {
       "id": "verified-ssa-pseudonym-michael-b-berryhill",
       "citation": "Michael B. v. Berryhill, 2019 WL 2269962",
-      "expected_status": "VERIFIED_DOCKET_ONLY",
+      "expected_status": "VERIFIED_VIA_RECAP",
       "expected_resolving_stage": "recap_docket_search",
       "expected_final_ids": {
         "cluster_id": null,
         "opinion_id": null,
-        "docket_id": 6485557,
+        "docket_id": 13436892,
         "recap_document_id": null,
         "text_source": null
       },
@@ -483,7 +485,8 @@
       "phase3_classification_open": false,
       "mock_spec": null,
       "phase3_ruling": "opinion_search resolves at score 0.4671 just above threshold, then recap_docket_search outscores it. Final classification: VERIFIED_DOCKET_ONLY. The cl_display_name_data_bug warning doesn't fire because caption_investigation only runs when citation_lookup resolves with a name mismatch \u2014 opinion_search-resolved divergences don't currently trigger the warning. Logged as a Phase 4 follow-up.",
-      "phase4_ruling": "Task 5 fix does not recover cl_display_name_data_bug for this fixture: still resolves via opinion_search rather than citation_lookup (citation_lookup returns no_match), so caption_investigation does not fire. Out of Phase 4 scope (Phase 5+ candidate: opinion_search divergence-detection plumbing)."
+      "phase4_ruling": "Task 5 fix does not recover cl_display_name_data_bug for this fixture: still resolves via opinion_search rather than citation_lookup (citation_lookup returns no_match), so caption_investigation does not fire. Out of Phase 4 scope (Phase 5+ candidate: opinion_search divergence-detection plumbing).",
+      "tier1_ruling": "2026-06-11: RECAP data drift \u2014 a different docket (13436892, with a 2018-02-20 Report and Recommendations doc) now outranks the previously pinned 6485557, upgrading DOCKET_ONLY -> VERIFIED_VIA_RECAP. Stable across three live runs and identical on pre-Charlotin-session code (7c0f4e0). Re-pinned to current live reality; the ssa_pseudonym rationale (same case, pseudonymized caption) is unchanged."
     },
     {
       "id": "verified-ssa-pseudonym-john-s-bisignano",

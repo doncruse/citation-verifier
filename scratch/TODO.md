@@ -38,6 +38,33 @@ Extracted 7 shared helpers (`_process_citation_lookup_hit`, `_check_adjacent_pag
 
 ## Priority 1 — Bugs (wrong results)
 
+### Lever 2 false-negative cost: party-substitution reals now NOT_FOUND (found 2026-06-11)
+The June-9 Lever 2 party-mismatch penalty + no-corroboration cap turned two
+REAL cases in the Phase-3 acceptance corpus into false negatives. Invisible
+until the 19-min live acceptance suite was finally re-run (the fake/real
+corpora were re-run after each lever; this suite wasn't). Confirmed
+pre-Charlotin-session behavior via worktree A/B at 7c0f4e0 — not the
+2026-06-11 fixes.
+
+- **`verified-rule-25d-viken-detection`** — `Viken Detection Corp. v. Doe,
+  2019 WL 5268725` → NOT_FOUND at 0.2947. CL has the same case as "Viken
+  Detection Corporation v. Bradshaw" (Rule 25(d)-style substitution);
+  "Doe" ≠ "Bradshaw" fires the party penalty. But party substitution is
+  exactly what Rule 25(d) cases look like — the penalty is structurally
+  blind to it.
+- **`verified-sundown-energy-fallback`** — `Sundown Energy LP v. HJSA
+  No. 3, L.P., 622 S.W.3d 884 (Tex. 2021)` → NOT_FOUND at 0.39 (the cap
+  value). Compounding parser issue: `_DOCKET_JUNK` strips ", No. 3" from
+  the case name, so the search query is "Sundown Energy LP v. HJSA, L.P."
+  and the real Tex. 2021 case isn't even in the candidate pool.
+
+Decide: accept as FP-work cost, or refine — candidate levers: (a) WL/cite
+corroboration should soften the party *penalty*, not just escape the cap
+(Viken's WL number is corroborable); (b) exempt "No. <digit>" inside party
+names from `_DOCKET_JUNK` (Sundown); (c) substitution-aware defendant
+matching. Fixtures left UNCHANGED (still expect VERIFIED) so the
+acceptance suite keeps failing loudly until this is decided.
+
 ### Phase 3 Task 4: narrow VIA_RECAP false-positive on "Motion for ... Opinion" descriptions
 Filed by Task 4 code-quality review (2026-05-22). `_recap_doc_is_cited_opinion` removed `"motion for"` from `_PROCEDURAL_KEYWORDS` because it would block legitimate `"OPINION on motion for reconsideration"` (false negative). Reciprocal gap: a PACER doc described as `"MOTION FOR RECONSIDERATION OF OPINION"` now matches the `"opinion"` keyword and the procedural filter doesn't fire — yielding false VIA_RECAP. In practice these descriptions exist but are uncommon, and the date ±14 day gate provides a partial backstop. Hardening option: add `"motion for reconsideration"` as a specific compound to `_PROCEDURAL_KEYWORDS`, or anchor `"motion for"` to start-of-description. Phase 4 or later.
 
