@@ -212,7 +212,7 @@
     "cluster_id": 8921487,
     "docket_id": null,
     "confidence": 1.0,
-    "winning_stage": "citation_lookup",
+    "winning_stage": "caption_investigation",
     "expected_cluster_id": 8921487
   },
   "Muldrow v. City of St. Louis, 601 U.S. 346 (U.S. 2024)": {
@@ -620,7 +620,7 @@
     "cluster_id": 8921487,
     "docket_id": null,
     "confidence": 1.0,
-    "winning_stage": "citation_lookup",
+    "winning_stage": "caption_investigation",
     "expected_cluster_id": 8921487
   },
   "Muldrow v. City of St. Louis, 601 U.S. 346 (2024)": {

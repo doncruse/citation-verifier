@@ -3763,14 +3763,17 @@ class TestContradictionCap:
 
 
 class TestCorroborationSkipsPartyPenalty:
-    """Lever (a1) of the Check Cite design (2026-06-11 §6): an exact cited
-    WL/reporter-cite or docket-number match on the candidate record is
-    near-dispositive identity evidence. When it is present, the Lever-2
-    party-mismatch *penalty* is skipped (previously corroboration only
-    escaped the *cap*), so Rule 25(d)-style party substitutions on a
-    corroborated record resolve. The party-mismatch diagnostic still fires
-    for transparency. Wrong-court shapes below are chosen so the penalized
-    score falls below threshold without the lever."""
+    """Lever (a1) of the Check Cite design (2026-06-11 §6), narrowed after
+    the Charlotin replay: an exact cited WL/reporter-CITE match on the
+    candidate record is near-dispositive identity evidence (reporter cites
+    and WL numbers are globally unique). When it is present, the Lever-2
+    party-mismatch *penalty* is skipped, so Rule 25(d)-style party
+    substitutions on a cite-corroborated record resolve. A DOCKET-number
+    match does NOT skip the penalty -- docket numbers are reused across
+    districts and the recap_document_search path searches by docket number
+    (circular). The party-mismatch diagnostic still fires for transparency.
+    Wrong-court shapes below are chosen so the penalized score falls below
+    threshold without the lever."""
 
     def _scorer(self):
         return CitationVerifier(_make_client())
@@ -3788,18 +3791,26 @@ class TestCorroborationSkipsPartyPenalty:
         )
         assert score >= _VERIFIED_SCORE_THRESHOLD
 
-    def test_docket_corroboration_skips_party_penalty(self):
+    def test_docket_corroboration_does_not_skip_party_penalty(self):
+        """Narrowed (2026-06-11): a docket-number match no longer skips the
+        penalty. Reconstructs the Charlotin FP 'Lee v. United States, No.
+        1:23-cv-84' -> MOTE v. United States (same docket number, different
+        district) -- a fabricated cite that resurfaced when docket
+        corroboration skipped the penalty. With only a docket match (no cite
+        on the record) and a full party mismatch, the score must stay below
+        threshold."""
         v = self._scorer()
+        # Real Charlotin cite shape (no court parenthetical -> court is not
+        # evaluable, so a coincidental docket + date can't be propped up by a
+        # phantom court credit).
         parsed = parse_citation(
-            "Acme Widgets Corp. v. Johnson, No. 19-cv-12034, 2019 WL 5268725 "
-            "(D. Mass. Oct. 16, 2019)"
+            "Lee v. United States, No. 1:23-cv-84, 2023 WL 2505510"
         )
-        result = {"docketNumber": "1:19-cv-12034"}
+        result = {"docketNumber": "1:23-cv-84"}
         score, _, _ = v._score_match(
-            parsed, "Acme Widgets Corporation v. Pemberton", "cand",
-            "2019-10-16", result,
+            parsed, "Mote v. United States", "vaed", "2023-02-01", result,
         )
-        assert score >= _VERIFIED_SCORE_THRESHOLD
+        assert score < _VERIFIED_SCORE_THRESHOLD
 
     def test_party_mismatch_diagnostic_still_fires_when_penalty_skipped(self):
         v = self._scorer()
@@ -3830,17 +3841,37 @@ class TestCorroborationSkipsPartyPenalty:
 
 
 class TestPlaceholderPartyWaiver:
-    """Lever (a2), discovered during the Check Cite design review: a cited
-    placeholder party (Doe/Does/Roe) is compatible with ANY actual party --
-    anonymous-defendant suits get captioned with the real name once the
-    defendant is identified. The party-mismatch penalty must not fire on a
-    placeholder. Motivating FN: 'Viken Detection Corp. v. Doe, 2019 WL
-    5268725' vs CL's RECAP docket 'Viken Detection Corporation v. Bradshaw'
-    (a docket -- no citation field, so lever (a1) corroboration can never
-    reach it)."""
+    """Lever (a2), discovered during the Check Cite design review and
+    narrowed after the Charlotin replay: a cited placeholder party
+    (Doe/Does/Roe) in the DEFENDANT position is compatible with any actual
+    defendant -- anonymous-defendant suits get captioned with the real name
+    once the defendant is identified, and the distinctive named plaintiff
+    anchors identity. The party-mismatch penalty is waived only for a
+    DEFENDANT-position placeholder. A PLAINTIFF-position placeholder is NOT
+    waived: an anonymous plaintiff suing a frequently-sued defendant would
+    match the defendant alone (Doe v. Northrop Grumman -> Barker v. Northrop
+    Grumman was a Charlotin FP). Motivating FN: 'Viken Detection Corp. v.
+    Doe, 2019 WL 5268725' vs CL's RECAP docket 'Viken Detection Corporation
+    v. Bradshaw' (a docket -- no citation field, so lever (a1) corroboration
+    can never reach it)."""
 
     def _scorer(self):
         return CitationVerifier(_make_client())
+
+    def test_doe_plaintiff_against_common_defendant_still_fails(self):
+        """Charlotin FP: 'Doe v. Northrop Grumman' must NOT resolve by
+        matching the defendant alone against a different plaintiff's case.
+        Plaintiff-position placeholders are not waived."""
+        v = self._scorer()
+        parsed = parse_citation(
+            "Doe v. Northrop Grumman Sys. Corp., 2022 WL 3447983 "
+            "(E.D. Va. Aug. 17, 2022)"
+        )
+        score, _, _ = v._score_match(
+            parsed, "Barker v. Northrop Grumman Systems Corporation", "vaed",
+            "2022-08-17", {},
+        )
+        assert score < _VERIFIED_SCORE_THRESHOLD
 
     def test_doe_defendant_does_not_fire_penalty(self):
         v = self._scorer()

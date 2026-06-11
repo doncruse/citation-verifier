@@ -2049,8 +2049,19 @@ class CitationVerifier:
         # side has a distinctive token there is no evidence at all — fail
         # ("Inc. v. United States" must not pass via Johns-Manville's
         # "United States"; Charlotin Bug 2).
+        # Lever (a2), narrowed after the Charlotin replay (2026-06-11): the
+        # placeholder waiver applies to the DEFENDANT position only. An
+        # anonymous DEFENDANT ("Viken Detection Corp. v. Doe") leaves the
+        # distinctive named plaintiff to anchor identity — safe. An anonymous
+        # PLAINTIFF ("Doe v. Northrop Grumman") would force a match on the
+        # defendant alone, and a frequently-sued corporate/government
+        # defendant matches a *different* plaintiff's case (Doe v. Northrop
+        # -> Barker v. Northrop: a fabricated cite that resurfaced as a FP
+        # when the waiver covered both positions). Plaintiffs are the named
+        # filers; an anonymous plaintiff suing a common defendant is weak
+        # identity evidence, so its placeholder is NOT waived.
         _PLACEHOLDER = CitationVerifier._PLACEHOLDER_PARTY_TOKENS
-        cited_plaintiff_toks = _toks(parsed.plaintiff or "") - _GENERIC - _PLACEHOLDER
+        cited_plaintiff_toks = _toks(parsed.plaintiff or "") - _GENERIC
         cited_defendant_toks = _toks(parsed.defendant or "") - _GENERIC - _PLACEHOLDER
         if not (cited_plaintiff_toks or cited_defendant_toks):
             # No distinctive party tokens — fall back to distinctive tokens
@@ -2638,10 +2649,19 @@ class CitationVerifier:
 
         # Lever (a1) pre-pass (Check Cite design §6): corroboration must be
         # known BEFORE the name component is scored, because an exact cited
-        # cite or docket-number match on the record waives the party-mismatch
-        # penalty below (near-dispositive identity evidence; Rule 25(d)
-        # substitutions). The full docket/cite scoring blocks still run later
-        # in their original order and own the diagnostics.
+        # CITE match on the record waives the party-mismatch penalty below
+        # (near-dispositive identity evidence; Rule 25(d) substitutions).
+        # Narrowed after the Charlotin replay (2026-06-11): only the
+        # reporter/WL CITE corroborates here, NOT the docket number. A
+        # reporter cite (vol+reporter+page) and a WL number are globally
+        # unique; a docket number like "1:23-cv-84" is reused across every
+        # district, and the recap_document_search path searches BY docket
+        # number — so a docket "match" there is circular and let a fabricated
+        # "Lee v. United States, No. 1:23-cv-84" resolve to MOTE v. United
+        # States (same docket number, different district). The full
+        # docket/cite scoring blocks still run later and own the diagnostics;
+        # docket corroboration still escapes the no-corroboration *cap* below
+        # (pre-session behavior), it just no longer skips the *penalty*.
         _pre_raw = result.get("citation", [])
         if isinstance(_pre_raw, list):
             _pre_cites_str = " ".join(str(c) for c in _pre_raw if c)
@@ -2657,14 +2677,6 @@ class CitationVerifier:
             )
         elif parsed.wl_number:
             pre_cite_corroborated = parsed.wl_number in _pre_cites_str
-        pre_docket_corroborated = False
-        if parsed.docket_number:
-            _rd = result.get("docketNumber") or result.get("docket_number") or ""
-            if _rd:
-                pre_docket_corroborated = (
-                    self._normalize_docket_number(parsed.docket_number)
-                    == self._normalize_docket_number(_rd)
-                )
         # Whether the cited docket number is PRESENT on both the citation and
         # the candidate record but DIFFERS (an active contradiction, as
         # opposed to merely absent). Drives the Lever 3 contradiction arm of
@@ -2699,10 +2711,12 @@ class CitationVerifier:
                     f'Party mismatch: found "{result_case_name}" shares only '
                     f'one party with cited "{parsed.case_name}"',
                 ))
-                # Lever (a1): an exact cite/docket match on the record
+                # Lever (a1): an exact reporter/WL CITE match on the record
                 # vouches for identity, so the penalty is skipped (the
-                # diagnostic above still fires for transparency).
-                if not (pre_cite_corroborated or pre_docket_corroborated):
+                # diagnostic above still fires for transparency). Docket
+                # numbers are deliberately excluded — not unique across
+                # districts (see the pre-pass comment).
+                if not pre_cite_corroborated:
                     scored_name_sim *= _PARTY_MISMATCH_NAME_FACTOR
             score += w_name * scored_name_sim
 

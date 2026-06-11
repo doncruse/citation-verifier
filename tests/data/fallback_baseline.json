@@ -40,7 +40,7 @@
     "expected_cluster_id": null
   },
   "Azad v 270 5th Realty Corp., 10 NY3d 706 (NY Court of Appeals 2008)": {
-    "status": "NOT_FOUND",
+    "status": "VERIFICATION_INCOMPLETE",
     "cluster_id": null,
     "docket_id": null,
     "confidence": null,
@@ -88,7 +88,7 @@
     "expected_cluster_id": null
   },
   "People v Kumar, 242 AD3d 1231 (N.Y. App. Div.)": {
-    "status": "INSUFFICIENT_DATA",
+    "status": "VERIFICATION_INCOMPLETE",
     "cluster_id": null,
     "docket_id": null,
     "confidence": null,
@@ -96,7 +96,7 @@
     "expected_cluster_id": null
   },
   "People v Campbell, 243 AD3d 1221 (4th Dept. 2025)": {
-    "status": "NOT_FOUND",
+    "status": "VERIFICATION_INCOMPLETE",
     "cluster_id": null,
     "docket_id": null,
     "confidence": null,
@@ -104,7 +104,7 @@
     "expected_cluster_id": null
   },
   "Hersko v Hersko, 224 AD3d 810 (Appellate Division, Second Department)": {
-    "status": "INSUFFICIENT_DATA",
+    "status": "VERIFICATION_INCOMPLETE",
     "cluster_id": null,
     "docket_id": null,
     "confidence": null,
@@ -120,7 +120,7 @@
     "expected_cluster_id": null
   },
   "Gold v Wallace, 230 AD3d 1113 (Appellate Division, Second Department)": {
-    "status": "INSUFFICIENT_DATA",
+    "status": "VERIFICATION_INCOMPLETE",
     "cluster_id": null,
     "docket_id": null,
     "confidence": null,
@@ -128,7 +128,7 @@
     "expected_cluster_id": null
   },
   "People v Walker, 228 AD3d 1318 (4th Dept. 2024)": {
-    "status": "NOT_FOUND",
+    "status": "VERIFICATION_INCOMPLETE",
     "cluster_id": null,
     "docket_id": null,
     "confidence": null,
@@ -136,7 +136,7 @@
     "expected_cluster_id": null
   },
   "People v Dondorfer, 235 AD3d 71 (4th Dept. 2024)": {
-    "status": "NOT_FOUND",
+    "status": "VERIFICATION_INCOMPLETE",
     "cluster_id": null,
     "docket_id": null,
     "confidence": null,
@@ -176,7 +176,7 @@
     "expected_cluster_id": null
   },
   "In re Wilson, 2014 WL 122074 (N.D. Cal. 2014)": {
-    "status": "VERIFIED_DOCKET_ONLY",
+    "status": "CITE_UNCONFIRMED",
     "cluster_id": null,
     "docket_id": 5959065,
     "confidence": 0.6106,
@@ -208,7 +208,7 @@
     "expected_cluster_id": null
   },
   "ra dias deapocalypse bey v. Clapprood, 2024 WL 3446824 (D. Mass. 2024)": {
-    "status": "VERIFIED_DOCKET_ONLY",
+    "status": "CITE_UNCONFIRMED",
     "cluster_id": null,
     "docket_id": 66969331,
     "confidence": 0.8613,
@@ -264,7 +264,7 @@
     "expected_cluster_id": null
   },
   "Hazari LLC v. Everest Indem. Ins. Co., 2020 WL 1969530 (S.D. Tex. 2020)": {
-    "status": "VERIFIED_DOCKET_ONLY",
+    "status": "CITE_UNCONFIRMED",
     "cluster_id": null,
     "docket_id": 16348672,
     "confidence": 0.6259,
@@ -280,7 +280,7 @@
     "expected_cluster_id": null
   },
   "Cabot v. Lewis, 2015 WL 13648107, *1 (D. Mass. 2015)": {
-    "status": "VERIFIED_DOCKET_ONLY",
+    "status": "CITE_UNCONFIRMED",
     "cluster_id": null,
     "docket_id": 4275225,
     "confidence": 0.9,
@@ -288,15 +288,15 @@
     "expected_cluster_id": null
   },
   "Kalu v. IRS, 2015 WL 4077756 (D.D.C. 2015)": {
-    "status": "NOT_FOUND",
+    "status": "VERIFIED",
     "cluster_id": 2813648,
     "docket_id": null,
-    "confidence": null,
-    "winning_stage": null,
+    "confidence": 0.536,
+    "winning_stage": "opinion_search",
     "expected_cluster_id": null
   },
   "Hunter v. City & Cnty. of San Francisco, 2013 WL 6088409 (N.D. Cal. 2013)": {
-    "status": "VERIFIED_DOCKET_ONLY",
+    "status": "CITE_UNCONFIRMED",
     "cluster_id": null,
     "docket_id": 5929390,
     "confidence": 0.9,
@@ -320,7 +320,7 @@
     "expected_cluster_id": null
   },
   "In re Rose Way, Inc., 1990 Bankr. LEXIS 3028, at *9 (Bankr. S.D. Iowa 1990)": {
-    "status": "VERIFIED",
+    "status": "CITE_UNCONFIRMED",
     "cluster_id": 1989947,
     "docket_id": null,
     "confidence": 0.619,
@@ -328,7 +328,7 @@
     "expected_cluster_id": null
   },
   "Doe v. Lawrence Gen. Hosp., 2025 WL 2808055 (D. Mass. 2025)": {
-    "status": "VERIFIED_DOCKET_ONLY",
+    "status": "CITE_UNCONFIRMED",
     "cluster_id": null,
     "docket_id": 69539673,
     "confidence": 0.9,
@@ -368,7 +368,7 @@
     "expected_cluster_id": null
   },
   "In re Wilmington Trust Secs. Litig., 2016 WL 9753979 (D.Del. 2016)": {
-    "status": "VERIFIED_DOCKET_ONLY",
+    "status": "CITE_UNCONFIRMED",
     "cluster_id": null,
     "docket_id": 4219261,
     "confidence": 0.6238,
@@ -392,11 +392,11 @@
     "expected_cluster_id": null
   },
   "Viken Detection Corp. v. Doe, 2019 WL 5268725 (D. Mass. 2019)": {
-    "status": "NOT_FOUND",
+    "status": "VERIFIED",
     "cluster_id": 9731515,
     "docket_id": null,
-    "confidence": null,
-    "winning_stage": null,
+    "confidence": 0.6842,
+    "winning_stage": "opinion_search",
     "expected_cluster_id": null
   },
   "Damner v. Facebook Inc., 2020 WL 7862706 (N.D. Cal. 2020)": {
