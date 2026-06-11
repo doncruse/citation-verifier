@@ -356,6 +356,22 @@ STATE_SPECIFIC_REPORTERS = {
     "N.M. App. 3d": ["nmctapp"],
     "N.M. App. 4th": ["nmctapp"],
     "N.M. App. 5th": ["nmctapp"],
+    # NY official/West reporters (Charlotin mop-up leak 2026-06-11: A.D.3d
+    # absent from this map let "Kaszovitz LLP v Rosen, 202 AD3d 421" reach
+    # RECAP and match a federal docket). A.D. = Appellate Division reports
+    # (single court -> safe to infer). N.Y.S. and Misc. span multiple NY
+    # courts — the multi-entry lists deliberately block single-court
+    # inference while still flagging the citation as state for the RECAP
+    # gate (_is_state_court_citation checks non-emptiness).
+    "A.D.": ["nyappdiv"],
+    "A.D.2d": ["nyappdiv"],
+    "A.D.3d": ["nyappdiv"],
+    "N.Y.S.": ["ny", "nyappdiv", "nyappterm"],
+    "N.Y.S.2d": ["ny", "nyappdiv", "nyappterm"],
+    "N.Y.S.3d": ["ny", "nyappdiv", "nyappterm"],
+    "Misc.": ["ny", "nyappdiv", "nyappterm"],
+    "Misc. 2d": ["ny", "nyappdiv", "nyappterm"],
+    "Misc. 3d": ["ny", "nyappdiv", "nyappterm"],
     "N.Y.": ["ny"],
     "N.Y. 2d": ["ny"],
     "N.Y. 3d": ["ny"],

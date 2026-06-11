@@ -2714,6 +2714,13 @@ class TestResolutionPathShape:
         ("Oddi-Sampson v. Doe, 50 N.E.3d 1 (Ind. 2016)", True),            # explicit 'ind'
         ("Reinlasoder v. Doe, 300 P.3d 1 (Mont. 2013)", True),            # explicit 'mont'
         ("Keaau v. Doe, 400 P.3d 1 (2017)", True),                        # P.3d, no explicit court
+        # NY-specific reporters (Charlotin mop-up leak: Kaszovitz LLP v
+        # Rosen, 202 AD3d 421 matched a federal RECAP docket because A.D.3d
+        # was absent from the reporter->state map).
+        ("Kaszovitz LLP v Rosen, 202 AD3d 421 [1st Dept 2022]", True),
+        ("Gilliam v. Uni Holdings, 201 A.D.3d 83 (N.Y. App. Div. 2021)", True),
+        ("Doe v. Roe, 100 N.Y.S.2d 1 (1950)", True),
+        ("People v. Smith, 50 Misc. 3d 100 (2015)", True),
         # Federal / neutral (must NOT be flagged — RECAP stays available).
         ("Smith v. Jones, 100 F.3d 100 (9th Cir. 2016)", False),
         ("Moore v. Hillman, No. 4:06-CV-43, 2006 WL 1313880 (W.D. Mich. 2006)", False),

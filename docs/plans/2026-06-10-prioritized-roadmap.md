@@ -134,6 +134,20 @@ block anything; roughly highest-value first.
 
 ## Status log
 
+- **2026-06-11 (live mop-up + NY state-RECAP leak fix — FP settles at 66):**
+  Token-machine recorder rerun resolved 36/40 INCOMPLETEs → found went
+  59 → 69. Triage: 9 of the 10 new finds are the Step-3 class made
+  *visible* by the Bug-1 parser fixes (names now parse → fallback runs →
+  real same-name case matches the fake cite) — the honest Bug-1
+  accounting. The 10th was a **new NY state-RECAP leak** (Kaszovitz, 202
+  AD3d 421 → federal SDNY docket): the `A.D.`/`N.Y.S.`/`Misc.` reporter
+  families were missing from `state_reporter_map.py`, so the Step-4
+  state gate had no reporter signal. Fixed (A.D. → nyappdiv with safe
+  inference; N.Y.S./Misc. multi-entry gate-only); matrix rows added;
+  offline suite 531 passed. Post-fix replay: **66/511 found, zero new**.
+  6 NY entries flipped INCOMPLETE (court-filtered searches not in
+  cassette) — one more recorder resume run settles them.
+
 - **2026-06-11 (Charlotin bugs 1–3 fixed + corpus hygiene — FP 122 → 59):**
   Follow-up session executed the triage plan, all offline/TDD. **(1)
   Corpus hygiene:** builder gained the retro's safe contrast markers

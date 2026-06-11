@@ -247,6 +247,34 @@ held; full offline suite 527 passed.
 - Live fake/real corpora (`pytest -m live_api`) should be re-run once to
   confirm no live-only drift from the name-matcher changes.
 
+### Live mop-up — DONE (2026-06-11, token machine)
+
+Recorder rerun resolved 36/40 INCOMPLETEs (4 transients left; cassette
+now 3,779 calls): 26 → NOT_FOUND/WRONG_CASE, **10 → found**. Triage of
+the 10: **9 are the Step-3 "Check Cite" class made newly *visible* by
+the Bug-1 parser fixes** — names now parse (Kennedy v Kennedy AD3d, In
+re Chionis, Estate of Green, In re Marriage of Mathews, US v. City of
+LA, Davis v. Davis, Wing Cheung Wong, Medina, Osorio), so the fallback
+search runs and a real same-name case matches the fabricated cite.
+That's the honest accounting of Bug 1: it removed ~20 blind
+VERIFIED@1.0s and exposed ~9 fallback FPs that belong to Step 3.
+
+The 10th was a **new bug: NY state-RECAP leak** (Kaszovitz LLP v
+Rosen, 202 AD3d 421 → matched a federal "Feder Kaszovitz" SDNY docket
+at 0.57). Root cause: the `A.D.`/`N.Y.S.`/`Misc.` reporter families
+were absent from `state_reporter_map.py`, so `_is_state_court_citation`
+had no reporter signal (same family as the Step-4 Thompson leak). Fixed
+by adding them (A.D. → nyappdiv, single-court so inference is safe;
+N.Y.S./Misc. → deliberate multi-entry to gate without inferring).
+Matrix rows added to `test_is_state_court_citation_classification`.
+
+**Post-fix replay: found 66/511, zero new found.** Side effect of the
+now-correct nyappdiv court inference: 6 NY entries (Kaszovitz, Kennedy,
+James, Bauer, Pine, Johnson v. Stadtlander) issue court-filtered
+opinion searches not in the cassette → INCOMPLETE (10 total). **One
+more recorder rerun** (same resume command) settles them; expect
+Kennedy/James to return as Step-3-class finds.
+
 ## Notes / limitations
 
 - Labels are Charlotin's (court-confirmed per the rulings), not ours; the
