@@ -210,15 +210,18 @@ out) and the Haiku prescreen (summary-hint schema out).
 - `claude-agent-sdk` 0.2.97 installs into the venv and runs a headless
   `query()` end-to-end — the transport returns a structured `ResultMessage`
   with `result`, `is_error`, `total_cost_usd`, `num_turns`, `duration_ms`.
-  **Mechanically validated.**
+  **Fully validated 2026-06-11 (post-login):** auth smoke PASS, and the real
+  `withers-01` assess job returned a parseable verdict (Yellow) via
+  `allowed_tools=["Read"]` reading the opinion from the workdir — the **same
+  call the Agent-tool subagent made**, so the two transports agree on that
+  row (cross-transport consistency signal).
 - Auth is the standalone CLI's stored OAuth credentials, and they **do not
-  auto-refresh headlessly**: the token in `~/.claude/.credentials.json`
+  auto-refresh headlessly**: the token in `~/.claude/.credentials.json` had
   expired 2026-06-03 (the desktop app refreshes its own auth, not the
-  CLI's), producing the 401 seen in both `claude -p` and the SDK.
-  **Operational prerequisite:** run `claude login` (or open `claude`
-  interactively) in a terminal whenever the standalone token has gone stale;
-  the executor should detect the 401 and say exactly that instead of
-  failing 30 jobs.
+  CLI's), producing the initial 401 in both `claude -p` and the SDK; a
+  `claude login` refresh cleared it and the PoC went green.
+  **Operational prerequisite:** the executor must detect the 401 and tell the
+  user to run `claude login` instead of failing N jobs silently.
 - Parent-session env (`ANTHROPIC_BASE_URL`, `CLAUDE*`) must be stripped
   before spawning the SDK/CLI from inside a Claude Code session — the
   AgentSDKExecutor does this; jobs mode remains the in-session default.
