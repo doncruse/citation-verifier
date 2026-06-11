@@ -14,8 +14,47 @@ Re-record periodically to pick up CourtListener data drift.
 """
 from __future__ import annotations
 
+import gzip
 import json
+from pathlib import Path
 from typing import Any
+
+
+def load_cassette(path: str | Path) -> Any:
+    """Load a cassette (or any JSON file) from ``path``.
+
+    A ``.gz`` path is read with gzip; any other path is read as plain
+    JSON. For transition robustness, a missing ``.gz`` path falls back to
+    its plain ``.json`` sibling when one exists (so a machine that still
+    has only the pre-migration plain cassette keeps working).
+    """
+    path = Path(path)
+    if path.suffix == ".gz":
+        if not path.exists():
+            sibling = path.with_suffix("")  # strip ".gz" -> "..._cassette.json"
+            if sibling.exists():
+                return json.loads(sibling.read_text(encoding="utf-8"))
+        with gzip.open(path, "rt", encoding="utf-8") as f:
+            return json.load(f)
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
+def dump_cassette(path: str | Path, cassette: Any) -> None:
+    """Atomically write ``cassette`` as JSON to ``path``.
+
+    Gzip-compresses when ``path`` ends in ``.gz`` (cassettes), writes
+    plain JSON otherwise (baselines). The temp-file + rename keeps a
+    crash mid-write from corrupting the previous file.
+    """
+    path = Path(path)
+    tmp = path.with_suffix(path.suffix + ".tmp")
+    text = json.dumps(cassette, indent=0)
+    if path.suffix == ".gz":
+        with gzip.open(tmp, "wt", encoding="utf-8") as f:
+            f.write(text)
+    else:
+        tmp.write_text(text, encoding="utf-8")
+    tmp.replace(path)
 
 
 # Public client methods whose return values are cached. Everything else

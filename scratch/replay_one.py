@@ -15,16 +15,16 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from citation_verifier import CitationVerifier
 from citation_verifier.client import CourtListenerClient
-from tests.cassette_client import CassetteClient
+from tests.cassette_client import CassetteClient, load_cassette
 
-_CASSETTE = Path(__file__).parents[1] / "tests" / "data" / "charlotin_cassette.json"
+_CASSETTE = Path(__file__).parents[1] / "tests" / "data" / "charlotin_cassette.json.gz"
 
 
 def main() -> None:
     cites = sys.argv[1:]
     if cites and cites[0] == "--targets":
         cites = json.loads(Path(cites[1]).read_text(encoding="utf-8"))
-    cassette = json.loads(_CASSETTE.read_text(encoding="utf-8"))
+    cassette = load_cassette(_CASSETTE)
     real = CourtListenerClient.__new__(CourtListenerClient)
     client = CassetteClient(real, cassette, mode="replay")
     verifier = CitationVerifier(client=client)

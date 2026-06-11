@@ -1,7 +1,7 @@
 """Offline regression test over the benchmark real-citation corpus.
 
-Replays the recorded cassette (tests/data/benchmark_cassette.json) through the
-CURRENT interpretation logic with no network. Its job is to catch the failure
+Replays the recorded cassette (tests/data/benchmark_cassette.json.gz) through
+the CURRENT interpretation logic with no network. Its job is to catch the failure
 mode this whole false-positive-tightening effort risks: that a scoring/gating
 change quietly starts *rejecting real cases*.
 
@@ -22,10 +22,10 @@ import pytest
 from citation_verifier import CitationVerifier
 from citation_verifier.client import CourtListenerClient
 from citation_verifier.models import Status
-from tests.cassette_client import CassetteClient, CassetteMiss
+from tests.cassette_client import CassetteClient, CassetteMiss, load_cassette
 
 _DATA = Path(__file__).parent / "data"
-_CASSETTE = _DATA / "benchmark_cassette.json"
+_CASSETTE = _DATA / "benchmark_cassette.json.gz"
 _BASELINE = _DATA / "benchmark_baseline.json"
 
 _FOUND = {
@@ -37,7 +37,7 @@ _FOUND = {
 def replay_setup():
     if not (_CASSETTE.exists() and _BASELINE.exists()):
         pytest.skip("no benchmark cassette recorded — run record_benchmark_cassette.py")
-    cassette = json.loads(_CASSETTE.read_text(encoding="utf-8"))
+    cassette = load_cassette(_CASSETTE)
     baseline = json.loads(_BASELINE.read_text(encoding="utf-8"))
     # CassetteClient needs a real client only for pass-through attrs; in replay
     # mode it never calls the network. Construct without a token requirement.

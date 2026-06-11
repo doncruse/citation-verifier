@@ -9,8 +9,8 @@ scoring/gating edit surfaces deterministically.
     python tests/record_benchmark_cassette.py [--limit N]
 
 Writes:
-  tests/data/benchmark_cassette.json   (method+args -> CL response)
-  tests/data/benchmark_baseline.json   (citation -> recorded verdict)
+  tests/data/benchmark_cassette.json.gz  (method+args -> CL response, gzip)
+  tests/data/benchmark_baseline.json     (citation -> recorded verdict)
 
 Recording CHECKPOINTS every few citations and RESUMES automatically: if the
 cassette/baseline already exist, citations with a recorded non-transient
@@ -33,11 +33,13 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from citation_verifier import CitationVerifier
 from citation_verifier.client import CourtListenerClient
 from citation_verifier.models import Status
-from tests.cassette_client import CassetteClient
+from tests.cassette_client import CassetteClient, dump_cassette, load_cassette
 
 _DATA = Path(__file__).parent / "data"
 _CORPUS = _DATA / "benchmark_real_citations.json"
-_CASSETTE = _DATA / "benchmark_cassette.json"
+# Cassettes are gzip-compressed (.json.gz): ~90 MB of JSON -> a few MB,
+# binary diffs instead of 150k-line text churn, fast multi-machine sync.
+_CASSETTE = _DATA / "benchmark_cassette.json.gz"
 _BASELINE = _DATA / "benchmark_baseline.json"
 
 _FOUND = {
@@ -92,7 +94,7 @@ def _atomic_write(path: Path, text: str) -> None:
 
 def _checkpoint(cassette: dict | None, baseline: dict) -> None:
     if cassette is not None:
-        _atomic_write(_CASSETTE, json.dumps(cassette, indent=0))
+        dump_cassette(_CASSETTE, cassette)  # gzip + atomic
     _atomic_write(_BASELINE, json.dumps(baseline, indent=2))
 
 
@@ -122,7 +124,7 @@ def main() -> None:
     if args.corpus_name != "benchmark":
         n = args.corpus_name
         _CORPUS = _DATA / f"{n}_corpus.json"
-        _CASSETTE = _DATA / f"{n}_cassette.json"
+        _CASSETTE = _DATA / f"{n}_cassette.json.gz"
         _BASELINE = _DATA / f"{n}_baseline.json"
 
     corpus = json.loads(_CORPUS.read_text(encoding="utf-8"))
@@ -131,13 +133,13 @@ def main() -> None:
 
     baseline: dict = {}
     if args.from_cassette:
-        cassette = json.loads(_CASSETTE.read_text(encoding="utf-8"))
+        cassette = load_cassette(_CASSETTE)
         real = CourtListenerClient.__new__(CourtListenerClient)  # no network
         client = CassetteClient(real, cassette, mode="replay")
     else:
         cassette = {}
         if not args.fresh and _CASSETTE.exists() and _BASELINE.exists():
-            cassette = json.loads(_CASSETTE.read_text(encoding="utf-8"))
+            cassette = load_cassette(_CASSETTE)
             baseline = json.loads(_BASELINE.read_text(encoding="utf-8"))
             done = sum(
                 1 for e in corpus

@@ -27,10 +27,10 @@ import pytest
 
 from citation_verifier import CitationVerifier
 from citation_verifier.client import CourtListenerClient
-from tests.cassette_client import CassetteClient, CassetteMiss
+from tests.cassette_client import CassetteClient, CassetteMiss, load_cassette
 
 _DATA = Path(__file__).parent / "data"
-_CASSETTE = _DATA / "fallback_cassette.json"
+_CASSETTE = _DATA / "fallback_cassette.json.gz"
 _BASELINE = _DATA / "fallback_baseline.json"
 
 _FOUND = {
@@ -45,7 +45,7 @@ def replay_setup():
             "no fallback cassette recorded — run "
             "record_benchmark_cassette.py --corpus-name fallback"
         )
-    cassette = json.loads(_CASSETTE.read_text(encoding="utf-8"))
+    cassette = load_cassette(_CASSETTE)
     baseline = json.loads(_BASELINE.read_text(encoding="utf-8"))
     client = CassetteClient(
         CourtListenerClient.__new__(CourtListenerClient), cassette, mode="replay"

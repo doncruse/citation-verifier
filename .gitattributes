@@ -1,0 +1,3 @@
+# Gzipped record/replay cassettes — treat as binary so git never tries to
+# diff/merge them or normalize line endings (they're compressed JSON).
+tests/data/*_cassette.json.gz binary
