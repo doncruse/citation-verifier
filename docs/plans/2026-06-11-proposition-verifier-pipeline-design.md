@@ -1,7 +1,7 @@
 # Proposition Verifier — pipeline redesign (Tier 3 #11)
 
 **Date:** 2026-06-11
-**Status:** Approved for planning (user sign-off in session; see §12)
+**Status:** Approved for planning (user sign-off in session; see §13)
 **Replaces:** the SKILL.md-orchestrated `/verify-brief` flow
 **Roadmap:** `docs/plans/2026-06-10-prioritized-roadmap.md` Tier 3 #11 (folds in Tier 2 #7)
 **Baselines:** `tests/data/withers_aberdeen/README.md` (existence + assessment), `tests/ab_test_cases.json` (62 cases)
@@ -61,7 +61,7 @@ Three design-shaping facts from that run:
    expects the CLI transport to be superseded by the Agent SDK regardless.
    Hence the pluggable executor (§5).
 
-Also surfaced (work items, §10): `matched_name` is empty in
+Also surfaced (work items, §11): `matched_name` is empty in
 `verification_results.csv` on the batch path, silently breaking
 `merge_claims`' opinion-file linkage for 16/29 rows; and
 `556 F. App'x 288` (Scott v. Carpanzano) resolves VERIFIED@1.0 to a cluster
@@ -101,7 +101,7 @@ Claim:
      prompt is a versioned template, so claim counts stop drifting run-to-run.
   2. *Prepared pairs* — a CSV/JSON the user already has (the Withers corpus
      consumed this way; also the path for spot-checking a single proposition).
-  3. *Web app* — future; out of scope here (§11).
+  3. *Web app* — future; out of scope here (§12).
 
 The **skill front end shrinks to a thin trigger** (~20 lines): create the
 workdir, run the CLI verbs in order, dispatch Agent-tool subagents when the
@@ -132,6 +132,13 @@ Nine idempotent verbs over a workdir. Deterministic unless marked **LLM**.
 prerequisites and refuses or no-ops if already satisfied, so **resume = rerun
 the verb**; a `status` verb prints which phase each claim is in.
 
+**Every verb is both a CLI command and an importable library function**, and
+each operates on *any* conforming workdir — not just ones the pipeline
+created. That is what lets benchmarking, the A/B harness, and one-off
+experiments call `check_quotes(workdir)` or `assess(workdir, config)` over a
+hand-built or frozen workdir without going through the full chain. (Decided
+2026-06-11, user comment #3.)
+
 **Reproducibility.** `run.json` in the workdir records git hash, prompt
 template versions, model IDs, executor, and per-verb timestamps. Prompt
 templates live in `src/citation_verifier/prompts/` (e.g. `assess.md` with a
@@ -141,7 +148,7 @@ pipeline render the same template.
 **A/B testing per phase.** A "config" = {executor, model, prompt version,
 prescreen on/off, batching caps}. The harness runs any single verb (usually
 `assess`) over a *frozen workdir* with config A vs. B and scores against
-ground truth (§7). The existing 62 cases convert to one frozen workdir per
+ground truth (§7-8). The existing 62 cases convert to one frozen workdir per
 source brief; Withers is already a workdir
 (`tests/data/withers_aberdeen/assessment_workdir/`).
 
@@ -185,7 +192,8 @@ Verdict:  claim_id, fields per schema, model, prompt_version, elapsed_s, cost_us
 |---|---|---|---|
 | **AgentSDKExecutor** (headless default) | `claude-agent-sdk` (Python), `allowed_tools=["Read"]`, model from config | CLI/subscription auth, no per-token bill | unattended runs, A/B harness, terminal |
 | **AgentToolExecutor** ("jobs mode") | writes `jobs/<phase>.json` and exits with "pending"; the orchestrating Claude Code session dispatches Agent-tool subagents (one per job) which append to the results JSONL; rerun the verb to ingest | session subscription | interactive `/proposition-verifier` runs (the only transport that works inside a session today) |
-| **MessagesAPIExecutor** (optional, build last) | `anthropic` SDK, opinion text inlined (no tools), structured outputs; optionally the Batches API at 50% cost | API key, per-token | CI, bulk re-scoring |
+| **RecordedExecutor** (replay) | serves verdicts from a stored `jobs/<phase>_results.jsonl` keyed by `claim_id` + prompt version; misses raise (like `CassetteMiss`) | none — offline | tests, scoring, CI; the assessment-side mirror of `cassette_client.py` |
+| **MessagesAPIExecutor** (optional, build last) | `anthropic` SDK, opinion text inlined (no tools), structured outputs; optionally the Batches API at 50% cost | API key, per-token | CI live runs, bulk re-scoring |
 
 The measurement script validated the jobs-mode flow end-to-end (jobs file →
 Agent-tool subagents → JSONL → scoring). `claude -p` is **not** an adapter:
@@ -194,6 +202,28 @@ session.
 
 The same protocol serves `extract` (document in `files`, claims-array schema
 out) and the Haiku prescreen (summary-hint schema out).
+
+### 5.1 Executor PoC results (2026-06-11, this machine)
+
+`tests/poc_agent_sdk_executor.py`:
+
+- `claude-agent-sdk` 0.2.97 installs into the venv and runs a headless
+  `query()` end-to-end — the transport returns a structured `ResultMessage`
+  with `result`, `is_error`, `total_cost_usd`, `num_turns`, `duration_ms`.
+  **Mechanically validated.**
+- Auth is the standalone CLI's stored OAuth credentials, and they **do not
+  auto-refresh headlessly**: the token in `~/.claude/.credentials.json`
+  expired 2026-06-03 (the desktop app refreshes its own auth, not the
+  CLI's), producing the 401 seen in both `claude -p` and the SDK.
+  **Operational prerequisite:** run `claude login` (or open `claude`
+  interactively) in a terminal whenever the standalone token has gone stale;
+  the executor should detect the 401 and say exactly that instead of
+  failing 30 jobs.
+- Parent-session env (`ANTHROPIC_BASE_URL`, `CLAUDE*`) must be stripped
+  before spawning the SDK/CLI from inside a Claude Code session — the
+  AgentSDKExecutor does this; jobs mode remains the in-session default.
+- Consuming the SDK's async generator partially (early return) segfaults at
+  shutdown on Windows — adapters must drain the generator.
 
 ---
 
@@ -297,7 +327,34 @@ front end of the §2 contract.
 
 ---
 
-## 7. Acceptance baseline
+## 7. Assessment corpora + replay (the "cassette" for the LLM layer)
+
+The verifier's accuracy work became tractable when CL responses got a
+record/replay harness (`cassette_client.py`). The assessment layer gets the
+same treatment, with the verdicts JSONL as the cassette:
+
+- **`tests/data/assessment_corpora/<name>/`** — one *frozen workdir* per
+  corpus: `claims.csv` (through the deterministic phases), `opinions/`,
+  `ground_truth.csv` (expected per-axis verdicts + provenance), and
+  `jobs/assess_results.jsonl` (a recorded live run — the cassette).
+- **Offline by default:** tests and scoring run the pipeline with
+  `RecordedExecutor` over the frozen workdirs — no LLM calls, seconds not
+  minutes, CI-able. A prompt-template change invalidates the recording
+  (version key mismatch) → re-record live, exactly the cassette policy.
+- **Seed corpora:** `withers` (54 rows; workdir already committed at
+  `tests/data/withers_aberdeen/assessment_workdir/`, moves here),
+  `payne` (28) and `wainwright` (34) — opinions already committed under
+  `briefs/`, ground truth in `ab_test_cases.json`.
+- **Candidate additions** (ground truth recoverable from retros/claims.csv;
+  add opportunistically, not blocking): `kettering`, `brooks`
+  (gov.uscourts.lawd.207038.49.1), `maxwell`. Fletcher / Fivehouse / Valve
+  exist only as local uncommitted workdirs — commit them during
+  consolidation or drop them.
+- `ab_test_cases.json` stays as the human-review ledger; the corpus
+  `ground_truth.csv` files are generated from it (and from the Withers
+  exhibit) so there is one scoring path, not two.
+
+## 8. Acceptance baseline
 
 The redesign is measured against, and must not regress:
 
@@ -316,7 +373,7 @@ Both corpora score per the §6.9 two-axis mapping.
 
 ---
 
-## 8. Skill and harness disposition
+## 9. Skill and harness disposition
 
 - `.claude/skills/verify-brief/SKILL.md` → replaced by
   `.claude/skills/proposition-verifier/SKILL.md`, a thin wrapper: startup
@@ -328,21 +385,26 @@ Both corpora score per the §6.9 two-axis mapping.
   `ab_test_cases.json` and `build_review_page.py` stay as-is.
 - `measure_withers_assessment.py` becomes the rerunnable Withers regression.
 
-## 9. Implementation sketch (ordering only; plan doc comes after sign-off)
+## 10. Implementation sketch (ordering only; plan doc comes after sign-off)
 
-1. `proposition_pipeline.py` skeleton: verbs 1-2 (verify/merge) ported, the
+1. Corpus consolidation (§7): `tests/data/assessment_corpora/` with withers +
+   payne + wainwright frozen workdirs and `ground_truth.csv` generation;
+   RecordedExecutor + the executor protocol — this lands the offline TDD
+   harness everything else builds on.
+2. `proposition_pipeline.py` skeleton: verbs 1-2 (verify/merge) ported, the
    `matched_name` bug fixed at the source, slug linkage replacing
    name-containment; `brief_pipeline` alias.
-2. Verb 3 quote-check extensions (≥2-word spans, floors) — pure TDD off the
-   Withers workdir.
-3. Executor protocol + AgentToolExecutor (jobs mode) + verbs 6-7
-   (assess/apply-assessments); prompt templates extracted.
-4. AgentSDKExecutor; `extract` verb (template + TOA/body lists).
-5. Verb 4 crosscheck; verb 5 triage (+ prescreen wiring).
-6. Report lanes (§6.9), new SKILL stub, A/B harness re-point.
-7. Acceptance runs (§7); retro.
+3. Verb 3 quote-check extensions (≥2-word spans, floors) — pure TDD off the
+   Withers frozen workdir.
+4. AgentToolExecutor (jobs mode) + verbs 6-7 (assess/apply-assessments);
+   prompt templates extracted.
+5. AgentSDKExecutor (after a `claude login` refresh; PoC §5.1 re-run green);
+   `extract` verb (template + TOA/body lists).
+6. Verb 4 crosscheck; verb 5 triage (+ prescreen wiring).
+7. Report lanes (§6.9), new SKILL stub, A/B harness re-point.
+8. Acceptance runs (§8); retro.
 
-## 10. Work items logged (not blocking this design)
+## 11. Work items logged (not blocking this design)
 
 - **Bug:** batch path leaves `raw_response_summary["case_name"]` empty →
   `matched_name` blank in `verification_results.csv` (fix in step 1 above).
@@ -357,7 +419,7 @@ Both corpora score per the §6.9 two-axis mapping.
   fake/real corpora re-record) on this token machine — unrelated to this
   design, must not be forgotten.
 
-## 11. Out of scope (explicit)
+## 12. Out of scope (explicit)
 
 - Web app changes (incl. Tier 1 Step 5 `verify_batch()` re-point).
 - Statute/rule verification; Word-doc input (config hook only).
@@ -365,7 +427,7 @@ Both corpora score per the §6.9 two-axis mapping.
 - Any scoring/threshold change in the core verifier.
 - Migrating old `briefs/` workdirs.
 
-## 12. Decisions log (sign-off record)
+## 13. Decisions log (sign-off record)
 
 | decision | ruling | by |
 |---|---|---|
@@ -376,3 +438,6 @@ Both corpora score per the §6.9 two-axis mapping.
 | Taxonomy | two-axis, color derived | user ("lean two-axis"), 2026-06-11 |
 | Fold-ins 3-10 defaults | as §6 (user: no changes requested) | user, 2026-06-11 |
 | Full design | approved "ok lets do it" | user, 2026-06-11 |
+| Executor PoC before plan | done — SDK transport validated; stale-CLI-token auth caveat (§5.1) | user comment #1, 2026-06-11 |
+| Assessment corpora + replay executor | yes — §7, mirrors cassette policy | user comment #2, 2026-06-11 |
+| Every verb CLI-exposed + importable | yes — §3 | user comment #3, 2026-06-11 |
