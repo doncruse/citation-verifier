@@ -632,7 +632,7 @@
     "expected_cluster_id": null
   },
   "Kaszovitz LLP v Rosen, 202 AD3d 421 [1st Dept 2022]": {
-    "status": "VERIFICATION_INCOMPLETE",
+    "status": "NOT_FOUND",
     "cluster_id": null,
     "docket_id": null,
     "confidence": null,
@@ -640,7 +640,7 @@
     "expected_cluster_id": null
   },
   "Bauer v Cravath, Swain & Moore, LLP, 177 AD3d 479 [1st Dept 2019]": {
-    "status": "VERIFICATION_INCOMPLETE",
+    "status": "NOT_FOUND",
     "cluster_id": null,
     "docket_id": null,
     "confidence": null,
@@ -648,7 +648,7 @@
     "expected_cluster_id": null
   },
   "Pine v AJA Delivery, Inc., 201 AD3d 640 [2d Dept 2022]": {
-    "status": "VERIFICATION_INCOMPLETE",
+    "status": "NOT_FOUND",
     "cluster_id": null,
     "docket_id": null,
     "confidence": null,
@@ -1640,11 +1640,11 @@
     "expected_cluster_id": null
   },
   "Kennedy v Kennedy, 192 AD3d 111 (1st Dept 2020)": {
-    "status": "VERIFICATION_INCOMPLETE",
-    "cluster_id": null,
+    "status": "VERIFIED",
+    "cluster_id": 4714722,
     "docket_id": null,
-    "confidence": null,
-    "winning_stage": null,
+    "confidence": 0.825,
+    "winning_stage": "opinion_search",
     "expected_cluster_id": null
   },
   "Dvorak v. Metropolitan Pier & Exposition Authority, 941 F.3d 936 (7th Cir. 2019)": {
@@ -3456,11 +3456,11 @@
     "expected_cluster_id": null
   },
   "James v. City of New York, 144 AD3d 604, 605 (1st Dept 2016)": {
-    "status": "VERIFICATION_INCOMPLETE",
-    "cluster_id": null,
+    "status": "WRONG_CASE",
+    "cluster_id": 6229485,
     "docket_id": null,
-    "confidence": null,
-    "winning_stage": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
     "expected_cluster_id": null
   },
   "Xiong v. Knight, 80 A.D.3d 1055 (3d Dept 2011)": {
@@ -3472,7 +3472,7 @@
     "expected_cluster_id": null
   },
   "Johnson v. Stadtlander, 162 A.D.3d 1580 (4th Dept 2018)": {
-    "status": "VERIFICATION_INCOMPLETE",
+    "status": "NOT_FOUND",
     "cluster_id": null,
     "docket_id": null,
     "confidence": null,
