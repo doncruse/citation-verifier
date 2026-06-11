@@ -262,7 +262,8 @@
       "source": "benchmark/manual_corrections.csv#cl_cluster_citations_empty[sundown-energy]",
       "category": "fallback_opinion_search",
       "phase3_classification_open": false,
-      "mock_spec": null
+      "mock_spec": null,
+      "tier1_ruling": "2026-06-11 (Tier 1 Step 3): PARTIAL fix, fixture stays RED (do NOT re-pin to NOT_FOUND per scope guard). Lever (b) fixed the docket-junk parse bug -- _DOCKET_JUNK/_DOCKET_NUMBER_PATTERN now require docket-shaped content after No., so HJSA No. 3, L.P. keeps its name and no phantom docket_number=3 (confirmed by parse + tests/test_parser_docket_shape.py). Two INDEPENDENT residual causes keep it NOT_FOUND, both out of Check Cite scope: (2) CL opinion search returns 0 results for the full punctuated query Sundown Energy LP v. HJSA No. 3, L.P. (vs 62 for Sundown Energy HJSA) -- a query-construction gap; (3) the real case (cluster 4872528, Tex. 2021) has an EMPTY CL citation list and a 14-party caption that defeats name-match scoring. Ideal outcome remains VERIFIED + cite_not_on_record. Follow-up: multi-party-caption + punctuated-query opinion-search gap."
     },
     {
       "id": "not-found-bloomberg",
@@ -464,7 +465,8 @@
       "phase3_classification_open": false,
       "mock_spec": null,
       "phase3_ruling": "Status VERIFIED via opinion_search (cluster_id matches the pin). cl_display_name_data_bug not fired because the divergence is detected at opinion_search, not citation_lookup (same Phase 4 follow-up).",
-      "phase4_ruling": "Task 5 fix does not recover cl_display_name_data_bug for this fixture: still resolves via opinion_search rather than citation_lookup (citation_lookup returns no_match), so caption_investigation does not fire. Out of Phase 4 scope (Phase 5+ candidate: opinion_search divergence-detection plumbing)."
+      "phase4_ruling": "Task 5 fix does not recover cl_display_name_data_bug for this fixture: still resolves via opinion_search rather than citation_lookup (citation_lookup returns no_match), so caption_investigation does not fire. Out of Phase 4 scope (Phase 5+ candidate: opinion_search divergence-detection plumbing).",
+      "tier1_ruling": "2026-06-11 (Tier 1 Step 3 live confirm): VERIFIED restored via lever (a2) of the Check Cite design -- a DEFENDANT-position placeholder (Doe) is waived in _party_overlap_ok, so the distinctive named plaintiff (Viken Detection Corp.) anchors and the Rule 25(d) substitution Doe->Bradshaw no longer fires the party-mismatch penalty. Live: VERIFIED 0.58 via opinion_search -> cluster 9731515 (Viken Detection Corporation v. Bradshaw) with a cite_not_on_record warning. Confirms the June-9 Lever-2 penalty FN is fixed."
     },
     {
       "id": "verified-ssa-pseudonym-michael-b-berryhill",

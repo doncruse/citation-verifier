@@ -234,6 +234,40 @@ brief's proposition isn't in it. Same logic as WRONG_CASE keeping its IDs.
   the end of the session. Not laundering — the expectation changes because the
   taxonomy now has a state that describes these cases truthfully.
 
+### 6.1 Implementation outcome (2026-06-11) — two surprises, both handled
+
+The as-written §6 was half-right. What actually landed (see the retro for the full
+account):
+
+- **Lever (a) split + narrowed.** The mechanism in §6 (cite/docket corroboration skips
+  the penalty) is **lever (a1)**, but it does NOT reach Viken — Viken's CL record is a
+  RECAP-then-opinion **caption** (`Viken Detection Corp. v. Bradshaw`) with no matching
+  WL/reporter cite, so there is nothing to corroborate. The real fix is **lever (a2)**,
+  a *placeholder-party waiver* discovered during review: a cited `Doe`/`Roe` party
+  carries no identity, so it is subtracted from the party-overlap check. Then the
+  Charlotin replay tripped the zero-new-found guard twice, forcing two narrowings:
+  - **(a1) → cite-only.** Dropped the docket-number arm. Docket numbers like
+    `1:23-cv-84` are reused across districts and the `recap_document_search` path
+    searches *by* docket number (circular), which resurfaced a fake (`Lee v. United
+    States, No. 1:23-cv-84` → `MOTE v. United States`).
+  - **(a2) → defendant-position only.** A placeholder *defendant* (`Viken … v. Doe`)
+    is waived (distinctive plaintiff anchors); a placeholder *plaintiff*
+    (`Doe v. Northrop Grumman`) is not (it would match a frequently-sued defendant
+    alone — resurfaced `Doe v. Northrop Grumman` → `Barker v. Northrop Grumman`).
+  - **Result:** Viken is **fixed and confirmed** (live: VERIFIED 0.58 →
+    `Viken Detection Corp. v. Bradshaw`, with `cite_not_on_record`). Charlotin stays
+    zero-new-found.
+- **Lever (b) was necessary but not sufficient for Sundown.** It fixed the docket-junk
+  parse bug (verified). But Sundown still NOT_FOUND for **two independent, out-of-scope
+  causes**: (2) CL opinion search returns **0 results** for the full punctuated query
+  `"Sundown Energy LP v. HJSA No. 3, L.P."` (vs 62 for `"Sundown Energy HJSA"`) — a
+  query-construction gap; (3) the real cluster (4872528, Tex. 2021) has an **empty CL
+  citation list** and a 14-party caption that defeats name-match scoring. Sundown's
+  fixture stays **red** (expected VERIFIED, the honest ideal) per the scope guard; the
+  residual is logged as a follow-up (multi-party-caption + punctuated-query
+  opinion-search gap). The original Lever-2 diagnosis ("fix the parse → case enters the
+  pool → resolves") was incomplete.
+
 ## 7. Consumer surface (per docs/consumer-surface-manifest.md)
 
 | Consumer | Change |

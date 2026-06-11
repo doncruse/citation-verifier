@@ -8,6 +8,18 @@ need to update every entry below.
 
 **Last full audit:** Phase 5 (2026-05-24). Maintainer: see CHANGELOG.md.
 
+**v0.3.3 (2026-06-11) — `Status.CITE_UNCONFIRMED` added (Tier 1 Step 3 "Check Cite").**
+Every consumer below was swept in the same change (see CHANGELOG v0.3.3). Notable
+handling: `brief_pipeline._DOWNLOADABLE_STATUSES` **includes** CITE_UNCONFIRMED (it
+carries the winning stage's `final_ids`, so the matched text is download-eligible —
+unlike WRONG_CASE/NOT_FOUND); the web frontends render an amber "Check Cite" badge
+(get/index tooltip is warning-aware — a `cite_contradicted` warning surfaces CL's
+actual `record_citations`); `get.html` deep-search retry does **not** retry it
+(resolved-ish); `__main__.py` `_STATUS_LABELS` → `[!] CHECK CITE` (exit code 0, like
+WRONG_CASE — the pre-existing WRONG_CASE-exits-0 gap is unchanged/out of scope).
+New warnings `cite_contradicted` / `cite_not_on_record` and gate `no_cite_unconfirmed`.
+Coverage enforced by `test_frontend_status_coverage.py` + `test_models.py`.
+
 ## How to use this file
 
 1. Before changing `Status`, `FinalIds`, `WarningCategory`, or

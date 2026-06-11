@@ -38,45 +38,48 @@ Extracted 7 shared helpers (`_process_citation_lookup_hit`, `_check_adjacent_pag
 
 ## Priority 1 — Bugs (wrong results)
 
-### Lever 2 false-negative cost: party-substitution reals now NOT_FOUND (found 2026-06-11)
-The June-9 Lever 2 party-mismatch penalty + no-corroboration cap turned two
-REAL cases in the Phase-3 acceptance corpus into false negatives. Invisible
-until the 19-min live acceptance suite was finally re-run (the fake/real
-corpora were re-run after each lever; this suite wasn't). Confirmed
-pre-Charlotin-session behavior via worktree A/B at 7c0f4e0 — not the
-2026-06-11 fixes.
+### ~~Lever 2 false-negative cost~~ RULED + PARTIALLY FIXED (2026-06-11)
+Ruling (Check Cite design §6): **refine via levers (a)+(b), reject (c).**
 
-- **`verified-rule-25d-viken-detection`** — `Viken Detection Corp. v. Doe,
-  2019 WL 5268725` → NOT_FOUND at 0.2947. CL has the same case as "Viken
-  Detection Corporation v. Bradshaw" (Rule 25(d)-style substitution);
-  "Doe" ≠ "Bradshaw" fires the party penalty. But party substitution is
-  exactly what Rule 25(d) cases look like — the penalty is structurally
-  blind to it.
-- **`verified-sundown-energy-fallback`** — `Sundown Energy LP v. HJSA
-  No. 3, L.P., 622 S.W.3d 884 (Tex. 2021)` → NOT_FOUND at 0.39 (the cap
-  value). Compounding parser issue: `_DOCKET_JUNK` strips ", No. 3" from
-  the case name, so the search query is "Sundown Energy LP v. HJSA, L.P."
-  and the real Tex. 2021 case isn't even in the candidate pool.
+- **`verified-rule-25d-viken-detection`** — **FIXED.** The fix is *not* lever
+  (a1) (cite-corroboration-skips-penalty — Viken's CL record is a caption with
+  no matching cite, nothing to corroborate) but **lever (a2)**, a
+  placeholder-party waiver: a cited `Doe`/`Roe` defendant carries no identity,
+  so it's subtracted from the party-overlap check and the distinctive named
+  plaintiff anchors. Live-confirmed VERIFIED 0.58 → "Viken Detection Corp. v.
+  Bradshaw" + `cite_not_on_record`. (a2) narrowed to **defendant-position
+  placeholders only** after the Charlotin replay caught `Doe v. Northrop
+  Grumman → Barker v. Northrop Grumman`; (a1) narrowed to **cite-only** after
+  it caught `Lee v. United States, No. 1:23-cv-84 → MOTE` (docket numbers
+  aren't unique; the docket-search path is circular).
+- **`verified-sundown-energy-fallback`** — **PARTIAL, still NOT_FOUND.** Lever
+  (b) fixed the `_DOCKET_JUNK` parse bug (", No. 3" survives in the name, no
+  phantom `docket_number=3`). But two independent residual causes remain (see
+  the Priority 2 follow-up below): CL opinion search returns 0 for the full
+  punctuated query, and the real cluster (4872528, Tex. 2021) has empty CL
+  citations + a 14-party caption. Fixture stays red (expected VERIFIED, the
+  honest ideal) per the scope guard.
 
-Decide: accept as FP-work cost, or refine — candidate levers: (a) WL/cite
-corroboration should soften the party *penalty*, not just escape the cap
-(Viken's WL number is corroborable); (b) exempt "No. <digit>" inside party
-names from `_DOCKET_JUNK` (Sundown); (c) substitution-aware defendant
-matching. Fixtures left UNCHANGED (still expect VERIFIED) so the
-acceptance suite keeps failing loudly until this is decided.
+Both fixtures carry `tier1_ruling` notes in `refactor_corpus.json`. Retro:
+`docs/retrospectives/2026-06-11-check-cite-cite-unconfirmed.md`.
 
 ### Phase 3 Task 4: narrow VIA_RECAP false-positive on "Motion for ... Opinion" descriptions
 Filed by Task 4 code-quality review (2026-05-22). `_recap_doc_is_cited_opinion` removed `"motion for"` from `_PROCEDURAL_KEYWORDS` because it would block legitimate `"OPINION on motion for reconsideration"` (false negative). Reciprocal gap: a PACER doc described as `"MOTION FOR RECONSIDERATION OF OPINION"` now matches the `"opinion"` keyword and the procedural filter doesn't fire — yielding false VIA_RECAP. In practice these descriptions exist but are uncommon, and the date ±14 day gate provides a partial backstop. Hardening option: add `"motion for reconsideration"` as a specific compound to `_PROCEDURAL_KEYWORDS`, or anchor `"motion for"` to start-of-description. Phase 4 or later.
 
-### Citation mismatch detection ("Check Cite" status)
-When the opinion search (step 2) finds a case by name but the reporter citation doesn't match (e.g., searched for `742 F. Supp. 2d 672` but CL has `759 F. Supp. 2d 822`), the result currently shows as VERIFIED/LIKELY_REAL. A wrong volume/page is a big deal — it means the citation in the brief is incorrect even though the case is real.
-
-Proposed fix: after the opinion search finds a match, compare the matched case's citations against the searched citation. If the reporter citation doesn't match, flag it with a new status or a `citation_mismatch` field so the UI can show "Check Cite" instead of "Ready." This distinguishes three cases:
-- **Ready**: case found, citation confirmed
-- **Check Cite**: case found by name, but cited reporter/volume/page is wrong
-- **Review Name**: something found, but case name doesn't match well
-
-Example: `In re Chinese-Manufactured Drywall Products Liability Litigation, 742 F. Supp. 2d 672 (E.D. La. 2010)` — case exists at `759 F. Supp. 2d 822` but not at the cited location.
+### ~~Citation mismatch detection ("Check Cite" status)~~ DONE (2026-06-11)
+Shipped as the new **`CITE_UNCONFIRMED`** status (UI "Check Cite"). A fallback
+name-search win whose cited reporter/WL location is **contradicted** by CL's
+*same-reporter-family* records (`cite_contradicted`), or backed by no text at all —
+a bare RECAP docket (`cite_not_on_record`), demotes from VERIFIED-family. The
+same-family witness rule (N.E.2d ≡ N.E.3d; U.S. ≠ S. Ct.) spares real cases CL
+indexes under only one parallel reporter (the reporter-gap compensation the user
+asked for — those stay VERIFIED + `cite_not_on_record` warning). The Drywall example
+(`742 F. Supp. 2d 672` cited; case at `759 F. Supp. 2d 822`) is now Check Cite. The
+three UI states landed: **Ready** = VERIFIED-family, **Check Cite** = CITE_UNCONFIRMED,
+**Review Name** = VERIFIED_PARTIAL+`name_unverified` / WRONG_CASE. Charlotin FPs
+67→33, 34 reclassified, zero new found; 600 offline passed. Design
+`docs/plans/2026-06-11-check-cite-design.md`; retro
+`docs/retrospectives/2026-06-11-check-cite-cite-unconfirmed.md`.
 
 ### INSUFFICIENT_DATA: skip verification entirely
 When both court and date are missing, return a new `INSUFFICIENT_DATA` status immediately — no API calls. Court-only-missing is also borderline ("In re Wright" with just a year is too weak). WL citation "years" come from the volume number, not a court parenthetical — weaker evidence.
@@ -106,6 +109,24 @@ Weatherly v. Second Nw. Coop. Homes Ass'n scored only 53% partly because eyecite
 - Francis v. Rehman, 110 A.3d 615 (dccrimct 2015) — NOT_FOUND despite exact reporter match, same root cause. https://www.courtlistener.com/opinion/2782310/michael-francis-and-queue-llc-v-munir-rehman-and-hak-llc/
 
 ## Priority 2 — Improvements (better results)
+
+### Multi-party-caption + punctuated-query opinion-search gap (Sundown) (found 2026-06-11)
+Surfaced finishing the Lever-2 ruling. `Sundown Energy LP v. HJSA No. 3, L.P.,
+622 S.W.3d 884 (Tex. 2021)` stays NOT_FOUND even after lever (b) fixed its parse.
+Two independent causes, both in the opinion-search path:
+1. **Punctuated full-party query returns nothing.** CL opinion search returns **0**
+   results for `q="Sundown Energy LP v. HJSA No. 3, L.P."` but **62** for
+   `q="Sundown Energy HJSA"`. The `" v. "` + `"No. 3, L.P."` punctuation defeats CL's
+   tokenizer. Candidate fix: a simplified/fielded fallback query (drop `v.`, strip
+   trailing party-form suffixes) when the full query returns nothing.
+2. **Sprawling caption + empty CL citations.** The real cluster (4872528, Tex. 2021)
+   lists 14 parties (`Sundown Energy Lp Smc 2000 Lp, Pgp Holdings 1, LLC … v. Hjsa
+   No. 3, Limited Partnership`) and an **empty** `citation` list. Even if returned,
+   `name_matcher` similarity is dragged down by the extra parties. Candidate fix:
+   lead-party / first-vs-first matching, or a containment boost when the cited lead
+   plaintiff+defendant both appear in a longer CL caption.
+Ideal outcome is VERIFIED + `cite_not_on_record` (case exists, CL lacks the cite).
+Both are name-search/query-construction work, deliberately out of Tier 1 Step 3 scope.
 
 ### Plaintiff name truncation (eyecite upstream)
 The dominant false negative pattern. eyecite stops too early on multi-word plaintiffs with abbreviations/punctuation:

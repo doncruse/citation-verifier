@@ -20,12 +20,13 @@ Items that recent commits resolved — checked against the working tree before w
 
 The core mission. Everything here compounds; do in order.
 
-> **Status (2026-06-10):** Steps 1, 2, and the RECAP-leak half of 4 are
-> **done** — fake corpus **0/19**, published reals **203/204**, fallback
-> reals **32/32** guarded, all replayable offline. Remaining: Step 3
-> ("Check Cite"), the cross-state opinion-match half of Step 4 (Graves),
-> Step 5 (web app onto `verify_batch()`). See the Status log and the
-> "Follow-ups discovered during execution" section below.
+> **Status (2026-06-11):** Steps 1, 2, **3 (Check Cite)**, and the RECAP-leak
+> half of 4 are **done** — fake corpus 0/19, published reals 203/204,
+> fallback reals guarded, Charlotin fake FPs 67→33 with 34 reclassified
+> "Check Cite", all replayable offline. Remaining: the cross-state
+> opinion-match half of Step 4 (Graves), Step 5 (web app onto
+> `verify_batch()`). See the Status log and the "Follow-ups discovered during
+> execution" section below.
 
 1. ✅ **DONE — Expand the fake-citation regression corpus, then measure.** Convert the QC-confirmed hallucinations and wrong-document matches from `scratch/QC_TRIAGE.md` into `tests/data/known_fake_citations.json` entries (8 → ~25) with categories per `tests/data/README.md`. Add a parametrized live-API test (`test_false_positives.py`, marked like `test_false_negatives.py`) asserting each scores below threshold / returns NOT_FOUND. **Run it before tuning anything** — it tells us which QC items v0.3 already fixed and which still fail.
 2. ✅ **DONE — False-positive scoring fixes.** Became four levers, not the three originally guessed (the measurement reshaped the plan — the dominant fix was RECAP hard-gate *parity*, not the per-factor penalties first imagined):
@@ -33,7 +34,7 @@ The core mission. Everything here compounds; do in order.
    - Lever 2: symmetric party-mismatch penalty + no-corroboration cap (Thompson→Thompson, Johnson→Scudder/Laile).
    - Lever 3: docket-number contradiction cap + bare-docket parse (Lopez, Johnson). *Reporter-cite contradiction arm was removed after the benchmark replay caught it causing the Muldrow false negative — see follow-ups.*
    - The per-factor scoring was NOT extracted into helpers (the fixes didn't require it; `_score_match` grew but stayed coherent).
-3. ⬜ **TODO — "Check Cite" status** (TODO Priority 1 "Citation mismatch detection"). Case found by name via opinion search but cited volume/page doesn't match any of the case's citations → currently shows VERIFIED. This is the exact signature of `wrong_page_number` / hybrid hallucinations (Butler Motors, Gallagher v. Wilton). Likely a new warning category + status or `VERIFIED_PARTIAL` reuse — design against the v0.3 taxonomy, don't bolt on.
+3. ✅ **DONE — "Check Cite" status** (new `CITE_UNCONFIRMED`). A fallback name-search win whose cited reporter/WL location is contradicted by CL's same-reporter-family records (`cite_contradicted`) or backed by no text at all — a bare RECAP docket (`cite_not_on_record`) — demotes from VERIFIED-family to `CITE_UNCONFIRMED` (UI "Check Cite"). Post-threshold classification, no scoring changes (the Muldrow constraint). **Charlotin: found 67→33, 34 Check Cite, zero new found; benchmark 203/204 unchanged; fallback 0 reals lost + Viken FN fixed; 600 offline passed.** Design `docs/plans/2026-06-11-check-cite-design.md`; retro `docs/retrospectives/2026-06-11-check-cite-cite-unconfirmed.md`. Same change ruled on the Lever-2 FNs (Sundown/Viken — see Status log).
 4. **State-court leaks:**
    - ✅ **DONE — RECAP leak** despite `is_federal_court()` gate (Oddi-Sampson `ind`, Reinlasoder `mont`, Keaau P.3d, Thompson `indctapp`). One shared root cause: the guard keyed off the federal-only `court_id` (None for state courts). Fixed via `_is_state_court_citation()` (court OR regional-reporter signal). Only Thompson was in the live corpus; the others are covered by the shared fix + a 7-case unit matrix — see follow-up "pin the other reproducers."
    - ⬜ **TODO — Cross-state opinion match** (Graves v. State, Ind. cite matched another state's Graves v. State at 0.70) — different mechanism (opinion-search state disqualification, not RECAP gating); not addressed.
@@ -133,6 +134,38 @@ block anything; roughly highest-value first.
    if a future docket-contradiction case needs them. Low priority.
 
 ## Status log
+
+- **2026-06-11 (Tier 1 Step 3 — Check Cite / `CITE_UNCONFIRMED` — DONE):**
+  New seventh status for the last big FP class: a fallback name-search win
+  whose cited reporter/WL location is **contradicted** by CL's
+  *same-reporter-family* records (`cite_contradicted`), or backed by **no
+  text at all** — a bare RECAP docket (`cite_not_on_record`), demotes from
+  VERIFIED-family to `CITE_UNCONFIRMED` (UI "Check Cite"). Post-threshold
+  classification; **no scoring changes** (the Muldrow constraint). The
+  same-family witness rule (N.E.2d ≡ N.E.3d; U.S. ≠ S. Ct.) is load-bearing:
+  it catches the fakes (they fabricate an address in the family CL uses for
+  that court) while sparing real cases CL indexes under only one parallel
+  reporter (the So.3d/Ala.App. case the user raised → kept VERIFIED +
+  warning, the reporter-gap compensation) and makes Muldrow fall out for
+  free. RECAP VIA_RECAP gate-passers keep status + warning (Oracle/Abbott
+  accepted cost); bare dockets demote. **Charlotin replay: found 67→33
+  (12.7%→6.5%), 34 Check Cite, ZERO rejected→found; benchmark 203/204
+  unchanged; fallback 0 reals lost; 600 offline passed.** Also ruled on the
+  **Lever-2 FNs**: refine via levers (a)+(b), reject (c). (a) split into
+  (a1) cite-corroboration-skips-penalty (narrowed to cite-only — docket
+  numbers aren't unique) + (a2) placeholder-party waiver (narrowed to
+  defendant-position only). Both narrowings were forced by the
+  zero-new-found guard catching `Lee→MOTE` and `Doe v. Northrop→Barker`.
+  **Viken FN fixed** (live: VERIFIED 0.58 → Viken Detection v. Bradshaw).
+  **Sundown still NOT_FOUND** — lever (b) fixed the docket-junk parse bug but
+  two independent out-of-scope causes remain (CL search returns 0 for the
+  full punctuated query; the real cluster has empty citations + a 14-party
+  caption); fixture stays red per the scope guard, logged as a follow-up.
+  Design `docs/plans/2026-06-11-check-cite-design.md`; retro
+  `docs/retrospectives/2026-06-11-check-cite-cite-unconfirmed.md`. **Needs
+  token machine:** the full 19-min `-m live_api` acceptance pass + fake/real
+  corpora live re-record to confirm no live-only drift (offline guards cover
+  the regression surface meanwhile).
 
 - **2026-06-11 (live mop-up + NY state-RECAP leak fix — FP settles at 66):**
   Token-machine recorder rerun resolved 36/40 INCOMPLETEs → found went

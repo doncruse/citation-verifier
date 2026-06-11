@@ -2,6 +2,35 @@
 
 All notable schema-level changes to citation-verifier. Per design v2 §2.6 / §5: additions to closed-set enums are minor-version changes, removals are major.
 
+## v0.3.3 — 2026-06-11 (Tier 1 Step 3 — "Check Cite")
+
+Design: `docs/plans/2026-06-11-check-cite-design.md`. Retro: `docs/retrospectives/2026-06-11-check-cite-cite-unconfirmed.md`.
+
+### Schema (models.py)
+
+- **New `Status.CITE_UNCONFIRMED`** ("resolved-but-questionable" group, UI label "Check Cite"). Additive minor-version change. A fallback name-search win whose cited reporter/WL location is contradicted by CL's same-reporter-family records, or backed by no text at all (a bare RECAP docket). Carries the winning stage's `final_ids` (the matched case's IDs + `text_source`) so consumers can fetch the matched text — same as `WRONG_CASE`. Trust ordering: VERIFIED family > CITE_UNCONFIRMED > WRONG_CASE > NOT_FOUND.
+- **New `WarningCategory.cite_contradicted`**: the matched record lists ≥1 citation in the same reporter family as the cited one, and the cited address is not among them. `details`: `{cited, record_citations}`. The strong signal — render harder (show CL's actual citations).
+- **New `WarningCategory.cite_not_on_record`**: no same-family witness to compare (record lists no citations, only other reporter families — parallel-cite / CL reporter gap — or the match is RECAP). `details`: `{cited, record_citations, reason}`. Attached both to keep-VERIFIED matches (warning only) and to the bare-docket CITE_UNCONFIRMED demotion.
+- **New `GateName.no_cite_unconfirmed`** so fail-closed callers can block on the new status.
+
+### Behavior
+
+- **`_classify_cite_unconfirmed` (verifier.py)**, shared by sync/async, runs **after** the existing status determination in both `_build_fallback_result` variants — threshold, court gate, and the VIA_RECAP doc gate are all unchanged. **No scoring changes** (the Muldrow constraint: reporter mismatches must never move scores). Applies only to fallback wins that carried a reporter/WL cite; docket-number-cited citations are checked by the docket-number match itself. Same-family contradiction → CITE_UNCONFIRMED + `cite_contradicted`; no same-family witness → keep VERIFIED + `cite_not_on_record` warning; VIA_RECAP gate-passer → keep status + warning; bare docket → CITE_UNCONFIRMED + warning (unless the cited docket number corroborates the record).
+- **`CiteCheck` outcome from `_score_match`** (`NO_CITE_IN_INPUT`/`CORROBORATED`/`CONTRADICTED`/`NOT_ON_RECORD`) via the `_reporter_family` same-family rule (series collapse: N.E.2d ≡ N.E.3d; U.S. and S. Ct. are distinct families; WL is its own family). Uses only data already in the search responses — no new API calls.
+- **Lever refinements (Lever-2 FN ruling)**: (a1) an exact reporter/WL **cite** corroboration skips the party-mismatch penalty (narrowed from the design's cite-OR-docket — docket numbers aren't unique across districts); (a2) a **defendant-position** placeholder party (Doe/Roe) is waived in `_party_overlap_ok`; (b) `_DOCKET_JUNK`/`_DOCKET_NUMBER_PATTERN` require docket-shaped content after "No." so entity names like "HJSA No. 3, L.P." keep their name.
+
+### Consumer surface
+
+- **Frontend coverage** (`web/static/{get,index,qc}.html`): `case 'CITE_UNCONFIRMED':` in every Status switch → amber "Check Cite" badge; the get/index tooltip is warning-aware (a `cite_contradicted` warning shows CL's actual citations). New `data-filter='CITE_UNCONFIRMED'` qc chip (active set). `test_every_status_has_case_in_every_switch` enforces coverage.
+- **`__main__.py`**: `_STATUS_LABELS` → `[!] CHECK CITE`.
+- **`brief_pipeline.py`**: `CITE_UNCONFIRMED` added to `_DOWNLOADABLE_STATUSES` (carries IDs; download the matched text so the assessment agent can show the proposition isn't in it) and `_STATUS_BADGE_FALLBACK`.
+- **`tests/verify_from_csv.py`**: "NEEDS QC" highlight includes `CITE_UNCONFIRMED`.
+- **`tests/record_benchmark_cassette.py`**: own `check_cite` count bucket (NOT in `found`). Benchmark/fallback regression `_FOUND` sets include CITE_UNCONFIRMED (real-case "found" guards case-location).
+
+### Testing
+
+- New: `tests/test_cite_check.py` (CiteCheck + same-family rule), `tests/test_check_cite_status.py` (end-to-end sync/async parity), `tests/test_parser_docket_shape.py` (lever b). Charlotin replay: found 67→33, 34 CITE_UNCONFIRMED, zero rejected→found. Benchmark 203/204 unchanged; fallback 0 reals lost. Full offline suite 600 passed.
+
 ## v0.3.2 — 2026-05-27
 
 ### Schema (models.py)
