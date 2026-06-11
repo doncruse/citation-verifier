@@ -95,7 +95,75 @@ detection — it is the natural test bed for Step 3.
    those need the linked-rulings pipeline (the original "real sub-project")
    if we ever want them.
 
-## Notes / limitations
+## Live measurement run — DONE (2026-06-11)
+
+Recorded on the token machine (cassette 81MB, 3,567 calls, committed
+f142dc9). **Headline: 547 fakes → 393 rejected (72%): 210 WRONG_CASE +
+183 NOT_FOUND. 122 resolved (false positives, 22%). 24 transient
+INCOMPLETE (rerun the recorder to mop up — it resumes + retries), 8
+INSUFFICIENT_DATA.**
+
+Offline triage (`scratch/charlotin_fp_triage.csv`) bucketed the 122 by
+winning stage; bucket A (citation-lookup, 55) was adjudicated per-entry by
+reading the court findings + CL's returned cluster names + replaying the
+resolution path (`scratch/charlotin_bucketA_adjudication.csv`):
+
+| Bucket | n | What it is |
+|---|---|---|
+| A: lookup-resolved | 55 | 20 verifier **Bug 1**, 15 poisoned extractions, 12 corpus mislabels, 5 **Bug 3**, 3 **Bug 2** |
+| B: opinion-search | 33 | the **Step 3 "Check Cite"** class — real/common case name, fabricated cite (Taylor v. State @0.9, Hall v. Hall, Kennedy v. Kennedy) |
+| C: RECAP | 34 | RECAP twin of Step 3 — real docket name+court, fabricated WL cite (dockets carry no reporter cites, so Lever 3 can't contradict); a few poisoned (Curtis v. Oliver) |
+
+### Three verifier bugs found (all reproduce offline from the cassette)
+
+1. **Bug 1 — parser name-drop → blind VERIFIED@1.0 (20+ FPs, the #1
+   mechanism).** `parse_citation` returns `case_name=None` on NY
+   (`Matter of X v Y, 225 AD2d 1010`), Cal. (`Marriage of Smith, 195
+   Cal. App. 4th 1007`; `Estate of Layton (1938) 29 Cal.App.2d 599`),
+   paren-led, and surname-only forms. verifier.py:253 guards the
+   name-mismatch check with `if parsed.case_name and case_name` — so a
+   nameless parse that resolves at lookup VERIFIES at 1.0 against ANY
+   cluster ("of Knapp v Knapp" → Orange Steel Erectors). Two-part fix:
+   (a) parser coverage for these formats; (b) **policy** — a lookup hit
+   with no comparable name must not be full VERIFIED@1.0 (design
+   question: VERIFIED_PARTIAL + warning? fits v0.3 taxonomy).
+2. **Bug 2 — caption_investigation generic party overlap (3).**
+   `_party_overlap_ok` passes on generic tokens: "Inc. v. United States"
+   ≈ Johns-Manville (shared "United States"), "State v. Nye County" ≈
+   State v. Eighth Judicial District (shared "State"). The
+   cl_display_name_data_bug escape hatch gets picked by fakes. One case
+   (A11 Friedman, via `opinion_head_500`) may be a multi-case reporter
+   page — investigate live.
+3. **Bug 3 — `_names_match_citation_lookup` direct-match leniency (5).**
+   Pairs like "In re SunEdison" ≈ "Wal-Mart Stores", "Kelly v. St.
+   Francis" ≈ "St. Jude Medical" pass the lenient matcher. Same family
+   as Bug 2 (generic/short token containment); fix together with a
+   shared generic-token guard ("United States", "State", "Inc.", "Co.",
+   "St.", "County", ...).
+
+### Corpus hygiene (next rebuild)
+
+- **Drop 15 poisoned entries** (extraction grabbed the court's named
+  *real* case): unambiguous new contrast markers to add — "closest
+  (possible )?match", "intended (citation was|to cite)", "citation maps
+  to", "citation points to", "traced to", "falls within", "search
+  retrieved", "may relate to", "nearby real citation", "the only real".
+  Do NOT add bare "court found" (ambiguous: "court found the citation to
+  'FAKE'" vs "court found REAL instead").
+- **Drop/recategorize 12 mislabels** (real cases: Tubra, Kidd, Chambers,
+  Hensley, Perez v. Zazo, Stenehjem, both ND State v. cases, Colón,
+  In re D.F.; plus Holden = real case **fake pinpoint**, Bolin = real
+  case **wrong court** — keep those two under new categories as future
+  pin/court-check targets, not NOT_FOUND assertions).
+- Bucket B/C not yet swept for poisoning (Norg v. City of Seattle in B
+  is suspect); do the same finder-verb pass before promoting them.
+
+### Revised effective numbers
+
+After removing ~27 corpus-hygiene entries, the honest verifier FP count
+is ≈ 95/520 (~18%): ~28 from Bugs 1–3 (fixable now, offline-testable)
+and ~60+ from the missing Step 3 "Check Cite" (B + most of C). **Step 3
+is now the single biggest lever and has a ready-made motivating corpus.**
 
 - Labels are Charlotin's (court-confirmed per the rulings), not ours; the
   pilot suggests high precision but the live run's resolved set must be

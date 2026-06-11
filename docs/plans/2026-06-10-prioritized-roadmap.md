@@ -134,6 +134,28 @@ block anything; roughly highest-value first.
 
 ## Status log
 
+- **2026-06-11 (Charlotin live run + triage — three verifier bugs found):**
+  Live recording done (547 fakes, cassette 81MB committed f142dc9):
+  **393 rejected (210 WRONG_CASE + 183 NOT_FOUND), 122 false positives.**
+  Full offline triage in the charlotin retro +
+  `scratch/charlotin_fp_triage.csv` +
+  `scratch/charlotin_bucketA_adjudication.csv`. Findings, in priority
+  order: **(1) Bug 1 — parser drops case_name** on NY/Cal/paren-led/
+  surname-only forms and verifier.py:253 then skips the name check →
+  blind VERIFIED@1.0 on any cluster the cite resolves to (20+ FPs, the
+  single biggest mechanism; needs parser fix + a policy decision for
+  nameless lookup hits). **(2) Step 3 "Check Cite" now has ~60 motivating
+  cases** (bucket B 33 opinion-search + most of bucket C 34 RECAP —
+  real/common name, fabricated cite). **(3) Bugs 2+3 — generic-token
+  party overlap** in caption_investigation and
+  `_names_match_citation_lookup` ("United States"/"State"/"St."/"Inc."
+  alone establish overlap; 8 FPs; fix with a shared generic-token
+  guard). **(4) Corpus hygiene:** 15 poisoned + 12 mislabeled entries to
+  drop/recategorize (lists + new contrast markers in the retro); B/C not
+  yet swept. All bugs reproduce offline from the cassette — fixes are
+  TDD-able without a token. 24 INCOMPLETE entries: rerun the recorder
+  (it resumes and retries transients).
+
 - **2026-06-10 (Charlotin candidate corpus — follow-up #4 unblocked):** The
   manually-downloaded CSV (`scratch/Charlotin-hallucination_cases.csv`, 1,598
   rulings / 1,115 USA) turned out to quote fabricated citations **verbatim**

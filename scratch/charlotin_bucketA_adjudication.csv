@@ -1,0 +1,56 @@
+id,citation,classification,reason,status
+A1,"(La. App. 4 Cir. 10/30/13), 127 So.3d 156",verifier_bug1_parser_name_drop,,VERIFIED
+A2,"Lampe v. Genuine Parts Co., 463 F. Supp. 2d 928, 934 (E.D. Wis. 2006)",corpus_poisoned_drop,court found Lampe ... instead,VERIFIED
+A3,"In re Amica Mut. Ins. Co., 85 A.D.3d 1510 (3rd Dept. 2011)",verifier_bug3_lookup_matcher_lenient,In re Amica vs Leto v. Amrex passed DIRECT lookup matcher - investigate,VERIFIED_PARTIAL
+A4,"Tubra v. Cooke, 233 Or App 339, 225 P3d 862 (2010)",corpus_mislabel_real_case,Tubra v. Cooke is real at 233 Or App 339,VERIFIED
+A5,"Colón v. Romero Barceló, 112 DPR 573 (1982)",corpus_mislabel_real_case,Colon v. Romero Barcelo real; fabricated QUOTE not case,VERIFIED
+A6,"(In re Delta-T Corp.), 475 B.R. 495 (Bankr. E.D. Va. 2012)",corpus_poisoned_drop+verifier_bug1_parser_name_drop,court's search retrieved Swanson (In re Delta-T),VERIFIED
+A7,"In re SunEdison, Inc. Sec. Litig., 314 F.R.D. 139, 143 (S.D.N.Y. 2016)",verifier_bug3_lookup_matcher_lenient,In re SunEdison vs Wal-Mart Stores passed direct matcher - investigate,VERIFIED_PARTIAL
+A8,"Kidd v. Mando Am. Corp., 731 F.3d 1196, 1200 (11th Cir. 2013)",corpus_mislabel_real_case,Kidd v. Mando real 11th Cir case,VERIFIED
+A9,"Inc. v. United States, 12 Cl. Ct. 33 (1987)",verifier_bug2_caption_inv_generic_overlap,"cluster_case_name: generic ""United States"" overlap (Johns-Manville)",VERIFIED
+A10,"Waitz, 255 Ga. 474 (1986)",verifier_bug1_parser_name_drop,,VERIFIED
+A11,"Friedman v. Southern New Hampshire University, 104 A.D. 3d 617 (N.Y. App. Div. 2013)",verifier_bug2_caption_inv_generic_overlap,opinion_head_500: cited name found in opinion text head (AD3d multi-case page?) - investigate live,VERIFIED
+A12,"Holden v. Holiday Inn Club Vacations, Inc., 98 F.4th 1359",corpus_mislabel_real_case,Holden real; fabricated PINPOINT (1371 > end 1369),VERIFIED
+A13,"Stenehjem v. FreeEats.com Inc., 712 N.W.2d 828, 841 (N.D. 2006)",corpus_mislabel_real_case,State ex rel. Stenehjem v. FreeEats.com real,VERIFIED
+A14,"State v. Clark, 2012 ND 135",corpus_mislabel_real_case,State v. Clark 2012 ND 135 real,VERIFIED
+A15,"State v. $44,140.00 U.S. Currency, 2012 ND 176",corpus_mislabel_real_case,"State v. $44,140.00 real",VERIFIED
+A16,"Marriage of Smith, 195 Cal. App. 4th 1007, 1018 (2011)",verifier_bug1_parser_name_drop,,VERIFIED
+A17,"Harris v Seward Park Housing Corp., 147 AD3d 589 (1st Dep't 2017)",verifier_bug1_parser_name_drop,,VERIFIED
+A18,"DiLorenzo v D.C. & D. Transp. Corp., 39 AD2d 950 (2nd Dept, 1972)",verifier_bug1_parser_name_drop,,VERIFIED
+A19,"Matchett v. Dretke, 380 F.3d 844 (5th Cir. 2004)",corpus_poisoned_drop,closest match is Matchett,VERIFIED
+A20,"of Knapp v Knapp, 225 AD2d 1010 (4th Dept 1996)",verifier_bug1_parser_name_drop,,VERIFIED
+A21,"of Polizzi v Polizzi, 226 AD2d 581 (2d Dept 1996)",verifier_bug1_parser_name_drop,,VERIFIED
+A22,"of Negron v St. Charles Hosp. & Rehab. Ctr., 121 AD3d 1427 (2d Dept 2014)",verifier_bug1_parser_name_drop,,VERIFIED
+A23,"Barlow, 59 B.R. 707",verifier_bug1_parser_name_drop,,VERIFIED
+A24,"Perez v. Zazo, 498 So. 2d 463, 465 (Fla. 3d DCA 1986)",corpus_mislabel_real_case,Perez v. Zazo real Fla 3d DCA case,VERIFIED
+A25,"Wilson v. State, 277 Ga. 195 (2003)",corpus_poisoned_drop,"citation points to Wilson v. State, unrelated",VERIFIED
+A26,"(Backus v. City of Rochester, 148 AD3d 1697 [4th Dept 2017])",verifier_bug1_parser_name_drop,,VERIFIED
+A27,"Kelly v. St. Francis Medical Center, 899 N.W.2d 869 (Neb. 2017)",verifier_bug3_lookup_matcher_lenient,"Kelly v. St. Francis vs St. Jude Medical - shared ""St.""? investigate",VERIFIED
+A28,Citation 849 F. Supp. 1206 (N.D. Ind. 1994),verifier_bug1_parser_name_drop,,VERIFIED
+A29,Estate of Layton (1938) 29 Cal.App.2d 599,verifier_bug1_parser_name_drop,,VERIFIED
+A30,Estate of Hermon (1973) 16 Cal.App.3d 421,verifier_bug1_parser_name_drop,,VERIFIED
+A31,"Chamberlain v. Cocola Assocs., 958 F.2d 282 (9th Cir. 1992)",corpus_poisoned_drop,intended citation was Chamberlain,VERIFIED
+A32,"Eddy v. Sharp, 199 Cal. App. 3d 858 (1988)",corpus_poisoned_drop,counsel intended to cite Eddy,VERIFIED
+A33,"Bolin v. Story, 225 F.3d 1234, 1239 (6th Cir. 2000)",corpus_mislabel_real_case,Bolin v. Story real but 11th Cir not 6th - wrong-court hybrid,VERIFIED
+A34,"United States v. Martinez, 608 Fed. Appx. 692 (10th Cir. 2015)",corpus_poisoned_drop,nearby real citation was US v. Martinez,VERIFIED
+A35,"Nat’l Bank of Paris v. Midwest Agri-Dev. Corp., 887 F.2d 1128, 1134 (7th Cir. 1989)",verifier_bug3_lookup_matcher_lenient,"lookup returned [] yet direct match - odd path, investigate",VERIFIED
+A36,"Co. v. United States, 157 Ct. Cl. 196, 206 (1962)",verifier_bug3_lookup_matcher_lenient,"Co. v. United States vs Salz v. United States - generic ""United States""",VERIFIED_PARTIAL
+A37,"(La. App. 3 Cir. 7/10/02), 833 So.2d 1136",verifier_bug1_parser_name_drop,,VERIFIED
+A38,"City of Monticello v. Christensen, 788 P.2d 513 (Utah 1990)",corpus_poisoned_drop,may relate to City of Monticello,VERIFIED
+A39,"Chambers v. Time Warner, Inc., 282 F.3d 147, 152-53 (2d Cir. 2002)",corpus_mislabel_real_case,Chambers v. Time Warner real; quote fabricated,VERIFIED
+A40,In re Marriage of L.B. (2018) 30 Cal.App.5th 1076,verifier_bug1_parser_name_drop,,VERIFIED
+A41,In re Marriage of C.T. and R.T. (2017) 12 Cal.App.5th 982,verifier_bug1_parser_name_drop,,VERIFIED
+A42,In re Marriage of Facter (2016) 1 Cal.App.5th 526,verifier_bug1_parser_name_drop,,VERIFIED
+A43,In re Marriage of Manfer (2006) 144 Cal.App.4th 925,verifier_bug1_parser_name_drop,,VERIFIED
+A44,"Henlsey v. Alcon Labs, 277 F.3d 535 (4th Cir. 2002)",corpus_mislabel_real_case,Hensley v. Alcon real; brief typo Henlsey,VERIFIED
+A45,"State v. Nye County, 129 Nev. 521 (2013)",verifier_bug2_caption_inv_generic_overlap,"cluster_case_name: generic ""State""/""County"" overlap (Eighth Judicial District)",VERIFIED
+A46,"D.F., 201 Ill. 2d 476 (2002)",corpus_mislabel_real_case+verifier_bug1_parser_name_drop,In re D.F. 201 Ill.2d 476 real,VERIFIED
+A47,"of Medical Transport v NY State Dept of Health, 294 A.D.2d 574 (2d Dept 2002)",verifier_bug1_parser_name_drop,,VERIFIED
+A48,"(In re Davis), 447 B.R. 738 (Bankr. D. Md. 2011)",corpus_poisoned_drop+verifier_bug1_parser_name_drop,closest possible match is Davis/In re Davis,VERIFIED
+A49,"Jager, 344 B.R. 349 (Bankr. D. Colo. 2006)",verifier_bug1_parser_name_drop,,VERIFIED
+A50,"Grapevine Imports, Ltd. v. United States, 71 Fed. Cl. 324, 326 (2006)",corpus_poisoned_drop,Court traced to a page within Grapevine,VERIFIED
+A51,"Lin Zhong v. DOJ, 489 F.3d 126 (2d Cir. 2007)",corpus_poisoned_drop,closest match is Lin Zhong,VERIFIED
+A52,"Young v. New Haven Advocate, 315 F.3d 256 (4th Cir. 2002)",corpus_poisoned_drop,closest match is Young,VERIFIED
+A53,People v. Ayala (2000) 24 Cal.4th 243,corpus_poisoned_drop,page falls within People v. Ayala,VERIFIED
+A54,"Staggs v. Atchison, Topeka & Santa Fe Railway (1955) 135 Cal.App.2d 492",corpus_poisoned_drop,citation maps to Staggs,VERIFIED
+A55,Martinez (330 S.W.3d 891),corpus_poisoned_drop+verifier_bug1_parser_name_drop,the only real Ex parte Martinez,VERIFIED
