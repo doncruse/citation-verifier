@@ -90,7 +90,41 @@ _TRAILING_PAREN_JUNK = re.compile(r"\s*\([^)]*$")
 _DOCKET_NUMBER_PATTERN = re.compile(
     r"(?:Case\s+)?No\.\s+([^,()]+)", re.IGNORECASE
 )
-_DOCKET_JUNK = re.compile(r",?\s*(?:Case\s+)?No\.\s+[^,()]+", re.IGNORECASE)
+_DOCKET_JUNK = re.compile(r",?\s*(?:Case\s+)?No\.\s+([^,()]+)", re.IGNORECASE)
+
+
+def _docket_shaped(candidate: str) -> bool:
+    """True when text captured after "No." actually looks like a docket number.
+
+    Lever (b) of the Check Cite design (2026-06-11): "No. <x>" also appears
+    inside party names ("HJSA No. 3, L.P.", "Local No. 7 v. Acme") where
+    treating it as a docket number both mangles the search query and invents
+    a phantom docket number that feeds the Lever-3 contradiction cap
+    (the verified-sundown-energy-fallback false negative). Docket-shaped means:
+      1. contains a digit;
+      2. >= 4 chars or contains a separator (-:/), rejecting bare entity
+         numbers like "3" or "7";
+      3. no purely-alphabetic lowercase token (rejects name fragments like
+         "7 v. Acme Corp." — docket tokens are digits or short caps like
+         "C", "Civ.", "CV").
+    """
+    candidate = candidate.strip()
+    if not any(ch.isdigit() for ch in candidate):
+        return False
+    if len(candidate) < 4 and not any(ch in candidate for ch in "-:/"):
+        return False
+    for token in candidate.split():
+        stripped = token.rstrip(".")
+        if stripped.isalpha() and stripped[0].islower():
+            return False
+    return True
+
+
+def _strip_docket_junk(name: str) -> str:
+    """Strip ", No. <docket>" from a case name only when docket-shaped."""
+    return _DOCKET_JUNK.sub(
+        lambda m: "" if _docket_shaped(m.group(1)) else m.group(0), name
+    )
 
 # Bare federal docket number written without a "No." prefix, e.g.
 # "Johnson v. Mitchell, 2:20-cv-1882, ...". The office:yy-type-number shape
@@ -417,7 +451,7 @@ def parse_citation(text: str) -> ParsedCitation:
 
     # Extract docket number before cleaning it from the case name
     docket_match = _DOCKET_NUMBER_PATTERN.search(text)
-    if docket_match:
+    if docket_match and _docket_shaped(docket_match.group(1)):
         result.docket_number = docket_match.group(1).strip().rstrip(",")
     else:
         bare_docket = _BARE_DOCKET_PATTERN.search(text)
@@ -433,7 +467,7 @@ def parse_citation(text: str) -> ParsedCitation:
     if result.case_name:
         result.case_name = _SLIP_OPINION_JUNK.sub("", result.case_name)
         result.case_name = _TRAILING_YEAR.sub("", result.case_name)
-        result.case_name = _DOCKET_JUNK.sub("", result.case_name)
+        result.case_name = _strip_docket_junk(result.case_name)
         result.case_name = _JUDGE_INITIALS.sub("", result.case_name)
         result.case_name = _TRAILING_PAREN_JUNK.sub("", result.case_name)
         # Unbalanced close paren from paren-led citations: "In re Davis)"
@@ -443,7 +477,7 @@ def parse_citation(text: str) -> ParsedCitation:
     if result.defendant:
         result.defendant = _SLIP_OPINION_JUNK.sub("", result.defendant)
         result.defendant = _TRAILING_YEAR.sub("", result.defendant)
-        result.defendant = _DOCKET_JUNK.sub("", result.defendant)
+        result.defendant = _strip_docket_junk(result.defendant)
         result.defendant = _normalize_case_name(result.defendant)
     if result.plaintiff:
         result.plaintiff = _normalize_case_name(result.plaintiff)
@@ -529,7 +563,7 @@ def parsed_citation_from_eyecite(
     # --- Docket number extraction from raw_text ---
     if raw_text:
         docket_match = _DOCKET_NUMBER_PATTERN.search(raw_text)
-        if docket_match:
+        if docket_match and _docket_shaped(docket_match.group(1)):
             result.docket_number = docket_match.group(1).strip().rstrip(",")
         else:
             bare_docket = _BARE_DOCKET_PATTERN.search(raw_text)
@@ -545,14 +579,14 @@ def parsed_citation_from_eyecite(
     if result.case_name:
         result.case_name = _SLIP_OPINION_JUNK.sub("", result.case_name)
         result.case_name = _TRAILING_YEAR.sub("", result.case_name)
-        result.case_name = _DOCKET_JUNK.sub("", result.case_name)
+        result.case_name = _strip_docket_junk(result.case_name)
         result.case_name = _JUDGE_INITIALS.sub("", result.case_name)
         result.case_name = _TRAILING_PAREN_JUNK.sub("", result.case_name)
         result.case_name = _normalize_case_name(result.case_name)
     if result.defendant:
         result.defendant = _SLIP_OPINION_JUNK.sub("", result.defendant)
         result.defendant = _TRAILING_YEAR.sub("", result.defendant)
-        result.defendant = _DOCKET_JUNK.sub("", result.defendant)
+        result.defendant = _strip_docket_junk(result.defendant)
         result.defendant = _normalize_case_name(result.defendant)
     if result.plaintiff:
         result.plaintiff = _normalize_case_name(result.plaintiff)

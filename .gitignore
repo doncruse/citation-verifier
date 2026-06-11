@@ -33,6 +33,10 @@ docs/mcp-feedback.md
 
 # Worktrees
 .worktrees/
+.claude/worktrees/
+
+# Claude Code harness lock file (machine-local)
+.claude/scheduled_tasks.lock
 
 # Replit auto-generated files
 .upm/

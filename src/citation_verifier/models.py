@@ -158,6 +158,23 @@ class Diagnostic:
         return self.message
 
 
+class CiteCheck(Enum):
+    """Outcome of comparing the cited reporter/WL location against the
+    matched record's citation list (Check Cite design, 2026-06-11 §5.1).
+
+    CONTRADICTED requires a same-reporter-family witness on the record
+    (design §3.1): cross-family absence (cited S. Ct., record lists U.S.;
+    cited So. 3d, record lists only the official state reporter) is
+    NOT_ON_RECORD — the CL reporter-gap / parallel-cite situation, not a
+    contradiction.
+    """
+
+    NO_CITE_IN_INPUT = "no_cite_in_input"
+    CORROBORATED = "corroborated"
+    CONTRADICTED = "contradicted"
+    NOT_ON_RECORD = "not_on_record"
+
+
 @dataclass
 class ParsedCitation:
     raw_text: str
@@ -191,6 +208,7 @@ class CandidateMatch:
     recap_document_id: int | None = None   # Phase 3 Task 4
     page_count: int = 0                    # Phase 4 Task 4 (Q2)
     is_free_on_pacer: bool = False         # Phase 4 Task 4 (Q2)
+    cite_check: CiteCheck = CiteCheck.NO_CITE_IN_INPUT   # Check Cite §5.1
 
 
 # ---------------------------------------------------------------------------

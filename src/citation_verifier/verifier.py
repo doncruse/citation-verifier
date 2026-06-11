@@ -13,6 +13,7 @@ from .client import AsyncCourtListenerClient, CourtListenerClient
 from .court_map import is_federal_court, lookup_court_id
 from .models import (
     CandidateMatch,
+    CiteCheck,
     Diagnostic,
     FinalIds,
     ParsedCitation,
@@ -75,6 +76,22 @@ def _name_tokens(name: str) -> set[str]:
         return set()
     raw = re.findall(r"[a-z0-9]+", name.lower())
     return {t for t in raw if len(t) >= 4 and t not in _NAME_TOKEN_STOPLIST}
+
+
+# Trailing reporter series ordinals stripped for family comparison:
+# N.E.2d == N.E.3d == N.E. (one family); F.3d == F.4th. U.S. and S. Ct.
+# remain distinct families (the SCOTUS parallel case is NOT a contradiction).
+_REPORTER_SERIES_SUFFIX = re.compile(r"(2d|3d|4th|5th|6th|7th|8th|9th|10th)$")
+
+# "601 U.S. 346" / "2017 WL 1022010" -> (volume, reporter, page)
+_RECORD_CITE_PATTERN = re.compile(r"^\s*(\d+)\s+(.+?)\s+(\S+)\s*$")
+
+
+def _reporter_family(reporter: str) -> str:
+    """Normalize a reporter abbreviation to its base family for the
+    same-family-witness rule (Check Cite design §3.1)."""
+    s = re.sub(r"[\s.]", "", (reporter or "").lower())
+    return _REPORTER_SERIES_SUFFIX.sub("", s)
 
 
 class CitationVerifier:
@@ -1272,7 +1289,7 @@ class CitationVerifier:
             elif url and not url.startswith("http"):
                 url = f"https://www.courtlistener.com{url}"
 
-            score, mismatches = self._score_match(
+            score, mismatches, cite_check = self._score_match(
                 parsed, case_name, court_id, date_filed, r
             )
             candidates.append(
@@ -1284,6 +1301,7 @@ class CitationVerifier:
                     court_id=court_id,
                     score=score,
                     mismatches=mismatches,
+                    cite_check=cite_check,
                 )
             )
         return candidates
@@ -1309,9 +1327,12 @@ class CitationVerifier:
         # Use both document short_description and entry-level description
         # (the latter is often richer, e.g. "ORDER by District Judge ...").
         scored_docs = []
+        cite_check = CiteCheck.NO_CITE_IN_INPUT
         for doc in docs:
             entry_date = doc.get("entry_date_filed") or doc.get("date_filed", "")
-            score, mismatches = self._score_match(
+            # cite_check depends only on `parsed` + `result` (same for every
+            # doc), so the last assignment is identical across iterations.
+            score, mismatches, cite_check = self._score_match(
                 parsed,
                 case_name,
                 court_id,
@@ -1384,6 +1405,7 @@ class CitationVerifier:
             recap_document_id=doc.get("id"),          # Phase 3 Task 4
             page_count=int(doc.get("page_count") or 0),    # Phase 4 Task 4 (Q2)
             is_free_on_pacer=bool(doc.get("is_free_on_pacer")),  # Phase 4 Task 4 (Q2)
+            cite_check=cite_check,                    # Check Cite §5.1
         )
 
     def _build_docket_only_candidate(
@@ -1399,7 +1421,7 @@ class CitationVerifier:
 
         Discounts the score (0.6x) and strips date/citation diagnostics.
         """
-        score, mismatches = self._score_match(
+        score, mismatches, cite_check = self._score_match(
             parsed,
             case_name,
             court_id,
@@ -1433,6 +1455,7 @@ class CitationVerifier:
             score=score,
             mismatches=mismatches,
             docket_id=docket_id,
+            cite_check=cite_check,
         )
 
     @staticmethod
@@ -1875,8 +1898,9 @@ class CitationVerifier:
         # side has a distinctive token there is no evidence at all — fail
         # ("Inc. v. United States" must not pass via Johns-Manville's
         # "United States"; Charlotin Bug 2).
-        cited_plaintiff_toks = _toks(parsed.plaintiff or "") - _GENERIC
-        cited_defendant_toks = _toks(parsed.defendant or "") - _GENERIC
+        _PLACEHOLDER = CitationVerifier._PLACEHOLDER_PARTY_TOKENS
+        cited_plaintiff_toks = _toks(parsed.plaintiff or "") - _GENERIC - _PLACEHOLDER
+        cited_defendant_toks = _toks(parsed.defendant or "") - _GENERIC - _PLACEHOLDER
         if not (cited_plaintiff_toks or cited_defendant_toks):
             # No distinctive party tokens — fall back to distinctive tokens
             # of the full caption (covers surname-only parses like "Waitz").
@@ -2216,6 +2240,18 @@ class CitationVerifier:
         "st", "saint", "mut",
     })
 
+    # Lever (a2), Check Cite design review (2026-06-11): placeholder party
+    # names carry no identity evidence in EITHER direction — an anonymous-
+    # defendant suit ("Viken Detection Corp. v. Doe") is re-captioned with
+    # the real name once the defendant is identified, so "Doe" is
+    # compatible with any actual party and must not fire the Lever-2
+    # party-mismatch penalty. Subtracted from cited party token sets in
+    # _party_overlap_ok (a pure-placeholder side becomes vacuous; the
+    # other side still has to overlap).
+    _PLACEHOLDER_PARTY_TOKENS = frozenset({
+        "doe", "does", "roe", "john", "jane", "unknown", "anonymous",
+    })
+
     def _names_match_citation_lookup(self, parsed: ParsedCitation, cl_case_name: str) -> bool:
         """Lenient name check for citation-lookup matches.
 
@@ -2367,7 +2403,7 @@ class CitationVerifier:
         result_court: str,
         result_date: str,
         result: dict[str, Any],
-    ) -> tuple[float, list[Diagnostic]]:
+    ) -> tuple[float, list[Diagnostic], CiteCheck]:
         """Score how well a search result matches the parsed citation.
 
         Base weights: case name (50%), court (20%), date (20%),
@@ -2381,7 +2417,7 @@ class CitationVerifier:
         parenthetical) from being capped at 0.80 even when everything
         else matches perfectly.
 
-        Returns (score, list of mismatch Diagnostics).
+        Returns (score, list of mismatch Diagnostics, CiteCheck outcome).
         """
         mismatches: list[Diagnostic] = []
 
@@ -2448,6 +2484,36 @@ class CitationVerifier:
         # reporter cite vouches for the record regardless of the caption.
         cite_corroborated = False
         docket_corroborated = False
+
+        # Lever (a1) pre-pass (Check Cite design §6): corroboration must be
+        # known BEFORE the name component is scored, because an exact cited
+        # cite or docket-number match on the record waives the party-mismatch
+        # penalty below (near-dispositive identity evidence; Rule 25(d)
+        # substitutions). The full docket/cite scoring blocks still run later
+        # in their original order and own the diagnostics.
+        _pre_raw = result.get("citation", [])
+        if isinstance(_pre_raw, list):
+            _pre_cites_str = " ".join(str(c) for c in _pre_raw if c)
+        else:
+            _pre_cites_str = str(_pre_raw or "")
+        pre_cite_corroborated = False
+        if parsed.volume and parsed.page and parsed.reporter:
+            _cs = f"{parsed.volume} {parsed.reporter} {parsed.page}".lower()
+            pre_cite_corroborated = (
+                _cs in _pre_cites_str.lower()
+                or re.sub(r"\.\s+", ".", _cs)
+                in re.sub(r"\.\s+", ".", _pre_cites_str.lower())
+            )
+        elif parsed.wl_number:
+            pre_cite_corroborated = parsed.wl_number in _pre_cites_str
+        pre_docket_corroborated = False
+        if parsed.docket_number:
+            _rd = result.get("docketNumber") or result.get("docket_number") or ""
+            if _rd:
+                pre_docket_corroborated = (
+                    self._normalize_docket_number(parsed.docket_number)
+                    == self._normalize_docket_number(_rd)
+                )
         # Whether the cited docket number is PRESENT on both the citation and
         # the candidate record but DIFFERS (an active contradiction, as
         # opposed to merely absent). Drives the Lever 3 contradiction arm of
@@ -2477,12 +2543,16 @@ class CitationVerifier:
             # original (un-penalized) name_sim so their wording is unchanged.
             scored_name_sim = name_sim
             if not party_overlap:
-                scored_name_sim *= _PARTY_MISMATCH_NAME_FACTOR
                 mismatches.append(Diagnostic(
                     "name",
                     f'Party mismatch: found "{result_case_name}" shares only '
                     f'one party with cited "{parsed.case_name}"',
                 ))
+                # Lever (a1): an exact cite/docket match on the record
+                # vouches for identity, so the penalty is skipped (the
+                # diagnostic above still fires for transparency).
+                if not (pre_cite_corroborated or pre_docket_corroborated):
+                    scored_name_sim *= _PARTY_MISMATCH_NAME_FACTOR
             score += w_name * scored_name_sim
 
             if name_sim < 0.6:
@@ -2586,13 +2656,29 @@ class CitationVerifier:
                         f"vs found {result_docket}",
                     ))
 
-        # Reporter/WL citation match
-        result_citation = result.get("citation", [])
-        if isinstance(result_citation, list):
-            result_citation = " ".join(str(c) for c in result_citation)
-        elif not isinstance(result_citation, str):
-            result_citation = str(result_citation)
+        # Reporter/WL citation match. Alongside the score contribution, this
+        # block classifies the cited location against the record's citation
+        # list (CiteCheck, Check Cite design §5.1). CONTRADICTED requires a
+        # same-reporter-family witness (§3.1): cross-family absence (cited
+        # S. Ct., record lists U.S.; cited So. 3d, record lists only the
+        # official state reporter) is NOT_ON_RECORD, not a contradiction.
+        raw_citation = result.get("citation", [])
+        if isinstance(raw_citation, list):
+            record_cites = [str(c) for c in raw_citation if c]
+        elif raw_citation:
+            record_cites = [str(raw_citation)]
+        else:
+            record_cites = []
+        result_citation = " ".join(record_cites)
 
+        def _same_family_witness(cited_family: str) -> bool:
+            for c in record_cites:
+                m = _RECORD_CITE_PATTERN.match(c)
+                if m and _reporter_family(m.group(2)) == cited_family:
+                    return True
+            return False
+
+        cite_check = CiteCheck.NO_CITE_IN_INPUT
         if parsed.volume and parsed.page and parsed.reporter:
             cite_str = f"{parsed.volume} {parsed.reporter} {parsed.page}"
             # Normalize spacing around periods for comparison:
@@ -2603,13 +2689,20 @@ class CitationVerifier:
                     or cite_normalized in result_normalized):
                 score += w_cite
                 cite_corroborated = True
+                cite_check = CiteCheck.CORROBORATED
             elif not result_citation.strip():
+                cite_check = CiteCheck.NOT_ON_RECORD
                 mismatches.append(Diagnostic(
                     "cite",
                     f"Reporter citation {cite_str} could not be confirmed "
                     f"(CourtListener has no reporter citations on file for this case)",
                 ))
             else:
+                cite_check = (
+                    CiteCheck.CONTRADICTED
+                    if _same_family_witness(_reporter_family(parsed.reporter))
+                    else CiteCheck.NOT_ON_RECORD
+                )
                 mismatches.append(Diagnostic(
                     "cite",
                     f"Citation mismatch: cited {cite_str} "
@@ -2619,13 +2712,20 @@ class CitationVerifier:
             if parsed.wl_number in result_citation:
                 score += w_cite
                 cite_corroborated = True
+                cite_check = CiteCheck.CORROBORATED
             elif not result_citation.strip():
+                cite_check = CiteCheck.NOT_ON_RECORD
                 mismatches.append(Diagnostic(
                     "cite",
                     f"WL number {parsed.wl_number} could not be confirmed "
                     f"(CourtListener has no citations on file for this case)",
                 ))
             else:
+                cite_check = (
+                    CiteCheck.CONTRADICTED
+                    if _same_family_witness("wl")
+                    else CiteCheck.NOT_ON_RECORD
+                )
                 mismatches.append(Diagnostic(
                     "cite",
                     f"WL number {parsed.wl_number} not found "
@@ -2655,7 +2755,7 @@ class CitationVerifier:
         if strong_negative and not cite_corroborated and not docket_corroborated:
             score = min(score, _VERIFIED_SCORE_THRESHOLD - 0.01)
 
-        return round(score, 4), mismatches
+        return round(score, 4), mismatches, cite_check
 
     # ------------------------------------------------------------------
     # Async verification

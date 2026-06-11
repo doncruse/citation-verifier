@@ -1217,9 +1217,11 @@ class TestScoring:
             defaults.update(parsed_overrides)
         parsed = ParsedCitation(**defaults)
         v = CitationVerifier(_make_client())
+        # _score_match returns (score, mismatches, cite_check); this helper
+        # predates CiteCheck and its callers unpack two values.
         return v._score_match(
             parsed, result_case_name, result_court, result_date, result or {}
-        )
+        )[:2]
 
     # --- Tests with all components evaluable (no redistribution) ---
     # When court AND year are provided, base weights apply: 50/20/20/5/5
@@ -2011,7 +2013,7 @@ class TestSurnameScoreBonus:
             defendant="Weihele",
         )
         v = CitationVerifier(_make_client())
-        score, _ = v._score_match(
+        score, _, _ = v._score_match(
             parsed,
             "Edward S. Jindrich, Jr. v. Michaela Weihele",
             "", "", {}
@@ -2031,7 +2033,7 @@ class TestSurnameScoreBonus:
             defendant="Jones",
         )
         v = CitationVerifier(_make_client())
-        score, _ = v._score_match(
+        score, _, _ = v._score_match(
             parsed,
             "Edward S. Jindrich, Jr. v. Michaela Weihele",
             "", "", {}
@@ -3614,7 +3616,7 @@ class TestPartyMismatchPenalty:
             "Johnson v. Mitchell, 2:20-cv-1882, 2020 WL 5649609 "
             "(S.D. Ohio Sept. 23, 2020)"
         )
-        score, _ = v._score_match(
+        score, _, _ = v._score_match(
             parsed, "Scudder v. Mitchell", "ohsd", "2021-03-29", {}
         )
         assert score < _VERIFIED_SCORE_THRESHOLD
@@ -3626,7 +3628,7 @@ class TestPartyMismatchPenalty:
         date credit must be overcome by the penalty."""
         v = self._scorer()
         parsed = parse_citation("Thompson v. Best, 989 N.E.2d 299 (Ind. Ct. App. 2013)")
-        score, _ = v._score_match(
+        score, _, _ = v._score_match(
             parsed, "Thompson v. Thompson", "ind", "2013-08-30", {}
         )
         assert score < _VERIFIED_SCORE_THRESHOLD
@@ -3646,7 +3648,7 @@ class TestPartyMismatchPenalty:
             "Johnson v. Mitchell, 2:20-cv-1882, 2020 WL 5649609 "
             "(S.D. Ohio Sept. 23, 2020)"
         )
-        score, _ = v._score_match(parsed, "Laile v. Mitchell", "ohsd", "2020-09-23", {})
+        score, _, _ = v._score_match(parsed, "Laile v. Mitchell", "ohsd", "2020-09-23", {})
         assert score < _VERIFIED_SCORE_THRESHOLD
 
     def test_party_mismatch_escapes_cap_when_cite_corroborates(self):
@@ -3658,7 +3660,7 @@ class TestPartyMismatchPenalty:
         v = self._scorer()
         parsed = parse_citation("Johnson v. Mitchell, 123 F.3d 456 (6th Cir. 2020)")
         result = {"citation": ["123 F.3d 456"]}
-        score, _ = v._score_match(parsed, "Laile v. Mitchell", "ca6", "2020-06-01", result)
+        score, _, _ = v._score_match(parsed, "Laile v. Mitchell", "ca6", "2020-06-01", result)
         assert score >= _VERIFIED_SCORE_THRESHOLD
 
     def test_both_parties_match_not_penalized(self):
@@ -3667,7 +3669,7 @@ class TestPartyMismatchPenalty:
         the penalty must not fire."""
         v = self._scorer()
         parsed = parse_citation("Thompson v. Best, 989 N.E.2d 299 (Ind. Ct. App. 2013)")
-        score, _ = v._score_match(
+        score, _, _ = v._score_match(
             parsed, "Thompson v. Best", "indctapp", "2013-05-01", {}
         )
         assert score >= _VERIFIED_SCORE_THRESHOLD
@@ -3698,7 +3700,7 @@ class TestContradictionCap:
             "(N.D. Cal. Aug. 3, 2016)"
         )
         result = {"docketNumber": "3:10-cv-01207"}
-        score, _ = v._score_match(
+        score, _, _ = v._score_match(
             parsed, "Lopez v. Bank of America, N.A.", "cand", "2016-08-03", result
         )
         assert score < _VERIFIED_SCORE_THRESHOLD
@@ -3712,7 +3714,7 @@ class TestContradictionCap:
             "Lopez v. Bank of Am., N.A., No. 14-cv-2524, 2016 WL 4131149 "
             "(N.D. Cal. Aug. 3, 2016)"
         )
-        score, _ = v._score_match(
+        score, _, _ = v._score_match(
             parsed, "Lopez v. Bank of America, N.A.", "cand", "2016-08-03", {}
         )
         assert score >= _VERIFIED_SCORE_THRESHOLD
@@ -3730,7 +3732,7 @@ class TestContradictionCap:
             "Muldrow v. City of St. Louis, 144 S. Ct. 967 (U.S. 2024)"
         )
         result = {"citation": ["601 U.S. 346"]}
-        score, _ = v._score_match(
+        score, _, _ = v._score_match(
             parsed, "Muldrow v. City of St. Louis", "scotus", "2024-04-17", result
         )
         assert score >= _VERIFIED_SCORE_THRESHOLD
@@ -3745,7 +3747,115 @@ class TestContradictionCap:
             "(9th Cir. 2016)"
         )
         result = {"docketNumber": "3:10-cv-01207", "citation": ["789 F.3d 146"]}
-        score, _ = v._score_match(
+        score, _, _ = v._score_match(
             parsed, "Lopez v. Bank of America, N.A.", "ca9", "2016-08-03", result
         )
         assert score >= _VERIFIED_SCORE_THRESHOLD
+
+
+class TestCorroborationSkipsPartyPenalty:
+    """Lever (a1) of the Check Cite design (2026-06-11 §6): an exact cited
+    WL/reporter-cite or docket-number match on the candidate record is
+    near-dispositive identity evidence. When it is present, the Lever-2
+    party-mismatch *penalty* is skipped (previously corroboration only
+    escaped the *cap*), so Rule 25(d)-style party substitutions on a
+    corroborated record resolve. The party-mismatch diagnostic still fires
+    for transparency. Wrong-court shapes below are chosen so the penalized
+    score falls below threshold without the lever."""
+
+    def _scorer(self):
+        return CitationVerifier(_make_client())
+
+    def test_wl_corroboration_skips_party_penalty(self):
+        v = self._scorer()
+        parsed = parse_citation(
+            "Acme Widgets Corp. v. Johnson, 2019 WL 5268725 "
+            "(D. Mass. Oct. 16, 2019)"
+        )
+        result = {"citation": ["2019 WL 5268725"]}
+        score, _, _ = v._score_match(
+            parsed, "Acme Widgets Corporation v. Pemberton", "cand",
+            "2019-10-16", result,
+        )
+        assert score >= _VERIFIED_SCORE_THRESHOLD
+
+    def test_docket_corroboration_skips_party_penalty(self):
+        v = self._scorer()
+        parsed = parse_citation(
+            "Acme Widgets Corp. v. Johnson, No. 19-cv-12034, 2019 WL 5268725 "
+            "(D. Mass. Oct. 16, 2019)"
+        )
+        result = {"docketNumber": "1:19-cv-12034"}
+        score, _, _ = v._score_match(
+            parsed, "Acme Widgets Corporation v. Pemberton", "cand",
+            "2019-10-16", result,
+        )
+        assert score >= _VERIFIED_SCORE_THRESHOLD
+
+    def test_party_mismatch_diagnostic_still_fires_when_penalty_skipped(self):
+        v = self._scorer()
+        parsed = parse_citation(
+            "Acme Widgets Corp. v. Johnson, 2019 WL 5268725 "
+            "(D. Mass. Oct. 16, 2019)"
+        )
+        result = {"citation": ["2019 WL 5268725"]}
+        _, mismatches, _ = v._score_match(
+            parsed, "Acme Widgets Corporation v. Pemberton", "cand",
+            "2019-10-16", result,
+        )
+        assert any("Party mismatch" in m.message for m in mismatches)
+
+    def test_uncorroborated_party_mismatch_still_penalized(self):
+        """Control: same shape with NO corroborating cite/docket on the
+        record keeps the penalty (and the cap)."""
+        v = self._scorer()
+        parsed = parse_citation(
+            "Acme Widgets Corp. v. Johnson, 2019 WL 5268725 "
+            "(D. Mass. Oct. 16, 2019)"
+        )
+        score, _, _ = v._score_match(
+            parsed, "Acme Widgets Corporation v. Pemberton", "cand",
+            "2019-10-16", {},
+        )
+        assert score < _VERIFIED_SCORE_THRESHOLD
+
+
+class TestPlaceholderPartyWaiver:
+    """Lever (a2), discovered during the Check Cite design review: a cited
+    placeholder party (Doe/Does/Roe) is compatible with ANY actual party --
+    anonymous-defendant suits get captioned with the real name once the
+    defendant is identified. The party-mismatch penalty must not fire on a
+    placeholder. Motivating FN: 'Viken Detection Corp. v. Doe, 2019 WL
+    5268725' vs CL's RECAP docket 'Viken Detection Corporation v. Bradshaw'
+    (a docket -- no citation field, so lever (a1) corroboration can never
+    reach it)."""
+
+    def _scorer(self):
+        return CitationVerifier(_make_client())
+
+    def test_doe_defendant_does_not_fire_penalty(self):
+        v = self._scorer()
+        parsed = parse_citation(
+            "Viken Detection Corp. v. Doe, 2019 WL 5268725 "
+            "(D. Mass. Oct. 16, 2019)"
+        )
+        score, _, _ = v._score_match(
+            parsed, "Viken Detection Corporation v. Bradshaw", "mad",
+            "2019-09-27", {},
+        )
+        assert score >= _VERIFIED_SCORE_THRESHOLD
+
+    def test_doe_with_nonmatching_plaintiff_still_fails(self):
+        """The waiver only blanks the placeholder side; the distinctive
+        side must still overlap. A fake with a Doe defendant and an alien
+        plaintiff stays penalized + capped."""
+        v = self._scorer()
+        parsed = parse_citation(
+            "Maritime Salvage Partners v. Doe, 2019 WL 5268725 "
+            "(D. Mass. Oct. 16, 2019)"
+        )
+        score, _, _ = v._score_match(
+            parsed, "Viken Detection Corporation v. Bradshaw", "mad",
+            "2019-09-27", {},
+        )
+        assert score < _VERIFIED_SCORE_THRESHOLD
