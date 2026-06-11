@@ -1623,7 +1623,8 @@ class TestVerifiedViaRecapVsDocketOnly:
         async_client = _make_async_client(**api)
         v = CitationVerifier()
         result = asyncio.run(v.verify_async(async_client, citation))
-        assert result.status == Status.VERIFIED_DOCKET_ONLY
+        # Check Cite (2026-06-11): WL-only + bare-docket outcome demotes.
+        assert result.status == Status.CITE_UNCONFIRMED
         assert result.final_ids.docket_id == 4275225
         assert result.final_ids.recap_document_id is None
         assert result.final_ids.text_source is None
@@ -1661,7 +1662,8 @@ class TestVerifiedViaRecapVsDocketOnly:
         async_client = _make_async_client(**api)
         v = CitationVerifier()
         result = asyncio.run(v.verify_async(async_client, citation))
-        assert result.status == Status.VERIFIED_DOCKET_ONLY
+        # Check Cite (2026-06-11): WL-only + bare-docket outcome demotes.
+        assert result.status == Status.CITE_UNCONFIRMED
         assert result.final_ids.docket_id == 10993603
         assert result.final_ids.recap_document_id is None
 
@@ -1872,7 +1874,8 @@ class TestVerifiedViaRecapScoreGate:
         async_client = _make_async_client(**api)
         v = CitationVerifier()
         result = asyncio.run(v.verify_async(async_client, citation))
-        assert result.status == Status.VERIFIED_DOCKET_ONLY
+        # Check Cite (2026-06-11): WL-only + bare-docket outcome demotes.
+        assert result.status == Status.CITE_UNCONFIRMED
 
     def test_score_gate_requires_both_page_count_and_is_free(self):
         """A short doc (page_count < 5) fails the score gate even with
@@ -1908,7 +1911,8 @@ class TestVerifiedViaRecapScoreGate:
         async_client = _make_async_client(**api)
         v = CitationVerifier()
         result = asyncio.run(v.verify_async(async_client, citation))
-        assert result.status == Status.VERIFIED_DOCKET_ONLY
+        # Check Cite (2026-06-11): WL-only + bare-docket outcome demotes.
+        assert result.status == Status.CITE_UNCONFIRMED
 
     def test_score_gate_fetches_doc_detail_when_search_omits_metadata(self):
         """Async parity: search_recap returns page_count=None/is_free_on_pacer=None.
@@ -1997,7 +2001,8 @@ class TestVerifiedViaRecapScoreGate:
         async_client = _make_async_client(**api)
         v = CitationVerifier()
         result = asyncio.run(v.verify_async(async_client, citation))
-        assert result.status == Status.VERIFIED_DOCKET_ONLY
+        # Check Cite (2026-06-11): WL-only + bare-docket outcome demotes.
+        assert result.status == Status.CITE_UNCONFIRMED
         assert result.status != Status.VERIFICATION_INCOMPLETE
 
 

@@ -3032,7 +3032,9 @@ class TestVerifiedViaRecapVsDocketOnly:
         result = v.verify(
             "Sample v. Counterparty, 2020 WL 1234567 (W.D. Tex. May 1, 2020)"
         )
-        assert result.status == Status.VERIFIED_DOCKET_ONLY
+        # Check Cite (2026-06-11): a WL-only citation that wins nothing but
+        # a bare docket (gate failed) demotes to CITE_UNCONFIRMED.
+        assert result.status == Status.CITE_UNCONFIRMED
         assert result.final_ids.docket_id == 99999001
         assert result.final_ids.recap_document_id is None
 
@@ -3067,7 +3069,8 @@ class TestVerifiedViaRecapVsDocketOnly:
         result = v.verify(
             "Cabot v. Lewis, 2015 WL 13648107 (D. Mass. July 9, 2015)"
         )
-        assert result.status == Status.VERIFIED_DOCKET_ONLY
+        # Check Cite (2026-06-11): WL-only + bare-docket outcome demotes.
+        assert result.status == Status.CITE_UNCONFIRMED
         assert result.final_ids.docket_id == 4275225
         assert result.final_ids.recap_document_id is None
         assert result.final_ids.text_source is None
@@ -3106,7 +3109,8 @@ class TestVerifiedViaRecapVsDocketOnly:
         result = v.verify(
             "Menges v. Cliffs Drilling Co., 2000 WL 765082 (E.D. La. May 31, 2000)"
         )
-        assert result.status == Status.VERIFIED_DOCKET_ONLY
+        # Check Cite (2026-06-11): WL-only + bare-docket outcome demotes.
+        assert result.status == Status.CITE_UNCONFIRMED
         assert result.final_ids.docket_id == 10993603
         assert result.final_ids.recap_document_id is None
 
@@ -3193,7 +3197,9 @@ class TestVerifiedViaRecapScoreGate:
         result = v.verify(
             "Cabot v. Lewis, 2015 WL 13648107 (D. Mass. July 9, 2015)"
         )
-        assert result.status == Status.VERIFIED_DOCKET_ONLY
+        # Gate held (procedural keyword) -> bare-docket outcome; WL-only
+        # citation demotes to CITE_UNCONFIRMED (Check Cite, 2026-06-11).
+        assert result.status == Status.CITE_UNCONFIRMED
 
     def test_score_gate_requires_both_page_count_and_is_free(self):
         """A short doc (page_count < 5) fails the score gate even with
@@ -3227,7 +3233,8 @@ class TestVerifiedViaRecapScoreGate:
         )
         v = CitationVerifier(client)
         result = v.verify("Short Case v. Other, 2020 WL 999999 (W.D. Tex. June 15, 2020)")
-        assert result.status == Status.VERIFIED_DOCKET_ONLY
+        # Gate held (short doc) -> bare-docket outcome; WL-only demotes.
+        assert result.status == Status.CITE_UNCONFIRMED
 
     def test_score_gate_fetches_doc_detail_when_search_omits_metadata(self):
         """search_recap may return docs with page_count=None / is_free_on_pacer=None.
@@ -3323,8 +3330,10 @@ class TestVerifiedViaRecapScoreGate:
             "Mehar Holdings, LLC v. Evanston Ins. Co., "
             "2016 WL 5957681 (W.D. Tex. Oct. 14, 2016)"
         )
-        # Refinement failed → fall through to DOCKET_ONLY, no exception raised.
-        assert result.status == Status.VERIFIED_DOCKET_ONLY
+        # Refinement failed → fall through to the bare-docket outcome (no
+        # exception raised); WL-only demotes to CITE_UNCONFIRMED, which is
+        # still NOT the INCOMPLETE promotion this test guards against.
+        assert result.status == Status.CITE_UNCONFIRMED
         assert result.status != Status.VERIFICATION_INCOMPLETE
 
 

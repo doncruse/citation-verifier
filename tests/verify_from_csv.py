@@ -426,12 +426,15 @@ def main() -> None:
 
     # Highlight items needing QC. v0.3 statuses requiring human review:
     # NOT_FOUND (potential hallucination), WRONG_CASE (cite resolves to a
-    # different case -- highest priority), VERIFICATION_INCOMPLETE (infra
-    # failure, needs rerun), INSUFFICIENT_DATA (parse too weak to verify;
-    # fix the input). POSSIBLE_MATCH kept for backward-compat with reviewers
-    # reading old sidecars from pre-v0.3 runs.
+    # different case -- highest priority), CITE_UNCONFIRMED (case found by
+    # name, cited location contradicted/unverifiable -- Check Cite,
+    # 2026-06-11), VERIFICATION_INCOMPLETE (infra failure, needs rerun),
+    # INSUFFICIENT_DATA (parse too weak to verify; fix the input).
+    # POSSIBLE_MATCH kept for backward-compat with reviewers reading old
+    # sidecars from pre-v0.3 runs.
     needs_qc = [r for r in results_for_sidecar
                 if r["status"] in ("NOT_FOUND", "WRONG_CASE",
+                                   "CITE_UNCONFIRMED",
                                    "VERIFICATION_INCOMPLETE",
                                    "INSUFFICIENT_DATA", "POSSIBLE_MATCH")]
     if needs_qc:

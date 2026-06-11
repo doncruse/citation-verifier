@@ -47,6 +47,10 @@ _FOUND = {
     Status.VERIFIED_VIA_RECAP, Status.VERIFIED_DOCKET_ONLY,
 }
 _FOUND_VALUES = {s.value for s in _FOUND}
+# Check Cite (2026-06-11): counted in its own bucket, NOT in found. For a
+# fake corpus, `found` remains the FP headline; CITE_UNCONFIRMED on a fake
+# is a success (the tool tells the user to check; the check reveals it).
+_CHECK_CITE_VALUE = Status.CITE_UNCONFIRMED.value
 
 # Write progress to disk every N verified citations. Cassettes can reach
 # tens of MB (opinion texts), so per-citation dumps would be wasteful; a
@@ -67,13 +71,15 @@ def _should_skip_on_resume(baseline_entry: dict | None) -> bool:
 def _recompute_counts(baseline: dict) -> dict:
     """Summary counts derived from the (possibly resumed) baseline."""
     counts = {"found": 0, "not_found": 0, "incomplete": 0, "error": 0,
-              "cluster_match": 0}
+              "cluster_match": 0, "check_cite": 0}
     for entry in baseline.values():
         status = entry.get("status")
         if status == "ERROR":
             counts["error"] += 1
         elif status == Status.VERIFICATION_INCOMPLETE.value:
             counts["incomplete"] += 1
+        elif status == _CHECK_CITE_VALUE:
+            counts["check_cite"] += 1
         elif status in _FOUND_VALUES:
             counts["found"] += 1
             cluster = entry.get("cluster_id")
@@ -190,6 +196,7 @@ def main() -> None:
     print(f"\nRecorded {n} citations -> {_CASSETTE.name} ({len(cassette)} cached calls)")
     print(f"  found (resolved):      {counts['found']}/{n}")
     print(f"    of which cluster-id matches benchmark: {counts['cluster_match']}")
+    print(f"  CITE_UNCONFIRMED (check cite): {counts['check_cite']}/{n}")
     print(f"  NOT_FOUND:             {counts['not_found']}/{n}")
     print(f"  VERIFICATION_INCOMPLETE (transient): {counts['incomplete']}/{n}")
     print(f"  ERROR (parse/other):   {counts['error']}/{n}")

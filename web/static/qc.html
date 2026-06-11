@@ -46,6 +46,7 @@
   .chip.active { background: #4a6fa5; color: #fff; border-color: #4a6fa5; }
   .chip[data-filter="NOT_FOUND"].active { background: #dc3545; border-color: #dc3545; }
   .chip[data-filter="WRONG_CASE"].active { background: #b21f1f; border-color: #b21f1f; }
+  .chip[data-filter="CITE_UNCONFIRMED"].active { background: #b35900; border-color: #b35900; }
   .chip[data-filter="VERIFICATION_INCOMPLETE"].active { background: #856404; border-color: #856404; }
   .chip[data-filter="INSUFFICIENT_DATA"].active { background: #856404; border-color: #856404; }
   .chip[data-filter="POSSIBLE_MATCH"].active { background: #856404; border-color: #856404; }
@@ -385,6 +386,7 @@
   <span class="chip active" data-filter="ALL">ALL</span>
   <span class="chip active" data-filter="NOT_FOUND">NOT_FOUND</span>
   <span class="chip active" data-filter="WRONG_CASE">WRONG_CASE</span>
+  <span class="chip active" data-filter="CITE_UNCONFIRMED">CHECK_CITE</span>
   <span class="chip active" data-filter="VERIFICATION_INCOMPLETE">INCOMPLETE</span>
   <span class="chip active" data-filter="INSUFFICIENT_DATA">INSUFFICIENT</span>
   <span class="chip active" data-filter="POSSIBLE_MATCH">POSSIBLE</span>
@@ -455,6 +457,7 @@
       case 'LIKELY_REAL': return 'badge-likely';
       case 'POSSIBLE_MATCH': return 'badge-possible';
       case 'WRONG_CASE': return 'badge-notfound';
+      case 'CITE_UNCONFIRMED': return 'badge-possible';
       case 'NOT_FOUND': return 'badge-notfound';
       case 'VERIFICATION_INCOMPLETE': return 'badge-notfound';
       case 'INSUFFICIENT_DATA': return 'badge-possible';
@@ -472,6 +475,7 @@
       case 'LIKELY_REAL': return 'Likely Real';
       case 'POSSIBLE_MATCH': return 'Possible';
       case 'WRONG_CASE': return 'Wrong Case';
+      case 'CITE_UNCONFIRMED': return 'Check Cite';
       case 'NOT_FOUND': return 'Not Found';
       case 'VERIFICATION_INCOMPLETE': return 'Incomplete';
       case 'INSUFFICIENT_DATA': return 'Insufficient';

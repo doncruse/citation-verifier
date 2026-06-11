@@ -198,11 +198,15 @@ def _write_verification_csv(
 # has a populated absolute_url and is download-eligible. WRONG_CASE,
 # NOT_FOUND, and VERIFICATION_INCOMPLETE stay excluded -- downloading
 # their (missing) opinion text doesn't make sense.
+# Check Cite (2026-06-11): CITE_UNCONFIRMED is included -- it carries the
+# winning stage's IDs, and downloading the matched case's text is exactly
+# what lets the assessment agent show the brief's proposition isn't in it.
 _DOWNLOADABLE_STATUSES = {
     Status.VERIFIED,
     Status.VERIFIED_PARTIAL,
     Status.VERIFIED_VIA_RECAP,
     Status.VERIFIED_DOCKET_ONLY,
+    Status.CITE_UNCONFIRMED,
 }
 
 
@@ -213,6 +217,7 @@ _DOWNLOADABLE_STATUSES = {
 # value string (matches the cl_status column in claims.csv).
 _STATUS_BADGE_FALLBACK: dict[str, str] = {
     "WRONG_CASE": "Case mismatch -- cite resolves to a different case",
+    "CITE_UNCONFIRMED": "Check cite -- case found by name, cited location unconfirmed",
     "VERIFIED_PARTIAL": "Verified -- parallel cite only",
     "VERIFIED_VIA_RECAP": "Verified via RECAP",
     "VERIFIED_DOCKET_ONLY": "Docket only -- no opinion text",

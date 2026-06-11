@@ -381,6 +381,123 @@ class CitationVerifier:
 
         return court_id, filed_after, filed_before
 
+    @staticmethod
+    def _classify_cite_unconfirmed(
+        parsed: ParsedCitation,
+        best: CandidateMatch,
+        status: Status,
+    ) -> tuple[Status, list[Warning]]:
+        """Check Cite post-threshold classification (design 2026-06-11 §3/§5.2).
+
+        Runs AFTER the existing status determination in the fallback
+        builders (threshold, court gate, VIA_RECAP doc gate all unchanged) —
+        scoring is never touched (the Muldrow lesson). Only applies when the
+        input carried a reporter or WL cite; docket-number-cited citations
+        are citation-checked by the docket-number match itself.
+
+        | evidence situation                       | outcome                              |
+        |------------------------------------------|--------------------------------------|
+        | cited location on the record             | VERIFIED (unchanged)                 |
+        | same-family witness, address differs     | CITE_UNCONFIRMED + cite_contradicted |
+        | no same-family witness (gap/parallel/WL) | keep status + cite_not_on_record     |
+        | RECAP, doc gate passed (VIA_RECAP)       | keep status + cite_not_on_record     |
+        | RECAP, bare docket (DOCKET_ONLY)         | CITE_UNCONFIRMED + cite_not_on_record|
+        """
+        has_cite = bool(
+            (parsed.volume and parsed.reporter and parsed.page) or parsed.wl_number
+        )
+        if not has_cite:
+            return status, []
+        cited = (
+            f"{parsed.volume} {parsed.reporter} {parsed.page}"
+            if (parsed.volume and parsed.reporter and parsed.page)
+            else parsed.wl_number
+        )
+
+        if status == Status.VERIFIED:
+            if best.cite_check is CiteCheck.CONTRADICTED:
+                return Status.CITE_UNCONFIRMED, [Warning(
+                    category=WarningCategory.cite_contradicted,
+                    message=(
+                        f"Cited location {cited} contradicts CourtListener's "
+                        f"records for the matched case (CL has: "
+                        f"{', '.join(best.record_citations)})"
+                    ),
+                    details={
+                        "cited": cited,
+                        "record_citations": best.record_citations,
+                    },
+                )]
+            if best.cite_check is CiteCheck.NOT_ON_RECORD:
+                reason = (
+                    "no_same_family_citation"
+                    if best.record_citations else "no_citations_on_record"
+                )
+                return status, [Warning(
+                    category=WarningCategory.cite_not_on_record,
+                    message=(
+                        f"Cited location {cited} could not be checked: "
+                        f"CourtListener lists no citation in the same "
+                        f"reporter family for the matched case"
+                    ),
+                    details={
+                        "cited": cited,
+                        "record_citations": best.record_citations,
+                        "reason": reason,
+                    },
+                )]
+            return status, []
+
+        if status == Status.VERIFIED_VIA_RECAP:
+            return status, [Warning(
+                category=WarningCategory.cite_not_on_record,
+                message=(
+                    f"Cited location {cited} is unverifiable from RECAP "
+                    f"(dockets carry no reporter citations); the "
+                    f"date-matched document corroborates the case, not "
+                    f"the cite"
+                ),
+                details={
+                    "cited": cited,
+                    "reason": "recap_no_reporter_cites",
+                    "recap_gate_passed": True,
+                },
+            )]
+
+        if status == Status.VERIFIED_DOCKET_ONLY:
+            if best.docket_corroborated:
+                # The cited docket number matches the record's — identity is
+                # corroborated even though the reporter/WL cite is
+                # unverifiable; DOCKET_ONLY already communicates "no text".
+                return status, [Warning(
+                    category=WarningCategory.cite_not_on_record,
+                    message=(
+                        f"Cited location {cited} is unverifiable from RECAP, "
+                        f"but the cited docket number matches the record"
+                    ),
+                    details={
+                        "cited": cited,
+                        "reason": "recap_no_reporter_cites",
+                        "recap_gate_passed": False,
+                        "docket_corroborated": True,
+                    },
+                )]
+            return Status.CITE_UNCONFIRMED, [Warning(
+                category=WarningCategory.cite_not_on_record,
+                message=(
+                    f"Cited location {cited} is unverifiable: only a bare "
+                    f"docket matched (no document text exists to check the "
+                    f"citation or its contents)"
+                ),
+                details={
+                    "cited": cited,
+                    "reason": "recap_no_reporter_cites",
+                    "recap_gate_passed": False,
+                },
+            )]
+
+        return status, []
+
     def _build_fallback_result(
         self,
         builder: ResolutionPathBuilder,
@@ -514,6 +631,10 @@ class CitationVerifier:
         else:
             text_source = None
 
+        # Check Cite classification (design §3/§5.2) — post-threshold, after
+        # the VIA_RECAP gate; final_ids keep the winning stage's shape.
+        status, cite_warnings = self._classify_cite_unconfirmed(parsed, best, status)
+
         return self._finalize_result(
             builder,
             citation_text=citation_text,
@@ -524,6 +645,7 @@ class CitationVerifier:
             absolute_url=best.url,
             text_source=text_source,
             recap_document_id=recap_document_id,
+            warnings=cite_warnings or None,
         )
 
     async def _build_fallback_result_async(
@@ -623,6 +745,9 @@ class CitationVerifier:
         else:
             text_source = None
 
+        # Check Cite classification (design §3/§5.2) — same as the sync twin.
+        status, cite_warnings = self._classify_cite_unconfirmed(parsed, best, status)
+
         return self._finalize_result(
             builder,
             citation_text=citation_text,
@@ -633,6 +758,7 @@ class CitationVerifier:
             absolute_url=best.url,
             text_source=text_source,
             recap_document_id=recap_document_id,
+            warnings=cite_warnings or None,
         )
 
     def _docket_date_ranges(
@@ -1292,6 +1418,13 @@ class CitationVerifier:
             score, mismatches, cite_check = self._score_match(
                 parsed, case_name, court_id, date_filed, r
             )
+            raw_cites = r.get("citation", [])
+            if isinstance(raw_cites, list):
+                record_citations = [str(c) for c in raw_cites if c]
+            elif raw_cites:
+                record_citations = [str(raw_cites)]
+            else:
+                record_citations = []
             candidates.append(
                 CandidateMatch(
                     case_name=case_name,
@@ -1302,6 +1435,7 @@ class CitationVerifier:
                     score=score,
                     mismatches=mismatches,
                     cite_check=cite_check,
+                    record_citations=record_citations,
                 )
             )
         return candidates
@@ -1406,6 +1540,7 @@ class CitationVerifier:
             page_count=int(doc.get("page_count") or 0),    # Phase 4 Task 4 (Q2)
             is_free_on_pacer=bool(doc.get("is_free_on_pacer")),  # Phase 4 Task 4 (Q2)
             cite_check=cite_check,                    # Check Cite §5.1
+            docket_corroborated=self._docket_number_matches(parsed, result),
         )
 
     def _build_docket_only_candidate(
@@ -1456,6 +1591,22 @@ class CitationVerifier:
             mismatches=mismatches,
             docket_id=docket_id,
             cite_check=cite_check,
+            docket_corroborated=self._docket_number_matches(parsed, result),
+        )
+
+    def _docket_number_matches(
+        self, parsed: ParsedCitation, result: dict[str, Any]
+    ) -> bool:
+        """True when the cited docket number matches the record's (after
+        normalization). Used by the Check Cite bare-docket exemption."""
+        if not parsed.docket_number:
+            return False
+        record_dn = result.get("docketNumber") or result.get("docket_number") or ""
+        if not record_dn:
+            return False
+        return (
+            self._normalize_docket_number(parsed.docket_number)
+            == self._normalize_docket_number(record_dn)
         )
 
     @staticmethod

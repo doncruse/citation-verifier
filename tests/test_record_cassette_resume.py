@@ -31,6 +31,7 @@ class TestRecomputeCounts:
             "d": {"status": "WRONG_CASE", "cluster_id": 9},
             "e": {"status": "VERIFICATION_INCOMPLETE"},
             "f": {"status": "ERROR", "error": "boom"},
+            "g": {"status": "CITE_UNCONFIRMED", "docket_id": 5},
         }
         counts = _recompute_counts(baseline)
         assert counts == {
@@ -39,4 +40,7 @@ class TestRecomputeCounts:
             "incomplete": 1,
             "error": 1,
             "cluster_match": 1,
+            # Check Cite (2026-06-11): its own bucket, never in `found` —
+            # for a fake corpus, found stays the FP headline.
+            "check_cite": 1,
         }

@@ -30,6 +30,10 @@ _BASELINE = _DATA / "benchmark_baseline.json"
 
 _FOUND = {
     "VERIFIED", "VERIFIED_PARTIAL", "VERIFIED_VIA_RECAP", "VERIFIED_DOCKET_ONLY",
+    # Check Cite (2026-06-11): for a REAL-case corpus, "found" guards
+    # case-location; CITE_UNCONFIRMED still locates the case. See
+    # test_fallback_regression.py for the fuller rationale.
+    "CITE_UNCONFIRMED",
 }
 
 

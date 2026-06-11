@@ -20,6 +20,13 @@ class Status(Enum):
     VERIFIED_DOCKET_ONLY = "VERIFIED_DOCKET_ONLY"
     # Resolved-but-wrong
     WRONG_CASE = "WRONG_CASE"
+    # Resolved-but-questionable (Check Cite design, 2026-06-11): a fallback
+    # name search matched a real case, but the cited reporter/WL location is
+    # contradicted by the record's same-family citations, or the match is a
+    # bare docket with no text to check anything against. UI label:
+    # "Check Cite". Trust ordering: VERIFIED family > CITE_UNCONFIRMED >
+    # WRONG_CASE > NOT_FOUND.
+    CITE_UNCONFIRMED = "CITE_UNCONFIRMED"
     # Unresolved
     NOT_FOUND = "NOT_FOUND"
     VERIFICATION_INCOMPLETE = "VERIFICATION_INCOMPLETE"
@@ -103,6 +110,20 @@ class WarningCategory(Enum):
     # caption). The citation string resolved but the *case* is unconfirmed —
     # status is VERIFIED_PARTIAL, never VERIFIED@1.0.
     name_unverified = "name_unverified"
+    # Check Cite design (2026-06-11 §4): the matched record lists at least
+    # one citation in the SAME reporter family as the cited one, and the
+    # cited address is not among them. CL affirmatively knows where this
+    # case lives — fabrication or serious miscite; pairs with
+    # CITE_UNCONFIRMED. Render harder than cite_not_on_record (show CL's
+    # actual citations from details.record_citations).
+    cite_contradicted = "cite_contradicted"
+    # Check Cite design (2026-06-11 §4): no same-family witness to compare
+    # the cited location against — record lists no citations, only other
+    # reporter families (parallel-cite / CL reporter gap), or the match is
+    # RECAP (dockets structurally carry no reporter cites). Attached to
+    # keep-VERIFIED matches as a warning, and to the bare-docket
+    # CITE_UNCONFIRMED demotion.
+    cite_not_on_record = "cite_not_on_record"
 
 
 @dataclass
@@ -127,6 +148,7 @@ class GateName(Enum):
     require_caption_investigation_on_mismatch = (
         "require_caption_investigation_on_mismatch"
     )
+    no_cite_unconfirmed = "no_cite_unconfirmed"   # Check Cite design (2026-06-11)
 
 
 @dataclass
@@ -209,6 +231,11 @@ class CandidateMatch:
     page_count: int = 0                    # Phase 4 Task 4 (Q2)
     is_free_on_pacer: bool = False         # Phase 4 Task 4 (Q2)
     cite_check: CiteCheck = CiteCheck.NO_CITE_IN_INPUT   # Check Cite §5.1
+    record_citations: list[str] = field(default_factory=list)   # Check Cite §4 warning details
+    # Check Cite bare-docket exemption: the cited docket number matches the
+    # record's, vouching for case identity even when the reporter/WL cite is
+    # unverifiable -- keeps VERIFIED_DOCKET_ONLY instead of demoting.
+    docket_corroborated: bool = False
 
 
 # ---------------------------------------------------------------------------

@@ -28,6 +28,7 @@ class TestStatusEnum:
             "VERIFIED_VIA_RECAP",
             "VERIFIED_DOCKET_ONLY",
             "WRONG_CASE",
+            "CITE_UNCONFIRMED",   # Check Cite design (2026-06-11)
             "NOT_FOUND",
             "VERIFICATION_INCOMPLETE",
             "INSUFFICIENT_DATA",

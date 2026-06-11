@@ -468,8 +468,26 @@ Terry v. Ohio, 392 U.S. 1 (1968)"></textarea>
     errorBanner.classList.remove('active');
   }
 
+  // Tooltip for the Check Cite badge: a cite_contradicted warning renders
+  // harder than cite_not_on_record (it names CL's actual citations).
+  function checkCiteTip(warnings) {
+    var tip = 'Case found by name, but the cited reporter/page could not be confirmed against CourtListener\'s records — check the cite before relying on it';
+    if (warnings && warnings.length) {
+      for (var i = 0; i < warnings.length; i++) {
+        var w = warnings[i];
+        if (w.category === 'cite_contradicted' && w.details && w.details.record_citations && w.details.record_citations.length) {
+          return 'Cited location contradicts CourtListener\'s records for this case — CL has it at: ' + w.details.record_citations.join(', ') + '. Likely a fabricated or seriously mis-typed citation.';
+        }
+        if (w.category === 'cite_not_on_record' && w.message) {
+          tip = w.message;
+        }
+      }
+    }
+    return tip;
+  }
+
   // Map verification statuses to Get & Print badge(s)
-  function statusBadges(status, diagnostics) {
+  function statusBadges(status, diagnostics, warnings) {
     switch (status) {
       case 'VERIFIED':
       case 'LIKELY_REAL':
@@ -482,6 +500,8 @@ Terry v. Ohio, 392 U.S. 1 (1968)"></textarea>
         return [{ label: 'Partial', cls: 'badge-review', tip: 'A parallel cite resolved but the primary reporter did not' }];
       case 'WRONG_CASE':
         return [{ label: 'Wrong Case', cls: 'badge-notfound', tip: 'The reporter citation resolves to a different case than the one named' }];
+      case 'CITE_UNCONFIRMED':
+        return [{ label: 'Check Cite', cls: 'badge-review', tip: checkCiteTip(warnings) }];
       case 'VERIFICATION_INCOMPLETE':
         return [{ label: 'Retry', cls: 'badge-error', tip: 'Verification incomplete due to a CourtListener infrastructure error; try again' }];
       case 'INSUFFICIENT_DATA':
@@ -561,7 +581,7 @@ Terry v. Ohio, 392 U.S. 1 (1968)"></textarea>
       chkHtml = '<input type="checkbox" class="row-chk" data-index="' + index + '" checked onchange="window._updateDownloadBtn()">';
     }
 
-    var badges = statusBadges(data.status, data.diagnostics);
+    var badges = statusBadges(data.status, data.diagnostics, data.warnings);
     var badgeHtml = badges.map(function(b) {
       var tip = b.tip ? ' title="' + escapeHtml(b.tip) + '"' : '';
       return '<span class="badge ' + b.cls + '"' + tip + '>' + b.label + '</span>';

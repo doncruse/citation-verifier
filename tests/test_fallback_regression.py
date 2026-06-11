@@ -35,6 +35,11 @@ _BASELINE = _DATA / "fallback_baseline.json"
 
 _FOUND = {
     "VERIFIED", "VERIFIED_PARTIAL", "VERIFIED_VIA_RECAP", "VERIFIED_DOCKET_ONLY",
+    # Check Cite (2026-06-11): for a REAL-case corpus, "found" guards
+    # case-location. CITE_UNCONFIRMED still locates the case (IDs populated);
+    # the demotion is about the cited address, not the case. Status
+    # migrations remain visible via the recomputed baseline diff.
+    "CITE_UNCONFIRMED",
 }
 
 
