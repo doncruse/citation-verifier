@@ -1,0 +1,4378 @@
+{
+  "Miller v. City of Greenville, 243 So. 2d 81, 83 (Miss. 1971)": {
+    "status": "VERIFICATION_INCOMPLETE",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Riley v. City of Tupelo, No. 1:20-CV-186-GHD-DAS, 2023 WL 3568661, at 3 (N.D. Miss. May 18, 2023)": {
+    "status": "VERIFICATION_INCOMPLETE",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Buckner v. Walker, No. 1:19-CV-146-SA-DAS, 2022 WL 2318582, at 4 (N.D. Miss. June 28, 2022)": {
+    "status": "VERIFICATION_INCOMPLETE",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Harris v. City of Grenada, No. 3:18-CV-158-DMB-RP, 2021 WL 6062574, at 7 (N.D. Miss. Dec. 22, 2021)": {
+    "status": "VERIFICATION_INCOMPLETE",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "City of Grenada v. Harrelson, 84 So. 3d 35, 38 (Miss. Ct. App. 2012)": {
+    "status": "VERIFICATION_INCOMPLETE",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Crittendon v. State Farm Mut. Auto. Ins. Co., 99 So. 3d 751, 755 (Miss. 2012)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 5063352,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Federal National Mortgage Association v. Lemire, 276 Or App 261, 265 (2016)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 8166562,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Deutsche Bank National Trust Co. v. Brock, 277 Or App 660, 663 (2016)": {
+    "status": "VERIFICATION_INCOMPLETE",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Thornbury v. Madison Cnty., 242 F. Supp. 3d 851, 860 (W.D. Tenn. 2017)": {
+    "status": "VERIFICATION_INCOMPLETE",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Parris v. Pappas, 844 F.3d 172 (6th Cir. 2016)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 4330413,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "In re Katherine S., 118 S.W.3d 743, 746 (Tex. 2003)": {
+    "status": "VERIFIED",
+    "cluster_id": 2837481,
+    "docket_id": null,
+    "confidence": 0.4387,
+    "winning_stage": "opinion_search",
+    "expected_cluster_id": null
+  },
+  "Citigroup Global Mkts., Inc. v. Masek, 982 So. 2d 1231 (Fla. 4th DCA 2008)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 1637620,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Davis v. Davis, 590 N.E.2d 1372 (Ohio Ct. App. 1990)": {
+    "status": "VERIFICATION_INCOMPLETE",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Kaplan v. Tuennerman, 87 Ohio App.3d 43": {
+    "status": "WRONG_CASE",
+    "cluster_id": 3959546,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Black v. Black, 175 Ohio App.3d 113": {
+    "status": "WRONG_CASE",
+    "cluster_id": 4003741,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Taylor v. State, 133 N.E.3d 708 (Ind. Ct. App. 2019)": {
+    "status": "VERIFIED",
+    "cluster_id": 8278230,
+    "docket_id": null,
+    "confidence": 0.9,
+    "winning_stage": "opinion_search",
+    "expected_cluster_id": null
+  },
+  "Gonzales v. Qwest Commc\u2019ns, 2005 WL 366290": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": 4558807,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Rodriguez v. It\u2019s Just Lunch, Int\u2019l, 2013 WL 12173926 (5th Cir. 2013)": {
+    "status": "VERIFICATION_INCOMPLETE",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "G.A.A. v. Chestnut, No. 1:25-cv-01102-EPG, 2025 WL 3030589 (E.D. Cal. Nov. 21, 2025)": {
+    "status": "NOT_FOUND",
+    "cluster_id": 10756654,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Phan v. Barr, No. 1:19-cv-01451, 2019 WL 7758773 (E.D. Cal. Dec. 20, 2019)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Flores v. Barr, No. 1:20-cv-00491, 2020 WL 1939565 (E.D. Cal. Apr. 22, 2020)": {
+    "status": "NOT_FOUND",
+    "cluster_id": 9552506,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Perry v. City of Indianapolis, No. 1:18-cv-02173-JRS-DLP, 2019 WL 2088435, at 2": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": 4943418,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Berg v. Symons, 393 F. Supp. 2d 1215 (D. Minn. 2005)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 2455366,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "United States v. Jones, 29 F.4th 1290, 1294 (11th Cir. 2022)": {
+    "status": "VERIFIED_DOCKET_ONLY",
+    "cluster_id": null,
+    "docket_id": 67723381,
+    "confidence": 0.725,
+    "winning_stage": "recap_docket_search",
+    "expected_cluster_id": null
+  },
+  "Ford v. City of Alexandria, 37 Va. App. 819 (2002)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Lafayette v. Commonwealth, 30 Va. App. 454 (1999)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 1066170,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Walker v. Bowen, 372 F. Supp. 2d 541 (W.D. Va. 2005)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 2431672,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "In re Diamond, 346 B.R. 51 (Bankr. S.D.N.Y. 2006)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 1971809,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Taylor v. City of Minneapolis, 202 F. Supp. 3d 933, 941\u201342 (D. Minn. 2016)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 7321669,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Berg v. Copeland, 2019 WL 1493461, at *5 (D. Minn. Apr. 4, 2019)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Jansen v. City of Cincinnati, 904 F.3d 336": {
+    "status": "WRONG_CASE",
+    "cluster_id": 4535090,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Sanchez-Perez v. Garland, 2023 WL 5663021, at *3 (C.D. Cal. Aug. 29, 2023)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": 71924733,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Riley v. Dep\u2019t of Veterans Affs., 64 M.S.P.R. 42, 44\u201346 (1994)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Lipscomb v. Dep\u2019t of the Army, 301 F.3d 1356 (Fed. Cir. 2002)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "(La. App. 4 Cir. 10/30/13), 127 So.3d 156": {
+    "status": "VERIFIED",
+    "cluster_id": 4996210,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "citation_lookup",
+    "expected_cluster_id": null
+  },
+  "Turner v. Murphy Oil USA, Inc., 2006 WL 1984362 (E.D. La. July 13, 2006)": {
+    "status": "VERIFIED",
+    "cluster_id": 2573310,
+    "docket_id": null,
+    "confidence": 0.85,
+    "winning_stage": "opinion_search",
+    "expected_cluster_id": null
+  },
+  "Bright Power, Inc. v. Umpqua Holding Corp., 669 F.Supp.3d 904, 906 (N.D. Cal. 2023)": {
+    "status": "VERIFIED",
+    "cluster_id": 9608395,
+    "docket_id": null,
+    "confidence": 0.7348,
+    "winning_stage": "opinion_search",
+    "expected_cluster_id": null
+  },
+  "United States v. Stone, 988 F.2d 1056, 1061 (10th Cir. 1993)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 602451,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "GAI Consultants, Inc. v. Homestead Vill. Ltd. P\u2019ship, 961 F. Supp. 1437 (E.D. Pa. 1997)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 2283043,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "B.M. v. J.S., 775 S.W. 2d 917 (Mo. App. W.P. 1989)": {
+    "status": "NOT_FOUND",
+    "cluster_id": 7927211,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Morgulis v. BusPatrol Am., LLC, 2020 WL 1923164, at *8\u20139 (E.D.N.Y. Apr. 21, 2020)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": 69588219,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Gonzalez v. City of Coral Gables, 2018 WL 2392077 (S.D. Fla. May 25, 2018)": {
+    "status": "VERIFIED_DOCKET_ONLY",
+    "cluster_id": null,
+    "docket_id": 7077904,
+    "confidence": 0.85,
+    "winning_stage": "recap_docket_search",
+    "expected_cluster_id": null
+  },
+  "Abreu v. City of Miami Beach, 2021 WL 3625049 (S.D. Fla. Aug. 16, 2021)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": 7214318,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "EEOC v. AutoZone, Inc., No. 11 C 0195, 2012 WL 3061482 (N.D. Ill. July 26, 2012)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": 7307680,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "BankDirect Cap. Fin., LLC v. Cap. Premium Fin., Inc., No. 15 C 10340, 2017 WL 1022010, at *3 (N.D. Ill. Mar. 16, 2017)": {
+    "status": "VERIFIED_VIA_RECAP",
+    "cluster_id": null,
+    "docket_id": 5642787,
+    "confidence": 0.722,
+    "winning_stage": "recap_document_search",
+    "expected_cluster_id": null
+  },
+  "Westefer v. Snyder, No. 07 C 2798, 2008 WL 190317 (N.D. Ill. Jan. 18, 2008)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Wing Cheung Wong, 802 F. App'x 280, 282 (9th Cir. 2020)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Wallace v. County of Los Angeles, 479 F. Supp. 3d 1088 (C.D. Cal. 2020)": {
+    "status": "VERIFIED_DOCKET_ONLY",
+    "cluster_id": null,
+    "docket_id": 16777982,
+    "confidence": 0.8263,
+    "winning_stage": "recap_docket_search",
+    "expected_cluster_id": null
+  },
+  "Curtis v. Oliver, 479 F. Supp. 3d 1039, 1088 (D.N.M. 2020)": {
+    "status": "VERIFIED_DOCKET_ONLY",
+    "cluster_id": null,
+    "docket_id": 17377803,
+    "confidence": 0.9,
+    "winning_stage": "recap_docket_search",
+    "expected_cluster_id": null
+  },
+  "Yates v. Mansfield, 2014 WL 11535036 (S.D. Iowa)'; court search returned a U.S. FDA safety report (Feb. 19, 2014)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": 6565221,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Doe v. United States, 463 F. Supp. 2d 934 (N.D. Iowa 2006)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 2319555,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Lampe v. Genuine Parts Co., 463 F. Supp. 2d 928, 934 (E.D. Wis. 2006)": {
+    "status": "VERIFIED",
+    "cluster_id": 2319555,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "citation_lookup",
+    "expected_cluster_id": null
+  },
+  "In re Amica Mut. Ins. Co., 85 A.D.3d 1510 (3rd Dept. 2011)": {
+    "status": "VERIFIED_PARTIAL",
+    "cluster_id": 5968437,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "citation_lookup",
+    "expected_cluster_id": null
+  },
+  "In re Marcus, 491 F.2d 56, 60 (2nd Cir. 1974)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 316591,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Zhu v. BNP Paribas, 997 F. Supp. 2d 242 (S.D.N.Y. 2014)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Gonzalez v. Experian Info. Sols., Inc., No. 20-cv-8997, 2021 WL 7285265 (C.D. Cal. 2021)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": 31230473,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Ellsworth v. Am. Arbitration Ass'n, 148 Ariz. 17, 19 (App. 1985)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Aguilar v. ASARCO\u201d at 780 F.3d 1101": {
+    "status": "WRONG_CASE",
+    "cluster_id": 2786145,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "In re Reed, 405 B.R. 729 (Bankr. S.D. Tex. 2009)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 1846929,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "In re Shubert, 799 F.3d 1124, 1129 (9th Cir. 2015)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 2830290,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Cole v. Sandler, 2014 WL 266501": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": 5833236,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Coleman v. Hudson, 682 F3d 775 (7th Cir. 2012)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Hurd v. Hurd, 223 Md. App. 654, 667\u201368 (2015)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 2814348,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Bradley v. Bradley, 174 Md. App. 234, 248\u201350 (2007)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 2344471,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Solutions, LLC v. Law Offices of Jeffrey Lohman, 2020 WL 1864871, at *12 (D. Ariz. 2020)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": 16008619,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Navient Sols., LLC v. Law Offices of Jeffrey Lohman, 2020 WL 1867939 (E.D. Va. Apr. 14, 2020)": {
+    "status": "VERIFIED",
+    "cluster_id": 10221296,
+    "docket_id": null,
+    "confidence": 0.7828,
+    "winning_stage": "opinion_search",
+    "expected_cluster_id": null
+  },
+  "Fire Insurance Company v. Flota Mercante Grancolombiana, S.A., 35 F.3d 1134 (6th Cir. 1994)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 678539,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "United States v. Robinson, 305 F.3d 732 (6th Cir. 2002)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 779315,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Tubra v. Cooke, 233 Or App 339, 225 P3d 862 (2010)": {
+    "status": "VERIFIED",
+    "cluster_id": 2538939,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "citation_lookup",
+    "expected_cluster_id": null
+  },
+  "Su\u00e1rez v. CMI Caribe, 180 DPR 367, 376 (2010)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Otero-Burgos v. Inter Med. Supplies, Inc., 137 DPR 841, 848 (1995)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 8588836,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "P\u00e9rez v. Horizon Lines, 2020 TSPR 61": {
+    "status": "INSUFFICIENT_DATA",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Rosado v. ELA, 2004 TSPR 13": {
+    "status": "WRONG_CASE",
+    "cluster_id": 10788585,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Col\u00f3n v. Romero Barcel\u00f3, 112 DPR 573 (1982)": {
+    "status": "VERIFIED",
+    "cluster_id": 8587166,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "citation_lookup",
+    "expected_cluster_id": null
+  },
+  "Lozada v. E.L.A., 174 DPR 650 (2008)": {
+    "status": "VERIFIED_DOCKET_ONLY",
+    "cluster_id": null,
+    "docket_id": 4171666,
+    "confidence": 0.4374,
+    "winning_stage": "recap_docket_search",
+    "expected_cluster_id": null
+  },
+  "DeMars v. DeMars, 590 N.W.2d 116, 120-21 (Minn. Ct. App. 1999)": {
+    "status": "VERIFIED",
+    "cluster_id": 198412,
+    "docket_id": null,
+    "confidence": 0.625,
+    "winning_stage": "opinion_search",
+    "expected_cluster_id": null
+  },
+  "Boyd v. City of San Diego, 14 Cal.App.4th 954, 959-960 (1993)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 2264403,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "U.S., LLC v. Sotera Health Co., 2020 WL 5645683 (N.D. Ill. Sep. 22, 2020)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "In re Pringle, 377 B.R. 308 (Bankr. D. Colo. 2007)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 1546700,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "In re Johnson, 276 B.R. 367 (Bankr. E.D. Va. 2002)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 8520859,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "In re Steward, 475 B.R. 518 (Bankr. E.D. Mo. 2012)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 8522445,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "(In re Delta-T Corp.), 475 B.R. 495 (Bankr. E.D. Va. 2012)": {
+    "status": "VERIFIED",
+    "cluster_id": 8522445,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "citation_lookup",
+    "expected_cluster_id": null
+  },
+  "Hall v. United States, 2018 WL 1620923 (D. Colo. Apr. 3, 2018)": {
+    "status": "VERIFIED_DOCKET_ONLY",
+    "cluster_id": null,
+    "docket_id": 13560636,
+    "confidence": 0.7,
+    "winning_stage": "recap_docket_search",
+    "expected_cluster_id": null
+  },
+  "In re SunEdison, Inc. Sec. Litig., 314 F.R.D. 139, 143 (S.D.N.Y. 2016)": {
+    "status": "VERIFIED_PARTIAL",
+    "cluster_id": 8791223,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "citation_lookup",
+    "expected_cluster_id": null
+  },
+  "Nevada Power Co. v. Monsanto Co., 151 F.3d 1201, 1205 (9th Cir. 1998)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 7068559,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Creek Valley Ass\u2019n v. Washington County, 309 Or App 112, 124-25, 482 P3d 827 (2021)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Kaszovitz LLP v Rosen, 202 AD3d 421 [1st Dept 2022]": {
+    "status": "VERIFICATION_INCOMPLETE",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Bauer v Cravath, Swain & Moore, LLP, 177 AD3d 479 [1st Dept 2019]": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Pine v AJA Delivery, Inc., 201 AD3d 640 [2d Dept 2022]": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Gile v. Dolgen Cal., LLC, 2023 WL 2669812, at *3 (9th Cir. 2023) (unpublished)": {
+    "status": "VERIFIED_DOCKET_ONLY",
+    "cluster_id": null,
+    "docket_id": 66839355,
+    "confidence": 0.8369,
+    "winning_stage": "recap_docket_search",
+    "expected_cluster_id": null
+  },
+  "Britton v. Co-op Banking Grp., 4 F.4th 742 (9th Cir. 2021)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Mabee v. County of Orange, 784 F. App'x 585, 588 (9th Cir. 2019)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": 67414228,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Kruger v. Kruger, 107 AD3d 1285, 1287 [3d Dept. 2013]": {
+    "status": "WRONG_CASE",
+    "cluster_id": 6071482,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Gao v. United States, 2019 WL 11199934 (D. Ariz. Oct. 23, 2019)": {
+    "status": "NOT_FOUND",
+    "cluster_id": 9529044,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Miller v. United States, 2009 WL 1532834 (D. Ariz. Apr. 30, 2009)": {
+    "status": "VERIFIED_DOCKET_ONLY",
+    "cluster_id": null,
+    "docket_id": 4889261,
+    "confidence": 0.775,
+    "winning_stage": "recap_docket_search",
+    "expected_cluster_id": null
+  },
+  "Young v. District of Columbia, 752 F. Supp. 2d 1 (D.D.C. 2010)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 2469748,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Beaucage v. Beaucage, 583 So.2d 846 (Fla. 5th DCA 1991)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 7659615,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Health, Inc. v. Ariosa Diagnostics, Inc., 2014 WL 10321141, at *2 (N.D. Cal. Nov. 21, 2014)": {
+    "status": "VERIFIED_DOCKET_ONLY",
+    "cluster_id": null,
+    "docket_id": 4179682,
+    "confidence": 0.805,
+    "winning_stage": "recap_docket_search",
+    "expected_cluster_id": null
+  },
+  "Kramer v. Trans-Lux Corp., 24 F.3d 1001 (7th Cir. 1994)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Doe v. Maricopa County Community College District, 2017 WL 4460441 (D. Ariz. Oct. 5, 2017)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": 6213717,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Doe v. Northrop Grumman Sys. Corp., 2022 WL 3447983 (E.D. Va. Aug. 17, 2022)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": 68621431,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Kidd v. Mando Am. Corp., 731 F.3d 1196, 1200 (11th Cir. 2013)": {
+    "status": "VERIFIED",
+    "cluster_id": 3045202,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "citation_lookup",
+    "expected_cluster_id": null
+  },
+  "of Osorio v. Miami-Dade Cnty., 2023 WL 4003457 (S.D. Fla. June 15, 2023)": {
+    "status": "VERIFIED_DOCKET_ONLY",
+    "cluster_id": null,
+    "docket_id": 6092251,
+    "confidence": 0.6579,
+    "winning_stage": "recap_docket_search",
+    "expected_cluster_id": null
+  },
+  "Greer v. DeKalb County, 2009 WL 10101675, at *4 (N.D. Ga. July 13, 2009)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": 5246177,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Wilkerson v. Wilkerson, 817 S.W.2d 77 (Mo. Ct. App. 1991)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 2429237,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Robinson v. Missouri Child Support Agency, 2021 WL 5437824 (Mo. Ct. App. 2021)": {
+    "status": "VERIFICATION_INCOMPLETE",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Clark v. City of Shawnee, Kansas, No. 21-2223-EFM, 2021 WL 4129476 (D. Kan. Sept. 9, 2021)": {
+    "status": "NOT_FOUND",
+    "cluster_id": 9708070,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Corp. v. SEC, 955 F. Supp. 3d 441 (S.D.N.Y. 2025)": {
+    "status": "VERIFIED_DOCKET_ONLY",
+    "cluster_id": null,
+    "docket_id": 11724069,
+    "confidence": 0.4365,
+    "winning_stage": "recap_docket_search",
+    "expected_cluster_id": null
+  },
+  "Roe v. Bernabei & Katz, PLLC, 314 F. Supp. 3d 200,209 (D.D.C. 2018)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 7330491,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Torres v. City of New York, No. 20-CV-3384, 2021 WL 3725985, at 8 (S.D.N.Y. Aug. 23, 2021)": {
+    "status": "VERIFICATION_INCOMPLETE",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "M.D. v. New York State Off For People with Developmental Disabilities, 2023 WL 3404357, at *10 (S.D.N.Y. 2023)": {
+    "status": "VERIFIED_VIA_RECAP",
+    "cluster_id": null,
+    "docket_id": 63389551,
+    "confidence": 0.5546,
+    "winning_stage": "recap_docket_search",
+    "expected_cluster_id": null
+  },
+  "Garcia v. Comprehensive Ctr., LLC, No. 21-CV-6945, 2022 WL 2237452, at 4-5 (S.D.N.Y. June 22, 2022)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": 7549775,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Douchette v. Doucette, 50 Conn. App. 541, 544-45 (1998)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 7909433,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "People v. Smith, 489 Mich. 292, 311 (2011)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 827995,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Savin v. City of Cleveland, 2022 WL 3715087 (6th Cir. 2022)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Williams v. City of Cleveland, No. 1:18-CV-2911, 2019 WL 5485190 (N.D. Ohio Oct. 25, 2019)": {
+    "status": "NOT_FOUND",
+    "cluster_id": 7336637,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Thaxton v. City of Pontiac, No. 298862, 2011 WL 522951 (Mich. Ct. App. Feb. 15, 2011)": {
+    "status": "NOT_FOUND",
+    "cluster_id": 1048227,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Smith v. State, 26 N.E.3d 1167 (Ind. 2015)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 2780293,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Shapiro v JPMorgan Chase & Co., No. 1:13-cv-09764-PGG, 2014 WL 1224546": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Bally v. Home Loan Servicing, LP, No. 2:09-cv-02445-MCE-KJM, 2011 WL 867568": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": 4274158,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Pasillas v. HSBC Bank USA, N.A., No. 2:12-cv-01107, 2013 WL 3873227": {
+    "status": "VERIFICATION_INCOMPLETE",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Boyle v. Bank of America, N.A., No. 2:13-cv-02021-APG-VCF, 2015 WL 1321435": {
+    "status": "NOT_FOUND",
+    "cluster_id": 3005198,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Holmes v. Countrywide Financial Corp., No. 2:10-cv-00333-RCJ-PAL, 2010 WL 11597538": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": 4994280,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Netcom, Inc. v. Plantronics, Inc., No. 12-cv-1247, 2016 WL 3635771, at *4\u20135 (D. Del. June 29, 2016)": {
+    "status": "NOT_FOUND",
+    "cluster_id": 7327573,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Burton v. Ghosh, 961 F.3d 1084, 1092 (7th Cir. 2020)": {
+    "status": "VERIFIED",
+    "cluster_id": 4759604,
+    "docket_id": null,
+    "confidence": 0.825,
+    "winning_stage": "opinion_search",
+    "expected_cluster_id": null
+  },
+  "Iseminger v. Dist. Ct., 915 F.2d 1314 (10th Cir. 1990)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 549013,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Affolder v. Johnson, 53 F.3d 1178 (10th Cir. 1995)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 695262,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Bentley v. United States, 41 F.3d 593, 604 (10th Cir. 1994)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 7030882,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Boat v. United States, 833 F.3d 1224 (10th Cir. 2016)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Ricks v. Lindsay, 480 F.2d 538 (10th Cir. 1973)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 311736,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Barker v. Brown & Brown, 210 Ariz. 321, 110 P.3d 1011 (Ct. App. 2005)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 2546235,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Campbell v. MERS, 2012 WL 3901716, at *5": {
+    "status": "VERIFIED_DOCKET_ONLY",
+    "cluster_id": null,
+    "docket_id": 47339024,
+    "confidence": 0.5667,
+    "winning_stage": "recap_docket_search",
+    "expected_cluster_id": null
+  },
+  "Tucker v. HSBC, 2014 WL 431965, at *5 (C.D. Cal. 2014)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": 5817500,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Galindo v. Financial Freedom, 2020 WL 3619048, at *5 (C.D. Cal. 2020)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": 5796348,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Schweitzer v. FHLMC, No. 3:13-cv-0181, 2013 WL 4279629 (D. Or. Aug. 29, 2013)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Inc. v. United States, 12 Cl. Ct. 33 (1987)": {
+    "status": "VERIFIED",
+    "cluster_id": 6929481,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Doe v. Univ. of Mich., No. 18-11914, 2019 WL 11793988, at *8 (E.D. Mich., Aug. 6, 2019)": {
+    "status": "NOT_FOUND",
+    "cluster_id": 9747045,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Miller v. Miller, 227 Neb. 71, 416 N.W.2d 358 (1987)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 1819164,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Kennedy v. Kennedy, 27 Neb. App. 510, 934 N.W.2d 57 (2019)": {
+    "status": "VERIFIED",
+    "cluster_id": 4635920,
+    "docket_id": null,
+    "confidence": 0.8667,
+    "winning_stage": "opinion_search",
+    "expected_cluster_id": null
+  },
+  "Parrelli v. Temple Beth El of Great Neck, 304 A.D.2d 788, 789 [2d Dept 2003]": {
+    "status": "WRONG_CASE",
+    "cluster_id": 6228399,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Knakmuhs v. Minneapolis Pub. Sch., 990 F. Supp. 2d 1035 (D. Minn. 2014)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 8730685,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "State v. Johnson, 194 Wn.2d 704, 451 P.3d 1082 (2019)": {
+    "status": "VERIFIED",
+    "cluster_id": 6657656,
+    "docket_id": null,
+    "confidence": 0.8,
+    "winning_stage": "opinion_search",
+    "expected_cluster_id": null
+  },
+  "King County v. Vincent (167 Wn.2d 671 (2009))": {
+    "status": "WRONG_CASE",
+    "cluster_id": 4909010,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Carlyle v. Dep't of Soc. & Health Servs., 155 Wn. App. 895, 231 P.3d 218 (2010)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 2630114,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Lewis v. City of Trenton, 2020 WL 6204330": {
+    "status": "VERIFIED_VIA_RECAP",
+    "cluster_id": null,
+    "docket_id": 5706346,
+    "confidence": 0.4375,
+    "winning_stage": "recap_docket_search",
+    "expected_cluster_id": null
+  },
+  "Jorgensen v. CBS, Inc., 728 F.2d 958 (8th Cir. 1984)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 431877,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Lamon v. Godbolt, 2015 WL 13647670 (C.D. Cal. Mar. 30, 2015)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Santos v. Warden Allenwood FCI, No. 1:17-CV-02116, 2018 WL 1178251 (M.D. Pa. Mar. 6, 2018)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": 5125175,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Rodriguez v. Ebbert, No. 3:14-CV-02404, 2015 WL 1810315 (M.D. Pa. Apr. 21, 2015)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 2822584,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Cruz v. United States, No. 1:16-CV-01034, 2016 WL 8732312 (M.D. Pa. Dec. 16, 2016)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": 4810790,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Berg v. Knox Cnty., 2024 WL 2012345, at *4 (6th Cir. Mar. 12, 2024)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Interinsurance Exchange v. Judge, 221 Ill. App. 3d 586": {
+    "status": "WRONG_CASE",
+    "cluster_id": 7117901,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "United States v. Hazel, 696 F.3d 473, 478 (4th Cir. 2012)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 806947,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "United States v. Angel, 102 F.3d 1066 (4th Cir. 1996)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 731284,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Waller v. Waller, 288 Ga. 164, 164-165 (2010)": {
+    "status": "VERIFIED",
+    "cluster_id": 2394285,
+    "docket_id": null,
+    "confidence": 0.725,
+    "winning_stage": "opinion_search",
+    "expected_cluster_id": null
+  },
+  "Johnson v. Johnson, 286 Ga. 720, 721 (2010)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 1405408,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Durden v. Barron, 287 Ga. 858 (2010)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 2399353,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Waitz, 255 Ga. 474 (1986)": {
+    "status": "VERIFIED",
+    "cluster_id": 1237823,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "citation_lookup",
+    "expected_cluster_id": null
+  },
+  "Braham v. Cty. of Washington, No. 2:19-CV01128, 2020 WL 1166395, at *6": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": 18719114,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Hernandez v. Spitzer, No. 09-cv-3914, 2010 WL 11586928 (S.D.N.Y. Mar. 29, 2010)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": 4340167,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "of Wallace v. Palmer, 103 Wn. App. 1064 (2000)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "In re Estate of Powers, 255 Ill. App. 3d 1006 (1994)": {
+    "status": "VERIFIED",
+    "cluster_id": 2121804,
+    "docket_id": null,
+    "confidence": 0.6503,
+    "winning_stage": "opinion_search",
+    "expected_cluster_id": null
+  },
+  "McIntosh v. McIntosh, 282 Ga. 610, 652 S.E.2d 546 (2007)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 1386944,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "In re Estate of Griffith, 327 P.3d 612 (Colo. 2014)": {
+    "status": "VERIFIED",
+    "cluster_id": 2745477,
+    "docket_id": null,
+    "confidence": 0.4383,
+    "winning_stage": "opinion_search",
+    "expected_cluster_id": null
+  },
+  "Whittaker v. Otto, 2014 WL 37845": {
+    "status": "WRONG_CASE",
+    "cluster_id": 5147489,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "In re Chionis, 531 B.R. 52": {
+    "status": "WRONG_CASE",
+    "cluster_id": 8525817,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "(In re Chionis, 2013 WL 6840485 (9th Cir. BAP Dec. 27, 2013))": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "United States v. Lopez, 817 F.3d 541, 545 (5th Cir. 2016)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 8442635,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Patel v. City of Ferndale, 308 F.3d 511, 517 (6th Cir. 2002)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 779576,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Thompson v. City of Lebanon, 813 F.3d 318, 323 (6th Cir. 2016)": {
+    "status": "VERIFIED",
+    "cluster_id": 4241673,
+    "docket_id": null,
+    "confidence": 0.8035,
+    "winning_stage": "opinion_search",
+    "expected_cluster_id": null
+  },
+  "Spurlock v. Satterfield, 167 F.3d 915 (5th Cir. 1999)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 16753,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Wesley v. Rigney, 860 F.3d 931 (6th Cir. 2017)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 4402834,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Chavez v. Bank of Am., 2014 WL 2159382 (D. Ariz. 2014)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": 4132893,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Anderson v. Dean Witter Reynolds, Inc., 306 F.3d 726 (9th Cir. 2002)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 7108488,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Knight v. Pierson, Inc., 206 Ga. App. 514 (1992)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 1307974,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "City of LaGrange v. Bolden, 261 Ga. 77 (1991)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 5746904,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Board v. Superior Court (2022) 88 Cal.App.5th 459": {
+    "status": "VERIFIED",
+    "cluster_id": 4869224,
+    "docket_id": null,
+    "confidence": 0.725,
+    "winning_stage": "opinion_search",
+    "expected_cluster_id": null
+  },
+  "of Sacramento v. Superior Court (2014) 232 Cal.App.4th 305": {
+    "status": "WRONG_CASE",
+    "cluster_id": 2760396,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "State v. Carter, 72 Ohio App. 3d 553 (2d Dist. 1991)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 3935804,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "In re Protech, 51 F.4th 714 (6th Cir. 2022)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Co. v. Hurd, 66 Ohio St. 2d 280 (1981)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 6866783,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Howard v. CitiMortgage, Inc., 2019 WL 1401348 (D. Kan. Mar. 28, 2019)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Friedman v. Southern New Hampshire University, 104 A.D. 3d 617 (N.Y. App. Div. 2013)": {
+    "status": "VERIFIED",
+    "cluster_id": 6046791,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Wells v. UPS Airlines, -- F. Supp. 3d --, 2022 WL 1234567 (W.D. Ky. Mar. 30, 2022)": {
+    "status": "VERIFIED_VIA_RECAP",
+    "cluster_id": null,
+    "docket_id": 18754224,
+    "confidence": 0.5921,
+    "winning_stage": "recap_docket_search",
+    "expected_cluster_id": null
+  },
+  "Corp. v. XYZ Inc., 123 F.3d 456 (6th Cir. 2019)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 745358,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "AROK Construction Co. v. Shipley, 235 Ariz. 163, 166, 329 P.3d 1051, 1054 (Ct. App. 2014)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 6604246,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Holden v. Holiday Inn Club Vacations, Inc., 98 F.4th 1359": {
+    "status": "VERIFIED",
+    "cluster_id": 9496596,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "citation_lookup",
+    "expected_cluster_id": null
+  },
+  "Watson v. Amedisys Holding, LLC, 298 F. App'x 395, 396 (5th Cir. 2008)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Martin v. Dep't of Corrections, 682 So. 2d 331, 333 (Fla. 5th DCA 1996)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 1687443,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Goguen v. Nason, 419 A.2d 1032 (Me. 1980)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 2339008,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "In re Raspanti, 414 B.R. 263 (Bankr. D. Colo. 2009)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 1850728,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Stanley v. Univ. of Southern California (2022) 98 Cal.App.5th 151": {
+    "status": "VERIFIED",
+    "cluster_id": 9356406,
+    "docket_id": null,
+    "confidence": 0.4659,
+    "winning_stage": "opinion_search",
+    "expected_cluster_id": null
+  },
+  "Eustace v. Lynch (2012) 209 Cal.App.4th 1457": {
+    "status": "WRONG_CASE",
+    "cluster_id": 5811382,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Rodriguez-Romero v. Garland, 60 F.4th 1283 (10th Cir. 2023)": {
+    "status": "VERIFIED_DOCKET_ONLY",
+    "cluster_id": null,
+    "docket_id": 61629170,
+    "confidence": 0.7,
+    "winning_stage": "recap_docket_search",
+    "expected_cluster_id": null
+  },
+  "Sorensen v. City of Bellingham, 15 Wn. App. 2d 730, 733, 478 P.3d 1110 (2020)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Norg v. City of Seattle, 200 Wn.2d 749 (2023)": {
+    "status": "VERIFIED",
+    "cluster_id": 10798048,
+    "docket_id": null,
+    "confidence": 0.9,
+    "winning_stage": "opinion_search",
+    "expected_cluster_id": null
+  },
+  "Myers v. Passport Health, 2013 WL 5819270 (S.D. Ind. Oct. 29, 2013)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Schuh v. American Express Bank, FSB, 2019 WL 132741 (N.D. Ind. Jan. 8, 2019)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Merriman v. Equifax Info. Servs., LLC, 2021 WL 5937732 (D. Kan. Dec. 16, 2021)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Treece v. Perrillo, No. 1:17-cv-00406, 2018 WL 3815004 (S.D. Ind. Aug. 10, 2018)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Armstrong v. Kroger Co., 621 F.2d 934 (8th Cir. 1980)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Hinkle v. CBE Grp., 827 F.3d 129 (5th Cir. 2016)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 3219481,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Wigington v. Hill-Soberg Co., 396 F.2d 228 (5th Cir. 1968)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 8892642,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Jenkins v. Equifax Info. Servs., LLC, 736 F. Supp. 2d 962 (E.D. Va. 2010)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 2475652,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Rodriguez v. Pasquarella, 2019 WL 2411480 (N.D. Ill. June 7, 2019)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Myers v. Asset Acceptance, LLC, 750 F.3d 910, 915-17 (11th Cir. 2014)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "State v. $44,140.00 U.S. Currency, 2003 ND 28": {
+    "status": "WRONG_CASE",
+    "cluster_id": 897197,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "State v. Clark, 2022 ND 85": {
+    "status": "WRONG_CASE",
+    "cluster_id": 6464046,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "State v. Rogers, 2006 ND 85": {
+    "status": "WRONG_CASE",
+    "cluster_id": 897823,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Stenehjem v. FreeEats.com Inc., 712 N.W.2d 828, 841 (N.D. 2006)": {
+    "status": "VERIFIED",
+    "cluster_id": 897824,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "citation_lookup",
+    "expected_cluster_id": null
+  },
+  "State v. Clark, 2012 ND 135": {
+    "status": "VERIFIED",
+    "cluster_id": 8280702,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "citation_lookup",
+    "expected_cluster_id": null
+  },
+  "State v. $44,140.00 U.S. Currency, 2012 ND 176": {
+    "status": "VERIFIED",
+    "cluster_id": 899299,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "citation_lookup",
+    "expected_cluster_id": null
+  },
+  "Olson v. City of Fargo, 250 N.W.2d 558 (N.D. 1977)": {
+    "status": "NOT_FOUND",
+    "cluster_id": 2130898,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "United States v. Mateo, 476 F.3d 179, 184 (3d Cir. 2007)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 796749,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "United States v. Matthews, 7 F.3d 1552, 1555 (11th Cir. 1993)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 7027021,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Cacchillo v. Commissioner, 130 T.C. 132 (2008)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 4697151,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Tefel v. Commissioner, 118 T.C. 324 (2002)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 4696616,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Kennedy v Kennedy, 192 AD3d 111 (1st Dept 2020)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Dvorak v. Metropolitan Pier & Exposition Authority, 941 F.3d 936 (7th Cir. 2019)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Himmelstein v. Comcast of the D.C., LLC, 908 F.3d 49": {
+    "status": "INSUFFICIENT_DATA",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Marriage of Smith, 195 Cal. App. 4th 1007, 1018 (2011)": {
+    "status": "VERIFIED",
+    "cluster_id": 5810272,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "citation_lookup",
+    "expected_cluster_id": null
+  },
+  "Harris v. City of Auburn, 2018 WL 3329858 (M.D. Ala. July 6, 2018)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": 14630416,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Avery v. Ward, 2014 WL 4748452, at *3 (S.D. Ala. Sept. 23, 2014)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "LaPoint v. Family Orthodontics, P.A., 2020 WL 6118773 (D. Minn. Oct. 16, 2020)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Hernandez v. Best Buy Co., 2012 WL 1970771 (D. Minn. May 31, 2012)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": 4296071,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Berg v. Chevrolet Motor Div., 84 Wn.2d 102, 108, 524 P.2d 226 (1974)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Gustavia Home, LLC v. Rice, 2020 WL 4917915 (E.D.N.Y. Aug. 21, 2020)": {
+    "status": "VERIFIED_DOCKET_ONLY",
+    "cluster_id": null,
+    "docket_id": 5710832,
+    "confidence": 0.7,
+    "winning_stage": "recap_docket_search",
+    "expected_cluster_id": null
+  },
+  "Frederick v. Warden, 2019 WL 1318445 (M.D. Pa. Mar. 22, 2019)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": 17055368,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Rodriquez v. Lowe, 2018 WL 683974 (M.D. Pa. Feb. 2, 2018)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": 64868085,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Hockett v. City of Topeka, No. 19-4037-DDC, 2020 WL 6796766": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": 4403249,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Goldberg v. 401 North Washakie Venture LLC, 155 F.3d 465 (7th Cir. 2014)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 7070802,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Johnson v. 2003 App. 242, 117": {
+    "status": "NOT_FOUND",
+    "cluster_id": 9468889,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Reed v. State, 810 N.E.2d 1186 (Ind. 2004)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 7165759,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Lacy v. State, 419 N.E.2d 489 (Ind. 1981)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 7112779,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Graves v. State, 773 N.E.2d 157 (Ind. 2002)": {
+    "status": "VERIFIED",
+    "cluster_id": 1613021,
+    "docket_id": null,
+    "confidence": 0.7,
+    "winning_stage": "opinion_search",
+    "expected_cluster_id": null
+  },
+  "Green v. Casa Santa Fe (2001) 94 Cal.App.4th 638": {
+    "status": "WRONG_CASE",
+    "cluster_id": 2274187,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Green v. Casa Santa Fe (2001) 132 Cal.App.4th 97": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Bush v. Lucas, 598 F. Supp. 3d 303, 316 (D. Md. 2022)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": 38937279,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Harris v Seward Park Housing Corp., 147 AD3d 589 (1st Dep't 2017)": {
+    "status": "VERIFIED",
+    "cluster_id": 4369449,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "citation_lookup",
+    "expected_cluster_id": null
+  },
+  "DiLorenzo v D.C. & D. Transp. Corp., 39 AD2d 950 (2nd Dept, 1972)": {
+    "status": "VERIFIED",
+    "cluster_id": 5926354,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "citation_lookup",
+    "expected_cluster_id": null
+  },
+  "Holt v. Crown Builders, Inc., 627 So.2d 1221 (Fla. 2d DCA 1993)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 1910908,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Younger v. City of Seattle, 70 F.4th 1099, 1107 (9th Cir. 2023)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 9406655,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "United States v. Craner, 652 F. App'x 560, 562 (9th Cir. 2016)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "United States v. Smith, 629 F.3d 1082, 1084 (9th Cir. 2011)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 181860,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Frey v. [ODOC], 204 P.3d 135 (Or. Ct. App. 2009)": {
+    "status": "VERIFICATION_INCOMPLETE",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "In re Dependency of D.F.-M., 236 Ariz. 33, 36 (App. 2014)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 2741773,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "S.S. v. Wermers, 74 F.3d 857 (8th Cir. 1996)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 7034977,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Bourne v. Gatliff Building Co., 380 F.3d 848 (5th Cir. 2004)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 35985,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Matchett v. Dretke, 380 F.3d 844 (5th Cir. 2004)": {
+    "status": "VERIFIED",
+    "cluster_id": 35985,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "citation_lookup",
+    "expected_cluster_id": null
+  },
+  "Hinzo v. State of N.M., 79 F.4th 1164, 1175 (10th Cir. 2023)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Smith v. West Lake Enterprises, 374 F. Supp. 2d 1094 (D. Kan. 2005)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 2397198,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "of Knapp v Knapp, 225 AD2d 1010 (4th Dept 1996)": {
+    "status": "VERIFIED",
+    "cluster_id": 6134740,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "citation_lookup",
+    "expected_cluster_id": null
+  },
+  "of Polizzi v Polizzi, 226 AD2d 581 (2d Dept 1996)": {
+    "status": "VERIFIED",
+    "cluster_id": 6135572,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "citation_lookup",
+    "expected_cluster_id": null
+  },
+  "of Negron v St. Charles Hosp. & Rehab. Ctr., 121 AD3d 1427 (2d Dept 2014)": {
+    "status": "VERIFIED",
+    "cluster_id": 6152440,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "citation_lookup",
+    "expected_cluster_id": null
+  },
+  "Rivas v. Jennings, No. 1:20-cv-02731-JLT, 2020 WL 2537748, at 6 (E.D. Cal. May 18, 2020)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": 7941779,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Varela v. Varela, 464 S.W.3d 407": {
+    "status": "WRONG_CASE",
+    "cluster_id": 2771108,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Garrison v. Garrison, 966 S.W.2d 493, 495": {
+    "status": "WRONG_CASE",
+    "cluster_id": 2377921,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Sabir v. Daud, No. 01-22-00956-CV, 2024 WL 3478110, at 5": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Douglas v. Douglas, 454 S.W.2d 225, 227": {
+    "status": "WRONG_CASE",
+    "cluster_id": 5212169,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Woodard v. Andrus, 419 S.W.3d 226, 234": {
+    "status": "WRONG_CASE",
+    "cluster_id": 5286326,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Alexander v. Lolavar, 127 Nev. 255 (2011)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "McEwen v. McCullough, 347 F. Supp. 2d 349": {
+    "status": "WRONG_CASE",
+    "cluster_id": 2422046,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Edwards v. First Nat\u2019l Bank of Anchorage, 67 F.3d 1299": {
+    "status": "VERIFICATION_INCOMPLETE",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Anderson v. Nationwide Mortg. Grp., Inc., 281 B.R. 177": {
+    "status": "INSUFFICIENT_DATA",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Williams v. Lowndes Cnty., 475 F.3d 820": {
+    "status": "WRONG_CASE",
+    "cluster_id": 796696,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Smith v. Aegis Mortg. Corp., 560 F.3d 837": {
+    "status": "WRONG_CASE",
+    "cluster_id": 1227424,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Barlow, 59 B.R. 707": {
+    "status": "VERIFIED",
+    "cluster_id": 1805701,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "citation_lookup",
+    "expected_cluster_id": null
+  },
+  "Sturdivant v. BAC Home Loans, 159 Cal.Rptr.3d 113": {
+    "status": "INSUFFICIENT_DATA",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "United States v. Signatone Corp., 60 F.3d 365": {
+    "status": "WRONG_CASE",
+    "cluster_id": 699586,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Capistrano v. Fin. Indus. Regulatory Auth., Inc., 2015 WL 1647091, at *3 (M.D. Fla. Apr. 14, 2015)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Hous. v. Law Sch. Admission Council, Inc., 2014 WL 4269110, at *8 (N.D. Cal. Aug. 28, 2014)": {
+    "status": "VERIFIED",
+    "cluster_id": 8724921,
+    "docket_id": null,
+    "confidence": 0.5991,
+    "winning_stage": "opinion_search",
+    "expected_cluster_id": null
+  },
+  "Perez v. Zazo, 498 So. 2d 463, 465 (Fla. 3d DCA 1986)": {
+    "status": "VERIFIED",
+    "cluster_id": 1740097,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "citation_lookup",
+    "expected_cluster_id": null
+  },
+  "Byrd v. Shumann, 2013 WL 12091938, at *2 (S.D. Fla. Jan. 28, 2013)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Pineda v. Chase Bank (07-CV-563-PJH, 2007 WL 521222)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": 46005929,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Herring v. Dist. of Columbia (780 F. Supp. 2d 105)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 2177168,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "In re Grievance of Bunk, 2007 VT 41": {
+    "status": "WRONG_CASE",
+    "cluster_id": 8345092,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Nat. Tel. Co. v. Dept. of Taxes, 2021 VT 84": {
+    "status": "WRONG_CASE",
+    "cluster_id": 5293497,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Fisher v. State, 272 Ga. 883 (2000)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 1341707,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Wallace v. Wallace, 271 Ga. 130, 130-31 (1999)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 1347115,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Gonzalez v. Gonzalez, 277 Ga. 198 (2003)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 1330331,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Wilson v. State, 277 Ga. 195 (2003)": {
+    "status": "VERIFIED",
+    "cluster_id": 1330331,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "citation_lookup",
+    "expected_cluster_id": null
+  },
+  "Bank v. Tien, No. 05-60821, 2008 WL 11333017 (S.D. Fla. Feb. 12, 2008)": {
+    "status": "NOT_FOUND",
+    "cluster_id": 1443916,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Doe v. Bogan, 93 F.3d 544, 551 (9th Cir. 1996)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 7038643,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "(Backus v. City of Rochester, 148 AD3d 1697 [4th Dept 2017])": {
+    "status": "VERIFIED",
+    "cluster_id": 6234646,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "citation_lookup",
+    "expected_cluster_id": null
+  },
+  "Chi v. Nevada Employment Security Division, 2020 WL 708272 (D. Nev. Feb. 12, 2020)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": 6050347,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Eisenberg v. SSA, 496 F. Supp. 2d 238 (D.D.C. 2007)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 2350124,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Inc. v. B.U.R. Realty Corp., 42 A.D.3d 319, 320 (N.Y. 1st Dep\u2019t 2007)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 5874783,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Russin v. Shepard, 2014 VT 22": {
+    "status": "WRONG_CASE",
+    "cluster_id": 2654306,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Kelly v. St. Francis Medical Center, 899 N.W.2d 869 (Neb. 2017)": {
+    "status": "VERIFIED",
+    "cluster_id": 8282149,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "citation_lookup",
+    "expected_cluster_id": null
+  },
+  "In re D.C. Judicial Conflicts of Interest, 540 F.2d 711 (D.C. Cir. 1976)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 9343850,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "In re B.W., 352 F.3d 29 (2d Cir. 2003)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 200761,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Wilkinson v. United States, 13 F.3d 855 (2d Cir. 1994)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 660208,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Kelley v. Conan, 555 F.3d 630, 634 (8th Cir. 2009)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 1208887,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Springer v. Boeing, 138 Wash. App. 248 (1997)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 4942644,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Life Ins. Co. of New Jersey v. Carrasco, 2022 WL 1210718 (D.N.J. Apr. 25, 2025)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Citation 849 F. Supp. 1206 (N.D. Ind. 1994)": {
+    "status": "VERIFIED",
+    "cluster_id": 2140022,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "citation_lookup",
+    "expected_cluster_id": null
+  },
+  "In re Application of Kieta, 573 N.W.2d 787 (Neb. 1998)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Commercial Bank of Cleveland v. Iola, 154 U.S. 617 (1875)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 8178799,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Hudson v. Wesley Coll., 2018 WL 2435541, at 3 (Del. Ch. May 30, 2018)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Nat\u2019l Bank v. Havens, 1994 WL 760822, at *4 (S.D.N.Y. Dec. 27, 1994)": {
+    "status": "NOT_FOUND",
+    "cluster_id": 1593910,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "of Rev. v. Sec'y of State, 16 OTR 350, 359 (2003)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 7053656,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "McBeth v. Metro Life Ins. Co., 2006 WL 2792439 (E.D. Va. Sept. 26, 2006)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Kennedy v. United States, 2022 WL 17684317, at *4 (C.D. Cal. Oct. 3, 2022)": {
+    "status": "VERIFIED",
+    "cluster_id": 9515531,
+    "docket_id": null,
+    "confidence": 0.725,
+    "winning_stage": "opinion_search",
+    "expected_cluster_id": null
+  },
+  "Counsel v. Hatch, 654 F.3d 1376, 1382 (Fed. Cir. 2011)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 223251,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Hagen v. Williams, No. 2:18-cv-00425, 2020 WL 1272618": {
+    "status": "VERIFICATION_INCOMPLETE",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Cade v. Roberts, 403 So. 2d 516 (Fla. 5th DCA 1981)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 1662441,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Paige v. State, 2023 VT 66": {
+    "status": "VERIFIED",
+    "cluster_id": 8345171,
+    "docket_id": null,
+    "confidence": 0.8667,
+    "winning_stage": "opinion_search",
+    "expected_cluster_id": null
+  },
+  "Spinale v. United States 2009 WL 792089, at 3 (S.D.N.Y. March 24, 2009)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Younger v. Experian, 2023 WL 3260198 (E.D. Pa. May 4, 2023)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Valdez v. Joy Techs., 201 F.3d 447 (5th Cir. 2000)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Cunningham v. Kansas City S. Ry. Co., 2005 WL 2033364, at 3 (S.D. Tex. 2005)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": 5640195,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Miskew v. Hess, 211 Or. App. 499 (2007)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 2586199,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Rawson v. Mathews, 212 P.3d 752, 756\u201357 (Utah 2009)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 2590293,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Equilon Enters. v. Ford Motor Co., 2010 UT 44": {
+    "status": "WRONG_CASE",
+    "cluster_id": 2512053,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Loeb v Loeb, 84 AD2d 591 (2d Dept 1981)": {
+    "status": "VERIFICATION_INCOMPLETE",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "United States v. Roses, 39 F.4th 113 (11th Cir. 2022)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Khurana v. State of N.Y., No. 16-cv ... 2019 WL 1430202": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": 8400267,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Cohen v. United States, 201 F.3d 109": {
+    "status": "WRONG_CASE",
+    "cluster_id": 7079814,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Ho v. Ernst & Young LLP, 2011 WL 7106622, at *2 (C.D. Cal. Dec. 19, 2011)": {
+    "status": "VERIFIED_DOCKET_ONLY",
+    "cluster_id": null,
+    "docket_id": 4143590,
+    "confidence": 0.5786,
+    "winning_stage": "recap_docket_search",
+    "expected_cluster_id": null
+  },
+  "Lobaton v. City of San Diego, No. 3:15-cv-1416-GPC-DHB, *2020 WL 7334512, at 4 (S.D. Cal. Dec. 14, 2020)": {
+    "status": "VERIFIED_VIA_RECAP",
+    "cluster_id": null,
+    "docket_id": 4193427,
+    "confidence": 0.4852,
+    "winning_stage": "recap_document_search",
+    "expected_cluster_id": null
+  },
+  "Gonzalez v. CoreCivic, Inc., No. 1:18-cv-00927-DAD-EPG, *2020 WL 4437167, at 3 (E.D. Cal. July 31, 2020)": {
+    "status": "VERIFICATION_INCOMPLETE",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Gonzalez v. CoreCivic, Inc., 2020 WL 4037167, at *3 (E.D. Cal. July 17, 2020)": {
+    "status": "VERIFICATION_INCOMPLETE",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Chavez v. SolarCity Corp., No. 13-cv-01797-JST, *2015 WL 1520065, at 2 (N.D. Cal. Mar. 31, 2015)": {
+    "status": "VERIFICATION_INCOMPLETE",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "In re Plaza de Diego Shopping Ctr., 911 F.3d 820 (1st Cir. 2018)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 4576211,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Beville v. City of Quitman, Texas, 21 F.4th 917 (5th Cir. 2021)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Stefanski v. City of Center Line (504 Mich. 877 (2019))": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Ford v. Browning, 568 F.3d 1175 (11th Cir. 2009)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 1459477,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Reagan v. Investors Mtg. Co., 977 P.2d 299 (Colo. App. 1999)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 885121,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Medina, 2012 WL 1368983": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "First Nat\u2019l Bank of Greeley v. Conway, 34 Colo. 372, 83 P. 361 (1905)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 6684527,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Hendricks v. Bank of America, N.A., 408 S.W.3d 688 (Tex. App. 2013)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 5285587,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Goodman v. Heritage Savings & Loan Ass\u2019n, 390 P.2d 712 (Colo. 1964)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 4911742,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Fleming v. Chicago Transit Authority, 2006 WL 769440 (N.D. Ill. 2006)": {
+    "status": "VERIFIED_VIA_RECAP",
+    "cluster_id": null,
+    "docket_id": 5459270,
+    "confidence": 0.7,
+    "winning_stage": "recap_docket_search",
+    "expected_cluster_id": null
+  },
+  "No. 6:16-cv-1223-Orl-41DCI, 2017 WL 59085 (M.D. Fla. Jan. 5, 2017)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Henson (2008 WL 239153)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Delacruz v. State Bar of Cal., 2021 WL 326974, at *2 (N.D. Cal. Feb. 1, 2021)": {
+    "status": "VERIFIED",
+    "cluster_id": 9596153,
+    "docket_id": null,
+    "confidence": 0.6716,
+    "winning_stage": "opinion_search",
+    "expected_cluster_id": null
+  },
+  "Keller v. Bd. of Educ., 182 F.R.D. 871 (D.N.M. 1998)": {
+    "status": "VERIFIED_VIA_RECAP",
+    "cluster_id": null,
+    "docket_id": 5026378,
+    "confidence": 0.7,
+    "winning_stage": "recap_docket_search",
+    "expected_cluster_id": null
+  },
+  "Ford v. BNSF Ry. Co., 709 F.3d 715 (10th Cir. 2013)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 854787,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Rogers v. NYU Langone Hospitals, 2023 WL 2705769": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": 31232587,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "In re Whitaker, 36 Ohio App.3d 213 (1987)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 3998568,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Weaver v. United States, 98 Fed. Cl. 680, 684 (2011)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 6778416,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Corp. v. Mendel, 894 F. Supp. 2d 107, 111 (E.D.N.Y. 2012)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 2661703,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "In re Miller, 150 B.R. 834 (Bankr. N.D. Ohio 1993)": {
+    "status": "VERIFIED",
+    "cluster_id": 1868898,
+    "docket_id": null,
+    "confidence": 0.9,
+    "winning_stage": "opinion_search",
+    "expected_cluster_id": null
+  },
+  "United States v. Bovio, 708 F. Supp. 2d 579 (E.D.N.Y. 2010)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 2542295,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Whelan v. Colgan Air, Inc., 2010 WL 3610460": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": 4744784,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Jones v.\nJones, No. M201801746COAR3CV, 2019 WL 1036077": {
+    "status": "VERIFIED",
+    "cluster_id": 10606804,
+    "docket_id": null,
+    "confidence": 0.7667,
+    "winning_stage": "opinion_search",
+    "expected_cluster_id": null
+  },
+  "Nandigam Neurology, PLC v. Beavers, 639 S.W.3d 651 (Tenn. Ct. App. 2021)": {
+    "status": "VERIFIED",
+    "cluster_id": 4893405,
+    "docket_id": null,
+    "confidence": 0.7393,
+    "winning_stage": "opinion_search",
+    "expected_cluster_id": null
+  },
+  "Doe v. Roe, 477 S.W.3d 321, 326 (Tenn. Ct. App. 2015)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 4287360,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Schultz v. Davis, 495 S.W.3d 821, 827 (Tenn. 2016)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 4244776,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Vincent v. Yelverton, 194 F. App'x 303, 307 (6th Cir. 2006)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "In re Subpoena to Coinbase, Inc., No. 17-MC-80244, 2018 WL 1898913, at *4 (N.D. Cal. Apr. 19, 2018)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": 4618795,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "In re Subpoena to Coinbase, Inc., 2023 WL 177977, at 2 (N.D. Cal. Jan. 12, 2023)": {
+    "status": "VERIFIED_DOCKET_ONLY",
+    "cluster_id": null,
+    "docket_id": 60467461,
+    "confidence": 0.5039,
+    "winning_stage": "recap_docket_search",
+    "expected_cluster_id": null
+  },
+  "Litvin v. Blinken, 93 F.4th 1162, 1168 (D.C. Cir. 2024)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 9477024,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Marrero v. Camden Steel Co., 850 F. Supp. 188 (D.N.J. 1994)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 8724314,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Kennedy v. Cmty. Action Servs., 107 F. Supp. 2d 993 (N.D. Ind. 2000)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 2511159,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Harrison v. Hinson, 338, 352 S.E.2d 836 (1987)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "In re Weiman, 22 F.3d 135 (7th Cir. 1994)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 668271,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "In re Schmid, No. 10-12142, 2013 WL 4835463 (Bankr. W.D. Wis. Sept. 5, 2013)": {
+    "status": "NOT_FOUND",
+    "cluster_id": 8523588,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Miller v. Credit Acceptance Corp., 2019 WL 2450930 (S.D. Ind. 2019)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": 8007439,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "of Turner v. Palo Alto Networks, Inc., 2023 WL 4567762 (E.D. Tex. 2023)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": 4386244,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Chaudhri v. State Auto Prop. & Cas. Ins. Co., 2022 WL 4596697 (E.D. Mo. Sept. 30, 2022)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": 63347995,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Goodman v. Liberty Mut. Fire Ins. Co., 2022 WL 4534416 (E.D. Mo. Sept. 28, 2022)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": 17165991,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Gottfredson v. Hoyer, 492 F. Supp. 2d 399 (D. Md. 2007)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 2373762,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Estate of Layton (1938) 29 Cal.App.2d 599": {
+    "status": "VERIFIED",
+    "cluster_id": 1298772,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "citation_lookup",
+    "expected_cluster_id": null
+  },
+  "Riddle v. Harmon (1865) 5 Cal. 491": {
+    "status": "VERIFICATION_INCOMPLETE",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Estate of Kraus (1970) 8 Cal.App.3d 429": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Estate of Hermon (1973) 16 Cal.App.3d 421": {
+    "status": "VERIFIED",
+    "cluster_id": 2120316,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "citation_lookup",
+    "expected_cluster_id": null
+  },
+  "Ayala v. Holmes, 29 F.4th 1015": {
+    "status": "INSUFFICIENT_DATA",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "EEOC v. Ironworkers Local 28, 2012 WL 4339035 (S.D.N.Y. 2012)": {
+    "status": "VERIFICATION_INCOMPLETE",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Operating Engineers Local 406 JATC, 271 NLRB 1396 (1984)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "IBEW Local 212 (Cincinnati JATC), 331 NLRB 152 (2000)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Demers v. City of Los Angeles, 42 Cal.App.3d 519, 522 (1974)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 2130878,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "United States v. Hang Le-Thy Tran, No. 3:07-CR-53, 2008 WL 2699394 (E.D. Ky. July 3, 2008)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "United States v. Cope, 312 F. Supp. 2d 791 (E.D. Ky. 2004)": {
+    "status": "VERIFIED_VIA_RECAP",
+    "cluster_id": null,
+    "docket_id": 13836053,
+    "confidence": 0.7,
+    "winning_stage": "recap_docket_search",
+    "expected_cluster_id": null
+  },
+  "United States v. Abbott, 2023 WL 4106534 (E.D. Ky. June 27, 2023)": {
+    "status": "VERIFIED_VIA_RECAP",
+    "cluster_id": null,
+    "docket_id": 68091721,
+    "confidence": 0.85,
+    "winning_stage": "recap_docket_search",
+    "expected_cluster_id": null
+  },
+  "Morgan v. State of California, 157 Cal. App. 4th 914, 922 (2007)'; the Court found no case of that name and noted the intended citation was Chamberlain v. Cocola Assocs., 958 F.2d 282 (9th Cir. 1992)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 2255301,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Chamberlain v. Cocola Assocs., 958 F.2d 282 (9th Cir. 1992)": {
+    "status": "VERIFIED",
+    "cluster_id": 578738,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "citation_lookup",
+    "expected_cluster_id": null
+  },
+  "Humphries v. Rice, 88 Cal. App. 4th 1413, 1424 (2001)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 2280522,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Eddy v. Sharp, 199 Cal. App. 3d 858 (1988)": {
+    "status": "VERIFIED",
+    "cluster_id": 2180494,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "citation_lookup",
+    "expected_cluster_id": null
+  },
+  "Bolin v. Story, 225 F.3d 1234, 1239 (6th Cir. 2000)": {
+    "status": "VERIFIED",
+    "cluster_id": 770341,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "citation_lookup",
+    "expected_cluster_id": null
+  },
+  "Briganti v. Chow King, Inc. (2022) 81 Cal.App.5th 776": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "of Bowles v. Comm'r, 608 F. Appx. 693 (9th Cir. 2015)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 2810545,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "United States v. Martinez, 608 Fed. Appx. 692 (10th Cir. 2015)": {
+    "status": "VERIFIED",
+    "cluster_id": 2810545,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "citation_lookup",
+    "expected_cluster_id": null
+  },
+  "Cornell v. Precision Valve & Automation, Inc., 2011 WL 1420182 (D.N.M. 2011)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Baldwin v. Perdue Farms, Inc., 569 F. Supp. 2d 754 (E.D. Va. 2008)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 1518926,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Alford v. City of Canon City, 2019 WL 13202842, at *3 (D. Colo. Mar. 29, 2019)": {
+    "status": "VERIFICATION_INCOMPLETE",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Nat\u2019l Bank of Paris v. Midwest Agri-Dev. Corp., 887 F.2d 1128, 1134 (7th Cir. 1989)": {
+    "status": "VERIFIED",
+    "cluster_id": 8982241,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "citation_lookup",
+    "expected_cluster_id": null
+  },
+  "S.G. v. SafeSport, 74 F.4th 864, 870 (7th Cir. 2023)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Cafasso v. Central Refrigerated Servs., Inc., 486 F. Supp. 2d 1077, 1084 (W.D. Wis. 2007)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 2522120,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Truist Bank v. Buerge, 2022 WL 17541757, at *6 (M.D. Ga. Dec. 8, 2022)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Mission Critical Sols., LLC v. Connolly, 2021 WL 5985016 (M.D. Ga. Dec. 16, 2021)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Unified School District v. State Board of Education (1991) 226 Cal.App.3d 1685": {
+    "status": "WRONG_CASE",
+    "cluster_id": 2164185,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "R.D. v. P.M. (2021) 68 Cal.App.5th 1012": {
+    "status": "NOT_FOUND",
+    "cluster_id": 4900905,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "White v. Bank of America, 291 Ga. 367 (2012)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 5748760,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Smith v. Dow Chem. Co., 166 F.R.D. 1, 2 (E.D. Mich. 1996)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 9047150,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Salt Institute v. Leavitt, 440 F. Supp. 2d 240, 243 (D.D.C. 2006)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 2562433,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Parke-Davis Sec. Litig., 177 F.R.D. 246, 250 N.6 (E.D. Mich. 1997)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Koch v. Koch Indus., Inc., 203 F.R.D. 479, 487 (D. Kan. 2011)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 8749084,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Hodgson v. Mason & Hangar-Silas Mason Co., 545 F. Supp. 1189, 1192 (D. Kan. 1982)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 8892568,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Smith v. Life Investors Ins. Co. of Am., 245 F.R.D. 580, 584 (D. Kan. 2007)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 8765735,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Cited Jenkins v. Roper, 313 Ga. App. 189 (2011)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 7927338,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Bilo v. Dept. of Defense (D. Haw. 2010) 720 F. Supp. 2d 1267": {
+    "status": "WRONG_CASE",
+    "cluster_id": 2540920,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Villatoro v. GWL Cmt. Mgmt., LLC, 2013 WL 12101130 (S.D. Tex. Jan. 22, 2013)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Ortiz v. General Motors Corp., 2008 WL 2620736 (N.D. Tex. June 30, 2008)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Cowart v. AVIK Services, No. 3:19-CV-00101, 2019 WL 1745988 (S.D. Tex. 2019)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "In re Smith, 582 B.R. 1 (Bankr. D.D.C. 2018)": {
+    "status": "VERIFIED_DOCKET_ONLY",
+    "cluster_id": null,
+    "docket_id": 7212323,
+    "confidence": 0.5725,
+    "winning_stage": "recap_docket_search",
+    "expected_cluster_id": null
+  },
+  "of Oppenheimer v. City of New York, 193 A.D.2d 457 [1st Dept 1993]": {
+    "status": "WRONG_CASE",
+    "cluster_id": 6096900,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Co. v. United States, 157 Ct. Cl. 196, 206 (1962)": {
+    "status": "VERIFIED_PARTIAL",
+    "cluster_id": 8613959,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "citation_lookup",
+    "expected_cluster_id": null
+  },
+  "Burns v. State, 813 So.2d 574 (La. App. 1 Cir. 2001)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 1821891,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Smith v. Christus St. Patrick Hosp., 20-306 (La. App. 3 Cir. 11/3/20), 308 So.3d 1216": {
+    "status": "INSUFFICIENT_DATA",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "(La. App. 3 Cir. 7/10/02), 833 So.2d 1136": {
+    "status": "VERIFIED",
+    "cluster_id": 1670674,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "citation_lookup",
+    "expected_cluster_id": null
+  },
+  "In re SemCrude, L.P., 405 B.R. 230, 232 (D. Del. 2009)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 1846648,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "In re PNB Holding Co., 2009 WL 5214150, at *2 (D. Del. Dec. 23, 2009)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "In re Roadhouse Holding Inc., 777 F. App'x 79, 81 (3d Cir. 2019)": {
+    "status": "VERIFIED",
+    "cluster_id": 4587516,
+    "docket_id": null,
+    "confidence": 0.6137,
+    "winning_stage": "opinion_search",
+    "expected_cluster_id": null
+  },
+  "United States v. Morgan, 2017 WL 1387302, at *3 (N.D. Cal. Apr. 18, 2017)": {
+    "status": "VERIFIED_DOCKET_ONLY",
+    "cluster_id": null,
+    "docket_id": 6191882,
+    "confidence": 0.85,
+    "winning_stage": "recap_docket_search",
+    "expected_cluster_id": null
+  },
+  "Solis v. Zenith Cap., LLC, No. 19-80730-CIV, 2019 WL 7376782 (S.D. Fla. Sept. 26, 2019)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "(PGA Nat'l Resort, LLC v. Liberty Mut. Fire Ins. Co., 2016 WL 8716673, at *3 (S.D. Fla. Oct. 24, 2016))": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Assessor v. Allisonville Rd. P\u2019ship, 170 N.E.3d 1117 (Ind. Tax Ct. 2021)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "of Trustees v. RBS Group, 2008 WL 5127215": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": 4174901,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Escobar v. INS, 935 F.2d 955 (8th Cir. 1991)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 562684,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Lazo v. Blinken, No. 7:21-cv-00313, 2022 WL 1316223 (S.D. Tex. May 3, 2022)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Flores-Torres v. DHS, 548 F.3d 1, 6 (1st Cir. 2008)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 203554,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Edwards v. Hearst Corp. (1991) 53 Cal.3d 30": {
+    "status": "WRONG_CASE",
+    "cluster_id": 2603654,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Heath v. San Joaquin Comm. Hosp. Dist. (1993) 15 Cal.App.4th 708": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Contreras v. BlueCross Blue Shield of Ariz., No. CV-20-01915-PHX-JAT, 2021 WL 252719, at *2 (D. Ariz. Jan. 26, 2021)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": 71212507,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Williams v. Ariz. Dep\u2019t of Corr., No. CV-19-01834-PHX-GMS, 2020 WL 4016022, at *2 (D. Ariz. July 16, 2020)": {
+    "status": "NOT_FOUND",
+    "cluster_id": 9530470,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Lehman Bros., Inc. v. Wasatch Bank, 788 P.2d 514 (Utah 1990)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 1293366,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "City of Monticello v. Christensen, 788 P.2d 513 (Utah 1990)": {
+    "status": "VERIFIED",
+    "cluster_id": 1293366,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "citation_lookup",
+    "expected_cluster_id": null
+  },
+  "Ivey v. United States, 2019 WL 2080027 (Fed. Cl. 2019)": {
+    "status": "VERIFIED",
+    "cluster_id": 4777134,
+    "docket_id": null,
+    "confidence": 0.525,
+    "winning_stage": "opinion_search",
+    "expected_cluster_id": null
+  },
+  "Self v. Ray, 61 F.R.D. 666 (E.D. Ark. 1974)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 8802462,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Phillips v. Phillips, 685 So. 2d 85 (Fla. 1st DCA 1996)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 1851183,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Brydger v. Brydger, 910 So. 2d 381 (Fla. 4th DCA 2005)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 1880584,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Ashley v. Bank of Am., 538 F. App'x 874": {
+    "status": "INSUFFICIENT_DATA",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Flores v. United States, 189 F.3d 477, 481 (9th Cir. 1999)": {
+    "status": "VERIFIED",
+    "cluster_id": 765848,
+    "docket_id": null,
+    "confidence": 0.825,
+    "winning_stage": "opinion_search",
+    "expected_cluster_id": null
+  },
+  "Abbey v. United States, 953 F.2d 639, 642 (9th Cir. 1991)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 575518,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "State v. Kaiser, 198 Wn. App. 142 (2017)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 4375178,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Right v. Breen, 128 Wn. App. 104 (2005)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 4939547,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "White v. Gainer, No. 06-C-367, 2007 U.S. Dist. LEXIS 27813 (N.D. Ill. Apr. 9, 2007)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Chambers v. Time Warner, Inc., 282 F.3d 147, 152-53 (2d Cir. 2002)": {
+    "status": "VERIFIED",
+    "cluster_id": 7103595,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "citation_lookup",
+    "expected_cluster_id": null
+  },
+  "Quinn v. Levine (2021) 62 Cal.App.5th 366": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "In re Marriage of L.B. (2018) 30 Cal.App.5th 1076": {
+    "status": "VERIFIED",
+    "cluster_id": 6240164,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "citation_lookup",
+    "expected_cluster_id": null
+  },
+  "In re Marriage of C.T. and R.T. (2017) 12 Cal.App.5th 982": {
+    "status": "VERIFIED",
+    "cluster_id": 6238852,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "citation_lookup",
+    "expected_cluster_id": null
+  },
+  "In re Marriage of Mathews (2005) 133 Cal.App.4th 1407": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "In re Marriage of Facter (2016) 1 Cal.App.5th 526": {
+    "status": "VERIFIED",
+    "cluster_id": 4238125,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "citation_lookup",
+    "expected_cluster_id": null
+  },
+  "In re Marriage of Manfer (2006) 144 Cal.App.4th 925": {
+    "status": "VERIFIED",
+    "cluster_id": 5809422,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "citation_lookup",
+    "expected_cluster_id": null
+  },
+  "Concepcion v. City of New York, No. 05 Civ. 8501 (RJS), 2008 WL 5395720, at *4 (S.D.N.Y. Dec. 17, 2008)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": 4336079,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Mickens v. 10th Jud. Dist. Ct., 460 F. App'x 728 (9th Cir. 2011)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 618504,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Aguirre v. Reese, No. 2:12-cv-01837, 2013 WL 6577085, at *5 (D. Nev. Dec. 13, 2013)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": 8487922,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "McNair v. Everly, No. 18-12511, 2019 WL 2560069 (E.D. Mich. June 20, 2019)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Int'l Corp. v. Sloan' (843 F. App'x 859, 867 (6th Cir. 2021))": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "In re Marriage of Dunston, 989 N.E.2d 830, 835 (Ind. Ct. App. 2013)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 2727229,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "McCain v. State, 924 N.E.2d 56, 60 (Ind. 2009)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 2114207,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Hazy v. Ford Motor Co., 2021 WL 2345678": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": 61085191,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Ins. Co. v. Coleman, 625 So. 2d 297 (Miss. 1993)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 1112518,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Patterson v. Allstate, 2019 WL 1239855 (S.D. Miss. 2019)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": 8429337,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Lynch v. U.S. Postal Service, 2016 WL 7338415 (N.D.N.Y. Dec. 19, 2016)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": 4326210,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "James v. City of New York, 144 AD3d 604, 605 (1st Dept 2016)": {
+    "status": "VERIFIED",
+    "cluster_id": 4320116,
+    "docket_id": null,
+    "confidence": 0.8667,
+    "winning_stage": "opinion_search",
+    "expected_cluster_id": null
+  },
+  "Xiong v. Knight, 80 A.D.3d 1055 (3d Dept 2011)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 5954630,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Johnson v. Stadtlander, 162 A.D.3d 1580 (4th Dept 2018)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": 6582179,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Goldstine v. LibertyMut. Ins. Co., 2020 WL 6216738 (W.D. Wash. 2020)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Nat'l Bank of Polk Cnty. v. Goss, No. E2008-01530-COA-R3-CV, 2009 WL 2046052 (Tenn. Ct. App. July 15, 2009)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "United States v. Noel (708 F.3d 245, 254 (1st Cir. 2013))": {
+    "status": "WRONG_CASE",
+    "cluster_id": 854662,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "United States v. Hernandez (183 F. Supp. 3d 468, 480 (S.D.N.Y. 2016))": {
+    "status": "VERIFIED_DOCKET_ONLY",
+    "cluster_id": null,
+    "docket_id": 6513975,
+    "confidence": 0.9,
+    "winning_stage": "recap_docket_search",
+    "expected_cluster_id": null
+  },
+  "Henlsey v. Alcon Labs, 277 F.3d 535 (4th Cir. 2002)": {
+    "status": "VERIFIED",
+    "cluster_id": 776216,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "citation_lookup",
+    "expected_cluster_id": null
+  },
+  "Matherne v. Cytec Corp., 78 F. App'x 977, 978 (5th Cir. 2003)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 32821,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Von Drake v. Nat'l Sec. Agency, 156 F.3d 181, 1998 WL 546172, at *2 (5th Cir. 1998)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 757883,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Taylor v. United States, No. 6:21-cv-448, 2022 WL 257007": {
+    "status": "NOT_FOUND",
+    "cluster_id": 10243208,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Lee v. United States, No. 1:23-cv-84, 2023 WL 2505510": {
+    "status": "NOT_FOUND",
+    "cluster_id": 10203061,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "(No. 2:21-cv-2611, 2022 WL 1591563)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": 60495395,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Hall v. Hall, 584 U.S. 147 (2018)": {
+    "status": "VERIFIED",
+    "cluster_id": 4481138,
+    "docket_id": null,
+    "confidence": 0.9,
+    "winning_stage": "opinion_search",
+    "expected_cluster_id": null
+  },
+  "PFK Co. v. Protective Technologies, Inc., 624 F. Supp. 2d 802 (S.D. Ind. 2008)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 2371114,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Dade County v. Dyer, 315 So. 2d 442, 444 (Fla. 3d DCA 1975)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 7546919,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Ins. Corp. v. Dome Constr. Corp., 10 So. 3d 676, 678 (Fla. 4th DCA 2009)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 4985990,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Orleans v. Louisiana Health Serv. & Indem. Co., No. 20-1361, 2021 WL 1080684": {
+    "status": "NOT_FOUND",
+    "cluster_id": 10610843,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "(United States v. City of Los Angeles, 595 F.3d 1006 (9th Cir. 2010))": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "United States v. Zai, 939 F.3d 740, 746 (6th Cir. 2019)": {
+    "status": "VERIFIED_DOCKET_ONLY",
+    "cluster_id": null,
+    "docket_id": 67345552,
+    "confidence": 0.625,
+    "winning_stage": "recap_docket_search",
+    "expected_cluster_id": null
+  },
+  "United States v. Parisi, 363 F. Supp. 3d 281 (W.D.N.Y. 2019)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 7334482,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Fairchild v. Park County (2000) 108 Cal.App.4th 1305": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Corgain v. Kmart Corp. (1989) 216 Cal.App.3d 1547": {
+    "status": "WRONG_CASE",
+    "cluster_id": 2174905,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "In re Simpson, 2008 WL 467698 (Bankr. D. Kan. 2008)": {
+    "status": "VERIFIED",
+    "cluster_id": 7851586,
+    "docket_id": null,
+    "confidence": 0.7,
+    "winning_stage": "opinion_search",
+    "expected_cluster_id": null
+  },
+  "United States v. Provident Bank, 2021 WL 1985046, at 2 (E.D. Mich. May 18, 2021)": {
+    "status": "VERIFICATION_INCOMPLETE",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Gibson v. Rosati, 2017 WL 1155765 (N.D.N.Y. Mar. 27, 2017)": {
+    "status": "VERIFIED_DOCKET_ONLY",
+    "cluster_id": null,
+    "docket_id": 5572677,
+    "confidence": 0.9,
+    "winning_stage": "recap_docket_search",
+    "expected_cluster_id": null
+  },
+  "Jones v. TransUnion LLC, 2022 WL 407915 (E.D. Mich. Feb. 10, 2022)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": 6455631,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Ermine v. Frank, 655 F.3d 154 (3d Cir. 2011)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 612375,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Miller v. Cap. One Bank, 2008 WL 686798 (N.D. Tex. 2008)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": 4390301,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Gulf Islands Leasing, Inc. v. Bombardier Capital, Inc., 215 F.3d 1085 (5th Cir. 2000)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Katzenmeier v. Oppenheimer, 535 F. Supp. 2d 983 (S.D. Iowa 2008)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 1737559,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "State v. Nye County, 129 Nev. 521 (2013)": {
+    "status": "VERIFIED",
+    "cluster_id": 8086060,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "D.F., 201 Ill. 2d 476 (2002)": {
+    "status": "VERIFIED",
+    "cluster_id": 3134892,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "citation_lookup",
+    "expected_cluster_id": null
+  },
+  "Doe v. Jindal, No. 11-388, 2011 WL 3664490, at *3 (E.D. La. Aug. 19, 2011)": {
+    "status": "NOT_FOUND",
+    "cluster_id": 8714234,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "of Medical Transport v NY State Dept of Health, 294 A.D.2d 574 (2d Dept 2002)": {
+    "status": "VERIFIED",
+    "cluster_id": 6218960,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "citation_lookup",
+    "expected_cluster_id": null
+  },
+  "Parker v. Blauvelt Volunteer Fire Co., 93 F.3d 65, 69 (2d Cir. 1996)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 7038544,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Guggenheimer v. Ginzburg, 43 F.3d 807, 812 (3d Cir. 1994)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 3009519,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Klein v. Cheung, 20 Cal. App. 5th 1045 (2018)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 6239432,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Vargas v. Sotelo, 2017 NY Slip Op 50417(U)(Civ. Ct., Bronx Cty. 2017)": {
+    "status": "VERIFIED_DOCKET_ONLY",
+    "cluster_id": null,
+    "docket_id": 30451544,
+    "confidence": 0.7667,
+    "winning_stage": "recap_docket_search",
+    "expected_cluster_id": null
+  },
+  "Mut. Ins. Co. v. Huntsville, 141 So. 3d 415 (Ala. 2013)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 5001424,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Greene v. American Airlines, No. 18-CV-11459, 2019 WL 1949830 (S.D.N.Y. May 1, 2019)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": 5115433,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Kelley v. City of Birmingham, 2021 WL 1118031, at *2 (N.D. Ala. Mar. 24, 2021)": {
+    "status": "VERIFIED_VIA_RECAP",
+    "cluster_id": null,
+    "docket_id": 5476954,
+    "confidence": 0.4365,
+    "winning_stage": "recap_docket_search",
+    "expected_cluster_id": null
+  },
+  "Greer v. Warden, FCC Coleman I, 2020 WL 3060362, at *2 (M.D. Fla. June 9, 2020)": {
+    "status": "VERIFIED_VIA_RECAP",
+    "cluster_id": null,
+    "docket_id": 68508023,
+    "confidence": 0.5453,
+    "winning_stage": "recap_docket_search",
+    "expected_cluster_id": null
+  },
+  "Wilson v. Jackson, 2006 WL 8438651, at *2 (N.D. Ala. Feb. 27, 2006)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": 10900438,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "LLC v. Pierce Bainbridge Beck Price & Hecht, LLP, No. 2:18CV-05399-AB, 2019 WL 1957950 (E.D. Pa. May 2, 2019)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": 8409712,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Brown v. Wells Fargo Bank, N.A., No. C19-3041LTS, 2020 U.S. Dist. LEXIS 3614 (N.D. Iowa Jan. 7, 2020)": {
+    "status": "NOT_FOUND",
+    "cluster_id": 9666044,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Brown v. Wells Fargo Bank N.A., No. 01-18-01002-CV, 2020 Tex. App. LEXIS 7106 (Tex. App. Sep. 1, 2020)": {
+    "status": "NOT_FOUND",
+    "cluster_id": 4878112,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Jones v. PNC Bank, N.A., No. 10-CV-01077LHK, 2010 U.S. Dist. LEXIS 92866 (N.D. Cal. Aug. 20, 2010)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": 5888168,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "and Jones v. PNC Bank, N.A., 630 F. Supp. 3d 959 (N.D. Ill. 2022)": {
+    "status": "VERIFIED",
+    "cluster_id": 9681043,
+    "docket_id": null,
+    "confidence": 0.8457,
+    "winning_stage": "opinion_search",
+    "expected_cluster_id": null
+  },
+  "Miller v. Citizens Bank, N.A., No. 23-10563, 2025 U.S. Dist. LEXIS 93011 (E.D. Mich. May 15, 2025)": {
+    "status": "NOT_FOUND",
+    "cluster_id": 10585287,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "(In re Davis), 447 B.R. 738 (Bankr. D. Md. 2011)": {
+    "status": "VERIFIED",
+    "cluster_id": 2197104,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "citation_lookup",
+    "expected_cluster_id": null
+  },
+  "R.G. v. State, 180 Conn. App. 387, 393 (2018)": {
+    "status": "VERIFIED",
+    "cluster_id": 7923708,
+    "docket_id": null,
+    "confidence": 0.5896,
+    "winning_stage": "opinion_search",
+    "expected_cluster_id": null
+  },
+  "Jager, 344 B.R. 349 (Bankr. D. Colo. 2006)": {
+    "status": "VERIFIED",
+    "cluster_id": 1541167,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "citation_lookup",
+    "expected_cluster_id": null
+  },
+  "Segarra-Miranda v. Acosta-Rivera, 597 F.3d 1": {
+    "status": "WRONG_CASE",
+    "cluster_id": 1198409,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Perez v. Miami-Dade Cnty., 297 F.R.D. 620, 625 (S.D. Fla. 2013)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 8785929,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Jacobs v. Atrium Med. Corp., 2020 WL 5803503, at *2-3 (S.D. Fla. Sept. 29, 2020)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Grapevine Imports, Ltd. v. United States, 71 Fed. Cl. 324, 326 (2006)": {
+    "status": "VERIFIED",
+    "cluster_id": 6771964,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "citation_lookup",
+    "expected_cluster_id": null
+  },
+  "Lewis v. CCPOA, 2009 WL 890585, at *4 (E.D. Cal. Mar. 31, 2009)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "James v. Claussen, 2022 WL 1120273, at *3 (C.D. Cal. Apr. 14, 2022)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": 69724819,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Gonzalez v. United States, 959 F. Supp. 2d 728 (W.D. Tex. 2013)": {
+    "status": "VERIFIED_DOCKET_ONLY",
+    "cluster_id": null,
+    "docket_id": 6762221,
+    "confidence": 0.7,
+    "winning_stage": "recap_docket_search",
+    "expected_cluster_id": null
+  },
+  "Garza v. Davis, 596 F. App'x 319 (5th Cir. 2015)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 2783617,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Lin Zhong v. DOJ, 489 F.3d 126 (2d Cir. 2007)": {
+    "status": "VERIFIED",
+    "cluster_id": 797993,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "citation_lookup",
+    "expected_cluster_id": null
+  },
+  "Young v. New Haven Advocate, 315 F.3d 256 (4th Cir. 2002)": {
+    "status": "VERIFIED",
+    "cluster_id": 2967712,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "citation_lookup",
+    "expected_cluster_id": null
+  },
+  "Ortiz v. Ford Motor Co. (2020) 50 Cal.App.5th 665": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Capone v. Zoning Board of Appeals of Marlborough, 33 Mass. App. Ct. 563 (1992)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 6584729,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "United States v. Balan, 2013 WL 5539296 (N.D. Ill. Oct. 7, 2013)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Moss v. Parsons, 993 S.W.2d 650 (Ky. Ct. App. 1999)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 1762401,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Spokane v. Douglass, 800 F.3d 1075 (2015)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 2844021,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Hummel v. State, 833 P.2d 1370 (Nev. 1992)": {
+    "status": "VERIFIED",
+    "cluster_id": 2224580,
+    "docket_id": null,
+    "confidence": 0.625,
+    "winning_stage": "opinion_search",
+    "expected_cluster_id": null
+  },
+  "Snyder v. City of Sanford, 645 So. 2d 1126 (Fla. 5th DCA 1994)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 7747525,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Valley Nat\u2019l Bank of Arizona v. A.E. Moses, 617 So. 2d 455 (Fla. 4th DCA 1993)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 7693247,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Recovery Servs. v. Cooperatives Ins. Co., 785 N.W.2d 169 (Iowa Ct. App. 2010)": {
+    "status": "NOT_FOUND",
+    "cluster_id": 2150210,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Hickman v. Sacred Heart Corp., 653 N.W.2d 522 (Iowa 2002)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Kellogg v. Iowa State Bank of Wapello, 189 N.W.2d 354 (Iowa 1971)": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Niemann v. Breen, 641 N.W.2d 146 (Iowa Ct. App. 2002)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 900980,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Meyer v. Campbell, 2015 WY 66": {
+    "status": "WRONG_CASE",
+    "cluster_id": 5344917,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Sullivan v. Johnson, 2006 WY 116": {
+    "status": "WRONG_CASE",
+    "cluster_id": 2636879,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Smith v. Clark, 2018 WY 17": {
+    "status": "INSUFFICIENT_DATA",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Trust Company v. First Bank of Wyoming, 2010 WY 61": {
+    "status": "WRONG_CASE",
+    "cluster_id": 2626121,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Smith v. ABC Corporation, 321 S.W.3d 123 (Mo. App. 2010)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 2285532,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Federal Bank v. Kwong (1991) 231 Cal.App.3d 1467, 1472": {
+    "status": "WRONG_CASE",
+    "cluster_id": 2118859,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Crenshaw v. City of Defuniak Springs, 891 F.3d 1338 (11th Cir. 2018)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 4504843,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Huffman v. Bright, 636 F. Supp. 133 (D. Colo. 1986)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 1758395,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Dino v. Pelliccioni (1962) 200 Cal.App.2d 163": {
+    "status": "WRONG_CASE",
+    "cluster_id": 2182361,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Harmon v. Harmon (2001) 24 Cal.4th 259": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "People v. Ayala (2000) 24 Cal.4th 243": {
+    "status": "VERIFIED",
+    "cluster_id": 2594572,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "citation_lookup",
+    "expected_cluster_id": null
+  },
+  "Estate of Green (1955) 135 Cal.App.2d 495": {
+    "status": "NOT_FOUND",
+    "cluster_id": null,
+    "docket_id": null,
+    "confidence": null,
+    "winning_stage": null,
+    "expected_cluster_id": null
+  },
+  "Staggs v. Atchison, Topeka & Santa Fe Railway (1955) 135 Cal.App.2d 492": {
+    "status": "VERIFIED",
+    "cluster_id": 1227289,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "citation_lookup",
+    "expected_cluster_id": null
+  },
+  "Kerrigan v. O\u2019Meara (1926) 71 Cal.App. 346": {
+    "status": "WRONG_CASE",
+    "cluster_id": 3293568,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Ratzlaf v. Nordstrom, Inc., 968 F.2d 946, 950 (7th Cir. 1992)": {
+    "status": "WRONG_CASE",
+    "cluster_id": 586404,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "caption_investigation",
+    "expected_cluster_id": null
+  },
+  "Martinez (330 S.W.3d 891)": {
+    "status": "VERIFIED",
+    "cluster_id": 2270284,
+    "docket_id": null,
+    "confidence": 1.0,
+    "winning_stage": "citation_lookup",
+    "expected_cluster_id": null
+  }
+}
