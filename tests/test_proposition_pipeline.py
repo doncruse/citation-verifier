@@ -345,6 +345,71 @@ class TestExtractQuotedSpans:
         assert extract_quoted_spans(None) == []
 
 
+class TestCheckQuotesExtensions:
+    def _wd(self, tmp_path, proposition, opinion_text, quoted_text="[]"):
+        wd = tmp_path / "wd"
+        (wd / "opinions").mkdir(parents=True)
+        (wd / "opinions" / "A.html").write_text(opinion_text,
+                                                encoding="utf-8")
+        with (wd / "claims.csv").open("w", newline="",
+                                      encoding="utf-8") as f:
+            w = csv.DictWriter(f, fieldnames=[
+                "claim_id", "proposition", "cited_case", "quoted_text",
+                "opinion_file", "cl_status"])
+            w.writeheader()
+            w.writerow({"claim_id": "t-01", "proposition": proposition,
+                        "cited_case": "A v. B", "quoted_text": quoted_text,
+                        "opinion_file": "opinions/A.html",
+                        "cl_status": "VERIFIED"})
+        return wd
+
+    def test_derives_quotes_from_proposition(self, tmp_path):
+        from citation_verifier.proposition_pipeline import check_quotes
+        wd = self._wd(tmp_path,
+                      'Stipulations are "judicial admissions" here.',
+                      "nothing relevant in this opinion text at all")
+        stats = check_quotes(wd)
+        claims = list(csv.DictReader(
+            (wd / "claims.csv").open(encoding="utf-8")))
+        assert json.loads(claims[0]["quoted_text"]) == [
+            "judicial admissions"]
+        assert claims[0]["quote_check_worst"] == "FABRICATED"
+        assert claims[0]["quote_floor"] == "Yellow"
+        assert stats.derived_quotes == 1
+
+    def test_verbatim_quote_no_floor(self, tmp_path):
+        from citation_verifier.proposition_pipeline import check_quotes
+        wd = self._wd(tmp_path,
+                      'The court said "exact words match" plainly.',
+                      "Indeed the court said exact words match in text.")
+        check_quotes(wd)
+        claims = list(csv.DictReader(
+            (wd / "claims.csv").open(encoding="utf-8")))
+        assert claims[0]["quote_check_worst"] == "VERBATIM"
+        assert claims[0]["quote_floor"] == ""
+
+    def test_existing_quoted_text_not_overwritten(self, tmp_path):
+        from citation_verifier.proposition_pipeline import check_quotes
+        wd = self._wd(tmp_path,
+                      'Also has "another quote" inside.',
+                      "supplied span appears right here in the opinion",
+                      quoted_text=json.dumps(["supplied span appears"]))
+        check_quotes(wd)
+        claims = list(csv.DictReader(
+            (wd / "claims.csv").open(encoding="utf-8")))
+        assert json.loads(claims[0]["quoted_text"]) == [
+            "supplied span appears"]
+
+    def test_no_quotes_anywhere_still_no_quotes(self, tmp_path):
+        from citation_verifier.proposition_pipeline import check_quotes
+        wd = self._wd(tmp_path, "No quotation marks at all.", "text")
+        check_quotes(wd)
+        claims = list(csv.DictReader(
+            (wd / "claims.csv").open(encoding="utf-8")))
+        assert claims[0]["quote_check_worst"] == "NO_QUOTES"
+        assert claims[0]["quote_floor"] == ""
+
+
 class TestCli:
     def test_merge_verb_dispatch(self, tmp_path, monkeypatch, capsys):
         from citation_verifier.__main__ import verify_propositions_main

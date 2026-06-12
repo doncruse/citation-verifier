@@ -810,6 +810,7 @@ class QuoteCheckStats:
     verbatim: int = 0
     close: int = 0
     fabricated: int = 0
+    derived_quotes: int = 0
 
 
 def _best_match_with_passage(
@@ -907,15 +908,32 @@ def check_quotes(workdir: Path) -> QuoteCheckStats:
         except (json_mod.JSONDecodeError, TypeError):
             quotes = []
 
+        # SS6.4: when the input carries no quotes, derive >=2-word
+        # double-quoted spans from the claim's own text (prepared-pairs
+        # front ends often supply only the proposition). The derived list
+        # is written back so downstream phases and the report see it.
+        if not quotes:
+            derived: dict[str, None] = {}
+            for source in (claim.get("proposition", ""),
+                           claim.get("brief_sentence", "")):
+                for span in extract_quoted_spans(source):
+                    derived.setdefault(span)
+            if derived:
+                quotes = list(derived)
+                claim["quoted_text"] = json_mod.dumps(quotes)
+                stats.derived_quotes += 1
+
         if not quotes:
             claim["quote_check"] = "[]"
             claim["quote_check_worst"] = "NO_QUOTES"
+            claim["quote_floor"] = ""
             stats.no_quotes += 1
             continue
 
         if not opinion_file:
             claim["quote_check"] = "[]"
             claim["quote_check_worst"] = "NO_OPINION"
+            claim["quote_floor"] = ""
             stats.no_opinion += 1
             continue
 
@@ -927,6 +945,7 @@ def check_quotes(workdir: Path) -> QuoteCheckStats:
             except (FileNotFoundError, UnicodeDecodeError):
                 claim["quote_check"] = "[]"
                 claim["quote_check_worst"] = "NO_OPINION"
+                claim["quote_floor"] = ""
                 stats.no_opinion += 1
                 continue
             # Strip HTML/XML tags and collapse whitespace for clean text
@@ -969,12 +988,18 @@ def check_quotes(workdir: Path) -> QuoteCheckStats:
 
         claim["quote_check"] = json_mod.dumps(results)
         claim["quote_check_worst"] = worst
+        # SS6.4 deterministic floor: a CLOSE or FABRICATED quote inside
+        # quotation marks caps the claim at Yellow. apply-assessments
+        # enforces it (the agent can lower a color, never raise it past
+        # the floor); scoring models the same rule for recorded verdicts.
+        claim["quote_floor"] = (
+            "Yellow" if worst in ("CLOSE", "FABRICATED") else "")
         stats.checked += 1
 
     # Write updated claims.csv
     if claims:
         all_fields = list(claims[0].keys())
-        for col in ("quote_check", "quote_check_worst"):
+        for col in ("quote_check", "quote_check_worst", "quote_floor"):
             if col not in all_fields:
                 all_fields.append(col)
 
