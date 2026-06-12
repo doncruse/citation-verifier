@@ -129,3 +129,156 @@ class TestAgentToolExecutor:
         data = json.loads(path.read_text(encoding="utf-8"))
         assert len(data) == 1
         assert ex.pending == ["w-01"]
+
+
+class FakeResultMessage:
+    """Duck-typed stand-in for claude_agent_sdk ResultMessage."""
+    def __init__(self, result, is_error=False, total_cost_usd=0.02,
+                 duration_ms=1500, num_turns=2):
+        self.result = result
+        self.is_error = is_error
+        self.total_cost_usd = total_cost_usd
+        self.duration_ms = duration_ms
+        self.num_turns = num_turns
+
+
+class FakeOtherMessage:
+    """Non-result message (AssistantMessage etc.) the executor must skip."""
+
+
+def _fake_query_fn(per_call_messages, drained=None, env_seen=None):
+    """Returns a query_fn(prompt=, options=) yielding canned messages.
+
+    per_call_messages: list of message-lists, one per invocation.
+    drained: list appended to AFTER the last yield -- only reached when the
+        consumer drains the generator fully (early break never resumes past
+        the final yield).
+    env_seen: dict capturing os.environ keys of interest at call time.
+    """
+    calls = []
+
+    def query_fn(*, prompt, options):
+        calls.append({"prompt": prompt, "options": options})
+        messages = per_call_messages[len(calls) - 1]
+
+        async def gen():
+            for m in messages:
+                yield m
+            if drained is not None:
+                drained.append(True)
+        if env_seen is not None:
+            import os
+            env_seen["ANTHROPIC_BASE_URL"] = os.environ.get(
+                "ANTHROPIC_BASE_URL", "<absent>")
+        return gen()
+
+    query_fn.calls = calls
+    return query_fn
+
+
+def _sdk_job(claim_id="w-01", version="assess-v1"):
+    return Job(job_id=f"assess-{claim_id}", claim_ids=[claim_id],
+               prompt=f"PROMPT {claim_id}", prompt_version=version,
+               files=["opinions/A.html"])
+
+
+class TestAgentSDKExecutor:
+    def test_happy_path_yields_verdict(self):
+        from citation_verifier.executor import AgentSDKExecutor
+        qf = _fake_query_fn([[
+            FakeOtherMessage(),
+            FakeResultMessage('{"assessment": "Yellow", "rationale": "r"}'),
+        ]])
+        ex = AgentSDKExecutor(model="opus", query_fn=qf)
+        (v,) = list(ex.run([_sdk_job()]))
+        assert v.claim_id == "w-01"
+        assert v.fields == {"assessment": "Yellow", "rationale": "r"}
+        assert v.model == "opus"
+        assert v.prompt_version == "assess-v1"
+        assert v.cost_usd == 0.02
+        assert v.elapsed_s == 1.5
+        assert ex.failures == []
+
+    def test_options_restrict_tools_and_model(self):
+        from citation_verifier.executor import AgentSDKExecutor
+        qf = _fake_query_fn([[FakeResultMessage('{"a": 1}')]])
+        ex = AgentSDKExecutor(model="haiku", max_turns=3, query_fn=qf)
+        list(ex.run([_sdk_job()]))
+        opts = qf.calls[0]["options"]
+        assert opts.allowed_tools == ["Read"]
+        assert opts.model == "haiku"
+        assert opts.max_turns == 3
+
+    def test_generator_drained_fully(self):
+        """ResultMessage mid-stream: the executor must keep consuming
+        (early return segfaults at shutdown on Windows, design SS5.1)."""
+        from citation_verifier.executor import AgentSDKExecutor
+        drained = []
+        qf = _fake_query_fn([[
+            FakeResultMessage('{"a": 1}'),
+            FakeOtherMessage(),
+            FakeOtherMessage(),
+        ]], drained=drained)
+        ex = AgentSDKExecutor(query_fn=qf)
+        list(ex.run([_sdk_job()]))
+        assert drained == [True]
+
+    def test_strips_parent_env_and_restores(self, monkeypatch):
+        from citation_verifier.executor import AgentSDKExecutor
+        monkeypatch.setenv("ANTHROPIC_BASE_URL", "http://parent-proxy")
+        env_seen = {}
+        qf = _fake_query_fn([[FakeResultMessage('{"a": 1}')]],
+                            env_seen=env_seen)
+        ex = AgentSDKExecutor(query_fn=qf)
+        list(ex.run([_sdk_job()]))
+        assert env_seen["ANTHROPIC_BASE_URL"] == "<absent>"
+        import os
+        assert os.environ["ANTHROPIC_BASE_URL"] == "http://parent-proxy"
+
+    def test_auth_error_raises_and_stops(self):
+        from citation_verifier.executor import (
+            AgentSDKAuthError, AgentSDKExecutor)
+        qf = _fake_query_fn([
+            [FakeResultMessage(
+                "API Error: 401 OAuth token has expired", is_error=True)],
+            [FakeResultMessage('{"a": 1}')],  # must never be reached
+        ])
+        ex = AgentSDKExecutor(query_fn=qf)
+        with pytest.raises(AgentSDKAuthError, match="claude login"):
+            list(ex.run([_sdk_job("w-01"), _sdk_job("w-02")]))
+        assert len(qf.calls) == 1
+
+    def test_non_auth_error_recorded_and_continues(self):
+        from citation_verifier.executor import AgentSDKExecutor
+        qf = _fake_query_fn([
+            [FakeResultMessage("rate limited, try later", is_error=True)],
+            [FakeResultMessage('{"assessment": "Green", "rationale": "r"}')],
+        ])
+        ex = AgentSDKExecutor(query_fn=qf)
+        verdicts = list(ex.run([_sdk_job("w-01"), _sdk_job("w-02")]))
+        assert [v.claim_id for v in verdicts] == ["w-02"]
+        assert len(ex.failures) == 1
+        assert ex.failures[0][0] == "assess-w-01"
+
+    def test_unparseable_result_recorded_no_verdict(self):
+        from citation_verifier.executor import AgentSDKExecutor
+        qf = _fake_query_fn([[FakeResultMessage("I could not find a JSON")]])
+        ex = AgentSDKExecutor(query_fn=qf)
+        assert list(ex.run([_sdk_job()])) == []
+        assert ex.failures[0][0] == "assess-w-01"
+
+    def test_no_result_message_recorded(self):
+        from citation_verifier.executor import AgentSDKExecutor
+        qf = _fake_query_fn([[FakeOtherMessage()]])
+        ex = AgentSDKExecutor(query_fn=qf)
+        assert list(ex.run([_sdk_job()])) == []
+        assert ex.failures[0][0] == "assess-w-01"
+
+    def test_json_extracted_from_surrounding_prose(self):
+        """PoC parse rule: text between first '{' and last '}'."""
+        from citation_verifier.executor import AgentSDKExecutor
+        qf = _fake_query_fn([[FakeResultMessage(
+            'Here is my verdict:\n{"assessment": "Red", "rationale": "x"}\n')]])
+        ex = AgentSDKExecutor(query_fn=qf)
+        (v,) = list(ex.run([_sdk_job()]))
+        assert v.fields["assessment"] == "Red"

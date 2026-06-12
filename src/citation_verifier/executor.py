@@ -13,6 +13,8 @@ pipeline-design.md SS5.
 from __future__ import annotations
 
 import json
+import os
+from contextlib import contextmanager
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Iterable, Iterator, Protocol
@@ -152,3 +154,145 @@ class RecordedExecutor:
                         f"prompt_version={job.prompt_version} in "
                         f"{self.results_path}")
                 yield self._recorded[key]
+
+
+# ---------------------------------------------------------------------------
+# AgentSDKExecutor (design SS5 / SS5.1): the headless default transport.
+# ---------------------------------------------------------------------------
+
+_SDK_ENV_PREFIXES = ("ANTHROPIC", "CLAUDE")
+
+# Markers of a stale/absent CLI OAuth credential (SS5.1: the desktop app
+# refreshes its own auth, not the CLI's -- a headless 401 means the user
+# must run `claude login`). Checked case-insensitively.
+_AUTH_MARKERS = ("401", "authentication", "oauth", "api key",
+                 "logged out", "log in", "login")
+
+_AUTH_HELP = ("Claude CLI credentials are stale or missing (401). "
+              "Run `claude login` in a terminal, then rerun this verb. "
+              "No further jobs were attempted.")
+
+
+class AgentSDKAuthError(RuntimeError):
+    """Headless auth failure -- stop immediately, don't burn N jobs."""
+
+
+@contextmanager
+def _stripped_parent_env():
+    """Remove ANTHROPIC*/CLAUDE* env around the SDK import + call.
+
+    Inside a Claude Code session the parent's ANTHROPIC_BASE_URL / CLAUDE*
+    leak into the spawned CLI and break auth (design SS5.1). The SDK's
+    options.env only MERGES over inherited os.environ (it cannot remove
+    keys), so the strip must happen here. Restored on exit."""
+    saved = {k: os.environ.pop(k) for k in list(os.environ)
+             if k.startswith(_SDK_ENV_PREFIXES)}
+    try:
+        yield
+    finally:
+        os.environ.update(saved)
+
+
+def _looks_like_auth_failure(text: str) -> bool:
+    low = text.lower()
+    return any(m in low for m in _AUTH_MARKERS)
+
+
+def _parse_json_object(text: str) -> dict[str, Any] | None:
+    """PoC parse rule: the JSON object between the first '{' and the last
+    '}' in the result text. None when absent or invalid."""
+    start = text.find("{")
+    end = text.rfind("}")
+    if start == -1 or end <= start:
+        return None
+    try:
+        parsed = json.loads(text[start:end + 1])
+    except json.JSONDecodeError:
+        return None
+    return parsed if isinstance(parsed, dict) else None
+
+
+class AgentSDKExecutor:
+    """Headless default (design SS5): one claude-agent-sdk query() per job.
+
+    allowed_tools=["Read"] only; model from config. Drains the SDK's async
+    generator fully (partial consumption segfaults at shutdown on Windows,
+    SS5.1). Auth failures raise AgentSDKAuthError immediately; other
+    per-job failures are recorded in .failures (job_id, reason) and the
+    run continues -- unfinished claims stay pending for a rerun.
+
+    Not usable inside a running event loop (it calls anyio.run per job);
+    in-session runs use AgentToolExecutor (jobs mode) instead.
+    """
+
+    def __init__(self, model: str = "opus", cwd: str | Path | None = None,
+                 max_turns: int = 6, query_fn: Any = None):
+        self.model = model
+        self.cwd = str(cwd) if cwd is not None else None
+        self.max_turns = max_turns
+        self._query_fn = query_fn  # test seam; None = claude_agent_sdk.query
+        self.failures: list[tuple[str, str]] = []
+
+    def run(self, jobs: list[Job]) -> Iterator[Verdict]:
+        for job in jobs:
+            yield from self._run_job(job)
+
+    def _run_job(self, job: Job) -> list[Verdict]:
+        import anyio
+
+        with _stripped_parent_env():
+            # Import inside the stripped env (the PoC strips before import;
+            # the SDK may spawn/locate the CLI on first use).
+            from claude_agent_sdk import (ClaudeAgentOptions,
+                                          ClaudeSDKError, CLINotFoundError)
+            query_fn = self._query_fn
+            if query_fn is None:
+                from claude_agent_sdk import query as query_fn
+            options = ClaudeAgentOptions(
+                allowed_tools=["Read"], max_turns=self.max_turns,
+                model=self.model,
+                **({"cwd": self.cwd} if self.cwd else {}))
+            try:
+                result_msg = anyio.run(self._drain, query_fn, job.prompt,
+                                       options)
+            except CLINotFoundError:
+                raise  # fatal: no claude CLI on this machine
+            except ClaudeSDKError as e:
+                if _looks_like_auth_failure(str(e)):
+                    raise AgentSDKAuthError(_AUTH_HELP) from e
+                self.failures.append(
+                    (job.job_id, f"{type(e).__name__}: {e}"))
+                return []
+
+        if result_msg is None:
+            self.failures.append((job.job_id, "no ResultMessage from SDK"))
+            return []
+        text = getattr(result_msg, "result", "") or ""
+        if getattr(result_msg, "is_error", False):
+            if _looks_like_auth_failure(text):
+                raise AgentSDKAuthError(_AUTH_HELP)
+            self.failures.append((job.job_id, f"is_error: {text[:200]}"))
+            return []
+        fields = _parse_json_object(text)
+        if fields is None:
+            self.failures.append(
+                (job.job_id, f"unparseable result: {text[:200]}"))
+            return []
+        elapsed_s = (getattr(result_msg, "duration_ms", 0) or 0) / 1000.0
+        cost_usd = getattr(result_msg, "total_cost_usd", 0.0) or 0.0
+        return [Verdict(claim_id=cid, fields=fields, model=self.model,
+                        prompt_version=job.prompt_version,
+                        elapsed_s=elapsed_s, cost_usd=cost_usd)
+                for cid in job.claim_ids]
+
+    @staticmethod
+    async def _drain(query_fn: Any, prompt: str, options: Any) -> Any:
+        """Consume the generator to exhaustion; keep the last ResultMessage.
+        Never break/return from inside the async-for (SS5.1 segfault)."""
+        result = None
+        async for msg in query_fn(prompt=prompt, options=options):
+            # Name-suffix duck typing: matches the SDK's ResultMessage
+            # without importing message classes (and test doubles).
+            if type(msg).__name__.endswith("ResultMessage"):
+                result = msg
+        return result
