@@ -85,7 +85,7 @@ Three-step verification pipeline in `src/citation_verifier/verifier.py`:
 | `test_executor.py` | Executor protocol + RecordedExecutor replay tests |
 | `test_scoring.py` | derive_color table + workdir prediction/scoring tests |
 | `test_assessment_corpora.py` | Structural invariants of the frozen assessment corpora |
-| `test_assessment_regression.py` | Offline assessment baselines: Withers 14/19 yellows (post-§6.4 floors), A/B 56/61 |
+| `test_assessment_regression.py` | Offline assessment baselines. v1: Withers 14/19 yellows (post-§6.4 floors), A/B 56/61. **assess-v2** (2026-06-12 re-record): Withers 16/19 yellows / reds 3/3 / greens 4 over-flags (≤2 guardrail miss, flagged), A/B 55/61 (90%), lenient set {payne-03} only |
 | `build_assessment_corpora.py` | Builds/refreshes `tests/data/assessment_corpora/` (idempotent) |
 | `test_ab_runner.py` | Offline tests for `tools/ab_test_runner.py` (RecordedExecutor seam; payne 23/27, wainwright 33/34) |
 | `test_parser_diagnostics.py` | eyecite vs our parser comparison |
