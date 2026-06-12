@@ -1292,11 +1292,19 @@ def _toa_body_variants(workdir: Path) -> dict[str, list[str]]:
 
 
 def _read_clean_opinion(workdir: Path, opinion_file: str) -> str:
-    """Opinion text with HTML stripped (same strip as check_quotes)."""
+    """Opinion text with HTML stripped (same strip as check_quotes).
+
+    CL harvard-XML footnote markers (<footnotemark>N</footnotemark>) are
+    rewritten to " n.N " BEFORE the tag strip so the SS6.5 footnote-
+    existence check can see them -- a plain strip leaves a bare number
+    and every n.N pincite false-flags as footnote_missing (the Step 8
+    9.6 Withers finding, withers-36 / Missouri v. Jenkins n.10)."""
     try:
         raw = (workdir / opinion_file).read_text(encoding="utf-8")
     except (FileNotFoundError, UnicodeDecodeError, OSError):
         return ""
+    raw = re.sub(r"<footnotemark>\s*(\d+)\s*</footnotemark>", r" n.\1 ",
+                 raw)
     clean = re.sub(r"<[^>]+>", " ", raw)
     clean = re.sub(r"&\w+;", " ", clean)
     return re.sub(r"\s+", " ", clean).strip()

@@ -1213,6 +1213,37 @@ def _triage_claims(wd, rows):
             w.writerow(base)
 
 
+class TestFootnotemarkPincite:
+    def test_footnotemark_markup_counts_as_footnote_present(self, tmp_path):
+        """Step 8 9.6 finding: CL harvard-XML opinions mark footnotes as
+        <footnotemark>N</footnotemark>; the plain tag-strip turned them
+        into bare numbers, so every n.N pincite false-flagged as
+        footnote_missing (the one Withers pincite flag, withers-36, was
+        exactly this artifact)."""
+        import citation_verifier.proposition_pipeline as pp
+        wd = tmp_path / "fp"
+        (wd / "opinions").mkdir(parents=True)
+        (wd / "opinions" / "j.html").write_text(
+            "<p>*274 Text here.<footnotemark>10</footnotemark> More "
+            "*280 text *290 end.</p>", encoding="utf-8")
+        text = pp._read_clean_opinion(wd, "opinions/j.html")
+        flag = pp._pincite_flag(
+            "Missouri v. Jenkins, 491 U.S. 274, 288 n.10 (1989)", text)
+        assert flag is None  # footnote 10 IS present; pin 288 in range
+
+    def test_genuinely_missing_footnote_still_flags(self, tmp_path):
+        import citation_verifier.proposition_pipeline as pp
+        wd = tmp_path / "fp"
+        (wd / "opinions").mkdir(parents=True)
+        (wd / "opinions" / "j.html").write_text(
+            "<p>*274 Text.<footnotemark>3</footnotemark> *280 t *290 e</p>",
+            encoding="utf-8")
+        text = pp._read_clean_opinion(wd, "opinions/j.html")
+        flag = pp._pincite_flag(
+            "Missouri v. Jenkins, 491 U.S. 274, 288 n.10 (1989)", text)
+        assert flag == {"footnote_missing": "10"}
+
+
 class TestRunTriage:
     def _wd(self, tmp_path):
         wd = tmp_path / "tr"
