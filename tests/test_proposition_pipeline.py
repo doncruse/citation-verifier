@@ -1652,6 +1652,62 @@ class TestAssessV2Template:
         assert "{claims_block}" not in prompt
 
 
+class TestRunAssessV2:
+    def test_jobs_packed_per_opinion(self, tmp_path):
+        import citation_verifier.proposition_pipeline as pp
+        wd = _copy_withers(tmp_path)
+        (wd / "jobs" / "assess_results.jsonl").unlink()
+        stats = pp.run_assess(wd, prompt_version="assess-v2")
+        jobs = json.loads((wd / "jobs" / "assess.json")
+                          .read_text(encoding="utf-8"))
+        with open(wd / "claims.csv", newline="", encoding="utf-8") as f:
+            claims = [c for c in csv.DictReader(f) if pp._assessable(c)]
+        opinions = {c["opinion_file"] for c in claims}
+        assert len(jobs) == len(opinions)          # one job per opinion
+        all_ids = [cid for j in jobs for cid in j["claim_ids"]]
+        assert sorted(all_ids) == sorted(c["claim_id"] for c in claims)
+        assert all(j["prompt_version"] == "assess-v2" for j in jobs)
+        # multi-claim job exists (withers has shared opinions) and its
+        # prompt carries every claim's id
+        multi = next(j for j in jobs if len(j["claim_ids"]) > 1)
+        for cid in multi["claim_ids"]:
+            assert f"Claim {cid}" in multi["prompt"]
+        assert stats.pending == stats.eligible
+
+    def test_v2_replay_resume_roundtrip(self, tmp_path):
+        import citation_verifier.proposition_pipeline as pp
+        from citation_verifier.executor import (
+            RecordedExecutor, Verdict, append_verdict_jsonl,
+            load_verdicts_jsonl)
+        wd = _copy_withers(tmp_path)
+        cassette = tmp_path / "v2.jsonl"
+        with open(wd / "claims.csv", newline="", encoding="utf-8") as f:
+            claims = [c for c in csv.DictReader(f) if pp._assessable(c)]
+        for c in claims:
+            append_verdict_jsonl(cassette, Verdict(
+                claim_id=c["claim_id"],
+                fields={"support": "supported", "badge_label": "Supported",
+                        "brief_block": "", "opinion_block": "",
+                        "finding_analysis": "fine"},
+                model="opus", prompt_version="assess-v2"))
+        stats = pp.run_assess(wd, executor=RecordedExecutor(cassette),
+                              prompt_version="assess-v2")
+        assert stats.done == stats.eligible and stats.pending == 0
+        # v1 + v2 lines coexist in the workdir results file
+        versions = {v.prompt_version for v in load_verdicts_jsonl(
+            wd / "jobs" / "assess_results.jsonl")}
+        assert versions == {"assess-v1", "assess-v2"}
+
+    def test_v1_path_unchanged(self, tmp_path):
+        import citation_verifier.proposition_pipeline as pp
+        wd = _copy_withers(tmp_path)
+        (wd / "jobs" / "assess_results.jsonl").unlink()
+        pp.run_assess(wd)  # default assess-v1
+        jobs = json.loads((wd / "jobs" / "assess.json")
+                          .read_text(encoding="utf-8"))
+        assert all(len(j["claim_ids"]) == 1 for j in jobs)
+
+
 class TestRunReport:
     def test_writes_report_and_stamps_run_json(self, tmp_path):
         import citation_verifier.proposition_pipeline as pp

@@ -950,6 +950,15 @@ _ASSESS_V1_SCHEMA = {
     "rationale": "one sentence",
 }
 
+# v2 packed-job contract: per-claim verdicts array (documentation-shaped;
+# run_apply_assessments validates).
+_ASSESS_V2_SCHEMA = {
+    "verdicts": [{"claim_id": "str",
+                  "support": "supported|partial|unsupported|unverifiable",
+                  "badge_label": "str", "brief_block": "str",
+                  "opinion_block": "str", "finding_analysis": "str"}],
+}
+
 
 @dataclass
 class AssessStats:
@@ -1006,17 +1015,37 @@ def run_assess(workdir: Path, executor: Any = None,
             todo.append(c)
     todo.sort(key=lambda c: c.get("opinion_file", ""))
 
-    jobs = [Job(
-        job_id=f"assess-{c['claim_id']}",
-        claim_ids=[c["claim_id"]],
-        prompt=render_assess_prompt(
-            prompt_version, str(workdir / c["opinion_file"]),
-            c["cited_case"], c["proposition"],
-            c.get("quote_check_worst", "NO_QUOTES")),
-        prompt_version=prompt_version,
-        files=[c["opinion_file"]],
-        schema=_ASSESS_V1_SCHEMA,
-    ) for c in todo]
+    if prompt_version == DEFAULT_PROMPT_VERSION:
+        # v1: one job per claim, byte-pinned prompt (cassette compat).
+        jobs = [Job(
+            job_id=f"assess-{c['claim_id']}",
+            claim_ids=[c["claim_id"]],
+            prompt=render_assess_prompt(
+                prompt_version, str(workdir / c["opinion_file"]),
+                c["cited_case"], c["proposition"],
+                c.get("quote_check_worst", "NO_QUOTES")),
+            prompt_version=prompt_version,
+            files=[c["opinion_file"]],
+            schema=_ASSESS_V1_SCHEMA,
+        ) for c in todo]
+    else:
+        # v2+: one packed job per opinion (Step 8 decision log:
+        # per-opinion only -- documented deviation from SS6.8's
+        # multi-opinion caps, which economized interactive subagent
+        # dispatch; SDK jobs are cheap to spawn and per-opinion keeps
+        # the shared-read win with a smaller failure blast radius).
+        by_opinion: dict[str, list[dict]] = {}
+        for c in todo:
+            by_opinion.setdefault(c["opinion_file"], []).append(c)
+        jobs = [Job(
+            job_id="assess-" + Path(opinion).stem[:60],
+            claim_ids=[c["claim_id"] for c in group],
+            prompt=render_assess_v2_prompt(
+                prompt_version, str(workdir / opinion), group),
+            prompt_version=prompt_version,
+            files=[opinion],
+            schema=_ASSESS_V2_SCHEMA,
+        ) for opinion, group in by_opinion.items()]
 
     if jobs:
         if executor is None:
