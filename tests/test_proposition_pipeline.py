@@ -729,6 +729,78 @@ class TestCli:
         assert isinstance(captured["executor"], AgentSDKExecutor)
         assert captured["executor"].model == "haiku"
 
+    def test_crosscheck_verb_dispatch(self, tmp_path, monkeypatch, capsys):
+        from citation_verifier.__main__ import verify_propositions_main
+        from citation_verifier.proposition_pipeline import CrosscheckStats
+        monkeypatch.setattr(
+            "citation_verifier.proposition_pipeline.run_crosscheck",
+            lambda wd: CrosscheckStats(total=3, court_mismatches=1))
+        wd = tmp_path / "wd"
+        wd.mkdir()
+        rc = verify_propositions_main([str(wd), "crosscheck"])
+        assert rc == 0
+        out = capsys.readouterr().out
+        assert "[OK] crosscheck" in out
+        assert "1 court" in out
+
+    def test_triage_verb_dispatch_with_prescreen_flag(
+            self, tmp_path, monkeypatch, capsys):
+        from citation_verifier.__main__ import verify_propositions_main
+        from citation_verifier.proposition_pipeline import TriageStats
+        captured = {}
+
+        def fake_triage(wd, prescreen=False, executor=None,
+                        prompt_version="prescreen-v1"):
+            captured["prescreen"] = prescreen
+            captured["executor"] = executor
+            return TriageStats(full=2, fast=1, skipped=1)
+
+        monkeypatch.setattr(
+            "citation_verifier.proposition_pipeline.run_triage",
+            fake_triage)
+        wd = tmp_path / "wd"
+        wd.mkdir()
+        rc = verify_propositions_main([str(wd), "triage"])
+        assert rc == 0
+        assert captured["prescreen"] is False
+        assert "[OK] triage" in capsys.readouterr().out
+        verify_propositions_main([str(wd), "triage", "--prescreen"])
+        assert captured["prescreen"] is True
+
+    def test_full_chain_runs_new_verbs_in_order(
+            self, tmp_path, monkeypatch):
+        """full = verify -> merge -> check-quotes -> crosscheck ->
+        triage -> assess (-> apply)."""
+        from citation_verifier.__main__ import verify_propositions_main
+        import citation_verifier.proposition_pipeline as pp
+        order = []
+        monkeypatch.setattr(pp, "run_merge",
+                            lambda wd: order.append("merge") or
+                            pp.MergeStats())
+        monkeypatch.setattr(pp, "run_check_quotes",
+                            lambda wd: order.append("check-quotes") or
+                            pp.QuoteCheckStats())
+        monkeypatch.setattr(pp, "run_crosscheck",
+                            lambda wd: order.append("crosscheck") or
+                            pp.CrosscheckStats())
+        monkeypatch.setattr(
+            pp, "run_triage",
+            lambda wd, prescreen=False, executor=None,
+            prompt_version="prescreen-v1": order.append("triage") or
+            pp.TriageStats())
+        monkeypatch.setattr(
+            pp, "run_assess",
+            lambda wd, executor=None, prompt_version="assess-v1":
+            order.append("assess") or pp.AssessStats(pending=1))
+        wd = tmp_path / "wd"
+        wd.mkdir()
+        (wd / "verification_results.csv").write_text(
+            "citation,status\n", encoding="utf-8")  # verify no-ops
+        rc = verify_propositions_main([str(wd), "full"])
+        assert rc == 0
+        assert order == ["merge", "check-quotes", "crosscheck",
+                         "triage", "assess"]
+
     def test_replay_beats_executor_flag(self, tmp_path, monkeypatch):
         """--replay wins over --executor (offline determinism first)."""
         from citation_verifier.__main__ import verify_propositions_main

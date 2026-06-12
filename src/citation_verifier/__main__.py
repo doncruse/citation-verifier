@@ -571,6 +571,11 @@ def verify_propositions_main(argv: list[str] | None = None) -> int:
         "--model", default="opus",
         help="Model for the sdk executor (default opus)",
     )
+    parser.add_argument(
+        "--prescreen", action="store_true",
+        help="Triage: run Haiku summary-hint prescreen jobs for long "
+             "opinions (default off pending the A/B re-run)",
+    )
     args = parser.parse_args(argv)
 
     from pathlib import Path
@@ -664,6 +669,23 @@ def _dispatch_proposition_verbs(args, workdir, pp, _progress,
     if args.verb in ("check-quotes", "full"):
         qstats = pp.run_check_quotes(workdir)
         print(f"[OK] check-quotes: {qstats.total_claims} claims checked")
+
+    if args.verb in ("crosscheck", "full"):
+        xstats = pp.run_crosscheck(workdir)
+        print(f"[OK] crosscheck: {xstats.total} claims, "
+              f"{xstats.toa_mismatches} TOA, "
+              f"{xstats.court_mismatches} court, "
+              f"{xstats.pincite_flags} pincite flags")
+
+    if args.verb in ("triage", "full"):
+        tstats = pp.run_triage(workdir, prescreen=args.prescreen,
+                               executor=_make_executor())
+        print(f"[OK] triage: {tstats.full} full, {tstats.fast} fast, "
+              f"{tstats.skipped} deterministic")
+        if tstats.prescreen_pending:
+            print(f"  PENDING: {tstats.prescreen_pending} prescreen "
+                  f"jobs -> jobs/prescreen.json (dispatch agents, "
+                  f"append to jobs/prescreen_results.jsonl, rerun)")
 
     prompt_version = args.prompt_version or pp.DEFAULT_PROMPT_VERSION
 
