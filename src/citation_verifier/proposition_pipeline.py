@@ -1060,6 +1060,200 @@ def run_check_quotes(workdir: Path) -> "QuoteCheckStats":
 
 
 # ---------------------------------------------------------------------------
+# Verb 4: crosscheck (design SS6.5) -- deterministic flags, never verdicts.
+# ---------------------------------------------------------------------------
+
+_BASE_CITE_RE = re.compile(
+    r"^(?P<name>.+?),\s*(?P<vol>\d+)\s+"
+    r"(?P<rep>[A-Z][A-Za-z0-9. ']*?)\s+(?P<page>\d+)")
+_CITE_YEAR_RE = re.compile(r"\((?:[^()]*?\s)?(\d{4})\)")
+_PIN_AFTER_BASE_RE = re.compile(r"^\s*,\s*(\d+)")
+_FOOTNOTE_PIN_RE = re.compile(r"\bn\.\s*(\d+)", re.IGNORECASE)
+_STAR_PAGE_RE = re.compile(r"\*\s?(\d{1,5})\b")
+
+
+def _parse_base_cite(text: str) -> dict[str, str] | None:
+    """Volume/reporter/page/year + normalized case name from a citation
+    string. Regex-level parse (the SS6.5 diff needs components, not a
+    full ParsedCitation)."""
+    m = _BASE_CITE_RE.match(text.strip())
+    if not m:
+        return None
+    year = _CITE_YEAR_RE.search(text)
+    return {
+        "name_norm": re.sub(r"[^a-z0-9]", "", m.group("name").lower()),
+        "volume": m.group("vol"),
+        "reporter": re.sub(r"[\s.]", "", m.group("rep")).lower(),
+        "page": m.group("page"),
+        "year": year.group(1) if year else "",
+        "_end": str(m.end()),
+    }
+
+
+def _toa_body_variants(workdir: Path) -> dict[str, list[str]]:
+    """name_norm -> distinct citation variants across the TOA/body lists
+    (only names with >1 variant -- the Bryant 597-vs-97 class)."""
+    seen: dict[str, dict[tuple, str]] = {}
+    for fname in ("citations_toa.txt", "citations_body.txt"):
+        p = workdir / fname
+        if not p.exists():
+            continue
+        for line in p.read_text(encoding="utf-8").splitlines():
+            line = line.strip()
+            if not line:
+                continue
+            c = _parse_base_cite(line)
+            if not c:
+                continue
+            key = (c["volume"], c["reporter"], c["page"])
+            seen.setdefault(c["name_norm"], {}).setdefault(key, line)
+    return {name: list(variants.values())
+            for name, variants in seen.items() if len(variants) > 1}
+
+
+def _read_clean_opinion(workdir: Path, opinion_file: str) -> str:
+    """Opinion text with HTML stripped (same strip as check_quotes)."""
+    try:
+        raw = (workdir / opinion_file).read_text(encoding="utf-8")
+    except (FileNotFoundError, UnicodeDecodeError, OSError):
+        return ""
+    clean = re.sub(r"<[^>]+>", " ", raw)
+    clean = re.sub(r"&\w+;", " ", clean)
+    return re.sub(r"\s+", " ", clean).strip()
+
+
+def _pincite_flag(cited_case: str, opinion_text: str) -> dict | None:
+    """Best-effort SS6.5 pincite check: star-pagination range + footnote
+    existence. Returns a details dict or None. Flags only -- never
+    feeds the color function."""
+    base = _parse_base_cite(cited_case)
+    if not base or not opinion_text:
+        return None
+    flag: dict[str, Any] = {}
+    rest = cited_case.strip()[int(base["_end"]):]
+    pin_m = _PIN_AFTER_BASE_RE.match(rest)
+    if pin_m:
+        pin = int(pin_m.group(1))
+        stars = [int(s) for s in _STAR_PAGE_RE.findall(opinion_text)]
+        # >=3 markers = real star pagination, not stray asterisks
+        if len(stars) >= 3:
+            lo, hi = min(stars), max(stars)
+            if not (lo <= pin <= hi):
+                flag["pinpoint"] = str(pin)
+                flag["star_range"] = [lo, hi]
+    fn_m = _FOOTNOTE_PIN_RE.search(cited_case)
+    if fn_m:
+        fn = fn_m.group(1)
+        if not re.search(
+                rf"(?:n\.\s*{fn}\b|footnote\s+{fn}\b|\[fn?{fn}\])",
+                opinion_text, re.IGNORECASE):
+            flag["footnote_missing"] = fn
+    return flag or None
+
+
+@dataclass
+class CrosscheckStats:
+    """Statistics from run_crosscheck."""
+    total: int = 0
+    toa_mismatches: int = 0
+    court_mismatches: int = 0
+    pincite_flags: int = 0
+
+
+def run_crosscheck(workdir: Path) -> CrosscheckStats:
+    """Verb 4 (design SS3 / SS6.5): deterministic TOA-vs-body diff,
+    court check, and best-effort pincite check. Writes the
+    crosscheck_flags JSON column ('' when clean). Flags only: never
+    touches assessment colors. Idempotent -- recomputes on rerun."""
+    from .court_map import lookup_court_id
+    from .parser import parse_citation
+
+    workdir = Path(workdir)
+    with open(workdir / "claims.csv", newline="", encoding="utf-8") as f:
+        claims = list(csv.DictReader(f))
+
+    variants = _toa_body_variants(workdir)
+
+    # citation -> vr row (for matched_court_id), same join key as merge
+    vr_lookup: dict[str, dict] = {}
+    vr_path = workdir / "verification_results.csv"
+    if vr_path.exists():
+        with open(vr_path, newline="", encoding="utf-8") as f:
+            for row in csv.DictReader(f):
+                key = _normalize_for_match(row.get("citation", ""))
+                if key:
+                    vr_lookup[key] = row
+
+    stats = CrosscheckStats()
+    opinion_cache: dict[str, str] = {}
+    for claim in claims:
+        stats.total += 1
+        cited = claim.get("cited_case", "") or ""
+        flags: dict[str, Any] = {}
+
+        # 1. TOA vs body (SS6.5 bullet 1)
+        base = _parse_base_cite(cited)
+        if base and base["name_norm"] in variants:
+            flags["toa_mismatch"] = {
+                "variants": variants[base["name_norm"]]}
+
+        # 2. Court check (SS6.5 bullet 2): cited vs matched CL court id.
+        # Skips when either side is unknown (state courts, legacy vr
+        # CSVs without matched_court_id, unparseable cites) -- best
+        # effort by design.
+        vr_row = vr_lookup.get(_normalize_for_match(cited), {})
+        matched_id = (vr_row.get("matched_court_id") or "").strip()
+        if matched_id:
+            try:
+                parsed = parse_citation(cited)
+            except Exception:
+                parsed = None
+            cited_court = getattr(parsed, "court", None)
+            cited_id = lookup_court_id(cited_court) if cited_court else None
+            if cited_id and cited_id != matched_id:
+                stats.court_mismatches += 1
+                flags["court_mismatch"] = {
+                    "cited": cited_court,
+                    "cited_id": cited_id,
+                    "matched_id": matched_id,
+                    "matched": vr_row.get("matched_court", ""),
+                }
+
+        # 3. Pincite check (SS6.5 bullet 3, best-effort flags)
+        opinion_file = claim.get("opinion_file", "") or ""
+        if opinion_file:
+            if opinion_file not in opinion_cache:
+                opinion_cache[opinion_file] = _read_clean_opinion(
+                    workdir, opinion_file)
+            pin = _pincite_flag(cited, opinion_cache[opinion_file])
+            if pin:
+                stats.pincite_flags += 1
+                flags["pincite_flag"] = pin
+
+        if "toa_mismatch" in flags:
+            stats.toa_mismatches += 1
+        claim["crosscheck_flags"] = (
+            json_mod.dumps(flags, ensure_ascii=False) if flags else "")
+
+    fields = list(claims[0].keys()) if claims else ["crosscheck_flags"]
+    if "crosscheck_flags" not in fields:
+        fields.append("crosscheck_flags")
+    for c in claims:
+        c.setdefault("crosscheck_flags", "")
+    with open(workdir / "claims.csv", "w", newline="",
+              encoding="utf-8") as f:
+        w = csv.DictWriter(f, fieldnames=fields)
+        w.writeheader()
+        w.writerows(claims)
+
+    _update_run_json(workdir, "crosscheck", total=stats.total,
+                     toa=stats.toa_mismatches,
+                     court=stats.court_mismatches,
+                     pincite=stats.pincite_flags)
+    return stats
+
+
+# ---------------------------------------------------------------------------
 # merge_claims (Task 3 — already implemented)
 # ---------------------------------------------------------------------------
 

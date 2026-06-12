@@ -885,6 +885,171 @@ class TestRunExtract:
         assert run["verbs"]["extract"]["claims"] == 2
 
 
+def _crosscheck_workdir(tmp_path):
+    """Synthetic workdir: 2 claims, vr CSV with matched court, one
+    opinion file with star pagination + footnotes, TOA/body lists with
+    one volume discrepancy (the Bryant class)."""
+    wd = tmp_path / "xc"
+    wd.mkdir()
+    (wd / "opinions").mkdir()
+    (wd / "opinions" / "tompkins.txt").write_text(
+        "*770 Start of opinion. The court held things. *775 More text "
+        "here including footnote n.3 discussion. *787 The evidence must "
+        "be relevant to a consequential fact. *790 End.",
+        encoding="utf-8")
+    with open(wd / "claims.csv", "w", newline="", encoding="utf-8") as f:
+        w = csv.DictWriter(f, fieldnames=[
+            "claim_id", "page", "proposition", "cited_for", "cited_case",
+            "quoted_text", "brief_sentence", "cl_status", "cl_url",
+            "opinion_file"])
+        w.writeheader()
+        w.writerow({
+            "claim_id": "xc-01", "page": "3",
+            "proposition": "Settlement evidence is irrelevant.",
+            "cited_case": "Tompkins v. Cyr, 202 F.3d 770, 787 "
+                          "(5th Cir. 2000)",
+            "quoted_text": "[]", "cl_status": "VERIFIED",
+            "opinion_file": "opinions/tompkins.txt"})
+        w.writerow({
+            "claim_id": "xc-02", "page": "5",
+            "proposition": "Out-of-range pinpoint and bad footnote.",
+            "cited_case": "Tompkins v. Cyr, 202 F.3d 770, 999 "
+                          "(6th Cir. 2000) n.42",
+            "quoted_text": "[]", "cl_status": "VERIFIED",
+            "opinion_file": "opinions/tompkins.txt"})
+    with open(wd / "verification_results.csv", "w", newline="",
+              encoding="utf-8") as f:
+        w = csv.DictWriter(f, fieldnames=[
+            "citation", "status", "confidence", "cl_url", "matched_name",
+            "matched_court", "matched_court_id", "diagnostics_cat",
+            "diagnostics_msg", "syllabus"])
+        w.writeheader()
+        for cite in ("Tompkins v. Cyr, 202 F.3d 770, 787 (5th Cir. 2000)",
+                     "Tompkins v. Cyr, 202 F.3d 770, 999 (6th Cir. 2000) "
+                     "n.42"):
+            w.writerow({"citation": cite, "status": "VERIFIED",
+                        "confidence": "1.00",
+                        "matched_name": "Tompkins v. Cyr",
+                        "matched_court": "Fifth Circuit",
+                        "matched_court_id": "ca5"})
+    (wd / "citations_toa.txt").write_text(
+        "Tompkins v. Cyr, 202 F.3d 770 (5th Cir. 2000)\n"
+        "Bryant v. Jones, 597 F.3d 1320 (11th Cir. 2010)\n",
+        encoding="utf-8")
+    (wd / "citations_body.txt").write_text(
+        "Tompkins v. Cyr, 202 F.3d 770 (5th Cir. 2000)\n"
+        "Bryant v. Jones, 97 F.3d 1320 (11th Cir. 2010)\n",
+        encoding="utf-8")
+    return wd
+
+
+class TestRunCrosscheck:
+    def test_clean_claim_gets_empty_flags(self, tmp_path):
+        import citation_verifier.proposition_pipeline as pp
+        wd = _crosscheck_workdir(tmp_path)
+        stats = pp.run_crosscheck(wd)
+        rows = {r["claim_id"]: r for r in csv.DictReader(
+            (wd / "claims.csv").open(encoding="utf-8"))}
+        assert rows["xc-01"]["crosscheck_flags"] == ""
+        assert stats.total == 2
+
+    def test_court_mismatch_flagged(self, tmp_path):
+        import citation_verifier.proposition_pipeline as pp
+        wd = _crosscheck_workdir(tmp_path)
+        pp.run_crosscheck(wd)
+        rows = {r["claim_id"]: r for r in csv.DictReader(
+            (wd / "claims.csv").open(encoding="utf-8"))}
+        flags = json.loads(rows["xc-02"]["crosscheck_flags"])
+        assert flags["court_mismatch"]["cited_id"] == "ca6"
+        assert flags["court_mismatch"]["matched_id"] == "ca5"
+
+    def test_pincite_out_of_star_range_flagged(self, tmp_path):
+        import citation_verifier.proposition_pipeline as pp
+        wd = _crosscheck_workdir(tmp_path)
+        pp.run_crosscheck(wd)
+        rows = {r["claim_id"]: r for r in csv.DictReader(
+            (wd / "claims.csv").open(encoding="utf-8"))}
+        flags = json.loads(rows["xc-02"]["crosscheck_flags"])
+        assert flags["pincite_flag"]["pinpoint"] == "999"
+        assert flags["pincite_flag"]["star_range"] == [770, 790]
+
+    def test_footnote_missing_flagged_and_present_not(self, tmp_path):
+        import citation_verifier.proposition_pipeline as pp
+        wd = _crosscheck_workdir(tmp_path)
+        pp.run_crosscheck(wd)
+        rows = {r["claim_id"]: r for r in csv.DictReader(
+            (wd / "claims.csv").open(encoding="utf-8"))}
+        flags2 = json.loads(rows["xc-02"]["crosscheck_flags"])
+        assert flags2["pincite_flag"]["footnote_missing"] == "42"
+        # xc-01 has no footnote pincite -> no flag at all
+        assert rows["xc-01"]["crosscheck_flags"] == ""
+
+    def test_toa_body_mismatch_flagged_on_matching_claims(self, tmp_path):
+        """Bryant 597-vs-97 class: the mismatch is recorded on claims
+        citing Bryant; Tompkins (consistent) claims stay clean."""
+        import citation_verifier.proposition_pipeline as pp
+        wd = _crosscheck_workdir(tmp_path)
+        # add a Bryant claim
+        with open(wd / "claims.csv", newline="", encoding="utf-8") as f:
+            rows = list(csv.DictReader(f))
+            fields = rows[0].keys()
+        bryant = dict.fromkeys(fields, "")
+        bryant.update({"claim_id": "xc-03",
+                       "proposition": "Something about Bryant.",
+                       "cited_case": "Bryant v. Jones, 597 F.3d 1320 "
+                                     "(11th Cir. 2010)",
+                       "quoted_text": "[]", "cl_status": "VERIFIED"})
+        rows.append(bryant)
+        with open(wd / "claims.csv", "w", newline="",
+                  encoding="utf-8") as f:
+            w = csv.DictWriter(f, fieldnames=list(fields))
+            w.writeheader()
+            w.writerows(rows)
+        stats = pp.run_crosscheck(wd)
+        out = {r["claim_id"]: r for r in csv.DictReader(
+            (wd / "claims.csv").open(encoding="utf-8"))}
+        flags = json.loads(out["xc-03"]["crosscheck_flags"])
+        variants = flags["toa_mismatch"]["variants"]
+        assert any("597 F.3d" in v for v in variants)
+        assert any("97 F.3d" in v for v in variants)
+        assert "toa_mismatch" not in (
+            json.loads(out["xc-01"]["crosscheck_flags"])
+            if out["xc-01"]["crosscheck_flags"] else {})
+        assert stats.toa_mismatches >= 1
+
+    def test_tolerates_missing_inputs(self, tmp_path):
+        """Prepared-pairs workdir: no TOA/body lists, legacy vr CSV
+        without matched_court columns -> runs clean, flags empty."""
+        import citation_verifier.proposition_pipeline as pp
+        wd = tmp_path / "bare"
+        wd.mkdir()
+        with open(wd / "claims.csv", "w", newline="",
+                  encoding="utf-8") as f:
+            w = csv.DictWriter(f, fieldnames=[
+                "claim_id", "proposition", "cited_case", "quoted_text"])
+            w.writeheader()
+            w.writerow({"claim_id": "b-01", "proposition": "P.",
+                        "cited_case": "A v. B, 1 F.3d 1 (1st Cir. 1990)",
+                        "quoted_text": "[]"})
+        stats = pp.run_crosscheck(wd)
+        assert stats.total == 1
+        rows = list(csv.DictReader(
+            (wd / "claims.csv").open(encoding="utf-8")))
+        assert rows[0]["crosscheck_flags"] == ""
+
+    def test_runs_on_withers_corpus_copy(self, tmp_path):
+        """Corpus tolerance: the frozen Withers workdir (no TOA lists,
+        pre-court vr CSV) crosschecks without error and every claim
+        gets a crosscheck_flags cell (possibly empty)."""
+        import citation_verifier.proposition_pipeline as pp
+        wd = _copy_withers(tmp_path)
+        stats = pp.run_crosscheck(wd)
+        rows = list(csv.DictReader(
+            (wd / "claims.csv").open(encoding="utf-8")))
+        assert stats.total == len(rows)
+        assert all("crosscheck_flags" in r for r in rows)
+
+
 class TestRunCheckQuotes:
     def test_wrapper_stamps_run_json(self, tmp_path):
         import citation_verifier.proposition_pipeline as pp
