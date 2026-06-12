@@ -305,3 +305,44 @@ class TestVerbs:
         assert stats.unmatched == 2
         run = json.loads((wd / "run.json").read_text(encoding="utf-8"))
         assert "merge" in run["verbs"]
+
+
+class TestCli:
+    def test_merge_verb_dispatch(self, tmp_path, monkeypatch, capsys):
+        from citation_verifier.__main__ import verify_propositions_main
+        from citation_verifier.proposition_pipeline import MergeStats
+        called = {}
+
+        def fake_merge(wd):
+            called["wd"] = Path(wd)
+            return MergeStats(matched=2, opinion_count=1)
+
+        monkeypatch.setattr(
+            "citation_verifier.proposition_pipeline.run_merge", fake_merge)
+        wd = tmp_path / "wd"
+        wd.mkdir()
+        rc = verify_propositions_main([str(wd), "merge"])
+        assert rc == 0
+        assert called["wd"] == wd
+        assert "[OK]" in capsys.readouterr().out
+
+    def test_verify_verb_noop_message(self, tmp_path, capsys):
+        from citation_verifier.__main__ import verify_propositions_main
+        wd = _claims_only_workdir(tmp_path)
+        (wd / "verification_results.csv").write_text(
+            "citation,status\n", encoding="utf-8")
+        rc = verify_propositions_main([str(wd), "verify"])
+        assert rc == 0
+        assert "already done" in capsys.readouterr().out
+
+    def test_unknown_verb_errors(self, tmp_path):
+        from citation_verifier.__main__ import verify_propositions_main
+        wd = tmp_path / "wd"
+        wd.mkdir()
+        with pytest.raises(SystemExit):
+            verify_propositions_main([str(wd), "frobnicate"])
+
+    def test_missing_workdir_errors(self, tmp_path):
+        from citation_verifier.__main__ import verify_propositions_main
+        rc = verify_propositions_main([str(tmp_path / "nope"), "merge"])
+        assert rc == 1

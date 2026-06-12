@@ -508,6 +508,78 @@ def _result_to_row(result: VerificationResult) -> dict[str, str]:
     }
 
 
+def verify_propositions_main(argv: list[str] | None = None) -> int:
+    """CLI for the proposition pipeline verbs (design §3).
+
+    Usage: python -m citation_verifier verify-propositions <workdir> <verb>
+    Verbs are idempotent; resume = rerun the verb. ASCII-only output.
+    """
+    parser = argparse.ArgumentParser(
+        prog="citation-verifier verify-propositions",
+        description="Run proposition-pipeline verbs over a workdir "
+                    "(claims.csv per the design SS2 input contract).",
+    )
+    parser.add_argument("workdir", help="Pipeline working directory")
+    parser.add_argument(
+        "verb", choices=["verify", "merge", "full"],
+        help="verify = wave1+wave2+downloads; merge = join claims to "
+             "results + opinion linkage; full = verify then merge",
+    )
+    parser.add_argument(
+        "--force", action="store_true",
+        help="Rerun the verify verb even if verification_results.csv exists",
+    )
+    parser.add_argument(
+        "--citations-file",
+        help="Explicit citation list (one per line) instead of deriving "
+             "from claims.csv cited_case",
+    )
+    args = parser.parse_args(argv)
+
+    from pathlib import Path
+
+    from . import proposition_pipeline as pp
+
+    workdir = Path(args.workdir)
+    if not workdir.exists():
+        print(f"Error: workdir does not exist: {workdir}", file=sys.stderr)
+        return 1
+
+    def _progress(done: int, total: int) -> None:
+        print(f"  Verifying {done}/{total}...", flush=True)
+
+    if args.verb in ("verify", "full"):
+        citations = None
+        if args.citations_file:
+            citations = [
+                ln.strip()
+                for ln in Path(args.citations_file).read_text(
+                    encoding="utf-8").splitlines()
+                if ln.strip() and not ln.startswith("#")
+            ]
+        result = asyncio.run(pp.run_verify(
+            workdir, citations=citations, force=args.force,
+            progress_callback=_progress))
+        if result is None:
+            print("[OK] verify: already done (use --force to rerun)")
+        else:
+            print(f"[OK] verify: wave1 misses="
+                  f"{len(result.wave1.miss_indices)}, downloads="
+                  f"{result.wave1.download_stats} / "
+                  f"{result.wave2.download_stats}")
+
+    if args.verb in ("merge", "full"):
+        stats = pp.run_merge(workdir)
+        print(f"[OK] merge: {stats.matched} matched, "
+              f"{stats.unmatched} unmatched, "
+              f"{stats.opinion_count} opinion files linked")
+        if stats.unmatched_claims:
+            for c in stats.unmatched_claims:
+                print(f"  UNMATCHED: {c[:80]}")
+
+    return 0
+
+
 def verify_batch_main(argv: list[str] | None = None) -> int:
     """CLI for batch citation verification from a CSV.
 
@@ -853,6 +925,8 @@ if __name__ == "__main__":
     # Dispatch subcommands if first arg matches
     if len(sys.argv) > 1 and sys.argv[1] == "verify-brief":
         sys.exit(verify_brief_main(sys.argv[2:]))
+    if len(sys.argv) > 1 and sys.argv[1] == "verify-propositions":
+        sys.exit(verify_propositions_main(sys.argv[2:]))
     if len(sys.argv) > 1 and sys.argv[1] == "verify-batch":
         sys.exit(verify_batch_main(sys.argv[2:]))
     if len(sys.argv) > 1 and sys.argv[1] == "audit-misses":
