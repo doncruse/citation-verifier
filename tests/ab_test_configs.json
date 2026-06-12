@@ -23,6 +23,19 @@
       "model": "opus",
       "include_hints": true,
       "include_brief_context": false
+    },
+    "opus-v2": {
+      "description": "assess-v2 two-axis + blocks, per-opinion packed, no hints",
+      "model": "opus",
+      "prompt_version": "assess-v2",
+      "include_hints": false
+    },
+    "opus-v2-hints": {
+      "description": "assess-v2 with Haiku prescreen hints (SS6.7 A/B arm)",
+      "model": "opus",
+      "prompt_version": "assess-v2",
+      "include_hints": true,
+      "prescreen_model": "haiku"
     }
   }
 }

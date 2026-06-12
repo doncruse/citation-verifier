@@ -47,8 +47,12 @@ def load_configs(path=CONFIGS_FILE):
         return json.load(f)["configs"]
 
 
-def make_executor(config, workdir):
-    """Default executor factory: headless Agent SDK (design SS5)."""
+def make_executor(config, workdir, phase="assess"):
+    """Default executor factory: headless Agent SDK (design SS5).
+
+    phase is "prescreen" | "assess" -- the default factory ignores it
+    (the model is already overridden in the config it receives); test
+    seams use it to route to per-phase recorded cassettes."""
     transport = config.get("executor", "sdk")
     if transport != "sdk":
         raise ValueError(
@@ -71,11 +75,11 @@ def run_ab_config(config_name, config, corpora=DEFAULT_CORPORA,
     from citation_verifier.proposition_pipeline import run_assess
     from citation_verifier.scoring import format_report, score_workdir
 
-    if config.get("include_hints"):
-        raise ValueError(
-            "include_hints configs need assess-v2 (prescreen_hint "
-            "consumption is deferred); see the step-6 plan notes")
     prompt_version = config.get("prompt_version", "assess-v1")
+    if config.get("include_hints") and prompt_version == "assess-v1":
+        raise ValueError(
+            "include_hints needs a hint-capable prompt: set "
+            "prompt_version to assess-v2 (v1 is byte-pinned, no hint)")
     scores = {}
     for name in corpora:
         src = CORPORA / name
@@ -90,7 +94,22 @@ def run_ab_config(config_name, config, corpora=DEFAULT_CORPORA,
             cassette = wd / "jobs" / "assess_results.jsonl"
             if cassette.exists():
                 cassette.unlink()  # fresh verdicts for this config
-            executor = (executor_factory or make_executor)(config, wd)
+            executor = (executor_factory or make_executor)(
+                config, wd, "assess")
+            if config.get("include_hints"):
+                # SS6.7 A/B arm: Haiku prescreen hints recorded into the
+                # copy's claims.csv before assess renders the prompts.
+                from citation_verifier.proposition_pipeline import run_triage
+                pre_config = dict(config)
+                pre_config["model"] = config.get("prescreen_model",
+                                                 "haiku")
+                pre_ex = (executor_factory or make_executor)(
+                    pre_config, wd, "prescreen")
+                tstats = run_triage(wd, prescreen=True, executor=pre_ex)
+                if tstats.prescreen_pending:
+                    print(f"  WARNING {name}: "
+                          f"{tstats.prescreen_pending} prescreen hints "
+                          f"pending -- assess runs without them")
             stats = run_assess(wd, executor=executor,
                                prompt_version=prompt_version)
             failures = getattr(executor, "failures", [])
