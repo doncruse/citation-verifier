@@ -153,3 +153,57 @@ class TestScoreWorkdir:
         assert report.greens_total == 2
         assert report.greens_exact == 0
         assert report.greens_overflagged == 1
+
+
+def _set_claim_column(wd, claim_id, column, value):
+    rows = list(csv.DictReader((wd / "claims.csv").open(encoding="utf-8")))
+    fields = list(rows[0].keys())
+    if column not in fields:
+        fields.append(column)
+    for r in rows:
+        r.setdefault(column, "")
+        if r["claim_id"] == claim_id:
+            r[column] = value
+    with (wd / "claims.csv").open("w", newline="", encoding="utf-8") as f:
+        w = csv.DictWriter(f, fieldnames=fields)
+        w.writeheader()
+        w.writerows(rows)
+
+
+def _replace_cassette(wd, assessment):
+    (wd / "jobs" / "assess_results.jsonl").unlink()
+    append_verdict_jsonl(
+        wd / "jobs" / "assess_results.jsonl",
+        Verdict(claim_id="t-01",
+                fields={"assessment": assessment, "rationale": "r"},
+                model="opus", prompt_version="assess-v1"))
+
+
+class TestQuoteFloor:
+    """SS6.4: quote_floor sets the minimum severity for agent verdicts;
+    deterministic lanes are unaffected."""
+
+    def test_floor_raises_replayed_green_to_yellow(self, tmp_path):
+        wd = make_workdir(tmp_path)
+        _set_claim_column(wd, "t-01", "quote_floor", "Yellow")
+        _replace_cassette(wd, "Green")
+        ex = RecordedExecutor(wd / "jobs" / "assess_results.jsonl")
+        preds = {p.claim_id: p for p in predict_workdir(wd, ex, "assess-v1")}
+        assert preds["t-01"].predicted == "Yellow"
+        assert preds["t-01"].floored is True
+
+    def test_floor_never_lowers(self, tmp_path):
+        wd = make_workdir(tmp_path)
+        _set_claim_column(wd, "t-01", "quote_floor", "Yellow")
+        _replace_cassette(wd, "Red")
+        ex = RecordedExecutor(wd / "jobs" / "assess_results.jsonl")
+        preds = {p.claim_id: p for p in predict_workdir(wd, ex, "assess-v1")}
+        assert preds["t-01"].predicted == "Red"
+        assert preds["t-01"].floored is False
+
+    def test_no_floor_column_unchanged(self, tmp_path):
+        wd = make_workdir(tmp_path)
+        _replace_cassette(wd, "Green")
+        ex = RecordedExecutor(wd / "jobs" / "assess_results.jsonl")
+        preds = {p.claim_id: p for p in predict_workdir(wd, ex, "assess-v1")}
+        assert preds["t-01"].predicted == "Green"

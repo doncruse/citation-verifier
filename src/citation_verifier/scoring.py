@@ -72,6 +72,10 @@ class ClaimPrediction:
     predicted: str
     mode: str  # "deterministic" | "agent"
     rationale: str = ""
+    floored: bool = False  # quote_floor raised the agent's color (SS6.4)
+
+
+_SEVERITY_RANK = {GREEN: 0, YELLOW: 1, RED: 2}
 
 
 def predict_workdir(workdir: str | Path, executor: LLMExecutor,
@@ -106,6 +110,8 @@ def predict_workdir(workdir: str | Path, executor: LLMExecutor,
         else:
             agent_claims.append(c)
     if agent_claims:
+        floors = {c["claim_id"]: c.get("quote_floor", "")
+                  for c in agent_claims}
         jobs = [Job(job_id=f"assess-{c['claim_id']}",
                     claim_ids=[c["claim_id"]],
                     prompt="",  # replay keys on (claim_id, prompt_version)
@@ -113,9 +119,16 @@ def predict_workdir(workdir: str | Path, executor: LLMExecutor,
                     files=[c["opinion_file"]])
                 for c in agent_claims]
         for v in executor.run(jobs):
+            color = v.fields["assessment"]
+            # SS6.4 floor: the agent can lower a color, never raise it
+            # past the floor -- same rule apply-assessments enforces live.
+            floor = floors.get(v.claim_id, "")
+            floored = bool(
+                floor in _SEVERITY_RANK and color in _SEVERITY_RANK
+                and _SEVERITY_RANK[color] < _SEVERITY_RANK[floor])
             preds.append(ClaimPrediction(
-                v.claim_id, v.fields["assessment"], "agent",
-                v.fields.get("rationale", "")))
+                v.claim_id, floor if floored else color, "agent",
+                v.fields.get("rationale", ""), floored=floored))
     order = {c["claim_id"]: i for i, c in enumerate(claims)}
     preds.sort(key=lambda p: order[p.claim_id])
     return preds
