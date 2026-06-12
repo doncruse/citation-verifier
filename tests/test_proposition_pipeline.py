@@ -1374,3 +1374,158 @@ class TestCrosscheckFlagLines:
             {"crosscheck_flags": "not json"}) == []
         assert pp._crosscheck_flag_lines(
             {"crosscheck_flags": "[1, 2]"}) == []
+
+
+def _report_workdir(tmp_path, rows, fieldnames=None):
+    """claims.csv-only workdir for generate_report lane tests."""
+    wd = tmp_path / "rep"
+    (wd / "opinions").mkdir(parents=True)
+    (wd / "opinions" / "a.html").write_text("opinion", encoding="utf-8")
+    fields = fieldnames or [
+        "claim_id", "page", "proposition", "cited_for", "cited_case",
+        "quoted_text", "brief_sentence", "cl_status", "cl_url",
+        "retrieved_case", "supporting_language", "opinion_file",
+        "quote_check", "quote_check_worst", "quote_floor",
+        "crosscheck_flags", "triage_track", "prescreen_hint",
+        "assessment", "support", "assessed_by", "finding_analysis",
+        "badge_label", "brief_block", "opinion_block", "diagnostics",
+        "syllabus",
+    ]
+    with (wd / "claims.csv").open("w", newline="", encoding="utf-8") as f:
+        w = csv.DictWriter(f, fieldnames=fields)
+        w.writeheader()
+        for r in rows:
+            base = dict.fromkeys(fields, "")
+            base.update(r)
+            w.writerow(base)
+    return wd
+
+
+def _report_row(claim_id, **kw):
+    base = {"claim_id": claim_id, "page": "1",
+            "proposition": f"Proposition {claim_id}.",
+            "cited_case": f"Case {claim_id} v. Other, 1 F.3d 1 "
+                          f"(1st Cir. 1990)",
+            "quoted_text": "[]"}
+    base.update(kw)
+    return base
+
+
+class TestReportLanesRendering:
+    def test_cite_unconfirmed_is_check_cite_lane_never_red(self, tmp_path):
+        import citation_verifier.proposition_pipeline as pp
+        wd = _report_workdir(tmp_path, [_report_row(
+            "r-01", cl_status="CITE_UNCONFIRMED",
+            opinion_file="opinions/a.html", assessment="Red",
+            finding_analysis="Agent thought this was unsupported.",
+            badge_label="Not supported by cited case")])
+        pp.generate_report(wd, title="T")
+        html = (wd / "report.html").read_text(encoding="utf-8")
+        assert 'class="sev-orange"' in html  # dashboard issue row
+        assert "Check cite -- case found by name" in html  # forced badge
+        assert "Not supported by cited case" not in html  # agent badge overridden
+        assert "Agent thought this was unsupported." in html  # content kept
+        # red stat is zero; check-cite stat is one
+        assert ('<div class="stat stat-red">'
+                '<div class="stat-num">0</div>') in html
+        assert ('<div class="stat stat-orange">'
+                '<div class="stat-num">1</div>') in html
+
+    def test_wrong_case_unassessed_is_red(self, tmp_path):
+        import citation_verifier.proposition_pipeline as pp
+        wd = _report_workdir(tmp_path, [_report_row(
+            "r-01", cl_status="WRONG_CASE", assessment="")])
+        pp.generate_report(wd, title="T")
+        html = (wd / "report.html").read_text(encoding="utf-8")
+        assert 'class="sev-red"' in html
+        assert "Case mismatch -- cite resolves to a different case" in html
+
+    @pytest.mark.parametrize("status,marker", [
+        ("INSUFFICIENT_DATA", "lacks the court and year"),
+        ("VERIFICATION_INCOMPLETE", "could not complete"),
+    ])
+    def test_other_unlocatable_statuses_go_gray(self, tmp_path, status,
+                                                marker):
+        import citation_verifier.proposition_pipeline as pp
+        wd = _report_workdir(tmp_path, [_report_row(
+            "r-01", cl_status=status, assessment="")])
+        pp.generate_report(wd, title="T")
+        html = (wd / "report.html").read_text(encoding="utf-8")
+        assert "Unable to verify" in html
+        assert marker in html
+
+    def test_flags_render_on_finding_card(self, tmp_path):
+        import citation_verifier.proposition_pipeline as pp
+        flags = json.dumps({"court_mismatch": {
+            "cited_id": "ca6", "matched_id": "ca5",
+            "matched": "Fifth Circuit"}})
+        wd = _report_workdir(tmp_path, [_report_row(
+            "r-01", cl_status="VERIFIED", opinion_file="opinions/a.html",
+            assessment="Yellow", finding_analysis="Analysis.",
+            crosscheck_flags=flags)])
+        pp.generate_report(wd, title="T")
+        html = (wd / "report.html").read_text(encoding="utf-8")
+        assert 'class="flag-chip"' in html
+        assert "brief cites ca6, CL match is ca5" in html
+
+    def test_flags_render_on_green_verified_item(self, tmp_path):
+        """SS6.5: the flag shows even when support is otherwise fine."""
+        import citation_verifier.proposition_pipeline as pp
+        flags = json.dumps({"pincite_flag": {
+            "pinpoint": "999", "star_range": [770, 790]}})
+        wd = _report_workdir(tmp_path, [_report_row(
+            "r-01", cl_status="VERIFIED", opinion_file="opinions/a.html",
+            assessment="Green", crosscheck_flags=flags)])
+        pp.generate_report(wd, title="T")
+        html = (wd / "report.html").read_text(encoding="utf-8")
+        assert "Verified Citations" in html
+        assert 'class="flag-chip"' in html
+        assert "Pincite 999" in html
+
+    def test_no_all_clear_banner_when_check_cite_present(self, tmp_path):
+        import citation_verifier.proposition_pipeline as pp
+        wd = _report_workdir(tmp_path, [
+            _report_row("r-01", cl_status="CITE_UNCONFIRMED",
+                        opinion_file="opinions/a.html", assessment="Green"),
+            _report_row("r-02", cl_status="VERIFIED",
+                        opinion_file="opinions/a.html", assessment="Green"),
+        ])
+        pp.generate_report(wd, title="T")
+        html = (wd / "report.html").read_text(encoding="utf-8")
+        assert "No serious issues found" not in html
+
+    def test_legacy_rows_without_new_columns_render_as_before(
+            self, tmp_path):
+        """Pre-two-axis claims.csv (payne-style header) -> existing
+        fallbacks: green->verified, yellow->finding, NOT_FOUND->gray;
+        no flag chips."""
+        import citation_verifier.proposition_pipeline as pp
+        legacy_fields = [
+            "page", "proposition", "cited_case", "retrieved_case",
+            "supporting_language", "assessment", "cl_url", "cl_status",
+            "diagnostics", "opinion_file", "quoted_text", "quote_check",
+            "quote_check_worst"]
+        wd = _report_workdir(tmp_path, [
+            {"page": "1", "proposition": "P1.",
+             "cited_case": "A v. B, 1 F.3d 1", "assessment": "Green",
+             "cl_status": "VERIFIED", "opinion_file": "opinions/a.html",
+             "quoted_text": "[]", "quote_check": "[]",
+             "quote_check_worst": "NO_QUOTES",
+             "retrieved_case": "A v. B"},
+            {"page": "2", "proposition": "P2.",
+             "cited_case": "C v. D, 2 F.3d 2", "assessment": "Yellow",
+             "cl_status": "VERIFIED", "opinion_file": "opinions/a.html",
+             "quoted_text": "[]", "quote_check": "[]",
+             "quote_check_worst": "NO_QUOTES"},
+            {"page": "3", "proposition": "P3.",
+             "cited_case": "E v. F, 3 F.3d 3", "assessment": "",
+             "cl_status": "NOT_FOUND", "opinion_file": "",
+             "quoted_text": "[]", "quote_check": "[]",
+             "quote_check_worst": ""},
+        ], fieldnames=legacy_fields)
+        pp.generate_report(wd, title="T")
+        html = (wd / "report.html").read_text(encoding="utf-8")
+        assert "Verified Citations" in html
+        assert 'class="sev-yellow"' in html
+        assert "Unable to verify" in html
+        assert 'class="flag-chip"' not in html

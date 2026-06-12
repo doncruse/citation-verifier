@@ -39,22 +39,24 @@ def generate_report_html(data: dict) -> str:
     total_checked = len(findings) + len(verified) + len(unable)
     red_count = sum(1 for f in findings if f.get("severity") == "red")
     yellow_count = sum(1 for f in findings if f.get("severity") == "yellow")
+    checkcite_count = sum(1 for f in findings
+                          if f.get("severity") == "orange")
     green_count = len(verified)
     gray_count = len(unable)
 
     # Build sections
     dashboard_html = _build_dashboard(
-        total_checked, red_count, yellow_count, green_count, gray_count,
-        findings, unable,
+        total_checked, red_count, yellow_count, checkcite_count,
+        green_count, gray_count, findings, unable,
     )
     findings_html = _build_findings(findings)
     verified_html = _build_verified(verified)
     unable_html = _build_unable_to_verify(unable)
     methodology_html = _build_methodology(retrieved, unavailable)
 
-    # All-clear banner
+    # All-clear banner (suppressed when Check Cite items need attention)
     all_clear = ""
-    if red_count == 0:
+    if red_count == 0 and checkcite_count == 0:
         if yellow_count > 0:
             all_clear = (
                 '<div style="background:#d4edda;border:1px solid #c3e6cb;'
@@ -128,9 +130,20 @@ def _badge(label: str, severity: str) -> str:
     return f'<span class="badge {css_class}">{_esc(label)}</span>'
 
 
+def _build_flags(flag_lines: list[str]) -> str:
+    """SS6.5 card-level crosscheck flags -- amber chips. The flags
+    never move a claim between lanes; they render even on Green cards."""
+    if not flag_lines:
+        return ""
+    chips = "".join(
+        f'<span class="flag-chip">&#9873; {_esc(t)}</span>'
+        for t in flag_lines)
+    return f'<div class="card-flags">{chips}</div>'
+
+
 def _build_dashboard(
-    total: int, red: int, yellow: int, green: int, gray: int,
-    findings: list[dict], unable: list[dict],
+    total: int, red: int, yellow: int, checkcite: int, green: int,
+    gray: int, findings: list[dict], unable: list[dict],
 ) -> str:
     """Build the summary dashboard."""
     issue_items = []
@@ -194,6 +207,7 @@ def _build_dashboard(
     <div class="stat"><div class="stat-num">{total}</div><div class="stat-label">Claims checked</div></div>
     <div class="stat stat-red"><div class="stat-num">{red}</div><div class="stat-label">Serious issues</div></div>
     <div class="stat stat-yellow"><div class="stat-num">{yellow}</div><div class="stat-label">Concerns</div></div>
+    <div class="stat stat-orange"><div class="stat-num">{checkcite}</div><div class="stat-label">Check cite</div></div>
     <div class="stat stat-green"><div class="stat-num">{green}</div><div class="stat-label">Verified</div></div>
     <div class="stat stat-gray"><div class="stat-num">{gray}</div><div class="stat-label">Unable to verify</div></div>
   </div>
@@ -343,6 +357,10 @@ def _build_findings(findings: list[dict]) -> str:
                 '</div>'
             )
 
+        # SS6.5 crosscheck flags render at the top of the card body --
+        # even when support is otherwise fine.
+        flags_block = _build_flags(f.get("crosscheck_flags", []))
+
         items.append(f"""<details id="{_esc(f.get("id", ""))}">
   <summary>
     <strong>p. {_esc(f.get("page", ""))}</strong> &mdash;
@@ -350,6 +368,7 @@ def _build_findings(findings: list[dict]) -> str:
     &mdash; {_badge(badge_label, sev)}
   </summary>
   <div class="finding-body">
+    {flags_block}
     {brief_block}
     {matched_block}
     {analysis_block}
@@ -462,6 +481,7 @@ def _build_verified(verified: list[dict]) -> str:
             f'{_esc(v.get("proposition", ""))} '
             f'{_badge(badge_label, "green")}'
             f'{supp}'
+            f'{_build_flags(v.get("crosscheck_flags", []))}'
             f'</div>'
         )
 
@@ -544,6 +564,7 @@ h3 { font-size: 1.05rem; margin: 1rem 0 0.5rem; }
 .stat-label { font-size: 0.8rem; color: #666; text-transform: uppercase; letter-spacing: 0.05em; }
 .stat-red .stat-num { color: #c0392b; }
 .stat-yellow .stat-num { color: #d4a017; }
+.stat-orange .stat-num { color: #e67e22; }
 .stat-green .stat-num { color: #27ae60; }
 .stat-gray .stat-num { color: #888; }
 
@@ -557,6 +578,7 @@ h3 { font-size: 1.05rem; margin: 1rem 0 0.5rem; }
 }
 .issue-list li.sev-red { border-left-color: #c0392b; background: #fdf2f2; }
 .issue-list li.sev-yellow { border-left-color: #d4a017; background: #fefcf0; }
+.issue-list li.sev-orange { border-left-color: #e67e22; background: #fff7ef; }
 .issue-list li.sev-gray { border-left-color: #999; background: #f5f5f5; }
 .issue-list a { color: inherit; text-decoration: none; }
 .issue-list a:hover { text-decoration: underline; }
@@ -591,6 +613,19 @@ h3 { font-size: 1.05rem; margin: 1rem 0 0.5rem; }
   font-size: 0.9rem;
 }
 .bq-label { font-weight: 600; font-size: 0.8rem; color: #666; margin-bottom: 0.2rem; }
+
+.card-flags { margin: 0.2rem 0 0.5rem; }
+.flag-chip {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  background: #fff3e0;
+  color: #8a4500;
+  border: 1px solid #f0c27a;
+  border-radius: 3px;
+  padding: 0.1rem 0.5rem;
+  margin: 0 0.3rem 0.2rem 0;
+}
 
 details { margin-bottom: 0.8rem; }
 summary {

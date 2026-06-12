@@ -298,6 +298,23 @@ _STATUS_BADGE_FALLBACK: dict[str, str] = {
     "INSUFFICIENT_DATA": "Insufficient data -- citation lacks court and year",
 }
 
+# Gray-lane card explanations per unlocatable status (SS6.9 Gray lane).
+# status -> (card explanation, methodology "reason")
+_UNLOCATABLE_EXPLANATIONS: dict[str, tuple[str, str]] = {
+    "NOT_FOUND": (
+        "Case not found on CourtListener. Cannot verify against "
+        "opinion text.",
+        "Not in CourtListener database"),
+    "INSUFFICIENT_DATA": (
+        "The citation lacks the court and year data needed to verify "
+        "it against CourtListener.",
+        "Citation lacks court and year"),
+    "VERIFICATION_INCOMPLETE": (
+        "Verification could not complete (infrastructure error during "
+        "lookup). Rerun the verify verb.",
+        "Verification incomplete -- infrastructure error"),
+}
+
 # Threshold (chars of visible text) below which we suspect a downloaded
 # "opinion" is actually a short order (vacatur, amendment notice, mandate,
 # rehearing denial). When we hit one of these, we look for a sibling
@@ -1890,6 +1907,8 @@ def generate_report(
 
     Returns the path to the generated report.
     """
+    from .scoring import CHECK_CITE, GRAY, GREEN, report_lane
+
     workdir = Path(workdir)
     claims_path = workdir / "claims.csv"
 
@@ -1937,7 +1956,14 @@ def generate_report(
                 "cluster_id": cluster_id,
             }
 
-        if assessment.lower() == "green":
+        # SS6.9 lane routing (Step 7): report_lane resolves the v1-schema
+        # tension -- existence lanes (WRONG_CASE, CITE_UNCONFIRMED,
+        # unlocatable) beat the assessment column; otherwise the
+        # floor-enforced assessment is authoritative.
+        lane = report_lane(cl_status, assessment, opinion_file)
+        flag_lines = _crosscheck_flag_lines(claim)
+
+        if lane == GREEN:
             verified.append({
                 "page": page,
                 "case_name": case_name_parsed,
@@ -1946,8 +1972,11 @@ def generate_report(
                 "proposition": proposition,
                 "badge_label": "Supported",
                 "supporting_language": supporting_lang,
+                "crosscheck_flags": flag_lines,
             })
-        elif cl_status == "NOT_FOUND" and not opinion_file:
+        elif lane == GRAY:
+            explanation, reason = _UNLOCATABLE_EXPLANATIONS.get(
+                cl_status, _UNLOCATABLE_EXPLANATIONS["NOT_FOUND"])
             # Group by cited_case so the same unavailable case cited for
             # multiple propositions collapses into one card.
             group_key = cited_case or f"{case_name_parsed}|{citation_parsed}"
@@ -1962,14 +1991,14 @@ def generate_report(
                     "propositions": [],
                     "explanation": (
                         supporting_lang if supporting_lang
-                        else "Case not found on CourtListener. Cannot verify against opinion text."
+                        else explanation
                     ),
                 }
                 unable_by_citation[group_key] = card
                 unavailable_list.append({
                     "case_name": case_name_parsed,
                     "citation": citation_parsed,
-                    "reason": "Not in CourtListener database",
+                    "reason": reason,
                 })
             card["propositions"].append({
                 "page": page,
@@ -1977,9 +2006,9 @@ def generate_report(
                 "quoted_text": claim.get("quoted_text", ""),
             })
         else:
-            # Yellow or Red finding
+            # Red / Yellow / CheckCite finding card
             finding_counter += 1
-            severity = "red" if assessment.lower() == "red" else "yellow"
+            severity = {"Red": "red", "Yellow": "yellow"}.get(lane, "orange")
 
             quoted_raw = claim.get("quoted_text", "").strip()
             quoted_strings: list[str] = []
@@ -2019,12 +2048,18 @@ def generate_report(
                 parts_legacy = [p for p in (legacy_overview, legacy_explanation) if p]
                 finding_analysis = "\n\n".join(parts_legacy)
 
-            badge_label = (
-                claim.get("badge_label", "").strip()
-                or _STATUS_BADGE_FALLBACK.get(cl_status)
-                or ("Not supported by cited case" if severity == "red"
-                    else "Overstated -- case partially supports")
-            )
+            if lane == CHECK_CITE:
+                # The lane label wins: an agent badge ("Not supported by
+                # cited case" etc.) would mislabel a Check Cite card. The
+                # agent's blocks/analysis still render below.
+                badge_label = _STATUS_BADGE_FALLBACK["CITE_UNCONFIRMED"]
+            else:
+                badge_label = (
+                    claim.get("badge_label", "").strip()
+                    or _STATUS_BADGE_FALLBACK.get(cl_status)
+                    or ("Not supported by cited case" if severity == "red"
+                        else "Overstated -- case partially supports")
+                )
 
             # Agent-authored quote blocks (optional). When present they
             # replace the deterministic fallbacks in the template.
@@ -2048,6 +2083,7 @@ def generate_report(
                 "quoted_strings": quoted_strings,
                 "matched_passages": matched_passages,
                 "finding_analysis": finding_analysis,
+                "crosscheck_flags": flag_lines,
             })
 
     report_data = {
