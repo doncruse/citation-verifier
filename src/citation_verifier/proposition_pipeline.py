@@ -1062,6 +1062,60 @@ def run_apply_assessments(workdir: Path,
     return stats
 
 
+@dataclass
+class ReportStats:
+    """Statistics from run_report (lane counts are per claims.csv ROW;
+    the gray lane groups rows into per-case cards in the HTML)."""
+    path: Path | None = None
+    findings: int = 0  # Red + Yellow cards
+    check_cite: int = 0
+    verified: int = 0
+    unable: int = 0
+
+
+def run_report(workdir: Path) -> ReportStats:
+    """Verb 8 (design SS3 row 8): claims.csv -> report.html with the
+    SS6.9 lanes. Reads brief_metadata.json for the header when present
+    (same convention as the legacy verify-brief --report). Idempotent --
+    regenerates the HTML on every run."""
+    from .scoring import CHECK_CITE, GRAY, GREEN, report_lane
+
+    workdir = Path(workdir)
+    meta: dict[str, Any] = {}
+    meta_path = workdir / "brief_metadata.json"
+    if meta_path.exists():
+        try:
+            meta = json_mod.loads(meta_path.read_text(encoding="utf-8"))
+        except json_mod.JSONDecodeError:
+            meta = {}
+    path = generate_report(
+        workdir,
+        title=meta.get("title", ""),
+        case_name=meta.get("case_name", ""),
+        case_number=meta.get("case_number", ""),
+        filed_date=meta.get("filed_date", ""),
+        report_date=meta.get("report_date", ""),
+    )
+    stats = ReportStats(path=path)
+    with open(workdir / "claims.csv", newline="", encoding="utf-8") as f:
+        for c in csv.DictReader(f):
+            lane = report_lane(c.get("cl_status", ""),
+                               c.get("assessment", ""),
+                               c.get("opinion_file", ""))
+            if lane == GREEN:
+                stats.verified += 1
+            elif lane == GRAY:
+                stats.unable += 1
+            elif lane == CHECK_CITE:
+                stats.check_cite += 1
+            else:
+                stats.findings += 1
+    _update_run_json(workdir, "report", findings=stats.findings,
+                     check_cite=stats.check_cite,
+                     verified=stats.verified, unable=stats.unable)
+    return stats
+
+
 def run_merge(workdir: Path) -> MergeStats:
     """Verb 2 (design §3): join claims <-> results + slug opinion linkage.
     Requires verification_results.csv (run the verify verb first)."""

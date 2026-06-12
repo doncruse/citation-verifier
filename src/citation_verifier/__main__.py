@@ -524,7 +524,7 @@ def verify_propositions_main(argv: list[str] | None = None) -> int:
         "verb",
         choices=["extract", "verify", "merge", "check-quotes",
                  "crosscheck", "triage", "assess", "apply-assessments",
-                 "full"],
+                 "report", "full"],
         help="extract = document -> claims.csv + TOA/body citation lists "
              "(LLM, needs --document); verify = wave1+wave2+downloads; "
              "merge = join claims to results + opinion linkage; "
@@ -533,9 +533,10 @@ def verify_propositions_main(argv: list[str] | None = None) -> int:
              "claim (--prescreen for Haiku hints); assess = LLM "
              "assessment jobs (jobs mode by default); "
              "apply-assessments = verdicts JSONL -> claims.csv with "
-             "floors; full = [extract ->] verify -> merge -> "
+             "floors; report = claims.csv -> report.html (SS6.9 lanes); "
+             "full = [extract ->] verify -> merge -> "
              "check-quotes -> crosscheck -> triage -> assess "
-             "(-> apply when verdicts are complete)",
+             "(-> apply -> report when verdicts are complete)",
     )
     parser.add_argument(
         "--force", action="store_true",
@@ -708,6 +709,12 @@ def _dispatch_proposition_verbs(args, workdir, pp, _progress,
               f"{pstats.invalid} invalid, {pstats.missing} missing")
         for cid in pstats.invalid_claims:
             print(f"  INVALID verdict (not applied): {cid}")
+
+    if args.verb in ("report", "full"):
+        rstats = pp.run_report(workdir)
+        print(f"[OK] report: {rstats.path} -- {rstats.findings} findings, "
+              f"{rstats.check_cite} check-cite, {rstats.verified} "
+              f"verified, {rstats.unable} unable-to-verify")
 
     return 0
 

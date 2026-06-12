@@ -801,6 +801,62 @@ class TestCli:
         assert order == ["merge", "check-quotes", "crosscheck",
                          "triage", "assess"]
 
+    def test_report_verb_dispatch(self, tmp_path, monkeypatch, capsys):
+        from citation_verifier.__main__ import verify_propositions_main
+        from citation_verifier.proposition_pipeline import ReportStats
+        monkeypatch.setattr(
+            "citation_verifier.proposition_pipeline.run_report",
+            lambda wd: ReportStats(path=Path(wd) / "report.html",
+                                   findings=2, check_cite=1,
+                                   verified=3, unable=1))
+        wd = tmp_path / "wd"
+        wd.mkdir()
+        rc = verify_propositions_main([str(wd), "report"])
+        assert rc == 0
+        out = capsys.readouterr().out
+        assert "[OK] report" in out
+        assert "1 check-cite" in out
+
+    def test_full_chain_reaches_report_when_verdicts_complete(
+            self, tmp_path, monkeypatch):
+        from citation_verifier.__main__ import verify_propositions_main
+        import citation_verifier.proposition_pipeline as pp
+        order = []
+        monkeypatch.setattr(pp, "run_merge",
+                            lambda wd: order.append("merge") or
+                            pp.MergeStats())
+        monkeypatch.setattr(pp, "run_check_quotes",
+                            lambda wd: order.append("check-quotes") or
+                            pp.QuoteCheckStats())
+        monkeypatch.setattr(pp, "run_crosscheck",
+                            lambda wd: order.append("crosscheck") or
+                            pp.CrosscheckStats())
+        monkeypatch.setattr(
+            pp, "run_triage",
+            lambda wd, prescreen=False, executor=None,
+            prompt_version="prescreen-v1": order.append("triage") or
+            pp.TriageStats())
+        monkeypatch.setattr(
+            pp, "run_assess",
+            lambda wd, executor=None, prompt_version="assess-v1":
+            order.append("assess") or pp.AssessStats(eligible=1, done=1))
+        monkeypatch.setattr(
+            pp, "run_apply_assessments",
+            lambda wd, prompt_version="assess-v1":
+            order.append("apply") or pp.ApplyStats(applied=1))
+        monkeypatch.setattr(
+            pp, "run_report",
+            lambda wd: order.append("report") or
+            pp.ReportStats(path=Path(wd) / "report.html"))
+        wd = tmp_path / "wd"
+        wd.mkdir()
+        (wd / "verification_results.csv").write_text(
+            "citation,status\n", encoding="utf-8")  # verify no-ops
+        rc = verify_propositions_main([str(wd), "full"])
+        assert rc == 0
+        assert order == ["merge", "check-quotes", "crosscheck",
+                         "triage", "assess", "apply", "report"]
+
     def test_replay_beats_executor_flag(self, tmp_path, monkeypatch):
         """--replay wins over --executor (offline determinism first)."""
         from citation_verifier.__main__ import verify_propositions_main
@@ -1529,3 +1585,39 @@ class TestReportLanesRendering:
         assert 'class="sev-yellow"' in html
         assert "Unable to verify" in html
         assert 'class="flag-chip"' not in html
+
+
+class TestRunReport:
+    def test_writes_report_and_stamps_run_json(self, tmp_path):
+        import citation_verifier.proposition_pipeline as pp
+        wd = _report_workdir(tmp_path, [
+            _report_row("r-01", cl_status="VERIFIED",
+                        opinion_file="opinions/a.html", assessment="Green"),
+            _report_row("r-02", cl_status="CITE_UNCONFIRMED",
+                        opinion_file="opinions/a.html", assessment="Yellow"),
+            _report_row("r-03", cl_status="NOT_FOUND"),
+            _report_row("r-04", cl_status="VERIFIED",
+                        opinion_file="opinions/a.html", assessment="Red",
+                        finding_analysis="Bad."),
+        ])
+        (wd / "brief_metadata.json").write_text(
+            json.dumps({"title": "My Test Brief",
+                        "case_name": "Smith v. Jones"}),
+            encoding="utf-8")
+        stats = pp.run_report(wd)
+        assert stats.path == wd / "report.html"
+        assert (stats.findings, stats.check_cite,
+                stats.verified, stats.unable) == (1, 1, 1, 1)
+        html = stats.path.read_text(encoding="utf-8")
+        assert "My Test Brief" in html
+        run = json.loads((wd / "run.json").read_text(encoding="utf-8"))
+        assert run["verbs"]["report"]["check_cite"] == 1
+
+    def test_tolerates_missing_metadata(self, tmp_path):
+        import citation_verifier.proposition_pipeline as pp
+        wd = _report_workdir(tmp_path, [_report_row(
+            "r-01", cl_status="VERIFIED",
+            opinion_file="opinions/a.html", assessment="Green")])
+        stats = pp.run_report(wd)
+        assert stats.path.exists()
+        assert stats.verified == 1
