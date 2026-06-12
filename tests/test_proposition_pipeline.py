@@ -424,6 +424,37 @@ class TestCheckQuotesExtensions:
         assert claims[0]["quote_floor"] == ""
 
 
+class TestPromptTemplate:
+    def test_renders_identical_to_established_prompt(self):
+        """assess-v1 fidelity: the template must render byte-identical to
+        the prompt every recorded cassette was produced with."""
+        import sys
+        sys.path.insert(0, str(Path(__file__).parent))
+        import measure_withers_assessment as mwa
+        from citation_verifier.proposition_pipeline import (
+            render_assess_prompt)
+        opinion = Path("C:/some/workdir/opinions/Nix_v_Whiteside.html")
+        expected = mwa.build_prompt(
+            opinion, "Nix v. Whiteside, 475 U.S. 157 (1986)",
+            'The rules are there to protect "the integrity" of the process.',
+            "CLOSE")
+        got = render_assess_prompt(
+            "assess-v1", str(opinion),
+            "Nix v. Whiteside, 475 U.S. 157 (1986)",
+            'The rules are there to protect "the integrity" of the process.',
+            "CLOSE")
+        assert got == expected
+
+    def test_version_header_mismatch_raises(self, tmp_path, monkeypatch):
+        import citation_verifier.proposition_pipeline as pp
+        bad = tmp_path / "assess_v9.md"
+        bad.write_text("<!-- prompt_version: assess-v1 -->\nbody",
+                       encoding="utf-8")
+        monkeypatch.setattr(pp, "_PROMPTS_DIR", tmp_path)
+        with pytest.raises(ValueError):
+            pp.load_prompt_template("assess-v9")
+
+
 class TestCli:
     def test_merge_verb_dispatch(self, tmp_path, monkeypatch, capsys):
         from citation_verifier.__main__ import verify_propositions_main

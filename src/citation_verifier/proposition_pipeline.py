@@ -606,6 +606,47 @@ async def full_pipeline(
 
 
 # ---------------------------------------------------------------------------
+# Versioned prompt templates (design §3 reproducibility / §6.6).
+# Templates live in src/citation_verifier/prompts/; editing one means a NEW
+# version (copy + bump header) because RecordedExecutor cassettes are keyed
+# by prompt_version.
+# ---------------------------------------------------------------------------
+
+_PROMPTS_DIR = Path(__file__).parent / "prompts"
+_VERSION_RE = re.compile(r"<!--\s*prompt_version:\s*(\S+)\s*-->")
+_LEADING_COMMENT_RE = re.compile(r"\A(?:\s*<!--.*?-->)*\s*", re.DOTALL)
+
+DEFAULT_PROMPT_VERSION = "assess-v1"
+
+
+def load_prompt_template(version: str) -> str:
+    """Load a versioned prompt template body (header comments stripped).
+
+    The file must declare the version it was asked for -- a renamed file
+    can't silently serve a different prompt under a cassette's key."""
+    path = _PROMPTS_DIR / f"{version.replace('-', '_')}.md"
+    text = path.read_text(encoding="utf-8")
+    m = _VERSION_RE.search(text)
+    if not m or m.group(1) != version:
+        raise ValueError(f"{path} does not declare prompt_version={version}")
+    return _LEADING_COMMENT_RE.sub("", text).rstrip("\n")
+
+
+def render_assess_prompt(version: str, opinion_path: str, cited_case: str,
+                         proposition: str, quote_check_worst: str) -> str:
+    """Render the assess prompt. Placeholder substitution is replace-based
+    (not str.format) because the template body contains literal JSON
+    braces."""
+    body = load_prompt_template(version)
+    for key, value in (("{opinion_path}", opinion_path),
+                       ("{cited_case}", cited_case),
+                       ("{proposition}", proposition),
+                       ("{quote_check_worst}", quote_check_worst)):
+        body = body.replace(key, value)
+    return body
+
+
+# ---------------------------------------------------------------------------
 # Pipeline verbs (design §3): idempotent, importable, CLI-exposed.
 # resume = rerun the verb; each checks its prerequisites.
 # ---------------------------------------------------------------------------
