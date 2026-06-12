@@ -885,6 +885,46 @@ class TestRunExtract:
         assert run["verbs"]["extract"]["claims"] == 2
 
 
+class TestMatchedCourtAccessors:
+    def test_matched_court_from_download_stash(self):
+        r = _result([_entry(StageName.citation_lookup,
+                            {"matched_case_name": "Doe v. Memphis",
+                             "matched_court": "United States Court of "
+                                              "Appeals for the Sixth Circuit",
+                             "matched_court_id": "ca6"})])
+        assert r.matched_court.endswith("Sixth Circuit")
+        assert r.matched_court_id == "ca6"
+
+    def test_later_stage_supersedes(self):
+        r = _result([
+            _entry(StageName.citation_lookup, {"matched_court_id": "ca5"}),
+            _entry(StageName.opinion_search, {"matched_court_id": "ca6"}),
+        ])
+        assert r.matched_court_id == "ca6"
+
+    def test_empty_when_no_stage_recorded_court(self):
+        r = _result([_entry(StageName.citation_lookup,
+                            {"matched_case_name": "X v. Y"})])
+        assert r.matched_court == ""
+        assert r.matched_court_id == ""
+
+
+class TestVerificationCsvCourtColumns:
+    def test_matched_court_columns_written(self, tmp_path):
+        import citation_verifier.proposition_pipeline as pp
+        r = _result([_entry(StageName.citation_lookup,
+                            {"matched_case_name": "Doe v. Memphis",
+                             "matched_court": "Sixth Circuit",
+                             "matched_court_id": "ca6"})])
+        pp._write_verification_csv(tmp_path, ["Doe v. Memphis, 1 F.3d 1"],
+                                   [r])
+        with open(tmp_path / "verification_results.csv", newline="",
+                  encoding="utf-8") as f:
+            (row,) = list(csv.DictReader(f))
+        assert row["matched_court"] == "Sixth Circuit"
+        assert row["matched_court_id"] == "ca6"
+
+
 class TestExtractPrompt:
     def test_template_loads_and_declares_version(self):
         import citation_verifier.proposition_pipeline as pp

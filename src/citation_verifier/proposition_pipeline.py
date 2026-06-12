@@ -204,7 +204,8 @@ _PASSTHROUGH_FIELDS = [
 
 _VR_FIELDS = [
     "citation", "status", "confidence", "cl_url",
-    "matched_name", "diagnostics_cat", "diagnostics_msg",
+    "matched_name", "matched_court", "matched_court_id",
+    "diagnostics_cat", "diagnostics_msg",
     "syllabus",
 ]
 
@@ -250,6 +251,8 @@ def _write_verification_csv(
                 "confidence": f"{confidence:.2f}",
                 "cl_url": result.final_ids.absolute_url or "",
                 "matched_name": matched_name,
+                "matched_court": result.matched_court,
+                "matched_court_id": result.matched_court_id,
                 "diagnostics_cat": "; ".join(warn_cats),
                 "diagnostics_msg": "; ".join(diag_msg_parts),
                 # Surfaced via VerificationResult.syllabus accessor, which
@@ -444,6 +447,18 @@ async def _download_opinion(
                     result.resolution_path[-1].raw_response_summary["case_name"] = (
                         better["case_name"]
                     )
+
+        # Stash the matched court (design SS6.5 court check). The metadata
+        # fetch already walked cluster->docket->court; persisting it here
+        # is the only no-extra-API-call source (citation-lookup clusters
+        # carry no court field). Same stash pattern as the sibling-swap
+        # case_name above; surfaced via VerificationResult.matched_court.
+        if result.resolution_path:
+            _summ = result.resolution_path[-1].raw_response_summary
+            if data.get("court"):
+                _summ["matched_court"] = data["court"]
+            if data.get("court_id"):
+                _summ["matched_court_id"] = data["court_id"]
 
         fmt = data.get("format", "text")
         matched_case_name = ""

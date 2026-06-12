@@ -320,6 +320,29 @@ class VerificationResult:
                     return value
         return ""
 
+    @property
+    def matched_court(self) -> str:
+        """Matched court full name, stashed at opinion-download time
+        (proposition_pipeline._download_opinion) -- mirrors
+        matched_case_name: the accessor is the only sanctioned read
+        surface for stage-summary keys (design SS11 bug 1 lesson)."""
+        for entry in reversed(self.resolution_path):
+            value = entry.raw_response_summary.get("matched_court")
+            if value:
+                return value
+        return ""
+
+    @property
+    def matched_court_id(self) -> str:
+        """Matched CL court id (e.g. 'ca6'), stashed at download time.
+        Empty for results that never reached download (NOT_FOUND,
+        WRONG_CASE) -- the crosscheck court check skips those."""
+        for entry in reversed(self.resolution_path):
+            value = entry.raw_response_summary.get("matched_court_id")
+            if value:
+                return value
+        return ""
+
 
 # Stage-specific caption keys checked by VerificationResult.matched_case_name,
 # in within-entry priority order (case_name is the sibling-swap override).
