@@ -112,3 +112,103 @@ class TestMatchedNameInCsv:
         rows = list(csv.DictReader(
             (tmp_path / "verification_results.csv").open(encoding="utf-8")))
         assert rows[0]["matched_name"] == "Nix v. Whiteside"
+
+
+def _mk_merge_workdir(tmp_path, opinion_name, vr_row):
+    wd = tmp_path / "wd"
+    (wd / "opinions").mkdir(parents=True)
+    (wd / "opinions" / opinion_name).write_text("text", encoding="utf-8")
+    with (wd / "claims.csv").open("w", newline="", encoding="utf-8") as f:
+        w = csv.DictWriter(f, fieldnames=[
+            "claim_id", "page", "proposition", "cited_for", "cited_case",
+            "quoted_text", "brief_sentence"])
+        w.writeheader()
+        w.writerow({"claim_id": "t-01", "page": "1", "proposition": "P",
+                    "cited_for": "", "cited_case": vr_row["citation"],
+                    "quoted_text": "[]", "brief_sentence": ""})
+    with (wd / "verification_results.csv").open("w", newline="",
+                                                encoding="utf-8") as f:
+        w = csv.DictWriter(f, fieldnames=[
+            "citation", "status", "confidence", "cl_url", "matched_name",
+            "diagnostics_cat", "diagnostics_msg", "syllabus"])
+        w.writeheader()
+        w.writerow(vr_row)
+    return wd
+
+
+_MIDWEST_VR = {
+    "citation": "Midwest Employers Cas. Co. v. Williams, "
+                "161 F.3d 877 (5th Cir. 1998)",
+    "status": "VERIFIED", "confidence": "1.00", "cl_url": "",
+    "matched_name": "", "diagnostics_cat": "", "diagnostics_msg": "",
+    "syllabus": "",
+}
+
+
+class TestSlugTokenLinkage:
+    # The motivating fixture from the 2026-06-11 measurement run: CL's
+    # caption is far longer than the cited name, so name-containment failed.
+    OPINION = ("MIDWEST_EMPLOYERS_CASUALTY_CO_Plaintiff-Appellant-Appellee"
+               "_v_Jo_Ann_WILLIAMS_Defendant-Appellee-Appellant.html")
+
+    def test_links_via_cl_url_slug_when_matched_name_blank(self, tmp_path):
+        from citation_verifier.proposition_pipeline import merge_claims
+        vr = dict(_MIDWEST_VR)
+        vr["cl_url"] = ("https://www.courtlistener.com/opinion/758697/"
+                        "midwest-employers-casualty-co-v-jo-ann-williams/")
+        wd = _mk_merge_workdir(tmp_path, self.OPINION, vr)
+        stats = merge_claims(wd)
+        claims = list(csv.DictReader(
+            (wd / "claims.csv").open(encoding="utf-8")))
+        assert claims[0]["opinion_file"] == f"opinions/{self.OPINION}"
+        assert stats.opinion_count == 1
+
+    def test_links_via_matched_name_tokens(self, tmp_path):
+        from citation_verifier.proposition_pipeline import merge_claims
+        vr = dict(_MIDWEST_VR)
+        vr["matched_name"] = "Midwest Employers Casualty Co. v. Williams"
+        wd = _mk_merge_workdir(tmp_path, self.OPINION, vr)
+        merge_claims(wd)
+        claims = list(csv.DictReader(
+            (wd / "claims.csv").open(encoding="utf-8")))
+        assert claims[0]["opinion_file"] == f"opinions/{self.OPINION}"
+
+    def test_no_link_below_threshold(self, tmp_path):
+        from citation_verifier.proposition_pipeline import merge_claims
+        wd = _mk_merge_workdir(tmp_path, "Completely_Unrelated_v_Case.html",
+                               dict(_MIDWEST_VR))
+        merge_claims(wd)
+        claims = list(csv.DictReader(
+            (wd / "claims.csv").open(encoding="utf-8")))
+        assert claims[0]["opinion_file"] == ""
+
+    def test_claim_id_and_cited_for_survive_merge(self, tmp_path):
+        from citation_verifier.proposition_pipeline import merge_claims
+        vr = dict(_MIDWEST_VR)
+        vr["matched_name"] = "Midwest Employers Casualty Co. v. Williams"
+        wd = _mk_merge_workdir(tmp_path, self.OPINION, vr)
+        merge_claims(wd)
+        claims = list(csv.DictReader(
+            (wd / "claims.csv").open(encoding="utf-8")))
+        assert claims[0]["claim_id"] == "t-01"
+        assert "cited_for" in claims[0]
+
+
+class TestWithersCorpusLinkage:
+    """The committed frozen corpus IS the bug's regression data: its
+    verification_results.csv has blank matched_name on batch rows, and its
+    claims.csv carries the slug-workaround links the new merge must
+    reproduce from scratch."""
+
+    def test_reproduces_frozen_corpus_links(self, tmp_path):
+        import shutil
+        from citation_verifier.proposition_pipeline import merge_claims
+        src = Path(__file__).parent / "data" / "assessment_corpora" / "withers"
+        wd = tmp_path / "withers"
+        shutil.copytree(src, wd)
+        expected = {c["claim_id"]: c["opinion_file"] for c in
+                    csv.DictReader((src / "claims.csv").open(encoding="utf-8"))}
+        merge_claims(wd)
+        got = {c["claim_id"]: c["opinion_file"] for c in
+               csv.DictReader((wd / "claims.csv").open(encoding="utf-8"))}
+        assert got == expected

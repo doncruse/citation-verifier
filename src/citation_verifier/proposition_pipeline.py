@@ -112,6 +112,51 @@ def _sanitize_filename(case_name: str) -> str:
     return s[:120]  # cap length
 
 
+def _slug_tokens(s: str) -> set[str]:
+    return {t for t in re.split(r"[^a-z0-9]+", s.lower()) if len(t) > 2}
+
+
+_LINK_THRESHOLD = 0.25  # Jaccard; from the 2026-06-11 measurement workaround
+
+
+def _link_opinion_file(workdir: Path, matched_name: str, cited_case: str,
+                       cl_url: str) -> str:
+    """Slug-token opinion linkage (replaces name-containment, §10 step 2).
+
+    Scores every opinions/ file stem by Jaccard token overlap against three
+    sources in priority order -- the cl_url slug, the CL matched name, the
+    cited case-name part -- and returns the best file at or above threshold
+    from the first source that produces one. Name-containment failed when
+    CL's caption is longer than the cited name (e.g. 'Midwest Employers
+    Cas. Co. v. Williams' vs the downloaded 'MIDWEST_EMPLOYERS_CASUALTY_CO
+    _Plaintiff-Appellant-Appellee_v_Jo_Ann_WILLIAMS...').
+    """
+    opinions_dir = workdir / "opinions"
+    if not opinions_dir.exists():
+        return ""
+    stems = {f.name: _slug_tokens(f.stem)
+             for f in opinions_dir.iterdir() if f.is_file()}
+    if not stems:
+        return ""
+
+    slug = cl_url.rstrip("/").rsplit("/", 1)[-1] if cl_url else ""
+    name_part = cited_case.split(",")[0] if cited_case else ""
+    for source in (slug, matched_name, name_part):
+        st = _slug_tokens(source)
+        if not st:
+            continue
+        best, best_score = "", 0.0
+        for fname, ft in stems.items():
+            if not ft:
+                continue
+            score = len(st & ft) / len(st | ft)
+            if score > best_score:
+                best, best_score = fname, score
+        if best and best_score >= _LINK_THRESHOLD:
+            return f"opinions/{best}"
+    return ""
+
+
 def _find_opinion_file(workdir: Path, case_name: str) -> str:
     """Scan opinions/ for a file matching the case name. Returns relative path or ''."""
     opinions_dir = workdir / "opinions"
@@ -571,7 +616,9 @@ def merge_claims(workdir: Path) -> MergeStats:
     with open(claims_path, newline="", encoding="utf-8") as f:
         claims = list(csv.DictReader(f))
 
-    # Merge columns
+    # Merge columns. claim_id / cited_for (design §4 input contract) lead
+    # the schema when the input claims carry them; legacy claims.csv
+    # without them still merge unchanged.
     output_fields = [
         "page", "proposition", "cited_case",
         "retrieved_case", "supporting_language", "assessment",
@@ -579,6 +626,11 @@ def merge_claims(workdir: Path) -> MergeStats:
         "syllabus",
     ]
     if claims:
+        if "cited_for" in claims[0]:
+            output_fields.insert(output_fields.index("cited_case"),
+                                 "cited_for")
+        if "claim_id" in claims[0]:
+            output_fields.insert(0, "claim_id")
         for col in _PASSTHROUGH_FIELDS:
             if col in claims[0]:
                 output_fields.append(col)
@@ -603,13 +655,8 @@ def merge_claims(workdir: Path) -> MergeStats:
             if cited:
                 stats.unmatched_claims.append(cited)
 
-        # Find opinion file
-        opinion_file = ""
-        if matched_name:
-            opinion_file = _find_opinion_file(workdir, matched_name)
-        if not opinion_file and cited:
-            name_part = cited.split(",")[0].strip()
-            opinion_file = _find_opinion_file(workdir, name_part)
+        # Slug-token opinion linkage (§10 step 2; replaces name-containment)
+        opinion_file = _link_opinion_file(workdir, matched_name, cited, url)
 
         if opinion_file:
             stats.opinion_count += 1
@@ -627,6 +674,9 @@ def merge_claims(workdir: Path) -> MergeStats:
             "opinion_file": opinion_file,
             "syllabus": vr.get("syllabus", ""),
         }
+        for col in ("claim_id", "cited_for"):
+            if col in claim:
+                row[col] = claim[col]
         for col in _PASSTHROUGH_FIELDS:
             if col in claim:
                 row[col] = claim[col]
