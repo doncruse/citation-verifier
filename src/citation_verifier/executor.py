@@ -1,0 +1,119 @@
+"""LLM executor protocol + adapters (pipeline redesign design SS5).
+
+An LLM verb (assess, extract, prescreen) emits transport-neutral Jobs and
+consumes Verdicts; the executor between them is pluggable. This module
+defines the protocol, the JSONL verdict serialization shared by all
+adapters (jobs/<phase>_results.jsonl sidecars), and the offline
+RecordedExecutor -- the assessment-side mirror of tests/cassette_client.py.
+
+Live adapters (AgentSDKExecutor, AgentToolExecutor, MessagesAPIExecutor)
+come in later steps; see docs/plans/2026-06-11-proposition-verifier-
+pipeline-design.md SS5.
+"""
+from __future__ import annotations
+
+import json
+from dataclasses import dataclass, field
+from pathlib import Path
+from typing import Any, Iterable, Iterator, Protocol
+
+
+@dataclass
+class Job:
+    """One LLM call: rendered prompt + the claims it answers for."""
+    job_id: str
+    claim_ids: list[str]
+    prompt: str
+    prompt_version: str
+    files: list[str] = field(default_factory=list)
+    schema: dict[str, Any] | None = None
+    max_chars: int | None = None
+
+
+@dataclass
+class Verdict:
+    """One claim's structured result from an LLM job."""
+    claim_id: str
+    fields: dict[str, Any]
+    model: str = ""
+    prompt_version: str = ""
+    elapsed_s: float = 0.0
+    cost_usd: float = 0.0
+
+
+class LLMExecutor(Protocol):
+    def run(self, jobs: list[Job]) -> Iterable[Verdict]: ...
+
+
+def verdict_to_json(verdict: Verdict) -> dict[str, Any]:
+    return {
+        "claim_id": verdict.claim_id,
+        "prompt_version": verdict.prompt_version,
+        "model": verdict.model,
+        "elapsed_s": verdict.elapsed_s,
+        "cost_usd": verdict.cost_usd,
+        "fields": verdict.fields,
+    }
+
+
+def verdict_from_json(data: dict[str, Any]) -> Verdict:
+    return Verdict(
+        claim_id=data["claim_id"],
+        fields=data.get("fields", {}),
+        model=data.get("model", ""),
+        prompt_version=data.get("prompt_version", ""),
+        elapsed_s=data.get("elapsed_s", 0.0),
+        cost_usd=data.get("cost_usd", 0.0),
+    )
+
+
+def load_verdicts_jsonl(path: str | Path) -> list[Verdict]:
+    path = Path(path)
+    out = []
+    for line in path.read_text(encoding="utf-8").splitlines():
+        line = line.strip()
+        if line:
+            out.append(verdict_from_json(json.loads(line)))
+    return out
+
+
+def append_verdict_jsonl(path: str | Path, verdict: Verdict) -> None:
+    path = Path(path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with path.open("a", encoding="utf-8") as f:
+        f.write(json.dumps(verdict_to_json(verdict)) + "\n")
+
+
+class RecordedVerdictMiss(KeyError):
+    """Raised in replay when (claim_id, prompt_version) has no recording.
+
+    A prompt-template change bumps the version and deliberately invalidates
+    the recording -- re-record live, exactly the cassette policy."""
+
+
+class RecordedExecutor:
+    """Replays verdicts from a recorded jobs/<phase>_results.jsonl.
+
+    Keyed by (claim_id, prompt_version); the rendered prompt text is
+    ignored. Duplicate keys (resumed recording runs append) resolve to the
+    last line, matching how a resuming live run supersedes earlier rows.
+    """
+
+    def __init__(self, results_path: str | Path):
+        self.results_path = Path(results_path)
+        self._recorded: dict[tuple[str, str], Verdict] = {}
+        for v in load_verdicts_jsonl(self.results_path):
+            self._recorded[(v.claim_id, v.prompt_version)] = v
+        self.misses: list[tuple[str, str]] = []
+
+    def run(self, jobs: list[Job]) -> Iterator[Verdict]:
+        for job in jobs:
+            for claim_id in job.claim_ids:
+                key = (claim_id, job.prompt_version)
+                if key not in self._recorded:
+                    self.misses.append(key)
+                    raise RecordedVerdictMiss(
+                        f"no recorded verdict for claim_id={claim_id} "
+                        f"prompt_version={job.prompt_version} in "
+                        f"{self.results_path}")
+                yield self._recorded[key]
