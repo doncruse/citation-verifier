@@ -885,6 +885,28 @@ class TestRunExtract:
         assert run["verbs"]["extract"]["claims"] == 2
 
 
+class TestRunCheckQuotes:
+    def test_wrapper_stamps_run_json(self, tmp_path):
+        import citation_verifier.proposition_pipeline as pp
+        wd = _copy_withers(tmp_path)
+        stats = pp.run_check_quotes(wd)
+        assert stats.total_claims > 0
+        run = json.loads((wd / "run.json").read_text(encoding="utf-8"))
+        assert "check-quotes" in run["verbs"]
+
+    def test_cli_check_quotes_verb(self, tmp_path, monkeypatch, capsys):
+        from citation_verifier.__main__ import verify_propositions_main
+        from citation_verifier.proposition_pipeline import QuoteCheckStats
+        monkeypatch.setattr(
+            "citation_verifier.proposition_pipeline.run_check_quotes",
+            lambda wd: QuoteCheckStats(total_claims=3, verbatim=2))
+        wd = tmp_path / "wd"
+        wd.mkdir()
+        rc = verify_propositions_main([str(wd), "check-quotes"])
+        assert rc == 0
+        assert "[OK] check-quotes" in capsys.readouterr().out
+
+
 class TestMatchedCourtAccessors:
     def test_matched_court_from_download_stash(self):
         r = _result([_entry(StageName.citation_lookup,

@@ -1049,6 +1049,16 @@ def run_merge(workdir: Path) -> MergeStats:
     return stats
 
 
+def run_check_quotes(workdir: Path) -> "QuoteCheckStats":
+    """Verb 3 (design SS3): deterministic quote verdicts + SS6.4 floors.
+    Thin wrapper over check_quotes adding the run.json stamp."""
+    workdir = Path(workdir)
+    stats = check_quotes(workdir)
+    _update_run_json(workdir, "check-quotes",
+                     total=stats.total_claims)
+    return stats
+
+
 # ---------------------------------------------------------------------------
 # merge_claims (Task 3 — already implemented)
 # ---------------------------------------------------------------------------

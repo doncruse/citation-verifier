@@ -522,14 +522,19 @@ def verify_propositions_main(argv: list[str] | None = None) -> int:
     parser.add_argument("workdir", help="Pipeline working directory")
     parser.add_argument(
         "verb",
-        choices=["extract", "verify", "merge", "assess",
-                 "apply-assessments", "full"],
+        choices=["extract", "verify", "merge", "check-quotes",
+                 "crosscheck", "triage", "assess", "apply-assessments",
+                 "full"],
         help="extract = document -> claims.csv + TOA/body citation lists "
              "(LLM, needs --document); verify = wave1+wave2+downloads; "
-             "merge = join claims to results + opinion linkage; assess = "
-             "LLM assessment jobs (jobs mode by default); "
+             "merge = join claims to results + opinion linkage; "
+             "check-quotes = quote verdicts + floors; crosscheck = "
+             "TOA/court/pincite flags; triage = assessment depth per "
+             "claim (--prescreen for Haiku hints); assess = LLM "
+             "assessment jobs (jobs mode by default); "
              "apply-assessments = verdicts JSONL -> claims.csv with "
-             "floors; full = [extract ->] verify -> merge -> assess "
+             "floors; full = [extract ->] verify -> merge -> "
+             "check-quotes -> crosscheck -> triage -> assess "
              "(-> apply when verdicts are complete)",
     )
     parser.add_argument(
@@ -655,6 +660,10 @@ def _dispatch_proposition_verbs(args, workdir, pp, _progress,
         if stats.unmatched_claims:
             for c in stats.unmatched_claims:
                 print(f"  UNMATCHED: {c[:80]}")
+
+    if args.verb in ("check-quotes", "full"):
+        qstats = pp.run_check_quotes(workdir)
+        print(f"[OK] check-quotes: {qstats.total_claims} claims checked")
 
     prompt_version = args.prompt_version or pp.DEFAULT_PROMPT_VERSION
 
