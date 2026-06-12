@@ -685,6 +685,24 @@ ASCII-only output. The existing `verify-brief` subcommand stays untouched.
 - Slug linkage §10 step 2: Task 4, validated against the frozen Withers corpus offline.
 - Out of scope, per §10: quote-check extensions (step 3), executors/assess (step 4-5), extract, crosscheck/triage, report lanes.
 
+## Execution notes (2026-06-11, all tasks complete)
+
+- Constructor reality differed from the plan sketch: the path-entry type is
+  `ResolutionPathEntry(stage, query, raw_response_summary, verdict,
+  confidence, notes, elapsed_ms)` with `StageVerdict` (not
+  PathEntry/StageStatus), and `VerificationResult` uses
+  `citation_as_written`/`gates_failed`/`timing`/`cache_hit`. Tests written
+  against the real signatures.
+- The CLI has no argparse subparsers — dispatch is per-command main
+  functions in the `__main__` block. Added `verify_propositions_main(argv)`
+  and a `verify-propositions` dispatch line; tests call the function
+  directly (same pattern as the other CLI suites).
+- `TestWithersCorpusLinkage` passed on the first implementation run: the
+  new slug linkage reproduces the frozen corpus's opinion_file links
+  exactly (no improvements/regressions to adjudicate).
+- All 38 legacy `test_brief_pipeline.py` tests pass through the
+  `sys.modules` alias with zero edits.
+
 ## Subsequent steps (§10 map)
 
 3. Quote-check extensions (>=2-word spans, CLOSE/FABRICATED floors) — TDD off the withers frozen corpus.
