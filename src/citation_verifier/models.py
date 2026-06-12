@@ -296,6 +296,36 @@ class VerificationResult:
             return "; ".join(parts) if parts else None
         return None
 
+    @property
+    def matched_case_name(self) -> str:
+        """Matched CL caption from the latest resolution stage that has one.
+
+        Producers stash the matched caption under stage-specific
+        raw_response_summary keys (free-form per stage, design §2.5):
+        `case_name` (sibling-swap, brief_pipeline download phase),
+        `matched_case_name` (citation_lookup hits), `cl_case_name`
+        (caption_investigation), `best_case_name` (opinion_search /
+        recap_* stages). This accessor is the single consumer-facing
+        surface — reading any one key directly is the bug that left
+        `matched_name` blank in verification_results.csv on the batch
+        path (pipeline-redesign design §11 bug 1, fixed 2026-06-11).
+
+        Walks resolution_path backwards so refinement stages
+        (caption_investigation, sibling swap) supersede the original hit.
+        Returns "" when no stage recorded a caption."""
+        for entry in reversed(self.resolution_path):
+            for key in _MATCHED_NAME_KEYS:
+                value = entry.raw_response_summary.get(key)
+                if value:
+                    return value
+        return ""
+
+
+# Stage-specific caption keys checked by VerificationResult.matched_case_name,
+# in within-entry priority order (case_name is the sibling-swap override).
+_MATCHED_NAME_KEYS = ("case_name", "matched_case_name",
+                      "cl_case_name", "best_case_name")
+
 
 @dataclass
 class BatchError:
