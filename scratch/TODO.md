@@ -116,11 +116,13 @@ current single-scroll card layout may not be the most useful shape — "what
 would be most useful is something that lets people filter by type of error,
 and is easily skimmed." Reference design: a scholarly-research citation
 verification report (user's Downloads, "Citation Verification Report.htm")
-with three view modes (**Summary / Table / Inline** buttons), **Filter +
-Export** controls, a field-by-field `Field | Reference | Source` diff
-table, per-row status badges with error-category filters (Mismatch,
-Partial match/omission, Missing element, Verified...), column-visibility
-toggles, and go-to-context jump links. Not to be copied wholesale (it
+with three view modes (**Summary / Table / Inline** buttons), Export, a
+field-by-field `Field | Reference | Source` diff table, per-row
+error-category badges (Mismatch, Partial match/omission, Missing element,
+Verified...), column-visibility toggles, and go-to-context jump links.
+NOTE: the reference report has badges only, NOT filtering — filter-by-
+error-type is the user's own wish-list addition on top of that layout
+("I just thought that would have been nice"). Not to be copied wholesale (it
 diffs reference *metadata* against sources; we assess proposition
 *support*), but the skimmability mechanics transfer:
 - **Filter by error type** maps directly onto structures we already have:
