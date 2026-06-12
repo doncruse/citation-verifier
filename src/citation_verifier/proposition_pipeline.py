@@ -617,6 +617,7 @@ _VERSION_RE = re.compile(r"<!--\s*prompt_version:\s*(\S+)\s*-->")
 _LEADING_COMMENT_RE = re.compile(r"\A(?:\s*<!--.*?-->)*\s*", re.DOTALL)
 
 DEFAULT_PROMPT_VERSION = "assess-v1"
+EXTRACT_PROMPT_VERSION = "extract-v1"
 
 
 def load_prompt_template(version: str) -> str:
@@ -644,6 +645,13 @@ def render_assess_prompt(version: str, opinion_path: str, cited_case: str,
                        ("{quote_check_worst}", quote_check_worst)):
         body = body.replace(key, value)
     return body
+
+
+def render_extract_prompt(version: str, document_path: str) -> str:
+    """Render the extract prompt (design SS3 verb 0). Replace-based like
+    render_assess_prompt."""
+    return load_prompt_template(version).replace(
+        "{document_path}", document_path)
 
 
 # ---------------------------------------------------------------------------

@@ -658,3 +658,25 @@ class TestCli:
         out = capsys.readouterr().out
         assert "29 pending" in out
         assert "PENDING" in out
+
+
+class TestExtractPrompt:
+    def test_template_loads_and_declares_version(self):
+        import citation_verifier.proposition_pipeline as pp
+        body = pp.load_prompt_template("extract-v1")
+        assert "{document_path}" in body
+        assert "prompt_version" not in body  # header comments stripped
+
+    def test_render_substitutes_document_path(self):
+        import citation_verifier.proposition_pipeline as pp
+        prompt = pp.render_extract_prompt("extract-v1", r"C:\briefs\b.pdf")
+        assert r"C:\briefs\b.pdf" in prompt
+        assert "{document_path}" not in prompt
+
+    def test_render_mentions_contract_columns(self):
+        import citation_verifier.proposition_pipeline as pp
+        prompt = pp.render_extract_prompt("extract-v1", "doc.pdf")
+        for col in ("cited_case", "proposition", "cited_for",
+                    "quoted_text", "brief_sentence", "page",
+                    "citations_toa", "citations_body"):
+            assert col in prompt
