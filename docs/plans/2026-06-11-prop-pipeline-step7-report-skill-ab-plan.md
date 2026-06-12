@@ -1112,6 +1112,39 @@ git push origin pipeline-redesign
 - Type consistency: `report_lane` returns the `scoring` color constants; `generate_report` maps `{Red->red, Yellow->yellow, CheckCite->orange}`; `ReportStats(path, findings, check_cite, verified, unable)` used identically in Task 4's verb, CLI print, and tests; `run_ab_config(config_name, config, corpora, run_root, executor_factory, replay)` matches every test call.
 - Deferred (Step 8, per the step-6 plan): prescreen_hint consumption, assess honoring triage_track, §6.8 packing, assess-template prohibition, prescreen default decision, the Withers pincite-flag inspection, acceptance runs + retro.
 
-## Execution notes
+## Execution notes (2026-06-12, all tasks complete)
 
-(to be filled during execution)
+- **Executed as planned; no design deviations.** All new tests passed on
+  the first implementation run in every task (report_lane 14, flag-lines
+  2, lane rendering 8, run_report/CLI 4, A/B harness 6).
+- The legacy report suites (`test_brief_pipeline.py::TestGenerateReport`,
+  `test_report_template.py`) passed with **zero edits** — the row-4
+  fallback (assessment authoritative, empty → Yellow) reproduces the old
+  routing exactly for legacy claims.csv; the `_build_dashboard` signature
+  change was invisible to the template tests (none pin the stat row).
+- The plan's anticipated behavior change is confirmed and pinned by test:
+  WRONG_CASE rows with an empty `assessment` now render as **Red**
+  findings (previously Yellow — a bug vs §6.9).
+- A/B harness CLI smoke: `--replay` prints payne 23/27 (misses payne-03,
+  -47, -58, -59) and wainwright 33/34 (miss wainwright-31), matching the
+  regression baselines; `--dry-run` reports 27 + 34 assess jobs. No live
+  runs (Step 8, user-gated).
+- Frozen corpora byte-untouched (`git status` clean under
+  `tests/data/assessment_corpora/` after the harness tests — live-mode
+  tests copy to tmp_path).
+- Drive-by CLAUDE.md fix: the `test_assessment_regression.py` row still
+  said "Withers 12/19"; corrected to 14/19 (the Step 3 floor result).
+- Suite: **779 passed offline** (745 + 34 new, counting parametrized
+  cases), 0 regressions; `test_assessment_regression.py` /
+  `test_assessment_corpora.py` unchanged.
+
+## Subsequent steps (§10 map)
+
+8. **Acceptance runs (§8); retro.** Owed to the assess-v2 re-record
+   event: prescreen_hint consumption, assess honoring `triage_track`,
+   §6.8 packing, external-tool prohibition in the assess template; the
+   prescreen ON/OFF default decision (A/B re-run via
+   `tools/ab_test_runner.py` once hint configs are supported); the
+   Withers pincite-flag finding (1 flag on the frozen corpus — inspect
+   during acceptance); and the report's row-4 switch to `derive_color`
+   once v2 fills `support`.
