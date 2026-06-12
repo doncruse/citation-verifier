@@ -110,6 +110,35 @@ Weatherly v. Second Nw. Coop. Homes Ass'n scored only 53% partly because eyecite
 
 ## Priority 2 — Improvements (better results)
 
+### Report layout v2: filterable, skimmable, multi-view (logged 2026-06-12)
+User feedback after seeing the first real v2 report (withers-v2-demo): the
+current single-scroll card layout may not be the most useful shape — "what
+would be most useful is something that lets people filter by type of error,
+and is easily skimmed." Reference design: a scholarly-research citation
+verification report (user's Downloads, "Citation Verification Report.htm")
+with three view modes (**Summary / Table / Inline** buttons), **Filter +
+Export** controls, a field-by-field `Field | Reference | Source` diff
+table, per-row status badges with error-category filters (Mismatch,
+Partial match/omission, Missing element, Verified...), column-visibility
+toggles, and go-to-context jump links. Not to be copied wholesale (it
+diffs reference *metadata* against sources; we assess proposition
+*support*), but the skimmability mechanics transfer:
+- **Filter by error type** maps directly onto structures we already have:
+  lane (Red / Yellow / Check Cite / Gray / Green via `report_lane`),
+  `badge_label` taxonomy, crosscheck flag types, quote verdict
+  (FABRICATED/CLOSE), `support` axis (v2+).
+- **Table view**: one row per claim — page | case | lane chip | badge |
+  one-line teaser — sortable/filterable, row expands to the existing card
+  (brief block / opinion block / analysis). This is the skim layer the
+  current layout lacks once findings exceed ~10.
+- **Summary view** ≈ current dashboard; **Inline view** (brief text with
+  claims highlighted in place) needs claim locations beyond `page` — note
+  for extract-v2 (span offsets) if we want it.
+- **Export** ties into the export-option item below (the lane-resolved
+  JSON is exactly what an alternate renderer needs).
+Implementation note: keep `report_template.py`'s data contract; this is a
+template-layer change (plus client-side JS for filter/sort — no server).
+
 ### Custom report consumers: claims.csv contract doc + export option (logged 2026-06-12)
 User intent: people should be able to take the pipeline's outputs and make
 their own judgment calls / build their own report (e.g., hand `claims.csv` to
