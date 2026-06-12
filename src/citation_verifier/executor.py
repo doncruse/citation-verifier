@@ -280,6 +280,33 @@ class AgentSDKExecutor:
             return []
         elapsed_s = (getattr(result_msg, "duration_ms", 0) or 0) / 1000.0
         cost_usd = getattr(result_msg, "total_cost_usd", 0.0) or 0.0
+
+        # Packed-job contract (assess-v2+): a per-claim verdicts array.
+        # Entries for unknown claim_ids are recorded and dropped; claims
+        # the model skipped stay pending (resume re-runs them). Cost is
+        # attributed to the first emitted claim only, so summing
+        # cost_usd over a cassette stays truthful.
+        if isinstance(fields.get("verdicts"), list):
+            out: list[Verdict] = []
+            known = set(job.claim_ids)
+            for entry in fields["verdicts"]:
+                if not isinstance(entry, dict):
+                    continue
+                cid = entry.get("claim_id", "")
+                if cid not in known:
+                    self.failures.append(
+                        (job.job_id,
+                         f"verdict for unknown claim_id {cid!r} dropped"))
+                    continue
+                vfields = {k: v for k, v in entry.items()
+                           if k != "claim_id"}
+                out.append(Verdict(
+                    claim_id=cid, fields=vfields, model=self.model,
+                    prompt_version=job.prompt_version,
+                    elapsed_s=elapsed_s if not out else 0.0,
+                    cost_usd=cost_usd if not out else 0.0))
+            return out
+
         return [Verdict(claim_id=cid, fields=fields, model=self.model,
                         prompt_version=job.prompt_version,
                         elapsed_s=elapsed_s, cost_usd=cost_usd)

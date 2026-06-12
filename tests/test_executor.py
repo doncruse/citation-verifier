@@ -282,3 +282,59 @@ class TestAgentSDKExecutor:
         ex = AgentSDKExecutor(query_fn=qf)
         (v,) = list(ex.run([_sdk_job()]))
         assert v.fields["assessment"] == "Red"
+
+    # --- packed-job verdicts array (assess-v2, Step 8) ---
+
+    def _packed_job(self):
+        return Job(job_id="assess-op1", claim_ids=["w-01", "w-02"],
+                   prompt="P", prompt_version="assess-v2",
+                   files=["opinions/A.html"])
+
+    def test_verdicts_array_fans_out_per_claim(self):
+        from citation_verifier.executor import AgentSDKExecutor
+        qf = _fake_query_fn([[FakeResultMessage(json.dumps({"verdicts": [
+            {"claim_id": "w-01", "support": "supported",
+             "badge_label": "Supported", "brief_block": "",
+             "opinion_block": "", "finding_analysis": "ok"},
+            {"claim_id": "w-02", "support": "unsupported",
+             "badge_label": "Not supported by cited case",
+             "brief_block": "b", "opinion_block": "o",
+             "finding_analysis": "bad"},
+        ]}))]])
+        ex = AgentSDKExecutor(query_fn=qf)
+        verdicts = list(ex.run([self._packed_job()]))
+        assert [v.claim_id for v in verdicts] == ["w-01", "w-02"]
+        assert verdicts[0].fields["support"] == "supported"
+        assert "claim_id" not in verdicts[0].fields
+        assert verdicts[1].fields["finding_analysis"] == "bad"
+        assert verdicts[0].prompt_version == "assess-v2"
+        assert ex.failures == []
+
+    def test_unknown_claim_id_in_array_recorded_not_emitted(self):
+        from citation_verifier.executor import AgentSDKExecutor
+        qf = _fake_query_fn([[FakeResultMessage(json.dumps({"verdicts": [
+            {"claim_id": "w-01", "support": "supported"},
+            {"claim_id": "w-99", "support": "supported"},
+        ]}))]])
+        ex = AgentSDKExecutor(query_fn=qf)
+        verdicts = list(ex.run([self._packed_job()]))
+        assert [v.claim_id for v in verdicts] == ["w-01"]
+        assert any("w-99" in reason for _, reason in ex.failures)
+
+    def test_missing_claim_stays_pending_silently(self):
+        """An array missing a claim emits the rest; resume re-runs it."""
+        from citation_verifier.executor import AgentSDKExecutor
+        qf = _fake_query_fn([[FakeResultMessage(json.dumps({"verdicts": [
+            {"claim_id": "w-02", "support": "partial"},
+        ]}))]])
+        ex = AgentSDKExecutor(query_fn=qf)
+        verdicts = list(ex.run([self._packed_job()]))
+        assert [v.claim_id for v in verdicts] == ["w-02"]
+
+    def test_single_object_fanout_unchanged_for_v1(self):
+        from citation_verifier.executor import AgentSDKExecutor
+        qf = _fake_query_fn([[FakeResultMessage(
+            '{"assessment": "Green", "rationale": "r"}')]])
+        ex = AgentSDKExecutor(query_fn=qf)
+        (v,) = list(ex.run([_sdk_job("w-01")]))
+        assert v.fields["assessment"] == "Green"
