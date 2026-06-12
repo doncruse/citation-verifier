@@ -110,6 +110,25 @@ Weatherly v. Second Nw. Coop. Homes Ass'n scored only 53% partly because eyecite
 
 ## Priority 2 — Improvements (better results)
 
+### Custom report consumers: claims.csv contract doc + export option (logged 2026-06-12)
+User intent: people should be able to take the pipeline's outputs and make
+their own judgment calls / build their own report (e.g., hand `claims.csv` to
+Claude and ask for a custom memo) instead of using the built-in `report` verb.
+Already works today — `report` is verb 8, optional; everything upstream is
+plain CSV with facts (cl_status, quote_check, quote_floor, crosscheck_flags)
+and judgments (assessment, finding_analysis) in separate columns, and
+`scoring.report_lane()` / `quote_floor` are the two semantics a custom
+renderer must honor (CITE_UNCONFIRMED is "check this cite", never Red; floors
+already enforced into `assessment` by apply). Two cheap formalizations when
+this becomes a first-class use case:
+1. **Consumer-facing doc of the `claims.csv` column contract** — which columns
+   are deterministic facts vs. LLM judgments, and the two semantics above.
+2. **`export` option** (e.g., `report --format json` or an `export` verb)
+   dumping the lane-resolved dict `generate_report` already builds
+   (findings/check-cite/verified/unable lists) so any renderer — including a
+   Claude prompt — starts from resolved lanes instead of re-deriving them.
+Neither blocks the Step 8 acceptance work; log-only for now.
+
 ### Multi-party-caption + punctuated-query opinion-search gap (Sundown) (found 2026-06-11)
 Surfaced finishing the Lever-2 ruling. `Sundown Energy LP v. HJSA No. 3, L.P.,
 622 S.W.3d 884 (Tex. 2021)` stays NOT_FOUND even after lever (b) fixed its parse.
