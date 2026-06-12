@@ -659,6 +659,97 @@ class TestCli:
         assert "29 pending" in out
         assert "PENDING" in out
 
+    def test_extract_verb_dispatch(self, tmp_path, monkeypatch, capsys):
+        from citation_verifier.__main__ import verify_propositions_main
+        from citation_verifier.proposition_pipeline import ExtractStats
+        called = {}
+
+        def fake_extract(wd, document, executor=None,
+                         prompt_version="extract-v1", force=False):
+            called["wd"] = Path(wd)
+            called["doc"] = str(document)
+            called["executor"] = executor
+            return ExtractStats(claims=2, toa=1, body=2)
+
+        monkeypatch.setattr(
+            "citation_verifier.proposition_pipeline.run_extract",
+            fake_extract)
+        wd = tmp_path / "wd"
+        wd.mkdir()
+        doc = tmp_path / "brief.pdf"
+        doc.write_bytes(b"%PDF")
+        rc = verify_propositions_main(
+            [str(wd), "extract", "--document", str(doc)])
+        assert rc == 0
+        assert called["doc"] == str(doc)
+        assert called["executor"] is None  # jobs mode default
+        assert "[OK] extract" in capsys.readouterr().out
+
+    def test_extract_verb_requires_document(self, tmp_path, capsys):
+        from citation_verifier.__main__ import verify_propositions_main
+        wd = tmp_path / "wd"
+        wd.mkdir()
+        rc = verify_propositions_main([str(wd), "extract"])
+        assert rc == 1
+        assert "--document" in capsys.readouterr().err
+
+    def test_extract_pending_message(self, tmp_path, monkeypatch, capsys):
+        from citation_verifier.__main__ import verify_propositions_main
+        from citation_verifier.proposition_pipeline import ExtractStats
+        monkeypatch.setattr(
+            "citation_verifier.proposition_pipeline.run_extract",
+            lambda *a, **k: ExtractStats(pending=True))
+        wd = tmp_path / "wd"
+        wd.mkdir()
+        doc = tmp_path / "b.pdf"
+        doc.write_bytes(b"%PDF")
+        rc = verify_propositions_main(
+            [str(wd), "extract", "--document", str(doc)])
+        assert rc == 0
+        assert "PENDING" in capsys.readouterr().out
+
+    def test_assess_executor_sdk_flag(self, tmp_path, monkeypatch, capsys):
+        from citation_verifier.__main__ import verify_propositions_main
+        from citation_verifier.executor import AgentSDKExecutor
+        from citation_verifier.proposition_pipeline import AssessStats
+        captured = {}
+
+        def fake_assess(wd, executor=None, prompt_version="assess-v1"):
+            captured["executor"] = executor
+            return AssessStats(eligible=1, done=1)
+
+        monkeypatch.setattr(
+            "citation_verifier.proposition_pipeline.run_assess",
+            fake_assess)
+        wd = tmp_path / "wd"
+        wd.mkdir()
+        rc = verify_propositions_main(
+            [str(wd), "assess", "--executor", "sdk", "--model", "haiku"])
+        assert rc == 0
+        assert isinstance(captured["executor"], AgentSDKExecutor)
+        assert captured["executor"].model == "haiku"
+
+    def test_replay_beats_executor_flag(self, tmp_path, monkeypatch):
+        """--replay wins over --executor (offline determinism first)."""
+        from citation_verifier.__main__ import verify_propositions_main
+        from citation_verifier.executor import (
+            RecordedExecutor, Verdict, append_verdict_jsonl)
+        from citation_verifier.proposition_pipeline import AssessStats
+        captured = {}
+        monkeypatch.setattr(
+            "citation_verifier.proposition_pipeline.run_assess",
+            lambda wd, executor=None, prompt_version="assess-v1": (
+                captured.update(executor=executor) or AssessStats()))
+        cassette = tmp_path / "rec.jsonl"
+        append_verdict_jsonl(cassette, Verdict(
+            claim_id="x", fields={}, prompt_version="assess-v1"))
+        wd = tmp_path / "wd"
+        wd.mkdir()
+        verify_propositions_main(
+            [str(wd), "assess", "--replay", str(cassette),
+             "--executor", "sdk"])
+        assert isinstance(captured["executor"], RecordedExecutor)
+
 
 def _extract_verdict_fields():
     return {

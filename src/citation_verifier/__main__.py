@@ -522,16 +522,19 @@ def verify_propositions_main(argv: list[str] | None = None) -> int:
     parser.add_argument("workdir", help="Pipeline working directory")
     parser.add_argument(
         "verb",
-        choices=["verify", "merge", "assess", "apply-assessments", "full"],
-        help="verify = wave1+wave2+downloads; merge = join claims to "
-             "results + opinion linkage; assess = LLM assessment jobs "
-             "(jobs mode by default); apply-assessments = verdicts JSONL "
-             "-> claims.csv with floors; full = verify -> merge -> assess "
+        choices=["extract", "verify", "merge", "assess",
+                 "apply-assessments", "full"],
+        help="extract = document -> claims.csv + TOA/body citation lists "
+             "(LLM, needs --document); verify = wave1+wave2+downloads; "
+             "merge = join claims to results + opinion linkage; assess = "
+             "LLM assessment jobs (jobs mode by default); "
+             "apply-assessments = verdicts JSONL -> claims.csv with "
+             "floors; full = [extract ->] verify -> merge -> assess "
              "(-> apply when verdicts are complete)",
     )
     parser.add_argument(
         "--force", action="store_true",
-        help="Rerun the verify verb even if verification_results.csv exists",
+        help="Rerun the verify/extract verb even if its output exists",
     )
     parser.add_argument(
         "--citations-file",
@@ -544,8 +547,24 @@ def verify_propositions_main(argv: list[str] | None = None) -> int:
     )
     parser.add_argument(
         "--replay",
-        help="Replay assess verdicts from a recorded JSONL (offline) "
+        help="Replay LLM verdicts from a recorded JSONL (offline) "
              "instead of jobs mode",
+    )
+    parser.add_argument(
+        "--document",
+        help="Source document (brief/motion PDF or text) for the extract "
+             "verb / full chain",
+    )
+    parser.add_argument(
+        "--executor", choices=["jobs", "sdk"], default="jobs",
+        help="LLM transport for extract/assess: jobs = write jobs file "
+             "for Agent-tool subagents (in-session default); sdk = "
+             "headless claude-agent-sdk (requires `claude login` "
+             "credentials)",
+    )
+    parser.add_argument(
+        "--model", default="opus",
+        help="Model for the sdk executor (default opus)",
     )
     args = parser.parse_args(argv)
 
@@ -560,6 +579,53 @@ def verify_propositions_main(argv: list[str] | None = None) -> int:
 
     def _progress(done: int, total: int) -> None:
         print(f"  Verifying {done}/{total}...", flush=True)
+
+    def _make_executor():
+        """LLM transport for extract/assess. --replay wins (offline
+        determinism first); None = the verb's jobs-mode default."""
+        if args.replay:
+            from .executor import RecordedExecutor
+            return RecordedExecutor(args.replay)
+        if args.executor == "sdk":
+            from .executor import AgentSDKExecutor
+            return AgentSDKExecutor(model=args.model, cwd=str(workdir))
+        return None
+
+    from .executor import AgentSDKAuthError
+    try:
+        return _dispatch_proposition_verbs(args, workdir, pp, _progress,
+                                           _make_executor)
+    except AgentSDKAuthError as e:
+        print(f"Error: {e}", file=sys.stderr)
+        return 1
+
+
+def _dispatch_proposition_verbs(args, workdir, pp, _progress,
+                                _make_executor) -> int:
+    """Verb dispatch for verify_propositions_main (split out so the
+    AgentSDKAuthError handler wraps every LLM-verb call site)."""
+    from pathlib import Path
+
+    if args.verb == "extract" or (args.verb == "full" and args.document):
+        if not args.document:
+            print("Error: extract requires --document <path>",
+                  file=sys.stderr)
+            return 1
+        estats = pp.run_extract(workdir, args.document,
+                                executor=_make_executor(),
+                                force=args.force)
+        if estats is None:
+            print("[OK] extract: claims.csv already exists "
+                  "(use --force to redo)")
+        elif estats.pending:
+            print("[OK] extract: PENDING -> jobs/extract.json "
+                  "(dispatch an agent, append the verdict to "
+                  "jobs/extract_results.jsonl, then rerun)")
+            return 0  # full stops here until the verdict lands
+        else:
+            print(f"[OK] extract: {estats.claims} claims, "
+                  f"{estats.toa} TOA citations, "
+                  f"{estats.body} body citations")
 
     if args.verb in ("verify", "full"):
         citations = None
@@ -593,11 +659,7 @@ def verify_propositions_main(argv: list[str] | None = None) -> int:
     prompt_version = args.prompt_version or pp.DEFAULT_PROMPT_VERSION
 
     if args.verb in ("assess", "full"):
-        executor = None
-        if args.replay:
-            from .executor import RecordedExecutor
-            executor = RecordedExecutor(args.replay)
-        astats = pp.run_assess(workdir, executor=executor,
+        astats = pp.run_assess(workdir, executor=_make_executor(),
                                prompt_version=prompt_version)
         print(f"[OK] assess: {astats.eligible} eligible, "
               f"{astats.done} done, {astats.pending} pending, "
