@@ -811,6 +811,17 @@ class TestWithersCorpusViaRunner:
 - **First real report rendered** (`matters/withers-v2-demo/report.html`):
   21 findings / 10 verified / 3 unable / 0 check-cite through the full
   v2 chain; committed as a demo workdir.
-- **9.5 prescreen A/B:** opus-v2 arm = the re-record itself (offline
-  replay); opus-v2-hints arm running live — outcome appended below when
-  it lands.
+- **9.5 prescreen A/B — PAUSED 2026-06-12 (user request, token budget).**
+  The opus-v2 (no-hints) arm needs no run: it IS the re-recorded frozen
+  cassettes (replay `tools/ab_test_runner.py --replay` scores it, or
+  `run_ab_config('opus-v2', configs['opus-v2'], replay=True)` for the v2
+  prompt version). The opus-v2-hints arm was killed mid-withers; its tmp
+  run dir is disposable (run_ab_config copies fresh each invocation —
+  partial hints/verdicts in tmp are simply redone).
+  **To resume (one command, ~1-2h Opus wall-time):**
+      venv/Scripts/python.exe tools/ab_test_runner.py --config opus-v2-hints --corpus withers payne wainwright
+  then compare its saved score rows against the frozen-v2 replay, decide
+  the SS6.7 prescreen default, record the ruling here + retro + CLAUDE.md,
+  and (if ON wins) flip the triage default. Everything else in Step 8 is
+  COMPLETE: re-record committed, acceptance APPROVED (user adjudication),
+  baselines pinned, retro written except its prescreen section.
