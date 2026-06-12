@@ -244,7 +244,7 @@ class AgentSDKExecutor:
             # Import inside the stripped env (the PoC strips before import;
             # the SDK may spawn/locate the CLI on first use).
             from claude_agent_sdk import (ClaudeAgentOptions,
-                                          ClaudeSDKError, CLINotFoundError)
+                                          CLINotFoundError)
             query_fn = self._query_fn
             if query_fn is None:
                 from claude_agent_sdk import query as query_fn
@@ -257,7 +257,14 @@ class AgentSDKExecutor:
                                        options)
             except CLINotFoundError:
                 raise  # fatal: no claude CLI on this machine
-            except ClaudeSDKError as e:
+            except AgentSDKAuthError:
+                raise
+            except Exception as e:
+                # Not just ClaudeSDKError: the SDK's message stream can
+                # raise plain Exceptions on transient API blips ("Claude
+                # Code returned an error result: ..." -- seen live during
+                # the Step 8 re-record). One flaky job must not kill the
+                # batch; the resume key re-runs it on the next invocation.
                 if _looks_like_auth_failure(str(e)):
                     raise AgentSDKAuthError(_AUTH_HELP) from e
                 self.failures.append(

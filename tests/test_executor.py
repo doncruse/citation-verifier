@@ -331,6 +331,55 @@ class TestAgentSDKExecutor:
         verdicts = list(ex.run([self._packed_job()]))
         assert [v.claim_id for v in verdicts] == ["w-02"]
 
+    def test_plain_exception_from_sdk_recorded_and_continues(self):
+        """Live finding (Step 8 re-record): the SDK can raise a plain
+        Exception ('Claude Code returned an error result: ...') from its
+        message stream on transient API blips. One flaky job must not
+        kill a 50-job batch -- record the failure, keep going; the
+        resume key re-runs it next invocation."""
+        from citation_verifier.executor import AgentSDKExecutor
+
+        def exploding_query_fn(*, prompt, options):
+            async def gen():
+                raise Exception(
+                    "Claude Code returned an error result: success")
+                yield  # pragma: no cover
+            return gen()
+
+        calls = []
+
+        def second_ok(*, prompt, options):
+            calls.append(prompt)
+            async def gen():
+                yield FakeResultMessage('{"assessment": "Green", '
+                                        '"rationale": "r"}')
+            return gen()
+
+        dispatch = [exploding_query_fn, second_ok]
+
+        def qf(*, prompt, options):
+            return dispatch.pop(0)(prompt=prompt, options=options)
+
+        ex = AgentSDKExecutor(query_fn=qf)
+        verdicts = list(ex.run([_sdk_job("w-01"), _sdk_job("w-02")]))
+        assert [v.claim_id for v in verdicts] == ["w-02"]
+        assert len(ex.failures) == 1
+        assert "error result" in ex.failures[0][1]
+
+    def test_plain_exception_with_auth_marker_still_raises(self):
+        from citation_verifier.executor import (
+            AgentSDKAuthError, AgentSDKExecutor)
+
+        def exploding_query_fn(*, prompt, options):
+            async def gen():
+                raise Exception("401 OAuth token has expired")
+                yield  # pragma: no cover
+            return gen()
+
+        ex = AgentSDKExecutor(query_fn=exploding_query_fn)
+        with pytest.raises(AgentSDKAuthError):
+            list(ex.run([_sdk_job("w-01")]))
+
     def test_single_object_fanout_unchanged_for_v1(self):
         from citation_verifier.executor import AgentSDKExecutor
         qf = _fake_query_fn([[FakeResultMessage(
