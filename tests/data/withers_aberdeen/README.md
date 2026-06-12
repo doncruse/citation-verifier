@@ -11,7 +11,8 @@ color-coded green / yellow / red. Public PACER filing.
   (current verifier's existence-layer prediction per row; live API).
 - `tests/measure_withers_assessment.py` → `tests/data/withers_assessment_results.csv`
   (current ASSESSMENT layer's Green/Yellow/Red per row — see second baseline below;
-  live API + Opus assessment agents; pipeline workdir in `assessment_workdir/`).
+  live API + Opus assessment agents; pipeline workdir now frozen at
+  `tests/data/assessment_corpora/withers/` — see that directory's README).
 
 **Columns** (`withers_aberdeen_corpus.csv`): `row_id, doc_number, pleading, citation,
 proposition, exists (Yes/No), label (green/yellow/red), hedged (yes/no), irregularity`.

@@ -41,7 +41,7 @@ Usage:
 Output:
     tests/data/withers_assessment_results.csv   (final scored table)
     tests/data/withers_assessment_runs.jsonl    (raw per-row agent output)
-    tests/data/withers_aberdeen/assessment_workdir/   (pipeline workdir)
+    tests/data/assessment_corpora/withers/      (frozen pipeline workdir)
 """
 from __future__ import annotations
 
@@ -65,7 +65,7 @@ load_dotenv()
 PROJECT_ROOT = Path(__file__).parent.parent
 _DATA = Path(__file__).parent / "data"
 _BASELINE = _DATA / "withers_baseline_results.csv"
-_WORKDIR = _DATA / "withers_aberdeen" / "assessment_workdir"
+_WORKDIR = _DATA / "assessment_corpora" / "withers"
 _OUT_CSV = _DATA / "withers_assessment_results.csv"
 _OUT_JSONL = _DATA / "withers_assessment_runs.jsonl"
 
