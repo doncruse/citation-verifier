@@ -307,6 +307,44 @@ class TestVerbs:
         assert "merge" in run["verbs"]
 
 
+class TestExtractQuotedSpans:
+    def test_two_word_span_extracted(self):
+        from citation_verifier.proposition_pipeline import (
+            extract_quoted_spans)
+        text = ('The court treated stipulations as "judicial admissions" '
+                'binding on the parties.')
+        assert extract_quoted_spans(text) == ["judicial admissions"]
+
+    def test_smart_quotes(self):
+        from citation_verifier.proposition_pipeline import (
+            extract_quoted_spans)
+        text = "Held that “good cause shown” is required."
+        assert extract_quoted_spans(text) == ["good cause shown"]
+
+    def test_single_word_skipped(self):
+        from citation_verifier.proposition_pipeline import (
+            extract_quoted_spans)
+        assert extract_quoted_spans('The "factors" test applies.') == []
+
+    def test_single_quoted_spans_skipped(self):
+        from citation_verifier.proposition_pipeline import (
+            extract_quoted_spans)
+        assert extract_quoted_spans("It's 'two words' here.") == []
+
+    def test_multiple_spans_in_order(self):
+        from citation_verifier.proposition_pipeline import (
+            extract_quoted_spans)
+        text = '"first span here" and then "second span" follows'
+        assert extract_quoted_spans(text) == ["first span here",
+                                              "second span"]
+
+    def test_empty_and_none_safe(self):
+        from citation_verifier.proposition_pipeline import (
+            extract_quoted_spans)
+        assert extract_quoted_spans("") == []
+        assert extract_quoted_spans(None) == []
+
+
 class TestCli:
     def test_merge_verb_dispatch(self, tmp_path, monkeypatch, capsys):
         from citation_verifier.__main__ import verify_propositions_main

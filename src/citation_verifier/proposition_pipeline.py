@@ -84,6 +84,22 @@ def _normalize_for_match(cite: str) -> str:
     return s
 
 
+# Double-quoted spans (straight or smart). Single-quoted spans are skipped
+# (apostrophe ambiguity); >= 2 words per design §6.4 -- the 2-word quoted
+# term "judicial admissions" is exactly what the Am. Auto misses hinged on.
+_QUOTE_SPAN = re.compile(r'[“"]([^"“”]{3,}?)[”"]')
+
+
+def extract_quoted_spans(text: str | None, min_words: int = 2) -> list[str]:
+    """Extract double-quoted spans of >= min_words words from text."""
+    out = []
+    for m in _QUOTE_SPAN.finditer(text or ""):
+        span = m.group(1).strip()
+        if len(span.split()) >= min_words:
+            out.append(span)
+    return out
+
+
 def _normalize_quote_text(text: str) -> str:
     """Normalize quoted text for fuzzy matching.
 
