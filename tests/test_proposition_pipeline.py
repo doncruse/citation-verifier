@@ -455,6 +455,79 @@ class TestPromptTemplate:
             pp.load_prompt_template("assess-v9")
 
 
+def _copy_withers(tmp_path):
+    import shutil
+    src = Path(__file__).parent / "data" / "assessment_corpora" / "withers"
+    wd = tmp_path / "withers"
+    shutil.copytree(src, wd)
+    return wd
+
+
+WITHERS_CASSETTE = (Path(__file__).parent / "data" / "assessment_corpora"
+                    / "withers" / "jobs" / "assess_results.jsonl")
+
+
+class TestAssessVerb:
+    def test_jobs_mode_writes_jobs_and_reports_pending(self, tmp_path):
+        from citation_verifier.proposition_pipeline import run_assess
+        wd = _copy_withers(tmp_path)
+        (wd / "jobs" / "assess_results.jsonl").unlink()
+        stats = run_assess(wd)
+        assert stats.eligible == 29
+        assert stats.done == 0
+        assert stats.pending == 29
+        assert stats.skipped_deterministic == 5
+        jobs = json.loads((wd / "jobs" / "assess.json").read_text(
+            encoding="utf-8"))
+        assert len(jobs) == 29
+        # prompts are fully rendered: cite + absolute opinion path inside
+        sample = jobs[0]
+        assert sample["prompt_version"] == "assess-v1"
+        assert "Read the opinion file at:" in sample["prompt"]
+        assert str(wd) in sample["prompt"]
+
+    def test_resume_ingests_partial_verdicts(self, tmp_path):
+        from citation_verifier.executor import (
+            Verdict, append_verdict_jsonl)
+        from citation_verifier.proposition_pipeline import run_assess
+        wd = _copy_withers(tmp_path)
+        (wd / "jobs" / "assess_results.jsonl").unlink()
+        run_assess(wd)
+        append_verdict_jsonl(
+            wd / "jobs" / "assess_results.jsonl",
+            Verdict(claim_id="withers-01",
+                    fields={"assessment": "Yellow", "rationale": "r"},
+                    model="opus", prompt_version="assess-v1"))
+        stats = run_assess(wd)
+        assert stats.done == 1
+        assert stats.pending == 28
+        jobs = json.loads((wd / "jobs" / "assess.json").read_text(
+            encoding="utf-8"))
+        assert len(jobs) == 28
+        assert not any("withers-01" in j["claim_ids"] for j in jobs)
+
+    def test_recorded_executor_completes_offline(self, tmp_path):
+        from citation_verifier.executor import RecordedExecutor
+        from citation_verifier.proposition_pipeline import run_assess
+        wd = _copy_withers(tmp_path)
+        (wd / "jobs" / "assess_results.jsonl").unlink()
+        ex = RecordedExecutor(WITHERS_CASSETTE)
+        stats = run_assess(wd, executor=ex)
+        assert stats.done == 29
+        assert stats.pending == 0
+        from citation_verifier.executor import load_verdicts_jsonl
+        assert len(load_verdicts_jsonl(
+            wd / "jobs" / "assess_results.jsonl")) == 29
+
+    def test_idempotent_when_complete(self, tmp_path):
+        from citation_verifier.proposition_pipeline import run_assess
+        wd = _copy_withers(tmp_path)  # cassette already complete
+        stats = run_assess(wd)
+        assert stats.done == 29
+        assert stats.pending == 0
+        assert not (wd / "jobs" / "assess.json").exists()
+
+
 class TestCli:
     def test_merge_verb_dispatch(self, tmp_path, monkeypatch, capsys):
         from citation_verifier.__main__ import verify_propositions_main

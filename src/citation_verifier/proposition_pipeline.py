@@ -720,6 +720,93 @@ async def run_verify(workdir: Path, citations: list[str] | None = None,
                           merge=MergeStats())  # merge is its own verb
 
 
+# v1 verdict schema, attached to jobs for transports that can enforce
+# structured output (documentation-shaped; apply-assessments validates).
+_ASSESS_V1_SCHEMA = {
+    "assessment": "Green|Yellow|Red",
+    "rationale": "one sentence",
+}
+
+
+@dataclass
+class AssessStats:
+    """Statistics from run_assess."""
+    eligible: int = 0
+    done: int = 0
+    pending: int = 0
+    skipped_deterministic: int = 0
+
+
+def _assessable(claim: dict) -> bool:
+    """Agent lane: opinion text linked and not resolved-to-wrong-case.
+    Everything else gets a deterministic lane (scoring/apply)."""
+    return bool(claim.get("opinion_file")) and (
+        claim.get("cl_status") != "WRONG_CASE")
+
+
+def run_assess(workdir: Path, executor: Any = None,
+               prompt_version: str = DEFAULT_PROMPT_VERSION) -> AssessStats:
+    """Verb 6 (design §3, LLM): grouped assessment jobs via the executor.
+
+    Selects assessable claims lacking a verdict for prompt_version
+    (resume key = claim_id + prompt_version), renders one job per claim
+    from the versioned template (jobs are ordered by opinion file; §6.8
+    multi-opinion packing arrives with assess-v2 — every recorded
+    cassette is single-claim v1), writes jobs/assess.json through the
+    executor. Default executor is AgentToolExecutor (jobs mode): no
+    verdicts are produced in-process; dispatch Agent-tool subagents that
+    append to jobs/assess_results.jsonl, then rerun this verb to ingest.
+    """
+    from .executor import AgentToolExecutor, Job, append_verdict_jsonl, \
+        load_verdicts_jsonl
+
+    workdir = Path(workdir)
+    results_path = workdir / "jobs" / "assess_results.jsonl"
+    have: set[str] = set()
+    if results_path.exists():
+        have = {v.claim_id for v in load_verdicts_jsonl(results_path)
+                if v.prompt_version == prompt_version}
+
+    with open(workdir / "claims.csv", newline="", encoding="utf-8") as f:
+        claims = list(csv.DictReader(f))
+
+    stats = AssessStats()
+    todo: list[dict] = []
+    for c in claims:
+        if not _assessable(c):
+            stats.skipped_deterministic += 1
+            continue
+        stats.eligible += 1
+        if c["claim_id"] in have:
+            stats.done += 1
+        else:
+            todo.append(c)
+    todo.sort(key=lambda c: c.get("opinion_file", ""))
+
+    jobs = [Job(
+        job_id=f"assess-{c['claim_id']}",
+        claim_ids=[c["claim_id"]],
+        prompt=render_assess_prompt(
+            prompt_version, str(workdir / c["opinion_file"]),
+            c["cited_case"], c["proposition"],
+            c.get("quote_check_worst", "NO_QUOTES")),
+        prompt_version=prompt_version,
+        files=[c["opinion_file"]],
+        schema=_ASSESS_V1_SCHEMA,
+    ) for c in todo]
+
+    if jobs:
+        if executor is None:
+            executor = AgentToolExecutor(workdir / "jobs" / "assess.json")
+        for v in executor.run(jobs):
+            append_verdict_jsonl(results_path, v)
+            stats.done += 1
+    stats.pending = stats.eligible - stats.done
+    _update_run_json(workdir, "assess", prompt_version=prompt_version,
+                     done=stats.done, pending=stats.pending)
+    return stats
+
+
 def run_merge(workdir: Path) -> MergeStats:
     """Verb 2 (design §3): join claims <-> results + slug opinion linkage.
     Requires verification_results.csv (run the verify verb first)."""
