@@ -1072,6 +1072,141 @@ class TestRunCheckQuotes:
         assert "[OK] check-quotes" in capsys.readouterr().out
 
 
+def _triage_claims(wd, rows):
+    fields = ["claim_id", "proposition", "cited_case", "quoted_text",
+              "cl_status", "opinion_file", "quote_check_worst",
+              "quote_floor", "crosscheck_flags"]
+    with open(wd / "claims.csv", "w", newline="", encoding="utf-8") as f:
+        w = csv.DictWriter(f, fieldnames=fields)
+        w.writeheader()
+        for r in rows:
+            base = dict.fromkeys(fields, "")
+            base.update(r)
+            w.writerow(base)
+
+
+class TestRunTriage:
+    def _wd(self, tmp_path):
+        wd = tmp_path / "tr"
+        wd.mkdir()
+        (wd / "opinions").mkdir()
+        (wd / "opinions" / "a.txt").write_text("short opinion",
+                                               encoding="utf-8")
+        return wd
+
+    def test_tracks_assigned_deterministically(self, tmp_path):
+        import citation_verifier.proposition_pipeline as pp
+        wd = self._wd(tmp_path)
+        _triage_claims(wd, [
+            # clean verified, no quotes -> fast
+            {"claim_id": "t-01", "cl_status": "VERIFIED",
+             "opinion_file": "opinions/a.txt", "quoted_text": "[]",
+             "quote_check_worst": "NO_QUOTES"},
+            # CLOSE quote -> full
+            {"claim_id": "t-02", "cl_status": "VERIFIED",
+             "opinion_file": "opinions/a.txt", "quoted_text": "[]",
+             "quote_check_worst": "CLOSE"},
+            # has quoted text -> full
+            {"claim_id": "t-03", "cl_status": "VERIFIED",
+             "opinion_file": "opinions/a.txt",
+             "quoted_text": '["some quote"]',
+             "quote_check_worst": "VERBATIM"},
+            # crosscheck flag -> full
+            {"claim_id": "t-04", "cl_status": "VERIFIED",
+             "opinion_file": "opinions/a.txt", "quoted_text": "[]",
+             "quote_check_worst": "NO_QUOTES",
+             "crosscheck_flags": '{"court_mismatch": {}}'},
+            # CITE_UNCONFIRMED (not clean-verified) -> full
+            {"claim_id": "t-05", "cl_status": "CITE_UNCONFIRMED",
+             "opinion_file": "opinions/a.txt", "quoted_text": "[]",
+             "quote_check_worst": "NO_QUOTES"},
+            # not assessable (no opinion) -> "" (deterministic lane)
+            {"claim_id": "t-06", "cl_status": "NOT_FOUND",
+             "quoted_text": "[]"},
+        ])
+        stats = pp.run_triage(wd)
+        rows = {r["claim_id"]: r for r in csv.DictReader(
+            (wd / "claims.csv").open(encoding="utf-8"))}
+        assert rows["t-01"]["triage_track"] == "fast"
+        assert rows["t-02"]["triage_track"] == "full"
+        assert rows["t-03"]["triage_track"] == "full"
+        assert rows["t-04"]["triage_track"] == "full"
+        assert rows["t-05"]["triage_track"] == "full"
+        assert rows["t-06"]["triage_track"] == ""
+        assert (stats.full, stats.fast, stats.skipped) == (4, 1, 1)
+
+    def test_prescreen_off_by_default_no_jobs(self, tmp_path):
+        import citation_verifier.proposition_pipeline as pp
+        wd = self._wd(tmp_path)
+        big = "word " * 6000  # >= 20K chars
+        (wd / "opinions" / "big.txt").write_text(big, encoding="utf-8")
+        _triage_claims(wd, [
+            {"claim_id": "t-01", "cl_status": "VERIFIED",
+             "opinion_file": "opinions/big.txt", "quoted_text": "[]",
+             "quote_check_worst": "NO_QUOTES"},
+        ])
+        stats = pp.run_triage(wd)
+        assert stats.prescreen_pending == 0
+        assert not (wd / "jobs" / "prescreen.json").exists()
+
+    def test_prescreen_jobs_mode_emits_and_ingests(self, tmp_path):
+        import citation_verifier.proposition_pipeline as pp
+        from citation_verifier.executor import (
+            Verdict, append_verdict_jsonl)
+        wd = self._wd(tmp_path)
+        big = "word " * 6000
+        (wd / "opinions" / "big.txt").write_text(big, encoding="utf-8")
+        _triage_claims(wd, [
+            {"claim_id": "t-01", "cl_status": "VERIFIED",
+             "opinion_file": "opinions/big.txt", "quoted_text": "[]",
+             "quote_check_worst": "NO_QUOTES"},
+            {"claim_id": "t-02", "cl_status": "VERIFIED",
+             "opinion_file": "opinions/a.txt", "quoted_text": "[]",
+             "quote_check_worst": "NO_QUOTES"},  # small -> no prescreen
+        ])
+        stats = pp.run_triage(wd, prescreen=True)
+        assert stats.prescreen_pending == 1
+        jobs = json.loads((wd / "jobs" / "prescreen.json")
+                          .read_text(encoding="utf-8"))
+        assert len(jobs) == 1
+        assert jobs[0]["claim_ids"] == ["t-01"]
+        assert jobs[0]["prompt_version"] == "prescreen-v1"
+        # agent appends a hint verdict; rerun ingests it
+        append_verdict_jsonl(
+            wd / "jobs" / "prescreen_results.jsonl",
+            Verdict(claim_id="t-01",
+                    fields={"hint": "Case is about X, not Y."},
+                    model="haiku", prompt_version="prescreen-v1"))
+        stats2 = pp.run_triage(wd, prescreen=True)
+        assert stats2.prescreen_pending == 0
+        assert stats2.prescreen_done == 1
+        rows = {r["claim_id"]: r for r in csv.DictReader(
+            (wd / "claims.csv").open(encoding="utf-8"))}
+        assert rows["t-01"]["prescreen_hint"] == "Case is about X, not Y."
+        assert rows["t-02"]["prescreen_hint"] == ""
+
+    def test_prescreen_template_renders(self):
+        import citation_verifier.proposition_pipeline as pp
+        prompt = pp.render_prescreen_prompt(
+            "prescreen-v1", "opinions/big.txt", "The proposition.")
+        assert "opinions/big.txt" in prompt
+        assert "The proposition." in prompt
+        assert "do NOT assess" in prompt
+
+    def test_triage_on_withers_corpus_copy(self, tmp_path):
+        """Corpus tolerance + sanity: every assessable claim gets a
+        track; deterministic-lane rows get ''."""
+        import citation_verifier.proposition_pipeline as pp
+        wd = _copy_withers(tmp_path)
+        stats = pp.run_triage(wd)
+        rows = list(csv.DictReader(
+            (wd / "claims.csv").open(encoding="utf-8")))
+        tracked = [r for r in rows if r["triage_track"]]
+        assert len(tracked) == stats.full + stats.fast
+        assert stats.skipped == len(rows) - len(tracked)
+        assert stats.full >= 1  # withers has CLOSE/FABRICATED rows
+
+
 class TestMatchedCourtAccessors:
     def test_matched_court_from_download_stash(self):
         r = _result([_entry(StageName.citation_lookup,

@@ -633,6 +633,7 @@ _LEADING_COMMENT_RE = re.compile(r"\A(?:\s*<!--.*?-->)*\s*", re.DOTALL)
 
 DEFAULT_PROMPT_VERSION = "assess-v1"
 EXTRACT_PROMPT_VERSION = "extract-v1"
+PRESCREEN_PROMPT_VERSION = "prescreen-v1"
 
 
 def load_prompt_template(version: str) -> str:
@@ -667,6 +668,14 @@ def render_extract_prompt(version: str, document_path: str) -> str:
     render_assess_prompt."""
     return load_prompt_template(version).replace(
         "{document_path}", document_path)
+
+
+def render_prescreen_prompt(version: str, opinion_path: str,
+                            proposition: str) -> str:
+    """Render the Haiku prescreen prompt (design SS6.7)."""
+    body = load_prompt_template(version)
+    return body.replace("{opinion_path}", opinion_path).replace(
+        "{proposition}", proposition)
 
 
 # ---------------------------------------------------------------------------
@@ -1250,6 +1259,158 @@ def run_crosscheck(workdir: Path) -> CrosscheckStats:
                      toa=stats.toa_mismatches,
                      court=stats.court_mismatches,
                      pincite=stats.pincite_flags)
+    return stats
+
+
+# ---------------------------------------------------------------------------
+# Verb 5: triage (design SS6.7) -- assessment depth + optional prescreen.
+# ---------------------------------------------------------------------------
+
+# SS6.7: opinions at/above this cleaned-text size get a Haiku
+# summary-hint prescreen (when enabled). Prior data: 76% exact hints,
+# ~15x cheaper; default OFF until the per-phase A/B re-run decides.
+PRESCREEN_MIN_CHARS = 20_000
+
+_PRESCREEN_SCHEMA = {"hint": "2-4 sentence summary-hint"}
+
+_CLEAN_VERIFIED_STATUSES = {
+    "VERIFIED", "VERIFIED_PARTIAL", "VERIFIED_VIA_RECAP",
+    "VERIFIED_DOCKET_ONLY",
+}
+
+
+def _triage_track_for(claim: dict) -> str:
+    """Deterministic SS6.7 track. '' = deterministic lane (not agent-
+    assessable). The SKILL's two LLM-judgment criteria (syllabus topic
+    mismatch, lead authority) are out of deterministic scope -- the
+    full-track net below is correspondingly conservative."""
+    if not _assessable(claim):
+        return ""
+    if claim.get("quote_check_worst") in ("FABRICATED", "CLOSE"):
+        return "full"
+    if (claim.get("quote_floor") or "").strip():
+        return "full"
+    quoted = (claim.get("quoted_text") or "").strip()
+    if quoted and quoted != "[]":
+        return "full"
+    if (claim.get("crosscheck_flags") or "").strip():
+        return "full"
+    if claim.get("cl_status") not in _CLEAN_VERIFIED_STATUSES:
+        return "full"
+    return "fast"
+
+
+@dataclass
+class TriageStats:
+    """Statistics from run_triage."""
+    full: int = 0
+    fast: int = 0
+    skipped: int = 0
+    prescreen_done: int = 0
+    prescreen_pending: int = 0
+
+
+def run_triage(workdir: Path, prescreen: bool = False,
+               executor: Any = None,
+               prompt_version: str = PRESCREEN_PROMPT_VERSION,
+               ) -> TriageStats:
+    """Verb 5 (design SS3 / SS6.7): assessment depth per claim.
+
+    Writes triage_track ('full' | 'fast' | '' for the deterministic
+    lane) and, when prescreen=True, runs Haiku summary-hint jobs for
+    claims on long opinions (>= PRESCREEN_MIN_CHARS) through the
+    executor protocol (jobs/prescreen.json + jobs/
+    prescreen_results.jsonl, resume key = claim_id + prompt_version),
+    ingesting hints into prescreen_hint. Prescreen defaults OFF
+    (SS6.7: decide the default by re-running the A/B harness).
+    Idempotent -- tracks recompute on rerun; hints are resume-keyed.
+    """
+    from .executor import AgentToolExecutor, Job, append_verdict_jsonl, \
+        load_verdicts_jsonl
+
+    workdir = Path(workdir)
+    with open(workdir / "claims.csv", newline="", encoding="utf-8") as f:
+        claims = list(csv.DictReader(f))
+
+    stats = TriageStats()
+    for c in claims:
+        track = _triage_track_for(c)
+        c["triage_track"] = track
+        if track == "full":
+            stats.full += 1
+        elif track == "fast":
+            stats.fast += 1
+        else:
+            stats.skipped += 1
+        c.setdefault("prescreen_hint", "")
+
+    if prescreen:
+        results_path = workdir / "jobs" / "prescreen_results.jsonl"
+        hints: dict[str, str] = {}
+        if results_path.exists():
+            for v in load_verdicts_jsonl(results_path):
+                if v.prompt_version == prompt_version:
+                    hints[v.claim_id] = str(
+                        v.fields.get("hint", "")).strip()
+        opinion_cache: dict[str, str] = {}
+        todo: list[dict] = []
+        for c in claims:
+            if not c.get("triage_track"):
+                continue
+            if c["claim_id"] in hints:
+                c["prescreen_hint"] = hints[c["claim_id"]]
+                stats.prescreen_done += 1
+                continue
+            opinion_file = c.get("opinion_file", "") or ""
+            if opinion_file not in opinion_cache:
+                opinion_cache[opinion_file] = _read_clean_opinion(
+                    workdir, opinion_file)
+            if len(opinion_cache[opinion_file]) >= PRESCREEN_MIN_CHARS:
+                todo.append(c)
+        if todo:
+            jobs = [Job(
+                job_id=f"prescreen-{c['claim_id']}",
+                claim_ids=[c["claim_id"]],
+                prompt=render_prescreen_prompt(
+                    prompt_version,
+                    str(workdir / c["opinion_file"]),
+                    c.get("cited_for") or c["proposition"]),
+                prompt_version=prompt_version,
+                files=[c["opinion_file"]],
+                schema=_PRESCREEN_SCHEMA,
+            ) for c in todo]
+            if executor is None:
+                executor = AgentToolExecutor(
+                    workdir / "jobs" / "prescreen.json")
+            done_now: dict[str, str] = {}
+            for v in executor.run(jobs):
+                append_verdict_jsonl(results_path, v)
+                done_now[v.claim_id] = str(
+                    v.fields.get("hint", "")).strip()
+            for c in todo:
+                if c["claim_id"] in done_now:
+                    c["prescreen_hint"] = done_now[c["claim_id"]]
+                    stats.prescreen_done += 1
+                else:
+                    stats.prescreen_pending += 1
+
+    fields = list(claims[0].keys()) if claims else []
+    for col in ("triage_track", "prescreen_hint"):
+        if col not in fields:
+            fields.append(col)
+    for c in claims:
+        for col in fields:
+            c.setdefault(col, "")
+    with open(workdir / "claims.csv", "w", newline="",
+              encoding="utf-8") as f:
+        w = csv.DictWriter(f, fieldnames=fields)
+        w.writeheader()
+        w.writerows(claims)
+
+    _update_run_json(workdir, "triage", full=stats.full, fast=stats.fast,
+                     skipped=stats.skipped,
+                     prescreen_done=stats.prescreen_done,
+                     prescreen_pending=stats.prescreen_pending)
     return stats
 
 
