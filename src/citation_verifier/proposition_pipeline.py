@@ -1279,6 +1279,43 @@ _CLEAN_VERIFIED_STATUSES = {
 }
 
 
+def _crosscheck_flag_lines(claim: dict) -> list[str]:
+    """Human-readable card flags from the crosscheck_flags JSON column
+    (SS6.5: a flag renders on the card even when support is otherwise
+    fine; flags never move a claim between lanes). Missing / empty /
+    malformed -> [] (legacy claims.csv tolerated)."""
+    raw = (claim.get("crosscheck_flags") or "").strip()
+    if not raw:
+        return []
+    try:
+        flags = json_mod.loads(raw)
+    except (json_mod.JSONDecodeError, ValueError):
+        return []
+    if not isinstance(flags, dict):
+        return []
+    lines: list[str] = []
+    toa = flags.get("toa_mismatch") or {}
+    if toa.get("variants"):
+        lines.append("TOA/body citation mismatch: "
+                     + " vs ".join(toa["variants"]))
+    court = flags.get("court_mismatch") or {}
+    if court:
+        matched_name = court.get("matched", "")
+        suffix = f" ({matched_name})" if matched_name else ""
+        lines.append(
+            f"Court mismatch: brief cites {court.get('cited_id', '?')}, "
+            f"CL match is {court.get('matched_id', '?')}{suffix}")
+    pin = flags.get("pincite_flag") or {}
+    if pin.get("pinpoint"):
+        lo, hi = (pin.get("star_range") or ["?", "?"])[:2]
+        lines.append(f"Pincite {pin['pinpoint']} outside the opinion's "
+                     f"star-pagination range {lo}-{hi}")
+    if pin.get("footnote_missing"):
+        lines.append(f"Footnote n.{pin['footnote_missing']} not found "
+                     f"in the opinion text")
+    return lines
+
+
 def _triage_track_for(claim: dict) -> str:
     """Deterministic SS6.7 track. '' = deterministic lane (not agent-
     assessable). The SKILL's two LLM-judgment criteria (syllabus topic

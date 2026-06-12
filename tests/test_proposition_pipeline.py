@@ -1339,3 +1339,38 @@ class TestExtractPrompt:
                     "quoted_text", "brief_sentence", "page",
                     "citations_toa", "citations_body"):
             assert col in prompt
+
+
+# ---------------------------------------------------------------------------
+# Step 7: report lanes (SS6.9) + card flags (SS6.5) + report verb
+# ---------------------------------------------------------------------------
+
+
+class TestCrosscheckFlagLines:
+    def test_all_three_flag_types(self):
+        import citation_verifier.proposition_pipeline as pp
+        claim = {"crosscheck_flags": json.dumps({
+            "toa_mismatch": {"variants": [
+                "Bryant v. Jones, 597 F.3d 1320 (11th Cir. 2010)",
+                "Bryant v. Jones, 97 F.3d 1320 (11th Cir. 2010)"]},
+            "court_mismatch": {"cited": "ca6", "cited_id": "ca6",
+                               "matched_id": "ca5",
+                               "matched": "Fifth Circuit"},
+            "pincite_flag": {"pinpoint": "999", "star_range": [770, 790],
+                             "footnote_missing": "42"},
+        })}
+        lines = pp._crosscheck_flag_lines(claim)
+        assert any("597 F.3d" in ln and "97 F.3d" in ln for ln in lines)
+        assert any("ca6" in ln and "ca5" in ln for ln in lines)
+        assert any("999" in ln and "770-790" in ln for ln in lines)
+        assert any("n.42" in ln for ln in lines)
+        assert len(lines) == 4  # pincite_flag yields two lines here
+
+    def test_empty_and_missing_and_malformed(self):
+        import citation_verifier.proposition_pipeline as pp
+        assert pp._crosscheck_flag_lines({}) == []
+        assert pp._crosscheck_flag_lines({"crosscheck_flags": ""}) == []
+        assert pp._crosscheck_flag_lines(
+            {"crosscheck_flags": "not json"}) == []
+        assert pp._crosscheck_flag_lines(
+            {"crosscheck_flags": "[1, 2]"}) == []
