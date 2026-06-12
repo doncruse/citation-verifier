@@ -84,6 +84,41 @@ def append_verdict_jsonl(path: str | Path, verdict: Verdict) -> None:
         f.write(json.dumps(verdict_to_json(verdict)) + "\n")
 
 
+def job_to_json(job: Job) -> dict[str, Any]:
+    return {
+        "job_id": job.job_id,
+        "claim_ids": job.claim_ids,
+        "prompt": job.prompt,
+        "prompt_version": job.prompt_version,
+        "files": job.files,
+        "schema": job.schema,
+        "max_chars": job.max_chars,
+    }
+
+
+class AgentToolExecutor:
+    """Jobs mode (design SS5): emits jobs/<phase>.json and produces no
+    verdicts. The orchestrating Claude Code session dispatches one
+    Agent-tool subagent per job; each appends a verdict line to the
+    results JSONL. Rerun the verb to ingest progress (resume key =
+    claim_id + prompt_version). This is the in-session default because
+    the Agent tool is the one transport that always works inside a
+    Claude Code session (design SS1 fact 3).
+    """
+
+    def __init__(self, jobs_path: str | Path):
+        self.jobs_path = Path(jobs_path)
+        self.pending: list[str] = []
+
+    def run(self, jobs: list[Job]) -> Iterator[Verdict]:
+        self.jobs_path.parent.mkdir(parents=True, exist_ok=True)
+        self.jobs_path.write_text(
+            json.dumps([job_to_json(j) for j in jobs], indent=2),
+            encoding="utf-8")
+        self.pending = [cid for j in jobs for cid in j.claim_ids]
+        return iter(())
+
+
 class RecordedVerdictMiss(KeyError):
     """Raised in replay when (claim_id, prompt_version) has no recording.
 

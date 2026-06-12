@@ -8,6 +8,7 @@ import json
 import pytest
 
 from citation_verifier.executor import (
+    AgentToolExecutor,
     Job,
     RecordedExecutor,
     RecordedVerdictMiss,
@@ -97,3 +98,34 @@ class TestRecordedExecutor:
                     prompt_version="assess-v1")]
         (v,) = list(ex.run(jobs))
         assert v.fields["assessment"] == "Red"
+
+
+class TestAgentToolExecutor:
+    def _jobs(self):
+        return [
+            Job(job_id="assess-w-01", claim_ids=["w-01"], prompt="P1",
+                prompt_version="assess-v1", files=["opinions/A.html"]),
+            Job(job_id="assess-w-02", claim_ids=["w-02"], prompt="P2",
+                prompt_version="assess-v1"),
+        ]
+
+    def test_writes_jobs_file_and_yields_nothing(self, tmp_path):
+        path = tmp_path / "jobs" / "assess.json"
+        ex = AgentToolExecutor(path)
+        verdicts = list(ex.run(self._jobs()))
+        assert verdicts == []
+        assert ex.pending == ["w-01", "w-02"]
+        data = json.loads(path.read_text(encoding="utf-8"))
+        assert [j["job_id"] for j in data] == ["assess-w-01", "assess-w-02"]
+        assert data[0]["prompt"] == "P1"
+        assert data[0]["prompt_version"] == "assess-v1"
+        assert data[0]["files"] == ["opinions/A.html"]
+
+    def test_rerun_replaces_jobs_file(self, tmp_path):
+        path = tmp_path / "assess.json"
+        ex = AgentToolExecutor(path)
+        list(ex.run(self._jobs()))
+        list(ex.run(self._jobs()[:1]))
+        data = json.loads(path.read_text(encoding="utf-8"))
+        assert len(data) == 1
+        assert ex.pending == ["w-01"]
