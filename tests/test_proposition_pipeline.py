@@ -83,3 +83,15 @@ class TestMatchedCaseNameAccessor:
 
     def test_empty_path_returns_empty(self):
         assert _result([]).matched_case_name == ""
+
+
+class TestBriefPipelineAlias:
+    def test_module_identity(self):
+        import citation_verifier.brief_pipeline as bp
+        import citation_verifier.proposition_pipeline as pp
+        assert bp is pp
+
+    def test_patch_through_alias_reaches_real_globals(self):
+        import citation_verifier.proposition_pipeline as pp
+        with patch("citation_verifier.brief_pipeline.CitationVerifier") as m:
+            assert pp.CitationVerifier is m
