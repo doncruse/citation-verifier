@@ -649,6 +649,7 @@ _VERSION_RE = re.compile(r"<!--\s*prompt_version:\s*(\S+)\s*-->")
 _LEADING_COMMENT_RE = re.compile(r"\A(?:\s*<!--.*?-->)*\s*", re.DOTALL)
 
 DEFAULT_PROMPT_VERSION = "assess-v1"
+ASSESS_V2_PROMPT_VERSION = "assess-v2"
 EXTRACT_PROMPT_VERSION = "extract-v1"
 PRESCREEN_PROMPT_VERSION = "prescreen-v1"
 
@@ -678,6 +679,54 @@ def render_assess_prompt(version: str, opinion_path: str, cited_case: str,
                        ("{quote_check_worst}", quote_check_worst)):
         body = body.replace(key, value)
     return body
+
+
+# Same floor the report uses for the deterministic passage (verify-brief
+# Phase 2c: above ~0.65 the matched passage is usually the one to quote;
+# below it's junk that would mislead the agent).
+_V2_PASSAGE_HINT_MIN_SIM = 0.65
+
+
+def render_assess_v2_claim_block(claim: dict) -> str:
+    """One claim's entry in the v2 multi-claim prompt (design SS6.3
+    cited_for, SS6.7 prescreen hint). Optional lines are omitted when
+    empty so short claims stay short."""
+    lines = [f"### Claim {claim['claim_id']}",
+             f"Cited case: {claim.get('cited_case', '')}",
+             f"Proposition: {claim.get('proposition', '')}"]
+    if (claim.get("cited_for") or "").strip():
+        lines.append("Cited for (judge this narrower assertion): "
+                     + claim["cited_for"].strip())
+    if (claim.get("brief_sentence") or "").strip():
+        lines.append("Brief sentence: " + claim["brief_sentence"].strip())
+    quoted = (claim.get("quoted_text") or "").strip()
+    if quoted and quoted != "[]":
+        lines.append("Quoted strings: " + quoted)
+    lines.append("Quote check result: "
+                 + (claim.get("quote_check_worst") or "NO_QUOTES"))
+    try:
+        checks = json_mod.loads(claim.get("quote_check") or "[]")
+    except (json_mod.JSONDecodeError, ValueError):
+        checks = []
+    for qc in checks:
+        sim = qc.get("similarity", 0) if isinstance(qc, dict) else 0
+        if (isinstance(qc, dict) and qc.get("matched_passage")
+                and sim >= _V2_PASSAGE_HINT_MIN_SIM):
+            lines.append(f"Matched passage hint (deterministic, "
+                         f"sim={sim:.2f}): {qc['matched_passage']}")
+    if (claim.get("prescreen_hint") or "").strip():
+        lines.append("Preliminary review hint: "
+                     + claim["prescreen_hint"].strip())
+    return "\n".join(lines)
+
+
+def render_assess_v2_prompt(version: str, opinion_path: str,
+                            claims: list[dict]) -> str:
+    """Render the packed v2 prompt: one opinion, many claims."""
+    blocks = "\n\n".join(render_assess_v2_claim_block(c) for c in claims)
+    return (load_prompt_template(version)
+            .replace("{opinion_path}", opinion_path)
+            .replace("{claims_block}", blocks))
 
 
 def render_extract_prompt(version: str, document_path: str) -> str:

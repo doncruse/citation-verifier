@@ -1587,6 +1587,71 @@ class TestReportLanesRendering:
         assert 'class="flag-chip"' not in html
 
 
+class TestAssessV2Template:
+    def _claim(self, **kw):
+        base = {"claim_id": "w-01",
+                "cited_case": "Nix v. Whiteside, 475 U.S. 157 (1986)",
+                "proposition": "Counsel must not assist perjury.",
+                "cited_for": "", "brief_sentence": "", "quoted_text": "[]",
+                "quote_check": "[]", "quote_check_worst": "NO_QUOTES",
+                "prescreen_hint": ""}
+        base.update(kw)
+        return base
+
+    def test_template_loads_and_mentions_contract(self):
+        import citation_verifier.proposition_pipeline as pp
+        body = pp.load_prompt_template("assess-v2")
+        for marker in ("{opinion_path}", "{claims_block}", "verdicts",
+                       "supported", "partial", "unsupported",
+                       "unverifiable", "badge_label", "brief_block",
+                       "opinion_block", "finding_analysis"):
+            assert marker in body
+        assert "Do not use web search" in body  # SS6.8 prohibition
+
+    def test_claim_block_minimal(self):
+        import citation_verifier.proposition_pipeline as pp
+        block = pp.render_assess_v2_claim_block(self._claim())
+        assert "w-01" in block and "Nix v. Whiteside" in block
+        assert "NO_QUOTES" in block
+        assert "Cited for" not in block        # empty -> omitted
+        assert "Preliminary review hint" not in block
+
+    def test_claim_block_full(self):
+        import citation_verifier.proposition_pipeline as pp
+        block = pp.render_assess_v2_claim_block(self._claim(
+            cited_for="the adverse-inference standard",
+            brief_sentence="See Nix, 475 U.S. at 160 (standard).",
+            quoted_text='["obvious reasons to doubt"]',
+            quote_check='[{"quote": "obvious reasons to doubt", '
+                        '"result": "CLOSE", "similarity": 0.72, '
+                        '"matched_passage": "reasons to doubt the '
+                        'veracity"}]',
+            quote_check_worst="CLOSE",
+            prescreen_hint="Case is about perjury, not conflicts."))
+        assert "Cited for" in block and "adverse-inference" in block
+        assert "obvious reasons to doubt" in block
+        assert "reasons to doubt the veracity" in block  # passage hint
+        assert "sim=0.72" in block
+        assert "Preliminary review hint" in block
+
+    def test_low_sim_passage_hint_omitted(self):
+        import citation_verifier.proposition_pipeline as pp
+        block = pp.render_assess_v2_claim_block(self._claim(
+            quote_check='[{"quote": "x y", "result": "FABRICATED", '
+                        '"similarity": 0.4, "matched_passage": "junk"}]',
+            quote_check_worst="FABRICATED"))
+        assert "junk" not in block  # below the 0.65 hint floor
+
+    def test_render_assess_v2_prompt(self):
+        import citation_verifier.proposition_pipeline as pp
+        prompt = pp.render_assess_v2_prompt(
+            "assess-v2", "opinions/nix.html",
+            [self._claim(), self._claim(claim_id="w-02")])
+        assert "opinions/nix.html" in prompt
+        assert prompt.count("Claim w-0") == 2
+        assert "{claims_block}" not in prompt
+
+
 class TestRunReport:
     def test_writes_report_and_stamps_run_json(self, tmp_path):
         import citation_verifier.proposition_pipeline as pp
