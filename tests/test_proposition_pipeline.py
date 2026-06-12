@@ -660,6 +660,140 @@ class TestCli:
         assert "PENDING" in out
 
 
+def _extract_verdict_fields():
+    return {
+        "claims": [
+            {"page": "3",
+             "proposition": "Settlement evidence is irrelevant.",
+             "cited_for": "",
+             "cited_case": "Tompkins v. Cyr, 202 F.3d 770 (5th Cir. 2000)",
+             "quoted_text": ["consequential fact"],
+             "brief_sentence": "See Tompkins v. Cyr, 202 F.3d 770, 787 "
+                               "(5th Cir. 2000) (evidence must be relevant "
+                               "to a 'consequential fact')."},
+            {"page": "5",
+             "proposition": "Bad faith is required for spoliation.",
+             "cited_for": "adverse-inference standard",
+             "cited_case": "King v. Ill. Cent. R.R., 337 F.3d 550 "
+                           "(5th Cir. 2003)",
+             "quoted_text": [],
+             "brief_sentence": "King v. Ill. Cent. R.R., 337 F.3d 550, 556 "
+                               "(5th Cir. 2003)."},
+        ],
+        "citations_toa": ["Tompkins v. Cyr, 202 F.3d 770 (5th Cir. 2000)"],
+        "citations_body": [
+            "Tompkins v. Cyr, 202 F.3d 770 (5th Cir. 2000)",
+            "King v. Ill. Cent. R.R., 337 F.3d 550 (5th Cir. 2003)",
+        ],
+    }
+
+
+def _extract_workdir(tmp_path, name="matter"):
+    wd = tmp_path / name
+    wd.mkdir()
+    doc = wd / "brief.pdf"
+    doc.write_bytes(b"%PDF-1.4 fake")
+    return wd, doc
+
+
+def _extract_cassette(path, fields=None):
+    from citation_verifier.executor import Verdict, append_verdict_jsonl
+    append_verdict_jsonl(path, Verdict(
+        claim_id="extract", fields=fields or _extract_verdict_fields(),
+        model="opus", prompt_version="extract-v1"))
+
+
+class TestRunExtract:
+    def test_jobs_mode_writes_jobs_file_and_pends(self, tmp_path):
+        import citation_verifier.proposition_pipeline as pp
+        wd, doc = _extract_workdir(tmp_path)
+        stats = pp.run_extract(wd, doc)
+        assert stats.pending is True
+        assert stats.claims == 0
+        assert not (wd / "claims.csv").exists()
+        jobs = json.loads((wd / "jobs" / "extract.json")
+                          .read_text(encoding="utf-8"))
+        assert len(jobs) == 1
+        assert jobs[0]["claim_ids"] == ["extract"]
+        assert jobs[0]["prompt_version"] == "extract-v1"
+        assert str(doc) in jobs[0]["prompt"]
+        assert jobs[0]["files"] == [str(doc)]
+
+    def test_replay_writes_claims_and_citation_lists(self, tmp_path):
+        import citation_verifier.proposition_pipeline as pp
+        from citation_verifier.executor import RecordedExecutor
+        wd, doc = _extract_workdir(tmp_path)
+        cassette = tmp_path / "rec.jsonl"
+        _extract_cassette(cassette)
+        stats = pp.run_extract(wd, doc, executor=RecordedExecutor(cassette))
+        assert stats.pending is False
+        assert (stats.claims, stats.toa, stats.body) == (2, 1, 2)
+        with open(wd / "claims.csv", newline="", encoding="utf-8") as f:
+            rows = list(csv.DictReader(f))
+        assert [r["claim_id"] for r in rows] == ["matter-01", "matter-02"]
+        assert rows[0]["cited_case"].startswith("Tompkins v. Cyr")
+        assert json.loads(rows[0]["quoted_text"]) == ["consequential fact"]
+        assert rows[1]["cited_for"] == "adverse-inference standard"
+        toa = (wd / "citations_toa.txt").read_text(encoding="utf-8")
+        assert toa.strip().splitlines() == [
+            "Tompkins v. Cyr, 202 F.3d 770 (5th Cir. 2000)"]
+        body = (wd / "citations_body.txt").read_text(encoding="utf-8")
+        assert len(body.strip().splitlines()) == 2
+        # the verdict was persisted for resume
+        assert (wd / "jobs" / "extract_results.jsonl").exists()
+
+    def test_rerun_ingests_appended_verdict(self, tmp_path):
+        """Jobs-mode round trip: pend, agent appends, rerun ingests."""
+        import citation_verifier.proposition_pipeline as pp
+        wd, doc = _extract_workdir(tmp_path)
+        assert pp.run_extract(wd, doc).pending is True
+        _extract_cassette(wd / "jobs" / "extract_results.jsonl")
+        stats = pp.run_extract(wd, doc)
+        assert stats.pending is False
+        assert stats.claims == 2
+        assert (wd / "claims.csv").exists()
+
+    def test_noop_when_claims_exist(self, tmp_path):
+        import citation_verifier.proposition_pipeline as pp
+        wd, doc = _extract_workdir(tmp_path)
+        (wd / "claims.csv").write_text("claim_id\nx-01\n", encoding="utf-8")
+        assert pp.run_extract(wd, doc) is None
+        assert (wd / "claims.csv").read_text(
+            encoding="utf-8") == "claim_id\nx-01\n"
+
+    def test_malformed_verdict_raises(self, tmp_path):
+        import citation_verifier.proposition_pipeline as pp
+        from citation_verifier.executor import RecordedExecutor
+        wd, doc = _extract_workdir(tmp_path)
+        cassette = tmp_path / "rec.jsonl"
+        _extract_cassette(cassette, fields={"claims": "not-a-list"})
+        with pytest.raises(ValueError, match="extract verdict"):
+            pp.run_extract(wd, doc, executor=RecordedExecutor(cassette))
+        assert not (wd / "claims.csv").exists()
+
+    def test_claim_missing_required_field_raises(self, tmp_path):
+        import citation_verifier.proposition_pipeline as pp
+        from citation_verifier.executor import RecordedExecutor
+        wd, doc = _extract_workdir(tmp_path)
+        fields = _extract_verdict_fields()
+        fields["claims"][1]["cited_case"] = ""
+        cassette = tmp_path / "rec.jsonl"
+        _extract_cassette(cassette, fields=fields)
+        with pytest.raises(ValueError, match="cited_case"):
+            pp.run_extract(wd, doc, executor=RecordedExecutor(cassette))
+
+    def test_run_json_stamped(self, tmp_path):
+        import citation_verifier.proposition_pipeline as pp
+        from citation_verifier.executor import RecordedExecutor
+        wd, doc = _extract_workdir(tmp_path)
+        cassette = tmp_path / "rec.jsonl"
+        _extract_cassette(cassette)
+        pp.run_extract(wd, doc, executor=RecordedExecutor(cassette))
+        run = json.loads((wd / "run.json").read_text(encoding="utf-8"))
+        assert run["verbs"]["extract"]["prompt_version"] == "extract-v1"
+        assert run["verbs"]["extract"]["claims"] == 2
+
+
 class TestExtractPrompt:
     def test_template_loads_and_declares_version(self):
         import citation_verifier.proposition_pipeline as pp

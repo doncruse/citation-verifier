@@ -706,6 +706,131 @@ def citations_from_workdir(workdir: Path) -> list[str]:
     return list(seen)
 
 
+# extract-v1 verdict schema (documentation-shaped; run_extract validates).
+_EXTRACT_V1_SCHEMA = {
+    "claims": [{"page": "str", "proposition": "str", "cited_for": "str",
+                "cited_case": "str", "quoted_text": ["str"],
+                "brief_sentence": "str"}],
+    "citations_toa": ["str"],
+    "citations_body": ["str"],
+}
+
+# The single extract job's synthetic resume row id (the verdicts JSONL
+# resume key is claim_id + prompt_version; extract has one job per workdir).
+_EXTRACT_ROW_ID = "extract"
+
+_CLAIMS_COLUMNS = ["claim_id", "page", "proposition", "cited_for",
+                   "cited_case", "quoted_text", "brief_sentence"]
+
+
+@dataclass
+class ExtractStats:
+    """Statistics from run_extract."""
+    claims: int = 0
+    toa: int = 0
+    body: int = 0
+    pending: bool = False
+
+
+def run_extract(workdir: Path, document: str | Path, executor: Any = None,
+                prompt_version: str = EXTRACT_PROMPT_VERSION,
+                force: bool = False) -> ExtractStats | None:
+    """Verb 0 (design SS3, LLM, optional front end): document ->
+    claims.csv + citations_toa.txt + citations_body.txt.
+
+    One job per workdir through the executor protocol (resume key =
+    "extract" + prompt_version in jobs/extract_results.jsonl). Default
+    executor is AgentToolExecutor (jobs mode): writes jobs/extract.json
+    and pends; dispatch an agent, append the verdict, rerun to ingest.
+    Idempotent: no-ops (returns None) when claims.csv already exists --
+    prepared-pairs workdirs never re-extract (force=True to redo).
+    """
+    from .executor import AgentToolExecutor, Job, append_verdict_jsonl, \
+        load_verdicts_jsonl
+
+    workdir = Path(workdir)
+    document = Path(document)
+    if (workdir / "claims.csv").exists() and not force:
+        return None
+
+    results_path = workdir / "jobs" / "extract_results.jsonl"
+    verdict = None
+    if results_path.exists():
+        for v in load_verdicts_jsonl(results_path):  # last write wins
+            if (v.claim_id == _EXTRACT_ROW_ID
+                    and v.prompt_version == prompt_version):
+                verdict = v
+
+    if verdict is None:
+        job = Job(
+            job_id=_EXTRACT_ROW_ID,
+            claim_ids=[_EXTRACT_ROW_ID],
+            prompt=render_extract_prompt(prompt_version, str(document)),
+            prompt_version=prompt_version,
+            files=[str(document)],
+            schema=_EXTRACT_V1_SCHEMA,
+        )
+        if executor is None:
+            executor = AgentToolExecutor(workdir / "jobs" / "extract.json")
+        for v in executor.run([job]):
+            append_verdict_jsonl(results_path, v)
+            verdict = v
+
+    if verdict is None:
+        stats = ExtractStats(pending=True)
+        _update_run_json(workdir, "extract", prompt_version=prompt_version,
+                         pending=True)
+        return stats
+
+    stats = _write_extract_outputs(workdir, verdict.fields)
+    _update_run_json(workdir, "extract", prompt_version=prompt_version,
+                     claims=stats.claims, toa=stats.toa, body=stats.body)
+    return stats
+
+
+def _write_extract_outputs(workdir: Path,
+                           fields: dict[str, Any]) -> ExtractStats:
+    """Validate the extract verdict and write claims.csv (pipeline-assigned
+    claim_id = <workdir.name>-NN) + the TOA/body citation lists."""
+    claims = fields.get("claims")
+    if not isinstance(claims, list) or not all(
+            isinstance(c, dict) for c in claims):
+        raise ValueError(
+            "extract verdict: 'claims' must be a list of objects")
+    rows = []
+    for i, c in enumerate(claims, start=1):
+        for required in ("cited_case", "proposition"):
+            if not str(c.get(required) or "").strip():
+                raise ValueError(
+                    f"extract verdict: claim {i} missing {required}")
+        quoted = c.get("quoted_text", [])
+        rows.append({
+            "claim_id": f"{workdir.name}-{i:02d}",
+            "page": str(c.get("page") or ""),
+            "proposition": str(c.get("proposition") or "").strip(),
+            "cited_for": str(c.get("cited_for") or "").strip(),
+            "cited_case": str(c.get("cited_case") or "").strip(),
+            "quoted_text": (quoted if isinstance(quoted, str)
+                            else json_mod.dumps(quoted, ensure_ascii=False)),
+            "brief_sentence": str(c.get("brief_sentence") or "").strip(),
+        })
+    toa = [str(s).strip() for s in fields.get("citations_toa") or []
+           if str(s).strip()]
+    body = [str(s).strip() for s in fields.get("citations_body") or []
+            if str(s).strip()]
+
+    with open(workdir / "claims.csv", "w", newline="",
+              encoding="utf-8") as f:
+        w = csv.DictWriter(f, fieldnames=_CLAIMS_COLUMNS)
+        w.writeheader()
+        w.writerows(rows)
+    (workdir / "citations_toa.txt").write_text(
+        "\n".join(toa) + ("\n" if toa else ""), encoding="utf-8")
+    (workdir / "citations_body.txt").write_text(
+        "\n".join(body) + ("\n" if body else ""), encoding="utf-8")
+    return ExtractStats(claims=len(rows), toa=len(toa), body=len(body))
+
+
 async def run_verify(workdir: Path, citations: list[str] | None = None,
                      force: bool = False, progress_callback: Any = None,
                      ) -> PipelineResult | None:
