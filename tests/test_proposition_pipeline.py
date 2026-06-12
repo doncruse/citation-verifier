@@ -1708,6 +1708,61 @@ class TestRunAssessV2:
         assert all(len(j["claim_ids"]) == 1 for j in jobs)
 
 
+class TestApplyAssessmentsV2:
+    def _wd_with_v2(self, tmp_path, support, qcw="NO_QUOTES",
+                    cl_status="VERIFIED", floor=""):
+        from citation_verifier.executor import Verdict, append_verdict_jsonl
+        wd = _report_workdir(tmp_path, [_report_row(
+            "r-01", cl_status=cl_status, opinion_file="opinions/a.html",
+            quote_check_worst=qcw, quote_floor=floor)])
+        (wd / "jobs").mkdir()
+        append_verdict_jsonl(
+            wd / "jobs" / "assess_results.jsonl",
+            Verdict(claim_id="r-01",
+                    fields={"support": support, "badge_label": "B",
+                            "brief_block": "bb", "opinion_block": "ob",
+                            "finding_analysis": "fa"},
+                    model="opus", prompt_version="assess-v2"))
+        return wd
+
+    @pytest.mark.parametrize("support,qcw,color", [
+        ("supported", "NO_QUOTES", "Green"),
+        ("supported", "CLOSE", "Yellow"),     # derive_color quote axis
+        ("partial", "VERBATIM", "Yellow"),
+        ("unsupported", "VERBATIM", "Red"),
+        ("unverifiable", "NO_QUOTES", "Gray"),
+    ])
+    def test_color_derived_from_axes(self, tmp_path, support, qcw, color):
+        import citation_verifier.proposition_pipeline as pp
+        wd = self._wd_with_v2(tmp_path, support, qcw=qcw)
+        stats = pp.run_apply_assessments(wd, prompt_version="assess-v2")
+        assert stats.applied == 1
+        (row,) = list(csv.DictReader(
+            (wd / "claims.csv").open(encoding="utf-8")))
+        assert row["assessment"] == color
+        assert row["support"] == support
+        assert row["badge_label"] == "B"
+        assert row["brief_block"] == "bb"
+        assert row["opinion_block"] == "ob"
+        assert row["finding_analysis"] == "fa"
+        assert row["assessed_by"] == "opus/assess-v2"
+
+    def test_quote_floor_still_guards(self, tmp_path):
+        import citation_verifier.proposition_pipeline as pp
+        wd = self._wd_with_v2(tmp_path, "supported", qcw="FABRICATED",
+                              floor="Yellow")
+        pp.run_apply_assessments(wd, prompt_version="assess-v2")
+        (row,) = list(csv.DictReader(
+            (wd / "claims.csv").open(encoding="utf-8")))
+        assert row["assessment"] == "Yellow"
+
+    def test_invalid_support_rejected(self, tmp_path):
+        import citation_verifier.proposition_pipeline as pp
+        wd = self._wd_with_v2(tmp_path, "kinda")
+        stats = pp.run_apply_assessments(wd, prompt_version="assess-v2")
+        assert stats.invalid == 1 and stats.applied == 0
+
+
 class TestRunReport:
     def test_writes_report_and_stamps_run_json(self, tmp_path):
         import citation_verifier.proposition_pipeline as pp

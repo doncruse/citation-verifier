@@ -1105,24 +1105,46 @@ def run_apply_assessments(workdir: Path,
         if v is None:
             stats.missing += 1
             continue
-        color = v.fields.get("assessment")
-        if color not in _VALID_COLORS:
-            stats.invalid += 1
-            stats.invalid_claims.append(c["claim_id"])
-            continue
+        if "support" in v.fields:
+            # v2+ verdict: color derived from the SS6.9 axes (existence
+            # from cl_status, support from the agent, quote from the
+            # deterministic check); the agent never outputs a color.
+            from .scoring import derive_color
+            support = v.fields.get("support")
+            if support not in ("supported", "partial", "unsupported",
+                               "unverifiable"):
+                stats.invalid += 1
+                stats.invalid_claims.append(c["claim_id"])
+                continue
+            color = derive_color(c.get("cl_status", ""), support,
+                                 c.get("quote_check_worst", ""))
+            c["support"] = support
+            c["badge_label"] = v.fields.get("badge_label", "")
+            c["brief_block"] = v.fields.get("brief_block", "")
+            c["opinion_block"] = v.fields.get("opinion_block", "")
+            # v2 owns the analysis (richer than v1's rationale)
+            c["finding_analysis"] = v.fields.get("finding_analysis", "")
+        else:
+            # v1 verdict: single agent color, validated.
+            color = v.fields.get("assessment")
+            if color not in _VALID_COLORS:
+                stats.invalid += 1
+                stats.invalid_claims.append(c["claim_id"])
+                continue
+            c["support"] = v.fields.get("support", "")
+            if not c.get("finding_analysis"):
+                c["finding_analysis"] = v.fields.get("rationale", "")
         floor = c.get("quote_floor", "")
         if (floor in _SEVERITY_RANK and color in _SEVERITY_RANK
                 and _SEVERITY_RANK[color] < _SEVERITY_RANK[floor]):
             color = floor
         c["assessment"] = color
-        c["support"] = v.fields.get("support", "")
         c["assessed_by"] = f"{v.model}/{v.prompt_version}"
-        if not c.get("finding_analysis"):
-            c["finding_analysis"] = v.fields.get("rationale", "")
         stats.applied += 1
 
     fields = list(claims[0].keys())
-    for col in ("assessment", "support", "assessed_by", "finding_analysis"):
+    for col in ("assessment", "support", "assessed_by", "finding_analysis",
+                "badge_label", "brief_block", "opinion_block"):
         if col not in fields:
             fields.append(col)
     for c in claims:
