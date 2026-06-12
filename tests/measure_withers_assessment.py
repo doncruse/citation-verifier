@@ -42,6 +42,12 @@ Output:
     tests/data/withers_assessment_results.csv   (final scored table)
     tests/data/withers_assessment_runs.jsonl    (raw per-row agent output)
     tests/data/assessment_corpora/withers/      (frozen pipeline workdir)
+
+SUPERSEDED for reruns (2026-06-12, pipeline-redesign Step 8): live Withers
+re-runs now go through `tools/ab_test_runner.py --corpus withers --config
+<cfg>` (executor + frozen-workdir contract) and offline scoring through
+`python -m citation_verifier.scoring`. This script remains as the original
+2026-06-11 methodology record; its `claude -p` phase is not maintained.
 """
 from __future__ import annotations
 

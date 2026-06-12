@@ -105,6 +105,16 @@ class TestSaveAndCompare:
         assert "Disagreements: 0" in printed
 
 
+class TestWithersCorpusViaRunner:
+    def test_replay_scores_exhibit_scale(self, capsys):
+        scores = ab.run_ab_config("baseline", {}, corpora=("withers",),
+                                  replay=True)
+        s = scores["withers"]
+        assert (s.yellows_caught, s.yellows_total) == (14, 19)
+        assert (s.reds_caught, s.reds_total) == (3, 3)
+        assert "yellows caught 14/19" in capsys.readouterr().out
+
+
 class TestDryRun:
     def test_prints_job_counts(self, capsys):
         ab.dry_run_config("opus-baseline", {"model": "opus"},
