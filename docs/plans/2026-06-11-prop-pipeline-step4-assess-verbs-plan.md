@@ -144,6 +144,25 @@ Note `DEFAULT_PROMPT_VERSION = "assess-v1"` — import from `scoring` or define 
 - [ ] **5.2** Tests for dispatch (monkeypatch the verb functions, same pattern as TestCli).
 - [ ] **5.3** CLAUDE.md (verbs, prompts dir, jobs-mode flow), plan execution notes, full offline suite, push.
 
+## Execution notes (2026-06-11, all tasks complete)
+
+- Offline end-to-end is green: copy of the frozen Withers corpus →
+  `assess --replay <cassette>` (29 done) → `apply-assessments` (29
+  applied; withers-09 floored Green→Yellow) — and a dedicated test pins
+  that apply-assessments and `scoring.predict_workdir` agree on every
+  agent-assessed claim (one floor rule, two implementations, asserted
+  equal).
+- Template rendering is `.replace()`-based (the body contains literal
+  JSON braces that break `str.format`); `load_prompt_template` refuses a
+  file whose header declares a different version than requested.
+- The fidelity test imports `measure_withers_assessment.build_prompt`
+  (sys.path tweak — tests/ isn't a package) and asserts byte-equality.
+- §6.8 packing deferred to assess-v2 as planned (cassettes are
+  single-claim v1); jobs are ordered by opinion file so a future packer
+  slots in without reordering.
+- `pyproject.toml` gained `[tool.setuptools.package-data]` for
+  `prompts/*.md`.
+
 ## Self-review notes
 - §5 AgentToolExecutor: Task 2 (the verb writes the jobs file *through* the executor — one write path).
 - §6.6: apply-assessments owns the CSV; subagents only append JSON lines (Task 4).

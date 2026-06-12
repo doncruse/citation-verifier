@@ -521,9 +521,13 @@ def verify_propositions_main(argv: list[str] | None = None) -> int:
     )
     parser.add_argument("workdir", help="Pipeline working directory")
     parser.add_argument(
-        "verb", choices=["verify", "merge", "full"],
+        "verb",
+        choices=["verify", "merge", "assess", "apply-assessments", "full"],
         help="verify = wave1+wave2+downloads; merge = join claims to "
-             "results + opinion linkage; full = verify then merge",
+             "results + opinion linkage; assess = LLM assessment jobs "
+             "(jobs mode by default); apply-assessments = verdicts JSONL "
+             "-> claims.csv with floors; full = verify -> merge -> assess "
+             "(-> apply when verdicts are complete)",
     )
     parser.add_argument(
         "--force", action="store_true",
@@ -533,6 +537,15 @@ def verify_propositions_main(argv: list[str] | None = None) -> int:
         "--citations-file",
         help="Explicit citation list (one per line) instead of deriving "
              "from claims.csv cited_case",
+    )
+    parser.add_argument(
+        "--prompt-version", default=None,
+        help="Prompt template version for assess/apply (default assess-v1)",
+    )
+    parser.add_argument(
+        "--replay",
+        help="Replay assess verdicts from a recorded JSONL (offline) "
+             "instead of jobs mode",
     )
     args = parser.parse_args(argv)
 
@@ -576,6 +589,32 @@ def verify_propositions_main(argv: list[str] | None = None) -> int:
         if stats.unmatched_claims:
             for c in stats.unmatched_claims:
                 print(f"  UNMATCHED: {c[:80]}")
+
+    prompt_version = args.prompt_version or pp.DEFAULT_PROMPT_VERSION
+
+    if args.verb in ("assess", "full"):
+        executor = None
+        if args.replay:
+            from .executor import RecordedExecutor
+            executor = RecordedExecutor(args.replay)
+        astats = pp.run_assess(workdir, executor=executor,
+                               prompt_version=prompt_version)
+        print(f"[OK] assess: {astats.eligible} eligible, "
+              f"{astats.done} done, {astats.pending} pending, "
+              f"{astats.skipped_deterministic} deterministic")
+        if astats.pending:
+            print(f"  PENDING: dispatch agents over jobs/assess.json, "
+                  f"append verdicts to jobs/assess_results.jsonl, then "
+                  f"rerun this verb to ingest")
+            return 0  # full stops here until verdicts are complete
+
+    if args.verb in ("apply-assessments", "full"):
+        pstats = pp.run_apply_assessments(workdir,
+                                          prompt_version=prompt_version)
+        print(f"[OK] apply-assessments: {pstats.applied} applied, "
+              f"{pstats.invalid} invalid, {pstats.missing} missing")
+        for cid in pstats.invalid_claims:
+            print(f"  INVALID verdict (not applied): {cid}")
 
     return 0
 

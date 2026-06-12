@@ -631,3 +631,30 @@ class TestCli:
         from citation_verifier.__main__ import verify_propositions_main
         rc = verify_propositions_main([str(tmp_path / "nope"), "merge"])
         assert rc == 1
+
+    def test_assess_replay_then_apply(self, tmp_path, capsys):
+        """Offline end-to-end through the CLI: assess --replay ingests the
+        recorded cassette, apply-assessments writes the colors."""
+        from citation_verifier.__main__ import verify_propositions_main
+        wd = _copy_withers(tmp_path)
+        (wd / "jobs" / "assess_results.jsonl").unlink()
+        rc = verify_propositions_main(
+            [str(wd), "assess", "--replay", str(WITHERS_CASSETTE)])
+        assert rc == 0
+        assert "29 done, 0 pending" in capsys.readouterr().out
+        rc = verify_propositions_main([str(wd), "apply-assessments"])
+        assert rc == 0
+        assert "29 applied" in capsys.readouterr().out
+        claims = {c["claim_id"]: c for c in csv.DictReader(
+            (wd / "claims.csv").open(encoding="utf-8"))}
+        assert claims["withers-09"]["assessment"] == "Yellow"
+
+    def test_assess_jobs_mode_reports_pending(self, tmp_path, capsys):
+        from citation_verifier.__main__ import verify_propositions_main
+        wd = _copy_withers(tmp_path)
+        (wd / "jobs" / "assess_results.jsonl").unlink()
+        rc = verify_propositions_main([str(wd), "assess"])
+        assert rc == 0
+        out = capsys.readouterr().out
+        assert "29 pending" in out
+        assert "PENDING" in out
