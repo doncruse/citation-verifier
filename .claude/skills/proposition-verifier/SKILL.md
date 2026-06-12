@@ -19,9 +19,10 @@ All logic lives in the pipeline (`python -m citation_verifier verify-proposition
 4. **When the CLI prints PENDING** (extract, prescreen, or assess jobs), dispatch agents (step 5), then **rerun the same `full` command** — every verb is idempotent and resumes from the jobs sidecars.
 5. **Jobs-mode dispatch:** read the pending jobs file (`jobs/extract.json`, `jobs/assess.json`, or `jobs/prescreen.json`). For each job, launch one general-purpose Agent subagent whose prompt is the job's `prompt` field verbatim, plus this appendix:
 
-   > After producing your JSON object, append it as ONE line to `<workdir>/jobs/<phase>_results.jsonl` in this envelope:
+   > After producing your JSON object, append it to `<workdir>/jobs/<phase>_results.jsonl` as ONE line PER claim. For single-claim jobs the line is:
    > `{"claim_id": "<the job's claim_ids[0]>", "prompt_version": "<the job's prompt_version>", "model": "<your model>", "fields": <your JSON object>}`
-   > Use only the Read tool on files in the workdir, plus that one append. No other tools.
+   > For packed assess jobs (multiple claim_ids), write one line per entry of your `verdicts` array, with `fields` = that entry minus its `claim_id`.
+   > Use only the Read tool on files in the workdir, plus those appends. No other tools.
 
    Run assess subagents in parallel, at most ~5 at a time. Do not edit claims.csv yourself — `apply-assessments` owns it (design §6.6).
 6. **Finish:** the chain ends with `[OK] report: matters/<name>/report.html`. Open it for the user and summarize in chat: each Red finding with a one-line rationale; Yellow and Check Cite counts with brief notes; Green count; unable-to-verify cases.
