@@ -37,6 +37,10 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
 from citation_verifier.executor import Verdict, append_verdict_jsonl
+from citation_verifier.proposition_pipeline import (
+    check_quotes,
+    extract_quoted_spans,
+)
 
 PROJECT_ROOT = Path(__file__).parent.parent
 DATA = Path(__file__).parent / "data"
@@ -97,6 +101,25 @@ def build_withers() -> None:
         print(f"withers: stamped claim_id on {len(stamped)} claims")
     else:
         print("withers: claim_id already present")
+
+    # SS6.4 quote regeneration: the corpus's quoted_text was auto-extracted
+    # from the exhibit's propositions at >=4 words (measurement-era rule).
+    # Re-derive from the same source at >=2 words, then re-run the quote
+    # checker so quote_check/quote_check_worst/quote_floor reflect the
+    # current deterministic phase. Cassette keys (claim_id+prompt_version)
+    # are untouched -- no re-record needed.
+    claims = list(csv.DictReader((corpus / "claims.csv").open(encoding="utf-8")))
+    from collections import Counter
+    before = Counter(c.get("quote_check_worst", "") for c in claims)
+    for c in claims:
+        c["quoted_text"] = json.dumps(extract_quoted_spans(c["proposition"]))
+    write_csv(corpus / "claims.csv", claims)
+    q = check_quotes(corpus)
+    claims = list(csv.DictReader((corpus / "claims.csv").open(encoding="utf-8")))
+    after = Counter(c.get("quote_check_worst", "") for c in claims)
+    print(f"withers: quote re-derivation -- worst counts before={dict(before)}")
+    print(f"withers: quote re-derivation -- worst counts after ={dict(after)} "
+          f"(checked={q.checked}, derived={q.derived_quotes})")
 
     # Ground truth: ALL 54 exhibit rows (the workdir holds 34; scoring only
     # scores rows present in claims.csv, the rest await corpus expansion).

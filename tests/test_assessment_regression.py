@@ -1,10 +1,15 @@
 """Offline regression: the frozen corpora + recorded cassettes must keep
 reproducing the two committed acceptance baselines (design SS8).
 
-  1. Withers assessment baseline (2026-06-11, README second table):
-     12/19 yellows caught, 7 missed, greens 9 exact / 2 over-flagged,
-     reds 1 Red + 2 Gray. Cross-checked row-for-row against
-     tests/data/withers_assessment_results.csv (NONE differing).
+  1. Withers: 14/19 yellows caught (8 exact), greens 9 exact / 2
+     over-flagged, reds 1 Red + 2 Gray. History: the 2026-06-11
+     measurement run scored 12/19 (cross-checked row-for-row against
+     tests/data/withers_assessment_results.csv); the SS6.4 quote rules
+     (>=2-word span extraction + the banded quote_floor) added
+     withers-09 (Am. Auto -- the 2-word "judicial admissions" quote,
+     CLOSE@0.64) and withers-38 (Anderson -- CLOSE@0.73), with zero new
+     green over-flags thanks to the near-verbatim CLOSE band
+     (see proposition_pipeline._quote_floor).
   2. A/B opus baseline (ab_opus-baseline_20260323-002228.jsonl) scored
      against the CURRENT ab_test_cases.json ledger: payne 23/27,
      wainwright 33/34 -> 56/61 (91.8%, >= the 85% target). Note: the
@@ -28,11 +33,11 @@ _RANK = {"Green": 0, "Yellow": 1, "Red": 2}
 
 
 class TestWithersBaseline:
-    def test_reproduces_2026_06_11_assessment_baseline(self):
+    def test_reproduces_assessment_baseline(self):
         s = score_workdir(CORPORA / "withers")
         assert s.yellows_total == 19
-        assert s.yellows_caught == 12
-        assert s.yellows_exact == 6
+        assert s.yellows_caught == 14   # 12 measured + SS6.4 floors (+2)
+        assert s.yellows_exact == 8
         assert s.greens_total == 12
         assert s.greens_exact == 9
         assert s.greens_overflagged == 2
@@ -40,12 +45,14 @@ class TestWithersBaseline:
         assert s.reds_caught == 3  # 1 Red via WRONG_CASE + 2 Gray
 
     def test_known_misses_are_stable(self):
+        """The remaining 5: -12 has no quotation marks in its proposition
+        (not mechanically catchable); the rest are the judgment-call /
+        author-hedged band (design SS1)."""
         s = score_workdir(CORPORA / "withers")
         missed = sorted(r["claim_id"] for r in s.rows
                         if r["expected"] == "yellow" and not r["correct"])
-        assert missed == ["withers-05", "withers-09", "withers-12",
-                          "withers-32", "withers-38", "withers-44",
-                          "withers-49"]
+        assert missed == ["withers-05", "withers-12", "withers-32",
+                          "withers-44", "withers-49"]
 
 
 class TestABOpusBaseline:

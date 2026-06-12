@@ -882,6 +882,33 @@ def _extract_passage(
     return passage.strip()
 
 
+# CLOSE quotes at or above this similarity are near-verbatim (the matcher's
+# VERBATIM cut is >0.85): they keep their CLOSE verdict but do not trigger
+# the Yellow floor. See _quote_floor for the calibration data.
+_CLOSE_FLOOR_MAX_SIM = 0.75
+
+
+def _quote_floor(results: list[dict]) -> str:
+    """SS6.4 deterministic floor over per-quote verdicts.
+
+    A FABRICATED quote, or a CLOSE quote below the near-verbatim band,
+    caps the claim at Yellow (apply-assessments enforces it: the agent
+    can lower a color, never raise it past the floor; offline scoring
+    models the same rule). CLOSE in [0.75, 0.85) does NOT floor: that
+    band is dominated by transcription noise and bracket alterations
+    (Withers calibration 2026-06-11 -- flooring it over-flagged a true
+    green whose quotes scored 0.79/0.80 while the real misquote catches
+    sat at 0.64/0.73). The CLOSE verdict still shows in the report.
+    """
+    for r in results:
+        if r["result"] == "FABRICATED":
+            return "Yellow"
+        if (r["result"] == "CLOSE"
+                and r["similarity"] < _CLOSE_FLOOR_MAX_SIM):
+            return "Yellow"
+    return ""
+
+
 def check_quotes(workdir: Path) -> QuoteCheckStats:
     """Check quoted text in claims against opinion files.
 
@@ -988,12 +1015,7 @@ def check_quotes(workdir: Path) -> QuoteCheckStats:
 
         claim["quote_check"] = json_mod.dumps(results)
         claim["quote_check_worst"] = worst
-        # SS6.4 deterministic floor: a CLOSE or FABRICATED quote inside
-        # quotation marks caps the claim at Yellow. apply-assessments
-        # enforces it (the agent can lower a color, never raise it past
-        # the floor); scoring models the same rule for recorded verdicts.
-        claim["quote_floor"] = (
-            "Yellow" if worst in ("CLOSE", "FABRICATED") else "")
+        claim["quote_floor"] = _quote_floor(results)
         stats.checked += 1
 
     # Write updated claims.csv

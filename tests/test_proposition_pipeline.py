@@ -400,6 +400,20 @@ class TestCheckQuotesExtensions:
         assert json.loads(claims[0]["quoted_text"]) == [
             "supplied span appears"]
 
+    def test_quote_floor_bands(self):
+        from citation_verifier.proposition_pipeline import _quote_floor
+        fab = {"result": "FABRICATED", "similarity": 0.2}
+        close_low = {"result": "CLOSE", "similarity": 0.64}
+        close_near_verbatim = {"result": "CLOSE", "similarity": 0.80}
+        verbatim = {"result": "VERBATIM", "similarity": 1.0}
+        assert _quote_floor([fab]) == "Yellow"
+        assert _quote_floor([close_low]) == "Yellow"
+        # near-verbatim CLOSE band [0.75, 0.85): transcription noise, no floor
+        assert _quote_floor([close_near_verbatim]) == ""
+        assert _quote_floor([verbatim]) == ""
+        assert _quote_floor([verbatim, close_near_verbatim, fab]) == "Yellow"
+        assert _quote_floor([]) == ""
+
     def test_no_quotes_anywhere_still_no_quotes(self, tmp_path):
         from citation_verifier.proposition_pipeline import check_quotes
         wd = self._wd(tmp_path, "No quotation marks at all.", "text")
