@@ -214,6 +214,30 @@ class TestQuoteFloor:
 
 - [ ] CLAUDE.md proposition_pipeline row: add `extract_quoted_spans`/`quote_floor`; scoring row: floor enforcement. Execution notes here. Push.
 
+## Execution notes (2026-06-11, all tasks complete)
+
+- **Measured result: 14/19 yellows caught (8 exact), greens 9/12 exact /
+  2 over-flagged, reds 3/3** — vs the design's ~15/19 projection.
+- The unbanded CLOSE floor (floor every CLOSE) hit the plan's stop
+  condition: it over-flagged withers-21 (a true green whose hand-
+  transcribed quotes scored CLOSE@0.79/0.80) → greens 3/12 over-flagged,
+  breaching the §8 ≤2/12 guardrail. Reassessed per plan: the floor is now
+  **banded** — FABRICATED always floors; CLOSE floors only when
+  similarity < 0.75. The real catches sat at 0.64 (Am. Auto -09) and
+  0.73 (Anderson -38); the near-verbatim band [0.75, 0.85) is dominated
+  by transcription noise / bracket alterations and keeps its CLOSE
+  verdict in the report without forcing Yellow. Calibration recorded in
+  `proposition_pipeline._quote_floor`; revisit against the Fletcher
+  corpus when it gets frozen (§7 candidate list).
+- Am. Auto **-12 is not mechanically catchable**: its proposition
+  paraphrases without quotation marks, so span extraction has nothing to
+  extract. The design's "~3 mechanically catchable" was actually 2.
+  Remaining misses (-05, -12, -32, -44, -49) are the judgment-call band —
+  levers are §6.3 scoping, §6.5 crosscheck, and prompt work (Steps 4-6).
+- The floor logic was extracted to a pure `_quote_floor(results)` helper
+  so the band is unit-tested directly instead of through the fuzzy
+  matcher.
+
 ## Self-review notes
 - §6.4 bullet 1 (≥2-word extraction + per-quote verdicts): Tasks 1-2. Bullet 2 (floors, enforced at apply-assessments): the column lands in Task 2; enforcement is modeled in scoring (Task 3) and will be re-used by the real `apply-assessments` verb in Step 4. Bullet 3 (matcher normalization limits): explicitly out of scope (stays on TODO).
 - The corpus regeneration is design-sanctioned (§6.4 "Withers projection") and changes only deterministic-phase columns; cassette keys (claim_id + prompt_version) untouched, so no re-record.
