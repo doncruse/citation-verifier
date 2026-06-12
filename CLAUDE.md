@@ -66,6 +66,8 @@ Three-step verification pipeline in `src/citation_verifier/verifier.py`:
 | `parser.py` | Citation parsing (eyecite + regex + abbreviation normalization + eyecite factory) |
 | `client.py` | CourtListener API wrapper (rate limiting, 15s timeout, 429 retry). Both sync (`CourtListenerClient`) and async (`AsyncCourtListenerClient`) have `get_opinion_text()` and `get_opinion_text_with_metadata()` for fetching full opinion/RECAP text + metadata. Supports `prefer_html=True` for raw HTML and PDF download fallback. **Canonical opinion-text fallback chain (`_extract_opinion_text`):** `plain_text` -> `html_with_citations` -> `html` -> `html_lawbox` -> `html_columbia` -> `html_anon_2020` -> `xml_harvard`. State opinions in CL frequently have empty `plain_text` but populate `html_lawbox`/`html_with_citations`/`xml_harvard` -- never roll your own fetcher that only checks `plain_text`. The 2026-05-06 state-court smoke test found this gap drops state-tier full-text coverage from 86% to 9%. Tests for each fallback field live in `tests/test_client_opinion_text.py::test_falls_back_to_secondary_html_fields`. |
 | `verifier.py` | Core 3-step pipeline (shared helpers + thin sync/async wrappers) |
+| `executor.py` | LLM executor protocol (pipeline-redesign design §5): `Job`/`Verdict` dataclasses, `LLMExecutor` Protocol, JSONL verdict serde, `RecordedExecutor` replay adapter (raises `RecordedVerdictMiss` on cassette miss; key = `claim_id` + `prompt_version`) |
+| `scoring.py` | Two-axis scoring (design §6.9/§8): `derive_color()` pure color function, `predict_workdir()`/`score_workdir()` offline corpus scoring, CLI `python -m citation_verifier.scoring <corpus-dir>` |
 | `brief_pipeline.py` | Brief verification pipeline: `wave1_verify_and_download()`, `wave2_fallback_and_download()`, `merge_claims()`, `check_quotes()`, `metadata_check()`, `generate_report()`. Download phase includes `_find_substantive_sibling()`: when the matched cluster's opinion is < 3000 chars (e.g. a vacatur/amendment order), it searches sibling clusters on the same docket for a substantive merits opinion and swaps `result.matched_url` to the sibling cluster (motivating case: Hertz 3d Cir. has cluster 10124964 = 2-page vacatur order and cluster 10265999 = 52-page merits opinion on the same docket). `verification_results.csv` is written *after* downloads so the swapped URL persists. CLI: `python -m citation_verifier verify-brief <workdir> [--wave1\|--wave2\|--merge\|--check-quotes\|--metadata-check\|--report\|--full]` |
 | `report_template.py` | HTML report template (proposition-verifier style) |
 | `__main__.py` | CLI (single-citation verify + `verify-brief` subcommand) |
@@ -79,6 +81,11 @@ Three-step verification pipeline in `src/citation_verifier/verifier.py`:
 | `test_client_html.py` | Tests for prefer_html and PDF fallback in client |
 | `test_brief_pipeline.py` | Tests for brief pipeline (merge, wave1, wave2, full_pipeline) |
 | `test_false_negatives.py` | Regression tests against real CourtListener API |
+| `test_executor.py` | Executor protocol + RecordedExecutor replay tests |
+| `test_scoring.py` | derive_color table + workdir prediction/scoring tests |
+| `test_assessment_corpora.py` | Structural invariants of the frozen assessment corpora |
+| `test_assessment_regression.py` | Offline assessment baselines: Withers 12/19 yellows, A/B 56/61 |
+| `build_assessment_corpora.py` | Builds/refreshes `tests/data/assessment_corpora/` (idempotent) |
 | `test_parser_diagnostics.py` | eyecite vs our parser comparison |
 | `test_cl_api_issues.py` | Documents and tests CL API limitations |
 | `extract_citations_batch.py` | Batch PDF citation extraction (reads from `scratch/hallucination_opinions/`) |
@@ -88,6 +95,7 @@ Three-step verification pipeline in `src/citation_verifier/verifier.py`:
 | `data/known_real_citations.json` | 5-case real citation regression corpus |
 | `data/known_fake_citations.json` | 8-case confirmed hallucination corpus |
 | `data/cl_api_issues.json` | 5 documented CL API issues with workarounds |
+| `data/assessment_corpora/` | Frozen assessment workdirs + recorded LLM cassettes (replay harness for the assessment layer — see its README) |
 | `data/results/` | Timestamped extraction and verification output (gitignored) |
 
 ### Other

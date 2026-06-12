@@ -1,0 +1,55 @@
+# Assessment corpora — frozen workdirs + recorded LLM cassettes
+
+The assessment layer's record/replay harness (design
+`docs/plans/2026-06-11-proposition-verifier-pipeline-design.md` §7),
+mirroring `tests/cassette_client.py` for the verifier layer.
+
+Each `<name>/` is a **frozen, conforming pipeline workdir**:
+
+| file | contents |
+|---|---|
+| `claims.csv` | claims through the deterministic phases (verify/merge/check-quotes), plus a stable `claim_id` (`<corpus>-NN`) |
+| `opinions/` | downloaded opinion texts the claims link to |
+| `ground_truth.csv` | `claim_id, scale, expected, exists, hedged, notes, provenance` |
+| `jobs/assess_results.jsonl` | recorded live LLM verdicts — the cassette, keyed by `(claim_id, prompt_version)` |
+
+**Scales.** `withers_exhibit`: labels are the Withers exhibit author's
+green/yellow/red, which encode *existence* (red = hallucinated); scoring
+maps exhibit-yellow to our {Yellow, Red} and exhibit-red to our
+{Red-via-WRONG_CASE, Gray, CheckCite} (design §6.9). `internal`: labels
+are our own Green/Yellow/Red, scored exact-match.
+
+**Prompt versions.** `assess-v1` = the established single-claim assessment
+prompt (identical criteria text in `tests/ab_test_runner.py::build_prompt`
+and `tests/measure_withers_assessment.py::build_prompt`). Changing a prompt
+template bumps the version, which makes `RecordedExecutor` raise
+`RecordedVerdictMiss` — re-record live, update baselines deliberately.
+
+**Corpora:**
+
+| corpus | rows (claims / ground truth) | cassette | source |
+|---|---|---|---|
+| `withers` | 34 / 54 | 29 opus verdicts (2026-06-11 measurement run) | `tests/data/withers_aberdeen/` (exhibit + baselines) |
+| `payne` | 27 / 27 | 27 opus verdicts (`ab_opus-baseline_20260323-002228.jsonl`) | `briefs/payne-proposed/` + `tests/ab_test_cases.json` |
+| `wainwright` | 34 / 34 | 34 opus verdicts (same run) | `briefs/wainwright-v-state/` + `tests/ab_test_cases.json` |
+
+`ab_test_cases.json` remains the human-review ledger; `ground_truth.csv`
+is generated from it (one scoring path, not two). Note: the ledger's
+`expected_assessment` for payne ids 16 and 75 was revised after the opus
+recording, so scoring the recorded verdicts against the current ledger
+gives payne 23/27 (not the 21/27 implied by the recording's own `correct`
+flags). Rebuild/refresh with
+`venv/Scripts/python.exe tests/build_assessment_corpora.py` (idempotent).
+
+**Offline scoring:**
+
+    venv/Scripts/python.exe -m citation_verifier.scoring tests/data/assessment_corpora/withers
+
+Baselines pinned by `tests/test_assessment_regression.py`: Withers 12/19
+yellows caught (the redesign targets >= 15/19); A/B 56/61 = 91.8%
+(>= 85% target). The withers offline scorer was verified row-for-row
+identical to the live measurement run
+(`tests/data/withers_assessment_results.csv`).
+
+Candidate additions (§7): kettering, brooks, maxwell — add
+opportunistically when ground truth is recovered from retros.

@@ -1391,6 +1391,22 @@ git push -u origin pipeline-redesign
 - §3 "every verb CLI + importable": scoring ships as importable functions + `python -m citation_verifier.scoring`; the nine pipeline verbs are §10 step 2+.
 - Known deltas from the design text: ab corpus is **61** cases (27+34), not 62; the design's "payne (28)" is actually 27. The plan uses verified counts.
 
+## Execution notes (2026-06-11, all tasks complete)
+
+- Executed as planned; all suites green (358 passed offline).
+- **Baseline correction:** the plan's payne 21/27 (54/61 overall) came from
+  the recording's own `correct` flags. Two payne cases (ids 16, 75) had
+  `expected_assessment` revised in `ab_test_cases.json` after the March
+  recording — both to agree with the model's answer. Scored against the
+  authoritative current ledger (one scoring path, §7), the recorded
+  verdicts give **payne 23/27, overall 56/61 (91.8%)**. Regression test and
+  corpora README document this.
+- The recorded run contains exactly two lenient-direction misses
+  (payne-03 Red->Yellow, payne-58 Yellow->Green); per the Step 7.2 caveat,
+  `test_lenient_direction_errors_pinned` pins that exact set.
+- Withers offline scorer verified row-for-row identical (diff = NONE) to
+  the live measurement run `withers_assessment_results.csv`.
+
 ## Subsequent steps (not this session — §10 map)
 
 2. `proposition_pipeline.py` skeleton; verify/merge ported; `matched_name` batch-path bug fixed at the source (§11 bug 1); slug-token linkage; `brief_pipeline` alias.
