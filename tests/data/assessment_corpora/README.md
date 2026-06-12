@@ -66,9 +66,13 @@ phase; cassette verdicts are untouched.
 **assess-v2 baselines** (2026-06-12 re-record; score with
 `--prompt-version assess-v2`): Withers yellows **16/19** caught (11
 exact; ≥15 target PASS), reds 3/3, greens 7/12 exact with **4
-over-flags** (the ≤2 guardrail MISS, flagged at acceptance — all four
-are agent "partial" judgments; -01/-26 were v1 over-flags too, -20/-30
-are author-hedged/edge greens); A/B payne 23/27 + wainwright 32/34 =
+over-flags** vs the ≤2 guardrail — **adjudicated and accepted (user,
+2026-06-12)**: on row-by-row review the user agreed with the agent's
+"partial" call on all four (-01 Nix candor-not-conflicts; -20 cited
+case is an exception to its rule; -26 author-hedged; -30 Rice's lead
+clause is brief rhetoric not in the case). The exhibit greens are the
+disputed labels on these rows; the guardrail measures exhibit
+agreement, not correctness. A/B payne 23/27 + wainwright 32/34 =
 **55/61 (90%)**, lenient set shrinks to {payne-03} (payne-58 fixed).
 Color under v2 is derived (`derive_color(cl_status, support,
 floor-effective quote axis)`) — CLOSE in the §6.4 noise band does not

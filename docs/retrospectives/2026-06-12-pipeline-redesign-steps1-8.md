@@ -81,17 +81,33 @@ cited_for context in the v2 claim block is what caught it. One previously
 caught yellow (-33) flipped to Green; remaining misses (-32, -33, -49) are
 the author-hedged judgment band.
 
-**The green over-flag miss.** All four over-flags are agent "partial"
-judgments: withers-01 and -26 were over-flagged by v1 too (v1 sat exactly
-at the ≤2 allowance with these two); the two new ones are -20
-(VERIFIED_PARTIAL name_unverified, "See, e.g." cite) and -30
-(cite_not_on_record WL-gap green) — both author-hedged/edge greens. The
-pattern: v2's stricter partial-vs-unsupported guidance buys +2 yellows
-caught at the cost of +2 stricter calls on hedged greens. All four errors
-are in the strict direction (the safe direction for a citation checker).
-Per the step plan's stop rule, no prompt tuning was done; disposition is
-the user's call (accept the tradeoff and amend the §8 guardrail, or queue
-a v3 calibration item).
+**The green over-flag miss — adjudicated and accepted (user,
+2026-06-12).** All four over-flags are agent "partial" judgments, all in
+the strict direction. Per the step plan's stop rule, no prompt tuning was
+done; instead each row was reviewed against the agent's rationale, and
+the user agreed with the agent on all four:
+
+- **-01 (Nix v. Whiteside)**: a Sixth Amendment candor/perjury case cited
+  for conflict-of-interest rules — supports half the proposition; the
+  exhibit author's own note conceded the missing "See" signal. (v1
+  over-flagged this too.)
+- **-20 (In re United States)**: the waiver rule is stated and the
+  pinpoint accurate, but on its facts the case is an *exception* to the
+  rule it's cited for — a genuinely valuable catch, not noise.
+- **-26 (Scott v. Carpanzano)**: the exhibit author herself marked it
+  "arguable." (v1 over-flagged this too.)
+- **-30 (Rice)**: the closest call. The proposition's second clause is
+  supported; its lead clause ("a fee award cannot substitute for Rule
+  55(c)'s threshold requirements") is the brief's own argument/rhetoric,
+  not stated in the case — and the agent's analysis says so honestly.
+
+Ruling: these rows expose the exhibit's greens as the disputed labels;
+the ≤2/12 guardrail measures *agreement with the exhibit*, not
+correctness, and v2's stricter partial-vs-unsupported line is the
+behavior we want. **v2 acceptance APPROVED with the 4/12 figure on
+record.** The takeaway for future scoring: the exhibit scale's hedged
+greens (-20, -26, -30 class) sit in the irreducible-disagreement band
+the original measurement predicted.
 
 ### Live findings fixed during the runs (each with a pinned test)
 
@@ -119,7 +135,6 @@ a v3 calibration item).
 
 ## Open items (not blocking; tracked)
 
-- **Green over-flag guardrail disposition** — user decision (above).
 - **Haiku fast-track routing** (`assess` honoring `triage_track`) — user-
   deferred past acceptance; A/B against the v2 baseline as a cost play.
 - **claims.csv consumer contract + export option** — scratch/TODO.md

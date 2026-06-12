@@ -779,6 +779,38 @@ class TestWithersCorpusViaRunner:
 - Type consistency: verdicts-array entries minus `claim_id` become `Verdict.fields`; apply/scoring both branch on `"support" in fields`; `executor_factory(config, wd, phase)` is the one signature change (step-7 test updated in Task 6).
 - Live gates: 9.1 auth (user action if stale), 9.2 quality eyeball before the expensive batch, 9.4 stop-on-miss, 9.5 decision recorded.
 
-## Execution notes
+## Execution notes (2026-06-12; Tasks 1-8 + 9.1-9.4 + 9.6 complete; 9.5 in flight)
 
-(to be filled during execution)
+- **Offline Tasks 1-8:** executed as planned, all TDD-first; one test
+  surprise — the v2 replay/resume and v1-path tests passed before the
+  packing implementation landed (per-claim jobs already satisfied them);
+  only the packing assertion drove code. Suite 801 → 812 over the step.
+- **9.1 auth smoke:** PASS first try. **9.2 one-job packed smoke** (Am.
+  Auto pair): clean per-claim array, and the v2 verdicts presaged the
+  acceptance result — withers-12 ("not mechanically catchable" per the
+  step-3 notes) judged partial from the brief-sentence/cited_for context.
+- **9.3 re-record:** 90/90 verdicts (29+27+34), all-Opus, per-opinion
+  packed, appended to the frozen cassettes (dual-version files). First
+  attempt crashed on a transient SDK plain-Exception ("Claude Code
+  returned an error result") that bypassed the ClaudeSDKError handler —
+  executor hardened (catch-all per-job failure + auth-marker escalation,
+  pinned tests); second run completed with 3 transient wainwright
+  failures that the hardening absorbed and one resume pass finished.
+- **9.4 scorecard:** yellows **16/19** (11 exact; ≥15 PASS), reds 3/3
+  PASS, A/B **55/61 = 90%** PASS (payne 23/27, wainwright 32/34),
+  lenient set shrank to {payne-03} PASS — green over-flags **4/12** vs
+  ≤2: stopped per plan, adjudicated row-by-row with the user, who agreed
+  with the agent on all four (see TestAssessV2Baselines docstring + the
+  retro). **v2 acceptance APPROVED.** Third live finding fixed en route:
+  derive_color double-floored the §6.4 noise band (withers-21) — the
+  quote axis passed to derive_color is now the floor-effective verdict.
+- **9.6 pincite flag:** FALSE POSITIVE — Missouri v. Jenkins n.10 exists
+  as `<footnotemark>10</footnotemark>`; the tag-strip hid it from the
+  footnote-existence check. `_read_clean_opinion` now rewrites
+  footnotemarks to `n.N` pre-strip; Withers crosscheck = 0 pincite flags.
+- **First real report rendered** (`matters/withers-v2-demo/report.html`):
+  21 findings / 10 verified / 3 unable / 0 check-cite through the full
+  v2 chain; committed as a demo workdir.
+- **9.5 prescreen A/B:** opus-v2 arm = the re-record itself (offline
+  replay); opus-v2-hints arm running live — outcome appended below when
+  it lands.

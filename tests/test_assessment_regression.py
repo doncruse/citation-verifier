@@ -90,11 +90,16 @@ class TestAssessV2Baselines:
     SS8 scorecard vs targets: yellows 16/19 (>=15 PASS, was 14), reds
     3/3 (PASS), A/B 55/61 = 90% (>=85% PASS), lenient set {payne-03}
     (subset of the pinned v1 set, PASS) -- and green over-flags 4/12 vs
-    the <=2 guardrail (MISS, flagged at acceptance): all four are agent
-    "partial" judgments; -01 and -26 were over-flagged by v1 too, -20
-    and -30 are author-hedged/edge greens (VERIFIED_PARTIAL
-    name_unverified; cite_not_on_record). Disposition recorded in the
-    Step 8 plan execution notes + retro.
+    the <=2 guardrail. **Guardrail miss ADJUDICATED AND ACCEPTED (user,
+    2026-06-12):** reviewing all four agent rationales against the
+    rows, the user agreed with the agent on every one -- -01 (Nix is a
+    candor case, not conflicts), -20 (the cited case is an exception to
+    the rule it's cited for), -26 (the exhibit author herself hedged
+    it), and -30 (Rice: the proposition's lead clause is the brief's
+    own rhetoric, not stated in the case; "partial" states that
+    honestly). The exhibit greens on these rows are the disputed
+    labels; the guardrail measures agreement with the exhibit, not
+    correctness. v2 acceptance APPROVED.
     """
 
     def test_withers_v2(self):
