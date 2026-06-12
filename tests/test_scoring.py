@@ -151,6 +151,24 @@ class TestPredictWorkdir:
         assert preds["t-04"].mode == "deterministic"
 
 
+class TestPredictWorkdirV2:
+    def test_v2_verdict_color_derived(self, tmp_path):
+        wd = make_workdir(tmp_path)
+        (wd / "jobs" / "assess_results.jsonl").unlink()
+        append_verdict_jsonl(
+            wd / "jobs" / "assess_results.jsonl",
+            Verdict(claim_id="t-01",
+                    fields={"support": "unsupported",
+                            "finding_analysis": "fa"},
+                    model="opus", prompt_version="assess-v2"))
+        ex = RecordedExecutor(wd / "jobs" / "assess_results.jsonl")
+        preds = {p.claim_id: p
+                 for p in predict_workdir(wd, ex, "assess-v2")}
+        assert preds["t-01"].predicted == "Red"
+        assert preds["t-01"].mode == "agent"
+        assert preds["t-01"].rationale == "fa"
+
+
 class TestScoreWorkdir:
     def test_internal_scale_exact_match(self, tmp_path):
         wd = make_workdir(tmp_path)

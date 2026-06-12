@@ -56,12 +56,23 @@ class TestCorpusStructure:
             assert c["claim_id"] in gt_ids
 
     def test_cassette_covers_agent_assessable_claims(self, name):
+        """One cassette file may hold several prompt versions (the
+        re-record event appends; RecordedExecutor keys on claim_id +
+        version). v1 coverage is the hard invariant; v2 coverage gets
+        pinned by the Step 8 acceptance baselines once recorded."""
         verdicts = load_verdicts_jsonl(
             CORPORA / name / "jobs" / "assess_results.jsonl")
-        assert all(v.prompt_version == PROMPT_VERSION for v in verdicts)
-        assert all(v.fields.get("assessment") in ("Green", "Yellow", "Red")
+        assert all(v.prompt_version in ("assess-v1", "assess-v2")
                    for v in verdicts)
-        recorded = {v.claim_id for v in verdicts}
+        for v in verdicts:
+            if v.prompt_version == "assess-v1":
+                assert v.fields.get("assessment") in (
+                    "Green", "Yellow", "Red")
+            else:
+                assert v.fields.get("support") in (
+                    "supported", "partial", "unsupported", "unverifiable")
+        recorded = {v.claim_id for v in verdicts
+                    if v.prompt_version == PROMPT_VERSION}
         for c in load_claims(name):
             needs_agent = (bool(c.get("opinion_file"))
                            and c.get("cl_status") != "WRONG_CASE")

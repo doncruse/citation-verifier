@@ -145,8 +145,7 @@ def predict_workdir(workdir: str | Path, executor: LLMExecutor,
         else:
             agent_claims.append(c)
     if agent_claims:
-        floors = {c["claim_id"]: c.get("quote_floor", "")
-                  for c in agent_claims}
+        meta = {c["claim_id"]: c for c in agent_claims}
         jobs = [Job(job_id=f"assess-{c['claim_id']}",
                     claim_ids=[c["claim_id"]],
                     prompt="",  # replay keys on (claim_id, prompt_version)
@@ -154,16 +153,26 @@ def predict_workdir(workdir: str | Path, executor: LLMExecutor,
                     files=[c["opinion_file"]])
                 for c in agent_claims]
         for v in executor.run(jobs):
-            color = v.fields["assessment"]
+            c = meta.get(v.claim_id, {})
+            if "support" in v.fields:
+                # v2+ verdict: color derived from the SS6.9 axes -- the
+                # same routing run_apply_assessments performs live.
+                color = derive_color(c.get("cl_status", ""),
+                                     v.fields["support"],
+                                     c.get("quote_check_worst", ""))
+                rationale = v.fields.get("finding_analysis", "")
+            else:
+                color = v.fields["assessment"]
+                rationale = v.fields.get("rationale", "")
             # SS6.4 floor: the agent can lower a color, never raise it
             # past the floor -- same rule apply-assessments enforces live.
-            floor = floors.get(v.claim_id, "")
+            floor = c.get("quote_floor", "") or ""
             floored = bool(
                 floor in _SEVERITY_RANK and color in _SEVERITY_RANK
                 and _SEVERITY_RANK[color] < _SEVERITY_RANK[floor])
             preds.append(ClaimPrediction(
                 v.claim_id, floor if floored else color, "agent",
-                v.fields.get("rationale", ""), floored=floored))
+                rationale, floored=floored))
     order = {c["claim_id"]: i for i, c in enumerate(claims)}
     preds.sort(key=lambda p: order[p.claim_id])
     return preds
