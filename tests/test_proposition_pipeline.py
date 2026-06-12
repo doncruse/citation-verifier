@@ -528,6 +528,70 @@ class TestAssessVerb:
         assert not (wd / "jobs" / "assess.json").exists()
 
 
+class TestApplyAssessments:
+    def test_applies_verdicts_with_floor(self, tmp_path):
+        from citation_verifier.proposition_pipeline import (
+            run_apply_assessments)
+        wd = _copy_withers(tmp_path)
+        stats = run_apply_assessments(wd)
+        assert stats.applied == 29
+        assert stats.invalid == 0
+        claims = {c["claim_id"]: c for c in csv.DictReader(
+            (wd / "claims.csv").open(encoding="utf-8"))}
+        # withers-09: recorded verdict Green, quote_floor Yellow -> floored
+        assert claims["withers-09"]["quote_floor"] == "Yellow"
+        assert claims["withers-09"]["assessment"] == "Yellow"
+        assert claims["withers-09"]["assessed_by"] == "opus/assess-v1"
+        # support column exists, empty for v1 (single-color schema)
+        assert claims["withers-09"]["support"] == ""
+        # rationale lands in finding_analysis when it was empty
+        assert claims["withers-09"]["finding_analysis"]
+
+    def test_matches_scoring_predictions(self, tmp_path):
+        """The two floor implementations (apply-assessments and offline
+        scoring) must agree on every agent-assessed claim."""
+        from citation_verifier.proposition_pipeline import (
+            run_apply_assessments)
+        from citation_verifier.scoring import (
+            RecordedExecutor, predict_workdir)
+        wd = _copy_withers(tmp_path)
+        run_apply_assessments(wd)
+        claims = {c["claim_id"]: c for c in csv.DictReader(
+            (wd / "claims.csv").open(encoding="utf-8"))}
+        ex = RecordedExecutor(WITHERS_CASSETTE)
+        for p in predict_workdir(wd, ex, "assess-v1"):
+            if p.mode == "agent":
+                assert claims[p.claim_id]["assessment"] == p.predicted, \
+                    p.claim_id
+
+    def test_invalid_verdict_reported_not_applied(self, tmp_path):
+        from citation_verifier.executor import (
+            Verdict, append_verdict_jsonl)
+        from citation_verifier.proposition_pipeline import (
+            run_apply_assessments)
+        wd = _copy_withers(tmp_path)
+        (wd / "jobs" / "assess_results.jsonl").unlink()
+        append_verdict_jsonl(
+            wd / "jobs" / "assess_results.jsonl",
+            Verdict(claim_id="withers-01",
+                    fields={"assessment": "Purple", "rationale": "r"},
+                    model="opus", prompt_version="assess-v1"))
+        stats = run_apply_assessments(wd)
+        assert stats.invalid == 1
+        assert stats.applied == 0
+        claims = {c["claim_id"]: c for c in csv.DictReader(
+            (wd / "claims.csv").open(encoding="utf-8"))}
+        assert claims["withers-01"].get("assessment", "") == ""
+
+    def test_requires_results_jsonl(self, tmp_path):
+        from citation_verifier.proposition_pipeline import (
+            run_apply_assessments)
+        wd = _copy_withers(tmp_path)
+        (wd / "jobs" / "assess_results.jsonl").unlink()
+        with pytest.raises(FileNotFoundError):
+            run_apply_assessments(wd)
+
+
 class TestCli:
     def test_merge_verb_dispatch(self, tmp_path, monkeypatch, capsys):
         from citation_verifier.__main__ import verify_propositions_main

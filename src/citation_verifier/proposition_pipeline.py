@@ -807,6 +807,87 @@ def run_assess(workdir: Path, executor: Any = None,
     return stats
 
 
+@dataclass
+class ApplyStats:
+    """Statistics from run_apply_assessments."""
+    applied: int = 0
+    invalid: int = 0
+    missing: int = 0  # assessable claims with no verdict yet
+    invalid_claims: list[str] = field(default_factory=list)
+
+
+_VALID_COLORS = ("Green", "Yellow", "Red")
+
+
+def run_apply_assessments(workdir: Path,
+                          prompt_version: str = DEFAULT_PROMPT_VERSION,
+                          ) -> ApplyStats:
+    """Verb 7 (design §3 / §6.6): verdicts JSONL -> claims.csv.
+
+    The pipeline owns the CSV; subagents only append JSON lines. Each
+    verdict is validated against the version's schema and the §6.4
+    quote_floor is enforced (the agent can lower a color, never raise it
+    past the floor). Writes: assessment (floor-enforced color), support
+    (empty under the single-color v1 schema; v2 fills it), assessed_by
+    (model/prompt_version), and finding_analysis (rationale) when empty.
+    """
+    from .executor import load_verdicts_jsonl
+    from .scoring import _SEVERITY_RANK
+
+    workdir = Path(workdir)
+    results_path = workdir / "jobs" / "assess_results.jsonl"
+    if not results_path.exists():
+        raise FileNotFoundError(
+            f"{results_path} missing -- run the assess verb first")
+    verdicts = {v.claim_id: v for v in load_verdicts_jsonl(results_path)
+                if v.prompt_version == prompt_version}  # last write wins
+
+    with open(workdir / "claims.csv", newline="", encoding="utf-8") as f:
+        claims = list(csv.DictReader(f))
+
+    stats = ApplyStats()
+    for c in claims:
+        if not _assessable(c):
+            continue
+        v = verdicts.get(c["claim_id"])
+        if v is None:
+            stats.missing += 1
+            continue
+        color = v.fields.get("assessment")
+        if color not in _VALID_COLORS:
+            stats.invalid += 1
+            stats.invalid_claims.append(c["claim_id"])
+            continue
+        floor = c.get("quote_floor", "")
+        if (floor in _SEVERITY_RANK and color in _SEVERITY_RANK
+                and _SEVERITY_RANK[color] < _SEVERITY_RANK[floor]):
+            color = floor
+        c["assessment"] = color
+        c["support"] = v.fields.get("support", "")
+        c["assessed_by"] = f"{v.model}/{v.prompt_version}"
+        if not c.get("finding_analysis"):
+            c["finding_analysis"] = v.fields.get("rationale", "")
+        stats.applied += 1
+
+    fields = list(claims[0].keys())
+    for col in ("assessment", "support", "assessed_by", "finding_analysis"):
+        if col not in fields:
+            fields.append(col)
+    for c in claims:
+        for col in fields:
+            c.setdefault(col, "")
+    with open(workdir / "claims.csv", "w", newline="",
+              encoding="utf-8") as f:
+        w = csv.DictWriter(f, fieldnames=fields)
+        w.writeheader()
+        w.writerows(claims)
+
+    _update_run_json(workdir, "apply-assessments",
+                     prompt_version=prompt_version, applied=stats.applied,
+                     invalid=stats.invalid, missing=stats.missing)
+    return stats
+
+
 def run_merge(workdir: Path) -> MergeStats:
     """Verb 2 (design §3): join claims <-> results + slug opinion linkage.
     Requires verification_results.csv (run the verify verb first)."""
