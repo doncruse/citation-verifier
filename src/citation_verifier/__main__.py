@@ -53,16 +53,10 @@ def _read_status_from_csv(value: str) -> Status | None:
 
 
 def _matched_case_name(result: VerificationResult) -> str | None:
-    """Pull the matched case name from the final resolution_path entry, if any.
-
-    Phase 1's verifier stashes the case name in
-    ``resolution_path[-1].raw_response_summary["case_name"]`` (see
-    ``verifier._build_result``).
-    """
-    if not result.resolution_path:
-        return None
-    summary = result.resolution_path[-1].raw_response_summary or {}
-    return summary.get("case_name") or None
+    """Matched CL caption via the VerificationResult.matched_case_name
+    accessor (the stage-specific summary keys vary -- reading one key
+    directly was design SS11 bug 1)."""
+    return result.matched_case_name or None
 
 
 def _stage_notes(result: VerificationResult) -> str:

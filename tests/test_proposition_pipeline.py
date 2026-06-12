@@ -95,3 +95,20 @@ class TestBriefPipelineAlias:
         import citation_verifier.proposition_pipeline as pp
         with patch("citation_verifier.brief_pipeline.CitationVerifier") as m:
             assert pp.CitationVerifier is m
+
+
+class TestMatchedNameInCsv:
+    def test_write_verification_csv_uses_accessor(self, tmp_path):
+        """SS11 bug 1 regression: batch-path results carry the caption under
+        matched_case_name, which the old writer (reading only case_name)
+        dropped -- matched_name came out blank in verification_results.csv."""
+        from citation_verifier.proposition_pipeline import (
+            _write_verification_csv)
+        r = _result([_entry(StageName.citation_lookup,
+                            {"matched_case_name": "Nix v. Whiteside",
+                             "clusters_returned": 1})])
+        _write_verification_csv(tmp_path, ["Nix v. Whiteside, 475 U.S. 157"],
+                                [r])
+        rows = list(csv.DictReader(
+            (tmp_path / "verification_results.csv").open(encoding="utf-8")))
+        assert rows[0]["matched_name"] == "Nix v. Whiteside"

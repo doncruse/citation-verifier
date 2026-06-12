@@ -168,12 +168,13 @@ def _write_verification_csv(
             warn_cats = [w.category.value for w in result.warnings]
             warn_msgs = [w.message for w in result.warnings]
             stage_notes = ""
-            matched_name = ""
+            # SS11 bug 1 fix: the caption lives under stage-specific summary
+            # keys; the accessor is the only sanctioned read surface.
+            matched_name = result.matched_case_name
             if result.resolution_path:
                 last = result.resolution_path[-1]
                 if last.notes:
                     stage_notes = last.notes
-                matched_name = last.raw_response_summary.get("case_name", "") or ""
             confidence = result.headline_confidence or 0.0
             # Combine warning messages and stage notes for the diagnostic
             # message column, preserving the old "; "-joined freeform shape.
