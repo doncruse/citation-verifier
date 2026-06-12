@@ -12,7 +12,9 @@ import csv
 import difflib
 import json as json_mod
 import re
+import subprocess
 from dataclasses import dataclass, field
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
@@ -585,6 +587,93 @@ async def full_pipeline(
     w2 = await wave2_fallback_and_download(workdir, citations, w1.miss_indices, progress_callback)
     m = merge_claims(workdir)
     return PipelineResult(wave1=w1, wave2=w2, merge=m)
+
+
+# ---------------------------------------------------------------------------
+# Pipeline verbs (design §3): idempotent, importable, CLI-exposed.
+# resume = rerun the verb; each checks its prerequisites.
+# ---------------------------------------------------------------------------
+
+def _update_run_json(workdir: Path, verb: str, **info: Any) -> None:
+    """Reproducibility record (design §3): git hash + per-verb stamps."""
+    path = workdir / "run.json"
+    data: dict[str, Any] = {}
+    if path.exists():
+        try:
+            data = json_mod.loads(path.read_text(encoding="utf-8"))
+        except json_mod.JSONDecodeError:
+            data = {}
+    if not data.get("git_hash"):
+        try:
+            data["git_hash"] = subprocess.run(
+                ["git", "rev-parse", "--short", "HEAD"],
+                capture_output=True, text=True, timeout=10,
+                cwd=str(Path(__file__).parent),
+            ).stdout.strip() or "unknown"
+        except Exception:
+            data["git_hash"] = "unknown"
+    verbs = data.setdefault("verbs", {})
+    verbs[verb] = {
+        "at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        **info,
+    }
+    path.write_text(json_mod.dumps(data, indent=2), encoding="utf-8")
+
+
+def citations_from_workdir(workdir: Path) -> list[str]:
+    """Unique citations to verify: claims.csv cited_case (order-preserving
+    dedup), unioned with citations_toa.txt / citations_body.txt when the
+    extract verb has produced them (one citation per line)."""
+    workdir = Path(workdir)
+    seen: dict[str, None] = {}
+    with open(workdir / "claims.csv", newline="", encoding="utf-8") as f:
+        for row in csv.DictReader(f):
+            cite = (row.get("cited_case") or "").strip()
+            if cite:
+                seen.setdefault(cite)
+    for name in ("citations_toa.txt", "citations_body.txt"):
+        p = workdir / name
+        if p.exists():
+            for line in p.read_text(encoding="utf-8").splitlines():
+                line = line.strip()
+                if line:
+                    seen.setdefault(line)
+    return list(seen)
+
+
+async def run_verify(workdir: Path, citations: list[str] | None = None,
+                     force: bool = False, progress_callback: Any = None,
+                     ) -> PipelineResult | None:
+    """Verb 1 (design §3): wave1 + wave2 + opinion downloads. Idempotent --
+    no-ops when verification_results.csv already exists (rerun with
+    force=True to redo). Returns None on the no-op path."""
+    workdir = Path(workdir)
+    if (workdir / "verification_results.csv").exists() and not force:
+        return None
+    if citations is None:
+        citations = citations_from_workdir(workdir)
+    w1 = await wave1_verify_and_download(workdir, citations,
+                                         progress_callback)
+    w2 = await wave2_fallback_and_download(workdir, citations,
+                                           w1.miss_indices,
+                                           progress_callback)
+    _update_run_json(workdir, "verify", citations=len(citations),
+                     wave1_misses=len(w1.miss_indices))
+    return PipelineResult(wave1=w1, wave2=w2,
+                          merge=MergeStats())  # merge is its own verb
+
+
+def run_merge(workdir: Path) -> MergeStats:
+    """Verb 2 (design §3): join claims <-> results + slug opinion linkage.
+    Requires verification_results.csv (run the verify verb first)."""
+    workdir = Path(workdir)
+    vr = workdir / "verification_results.csv"
+    if not vr.exists():
+        raise FileNotFoundError(f"{vr} missing -- run the verify verb first")
+    stats = merge_claims(workdir)
+    _update_run_json(workdir, "merge", matched=stats.matched,
+                     linked=stats.opinion_count)
+    return stats
 
 
 # ---------------------------------------------------------------------------

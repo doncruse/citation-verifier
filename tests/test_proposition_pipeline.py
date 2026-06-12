@@ -212,3 +212,96 @@ class TestWithersCorpusLinkage:
         got = {c["claim_id"]: c["opinion_file"] for c in
                csv.DictReader((wd / "claims.csv").open(encoding="utf-8"))}
         assert got == expected
+
+
+def _claims_only_workdir(tmp_path):
+    wd = tmp_path / "wd"
+    wd.mkdir()
+    with (wd / "claims.csv").open("w", newline="", encoding="utf-8") as f:
+        w = csv.DictWriter(f, fieldnames=[
+            "claim_id", "page", "proposition", "cited_for",
+            "cited_case", "quoted_text", "brief_sentence"])
+        w.writeheader()
+        w.writerow({"claim_id": "t-01", "page": "1", "proposition": "P",
+                    "cited_for": "", "cited_case": "A v. B, 1 U.S. 1",
+                    "quoted_text": "[]", "brief_sentence": ""})
+        w.writerow({"claim_id": "t-02", "page": "2", "proposition": "Q",
+                    "cited_for": "", "cited_case": "A v. B, 1 U.S. 1",
+                    "quoted_text": "[]", "brief_sentence": ""})
+    return wd
+
+
+class TestVerbs:
+    def test_citations_from_claims_dedup(self, tmp_path):
+        from citation_verifier.proposition_pipeline import (
+            citations_from_workdir)
+        wd = _claims_only_workdir(tmp_path)
+        assert citations_from_workdir(wd) == ["A v. B, 1 U.S. 1"]
+
+    def test_citations_union_extract_lists(self, tmp_path):
+        from citation_verifier.proposition_pipeline import (
+            citations_from_workdir)
+        wd = _claims_only_workdir(tmp_path)
+        (wd / "citations_toa.txt").write_text(
+            "A v. B, 1 U.S. 1\nC v. D, 2 U.S. 2\n", encoding="utf-8")
+        assert citations_from_workdir(wd) == [
+            "A v. B, 1 U.S. 1", "C v. D, 2 U.S. 2"]
+
+    @patch("citation_verifier.proposition_pipeline."
+           "wave2_fallback_and_download")
+    @patch("citation_verifier.proposition_pipeline."
+           "wave1_verify_and_download")
+    def test_verify_verb_chains_waves_and_writes_run_json(
+            self, mock_w1, mock_w2, tmp_path):
+        import asyncio
+        from citation_verifier.proposition_pipeline import (
+            Wave1Result, Wave2Result, run_verify)
+        wd = _claims_only_workdir(tmp_path)
+
+        async def w1(*a, **k):
+            (wd / "verification_results.csv").write_text(
+                "citation,status\n", encoding="utf-8")
+            return Wave1Result(results=[], miss_indices=[0])
+
+        async def w2(*a, **k):
+            return Wave2Result(results=[])
+
+        mock_w1.side_effect = w1
+        mock_w2.side_effect = w2
+        asyncio.run(run_verify(wd))
+        assert mock_w1.called and mock_w2.called
+        run = json.loads((wd / "run.json").read_text(encoding="utf-8"))
+        assert "verify" in run["verbs"]
+        assert run["git_hash"]
+
+    @patch("citation_verifier.proposition_pipeline."
+           "wave1_verify_and_download")
+    def test_verify_verb_noops_when_results_exist(self, mock_w1, tmp_path):
+        import asyncio
+        from citation_verifier.proposition_pipeline import run_verify
+        wd = _claims_only_workdir(tmp_path)
+        (wd / "verification_results.csv").write_text(
+            "citation,status\n", encoding="utf-8")
+        assert asyncio.run(run_verify(wd)) is None
+        assert not mock_w1.called
+
+    def test_merge_verb_requires_results(self, tmp_path):
+        from citation_verifier.proposition_pipeline import run_merge
+        wd = _claims_only_workdir(tmp_path)
+        with pytest.raises(FileNotFoundError):
+            run_merge(wd)
+
+    def test_merge_verb_runs_and_stamps_run_json(self, tmp_path):
+        from citation_verifier.proposition_pipeline import run_merge
+        wd = _claims_only_workdir(tmp_path)
+        with (wd / "verification_results.csv").open(
+                "w", newline="", encoding="utf-8") as f:
+            w = csv.DictWriter(f, fieldnames=[
+                "citation", "status", "confidence", "cl_url",
+                "matched_name", "diagnostics_cat", "diagnostics_msg",
+                "syllabus"])
+            w.writeheader()
+        stats = run_merge(wd)
+        assert stats.unmatched == 2
+        run = json.loads((wd / "run.json").read_text(encoding="utf-8"))
+        assert "merge" in run["verbs"]
