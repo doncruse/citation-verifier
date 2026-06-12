@@ -11,6 +11,7 @@ from citation_verifier.executor import (
 from citation_verifier.scoring import (
     derive_color,
     predict_workdir,
+    report_lane,
     score_workdir,
 )
 
@@ -53,6 +54,46 @@ class TestDeriveColor:
         "VERIFIED_DOCKET_ONLY"])
     def test_all_verified_family_members_use_support_axis(self, existence):
         assert derive_color(existence, "unsupported", None) == "Red"
+
+
+class TestReportLane:
+    """SS6.9 lane precedence under the single-color v1 verdict schema
+    (Step 7 plan decision): existence lanes 1-3 beat the assessment
+    column; otherwise the floor-enforced assessment is authoritative."""
+
+    def test_wrong_case_red_even_when_unassessed(self):
+        assert report_lane("WRONG_CASE", "", "") == "Red"
+
+    def test_wrong_case_red_ignores_assessment(self):
+        assert report_lane("WRONG_CASE", "Green", "opinions/a.html") == "Red"
+
+    def test_cite_unconfirmed_is_check_cite_never_red(self):
+        assert report_lane("CITE_UNCONFIRMED", "Red",
+                           "opinions/a.html") == "CheckCite"
+
+    def test_cite_unconfirmed_check_cite_even_when_green(self):
+        assert report_lane("CITE_UNCONFIRMED", "Green",
+                           "opinions/a.html") == "CheckCite"
+
+    @pytest.mark.parametrize("status", [
+        "NOT_FOUND", "INSUFFICIENT_DATA", "VERIFICATION_INCOMPLETE"])
+    def test_unlocatable_without_text_is_gray(self, status):
+        assert report_lane(status, "", "") == "Gray"
+
+    def test_unlocatable_with_opinion_falls_to_assessment(self):
+        # Shouldn't occur in practice; documented fall-through.
+        assert report_lane("NOT_FOUND", "Green", "opinions/a.html") == "Green"
+
+    @pytest.mark.parametrize("assessment,lane", [
+        ("Green", "Green"), ("Red", "Red"), ("Yellow", "Yellow"),
+        ("green", "Green"), ("", "Yellow")])
+    def test_verified_family_assessment_is_authoritative(
+            self, assessment, lane):
+        assert report_lane("VERIFIED", assessment,
+                           "opinions/a.html") == lane
+
+    def test_legacy_empty_status_unassessed_is_yellow(self):
+        assert report_lane("", "", "") == "Yellow"
 
 
 def make_workdir(tmp_path):

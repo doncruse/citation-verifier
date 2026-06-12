@@ -66,6 +66,41 @@ def derive_color(existence: str, support: str | None = None,
     return GRAY  # unverifiable / missing support axis
 
 
+def report_lane(cl_status: str, assessment: str = "",
+                opinion_file: str = "") -> str:
+    """SS6.9 lane for the report under the single-color v1 verdict schema.
+
+    The report cannot recompute color from the three axes for
+    agent-assessed claims: v1 verdicts carry no support axis (the
+    `support` column is empty until assess-v2). Precedence (Step 7 plan):
+
+      1. WRONG_CASE            -> Red   (existence lane; never assessed)
+      2. CITE_UNCONFIRMED      -> CheckCite (amber lane -- never Red,
+                                  even when an agent verdict says Red)
+      3. UNLOCATABLE + no text -> Gray  ("Unable to verify")
+      4. otherwise the floor-enforced `assessment` column is
+         authoritative: Green/Red as written; Yellow or empty (located
+         but never assessed -- legacy claims.csv) -> Yellow.
+
+    Rows 1-3 are derive_color's existence rows verbatim; row 4
+    substitutes `assessment` for the missing support axis. When v2
+    fills `support`, row 4 can become derive_color(existence, support,
+    quote_worst).
+    """
+    if cl_status == "WRONG_CASE":
+        return RED
+    if cl_status == "CITE_UNCONFIRMED":
+        return CHECK_CITE
+    if cl_status in UNLOCATABLE and not opinion_file:
+        return GRAY
+    a = (assessment or "").strip().lower()
+    if a == "green":
+        return GREEN
+    if a == "red":
+        return RED
+    return YELLOW
+
+
 @dataclass
 class ClaimPrediction:
     claim_id: str
