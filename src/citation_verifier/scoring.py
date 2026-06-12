@@ -156,10 +156,15 @@ def predict_workdir(workdir: str | Path, executor: LLMExecutor,
             c = meta.get(v.claim_id, {})
             if "support" in v.fields:
                 # v2+ verdict: color derived from the SS6.9 axes -- the
-                # same routing run_apply_assessments performs live.
+                # same routing run_apply_assessments performs live. The
+                # quote axis is the FLOOR-EFFECTIVE verdict: CLOSE in
+                # the SS6.4 noise band (quote_floor unset) must not
+                # yellow a supported claim.
+                quote_axis = (c.get("quote_check_worst", "")
+                              if (c.get("quote_floor") or "").strip()
+                              else "")
                 color = derive_color(c.get("cl_status", ""),
-                                     v.fields["support"],
-                                     c.get("quote_check_worst", ""))
+                                     v.fields["support"], quote_axis)
                 rationale = v.fields.get("finding_analysis", "")
             else:
                 color = v.fields["assessment"]

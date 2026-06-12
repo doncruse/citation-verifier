@@ -1758,7 +1758,9 @@ class TestApplyAssessmentsV2:
 
     @pytest.mark.parametrize("support,qcw,color", [
         ("supported", "NO_QUOTES", "Green"),
-        ("supported", "CLOSE", "Yellow"),     # derive_color quote axis
+        # CLOSE with quote_floor unset = SS6.4 noise band -> no yellow
+        # (the floor-effective verdict is the quote-axis input)
+        ("supported", "CLOSE", "Green"),
         ("partial", "VERBATIM", "Yellow"),
         ("unsupported", "VERBATIM", "Red"),
         ("unverifiable", "NO_QUOTES", "Gray"),
@@ -1781,6 +1783,29 @@ class TestApplyAssessmentsV2:
     def test_quote_floor_still_guards(self, tmp_path):
         import citation_verifier.proposition_pipeline as pp
         wd = self._wd_with_v2(tmp_path, "supported", qcw="FABRICATED",
+                              floor="Yellow")
+        pp.run_apply_assessments(wd, prompt_version="assess-v2")
+        (row,) = list(csv.DictReader(
+            (wd / "claims.csv").open(encoding="utf-8")))
+        assert row["assessment"] == "Yellow"
+
+    def test_close_in_noise_band_stays_green(self, tmp_path):
+        """SS6.4 banded calibration (step-3): CLOSE in [0.75, 0.85) is
+        transcription noise -- quote_floor is empty, so the quote axis
+        must NOT yellow a supported claim (the withers-21 double-floor
+        found at Step 8 acceptance). The axis input is the
+        floor-effective verdict, not raw quote_check_worst."""
+        import citation_verifier.proposition_pipeline as pp
+        wd = self._wd_with_v2(tmp_path, "supported", qcw="CLOSE",
+                              floor="")
+        pp.run_apply_assessments(wd, prompt_version="assess-v2")
+        (row,) = list(csv.DictReader(
+            (wd / "claims.csv").open(encoding="utf-8")))
+        assert row["assessment"] == "Green"
+
+    def test_close_below_band_floors_to_yellow(self, tmp_path):
+        import citation_verifier.proposition_pipeline as pp
+        wd = self._wd_with_v2(tmp_path, "supported", qcw="CLOSE",
                               floor="Yellow")
         pp.run_apply_assessments(wd, prompt_version="assess-v2")
         (row,) = list(csv.DictReader(

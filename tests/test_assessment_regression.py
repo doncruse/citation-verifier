@@ -80,3 +80,60 @@ class TestABOpusBaseline:
             ("payne-03", "Red", "Yellow"),
             ("payne-58", "Yellow", "Green"),
         ]
+
+
+class TestAssessV2Baselines:
+    """The 2026-06-12 assess-v2 re-record (Step 8, 9.3/9.4): two-axis +
+    report-block verdicts, per-opinion packed jobs, all-Opus; color
+    derived via derive_color with the floor-effective quote axis.
+
+    SS8 scorecard vs targets: yellows 16/19 (>=15 PASS, was 14), reds
+    3/3 (PASS), A/B 55/61 = 90% (>=85% PASS), lenient set {payne-03}
+    (subset of the pinned v1 set, PASS) -- and green over-flags 4/12 vs
+    the <=2 guardrail (MISS, flagged at acceptance): all four are agent
+    "partial" judgments; -01 and -26 were over-flagged by v1 too, -20
+    and -30 are author-hedged/edge greens (VERIFIED_PARTIAL
+    name_unverified; cite_not_on_record). Disposition recorded in the
+    Step 8 plan execution notes + retro.
+    """
+
+    def test_withers_v2(self):
+        s = score_workdir(CORPORA / "withers",
+                          prompt_version="assess-v2")
+        assert s.yellows_total == 19
+        assert s.yellows_caught == 16
+        assert s.yellows_exact == 11
+        assert s.greens_total == 12
+        assert s.greens_exact == 7
+        assert s.greens_overflagged == 4
+        assert s.reds_total == 3
+        assert s.reds_caught == 3
+
+    def test_withers_v2_misses_pinned(self):
+        s = score_workdir(CORPORA / "withers",
+                          prompt_version="assess-v2")
+        missed = sorted(r["claim_id"] for r in s.rows
+                        if r["expected"] == "yellow" and not r["correct"])
+        assert missed == ["withers-32", "withers-33", "withers-49"]
+
+    def test_payne_v2(self):
+        s = score_workdir(CORPORA / "payne", prompt_version="assess-v2")
+        assert (s.correct, s.total) == (23, 27)
+
+    def test_wainwright_v2(self):
+        s = score_workdir(CORPORA / "wainwright",
+                          prompt_version="assess-v2")
+        assert (s.correct, s.total) == (32, 34)
+
+    def test_v2_lenient_set_shrinks(self):
+        """v2's only lenient-direction miss is payne-03 -- a strict
+        subset of the pinned v1 set (payne-58 fixed). SS8.2 holds."""
+        lenient = []
+        for name in ("payne", "wainwright"):
+            s = score_workdir(CORPORA / name, prompt_version="assess-v2")
+            for r in s.rows:
+                if (not r["correct"]
+                        and _RANK[r["predicted"]] < _RANK[r["expected"]]):
+                    lenient.append(
+                        (r["claim_id"], r["expected"], r["predicted"]))
+        assert sorted(lenient) == [("payne-03", "Red", "Yellow")]

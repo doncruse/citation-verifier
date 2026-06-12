@@ -1116,8 +1116,15 @@ def run_apply_assessments(workdir: Path,
                 stats.invalid += 1
                 stats.invalid_claims.append(c["claim_id"])
                 continue
+            # Quote axis = the FLOOR-EFFECTIVE verdict (SS6.9's CLOSE row
+            # cites "floor, SS6.4", and the SS6.4 banded calibration says
+            # CLOSE in [0.75, 0.85) is transcription noise, quote_floor
+            # unset). Passing raw quote_check_worst double-floors
+            # noise-band greens (withers-21, Step 8 acceptance finding).
+            quote_axis = (c.get("quote_check_worst", "")
+                          if (c.get("quote_floor") or "").strip() else "")
             color = derive_color(c.get("cl_status", ""), support,
-                                 c.get("quote_check_worst", ""))
+                                 quote_axis)
             c["support"] = support
             c["badge_label"] = v.fields.get("badge_label", "")
             c["brief_block"] = v.fields.get("brief_block", "")

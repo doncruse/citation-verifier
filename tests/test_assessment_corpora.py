@@ -71,13 +71,18 @@ class TestCorpusStructure:
             else:
                 assert v.fields.get("support") in (
                     "supported", "partial", "unsupported", "unverifiable")
-        recorded = {v.claim_id for v in verdicts
-                    if v.prompt_version == PROMPT_VERSION}
+        recorded_v1 = {v.claim_id for v in verdicts
+                       if v.prompt_version == PROMPT_VERSION}
+        # Step 8 re-record (2026-06-12): every assessable claim also has
+        # an assess-v2 verdict.
+        recorded_v2 = {v.claim_id for v in verdicts
+                       if v.prompt_version == "assess-v2"}
         for c in load_claims(name):
             needs_agent = (bool(c.get("opinion_file"))
                            and c.get("cl_status") != "WRONG_CASE")
             if needs_agent:
-                assert c["claim_id"] in recorded, c["claim_id"]
+                assert c["claim_id"] in recorded_v1, c["claim_id"]
+                assert c["claim_id"] in recorded_v2, c["claim_id"]
 
 
 class TestWithersSpecifics:

@@ -1,0 +1,4 @@
+=== wainwright: recording assess-v2 (model=opus) ===
+  wainwright: eligible=34 done=34 pending=0
+  wainwright: appended 3 assess-v2 verdicts to the frozen cassette
+RESULT: COMPLETE
