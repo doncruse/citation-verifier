@@ -549,7 +549,9 @@ def verify_propositions_main(argv: list[str] | None = None) -> int:
     )
     parser.add_argument(
         "--prompt-version", default=None,
-        help="Prompt template version for assess/apply (default assess-v1)",
+        help="Assess/apply prompt version (default assess-v2: two-axis "
+             "support + report blocks; pass assess-v1 for the legacy "
+             "single-color prompt)",
     )
     parser.add_argument(
         "--replay",
@@ -688,7 +690,12 @@ def _dispatch_proposition_verbs(args, workdir, pp, _progress,
                   f"jobs -> jobs/prescreen.json (dispatch agents, "
                   f"append to jobs/prescreen_results.jsonl, rerun)")
 
-    prompt_version = args.prompt_version or pp.DEFAULT_PROMPT_VERSION
+    # Product default is assess-v2 (two-axis + report blocks). The library
+    # constant DEFAULT_PROMPT_VERSION stays assess-v1 for the frozen-cassette
+    # replay tests; the CLI is the user-facing surface and defaults to v2
+    # (shakedown 2026-06-13: a naive `full --document` was silently getting
+    # the thin v1 cards). Pass --prompt-version assess-v1 to opt back.
+    prompt_version = args.prompt_version or pp.ASSESS_V2_PROMPT_VERSION
 
     if args.verb in ("assess", "full"):
         astats = pp.run_assess(workdir, executor=_make_executor(),

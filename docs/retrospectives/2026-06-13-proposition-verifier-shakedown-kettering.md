@@ -112,8 +112,13 @@ confirm the richer cards render. After that, the merge is justified.
 
 ## Follow-ups → TODO
 
-- [merge gate] CLI default `--prompt-version assess-v2` for propositions
-  verbs (+ optional SKILL pass-through). Then v2 re-run of kettering.
+- [merge gate] ✅ **FIXED 2026-06-13** — the propositions CLI now defaults
+  `--prompt-version` to assess-v2 (`__main__`: `args.prompt_version or
+  pp.ASSESS_V2_PROMPT_VERSION`); library `DEFAULT_PROMPT_VERSION` stays
+  v1 for the frozen-cassette tests. SKILL left unchanged (the CLI default
+  carries it — config stays out of the thin SKILL). Tests:
+  `test_assess_defaults_to_v2_prompt` / `_apply_` / `_explicit_v1_still_
+  overrides`. 815 offline. v2 re-run of kettering pending below.
 - [minor] Pincite check: cross-reporter / too-few-marker false positives
   (Royal Truck class) — tighten or document.
 - [watch] Protech Indus. NOT_FOUND (recent-federal coverage gap).

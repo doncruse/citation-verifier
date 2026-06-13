@@ -729,6 +729,62 @@ class TestCli:
         assert isinstance(captured["executor"], AgentSDKExecutor)
         assert captured["executor"].model == "haiku"
 
+    def test_assess_defaults_to_v2_prompt(self, tmp_path, monkeypatch):
+        """Shakedown 2026-06-13 fix: the propositions CLI defaults the
+        assess/apply prompt to assess-v2 (the product default), so a
+        naive `full --document` run gets the two-axis + report-block
+        output -- not the thin v1 cards. The library constant
+        DEFAULT_PROMPT_VERSION stays assess-v1 (frozen-cassette tests)."""
+        from citation_verifier.__main__ import verify_propositions_main
+        from citation_verifier.proposition_pipeline import AssessStats
+        captured = {}
+
+        def fake_assess(wd, executor=None, prompt_version="assess-v1"):
+            captured["assess"] = prompt_version
+            return AssessStats(eligible=1, done=1)
+
+        monkeypatch.setattr(
+            "citation_verifier.proposition_pipeline.run_assess",
+            fake_assess)
+        wd = tmp_path / "wd"
+        wd.mkdir()
+        rc = verify_propositions_main([str(wd), "assess"])
+        assert rc == 0
+        assert captured["assess"] == "assess-v2"
+
+    def test_apply_defaults_to_v2_prompt(self, tmp_path, monkeypatch):
+        from citation_verifier.__main__ import verify_propositions_main
+        from citation_verifier.proposition_pipeline import ApplyStats
+        captured = {}
+
+        def fake_apply(wd, prompt_version="assess-v1"):
+            captured["apply"] = prompt_version
+            return ApplyStats(applied=1)
+
+        monkeypatch.setattr(
+            "citation_verifier.proposition_pipeline.run_apply_assessments",
+            fake_apply)
+        wd = tmp_path / "wd"
+        wd.mkdir()
+        rc = verify_propositions_main([str(wd), "apply-assessments"])
+        assert rc == 0
+        assert captured["apply"] == "assess-v2"
+
+    def test_explicit_v1_still_overrides_default(self, tmp_path,
+                                                 monkeypatch):
+        from citation_verifier.__main__ import verify_propositions_main
+        from citation_verifier.proposition_pipeline import AssessStats
+        captured = {}
+        monkeypatch.setattr(
+            "citation_verifier.proposition_pipeline.run_assess",
+            lambda wd, executor=None, prompt_version="assess-v1": (
+                captured.update(v=prompt_version) or AssessStats()))
+        wd = tmp_path / "wd"
+        wd.mkdir()
+        verify_propositions_main(
+            [str(wd), "assess", "--prompt-version", "assess-v1"])
+        assert captured["v"] == "assess-v1"
+
     def test_crosscheck_verb_dispatch(self, tmp_path, monkeypatch, capsys):
         from citation_verifier.__main__ import verify_propositions_main
         from citation_verifier.proposition_pipeline import CrosscheckStats
