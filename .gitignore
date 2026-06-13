@@ -48,3 +48,7 @@ benchmark/releases/v1/citing_opinion_cache/
 
 # Benchmark v1 — chatty run logs (regenerable; keep CSVs and markdown)
 benchmark/releases/v1/_*.txt
+
+# A/B harness live-run working dirs + loose score files (evidence kept in scratch/ab_runs/)
+tests/data/results/ab_runs/
+tests/data/results/ab_*.jsonl
