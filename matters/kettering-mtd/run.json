@@ -38,23 +38,23 @@
       "prescreen_pending": 0
     },
     "assess": {
-      "at": "2026-06-13T19:31:47+00:00",
-      "prompt_version": "assess-v1",
-      "done": 32,
-      "pending": 0
+      "at": "2026-06-13T20:04:04+00:00",
+      "prompt_version": "assess-v2",
+      "done": 30,
+      "pending": 2
     },
     "apply-assessments": {
-      "at": "2026-06-13T19:31:47+00:00",
-      "prompt_version": "assess-v1",
-      "applied": 32,
+      "at": "2026-06-13T20:04:23+00:00",
+      "prompt_version": "assess-v2",
+      "applied": 30,
       "invalid": 0,
-      "missing": 0
+      "missing": 2
     },
     "report": {
-      "at": "2026-06-13T19:31:47+00:00",
-      "findings": 20,
+      "at": "2026-06-13T20:04:24+00:00",
+      "findings": 19,
       "check_cite": 0,
-      "verified": 14,
+      "verified": 15,
       "unable": 2
     }
   }

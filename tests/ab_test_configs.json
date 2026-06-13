@@ -36,6 +36,12 @@
       "prompt_version": "assess-v2",
       "include_hints": true,
       "prescreen_model": "haiku"
+    },
+    "sonnet-v2": {
+      "description": "assess-v2 on Sonnet -- cost/accuracy vs opus-v2 (old v1 data: sonnet 53/61 ~= opus 54/61, so promising)",
+      "model": "sonnet",
+      "prompt_version": "assess-v2",
+      "include_hints": false
     }
   }
 }

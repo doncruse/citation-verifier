@@ -124,3 +124,48 @@ confirm the richer cards render. After that, the merge is justified.
 - [watch] Protech Indus. NOT_FOUND (recent-federal coverage gap).
 - The `matters/kettering-mtd/` artifact is committed as the v1 baseline of
   this shakedown; the v2 re-run will sit beside it for comparison.
+
+## RESUME POINTS (token pause 2026-06-13) — in-flight work, pick up here
+
+1. **Kettering v2 re-run — DONE (30/32), validated.** v2 cards are rich
+   (`support` 15 supported/8 partial/7 unsupported; `opinion_block` 22/36;
+   `brief_block` 30/36; assessed_by opus/assess-v2). Distribution softened
+   v1→v2: 11 Red→**9 Red**, 7→8 Yellow, 14→**15 Green** (partial-vs-
+   unsupported nuance). Sample: Wilson v. Collins → "Case on unrelated
+   subject", support=unsupported, opinion_block correctly empty, analysis
+   leads with subject-matter framing — textbook v2. v1 preserved as
+   `report-v1.html`/`claims-v1.csv` beside the v2 `report.html`/`claims.csv`.
+   **2 opinions** hit the transient SDK error and stayed on v1 (the
+   hardened path recorded + continued); optional cleanup = rerun
+   `assess --executor sdk` (picks up the 2), then apply + report. The
+   merge gate is fully cleared: CLI defaults to v2 AND a real run produces
+   the rich cards.
+   (Original resume note, if ever needed again:)
+   ```
+   venv/Scripts/python.exe -m citation_verifier verify-propositions matters/kettering-mtd assess --executor sdk   # resumes any not-yet-done opinions
+   venv/Scripts/python.exe -m citation_verifier verify-propositions matters/kettering-mtd apply-assessments      # v2 default now
+   venv/Scripts/python.exe -m citation_verifier verify-propositions matters/kettering-mtd report
+   ```
+   Then diff `report-v1.html` vs `report.html`: v2 cards should carry
+   `support`, `badge_label`, and orange/green `brief_block`/`opinion_block`
+   boxes the v1 cards lacked; expect the 11 v1 Reds to soften (v2
+   partial-vs-unsupported nuance). Commit `matters/kettering-mtd/`.
+
+2. **sonnet-v2 A/B (user-approved, NOT yet run).** Config `sonnet-v2`
+   added to `tests/ab_test_configs.json`. Run it live (1 arm), then
+   compare against the already-saved opus-v2 baseline:
+   ```
+   venv/Scripts/python.exe tools/ab_test_runner.py --config sonnet-v2 --corpus withers payne wainwright
+   venv/Scripts/python.exe tools/ab_test_runner.py --compare \
+     scratch/ab_runs/ab_opus-v2-nohints-baseline_20260612-235338.jsonl \
+     tests/data/results/ab_sonnet-v2_<TIMESTAMP>.jsonl
+   ```
+   Decide whether Sonnet's cost saving justifies any accuracy delta;
+   record in this retro + CLAUDE.md. (Prior: old v1 sonnet 53/61 vs opus
+   54/61 — near-tie. v2 packs multiple claims per opinion, so watch
+   whether Sonnet holds up on packed jobs.)
+
+3. **Then:** merge `pipeline-redesign` → main (decide squash vs merge-
+   commit). Optional cleanup logged to TODO: resume `--force` guards on
+   merge/check-quotes/crosscheck/triage to quiet the re-running middle
+   verbs on `full` resumes (cosmetic).
