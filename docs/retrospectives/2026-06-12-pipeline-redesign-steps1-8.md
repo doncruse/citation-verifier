@@ -129,12 +129,49 @@ the original measurement predicted.
    was calibrated to protect). The quote axis passed to `derive_color` is
    now the floor-effective verdict.
 
-### Prescreen ON/OFF A/B (§6.7 default decision)
+### Prescreen ON/OFF A/B (§6.7 default decision) — hints HURT, default OFF
 
-(filled when the opus-v2-hints arm completes)
+The §6.7 default was shipped OFF *provisionally*: prior data (76% exact,
+~15× cheaper) suggested ON, but the Valve outlier said "decide by
+re-running the per-phase harness." Run 2026-06-13 (opus-v2 vs
+opus-v2-hints, all three corpora, live Opus assess with Haiku prescreen
+hints injected). Raw rows in `scratch/ab_runs/`.
+
+| metric | no-hints (opus-v2) | hints (opus-v2-hints) |
+|---|---|---|
+| Withers yellows caught | **16/19** | **14/19** |
+| Withers greens over-flagged | 4/12 | 4/12 (one more severe: -30 → Red) |
+| Withers reds | 3/3 | 3/3 |
+| A/B internal (payne+wainwright) | 55/61 | 55/61 |
+| lenient-direction errors (all corpora) | 1 | **3** |
+
+8 rows moved: 2 better (payne-03 ✓, payne-16 ✓), 4 worse (payne-02
+Red→Gray; payne-58, withers-12, withers-44 all Yellow→Green = lenient),
+2 lateral. **The hints bought nothing on the A/B set and cost two
+Withers yellows, both in the lenient direction — the failure mode §6.7
+weights worst.** withers-12 is especially telling: it was the
+"not-mechanically-catchable" row that v2's *unaided* read finally caught
+(see the Step 8 yellows story); the Haiku hint pushed it back to Green.
+
+**Mechanism:** the prescreen hint is a 2-4 sentence "what this case is
+about" topline. That compression is exactly wrong for support
+assessment — the signal lives in the gap between the brief's framing and
+the opinion's actual holding, which a topline smooths over. A confident
+hint nudges the assessor toward "supported → Green."
+
+**Decision: prescreen default OFF, now evidence-backed** (not just the
+provisional ship-state). The machinery stays wired (executor protocol,
+`prescreen-v1` template, `--prescreen` flag, the two A/B configs) so a
+*redesigned* hint — e.g. "what the opinion does NOT hold" or a
+contradiction-spotter rather than a summary — can be A/B'd later without
+rebuilding anything. ~15× cost savings was never the question once
+accuracy regressed. Triage default was already OFF; no code flip needed.
 
 ## Open items (not blocking; tracked)
 
+- **Redesigned prescreen hint** — the summary-topline form hurts (above);
+  a contradiction/negative-space hint might help. A/B machinery is wired
+  and ready; low priority.
 - **Haiku fast-track routing** (`assess` honoring `triage_track`) — user-
   deferred past acceptance; A/B against the v2 baseline as a cost play.
 - **claims.csv consumer contract + export option** — scratch/TODO.md

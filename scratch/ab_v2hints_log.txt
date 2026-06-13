@@ -1,1 +1,23 @@
-run_root: C:\Users\REBECC~1\AppData\Local\Temp\ab_v2hints_n57g8_eu
+=== opus-v2-hints/withers ===
+exhibit scale: yellows caught 14/19 (8 exact); greens exact 7/12 (4 over-flagged); reds caught 3/3
+  MISS withers-01: expected green, predicted Yellow (agent)
+  MISS withers-12: expected yellow, predicted Green (agent)
+  MISS withers-20: expected green, predicted Yellow (agent)
+  MISS withers-26: expected green, predicted Yellow (agent)
+  MISS withers-29: expected green, predicted Gray (deterministic)
+  MISS withers-30: expected green, predicted Red (agent)
+  MISS withers-32: expected yellow, predicted Green (agent)
+  MISS withers-33: expected yellow, predicted Green (agent)
+  MISS withers-44: expected yellow, predicted Green (agent)
+  MISS withers-49: expected yellow, predicted Green (agent)
+=== opus-v2-hints/payne ===
+internal scale: 23/27 exact (85%)
+  MISS payne-02: expected Red, predicted Gray (agent)
+  MISS payne-47: expected Green, predicted Yellow (agent)
+  MISS payne-52: expected Yellow, predicted Red (agent)
+  MISS payne-58: expected Yellow, predicted Green (agent)
+=== opus-v2-hints/wainwright ===
+internal scale: 32/34 exact (94%)
+  MISS wainwright-06: expected Green, predicted Yellow (agent)
+  MISS wainwright-17: expected Green, predicted Yellow (agent)
+  Results saved to C:\Users\Rebecca Fordon\Projects\citation-verifier\tests\data\results\ab_opus-v2-hints_20260613-010216.jsonl

@@ -1454,7 +1454,12 @@ def run_crosscheck(workdir: Path) -> CrosscheckStats:
 
 # SS6.7: opinions at/above this cleaned-text size get a Haiku
 # summary-hint prescreen (when enabled). Prior data: 76% exact hints,
-# ~15x cheaper; default OFF until the per-phase A/B re-run decides.
+# ~15x cheaper. DEFAULT OFF — DECIDED 2026-06-13 by the per-phase A/B
+# re-run (opus-v2 vs opus-v2-hints over the 3 corpora): hints gave NO net
+# A/B gain (55/61 both) and REGRESSED Withers 16->14 yellows caught, both
+# losses in the lenient direction (withers-12, -44 flipped Yellow->Green)
+# -- the worst failure mode. The Haiku topline compresses away nuance the
+# full read needs. Wired but off; revisit only with a redesigned hint.
 PRESCREEN_MIN_CHARS = 20_000
 
 _PRESCREEN_SCHEMA = {"hint": "2-4 sentence summary-hint"}
@@ -1545,7 +1550,8 @@ def run_triage(workdir: Path, prescreen: bool = False,
     executor protocol (jobs/prescreen.json + jobs/
     prescreen_results.jsonl, resume key = claim_id + prompt_version),
     ingesting hints into prescreen_hint. Prescreen defaults OFF
-    (SS6.7: decide the default by re-running the A/B harness).
+    (SS6.7 A/B re-run 2026-06-13: hints hurt -- no A/B gain, -2 Withers
+    yellows in the lenient direction; see PRESCREEN_MIN_CHARS comment).
     Idempotent -- tracks recompute on rerun; hints are resume-keyed.
     """
     from .executor import AgentToolExecutor, Job, append_verdict_jsonl, \

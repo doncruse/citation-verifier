@@ -1,0 +1,19 @@
+{
+  "git_hash": "4115a39",
+  "verbs": {
+    "triage": {
+      "at": "2026-06-13T04:44:57+00:00",
+      "full": 13,
+      "fast": 21,
+      "skipped": 0,
+      "prescreen_done": 8,
+      "prescreen_pending": 0
+    },
+    "assess": {
+      "at": "2026-06-13T05:02:16+00:00",
+      "prompt_version": "assess-v2",
+      "done": 34,
+      "pending": 0
+    }
+  }
+}

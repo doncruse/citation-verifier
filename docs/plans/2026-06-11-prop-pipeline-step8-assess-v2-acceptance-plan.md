@@ -811,17 +811,26 @@ class TestWithersCorpusViaRunner:
 - **First real report rendered** (`matters/withers-v2-demo/report.html`):
   21 findings / 10 verified / 3 unable / 0 check-cite through the full
   v2 chain; committed as a demo workdir.
-- **9.5 prescreen A/B — PAUSED 2026-06-12 (user request, token budget).**
-  The opus-v2 (no-hints) arm needs no run: it IS the re-recorded frozen
-  cassettes (replay `tools/ab_test_runner.py --replay` scores it, or
-  `run_ab_config('opus-v2', configs['opus-v2'], replay=True)` for the v2
-  prompt version). The opus-v2-hints arm was killed mid-withers; its tmp
-  run dir is disposable (run_ab_config copies fresh each invocation —
-  partial hints/verdicts in tmp are simply redone).
-  **To resume (one command, ~1-2h Opus wall-time):**
-      venv/Scripts/python.exe tools/ab_test_runner.py --config opus-v2-hints --corpus withers payne wainwright
-  then compare its saved score rows against the frozen-v2 replay, decide
-  the SS6.7 prescreen default, record the ruling here + retro + CLAUDE.md,
-  and (if ON wins) flip the triage default. Everything else in Step 8 is
-  COMPLETE: re-record committed, acceptance APPROVED (user adjudication),
-  baselines pinned, retro written except its prescreen section.
+- **9.5 prescreen A/B — COMPLETE 2026-06-13. Verdict: hints HURT; default
+  OFF (now evidence-backed, was provisional).** Ran opus-v2-hints live over
+  all three corpora; compared per-claim against the frozen-v2 (no-hints)
+  baseline. Raw score rows preserved in `scratch/ab_runs/` (the gitignored
+  originals live in tests/data/results/).
+  - **8 rows moved** (no-hints → hints): 2 better (payne-03 Yellow→Red ✓,
+    payne-16 Yellow→Green ✓), 4 worse (payne-02 Red→Gray, payne-58
+    Yellow→Green LENIENT, withers-12 Yellow→Green LENIENT, withers-44
+    Yellow→Green LENIENT), 2 lateral (both caught: withers-13 Yellow→Red,
+    withers-30 Yellow→Red — the latter a *more severe* over-flag).
+  - **A/B (payne+wainwright): 55/61 both** — hints fixed two and broke two,
+    a wash on count.
+  - **Withers yellows: 16/19 → 14/19** — hints lost withers-12 and
+    withers-44, *both* in the lenient direction (Yellow→Green), the §6.7-
+    worst failure. Total lenient-direction errors rose 1 → 3.
+  - **Mechanism:** the Haiku 2-4 sentence topline compresses away the
+    overstatement nuance the full Opus read catches; on -12/-44 a confident
+    "case is about X" nudged the assessor to Green.
+  - **Decision recorded** here + retro prescreen section + CLAUDE.md +
+    `proposition_pipeline.PRESCREEN_MIN_CHARS` comment + `run_triage`
+    docstring. Triage default was already OFF — **no flip needed**.
+    Prescreen stays wired (revisit only with a redesigned hint).
+  **STEP 8 COMPLETE.**

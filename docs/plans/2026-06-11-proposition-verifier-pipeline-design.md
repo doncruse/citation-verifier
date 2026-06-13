@@ -287,10 +287,14 @@ disappear: subagents only append JSON lines; the pipeline owns the CSV.
 `triage` config `prescreen: haiku` (opinions ≥20K chars): Haiku summary-hint
 jobs through the same executor, hints stored in `prescreen_hint` and passed
 to the assessment template — exactly the A/B "with-hints" configs. Prior data
-(76% exact, 3% one-step-lenient, ~15× cheaper) says default ON, but the Valve
-outlier (73%) says decide the default by re-running the A/B harness on the
-62 cases + Withers in the new per-phase harness. Ship wired, default OFF
-until that run.
+(76% exact, 3% one-step-lenient, ~15× cheaper) suggested default ON, but the
+Valve outlier (73%) said decide by re-running the A/B harness. **RESOLVED
+2026-06-13 (Step 8 9.5): default OFF.** The per-phase re-run (opus-v2 vs
+opus-v2-hints over the 3 corpora) found hints give no A/B gain (55/61 both)
+and regress Withers 16→14 yellows caught, both losses lenient-direction —
+the summary topline compresses away the brief-vs-holding gap that support
+assessment turns on. Machinery stays wired for a redesigned (non-summary)
+hint; see `docs/retrospectives/2026-06-12-pipeline-redesign-steps1-8.md`.
 
 ### 6.8 Subagent batching + external-tool prohibition
 Assess jobs group claims by opinion, then pack into jobs capped at **≤4-5
