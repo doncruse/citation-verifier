@@ -1,4 +1,13 @@
-# Kettering shakedown — handoff for a fresh session (2026-06-13)
+# Kettering shakedown — POST-RUN evaluation rubric (2026-06-13)
+
+> **DO NOT read this before/during the cold run.** The shakedown is a
+> genuine *cold-invocation* test: a fresh session should drive
+> `/proposition-verifier` with the SKILL and nothing else, so naive-path
+> failures (e.g. the assess-v2-default gotcha below) surface as real
+> findings instead of being pre-solved. This file is the rubric to grade
+> the result AFTER the cold attempt, and to debug from only if the run
+> outright wedges. Reading it first turns a shippability test into a
+> guided integration test.
 
 **Purpose:** first *integrated, cold-invocation* end-to-end run of the new
 `/proposition-verifier` pipeline on a real brief. This is the validation
