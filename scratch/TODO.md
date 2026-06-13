@@ -141,6 +141,20 @@ diffs reference *metadata* against sources; we assess proposition
 Implementation note: keep `report_template.py`'s data contract; this is a
 template-layer change (plus client-side JS for filter/sort — no server).
 
+### Pincite check: cross-reporter / too-few-marker false positives (found 2026-06-13 kettering shakedown)
+`crosscheck`'s best-effort pincite check (`_pincite_flag`, §6.5) compares the
+cited pinpoint against the opinion's star-pagination markers, but doesn't
+verify the markers belong to the cited reporter. Kettering shakedown:
+`Royal Truck & Trailer v. Kraft, 974 F.3d 756, 758-61` flagged pinpoint 758
+against star range [3,7] — the opinion had only 3 markers [3,4,7] that are
+NOT F.3d pages. Fired at the `>=3 markers` threshold on cross-reporter noise.
+Flag-only (no color impact), same family as the footnotemark fix. Options:
+(a) require the cited reporter to match the star-pagination reporter (parse
+the star-marker context), (b) require markers to bracket a plausible range
+near the pinpoint (e.g. |pin - nearest_marker| within the opinion's page
+span), (c) raise the marker-count threshold. Low priority. Test fixtures:
+`matters/kettering-mtd/` claims kettering-mtd-07/-33.
+
 ### Custom report consumers: claims.csv contract doc + export option (logged 2026-06-12)
 User intent: people should be able to take the pipeline's outputs and make
 their own judgment calls / build their own report (e.g., hand `claims.csv` to
