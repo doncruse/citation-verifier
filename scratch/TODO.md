@@ -108,6 +108,35 @@ Consider penalizing more when the distinctive party (defendant) doesn't match at
 Weatherly v. Second Nw. Coop. Homes Ass'n scored only 53% partly because eyecite returned `dccrimct` but CL has `dc`. Either treat these as equivalent in court map, or fall back to prefix/substring match.
 - Francis v. Rehman, 110 A.3d 615 (dccrimct 2015) — NOT_FOUND despite exact reporter match, same root cause. https://www.courtlistener.com/opinion/2782310/michael-francis-and-queue-llc-v-munir-rehman-and-hak-llc/
 
+## Priority 0 — TIME-SENSITIVE: SDK subscription billing ends ~2026-06-15
+
+The `AgentSDKExecutor` runs headless via the Claude CLI's **subscription
+auth** (no per-token bill) — that's how the Step 8 re-record, the kettering
+v2 re-run, and the sonnet-v2 A/B all ran for free. **Subscription billing
+for the SDK goes away ~2026-06-15 (≈2 days from 2026-06-13, per user).**
+After that, the free headless path is gone; runs must go through a metered
+transport. Get the efficient metered path in place BEFORE the deadline.
+
+**Efficiency plan (the metered path the design always intended — §5
+"MessagesAPIExecutor, build last, optional" — now promoted to urgent):**
+1. **Build `MessagesAPIExecutor`** in `executor.py`: `anthropic` SDK, API
+   key auth, opinion text **inlined** (no agentic Read loop → leaner token
+   profile than the SDK's multi-turn reads), structured outputs for the
+   verdict JSON. Same `LLMExecutor.run(jobs)->verdicts` contract; drop-in
+   for assess/extract/prescreen. Wire `--executor api` in the CLI + harness.
+2. **Batches API (50% off)** — assess is non-latency-sensitive (wait for all
+   verdicts anyway), the textbook batch case. ~$13/run → ~$6.50. Add a
+   batch mode to MessagesAPIExecutor.
+3. **Prompt caching** — cache the stable assess-v2 system/template prefix
+   across the per-opinion jobs (each job re-sends the same criteria block).
+4. **Prereq:** `ANTHROPIC_API_KEY` in `.env` (only COURTLISTENER_API_TOKEN
+   is there today). Confirm with user.
+Cost context (measured 2026-06-13): one Opus v2 kettering run ≈ $13 via
+SDK-notional/API rates, ~$6.50 with Batches; Sonnet several-fold cheaper
+(sonnet-v2 A/B running now will give the exact figure + accuracy delta).
+This is the call the model-default decision feeds into: pick {model ×
+batch × cache} for the cheapest path that holds accuracy.
+
 ## Priority 2 — Improvements (better results)
 
 ### Report layout v2: filterable, skimmable, multi-view (logged 2026-06-12)
