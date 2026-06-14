@@ -2,6 +2,11 @@
 
 Verify legal citations against [CourtListener](https://www.courtlistener.com/). Catches hallucinated case citations from AI tools by checking whether a citation actually exists and belongs to the case it claims to.
 
+The project has two layers:
+
+1. **Citation verifier** — does a citation resolve to a real case, and is it the case it claims to be? (The core 3-step pipeline below.)
+2. **Proposition verifier** — does the cited case actually *support the proposition it's cited for*? An LLM-assisted pipeline that reads the matched opinions, checks quotes, and produces an interactive HTML report. See [Proposition Verification](#proposition-verification).
+
 > **Upgrading from v0.2?** The v0.3 release reshapes `VerificationResult` and the `Status` enum (no more `LIKELY_REAL` / `POSSIBLE_MATCH`; new `WRONG_CASE` / `VERIFIED_VIA_RECAP` / `VERIFICATION_INCOMPLETE`). See [`CHANGELOG.md`](CHANGELOG.md#migrating-from-v02-to-v03) for the field-by-field migration table.
 
 ## Try It
@@ -15,7 +20,7 @@ Input: "Smith v. Jones, 2018 WL 301424 (S.D.N.Y. Mar. 5, 2018)"
   |
   +-- Step 1: Citation Lookup API (fast, precise)
   |     Found + name matches? -> VERIFIED + CourtListener link
-  |     Found but different case? -> NOT FOUND ("citation belongs to ...")
+  |     Found but different case? -> WRONG_CASE ("citation belongs to ...")
   |
   +-- Step 1b: Adjacent Page Fallback
   |     Try pages +/-1 and +/-2 for off-by-one starting pages
@@ -39,9 +44,13 @@ Input: "Smith v. Jones, 2018 WL 301424 (S.D.N.Y. Mar. 5, 2018)"
 | `VERIFIED_PARTIAL` | A parallel cite resolved; the primary reporter didn't (e.g. NY A.D.3d + slip op) |
 | `VERIFIED_VIA_RECAP` | Matched to a specific RECAP document (federal PACER) |
 | `VERIFIED_DOCKET_ONLY` | Docket found, but the specific cited opinion couldn't be pinned |
+| `CITE_UNCONFIRMED` | The case was matched by a fallback name search, but the *cited reporter/WL location* couldn't be tied to it (CL lists a different cite in the same reporter family, or the match is a bare RECAP docket with no document). UI label: **"Check Cite."** Never lowers the score |
 | `WRONG_CASE` | Citation resolves, but to a different case (caption divergence + party-overlap fails) |
 | `NOT_FOUND` | No match found in any search step |
+| `INSUFFICIENT_DATA` | The parse was too weak to anchor a confident search (no court *and* no year); retrying won't help until the input improves |
 | `VERIFICATION_INCOMPLETE` | CourtListener infrastructure failure (5xx / timeout); rerun |
+
+Trust ordering: VERIFIED family > `CITE_UNCONFIRMED` > `WRONG_CASE` > `NOT_FOUND`.
 
 ### Diagnostics
 
@@ -52,6 +61,7 @@ When a citation isn't fully verified, the tool explains why:
 - **"Court mismatch"** -- cited court doesn't match the found case
 - **"Date mismatch"** / **"Date close"** -- year discrepancies
 - **"Reporter citation could not be confirmed"** -- CourtListener doesn't have the citation on file
+- **"Cited citation contradicted"** -- the matched case lists a *different* citation in the same reporter family than the one cited (a Check Cite signal)
 - **"Found in RECAP"** -- case found in PACER docket data, not the opinions database
 - **"We found a possible docket match"** -- docket found but no specific document verified
 
@@ -112,10 +122,11 @@ python -m citation_verifier --file citations.txt
 python -m citation_verifier --json "Obergefell v. Hodges, 576 U.S. 644 (2015)"
 ```
 
-Exit codes (useful for scripting/CI):
+Exit codes (useful for scripting/CI), highest wins in a mixed batch:
 - `0` — all citations verified (or skipped)
 - `1` — at least one `NOT_FOUND`
-- `2` — at least one `VERIFICATION_INCOMPLETE` (infra failure; rerun). Wins over `NOT_FOUND` if both appear.
+- `2` — at least one `VERIFICATION_INCOMPLETE` (infra failure; rerun)
+- `3` — at least one `INSUFFICIENT_DATA` (parse too weak to verify; fix the input). Outranks the others — retry and hallucination analysis are moot until the parse is fixed.
 
 ### Python API
 
@@ -161,6 +172,61 @@ result = verifier.verify(text, parsed=parsed)
 - Complex party names: `Macy's Texas, Inc. v. D.A. Adams & Co.`
 - Abbreviations auto-expanded: `Cnty.` → `County`, `Dep't` → `Department`, `Corp.` → `Corporation`, etc.
 
+## Proposition Verification
+
+The citation verifier answers *"is this a real case?"* The **proposition verifier** answers the harder question: *"does the cited case actually support the proposition it's cited for?"* It's built for vetting briefs, motions, and opinions for misrepresented or hallucinated authority.
+
+It runs as a pipeline of small, idempotent **verbs** over a working directory (one per document, under `matters/<name>/`). Each verb writes its output to disk and no-ops if that output already exists, so you can resume by re-running. The LLM-assisted verbs (`extract`, `assess`) run through an **executor protocol** with three transports: in-session Agent subagents ("jobs" mode, the default), a headless `claude-agent-sdk` executor (`--executor sdk`, needs `claude login`), and a recorded-cassette replay for offline/deterministic runs (`--replay`).
+
+### The verbs
+
+| Verb | What it does |
+|------|--------------|
+| `extract` | (LLM) Document → `claims.csv` + table-of-authorities / body citation lists |
+| `verify` | Runs every citation through the core verifier (batched) and downloads matched opinion text |
+| `merge` | Joins claims to verification results and links each claim to its opinion file |
+| `check-quotes` | Checks quoted language against the opinion text; flags fabricated/altered quotes |
+| `crosscheck` | Deterministic flags: TOA-vs-body cite variants, cited-vs-matched court, pincite sanity |
+| `triage` | Decides assessment depth per claim (full vs. fast) |
+| `assess` | (LLM) Reads the opinion and judges whether it supports the proposition |
+| `apply-assessments` | Folds LLM verdicts back into `claims.csv`, enforcing the quote floor |
+| `report` | Renders `claims.csv` → interactive `report.html` |
+| `full` | Chains them: `[extract →] verify → merge → check-quotes → crosscheck → triage → assess → apply-assessments → report` |
+
+### Scoring (two-axis)
+
+Each finding is colored from two independent axes — the **citation status** (does the case/cite resolve?) and the **support** judgment (does the opinion back the proposition?):
+
+- **Red** — wrong case, or the case doesn't support the proposition
+- **Amber / "Check Cite"** — `CITE_UNCONFIRMED`: the case matched but the cited reporter location couldn't be confirmed (never forced Red)
+- **Gray / "Unable to verify"** — no opinion text was available to assess
+- **Yellow** — the deterministic quote floor (fabricated or low-similarity quotes) caps an otherwise-clean claim
+- **Green** — verified and supported
+
+A key invariant: reporter-cite mismatches and crosscheck flags **never move the score** — they surface as flags/badges, not as confidence changes.
+
+### Running it
+
+The friendly path is the **`/proposition-verifier`** Claude Code skill, which orchestrates the whole `full` chain (including dispatching the LLM jobs) from a single document. Directly via the CLI:
+
+```bash
+# One document end-to-end (jobs mode pauses for LLM verbs; rerun to ingest verdicts)
+python -m citation_verifier verify-propositions matters/my-brief full --document brief.pdf
+
+# Run a single verb
+python -m citation_verifier verify-propositions matters/my-brief report
+
+# Headless, no in-session subagents (requires `claude login`)
+python -m citation_verifier verify-propositions matters/my-brief full --document brief.pdf --executor sdk
+
+# Offline deterministic replay of recorded verdicts
+python -m citation_verifier verify-propositions matters/my-brief assess --replay verdicts.jsonl
+```
+
+Output lands in the workdir: `claims.csv` (the master state file) and `report.html` (the deliverable). Prompt templates are versioned files in `src/citation_verifier/prompts/` — editing one is a new prompt version and requires re-recording the assessment corpora cassettes.
+
+> A frozen `/verify-brief` skill and `brief_pipeline.py` alias remain for older `briefs/` runs; use `/proposition-verifier` for new work.
+
 ## Testing
 
 ```bash
@@ -177,7 +243,7 @@ pytest tests/test_parser_diagnostics.py -v
 pytest tests/test_cl_api_issues.py -v
 ```
 
-`test_verifier.py` has 103 unit tests covering the full pipeline: citation lookup, name matching, adjacent page fallback, opinion search, RECAP search, court corroboration, scoring and weight redistribution, docket number normalization, abbreviation expansion, surname matching, the eyecite factory function, and the pre-parsed citation path. All API calls are mocked. `test_async_verifier.py` has 30 tests verifying sync/async behavior parity.
+`test_verifier.py` has 188 unit tests covering the full pipeline: citation lookup, name matching, adjacent page fallback, opinion search, RECAP search, court corroboration, scoring and weight redistribution, docket number normalization, abbreviation expansion, surname matching, the eyecite factory function, the Check Cite (`CITE_UNCONFIRMED`) classifier, the `INSUFFICIENT_DATA` promotion, and the pre-parsed citation path. All API calls are mocked. `test_async_verifier.py` has 67 tests verifying sync/async behavior parity. The proposition pipeline, executor protocol, two-axis scoring, and frozen assessment corpora have their own suites (`test_proposition_pipeline.py`, `test_executor.py`, `test_scoring.py`, `test_assessment_regression.py`).
 
 `test_false_negatives.py` runs against the real CourtListener API using the corpus in `tests/data/known_real_citations.json` (5 cases). `tests/data/known_fake_citations.json` contains 8 confirmed hallucinations for reference.
 
@@ -193,8 +259,16 @@ src/citation_verifier/
   parser.py          -- Citation parsing (eyecite + regex fallbacks + eyecite factory)
   client.py          -- CourtListener API wrapper with rate limiting
   cache.py           -- File-based verification result cache
+  resolution_path.py -- Accumulator for per-stage resolution-path entries
   verifier.py        -- Core three-step verification pipeline
-  __main__.py        -- CLI interface
+  __main__.py        -- CLI interface (verify / verify-propositions / verify-brief / verify-batch / audit-misses)
+  # --- proposition-verification layer (PR #21) ---
+  proposition_pipeline.py -- Proposition pipeline verbs (extract/verify/merge/check-quotes/crosscheck/triage/assess/apply-assessments/report)
+  brief_pipeline.py  -- Deprecated alias of proposition_pipeline (legacy /verify-brief runs)
+  executor.py        -- LLM executor protocol (jobs mode, headless SDK, recorded replay)
+  scoring.py         -- Two-axis (cite-status x support) color derivation + offline corpus scoring
+  report_template.py -- HTML report template (findings, Check Cite dashboard, flag chips)
+  prompts/           -- Versioned LLM prompt templates (extract_v1, assess_v1, assess_v2, prescreen_v1)
 
 web/
   app.py             -- FastAPI application (SSE streaming, public mode)
@@ -204,13 +278,21 @@ web/
 
 tests/
   test_verifier.py             -- Unit tests (mocked API)
+  test_async_verifier.py       -- Sync/async parity tests
   test_false_negatives.py      -- Regression tests (live API)
   test_parser_diagnostics.py   -- Parser comparison diagnostics
   test_cl_api_issues.py        -- CL API limitation tests
+  test_proposition_pipeline.py -- Proposition pipeline verbs + slug linkage
+  test_executor.py             -- Executor protocol + recorded replay
+  test_scoring.py              -- Two-axis color table + workdir scoring
+  test_assessment_regression.py-- Offline assessment baselines (frozen corpora)
   extract_citations_batch.py   -- Batch PDF citation extraction
   verify_sample_citations.py   -- Sample and verify extracted citations
-  data/                        -- Test fixtures and results
+  data/                        -- Test fixtures, frozen corpora, and results
 
+.claude/skills/                -- /proposition-verifier and /verify-brief skill definitions
+matters/                       -- Working directories for /proposition-verifier runs
+briefs/                        -- Working directories for legacy /verify-brief runs
 scratch/                       -- Working notes and utility scripts (not part of the tool)
 ```
 
@@ -222,9 +304,9 @@ This project is built on:
 - [eyecite](https://github.com/freelawproject/eyecite) -- the citation extraction library that powers our parser
 - [CaseStrainer](https://github.com/jafrank88/CaseStrainer) by Jonathan Franklin -- our case name matching algorithm (`name_matcher.py`), contamination phrase removal (`text_cleaner.py`), and state reporter mapping (`state_reporter_map.py`) are adapted from CaseStrainer's approach to detecting hallucinated legal citations
 
-## Scoring
+## Match Confidence Scoring
 
-Fuzzy match confidence is a weighted score:
+When the verifier falls back to fuzzy search (Steps 2-3), match confidence is a weighted score:
 
 | Component | Weight | Notes |
 |-----------|--------|-------|
