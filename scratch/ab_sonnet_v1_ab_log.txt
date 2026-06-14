@@ -1,0 +1,11 @@
+=== sonnet-v1/payne ===
+internal scale: 24/27 exact (89%)
+  MISS payne-16: expected Green, predicted Yellow (agent)
+  MISS payne-47: expected Green, predicted Yellow (agent)
+  MISS payne-52: expected Yellow, predicted Red (agent)
+=== sonnet-v1/wainwright ===
+internal scale: 31/34 exact (91%)
+  MISS wainwright-16: expected Green, predicted Yellow (agent)
+  MISS wainwright-17: expected Green, predicted Yellow (agent)
+  MISS wainwright-19: expected Green, predicted Yellow (agent)
+  Results saved to C:\Users\Rebecca Fordon\Projects\citation-verifier\tests\data\results\ab_sonnet-v1_20260613-212622.jsonl

@@ -190,11 +190,47 @@ brief that's a flood of false concerns. The old v1 near-tie (sonnet 53/61
 claims per opinion (harder context-tracking) and the two-axis support call
 makes Sonnet default to partial/unsupported too readily.
 
-**Decision: Opus stays the assess default.** Sonnet's cost saving isn't
-worth ~2× the green over-flagging. **Middle path worth a future test:** use
-the cheap model ONLY on the `fast` triage track (clean-verified, no-quote,
-low-risk claims), Opus on `full` — that's the deferred triage-routing idea,
-now with a reason (don't trust the cheap model where precision matters).
+**But assess-v1 with Sonnet IS viable** — the follow-up the user asked for
+(2026-06-13). What broke Sonnet was v2's *structure* (packed multi-claim +
+two-axis support derivation), not the judgment. On the simpler v1 single-
+claim/single-color prompt Sonnet holds up:
+
+| config | withers yellows | withers green over-flags | A/B internal | lenient errors |
+|---|---|---|---|---|
+| opus-v1 | 14/19 | 2/12 | 56/61 | 2 |
+| **opus-v2** (default) | 16/19 | 4/12 | 55/61 | 1 |
+| **sonnet-v1** | 16/19 | 5/12 | **55/61** | **0** |
+| sonnet-v2 | 16/19 | 9/12 | (crashed) | — |
+
+sonnet-v1 **matches opus-v2 on A/B accuracy (55/61)** and yellow recall
+(16/19), reds 3/3, and has **zero lenient-direction errors** — every miss
+is strict (green→yellow, yellow→red), the *safe* direction for a citation
+checker. Its only weakness is 5/12 green over-flags (vs Opus 2-4), and 4 of
+those are the same hedged-green cluster (-01/-20/-26/-30) the user already
+adjudicated as defensible. So Sonnet-v1 trades a little green precision on
+borderline cases for several-fold lower cost, with accuracy intact.
+
+**What v2 actually bought** (the user's other question): re-scored Opus
+v1→v2 is a near-wash on accuracy (yellows 14→16 but green over-flags 2→4,
+A/B 56→55). v2's real value is the **report presentation** — the rich
+`brief_block`/`opinion_block`/`finding_analysis` cards. v1 gives only a
+color + one sentence.
+
+### Model/cost decision menu (cost from 2026-06-13 measurement)
+
+| option | quality | ~cost/run | note |
+|---|---|---|---|
+| Opus-v2 interactive (current) | best (rich cards) | ~$13 | premium |
+| **Opus-v2 + Batches API** | **best, unchanged** | **~$6.50** | 50% off, just async — the clean win, zero quality loss; already Priority-0 |
+| Sonnet-v1 | matching accuracy, **thin cards** | low single-$ | budget; safe-direction errors only |
+| Hybrid: Sonnet-v1 bulk + Opus-v2 cards on findings | accuracy everywhere, rich cards where it matters | middle | best-of-both, more engineering (two-pass) |
+
+**Recommendation:** the first lever is **Batches on Opus-v2** — halves cost
+with no quality or accuracy loss (and it's the deadline work anyway).
+Sonnet-v1 is now *proven* as a further cut if cost must go lower and thin
+cards are acceptable; the hybrid is the eventual best-of-both. Model default
+stays **Opus**; Sonnet-v1 is a documented, validated fallback. (Earlier note
+about cheap-model-on-fast-track still applies as the hybrid's mechanism.)
 
 3. **Then:** merge `pipeline-redesign` → main (decide squash vs merge-
    commit). Optional cleanup logged to TODO: resume `--force` guards on
