@@ -42,6 +42,12 @@
       "model": "sonnet",
       "prompt_version": "assess-v2",
       "include_hints": false
+    },
+    "sonnet-v1": {
+      "description": "assess-v1 single-claim on Sonnet -- is the cheap model fine on the simpler prompt? (old v1 data: sonnet 53/61 ~ opus 54/61)",
+      "model": "sonnet",
+      "prompt_version": "assess-v1",
+      "include_hints": false
     }
   }
 }

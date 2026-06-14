@@ -1,0 +1,12 @@
+=== sonnet-v1/withers ===
+exhibit scale: yellows caught 16/19 (9 exact); greens exact 6/12 (5 over-flagged); reds caught 3/3
+  MISS withers-01: expected green, predicted Yellow (agent)
+  MISS withers-20: expected green, predicted Yellow (agent)
+  MISS withers-26: expected green, predicted Yellow (agent)
+  MISS withers-29: expected green, predicted Gray (deterministic)
+  MISS withers-30: expected green, predicted Yellow (agent)
+  MISS withers-32: expected yellow, predicted Green (agent)
+  MISS withers-33: expected yellow, predicted Green (agent)
+  MISS withers-36: expected green, predicted Yellow (agent)
+  MISS withers-49: expected yellow, predicted Green (agent)
+  Results saved to C:\Users\Rebecca Fordon\Projects\citation-verifier\tests\data\results\ab_sonnet-v1_20260613-210521.jsonl
