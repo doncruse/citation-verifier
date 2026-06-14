@@ -194,6 +194,108 @@ class TestSlugTokenLinkage:
         assert "cited_for" in claims[0]
 
 
+class TestMergeLinkageGate:
+    """Review finding #1: a NOT_FOUND / unmatched citation must NOT borrow
+    another located case's opinion via the bare cited-name source. Without
+    the located gate, a hallucinated 'United States v. <fake>' links to a
+    real 'United States v. <X>' opinion on {united, states} token overlap
+    (Jaccard >= 0.25), gets assessed against the wrong opinion, and can
+    surface as verified instead of 'unable to verify'."""
+
+    def test_not_found_does_not_borrow_opinion(self, tmp_path):
+        from citation_verifier.proposition_pipeline import merge_claims
+        wd = _mk_merge_workdir(
+            tmp_path, "United_States_v_Jackson.html",
+            {"citation": "United States v. Fakename, 999 F.3d 1 "
+                         "(9th Cir. 2099)",
+             "status": "NOT_FOUND", "confidence": "0.00", "cl_url": "",
+             "matched_name": "", "diagnostics_cat": "",
+             "diagnostics_msg": "", "syllabus": ""})
+        merge_claims(wd)
+        claims = list(csv.DictReader(
+            (wd / "claims.csv").open(encoding="utf-8")))
+        assert claims[0]["opinion_file"] == ""  # would be borrowed pre-fix
+
+    def test_unmatched_does_not_borrow_opinion(self, tmp_path):
+        from citation_verifier.proposition_pipeline import merge_claims
+        # No vr row at all -> empty status, empty url/matched_name.
+        wd = tmp_path / "wd"
+        (wd / "opinions").mkdir(parents=True)
+        (wd / "opinions" / "State_v_Smith.html").write_text(
+            "t", encoding="utf-8")
+        with (wd / "claims.csv").open("w", newline="",
+                                      encoding="utf-8") as f:
+            w = csv.DictWriter(f, fieldnames=["claim_id", "cited_case",
+                                              "quoted_text"])
+            w.writeheader()
+            w.writerow({"claim_id": "t-01",
+                        "cited_case": "State v. Smithfake, 1 X.3d 1",
+                        "quoted_text": "[]"})
+        (wd / "verification_results.csv").write_text(
+            "citation,status,cl_url,matched_name,diagnostics_msg,syllabus\n",
+            encoding="utf-8")
+        merge_claims(wd)
+        claims = list(csv.DictReader(
+            (wd / "claims.csv").open(encoding="utf-8")))
+        assert claims[0]["opinion_file"] == ""
+
+    def test_located_possible_match_still_links(self, tmp_path):
+        """Positive control: POSSIBLE_MATCH/LIKELY_REAL are located (CL
+        returned a match) -> they keep their opinion link. The gate keys
+        on (url or matched_name), not a VERIFIED-only allowlist."""
+        from citation_verifier.proposition_pipeline import merge_claims
+        opinion = ("MIDWEST_EMPLOYERS_CASUALTY_CO_v_Jo_Ann_WILLIAMS.html")
+        wd = _mk_merge_workdir(tmp_path, opinion, {
+            "citation": "Midwest Employers Cas. Co. v. Williams, "
+                        "161 F.3d 877 (5th Cir. 1998)",
+            "status": "POSSIBLE_MATCH", "confidence": "0.70", "cl_url": "",
+            "matched_name": "Midwest Employers Casualty Co. v. Williams",
+            "diagnostics_cat": "", "diagnostics_msg": "", "syllabus": ""})
+        merge_claims(wd)
+        claims = list(csv.DictReader(
+            (wd / "claims.csv").open(encoding="utf-8")))
+        assert claims[0]["opinion_file"] == f"opinions/{opinion}"
+
+
+class TestMergeColumnPreservation:
+    """Review finding #2: a standalone merge rerun must not drop columns
+    written by later verbs (quote_floor, crosscheck_flags, triage_track,
+    prescreen_hint, support, assessed_by). The contract is 'every verb
+    independently runnable; resume = rerun the verb'."""
+
+    def test_downstream_columns_survive_rerun(self, tmp_path):
+        from citation_verifier.proposition_pipeline import merge_claims
+        wd = tmp_path / "wd"
+        (wd / "opinions").mkdir(parents=True)
+        fields = ["claim_id", "cited_case", "quoted_text", "cl_status",
+                  "quote_floor", "crosscheck_flags", "triage_track",
+                  "prescreen_hint", "support", "assessed_by", "assessment"]
+        with (wd / "claims.csv").open("w", newline="",
+                                      encoding="utf-8") as f:
+            w = csv.DictWriter(f, fieldnames=fields)
+            w.writeheader()
+            w.writerow({"claim_id": "t-01", "cited_case": "A v. B, 1 U.S. 1",
+                        "quoted_text": "[]", "cl_status": "VERIFIED",
+                        "quote_floor": "Yellow",
+                        "crosscheck_flags": '{"court_mismatch": {}}',
+                        "triage_track": "full", "prescreen_hint": "hint",
+                        "support": "partial", "assessed_by": "opus/assess-v2",
+                        "assessment": "Yellow"})
+        (wd / "verification_results.csv").write_text(
+            "citation,status,cl_url,matched_name,diagnostics_msg,syllabus\n"
+            "\"A v. B, 1 U.S. 1\",VERIFIED,,A v. B,,\n", encoding="utf-8")
+        merge_claims(wd)
+        (row,) = list(csv.DictReader(
+            (wd / "claims.csv").open(encoding="utf-8")))
+        assert row["quote_floor"] == "Yellow"
+        assert row["crosscheck_flags"] == '{"court_mismatch": {}}'
+        assert row["triage_track"] == "full"
+        assert row["prescreen_hint"] == "hint"
+        assert row["support"] == "partial"
+        assert row["assessed_by"] == "opus/assess-v2"
+        assert row["assessment"] == "Yellow"  # not clobbered to ""
+
+
 class TestWithersCorpusLinkage:
     """The committed frozen corpus IS the bug's regression data: its
     verification_results.csv has blank matched_name on batch rows, and its

@@ -36,7 +36,11 @@ def generate_report_html(data: dict) -> str:
     retrieved = data.get("retrieved_opinions", [])
     unavailable = data.get("unavailable_opinions", [])
 
-    total_checked = len(findings) + len(verified) + len(unable)
+    # Count CLAIMS, not cards: an unable-to-verify card groups a
+    # multiply-cited unavailable case into one card with N propositions,
+    # so add N (not 1) to agree with the per-row run_report stats (review #3).
+    unable_claims = sum(len(u.get("propositions", [])) or 1 for u in unable)
+    total_checked = len(findings) + len(verified) + unable_claims
     red_count = sum(1 for f in findings if f.get("severity") == "red")
     yellow_count = sum(1 for f in findings if f.get("severity") == "yellow")
     checkcite_count = sum(1 for f in findings

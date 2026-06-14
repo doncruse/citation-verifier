@@ -175,33 +175,6 @@ def _link_opinion_file(workdir: Path, matched_name: str, cited_case: str,
     return ""
 
 
-def _find_opinion_file(workdir: Path, case_name: str) -> str:
-    """Scan opinions/ for a file matching the case name. Returns relative path or ''."""
-    opinions_dir = workdir / "opinions"
-    if not opinions_dir.exists():
-        return ""
-
-    normalized = re.sub(r"[^a-z0-9]", "", case_name.lower())
-
-    for f in opinions_dir.iterdir():
-        if f.is_file():
-            fn = re.sub(r"[^a-z0-9]", "", f.stem.lower())
-            if fn and normalized and (fn in normalized or normalized in fn):
-                return f"opinions/{f.name}"
-
-    return ""
-
-
-_PASSTHROUGH_FIELDS = [
-    "quoted_text", "quote_check", "quote_check_worst",
-    # Phase 1c extraction (brief-side text)
-    "brief_sentence",
-    # Phase 2c assessment output — three agent-authored blocks + badge
-    "brief_block", "opinion_block", "finding_analysis", "badge_label",
-    # Legacy (pre-finding_analysis) — kept so old briefs can regenerate reports
-    "opinion_text", "explanation",
-]
-
 _VR_FIELDS = [
     "citation", "status", "confidence", "cl_url",
     "matched_name", "matched_court", "matched_court_id",
@@ -1674,7 +1647,11 @@ def merge_claims(workdir: Path) -> MergeStats:
 
     # Merge columns. claim_id / cited_for (design §4 input contract) lead
     # the schema when the input claims carry them; legacy claims.csv
-    # without them still merge unchanged.
+    # without them still merge unchanged. Any OTHER column already present
+    # in claims.csv (downstream verbs' output -- quote_floor,
+    # crosscheck_flags, triage_track, prescreen_hint, support,
+    # assessed_by, brief_block, ...) is carried through so a standalone
+    # merge rerun never drops it (resume = rerun the verb; review #2).
     output_fields = [
         "page", "proposition", "cited_case",
         "retrieved_case", "supporting_language", "assessment",
@@ -1687,8 +1664,8 @@ def merge_claims(workdir: Path) -> MergeStats:
                                  "cited_for")
         if "claim_id" in claims[0]:
             output_fields.insert(0, "claim_id")
-        for col in _PASSTHROUGH_FIELDS:
-            if col in claims[0]:
+        for col in claims[0].keys():
+            if col not in output_fields:
                 output_fields.append(col)
 
     merged_rows: list[dict[str, str]] = []
@@ -1711,31 +1688,33 @@ def merge_claims(workdir: Path) -> MergeStats:
             if cited:
                 stats.unmatched_claims.append(cited)
 
-        # Slug-token opinion linkage (§10 step 2; replaces name-containment)
-        opinion_file = _link_opinion_file(workdir, matched_name, cited, url)
+        # Slug-token opinion linkage (§10 step 2), gated on CL having
+        # LOCATED the case (review #1): only a citation CL actually
+        # matched (non-empty cl_url or matched_name) may link an
+        # opinions/ file. A NOT_FOUND / unmatched citation has both
+        # empty, so it can no longer borrow another located case's
+        # opinion via the bare cited-name token source -- it stays Gray
+        # "unable to verify" instead of being assessed against the wrong
+        # opinion. (POSSIBLE_MATCH / LIKELY_REAL carry a match, so they
+        # still link.)
+        opinion_file = (_link_opinion_file(workdir, matched_name, cited, url)
+                        if (url or matched_name) else "")
 
         if opinion_file:
             stats.opinion_count += 1
 
-        row = {
-            "page": claim.get("page", ""),
-            "proposition": claim.get("proposition", ""),
-            "cited_case": cited,
-            "retrieved_case": matched_name,
-            "supporting_language": claim.get("supporting_language", ""),
-            "assessment": claim.get("assessment", ""),
-            "cl_url": url,
-            "cl_status": status,
-            "diagnostics": diag_msg,
-            "opinion_file": opinion_file,
-            "syllabus": vr.get("syllabus", ""),
-        }
-        for col in ("claim_id", "cited_for"):
-            if col in claim:
-                row[col] = claim[col]
-        for col in _PASSTHROUGH_FIELDS:
-            if col in claim:
-                row[col] = claim[col]
+        # Start from the input row to preserve every existing column
+        # (review #2), then overlay the merge-derived fields.
+        row = dict(claim)
+        row["retrieved_case"] = matched_name
+        row["cl_url"] = url
+        row["cl_status"] = status
+        row["diagnostics"] = diag_msg
+        row["opinion_file"] = opinion_file
+        row["syllabus"] = vr.get("syllabus", "")
+        row.setdefault("assessment", claim.get("assessment", ""))
+        row.setdefault("supporting_language",
+                       claim.get("supporting_language", ""))
         merged_rows.append(row)
 
     # Write updated claims.csv

@@ -147,6 +147,23 @@ once to fill transient failures (resume-keyed), or (b) score only claims
 that have verdicts and report the dropped count (no silent truncation).
 Do NOT let one flaky job crash a multi-corpus run. (Offline fix; no API.)
 
+## Priority 2 — Code-review deferrals (PR #21, logged 2026-06-14)
+From the independent review; full disposition in
+`docs/retrospectives/2026-06-14-code-review-disposition.md`. (Findings
+1/2/3/5 were FIXED; these two deferred.)
+- **run_verify partial-write window (review #4, Low).** wave1 writes
+  verification_results.csv before wave2; if wave2 raises, the file
+  persists wave-1-only and run_verify no-ops on rerun (file exists).
+  Narrow (verify_batch swallows errors into VERIFICATION_INCOMPLETE).
+  Fix when next touching the live verify path (write the CSV once after
+  both waves, or add a completion sentinel). Touches live-API code the
+  offline suite can't exercise — don't fix blind.
+- **_parse_json_object over-capture (review #6, note).** first-{/last-}
+  slicing fails if the model appends prose with braces after the JSON →
+  claim drops to recorded-failure/pending (fails SAFE, no wrong data).
+  Tighten (last balanced object, or fenced-block-first) when building
+  MessagesAPIExecutor.
+
 ## Priority 2 — Improvements (better results)
 
 ### Report layout v2: filterable, skimmable, multi-view (logged 2026-06-12)
