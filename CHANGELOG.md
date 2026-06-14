@@ -2,6 +2,34 @@
 
 All notable schema-level changes to citation-verifier. Per design v2 §2.6 / §5: additions to closed-set enums are minor-version changes, removals are major.
 
+## v0.4.0 — 2026-06-14 (Proposition-verification pipeline)
+
+Design: `docs/plans/2026-05-20-citation-verifier-refactor-design-v2.md` (pipeline-redesign track, PR #21).
+
+This release adds a second layer on top of the citation verifier: a **proposition-verification pipeline** that judges whether a cited case actually supports the proposition it is cited for. The core single-citation verifier (Steps 1-3, `Status` taxonomy, `VerificationResult` schema) is unchanged — this is a purely additive feature layer, hence the minor bump.
+
+### New modules (`src/citation_verifier/`)
+
+- **`proposition_pipeline.py`** — idempotent verbs over a per-document workdir: `extract` (LLM: document → `claims.csv` + TOA/body citation lists), `verify` (batched core verification + opinion download), `merge` (claims↔results join + slug-token opinion linkage), `check-quotes` (quote-fidelity verdicts + quote floor), `crosscheck` (deterministic TOA/court/pincite flags), `triage` (per-claim assessment depth), `assess` (LLM: does the opinion support the proposition?), `apply-assessments` (verdicts → claims.csv with floor enforcement), `report` (claims.csv → `report.html`), and `full` (the whole chain). Each verb no-ops when its output exists, so resume = rerun.
+- **`executor.py`** — LLM executor protocol with three transports: in-session Agent subagents ("jobs" mode, default), headless `claude-agent-sdk` (`AgentSDKExecutor`), and recorded-cassette replay (`RecordedExecutor`) for offline determinism.
+- **`scoring.py`** — two-axis color derivation (citation-status × support) and offline corpus scoring. Invariant: reporter-cite mismatches and crosscheck flags never move the score.
+- **`report_template.py`** — interactive HTML report (findings, Check Cite dashboard, amber flag chips).
+- **`resolution_path.py`** — accumulator for per-stage resolution-path entries.
+- **`prompts/`** — versioned LLM prompt templates (`extract_v1`, `assess_v1`, `assess_v2`, `prescreen_v1`); packaged via `package-data`.
+- **`brief_pipeline.py`** — deprecated `sys.modules` alias of `proposition_pipeline` for legacy `/verify-brief` runs.
+
+### CLI
+
+- **`verify-propositions <workdir> <verb>`** subcommand (`__main__.py`): runs any pipeline verb or the `full` chain. Flags: `--document` (extract / full source), `--executor jobs|sdk`, `--model`, `--prompt-version` (default `assess-v2`), `--replay <jsonl>`, `--prescreen`, `--force`.
+
+### Skills
+
+- **`/proposition-verifier`** — thin orchestration trigger for the pipeline (supersedes `/verify-brief`, which is frozen for old `briefs/` runs). All assessment criteria live in the versioned prompt templates, not the skill.
+
+### Testing
+
+- New suites: `test_proposition_pipeline.py`, `test_executor.py`, `test_scoring.py`, `test_assessment_regression.py`, `test_assessment_corpora.py`, `test_ab_runner.py`, plus the frozen assessment corpora under `tests/data/assessment_corpora/`.
+
 ## v0.3.3 — 2026-06-11 (Tier 1 Step 3 — "Check Cite")
 
 Design: `docs/plans/2026-06-11-check-cite-design.md`. Retro: `docs/retrospectives/2026-06-11-check-cite-cite-unconfirmed.md`.
