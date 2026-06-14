@@ -20,10 +20,9 @@ Input: "Smith v. Jones, 2018 WL 301424 (S.D.N.Y. Mar. 5, 2018)"
   |
   +-- Step 1: Citation Lookup API (fast, precise)
   |     Found + name matches? -> VERIFIED + CourtListener link
-  |     Found but different case? -> WRONG_CASE ("citation belongs to ...")
-  |
-  +-- Step 1b: Adjacent Page Fallback
-  |     Try pages +/-1 and +/-2 for off-by-one starting pages
+  |     Found but caption diverges? -> caption_investigation:
+  |       party-overlap holds -> VERIFIED + warning
+  |       party-overlap fails  -> WRONG_CASE ("citation belongs to ...")
   |
   +-- Step 2: Opinion Search (fuzzy fallback)
   |     Search by case name + court + date range
@@ -243,7 +242,7 @@ pytest tests/test_parser_diagnostics.py -v
 pytest tests/test_cl_api_issues.py -v
 ```
 
-`test_verifier.py` has 188 unit tests covering the full pipeline: citation lookup, name matching, adjacent page fallback, opinion search, RECAP search, court corroboration, scoring and weight redistribution, docket number normalization, abbreviation expansion, surname matching, the eyecite factory function, the Check Cite (`CITE_UNCONFIRMED`) classifier, the `INSUFFICIENT_DATA` promotion, and the pre-parsed citation path. All API calls are mocked. `test_async_verifier.py` has 67 tests verifying sync/async behavior parity. The proposition pipeline, executor protocol, two-axis scoring, and frozen assessment corpora have their own suites (`test_proposition_pipeline.py`, `test_executor.py`, `test_scoring.py`, `test_assessment_regression.py`).
+`test_verifier.py` has 188 unit tests covering the full pipeline: citation lookup, name matching, caption investigation, opinion search, RECAP search, court corroboration, scoring and weight redistribution, docket number normalization, abbreviation expansion, surname matching, the eyecite factory function, the Check Cite (`CITE_UNCONFIRMED`) classifier, the `INSUFFICIENT_DATA` promotion, and the pre-parsed citation path. All API calls are mocked. `test_async_verifier.py` has 67 tests verifying sync/async behavior parity. The proposition pipeline, executor protocol, two-axis scoring, and frozen assessment corpora have their own suites (`test_proposition_pipeline.py`, `test_executor.py`, `test_scoring.py`, `test_assessment_regression.py`).
 
 `test_false_negatives.py` runs against the real CourtListener API using the corpus in `tests/data/known_real_citations.json` (5 cases). `tests/data/known_fake_citations.json` contains 8 confirmed hallucinations for reference.
 
