@@ -137,6 +137,16 @@ SDK-notional/API rates, ~$6.50 with Batches; Sonnet several-fold cheaper
 This is the call the model-default decision feeds into: pick {model ×
 batch × cache} for the cheapest path that holds accuracy.
 
+## Priority 1 — A/B harness robustness bug (found 2026-06-13 sonnet-v2 run)
+Live A/B (`tools/ab_test_runner.py`) crashes when an assess job fails
+transiently: the failed claim has no verdict, and `score_workdir`'s default
+RecordedExecutor raises `RecordedVerdictMiss` on the first gap → whole run
+dies (sonnet-v2 lost payne/wainwright this way). Fix `run_ab_config` live
+branch: after `run_assess`, if `stats.pending > 0`, either (a) re-run assess
+once to fill transient failures (resume-keyed), or (b) score only claims
+that have verdicts and report the dropped count (no silent truncation).
+Do NOT let one flaky job crash a multi-corpus run. (Offline fix; no API.)
+
 ## Priority 2 — Improvements (better results)
 
 ### Report layout v2: filterable, skimmable, multi-view (logged 2026-06-12)

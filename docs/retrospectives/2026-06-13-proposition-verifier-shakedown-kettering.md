@@ -165,6 +165,37 @@ confirm the richer cards render. After that, the merge is justified.
    54/61 — near-tie. v2 packs multiple claims per opinion, so watch
    whether Sonnet holds up on packed jobs.)
 
+### sonnet-v2 model A/B — RESULT: Sonnet over-flags badly; stay on Opus
+
+Ran `sonnet-v2` live (2026-06-13). **withers scored cleanly; payne/wainwright
+did NOT** — the run hit transient SDK failures (6 payne jobs) leaving claims
+without verdicts, and `score_workdir`'s RecordedExecutor raised
+`RecordedVerdictMiss` on the first gap, crashing the harness before payne
+scored. **Harness robustness bug** (logged to TODO): live A/B scoring must
+tolerate missing verdicts (re-run to fill, or score only completed claims +
+report the drop) instead of crashing on a gap.
+
+withers comparison (the decisive signal — opus-v2 vs sonnet-v2):
+
+| | yellows caught | yellows exact | greens over-flagged | reds |
+|---|---|---|---|---|
+| **opus-v2** | 16/19 | 11 | **4/12** | 3/3 |
+| **sonnet-v2** | 16/19 | 9 | **9/12** | 3/3 |
+
+Same yellow recall, but Sonnet achieves it by **over-flagging 9 of 12 true
+greens** (vs Opus's 4) — withers-01/-26 went all the way to **Red**. Sonnet
+is indiscriminately stricter: good recall, terrible precision. On a real
+brief that's a flood of false concerns. The old v1 near-tie (sonnet 53/61
+~ opus 54/61) does **NOT** carry to v2 — plausibly because v2 packs multiple
+claims per opinion (harder context-tracking) and the two-axis support call
+makes Sonnet default to partial/unsupported too readily.
+
+**Decision: Opus stays the assess default.** Sonnet's cost saving isn't
+worth ~2× the green over-flagging. **Middle path worth a future test:** use
+the cheap model ONLY on the `fast` triage track (clean-verified, no-quote,
+low-risk claims), Opus on `full` — that's the deferred triage-routing idea,
+now with a reason (don't trust the cheap model where precision matters).
+
 3. **Then:** merge `pipeline-redesign` → main (decide squash vs merge-
    commit). Optional cleanup logged to TODO: resume `--force` guards on
    merge/check-quotes/crosscheck/triage to quiet the re-running middle
