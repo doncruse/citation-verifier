@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Proposition Verification Report — Withers v. City of Aberdeen</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  color: #2d2d2d;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+  background: #fafaf8;
+}
+h1, h2, h3 { font-family: 'Lora', serif; }
+h1 { font-size: 1.6rem; margin-bottom: 0.3rem; color: #1a1a1a; }
+h2 { font-size: 1.25rem; margin: 2rem 0 0.8rem; color: #333; border-bottom: 1px solid #ddd; padding-bottom: 0.3rem; }
+h3 { font-size: 1.05rem; margin: 1rem 0 0.5rem; }
+
+.meta { color: #666; font-size: 0.9rem; margin-bottom: 1.5rem; }
+.meta span { display: inline-block; margin-right: 1.5rem; }
+
+.dashboard { background: #fff; border: 1px solid #e0e0e0; border-radius: 6px; padding: 1.2rem 1.5rem; margin-bottom: 2rem; }
+.stats { display: flex; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 1rem; }
+.stat { text-align: center; }
+.stat-num { font-size: 1.8rem; font-weight: 600; }
+.stat-label { font-size: 0.8rem; color: #666; text-transform: uppercase; letter-spacing: 0.05em; }
+.stat-red .stat-num { color: #c0392b; }
+.stat-yellow .stat-num { color: #d4a017; }
+.stat-orange .stat-num { color: #e67e22; }
+.stat-green .stat-num { color: #27ae60; }
+.stat-gray .stat-num { color: #888; }
+
+.issue-list { list-style: none; padding: 0; }
+.issue-list li {
+  padding: 0.5rem 0.7rem;
+  margin-bottom: 0.4rem;
+  border-left: 4px solid #ccc;
+  background: #fefefe;
+  font-size: 0.9rem;
+}
+.issue-list li.sev-red { border-left-color: #c0392b; background: #fdf2f2; }
+.issue-list li.sev-yellow { border-left-color: #d4a017; background: #fefcf0; }
+.issue-list li.sev-orange { border-left-color: #e67e22; background: #fff7ef; }
+.issue-list li.sev-gray { border-left-color: #999; background: #f5f5f5; }
+.issue-list a { color: inherit; text-decoration: none; }
+.issue-list a:hover { text-decoration: underline; }
+
+.badge {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.15rem 0.5rem;
+  border-radius: 3px;
+  vertical-align: middle;
+}
+.badge-red { background: #f8d7da; color: #721c24; }
+.badge-yellow { background: #fff3cd; color: #856404; }
+.badge-orange { background: #ffe0b2; color: #8a4500; }
+.badge-green { background: #d4edda; color: #155724; }
+.badge-blue { background: #d1ecf1; color: #0c5460; }
+.badge-gray { background: #e9ecef; color: #495057; }
+
+.bq-brief {
+  border-left: 4px solid #e67e22;
+  background: #fef9f3;
+  padding: 0.7rem 1rem;
+  margin: 0.5rem 0;
+  font-size: 0.9rem;
+}
+.bq-opinion {
+  border-left: 4px solid #27ae60;
+  background: #f0faf4;
+  padding: 0.7rem 1rem;
+  margin: 0.5rem 0;
+  font-size: 0.9rem;
+}
+.bq-label { font-weight: 600; font-size: 0.8rem; color: #666; margin-bottom: 0.2rem; }
+
+.card-flags { margin: 0.2rem 0 0.5rem; }
+.flag-chip {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  background: #fff3e0;
+  color: #8a4500;
+  border: 1px solid #f0c27a;
+  border-radius: 3px;
+  padding: 0.1rem 0.5rem;
+  margin: 0 0.3rem 0.2rem 0;
+}
+
+details { margin-bottom: 0.8rem; }
+summary {
+  cursor: pointer;
+  padding: 0.6rem 0.8rem;
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  list-style: none;
+}
+summary::-webkit-details-marker { display: none; }
+summary::before { content: "\25B6\00a0"; font-size: 0.7rem; color: #888; }
+details[open] > summary::before { content: "\25BC\00a0"; }
+details[open] > summary { border-radius: 4px 4px 0 0; border-bottom: none; }
+.finding-body {
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-top: none;
+  border-radius: 0 0 4px 4px;
+  padding: 1rem;
+}
+.case-name { font-family: 'Lora', serif; font-style: italic; }
+.explanation { margin-top: 0.7rem; font-size: 0.9rem; line-height: 1.5; }
+.analysis { margin-top: 0.8rem; font-size: 0.92rem; line-height: 1.55; color: #2d2d2d; }
+.analysis p { margin-bottom: 0.6rem; }
+.analysis p:last-child { margin-bottom: 0; }
+.prop-list { margin: 0.3rem 0 0.6rem 1.2rem; font-size: 0.9rem; }
+.prop-list li { margin-bottom: 0.25rem; }
+
+.controls { margin-bottom: 0.5rem; font-size: 0.8rem; }
+.controls button {
+  background: none;
+  border: none;
+  color: #2980b9;
+  cursor: pointer;
+  font-size: 0.8rem;
+  padding: 0.2rem 0.4rem;
+}
+.controls button:hover { text-decoration: underline; }
+
+.verified-item {
+  padding: 0.3rem 0;
+  font-size: 0.85rem;
+  border-bottom: 1px solid #f0f0f0;
+}
+.checkmark { color: #27ae60; font-weight: bold; }
+
+.methodology { font-size: 0.85rem; color: #555; margin-top: 2rem; }
+.methodology h2 { font-size: 1.1rem; }
+.methodology ul { padding-left: 1.2rem; }
+.methodology li { margin-bottom: 0.5rem; }
+
+@media print {
+  details { open: true; }
+  details[open] > summary { border-bottom: 1px solid #e0e0e0; }
+  body { max-width: 100%; padding: 1rem; font-size: 12px; }
+  .controls { display: none; }
+  .dashboard { box-shadow: none; }
+}
+</style>
+<script>
+function expandAll() { document.querySelectorAll('details').forEach(d => d.open = true); }
+function collapseAll() { document.querySelectorAll('details').forEach(d => d.open = false); }
+</script>
+</head>
+<body>
+
+<h1>Proposition Verification Report</h1>
+<div class="meta">
+  <span><strong>Brief:</strong> Withers v. City of Aberdeen -- assessment-corpus demo (assess-v2)</span><br>
+  <span><strong>Case:</strong> <em>Withers v. City of Aberdeen</em>, (frozen test corpus, 34-row measurement sample)</span><br>
+  <span><strong>Filed:</strong> </span>
+  <span><strong>Report generated:</strong> 2026-06-12</span>
+</div>
+
+
+<div class="dashboard">
+  <h2 style="border:none; margin-top:0; padding:0;">Summary</h2>
+  <div class="stats">
+    <div class="stat"><div class="stat-num">33</div><div class="stat-label">Claims checked</div></div>
+    <div class="stat stat-red"><div class="stat-num">6</div><div class="stat-label">Serious issues</div></div>
+    <div class="stat stat-yellow"><div class="stat-num">15</div><div class="stat-label">Concerns</div></div>
+    <div class="stat stat-orange"><div class="stat-num">0</div><div class="stat-label">Check cite</div></div>
+    <div class="stat stat-green"><div class="stat-num">10</div><div class="stat-label">Verified</div></div>
+    <div class="stat stat-gray"><div class="stat-num">2</div><div class="stat-label">Unable to verify</div></div>
+  </div>
+  <h3>Issues</h3>
+  <ul class="issue-list">
+    <li class="sev-yellow"><a href="#finding-1"><span class="badge badge-yellow">Overstated -- case partially supports</span> p. 48 &mdash; <em>Nix v. Whiteside</em>, 475 U.S. 157, 166 (1986). &mdash; Nix v. Whiteside is a Sixth Amendment ineffective-assistance case about whether counsel violates the right to counsel by refusing to help a client present perjured testimony; its subject is the attorney's duty of candor…</a></li>
+<li class="sev-yellow"><a href="#finding-2"><span class="badge badge-yellow">Quote not found in opinion</span> p. 65 &mdash; <em>Midwest Employers Cas. Co. v. Williams</em>, 161 F.3d 877, 879 (5th Cir. 1998). &mdash; The opinion substantively supports the proposition: it holds that counsel's misreading of an unambiguous procedural rule (Rule 6(e)) does not constitute excusable neglect under Appellate Rule 4(a)(5), describing such a…</a></li>
+<li class="sev-yellow"><a href="#finding-3"><span class="badge badge-yellow">Overstated -- case partially supports</span> p. 65 &mdash; <em>Silvercreek Mgmt.</em>, Inc. v. Banc of Am. Sec., LLC, 534 F.3d 469, 472 (5th Cir. 2008). &mdash; Silvercreek is directly on point as to excusable neglect: applying the Pioneer factors, the Fifth Circuit affirmed the district court's refusal to extend an opt-out deadline because the delay was attributable to…</a></li>
+<li class="sev-red"><a href="#finding-4"><span class="badge badge-red">Not supported by cited case</span> p. 65 &mdash; <em>Wilkens v. Johnson</em>, 238 F.3d 328 (5th Cir. 2001). &mdash; The brief attributes two specific circumstances to Wilkens that the opinion does not support.</a></li>
+<li class="sev-yellow"><a href="#finding-5"><span class="badge badge-yellow">Reworded -- not a verbatim quote</span> p. 72 &mdash; <em>American Auto. Ass'n v. AAA Legal Clinic of Jefferson Crooke</em>, 930 F.2d 1117, 1120 (5th Cir. 1991). &mdash; The opinion substantively supports the proposition: it holds that Rule 36 admissions are &quot;conclusively established,&quot; that an admission &quot;cannot be rebutted by contrary testimony or ignored by the district court,&quot; and…</a></li>
+<li class="sev-yellow"><a href="#finding-6"><span class="badge badge-yellow">Paraphrase presented as direct quote</span> p. 72 &mdash; <em>Donovan v. Carls Drug Co.</em>, 703 F.2d 650, 652 (2d Cir. 1983). &mdash; The opinion directly supports the proposition: Carls' Rule 36(a) admissions arose precisely because it &quot;failed to respond to the request,&quot; and the court holds those admissions &quot;may be used for Rule 56 summary judgment,&quot;…</a></li>
+<li class="sev-yellow"><a href="#finding-7"><span class="badge badge-yellow">Overstated -- case partially supports</span> p. 81 &mdash; <em>American Auto. Ass'n v. AAA Legal Clinic of Jefferson Crooke</em>, 930 F.2d 1117, 1120 (5th Cir. 1991). &mdash; The opinion supports the self-executing and binding aspects of the proposition: a matter is &quot;admitted unless the party... responds with a written answer or objection,&quot; admissions are &quot;conclusively established,&quot; and they…</a></li>
+<li class="sev-yellow"><a href="#finding-8"><span class="badge badge-yellow">Overstated -- case partially supports</span> p. 81 &mdash; <em>Donovan v. Carls Drug Co.</em>, 703 F.2d 650, 652 (2d Cir. 1983). &mdash; Carls Drug is a Second Circuit FLSA decision, not a Fifth Circuit case, and it does not articulate the principle the brief attributes to &quot;the Fifth Circuit&quot; — that deemed admissions are &quot;conclusive judicial admissions&quot;…</a></li>
+<li class="sev-yellow"><a href="#finding-9"><span class="badge badge-yellow">Overstated -- case partially supports</span> p. 81 &mdash; <em>In re Carney</em>, 258 F.3d 415, 420 (5th Cir. 2001). &mdash; In re Carney directly supports the core propositions that a deemed Rule 36 admission conclusively establishes the validity of the underlying claim and can independently support summary judgment; the court held that…</a></li>
+<li class="sev-yellow"><a href="#finding-10"><span class="badge badge-yellow">Overstated -- case partially supports</span> p. 86 &mdash; <em>See</em>, e.g., In re United States, 864 F.2d 1153, 1156 (5th Cir. 1989). &mdash; The opinion does state the general waiver rule the brief invokes, and the pinpoint cite to page 1156 is accurate: the Fifth Circuit &quot;readily agree[s]&quot; that when a party fails to object timely to discovery, its…</a></li>
+<li class="sev-yellow"><a href="#finding-11"><span class="badge badge-yellow">Overstated -- case partially supports</span> p. 96 &mdash; <em>Scott v. Carpanzano</em>, 556 F. App'x 288, 295 (5th Cir. 2014). &mdash; The opinion does touch on negligence: as to Ms. Belcastro and Ms. Carpanzano, the court found their reliance on Mr. Carpanzano &quot;may have been negligent&quot; but did not rise to an intentional failure to respond, so to that…</a></li>
+<li class="sev-red"><a href="#finding-12"><span class="badge badge-red">Case mismatch -- cite resolves to a different case</span> p. 96 &mdash; <em>Gen. Tel. Corp. v. Gen. Tel. Answering Serv.</em>, 277 F.2d 919, 921 (5th Cir. 1960). &mdash; </a></li>
+<li class="sev-yellow"><a href="#finding-14"><span class="badge badge-yellow">Overstated -- case partially supports</span> p. 96 &mdash; <em>Rice v. HamiltonDavis Mental Health</em>, Inc., No. 22-cv-397-TSL-RPM, 2023 WL 3746500, at *5 (S.D. Miss. May 31, 2023). &mdash; Rice applies the Rule 55(c) &quot;good cause&quot; standard and analyzes the three set-aside factors (willfulness, meritorious defense, prejudice) entirely on their own terms before turning to fees.</a></li>
+<li class="sev-yellow"><a href="#finding-15"><span class="badge badge-yellow">Paraphrase presented as direct quote</span> p. 102 &mdash; <em>Cruz v. Hauck</em>, 762 F.2d 1230, 1233-34 (5th Cir. 1985). &mdash; Cruz v. Hauck supports the proposition's substance.</a></li>
+<li class="sev-yellow"><a href="#finding-16"><span class="badge badge-yellow">Reworded -- not a verbatim quote</span> p. 105 &mdash; <em>Anderson v. Liberty Lobby</em>, Inc., 477 U.S. 242, 248 (1986). &mdash; The opinion squarely supports this proposition: at page 248 the Court frames the &quot;genuine&quot; dispute standard as whether &quot;the evidence is such that a reasonable jury could return a verdict for the nonmoving party,&quot; which…</a></li>
+<li class="sev-red"><a href="#finding-17"><span class="badge badge-red">Not supported by cited case</span> p. 105 &mdash; <em>City of Madison v. Bryan</em>, 763 So. 2d 162, 166 (Miss. 2000). &mdash; City of Madison v. Bryan is a standing-and-mootness decision arising from a bill of exceptions appeal of a municipal permit denial.</a></li>
+<li class="sev-red"><a href="#finding-19"><span class="badge badge-red">Case mismatch -- cite resolves to a different case</span> p. 105 &mdash; <em>Crittendon v. State Farm Mut. Auto. Ins. Co.</em>, 99 So. 3d 751, 755 (Miss. 2012). &mdash; </a></li>
+<li class="sev-yellow"><a href="#finding-20"><span class="badge badge-yellow">Overstated -- case partially supports</span> p. 105 &mdash; <em>Stringer v. Trapp</em>, 30 So. 3d 339, 342 (Miss. 2010). &mdash; Stringer does address whether the limitations/discovery question is a jury issue: it observes that the discovery-rule inquiry &quot;often turns on the factual determination of 'what the plaintiff knew and when,'&quot; and that…</a></li>
+<li class="sev-yellow"><a href="#finding-21"><span class="badge badge-yellow">Reworded -- not a verbatim quote</span> p. 105 &mdash; <em>Young v. S. Farm Bureau Life Ins. Co.</em>, 592 So. 2d 103, 107 (Miss. 1991). &mdash; The opinion substantively supports the proposition.</a></li>
+<li class="sev-red"><a href="#finding-22"><span class="badge badge-red">Case on unrelated subject</span> p. 108 &mdash; <em>See Doe v. City of Memphis</em>, 928 F.3d 481, 491 (5th Cir. 2019). &mdash; Doe v. City of Memphis is a Sixth Circuit case about whether the district court abused its discretion by granting summary judgment and striking class allegations before the plaintiff had a full opportunity to conduct…</a></li>
+<li class="sev-red"><a href="#finding-23"><span class="badge badge-red">Case on unrelated subject</span> p. 108 &mdash; <em>N. Cypress Med. Ctr. Operating Co. v. Cigna Healthcare</em>, 781 F.3d 182, 203 (5th Cir. 2015). &mdash; North Cypress Medical Center Operating Co. v. Cigna Healthcare is a Fifth Circuit ERISA/insurance-reimbursement case about whether a hospital had standing to enforce assigned plan benefits, ERISA preemption of Texas…</a></li>
+<li class="sev-gray"><a href="#finding-uv-13"><span class="badge badge-gray">Unable to verify</span> <em>Hernandez v. Hoolaulima Government Solutions</em>, LLC, No. EP-23-CV-439-KC, 2024 WL 5274525, at *2 (W.D. Tex. Mar. 19, 2024). &mdash; Not on CourtListener</a></li>
+<li class="sev-gray"><a href="#finding-uv-18"><span class="badge badge-gray">Unable to verify</span> <em>City of Grenada v. Harrelson</em>, 84 So. 3d 35, 38 (Miss. Ct. App. 2012). &mdash; cited 2&times; &mdash; not on CourtListener</a></li>
+  </ul>
+</div>
+<h2>Findings</h2>
+<div class="controls"><button onclick="expandAll()">Expand All</button> | <button onclick="collapseAll()">Collapse All</button></div>
+<details id="finding-1">
+  <summary>
+    <strong>p. 48</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/111603/nix-v-whiteside/"><span class="case-name">Nix v. Whiteside</span></a>, 475 U.S. 157, 166 (1986).
+    &mdash; <span class="badge badge-yellow">Overstated -- case partially supports</span>
+  </summary>
+  <div class="finding-body">
+    
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief"><p>Courts have consistently recognized that the purpose of the rules governing conflicts of interest is not only to protect the interests of clients but also to maintain the integrity of the judicial process.</p></div>
+    <div class="bq-label">Actual language in opinion:</div><div class="bq-opinion"><p>an attorney's ethical duty to advance the interests of his client is limited by an equally solemn duty to comply with the law and standards of professional conduct; it specifically ensures that the client may not use false evidence.</p></div>
+    <div class="analysis"><p>Nix v. Whiteside is a Sixth Amendment ineffective-assistance case about whether counsel violates the right to counsel by refusing to help a client present perjured testimony; its subject is the attorney's duty of candor to the tribunal, not the rules governing conflicts of interest. The opinion genuinely supports the second half of the proposition — that an attorney's obligations run not only to the client but also to the integrity of the judicial process — describing the lawyer as &quot;an officer of the court and a key component of a system of justice, dedicated to a search for truth&quot; and holding that the duty to advance client interests is &quot;limited by an equally solemn duty to comply with the law and standards of professional conduct.&quot;</p><p>But the Court expressly distinguished the client-perjury &quot;conflict&quot; before it from a true conflict of interest, stating that &quot;this is not remotely the kind of conflict of interests dealt with in Cuyler v. Sullivan.&quot; The brief thus recharacterizes a candor/perjury holding as a statement about the purpose of conflict-of-interest rules, a principle Nix does not articulate. The pinpoint at page 166 falls in the passage where the Court declines to define the relative weight of ethics canons and the Sixth Amendment because &quot;virtually all of the sources speak with one voice&quot; — language that does not state the cited proposition.</p></div>
+  </div>
+</details><details id="finding-2">
+  <summary>
+    <strong>p. 65</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/759537/midwest-employers-casualty-co-plaintiff-appellant-appellee-v-jo-ann/"><span class="case-name">Midwest Employers Cas. Co. v. Williams</span></a>, 161 F.3d 877, 879 (5th Cir. 1998).
+    &mdash; <span class="badge badge-yellow">Quote not found in opinion</span>
+  </summary>
+  <div class="finding-body">
+    
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief"><p>The Fifth Circuit has consistently held that &quot;the excusable neglect standard is a strict one&quot; and that &quot;inadvertence, ignorance of the rules, or mistakes construing the rules do not usually constitute excusable neglect.&quot;</p></div>
+    <div class="bq-label">Actual language in opinion:</div><div class="bq-opinion"><p>Where, as here, the rule at issue is unambiguous, a district court's determination that the neglect was inexcusable is virtually unassailable. [...] The nature of this very mistake &quot;weighs heavily against a finding of excusable neglect.&quot;</p></div>
+    <div class="analysis"><p>The opinion substantively supports the proposition: it holds that counsel's misreading of an unambiguous procedural rule (Rule 6(e)) does not constitute excusable neglect under Appellate Rule 4(a)(5), describing such a determination as &quot;virtually unassailable&quot; and the mistake as weighing &quot;heavily against a finding of excusable neglect,&quot; while leaving open only the &quot;rare case&quot; in which a rule misinterpretation might qualify. The core principle the brief draws — that the standard is applied strictly and that mistakes construing the rules usually do not amount to excusable neglect — tracks the opinion's reasoning and its reversal of the magistrate's extension.</p><p>Neither quoted string, however, appears anywhere in the opinion. The language &quot;inadvertence, ignorance of the rules, or mistakes construing the rules do not usually constitute excusable neglect&quot; is the Supreme Court's formulation from Pioneer, and this opinion quotes only Pioneer's equitable-factors passage, not that line; the phrase &quot;the excusable neglect standard is a strict one&quot; likewise does not appear. The substance is sound, but the brief presents fabricated quotations as though they were drawn from this case.</p></div>
+  </div>
+</details><details id="finding-3">
+  <summary>
+    <strong>p. 65</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/62901/silvercreek-management-inc-v-banc-of-america-securities-llc/"><span class="case-name">Silvercreek Mgmt.</span></a>, Inc. v. Banc of Am. Sec., LLC, 534 F.3d 469, 472 (5th Cir. 2008).
+    &mdash; <span class="badge badge-yellow">Overstated -- case partially supports</span>
+  </summary>
+  <div class="finding-body">
+    
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief"><p>The Fifth Circuit has consistently held that delays within a party's control do not constitute excusable neglect.</p></div>
+    <div class="bq-label">Actual language in opinion:</div><div class="bq-opinion"><p>The district court did not abuse its discretion in refusing to extend the opt-out date, because it considered Silvercreek's proffered evidence and determined that counsel's performance fell below the threshold required for neglect to be excusable.</p></div>
+    <div class="analysis"><p>Silvercreek is directly on point as to excusable neglect: applying the Pioneer factors, the Fifth Circuit affirmed the district court's refusal to extend an opt-out deadline because the delay was attributable to counsel's own failure to track a deadline it had notice of — a delay squarely within the party's control. That substance lends real support to the brief's proposition.</p><p>The brief nonetheless overstates the holding. This is a single decision reviewed for abuse of discretion and resting on case-specific facts (counsel received the order, should have noticed the blank opt-out date, and could have inquired), not a categorical rule that the court has &quot;consistently held.&quot; Indeed, the opinion cuts against treating excusable neglect as mechanical: it notes that &quot;Silvercreek incorrectly contends that the district court must rigorously apply each of these factors in every case,&quot; emphasizing a discretionary, multi-factor analysis. Recasting that fact-bound, deferential ruling as a consistently-held categorical principle extends the case beyond what it decided.</p></div>
+  </div>
+</details><details id="finding-4">
+  <summary>
+    <strong>p. 65</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/22781/wilkens-v-johnson/"><span class="case-name">Wilkens v. Johnson</span></a>, 238 F.3d 328 (5th Cir. 2001).
+    &mdash; <span class="badge badge-red">Not supported by cited case</span>
+  </summary>
+  <div class="finding-body">
+    
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief"><p>Wilkens involved unique circumstances not present here, including a pro se litigant and confusion regarding the application of the prison mailbox rule.</p></div>
+    <div class="bq-label">Actual language in opinion:</div><div class="bq-opinion"><p>counsel for Wilkens avers that he never received a copy until, at the request of the staff attorney for the district court, a copy was &quot;faxed&quot; to him by the court on September 7, 1999. ... Then as now, counsel of record for Wilkens was Mark W. Breding, Esq., Tyler, Texas.</p></div>
+    <div class="analysis"><p>The brief attributes two specific circumstances to Wilkens that the opinion does not support. First, Wilkens was not a pro se litigant: the opinion refers throughout to &quot;counsel for Wilkens,&quot; &quot;Wilkens's lawyer,&quot; and &quot;counsel of record,&quot; and a footnote names his attorney as Mark W. Breding, Esq. The pro se characterization is affirmatively contradicted by the text.</p><p>Second, the opinion has nothing to do with the prison mailbox rule. The case turns entirely on Federal Rule of Appellate Procedure 4(a) — specifically whether a faxed copy of the judgment received in hand by counsel triggered subpart (A)'s seven-day window to file a Rule 4(a)(6) motion to reopen the time for a notice of appeal. The court never discusses, applies, or expresses confusion about the prison mailbox rule (the doctrine deeming a pro se prisoner's filing complete on delivery to prison officials). Because both of the asserted &quot;unique circumstances&quot; are absent from — and in the case of pro se status, contradicted by — the opinion, the proposition is unsupported.</p></div>
+  </div>
+</details><details id="finding-5">
+  <summary>
+    <strong>p. 72</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/8997446/american-automobile-assn-v-aaa-legal-clinic-of-jefferson-crooke-pc/"><span class="case-name">American Auto. Ass'n v. AAA Legal Clinic of Jefferson Crooke</span></a>, 930 F.2d 1117, 1120 (5th Cir. 1991).
+    &mdash; <span class="badge badge-yellow">Reworded -- not a verbatim quote</span>
+  </summary>
+  <div class="finding-body">
+    
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief"><p>Deemed admissions are &quot;judicial admissions&quot; that are binding on the party and cannot be contradicted at trial or on a motion for summary judgment.</p></div>
+    <div class="bq-label">Actual language in opinion:</div><div class="bq-opinion"><p>In form and substance a Rule 36 admission is comparable to an admission in pleadings or a stipulation drafted by counsel for use at trial, rather than to an evidentiary admission of a party.... An admission that is not withdrawn or amended cannot be rebutted by contrary testimony or ignored by the district court simply because it finds the evidence presented by the party against whom the admission operates more credible.... This conclusive effect applies equally to those admissions made affirmatively and those established by default.</p></div>
+    <div class="analysis"><p>The opinion substantively supports the proposition: it holds that Rule 36 admissions are &quot;conclusively established,&quot; that an admission &quot;cannot be rebutted by contrary testimony or ignored by the district court,&quot; and that this conclusive effect &quot;applies equally to those admissions made affirmatively and those established by default&quot; -- i.e., deemed admissions bind the party and cannot be contradicted. The opinion's characterization that such an admission is &quot;comparable to an admission in pleadings or a stipulation... rather than to an evidentiary admission of a party&quot; is the substance behind labeling them &quot;judicial admissions.&quot;</p><p>Two caveats keep this short of a clean quote match. The opinion never uses the literal phrase &quot;judicial admissions&quot; (hence the close/reworded quote), and because the case arose after a completed bench trial it does not itself mention summary judgment -- though the conclusive-effect language it states is general and not trial-specific, so the brief's reference to summary judgment is a routine application rather than a misstatement.</p></div>
+  </div>
+</details><details id="finding-6">
+  <summary>
+    <strong>p. 72</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/8926873/donovan-v-carls-drug-co/"><span class="case-name">Donovan v. Carls Drug Co.</span></a>, 703 F.2d 650, 652 (2d Cir. 1983).
+    &mdash; <span class="badge badge-yellow">Paraphrase presented as direct quote</span>
+  </summary>
+  <div class="finding-body">
+    
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief"><p>Admissions obtained under Rule 36, including those deemed admitted through a party's failure to respond, can form the basis for summary judgment.</p></div>
+    <div class="bq-label">Actual language in opinion:</div><div class="bq-opinion"><p>Carls has plainly made Rule 36(a) admissions. These may be used for Rule 56 summary judgment.</p></div>
+    <div class="analysis"><p>The opinion directly supports the proposition: Carls' Rule 36(a) admissions arose precisely because it &quot;failed to respond to the request,&quot; and the court holds those admissions &quot;may be used for Rule 56 summary judgment,&quot; affirming the grant of summary judgment on that basis. The substance is squarely on point. The defect is presentational only — the entire sentence is offered as a verbatim quotation (and flagged FABRICATED), but no such sentence appears in the opinion; it is the brief's own paraphrase of the court's much shorter holding.</p></div>
+  </div>
+</details><details id="finding-7">
+  <summary>
+    <strong>p. 81</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/8997446/american-automobile-assn-v-aaa-legal-clinic-of-jefferson-crooke-pc/"><span class="case-name">American Auto. Ass'n v. AAA Legal Clinic of Jefferson Crooke</span></a>, 930 F.2d 1117, 1120 (5th Cir. 1991).
+    &mdash; <span class="badge badge-yellow">Overstated -- case partially supports</span>
+  </summary>
+  <div class="finding-body">
+    
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief"><p>Rule 36 is self-executing: the City's failure to timely serve written answers results in conclusive judicial admissions. The Fifth Circuit recognizes that deemed admissions are judicial admissions that may not be contradicted and can alone support summary judgment. [...] Admissions are binding and cannot be contradicted to avoid summary judgment.</p></div>
+    <div class="bq-label">Actual language in opinion:</div><div class="bq-opinion"><p>Each matter on which an admission has been requested is admitted unless the party to whom the request is directed responds with a written answer or objection.... This conclusive effect applies equally to those admissions made affirmatively and those established by default, even if the matters admitted relate to material facts that defeat a party's claim.</p></div>
+    <div class="analysis"><p>The opinion supports the self-executing and binding aspects of the proposition: a matter is &quot;admitted unless the party... responds with a written answer or objection,&quot; admissions are &quot;conclusively established,&quot; and they &quot;cannot be rebutted by contrary testimony or ignored by the district court&quot; -- with this conclusive effect applying to admissions &quot;established by default&quot; even where they &quot;relate to material facts that defeat a party's claim.&quot;</p><p>The brief overstates the case, however, when it invokes this authority for the propositions that deemed admissions &quot;can alone support summary judgment&quot; and &quot;cannot be contradicted to avoid summary judgment.&quot; This case arose after a completed bench trial and addresses sua sponte post-trial withdrawal of admissions; it never discusses summary judgment or whether admissions alone suffice to grant it. Those summary-judgment-specific assertions extend the holding to a procedural posture the opinion did not decide, which is why the support is partial rather than full.</p></div>
+  </div>
+</details><details id="finding-8">
+  <summary>
+    <strong>p. 81</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/8926873/donovan-v-carls-drug-co/"><span class="case-name">Donovan v. Carls Drug Co.</span></a>, 703 F.2d 650, 652 (2d Cir. 1983).
+    &mdash; <span class="badge badge-yellow">Overstated -- case partially supports</span>
+  </summary>
+  <div class="finding-body">
+    
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief"><p>The admissions establish every element for judgment. The Fifth Circuit recognizes that deemed admissions are judicial admissions that may not be contradicted and can alone support summary judgment. Deemed admissions are &quot;not mere evidence; they are conclusive judicial admissions&quot; and are fully competent to support summary judgment.</p></div>
+    <div class="bq-label">Actual language in opinion:</div><div class="bq-opinion"><p>Under Rule 36(b), the decision to excuse the defendant from its admissions ... is in the court's discretion.</p></div>
+    <div class="analysis"><p>Carls Drug is a Second Circuit FLSA decision, not a Fifth Circuit case, and it does not articulate the principle the brief attributes to &quot;the Fifth Circuit&quot; — that deemed admissions are &quot;conclusive judicial admissions&quot; that &quot;may not be contradicted.&quot; The Fifth Circuit authorities the opinion does cite (Usery, Brennan, Coleman) go to the professional-employee exemption and willfulness, not to the conclusive character of admissions. The opinion supports only the narrower points that Rule 36 admissions can support summary judgment and were sufficient to establish the elements here (&quot;It should be sufficient that Carls has admitted that it is an employer subject to FLSA and has failed to pay its pharmacists the overtime pay clearly due to them&quot;).</p><p>The brief overstates by casting admissions as uncontradictable. The opinion holds the opposite emphasis: under Rule 36(b) &quot;the decision to excuse the defendant from its admissions ... is in the court's discretion,&quot; and the court &quot;may permit withdrawal&quot; in appropriate circumstances — undercutting the &quot;may not be contradicted&quot; framing. The quoted phrase &quot;not mere evidence; they are conclusive judicial admissions&quot; does not appear in the opinion.</p></div>
+  </div>
+</details><details id="finding-9">
+  <summary>
+    <strong>p. 81</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/24795/carney-v-internal-revenue-service/"><span class="case-name">In re Carney</span></a>, 258 F.3d 415, 420 (5th Cir. 2001).
+    &mdash; <span class="badge badge-yellow">Overstated -- case partially supports</span>
+  </summary>
+  <div class="finding-body">
+    
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief"><p>(2) The Fifth Circuit recognizes that deemed admissions are judicial admissions that may not be contradicted and can alone support summary judgment. (3) Deemed admissions are &quot;not mere evidence; they are conclusive judicial admissions&quot; and are fully competent to support summary judgment. (4) The Fifth Circuit has explained that prejudice involves real impairment in obtaining evidence, not merely having to prove a case.</p></div>
+    <div class="bq-label">Actual language in opinion:</div><div class="bq-opinion"><p>Since Rule 36 admissions, whether express or by default, are conclusive as to the matters admitted, they cannot be overcome at the summary judgement stage by contradictory affidavit testimony or other evidence in the summary judgment record.</p></div>
+    <div class="analysis"><p>In re Carney directly supports the core propositions that a deemed Rule 36 admission conclusively establishes the validity of the underlying claim and can independently support summary judgment; the court held that Carney's failure to respond &quot;conclusively established the validity&quot; of the IRS's claim and that such admissions &quot;cannot be overcome at the summary judgement stage by contradictory affidavit testimony.&quot; The brief overstates in two respects. First, the quoted phrase &quot;not mere evidence; they are conclusive judicial admissions&quot; does not appear in the opinion, which instead describes admissions as &quot;conclusive as to the matters admitted&quot; and never uses the term &quot;judicial admissions.&quot; Second, the opinion does not articulate the prejudice principle the brief attributes to it — that prejudice &quot;involves real impairment in obtaining evidence, not merely having to prove a case.&quot; The opinion's only prejudice language is that withdrawal must &quot;not prejudice the party that obtained the admissions in its presentation of the case,&quot; without the elaboration the brief supplies.</p></div>
+  </div>
+</details><details id="finding-10">
+  <summary>
+    <strong>p. 86</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/516435/in-re-united-states-of-america/"><span class="case-name">See</span></a>, e.g., In re United States, 864 F.2d 1153, 1156 (5th Cir. 1989).
+    &mdash; <span class="badge badge-yellow">Overstated -- case partially supports</span>
+  </summary>
+  <div class="finding-body">
+    
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief"><p>Defendant's failure to respond constitutes a waiver of any objections it might have asserted to Plaintiff's discovery requests.</p></div>
+    <div class="bq-label">Actual language in opinion:</div><div class="bq-opinion"><p>We readily agree with the district court that as a general rule, when a party fails to object timely to interrogatories, production requests, or other discovery efforts, objections thereto are waived. But that general rule is not applicable here.</p></div>
+    <div class="analysis"><p>The opinion does state the general waiver rule the brief invokes, and the pinpoint cite to page 1156 is accurate: the Fifth Circuit &quot;readily agree[s]&quot; that when a party fails to object timely to discovery, its objections are waived. To that extent the proposition is grounded in the text.</p><p>The overstatement is that this case is, on its facts, an exception to the rule rather than an application of it. The court immediately adds &quot;that general rule is not applicable here,&quot; holds that the government's untimely response did not waive its objection to medical quality assurance records protected by 10 U.S.C. § 1102, and grants mandamus vacating the very order that had found waiver and compelled production. So the brief cites for a clean waiver result a case whose holding refused to enforce waiver. The general-rule statement is supportive dicta, but the decided outcome runs the other way, which a citing brief should flag rather than present as straightforward waiver authority.</p></div>
+  </div>
+</details><details id="finding-11">
+  <summary>
+    <strong>p. 96</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/2651088/rick-scott-v-amer-natl-trust-invst-co/"><span class="case-name">Scott v. Carpanzano</span></a>, 556 F. App'x 288, 295 (5th Cir. 2014).
+    &mdash; <span class="badge badge-yellow">Overstated -- case partially supports</span>
+  </summary>
+  <div class="finding-body">
+    
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief"><p>Scott v. Carpanzano is inopposite because there, the failure to answer reflected a single negligent omission.</p></div>
+    <div class="bq-label">Actual language in opinion:</div><div class="bq-opinion"><p>While their reliance on Mr. Carpanzano acting with the attorneys he retained may have been negligent, it does not amount to an “ ‘intentional failure’ to respond to litigation.”</p></div>
+    <div class="analysis"><p>The opinion does touch on negligence: as to Ms. Belcastro and Ms. Carpanzano, the court found their reliance on Mr. Carpanzano &quot;may have been negligent&quot; but did not rise to an intentional failure to respond, so to that limited extent the brief is engaging with the actual subject matter. But the characterization that the failure to answer &quot;reflected a single negligent omission&quot; oversimplifies the holding. The opinion describes ongoing reliance on a family member across the proceedings, not a discrete one-time omission, and it never frames the case around &quot;a single negligent omission.&quot; More importantly, the controlling defendant, Mr. Carpanzano, was found to have *willfully* defaulted through repeated, intentional conduct (instructing counsel not to appear, ceasing communication), the opposite of negligence, and his default judgment was affirmed on that basis. Reducing this multi-defendant, mixed willful/negligent analysis to &quot;a single negligent omission&quot; overstates and flattens what the court actually decided.</p></div>
+  </div>
+</details><details id="finding-12">
+  <summary>
+    <strong>p. 96</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/250849/general-telephone-corporation-v-general-telephone-answering-service/"><span class="case-name">Gen. Tel. Corp. v. Gen. Tel. Answering Serv.</span></a>, 277 F.2d 919, 921 (5th Cir. 1960).
+    &mdash; <span class="badge badge-red">Case mismatch -- cite resolves to a different case</span>
+  </summary>
+  <div class="finding-body">
+    
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief">Mere delay does not alone constitute prejudice, but prejudice exists where delay results in the loss of evidence, increased difficulties in discovery, or greater opportunities for fraud or collusion.</div>
+    
+    
+  </div>
+</details><details id="finding-14">
+  <summary>
+    <strong>p. 96</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/9781080/rice-v-hamiltondavis-mental-health-inc/"><span class="case-name">Rice v. HamiltonDavis Mental Health</span></a>, Inc., No. 22-cv-397-TSL-RPM, 2023 WL 3746500, at *5 (S.D. Miss. May 31, 2023).
+    &mdash; <span class="badge badge-yellow">Overstated -- case partially supports</span>
+  </summary>
+  <div class="finding-body">
+    
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief"><p>Nor can a fee award substitute for Rule 55(c)'s threshold requirements; it is a discretionary condition available once &quot;good cause&quot; is established, not a device to manufacture it.</p></div>
+    <div class="bq-label">Actual language in opinion:</div><div class="bq-opinion"><p>Considering the lack of prejudice to plaintiff, along with the fact that the event of default ... was attributable to counsel ... and further considering that HamiltonDavis has presented meritorious defenses, the court concludes that the default judgment as to HamiltonDavis should be set aside. However, the court finds that plaintiff's reasonable attorney's fees and costs ... should be borne by defense counsel.</p></div>
+    <div class="analysis"><p>Rice applies the Rule 55(c) &quot;good cause&quot; standard and analyzes the three set-aside factors (willfulness, meritorious defense, prejudice) entirely on their own terms before turning to fees. Only after concluding that good cause existed to set aside the default judgment as to HamiltonDavis does the court order that plaintiff's attorney's fees and costs be borne by defense counsel. To that extent the opinion is consistent with the brief's second clause -- the fee award is imposed as a discretionary consequence after good cause is established, not as part of the threshold analysis.</p><p>But the opinion never articulates the brief's affirmative principle that a fee award &quot;cannot substitute for Rule 55(c)'s threshold requirements&quot; or is &quot;not a device to manufacture&quot; good cause. The court was never presented with, and did not address, any argument that fees could be used to satisfy or generate the good-cause showing. The brief draws a normative rule from the sequencing of the court's ruling that the court itself did not state, so the case supports the structure of the proposition while overstating it as a holding on what a fee award cannot do.</p></div>
+  </div>
+</details><details id="finding-15">
+  <summary>
+    <strong>p. 102</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/452982/fred-a-cruz-and-mrs-frances-t-freeman-cruz-movant-appellant-v-wb/"><span class="case-name">Cruz v. Hauck</span></a>, 762 F.2d 1230, 1233-34 (5th Cir. 1985).
+    &mdash; <span class="badge badge-yellow">Paraphrase presented as direct quote</span>
+  </summary>
+  <div class="finding-body">
+    
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief"><p>It would be inconsistent with the purpose of the fee-shifting statute to dilute a fees award by refusing to compensate the attorney for the time reasonably spent in establishing and negotiating his rightful claim to the fee.</p></div>
+    <div class="bq-label">Actual language in opinion:</div><div class="bq-opinion"><p>It is settled that a prevailing plaintiff is entitled to attorney's fees for the effort entailed in litigating a fee claim and securing compensation. ... The time spent so replying is compensable under § 1988. To hold otherwise would dilute the fee award and be inconsistent with the purposes of § 1988.</p></div>
+    <div class="analysis"><p>Cruz v. Hauck supports the proposition's substance. At page 1234 the court holds that a prevailing plaintiff is entitled to fees for time spent litigating and establishing a fee claim, and that to deny such compensation &quot;would dilute the fee award and be inconsistent with the purposes of § 1988&quot; — which is precisely the principle the brief attributes to the case.</p><p>The quotation marks are the only problem. The brief presents a polished sentence as a verbatim quote, but those exact words do not appear in the opinion; the court's actual language is shorter and speaks of &quot;litigating&quot; rather than &quot;negotiating&quot; a fee claim. The principle is accurately captured, so the proposition is supported on substance even though the quote itself is fabricated.</p></div>
+  </div>
+</details><details id="finding-16">
+  <summary>
+    <strong>p. 105</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/111719/anderson-v-liberty-lobby-inc/"><span class="case-name">Anderson v. Liberty Lobby</span></a>, Inc., 477 U.S. 242, 248 (1986).
+    &mdash; <span class="badge badge-yellow">Reworded -- not a verbatim quote</span>
+  </summary>
+  <div class="finding-body">
+    
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief"><p>A genuine issue of material fact exists when the evidence is such that a reasonable jury could return a verdict for the non-moving party.</p></div>
+    <div class="bq-label">Actual language in opinion:</div><div class="bq-opinion"><p>More important for present purposes, summary judgment will not lie if the dispute about a material fact is &quot;genuine,&quot; that is, if the evidence is such that a reasonable jury could return a verdict for the nonmoving party.</p></div>
+    <div class="analysis"><p>The opinion squarely supports this proposition: at page 248 the Court frames the &quot;genuine&quot; dispute standard as whether &quot;the evidence is such that a reasonable jury could return a verdict for the nonmoving party,&quot; which is the canonical Anderson formulation the brief invokes.</p><p>The substance is accurate, but the sentence is presented as a verbatim quotation and is not one. The Court's actual phrasing is framed negatively — &quot;summary judgment will not lie if the dispute about a material fact is 'genuine,' that is, if the evidence is such that a reasonable jury could return a verdict for the nonmoving party&quot; — whereas the brief recasts the opening clause affirmatively as &quot;A genuine issue of material fact exists when...&quot; The operative tail tracks the opinion closely (the brief writes &quot;non-moving&quot; for the opinion's &quot;nonmoving&quot;), so the rewording is presentational rather than substantive.</p></div>
+  </div>
+</details><details id="finding-17">
+  <summary>
+    <strong>p. 105</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/1689297/city-of-madison-v-bryan/"><span class="case-name">City of Madison v. Bryan</span></a>, 763 So. 2d 162, 166 (Miss. 2000).
+    &mdash; <span class="badge badge-red">Not supported by cited case</span>
+  </summary>
+  <div class="finding-body">
+    
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief"><p>Mississippi courts have long held that a bill of exceptions statutory appeal is limited to challenges of a board's quasi-judicial or legislative actions, not its ministerial or administrative functions.</p></div>
+    <div class="bq-label">Actual language in opinion:</div><div class="bq-opinion"><p>Each instance was clearly a separate legislative act by the City. ... [E]ach bill of exception is a separate distinct legislative act of the City.</p></div>
+    <div class="analysis"><p>City of Madison v. Bryan is a standing-and-mootness decision arising from a bill of exceptions appeal of a municipal permit denial. It does not address the scope limitation the brief asserts. The majority resolves the appeal by holding that Bryan lacked standing because he had no valid option or interest in the property when he filed his bill of exceptions, that the controversy was therefore moot, and that the circuit court's Rule 11 attorney's-fee award must be reversed for lack of sufficient findings and authority.</p><p>The opinion does use the vocabulary of the proposition in passing, characterizing the City's actions and &quot;each bill of exception&quot; as a &quot;legislative act of the City.&quot; But it uses that phrase descriptively, not as a rule defining what may be appealed. Nowhere does the opinion hold — or even discuss — that a bill of exceptions statutory appeal is confined to quasi-judicial or legislative actions and excludes ministerial or administrative functions. That quasi-judicial/legislative versus ministerial/administrative distinction, which is the core of the brief's proposition, does not appear in the case, so the citation attributes a principle the opinion never adopted.</p></div>
+  </div>
+</details><details id="finding-19">
+  <summary>
+    <strong>p. 105</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/5063352/watts-v-watts/"><span class="case-name">Crittendon v. State Farm Mut. Auto. Ins. Co.</span></a>, 99 So. 3d 751, 755 (Miss. 2012).
+    &mdash; <span class="badge badge-red">Case mismatch -- cite resolves to a different case</span>
+  </summary>
+  <div class="finding-body">
+    
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief">The statute of limitations is an affirmative defense, and the City bears the burden of proving every element of that defense.</div>
+    
+    
+  </div>
+</details><details id="finding-20">
+  <summary>
+    <strong>p. 105</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/1556407/stringer-ex-rel-stringer-v-trapp/"><span class="case-name">Stringer v. Trapp</span></a>, 30 So. 3d 339, 342 (Miss. 2010).
+    &mdash; <span class="badge badge-yellow">Overstated -- case partially supports</span>
+  </summary>
+  <div class="finding-body">
+    
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief"><p>Under Mississippi law, the question of when a plaintiff should have discovered an injury through the exercise of reasonable diligence is an issue of fact to be decided by a jury.</p></div>
+    <div class="bq-label">Actual language in opinion:</div><div class="bq-opinion"><p>[O]ccasionally the question of whether the suit is barred by the statute of limitations is a question of fact for the jury; however, as with other putative fact questions, the question may be taken away from the jury if reasonable minds could not differ as to the conclusion.</p></div>
+    <div class="analysis"><p>Stringer does address whether the limitations/discovery question is a jury issue: it observes that the discovery-rule inquiry &quot;often turns on the factual determination of 'what the plaintiff knew and when,'&quot; and that the limitations question can be &quot;a question of fact for the jury.&quot; But the opinion frames this as a conditional, not the categorical rule the brief asserts. The court says the question is &quot;[o]ccasionally&quot; one for the jury, and expressly adds that &quot;the question may be taken away from the jury if reasonable minds could not differ as to the conclusion&quot; — which is exactly how summary judgment can still be entered on limitations grounds.</p><p>The brief drops those qualifiers and presents the proposition as an unconditional rule that the reasonable-diligence/discovery question &quot;is an issue of fact to be decided by a jury.&quot; That overstates the holding; the opinion supports the topic but expressly preserves the court's power to resolve the issue as a matter of law when reasonable minds could not differ, making this partial rather than full support.</p></div>
+  </div>
+</details><details id="finding-21">
+  <summary>
+    <strong>p. 105</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/1830131/young-v-southern-farm-bureau-life-ins/"><span class="case-name">Young v. S. Farm Bureau Life Ins. Co.</span></a>, 592 So. 2d 103, 107 (Miss. 1991).
+    &mdash; <span class="badge badge-yellow">Reworded -- not a verbatim quote</span>
+  </summary>
+  <div class="finding-body">
+    
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief"><p>The statute of limitations for a breach of contract claim begins to run at the time of the breach.</p></div>
+    <div class="bq-label">Actual language in opinion:</div><div class="bq-opinion"><p>[i]n the case of a breach of contract, the cause of action accrues at the time of the breach... .</p></div>
+    <div class="analysis"><p>The opinion substantively supports the proposition. Resolving the insurer's limitations defense, the Court explains that its accrual-at-breach ruling &quot;is consistent with prior decisions of this Court where we held that '[i]n the case of a breach of contract, the cause of action accrues at the time of the breach... .'&quot; (quoting Johnson v. Crisler). The point at which the cause of action accrues is the point at which the limitations period begins to run, so the brief's proposition is accurate.</p><p>The brief's quoted sentence does not appear verbatim in the opinion; it is a reworded restatement of the opinion's parallel language, substituting &quot;statute of limitations ... begins to run&quot; for the Court's &quot;cause of action accrues.&quot; The substance is sound, but the quotation marks overstate the fidelity to the opinion's actual text.</p></div>
+  </div>
+</details><details id="finding-22">
+  <summary>
+    <strong>p. 108</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/4633720/jane-doe-v-city-of-memphis/"><span class="case-name">See Doe v. City of Memphis</span></a>, 928 F.3d 481, 491 (5th Cir. 2019).
+    &mdash; <span class="badge badge-red">Case on unrelated subject</span>
+  </summary>
+  <div class="finding-body">
+    
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief"><p>Courts in the Fifth Circuit routinely permit surreplies where a reply brief raises new issues to which the opposing party had no prior opportunity to respond.</p></div>
+    
+    <div class="analysis"><p>Doe v. City of Memphis is a Sixth Circuit case about whether the district court abused its discretion by granting summary judgment and striking class allegations before the plaintiff had a full opportunity to conduct discovery under Federal Rule of Civil Procedure 56(d). It does not address surreplies, reply briefs raising new issues, or the opposing party's opportunity to respond to a reply.</p><p>The opinion is authored by Circuit Judge Clay of the Sixth Circuit and turns entirely on the Plott/Rule 56(d) discovery factors and Rule 23 class certification — not on surreply practice and not on Fifth Circuit law. The word &quot;surreply&quot; appears nowhere in the opinion. The proposition and the cited court (5th Cir.) are both foreign to this case, so the citation provides no support for the brief's assertion.</p></div>
+  </div>
+</details><details id="finding-23">
+  <summary>
+    <strong>p. 108</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/2785100/north-cypress-medical-center-operating-co-v-cigna-healthcare/"><span class="case-name">N. Cypress Med. Ctr. Operating Co. v. Cigna Healthcare</span></a>, 781 F.3d 182, 203 (5th Cir. 2015).
+    &mdash; <span class="badge badge-red">Case on unrelated subject</span>
+  </summary>
+  <div class="finding-body">
+    
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief"><p>Courts in the Fifth Circuit routinely permit surreplies where a reply brief raises new issues to which the opposing party had no prior opportunity to respond.</p></div>
+    
+    <div class="analysis"><p>North Cypress Medical Center Operating Co. v. Cigna Healthcare is a Fifth Circuit ERISA/insurance-reimbursement case about whether a hospital had standing to enforce assigned plan benefits, ERISA preemption of Texas prompt-payment provisions, the sufficiency of RICO pleadings, an unsealing order, and the limitations period for compulsory counterclaims. It does not address surreplies, reply briefs raising new issues, or a party's opportunity to respond. The pinpoint cite to page 203 falls within the RICO § 1962(c) discussion of the person/enterprise distinctiveness requirement, which has nothing to do with the briefing-procedure proposition the brief attributes to the case. There is no language anywhere in the opinion supporting a rule about permitting surreplies.</p></div>
+  </div>
+</details>
+<details id="finding-uv-13">
+  <summary>
+    <span class="case-name">Hernandez v. Hoolaulima Government Solutions</span>, LLC, No. EP-23-CV-439-KC, 2024 WL 5274525, at *2 (W.D. Tex. Mar. 19, 2024).
+    
+    &mdash; <span class="badge badge-gray">Unable to verify -- opinion text unavailable</span>
+  </summary>
+  <div class="finding-body">
+    <div class="bq-label">Propositions the brief attributes to this case:</div><ul class="prop-list"><li><strong>p. 96:</strong> Nor can a fee award substitute for Rule 55(c)'s threshold requirements; it is a discretionary condition available once &quot;good cause&quot; is established, not a device to manufacture it. <em style="color:#666;">(quotes brief: “good cause”)</em></li></ul>
+    <div class="explanation">Case not found on CourtListener. Cannot verify against opinion text.</div>
+  </div>
+</details>
+<details id="finding-uv-18">
+  <summary>
+    <span class="case-name">City of Grenada v. Harrelson</span>, 84 So. 3d 35, 38 (Miss. Ct. App. 2012).
+     <span style="color:#888;">(cited 2×)</span>
+    &mdash; <span class="badge badge-gray">Unable to verify -- opinion text unavailable</span>
+  </summary>
+  <div class="finding-body">
+    <div class="bq-label">Propositions the brief attributes to this case:</div><ul class="prop-list"><li><strong>p. 105:</strong> As the Mississippi Court of Appeals has explained, the statute &quot;was not intended to be a vehicle for the litigation of a simple common law action for damages against a municipality.&quot; <em style="color:#666;">(quotes brief: “was not intended to be a vehicle for the litigation of a simple common law action for damages against a municipality.”)</em></li><li><strong>p. 108-1:</strong> the bill of exceptions statute &quot;was not intended to be a vehicle for the litigation of a simple common law action for damages against a municipality.&quot; <em style="color:#666;">(quotes brief: “was not intended to be a vehicle for the litigation of a simple common law action for damages against a municipality.”)</em></li></ul>
+    <div class="explanation">Case not found on CourtListener. Cannot verify against opinion text.</div>
+  </div>
+</details>
+<h2>Verified Citations</h2>
+<details>
+  <summary>10 citation-proposition pairs verified &mdash; click to expand</summary>
+  <div class="finding-body">
+    <div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 72</strong> &mdash; <a href="https://www.courtlistener.com/opinion/111722/celotex-corp-v-catrett-administratrix-of-the-estate-of-catrett/"><em>Celotex Corp. v. Catrett</em></a>, 477 U.S. 317, 327 (1986). &mdash; Summary judgment is a procedural tool designed to secure the &quot;just, speedy and inexpensive determination of every action. <span class="badge badge-green">Supported</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 72</strong> &mdash; <a href="https://www.courtlistener.com/opinion/24795/carney-v-internal-revenue-service/"><em>See</em></a>, e.g., In re Carney, 258 F.3d 415, 420 (5th Cir. 2001). &mdash; The Fifth Circuit has consistently upheld summary judgments based on deemed admissions. <span class="badge badge-green">Supported</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 96</strong> &mdash; <a href="https://www.courtlistener.com/opinion/770502/bobby-d-lacy-v-sitel-corporation/"><em>Lacy v. Sitel Corporation</em></a>, 227 F.3d 290, 292 (5th Cir. 2000). &mdash; (1) When determining whether to set aside default judgment, the Fifth Circuit directs courts to consider whether (1) the default was willful, (2) the non-defaulting party would be prejudiced, and (3) a meritorious defense has been presented. (2) willfulness turns on intentional failure to respond. (4) &quot;mere delay does not alone constitute prejudice,&quot; but prejudice exists where delay results &quot;in the loss of evidence, increased difficulties in discovery, or greater opportunities for fraud or collusion.&quot; (5) In short, it is not a &quot;defense sufficient to support a finding on the merits for the defaulting party.&quot; <span class="badge badge-green">Supported</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 102</strong> &mdash; <a href="https://www.courtlistener.com/opinion/222706/mcclain-v-lufkin-industries-inc/"><em>McClain v. Lufkin Indus.</em></a>, Inc., 649 F.3d 374, 381 (5th Cir. 2011). &mdash; While the prevailing rate in the district where the court sits is a key factor, it is not the only one in determining how much to award in attorney's fees. <span class="badge badge-green">Supported</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 102</strong> &mdash; <a href="https://www.courtlistener.com/opinion/7017/louisiana-power-light-co-v-kellstrom/"><em>La. Power &amp; Light Co. v. Kellstrom</em></a>, 50 F.3d 319, 328 (5th Cir. 1995). &mdash; An attorney's customary billing rate is presumptively reasonable. 'An attorney's requested hourly rate is prima facie reasonable when he requests a rate that is within the range of rates he has charged paying clients for similar work in the recent past.' <span class="badge badge-green">Supported</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 102</strong> &mdash; <a href="https://www.courtlistener.com/opinion/112299/missouri-v-jenkins-ex-rel-agyei/"><em>Missouri v. Jenkins</em></a>, 491 U.S. 274, 288 n.10 (1989). &mdash; The Supreme Court's caution against billing for purely secretarial tasks in Missouri v. Jenkins, 491 U.S. 274, 288 n.10 (1989), does not extend to essential professional activities, such as emailing or calling a client or reviewing and drafting legal documents. <span class="badge badge-green">Supported</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 105</strong> &mdash; <a href="https://www.courtlistener.com/opinion/111620/matsushita-electric-industrial-co-ltd-v-zenith-radio-corporation/"><em>Matsushita Elec. Indus. Co. v. Zenith Radio Corp.</em></a>, 475 U.S. 574, 587 (1986). &mdash; The court must view all evidence and draw all reasonable inferences in the light most favorable to the nonmoving party. <span class="badge badge-green">Supported</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 105</strong> &mdash; <a href="https://www.courtlistener.com/opinion/121150/franconia-associates-v-united-states/"><em>See</em></a>, e.g., Franconia Assocs. v. U.S., 536 U.S. 129, 143 (2002). &mdash; (1) The right to sue accrues at the moment of breach, not on the mere suspicion that a breach might occur. (2) Franconia Assocs. v. U.S. holds that a claim for repudiation of a contract accrues at the time the repudiation is treated as a breach. <span class="badge badge-green">Supported</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 108-1</strong> &mdash; <a href="https://www.courtlistener.com/opinion/792443/barbara-cutrera-v-board-of-supervisors-of-louisiana-state-university/"><em>Cutrera v. Board of Supervisors of Louisiana State University</em></a>, 429 F.3d 108 (5th Cir. 2005). &mdash; The City's reliance on Cutrera v. Board of Supervisors of Louisiana State University, 429 F.3d 108 (5th Cir. 2005), is inapposite. That case stands for the unremarkable proposition that a plaintiff cannot raise an entirely new cause of action at the summary judgment stage. <span class="badge badge-green">Supported</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 108-1</strong> &mdash; <a href="https://www.courtlistener.com/opinion/10697440/the-mississippi-state-port-authority-at-gulfport-v-yilport-holding-as/"><em>Mississippi State Port Authority v. Yilport Holding A.S.</em></a>, 416 So. 3d 83 (Miss. 2025). &mdash; Yilport reaffirmed the long-standing rule that a contract with a public board is formed only when entered on the minutes and that its terms cannot be varied by parol evidence. <span class="badge badge-green">Supported</span></div>
+  </div>
+</details>
+<div class="methodology">
+  <h2>Methodology &amp; Limitations</h2>
+  <ul>
+    <li><strong>Quote verification</strong> is near-deterministic but limited by the quality of CourtListener's text. Minor discrepancies may reflect OCR artifacts in the source database rather than errors in the brief.</li>
+    <li><strong>Propositional support</strong> assessment is an AI judgment. It reflects Claude's reading of the opinion text and should be verified by counsel. Reasonable lawyers may disagree about whether a case "supports" a given proposition.</li>
+    <li>This report checks whether cited cases say what the brief claims they say. It does not assess the overall legal merit of the brief's arguments or whether the cited cases are the best authorities available.</li>
+    <li>Cases marked "unable to verify" should be checked through other sources (Westlaw, Lexis, etc.).</li>
+  </ul>
+  <h3>Verification method disclosure</h3>
+  <p>The following opinions were <strong>retrieved from CourtListener</strong> and verified against their full text:</p>
+  <ul>
+    
+  </ul>
+  <p>The following opinions were <strong>not available on CourtListener</strong> and could not be verified against opinion text:</p>
+  <ul>
+    <li><em>Hernandez v. Hoolaulima Government Solutions</em>, LLC, No. EP-23-CV-439-KC, 2024 WL 5274525, at *2 (W.D. Tex. Mar. 19, 2024). &mdash; Not in CourtListener database</li>
+<li><em>City of Grenada v. Harrelson</em>, 84 So. 3d 35, 38 (Miss. Ct. App. 2012). &mdash; Not in CourtListener database</li>
+  </ul>
+  <p>No opinions in this report were assessed from training knowledge. All assessments are based on retrieved opinion text.</p>
+</div>
+
+</body>
+</html>

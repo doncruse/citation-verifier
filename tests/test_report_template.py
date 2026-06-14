@@ -57,6 +57,32 @@ def sample_report_data():
     }
 
 
+class TestDashboardClaimCount:
+    """Review finding #3: 'Claims checked' must count CLAIMS, not cards.
+    unable_to_verify groups a multiply-cited unavailable case into one
+    card with N propositions; the headline total must add N, not 1, so it
+    agrees with the per-row run_report ReportStats."""
+
+    def test_total_counts_propositions_not_unable_cards(self):
+        data = {
+            "findings": [{"id": "f-1", "severity": "red", "page": "1",
+                          "case_name": "A", "citation": "1 U.S. 1"}],
+            "verified": [{"page": "2", "case_name": "B",
+                          "citation": "2 U.S. 2"}],
+            "unable_to_verify": [{
+                "id": "uv-1", "case_name": "C", "citation": "3 U.S. 3",
+                "propositions": [
+                    {"page": "4", "proposition": "p1"},
+                    {"page": "5", "proposition": "p2"},
+                    {"page": "6", "proposition": "p3"},
+                ]}],
+        }
+        html = generate_report_html(data)
+        # 1 finding + 1 verified + 3 unable propositions = 5 claims
+        assert ('<div class="stat-num">5</div>'
+                '<div class="stat-label">Claims checked</div>') in html
+
+
 class TestReportGeneration:
     def test_returns_valid_html(self, sample_report_data):
         html = generate_report_html(sample_report_data)

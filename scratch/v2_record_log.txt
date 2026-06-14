@@ -1,0 +1,13 @@
+=== withers: recording assess-v2 (model=opus) ===
+  withers: eligible=29 done=29 pending=0
+  withers: appended 29 assess-v2 verdicts to the frozen cassette
+=== payne: recording assess-v2 (model=opus) ===
+  payne: eligible=27 done=27 pending=0
+  payne: appended 27 assess-v2 verdicts to the frozen cassette
+=== wainwright: recording assess-v2 (model=opus) ===
+  wainwright: eligible=34 done=31 pending=3
+  FAILURE wainwright/assess-Watson_v_State: Exception: Claude Code returned an error result: success
+  FAILURE wainwright/assess-Wesley_v_State: Exception: Claude Code returned an error result: success
+  FAILURE wainwright/assess-in_the_Matter_of_Ricky_W_Morris_Jr: Exception: Claude Code returned an error result: success
+  wainwright: appended 31 assess-v2 verdicts to the frozen cassette
+RESULT: INCOMPLETE -- rerun this script to resume

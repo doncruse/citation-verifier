@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Proposition Verification Report — Kettering Adventist Healthcare d/b/a Kettering Health v. Sandra Collier; and Mary T. Scott, Esq.</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  color: #2d2d2d;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+  background: #fafaf8;
+}
+h1, h2, h3 { font-family: 'Lora', serif; }
+h1 { font-size: 1.6rem; margin-bottom: 0.3rem; color: #1a1a1a; }
+h2 { font-size: 1.25rem; margin: 2rem 0 0.8rem; color: #333; border-bottom: 1px solid #ddd; padding-bottom: 0.3rem; }
+h3 { font-size: 1.05rem; margin: 1rem 0 0.5rem; }
+
+.meta { color: #666; font-size: 0.9rem; margin-bottom: 1.5rem; }
+.meta span { display: inline-block; margin-right: 1.5rem; }
+
+.dashboard { background: #fff; border: 1px solid #e0e0e0; border-radius: 6px; padding: 1.2rem 1.5rem; margin-bottom: 2rem; }
+.stats { display: flex; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 1rem; }
+.stat { text-align: center; }
+.stat-num { font-size: 1.8rem; font-weight: 600; }
+.stat-label { font-size: 0.8rem; color: #666; text-transform: uppercase; letter-spacing: 0.05em; }
+.stat-red .stat-num { color: #c0392b; }
+.stat-yellow .stat-num { color: #d4a017; }
+.stat-orange .stat-num { color: #e67e22; }
+.stat-green .stat-num { color: #27ae60; }
+.stat-gray .stat-num { color: #888; }
+
+.issue-list { list-style: none; padding: 0; }
+.issue-list li {
+  padding: 0.5rem 0.7rem;
+  margin-bottom: 0.4rem;
+  border-left: 4px solid #ccc;
+  background: #fefefe;
+  font-size: 0.9rem;
+}
+.issue-list li.sev-red { border-left-color: #c0392b; background: #fdf2f2; }
+.issue-list li.sev-yellow { border-left-color: #d4a017; background: #fefcf0; }
+.issue-list li.sev-orange { border-left-color: #e67e22; background: #fff7ef; }
+.issue-list li.sev-gray { border-left-color: #999; background: #f5f5f5; }
+.issue-list a { color: inherit; text-decoration: none; }
+.issue-list a:hover { text-decoration: underline; }
+
+.badge {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.15rem 0.5rem;
+  border-radius: 3px;
+  vertical-align: middle;
+}
+.badge-red { background: #f8d7da; color: #721c24; }
+.badge-yellow { background: #fff3cd; color: #856404; }
+.badge-orange { background: #ffe0b2; color: #8a4500; }
+.badge-green { background: #d4edda; color: #155724; }
+.badge-blue { background: #d1ecf1; color: #0c5460; }
+.badge-gray { background: #e9ecef; color: #495057; }
+
+.bq-brief {
+  border-left: 4px solid #e67e22;
+  background: #fef9f3;
+  padding: 0.7rem 1rem;
+  margin: 0.5rem 0;
+  font-size: 0.9rem;
+}
+.bq-opinion {
+  border-left: 4px solid #27ae60;
+  background: #f0faf4;
+  padding: 0.7rem 1rem;
+  margin: 0.5rem 0;
+  font-size: 0.9rem;
+}
+.bq-label { font-weight: 600; font-size: 0.8rem; color: #666; margin-bottom: 0.2rem; }
+
+.card-flags { margin: 0.2rem 0 0.5rem; }
+.flag-chip {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  background: #fff3e0;
+  color: #8a4500;
+  border: 1px solid #f0c27a;
+  border-radius: 3px;
+  padding: 0.1rem 0.5rem;
+  margin: 0 0.3rem 0.2rem 0;
+}
+
+details { margin-bottom: 0.8rem; }
+summary {
+  cursor: pointer;
+  padding: 0.6rem 0.8rem;
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  list-style: none;
+}
+summary::-webkit-details-marker { display: none; }
+summary::before { content: "\25B6\00a0"; font-size: 0.7rem; color: #888; }
+details[open] > summary::before { content: "\25BC\00a0"; }
+details[open] > summary { border-radius: 4px 4px 0 0; border-bottom: none; }
+.finding-body {
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-top: none;
+  border-radius: 0 0 4px 4px;
+  padding: 1rem;
+}
+.case-name { font-family: 'Lora', serif; font-style: italic; }
+.explanation { margin-top: 0.7rem; font-size: 0.9rem; line-height: 1.5; }
+.analysis { margin-top: 0.8rem; font-size: 0.92rem; line-height: 1.55; color: #2d2d2d; }
+.analysis p { margin-bottom: 0.6rem; }
+.analysis p:last-child { margin-bottom: 0; }
+.prop-list { margin: 0.3rem 0 0.6rem 1.2rem; font-size: 0.9rem; }
+.prop-list li { margin-bottom: 0.25rem; }
+
+.controls { margin-bottom: 0.5rem; font-size: 0.8rem; }
+.controls button {
+  background: none;
+  border: none;
+  color: #2980b9;
+  cursor: pointer;
+  font-size: 0.8rem;
+  padding: 0.2rem 0.4rem;
+}
+.controls button:hover { text-decoration: underline; }
+
+.verified-item {
+  padding: 0.3rem 0;
+  font-size: 0.85rem;
+  border-bottom: 1px solid #f0f0f0;
+}
+.checkmark { color: #27ae60; font-weight: bold; }
+
+.methodology { font-size: 0.85rem; color: #555; margin-top: 2rem; }
+.methodology h2 { font-size: 1.1rem; }
+.methodology ul { padding-left: 1.2rem; }
+.methodology li { margin-bottom: 0.5rem; }
+
+@media print {
+  details { open: true; }
+  details[open] > summary { border-bottom: 1px solid #e0e0e0; }
+  body { max-width: 100%; padding: 1rem; font-size: 12px; }
+  .controls { display: none; }
+  .dashboard { box-shadow: none; }
+}
+</style>
+<script>
+function expandAll() { document.querySelectorAll('details').forEach(d => d.open = true); }
+function collapseAll() { document.querySelectorAll('details').forEach(d => d.open = false); }
+</script>
+</head>
+<body>
+
+<h1>Proposition Verification Report</h1>
+<div class="meta">
+  <span><strong>Brief:</strong> Defendants' 12(b)(6) Motion to Dismiss and Alternatively, Rule 56 Motion for Summary Judgment (Doc. #13)</span><br>
+  <span><strong>Case:</strong> <em>Kettering Adventist Healthcare d/b/a Kettering Health v. Sandra Collier; and Mary T. Scott, Esq.</em>, 3:25-cv-00273-WHR-CHG (S.D. Ohio, Western Division - Dayton)</span><br>
+  <span><strong>Filed:</strong> 2025-08-25</span>
+  <span><strong>Report generated:</strong> </span>
+</div>
+
+
+<div class="dashboard">
+  <h2 style="border:none; margin-top:0; padding:0;">Summary</h2>
+  <div class="stats">
+    <div class="stat"><div class="stat-num">35</div><div class="stat-label">Claims checked</div></div>
+    <div class="stat stat-red"><div class="stat-num">11</div><div class="stat-label">Serious issues</div></div>
+    <div class="stat stat-yellow"><div class="stat-num">8</div><div class="stat-label">Concerns</div></div>
+    <div class="stat stat-orange"><div class="stat-num">0</div><div class="stat-label">Check cite</div></div>
+    <div class="stat stat-green"><div class="stat-num">15</div><div class="stat-label">Verified</div></div>
+    <div class="stat stat-gray"><div class="stat-num">1</div><div class="stat-label">Unable to verify</div></div>
+  </div>
+  <h3>Issues</h3>
+  <ul class="issue-list">
+    <li class="sev-yellow"><a href="#finding-1"><span class="badge badge-yellow">Overstated -- case partially supports</span> p. 2 &mdash; <em>Heskett v. Van Horn Title Agency</em>, Inc., 2006-Ohio-6900, ¶ 26 (10th Dist.) &mdash; Heskett is a summary-judgment appeal in a title/mortgage dispute, and the cited paragraph (¶ 26) addresses &quot;coercion,&quot; not &quot;extortion.&quot; The court states it is &quot;not aware of 'coercion' as a cognizable civil cause of…</a></li>
+<li class="sev-yellow"><a href="#finding-3"><span class="badge badge-yellow">Overstated -- case partially supports</span> p. 2 &mdash; <em>Office Depot</em>, Inc. v. Impact Off. Prods., LLC, 821 F. Supp. 2d 912, 919-23 (N.D. Ohio 2011) &mdash; Office Depot squarely supports the OUTSA-preemption half of this parenthetical: it is the opinion's central holding that Office Depot's common-law claims are preempted by O.R.C. § 1333.67(A) to the extent they restate…</a></li>
+<li class="sev-yellow"><a href="#finding-4"><span class="badge badge-yellow">Overstated -- case partially supports</span> p. 2 &mdash; <em>Van Buren v. United States</em>, 593 U.S. 374, 380-86 (2021) &mdash; Van Buren supports the core of the foreclosure argument: the Court held that a person who accesses a computer with authorization and obtains information &quot;otherwise available to [him]&quot; does not violate the CFAA's…</a></li>
+<li class="sev-red"><a href="#finding-5"><span class="badge badge-red">Case on unrelated subject</span> p. 2 &mdash; <em>Wilson v. Collins</em>, 517 F.3d 421, 429 (6th Cir. 2008) &mdash; Wilson v. Collins is a Sixth Circuit constitutional-law case about a prisoner's challenge to Ohio's DNA-collection statute under the Fourth Amendment, due process, and equal protection.</a></li>
+<li class="sev-yellow"><a href="#finding-6"><span class="badge badge-yellow">Overstated -- case partially supports</span> p. 3 &mdash; <em>Heskett v. Van Horn Title Agency</em>, Inc., 2006-Ohio-6900, ¶ 26 (10th Dist.) &mdash; The brief cites Heskett ¶ 26 for the proposition that Ohio courts have &quot;repeatedly held&quot; there is no stand-alone civil cause of action for extortion, but ¶ 26 addresses coercion, not extortion, and the opinion never…</a></li>
+<li class="sev-red"><a href="#finding-7"><span class="badge badge-red">Case mismatch -- cite resolves to a different case</span> p. 4 &mdash; <em>State v. Carter</em>, 72 Ohio App.3d 553 (2d Dist. 1991) &mdash; </a></li>
+<li class="sev-red"><a href="#finding-8"><span class="badge badge-red">Case mismatch -- cite resolves to a different case</span> p. 4 &mdash; <em>State v. Milam</em>, 2022-Ohio-3965 (10th Dist.) &mdash; </a></li>
+<li class="sev-red"><a href="#finding-9"><span class="badge badge-red">Case on unrelated subject</span> p. 4 &mdash; <em>Kenty v. Transamerica Premium Ins. Co.</em>, 72 Ohio St.3d 415, 419 (1995) &mdash; Kenty v. Transamerica Premium Ins.</a></li>
+<li class="sev-yellow"><a href="#finding-10"><span class="badge badge-yellow">Overstated -- case partially supports</span> p. 4 &mdash; <em>United States v. Pendergraft</em>, 297 F.3d 1198, 1205 (11th Cir. 2002) &mdash; Pendergraft does support the underlying Hobbs Act principle the brief invokes: to be extortion, conduct must be &quot;wrongful,&quot; which requires both a wrongful objective (no lawful claim to the money sought) and a wrongful…</a></li>
+<li class="sev-yellow"><a href="#finding-11"><span class="badge badge-yellow">Overstated -- case partially supports</span> p. 5 &mdash; <em>United States v. Jackson</em>, 180 F.3d 55, 70 (2d Cir. 1999) &mdash; The quoted sentence does not appear anywhere in Jackson; it is a fabricated quotation, not the court's language.</a></li>
+<li class="sev-red"><a href="#finding-12"><span class="badge badge-red">Not supported by cited case</span> p. 5 &mdash; <em>Flatley v. Mauro</em>, 39 Cal.4th 299, 331 (2006) &mdash; Flatley held the opposite: a monetary settlement demand coupled with threats to report misconduct to authorities and publicize allegations constituted criminal extortion as a matter of law, and the quoted language is…</a></li>
+<li class="sev-red"><a href="#finding-13"><span class="badge badge-red">Case on unrelated subject</span> p. 6 &mdash; <em>Kenty v. Transamerica Premium Ins. Co.</em>, 72 Ohio St.3d 415, 419 (1995) &mdash; Kenty v. Transamerica Premium Ins.</a></li>
+<li class="sev-red"><a href="#finding-14"><span class="badge badge-red">Not supported by cited case</span> p. 6 &mdash; <em>United States v. Pendergraft</em>, 297 F.3d 1198, 1205 (11th Cir. 2002) &mdash; United States v. Pendergraft is a Hobbs Act criminal-extortion case about whether a threat to file a lawsuit against a county government — even one made in bad faith and backed by false affidavits — is &quot;wrongful.&quot; It…</a></li>
+<li class="sev-yellow"><a href="#finding-15"><span class="badge badge-yellow">Overstated -- case partially supports</span> p. 7 &mdash; <em>Kulch v. Structural Fibers</em>, Inc., 78 Ohio St.3d 134, 150 (1997) &mdash; Kulch supports the &quot;regulators&quot; half of this proposition.</a></li>
+<li class="sev-red"><a href="#finding-16"><span class="badge badge-red">Not supported by cited case</span> p. 7 &mdash; <em>Flatley v. Mauro</em>, 39 Cal.4th 299, 330 (2006) &mdash; Flatley holds the opposite of the proposition: it found that Mauro's threats to expose/report Flatley's alleged misconduct unless paid constituted criminal extortion as a matter of law, and that such threats are…</a></li>
+<li class="sev-red"><a href="#finding-17"><span class="badge badge-red">Inverts the holding</span> p. 7 &mdash; <em>United States v. Jackson</em>, 180 F.3d 55, 70 (2d Cir. 1999) &mdash; Jackson holds the opposite of the proposition.</a></li>
+<li class="sev-red"><a href="#finding-18"><span class="badge badge-red">Case on unrelated subject</span> p. 8 &mdash; <em>Office Depot</em>, Inc. v. Impact Off. Prods., LLC, 821 F. Supp. 2d 912, 919-23 (N.D. Ohio 2011) &mdash; Office Depot, Inc. v. Impact Office Products, LLC is a Rule 12(b)(6) motion-to-dismiss decision about whether Office Depot's common-law claims were preempted by the Ohio Uniform Trade Secrets Act.</a></li>
+<li class="sev-red"><a href="#finding-19"><span class="badge badge-red">Case on unrelated subject</span> p. 9 &mdash; <em>Wilson v. Collins</em>, 517 F.3d 421, 429 (6th Cir. 2008) &mdash; Wilson v. Collins is a Sixth Circuit constitutional-law case about a prisoner's challenge to Ohio's DNA-collection statute under the Fourth Amendment, due process, and equal protection.</a></li>
+<li class="sev-yellow"><a href="#finding-20"><span class="badge badge-yellow">Overstated -- case partially supports</span> p. 9 &mdash; <em>Hecht v. Levin</em>, 66 Ohio St. 3d 458, 460-61, 613 N.E.2d 585 (1993) &mdash; Hecht supports an absolute litigation privilege for defamation claims, but the brief overstates its reach by dropping the court's express qualifier.</a></li>
+<li class="sev-gray"><a href="#finding-uv-2"><span class="badge badge-gray">Unable to verify</span> <em>In re Protech Indus.</em>, 51 F.4th 714, 720-22 (6th Cir. 2022) &mdash; cited 2&times; &mdash; not on CourtListener</a></li>
+  </ul>
+</div>
+<h2>Findings</h2>
+<div class="controls"><button onclick="expandAll()">Expand All</button> | <button onclick="collapseAll()">Collapse All</button></div>
+<details id="finding-1">
+  <summary>
+    <strong>p. 2</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/3941929/heskett-v-van-horn-title-agency-unpublished-decision-12-26-2006/"><span class="case-name">Heskett v. Van Horn Title Agency</span></a>, Inc., 2006-Ohio-6900, ¶ 26 (10th Dist.)
+    &mdash; <span class="badge badge-yellow">Overstated -- case partially supports</span>
+  </summary>
+  <div class="finding-body">
+    
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief"><p>Ohio does not recognize a civil cause of action for “extortion.” See Simpson v. Voiture Nationale La Société des Quarante Hommes et Huit Chevaux, 2021-Ohio-2131, ¶¶ 13-15 (2d Dist.) (affirming dismissal; “Ohio law does not recognize a civil action for extortion”), citing First Fed. Bank of Ohio v. Angelini, 2012-Ohio-2136, ¶ 6 (3d Dist.), and Heskett v. Van Horn Title Agency, Inc., 2006-Ohio-6900, ¶ 26 (10th Dist.).</p></div>
+    <div class="bq-label">Actual language in opinion:</div><div class="bq-opinion"><p>Neither are we aware of &quot;coercion&quot; as a cognizable civil cause of action. Cf. R.C. 2905.12 (defining the crime of &quot;coercion,&quot; a misdemeanor of the second degree).</p></div>
+    <div class="analysis"><p>Heskett is a summary-judgment appeal in a title/mortgage dispute, and the cited paragraph (¶ 26) addresses &quot;coercion,&quot; not &quot;extortion.&quot; The court states it is &quot;not aware of 'coercion' as a cognizable civil cause of action&quot; and cross-references R.C. 2905.12, the criminal coercion statute. The word &quot;extortion&quot; appears nowhere in the opinion.</p><p>Coercion and extortion are sibling offenses within the same statutory chapter (R.C. Chapter 2905), so Heskett offers analogous support for the broader idea that a criminal compulsion offense does not create a civil cause of action. But the brief attaches Heskett to an extortion-specific proposition the opinion never decided, so the support is partial rather than direct. Note also that the quoted language &quot;Ohio law does not recognize a civil action for extortion&quot; is attributed in the brief to Simpson, not Heskett, and does not appear in this opinion.</p></div>
+  </div>
+</details><details id="finding-3">
+  <summary>
+    <strong>p. 2</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/8710614/office-depot-inc-v-impact-office-products-llc/"><span class="case-name">Office Depot</span></a>, Inc. v. Impact Off. Prods., LLC, 821 F. Supp. 2d 912, 919-23 (N.D. Ohio 2011)
+    &mdash; <span class="badge badge-yellow">Overstated -- case partially supports</span>
+  </summary>
+  <div class="finding-body">
+    
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief"><p>Further Kettering fails to identify any trade secret with particularity or reasonable secrecy measures. [...] Office Depot, Inc. v. Impact Off. Prods., LLC, 821 F. Supp. 2d 912, 919-23 (N.D. Ohio 2011) (particularity and OUTSA preemption).</p></div>
+    <div class="bq-label">Actual language in opinion:</div><div class="bq-opinion"><p>The sole ground asserted for dismissal is that these claims are displaced and preempted by the Ohio Uniform Trade Secret Act (“OUTSA”).</p></div>
+    <div class="analysis"><p>Office Depot squarely supports the OUTSA-preemption half of this parenthetical: it is the opinion's central holding that Office Depot's common-law claims are preempted by O.R.C. § 1333.67(A) to the extent they restate misappropriation-of-trade-secret facts, surviving only where an independent factual basis exists.</p><p>The parenthetical's other half -- &quot;particularity&quot; -- finds no footing. The motion was decided on a single ground: OUTSA preemption. The opinion never addresses whether a trade secret must be identified with particularity, nor reasonable secrecy measures as a legal requirement (its references to Office Depot's confidentiality policies are factual background only). Citing this case for a particularity requirement therefore overstates what it holds.</p></div>
+  </div>
+</details><details id="finding-4">
+  <summary>
+    <strong>p. 2</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/4888668/van-buren-v-united-states/"><span class="case-name">Van Buren v. United States</span></a>, 593 U.S. 374, 380-86 (2021)
+    &mdash; <span class="badge badge-yellow">Overstated -- case partially supports</span>
+  </summary>
+  <div class="finding-body">
+    
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief"><p>The alleged Computer Fraud and Abuse Act claim is foreclosed by Van Buren v. United States, 593 U.S. 374, 380-86 (2021) and Royal Truck &amp; Trailer Sales &amp; Serv., Inc. v. Kraft, 974 F.3d 756, 758-61 (6th Cir. 2020), because Defendant Collier had accessed the information with valid credentials and at Kettering's direction during a system outage.</p></div>
+    <div class="bq-label">Actual language in opinion:</div><div class="bq-opinion"><p>an individual “exceeds authorized access” when he accesses a computer with authorization but then obtains information located in particular areas of the computer—such as files, folders, or databases—that are off limits to him.</p></div>
+    <div class="analysis"><p>Van Buren supports the core of the foreclosure argument: the Court held that a person who accesses a computer with authorization and obtains information &quot;otherwise available to [him]&quot; does not violate the CFAA's &quot;exceeds authorized access&quot; clause even when his purpose is improper, which is the principle the brief invokes for Collier's authorized, directed access.</p><p>The proposition overstates the holding, however, by reducing the test to mere possession of &quot;valid credentials.&quot; Van Buren's rule turns on whether the accesser was entitled to obtain the particular information, not on credentials as such: the Court expressly states that a person who uses authorized access to reach a prohibited &quot;Folder X,&quot; to which he lacks access, &quot;violates the CFAA by obtaining such information.&quot; Valid login credentials therefore do not categorically defeat a CFAA claim, so the categorical phrasing in the brief sweeps somewhat broader than what the case decided.</p></div>
+  </div>
+</details><details id="finding-5">
+  <summary>
+    <strong>p. 2</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/1462522/wilson-v-collins/"><span class="case-name">Wilson v. Collins</span></a>, 517 F.3d 421, 429 (6th Cir. 2008)
+    &mdash; <span class="badge badge-red">Case on unrelated subject</span>
+  </summary>
+  <div class="finding-body">
+    
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief"><p>HIPAA provides no private right of action, and the materials at issue are de-identified by subject codes, not “PHI.” See Wilson v. Collins, 517 F.3d 421, 429 (6th Cir. 2008); 45 C.F.R. § 164.514(b)(2).</p></div>
+    
+    <div class="analysis"><p>Wilson v. Collins is a Sixth Circuit constitutional-law case about a prisoner's challenge to Ohio's DNA-collection statute under the Fourth Amendment, due process, and equal protection. It does not address HIPAA, protected health information, or any HIPAA private right of action.</p><p>The opinion never mentions HIPAA. It does discuss a &quot;private right of action,&quot; but only as to Title VI of the Civil Rights Act of 1964 — holding (per Alexander v. Sandoval) that § 602 regulations cannot be enforced through a private cause of action — an entirely different statute from the one the brief invokes. The cited pincite, page 429, falls in the substantive-due-process discussion of whether a felon has a fundamental privacy interest in his DNA profile; it says nothing about private rights of action of any kind. The citation does not support the HIPAA proposition.</p></div>
+  </div>
+</details><details id="finding-6">
+  <summary>
+    <strong>p. 3</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/3941929/heskett-v-van-horn-title-agency-unpublished-decision-12-26-2006/"><span class="case-name">Heskett v. Van Horn Title Agency</span></a>, Inc., 2006-Ohio-6900, ¶ 26 (10th Dist.)
+    &mdash; <span class="badge badge-yellow">Overstated -- case partially supports</span>
+  </summary>
+  <div class="finding-body">
+    
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief"><p>Ohio courts have repeatedly held there is no stand-alone civil cause of action for extortion. Simpson, 2021-Ohio-2131, ¶¶ 13-15; Angelini, 2012-Ohio-2136, ¶ 6; Heskett, 2006-Ohio-6900, ¶ 26.</p></div>
+    <div class="bq-label">Actual language in opinion:</div><div class="bq-opinion"><p>Neither are we aware of &quot;coercion&quot; as a cognizable civil cause of action. Cf. R.C. 2905.12 (defining the crime of &quot;coercion,&quot; a misdemeanor of the second degree).</p></div>
+    <div class="analysis"><p>The brief cites Heskett ¶ 26 for the proposition that Ohio courts have &quot;repeatedly held&quot; there is no stand-alone civil cause of action for extortion, but ¶ 26 addresses coercion, not extortion, and the opinion never uses the word &quot;extortion.&quot; The court's actual statement is a single, somewhat tentative observation that it is &quot;not aware of 'coercion' as a cognizable civil cause of action,&quot; cross-referencing the criminal coercion statute (R.C. 2905.12) — not a repeated or settled holding about extortion.</p><p>Because coercion and extortion are closely related offenses in the same statutory chapter, Heskett lends analogous support to the general principle, but it does not establish an extortion-specific rule and is one intermediate-appellate aside rather than evidence of courts &quot;repeatedly&quot; so holding. The support is therefore partial.</p></div>
+  </div>
+</details><details id="finding-7">
+  <summary>
+    <strong>p. 4</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/3935804/stull-v-combustion-engineering-inc/"><span class="case-name">State v. Carter</span></a>, 72 Ohio App.3d 553 (2d Dist. 1991)
+    &mdash; <span class="badge badge-red">Case mismatch -- cite resolves to a different case</span>
+  </summary>
+  <div class="finding-body">
+    
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief">Wrongful Threat — an unlawful threat unrelated to any valid legal claim. State v. Carter, 72 Ohio App.3d 553 (2d Dist. 1991) – threat to file false criminal charges constituted extortion.</div>
+    
+    
+  </div>
+</details><details id="finding-8">
+  <summary>
+    <strong>p. 4</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/8509675/state-v-eddy/"><span class="case-name">State v. Milam</span></a>, 2022-Ohio-3965 (10th Dist.)
+    &mdash; <span class="badge badge-red">Case mismatch -- cite resolves to a different case</span>
+  </summary>
+  <div class="finding-body">
+    
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief">Intent to Obtain Value or Coerce — purpose to obtain money, property, or concessions through improper means. State v. Milam, 2022-Ohio-3965 (10th Dist.) – intent element satisfied only where threats are unrelated to lawful rights.</div>
+    
+    
+  </div>
+</details><details id="finding-9">
+  <summary>
+    <strong>p. 4</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/10683282/kenty-v-transamerica-premium-ins-co/"><span class="case-name">Kenty v. Transamerica Premium Ins. Co.</span></a>, 72 Ohio St.3d 415, 419 (1995)
+    &mdash; <span class="badge badge-red">Case on unrelated subject</span>
+  </summary>
+  <div class="finding-body">
+    
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief"><p>No Legitimate Claim or Privilege — demands made without a good-faith basis are unprotected. Kenty v. Transamerica Premium Ins. Co., 72 Ohio St.3d 415, 419 (1995).</p></div>
+    
+    <div class="analysis"><p>Kenty v. Transamerica Premium Ins. Co. is an Ohio Supreme Court tort case about whether the tort of tortious interference with a contractual relationship is recognized in Ohio (the court holds that it is) and the elements required to prove that tort and civil conspiracy. It does not address extortion, the &quot;no legitimate claim or privilege&quot; element, or whether demands made without a good-faith basis are protected or unprotected.</p><p>The opinion does list &quot;lack of justification&quot; as the fourth element of tortious interference with a contract, but that is a distinct doctrine concerning a third party's interference with an existing contract; it says nothing about the legitimacy of a claimant's own demands and supplies no support for the brief's extortion proposition.</p></div>
+  </div>
+</details><details id="finding-10">
+  <summary>
+    <strong>p. 4</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/75917/united-states-v-james-scott-pendergraft/"><span class="case-name">United States v. Pendergraft</span></a>, 297 F.3d 1198, 1205 (11th Cir. 2002)
+    &mdash; <span class="badge badge-yellow">Overstated -- case partially supports</span>
+  </summary>
+  <div class="finding-body">
+    
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief"><p>Mere “hard bargaining,” even when the consequences are severe, is not extortion where claims are legitimate and conduct threatened is lawful. See United States v. Pendergraft, 297 F.3d 1198, 1205 (11th Cir. 2002).</p></div>
+    <div class="bq-label">Actual language in opinion:</div><div class="bq-opinion"><p>To show a wrongful objective, the Government must show that Pendergraft and Spielvogel had no lawful claim to the money they sought. ... A threat to litigate, by itself, is not necessarily &quot;wrongful&quot; within the meaning of the Hobbs Act.</p></div>
+    <div class="analysis"><p>Pendergraft does support the underlying Hobbs Act principle the brief invokes: to be extortion, conduct must be &quot;wrongful,&quot; which requires both a wrongful objective (no lawful claim to the money sought) and a wrongful means, and the court holds that resorting to lawful process — there, a threat to litigate — is not inherently wrongful. To that extent the proposition that pursuing legitimate claims through lawful conduct is not extortion is fairly drawn from the opinion.</p><p>The brief overstates in two ways. First, the quoted phrase &quot;hard bargaining,&quot; appears nowhere in the opinion; Pendergraft frames its analysis around threats to litigate, not commercial &quot;hard bargaining,&quot; so the quotation marks misattribute language the court never used. Second, the holding is expressly narrow — the court limits it to a &quot;threat to file litigation against Marion County, even if made in bad faith and supported by false affidavits&quot; — so citing it for a broad, general &quot;hard bargaining is not extortion&quot; rule extends the case beyond what it decided.</p></div>
+  </div>
+</details><details id="finding-11">
+  <summary>
+    <strong>p. 5</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/764769/united-states-v-autumn-jackson-boris-sabas-also-known-as-boris/"><span class="case-name">United States v. Jackson</span></a>, 180 F.3d 55, 70 (2d Cir. 1999)
+    &mdash; <span class="badge badge-yellow">Overstated -- case partially supports</span>
+  </summary>
+  <div class="finding-body">
+    
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief"><p>“Informing a party that you will report their misconduct to appropriate authorities if corrective action is not taken does not constitute an unlawful threat.” United States v. Jackson, 180 F.3d 55, 70 (2d Cir. 1999). Thus, advising Kettering of Ms. Collier's statutory obligations cannot constitute extortion.</p></div>
+    <div class="bq-label">Actual language in opinion:</div><div class="bq-opinion"><p>[N]ot all threats to engage in speech that will have the effect of damaging another person’s reputation, even if a forbearance from speaking is conditioned on the payment of money, are wrongful. For example, the purchaser of an allegedly defective product may threaten to complain to a consumer protection agency or to bring suit in a public forum if the manufacturer does not make good on its warranty.... We doubt that Congress intended § 875(d) to criminalize acts such as these.</p></div>
+    <div class="analysis"><p>The quoted sentence does not appear anywhere in Jackson; it is a fabricated quotation, not the court's language. Substantively, the case partially supports the underlying idea. Jackson does say that not every threat to make a reputation-damaging disclosure is wrongful, and it offers illustrations — threatening to complain to a consumer protection agency or bring suit — that resemble the brief's &quot;report misconduct to authorities&quot; scenario.</p><p>But the brief overstates by presenting this as a categorical rule. Jackson's holding is the opposite of categorical: a threat to reputation is lawful only where the threatener has, or reasonably believes she has, a &quot;plausible claim of right&quot; to the money sought and the threat bears a &quot;nexus&quot; to that claim; where it does not, the threat is &quot;inherently wrongful&quot; and violates § 875(d). The brief drops that claim-of-right qualification, which is the heart of the decision.</p></div>
+  </div>
+</details><details id="finding-12">
+  <summary>
+    <strong>p. 5</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/2600567/flatley-v-mauro/"><span class="case-name">Flatley v. Mauro</span></a>, 39 Cal.4th 299, 331 (2006)
+    &mdash; <span class="badge badge-red">Not supported by cited case</span>
+  </summary>
+  <div class="finding-body">
+    
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief">“<strong>Seeking a monetary settlement tied directly to legal claims does not become extortion merely because regulatory reporting is also contemplated.</strong>” — Flatley v. Mauro, 39 Cal.4th 299, 331 (2006).</div>
+    
+    <div class="analysis"><p>Flatley held the opposite: a monetary settlement demand coupled with threats to report misconduct to authorities and publicize allegations constituted criminal extortion as a matter of law, and the quoted language is fabricated.</p></div>
+  </div>
+</details><details id="finding-13">
+  <summary>
+    <strong>p. 6</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/10683282/kenty-v-transamerica-premium-ins-co/"><span class="case-name">Kenty v. Transamerica Premium Ins. Co.</span></a>, 72 Ohio St.3d 415, 419 (1995)
+    &mdash; <span class="badge badge-red">Case on unrelated subject</span>
+  </summary>
+  <div class="finding-body">
+    
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief"><p>“Where claims are based on enforceable legal rights, settlement demands are privileged.” — Kenty, 72 Ohio St.3d at 419.</p></div>
+    
+    <div class="analysis"><p>Kenty v. Transamerica Premium Ins. Co. is an Ohio Supreme Court tort case about whether tortious interference with a contractual relationship is recognized in Ohio and the elements of that tort and of civil conspiracy. It does not address settlement demands, the privilege attaching to demands based on enforceable legal rights, or extortion.</p><p>The sentence offered as a direct quotation — &quot;Where claims are based on enforceable legal rights, settlement demands are privileged&quot; — appears nowhere in the opinion; it is fabricated. Neither the quoted language nor the principle it states is found in or supported by this decision.</p></div>
+  </div>
+</details><details id="finding-14">
+  <summary>
+    <strong>p. 6</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/75917/united-states-v-james-scott-pendergraft/"><span class="case-name">United States v. Pendergraft</span></a>, 297 F.3d 1198, 1205 (11th Cir. 2002)
+    &mdash; <span class="badge badge-red">Not supported by cited case</span>
+  </summary>
+  <div class="finding-body">
+    
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief"><p>“Advising of possible consequences from lawful reporting cannot form the basis of an extortion claim.” — United States v. Pendergraft, 297 F.3d at 1205.</p></div>
+    <div class="bq-label">Actual language in opinion:</div><div class="bq-opinion"><p>Nevertheless, our holding is a narrow one. We hold that Pendergraft and Spielvogel's threat to file litigation against Marion County, even if made in bad faith and supported by false affidavits, was not &quot;wrongful&quot; within the meaning of the Hobbs Act.</p></div>
+    <div class="analysis"><p>United States v. Pendergraft is a Hobbs Act criminal-extortion case about whether a threat to file a lawsuit against a county government — even one made in bad faith and backed by false affidavits — is &quot;wrongful.&quot; It does not address advising a party of the possible consequences of lawful reporting.</p><p>The sentence the brief places in quotation marks appears nowhere in the opinion, and neither does the principle it states. The opinion never discusses &quot;reporting&quot; or &quot;advising of consequences&quot;; its reasoning is confined to threats to litigate. The brief thus attributes a specific, verbatim-quoted rule to a case that does not contain it. While both concern what is not extortion, the reporting principle is a distinct doctrine the court did not reach, and the case's own narrow holding (quoted above) shows it was deciding only the litigation-threat question.</p></div>
+  </div>
+</details><details id="finding-15">
+  <summary>
+    <strong>p. 7</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/10683856/kulch-v-structural-fibers-inc/"><span class="case-name">Kulch v. Structural Fibers</span></a>, Inc., 78 Ohio St.3d 134, 150 (1997)
+    &mdash; <span class="badge badge-yellow">Overstated -- case partially supports</span>
+  </summary>
+  <div class="finding-body">
+    
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief"><p>Reporting misconduct to regulators and sponsors is protected conduct: [...] Ohio's public policy protections (Kulch v. Structural Fibers, Inc., 78 Ohio St.3d 134, 150 (1997)).</p></div>
+    <div class="bq-label">Actual language in opinion:</div><div class="bq-opinion"><p>Retaliation against employees who file OSHA complaints concerning unsafe or unhealthy conditions in the workplace is an absolute affront to Ohio's public policy favoring workplace safety. Such retaliation clearly contravenes the public policy of this state.</p></div>
+    <div class="analysis"><p>Kulch supports the &quot;regulators&quot; half of this proposition. The Ohio Supreme Court held that an at-will employee discharged for reporting workplace-safety violations to OSHA may maintain a common-law tort action for wrongful discharge in violation of Ohio public policy, recognizing a Greeley-based public-policy exception to employment-at-will. To that extent, the case does stand for the idea that reporting misconduct to a government regulator is protected conduct under Ohio law.</p><p>The overstatement is twofold. First, Kulch's protection is anchored in reporting to a public regulatory agency (OSHA) about workplace safety and in Ohio's Whistleblower Statute, R.C. 4113.52; the opinion never addresses reporting to private &quot;sponsors,&quot; so the brief extends the holding beyond what the case decided by folding sponsors into it. Second, the case's reach is narrower than the brief's generalized &quot;reporting of misconduct&quot; framing -- it is confined to safety/whistleblower reporting to regulators. The proposition is therefore accurate as to regulators but unsupported as to sponsors.</p></div>
+  </div>
+</details><details id="finding-16">
+  <summary>
+    <strong>p. 7</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/2600567/flatley-v-mauro/"><span class="case-name">Flatley v. Mauro</span></a>, 39 Cal.4th 299, 330 (2006)
+    &mdash; <span class="badge badge-red">Not supported by cited case</span>
+  </summary>
+  <div class="finding-body">
+    
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief">Courts consistently hold that truthful disclosure of misconduct does not constitute extortion. Flatley, 39 Cal.4th at 330; Jackson, 180 F.3d at 70.</div>
+    
+    <div class="analysis"><p>Flatley holds the opposite of the proposition: it found that Mauro's threats to expose/report Flatley's alleged misconduct unless paid constituted criminal extortion as a matter of law, and that such threats are extortionate even when the victim actually committed the crime or indiscretion.</p></div>
+  </div>
+</details><details id="finding-17">
+  <summary>
+    <strong>p. 7</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/764769/united-states-v-autumn-jackson-boris-sabas-also-known-as-boris/"><span class="case-name">United States v. Jackson</span></a>, 180 F.3d 55, 70 (2d Cir. 1999)
+    &mdash; <span class="badge badge-red">Inverts the holding</span>
+  </summary>
+  <div class="finding-body">
+    
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief"><p>Courts consistently hold that truthful disclosure of misconduct does not constitute extortion. Flatley, 39 Cal.4th at 330; Jackson, 180 F.3d at 70.</p></div>
+    <div class="bq-label">Actual language in opinion:</div><div class="bq-opinion"><p>[W]hen a threat is made to injure the reputation of another, the truth of the damaging allegations underlying the threat is not a defense to a charge of extortion under § 875(d).</p></div>
+    <div class="analysis"><p>Jackson holds the opposite of the proposition. The brief cites it for the rule that truthful disclosure of misconduct does not constitute extortion, but the Second Circuit states the established principle that truth is not a defense: &quot;when a threat is made to injure the reputation of another, the truth of the damaging allegations underlying the threat is not a defense to a charge of extortion under § 875(d).&quot; Discussing Pignatelli, the court reinforces this — a person is free to publish true facts (at the risk of a libel suit), but is &quot;not free to threaten to injure their reputations ... in order to settle his claim,&quot; and it &quot;made no difference&quot; whether the threatener's underlying assertion was correct.</p><p>Jackson thus distinguishes lawful from unlawful threats by reference to a plausible claim of right and nexus — not by whether the disclosed information is true. Citing it for the categorical proposition that truthful disclosure cannot be extortion misattributes a holding to the case that contradicts what it actually decided.</p></div>
+  </div>
+</details><details id="finding-18">
+  <summary>
+    <strong>p. 8</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/8710614/office-depot-inc-v-impact-office-products-llc/"><span class="case-name">Office Depot</span></a>, Inc. v. Impact Off. Prods., LLC, 821 F. Supp. 2d 912, 919-23 (N.D. Ohio 2011)
+    &mdash; <span class="badge badge-red">Case on unrelated subject</span>
+  </summary>
+  <div class="finding-body">
+    
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief"><p>The Complaint identifies only broad categories of information “clinical data” and “research processes”, which do not satisfy the particularity requirement. Office Depot, 821 F. Supp. 2d at 919-23.</p></div>
+    
+    <div class="analysis"><p>Office Depot, Inc. v. Impact Office Products, LLC is a Rule 12(b)(6) motion-to-dismiss decision about whether Office Depot's common-law claims were preempted by the Ohio Uniform Trade Secrets Act. It does not address the trade-secret particularity pleading requirement, nor whether identifying only broad categories of information defeats such a requirement -- the decision turns entirely on OUTSA preemption.</p><p>The quoted phrases &quot;clinical data&quot; and &quot;research processes&quot; do not appear anywhere in this opinion; they are the Kettering complaint's own terms, not language from the cited case.</p></div>
+  </div>
+</details><details id="finding-19">
+  <summary>
+    <strong>p. 9</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/1462522/wilson-v-collins/"><span class="case-name">Wilson v. Collins</span></a>, 517 F.3d 421, 429 (6th Cir. 2008)
+    &mdash; <span class="badge badge-red">Case on unrelated subject</span>
+  </summary>
+  <div class="finding-body">
+    
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief"><p>HIPAA does not create a private right of action. Wilson, 517 F.3d at 429.</p></div>
+    
+    <div class="analysis"><p>Wilson v. Collins is a Sixth Circuit constitutional-law case about a prisoner's challenge to Ohio's DNA-collection statute under the Fourth Amendment, due process, and equal protection. It does not address HIPAA or whether HIPAA creates a private right of action.</p><p>HIPAA appears nowhere in the opinion. The only &quot;private right of action&quot; analysis concerns Title VI of the Civil Rights Act of 1964 (Alexander v. Sandoval), a different statute reached on a different theory. The cited page 429 is part of the substantive-due-process discussion of a felon's claimed privacy interest in his DNA information and contains no private-right-of-action holding at all. The case cannot support the proposition for which it is cited.</p></div>
+  </div>
+</details><details id="finding-20">
+  <summary>
+    <strong>p. 9</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/10680926/hecht-v-levin/"><span class="case-name">Hecht v. Levin</span></a>, 66 Ohio St. 3d 458, 460-61, 613 N.E.2d 585 (1993)
+    &mdash; <span class="badge badge-yellow">Overstated -- case partially supports</span>
+  </summary>
+  <div class="finding-body">
+    
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief"><p>Any defamation-based claim arising from litigation conduct is absolutely privileged. Hecht, 66 Ohio St. 3d at 460-61.</p></div>
+    <div class="bq-label">Actual language in opinion:</div><div class="bq-opinion"><p>A statement made in a judicial proceeding enjoys an absolute privilege against a defamation action as long as the allegedly defamatory statement is reasonably related to the proceeding in which it appears.</p></div>
+    <div class="analysis"><p>Hecht supports an absolute litigation privilege for defamation claims, but the brief overstates its reach by dropping the court's express qualifier. The court conditioned the privilege on the statement bearing &quot;some reasonable relation to the proceeding&quot; and emphasized that &quot;[t]he sole proviso was that the statement must bear 'some reasonable relation to the judicial proceeding in which it appears'&quot; (¶7; see also ¶22). The brief's unqualified assertion that &quot;any&quot; defamation-based claim &quot;arising from litigation conduct is absolutely privileged&quot; removes that reasonable-relation requirement, sweeping in litigation-adjacent statements the court did not hold to be immune. The cited principle is present and on point, but the proposition is broader than what Hecht actually decided.</p></div>
+  </div>
+</details>
+<details id="finding-uv-2">
+  <summary>
+    <span class="case-name">In re Protech Indus.</span>, 51 F.4th 714, 720-22 (6th Cir. 2022)
+     <span style="color:#888;">(cited 2×)</span>
+    &mdash; <span class="badge badge-gray">Unable to verify -- opinion text unavailable</span>
+  </summary>
+  <div class="finding-body">
+    <div class="bq-label">Propositions the brief attributes to this case:</div><ul class="prop-list"><li><strong>p. 2:</strong> A trade-secret plaintiff must take reasonable measures to maintain the secrecy of the claimed trade secret.</li><li><strong>p. 8:</strong> A trade-secret plaintiff must plead reasonable measures to maintain secrecy.</li></ul>
+    <div class="explanation">Case not found on CourtListener. Cannot verify against opinion text.</div>
+  </div>
+</details>
+<h2>Verified Citations</h2>
+<details>
+  <summary>15 citation-proposition pairs verified &mdash; click to expand</summary>
+  <div class="finding-body">
+    <div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 2</strong> &mdash; <a href="https://www.courtlistener.com/opinion/4894979/simpson-v-voiture-nationale-la-societe-des-quarante-hommes/"><em>Simpson v. Voiture Nationale La Société des Quarante Hommes et Huit Chevaux</em></a>, 2021-Ohio-2131, ¶¶ 13-15 (2d Dist.) &mdash; Ohio does not recognize a civil cause of action for extortion. <span class="badge badge-green">Supported</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 2</strong> &mdash; <a href="https://www.courtlistener.com/opinion/2696528/first-fed-bank-of-ohio-v-angelini/"><em>First Fed. Bank of Ohio v. Angelini</em></a>, 2012-Ohio-2136, ¶ 6 (3d Dist.) &mdash; Ohio does not recognize a civil cause of action for extortion. <span class="badge badge-green">Supported</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 2</strong> &mdash; <a href="https://www.courtlistener.com/opinion/4783709/royal-truck-trailer-sales-v-mike-kraft/"><em>Royal Truck &amp; Trailer Sales &amp; Serv.</em></a>, Inc. v. Kraft, 974 F.3d 756, 758-61 (6th Cir. 2020) &mdash; Accessing information with valid credentials does not violate the Computer Fraud and Abuse Act, foreclosing Kettering's CFAA claim. <span class="badge badge-green">Supported</span><div class="card-flags"><span class="flag-chip">&#9873; Pincite 758 outside the opinion's star-pagination range 3-7</span></div></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 3</strong> &mdash; <a href="https://www.courtlistener.com/opinion/2786363/stolle-machinery-company-llc-v-ram-precision-industries/"><em>Stolle Mach. Co. v. RAM Precision Indus.</em></a>, 605 F. App'x 473, 484 (6th Cir. 2015) &mdash; Overlapping common-law torts are displaced by the Ohio Uniform Trade Secrets Act. <span class="badge badge-green">Supported</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 3</strong> &mdash; <a href="https://www.courtlistener.com/opinion/145875/ashcroft-v-iqbal/"><em>Ashcroft v. Iqbal</em></a>, 556 U.S. 662, 678 (2009) &mdash; A complaint must contain sufficient factual matter to state a claim to relief that is plausible on its face. <span class="badge badge-green">Supported</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 3</strong> &mdash; <a href="https://www.courtlistener.com/opinion/145730/bell-atlantic-corp-v-twombly/"><em>Bell Atl. Corp. v. Twombly</em></a>, 550 U.S. 544, 570 (2007) &mdash; A complaint must contain sufficient factual matter to state a claim to relief that is plausible on its face. <span class="badge badge-green">Supported</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 3</strong> &mdash; <a href="https://www.courtlistener.com/opinion/145875/ashcroft-v-iqbal/"><em>Ashcroft v. Iqbal</em></a>, 556 U.S. 662, 678 (2009) &mdash; Courts disregard legal conclusions couched as factual allegations. <span class="badge badge-green">Supported</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 3</strong> &mdash; <a href="https://www.courtlistener.com/opinion/4894979/simpson-v-voiture-nationale-la-societe-des-quarante-hommes/"><em>Simpson v. Voiture Nationale La Société des Quarante Hommes et Huit Chevaux</em></a>, 2021-Ohio-2131, ¶¶ 13-15 (2d Dist.) &mdash; Ohio courts have repeatedly held there is no stand-alone civil cause of action for extortion. <span class="badge badge-green">Supported</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 3</strong> &mdash; <a href="https://www.courtlistener.com/opinion/2696528/first-fed-bank-of-ohio-v-angelini/"><em>First Fed. Bank of Ohio v. Angelini</em></a>, 2012-Ohio-2136, ¶ 6 (3d Dist.) &mdash; Ohio courts have repeatedly held there is no stand-alone civil cause of action for extortion. <span class="badge badge-green">Supported</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 3</strong> &mdash; <a href="https://www.courtlistener.com/opinion/10680926/hecht-v-levin/"><em>Hecht v. Levin</em></a>, 66 Ohio St. 3d 458, 460-61, 613 N.E.2d 585 (1993) &mdash; Communications made in or reasonably related to judicial proceedings are absolutely privileged. <span class="badge badge-green">Supported</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 3</strong> &mdash; <a href="https://www.courtlistener.com/opinion/6868174/surace-v-wuliger/"><em>Surace v. Wilier</em></a>, 25 Ohio St. 3d 229, 232-33, 495 N.E.2d 939 (1986) &mdash; Communications made in or reasonably related to judicial proceedings are absolutely privileged. <span class="badge badge-green">Supported</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 8</strong> &mdash; <a href="https://www.courtlistener.com/opinion/2786363/stolle-machinery-company-llc-v-ram-precision-industries/"><em>Stolle Mach. Co. v. RAM Precision Indus.</em></a>, 605 F. App'x 473, 484 (6th Cir. 2015) &mdash; The Ohio Uniform Trade Secrets Act displaces overlapping common-law tort claims based on the same nucleus of facts. <span class="badge badge-green">Supported</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 8</strong> &mdash; <a href="https://www.courtlistener.com/opinion/4888668/van-buren-v-united-states/"><em>Van Buren v. United States</em></a>, 593 U.S. 374, 380-86 (2021) &mdash; The Supreme Court construes “exceeds authorized access” narrowly to cover obtaining information from areas of a computer to which a person lacks access privileges, not misuse of information obtained with authorized credentials. <span class="badge badge-green">Supported</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 9</strong> &mdash; <a href="https://www.courtlistener.com/opinion/4783709/royal-truck-trailer-sales-v-mike-kraft/"><em>Royal Truck &amp; Trailer Sales &amp; Serv.</em></a>, Inc. v. Kraft, 974 F.3d 756, 758-61 (6th Cir. 2020) &mdash; The Sixth Circuit applies the same narrow rule that accessing information with valid credentials does not violate the CFAA. <span class="badge badge-green">Supported</span><div class="card-flags"><span class="flag-chip">&#9873; Pincite 758 outside the opinion's star-pagination range 3-7</span></div></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 9</strong> &mdash; <a href="https://www.courtlistener.com/opinion/8710614/office-depot-inc-v-impact-office-products-llc/"><em>Office Depot</em></a>, Inc. v. Impact Off. Prods., LLC, 821 F. Supp. 2d 912, 918-23 (N.D. Ohio 2011) &mdash; Tortious-interference and conversion theories are preempted by OUTSA where the alleged harm stems from misappropriation. <span class="badge badge-green">Supported</span></div>
+  </div>
+</details>
+<div class="methodology">
+  <h2>Methodology &amp; Limitations</h2>
+  <ul>
+    <li><strong>Quote verification</strong> is near-deterministic but limited by the quality of CourtListener's text. Minor discrepancies may reflect OCR artifacts in the source database rather than errors in the brief.</li>
+    <li><strong>Propositional support</strong> assessment is an AI judgment. It reflects Claude's reading of the opinion text and should be verified by counsel. Reasonable lawyers may disagree about whether a case "supports" a given proposition.</li>
+    <li>This report checks whether cited cases say what the brief claims they say. It does not assess the overall legal merit of the brief's arguments or whether the cited cases are the best authorities available.</li>
+    <li>Cases marked "unable to verify" should be checked through other sources (Westlaw, Lexis, etc.).</li>
+  </ul>
+  <h3>Verification method disclosure</h3>
+  <p>The following opinions were <strong>retrieved from CourtListener</strong> and verified against their full text:</p>
+  <ul>
+    <li><em>Simpson v. Voiture Nationale La Societe Des Quarante Hommes</em>, 2021-Ohio-2131, ¶¶ 13-15 (2d Dist.) (cluster 4894979)</li>
+<li><em>First Fed. Bank of Ohio v. Angelini</em>, 2012-Ohio-2136, ¶ 6 (3d Dist.) (cluster 2696528)</li>
+<li><em>Heskett v. Van Horn Title Agency, Unpublished Decision (12-26-2006)</em>, Inc., 2006-Ohio-6900, ¶ 26 (10th Dist.) (cluster 3941929)</li>
+<li><em>Office Depot, Inc. v. Impact Office Products, LLC</em>, Inc. v. Impact Off. Prods., LLC, 821 F. Supp. 2d 912, 918-23 (N.D. Ohio 2011) (cluster 8710614)</li>
+<li><em>Van Buren v. United States</em>, 593 U.S. 374, 380-86 (2021) (cluster 4888668)</li>
+<li><em>Royal Truck &amp; Trailer Sales v. Mike Kraft</em>, Inc. v. Kraft, 974 F.3d 756, 758-61 (6th Cir. 2020) (cluster 4783709)</li>
+<li><em>Wilson v. Collins</em>, 517 F.3d 421, 429 (6th Cir. 2008) (cluster 1462522)</li>
+<li><em>Stolle Machinery Company, LLC v. Ram Precision Industries</em>, 605 F. App'x 473, 484 (6th Cir. 2015) (cluster 2786363)</li>
+<li><em>Ashcroft v. Iqbal</em>, 556 U.S. 662, 678 (2009) (cluster 145875)</li>
+<li><em>Bell Atlantic Corp. v. Twombly</em>, 550 U.S. 544, 570 (2007) (cluster 145730)</li>
+<li><em>Hecht v. Levin</em>, 66 Ohio St. 3d 458, 460-61, 613 N.E.2d 585 (1993) (cluster 10680926)</li>
+<li><em>Surace v. Wuliger</em>, 25 Ohio St. 3d 229, 232-33, 495 N.E.2d 939 (1986) (cluster 6868174)</li>
+<li><em>Kenty v. Transamerica Premium Ins. Co.</em>, 72 Ohio St.3d 415, 419 (1995) (cluster 10683282)</li>
+<li><em>United States v. James Scott Pendergraft</em>, 297 F.3d 1198, 1205 (11th Cir. 2002) (cluster 75917)</li>
+<li><em>United States v. Autumn Jackson, Boris Sabas, Also Known as Boris Shmulevich, and Jose Medina, Also Known as Yosi Medina</em>, 180 F.3d 55, 70 (2d Cir. 1999) (cluster 764769)</li>
+<li><em>Flatley v. Mauro</em>, 39 Cal.4th 299, 330 (2006) (cluster 2600567)</li>
+<li><em>Kulch v. Structural Fibers, Inc.</em>, Inc., 78 Ohio St.3d 134, 150 (1997) (cluster 10683856)</li>
+  </ul>
+  <p>The following opinions were <strong>not available on CourtListener</strong> and could not be verified against opinion text:</p>
+  <ul>
+    <li><em>In re Protech Indus.</em>, 51 F.4th 714, 720-22 (6th Cir. 2022) &mdash; Not in CourtListener database</li>
+  </ul>
+  <p>No opinions in this report were assessed from training knowledge. All assessments are based on retrieved opinion text.</p>
+</div>
+
+</body>
+</html>

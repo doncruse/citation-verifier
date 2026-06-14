@@ -1,0 +1,61 @@
+{
+  "git_hash": "2764655",
+  "verbs": {
+    "extract": {
+      "at": "2026-06-13T19:19:07+00:00",
+      "prompt_version": "extract-v1",
+      "claims": 36,
+      "toa": 0,
+      "body": 20
+    },
+    "verify": {
+      "at": "2026-06-13T19:23:06+00:00",
+      "citations": 40,
+      "wave1_misses": 4
+    },
+    "merge": {
+      "at": "2026-06-13T19:31:37+00:00",
+      "matched": 36,
+      "linked": 32
+    },
+    "check-quotes": {
+      "at": "2026-06-13T19:31:47+00:00",
+      "total": 36
+    },
+    "crosscheck": {
+      "at": "2026-06-13T19:31:47+00:00",
+      "total": 36,
+      "toa": 0,
+      "court": 0,
+      "pincite": 2
+    },
+    "triage": {
+      "at": "2026-06-13T19:31:47+00:00",
+      "full": 12,
+      "fast": 20,
+      "skipped": 4,
+      "prescreen_done": 0,
+      "prescreen_pending": 0
+    },
+    "assess": {
+      "at": "2026-06-13T20:04:04+00:00",
+      "prompt_version": "assess-v2",
+      "done": 30,
+      "pending": 2
+    },
+    "apply-assessments": {
+      "at": "2026-06-13T20:04:23+00:00",
+      "prompt_version": "assess-v2",
+      "applied": 30,
+      "invalid": 0,
+      "missing": 2
+    },
+    "report": {
+      "at": "2026-06-13T20:04:24+00:00",
+      "findings": 19,
+      "check_cite": 0,
+      "verified": 15,
+      "unable": 2
+    }
+  }
+}

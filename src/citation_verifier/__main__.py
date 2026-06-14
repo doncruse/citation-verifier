@@ -53,16 +53,10 @@ def _read_status_from_csv(value: str) -> Status | None:
 
 
 def _matched_case_name(result: VerificationResult) -> str | None:
-    """Pull the matched case name from the final resolution_path entry, if any.
-
-    Phase 1's verifier stashes the case name in
-    ``resolution_path[-1].raw_response_summary["case_name"]`` (see
-    ``verifier._build_result``).
-    """
-    if not result.resolution_path:
-        return None
-    summary = result.resolution_path[-1].raw_response_summary or {}
-    return summary.get("case_name") or None
+    """Matched CL caption via the VerificationResult.matched_case_name
+    accessor (the stage-specific summary keys vary -- reading one key
+    directly was design SS11 bug 1)."""
+    return result.matched_case_name or None
 
 
 def _stage_notes(result: VerificationResult) -> str:
@@ -514,6 +508,224 @@ def _result_to_row(result: VerificationResult) -> dict[str, str]:
     }
 
 
+def verify_propositions_main(argv: list[str] | None = None) -> int:
+    """CLI for the proposition pipeline verbs (design §3).
+
+    Usage: python -m citation_verifier verify-propositions <workdir> <verb>
+    Verbs are idempotent; resume = rerun the verb. ASCII-only output.
+    """
+    parser = argparse.ArgumentParser(
+        prog="citation-verifier verify-propositions",
+        description="Run proposition-pipeline verbs over a workdir "
+                    "(claims.csv per the design SS2 input contract).",
+    )
+    parser.add_argument("workdir", help="Pipeline working directory")
+    parser.add_argument(
+        "verb",
+        choices=["extract", "verify", "merge", "check-quotes",
+                 "crosscheck", "triage", "assess", "apply-assessments",
+                 "report", "full"],
+        help="extract = document -> claims.csv + TOA/body citation lists "
+             "(LLM, needs --document); verify = wave1+wave2+downloads; "
+             "merge = join claims to results + opinion linkage; "
+             "check-quotes = quote verdicts + floors; crosscheck = "
+             "TOA/court/pincite flags; triage = assessment depth per "
+             "claim (--prescreen for Haiku hints); assess = LLM "
+             "assessment jobs (jobs mode by default); "
+             "apply-assessments = verdicts JSONL -> claims.csv with "
+             "floors; report = claims.csv -> report.html (SS6.9 lanes); "
+             "full = [extract ->] verify -> merge -> "
+             "check-quotes -> crosscheck -> triage -> assess "
+             "(-> apply -> report when verdicts are complete)",
+    )
+    parser.add_argument(
+        "--force", action="store_true",
+        help="Rerun the verify/extract verb even if its output exists",
+    )
+    parser.add_argument(
+        "--citations-file",
+        help="Explicit citation list (one per line) instead of deriving "
+             "from claims.csv cited_case",
+    )
+    parser.add_argument(
+        "--prompt-version", default=None,
+        help="Assess/apply prompt version (default assess-v2: two-axis "
+             "support + report blocks; pass assess-v1 for the legacy "
+             "single-color prompt)",
+    )
+    parser.add_argument(
+        "--replay",
+        help="Replay LLM verdicts from a recorded JSONL (offline) "
+             "instead of jobs mode",
+    )
+    parser.add_argument(
+        "--document",
+        help="Source document (brief/motion PDF or text) for the extract "
+             "verb / full chain",
+    )
+    parser.add_argument(
+        "--executor", choices=["jobs", "sdk"], default="jobs",
+        help="LLM transport for extract/assess: jobs = write jobs file "
+             "for Agent-tool subagents (in-session default); sdk = "
+             "headless claude-agent-sdk (requires `claude login` "
+             "credentials)",
+    )
+    parser.add_argument(
+        "--model", default="opus",
+        help="Model for the sdk executor (default opus)",
+    )
+    parser.add_argument(
+        "--prescreen", action="store_true",
+        help="Triage: run Haiku summary-hint prescreen jobs for long "
+             "opinions (default off pending the A/B re-run)",
+    )
+    args = parser.parse_args(argv)
+
+    from pathlib import Path
+
+    from . import proposition_pipeline as pp
+
+    workdir = Path(args.workdir)
+    if not workdir.exists():
+        print(f"Error: workdir does not exist: {workdir}", file=sys.stderr)
+        return 1
+
+    def _progress(done: int, total: int) -> None:
+        print(f"  Verifying {done}/{total}...", flush=True)
+
+    def _make_executor():
+        """LLM transport for extract/assess. --replay wins (offline
+        determinism first); None = the verb's jobs-mode default."""
+        if args.replay:
+            from .executor import RecordedExecutor
+            return RecordedExecutor(args.replay)
+        if args.executor == "sdk":
+            from .executor import AgentSDKExecutor
+            return AgentSDKExecutor(model=args.model, cwd=str(workdir))
+        return None
+
+    from .executor import AgentSDKAuthError
+    try:
+        return _dispatch_proposition_verbs(args, workdir, pp, _progress,
+                                           _make_executor)
+    except AgentSDKAuthError as e:
+        print(f"Error: {e}", file=sys.stderr)
+        return 1
+
+
+def _dispatch_proposition_verbs(args, workdir, pp, _progress,
+                                _make_executor) -> int:
+    """Verb dispatch for verify_propositions_main (split out so the
+    AgentSDKAuthError handler wraps every LLM-verb call site)."""
+    from pathlib import Path
+
+    if args.verb == "extract" or (args.verb == "full" and args.document):
+        if not args.document:
+            print("Error: extract requires --document <path>",
+                  file=sys.stderr)
+            return 1
+        estats = pp.run_extract(workdir, args.document,
+                                executor=_make_executor(),
+                                force=args.force)
+        if estats is None:
+            print("[OK] extract: claims.csv already exists "
+                  "(use --force to redo)")
+        elif estats.pending:
+            print("[OK] extract: PENDING -> jobs/extract.json "
+                  "(dispatch an agent, append the verdict to "
+                  "jobs/extract_results.jsonl, then rerun)")
+            return 0  # full stops here until the verdict lands
+        else:
+            print(f"[OK] extract: {estats.claims} claims, "
+                  f"{estats.toa} TOA citations, "
+                  f"{estats.body} body citations")
+
+    if args.verb in ("verify", "full"):
+        citations = None
+        if args.citations_file:
+            citations = [
+                ln.strip()
+                for ln in Path(args.citations_file).read_text(
+                    encoding="utf-8").splitlines()
+                if ln.strip() and not ln.startswith("#")
+            ]
+        result = asyncio.run(pp.run_verify(
+            workdir, citations=citations, force=args.force,
+            progress_callback=_progress))
+        if result is None:
+            print("[OK] verify: already done (use --force to rerun)")
+        else:
+            print(f"[OK] verify: wave1 misses="
+                  f"{len(result.wave1.miss_indices)}, downloads="
+                  f"{result.wave1.download_stats} / "
+                  f"{result.wave2.download_stats}")
+
+    if args.verb in ("merge", "full"):
+        stats = pp.run_merge(workdir)
+        print(f"[OK] merge: {stats.matched} matched, "
+              f"{stats.unmatched} unmatched, "
+              f"{stats.opinion_count} opinion files linked")
+        if stats.unmatched_claims:
+            for c in stats.unmatched_claims:
+                print(f"  UNMATCHED: {c[:80]}")
+
+    if args.verb in ("check-quotes", "full"):
+        qstats = pp.run_check_quotes(workdir)
+        print(f"[OK] check-quotes: {qstats.total_claims} claims checked")
+
+    if args.verb in ("crosscheck", "full"):
+        xstats = pp.run_crosscheck(workdir)
+        print(f"[OK] crosscheck: {xstats.total} claims, "
+              f"{xstats.toa_mismatches} TOA, "
+              f"{xstats.court_mismatches} court, "
+              f"{xstats.pincite_flags} pincite flags")
+
+    if args.verb in ("triage", "full"):
+        tstats = pp.run_triage(workdir, prescreen=args.prescreen,
+                               executor=_make_executor())
+        print(f"[OK] triage: {tstats.full} full, {tstats.fast} fast, "
+              f"{tstats.skipped} deterministic")
+        if tstats.prescreen_pending:
+            print(f"  PENDING: {tstats.prescreen_pending} prescreen "
+                  f"jobs -> jobs/prescreen.json (dispatch agents, "
+                  f"append to jobs/prescreen_results.jsonl, rerun)")
+
+    # Product default is assess-v2 (two-axis + report blocks). The library
+    # constant DEFAULT_PROMPT_VERSION stays assess-v1 for the frozen-cassette
+    # replay tests; the CLI is the user-facing surface and defaults to v2
+    # (shakedown 2026-06-13: a naive `full --document` was silently getting
+    # the thin v1 cards). Pass --prompt-version assess-v1 to opt back.
+    prompt_version = args.prompt_version or pp.ASSESS_V2_PROMPT_VERSION
+
+    if args.verb in ("assess", "full"):
+        astats = pp.run_assess(workdir, executor=_make_executor(),
+                               prompt_version=prompt_version)
+        print(f"[OK] assess: {astats.eligible} eligible, "
+              f"{astats.done} done, {astats.pending} pending, "
+              f"{astats.skipped_deterministic} deterministic")
+        if astats.pending:
+            print(f"  PENDING: dispatch agents over jobs/assess.json, "
+                  f"append verdicts to jobs/assess_results.jsonl, then "
+                  f"rerun this verb to ingest")
+            return 0  # full stops here until verdicts are complete
+
+    if args.verb in ("apply-assessments", "full"):
+        pstats = pp.run_apply_assessments(workdir,
+                                          prompt_version=prompt_version)
+        print(f"[OK] apply-assessments: {pstats.applied} applied, "
+              f"{pstats.invalid} invalid, {pstats.missing} missing")
+        for cid in pstats.invalid_claims:
+            print(f"  INVALID verdict (not applied): {cid}")
+
+    if args.verb in ("report", "full"):
+        rstats = pp.run_report(workdir)
+        print(f"[OK] report: {rstats.path} -- {rstats.findings} findings, "
+              f"{rstats.check_cite} check-cite, {rstats.verified} "
+              f"verified, {rstats.unable} unable-to-verify")
+
+    return 0
+
+
 def verify_batch_main(argv: list[str] | None = None) -> int:
     """CLI for batch citation verification from a CSV.
 
@@ -859,6 +1071,8 @@ if __name__ == "__main__":
     # Dispatch subcommands if first arg matches
     if len(sys.argv) > 1 and sys.argv[1] == "verify-brief":
         sys.exit(verify_brief_main(sys.argv[2:]))
+    if len(sys.argv) > 1 and sys.argv[1] == "verify-propositions":
+        sys.exit(verify_propositions_main(sys.argv[2:]))
     if len(sys.argv) > 1 and sys.argv[1] == "verify-batch":
         sys.exit(verify_batch_main(sys.argv[2:]))
     if len(sys.argv) > 1 and sys.argv[1] == "audit-misses":

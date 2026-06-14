@@ -1,0 +1,34 @@
+{
+  "git_hash": "2b4feea",
+  "verbs": {
+    "crosscheck": {
+      "at": "2026-06-12T21:38:06+00:00",
+      "total": 34,
+      "toa": 0,
+      "court": 0,
+      "pincite": 0
+    },
+    "triage": {
+      "at": "2026-06-12T21:38:06+00:00",
+      "full": 10,
+      "fast": 19,
+      "skipped": 5,
+      "prescreen_done": 0,
+      "prescreen_pending": 0
+    },
+    "apply-assessments": {
+      "at": "2026-06-12T21:38:06+00:00",
+      "prompt_version": "assess-v2",
+      "applied": 29,
+      "invalid": 0,
+      "missing": 0
+    },
+    "report": {
+      "at": "2026-06-12T21:38:06+00:00",
+      "findings": 21,
+      "check_cite": 0,
+      "verified": 10,
+      "unable": 3
+    }
+  }
+}

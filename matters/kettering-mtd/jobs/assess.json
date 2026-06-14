@@ -1,0 +1,514 @@
+[
+  {
+    "job_id": "assess-kettering-mtd-10",
+    "claim_ids": [
+      "kettering-mtd-10"
+    ],
+    "prompt": "You are assessing whether a case citation in a legal brief supports the proposition it is cited for.\n\nRead the opinion file at: matters\\kettering-mtd\\opinions\\Ashcroft_v_Iqbal.html\n\nCited case: Ashcroft v. Iqbal, 556 U.S. 662, 678 (2009)\nProposition: A complaint must contain sufficient factual matter to state a claim to relief that is plausible on its face.\nQuote check result: NO_QUOTES\n\nAssessment criteria:\n- Green: case directly and accurately supports the proposition\n- Yellow: partially relevant, support weaker than represented, or proposition overstates the holding\n- Red: does not support, misleading, case addresses a completely different topic, or quoted language is fabricated\n\nIf the quote check is FABRICATED, downgrade to at least Yellow.\n\nRespond with ONLY a JSON object (no markdown, no explanation):\n{\"assessment\": \"Green|Yellow|Red\", \"rationale\": \"one sentence\"}",
+    "prompt_version": "assess-v1",
+    "files": [
+      "opinions/Ashcroft_v_Iqbal.html"
+    ],
+    "schema": {
+      "assessment": "Green|Yellow|Red",
+      "rationale": "one sentence"
+    },
+    "max_chars": null
+  },
+  {
+    "job_id": "assess-kettering-mtd-12",
+    "claim_ids": [
+      "kettering-mtd-12"
+    ],
+    "prompt": "You are assessing whether a case citation in a legal brief supports the proposition it is cited for.\n\nRead the opinion file at: matters\\kettering-mtd\\opinions\\Ashcroft_v_Iqbal.html\n\nCited case: Ashcroft v. Iqbal, 556 U.S. 662, 678 (2009)\nProposition: Courts disregard legal conclusions couched as factual allegations.\nQuote check result: NO_QUOTES\n\nAssessment criteria:\n- Green: case directly and accurately supports the proposition\n- Yellow: partially relevant, support weaker than represented, or proposition overstates the holding\n- Red: does not support, misleading, case addresses a completely different topic, or quoted language is fabricated\n\nIf the quote check is FABRICATED, downgrade to at least Yellow.\n\nRespond with ONLY a JSON object (no markdown, no explanation):\n{\"assessment\": \"Green|Yellow|Red\", \"rationale\": \"one sentence\"}",
+    "prompt_version": "assess-v1",
+    "files": [
+      "opinions/Ashcroft_v_Iqbal.html"
+    ],
+    "schema": {
+      "assessment": "Green|Yellow|Red",
+      "rationale": "one sentence"
+    },
+    "max_chars": null
+  },
+  {
+    "job_id": "assess-kettering-mtd-11",
+    "claim_ids": [
+      "kettering-mtd-11"
+    ],
+    "prompt": "You are assessing whether a case citation in a legal brief supports the proposition it is cited for.\n\nRead the opinion file at: matters\\kettering-mtd\\opinions\\Bell_Atlantic_Corp_v_Twombly.html\n\nCited case: Bell Atl. Corp. v. Twombly, 550 U.S. 544, 570 (2007)\nProposition: A complaint must contain sufficient factual matter to state a claim to relief that is plausible on its face.\nQuote check result: NO_QUOTES\n\nAssessment criteria:\n- Green: case directly and accurately supports the proposition\n- Yellow: partially relevant, support weaker than represented, or proposition overstates the holding\n- Red: does not support, misleading, case addresses a completely different topic, or quoted language is fabricated\n\nIf the quote check is FABRICATED, downgrade to at least Yellow.\n\nRespond with ONLY a JSON object (no markdown, no explanation):\n{\"assessment\": \"Green|Yellow|Red\", \"rationale\": \"one sentence\"}",
+    "prompt_version": "assess-v1",
+    "files": [
+      "opinions/Bell_Atlantic_Corp_v_Twombly.html"
+    ],
+    "schema": {
+      "assessment": "Green|Yellow|Red",
+      "rationale": "one sentence"
+    },
+    "max_chars": null
+  },
+  {
+    "job_id": "assess-kettering-mtd-02",
+    "claim_ids": [
+      "kettering-mtd-02"
+    ],
+    "prompt": "You are assessing whether a case citation in a legal brief supports the proposition it is cited for.\n\nRead the opinion file at: matters\\kettering-mtd\\opinions\\First_Fed_Bank_of_Ohio_v_Angelini.html\n\nCited case: First Fed. Bank of Ohio v. Angelini, 2012-Ohio-2136, \u00b6 6 (3d Dist.)\nProposition: Ohio does not recognize a civil cause of action for extortion.\nQuote check result: VERBATIM\n\nAssessment criteria:\n- Green: case directly and accurately supports the proposition\n- Yellow: partially relevant, support weaker than represented, or proposition overstates the holding\n- Red: does not support, misleading, case addresses a completely different topic, or quoted language is fabricated\n\nIf the quote check is FABRICATED, downgrade to at least Yellow.\n\nRespond with ONLY a JSON object (no markdown, no explanation):\n{\"assessment\": \"Green|Yellow|Red\", \"rationale\": \"one sentence\"}",
+    "prompt_version": "assess-v1",
+    "files": [
+      "opinions/First_Fed_Bank_of_Ohio_v_Angelini.html"
+    ],
+    "schema": {
+      "assessment": "Green|Yellow|Red",
+      "rationale": "one sentence"
+    },
+    "max_chars": null
+  },
+  {
+    "job_id": "assess-kettering-mtd-14",
+    "claim_ids": [
+      "kettering-mtd-14"
+    ],
+    "prompt": "You are assessing whether a case citation in a legal brief supports the proposition it is cited for.\n\nRead the opinion file at: matters\\kettering-mtd\\opinions\\First_Fed_Bank_of_Ohio_v_Angelini.html\n\nCited case: First Fed. Bank of Ohio v. Angelini, 2012-Ohio-2136, \u00b6 6 (3d Dist.)\nProposition: Ohio courts have repeatedly held there is no stand-alone civil cause of action for extortion.\nQuote check result: NO_QUOTES\n\nAssessment criteria:\n- Green: case directly and accurately supports the proposition\n- Yellow: partially relevant, support weaker than represented, or proposition overstates the holding\n- Red: does not support, misleading, case addresses a completely different topic, or quoted language is fabricated\n\nIf the quote check is FABRICATED, downgrade to at least Yellow.\n\nRespond with ONLY a JSON object (no markdown, no explanation):\n{\"assessment\": \"Green|Yellow|Red\", \"rationale\": \"one sentence\"}",
+    "prompt_version": "assess-v1",
+    "files": [
+      "opinions/First_Fed_Bank_of_Ohio_v_Angelini.html"
+    ],
+    "schema": {
+      "assessment": "Green|Yellow|Red",
+      "rationale": "one sentence"
+    },
+    "max_chars": null
+  },
+  {
+    "job_id": "assess-kettering-mtd-23",
+    "claim_ids": [
+      "kettering-mtd-23"
+    ],
+    "prompt": "You are assessing whether a case citation in a legal brief supports the proposition it is cited for.\n\nRead the opinion file at: matters\\kettering-mtd\\opinions\\Flatley_v_Mauro.html\n\nCited case: Flatley v. Mauro, 39 Cal.4th 299, 331 (2006)\nProposition: Seeking a monetary settlement tied directly to legal claims does not become extortion merely because regulatory reporting is also contemplated.\nQuote check result: FABRICATED\n\nAssessment criteria:\n- Green: case directly and accurately supports the proposition\n- Yellow: partially relevant, support weaker than represented, or proposition overstates the holding\n- Red: does not support, misleading, case addresses a completely different topic, or quoted language is fabricated\n\nIf the quote check is FABRICATED, downgrade to at least Yellow.\n\nRespond with ONLY a JSON object (no markdown, no explanation):\n{\"assessment\": \"Green|Yellow|Red\", \"rationale\": \"one sentence\"}",
+    "prompt_version": "assess-v1",
+    "files": [
+      "opinions/Flatley_v_Mauro.html"
+    ],
+    "schema": {
+      "assessment": "Green|Yellow|Red",
+      "rationale": "one sentence"
+    },
+    "max_chars": null
+  },
+  {
+    "job_id": "assess-kettering-mtd-27",
+    "claim_ids": [
+      "kettering-mtd-27"
+    ],
+    "prompt": "You are assessing whether a case citation in a legal brief supports the proposition it is cited for.\n\nRead the opinion file at: matters\\kettering-mtd\\opinions\\Flatley_v_Mauro.html\n\nCited case: Flatley v. Mauro, 39 Cal.4th 299, 330 (2006)\nProposition: Courts consistently hold that truthful disclosure of misconduct does not constitute extortion.\nQuote check result: NO_QUOTES\n\nAssessment criteria:\n- Green: case directly and accurately supports the proposition\n- Yellow: partially relevant, support weaker than represented, or proposition overstates the holding\n- Red: does not support, misleading, case addresses a completely different topic, or quoted language is fabricated\n\nIf the quote check is FABRICATED, downgrade to at least Yellow.\n\nRespond with ONLY a JSON object (no markdown, no explanation):\n{\"assessment\": \"Green|Yellow|Red\", \"rationale\": \"one sentence\"}",
+    "prompt_version": "assess-v1",
+    "files": [
+      "opinions/Flatley_v_Mauro.html"
+    ],
+    "schema": {
+      "assessment": "Green|Yellow|Red",
+      "rationale": "one sentence"
+    },
+    "max_chars": null
+  },
+  {
+    "job_id": "assess-kettering-mtd-16",
+    "claim_ids": [
+      "kettering-mtd-16"
+    ],
+    "prompt": "You are assessing whether a case citation in a legal brief supports the proposition it is cited for.\n\nRead the opinion file at: matters\\kettering-mtd\\opinions\\Hecht_v_Levin.html\n\nCited case: Hecht v. Levin, 66 Ohio St. 3d 458, 460-61, 613 N.E.2d 585 (1993)\nProposition: Communications made in or reasonably related to judicial proceedings are absolutely privileged.\nQuote check result: NO_QUOTES\n\nAssessment criteria:\n- Green: case directly and accurately supports the proposition\n- Yellow: partially relevant, support weaker than represented, or proposition overstates the holding\n- Red: does not support, misleading, case addresses a completely different topic, or quoted language is fabricated\n\nIf the quote check is FABRICATED, downgrade to at least Yellow.\n\nRespond with ONLY a JSON object (no markdown, no explanation):\n{\"assessment\": \"Green|Yellow|Red\", \"rationale\": \"one sentence\"}",
+    "prompt_version": "assess-v1",
+    "files": [
+      "opinions/Hecht_v_Levin.html"
+    ],
+    "schema": {
+      "assessment": "Green|Yellow|Red",
+      "rationale": "one sentence"
+    },
+    "max_chars": null
+  },
+  {
+    "job_id": "assess-kettering-mtd-36",
+    "claim_ids": [
+      "kettering-mtd-36"
+    ],
+    "prompt": "You are assessing whether a case citation in a legal brief supports the proposition it is cited for.\n\nRead the opinion file at: matters\\kettering-mtd\\opinions\\Hecht_v_Levin.html\n\nCited case: Hecht v. Levin, 66 Ohio St. 3d 458, 460-61, 613 N.E.2d 585 (1993)\nProposition: Any defamation-based claim arising from litigation conduct is absolutely privileged.\nQuote check result: NO_QUOTES\n\nAssessment criteria:\n- Green: case directly and accurately supports the proposition\n- Yellow: partially relevant, support weaker than represented, or proposition overstates the holding\n- Red: does not support, misleading, case addresses a completely different topic, or quoted language is fabricated\n\nIf the quote check is FABRICATED, downgrade to at least Yellow.\n\nRespond with ONLY a JSON object (no markdown, no explanation):\n{\"assessment\": \"Green|Yellow|Red\", \"rationale\": \"one sentence\"}",
+    "prompt_version": "assess-v1",
+    "files": [
+      "opinions/Hecht_v_Levin.html"
+    ],
+    "schema": {
+      "assessment": "Green|Yellow|Red",
+      "rationale": "one sentence"
+    },
+    "max_chars": null
+  },
+  {
+    "job_id": "assess-kettering-mtd-03",
+    "claim_ids": [
+      "kettering-mtd-03"
+    ],
+    "prompt": "You are assessing whether a case citation in a legal brief supports the proposition it is cited for.\n\nRead the opinion file at: matters\\kettering-mtd\\opinions\\Heskett_v_Van_Horn_Title_Agency_Unpublished_Decision_12-26-2006.html\n\nCited case: Heskett v. Van Horn Title Agency, Inc., 2006-Ohio-6900, \u00b6 26 (10th Dist.)\nProposition: Ohio does not recognize a civil cause of action for extortion.\nQuote check result: FABRICATED\n\nAssessment criteria:\n- Green: case directly and accurately supports the proposition\n- Yellow: partially relevant, support weaker than represented, or proposition overstates the holding\n- Red: does not support, misleading, case addresses a completely different topic, or quoted language is fabricated\n\nIf the quote check is FABRICATED, downgrade to at least Yellow.\n\nRespond with ONLY a JSON object (no markdown, no explanation):\n{\"assessment\": \"Green|Yellow|Red\", \"rationale\": \"one sentence\"}",
+    "prompt_version": "assess-v1",
+    "files": [
+      "opinions/Heskett_v_Van_Horn_Title_Agency_Unpublished_Decision_12-26-2006.html"
+    ],
+    "schema": {
+      "assessment": "Green|Yellow|Red",
+      "rationale": "one sentence"
+    },
+    "max_chars": null
+  },
+  {
+    "job_id": "assess-kettering-mtd-15",
+    "claim_ids": [
+      "kettering-mtd-15"
+    ],
+    "prompt": "You are assessing whether a case citation in a legal brief supports the proposition it is cited for.\n\nRead the opinion file at: matters\\kettering-mtd\\opinions\\Heskett_v_Van_Horn_Title_Agency_Unpublished_Decision_12-26-2006.html\n\nCited case: Heskett v. Van Horn Title Agency, Inc., 2006-Ohio-6900, \u00b6 26 (10th Dist.)\nProposition: Ohio courts have repeatedly held there is no stand-alone civil cause of action for extortion.\nQuote check result: NO_QUOTES\n\nAssessment criteria:\n- Green: case directly and accurately supports the proposition\n- Yellow: partially relevant, support weaker than represented, or proposition overstates the holding\n- Red: does not support, misleading, case addresses a completely different topic, or quoted language is fabricated\n\nIf the quote check is FABRICATED, downgrade to at least Yellow.\n\nRespond with ONLY a JSON object (no markdown, no explanation):\n{\"assessment\": \"Green|Yellow|Red\", \"rationale\": \"one sentence\"}",
+    "prompt_version": "assess-v1",
+    "files": [
+      "opinions/Heskett_v_Van_Horn_Title_Agency_Unpublished_Decision_12-26-2006.html"
+    ],
+    "schema": {
+      "assessment": "Green|Yellow|Red",
+      "rationale": "one sentence"
+    },
+    "max_chars": null
+  },
+  {
+    "job_id": "assess-kettering-mtd-20",
+    "claim_ids": [
+      "kettering-mtd-20"
+    ],
+    "prompt": "You are assessing whether a case citation in a legal brief supports the proposition it is cited for.\n\nRead the opinion file at: matters\\kettering-mtd\\opinions\\Kenty_v_Transamerica_Premium_Ins_Co.html\n\nCited case: Kenty v. Transamerica Premium Ins. Co., 72 Ohio St.3d 415, 419 (1995)\nProposition: Demands made without a good-faith basis are unprotected (the no-legitimate-claim element of extortion).\nQuote check result: NO_QUOTES\n\nAssessment criteria:\n- Green: case directly and accurately supports the proposition\n- Yellow: partially relevant, support weaker than represented, or proposition overstates the holding\n- Red: does not support, misleading, case addresses a completely different topic, or quoted language is fabricated\n\nIf the quote check is FABRICATED, downgrade to at least Yellow.\n\nRespond with ONLY a JSON object (no markdown, no explanation):\n{\"assessment\": \"Green|Yellow|Red\", \"rationale\": \"one sentence\"}",
+    "prompt_version": "assess-v1",
+    "files": [
+      "opinions/Kenty_v_Transamerica_Premium_Ins_Co.html"
+    ],
+    "schema": {
+      "assessment": "Green|Yellow|Red",
+      "rationale": "one sentence"
+    },
+    "max_chars": null
+  },
+  {
+    "job_id": "assess-kettering-mtd-24",
+    "claim_ids": [
+      "kettering-mtd-24"
+    ],
+    "prompt": "You are assessing whether a case citation in a legal brief supports the proposition it is cited for.\n\nRead the opinion file at: matters\\kettering-mtd\\opinions\\Kenty_v_Transamerica_Premium_Ins_Co.html\n\nCited case: Kenty v. Transamerica Premium Ins. Co., 72 Ohio St.3d 415, 419 (1995)\nProposition: Where claims are based on enforceable legal rights, settlement demands are privileged.\nQuote check result: FABRICATED\n\nAssessment criteria:\n- Green: case directly and accurately supports the proposition\n- Yellow: partially relevant, support weaker than represented, or proposition overstates the holding\n- Red: does not support, misleading, case addresses a completely different topic, or quoted language is fabricated\n\nIf the quote check is FABRICATED, downgrade to at least Yellow.\n\nRespond with ONLY a JSON object (no markdown, no explanation):\n{\"assessment\": \"Green|Yellow|Red\", \"rationale\": \"one sentence\"}",
+    "prompt_version": "assess-v1",
+    "files": [
+      "opinions/Kenty_v_Transamerica_Premium_Ins_Co.html"
+    ],
+    "schema": {
+      "assessment": "Green|Yellow|Red",
+      "rationale": "one sentence"
+    },
+    "max_chars": null
+  },
+  {
+    "job_id": "assess-kettering-mtd-26",
+    "claim_ids": [
+      "kettering-mtd-26"
+    ],
+    "prompt": "You are assessing whether a case citation in a legal brief supports the proposition it is cited for.\n\nRead the opinion file at: matters\\kettering-mtd\\opinions\\Kulch_v_Structural_Fibers_Inc.html\n\nCited case: Kulch v. Structural Fibers, Inc., 78 Ohio St.3d 134, 150 (1997)\nProposition: Ohio's public policy protections shield reporting of misconduct to regulators and sponsors as protected conduct.\nQuote check result: NO_QUOTES\n\nAssessment criteria:\n- Green: case directly and accurately supports the proposition\n- Yellow: partially relevant, support weaker than represented, or proposition overstates the holding\n- Red: does not support, misleading, case addresses a completely different topic, or quoted language is fabricated\n\nIf the quote check is FABRICATED, downgrade to at least Yellow.\n\nRespond with ONLY a JSON object (no markdown, no explanation):\n{\"assessment\": \"Green|Yellow|Red\", \"rationale\": \"one sentence\"}",
+    "prompt_version": "assess-v1",
+    "files": [
+      "opinions/Kulch_v_Structural_Fibers_Inc.html"
+    ],
+    "schema": {
+      "assessment": "Green|Yellow|Red",
+      "rationale": "one sentence"
+    },
+    "max_chars": null
+  },
+  {
+    "job_id": "assess-kettering-mtd-05",
+    "claim_ids": [
+      "kettering-mtd-05"
+    ],
+    "prompt": "You are assessing whether a case citation in a legal brief supports the proposition it is cited for.\n\nRead the opinion file at: matters\\kettering-mtd\\opinions\\Office_Depot_Inc_v_Impact_Office_Products_LLC.html\n\nCited case: Office Depot, Inc. v. Impact Off. Prods., LLC, 821 F. Supp. 2d 912, 919-23 (N.D. Ohio 2011)\nProposition: A trade secret must be identified with particularity, and overlapping common-law claims are preempted by the Ohio Uniform Trade Secrets Act.\nQuote check result: NO_QUOTES\n\nAssessment criteria:\n- Green: case directly and accurately supports the proposition\n- Yellow: partially relevant, support weaker than represented, or proposition overstates the holding\n- Red: does not support, misleading, case addresses a completely different topic, or quoted language is fabricated\n\nIf the quote check is FABRICATED, downgrade to at least Yellow.\n\nRespond with ONLY a JSON object (no markdown, no explanation):\n{\"assessment\": \"Green|Yellow|Red\", \"rationale\": \"one sentence\"}",
+    "prompt_version": "assess-v1",
+    "files": [
+      "opinions/Office_Depot_Inc_v_Impact_Office_Products_LLC.html"
+    ],
+    "schema": {
+      "assessment": "Green|Yellow|Red",
+      "rationale": "one sentence"
+    },
+    "max_chars": null
+  },
+  {
+    "job_id": "assess-kettering-mtd-29",
+    "claim_ids": [
+      "kettering-mtd-29"
+    ],
+    "prompt": "You are assessing whether a case citation in a legal brief supports the proposition it is cited for.\n\nRead the opinion file at: matters\\kettering-mtd\\opinions\\Office_Depot_Inc_v_Impact_Office_Products_LLC.html\n\nCited case: Office Depot, Inc. v. Impact Off. Prods., LLC, 821 F. Supp. 2d 912, 919-23 (N.D. Ohio 2011)\nProposition: A complaint that identifies only broad categories of information does not satisfy the trade-secret particularity requirement.\nQuote check result: FABRICATED\n\nAssessment criteria:\n- Green: case directly and accurately supports the proposition\n- Yellow: partially relevant, support weaker than represented, or proposition overstates the holding\n- Red: does not support, misleading, case addresses a completely different topic, or quoted language is fabricated\n\nIf the quote check is FABRICATED, downgrade to at least Yellow.\n\nRespond with ONLY a JSON object (no markdown, no explanation):\n{\"assessment\": \"Green|Yellow|Red\", \"rationale\": \"one sentence\"}",
+    "prompt_version": "assess-v1",
+    "files": [
+      "opinions/Office_Depot_Inc_v_Impact_Office_Products_LLC.html"
+    ],
+    "schema": {
+      "assessment": "Green|Yellow|Red",
+      "rationale": "one sentence"
+    },
+    "max_chars": null
+  },
+  {
+    "job_id": "assess-kettering-mtd-35",
+    "claim_ids": [
+      "kettering-mtd-35"
+    ],
+    "prompt": "You are assessing whether a case citation in a legal brief supports the proposition it is cited for.\n\nRead the opinion file at: matters\\kettering-mtd\\opinions\\Office_Depot_Inc_v_Impact_Office_Products_LLC.html\n\nCited case: Office Depot, Inc. v. Impact Off. Prods., LLC, 821 F. Supp. 2d 912, 918-23 (N.D. Ohio 2011)\nProposition: Tortious-interference and conversion theories are preempted by OUTSA where the alleged harm stems from misappropriation.\nQuote check result: NO_QUOTES\n\nAssessment criteria:\n- Green: case directly and accurately supports the proposition\n- Yellow: partially relevant, support weaker than represented, or proposition overstates the holding\n- Red: does not support, misleading, case addresses a completely different topic, or quoted language is fabricated\n\nIf the quote check is FABRICATED, downgrade to at least Yellow.\n\nRespond with ONLY a JSON object (no markdown, no explanation):\n{\"assessment\": \"Green|Yellow|Red\", \"rationale\": \"one sentence\"}",
+    "prompt_version": "assess-v1",
+    "files": [
+      "opinions/Office_Depot_Inc_v_Impact_Office_Products_LLC.html"
+    ],
+    "schema": {
+      "assessment": "Green|Yellow|Red",
+      "rationale": "one sentence"
+    },
+    "max_chars": null
+  },
+  {
+    "job_id": "assess-kettering-mtd-07",
+    "claim_ids": [
+      "kettering-mtd-07"
+    ],
+    "prompt": "You are assessing whether a case citation in a legal brief supports the proposition it is cited for.\n\nRead the opinion file at: matters\\kettering-mtd\\opinions\\Royal_Truck_Trailer_Sales_v_Mike_Kraft.html\n\nCited case: Royal Truck & Trailer Sales & Serv., Inc. v. Kraft, 974 F.3d 756, 758-61 (6th Cir. 2020)\nProposition: Accessing information with valid credentials does not violate the Computer Fraud and Abuse Act, foreclosing Kettering's CFAA claim.\nQuote check result: NO_QUOTES\n\nAssessment criteria:\n- Green: case directly and accurately supports the proposition\n- Yellow: partially relevant, support weaker than represented, or proposition overstates the holding\n- Red: does not support, misleading, case addresses a completely different topic, or quoted language is fabricated\n\nIf the quote check is FABRICATED, downgrade to at least Yellow.\n\nRespond with ONLY a JSON object (no markdown, no explanation):\n{\"assessment\": \"Green|Yellow|Red\", \"rationale\": \"one sentence\"}",
+    "prompt_version": "assess-v1",
+    "files": [
+      "opinions/Royal_Truck_Trailer_Sales_v_Mike_Kraft.html"
+    ],
+    "schema": {
+      "assessment": "Green|Yellow|Red",
+      "rationale": "one sentence"
+    },
+    "max_chars": null
+  },
+  {
+    "job_id": "assess-kettering-mtd-33",
+    "claim_ids": [
+      "kettering-mtd-33"
+    ],
+    "prompt": "You are assessing whether a case citation in a legal brief supports the proposition it is cited for.\n\nRead the opinion file at: matters\\kettering-mtd\\opinions\\Royal_Truck_Trailer_Sales_v_Mike_Kraft.html\n\nCited case: Royal Truck & Trailer Sales & Serv., Inc. v. Kraft, 974 F.3d 756, 758-61 (6th Cir. 2020)\nProposition: The Sixth Circuit applies the same narrow rule that accessing information with valid credentials does not violate the CFAA.\nQuote check result: NO_QUOTES\n\nAssessment criteria:\n- Green: case directly and accurately supports the proposition\n- Yellow: partially relevant, support weaker than represented, or proposition overstates the holding\n- Red: does not support, misleading, case addresses a completely different topic, or quoted language is fabricated\n\nIf the quote check is FABRICATED, downgrade to at least Yellow.\n\nRespond with ONLY a JSON object (no markdown, no explanation):\n{\"assessment\": \"Green|Yellow|Red\", \"rationale\": \"one sentence\"}",
+    "prompt_version": "assess-v1",
+    "files": [
+      "opinions/Royal_Truck_Trailer_Sales_v_Mike_Kraft.html"
+    ],
+    "schema": {
+      "assessment": "Green|Yellow|Red",
+      "rationale": "one sentence"
+    },
+    "max_chars": null
+  },
+  {
+    "job_id": "assess-kettering-mtd-01",
+    "claim_ids": [
+      "kettering-mtd-01"
+    ],
+    "prompt": "You are assessing whether a case citation in a legal brief supports the proposition it is cited for.\n\nRead the opinion file at: matters\\kettering-mtd\\opinions\\Simpson_v_Voiture_Nationale_La_Societe_Des_Quarante_Hommes.html\n\nCited case: Simpson v. Voiture Nationale La Soci\u00e9t\u00e9 des Quarante Hommes et Huit Chevaux, 2021-Ohio-2131, \u00b6\u00b6 13-15 (2d Dist.)\nProposition: Ohio does not recognize a civil cause of action for extortion.\nQuote check result: VERBATIM\n\nAssessment criteria:\n- Green: case directly and accurately supports the proposition\n- Yellow: partially relevant, support weaker than represented, or proposition overstates the holding\n- Red: does not support, misleading, case addresses a completely different topic, or quoted language is fabricated\n\nIf the quote check is FABRICATED, downgrade to at least Yellow.\n\nRespond with ONLY a JSON object (no markdown, no explanation):\n{\"assessment\": \"Green|Yellow|Red\", \"rationale\": \"one sentence\"}",
+    "prompt_version": "assess-v1",
+    "files": [
+      "opinions/Simpson_v_Voiture_Nationale_La_Societe_Des_Quarante_Hommes.html"
+    ],
+    "schema": {
+      "assessment": "Green|Yellow|Red",
+      "rationale": "one sentence"
+    },
+    "max_chars": null
+  },
+  {
+    "job_id": "assess-kettering-mtd-13",
+    "claim_ids": [
+      "kettering-mtd-13"
+    ],
+    "prompt": "You are assessing whether a case citation in a legal brief supports the proposition it is cited for.\n\nRead the opinion file at: matters\\kettering-mtd\\opinions\\Simpson_v_Voiture_Nationale_La_Societe_Des_Quarante_Hommes.html\n\nCited case: Simpson v. Voiture Nationale La Soci\u00e9t\u00e9 des Quarante Hommes et Huit Chevaux, 2021-Ohio-2131, \u00b6\u00b6 13-15 (2d Dist.)\nProposition: Ohio courts have repeatedly held there is no stand-alone civil cause of action for extortion.\nQuote check result: NO_QUOTES\n\nAssessment criteria:\n- Green: case directly and accurately supports the proposition\n- Yellow: partially relevant, support weaker than represented, or proposition overstates the holding\n- Red: does not support, misleading, case addresses a completely different topic, or quoted language is fabricated\n\nIf the quote check is FABRICATED, downgrade to at least Yellow.\n\nRespond with ONLY a JSON object (no markdown, no explanation):\n{\"assessment\": \"Green|Yellow|Red\", \"rationale\": \"one sentence\"}",
+    "prompt_version": "assess-v1",
+    "files": [
+      "opinions/Simpson_v_Voiture_Nationale_La_Societe_Des_Quarante_Hommes.html"
+    ],
+    "schema": {
+      "assessment": "Green|Yellow|Red",
+      "rationale": "one sentence"
+    },
+    "max_chars": null
+  },
+  {
+    "job_id": "assess-kettering-mtd-09",
+    "claim_ids": [
+      "kettering-mtd-09"
+    ],
+    "prompt": "You are assessing whether a case citation in a legal brief supports the proposition it is cited for.\n\nRead the opinion file at: matters\\kettering-mtd\\opinions\\Stolle_Machinery_Company_LLC_v_Ram_Precision_Industries.html\n\nCited case: Stolle Mach. Co. v. RAM Precision Indus., 605 F. App'x 473, 484 (6th Cir. 2015)\nProposition: Overlapping common-law torts are displaced by the Ohio Uniform Trade Secrets Act.\nQuote check result: NO_QUOTES\n\nAssessment criteria:\n- Green: case directly and accurately supports the proposition\n- Yellow: partially relevant, support weaker than represented, or proposition overstates the holding\n- Red: does not support, misleading, case addresses a completely different topic, or quoted language is fabricated\n\nIf the quote check is FABRICATED, downgrade to at least Yellow.\n\nRespond with ONLY a JSON object (no markdown, no explanation):\n{\"assessment\": \"Green|Yellow|Red\", \"rationale\": \"one sentence\"}",
+    "prompt_version": "assess-v1",
+    "files": [
+      "opinions/Stolle_Machinery_Company_LLC_v_Ram_Precision_Industries.html"
+    ],
+    "schema": {
+      "assessment": "Green|Yellow|Red",
+      "rationale": "one sentence"
+    },
+    "max_chars": null
+  },
+  {
+    "job_id": "assess-kettering-mtd-31",
+    "claim_ids": [
+      "kettering-mtd-31"
+    ],
+    "prompt": "You are assessing whether a case citation in a legal brief supports the proposition it is cited for.\n\nRead the opinion file at: matters\\kettering-mtd\\opinions\\Stolle_Machinery_Company_LLC_v_Ram_Precision_Industries.html\n\nCited case: Stolle Mach. Co. v. RAM Precision Indus., 605 F. App'x 473, 484 (6th Cir. 2015)\nProposition: The Ohio Uniform Trade Secrets Act displaces overlapping common-law tort claims based on the same nucleus of facts.\nQuote check result: NO_QUOTES\n\nAssessment criteria:\n- Green: case directly and accurately supports the proposition\n- Yellow: partially relevant, support weaker than represented, or proposition overstates the holding\n- Red: does not support, misleading, case addresses a completely different topic, or quoted language is fabricated\n\nIf the quote check is FABRICATED, downgrade to at least Yellow.\n\nRespond with ONLY a JSON object (no markdown, no explanation):\n{\"assessment\": \"Green|Yellow|Red\", \"rationale\": \"one sentence\"}",
+    "prompt_version": "assess-v1",
+    "files": [
+      "opinions/Stolle_Machinery_Company_LLC_v_Ram_Precision_Industries.html"
+    ],
+    "schema": {
+      "assessment": "Green|Yellow|Red",
+      "rationale": "one sentence"
+    },
+    "max_chars": null
+  },
+  {
+    "job_id": "assess-kettering-mtd-17",
+    "claim_ids": [
+      "kettering-mtd-17"
+    ],
+    "prompt": "You are assessing whether a case citation in a legal brief supports the proposition it is cited for.\n\nRead the opinion file at: matters\\kettering-mtd\\opinions\\Surace_v_Wuliger.html\n\nCited case: Surace v. Wilier, 25 Ohio St. 3d 229, 232-33, 495 N.E.2d 939 (1986)\nProposition: Communications made in or reasonably related to judicial proceedings are absolutely privileged.\nQuote check result: NO_QUOTES\n\nAssessment criteria:\n- Green: case directly and accurately supports the proposition\n- Yellow: partially relevant, support weaker than represented, or proposition overstates the holding\n- Red: does not support, misleading, case addresses a completely different topic, or quoted language is fabricated\n\nIf the quote check is FABRICATED, downgrade to at least Yellow.\n\nRespond with ONLY a JSON object (no markdown, no explanation):\n{\"assessment\": \"Green|Yellow|Red\", \"rationale\": \"one sentence\"}",
+    "prompt_version": "assess-v1",
+    "files": [
+      "opinions/Surace_v_Wuliger.html"
+    ],
+    "schema": {
+      "assessment": "Green|Yellow|Red",
+      "rationale": "one sentence"
+    },
+    "max_chars": null
+  },
+  {
+    "job_id": "assess-kettering-mtd-22",
+    "claim_ids": [
+      "kettering-mtd-22"
+    ],
+    "prompt": "You are assessing whether a case citation in a legal brief supports the proposition it is cited for.\n\nRead the opinion file at: matters\\kettering-mtd\\opinions\\United_States_v_Autumn_Jackson_Boris_Sabas_Also_Known_as_Boris_Shmulevich_and_Jose_Medina_Also_Known_as_Yosi_Medina.html\n\nCited case: United States v. Jackson, 180 F.3d 55, 70 (2d Cir. 1999)\nProposition: Informing a party that you will report their misconduct to appropriate authorities if corrective action is not taken does not constitute an unlawful threat.\nQuote check result: FABRICATED\n\nAssessment criteria:\n- Green: case directly and accurately supports the proposition\n- Yellow: partially relevant, support weaker than represented, or proposition overstates the holding\n- Red: does not support, misleading, case addresses a completely different topic, or quoted language is fabricated\n\nIf the quote check is FABRICATED, downgrade to at least Yellow.\n\nRespond with ONLY a JSON object (no markdown, no explanation):\n{\"assessment\": \"Green|Yellow|Red\", \"rationale\": \"one sentence\"}",
+    "prompt_version": "assess-v1",
+    "files": [
+      "opinions/United_States_v_Autumn_Jackson_Boris_Sabas_Also_Known_as_Boris_Shmulevich_and_Jose_Medina_Also_Known_as_Yosi_Medina.html"
+    ],
+    "schema": {
+      "assessment": "Green|Yellow|Red",
+      "rationale": "one sentence"
+    },
+    "max_chars": null
+  },
+  {
+    "job_id": "assess-kettering-mtd-28",
+    "claim_ids": [
+      "kettering-mtd-28"
+    ],
+    "prompt": "You are assessing whether a case citation in a legal brief supports the proposition it is cited for.\n\nRead the opinion file at: matters\\kettering-mtd\\opinions\\United_States_v_Autumn_Jackson_Boris_Sabas_Also_Known_as_Boris_Shmulevich_and_Jose_Medina_Also_Known_as_Yosi_Medina.html\n\nCited case: United States v. Jackson, 180 F.3d 55, 70 (2d Cir. 1999)\nProposition: Courts consistently hold that truthful disclosure of misconduct does not constitute extortion.\nQuote check result: NO_QUOTES\n\nAssessment criteria:\n- Green: case directly and accurately supports the proposition\n- Yellow: partially relevant, support weaker than represented, or proposition overstates the holding\n- Red: does not support, misleading, case addresses a completely different topic, or quoted language is fabricated\n\nIf the quote check is FABRICATED, downgrade to at least Yellow.\n\nRespond with ONLY a JSON object (no markdown, no explanation):\n{\"assessment\": \"Green|Yellow|Red\", \"rationale\": \"one sentence\"}",
+    "prompt_version": "assess-v1",
+    "files": [
+      "opinions/United_States_v_Autumn_Jackson_Boris_Sabas_Also_Known_as_Boris_Shmulevich_and_Jose_Medina_Also_Known_as_Yosi_Medina.html"
+    ],
+    "schema": {
+      "assessment": "Green|Yellow|Red",
+      "rationale": "one sentence"
+    },
+    "max_chars": null
+  },
+  {
+    "job_id": "assess-kettering-mtd-21",
+    "claim_ids": [
+      "kettering-mtd-21"
+    ],
+    "prompt": "You are assessing whether a case citation in a legal brief supports the proposition it is cited for.\n\nRead the opinion file at: matters\\kettering-mtd\\opinions\\United_States_v_James_Scott_Pendergraft.html\n\nCited case: United States v. Pendergraft, 297 F.3d 1198, 1205 (11th Cir. 2002)\nProposition: Mere hard bargaining is not extortion where claims are legitimate and the conduct threatened is lawful (the damages element of extortion).\nQuote check result: FABRICATED\n\nAssessment criteria:\n- Green: case directly and accurately supports the proposition\n- Yellow: partially relevant, support weaker than represented, or proposition overstates the holding\n- Red: does not support, misleading, case addresses a completely different topic, or quoted language is fabricated\n\nIf the quote check is FABRICATED, downgrade to at least Yellow.\n\nRespond with ONLY a JSON object (no markdown, no explanation):\n{\"assessment\": \"Green|Yellow|Red\", \"rationale\": \"one sentence\"}",
+    "prompt_version": "assess-v1",
+    "files": [
+      "opinions/United_States_v_James_Scott_Pendergraft.html"
+    ],
+    "schema": {
+      "assessment": "Green|Yellow|Red",
+      "rationale": "one sentence"
+    },
+    "max_chars": null
+  },
+  {
+    "job_id": "assess-kettering-mtd-25",
+    "claim_ids": [
+      "kettering-mtd-25"
+    ],
+    "prompt": "You are assessing whether a case citation in a legal brief supports the proposition it is cited for.\n\nRead the opinion file at: matters\\kettering-mtd\\opinions\\United_States_v_James_Scott_Pendergraft.html\n\nCited case: United States v. Pendergraft, 297 F.3d 1198, 1205 (11th Cir. 2002)\nProposition: Advising a party of possible consequences from lawful reporting cannot form the basis of an extortion claim.\nQuote check result: FABRICATED\n\nAssessment criteria:\n- Green: case directly and accurately supports the proposition\n- Yellow: partially relevant, support weaker than represented, or proposition overstates the holding\n- Red: does not support, misleading, case addresses a completely different topic, or quoted language is fabricated\n\nIf the quote check is FABRICATED, downgrade to at least Yellow.\n\nRespond with ONLY a JSON object (no markdown, no explanation):\n{\"assessment\": \"Green|Yellow|Red\", \"rationale\": \"one sentence\"}",
+    "prompt_version": "assess-v1",
+    "files": [
+      "opinions/United_States_v_James_Scott_Pendergraft.html"
+    ],
+    "schema": {
+      "assessment": "Green|Yellow|Red",
+      "rationale": "one sentence"
+    },
+    "max_chars": null
+  },
+  {
+    "job_id": "assess-kettering-mtd-06",
+    "claim_ids": [
+      "kettering-mtd-06"
+    ],
+    "prompt": "You are assessing whether a case citation in a legal brief supports the proposition it is cited for.\n\nRead the opinion file at: matters\\kettering-mtd\\opinions\\Van_Buren_v_United_States.html\n\nCited case: Van Buren v. United States, 593 U.S. 374, 380-86 (2021)\nProposition: Accessing information with valid credentials does not violate the Computer Fraud and Abuse Act, foreclosing Kettering's CFAA claim.\nQuote check result: NO_QUOTES\n\nAssessment criteria:\n- Green: case directly and accurately supports the proposition\n- Yellow: partially relevant, support weaker than represented, or proposition overstates the holding\n- Red: does not support, misleading, case addresses a completely different topic, or quoted language is fabricated\n\nIf the quote check is FABRICATED, downgrade to at least Yellow.\n\nRespond with ONLY a JSON object (no markdown, no explanation):\n{\"assessment\": \"Green|Yellow|Red\", \"rationale\": \"one sentence\"}",
+    "prompt_version": "assess-v1",
+    "files": [
+      "opinions/Van_Buren_v_United_States.html"
+    ],
+    "schema": {
+      "assessment": "Green|Yellow|Red",
+      "rationale": "one sentence"
+    },
+    "max_chars": null
+  },
+  {
+    "job_id": "assess-kettering-mtd-32",
+    "claim_ids": [
+      "kettering-mtd-32"
+    ],
+    "prompt": "You are assessing whether a case citation in a legal brief supports the proposition it is cited for.\n\nRead the opinion file at: matters\\kettering-mtd\\opinions\\Van_Buren_v_United_States.html\n\nCited case: Van Buren v. United States, 593 U.S. 374, 380-86 (2021)\nProposition: The Supreme Court construes \u201cexceeds authorized access\u201d narrowly to cover obtaining information from areas of a computer to which a person lacks access privileges, not misuse of information obtained with authorized credentials.\nQuote check result: VERBATIM\n\nAssessment criteria:\n- Green: case directly and accurately supports the proposition\n- Yellow: partially relevant, support weaker than represented, or proposition overstates the holding\n- Red: does not support, misleading, case addresses a completely different topic, or quoted language is fabricated\n\nIf the quote check is FABRICATED, downgrade to at least Yellow.\n\nRespond with ONLY a JSON object (no markdown, no explanation):\n{\"assessment\": \"Green|Yellow|Red\", \"rationale\": \"one sentence\"}",
+    "prompt_version": "assess-v1",
+    "files": [
+      "opinions/Van_Buren_v_United_States.html"
+    ],
+    "schema": {
+      "assessment": "Green|Yellow|Red",
+      "rationale": "one sentence"
+    },
+    "max_chars": null
+  },
+  {
+    "job_id": "assess-kettering-mtd-08",
+    "claim_ids": [
+      "kettering-mtd-08"
+    ],
+    "prompt": "You are assessing whether a case citation in a legal brief supports the proposition it is cited for.\n\nRead the opinion file at: matters\\kettering-mtd\\opinions\\Wilson_v_Collins.html\n\nCited case: Wilson v. Collins, 517 F.3d 421, 429 (6th Cir. 2008)\nProposition: HIPAA provides no private right of action.\nQuote check result: NO_QUOTES\n\nAssessment criteria:\n- Green: case directly and accurately supports the proposition\n- Yellow: partially relevant, support weaker than represented, or proposition overstates the holding\n- Red: does not support, misleading, case addresses a completely different topic, or quoted language is fabricated\n\nIf the quote check is FABRICATED, downgrade to at least Yellow.\n\nRespond with ONLY a JSON object (no markdown, no explanation):\n{\"assessment\": \"Green|Yellow|Red\", \"rationale\": \"one sentence\"}",
+    "prompt_version": "assess-v1",
+    "files": [
+      "opinions/Wilson_v_Collins.html"
+    ],
+    "schema": {
+      "assessment": "Green|Yellow|Red",
+      "rationale": "one sentence"
+    },
+    "max_chars": null
+  },
+  {
+    "job_id": "assess-kettering-mtd-34",
+    "claim_ids": [
+      "kettering-mtd-34"
+    ],
+    "prompt": "You are assessing whether a case citation in a legal brief supports the proposition it is cited for.\n\nRead the opinion file at: matters\\kettering-mtd\\opinions\\Wilson_v_Collins.html\n\nCited case: Wilson v. Collins, 517 F.3d 421, 429 (6th Cir. 2008)\nProposition: HIPAA does not create a private right of action.\nQuote check result: NO_QUOTES\n\nAssessment criteria:\n- Green: case directly and accurately supports the proposition\n- Yellow: partially relevant, support weaker than represented, or proposition overstates the holding\n- Red: does not support, misleading, case addresses a completely different topic, or quoted language is fabricated\n\nIf the quote check is FABRICATED, downgrade to at least Yellow.\n\nRespond with ONLY a JSON object (no markdown, no explanation):\n{\"assessment\": \"Green|Yellow|Red\", \"rationale\": \"one sentence\"}",
+    "prompt_version": "assess-v1",
+    "files": [
+      "opinions/Wilson_v_Collins.html"
+    ],
+    "schema": {
+      "assessment": "Green|Yellow|Red",
+      "rationale": "one sentence"
+    },
+    "max_chars": null
+  }
+]

@@ -408,6 +408,7 @@ class CourtListenerClient:
             docket = docket_resp.json()
             court_url = docket.get("court", "")
             court_name = ""
+            court_id = ""
             if court_url:
                 court_id = court_url.rstrip("/").split("/")[-1]
                 try:
@@ -423,6 +424,7 @@ class CourtListenerClient:
                 "format": "text",
                 "case_name": docket.get("case_name", ""),
                 "court": court_name,
+                "court_id": court_id,
                 "date_filed": docket.get("date_filed", ""),
                 "docket_number": docket.get("docket_number", ""),
                 "citations": [],
@@ -483,6 +485,7 @@ class CourtListenerClient:
                         "format": "pdf",
                         "case_name": cluster.get("case_name", ""),
                         "court": "",
+                        "court_id": "",
                         "date_filed": cluster.get("date_filed", ""),
                         "docket_number": "",
                         "citations": [],
@@ -504,6 +507,7 @@ class CourtListenerClient:
                         citations.append(f"{vol} {rep} {pg}")
 
             court_name = ""
+            court_id = ""
             docket_number = ""
             docket_url = cluster.get("docket", "")
             if docket_url:
@@ -529,6 +533,7 @@ class CourtListenerClient:
                 "format": fmt,
                 "case_name": cluster.get("case_name", ""),
                 "court": court_name,
+                "court_id": court_id,
                 "date_filed": cluster.get("date_filed", ""),
                 "docket_number": docket_number,
                 "citations": citations,
@@ -865,6 +870,7 @@ class AsyncCourtListenerClient:
             )
             court_url = docket.get("court", "")
             court_name = ""
+            court_id = ""
             if court_url:
                 court_id = court_url.rstrip("/").split("/")[-1]
                 try:
@@ -880,6 +886,7 @@ class AsyncCourtListenerClient:
                 "format": "text",
                 "case_name": docket.get("case_name", ""),
                 "court": court_name,
+                "court_id": court_id,
                 "date_filed": docket.get("date_filed", ""),
                 "docket_number": docket.get("docket_number", ""),
                 "citations": [],
@@ -941,6 +948,7 @@ class AsyncCourtListenerClient:
                         "format": "pdf",
                         "case_name": cluster.get("case_name", ""),
                         "court": "",
+                        "court_id": "",
                         "date_filed": cluster.get("date_filed", ""),
                         "docket_number": "",
                         "citations": [],
@@ -964,6 +972,7 @@ class AsyncCourtListenerClient:
 
             # Resolve court name from docket
             court_name = ""
+            court_id = ""
             docket_number = ""
             docket_url = cluster.get("docket", "")
             if docket_url:
@@ -988,6 +997,7 @@ class AsyncCourtListenerClient:
                 "format": fmt,
                 "case_name": cluster.get("case_name", ""),
                 "court": court_name,
+                "court_id": court_id,
                 "date_filed": cluster.get("date_filed", ""),
                 "docket_number": docket_number,
                 "citations": citations,

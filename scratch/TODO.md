@@ -108,7 +108,127 @@ Consider penalizing more when the distinctive party (defendant) doesn't match at
 Weatherly v. Second Nw. Coop. Homes Ass'n scored only 53% partly because eyecite returned `dccrimct` but CL has `dc`. Either treat these as equivalent in court map, or fall back to prefix/substring match.
 - Francis v. Rehman, 110 A.3d 615 (dccrimct 2015) — NOT_FOUND despite exact reporter match, same root cause. https://www.courtlistener.com/opinion/2782310/michael-francis-and-queue-llc-v-munir-rehman-and-hak-llc/
 
+## Priority 0 — TIME-SENSITIVE: SDK subscription billing ends ~2026-06-15
+
+The `AgentSDKExecutor` runs headless via the Claude CLI's **subscription
+auth** (no per-token bill) — that's how the Step 8 re-record, the kettering
+v2 re-run, and the sonnet-v2 A/B all ran for free. **Subscription billing
+for the SDK goes away ~2026-06-15 (≈2 days from 2026-06-13, per user).**
+After that, the free headless path is gone; runs must go through a metered
+transport. Get the efficient metered path in place BEFORE the deadline.
+
+**Efficiency plan (the metered path the design always intended — §5
+"MessagesAPIExecutor, build last, optional" — now promoted to urgent):**
+1. **Build `MessagesAPIExecutor`** in `executor.py`: `anthropic` SDK, API
+   key auth, opinion text **inlined** (no agentic Read loop → leaner token
+   profile than the SDK's multi-turn reads), structured outputs for the
+   verdict JSON. Same `LLMExecutor.run(jobs)->verdicts` contract; drop-in
+   for assess/extract/prescreen. Wire `--executor api` in the CLI + harness.
+2. **Batches API (50% off)** — assess is non-latency-sensitive (wait for all
+   verdicts anyway), the textbook batch case. ~$13/run → ~$6.50. Add a
+   batch mode to MessagesAPIExecutor.
+3. **Prompt caching** — cache the stable assess-v2 system/template prefix
+   across the per-opinion jobs (each job re-sends the same criteria block).
+4. **Prereq:** `ANTHROPIC_API_KEY` in `.env` (only COURTLISTENER_API_TOKEN
+   is there today). Confirm with user.
+Cost context (measured 2026-06-13): one Opus v2 kettering run ≈ $13 via
+SDK-notional/API rates, ~$6.50 with Batches; Sonnet several-fold cheaper
+(sonnet-v2 A/B running now will give the exact figure + accuracy delta).
+This is the call the model-default decision feeds into: pick {model ×
+batch × cache} for the cheapest path that holds accuracy.
+
+## Priority 1 — A/B harness robustness bug (found 2026-06-13 sonnet-v2 run)
+Live A/B (`tools/ab_test_runner.py`) crashes when an assess job fails
+transiently: the failed claim has no verdict, and `score_workdir`'s default
+RecordedExecutor raises `RecordedVerdictMiss` on the first gap → whole run
+dies (sonnet-v2 lost payne/wainwright this way). Fix `run_ab_config` live
+branch: after `run_assess`, if `stats.pending > 0`, either (a) re-run assess
+once to fill transient failures (resume-keyed), or (b) score only claims
+that have verdicts and report the dropped count (no silent truncation).
+Do NOT let one flaky job crash a multi-corpus run. (Offline fix; no API.)
+
+## Priority 2 — Code-review deferrals (PR #21, logged 2026-06-14)
+From the independent review; full disposition in
+`docs/retrospectives/2026-06-14-code-review-disposition.md`. (Findings
+1/2/3/5 were FIXED; these two deferred.)
+- **run_verify partial-write window (review #4, Low).** wave1 writes
+  verification_results.csv before wave2; if wave2 raises, the file
+  persists wave-1-only and run_verify no-ops on rerun (file exists).
+  Narrow (verify_batch swallows errors into VERIFICATION_INCOMPLETE).
+  Fix when next touching the live verify path (write the CSV once after
+  both waves, or add a completion sentinel). Touches live-API code the
+  offline suite can't exercise — don't fix blind.
+- **_parse_json_object over-capture (review #6, note).** first-{/last-}
+  slicing fails if the model appends prose with braces after the JSON →
+  claim drops to recorded-failure/pending (fails SAFE, no wrong data).
+  Tighten (last balanced object, or fenced-block-first) when building
+  MessagesAPIExecutor.
+
 ## Priority 2 — Improvements (better results)
+
+### Report layout v2: filterable, skimmable, multi-view (logged 2026-06-12)
+User feedback after seeing the first real v2 report (withers-v2-demo): the
+current single-scroll card layout may not be the most useful shape — "what
+would be most useful is something that lets people filter by type of error,
+and is easily skimmed." Reference design: a scholarly-research citation
+verification report (user's Downloads, "Citation Verification Report.htm")
+with three view modes (**Summary / Table / Inline** buttons), Export, a
+field-by-field `Field | Reference | Source` diff table, per-row
+error-category badges (Mismatch, Partial match/omission, Missing element,
+Verified...), column-visibility toggles, and go-to-context jump links.
+NOTE: the reference report has badges only, NOT filtering — filter-by-
+error-type is the user's own wish-list addition on top of that layout
+("I just thought that would have been nice"). Not to be copied wholesale (it
+diffs reference *metadata* against sources; we assess proposition
+*support*), but the skimmability mechanics transfer:
+- **Filter by error type** maps directly onto structures we already have:
+  lane (Red / Yellow / Check Cite / Gray / Green via `report_lane`),
+  `badge_label` taxonomy, crosscheck flag types, quote verdict
+  (FABRICATED/CLOSE), `support` axis (v2+).
+- **Table view**: one row per claim — page | case | lane chip | badge |
+  one-line teaser — sortable/filterable, row expands to the existing card
+  (brief block / opinion block / analysis). This is the skim layer the
+  current layout lacks once findings exceed ~10.
+- **Summary view** ≈ current dashboard; **Inline view** (brief text with
+  claims highlighted in place) needs claim locations beyond `page` — note
+  for extract-v2 (span offsets) if we want it.
+- **Export** ties into the export-option item below (the lane-resolved
+  JSON is exactly what an alternate renderer needs).
+Implementation note: keep `report_template.py`'s data contract; this is a
+template-layer change (plus client-side JS for filter/sort — no server).
+
+### Pincite check: cross-reporter / too-few-marker false positives (found 2026-06-13 kettering shakedown)
+`crosscheck`'s best-effort pincite check (`_pincite_flag`, §6.5) compares the
+cited pinpoint against the opinion's star-pagination markers, but doesn't
+verify the markers belong to the cited reporter. Kettering shakedown:
+`Royal Truck & Trailer v. Kraft, 974 F.3d 756, 758-61` flagged pinpoint 758
+against star range [3,7] — the opinion had only 3 markers [3,4,7] that are
+NOT F.3d pages. Fired at the `>=3 markers` threshold on cross-reporter noise.
+Flag-only (no color impact), same family as the footnotemark fix. Options:
+(a) require the cited reporter to match the star-pagination reporter (parse
+the star-marker context), (b) require markers to bracket a plausible range
+near the pinpoint (e.g. |pin - nearest_marker| within the opinion's page
+span), (c) raise the marker-count threshold. Low priority. Test fixtures:
+`matters/kettering-mtd/` claims kettering-mtd-07/-33.
+
+### Custom report consumers: claims.csv contract doc + export option (logged 2026-06-12)
+User intent: people should be able to take the pipeline's outputs and make
+their own judgment calls / build their own report (e.g., hand `claims.csv` to
+Claude and ask for a custom memo) instead of using the built-in `report` verb.
+Already works today — `report` is verb 8, optional; everything upstream is
+plain CSV with facts (cl_status, quote_check, quote_floor, crosscheck_flags)
+and judgments (assessment, finding_analysis) in separate columns, and
+`scoring.report_lane()` / `quote_floor` are the two semantics a custom
+renderer must honor (CITE_UNCONFIRMED is "check this cite", never Red; floors
+already enforced into `assessment` by apply). Two cheap formalizations when
+this becomes a first-class use case:
+1. **Consumer-facing doc of the `claims.csv` column contract** — which columns
+   are deterministic facts vs. LLM judgments, and the two semantics above.
+2. **`export` option** (e.g., `report --format json` or an `export` verb)
+   dumping the lane-resolved dict `generate_report` already builds
+   (findings/check-cite/verified/unable lists) so any renderer — including a
+   Claude prompt — starts from resolved lanes instead of re-deriving them.
+Neither blocks the Step 8 acceptance work; log-only for now.
 
 ### Multi-party-caption + punctuated-query opinion-search gap (Sundown) (found 2026-06-11)
 Surfaced finishing the Lever-2 ruling. `Sundown Energy LP v. HJSA No. 3, L.P.,

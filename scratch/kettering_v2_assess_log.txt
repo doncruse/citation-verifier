@@ -1,0 +1,2 @@
+[OK] assess: 32 eligible, 30 done, 2 pending, 4 deterministic
+  PENDING: dispatch agents over jobs/assess.json, append verdicts to jobs/assess_results.jsonl, then rerun this verb to ingest
