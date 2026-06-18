@@ -80,9 +80,12 @@ Document Pipeline / Citation Engine; Backend (API)
 - **Name-check inside `verify_citations` (gateway).** Rejected for this slice: it
   changes the tool's output contract and pulls the work into the `gateway/**`
   security-review surface. An api-side layer keeps the boundary clean and the review light.
-- **Externalize as an MCP server.** Rejected: the MCP client + chat tool-loop aren't
-  wired yet, and a verdict-producing external tool would egress and judge outside the
-  gateway, breaking the data-sovereignty posture.
+- **Keep `citation-verifier` as an external MCP server and have lq-ai call it**
+  (instead of porting the code in). Rejected: lq-ai's MCP client and chat tool-loop
+  aren't wired up yet, so nothing could call it today; and an external server would
+  reach CourtListener and make its name-match judgments *outside* lq-ai's gateway,
+  tier-routing, and anonymization — defeating the self-hosting / data-sovereignty
+  guarantee. Porting the logic in keeps everything inside the audited boundary.
 
 ## Additional context
 **Deliberately scoped as a first slice.** Out of scope for this PR: the
