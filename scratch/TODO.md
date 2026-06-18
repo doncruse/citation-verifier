@@ -22,14 +22,18 @@ as their unbuilt **DE-279** (catches the name-swap fabrication their thin
 **Run it in a NEW session, rooted in an lq-ai checkout — not this repo.**
 
 Prerequisites (gotchas found 2026-06-18):
-- **Local `C:\Users\Rebecca Fordon\Projects\lq-ai` is STALE** — pinned at M2/M3-kickoff
-  (`7b20746`, `EXPECTED_PATHS=73`); it predates the whole CourtListener/research
-  subsystem DE-279 builds on. Bring it current first:
+- **`C:\Users\Rebecca Fordon\Projects\lq-ai` is our ONLY checkout, and it's STALE** —
+  pinned at M2/M3-kickoff (`7b20746`, `EXPECTED_PATHS=73`); it predates the whole
+  CourtListener/research subsystem DE-279 builds on. (The `~/Code/lq-ai` in lq-ai's own
+  session-handoff docs is the lq-ai *maintainers'* path, NOT ours.) Bring it current:
   `git fetch origin && git reset --hard origin/main` (then `EXPECTED_PATHS` becomes
-  **127** → 128 after the new route). The up-to-date `~/Code/lq-ai` is on the other
-  (Mac/Linux) machine.
-- **No fork/push remote** on the local clone (`origin = legalquants/lq-ai`). For a PR,
-  fork to `rlfordon/lq-ai` + add as a remote, or work on the machine with push access.
+  **127** → 128 after the new route).
+- **No push access** (outside contributor; `origin = legalquants/lq-ai`). Fork is
+  mandatory: `gh repo fork legalquants/lq-ai --clone=false --remote=false`, add
+  `rlfordon/lq-ai` as a remote, push the branch there, open the PR from the fork.
+- **Windows box, Unix-oriented project**: venv paths are `.venv\Scripts\...`; set the
+  test DB var with `$env:DATABASE_URL='...'`. Surface Windows build friction rather
+  than forcing through. Docker is available for the pgvector test DB.
 - **Env not set up here**: docker IS available (v29.4.3); create the api venv
   (`cd api && python -m venv .venv && .venv/bin/pip install -e ".[dev]"`) and run a
   throwaway pgvector: `docker run -d --name lq-test-pg -p 15433:5432 -e POSTGRES_USER=lq_ai
