@@ -4,7 +4,7 @@
 
 **Goal:** Contribute LQ.AI's unbuilt DE-279 ("case citation validation") by porting this repo's name-match verification logic into `lq-ai`, so a resolved reporter citation is checked against the *asserted* case name — catching the name-swap fabrication that their current thin `verify_citations` tool misses.
 
-**Architecture:** A new api-side module `api/app/citation/case_resolver.py` that (1) detects Bluebook citations + their asserted case names in text, (2) resolves them via the **existing** gateway-brokered `research.verify_citations` (no new CourtListener egress — ADR 0014 stays intact), (3) compares the asserted name to the resolved cluster's `case_name` with the lenient surname-containment matcher this repo uses post-resolution, and emits a per-citation verdict (`verified` / `wrong_case` / `unresolved` / `unverifiable`). Exposed as a stateless `POST /api/v1/research/validate-citations` endpoint. **This is PR-A** — api-only, self-merge after CI. Chat-pipeline auto-run, the `message_case_citations` table, and the web chip/Cypress E2E are **PR-B** (outlined at the end; gets its own plan once `chats.py`/`web/` are read against `main`).
+**Architecture:** A new api-side module `api/app/citation/case_resolver.py` that (1) detects Bluebook citations + their asserted case names in text, (2) resolves them via the **existing** gateway-brokered `research.verify_citations` (no new CourtListener egress — ADR 0014 stays intact), (3) compares the asserted name to the resolved cluster's `case_name` with the lenient surname-containment matcher this repo uses post-resolution, and emits a per-citation verdict (`verified` / `wrong_case` / `unresolved` / `unverifiable`). Exposed as a stateless `POST /api/v1/research/validate-citations` endpoint. **This is PR-A** — api-only, which is the lightest review path (a maintainer merges; an outside contributor can't self-merge). Chat-pipeline auto-run, the `message_case_citations` table, and the web chip/Cypress E2E are **PR-B** (outlined at the end; gets its own plan once `chats.py`/`web/` are read against `main`).
 
 **Tech Stack:** Python (FastAPI + httpx + SQLAlchemy 2.0 async), pytest + respx, ruff, mypy. The ported matcher imports only stdlib `re` + `difflib` — **zero new dependencies** (matches lq-ai's no-new-SBOM-dep posture).
 
@@ -12,10 +12,82 @@
 
 - **No new runtime dependency.** The matcher port uses only `re` + `difflib`. Do **not** add `eyecite` — CourtListener does server-side citation extraction; client-side detection here is regex-only. (Richer eyecite normalizations are a documented PR-B/follow-up.)
 - **No direct CourtListener calls (ADR 0014).** All CL access goes through `app.research.service.verify_citations(text)` → `GatewayClient.call_tool`. The resolver never touches `courtlistener.com`.
-- **api-only PR (self-merge after CI green).** Do not modify `gateway/**` — that would trigger the `gateway/**` security-review gate. No `gateway.yaml` changes in PR-A (the operator-config flag is a PR-B concern, since PR-A's endpoint is opt-in by virtue of being a distinct route).
+- **api-only PR (lightest review path).** Do not modify `gateway/**` — that triggers the `gateway/**` security-review gate; staying api-only keeps the PR off it. (You're an outside contributor — a maintainer reviews and merges; you can't self-merge.) No `gateway.yaml` changes in PR-A (the operator-config flag is a PR-B concern, since PR-A's endpoint is opt-in by virtue of being a distinct route).
 - **CI gates that bite:** `ruff format --check api scripts` AND `ruff check api`; `mypy` (api standard). A new route requires: add it to `IMPLEMENTED_ROUTES` (a `set[tuple[str, str]]` of `(METHOD, path)`) in `api/tests/test_endpoints.py` AND add the path to the `EXPECTED_PATHS` frozenset + bump `assert len(actual) == 127` → `128` in `api/tests/test_openapi.py` (**verified 127 on 2026-06-18**; both the frozenset and the count are load-bearing).
 - **Tests need Postgres on a throwaway port:** `DATABASE_URL='postgresql+asyncpg://lq_ai:test@127.0.0.1:15433/lq_ai'` against a disposable pgvector container (`docker run -d --name lq-test-pg -p 15433:5432 -e POSTGRES_USER=lq_ai -e POSTGRES_PASSWORD=test -e POSTGRES_DB=lq_ai pgvector/pgvector:pg16`). Run via the host venv (`cd api && .venv/bin/pytest`), not docker-compose. PR-A's resolver unit tests need **no** DB; only the endpoint test touches the app.
 - **Commit trailer:** `Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>`. Stage files explicitly (never `git add -A`).
+- **Fork-and-PR only.** This is an outside contribution — never push to `legalquants/lq-ai`. `origin` = your fork (`rlfordon/lq-ai`, the only push target); `upstream` = `legalquants/lq-ai`, read-only (fetch + the PR). The Kickoff prompt below repoints the remotes so an accidental upstream push fails.
+
+---
+
+## Kickoff prompt (copy verbatim into a fresh session, rooted in `Projects/lq-ai`)
+
+```text
+Implement PR-A of the DE-279 case-citation-validation plan in this lq-ai repo.
+This is a Windows machine and lq-ai's tooling assumes Unix — use the Windows paths
+below, and surface any Windows-specific build friction (asyncpg, alembic, etc.)
+instead of forcing through. This is a FORK-AND-PR contribution: never push to
+legalquants/lq-ai; push only to the fork and open a PR.
+
+Step 0 — fork, repoint remotes (so push can't hit upstream), update, set up env:
+  # Outside-contributor copy: origin = legalquants/lq-ai, NO push access, and stale
+  # (EXPECTED_PATHS=73, predates the research subsystem). Fork is mandatory.
+  gh repo fork legalquants/lq-ai --clone=false --remote=false
+  git remote rename origin upstream
+  git remote add origin https://github.com/rlfordon/lq-ai.git   # origin = YOUR fork; push only goes here
+  git remote set-url --push upstream no-push                     # belt-and-suspenders: block accidental upstream push
+  git fetch upstream
+  git reset --hard upstream/main          # gets the CourtListener/research subsystem; EXPECTED_PATHS -> 127
+  git checkout -b feat/de-279-case-resolver
+
+  cd api
+  python -m venv .venv
+  .venv\Scripts\python.exe -m pip install -e ".[dev]"
+  docker run -d --name lq-test-pg -p 15433:5432 -e POSTGRES_USER=lq_ai -e POSTGRES_PASSWORD=test -e POSTGRES_DB=lq_ai pgvector/pgvector:pg16
+
+  # Confirm a GREEN baseline before changing anything (PowerShell):
+  $env:DATABASE_URL='postgresql+asyncpg://lq_ai:test@127.0.0.1:15433/lq_ai'
+  .venv\Scripts\python.exe -m pytest -q
+
+Then copy the plan in from the citation-verifier repo and read it in full:
+  docs/plans/2026-06-18-de279-lq-ai-case-resolver-port.md
+Execute Tasks 1-6 task-by-task (TDD: failing test -> watch fail -> minimal impl ->
+green -> commit) using superpowers:executing-plans or subagent-driven-development.
+PR-B is a separate later plan — do not start it.
+
+Goal: a resolved reporter citation gets checked against the *asserted* case name,
+catching the name-swap fabrication the thin verify_citations tool misses. New module
+api/app/citation/case_resolver.py + POST /api/v1/research/validate-citations that reuses
+the gateway-brokered CourtListener tool (app.research.service — no direct CL call, ADR 0014).
+
+Hard constraints:
+- api-only. Do NOT touch gateway/** (keeps the PR off the gateway/** security-review gate — lightest review path; a maintainer merges).
+- No new runtime dependency (matcher port is stdlib re+difflib; no eyecite).
+- New route: add to IMPLEMENTED_ROUTES (tests/test_endpoints.py) AND EXPECTED_PATHS +
+  bump `len(actual) == 127` -> 128 (tests/test_openapi.py).
+
+Gates (Windows venv; all must pass before the PR):
+  .venv\Scripts\python.exe -m ruff format --check app
+  .venv\Scripts\python.exe -m ruff check app
+  .venv\Scripts\python.exe -m mypy app
+  $env:DATABASE_URL='postgresql+asyncpg://lq_ai:test@127.0.0.1:15433/lq_ai'; .venv\Scripts\python.exe -m pytest -q
+
+Verified against main 2026-06-18 (sanity-check only if main moved a lot):
+service.verify_citations(text, *, request_id=None) returns
+{"citations":[{citation,status,clusters:[{id,case_name,absolute_url}]}]};
+app.errors exports ResearchNotConfigured/GatewayUnreachable/GatewayTimeout;
+auth/client test pattern = per-file client + db_user + bearer header
+(mirror api/tests/test_research_endpoints.py); no `make openapi`.
+
+Ship (fork-and-PR only — never pushes to legalquants):
+  git push -u origin feat/de-279-case-resolver        # origin = your fork
+  gh pr create --repo legalquants/lq-ai --base main --head rlfordon:feat/de-279-case-resolver --fill
+List the known PR-A limitations in the PR description (inline-form detection only;
+first-cluster selection; no fallback search).
+```
+
+> `gh repo fork` needs `gh` authenticated (`gh auth login`). After Step 0, `git push`
+> can only reach your fork; the PR is opened against upstream but pushes nothing there.
 
 ---
 

@@ -25,12 +25,11 @@ Prerequisites (gotchas found 2026-06-18):
 - **`C:\Users\Rebecca Fordon\Projects\lq-ai` is our ONLY checkout, and it's STALE** —
   pinned at M2/M3-kickoff (`7b20746`, `EXPECTED_PATHS=73`); it predates the whole
   CourtListener/research subsystem DE-279 builds on. (The `~/Code/lq-ai` in lq-ai's own
-  session-handoff docs is the lq-ai *maintainers'* path, NOT ours.) Bring it current:
-  `git fetch origin && git reset --hard origin/main` (then `EXPECTED_PATHS` becomes
-  **127** → 128 after the new route).
-- **No push access** (outside contributor; `origin = legalquants/lq-ai`). Fork is
-  mandatory: `gh repo fork legalquants/lq-ai --clone=false --remote=false`, add
-  `rlfordon/lq-ai` as a remote, push the branch there, open the PR from the fork.
+  session-handoff docs is the lq-ai *maintainers'* path, NOT ours.) It must be reset to
+  current upstream `main` (then `EXPECTED_PATHS` becomes **127** → 128 after the new route).
+- **Fork-and-PR only — no push access** (outside contributor; can't self-merge). The
+  plan's Step 0 repoints remotes so `origin` = your fork (`rlfordon/lq-ai`, the only push
+  target) and `upstream` = `legalquants/lq-ai` (read-only fetch + the PR). Never pushes to lq-ai.
 - **Windows box, Unix-oriented project**: venv paths are `.venv\Scripts\...`; set the
   test DB var with `$env:DATABASE_URL='...'`. Surface Windows build friction rather
   than forcing through. Docker is available for the pgvector test DB.
@@ -39,9 +38,9 @@ Prerequisites (gotchas found 2026-06-18):
   throwaway pgvector: `docker run -d --name lq-test-pg -p 15433:5432 -e POSTGRES_USER=lq_ai
   -e POSTGRES_PASSWORD=test -e POSTGRES_DB=lq_ai pgvector/pgvector:pg16`.
 
-Branch `feat/de-279-case-resolver`; api-only → self-merge after CI (don't touch
-`gateway/**`); PR vs `LegalQuants/lq-ai`. The full kickoff prompt is in the plan
-file's header / the 2026-06-18 session thread.
+Branch `feat/de-279-case-resolver`; api-only (don't touch `gateway/**`) = lightest
+review path, but a maintainer merges. PR vs `LegalQuants/lq-ai` from the fork.
+**The full copy-paste kickoff prompt now lives in the plan's "Kickoff prompt" section.**
 
 ## PDF Download Feature (in progress)
 
