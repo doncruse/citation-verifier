@@ -106,10 +106,11 @@ Document Pipeline / Citation Engine; Backend (API)
 ## Additional context
 **Deliberately scoped as a first slice.** Out of scope for this PR: the
 chat-pipeline auto-run + `message_case_citations` persistence + web chip/Cypress
-E2E that complete DE-279's own acceptance criteria (a natural second PR); plus
-fallback opinion/RECAP search and reporter-family/parallel-citation reasoning, which
-go beyond DE-279 and could be filed as separate enhancements if there's interest.
-(None of these are tracked anywhere yet — I'd open follow-ups as you prefer.)
+E2E that complete DE-279's own acceptance criteria (a natural second PR). Also beyond
+DE-279, as possible later enhancements (none tracked yet): deeper resolution for when
+the reporter citation itself doesn't resolve — e.g. finding the case by its name in the
+free federal court-document archive (RECAP), or treating reporter series such as
+`N.E.2d` and `N.E.3d` as the same line of cases. I'd open follow-ups as you prefer.
 
 **Prior art / what I'd port.** The name-match logic, status taxonomy, and lenient
 post-resolution comparison come from my own
