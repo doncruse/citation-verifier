@@ -10,6 +10,35 @@
 > reproducers, Charlotin fake-mining, threshold calibration) are in that
 > roadmap's "Follow-ups discovered during execution" section.
 
+## Hand-off — contribute DE-279 to lq-ai (case citation validation)
+
+Port our name-match verification into [LegalQuants/lq-ai](https://github.com/LegalQuants/lq-ai)
+as their unbuilt **DE-279** (catches the name-swap fabrication their thin
+`verify_citations` tool misses). Background + ranked PR map:
+[`docs/lq-ai-comparison.md`](../docs/lq-ai-comparison.md). Execution-ready plan
+(PR-A, 6 TDD tasks, verified against lq-ai main 2026-06-18):
+[`docs/plans/2026-06-18-de279-lq-ai-case-resolver-port.md`](../docs/plans/2026-06-18-de279-lq-ai-case-resolver-port.md).
+
+**Run it in a NEW session, rooted in an lq-ai checkout — not this repo.**
+
+Prerequisites (gotchas found 2026-06-18):
+- **Local `C:\Users\Rebecca Fordon\Projects\lq-ai` is STALE** — pinned at M2/M3-kickoff
+  (`7b20746`, `EXPECTED_PATHS=73`); it predates the whole CourtListener/research
+  subsystem DE-279 builds on. Bring it current first:
+  `git fetch origin && git reset --hard origin/main` (then `EXPECTED_PATHS` becomes
+  **127** → 128 after the new route). The up-to-date `~/Code/lq-ai` is on the other
+  (Mac/Linux) machine.
+- **No fork/push remote** on the local clone (`origin = legalquants/lq-ai`). For a PR,
+  fork to `rlfordon/lq-ai` + add as a remote, or work on the machine with push access.
+- **Env not set up here**: docker IS available (v29.4.3); create the api venv
+  (`cd api && python -m venv .venv && .venv/bin/pip install -e ".[dev]"`) and run a
+  throwaway pgvector: `docker run -d --name lq-test-pg -p 15433:5432 -e POSTGRES_USER=lq_ai
+  -e POSTGRES_PASSWORD=test -e POSTGRES_DB=lq_ai pgvector/pgvector:pg16`.
+
+Branch `feat/de-279-case-resolver`; api-only → self-merge after CI (don't touch
+`gateway/**`); PR vs `LegalQuants/lq-ai`. The full kickoff prompt is in the plan
+file's header / the 2026-06-18 session thread.
+
 ## PDF Download Feature (in progress)
 
 Added checkboxes + "Download PDFs" button to main page (`localhost:8000`). Backend resolves `matched_url` to downloadable PDF, bundles into zip.
