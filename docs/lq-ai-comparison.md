@@ -2,7 +2,7 @@
 
 **Date:** 2026-06-18 · **Author:** analysis run (Claude Opus 4.8)
 **Subject repo:** [`LegalQuants/lq-ai`](https://github.com/LegalQuants/lq-ai) (mirrored to `Tucuxi-Inc/lq-ai`)
-**Snapshot basis:** lq-ai `main` HEAD `dac1f3f`, migration head `0049`, `EXPECTED_PATHS=123` (per their 2026-06-17 legal-research handoff). *This is a point-in-time snapshot; re-verify before acting — the legal-research milestone is actively moving.*
+**Snapshot basis:** lq-ai `main` per the 2026-06-17 legal-research handoff (HEAD `dac1f3f`, migration head `0049`), but a fresh clone on 2026-06-18 already shows `test_openapi.py` pinning **127** paths (MCP-registry routes landed past the handoff) — confirmation that this milestone is moving fast. *Re-verify before acting.*
 
 > Companion artifact: [docs/plans/2026-06-18-de279-lq-ai-case-resolver-port.md](plans/2026-06-18-de279-lq-ai-case-resolver-port.md) — the concrete PR plan for the top opportunity below.
 

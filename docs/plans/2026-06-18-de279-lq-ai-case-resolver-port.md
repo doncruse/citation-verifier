@@ -13,7 +13,7 @@
 - **No new runtime dependency.** The matcher port uses only `re` + `difflib`. Do **not** add `eyecite` — CourtListener does server-side citation extraction; client-side detection here is regex-only. (Richer eyecite normalizations are a documented PR-B/follow-up.)
 - **No direct CourtListener calls (ADR 0014).** All CL access goes through `app.research.service.verify_citations(text)` → `GatewayClient.call_tool`. The resolver never touches `courtlistener.com`.
 - **api-only PR (self-merge after CI green).** Do not modify `gateway/**` — that would trigger the `gateway/**` security-review gate. No `gateway.yaml` changes in PR-A (the operator-config flag is a PR-B concern, since PR-A's endpoint is opt-in by virtue of being a distinct route).
-- **CI gates that bite:** `ruff format --check api scripts` AND `ruff check api`; `mypy` (api standard). A new route requires: add it to `IMPLEMENTED_ROUTES` in `api/tests/test_endpoints.py` AND bump the pinned path count + `EXPECTED_PATHS` set in `api/tests/test_openapi.py` (was **123**; confirm current value before editing).
+- **CI gates that bite:** `ruff format --check api scripts` AND `ruff check api`; `mypy` (api standard). A new route requires: add it to `IMPLEMENTED_ROUTES` (a `set[tuple[str, str]]` of `(METHOD, path)`) in `api/tests/test_endpoints.py` AND add the path to the `EXPECTED_PATHS` frozenset + bump `assert len(actual) == 127` → `128` in `api/tests/test_openapi.py` (**verified 127 on 2026-06-18**; both the frozenset and the count are load-bearing).
 - **Tests need Postgres on a throwaway port:** `DATABASE_URL='postgresql+asyncpg://lq_ai:test@127.0.0.1:15433/lq_ai'` against a disposable pgvector container (`docker run -d --name lq-test-pg -p 15433:5432 -e POSTGRES_USER=lq_ai -e POSTGRES_PASSWORD=test -e POSTGRES_DB=lq_ai pgvector/pgvector:pg16`). Run via the host venv (`cd api && .venv/bin/pytest`), not docker-compose. PR-A's resolver unit tests need **no** DB; only the endpoint test touches the app.
 - **Commit trailer:** `Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>`. Stage files explicitly (never `git add -A`).
 
@@ -566,7 +566,7 @@ async def resolve_citations(text: str, *, request_id: str | None = None) -> list
     return [_verdict(d, by_cite.get(d.citation)) for d in detected]
 ```
 
-> **Confirm against `main`:** `service.verify_citations` currently has signature `verify_citations(text: str, *, request_id: str | None = None)` and returns `result["payload"]` shaped `{"citations": [{citation, status, clusters: [{id, case_name, absolute_url}]}]}`. If the signature drifted, adjust the call. Also confirm `ResearchNotConfigured` lives in `app.errors` (it is raised by `app.research.service`).
+> **✓ Verified against `main` (2026-06-18):** `app.research.service.verify_citations(text: str, *, request_id: str | None = None)` returns `result["payload"]` shaped `{"citations": [{citation, status, clusters: [{id, case_name, absolute_url}]}]}`. `ResearchNotConfigured`, `GatewayUnreachable`, `GatewayTimeout`, and `NotFound` all live in `app.errors`. Re-confirm only if `main` moved substantially since this date.
 
 - [ ] **Step 4: Run — expect PASS**
 
@@ -620,15 +620,57 @@ class ValidateCitationsResponse(BaseModel):
 
 - [ ] **Step 2: Write the failing endpoint test**
 
+Mirrors the **verified** auth/client pattern in `api/tests/test_research_endpoints.py` (there is no shared `authed_client` fixture — each research test file defines its own `client` + `db_user` + bearer-header helper; conftest provides only DB fixtures). The endpoint needs `ActiveUser`, so the test needs a real `User` row → it needs the test DB. `case_resolver.resolve_citations` is monkeypatched so the gateway is never touched.
+
 ```python
 # api/tests/citation/test_validate_citations_endpoint.py
+import uuid
+from collections.abc import AsyncIterator
+
 import pytest
+import pytest_asyncio
+from httpx import ASGITransport, AsyncClient
+from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.citation import case_resolver
+from app.db.session import get_db
+from app.main import app
+from app.models.user import User
+from app.security import create_access_token, hash_password
+
+
+@pytest_asyncio.fixture
+async def db_user(db_session: AsyncSession) -> User:
+    user = User(
+        email=f"cite-{uuid.uuid4().hex[:8]}@example.com",
+        display_name="Cite Test User",
+        hashed_password=hash_password("correct-horse-battery-staple"),
+        is_admin=False, mfa_enabled=False, must_change_password=False,
+    )
+    db_session.add(user)
+    await db_session.flush()
+    return user
+
+
+@pytest_asyncio.fixture
+async def client(db_session: AsyncSession) -> AsyncIterator[AsyncClient]:
+    async def _override() -> AsyncIterator[AsyncSession]:
+        yield db_session
+
+    app.dependency_overrides[get_db] = _override
+    transport = ASGITransport(app=app)
+    async with AsyncClient(transport=transport, base_url="http://test") as ac:
+        yield ac
+    app.dependency_overrides.pop(get_db, None)
+
+
+def _h(user: User) -> dict[str, str]:
+    token = create_access_token(user.id, user.email, is_admin=user.is_admin)
+    return {"Authorization": f"Bearer {token}"}
 
 
 @pytest.mark.asyncio
-async def test_validate_citations_returns_verdicts(authed_client, monkeypatch):
+async def test_validate_citations_returns_verdicts(client, db_user, monkeypatch):
     async def _fake(text, *, request_id=None):
         return [{
             "citation": "576 U.S. 644", "asserted_name": "Smith v. Jones",
@@ -638,9 +680,10 @@ async def test_validate_citations_returns_verdicts(authed_client, monkeypatch):
         }]
     monkeypatch.setattr(case_resolver, "resolve_citations", _fake)
 
-    resp = await authed_client.post(
+    resp = await client.post(
         "/api/v1/research/validate-citations",
         json={"text": "Smith v. Jones, 576 U.S. 644 (2015)."},
+        headers=_h(db_user),
     )
     assert resp.status_code == 200
     body = resp.json()
@@ -648,7 +691,7 @@ async def test_validate_citations_returns_verdicts(authed_client, monkeypatch):
     assert body["verdicts"][0]["matched_case_name"] == "Obergefell v. Hodges"
 ```
 
-> **Confirm the fixture name** (`authed_client` / `ActiveUser` override) against `api/tests/conftest.py` — reuse whatever the existing `test_*` endpoint tests for `/research/*` use (e.g. the verify-citations endpoint test). Patch `case_resolver.resolve_citations` (not the route) so the test never touches the gateway.
+> Patch `case_resolver.resolve_citations` (the module attribute) — the route calls `case_resolver.resolve_citations(...)`, so module-level patching takes effect. Add an unauth test (`client.post(... )` with no headers → 401) to mirror the `/research` suite's 401 gate.
 
 - [ ] **Step 3: Run — expect FAIL** (404; route not registered).
 
@@ -679,16 +722,16 @@ Run: `cd api && DATABASE_URL='postgresql+asyncpg://lq_ai:test@127.0.0.1:15433/lq
 
 - [ ] **Step 6: Update the collision guards**
 
-The api suite crashes at collection if a new route isn't registered in both guards.
-- In `api/tests/test_endpoints.py`: add `"/api/v1/research/validate-citations"` to `IMPLEMENTED_ROUTES`.
-- In `api/tests/test_openapi.py`: add the path to `EXPECTED_PATHS` and bump the pinned count (was **123** → run the suite to get the exact new number).
+The api suite fails if a new route isn't registered in both guards.
+- In `api/tests/test_endpoints.py`: add `("POST", "/api/v1/research/validate-citations")` to the `IMPLEMENTED_ROUTES` set, next to the `# WS3b — case-law research surface` block (the `("POST", "/api/v1/research/verify-citations")` entry).
+- In `api/tests/test_openapi.py`: add `"/api/v1/research/validate-citations"` to the `EXPECTED_PATHS` frozenset (near the other `/research/*` entries) AND bump `assert len(actual) == 127` → `128` (verified 127 on 2026-06-18).
 
 Run: `cd api && DATABASE_URL='postgresql+asyncpg://lq_ai:test@127.0.0.1:15433/lq_ai' .venv/bin/pytest tests/test_endpoints.py tests/test_openapi.py -v`
-Expected: PASS after the count matches.
+Expected: PASS after both edits.
 
-- [ ] **Step 7: Regenerate/verify the OpenAPI doc**
+- [ ] **Step 7: Update the OpenAPI sketch (hand-maintained)**
 
-If the repo commits `docs/api/backend-openapi.yaml`, update it per the project's generation step (check the Makefile target, e.g. `make openapi`), then re-run `tests/test_openapi.py`.
+There is **no** `make openapi` target. `docs/api/backend-openapi.yaml` is hand-maintained, and `test_openapi.py` compares the **live app's** generated paths to the in-test `EXPECTED_PATHS` frozenset (the yaml is not `safe_load`-checked by the test). For contract hygiene per the `test_openapi.py` docstring, manually add a `/api/v1/research/validate-citations` `post:` stanza to `backend-openapi.yaml` mirroring the existing `verify-citations` entry. The load-bearing checks remain `EXPECTED_PATHS` + the count (Step 6) and `IMPLEMENTED_ROUTES`.
 
 - [ ] **Step 8: Lint, type-check, commit**
 
@@ -750,5 +793,5 @@ These items finish discharging DE-279's acceptance criteria but touch the chat p
 - **No new dependency** anywhere (stdlib `re`/`difflib`; respx already in dev extras). ✔
 - **No `gateway/**` edits** → PR-A stays api-only / self-merge. ✔
 - **Types consistent**: `DetectedCite`, `resolve_citations` dict keys, and `CaseCitationVerdict` fields match across Tasks 2/4/5. ✔
-- **Open items the implementer must confirm against `main`** (flagged inline): `service.verify_citations` signature + payload shape; `ResearchNotConfigured` import path; the test client/auth fixture name; the OpenAPI generation step; the current `EXPECTED_PATHS` count.
+- **Open items — all verified against `main` 2026-06-18** (no longer open): `service.verify_citations` signature + payload ✓; `app.errors` exports `ResearchNotConfigured`/`GatewayUnreachable`/`GatewayTimeout` ✓; auth/client pattern = per-file `client` + `db_user` + bearer header (no shared `authed_client`) ✓; no `make openapi` (yaml hand-maintained; `test_openapi.py` authoritative) ✓; `EXPECTED_PATHS` count = 127 → 128 ✓. Re-confirm only if `main` advanced materially.
 - **Known PR-A limitations to state in the PR description** (so reviewers don't read them as gaps): inline-form detection only; first-cluster selection (no parallel-citation / sibling-cluster disambiguation); citation-string join can miss on exotic spacing. Each maps to a follow-up that this repo's `parser.py` / `verifier.py` already solve.
