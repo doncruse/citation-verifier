@@ -137,14 +137,16 @@ citation doesn't resolve by its exact reporter number — first looking the case
 name, court, and date in CourtListener's opinion database, and, failing that, in the
 free federal court-docket archive (RECAP). I'd open follow-ups as you prefer.
 
-**Prior art / what I'd port.** The name-match logic, status taxonomy, and lenient
-post-resolution comparison come from my own
-[`rlfordon/citation-verifier`](https://github.com/rlfordon/citation-verifier) — a
-mature CourtListener-based citation verifier with a regression corpus. DE-279
-separately names
+**Prior art / what I'd port.** I build and maintain
+[`rlfordon/citation-verifier`](https://github.com/rlfordon/citation-verifier) — a Python
+tool that checks legal citations against CourtListener specifically to catch
+AI-hallucinated and misattributed case citations. It's been run against real briefs and
+carries a regression corpus of known-real and known-fabricated citations, so the
+name-match logic, status taxonomy, and lenient post-resolution comparison this proposal
+ports are already exercised against real and adversarial inputs. DE-279 separately names
 [`Tucuxi-Inc/Legal-Week-Cite-Checker`](https://github.com/Tucuxi-Inc/Legal-Week-Cite-Checker)
-as its reference implementation; `citation-verifier` is an **independent** tool in
-the same problem space (not derived from it).
+as its reference implementation; `citation-verifier` is an **independent** tool in the
+same space (not derived from it).
 
 **Open questions (happy to shape before opening a PR):**
 1. **Start standalone, or go straight to chat integration?** This proposal builds the
