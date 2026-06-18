@@ -161,8 +161,12 @@ same space (not derived from it).
    green / yellow / grey inline badges it already shows for document-quote
    citations), or a distinct set for case citations?
 
-I'm a LegalQuants org member (read access on this repo) and happy to implement the
-api-only first slice and iterate in review.
+A bit on who's offering: I'm a law librarian and former bankruptcy attorney, and I've
+spent a lot of time on the CourtListener API across side projects (like
+`citation-verifier`). I also serve on the Free Law Project board — FLP runs
+CourtListener — but to be clear, this is a personal project, not an FLP initiative. As a
+LegalQuants org member (read-only on this repo) I'm happy to implement the api-only first
+slice and iterate in review.
 
 **References:** legal-research mini-PRD
 ([`docs/proposals/legal-research-and-mcp.md`](https://github.com/LegalQuants/lq-ai/blob/main/docs/proposals/legal-research-and-mcp.md)),
