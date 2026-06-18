@@ -139,14 +139,18 @@ free federal court-docket archive (RECAP). I'd open follow-ups as you prefer.
 
 **Prior art / what I'd port.** I build and maintain
 [`rlfordon/citation-verifier`](https://github.com/rlfordon/citation-verifier) — a Python
-tool that checks legal citations against CourtListener specifically to catch
-AI-hallucinated and misattributed case citations. It's been run against real briefs and
-carries a regression corpus of known-real and known-fabricated citations, so the
-name-match logic, status taxonomy, and lenient post-resolution comparison this proposal
-ports are already exercised against real and adversarial inputs. DE-279 separately names
+tool that checks legal citations against CourtListener to catch AI-hallucinated and
+misattributed case citations. It also verifies quoted passages against the opinion text,
+and whether a cited case actually supports the proposition it's cited for — surfaces
+lq-ai has on its own roadmap (proposition/case-content accuracy is DE-280; quote-grounding
+extends the Citation Engine to case law). I'm scoping *this* PR to the DE-279 name-check
+only; I flag the rest just as context. The tool runs against real briefs with a regression
+corpus of known-real and known-fabricated citations, so the name-match logic, status
+taxonomy, and lenient post-resolution comparison this PR ports are already exercised against
+real and adversarial inputs. DE-279 names
 [`Tucuxi-Inc/Legal-Week-Cite-Checker`](https://github.com/Tucuxi-Inc/Legal-Week-Cite-Checker)
-as its reference implementation; `citation-verifier` is an **independent** tool in the
-same space (not derived from it).
+as its reference implementation; `citation-verifier` is an **independent** tool in the same
+space (not derived from it).
 
 **Open questions (happy to shape before opening a PR):**
 1. **Start standalone, or go straight to chat integration?** This proposal builds the
