@@ -42,21 +42,45 @@ return the resolved cluster's `case_name`, but nothing compares it to the assert
 
 ## Proposed approach
 DE-279 already scopes the module (`api/app/citation/case_resolver.py`). My proposed
-implementation for it — **api-side, layered over the existing gateway-brokered
-`verify_citations`**, so there is no new CourtListener egress (ADR 0014 preserved).
-For each detected `Name v. Name, <reporter cite>`:
+implementation is **api-side, layered over the existing gateway-brokered
+`verify_citations`** — no new CourtListener egress (ADR 0014 preserved). The one
+non-obvious piece: CL's lookup returns the *resolved* case name but not the name the
+author *asserted*, so the resolver has to detect the asserted name itself and compare.
 
-1. resolve via the existing tool;
-2. compare the asserted name to the resolved cluster's `case_name` with a lenient
-   surname-containment matcher (tolerates brief-style abbreviation like
-   `Fink v. Gomez`; rejects truly-wrong names);
-3. emit a verdict — `verified` / `wrong_case` / `unresolved` / `unverifiable`
-   (graceful when the resolver is unavailable; never blocks).
+Flow:
 
-Exposed as `POST /api/v1/research/validate-citations` (stateless). The matcher is a
-stdlib-only port (`re` + `difflib`) — **no new dependency**. I've scoped this against
-the `case_resolver.py` shape and current `main` and can move quickly, but I'd rather
-align with you on the open questions below before locking an approach.
+1. **Detect + pair.** A lightweight local detector scans the text for citations in the
+   form `Name v. Name, 576 U.S. 644` and pairs each with the case name asserted just
+   before it. (Regex-based — no new dependency, no extra egress.)
+2. **Resolve.** Send the text to the existing `verify_citations`; it returns each
+   citation's resolved cluster (id, `case_name`, url). Join those back to the detected
+   citations by the citation string.
+3. **Compare.** Check the asserted name against the resolved `case_name` with a lenient
+   surname-containment matcher. Lenient *by design*: the citation is already confirmed
+   to exist, so the check only needs to reject clear fabrications while tolerating that
+   briefs abbreviate — `Fink v. Gomez` still matches *David M. Fink v. James H. Gomez,
+   Director…*.
+4. **Verdict.** Emit `verified` / `wrong_case` / `unresolved` / `unverifiable` (the last
+   when the resolver is unavailable — it degrades, never blocks).
+
+Worked example — input `Smith v. Jones, 576 U.S. 644`: the detector pairs asserted name
+"Smith v. Jones" with `576 U.S. 644`; `verify_citations` resolves that to *Obergefell v.
+Hodges*; the names don't match → `wrong_case`. A fabrication caught, where today it
+comes back "resolved."
+
+Surface: `POST /api/v1/research/validate-citations` (stateless), returning one verdict
+per detected citation:
+
+```json
+{"citation": "576 U.S. 644", "asserted_name": "Smith v. Jones",
+ "resolution_status": "wrong_case", "matched_case_name": "Obergefell v. Hodges",
+ "cluster_id": 1, "absolute_url": "..."}
+```
+
+The matcher is a stdlib-only port (`re` + `difflib`) — **no new dependency**. I've
+scoped this against the `case_resolver.py` shape and current `main` and can move
+quickly, but I'd rather align with you on the open questions below before locking an
+approach.
 
 *Provenance: the capability, goal, and module name above are DE-279's. What this
 issue adds is (a) the live-code finding that the shipped tool does no name check,
@@ -107,10 +131,10 @@ Document Pipeline / Citation Engine; Backend (API)
 **Deliberately scoped as a first slice.** Out of scope for this PR: the
 chat-pipeline auto-run + `message_case_citations` persistence + web chip/Cypress
 E2E that complete DE-279's own acceptance criteria (a natural second PR). Also beyond
-DE-279, as possible later enhancements (none tracked yet): deeper resolution for when
-the reporter citation itself doesn't resolve — e.g. finding the case by its name in the
-free federal court-document archive (RECAP), or treating reporter series such as
-`N.E.2d` and `N.E.3d` as the same line of cases. I'd open follow-ups as you prefer.
+DE-279, as possible later enhancements (none tracked yet): being more thorough when a
+citation doesn't resolve by its exact reporter number — first looking the case up by
+name, court, and date in CourtListener's opinion database, and, failing that, in the
+free federal court-docket archive (RECAP). I'd open follow-ups as you prefer.
 
 **Prior art / what I'd port.** The name-match logic, status taxonomy, and lenient
 post-resolution comparison come from my own
