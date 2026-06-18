@@ -54,9 +54,9 @@ For each detected `Name v. Name, <reporter cite>`:
    (graceful when the resolver is unavailable; never blocks).
 
 Exposed as `POST /api/v1/research/validate-citations` (stateless). The matcher is a
-stdlib-only port (`re` + `difflib`) — **no new dependency**. I have a full
-task-by-task TDD plan mapped to the `case_resolver.py` scope + DE-279 acceptance
-criteria, verified against current `main`.
+stdlib-only port (`re` + `difflib`) — **no new dependency**. I've scoped this against
+the `case_resolver.py` shape and current `main` and can move quickly, but I'd rather
+align with you on the open questions below before locking an approach.
 
 *Provenance: the capability, goal, and module name above are DE-279's. What this
 issue adds is (a) the live-code finding that the shipped tool does no name check,
