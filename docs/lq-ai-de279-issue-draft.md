@@ -65,31 +65,15 @@ one missing comparison:
 3. **Verdict** — emit `verified` / `wrong_case` / `unresolved` / `unverifiable` (the last
    when the resolver is unavailable — it degrades, never blocks).
 
-Worked example — `Smith v. Jones, 576 U.S. 644`: `verify_citations` resolves `576 U.S.
-644` to *Obergefell v. Hodges*; the asserted "Smith v. Jones" doesn't match →
-`wrong_case`. Today that same input just comes back "resolved."
-
 Surface: `POST /api/v1/research/validate-citations` (stateless), one verdict per
-citation:
+citation. The added code is a stdlib-only name matcher (`re` + `difflib`) — **no new
+dependency**. I've scoped it against the `case_resolver.py` shape and current `main` and
+can move quickly, but I'd rather align with you on the open questions below before locking
+an approach.
 
-```json
-{"citation": "576 U.S. 644", "asserted_name": "Smith v. Jones",
- "resolution_status": "wrong_case", "matched_case_name": "Obergefell v. Hodges",
- "cluster_id": 1, "absolute_url": "..."}
-```
-
-The added code is a stdlib-only name matcher (`re` + `difflib`) — **no new dependency**.
-I've scoped this against the `case_resolver.py` shape and current `main` and can move
-quickly, but I'd rather align with you on the open questions below before locking an
-approach.
-
-*Provenance: the capability, goal, and module name above are DE-279's. What this
-issue adds is (a) the live-code finding that the shipped tool does no name check,
-(b) a concrete name-match implementation, (c) a bounded first-slice plan + an offer
-to build it, and (d) the design reasoning below — the alternatives weighed and the
-api-side-over-gateway choice — which is mine, drawing on lq-ai's documented
-architecture (ADR 0014; the Citation Engine's thin-tool design). DE-279 itself
-states only a chosen approach; it weighs no alternatives.*
+*Provenance: the goal and module name are DE-279's; what I'm adding is the name
+comparison itself, the live-code finding above, and the design reasoning below (DE-279
+weighs no alternatives of its own).*
 
 ## Related DE-### entry
 DE-279 — [PRD §9](https://github.com/LegalQuants/lq-ai/blob/main/docs/PRD.md#de-279--case-citation-validation-bluebook-resolution-via-courtlistener)
@@ -98,19 +82,6 @@ DE-279 — [PRD §9](https://github.com/LegalQuants/lq-ai/blob/main/docs/PRD.md#
 Document Pipeline / Citation Engine; Backend (API)
 
 ## Alternatives considered
-- **Let the chat model eyeball the name match** from the returned cluster metadata.
-  Rejected: unreliable for exactly the adversarial case — the model that fabricated
-  the cite is the one judging it. A deterministic check is also auditable: anyone can
-  read exactly how the name was validated, whereas an in-model judgment is opaque.
-- **Name-check inside `verify_citations` (gateway).** Rejected for this slice: it
-  changes the tool's output contract and pulls the work into the `gateway/**`
-  security-review surface. An api-side layer keeps the boundary clean and the review light.
-- **Keep `citation-verifier` as an external MCP server and have lq-ai call it**
-  (instead of porting the code in). Rejected: lq-ai's MCP client and chat tool-loop
-  aren't wired up yet, so nothing could call it today; and an external server would
-  reach CourtListener and make its name-match judgments *outside* lq-ai's gateway,
-  tier-routing, and anonymization — defeating the self-hosting / data-sovereignty
-  guarantee. Porting the logic in keeps everything inside the audited boundary.
 - **Point lq-ai's (forthcoming) MCP client at the CourtListener MCP server, whose
   `analyze_citations` already name-checks** (it warns when the asserted name differs
   from the cluster's canonical name). Rejected for the citation *engine*: that match
