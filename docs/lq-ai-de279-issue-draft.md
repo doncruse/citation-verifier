@@ -41,35 +41,36 @@ return the resolved cluster's `case_name`, but nothing compares it to the assert
 | `Fink v. Gomez, 239 F.3d 989` | *David M. Fink v. James H. Gomez…* | no check | verified (abbreviated, same case) |
 
 ## Proposed approach
-DE-279 already scopes the module (`api/app/citation/case_resolver.py`). My proposed
-implementation is **api-side, layered over the existing gateway-brokered
-`verify_citations`** — no new CourtListener egress (ADR 0014 preserved). The one
-non-obvious piece: CL's lookup returns the *resolved* case name but not the name the
-author *asserted*, so the resolver has to detect the asserted name itself and compare.
+DE-279 already scopes the module (`api/app/citation/case_resolver.py`). It sits
+**api-side, layered over the existing gateway-brokered `verify_citations`** — no new
+CourtListener egress (ADR 0014 preserved).
 
-Flow:
+**What `verify_citations` already does:** sends the text to CourtListener, which
+extracts each citation and resolves it, returning the matched cluster's *canonical*
+case name (`case_name`), id, and url. Citation detection and resolution are done — this
+proposal does not touch them.
 
-1. **Detect + pair.** A lightweight local detector scans the text for citations in the
-   form `Name v. Name, 576 U.S. 644` and pairs each with the case name asserted just
-   before it. (Regex-based — no new dependency, no extra egress.)
-2. **Resolve.** Send the text to the existing `verify_citations`; it returns each
-   citation's resolved cluster (id, `case_name`, url). Join those back to the detected
-   citations by the citation string.
-3. **Compare.** Check the asserted name against the resolved `case_name` with a lenient
-   surname-containment matcher. Lenient *by design*: the citation is already confirmed
-   to exist, so the check only needs to reject clear fabrications while tolerating that
-   briefs abbreviate — `Fink v. Gomez` still matches *David M. Fink v. James H. Gomez,
-   Director…*.
-4. **Verdict.** Emit `verified` / `wrong_case` / `unresolved` / `unverifiable` (the last
+**What it does *not* do — and all this adds:** it never compares the resolved name to
+the name the author *asserted*. CL reports "`576 U.S. 644` is *Obergefell v. Hodges*";
+it doesn't notice if the author called it "Smith v. Jones." `case_resolver` adds that
+one missing comparison:
+
+1. **Read the asserted name** — for each citation, pull the `Name v. Name` the author
+   wrote next to it out of the source text (a small local read; the lookup returns the
+   citations but not the surrounding names).
+2. **Compare** it to the resolved `case_name` with a lenient surname-containment matcher.
+   Lenient *by design*: the citation is already confirmed real, so the check only rejects
+   clear fabrications while tolerating that briefs abbreviate — `Fink v. Gomez` still
+   matches *David M. Fink v. James H. Gomez, Director…*.
+3. **Verdict** — emit `verified` / `wrong_case` / `unresolved` / `unverifiable` (the last
    when the resolver is unavailable — it degrades, never blocks).
 
-Worked example — input `Smith v. Jones, 576 U.S. 644`: the detector pairs asserted name
-"Smith v. Jones" with `576 U.S. 644`; `verify_citations` resolves that to *Obergefell v.
-Hodges*; the names don't match → `wrong_case`. A fabrication caught, where today it
-comes back "resolved."
+Worked example — `Smith v. Jones, 576 U.S. 644`: `verify_citations` resolves `576 U.S.
+644` to *Obergefell v. Hodges*; the asserted "Smith v. Jones" doesn't match →
+`wrong_case`. Today that same input just comes back "resolved."
 
-Surface: `POST /api/v1/research/validate-citations` (stateless), returning one verdict
-per detected citation:
+Surface: `POST /api/v1/research/validate-citations` (stateless), one verdict per
+citation:
 
 ```json
 {"citation": "576 U.S. 644", "asserted_name": "Smith v. Jones",
@@ -77,8 +78,8 @@ per detected citation:
  "cluster_id": 1, "absolute_url": "..."}
 ```
 
-The matcher is a stdlib-only port (`re` + `difflib`) — **no new dependency**. I've
-scoped this against the `case_resolver.py` shape and current `main` and can move
+The added code is a stdlib-only name matcher (`re` + `difflib`) — **no new dependency**.
+I've scoped this against the `case_resolver.py` shape and current `main` and can move
 quickly, but I'd rather align with you on the open questions below before locking an
 approach.
 
