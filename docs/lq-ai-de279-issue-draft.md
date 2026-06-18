@@ -98,7 +98,8 @@ post-resolution comparison come from my own
 mature CourtListener-based citation verifier with a regression corpus. DE-279
 separately names
 [`Tucuxi-Inc/Legal-Week-Cite-Checker`](https://github.com/Tucuxi-Inc/Legal-Week-Cite-Checker)
-as a reference implementation (same problem space).
+as its reference implementation; `citation-verifier` is an **independent** tool in
+the same problem space (not derived from it).
 
 **Open questions (happy to shape before opening a PR):**
 1. Standalone `POST /research/validate-citations` first, or wire straight into the
