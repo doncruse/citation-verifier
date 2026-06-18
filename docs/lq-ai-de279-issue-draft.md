@@ -86,6 +86,22 @@ Document Pipeline / Citation Engine; Backend (API)
   reach CourtListener and make its name-match judgments *outside* lq-ai's gateway,
   tier-routing, and anonymization — defeating the self-hosting / data-sovereignty
   guarantee. Porting the logic in keeps everything inside the audited boundary.
+- **Point lq-ai's (forthcoming) MCP client at the CourtListener MCP server, whose
+  `analyze_citations` already name-checks** (it warns when the asserted name differs
+  from the cluster's canonical name). Rejected for the citation *engine*: that match
+  would run server-side inside a third-party MCP — a black box, counter to lq-ai's
+  principle that verification logic is open and inspectable — and it depends on the
+  unbuilt MCP client plus an external server each operator must allowlist and trust.
+  Its existence does confirm the feature is worth having; the question is only whether
+  lq-ai's own open, in-boundary engine does it natively (this proposal) or outsources
+  it opaquely.
+- **Port `Legal-Week-Cite-Checker` directly, as DE-279 suggests.** LWCC is a sound
+  reference for the *approach* (extract → resolve → fall back to a name search), and is
+  what DE-279 points at. But it's a Swift / iOS app, whereas DE-279's target is a Python
+  module (`api/app/citation/case_resolver.py`) — so it isn't a line-for-line port; any
+  implementation is a Python rewrite regardless. `citation-verifier` is already Python,
+  covers the same flow with tuned name-matching and a regression corpus, so it's the
+  more direct source for the logic — while LWCC remains a useful design reference.
 
 ## Additional context
 **Deliberately scoped as a first slice.** Out of scope for this PR: the
@@ -137,9 +153,12 @@ my implementation: [`rlfordon/citation-verifier`](https://github.com/rlfordon/ci
 - [x] Root-cause theory: gap is by-design (tool scoped to resolution; name-check deferred to DE-279)
 
 **Two things still to confirm with you:**
-1. **citation-verifier ↔ Legal-Week-Cite-Checker relationship.** Phrased neutrally as
-   "same problem space." If one is your successor to the other (or they share lineage),
-   say so and I'll word it precisely.
+1. **citation-verifier ↔ Legal-Week-Cite-Checker** — RESOLVED: stated as independent
+   (not derived). LWCC is a Swift/iOS app, so an "Alternatives considered" bullet now
+   explains why `citation-verifier` (Python) is the port source. Heads-up: LWCC's Xcode
+   metadata shows author `kevinkeller` — very likely the lq-ai gateway reviewer "Kevin"
+   — so the draft keeps every LWCC reference factual and respectful (the rejection is
+   language/shape, never quality).
 2. **Issue vs. lighter touch.** You're an org member but read-only on this repo, so a
    PR still goes via fork. This issue is courtesy + design-alignment before building;
    it's not strictly required, but recommended given the open design questions.
