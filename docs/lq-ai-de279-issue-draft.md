@@ -147,8 +147,12 @@ as its reference implementation; `citation-verifier` is an **independent** tool 
 the same problem space (not derived from it).
 
 **Open questions (happy to shape before opening a PR):**
-1. Standalone `POST /research/validate-citations` first, or wire straight into the
-   chat-send pipeline (DE-279's "runs on every chat response")?
+1. **Start standalone, or go straight to chat integration?** This proposal builds the
+   check as a standalone endpoint (`POST /research/validate-citations`) that's called on
+   demand — the smallest first step. DE-279's end state is bigger: the check runs
+   automatically on every AI chat response and shows inline. Is it OK to land the
+   standalone engine first and wire it into the chat flow as a follow-up, or would you
+   rather it go into chat from the start?
 2. Does a deterministic name-match layer fit the thin-tool model, or would you
    prefer it shaped differently?
 3. Verdict vocabulary — reuse the existing Citation Engine's chip states (the
