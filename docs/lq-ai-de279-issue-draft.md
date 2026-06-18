@@ -60,8 +60,11 @@ criteria, verified against current `main`.
 
 *Provenance: the capability, goal, and module name above are DE-279's. What this
 issue adds is (a) the live-code finding that the shipped tool does no name check,
-(b) a concrete name-match implementation, and (c) a bounded first-slice plan + an
-offer to build it.*
+(b) a concrete name-match implementation, (c) a bounded first-slice plan + an offer
+to build it, and (d) the design reasoning below — the alternatives weighed and the
+api-side-over-gateway choice — which is mine, drawing on lq-ai's documented
+architecture (ADR 0014; the Citation Engine's thin-tool design). DE-279 itself
+states only a chosen approach; it weighs no alternatives.*
 
 ## Related DE-### entry
 DE-279 — [PRD §9](https://github.com/LegalQuants/lq-ai/blob/main/docs/PRD.md#de-279--case-citation-validation-bluebook-resolution-via-courtlistener)
@@ -72,7 +75,8 @@ Document Pipeline / Citation Engine; Backend (API)
 ## Alternatives considered
 - **Let the chat model eyeball the name match** from the returned cluster metadata.
   Rejected: unreliable for exactly the adversarial case — the model that fabricated
-  the cite is the one judging it. A deterministic check is the transparency-pilled answer.
+  the cite is the one judging it. A deterministic check is also auditable: anyone can
+  read exactly how the name was validated, whereas an in-model judgment is opaque.
 - **Name-check inside `verify_citations` (gateway).** Rejected for this slice: it
   changes the tool's output contract and pulls the work into the `gateway/**`
   security-review surface. An api-side layer keeps the boundary clean and the review light.
@@ -81,11 +85,12 @@ Document Pipeline / Citation Engine; Backend (API)
   gateway, breaking the data-sovereignty posture.
 
 ## Additional context
-**Deliberately scoped as a first slice.** Non-goals here, tracked as a follow-up:
-fallback opinion/RECAP search when the reporter doesn't resolve,
-reporter-family/parallel-citation reasoning, and the chat-pipeline auto-run +
-`message_case_citations` persistence + web chip/Cypress E2E that complete DE-279's
-acceptance criteria.
+**Deliberately scoped as a first slice.** Out of scope for this PR: the
+chat-pipeline auto-run + `message_case_citations` persistence + web chip/Cypress
+E2E that complete DE-279's own acceptance criteria (a natural second PR); plus
+fallback opinion/RECAP search and reporter-family/parallel-citation reasoning, which
+go beyond DE-279 and could be filed as separate enhancements if there's interest.
+(None of these are tracked anywhere yet — I'd open follow-ups as you prefer.)
 
 **Prior art / what I'd port.** The name-match logic, status taxonomy, and lenient
 post-resolution comparison come from my own
@@ -100,7 +105,9 @@ as a reference implementation (same problem space).
    chat-send pipeline (DE-279's "runs on every chat response")?
 2. Does a deterministic name-match layer fit the thin-tool model, or would you
    prefer it shaped differently?
-3. Verdict vocabulary — reuse the type-1 chip states, or a distinct case-citation set?
+3. Verdict vocabulary — reuse the existing Citation Engine's chip states (the
+   green / yellow / grey inline badges it already shows for document-quote
+   citations), or a distinct set for case citations?
 
 I'm a LegalQuants org member (read access on this repo) and happy to implement the
 api-only first slice and iterate in review.
