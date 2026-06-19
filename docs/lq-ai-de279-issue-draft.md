@@ -23,7 +23,9 @@ gap DE-279 anticipated is now **live in shipped code**.
 In practice the failure is rarely an invented reporter slot (those simply fail to
 resolve) — it's a **real reporter slot under a wrong or invented case name**, e.g. a
 model emits `Smith v. Jones, 576 U.S. 644 (2015)` when `576 U.S. 644` is actually
-*Obergefell v. Hodges*. That should be caught; today it passes as "resolved."
+*Obergefell v. Hodges*. That should be caught; today it passes as "resolved" — leaving
+anyone using lq-ai for litigation or legal-research work exposed to a fabricated cite
+slipping into a filing.
 
 ## Why this can't be met today
 DE-279 was written before the CourtListener lookup tool shipped (PRs
@@ -95,9 +97,10 @@ Document Pipeline / Citation Engine; Backend (API)
   reference for the *approach* (extract → resolve → fall back to a name search), and is
   what DE-279 points at. But it's a Swift / iOS app, whereas DE-279's target is a Python
   module (`api/app/citation/case_resolver.py`) — so it isn't a line-for-line port; any
-  implementation is a Python rewrite regardless. `citation-verifier` is already Python,
-  covers the same flow with tuned name-matching and a regression corpus, so it's the
-  more direct source for the logic — while LWCC remains a useful design reference.
+  implementation is a Python rewrite regardless. `citation-verifier` — an independent
+  tool, not derived from LWCC — is already Python, covers the same flow with tuned
+  name-matching and a regression corpus, so it's the more direct source for the logic,
+  while LWCC remains a useful design reference.
 
 ## Additional context
 **Deliberately scoped as a first slice.** Out of scope for this PR: the
@@ -111,17 +114,17 @@ free federal court-docket archive (RECAP). I'd open follow-ups as you prefer.
 **Prior art / what I'd port.** I build and maintain
 [`rlfordon/citation-verifier`](https://github.com/rlfordon/citation-verifier) — a Python
 tool that checks legal citations against CourtListener to catch AI-hallucinated and
-misattributed case citations. It also verifies quoted passages against the opinion text,
-and whether a cited case actually supports the proposition it's cited for — surfaces
-lq-ai has on its own roadmap (proposition/case-content accuracy is DE-280; quote-grounding
-extends the Citation Engine to case law). I'm scoping *this* PR to the DE-279 name-check
-only; I flag the rest just as context. The tool runs against real briefs with a regression
-corpus of known-real and known-fabricated citations, so the name-match logic, status
-taxonomy, and lenient post-resolution comparison this PR ports are already exercised against
-real and adversarial inputs. DE-279 names
-[`Tucuxi-Inc/Legal-Week-Cite-Checker`](https://github.com/Tucuxi-Inc/Legal-Week-Cite-Checker)
-as its reference implementation; `citation-verifier` is an **independent** tool in the same
-space (not derived from it).
+misattributed case citations. (It also checks quoted passages and whether a case supports
+the proposition it's cited for — surfaces on lq-ai's own roadmap, e.g. DE-280 — but I'm
+scoping *this* PR to the DE-279 name-check.) It runs against real briefs with a regression
+corpus of known-real and known-fabricated citations, so the logic this PR ports is already
+exercised against real and adversarial inputs.
+
+A bit more on who's offering: I'm a law librarian and former bankruptcy attorney with a
+lot of CourtListener-API mileage across side projects. I also serve on the Free Law
+Project board — FLP runs CourtListener — but to be clear, this is a personal project, not
+an FLP initiative. As a LegalQuants org member (read-only on this repo) I'm happy to
+implement the api-only first slice and iterate in review.
 
 **Open questions (happy to shape before opening a PR):**
 1. **Start standalone, or go straight to chat integration?** This proposal builds the
@@ -135,13 +138,6 @@ space (not derived from it).
 3. Verdict vocabulary — reuse the existing Citation Engine's chip states (the
    green / yellow / grey inline badges it already shows for document-quote
    citations), or a distinct set for case citations?
-
-A bit on who's offering: I'm a law librarian and former bankruptcy attorney, and I've
-spent a lot of time on the CourtListener API across side projects (like
-`citation-verifier`). I also serve on the Free Law Project board — FLP runs
-CourtListener — but to be clear, this is a personal project, not an FLP initiative. As a
-LegalQuants org member (read-only on this repo) I'm happy to implement the api-only first
-slice and iterate in review.
 
 **References:** legal-research mini-PRD
 ([`docs/proposals/legal-research-and-mcp.md`](https://github.com/LegalQuants/lq-ai/blob/main/docs/proposals/legal-research-and-mcp.md)),
