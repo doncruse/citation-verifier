@@ -1,6 +1,6 @@
-# DE-279 issue draft (for LegalQuants/lq-ai) — NOT FILED
+# DE-279 issue draft (for LegalQuants/lq-ai) — FILED as #173
 
-> **Status:** draft for review — not filed. The issue body below (everything between the two `---` rules) is **paste-ready**: paragraphs are unwrapped (single lines) so GitHub-Flavored Markdown reflows them instead of showing mid-paragraph line breaks. File by pasting into the web "Feature Request" form (blank issues are disabled), or `gh issue create -R legalquants/lq-ai --title "<title below>" --body-file <a file holding just the body>`.
+> **Status:** FILED 2026-06-19 as [LegalQuants/lq-ai#173](https://github.com/LegalQuants/lq-ai/issues/173). Draft retained for history; the body below is what was submitted.
 >
 > **Target:** `LegalQuants/lq-ai` · **Template:** `feature-request.yml` · **Labels (auto):** `enhancement`, `needs-triage`
 > **Companion artifacts:** [`docs/lq-ai-comparison.md`](lq-ai-comparison.md) · [`docs/plans/2026-06-18-de279-lq-ai-case-resolver-port.md`](plans/2026-06-18-de279-lq-ai-case-resolver-port.md)

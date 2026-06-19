@@ -12,6 +12,8 @@
 
 ## Hand-off — contribute DE-279 to lq-ai (case citation validation)
 
+> **Filed 2026-06-19 as [lq-ai#173](https://github.com/LegalQuants/lq-ai/issues/173).** Awaiting maintainer response on the 3 open questions; the plan below is ready to execute once a shape is greenlit.
+
 Port our name-match verification into [LegalQuants/lq-ai](https://github.com/LegalQuants/lq-ai)
 as their unbuilt **DE-279** (catches the name-swap fabrication their thin
 `verify_citations` tool misses). Background + ranked PR map:
