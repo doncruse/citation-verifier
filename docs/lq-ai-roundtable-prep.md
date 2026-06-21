@@ -8,6 +8,7 @@
 - It's a **bounty board.** DE-279 is a *posted* bounty — claiming it is welcomed, not intruding.
 - You're at **day ~1.5 of their ~7-day** response window. Nothing's been ignored.
 - You're the rare person who can **build the verification engine *and* attest to it** ("attestation is the deliverable — agents can't attest"). You belong in this room.
+- **What just shipped (be current):** the `case-law-research` skill (v1.0.0) landed — but it's retrieval + "grounding discipline," **explicitly not a citator**; it does *not* verify citation validity or proposition support. That's the gap you fill. Don't argue the skill's shape (it's done) — build on it.
 
 ---
 
@@ -25,12 +26,12 @@
 
 1. **I've claimed DE-279** (issue #173) — happy to do the Python port; a small, surgical first slice on top of the CourtListener tool you already shipped.
 2. **The research-quality layer is the least-planned, highest-value piece** — is the citation real, does the case support the claim. I've built exactly this and can bring it.
-3. **Worth deciding early:** is the case-law research skill (6d) *one* skill, or a **decomposed set of skills + an orchestrator**? (Raise as a question — it's a "discuss-first" item per the guide.)
+3. **The case-law-research skill just shipped (v1.0.0) — and it explicitly punts verification.** It says it's *"not a citator"* and tells users to validate in Westlaw/Lexis. The complement — open, CourtListener-based verification (is the citation real, does the case support the proposition) — is the missing half, and I've already built it. Frame: "great retrieval layer; here's the validation half it disclaims, kept open instead of punted to paid tools."
 
 ## Better than talking — *ask these* (opens doors, shows you get it)
 
 - "What's the plan for the research-quality / verification layer — DE-279 and DE-280? Near-term, or deferred?"
-- "Is the case-law research skill (6d) conceived as one skill, or decomposed with an orchestrator?"
+- "The case-law-research skill explicitly isn't a citator and punts validation to Westlaw/Lexis — is open, CourtListener-based verification (citation validity, proposition support) on the roadmap, or is that a gap I could take?"
 - "For the gold sets and skill acceptance tests where attorney attestation is the deliverable — how do you want that to flow from a contributor?"
 
 ## Tone / watch-outs
