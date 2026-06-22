@@ -7,6 +7,8 @@ The project has two layers:
 1. **Citation verifier** — does a citation resolve to a real case, and is it the case it claims to be? (The core 3-step pipeline below.)
 2. **Proposition verifier** — does the cited case actually *support the proposition it's cited for*? An LLM-assisted pipeline that reads the matched opinions, checks quotes, and produces an interactive HTML report. See [Proposition Verification](#proposition-verification).
 
+**Evals/benchmarks:** see [`EVALS.md`](EVALS.md) for the citation-resolution and proposition-support corpora (including 511 fabricated citations mined from Damien Charlotin's hallucination database), all offline-replayable via cassettes.
+
 > **Upgrading from v0.2?** The v0.3 release reshapes `VerificationResult` and the `Status` enum (no more `LIKELY_REAL` / `POSSIBLE_MATCH`; new `WRONG_CASE` / `VERIFIED_VIA_RECAP` / `VERIFICATION_INCOMPLETE`). See [`CHANGELOG.md`](CHANGELOG.md#migrating-from-v02-to-v03) for the field-by-field migration table.
 
 ## Try It
