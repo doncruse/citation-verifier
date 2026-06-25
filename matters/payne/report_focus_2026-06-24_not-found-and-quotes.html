@@ -1,0 +1,188 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Payne — Not-found / Quotation issues</title><style>
+:root{--bg:#fbfaf8;--card:#fff;--ink:#23201c;--muted:#6b6358;--line:#e7e2d9;
+--red:#b42318;--redbg:#fef3f2;--amber:#b54708;--amberbg:#fffaeb;--gray:#475467;--graybg:#f2f4f7;}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 -apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;}
+.wrap{max-width:860px;margin:0 auto;padding:40px 24px 80px;}
+h1{font-size:26px;margin:0 0 4px;letter-spacing:-.01em}
+.sub{color:var(--muted);font-size:14px;margin:0 0 6px}
+.meta{color:var(--muted);font-size:13px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:10px 0;margin:18px 0 28px}
+.meta b{color:var(--ink)}
+h2{font-size:19px;margin:38px 0 4px;letter-spacing:-.01em}
+.lead{color:var(--muted);font-size:14px;margin:0 0 16px}
+.count{display:inline-block;background:var(--graybg);color:var(--gray);border-radius:20px;padding:1px 10px;font-size:13px;font-weight:600;margin-left:8px;vertical-align:middle}
+.card{background:var(--card);border:1px solid var(--line);border-left-width:5px;border-radius:10px;padding:16px 18px;margin:12px 0;box-shadow:0 1px 2px rgba(0,0,0,.03)}
+.card.red{border-left-color:var(--red)}
+.card.amber{border-left-color:var(--amber)}
+.card.gray{border-left-color:var(--gray)}
+.case{font-weight:700;font-size:16px;margin:0 0 2px}
+.pg{color:var(--muted);font-size:12.5px;font-weight:500}
+.badge{display:inline-block;font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.03em;padding:2px 8px;border-radius:5px;margin:6px 0 8px}
+.badge.red{background:var(--redbg);color:var(--red)}
+.badge.amber{background:var(--amberbg);color:var(--amber)}
+.badge.gray{background:var(--graybg);color:var(--gray)}
+.row{margin:8px 0}
+.lbl{font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);margin-bottom:2px}
+.prop{font-size:14.5px}
+.quote{background:var(--redbg);border-left:3px solid var(--red);padding:8px 12px;border-radius:0 6px 6px 0;font-size:14px;color:#7a271a;font-style:italic}
+.quote.amber{background:var(--amberbg);border-left-color:var(--amber);color:#7a4a0a}
+.sent{background:#f7f5f1;border-radius:6px;padding:8px 12px;font-size:13.5px;color:#433f38}
+.note{font-size:14px}
+.note.gray{color:var(--gray)}
+code{background:#f2f0ec;padding:1px 5px;border-radius:4px;font-size:12.5px}
+.tip{background:#f0f7ff;border:1px solid #d6e8ff;border-radius:8px;padding:12px 16px;font-size:13.5px;color:#1c3d5a;margin:16px 0 0}
+footer{margin-top:46px;padding-top:16px;border-top:1px solid var(--line);color:var(--muted);font-size:12.5px}
+</style></head><body><div class="wrap">
+<h1>Not-Found / Mismatched Citations &amp; Quotation Errors</h1>
+<p class="sub"><i>State of Georgia v. Hannah Renee Payne</i>, No. 2019CR01737-14 &mdash; Order Denying Motion for New Trial (proposed)</p>
+<div class="meta">Filtered view &mdash; run <b>2026-06-24</b> &middot; assess-v2 / Opus &middot; code <b>efd173d</b><br>Shows only citation-resolution problems and quotation errors. Full results: <code>report.html</code> &middot; supporting data: <code>claims.csv</code>.</div>
+<h2>1 &nbsp;Citations that could not be confirmed<span class="count">8</span></h2>
+<p class="lead">CourtListener could not match the cited case at the cited reporter location. These were <b>not machine-assessed</b> and need a manual check &mdash; some may be additional hallucinated or garbled citations.</p>
+<div class="card red">
+<div class="case">Harbuck v. State, 288 Ga. 768 (2011) <span class="pg">&nbsp;· p.13</span></div>
+<span class="badge red">Wrong case at this citation</span>
+<div class="row"><div class="lbl">Cited for</div><div class="prop">A valid citizen&#x27;s arrest must occur immediately and without delay.</div></div>
+<div class="row"><div class="lbl">What to do</div><div class="note ">CourtListener finds a different case at <b>288 Ga. 768</b>: <i>State V Rozier</i>. The cited name/volume/page do not line up — verify by hand.</div></div>
+</div>
+<div class="card red">
+<div class="case">Jones v. State, 283 Ga. 155 (2008) <span class="pg">&nbsp;· p.13</span></div>
+<span class="badge red">Wrong case at this citation</span>
+<div class="row"><div class="lbl">Cited for</div><div class="prop">Georgia courts have routinely declined to find prejudice where the omitted instruction was factually or legally unsupported.</div></div>
+<div class="row"><div class="lbl">What to do</div><div class="note ">CourtListener finds a different case at <b>283 Ga. 155</b>: <i>Moore V State</i>. Verify the citation by hand.</div></div>
+</div>
+<div class="card red">
+<div class="case">Hughes v. State, 269 Ga. App. 242 (2004) <span class="pg">&nbsp;· p.13</span></div>
+<span class="badge red">Wrong case at this citation</span>
+<div class="row"><div class="lbl">Cited for</div><div class="prop">Georgia courts have routinely declined to find prejudice where the omitted instruction was factually or legally unsupported.</div></div>
+<div class="row"><div class="lbl">What to do</div><div class="note ">CourtListener finds a different case at <b>269 Ga. App. 242</b>: <i>Bravo V State</i>. Verify the citation by hand.</div></div>
+</div>
+<div class="card red">
+<div class="case">Bryant v. State, 268 Ga. App. 362 (2004) <span class="pg">&nbsp;· p.20</span></div>
+<span class="badge red">Wrong case at this citation</span>
+<div class="row"><div class="lbl">Cited for</div><div class="prop">A defendant alleging ineffective assistance for failure to call witnesses must make an affirmative showing that the witness would have testified and that the testimony would have made a difference.</div></div>
+<div class="row"><div class="lbl">What to do</div><div class="note ">CourtListener finds a different case at <b>268 Ga. App. 362</b>: <i>In The Interest Of D L</i>. Verify the citation by hand.</div></div>
+</div>
+<div class="card red">
+<div class="case">Patel v. State, 279 Ga. 50 <span class="pg">&nbsp;· p.31</span></div>
+<span class="badge red">Wrong case at this citation</span>
+<div class="row"><div class="lbl">Cited for</div><div class="prop">A jury charge on citizen&#x27;s arrest was not warranted because there was no evidence that the defendant was attempting to effectuate an arrest and the defendant used more force than was reasonable under the circumstances.</div></div>
+<div class="row"><div class="lbl">What to do</div><div class="note ">CourtListener finds a different case at <b>279 Ga. 50</b>: <i>Smith V State</i>. This is almost certainly a typo — the order cites <b>Patel v. State, 279 Ga. <u>750</u></b> elsewhere. Confirm the intended pincite.</div></div>
+</div>
+<div class="card amber">
+<div class="case">Reynolds v. State, 306 Ga. 630 (2019) <span class="pg">&nbsp;· p.12</span></div>
+<span class="badge amber">Not Found</span>
+<div class="row"><div class="lbl">Cited for</div><div class="prop">Georgia courts adopted the Strickland two-prong test for ineffective assistance of counsel claims.</div></div>
+<div class="row"><div class="lbl">Assessment</div><div class="note">The brief cites Reynolds v. State, 306 Ga. 630 (2019), but the opinion on file is Black v. State, 264 Ga. 550 (1994) -- a different case. The proposition cannot be grounded in the cited authority because the citation resolves to a different opinion. As an aside, the Black opinion does apply the Strickland two-prong framework, requiring a defendant to show that &quot;counsel&#x27;s performance was deficient&quot; and &quot;that the deficient performance prejudiced the defense,&quot; so the underlying legal principle is sound; but Black is not the case the brief invokes for the proposition that Georgia courts adopted Strickland, and nothing in this opinion establishes that Reynolds did so.</div></div>
+<div class="row"><div class="lbl">What to do</div><div class="note ">Not found at the cited reporter (NOT_FOUND). <i>Reynolds</i> is cited throughout for Georgia's adoption of <i>Strickland</i>; likely a verifier miss rather than a bad cite, but confirm <b>306 Ga. 630</b> by hand.</div></div>
+</div>
+<div class="card amber">
+<div class="case">Reynolds, 306 Ga. 630 (2019) <span class="pg">&nbsp;· p.24</span></div>
+<span class="badge amber">Not Found</span>
+<div class="row"><div class="lbl">Cited for</div><div class="prop">Georgia courts adopted the Strickland two-prong test for ineffective assistance of counsel claims.</div></div>
+<div class="row"><div class="lbl">What to do</div><div class="note ">Short-form repeat of the <i>Reynolds</i> cite above (p.24). Same NOT_FOUND result — confirm <b>306 Ga. 630</b> by hand.</div></div>
+</div>
+<div class="card amber">
+<div class="case">United States v. Valenzuela-Bernal (1982) <span class="pg">&nbsp;· p.21</span></div>
+<span class="badge amber">Insufficient Data</span>
+<div class="row"><div class="lbl">Cited for</div><div class="prop">A defendant alleging ineffective assistance for failure to call a witness must show the missing witness&#x27;s testimony would have been material and favorable.</div></div>
+<div class="row"><div class="lbl">What to do</div><div class="note ">Cited with <b>no reporter citation</b> (year only), so it could not be looked up. Supply the full cite — <i>United States v. Valenzuela-Bernal</i>, 458 U.S. 858 (1982) — and re-check.</div></div>
+</div>
+<h2>2 &nbsp;&ldquo;Resolves to different case&rdquo; &mdash; verifier artifacts<span class="count">5</span></h2>
+<p class="lead">These flagged as mismatches <b>only because of a tool bug</b> (no distinct opinion file was saved, so the claim was compared against a same-named case). CourtListener verified each as correctly cited. <b>Disregard as brief defects.</b></p>
+<div class="card gray">
+<div class="case">Taylor v. State, 259 Ga. App. 457, 460 (2003) <span class="pg">&nbsp;· p.33</span></div>
+<span class="badge gray">Verifier artifact — correctly cited</span>
+<div class="row"><div class="lbl">Cited for</div><div class="prop">The grant or denial of a motion for new trial is a matter within the sound discretion of the trial court and will not be disturbed if there is any evidence to authorize it.</div></div>
+<div class="row"><div class="lbl">Assessment</div><div class="note">The brief cites Taylor v. State, 259 Ga. App. 457, 460 (2003) for the standard governing the grant or denial of a motion for new trial, but the opinion on file is Black v. State, 264 Ga. 550 (1994) -- a different case. The citation resolves to a different opinion, so the cited authority cannot ground the proposition.
+
+Separately, the quoted language does not appear anywhere in this opinion (consistent with the FABRICATED quote-check result). Black v. State addresses ineffective assistance of counsel and a motion to quash an indictment based on grand-jury disqualification; it does not state any standard of review for the grant or denial of a motion for new trial, so the subject matter is also absent from the document provided.</div></div>
+<div class="row"><div class="lbl">What to do</div><div class="note gray"><i>Taylor v. State</i> <b>was verified at CourtListener</b> (correctly cited, quoting the new-trial-discretion standard). The Red is a tool artifact: no distinct <code>Taylor</code> opinion file was saved, so the claim was compared against <code>Black_v_State.html</code>. <b>Disregard — not a brief defect.</b></div></div>
+</div>
+<div class="card gray">
+<div class="case">Jackson v. Virginia, 443 U.S. 307 (1979) <span class="pg">&nbsp;· p.34</span></div>
+<span class="badge gray">Verifier artifact — correctly cited</span>
+<div class="row"><div class="lbl">Cited for</div><div class="prop">The standard for reviewing sufficiency of the evidence is whether the evidence was sufficient for a rational trier of fact to find beyond a reasonable doubt that the defendant was guilty of the charged offenses.</div></div>
+<div class="row"><div class="lbl">Assessment</div><div class="note">The brief cites Jackson v. Virginia, 443 U.S. 307 (1979), a U.S. Supreme Court case, for the sufficiency-of-the-evidence standard, but the opinion provided is Johnson v. Jackson, 140 Ga. App. 252 (1976), a Georgia Court of Appeals civil case about a landowner&#x27;s citizen&#x27;s arrest and use of deadly force against a fleeing burglary suspect. The provided opinion does not contain the rational-trier-of-fact sufficiency standard and is a different case entirely, so this proposition cannot be supported from the opinion before me.</div></div>
+<div class="row"><div class="lbl">What to do</div><div class="note gray"><i>Jackson v. Virginia</i>, 443 U.S. 307 — the federal sufficiency-of-the-evidence standard — <b>was verified at CourtListener</b> and is correctly cited. The Red is a tool artifact: it was compared against <code>Johnson_v_Jackson.html</code> (a different Georgia case). <b>Disregard.</b></div></div>
+</div>
+<div class="card gray">
+<div class="case">Jackson v. Virginia, 443 U.S. 307 (1979) <span class="pg">&nbsp;· p.35</span></div>
+<span class="badge gray">Verifier artifact — correctly cited</span>
+<div class="row"><div class="lbl">Cited for</div><div class="prop">The evidence admitted at trial, including lay testimony, expert testimony, and exhibits, was sufficient for a rational trier of fact to find the defendant guilty of all charges beyond a reasonable doubt.</div></div>
+<div class="row"><div class="lbl">Assessment</div><div class="note">The brief cites Jackson v. Virginia, 443 U.S. 307 (1979), for the proposition that the trial evidence was sufficient for a rational trier of fact to find guilt beyond a reasonable doubt, but the opinion provided is Johnson v. Jackson, 140 Ga. App. 252 (1976), an unrelated Georgia citizen&#x27;s-arrest and deadly-force case. The provided opinion contains no sufficiency-of-the-evidence standard and does not address this proposition; it is a different case than the one cited.</div></div>
+<div class="row"><div class="lbl">What to do</div><div class="note gray">Second correct citation to <i>Jackson v. Virginia</i>, 443 U.S. 307 (p.35), <b>verified at CourtListener</b>. Same linkage artifact as above. <b>Disregard.</b></div></div>
+</div>
+<div class="card gray">
+<div class="case">Davis v. State, 285 Ga. 343 (2009) <span class="pg">&nbsp;· p.13</span></div>
+<span class="badge gray">Verifier artifact — correctly cited</span>
+<div class="row"><div class="lbl">Cited for</div><div class="prop">The failure to request a jury instruction not supported by the evidence does not constitute deficient performance.</div></div>
+<div class="row"><div class="lbl">Assessment</div><div class="note">The brief cites Davis v. State, 285 Ga. 343 (2009), but the opinion provided resolves to a different decision: Davis v. State, 269 Ga. 276 (1998), a Benham, C.J. opinion affirming a felony-murder conviction (stabbing death of Danny Reid), with page markers running *277 through *281 and a crime date of 1993. The 285 Ga. 343 (2009) decision is not the document supplied. Because the cited case is not before me, I cannot ground a judgment on whether it supports the deficient-performance proposition. The 1998 opinion in hand does discuss the refusal to give a requested accident charge for lack of supporting evidence (Division 3), but it is a trial-court-error analysis, not an ineffective-assistance/deficient-performance holding, and in any event it is the wrong case.</div></div>
+<div class="row"><div class="lbl">What to do</div><div class="note gray"><i>Davis v. State</i>, 285 Ga. 343 (2009) <b>was verified at CourtListener</b>. Marked unverifiable only because its opinion file collided with the unrelated 1998 <i>Davis v. State</i>, 269 Ga. 276 (same <code>Davis_v_State.html</code> filename). Confirm the 2009 opinion supports the point; the citation itself resolves.</div></div>
+</div>
+<div class="card gray">
+<div class="case">Davis v. State, 285 Ga. 343 (2009) <span class="pg">&nbsp;· p.25</span></div>
+<span class="badge gray">Verifier artifact — correctly cited</span>
+<div class="row"><div class="lbl">Cited for</div><div class="prop">The failure to request a jury instruction not supported by the evidence does not constitute deficient performance.</div></div>
+<div class="row"><div class="lbl">Assessment</div><div class="note">The brief cites Davis v. State, 285 Ga. 343 (2009), but the opinion provided resolves to a different decision: Davis v. State, 269 Ga. 276 (1998), a Benham, C.J. opinion affirming a felony-murder conviction, with page markers running *277 through *281 and a 1993 crime date. The 285 Ga. 343 (2009) decision is not the document supplied, so the cited case cannot ground a judgment on the deficient-performance proposition. The 1998 opinion does address the trial court&#x27;s refusal to give a requested accident charge for lack of supporting evidence (Division 3), but that is a direct-error analysis rather than an ineffective-assistance/deficient-performance holding, and it is the wrong case in any event.</div></div>
+<div class="row"><div class="lbl">What to do</div><div class="note gray">Repeat of the 2009 <i>Davis</i> cite (p.25). Same filename-collision artifact. The citation resolves at CourtListener.</div></div>
+</div>
+<h2>3 &nbsp;Quotation errors<span class="count">6</span></h2>
+<p class="lead">Language placed inside quotation marks in the order that does not appear in the cited opinion, or that has been materially reworded. (Minor apostrophe/ellipsis differences in otherwise-accurate quotes are excluded.)</p>
+<div class="card red">
+<div class="case">Manzano v. State, 282 Ga. 557, 559 (2007) <span class="pg">&nbsp;· p.15</span></div>
+<span class="badge red">Fabricated quote — not in the opinion</span>
+<div class="row"><div class="lbl">Cited for</div><div class="prop">A charge on justification is proper where the defendant contends that his actions were legally authorized and necessary to prevent a crime or injury.</div></div>
+<div class="row"><div class="lbl">Quoted in the order (not found / altered in the opinion)</div><div class="quote ">“A charge on justification is proper where the defendant contends that his actions were legally authorized and necessary to prevent a crime or injury.”</div></div>
+<div class="row"><div class="lbl">Assessment</div><div class="note">The quoted sentence does not appear anywhere in Manzano v. State, and the case does not discuss justification at all. Page 559 of the opinion (the pincite given) concerns the rule, drawn from Rhodes v. State, that &quot;if the victim is not placed in reasonable apprehension of immediate violent injury by the pointing of the firearm, only the misdemeanor of pointing a firearm (and not the felony of aggravated assault) has been committed&quot; — a discussion of involuntary manslaughter and the pointing-a-pistol misdemeanor, not justification. The brief attributes a fabricated rule of law to a case that says nothing about when a justification charge is proper.</div></div>
+<div class="row"><div class="lbl">What to do</div><div class="note ">Remove or correct the quotation; the cited opinion does not contain this language.</div></div>
+</div>
+<div class="card red">
+<div class="case">Durden v. State, 327 Ga. App. 173, 179 (2014) <span class="pg">&nbsp;· p.15</span></div>
+<span class="badge red">Fabricated quote — not in the opinion</span>
+<div class="row"><div class="lbl">Cited for</div><div class="prop">Although the defendant requested a charge on citizen&#x27;s arrest, the trial court properly charged justification, which covered the substance of his defense, and a trial court is not required to give redundant instructions.</div></div>
+<div class="row"><div class="lbl">Quoted in the order (not found / altered in the opinion)</div><div class="quote ">“[a]lthough the defendant requested a charge on citizen&#x27;s arrest, the trial court properly charged justification, which covered the substance of his defense. A trial court is not required to give redundant instructions.”</div></div>
+<div class="row"><div class="lbl">Assessment</div><div class="note">Durden v. State is a Georgia Court of Appeals criminal case about a defendant&#x27;s convictions for aggravated assault and aggravated battery arising from a sword attack on his wife. It does not address citizen&#x27;s arrest, a justification charge, or any rule that a trial court need not give redundant instructions. The only jury-charge issue the opinion decides is the trial court&#x27;s refusal to charge the affirmative defense of accident, and the court held that refusal was proper solely because Durden never admitted committing the act, not because justification covered the substance of his defense. The quoted language appears nowhere in the opinion (the quote check flags it as FABRICATED), and the principle the brief attributes to the case — a properly charged justification covering a requested citizen&#x27;s-arrest charge as redundant — has no basis in the text.</div></div>
+<div class="row"><div class="lbl">What to do</div><div class="note ">Remove or correct the quotation; the cited opinion does not contain this language.</div></div>
+</div>
+<div class="card red">
+<div class="case">Lang v. State, 344 Ga. App. 623, 627 (2018) <span class="pg">&nbsp;· p.15</span></div>
+<span class="badge red">Fabricated quote — not in the opinion</span>
+<div class="row"><div class="lbl">Cited for</div><div class="prop">A citizen&#x27;s arrest defense is not required when a justification charge sufficiently encompasses the defendant&#x27;s theory of the case.</div></div>
+<div class="row"><div class="lbl">Quoted in the order (not found / altered in the opinion)</div><div class="quote ">“[a] citizen&#x27;s arrest defense is not required when a justification charge sufficiently encompasses the defendant&#x27;s theory of the case.”</div></div>
+<div class="row"><div class="lbl">Assessment</div><div class="note">Lang v. State is a criminal appeal about a motion to sever or bifurcate charges (possession of a firearm by a convicted felon and participation in criminal gang activity) and the admission of gang-related evidence under OCGA § 24-4-403. It does not address citizen&#x27;s arrest, justification defenses, or whether a justification jury charge can obviate a separate citizen&#x27;s arrest instruction. The opinion contains no discussion of jury charges, the defendant&#x27;s theory of the case, citizen&#x27;s arrest, or justification at all; the quoted language appears nowhere in the opinion (quote check: FABRICATED), and the proposition is attributed to a case that decided an entirely different issue.</div></div>
+<div class="row"><div class="lbl">What to do</div><div class="note ">Remove or correct the quotation; the cited opinion does not contain this language.</div></div>
+</div>
+<div class="card red">
+<div class="case">Tarvestad v. State, 261 Ga. 605 <span class="pg">&nbsp;· p.31</span></div>
+<span class="badge red">Fabricated quote — not in the opinion</span>
+<div class="row"><div class="lbl">Cited for</div><div class="prop">A jury charge on a defendant&#x27;s sole defense is only required if there is some evidence to support the charge, and even slight evidence is sufficient, but there must be a legitimate basis for the defense.</div></div>
+<div class="row"><div class="lbl">Quoted in the order (not found / altered in the opinion)</div><div class="quote ">“but there must be a legitimate basis for the defense.”</div></div>
+<div class="row"><div class="lbl">Assessment</div><div class="note">Tarvestad squarely supports the core of the proposition: the opinion holds that the trial court must charge the jury on the defendant&#x27;s sole defense, even without a written request, if there is some evidence to support the charge. That &quot;some evidence&quot; standard is the holding&#x27;s centerpiece.
+
+The brief, however, layers on two qualifiers the opinion does not state. Tarvestad contains no &quot;even slight evidence is sufficient&quot; formulation, and it nowhere requires that &quot;there must be a legitimate basis for the defense&quot; -- the quoted phrase does not appear in the opinion (consistent with the FABRICATED quote-check result). Those glosses may come from the companion citation, but as attributed to Tarvestad they overstate what this case decided, so the support is partial rather than full.</div></div>
+<div class="row"><div class="lbl">What to do</div><div class="note ">Remove or correct the quotation; the cited opinion does not contain this language.</div></div>
+</div>
+<div class="card red">
+<div class="case">Virgil v. State, 227 Ga. App. 96 <span class="pg">&nbsp;· p.31</span></div>
+<span class="badge red">Fabricated quote — not in the opinion</span>
+<div class="row"><div class="lbl">Cited for</div><div class="prop">A jury charge on a defendant&#x27;s sole defense is only required if there is some evidence to support the charge, and even slight evidence is sufficient, but there must be a legitimate basis for the defense.</div></div>
+<div class="row"><div class="lbl">Quoted in the order (not found / altered in the opinion)</div><div class="quote ">“but there must be a legitimate basis for the defense.”</div></div>
+<div class="row"><div class="lbl">Assessment</div><div class="note">Virgil v. State is a DUI case in which the defendant argued the trial court erred by refusing to charge the jury on the defense of accident. The opinion supports the general notion that a charge on a defense requires a legitimate basis in the facts -- the court found &quot;no basis for a charge on the defense of accident under the facts of this case&quot; because Virgil did not actually claim any contested element of the offense was done by accident, but only that she was not driving or in actual physical control of the car.
+
+The opinion does not, however, articulate the brief&#x27;s specific standard that &quot;even slight evidence is sufficient&quot; to warrant such a charge. The quoted phrase &quot;but there must be a legitimate basis for the defense&quot; does not appear in the opinion (the quote check flags it as FABRICATED). The case is thus topically aligned with the legitimate-basis half of the proposition but does not state the slight-evidence rule the brief attributes to it, so the support is partial rather than full.</div></div>
+<div class="row"><div class="lbl">What to do</div><div class="note ">Remove or correct the quotation; the cited opinion does not contain this language.</div></div>
+</div>
+<div class="card amber">
+<div class="case">Smith v. State, 314 Ga. App. 583, 588 (2012) <span class="pg">&nbsp;· p.27</span></div>
+<span class="badge amber">Reworded — not a verbatim quote</span>
+<div class="row"><div class="lbl">Cited for</div><div class="prop">The decision whether to pursue a defense theory or request a specific jury charge is a question of trial strategy that will not be second-guessed unless it is so patently unreasonable that no competent attorney would have chosen it.</div></div>
+<div class="row"><div class="lbl">Quoted in the order (not found / altered in the opinion)</div><div class="quote amber">“a question of trial strategy”</div></div>
+<div class="row"><div class="lbl">Quoted in the order (not found / altered in the opinion)</div><div class="quote amber">“so patently unreasonable that no competent attorney would have chosen it.”</div></div>
+<div class="row"><div class="lbl">Assessment</div><div class="note">The cited case supports the underlying proposition. At page 588 the opinion holds that “decisions about which defense theories to pursue and which jury charges to request are strategic” and provide no grounds for reversal “unless such tactical decisions are so patently unreasonable that no competent attorney would have chosen them.” That is exactly the trial-strategy/deference principle the brief invokes.
+
+The quotation marks, however, are not accurate. “A question of trial strategy” does not appear in the opinion; the court says the decisions “are strategic.” And the brief’s second quotation ends “...chosen it,” whereas the opinion reads “...chosen them,” and the quoted phrase is part of the longer clause “provide no grounds for reversal unless such tactical decisions are so patently unreasonable....” The substance is sound, but counsel has presented reworded language as a verbatim quote and should conform the quotation to the opinion’s actual words.</div></div>
+<div class="row"><div class="lbl">What to do</div><div class="note ">Substance is supported, but the quoted words differ from the opinion. Re-quote verbatim or convert to a paraphrase without quotation marks.</div></div>
+</div>
+<div class="tip"><b>Note:</b> <i>Taylor v. State</i> (payne-73) also shows a &ldquo;fabricated quote&rdquo; flag, but that is the same linkage artifact from Section 2 &mdash; the quote was checked against the wrong opinion. The identical sentence is verified as accurate where the order quotes it via <i>Hargrave v. State</i>. Not a real quotation error.</div>
+<footer>Generated from the /proposition-verifier pipeline output for this matter. This is a filtered companion to the full report; it omits the verified, overstated, and topic-mismatch findings. See <code>FINDINGS_2026-06-24.md</code> for the complete write-up.</footer>
+</div></body></html>
