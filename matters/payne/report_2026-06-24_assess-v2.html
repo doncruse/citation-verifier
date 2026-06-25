@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Proposition Verification Report — State of Georgia v. Hannah Renee Payne</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  color: #2d2d2d;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+  background: #fafaf8;
+}
+h1, h2, h3 { font-family: 'Lora', serif; }
+h1 { font-size: 1.6rem; margin-bottom: 0.3rem; color: #1a1a1a; }
+h2 { font-size: 1.25rem; margin: 2rem 0 0.8rem; color: #333; border-bottom: 1px solid #ddd; padding-bottom: 0.3rem; }
+h3 { font-size: 1.05rem; margin: 1rem 0 0.5rem; }
+
+.meta { color: #666; font-size: 0.9rem; margin-bottom: 1.5rem; }
+.meta span { display: inline-block; margin-right: 1.5rem; }
+
+.dashboard { background: #fff; border: 1px solid #e0e0e0; border-radius: 6px; padding: 1.2rem 1.5rem; margin-bottom: 2rem; }
+.stats { display: flex; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 1rem; }
+.stat { text-align: center; }
+.stat-num { font-size: 1.8rem; font-weight: 600; }
+.stat-label { font-size: 0.8rem; color: #666; text-transform: uppercase; letter-spacing: 0.05em; }
+.stat-red .stat-num { color: #c0392b; }
+.stat-yellow .stat-num { color: #d4a017; }
+.stat-orange .stat-num { color: #e67e22; }
+.stat-green .stat-num { color: #27ae60; }
+.stat-gray .stat-num { color: #888; }
+
+.issue-list { list-style: none; padding: 0; }
+.issue-list li {
+  padding: 0.5rem 0.7rem;
+  margin-bottom: 0.4rem;
+  border-left: 4px solid #ccc;
+  background: #fefefe;
+  font-size: 0.9rem;
+}
+.issue-list li.sev-red { border-left-color: #c0392b; background: #fdf2f2; }
+.issue-list li.sev-yellow { border-left-color: #d4a017; background: #fefcf0; }
+.issue-list li.sev-orange { border-left-color: #e67e22; background: #fff7ef; }
+.issue-list li.sev-gray { border-left-color: #999; background: #f5f5f5; }
+.issue-list a { color: inherit; text-decoration: none; }
+.issue-list a:hover { text-decoration: underline; }
+
+.badge {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.15rem 0.5rem;
+  border-radius: 3px;
+  vertical-align: middle;
+}
+.badge-red { background: #f8d7da; color: #721c24; }
+.badge-yellow { background: #fff3cd; color: #856404; }
+.badge-orange { background: #ffe0b2; color: #8a4500; }
+.badge-green { background: #d4edda; color: #155724; }
+.badge-blue { background: #d1ecf1; color: #0c5460; }
+.badge-gray { background: #e9ecef; color: #495057; }
+
+.bq-brief {
+  border-left: 4px solid #e67e22;
+  background: #fef9f3;
+  padding: 0.7rem 1rem;
+  margin: 0.5rem 0;
+  font-size: 0.9rem;
+}
+.bq-opinion {
+  border-left: 4px solid #27ae60;
+  background: #f0faf4;
+  padding: 0.7rem 1rem;
+  margin: 0.5rem 0;
+  font-size: 0.9rem;
+}
+.bq-label { font-weight: 600; font-size: 0.8rem; color: #666; margin-bottom: 0.2rem; }
+
+.card-flags { margin: 0.2rem 0 0.5rem; }
+.flag-chip {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  background: #fff3e0;
+  color: #8a4500;
+  border: 1px solid #f0c27a;
+  border-radius: 3px;
+  padding: 0.1rem 0.5rem;
+  margin: 0 0.3rem 0.2rem 0;
+}
+
+details { margin-bottom: 0.8rem; }
+summary {
+  cursor: pointer;
+  padding: 0.6rem 0.8rem;
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  list-style: none;
+}
+summary::-webkit-details-marker { display: none; }
+summary::before { content: "\25B6\00a0"; font-size: 0.7rem; color: #888; }
+details[open] > summary::before { content: "\25BC\00a0"; }
+details[open] > summary { border-radius: 4px 4px 0 0; border-bottom: none; }
+.finding-body {
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-top: none;
+  border-radius: 0 0 4px 4px;
+  padding: 1rem;
+}
+.case-name { font-family: 'Lora', serif; font-style: italic; }
+.explanation { margin-top: 0.7rem; font-size: 0.9rem; line-height: 1.5; }
+.analysis { margin-top: 0.8rem; font-size: 0.92rem; line-height: 1.55; color: #2d2d2d; }
+.analysis p { margin-bottom: 0.6rem; }
+.analysis p:last-child { margin-bottom: 0; }
+.prop-list { margin: 0.3rem 0 0.6rem 1.2rem; font-size: 0.9rem; }
+.prop-list li { margin-bottom: 0.25rem; }
+
+.controls { margin-bottom: 0.5rem; font-size: 0.8rem; }
+.controls button {
+  background: none;
+  border: none;
+  color: #2980b9;
+  cursor: pointer;
+  font-size: 0.8rem;
+  padding: 0.2rem 0.4rem;
+}
+.controls button:hover { text-decoration: underline; }
+
+.verified-item {
+  padding: 0.3rem 0;
+  font-size: 0.85rem;
+  border-bottom: 1px solid #f0f0f0;
+}
+.checkmark { color: #27ae60; font-weight: bold; }
+
+.methodology { font-size: 0.85rem; color: #555; margin-top: 2rem; }
+.methodology h2 { font-size: 1.1rem; }
+.methodology ul { padding-left: 1.2rem; }
+.methodology li { margin-bottom: 0.5rem; }
+
+@media print {
+  details { open: true; }
+  details[open] > summary { border-bottom: 1px solid #e0e0e0; }
+  body { max-width: 100%; padding: 1rem; font-size: 12px; }
+  .controls { display: none; }
+  .dashboard { box-shadow: none; }
+}
+</style>
+<script>
+function expandAll() { document.querySelectorAll('details').forEach(d => d.open = true); }
+function collapseAll() { document.querySelectorAll('details').forEach(d => d.open = false); }
+</script>
+</head>
+<body>
+
+<h1>Proposition Verification Report</h1>
+<div class="meta">
+  <span><strong>Brief:</strong> Order Denying Defendant's Motion for New Trial as Amended</span><br>
+  <span><strong>Case:</strong> <em>State of Georgia v. Hannah Renee Payne</em>, 2019CR01737-14</span><br>
+  <span><strong>Filed:</strong> </span>
+  <span><strong>Report generated:</strong> </span>
+</div>
+
+
+<div class="dashboard">
+  <h2 style="border:none; margin-top:0; padding:0;">Summary</h2>
+  <div class="stats">
+    <div class="stat"><div class="stat-num">82</div><div class="stat-label">Claims checked</div></div>
+    <div class="stat stat-red"><div class="stat-num">24</div><div class="stat-label">Serious issues</div></div>
+    <div class="stat stat-yellow"><div class="stat-num">23</div><div class="stat-label">Concerns</div></div>
+    <div class="stat stat-orange"><div class="stat-num">0</div><div class="stat-label">Check cite</div></div>
+    <div class="stat stat-green"><div class="stat-num">33</div><div class="stat-label">Verified</div></div>
+    <div class="stat stat-gray"><div class="stat-num">2</div><div class="stat-label">Unable to verify</div></div>
+  </div>
+  <h3>Issues</h3>
+  <ul class="issue-list">
+    <li class="sev-yellow"><a href="#finding-1"><span class="badge badge-yellow">Citation resolves to different case</span> p. 12 &mdash; <em>Reynolds v. State</em>, 306 Ga. 630 (2019) &mdash; The brief cites Reynolds v. State, 306 Ga. 630 (2019), but the opinion on file is Black v. State, 264 Ga. 550 (1994) -- a different case.</a></li>
+<li class="sev-red"><a href="#finding-2"><span class="badge badge-red">Case mismatch -- cite resolves to a different case</span> p. 13 &mdash; <em>Harbuck v. State</em>, 288 Ga. 768 (2011) &mdash; </a></li>
+<li class="sev-red"><a href="#finding-3"><span class="badge badge-red">Not supported by cited case</span> p. 13 &mdash; <em>Reed v. State</em>, 291 Ga. 10 (2012) &mdash; Reed v. State is a Georgia Supreme Court murder case addressing sufficiency of the evidence, sufficiency of the indictment, the standard of review for similar transaction evidence, and ineffective assistance of counsel.</a></li>
+<li class="sev-yellow"><a href="#finding-4"><span class="badge badge-yellow">Citation resolves to different case</span> p. 13 &mdash; <em>Davis v. State</em>, 285 Ga. 343 (2009) &mdash; The brief cites Davis v. State, 285 Ga. 343 (2009), but the opinion provided resolves to a different decision: Davis v. State, 269 Ga. 276 (1998), a Benham, C.J. opinion affirming a felony-murder conviction (stabbing…</a></li>
+<li class="sev-yellow"><a href="#finding-5"><span class="badge badge-yellow">Overstated -- case partially supports</span> p. 13 &mdash; <em>Head v. Ferrell</em>, 274 Ga. 399 (2001) &mdash; Head v. Ferrell applies the Strickland framework and gives strong deference to counsel's strategic decisions, holding that counsel is strongly presumed to have exercised reasonable professional judgment and that…</a></li>
+<li class="sev-red"><a href="#finding-6"><span class="badge badge-red">Case on unrelated subject</span> p. 13 &mdash; <em>Rumph v. State</em>, 307 Ga. 477 (2019) &mdash; State v. Rumph is a criminal procedure case about whether Miranda warnings were required for a defendant's pre-arrest statements.</a></li>
+<li class="sev-red"><a href="#finding-7"><span class="badge badge-red">Case mismatch -- cite resolves to a different case</span> p. 13 &mdash; <em>Jones v. State</em>, 283 Ga. 155 (2008) &mdash; </a></li>
+<li class="sev-red"><a href="#finding-8"><span class="badge badge-red">Case mismatch -- cite resolves to a different case</span> p. 13 &mdash; <em>Hughes v. State</em>, 269 Ga. App. 242 (2004) &mdash; </a></li>
+<li class="sev-red"><a href="#finding-9"><span class="badge badge-red">Case on unrelated subject</span> p. 15 &mdash; <em>Manzano v. State</em>, 282 Ga. 557 (2007) &mdash; Manzano v. State is a felony-murder case about whether the trial court erred in refusing to charge the jury on involuntary manslaughter (with pointing a pistol or reckless conduct as the predicate misdemeanor) and…</a></li>
+<li class="sev-red"><a href="#finding-10"><span class="badge badge-red">Quote not found in opinion</span> p. 15 &mdash; <em>Manzano v. State</em>, 282 Ga. 557, 559 (2007) &mdash; The quoted sentence does not appear anywhere in Manzano v. State, and the case does not discuss justification at all.</a></li>
+<li class="sev-red"><a href="#finding-11"><span class="badge badge-red">Case on unrelated subject</span> p. 15 &mdash; <em>Manzano v. State</em>, 282 Ga. 557 (2007) &mdash; Manzano v. State is a felony-murder case in which the defendant claimed his wife was shot inadvertently during horseplay with a pistol he believed was unloaded; the Court reversed the conviction because the trial court…</a></li>
+<li class="sev-red"><a href="#finding-12"><span class="badge badge-red">Case on unrelated subject</span> p. 15 &mdash; <em>Durden v. State</em>, 327 Ga. App. 173, 179 (2014) &mdash; Durden v. State is a Georgia Court of Appeals criminal case about a defendant's convictions for aggravated assault and aggravated battery arising from a sword attack on his wife.</a></li>
+<li class="sev-red"><a href="#finding-13"><span class="badge badge-red">Case on unrelated subject</span> p. 15 &mdash; <em>Lang v. State</em>, 344 Ga. App. 623, 627 (2018) &mdash; Lang v. State is a criminal appeal about a motion to sever or bifurcate charges (possession of a firearm by a convicted felon and participation in criminal gang activity) and the admission of gang-related evidence under…</a></li>
+<li class="sev-yellow"><a href="#finding-14"><span class="badge badge-yellow">Overstated -- case partially supports</span> p. 16 &mdash; <em>Chapman v. State</em>, 273 Ga. 348 (2001) &mdash; Chapman v. State is the correct case and is squarely an ineffective-assistance-of-counsel decision applying Strickland's deficient-performance-and-prejudice standard, so the citation is on-topic.</a></li>
+<li class="sev-yellow"><a href="#finding-15"><span class="badge badge-yellow">Overstated -- case partially supports</span> p. 17 &mdash; <em>Black v. State</em>, 264 Ga. 550 (1994) &mdash; Black v. State supports the general principle that reasonable strategic decisions by trial counsel do not amount to ineffective assistance.</a></li>
+<li class="sev-red"><a href="#finding-16"><span class="badge badge-red">Case mismatch -- cite resolves to a different case</span> p. 20 &mdash; <em>Bryant v. State</em>, 268 Ga. App. 362 (2004) &mdash; </a></li>
+<li class="sev-red"><a href="#finding-19"><span class="badge badge-red">Case on unrelated subject</span> p. 24 &mdash; <em>Rumph v. State</em>, 307 Ga. 477 (2019) &mdash; State v. Rumph is a criminal procedure case about the admissibility of a defendant's pre-arrest statements under Miranda.</a></li>
+<li class="sev-red"><a href="#finding-20"><span class="badge badge-red">Not supported by cited case</span> p. 25 &mdash; <em>Reed v. State</em>, 291 Ga. 10 (2012) &mdash; Reed v. State is a Georgia Supreme Court murder case addressing sufficiency of the evidence, sufficiency of the indictment, the standard of review for similar transaction evidence, and ineffective assistance of counsel.</a></li>
+<li class="sev-yellow"><a href="#finding-21"><span class="badge badge-yellow">Citation resolves to different case</span> p. 25 &mdash; <em>Davis v. State</em>, 285 Ga. 343 (2009) &mdash; The brief cites Davis v. State, 285 Ga. 343 (2009), but the opinion provided resolves to a different decision: Davis v. State, 269 Ga. 276 (1998), a Benham, C.J. opinion affirming a felony-murder conviction, with page…</a></li>
+<li class="sev-yellow"><a href="#finding-22"><span class="badge badge-yellow">Overstated -- case partially supports</span> p. 26 &mdash; <em>Mahan v. State</em>, 282 Ga. App. 201, 204 (2006) &mdash; Mahan does not address jury instructions or charges at all.</a></li>
+<li class="sev-yellow"><a href="#finding-23"><span class="badge badge-yellow">Reworded -- not a verbatim quote</span> p. 27 &mdash; <em>Smith v. State</em>, 314 Ga. App. 583, 588 (2012) &mdash; The cited case supports the underlying proposition.</a></li>
+<li class="sev-yellow"><a href="#finding-24"><span class="badge badge-yellow">Overstated -- case partially supports</span> p. 27 &mdash; <em>Merneigh v. State</em>, 242 Ga. App. 735 (2000) &mdash; Merneigh supports the &quot;any of their senses&quot; half of the proposition: the opinion holds that the statutory term &quot;within his immediate knowledge&quot; enables a private citizen to use any of his senses to obtain knowledge that…</a></li>
+<li class="sev-yellow"><a href="#finding-25"><span class="badge badge-yellow">Overstated -- case partially supports</span> p. 28 &mdash; <em>Prayor v. State</em>, 217 Ga. App. 56 (1995) &mdash; Prayor (quoting Hayes v. State) supports the felony half of this proposition: a citizen may arrest if a felony is committed in his presence or immediate knowledge, and may also arrest on reasonable and probable grounds…</a></li>
+<li class="sev-yellow"><a href="#finding-26"><span class="badge badge-yellow">Overstated -- case partially supports</span> p. 29 &mdash; <em>Prayor v. State</em>, 217 Ga. App. 56 &mdash; Prayor supports the 'prevent a forcible felony' branch and, broadly, the 'self-defense' branch of this proposition.</a></li>
+<li class="sev-yellow"><a href="#finding-27"><span class="badge badge-yellow">Overstated -- case partially supports</span> p. 29 &mdash; <em>Patel v. State</em>, 279 Ga. 750 &mdash; Patel v. State directly states the first half of the proposition: quoting Carter v. State, the court recites that “only force that is reasonable under the circumstances may be used to restrain the individual arrested”…</a></li>
+<li class="sev-red"><a href="#finding-28"><span class="badge badge-red">Case on unrelated subject</span> p. 29 &mdash; <em>Nelson v. State</em>, 283 Ga. 119, 121 (2008) &mdash; Nelson v. State is a Georgia Supreme Court felony murder case about a fatal shooting outside a Valdosta bar and the defendant's justification defense.</a></li>
+<li class="sev-red"><a href="#finding-29"><span class="badge badge-red">Case on unrelated subject</span> p. 29 &mdash; <em>Davis v. State</em>, 269 Ga. 276, 277 (1998) &mdash; Davis v. State, 269 Ga. 276 (1998), is a felony-murder appeal about the stabbing death of Danny Reid.</a></li>
+<li class="sev-red"><a href="#finding-30"><span class="badge badge-red">Case on unrelated subject</span> p. 30 &mdash; <em>Hamm v. State</em>, 294 Ga. 791, 795 (2014) &mdash; Hamm v. State is a direct-appeal murder case about whether the trial court erred in declining to give a requested jury instruction on accomplice corroboration.</a></li>
+<li class="sev-yellow"><a href="#finding-31"><span class="badge badge-yellow">Overstated -- case partially supports</span> p. 30 &mdash; <em>Prayor v. State</em>, 217 Ga. App. 56 &mdash; The first two components of this proposition -- no more force than reasonable, and deadly force limited to self-defense or preventing a forcible felony -- are squarely supported by the Hayes rule Prayor quotes.</a></li>
+<li class="sev-yellow"><a href="#finding-32"><span class="badge badge-yellow">Overstated -- case partially supports</span> p. 30 &mdash; <em>Hayes v. State</em>, 261 Ga. 439 &mdash; The first half of this proposition is well supported: the opinion expressly states, in connection with OCGA § 17-4-60, that a valid citizen's arrest requires no more force than is reasonable under the circumstances and…</a></li>
+<li class="sev-red"><a href="#finding-33"><span class="badge badge-red">Case mismatch -- cite resolves to a different case</span> p. 31 &mdash; <em>Patel v. State</em>, 279 Ga. 50 &mdash; </a></li>
+<li class="sev-yellow"><a href="#finding-34"><span class="badge badge-yellow">Overstated -- case partially supports</span> p. 31 &mdash; <em>Wainwright v. State</em>, 305 Ga. 63 &mdash; The core of the proposition is supported: Wainwright holds that because the defendant initiated the assault and robbery, he was not entitled to a jury charge on justification, quoting Powers for the rule that a…</a></li>
+<li class="sev-yellow"><a href="#finding-35"><span class="badge badge-yellow">Overstated -- case partially supports</span> p. 31 &mdash; <em>Tarvestad v. State</em>, 261 Ga. 605 &mdash; Tarvestad squarely supports the core of the proposition: the opinion holds that the trial court must charge the jury on the defendant's sole defense, even without a written request, if there is some evidence to support…</a></li>
+<li class="sev-yellow"><a href="#finding-36"><span class="badge badge-yellow">Overstated -- case partially supports</span> p. 31 &mdash; <em>Virgil v. State</em>, 227 Ga. App. 96 &mdash; Virgil v. State is a DUI case in which the defendant argued the trial court erred by refusing to charge the jury on the defense of accident.</a></li>
+<li class="sev-yellow"><a href="#finding-37"><span class="badge badge-yellow">Overstated -- case partially supports</span> p. 31 &mdash; <em>Prayor v. State</em>, 217 Ga. App. 56 &mdash; Prayor supports the general thrust of this proposition but not its specific framing.</a></li>
+<li class="sev-yellow"><a href="#finding-38"><span class="badge badge-yellow">Overstated -- case partially supports</span> p. 31 &mdash; <em>Patel v. State</em>, 279 Ga. 750 &mdash; Patel v. State supports the core idea that unreasonable force takes conduct outside the protection of the citizen's-arrest statute: it quotes Carter v. State that “the use of unreasonable force . . . could not have been…</a></li>
+<li class="sev-yellow"><a href="#finding-39"><span class="badge badge-yellow">Overstated -- case partially supports</span> p. 31 &mdash; <em>Prayor v. State</em>, 217 Ga. App. 56 &mdash; The deadly-force half of this proposition is fully supported: Prayor (quoting Hayes) states that deadly force in effecting an arrest is limited to self-defense or to preventing a forcible felony.</a></li>
+<li class="sev-yellow"><a href="#finding-40"><span class="badge badge-yellow">Overstated -- case partially supports</span> p. 32 &mdash; <em>Johnson v. Jackson</em>, 140 Ga. App. 252 &mdash; Johnson v. Jackson supports the core of this proposition but the brief overstates it.</a></li>
+<li class="sev-red"><a href="#finding-41"><span class="badge badge-red">Case on unrelated subject</span> p. 32 &mdash; <em>Merneigh v. State</em>, 242 Ga. App. 735 &mdash; Merneigh v. State is a criminal appeal about theft by shoplifting and aggravated assault, addressing the sufficiency of an indictment, jury instructions, citizen's-arrest authority under OCGA § 17-4-60, a…</a></li>
+<li class="sev-yellow"><a href="#finding-42"><span class="badge badge-yellow">Overstated -- case partially supports</span> p. 32 &mdash; <em>Prayor v. State</em>, 217 Ga. App. 56 &mdash; The core deadly-force limitation -- confined to self-defense or prevention of a forcible felony -- is directly supported by Prayor's quotation of the Hayes rule.</a></li>
+<li class="sev-red"><a href="#finding-43"><span class="badge badge-red">Not supported by cited case</span> p. 32 &mdash; <em>Wainwright v. State</em>, 305 Ga. 63 &mdash; Wainwright v. State does not address citizen's arrest at all.</a></li>
+<li class="sev-yellow"><a href="#finding-44"><span class="badge badge-yellow">Overstated -- case partially supports</span> p. 32 &mdash; <em>Patel v. State</em>, 279 Ga. 750 &mdash; Patel v. State supports the operative principle that when the evidence does not support the statutory elements of a citizen's arrest, no jury charge on OCGA § 17-4-60 is required: the court found “no evidentiary support…</a></li>
+<li class="sev-red"><a href="#finding-45"><span class="badge badge-red">Case on unrelated subject</span> p. 32 &mdash; <em>Virgil v. State</em>, 227 Ga. App. 96 &mdash; Virgil v. State is a DUI case about whether the trial court should have charged the jury on the defense of accident and whether an &quot;actual physical control&quot; instruction was harmful error.</a></li>
+<li class="sev-red"><a href="#finding-46"><span class="badge badge-red">Citation resolves to different case</span> p. 33 &mdash; <em>Taylor v. State</em>, 259 Ga. App. 457, 460 (2003) &mdash; The brief cites Taylor v. State, 259 Ga. App. 457, 460 (2003) for the standard governing the grant or denial of a motion for new trial, but the opinion on file is Black v. State, 264 Ga. 550 (1994) -- a different case.</a></li>
+<li class="sev-red"><a href="#finding-47"><span class="badge badge-red">Citation resolves to different case</span> p. 34 &mdash; <em>Jackson v. Virginia</em>, 443 U.S. 307 (1979) &mdash; The brief cites Jackson v. Virginia, 443 U.S. 307 (1979), a U.S. Supreme Court case, for the sufficiency-of-the-evidence standard, but the opinion provided is Johnson v. Jackson, 140 Ga. App. 252 (1976), a Georgia Court…</a></li>
+<li class="sev-red"><a href="#finding-48"><span class="badge badge-red">Not supported by cited case</span> p. 35 &mdash; <em>Choisnet v. State</em>, 292 Ga. 860, 861, 742 S.E.2d 476 (2013) &mdash; Choisnet v. State does not support the brief's proposition.</a></li>
+<li class="sev-red"><a href="#finding-49"><span class="badge badge-red">Citation resolves to different case</span> p. 35 &mdash; <em>Jackson v. Virginia</em>, 443 U.S. 307 (1979) &mdash; The brief cites Jackson v. Virginia, 443 U.S. 307 (1979), for the proposition that the trial evidence was sufficient for a rational trier of fact to find guilt beyond a reasonable doubt, but the opinion provided is…</a></li>
+<li class="sev-gray"><a href="#finding-uv-17"><span class="badge badge-gray">Unable to verify</span> <em>United States v. Valenzuela-Bernal (1982)</em>,  &mdash; Not on CourtListener</a></li>
+<li class="sev-gray"><a href="#finding-uv-18"><span class="badge badge-gray">Unable to verify</span> <em>Reynolds</em>, 306 Ga. 630 (2019) &mdash; Not on CourtListener</a></li>
+  </ul>
+</div>
+<h2>Findings</h2>
+<div class="controls"><button onclick="expandAll()">Expand All</button> | <button onclick="collapseAll()">Collapse All</button></div>
+<details id="finding-1">
+  <summary>
+    <strong>p. 12</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/7479879/state-v-mondor/"><span class="case-name">Reynolds v. State</span></a>, 306 Ga. 630 (2019)
+    &mdash; <span class="badge badge-yellow">Citation resolves to different case</span>
+  </summary>
+  <div class="finding-body">
+    
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief"><p>To prevail on a claim of ineffective assistance of counsel, a defendant must satisfy the two-prong test set forth in Strickland v. Washington, 466 U.S. 668 (1984), adopted by Georgia courts in Reynolds v. State, 306 Ga. 630 (2019).</p></div>
+    
+    <div class="analysis"><p>The brief cites Reynolds v. State, 306 Ga. 630 (2019), but the opinion on file is Black v. State, 264 Ga. 550 (1994) -- a different case. The proposition cannot be grounded in the cited authority because the citation resolves to a different opinion. As an aside, the Black opinion does apply the Strickland two-prong framework, requiring a defendant to show that &quot;counsel's performance was deficient&quot; and &quot;that the deficient performance prejudiced the defense,&quot; so the underlying legal principle is sound; but Black is not the case the brief invokes for the proposition that Georgia courts adopted Strickland, and nothing in this opinion establishes that Reynolds did so.</p></div>
+  </div>
+</details><details id="finding-2">
+  <summary>
+    <strong>p. 13</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/2112294/state-v-rozier/"><span class="case-name">Harbuck v. State</span></a>, 288 Ga. 768 (2011)
+    &mdash; <span class="badge badge-red">Case mismatch -- cite resolves to a different case</span>
+  </summary>
+  <div class="finding-body">
+    
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief">Additionally, Georgia courts have made it clear that a valid citizen's arrest must occur immediately and without delay. (Harbuck v. State, 288 Ga. 768 (2011)).</div>
+    
+    
+  </div>
+</details><details id="finding-3">
+  <summary>
+    <strong>p. 13</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/2506728/reed-v-state/"><span class="case-name">Reed v. State</span></a>, 291 Ga. 10 (2012)
+    &mdash; <span class="badge badge-red">Not supported by cited case</span>
+  </summary>
+  <div class="finding-body">
+    
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief"><p>Georgia law is clear that the failure to request a jury instruction not supported by the evidence does not constitute deficient performance. (Reed v. State, 291 Ga. 10 (2012); Davis v. State, 285 Ga. 343 (2009).)</p></div>
+    
+    <div class="analysis"><p>Reed v. State is a Georgia Supreme Court murder case addressing sufficiency of the evidence, sufficiency of the indictment, the standard of review for similar transaction evidence, and ineffective assistance of counsel. It does not address the failure to request a jury instruction. The opinion's ineffective-assistance discussion under Strickland reaches only two grounds -- counsel's failure to challenge the indictment by special demurrer (Division 4(a)) and counsel's failure to object and move for mistrial in response to improper closing arguments about future dangerousness (Division 4(b)). Neither jury instructions in general nor the specific principle that failing to request an instruction unsupported by the evidence is not deficient performance appears anywhere in the opinion. The brief attributes a jury-instruction rule to Reed that the case does not contain.</p></div>
+  </div>
+</details><details id="finding-4">
+  <summary>
+    <strong>p. 13</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/1322724/davis-v-state/"><span class="case-name">Davis v. State</span></a>, 285 Ga. 343 (2009)
+    &mdash; <span class="badge badge-yellow">Citation resolves to different case</span>
+  </summary>
+  <div class="finding-body">
+    <div class="card-flags"><span class="flag-chip">&#9873; TOA/body citation mismatch: Davis v. State, 285 Ga. 343 (2009) vs Davis v. State, 269 Ga. 276, 277 (1998)</span></div>
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief"><p>Georgia law is clear that the failure to request a jury instruction not supported by the evidence does not constitute deficient performance. (Reed v. State, 291 Ga. 10 (2012); Davis v. State, 285 Ga. 343 (2009).)</p></div>
+    
+    <div class="analysis"><p>The brief cites Davis v. State, 285 Ga. 343 (2009), but the opinion provided resolves to a different decision: Davis v. State, 269 Ga. 276 (1998), a Benham, C.J. opinion affirming a felony-murder conviction (stabbing death of Danny Reid), with page markers running *277 through *281 and a crime date of 1993. The 285 Ga. 343 (2009) decision is not the document supplied. Because the cited case is not before me, I cannot ground a judgment on whether it supports the deficient-performance proposition. The 1998 opinion in hand does discuss the refusal to give a requested accident charge for lack of supporting evidence (Division 3), but it is a trial-court-error analysis, not an ineffective-assistance/deficient-performance holding, and in any event it is the wrong case.</p></div>
+  </div>
+</details><details id="finding-5">
+  <summary>
+    <strong>p. 13</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/1323520/head-v-ferrell/"><span class="case-name">Head v. Ferrell</span></a>, 274 Ga. 399 (2001)
+    &mdash; <span class="badge badge-yellow">Overstated -- case partially supports</span>
+  </summary>
+  <div class="finding-body">
+    
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief"><p>Tactical and strategic decisions do not constitute ineffective assistance unless no competent attorney would have made the same choice. (Head v. Ferrell, 274 Ga. 399 (2001); Rumph v. State, 307 Ga. 477 (2019)).</p></div>
+    <div class="bq-label">Actual language in opinion:</div><div class="bq-opinion"><p>[C]ounsel on appeal is &quot;strongly presumed to have rendered adequate assistance and made all significant decisions in the exercise of reasonable professional judgment.&quot; . . . Because counsel's performance is considered in light of the circumstances surrounding the representation, reference to hindsight is inappropriate in judging counsel's performance.</p></div>
+    <div class="analysis"><p>Head v. Ferrell applies the Strickland framework and gives strong deference to counsel's strategic decisions, holding that counsel is strongly presumed to have exercised reasonable professional judgment and that hindsight is inappropriate. That general principle is consistent with the brief's point. But the opinion never articulates the specific standard the brief attributes to it -- that a tactical decision constitutes ineffective assistance only when &quot;no competent attorney would have made the same choice.&quot; The case states the deferential presumption and rejects the ineffectiveness claims on the facts; it does not announce the categorical &quot;no competent attorney&quot; test. The proposition is therefore an overstatement of what this opinion actually holds, even though it is in the same doctrinal territory.</p></div>
+  </div>
+</details><details id="finding-6">
+  <summary>
+    <strong>p. 13</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/10366942/state-v-rumph/"><span class="case-name">Rumph v. State</span></a>, 307 Ga. 477 (2019)
+    &mdash; <span class="badge badge-red">Case on unrelated subject</span>
+  </summary>
+  <div class="finding-body">
+    
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief"><p>Tactical and strategic decisions do not constitute ineffective assistance unless no competent attorney would have made the same choice. (Head v. Ferrell, 274 Ga. 399 (2001); Rumph v. State, 307 Ga. 477 (2019)).</p></div>
+    
+    <div class="analysis"><p>State v. Rumph is a criminal procedure case about whether Miranda warnings were required for a defendant's pre-arrest statements. It does not address ineffective assistance of counsel or the deference owed to defense counsel's tactical and strategic decisions. The opinion's sole holding is that, because a reasonable person in Rumph's situation would not have perceived that he was in custody during his first two interviews, Miranda warnings were not necessary, and the trial court erred in suppressing the statements. Nothing in the opinion discusses Strickland, ineffective assistance, or the &quot;no competent attorney&quot; standard the brief attributes to the case.</p></div>
+  </div>
+</details><details id="finding-7">
+  <summary>
+    <strong>p. 13</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/1208630/moore-v-state/"><span class="case-name">Jones v. State</span></a>, 283 Ga. 155 (2008)
+    &mdash; <span class="badge badge-red">Case mismatch -- cite resolves to a different case</span>
+  </summary>
+  <div class="finding-body">
+    <div class="card-flags"><span class="flag-chip">&#9873; TOA/body citation mismatch: Jones v. State, 283 Ga. 155 (2008) vs Jones v. State, 296 Ga. 561, 567 (769 SE2d 307) (2015)</span></div>
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief">Courts in Georgia have routinely declined to find prejudice where the omitted instruction was factually or legally unsupported. (Jones v. State, 283 Ga. 155 (2008); Hughes v. State, 269 Ga. App. 242 (2004)).</div>
+    
+    
+  </div>
+</details><details id="finding-8">
+  <summary>
+    <strong>p. 13</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/1324101/bravo-v-state/"><span class="case-name">Hughes v. State</span></a>, 269 Ga. App. 242 (2004)
+    &mdash; <span class="badge badge-red">Case mismatch -- cite resolves to a different case</span>
+  </summary>
+  <div class="finding-body">
+    
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief">Courts in Georgia have routinely declined to find prejudice where the omitted instruction was factually or legally unsupported. (Jones v. State, 283 Ga. 155 (2008); Hughes v. State, 269 Ga. App. 242 (2004)).</div>
+    
+    
+  </div>
+</details><details id="finding-9">
+  <summary>
+    <strong>p. 15</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/1387492/manzano-v-state/"><span class="case-name">Manzano v. State</span></a>, 282 Ga. 557 (2007)
+    &mdash; <span class="badge badge-red">Case on unrelated subject</span>
+  </summary>
+  <div class="finding-body">
+    
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief"><p>Justification is an affirmative defense that includes the lawful use of force in defense of self, others, or property—and does not require a charge on citizen's arrest unless the facts specifically support that additional theory. (See, e.g., Manzano v. State, 282 Ga. 557 (2007)).</p></div>
+    
+    <div class="analysis"><p>Manzano v. State is a felony-murder case about whether the trial court erred in refusing to charge the jury on involuntary manslaughter (with pointing a pistol or reckless conduct as the predicate misdemeanor) and whether the State could ask the testifying defendant if other witnesses were lying. It does not address justification, affirmative defenses, the lawful use of force in defense of self, others, or property, or citizen's arrest. The words &quot;justification,&quot; &quot;affirmative defense,&quot; and &quot;citizen's arrest&quot; do not appear anywhere in the opinion, so the case cannot stand for the proposition asserted.</p></div>
+  </div>
+</details><details id="finding-10">
+  <summary>
+    <strong>p. 15</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/1387492/manzano-v-state/"><span class="case-name">Manzano v. State</span></a>, 282 Ga. 557, 559 (2007)
+    &mdash; <span class="badge badge-red">Quote not found in opinion</span>
+  </summary>
+  <div class="finding-body">
+    
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief"><p>Georgia courts have consistently held that: “A charge on justification is proper where the defendant contends that his actions were legally authorized and necessary to prevent a crime or injury.” Manzano v. State, 282 Ga. 557, 559 (2007).</p></div>
+    
+    <div class="analysis"><p>The quoted sentence does not appear anywhere in Manzano v. State, and the case does not discuss justification at all. Page 559 of the opinion (the pincite given) concerns the rule, drawn from Rhodes v. State, that &quot;if the victim is not placed in reasonable apprehension of immediate violent injury by the pointing of the firearm, only the misdemeanor of pointing a firearm (and not the felony of aggravated assault) has been committed&quot; — a discussion of involuntary manslaughter and the pointing-a-pistol misdemeanor, not justification. The brief attributes a fabricated rule of law to a case that says nothing about when a justification charge is proper.</p></div>
+  </div>
+</details><details id="finding-11">
+  <summary>
+    <strong>p. 15</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/1387492/manzano-v-state/"><span class="case-name">Manzano v. State</span></a>, 282 Ga. 557 (2007)
+    &mdash; <span class="badge badge-red">Case on unrelated subject</span>
+  </summary>
+  <div class="finding-body">
+    
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief"><p>In Manzano, the Georgia Supreme Court rejected the need for a separate citizen's arrest instruction where the defendant claimed he was trying to lawfully detain someone committing a crime. The Court held that the trial court's charge on justification was sufficient and appropriate.</p></div>
+    
+    <div class="analysis"><p>Manzano v. State is a felony-murder case in which the defendant claimed his wife was shot inadvertently during horseplay with a pistol he believed was unloaded; the Court reversed the conviction because the trial court wrongly refused requested charges on involuntary manslaughter. It does not address citizen's arrest, justification, or lawfully detaining someone committing a crime. The opinion contains no holding rejecting a citizen's arrest instruction and no holding that a justification charge was sufficient — those concepts appear nowhere in the text. The brief invents a holding the case does not contain.</p></div>
+  </div>
+</details><details id="finding-12">
+  <summary>
+    <strong>p. 15</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/7929776/durden-v-state/"><span class="case-name">Durden v. State</span></a>, 327 Ga. App. 173, 179 (2014)
+    &mdash; <span class="badge badge-red">Case on unrelated subject</span>
+  </summary>
+  <div class="finding-body">
+    
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief"><p>Similarly, in Durden v. State, 327 Ga. App. 173, 179 (2014), the Court held, “[a]lthough the defendant requested a charge on citizen's arrest, the trial court properly charged justification, which covered the substance of his defense. A trial court is not required to give redundant instructions.”</p></div>
+    
+    <div class="analysis"><p>Durden v. State is a Georgia Court of Appeals criminal case about a defendant's convictions for aggravated assault and aggravated battery arising from a sword attack on his wife. It does not address citizen's arrest, a justification charge, or any rule that a trial court need not give redundant instructions. The only jury-charge issue the opinion decides is the trial court's refusal to charge the affirmative defense of accident, and the court held that refusal was proper solely because Durden never admitted committing the act, not because justification covered the substance of his defense. The quoted language appears nowhere in the opinion (the quote check flags it as FABRICATED), and the principle the brief attributes to the case — a properly charged justification covering a requested citizen's-arrest charge as redundant — has no basis in the text.</p></div>
+  </div>
+</details><details id="finding-13">
+  <summary>
+    <strong>p. 15</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/7478231/lang-v-state/"><span class="case-name">Lang v. State</span></a>, 344 Ga. App. 623, 627 (2018)
+    &mdash; <span class="badge badge-red">Case on unrelated subject</span>
+  </summary>
+  <div class="finding-body">
+    <div class="card-flags"><span class="flag-chip">&#9873; Pincite 627 outside the opinion's star-pagination range 19-21</span></div>
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief"><p>The Court of Appeals in Lang v. State, 344 Ga. App. 623, 627 (2018), reiterated that, “[a] citizen's arrest defense is not required when a justification charge sufficiently encompasses the defendant's theory of the case.”</p></div>
+    
+    <div class="analysis"><p>Lang v. State is a criminal appeal about a motion to sever or bifurcate charges (possession of a firearm by a convicted felon and participation in criminal gang activity) and the admission of gang-related evidence under OCGA § 24-4-403. It does not address citizen's arrest, justification defenses, or whether a justification jury charge can obviate a separate citizen's arrest instruction. The opinion contains no discussion of jury charges, the defendant's theory of the case, citizen's arrest, or justification at all; the quoted language appears nowhere in the opinion (quote check: FABRICATED), and the proposition is attributed to a case that decided an entirely different issue.</p></div>
+  </div>
+</details><details id="finding-14">
+  <summary>
+    <strong>p. 16</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/1379079/chapman-v-state/"><span class="case-name">Chapman v. State</span></a>, 273 Ga. 348 (2001)
+    &mdash; <span class="badge badge-yellow">Overstated -- case partially supports</span>
+  </summary>
+  <div class="finding-body">
+    
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief"><p>Failure to raise a speculative or unproven defense does not constitute ineffective assistance. See Chapman v. State, 273 Ga. 348 (2001).</p></div>
+    <div class="bq-label">Actual language in opinion:</div><div class="bq-opinion"><p>Trial counsel's &quot;pursuit of a guilty but mentally ill verdict conformed to a reasonable pattern of trial strategy and advocacy by one familiar with the intricacies of a death penalty case&quot; and &quot;was integral to a trial scheme to avoid a death sentence where evidence of guilt of [the] murder[s] was overwhelming and legitimate factual defenses were non-existent.&quot;</p></div>
+    <div class="analysis"><p>Chapman v. State is the correct case and is squarely an ineffective-assistance-of-counsel decision applying Strickland's deficient-performance-and-prejudice standard, so the citation is on-topic. The court did hold that counsel's decision not to present the defendant's proposed version of events was not deficient performance, which is broadly consistent with the brief's point that declining to raise a defense need not be ineffective assistance.</p><p>The gap is in characterization. The opinion's rationale was not that the rejected defense was merely &quot;speculative or unproven.&quot; Counsel knew the defendant's proposed account was untrue, and the court grounded its holding on the facts that the evidence of guilt was overwhelming, &quot;legitimate factual defenses were non-existent,&quot; and counsel could not assist in presenting false evidence. The brief recasts a known-false-defense / no-legitimate-defense holding as a rule about &quot;speculative or unproven&quot; defenses, an overstatement and reframing of what the case actually decided. Topically related and reasonably extendable, but not a direct match for the proposition as phrased.</p></div>
+  </div>
+</details><details id="finding-15">
+  <summary>
+    <strong>p. 17</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/1399641/black-v-state/"><span class="case-name">Black v. State</span></a>, 264 Ga. 550 (1994)
+    &mdash; <span class="badge badge-yellow">Overstated -- case partially supports</span>
+  </summary>
+  <div class="finding-body">
+    
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief"><p>Georgia courts have consistently held that strategic decisions not to present speculative evidence do not amount to ineffective assistance. See Black v. State, 264 Ga. 550 (1994) [...].</p></div>
+    <div class="bq-label">Actual language in opinion:</div><div class="bq-opinion"><p>The attorney's decision to pursue the defense of insanity instead of self-defense was part of legitimate trial strategy and falls within the range of reasonable professional assistance.</p></div>
+    <div class="analysis"><p>Black v. State supports the general principle that reasonable strategic decisions by trial counsel do not amount to ineffective assistance. The court held that counsel's choice to pursue an insanity defense over self-defense &quot;was part of legitimate trial strategy and falls within the range of reasonable professional assistance,&quot; and quoted with approval the rule that difficult tactical decisions &quot;with which appellant and his present counsel now disagree&quot; do not render representation ineffective.</p><p>The fit is partial, however, because the brief frames the principle specifically around &quot;strategic decisions not to present speculative evidence.&quot; Black does not address speculative evidence as such; its strategic-decision holding concerns the choice between two affirmative defenses (insanity vs. self-defense). The case reasonably extends to the broader proposition, but the brief's narrower &quot;speculative evidence&quot; formulation is not the precise holding of this opinion.</p></div>
+  </div>
+</details><details id="finding-16">
+  <summary>
+    <strong>p. 20</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/7921700/in-the-interest-of-d-l/"><span class="case-name">Bryant v. State</span></a>, 268 Ga. App. 362 (2004)
+    &mdash; <span class="badge badge-red">Case mismatch -- cite resolves to a different case</span>
+  </summary>
+  <div class="finding-body">
+    
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief">The Court in Bryant v. State, 268 Ga. App. 362 (2004) emphasized that the defendant must make an affirmative showing that the witness would have testified, and that the testimony would have made a difference. That did not occur in the instant case.</div>
+    
+    
+  </div>
+</details><details id="finding-19">
+  <summary>
+    <strong>p. 24</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/10366942/state-v-rumph/"><span class="case-name">Rumph v. State</span></a>, 307 Ga. 477 (2019)
+    &mdash; <span class="badge badge-red">Case on unrelated subject</span>
+  </summary>
+  <div class="finding-body">
+    
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief"><p>Strategic decisions, even if ultimately unsuccessful, are entitled to strong deference. (Head v. Ferrell, 274 Ga. 399 (2001); Rumph v. State, 307 Ga. 477 (2019).)</p></div>
+    
+    <div class="analysis"><p>State v. Rumph is a criminal procedure case about the admissibility of a defendant's pre-arrest statements under Miranda. It does not address ineffective assistance of counsel or the deference owed to counsel's strategic decisions. The opinion holds only that Rumph was not in custody during his first two interviews, so Miranda warnings were not required, and reverses the trial court's suppression order. It says nothing about strategic decisions, deference to counsel, or the consequences of unsuccessful strategy, so it cannot support the proposition for which the brief cites it.</p></div>
+  </div>
+</details><details id="finding-20">
+  <summary>
+    <strong>p. 25</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/2506728/reed-v-state/"><span class="case-name">Reed v. State</span></a>, 291 Ga. 10 (2012)
+    &mdash; <span class="badge badge-red">Not supported by cited case</span>
+  </summary>
+  <div class="finding-body">
+    
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief"><p>Georgia law is clear that the failure to request a jury instruction not supported by the evidence does not constitute deficient performance. Reed v. State, 291 Ga. 10 (2012); Davis v. State, 285 Ga. 343 (2009).</p></div>
+    
+    <div class="analysis"><p>Reed v. State is a Georgia Supreme Court murder case addressing sufficiency of the evidence, sufficiency of the indictment, the standard of review for similar transaction evidence, and ineffective assistance of counsel. It does not address the failure to request a jury instruction. The opinion's ineffective-assistance analysis under Strickland is confined to counsel's failure to challenge the indictment by special demurrer (Division 4(a)) and counsel's failure to object and move for mistrial over improper closing arguments about future dangerousness (Division 4(b)). The opinion contains no discussion of jury instructions and no statement that declining to request an instruction unsupported by the evidence is non-deficient performance. The brief attributes a jury-instruction principle to Reed that the case does not support.</p></div>
+  </div>
+</details><details id="finding-21">
+  <summary>
+    <strong>p. 25</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/1322724/davis-v-state/"><span class="case-name">Davis v. State</span></a>, 285 Ga. 343 (2009)
+    &mdash; <span class="badge badge-yellow">Citation resolves to different case</span>
+  </summary>
+  <div class="finding-body">
+    <div class="card-flags"><span class="flag-chip">&#9873; TOA/body citation mismatch: Davis v. State, 285 Ga. 343 (2009) vs Davis v. State, 269 Ga. 276, 277 (1998)</span></div>
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief"><p>Georgia law is clear that the failure to request a jury instruction not supported by the evidence does not constitute deficient performance. Reed v. State, 291 Ga. 10 (2012); Davis v. State, 285 Ga. 343 (2009).</p></div>
+    
+    <div class="analysis"><p>The brief cites Davis v. State, 285 Ga. 343 (2009), but the opinion provided resolves to a different decision: Davis v. State, 269 Ga. 276 (1998), a Benham, C.J. opinion affirming a felony-murder conviction, with page markers running *277 through *281 and a 1993 crime date. The 285 Ga. 343 (2009) decision is not the document supplied, so the cited case cannot ground a judgment on the deficient-performance proposition. The 1998 opinion does address the trial court's refusal to give a requested accident charge for lack of supporting evidence (Division 3), but that is a direct-error analysis rather than an ineffective-assistance/deficient-performance holding, and it is the wrong case in any event.</p></div>
+  </div>
+</details><details id="finding-22">
+  <summary>
+    <strong>p. 26</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/7922975/mahan-v-state/"><span class="case-name">Mahan v. State</span></a>, 282 Ga. App. 201, 204 (2006)
+    &mdash; <span class="badge badge-yellow">Overstated -- case partially supports</span>
+  </summary>
+  <div class="finding-body">
+    
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief"><p>Because neither instruction was supported by the evidence, trial counsel's strategic decision not to request them was objectively reasonable. See Mahan v. State, 282 Ga. App. 201, 204 (2006). Counsel is not ineffective for declining to pursue a meritless or inapplicable defense.</p></div>
+    <div class="bq-label">Actual language in opinion:</div><div class="bq-opinion"><p>Trial counsel's decisions as to tactics and strategy, including the scope of cross-examination, generally do not amount to ineffective assistance of counsel. [...] Because trial counsel is not required to make a futile objection, Mahan has not established ineffective assistance of counsel.</p></div>
+    <div class="analysis"><p>Mahan does not address jury instructions or charges at all. The opinion's ineffective-assistance analysis concerns trial counsel's investigation of the medical evidence, the scope of cross-examination of Dr. Dunton, and the failure to object to prior-difficulty evidence -- not a decision to forgo requesting jury instructions unsupported by the evidence.</p><p>The brief's general principle that counsel is not ineffective for declining a meritless or inapplicable defense draws support by analogy from two strands of the opinion: that strategic and tactical decisions generally do not amount to ineffective assistance, and that counsel is not required to make a futile objection. But the specific framing tied to unrequested, evidence-unsupported instructions is the brief's own extension; the case supports the broad proposition only obliquely and does not decide the instruction-specific point.</p></div>
+  </div>
+</details><details id="finding-23">
+  <summary>
+    <strong>p. 27</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/2502877/smith-v-state/"><span class="case-name">Smith v. State</span></a>, 314 Ga. App. 583, 588 (2012)
+    &mdash; <span class="badge badge-yellow">Reworded -- not a verbatim quote</span>
+  </summary>
+  <div class="finding-body">
+    
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief"><p>The decision whether to pursue a defense theory or request a specific jury charge is “a question of trial strategy” that will not be second-guessed unless it is “so patently unreasonable that no competent attorney would have chosen it.” Smith v. State, 314 Ga. App. 583, 588 (2012).</p></div>
+    <div class="bq-label">Actual language in opinion:</div><div class="bq-opinion"><p>Generally, decisions about which defense theories to pursue and which jury charges to request are strategic and “provide no grounds for reversal unless such tactical decisions are so patently unreasonable that no competent attorney would have chosen them.”</p></div>
+    <div class="analysis"><p>The cited case supports the underlying proposition. At page 588 the opinion holds that “decisions about which defense theories to pursue and which jury charges to request are strategic” and provide no grounds for reversal “unless such tactical decisions are so patently unreasonable that no competent attorney would have chosen them.” That is exactly the trial-strategy/deference principle the brief invokes.</p><p>The quotation marks, however, are not accurate. “A question of trial strategy” does not appear in the opinion; the court says the decisions “are strategic.” And the brief’s second quotation ends “...chosen it,” whereas the opinion reads “...chosen them,” and the quoted phrase is part of the longer clause “provide no grounds for reversal unless such tactical decisions are so patently unreasonable....” The substance is sound, but counsel has presented reworded language as a verbatim quote and should conform the quotation to the opinion’s actual words.</p></div>
+  </div>
+</details><details id="finding-24">
+  <summary>
+    <strong>p. 27</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/1420144/merneigh-v-state/"><span class="case-name">Merneigh v. State</span></a>, 242 Ga. App. 735 (2000)
+    &mdash; <span class="badge badge-yellow">Overstated -- case partially supports</span>
+  </summary>
+  <div class="finding-body">
+    
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief"><p>The terms &quot;in his presence&quot; and &quot;within his immediate knowledge&quot; are synonymous, meaning that a crime is considered to be committed in a citizen's presence if they acquire knowledge of its commission through the exercise of any of their senses. Johnson v. Jackson, 140 Ga. App. 252 (1976), Merneigh v. State, 242 Ga. App. 735 (2000).</p></div>
+    <div class="bq-label">Actual language in opinion:</div><div class="bq-opinion"><p>OCGA § 17-4-60 provides, in pertinent part, that a private citizen may arrest an offender “if the offense is committed in his presence or within his immediate knowledge.” ... The term “within his immediate knowledge” enables a private citizen to use any of his senses to obtain knowledge that an offense is being committed.</p></div>
+    <div class="analysis"><p>Merneigh supports the &quot;any of their senses&quot; half of the proposition: the opinion holds that the statutory term &quot;within his immediate knowledge&quot; enables a private citizen to use any of his senses to obtain knowledge that an offense is being committed, so a citizen need not actually be present.</p><p>But the opinion does not treat &quot;in his presence&quot; and &quot;within his immediate knowledge&quot; as synonymous; it does the opposite. The court stresses that OCGA § 17-4-60 uses the disjunctive &quot;or&quot; (emphasis supplied in the opinion) and applies the two phrases to different actors -- the food manager's authority rested on presence, the store manager's on immediate knowledge. Treating the two terms as synonymous overstates and mischaracterizes the holding, which keeps them as distinct alternatives. The citation is therefore only a partial fit.</p></div>
+  </div>
+</details><details id="finding-25">
+  <summary>
+    <strong>p. 28</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/1253106/prayor-v-state/"><span class="case-name">Prayor v. State</span></a>, 217 Ga. App. 56 (1995)
+    &mdash; <span class="badge badge-yellow">Overstated -- case partially supports</span>
+  </summary>
+  <div class="finding-body">
+    
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief"><p>For misdemeanors, the offense must occur in the citizen's presence or immediate knowledge, while for felonies, a citizen may also arrest upon reasonable and probable grounds of suspicion if the offender is escaping or attempting to escape. [...] Prayor v. State, 217 Ga. App. 56 (1995).</p></div>
+    <div class="bq-label">Actual language in opinion:</div><div class="bq-opinion"><p>OCGA § 17-4-60 provides that a private citizen may make an arrest if a felony is committed in his presence or within his immediate knowledge. A private citizen may make an arrest upon reasonable and probable grounds of suspicion if the offense is a felony and the offender is escaping or trying to escape.</p></div>
+    <div class="analysis"><p>Prayor (quoting Hayes v. State) supports the felony half of this proposition: a citizen may arrest if a felony is committed in his presence or immediate knowledge, and may also arrest on reasonable and probable grounds of suspicion when the offense is a felony and the offender is escaping. But the opinion's statement of OCGA § 17-4-60 is entirely about felonies. It says nothing about misdemeanors or any 'presence or immediate knowledge' requirement specific to misdemeanors. The brief grafts a misdemeanor rule onto a passage that does not contain one, so the citation only partially supports the stated proposition.</p></div>
+  </div>
+</details><details id="finding-26">
+  <summary>
+    <strong>p. 29</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/1253106/prayor-v-state/"><span class="case-name">Prayor v. State</span></a>, 217 Ga. App. 56
+    &mdash; <span class="badge badge-yellow">Overstated -- case partially supports</span>
+  </summary>
+  <div class="finding-body">
+    
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief"><p>Specifically, deadly force is justified if the individual reasonably believes it is necessary to prevent death or great bodily injury to themselves or a third person, or to prevent a forcible felony. Prayor v. State, 217 Ga. App. 56, OCGA § 16-3-21, Chambers v. State, 308 Ga. App. 748.</p></div>
+    <div class="bq-label">Actual language in opinion:</div><div class="bq-opinion"><p>deadly force in effecting an arrest is limited to self-defense or to a situation in which it is necessary to prevent a forcible felony.</p></div>
+    <div class="analysis"><p>Prayor supports the 'prevent a forcible felony' branch and, broadly, the 'self-defense' branch of this proposition. But the opinion states the rule simply as 'self-defense' and does not articulate the elaborated standard the brief recites -- a reasonable belief that force is necessary to prevent death or great bodily injury to oneself or a third person. That formulation comes from the self-defense statute (OCGA § 16-3-21), which the brief also cites, not from Prayor. The citation thus partially supports the proposition: the forcible-felony limit is in the case, but the specific deadly-force-in-self-defense standard is not.</p></div>
+  </div>
+</details><details id="finding-27">
+  <summary>
+    <strong>p. 29</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/1245424/patel-v-state/"><span class="case-name">Patel v. State</span></a>, 279 Ga. 750
+    &mdash; <span class="badge badge-yellow">Overstated -- case partially supports</span>
+  </summary>
+  <div class="finding-body">
+    <div class="card-flags"><span class="flag-chip">&#9873; TOA/body citation mismatch: Patel v. State, 279 Ga. 750 vs Patel v. State, 279 Ga. 50</span></div>
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief"><p>In Patel v. State, 279 Ga. 750, the Court emphasized that the use of unreasonable force could not be part of a legitimate citizen's arrest, and such actions may lead to criminal liability.</p></div>
+    <div class="bq-label">Actual language in opinion:</div><div class="bq-opinion"><p>“Although a private person may make a citizen’s arrest under OCGA § 17-4-60, only force that is reasonable under the circumstances may be used to restrain the individual arrested ... the use of unreasonable force . . . could not have been part of a legitimate citizen’s arrest.”</p></div>
+    <div class="analysis"><p>Patel v. State directly states the first half of the proposition: quoting Carter v. State, the court recites that “only force that is reasonable under the circumstances may be used to restrain the individual arrested” and that “the use of unreasonable force . . . could not have been part of a legitimate citizen’s arrest.” To that extent the citation is accurate.</p><p>The added clause — that such actions “may lead to criminal liability” — is not a holding of the case. Patel is an ineffective-assistance-of-counsel decision in a felony-murder appeal; it discusses the unreasonable-force principle only to explain why the evidence did not warrant a jury charge on citizen's arrest, not to announce a rule about criminal liability flowing from excessive force. The brief extends the holding modestly beyond what the case decided.</p></div>
+  </div>
+</details><details id="finding-28">
+  <summary>
+    <strong>p. 29</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/1374685/nelson-v-state/"><span class="case-name">Nelson v. State</span></a>, 283 Ga. 119, 121 (2008)
+    &mdash; <span class="badge badge-red">Case on unrelated subject</span>
+  </summary>
+  <div class="finding-body">
+    
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief"><p>A citizen's arrest charge is not warranted unless there is some evidence to support each statutory element. See Nelson v. State, 283 Ga. 119, 121 (2008) (no citizen's arrest instruction required where defendant did not personally witness the crime).</p></div>
+    
+    <div class="analysis"><p>Nelson v. State is a Georgia Supreme Court felony murder case about a fatal shooting outside a Valdosta bar and the defendant's justification defense. It does not address citizen's arrest. The opinion's jury-instruction discussion concerns only whether the defendant was entitled to charges on voluntary manslaughter, involuntary manslaughter, and reckless conduct as part of an ineffective-assistance claim; the page cited (121) is the start of the ineffective-assistance division. Nothing in the opinion mentions citizen's arrest, its statutory elements, or any requirement that a defendant personally witness a crime. The proposition attributed to this case does not appear in it.</p></div>
+  </div>
+</details><details id="finding-29">
+  <summary>
+    <strong>p. 29</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/1398343/davis-v-state/"><span class="case-name">Davis v. State</span></a>, 269 Ga. 276, 277 (1998)
+    &mdash; <span class="badge badge-red">Case on unrelated subject</span>
+  </summary>
+  <div class="finding-body">
+    <div class="card-flags"><span class="flag-chip">&#9873; TOA/body citation mismatch: Davis v. State, 285 Ga. 343 (2009) vs Davis v. State, 269 Ga. 276, 277 (1998)</span></div>
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief"><p>Moreover, the use of deadly force in effectuating a citizen's arrest must be reasonable and necessary under the circumstances. See OCGA § 17-4-20(b); Davis v. State, 269 Ga. 276, 277 (1998).</p></div>
+    
+    <div class="analysis"><p>Davis v. State, 269 Ga. 276 (1998), is a felony-murder appeal about the stabbing death of Danny Reid. It does not address the use of deadly force in effecting a citizen's arrest, OCGA § 17-4-20(b), or any reasonableness-and-necessity standard for arrest force. The opinion's four divisions cover sufficiency of the evidence for felony murder, the admissibility of a first-offender guilty plea as similar-transaction evidence, the trial court's refusal to give a requested accident instruction, and Edge/Russell sequential-charge instructions. Nothing in the text touches citizen's arrest or deadly force in arrest. The proposition is attributed to a case that contains no such principle.</p></div>
+  </div>
+</details><details id="finding-30">
+  <summary>
+    <strong>p. 30</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/2687390/hamm-v-state/"><span class="case-name">Hamm v. State</span></a>, 294 Ga. 791, 795 (2014)
+    &mdash; <span class="badge badge-red">Case on unrelated subject</span>
+  </summary>
+  <div class="finding-body">
+    
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief"><p>Thus, trial counsel was not deficient for failing to request an unsupported instruction. See Hamm v. State, 294 Ga. 791, 795 (2014) (no ineffective assistance for failing to request a charge not adjusted to the evidence).</p></div>
+    
+    <div class="analysis"><p>Hamm v. State is a direct-appeal murder case about whether the trial court erred in declining to give a requested jury instruction on accomplice corroboration. It does not address ineffective assistance of counsel. The opinion contains no discussion of deficient performance, Strickland, or trial counsel's conduct at all; it analyzes only whether the requested charge was authorized by &quot;slight evidence&quot; and concludes the trial court erred in refusing it but that the error was harmless. The brief cites the case for an ineffective-assistance principle -- that counsel is not deficient for failing to request a charge not adjusted to the evidence -- that appears nowhere in the opinion. The pincite (page 795) falls within the court's discussion of why refusing the instruction was error, the opposite posture from a deference-to-counsel holding.</p></div>
+  </div>
+</details><details id="finding-31">
+  <summary>
+    <strong>p. 30</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/1253106/prayor-v-state/"><span class="case-name">Prayor v. State</span></a>, 217 Ga. App. 56
+    &mdash; <span class="badge badge-yellow">Overstated -- case partially supports</span>
+  </summary>
+  <div class="finding-body">
+    
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief"><p>A citizen's arrest under OCGA § 17-4-60 requires that the arresting individual use no more force than is reasonable under the circumstances, and deadly force is limited to self-defense or preventing a forcible felony[.] Prayor v. State, 217 Ga. App. 56, Hayes v. State, 261 Ga. 439.</p></div>
+    <div class="bq-label">Actual language in opinion:</div><div class="bq-opinion"><p>For a citizen's arrest to be valid, the citizen must use no more force than is reasonable under the circumstances. . . . Also, . . . deadly force in effecting an arrest is limited to self-defense or to a situation in which it is necessary to prevent a forcible felony.</p></div>
+    <div class="analysis"><p>The first two components of this proposition -- no more force than reasonable, and deadly force limited to self-defense or preventing a forcible felony -- are squarely supported by the Hayes rule Prayor quotes. The third component, however, is not in the opinion: Prayor says nothing about an 'initial aggressor' losing justification unless he withdraws and effectively communicates his intent. That aggressor/withdrawal doctrine appears nowhere in this case. The citation supports the reasonable-force and deadly-force portions but overstates by attributing the aggressor rule to Prayor.</p></div>
+  </div>
+</details><details id="finding-32">
+  <summary>
+    <strong>p. 30</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/1233384/hayes-v-state/"><span class="case-name">Hayes v. State</span></a>, 261 Ga. 439
+    &mdash; <span class="badge badge-yellow">Overstated -- case partially supports</span>
+  </summary>
+  <div class="finding-body">
+    
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief"><p>A citizen's arrest under OCGA § 17-4-60 requires that the arresting individual use no more force than is reasonable under the circumstances, and deadly force is limited to self-defense or preventing a forcible felony Prayor v. State, 217 Ga. App. 56, Hayes v. State, 261 Ga. 439.</p></div>
+    <div class="bq-label">Actual language in opinion:</div><div class="bq-opinion"><p>OCGA § 17-4-60 provides that a private citizen may make an arrest if a felony is committed in his presence or within his immediate knowledge. ... For a citizen's arrest to be valid, the citizen must use no more force than is reasonable under the circumstances. ... [D]eadly force in effecting an arrest is limited to self-defense or to a situation in which it is necessary to prevent a forcible felony. OCGA § 17-4-20.</p></div>
+    <div class="analysis"><p>The first half of this proposition is well supported: the opinion expressly states, in connection with OCGA § 17-4-60, that a valid citizen's arrest requires no more force than is reasonable under the circumstances and that deadly force is limited to self-defense or preventing a forcible felony. The second half of the proposition, however -- that force is not justified if the individual was the initial aggressor unless they withdraw and effectively communicate their intent to do so -- does not appear in this opinion. Hayes does not address initial-aggressor or withdrawal doctrine at all; that principle is added by the brief and is not attributable to this case. Because the proposition extends beyond what the opinion decided, it is only partially supported.</p></div>
+  </div>
+</details><details id="finding-33">
+  <summary>
+    <strong>p. 31</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/1256046/smith-v-state/"><span class="case-name">Patel v. State</span></a>, 279 Ga. 50
+    &mdash; <span class="badge badge-red">Case mismatch -- cite resolves to a different case</span>
+  </summary>
+  <div class="finding-body">
+    <div class="card-flags"><span class="flag-chip">&#9873; TOA/body citation mismatch: Patel v. State, 279 Ga. 750 vs Patel v. State, 279 Ga. 50</span></div>
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief">The Court held in Patel v. State, 279 Ga. 50, that a jury charge on citizen's arrest was not warranted because there was no evidence that the defendant was attempting to effectuate an arrest, and the defendant used more force than was reasonable under the circumstances.</div>
+    
+    
+  </div>
+</details><details id="finding-34">
+  <summary>
+    <strong>p. 31</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/7479307/wainwright-v-state/"><span class="case-name">Wainwright v. State</span></a>, 305 Ga. 63
+    &mdash; <span class="badge badge-yellow">Overstated -- case partially supports</span>
+  </summary>
+  <div class="finding-body">
+    
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief"><p>Similarly, in Wainwright v. State, 305 Ga. 63, the Court determined that a defendant is not entitled to a jury instruction on justification, including in the context of a citizen's arrest, when the evidence shows that the defendant was the aggressor.</p></div>
+    <div class="bq-label">Actual language in opinion:</div><div class="bq-opinion"><p>Here, the evidence shows Wainwright initiated the assault and robbery of the victims by aggressively approaching Arnold and pointing a gun in his face before demanding Sanusi to empty his pockets at gunpoint. Under these circumstances, Wainwright was not entitled to a jury charge on justification.</p></div>
+    <div class="analysis"><p>The core of the proposition is supported: Wainwright holds that because the defendant initiated the assault and robbery, he was not entitled to a jury charge on justification, quoting Powers for the rule that a defendant is not entitled to a justification instruction when the evidence is that the supposedly justified party was the aggressor.</p><p>The overstatement is the qualifier &quot;including in the context of a citizen's arrest.&quot; The Wainwright opinion does not mention citizen's arrest anywhere; its justification analysis concerns self-defense and defense of others under OCGA § 16-3-21, not citizen's arrest. The aggressor-no-justification holding is accurate, but the brief extends it to a citizen's-arrest context the case never addresses.</p></div>
+  </div>
+</details><details id="finding-35">
+  <summary>
+    <strong>p. 31</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/1409138/tarvestad-v-state/"><span class="case-name">Tarvestad v. State</span></a>, 261 Ga. 605
+    &mdash; <span class="badge badge-yellow">Overstated -- case partially supports</span>
+  </summary>
+  <div class="finding-body">
+    
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief"><p>Even slight evidence is sufficient to warrant such a charge, but there must be a legitimate basis for the defense. (Emphasis added) Tarvestad v. State, 261 Ga. 605, Virgil v. State, 227 Ga. App. 96.</p></div>
+    <div class="bq-label">Actual language in opinion:</div><div class="bq-opinion"><p>The trial court must charge the jury on the defendant's sole defense, even without a written request, if there is some evidence to support the charge.</p></div>
+    <div class="analysis"><p>Tarvestad squarely supports the core of the proposition: the opinion holds that the trial court must charge the jury on the defendant's sole defense, even without a written request, if there is some evidence to support the charge. That &quot;some evidence&quot; standard is the holding's centerpiece.</p><p>The brief, however, layers on two qualifiers the opinion does not state. Tarvestad contains no &quot;even slight evidence is sufficient&quot; formulation, and it nowhere requires that &quot;there must be a legitimate basis for the defense&quot; -- the quoted phrase does not appear in the opinion (consistent with the FABRICATED quote-check result). Those glosses may come from the companion citation, but as attributed to Tarvestad they overstate what this case decided, so the support is partial rather than full.</p></div>
+  </div>
+</details><details id="finding-36">
+  <summary>
+    <strong>p. 31</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/5793070/virgil-v-state/"><span class="case-name">Virgil v. State</span></a>, 227 Ga. App. 96
+    &mdash; <span class="badge badge-yellow">Overstated -- case partially supports</span>
+  </summary>
+  <div class="finding-body">
+    
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief"><p>Even slight evidence is sufficient to warrant such a charge, but there must be a legitimate basis for the defense. (Emphasis added) Tarvestad v. State, 261 Ga. 605, Virgil v. State, 227 Ga. App. 96.</p></div>
+    <div class="bq-label">Actual language in opinion:</div><div class="bq-opinion"><p>As to Virgil's contention that the trial court erred by refusing to give her requested charge on the defense of accident, we find no basis for a charge on the defense of accident under the facts of this case.</p></div>
+    <div class="analysis"><p>Virgil v. State is a DUI case in which the defendant argued the trial court erred by refusing to charge the jury on the defense of accident. The opinion supports the general notion that a charge on a defense requires a legitimate basis in the facts -- the court found &quot;no basis for a charge on the defense of accident under the facts of this case&quot; because Virgil did not actually claim any contested element of the offense was done by accident, but only that she was not driving or in actual physical control of the car.</p><p>The opinion does not, however, articulate the brief's specific standard that &quot;even slight evidence is sufficient&quot; to warrant such a charge. The quoted phrase &quot;but there must be a legitimate basis for the defense&quot; does not appear in the opinion (the quote check flags it as FABRICATED). The case is thus topically aligned with the legitimate-basis half of the proposition but does not state the slight-evidence rule the brief attributes to it, so the support is partial rather than full.</p></div>
+  </div>
+</details><details id="finding-37">
+  <summary>
+    <strong>p. 31</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/1253106/prayor-v-state/"><span class="case-name">Prayor v. State</span></a>, 217 Ga. App. 56
+    &mdash; <span class="badge badge-yellow">Overstated -- case partially supports</span>
+  </summary>
+  <div class="finding-body">
+    
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief"><p>A citizen who uses excessive force loses the protection of the citizen's arrest statute. This means that the arrest is no longer considered lawful, and the individual cannot rely on the statute as a defense against criminal or civil claims. Prayor v. State, 217 Ga. App. 56, Patel v. State, 279 Ga. 750.</p></div>
+    <div class="bq-label">Actual language in opinion:</div><div class="bq-opinion"><p>under the evidence adduced at trial the jury was authorized to reject his citizen's arrest/justification and self-defense/justification defenses and to convict him of the crime charged.</p></div>
+    <div class="analysis"><p>Prayor supports the general thrust of this proposition but not its specific framing. The opinion establishes that a valid citizen's arrest permits no more than reasonable force, and it holds that the jury was authorized to reject the defendant's citizen's-arrest justification defense and convict him -- which is consistent with the idea that excessive force defeats the defense. But the opinion does not state the principle that excessive force 'loses the protection of the statute,' and it is a criminal aggravated-assault appeal that says nothing about civil claims. The citation reasonably supports the criminal-defense point in a general way but overstates by adding the loss-of-statutory-protection framing and the civil-claims extension, neither of which appears in Prayor.</p></div>
+  </div>
+</details><details id="finding-38">
+  <summary>
+    <strong>p. 31</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/1245424/patel-v-state/"><span class="case-name">Patel v. State</span></a>, 279 Ga. 750
+    &mdash; <span class="badge badge-yellow">Overstated -- case partially supports</span>
+  </summary>
+  <div class="finding-body">
+    <div class="card-flags"><span class="flag-chip">&#9873; TOA/body citation mismatch: Patel v. State, 279 Ga. 750 vs Patel v. State, 279 Ga. 50</span></div>
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief"><p>A citizen who uses excessive force loses the protection of the citizen's arrest statute. This means that the arrest is no longer considered lawful, and the individual cannot rely on the statute as a defense against criminal or civil claims. [...] Patel v. State, 279 Ga. 750.</p></div>
+    <div class="bq-label">Actual language in opinion:</div><div class="bq-opinion"><p>“... the use of unreasonable force . . . could not have been part of a legitimate citizen’s arrest.” Here, Patel did not attempt to restrain the victim; rather, he shot and killed him minutes after commanding him to halt.</p></div>
+    <div class="analysis"><p>Patel v. State supports the core idea that unreasonable force takes conduct outside the protection of the citizen's-arrest statute: it quotes Carter v. State that “the use of unreasonable force . . . could not have been part of a legitimate citizen’s arrest” and applies that to hold that Patel’s shooting could not be a lawful citizen's arrest.</p><p>The brief overstates by framing the case as a rule that the citizen “cannot rely on the statute as a defense against criminal or civil claims.” Patel is a criminal felony-murder/ineffective-assistance decision; it holds only that the evidence did not support a citizen's-arrest jury charge, and it says nothing about civil claims. The proposition is topically grounded but extends the holding to a defense-availability rule the opinion does not articulate.</p></div>
+  </div>
+</details><details id="finding-39">
+  <summary>
+    <strong>p. 31</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/1253106/prayor-v-state/"><span class="case-name">Prayor v. State</span></a>, 217 Ga. App. 56
+    &mdash; <span class="badge badge-yellow">Overstated -- case partially supports</span>
+  </summary>
+  <div class="finding-body">
+    
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief"><p>The Court reiterated in Prayor that deadly force in effecting an arrest is limited to self-defense or preventing a forcible felony, and any use of force beyond what is reasonable invalidates the arrest. Prayor v. State, 217 Ga. App. 56.</p></div>
+    <div class="bq-label">Actual language in opinion:</div><div class="bq-opinion"><p>For a citizen's arrest to be valid, the citizen must use no more force than is reasonable under the circumstances. . . . Also, . . . deadly force in effecting an arrest is limited to self-defense or to a situation in which it is necessary to prevent a forcible felony.</p></div>
+    <div class="analysis"><p>The deadly-force half of this proposition is fully supported: Prayor (quoting Hayes) states that deadly force in effecting an arrest is limited to self-defense or to preventing a forcible felony. The second clause overstates slightly. The opinion says a valid citizen's arrest requires 'no more force than is reasonable under the circumstances,' but it does not frame excess force as something that 'invalidates the arrest.' That is a reasonable but unstated extension of the opinion's reasonable-force requirement, so the citation partially supports the proposition.</p></div>
+  </div>
+</details><details id="finding-40">
+  <summary>
+    <strong>p. 32</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/1217054/johnson-v-jackson/"><span class="case-name">Johnson v. Jackson</span></a>, 140 Ga. App. 252
+    &mdash; <span class="badge badge-yellow">Overstated -- case partially supports</span>
+  </summary>
+  <div class="finding-body">
+    
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief"><p>Deadly force is strictly limited to lawful self-defense or prevention of a forcible felony, and its use is always subject to judicial scrutiny and jury determination. Johnson v. Jackson, 140 Ga. App. 252 [...].</p></div>
+    <div class="bq-label">Actual language in opinion:</div><div class="bq-opinion"><p>The use of force which is intended or likely to cause death or great bodily harm to prevent trespass on or other tortious or criminal interference with real property (other than a habitation) or personal property is not justified unless the person using such force reasonably believes that it is necessary to prevent the commission of a forcible felony.</p></div>
+    <div class="analysis"><p>Johnson v. Jackson supports the core of this proposition but the brief overstates it. The opinion ties the use of deadly force to prevention of a forcible felony (quoting Criminal Code Sec. 26-904(b)) and repeatedly holds that whether the force used was reasonable and whether the killing was necessary are questions for the jury, so the jury-determination point is squarely grounded. But the case does not state, as a categorical rule, that deadly force is &quot;strictly limited to lawful self-defense or prevention of a forcible felony&quot;; self-defense is not a focus, and the opinion also recognizes a citizen's authority to use force in effecting a felony arrest. The proposition is topically on point and the holding extends to most of it, but the &quot;strictly limited to lawful self-defense&quot; framing reaches beyond what the case decided.</p></div>
+  </div>
+</details><details id="finding-41">
+  <summary>
+    <strong>p. 32</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/1420144/merneigh-v-state/"><span class="case-name">Merneigh v. State</span></a>, 242 Ga. App. 735
+    &mdash; <span class="badge badge-red">Case on unrelated subject</span>
+  </summary>
+  <div class="finding-body">
+    
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief"><p>Deadly force is strictly limited to lawful self-defense or prevention of a forcible felony, and its use is always subject to judicial scrutiny and jury determination. Johnson v. Jackson, 140 Ga. App. 252; Merneigh v. State, 242 Ga. App. 735; Prayor v. State, 217 Ga. App. 56; OCGA § 16-3-21.</p></div>
+    
+    <div class="analysis"><p>Merneigh v. State is a criminal appeal about theft by shoplifting and aggravated assault, addressing the sufficiency of an indictment, jury instructions, citizen's-arrest authority under OCGA § 17-4-60, a lesser-included reckless-conduct charge, juror strikes for cause, and use of an alias in the indictment. It does not address the proposition that deadly force is strictly limited to lawful self-defense or prevention of a forcible felony, nor that its use is always subject to judicial scrutiny and jury determination.</p><p>The opinion's only brush with self-defense is Division 5, where the court held the trial court properly refused justification and self-defense charges because no evidence supported them -- a record-specific ruling, not a statement of any limit on deadly force. Nothing in the opinion announces the cited principle, so the case does not support the proposition.</p></div>
+  </div>
+</details><details id="finding-42">
+  <summary>
+    <strong>p. 32</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/1253106/prayor-v-state/"><span class="case-name">Prayor v. State</span></a>, 217 Ga. App. 56
+    &mdash; <span class="badge badge-yellow">Overstated -- case partially supports</span>
+  </summary>
+  <div class="finding-body">
+    
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief"><p>Deadly force is strictly limited to lawful self-defense or prevention of a forcible felony, and its use is always subject to judicial scrutiny and jury determination. Johnson v. Jackson, 140 Ga. App. 252; Merneigh v. State, 242 Ga. App. 735; Prayor v. State, 217 Ga. App. 56; OCGA § 16-3-21.</p></div>
+    <div class="bq-label">Actual language in opinion:</div><div class="bq-opinion"><p>deadly force in effecting an arrest is limited to self-defense or to a situation in which it is necessary to prevent a forcible felony.</p></div>
+    <div class="analysis"><p>The core deadly-force limitation -- confined to self-defense or prevention of a forcible felony -- is directly supported by Prayor's quotation of the Hayes rule. The added assertion that deadly force is 'always subject to judicial scrutiny and jury determination' is only loosely grounded: Prayor does illustrate a jury rejecting the citizen's-arrest and self-defense justifications and convicting (section 2), but the opinion does not announce any general rule that deadly force is 'always' subject to judicial scrutiny and jury determination. The citation supports the deadly-force limit and is consistent with jury determination on the facts, but the categorical 'always' framing extends beyond what the opinion holds, making this partial.</p></div>
+  </div>
+</details><details id="finding-43">
+  <summary>
+    <strong>p. 32</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/7479307/wainwright-v-state/"><span class="case-name">Wainwright v. State</span></a>, 305 Ga. 63
+    &mdash; <span class="badge badge-red">Not supported by cited case</span>
+  </summary>
+  <div class="finding-body">
+    
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief"><p>Further, when a defendant is the initial aggressor and the evidence does not support the statutory elements of a lawful citizen's arrest, the trial court is not required to instruct the jury on citizen's arrest. Wainwright v. State, 305 Ga. 63; Patel v. State, 279 Ga. 750; Virgil v. State, 227 Ga. App. 96.</p></div>
+    
+    <div class="analysis"><p>Wainwright v. State does not address citizen's arrest at all. The opinion's justification discussion (Division 5(b)) is confined to self-defense and defense of others under OCGA § 16-3-21; it never mentions a citizen's-arrest instruction, the statutory elements of a lawful citizen's arrest, or any rule about when such an instruction is required.</p><p>The proposition attributes a citizen's-arrest-specific holding -- that no citizen's-arrest charge is required where the aggressor's evidence does not satisfy the statutory elements -- to a case that contains no such principle. The shared &quot;initial aggressor&quot; vocabulary does not bridge the gap, because the brief's proposition turns on a distinct legal issue (the citizen's-arrest instruction and its elements) that Wainwright simply does not decide.</p></div>
+  </div>
+</details><details id="finding-44">
+  <summary>
+    <strong>p. 32</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/1245424/patel-v-state/"><span class="case-name">Patel v. State</span></a>, 279 Ga. 750
+    &mdash; <span class="badge badge-yellow">Overstated -- case partially supports</span>
+  </summary>
+  <div class="finding-body">
+    <div class="card-flags"><span class="flag-chip">&#9873; TOA/body citation mismatch: Patel v. State, 279 Ga. 750 vs Patel v. State, 279 Ga. 50</span></div>
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief"><p>Further, when a defendant is the initial aggressor and the evidence does not support the statutory elements of a lawful citizen's arrest, the trial court is not required to instruct the jury on citizen's arrest. [...] Patel v. State, 279 Ga. 750 [...].</p></div>
+    <div class="bq-label">Actual language in opinion:</div><div class="bq-opinion"><p>Here, Patel did not attempt to restrain the victim; rather, he shot and killed him minutes after commanding him to halt. As in Carter, supra, there was no evidentiary support in this case to warrant a charge on OCGA § 17-4-60. Thus, trial counsel was not ineffective in failing to request such a charge.</p></div>
+    <div class="analysis"><p>Patel v. State supports the operative principle that when the evidence does not support the statutory elements of a citizen's arrest, no jury charge on OCGA § 17-4-60 is required: the court found “no evidentiary support in this case to warrant a charge” because Patel shot the victim rather than attempting to restrain him.</p><p>The brief overstates by attributing the result to the defendant being “the initial aggressor.” That is not the court’s rationale; the holding rests on the absence of any attempt to restrain (and that “any assault . . . was over when [Patel] started shooting”), not on an initial-aggressor theory. The no-instruction-when-elements-unsupported point is squarely supported, but the “initial aggressor” framing recharacterizes the basis of the decision.</p></div>
+  </div>
+</details><details id="finding-45">
+  <summary>
+    <strong>p. 32</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/5793070/virgil-v-state/"><span class="case-name">Virgil v. State</span></a>, 227 Ga. App. 96
+    &mdash; <span class="badge badge-red">Case on unrelated subject</span>
+  </summary>
+  <div class="finding-body">
+    
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief"><p>Further, when a defendant is the initial aggressor and the evidence does not support the statutory elements of a lawful citizen's arrest, the trial court is not required to instruct the jury on citizen's arrest. Wainwright v. State, 305 Ga. 63; Patel v. State, 279 Ga. 750; Virgil v. State, 227 Ga. App. 96.</p></div>
+    
+    <div class="analysis"><p>Virgil v. State is a DUI case about whether the trial court should have charged the jury on the defense of accident and whether an &quot;actual physical control&quot; instruction was harmful error. It does not address citizen's arrest, an initial aggressor, the statutory elements of a lawful citizen's arrest, or any jury instruction on citizen's arrest.</p><p>The opinion's discussion of refusing a defense charge is confined entirely to the defense of accident in a drunk-driving prosecution; nothing in it concerns the citizen's-arrest principle the brief cites it for. The citation does not support the proposition.</p></div>
+  </div>
+</details><details id="finding-46">
+  <summary>
+    <strong>p. 33</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/1155076/taylor-v-state/"><span class="case-name">Taylor v. State</span></a>, 259 Ga. App. 457, 460 (2003)
+    &mdash; <span class="badge badge-red">Citation resolves to different case</span>
+  </summary>
+  <div class="finding-body">
+    
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief"><p>“The grant or denial of a motion for new trial is a matter within the sound discretion of the trial court and will not be disturbed if there is any evidence to authorize it.” Hargrave v. State, 311 Ga. App. 852, 855 (2011) (quoting Taylor v. State, 259 Ga. App. 457, 460 (2003)).</p></div>
+    
+    <div class="analysis"><p>The brief cites Taylor v. State, 259 Ga. App. 457, 460 (2003) for the standard governing the grant or denial of a motion for new trial, but the opinion on file is Black v. State, 264 Ga. 550 (1994) -- a different case. The citation resolves to a different opinion, so the cited authority cannot ground the proposition.</p><p>Separately, the quoted language does not appear anywhere in this opinion (consistent with the FABRICATED quote-check result). Black v. State addresses ineffective assistance of counsel and a motion to quash an indictment based on grand-jury disqualification; it does not state any standard of review for the grant or denial of a motion for new trial, so the subject matter is also absent from the document provided.</p></div>
+  </div>
+</details><details id="finding-47">
+  <summary>
+    <strong>p. 34</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/110138/jackson-v-virginia/"><span class="case-name">Jackson v. Virginia</span></a>, 443 U.S. 307 (1979)
+    &mdash; <span class="badge badge-red">Citation resolves to different case</span>
+  </summary>
+  <div class="finding-body">
+    
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief"><p>The standard for reviewing the sufficiency of evidence is whether the evidence was sufficient for a rational trier of fact to find beyond a reasonable doubt that the defendant was guilty of the charged offenses. Jackson v. Virginia, 443 U.S. 307 (1979).</p></div>
+    
+    <div class="analysis"><p>The brief cites Jackson v. Virginia, 443 U.S. 307 (1979), a U.S. Supreme Court case, for the sufficiency-of-the-evidence standard, but the opinion provided is Johnson v. Jackson, 140 Ga. App. 252 (1976), a Georgia Court of Appeals civil case about a landowner's citizen's arrest and use of deadly force against a fleeing burglary suspect. The provided opinion does not contain the rational-trier-of-fact sufficiency standard and is a different case entirely, so this proposition cannot be supported from the opinion before me.</p></div>
+  </div>
+</details><details id="finding-48">
+  <summary>
+    <strong>p. 35</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/5749040/choisnet-v-state/"><span class="case-name">Choisnet v. State</span></a>, 292 Ga. 860, 861, 742 S.E.2d 476 (2013)
+    &mdash; <span class="badge badge-red">Not supported by cited case</span>
+  </summary>
+  <div class="finding-body">
+    
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief"><p>The sufficiency of the evidence, including any conflicts in the evidence, the credibility of the witnesses, and the weight of the evidence, supports the verdict and the verdict does not offend the principles of justice and/or equity. Choisnet v. State, 292 Ga. 860, 861, 742 S.E.2d 476 (2013).</p></div>
+    <div class="bq-label">Actual language in opinion:</div><div class="bq-opinion"><p>However, a trial court does not fulfill its duty to exercise its discretion when it applies the standard of review set out in Jackson v. Virginia to the statutory grounds for a new trial.... Inasmuch as only the trial court is authorized by law to review a verdict pursuant to OCGA §§ 5-5-20 and 5-5-21, we agree with the parties that the judgment must be vacated and the case remanded to the trial court for consideration of the amended motion for new trial under the proper legal standard.</p></div>
+    <div class="analysis"><p>Choisnet v. State does not support the brief's proposition. The opinion is a procedural decision that vacated the conviction and remanded the case because the trial court applied the wrong legal standard to the motion for new trial, using the Jackson v. Virginia sufficiency-of-the-evidence test instead of independently weighing the evidence and assessing witness credibility as a &quot;thirteenth juror&quot; under OCGA §§ 5-5-20 and 5-5-21.</p><p>The brief recasts this as an affirmative holding that the evidence &quot;supports the verdict&quot; and that the verdict does not offend the principles of justice and equity. The opinion holds the opposite of that framing: it found the trial court had not yet properly assessed the weight of the evidence or witness credibility at all, and it remanded precisely so that review could be done correctly. Although the opinion shares the brief's vocabulary (weight of the evidence, conflicts in testimony, credibility of witnesses, principles of justice), it makes no determination that the evidence supports the verdict, and its holding cannot reasonably be extended to support that proposition.</p></div>
+  </div>
+</details><details id="finding-49">
+  <summary>
+    <strong>p. 35</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/110138/jackson-v-virginia/"><span class="case-name">Jackson v. Virginia</span></a>, 443 U.S. 307 (1979)
+    &mdash; <span class="badge badge-red">Citation resolves to different case</span>
+  </summary>
+  <div class="finding-body">
+    
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief"><p>The evidence admitted at trial, including all lay witness testimony, expert testimony, and exhibits, was sufficient for a rational trier of fact to find the Defendant guilty of all charges, beyond a reasonable doubt. Jackson v. Virginia, 443 U.S. 307 (1979).</p></div>
+    
+    <div class="analysis"><p>The brief cites Jackson v. Virginia, 443 U.S. 307 (1979), for the proposition that the trial evidence was sufficient for a rational trier of fact to find guilt beyond a reasonable doubt, but the opinion provided is Johnson v. Jackson, 140 Ga. App. 252 (1976), an unrelated Georgia citizen's-arrest and deadly-force case. The provided opinion contains no sufficiency-of-the-evidence standard and does not address this proposition; it is a different case than the one cited.</p></div>
+  </div>
+</details>
+<details id="finding-uv-17">
+  <summary>
+    <span class="case-name">United States v. Valenzuela-Bernal (1982)</span>, 
+    
+    &mdash; <span class="badge badge-gray">Unable to verify -- opinion text unavailable</span>
+  </summary>
+  <div class="finding-body">
+    <div class="bq-label">Propositions the brief attributes to this case:</div><ul class="prop-list"><li><strong>p. 21:</strong> A defendant alleging ineffective assistance for failure to call a witness must show the missing witness's testimony would have been material and favorable.</li></ul>
+    <div class="explanation">The citation lacks the court and year data needed to verify it against CourtListener.</div>
+  </div>
+</details>
+<details id="finding-uv-18">
+  <summary>
+    <span class="case-name">Reynolds</span>, 306 Ga. 630 (2019)
+    
+    &mdash; <span class="badge badge-gray">Unable to verify -- opinion text unavailable</span>
+  </summary>
+  <div class="finding-body">
+    <div class="bq-label">Propositions the brief attributes to this case:</div><ul class="prop-list"><li><strong>p. 24:</strong> Georgia courts adopted the Strickland two-prong test for ineffective assistance of counsel claims.</li></ul>
+    <div class="explanation">Case not found on CourtListener. Cannot verify against opinion text.</div>
+  </div>
+</details>
+<h2>Verified Citations</h2>
+<details>
+  <summary>33 citation-proposition pairs verified &mdash; click to expand</summary>
+  <div class="finding-body">
+    <div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 12</strong> &mdash; <a href="https://www.courtlistener.com/opinion/111170/strickland-v-washington/"><em>Strickland v. Washington</em></a>, 466 U.S. 668 (1984) &mdash; To prevail on an ineffective assistance of counsel claim, a defendant must satisfy a two-prong test of deficient performance and prejudice. <span class="badge badge-green">Supported</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 16</strong> &mdash; <a href="https://www.courtlistener.com/opinion/2506257/state-v-kelly/"><em>State v. Kelly</em></a>, 290 Ga. 29, 33 (2011) &mdash; Plain error requires a clear legal mistake that affects substantial rights and the fairness of proceedings. <span class="badge badge-green">Supported</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 17</strong> &mdash; <a href="https://www.courtlistener.com/opinion/1266664/head-v-carr/"><em>Head v. Carr</em></a>, 273 Ga. 613 (2001) &mdash; Strategic decisions not to present speculative evidence do not amount to ineffective assistance. <span class="badge badge-green">Supported</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 17</strong> &mdash; <a href="https://www.courtlistener.com/opinion/111170/strickland-v-washington/"><em>Strickland</em></a>, 466 U.S. at 689 &mdash; Strategic choices focusing on legally relevant issues and avoiding speculative claims are entitled to deference. <span class="badge badge-green">Supported</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 24</strong> &mdash; <a href="https://www.courtlistener.com/opinion/111170/strickland-v-washington/"><em>Strickland</em></a>, 466 U.S. 668 (1984) &mdash; A defendant claiming ineffective assistance must establish deficient performance and prejudice, and strategic decisions, even if ultimately unsuccessful, are entitled to strong deference. <span class="badge badge-green">Supported</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 24</strong> &mdash; <a href="https://www.courtlistener.com/opinion/1323520/head-v-ferrell/"><em>Head v. Ferrell</em></a>, 274 Ga. 399 (2001) &mdash; Strategic decisions, even if ultimately unsuccessful, are entitled to strong deference. <span class="badge badge-green">Supported</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 26</strong> &mdash; <a href="https://www.courtlistener.com/opinion/111170/strickland-v-washington/"><em>Strickland v. Washington</em></a>, 466 U.S. 668 (1984) &mdash; The absence of unsupported charges did not affect the outcome of the trial, and the defendant bears the burden of proving both deficient performance and prejudice. <span class="badge badge-green">Supported</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 26</strong> &mdash; <a href="https://www.courtlistener.com/opinion/10679789/clark-v-state/"><em>Clark v. State</em></a>, 315 Ga. 1, 4 (2022) &mdash; Hindsight has no place in an assessment of the performance of trial counsel. <span class="badge badge-green">Supported</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 26</strong> &mdash; <a href="https://www.courtlistener.com/opinion/7922975/mahan-v-state/"><em>Mahan v. State</em></a>, 282 Ga. App. 201, 204 (2006) &mdash; The fact that a defendant and his present counsel disagree with a decision made by trial counsel does not require a finding that the defendant's original representation was inadequate. <span class="badge badge-green">Supported</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 26</strong> &mdash; <a href="https://www.courtlistener.com/opinion/2779582/jones-v-state/"><em>Jones v. State</em></a>, 296 Ga. 561, 567 (769 SE2d 307) (2015) &mdash; Trial counsel's decisions relating to strategy and tactics are not judged by hindsight. <span class="badge badge-green">Supported</span><div class="card-flags"><span class="flag-chip">&#9873; TOA/body citation mismatch: Jones v. State, 283 Ga. 155 (2008) vs Jones v. State, 296 Ga. 561, 567 (769 SE2d 307) (2015)</span></div></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 26</strong> &mdash; <a href="https://www.courtlistener.com/opinion/10679906/butler-v-state/"><em>Butler v. State</em></a>, 313 Ga. 675, 683, 872 S.E.2d 722, 731 (2022) &mdash; Trial strategy is judged from counsel's perspective at the time of trial and under the particular circumstances of the case. <span class="badge badge-green">Supported</span><div class="card-flags"><span class="flag-chip">&#9873; Pincite 683 outside the opinion's star-pagination range 3-9</span></div></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 27</strong> &mdash; <a href="https://www.courtlistener.com/opinion/10680416/bradley-v-state/"><em>Bradley v. State</em></a>, 318 Ga. 142, 144 (2024) &mdash; The court has declined to presume prejudice in the context of an ineffective assistance of counsel claim based on attorney performance. <span class="badge badge-green">Supported</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 27</strong> &mdash; <a href="https://www.courtlistener.com/opinion/1217054/johnson-v-jackson/"><em>Johnson v. Jackson</em></a>, 140 Ga. App. 252 (1976) &mdash; A crime is considered committed in a citizen's presence if they acquire knowledge of its commission through the exercise of any of their senses; the terms 'in his presence' and 'within his immediate knowledge' are synonymous. <span class="badge badge-green">Supported</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 27</strong> &mdash; <a href="https://www.courtlistener.com/opinion/1217054/johnson-v-jackson/"><em>Johnson v. Jackson</em></a>, 140 Ga. App. 252 (1976) &mdash; For misdemeanors, the offense must occur in the citizen's presence or immediate knowledge, while for felonies, a citizen may also arrest upon reasonable and probable grounds of suspicion if the offender is escaping or attempting to escape. <span class="badge badge-green">Supported</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 28</strong> &mdash; <a href="https://www.courtlistener.com/opinion/5719482/delegal-v-state/"><em>Delegal v. State</em></a>, 109 Ga. 518, 521 (1900) &mdash; For misdemeanors, the offense must occur in the citizen's presence or immediate knowledge, while for felonies, a citizen may also arrest upon reasonable and probable grounds of suspicion if the offender is escaping or attempting to escape. <span class="badge badge-green">Supported</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 28</strong> &mdash; <a href="https://www.courtlistener.com/opinion/1253106/prayor-v-state/"><em>Prayor v. State</em></a>, 217 Ga. App. 56, 58 &mdash; For a citizen's arrest to be valid, the citizen must use no more force than is reasonable under the circumstances, and deadly force in effecting an arrest is limited to self-defense or to a situation necessary to prevent a forcible felony. <span class="badge badge-green">Supported</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 28</strong> &mdash; <a href="https://www.courtlistener.com/opinion/1253106/prayor-v-state/"><em>Prayor v. State</em></a>, 217 Ga. App. 56 &mdash; The use of force during a citizen's arrest is limited to what is reasonably necessary; deadly force is only permissible in self-defense or to prevent the commission of a forcible felony. <span class="badge badge-green">Supported</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 28</strong> &mdash; <a href="https://www.courtlistener.com/opinion/1233384/hayes-v-state/"><em>Hayes v. State</em></a>, 261 Ga. 439 (1991) &mdash; The use of force during a citizen's arrest is limited to what is reasonably necessary; deadly force is only permissible in self-defense or to prevent the commission of a forcible felony. <span class="badge badge-green">Supported</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 29</strong> &mdash; <a href="https://www.courtlistener.com/opinion/2502836/chambers-v-state/"><em>Chambers v. State</em></a>, 308 Ga. App. 748 &mdash; Deadly force is justified if the individual reasonably believes it is necessary to prevent death or great bodily injury to themselves or a third person, or to prevent a forcible felony. <span class="badge badge-green">Supported</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 29</strong> &mdash; <a href="https://www.courtlistener.com/opinion/10680534/reddick-v-state/"><em>Reddick v. State</em></a>, 321 Ga. 73 (2025) &mdash; Excessive or unlawful force, even when acting in self-defense, is not justifiable. <span class="badge badge-green">Supported</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 30</strong> &mdash; <a href="https://www.courtlistener.com/opinion/7479307/wainwright-v-state/"><em>Wainwright v. State</em></a>, 305 Ga. 63 (2019) &mdash; The use of force is not justified if the individual was the initial aggressor, unless they withdraw from the encounter and effectively communicate their intent to do so and the other party continues or threatens to continue the use of unlawful force. <span class="badge badge-green">Supported</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 31</strong> &mdash; <a href="https://www.courtlistener.com/opinion/2808301/powers-v-state/"><em>Powers v. State</em></a>, 297 Ga. 345 (2015) &mdash; The use of force is not justified if the individual was the initial aggressor, unless they withdraw from the encounter and effectively communicate their intent to do so and the other party continues or threatens to continue the use of unlawful force. <span class="badge badge-green">Supported</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 33</strong> &mdash; <a href="https://www.courtlistener.com/opinion/10680180/montgomery-v-state/"><em>Montgomery v. State</em></a>, 315 Ga. 467, 473 (2023) &mdash; These statutes, known as general grounds, afford the court broad discretion to sit as a thirteenth juror and weigh the evidence on a motion for new trial alleging these general grounds. <span class="badge badge-green">Supported</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 33</strong> &mdash; <a href="https://www.courtlistener.com/opinion/5748911/walker-v-state/"><em>Walker v. State</em></a>, 292 Ga. 262, 264 (2013) &mdash; These statutes, known as general grounds, afford the court broad discretion to sit as a thirteenth juror and weigh the evidence on a motion for new trial alleging these general grounds. <span class="badge badge-green">Supported</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 33</strong> &mdash; <a href="https://www.courtlistener.com/opinion/10367022/state-v-denson/"><em>State v. Denson</em></a>, 306 Ga. 795, 798 (2019) &mdash; The trial court's discretion to grant a new trial on the general grounds is not boundless; it should be exercised with caution and invoked only when the evidence preponderates heavily against the verdict. <span class="badge badge-green">Supported</span><div class="card-flags"><span class="flag-chip">&#9873; Pincite 798 outside the opinion's star-pagination range 1-6</span></div></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 33</strong> &mdash; <a href="https://www.courtlistener.com/opinion/10367039/state-v-hamilton/"><em>State v. Hamilton</em></a>, 306 Ga. 678, 684 (2019) &mdash; The trial court's discretion to grant a new trial on the general grounds is not boundless; it should be exercised with caution and invoked only when the evidence preponderates heavily against the verdict. <span class="badge badge-green">Supported</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 33</strong> &mdash; <a href="https://www.courtlistener.com/opinion/2501796/hargrave-v-state/"><em>Hargrave v. State</em></a>, 311 Ga. App. 852, 855 (2011) &mdash; The grant or denial of a motion for new trial is a matter within the sound discretion of the trial court and will not be disturbed if there is any evidence to authorize it. <span class="badge badge-green">Supported</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 34</strong> &mdash; <a href="https://www.courtlistener.com/opinion/1229904/caldwell-v-state/"><em>Caldwell v. State</em></a>, 263 Ga. 560, 436 S.E.2d 488 (1993) &mdash; In determining evidentiary sufficiency, the evidence is viewed in the light most favorable to the verdict, and the court will not weigh the evidence or determine witness credibility. <span class="badge badge-green">Supported</span><div class="card-flags"><span class="flag-chip">&#9873; Pincite 436 outside the opinion's star-pagination range 561-566</span></div></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 34</strong> &mdash; <a href="https://www.courtlistener.com/opinion/1291675/vega-v-state/"><em>Vega v. State</em></a>, 285 Ga. 32, 673 S.E.2d 223 (2009) &mdash; It is for the jury to determine the credibility of the witnesses and to resolve any conflicts or inconsistencies in the evidence. <span class="badge badge-green">Supported</span><div class="card-flags"><span class="flag-chip">&#9873; Pincite 673 outside the opinion's star-pagination range 1-36</span></div></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 34</strong> &mdash; <a href="https://www.courtlistener.com/opinion/2507789/santiago-v-state/"><em>Santiago v. State</em></a>, 314 Ga. App. 623, 623, 724 S.E.2d 793, 794 (2012) &mdash; If there is some competent evidence, even though contradicted, to support each fact necessary to make out the State's case, the jury's verdict will be upheld. <span class="badge badge-green">Supported</span><div class="card-flags"><span class="flag-chip">&#9873; Pincite 623 outside the opinion's star-pagination range 624-628</span></div></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 34</strong> &mdash; <a href="https://www.courtlistener.com/opinion/1279473/goldsby-v-state/"><em>Goldsby v. State</em></a>, 273 Ga. App. 523 (2005) &mdash; Whether a witness is credible and whether his testimony should be accepted are questions for a jury. <span class="badge badge-green">Supported</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 35</strong> &mdash; <a href="https://www.courtlistener.com/opinion/5749590/smiley-v-state/"><em>Smiley v. State</em></a>, 300 Ga. 582, 583 (2017) &mdash; Reviewing courts do not reweigh evidence or resolve conflicts in testimony; instead, evidence is reviewed in the light most favorable to the verdict, with deference to the jury's assessment of the weight and credibility of the evidence. <span class="badge badge-green">Supported</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 35</strong> &mdash; <a href="https://www.courtlistener.com/opinion/1351880/mickens-v-state/"><em>Mickens v. State</em></a>, 277 Ga. 627, 627-628 (2004) &mdash; Reviewing courts do not reweigh evidence or resolve conflicts in testimony; instead, evidence is reviewed in the light most favorable to the verdict, with deference to the jury's assessment of the weight and credibility of the evidence. <span class="badge badge-green">Supported</span><div class="card-flags"><span class="flag-chip">&#9873; Pincite 627 outside the opinion's star-pagination range 628-630</span></div></div>
+  </div>
+</details>
+<div class="methodology">
+  <h2>Methodology &amp; Limitations</h2>
+  <ul>
+    <li><strong>Quote verification</strong> is near-deterministic but limited by the quality of CourtListener's text. Minor discrepancies may reflect OCR artifacts in the source database rather than errors in the brief.</li>
+    <li><strong>Propositional support</strong> assessment is an AI judgment. It reflects Claude's reading of the opinion text and should be verified by counsel. Reasonable lawyers may disagree about whether a case "supports" a given proposition.</li>
+    <li>This report checks whether cited cases say what the brief claims they say. It does not assess the overall legal merit of the brief's arguments or whether the cited cases are the best authorities available.</li>
+    <li>Cases marked "unable to verify" should be checked through other sources (Westlaw, Lexis, etc.).</li>
+  </ul>
+  <h3>Verification method disclosure</h3>
+  <p>The following opinions were <strong>retrieved from CourtListener</strong> and verified against their full text:</p>
+  <ul>
+    <li><em>Strickland v. Washington</em>, 466 U.S. 668 (1984) (cluster 111170)</li>
+<li><em>State v. Mondor</em>, 306 Ga. 630 (2019) (cluster 7479879)</li>
+<li><em>State v. Rozier</em>, 288 Ga. 768 (2011) (cluster 2112294)</li>
+<li><em>Reed v. State</em>, 291 Ga. 10 (2012) (cluster 2506728)</li>
+<li><em>Davis v. State</em>, 269 Ga. 276, 277 (1998) (cluster 1398343)</li>
+<li><em>Head v. Ferrell</em>, 274 Ga. 399 (2001) (cluster 1323520)</li>
+<li><em>State v. Rumph</em>, 307 Ga. 477 (2019) (cluster 10366942)</li>
+<li><em>Moore v. State</em>, 283 Ga. 155 (2008) (cluster 1208630)</li>
+<li><em>Bravo v. State</em>, 269 Ga. App. 242 (2004) (cluster 1324101)</li>
+<li><em>Manzano v. State</em>, 282 Ga. 557 (2007) (cluster 1387492)</li>
+<li><em>Durden v. State</em>, 327 Ga. App. 173, 179 (2014) (cluster 7929776)</li>
+<li><em>Lang v. State</em>, 344 Ga. App. 623, 627 (2018) (cluster 7478231)</li>
+<li><em>State v. Kelly</em>, 290 Ga. 29, 33 (2011) (cluster 2506257)</li>
+<li><em>Chapman v. State</em>, 273 Ga. 348 (2001) (cluster 1379079)</li>
+<li><em>Black v. State</em>, 264 Ga. 550 (1994) (cluster 1399641)</li>
+<li><em>Head v. Carr</em>, 273 Ga. 613 (2001) (cluster 1266664)</li>
+<li><em>In the Interest of D. L.</em>, 268 Ga. App. 362 (2004) (cluster 7921700)</li>
+<li><em>Mahan v. State</em>, 282 Ga. App. 201, 204 (2006) (cluster 7922975)</li>
+<li><em>Clark v. State</em>, 315 Ga. 1, 4 (2022) (cluster 10679789)</li>
+<li><em>Jones v. State</em>, 296 Ga. 561, 567 (769 SE2d 307) (2015) (cluster 2779582)</li>
+<li><em>Butler v. State</em>, 313 Ga. 675, 683, 872 S.E.2d 722, 731 (2022) (cluster 10679906)</li>
+<li><em>Smith v. State</em>, 279 Ga. 50 (cluster 1256046)</li>
+<li><em>Bradley v. State</em>, 318 Ga. 142, 144 (2024) (cluster 10680416)</li>
+<li><em>Johnson v. Jackson</em>, 140 Ga. App. 252 (cluster 1217054)</li>
+<li><em>Merneigh v. State</em>, 242 Ga. App. 735 (cluster 1420144)</li>
+<li><em>Delegal v. State</em>, 109 Ga. 518, 521 (1900) (cluster 5719482)</li>
+<li><em>Prayor v. State</em>, 217 Ga. App. 56 (cluster 1253106)</li>
+<li><em>Hayes v. State</em>, 261 Ga. 439 (cluster 1233384)</li>
+<li><em>Chambers v. State</em>, 308 Ga. App. 748 (cluster 2502836)</li>
+<li><em>Reddick v. State</em>, 321 Ga. 73 (2025) (cluster 10680534)</li>
+<li><em>Patel v. State</em>, 279 Ga. 750 (cluster 1245424)</li>
+<li><em>Nelson v. State</em>, 283 Ga. 119, 121 (2008) (cluster 1374685)</li>
+<li><em>Hamm v. State</em>, 294 Ga. 791, 795 (2014) (cluster 2687390)</li>
+<li><em>Wainwright v. State</em>, 305 Ga. 63 (cluster 7479307)</li>
+<li><em>Powers v. State</em>, 297 Ga. 345 (2015) (cluster 2808301)</li>
+<li><em>Tarvestad v. State</em>, 261 Ga. 605 (cluster 1409138)</li>
+<li><em>Virgil v. State</em>, 227 Ga. App. 96 (cluster 5793070)</li>
+<li><em>Montgomery v. State</em>, 315 Ga. 467, 473 (2023) (cluster 10680180)</li>
+<li><em>Walker v. State</em>, 292 Ga. 262, 264 (2013) (cluster 5748911)</li>
+<li><em>State v. Denson</em>, 306 Ga. 795, 798 (2019) (cluster 10367022)</li>
+<li><em>State v. Hamilton</em>, 306 Ga. 678, 684 (2019) (cluster 10367039)</li>
+<li><em>Hargrave v. State</em>, 311 Ga. App. 852, 855 (2011) (cluster 2501796)</li>
+<li><em>Taylor v. State</em>, 259 Ga. App. 457, 460 (2003) (cluster 1155076)</li>
+<li><em>Jackson v. Virginia</em>, 443 U.S. 307 (1979) (cluster 110138)</li>
+<li><em>Caldwell v. State</em>, 263 Ga. 560, 436 S.E.2d 488 (1993) (cluster 1229904)</li>
+<li><em>Vega v. State</em>, 285 Ga. 32, 673 S.E.2d 223 (2009) (cluster 1291675)</li>
+<li><em>Santiago v. State</em>, 314 Ga. App. 623, 623, 724 S.E.2d 793, 794 (2012) (cluster 2507789)</li>
+<li><em>Goldsby v. State</em>, 273 Ga. App. 523 (2005) (cluster 1279473)</li>
+<li><em>Choisnet v. State</em>, 292 Ga. 860, 861, 742 S.E.2d 476 (2013) (cluster 5749040)</li>
+<li><em>Smiley v. State</em>, 300 Ga. 582, 583 (2017) (cluster 5749590)</li>
+<li><em>Mickens v. State</em>, 277 Ga. 627, 627-628 (2004) (cluster 1351880)</li>
+  </ul>
+  <p>The following opinions were <strong>not available on CourtListener</strong> and could not be verified against opinion text:</p>
+  <ul>
+    <li><em>United States v. Valenzuela-Bernal (1982)</em>,  &mdash; Citation lacks court and year</li>
+<li><em>Reynolds</em>, 306 Ga. 630 (2019) &mdash; Not in CourtListener database</li>
+  </ul>
+  <p>No opinions in this report were assessed from training knowledge. All assessments are based on retrieved opinion text.</p>
+</div>
+
+</body>
+</html>
