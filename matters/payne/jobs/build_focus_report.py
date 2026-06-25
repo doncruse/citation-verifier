@@ -115,19 +115,13 @@ for cid in UNCONFIRMED:
         parts.append(card(cid, "amber", cl.replace("_"," ").title() if cl else "Unconfirmed", "amber", UNCONF_NOTE.get(cid,"")))
 
 # Section 2
-parts.append('<h2>2 &nbsp;&ldquo;Resolves to different case&rdquo; &mdash; verifier artifacts<span class="count">%d</span></h2>' % len(ARTIFACT_RES))
-parts.append('<p class="lead">These flagged as mismatches <b>only because of a tool bug</b> (no distinct opinion file was saved, so the claim was compared against a same-named case). CourtListener verified each as correctly cited. <b>Disregard as brief defects.</b></p>')
-for cid in ARTIFACT_RES:
-    parts.append(card(cid, "gray", "Verifier artifact — correctly cited", "gray", ARTIFACT_NOTE.get(cid,"")))
-
-# Section 3
-parts.append('<h2>3 &nbsp;Quotation errors<span class="count">%d</span></h2>' % (len(QUOTE_FAB)+len(QUOTE_REWORD)))
+parts.append('<h2>2 &nbsp;Quotation errors<span class="count">%d</span></h2>' % (len(QUOTE_FAB)+len(QUOTE_REWORD)))
 parts.append('<p class="lead">Language placed inside quotation marks in the order that does not appear in the cited opinion, or that has been materially reworded. (Minor apostrophe/ellipsis differences in otherwise-accurate quotes are excluded.)</p>')
 for cid in QUOTE_FAB:
     parts.append(card(cid, "red", "Fabricated quote — not in the opinion", "red", "Remove or correct the quotation; the cited opinion does not contain this language.", show_quote=True, quote_cls=""))
 for cid in QUOTE_REWORD:
     parts.append(card(cid, "amber", "Reworded — not a verbatim quote", "amber", "Substance is supported, but the quoted words differ from the opinion. Re-quote verbatim or convert to a paraphrase without quotation marks.", show_quote=True, quote_cls="amber"))
-parts.append('<div class="tip"><b>Note:</b> <i>Taylor v. State</i> (payne-73) also shows a &ldquo;fabricated quote&rdquo; flag, but that is the same linkage artifact from Section 2 &mdash; the quote was checked against the wrong opinion. The identical sentence is verified as accurate where the order quotes it via <i>Hargrave v. State</i>. Not a real quotation error.</div>')
+parts.append('<div class="tip"><b>Note:</b> <i>Taylor v. State</i> (payne-73) also carries a &ldquo;fabricated quote&rdquo; flag in the raw data, but it was checked against the wrong opinion and is excluded here. The identical sentence is verified as accurate where the order quotes it via <i>Hargrave v. State</i>. Not a real quotation error.</div>')
 
 parts.append('<footer>Generated from the /proposition-verifier pipeline output for this matter. This is a filtered companion to the full report; it omits the verified, overstated, and topic-mismatch findings. See <code>FINDINGS_2026-06-24.md</code> for the complete write-up.</footer>')
 parts.append('</div></body></html>')
