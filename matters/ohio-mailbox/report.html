@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Proposition Verification Report — Brandt v. Petrasek (hypothetical)</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  color: #2d2d2d;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+  background: #fafaf8;
+}
+h1, h2, h3 { font-family: 'Lora', serif; }
+h1 { font-size: 1.6rem; margin-bottom: 0.3rem; color: #1a1a1a; }
+h2 { font-size: 1.25rem; margin: 2rem 0 0.8rem; color: #333; border-bottom: 1px solid #ddd; padding-bottom: 0.3rem; }
+h3 { font-size: 1.05rem; margin: 1rem 0 0.5rem; }
+
+.meta { color: #666; font-size: 0.9rem; margin-bottom: 1.5rem; }
+.meta span { display: inline-block; margin-right: 1.5rem; }
+
+.dashboard { background: #fff; border: 1px solid #e0e0e0; border-radius: 6px; padding: 1.2rem 1.5rem; margin-bottom: 2rem; }
+.stats { display: flex; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 1rem; }
+.stat { text-align: center; }
+.stat-num { font-size: 1.8rem; font-weight: 600; }
+.stat-label { font-size: 0.8rem; color: #666; text-transform: uppercase; letter-spacing: 0.05em; }
+.stat-red .stat-num { color: #c0392b; }
+.stat-yellow .stat-num { color: #d4a017; }
+.stat-orange .stat-num { color: #e67e22; }
+.stat-green .stat-num { color: #27ae60; }
+.stat-gray .stat-num { color: #888; }
+
+.issue-list { list-style: none; padding: 0; }
+.issue-list li {
+  padding: 0.5rem 0.7rem;
+  margin-bottom: 0.4rem;
+  border-left: 4px solid #ccc;
+  background: #fefefe;
+  font-size: 0.9rem;
+}
+.issue-list li.sev-red { border-left-color: #c0392b; background: #fdf2f2; }
+.issue-list li.sev-yellow { border-left-color: #d4a017; background: #fefcf0; }
+.issue-list li.sev-orange { border-left-color: #e67e22; background: #fff7ef; }
+.issue-list li.sev-gray { border-left-color: #999; background: #f5f5f5; }
+.issue-list a { color: inherit; text-decoration: none; }
+.issue-list a:hover { text-decoration: underline; }
+
+.badge {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.15rem 0.5rem;
+  border-radius: 3px;
+  vertical-align: middle;
+}
+.badge-red { background: #f8d7da; color: #721c24; }
+.badge-yellow { background: #fff3cd; color: #856404; }
+.badge-orange { background: #ffe0b2; color: #8a4500; }
+.badge-green { background: #d4edda; color: #155724; }
+.badge-blue { background: #d1ecf1; color: #0c5460; }
+.badge-gray { background: #e9ecef; color: #495057; }
+
+.bq-brief {
+  border-left: 4px solid #e67e22;
+  background: #fef9f3;
+  padding: 0.7rem 1rem;
+  margin: 0.5rem 0;
+  font-size: 0.9rem;
+}
+.bq-opinion {
+  border-left: 4px solid #27ae60;
+  background: #f0faf4;
+  padding: 0.7rem 1rem;
+  margin: 0.5rem 0;
+  font-size: 0.9rem;
+}
+.bq-label { font-weight: 600; font-size: 0.8rem; color: #666; margin-bottom: 0.2rem; }
+
+.card-flags { margin: 0.2rem 0 0.5rem; }
+.flag-chip {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  background: #fff3e0;
+  color: #8a4500;
+  border: 1px solid #f0c27a;
+  border-radius: 3px;
+  padding: 0.1rem 0.5rem;
+  margin: 0 0.3rem 0.2rem 0;
+}
+
+details { margin-bottom: 0.8rem; }
+summary {
+  cursor: pointer;
+  padding: 0.6rem 0.8rem;
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  list-style: none;
+}
+summary::-webkit-details-marker { display: none; }
+summary::before { content: "\25B6\00a0"; font-size: 0.7rem; color: #888; }
+details[open] > summary::before { content: "\25BC\00a0"; }
+details[open] > summary { border-radius: 4px 4px 0 0; border-bottom: none; }
+.finding-body {
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-top: none;
+  border-radius: 0 0 4px 4px;
+  padding: 1rem;
+}
+.case-name { font-family: 'Lora', serif; font-style: italic; }
+.explanation { margin-top: 0.7rem; font-size: 0.9rem; line-height: 1.5; }
+.analysis { margin-top: 0.8rem; font-size: 0.92rem; line-height: 1.55; color: #2d2d2d; }
+.analysis p { margin-bottom: 0.6rem; }
+.analysis p:last-child { margin-bottom: 0; }
+.prop-list { margin: 0.3rem 0 0.6rem 1.2rem; font-size: 0.9rem; }
+.prop-list li { margin-bottom: 0.25rem; }
+
+.controls { margin-bottom: 0.5rem; font-size: 0.8rem; }
+.controls button {
+  background: none;
+  border: none;
+  color: #2980b9;
+  cursor: pointer;
+  font-size: 0.8rem;
+  padding: 0.2rem 0.4rem;
+}
+.controls button:hover { text-decoration: underline; }
+
+.verified-item {
+  padding: 0.3rem 0;
+  font-size: 0.85rem;
+  border-bottom: 1px solid #f0f0f0;
+}
+.checkmark { color: #27ae60; font-weight: bold; }
+
+.methodology { font-size: 0.85rem; color: #555; margin-top: 2rem; }
+.methodology h2 { font-size: 1.1rem; }
+.methodology ul { padding-left: 1.2rem; }
+.methodology li { margin-bottom: 0.5rem; }
+
+@media print {
+  details { open: true; }
+  details[open] > summary { border-bottom: 1px solid #e0e0e0; }
+  body { max-width: 100%; padding: 1rem; font-size: 12px; }
+  .controls { display: none; }
+  .dashboard { box-shadow: none; }
+}
+</style>
+<script>
+function expandAll() { document.querySelectorAll('details').forEach(d => d.open = true); }
+function collapseAll() { document.querySelectorAll('details').forEach(d => d.open = false); }
+</script>
+</head>
+<body>
+
+<h1>Proposition Verification Report</h1>
+<div class="meta">
+  <span><strong>Brief:</strong> Litigation Memo — Ohio Mailbox Injury Case</span><br>
+  <span><strong>Case:</strong> <em>Brandt v. Petrasek (hypothetical)</em>, </span><br>
+  <span><strong>Filed:</strong> </span>
+  <span><strong>Report generated:</strong> </span>
+</div>
+
+<div style="background:#d4edda;border:1px solid #c3e6cb;border-radius:6px;padding:1rem;margin-bottom:1rem;"><strong>No serious issues found.</strong> 1 concern noted below.</div>
+<div class="dashboard">
+  <h2 style="border:none; margin-top:0; padding:0;">Summary</h2>
+  <div class="stats">
+    <div class="stat"><div class="stat-num">5</div><div class="stat-label">Claims checked</div></div>
+    <div class="stat stat-red"><div class="stat-num">0</div><div class="stat-label">Serious issues</div></div>
+    <div class="stat stat-yellow"><div class="stat-num">1</div><div class="stat-label">Concerns</div></div>
+    <div class="stat stat-orange"><div class="stat-num">0</div><div class="stat-label">Check cite</div></div>
+    <div class="stat stat-green"><div class="stat-num">4</div><div class="stat-label">Verified</div></div>
+    <div class="stat stat-gray"><div class="stat-num">0</div><div class="stat-label">Unable to verify</div></div>
+  </div>
+  <h3>Issues</h3>
+  <ul class="issue-list">
+    <li class="sev-yellow"><a href="#finding-1"><span class="badge badge-yellow">Overstated -- case partially supports</span> p. 20 &mdash; <em>Marchetti v. Kalish</em>, 53 Ohio St. 3d 95 (1990) &mdash; Marchetti v. Kalish holds that participants in recreational or sporting activities &quot;assume the ordinary risks of the activity&quot; and cannot recover absent reckless or intentional conduct, so the opinion is squarely on the…</a></li>
+  </ul>
+</div>
+<h2>Findings</h2>
+<div class="controls"><button onclick="expandAll()">Expand All</button> | <button onclick="collapseAll()">Collapse All</button></div>
+<details id="finding-1">
+  <summary>
+    <strong>p. 20</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/6870596/marchetti-v-kalish/"><span class="case-name">Marchetti v. Kalish</span></a>, 53 Ohio St. 3d 95 (1990)
+    &mdash; <span class="badge badge-yellow">Overstated -- case partially supports</span>
+  </summary>
+  <div class="finding-body">
+    
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief"><p>Primary assumption of risk remains conceptually distinct in contexts where the defendant owes no duty as to risks inherent in the activity, as reflected in Ohio cases such as Marchetti v. Kalish, 53 Ohio St. 3d 95 (1990).</p></div>
+    <div class="bq-label">Actual language in opinion:</div><div class="bq-opinion"><p>We hold that where individuals engage in recreational or sports activities, they assume the ordinary risks of the activity and cannot recover for any injury unless it can be shown that the other participant's actions were either “reckless” or “intentional” as defined in Sections 500 and 8A of the Restatement of Torts 2d.</p></div>
+    <div class="analysis"><p>Marchetti v. Kalish holds that participants in recreational or sporting activities &quot;assume the ordinary risks of the activity&quot; and cannot recover absent reckless or intentional conduct, so the opinion is squarely on the topic of assumption of risk in sports and supports the general idea that participants accept inherent risks. The opinion does not, however, articulate the modern doctrinal vocabulary the brief invokes -- it never uses the term &quot;primary assumption of risk,&quot; never frames the rule as one where the defendant &quot;owes no duty,&quot; and never distinguishes primary from secondary assumption of risk. Marchetti instead grounds its rule in the conduct of the tortfeasor (reckless or intentional), declining to adopt a consent-based Restatement analysis. The proposition that primary assumption of risk &quot;remains conceptually distinct&quot; and operates through a &quot;no duty&quot; framing extends the holding into a doctrinal taxonomy the opinion itself does not develop, so the support is partial rather than direct.</p></div>
+  </div>
+</details>
+
+<h2>Verified Citations</h2>
+<details>
+  <summary>4 citation-proposition pairs verified &mdash; click to expand</summary>
+  <div class="finding-body">
+    <div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 14</strong> &mdash; <a href="https://www.courtlistener.com/opinion/10686707/gladon-v-greater-cleveland-regional-transit-auth/"><em>Gladon v. Greater Cleveland Regional Transit Authority</em></a>, 75 Ohio St. 3d 312 (1996) &mdash; Trespasser status materially limits the duty owed; a landowner or possessor generally owes no duty to undiscovered trespassers except to refrain from willful or wanton misconduct. <span class="badge badge-green">Supported</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 14</strong> &mdash; <a href="https://www.courtlistener.com/opinion/10685860/bennett-v-stanley/"><em>Bennett v. Stanley</em></a>, 92 Ohio St. 3d 35 (2001) &mdash; Ohio recognizes an attractive-nuisance doctrine for child trespassers, but the doctrine is narrow and unlikely to apply to an eighteen-year-old adult who intentionally struck a mailbox with a bat. <span class="badge badge-green">Supported</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 20</strong> &mdash; <a href="https://www.courtlistener.com/opinion/6867324/anderson-v-ceccardi/"><em>Anderson v. Ceccardi</em></a>, 6 Ohio St. 3d 110 (1983) &mdash; Implied assumption of risk is merged with contributory negligence under Ohio law. <span class="badge badge-green">Supported</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 39</strong> &mdash; <a href="https://www.courtlistener.com/opinion/10685860/bennett-v-stanley/"><em>Bennett v. Stanley</em></a>, 92 Ohio St. 3d 35 (2001) &mdash; The attractive-nuisance doctrine does not assist an eighteen-year-old who is not a child of tender years. <span class="badge badge-green">Supported</span></div>
+  </div>
+</details>
+<div class="methodology">
+  <h2>Methodology &amp; Limitations</h2>
+  <ul>
+    <li><strong>Quote verification</strong> is near-deterministic but limited by the quality of CourtListener's text. Minor discrepancies may reflect OCR artifacts in the source database rather than errors in the brief.</li>
+    <li><strong>Propositional support</strong> assessment is an AI judgment. It reflects Claude's reading of the opinion text and should be verified by counsel. Reasonable lawyers may disagree about whether a case "supports" a given proposition.</li>
+    <li>This report checks whether cited cases say what the brief claims they say. It does not assess the overall legal merit of the brief's arguments or whether the cited cases are the best authorities available.</li>
+    <li>Cases marked "unable to verify" should be checked through other sources (Westlaw, Lexis, etc.).</li>
+  </ul>
+  <h3>Verification method disclosure</h3>
+  <p>The following opinions were <strong>retrieved from CourtListener</strong> and verified against their full text:</p>
+  <ul>
+    <li><em>Gladon v. Greater Cleveland Regional Transit Auth.</em>, 75 Ohio St. 3d 312 (1996) (cluster 10686707)</li>
+<li><em>Bennett v. Stanley</em>, 92 Ohio St. 3d 35 (2001) (cluster 10685860)</li>
+<li><em>Anderson v. Ceccardi</em>, 6 Ohio St. 3d 110 (1983) (cluster 6867324)</li>
+<li><em>Marchetti v. Kalish</em>, 53 Ohio St. 3d 95 (1990) (cluster 6870596)</li>
+  </ul>
+  
+  <p>No opinions in this report were assessed from training knowledge. All assessments are based on retrieved opinion text.</p>
+</div>
+
+</body>
+</html>

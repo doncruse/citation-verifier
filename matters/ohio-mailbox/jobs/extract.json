@@ -1,0 +1,34 @@
+[
+  {
+    "job_id": "extract",
+    "claim_ids": [
+      "extract"
+    ],
+    "prompt": "You are extracting case-citation claims from a legal document (brief, motion, or opinion) so each claim can be verified against the cited authority.\n\nRead the document at: matters\\ohio-mailbox\\source.md\n\nUse ONLY the Read tool on that file. Do not use web search, web fetch, bash, or any other tool. Do not rely on outside knowledge about any cited case.\n\nProduce three outputs:\n\n1. \"claims\" -- one entry per proposition-case pair in the document body:\n   - \"cited_case\": the citation EXACTLY as the document cites it, starting with the case name and including the full reporter citation and year (e.g., \"Camp v. Pitts, 411 U.S. 138, 142 (1973)\"). Append pinpoint pages after the start page. Do NOT abbreviate, omit the reporter, or use short-form case names -- when the document uses a short form (id., supra, name-only), resolve it to the full citation given at first use.\n   - \"proposition\": one sentence, in your words, stating the legal claim the document attributes to this case.\n   - \"cited_for\": when a signal or parenthetical attributes a NARROWER assertion to this specific case than the surrounding sentence argues, state that narrower assertion; otherwise \"\".\n   - \"quoted_text\": JSON array of the exact strings the document places inside quotation marks for this claim. [] if none.\n   - \"brief_sentence\": the document's sentence(s) containing the citation, reproduced as written -- including quoted language, signal word, and any parenthetical. Normalize whitespace; do not paraphrase. You may trim with [...] keeping the cited-case fragment and immediate context.\n   - \"page\": the page of the document where the claim appears (printed page number if visible, else PDF page), as a string.\n   Rules: same case cited for different propositions = separate entries; one proposition supported by several cases = separate entries (one per case); case citations only -- exclude statutes, regulations, constitutional provisions, treatises, and other secondary sources.\n\n2. \"citations_toa\" -- every case citation listed in the Table of Authorities, one entry per case, base citation without pinpoint, exactly as written. [] if the document has no Table of Authorities.\n\n3. \"citations_body\" -- every unique case citation appearing in the document body, base citation without pinpoint, exactly as written, deduplicated. If the Table of Authorities and the body give different volumes or page numbers for the same case, include BOTH variants (one in each list, or both in citations_body if the TOA is absent).\n\nRespond with ONLY a JSON object (no markdown fences, no commentary):\n{\"claims\": [{\"page\": \"...\", \"proposition\": \"...\", \"cited_for\": \"\", \"cited_case\": \"...\", \"quoted_text\": [], \"brief_sentence\": \"...\"}], \"citations_toa\": [\"...\"], \"citations_body\": [\"...\"]}",
+    "prompt_version": "extract-v1",
+    "files": [
+      "matters\\ohio-mailbox\\source.md"
+    ],
+    "schema": {
+      "claims": [
+        {
+          "page": "str",
+          "proposition": "str",
+          "cited_for": "str",
+          "cited_case": "str",
+          "quoted_text": [
+            "str"
+          ],
+          "brief_sentence": "str"
+        }
+      ],
+      "citations_toa": [
+        "str"
+      ],
+      "citations_body": [
+        "str"
+      ]
+    },
+    "max_chars": null
+  }
+]
