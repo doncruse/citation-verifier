@@ -31,6 +31,23 @@ def _normalize_quote_text(text: str) -> str:
     return s
 
 
+# --- OCR-confusion normalization (borrowed from lq-ai, conservative) ---
+# One-directional substitutions applied to BOTH the quote and the opinion text
+# when the opinion was OCR'd, so faithful quotes against OCR'd serif PDFs stop
+# false-negativing. Case-sensitive O/l rules => must run BEFORE any .lower().
+_OCR_RN_RE = re.compile(r"(?<=\w)rn")
+_OCR_O_RE = re.compile(r"(?<=\d)O|O(?=\d)")
+_OCR_L_RE = re.compile(r"(?<=\d)l|l(?=\d)")
+
+
+def _normalize_ocr_confusions(text: str) -> str:
+    """Collapse the three canonical OCR misreads. Idempotent; clean-text no-op."""
+    out = _OCR_RN_RE.sub("m", text)
+    out = _OCR_O_RE.sub("0", out)
+    out = _OCR_L_RE.sub("1", out)
+    return out
+
+
 def _best_match_with_passage(
     needle: str, haystack: str, context_chars: int = 80,
 ) -> tuple[float, str]:
