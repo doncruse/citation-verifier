@@ -1,109 +1,150 @@
-# OCR-Confusion Normalization for Quote-Fidelity Matching
+# OCR-Confusion Normalization + Public `verify_quote` Primitive
 
 **Date:** 2026-06-28
-**Status:** Approved design — ready for implementation plan
+**Status:** Approved design (pending cross-repo contract confirmation) — ready for implementation plan
 **Borrow source:** `LegalQuants/lq-ai` → `api/app/citation/normalization.py` (private)
+**Cross-repo consumer:** `us-legal-research` eval grader (axis Q)
 **Version:** bumps citation-verifier `0.4.0` → `0.5.0` (additive, backward-compatible)
 
 ## Problem
 
-CV's quote-fidelity checker (`check_quotes` → `_best_match_with_passage`) compares a
-quote drawn from a brief against the text of the cited opinion. When the opinion
-text was produced by OCR (optical character recognition of a scanned/image PDF),
-predictable character misreads — most commonly the serif pair `rn` read as `m`,
-and the letter/digit confusions `O`↔`0`, `l`↔`1` — make an *honest, verbatim*
-quote score below the VERBATIM/CLOSE thresholds. The result is a **false
-negative**: the tool flags a faithful quote as CLOSE or FABRICATED.
+Two coupled problems, one fix.
 
-This hurts every CV consumer of `check_quotes` output: the proposition/brief
-pipelines, the web app, and the new eval grader in the `us-legal-research` repo.
+1. **OCR false negatives.** CV's quote-fidelity checker compares a quote from a
+   brief against the cited opinion's text. When that text was produced by OCR
+   (scanned/image PDF), predictable misreads — the serif pair `rn` read as `m`,
+   and `O`↔`0`, `l`↔`1` — make an *honest, verbatim* quote score below the
+   VERBATIM/CLOSE thresholds: a **false negative** on a faithful quote.
+2. **No reusable quote primitive.** The reusable logic (`_best_match_with_passage`
+   + `_normalize_quote_text`) is private and bound to the workdir pipeline.
+   `run_check_quotes(workdir)` reads `citations_toa.txt` / opinion files from a
+   directory; it is not a `(quote, opinion_text) → match` function. The
+   `us-legal-research` eval grader (axis Q) cannot consume CV's quote-checking
+   without reaching into privates, violating the single-seam / drift discipline.
 
 ## Goal
 
-Layer a conservative, one-directional OCR-confusion normalization *under* CV's
-existing quote normalization, applied **only** when the opinion is known to be
-OCR'd, so that faithful quotes against OCR'd opinions stop false-negativing —
-without raising the risk of a **false positive** (approving a quote that does
-not actually match) on clean text.
+Expose a clean **public quote primitive** with OCR normalization built in, and
+refactor CV's own pipeline to use it. Concretely:
 
-Non-goals: changing the VERBATIM/CLOSE/FABRICATED thresholds; changing the
-quote-floor calibration; RECAP-document OCR handling (opinions only for now);
-re-architecting the matcher.
+```python
+def verify_quote(quote: str, opinion_text: str, *, was_ocrd: bool = False) -> QuoteVerification
+```
 
-## Background: what we're borrowing, and what we already have
+- The primitive is pure: no workdir, no files. The caller supplies the OCR flag
+  as a parameter.
+- OCR normalization is conservative, one-directional, and applied to *both* the
+  quote and the opinion text, so clean text is unaffected (symmetric collapse).
+- CV's `check_quotes` is refactored to call `verify_quote` internally, sourcing
+  `was_ocrd` per opinion from the workdir.
+
+Non-goals: changing the VERBATIM/CLOSE/FABRICATED thresholds or quote-floor
+calibration; RECAP-document OCR handling (opinions only for now); re-architecting
+the fuzzy matcher.
+
+## Architecture: two layers
+
+```
+                        ┌─────────────────────────────────────────────┐
+ us-legal-research  ───▶│  verify_quote(quote, opinion_text,           │  PUBLIC
+   eval grader (Q)      │                *, was_ocrd=False)            │  primitive
+                        │      → QuoteVerification                     │  (quote_matcher.py)
+                        └──────────────────┬──────────────────────────┘
+                                           │ called internally, per quote
+                        ┌──────────────────▼──────────────────────────┐
+ CV brief/matter   ───▶ │  check_quotes(workdir) / run_check_quotes    │  WORKDIR
+   pipeline + web app   │   - sources `was_ocrd` per opinion           │  pipeline
+                        │   - maps QuoteVerification → existing CSV     │  (proposition_pipeline.py)
+                        └─────────────────────────────────────────────┘
+```
+
+The two consumers hit *different seams*. The grader hits the pure primitive and
+passes `was_ocrd` directly — so the OCR gate, from the grader's perspective, is
+just a function argument. CV's own pipeline hits the workdir layer, which is the
+only place that has to *source* `was_ocrd` from somewhere (see "OCR gate" below).
+
+## The borrow (what's new vs. what CV already has)
 
 lq-ai's `normalize(text, *, was_ocrd=False)` has two layers:
 
-1. **Always-on layer** — smart quotes → straight, collapse whitespace, canonicalize
-   CRLF, strip. **CV already does all of this** in `_normalize_quote_text` (and the
-   haystack-cleaning step in `check_quotes`), and does *more*: CV also strips
-   bracketed alterations (`[T]`→`t`) and ellipses, which are legal-quote
-   conventions lq-ai lacks. **We borrow nothing from this layer.**
-2. **OCR-conditional layer** — three substitutions, applied only when `was_ocrd`:
+1. **Always-on layer** — smart quotes → straight, collapse whitespace,
+   canonicalize CRLF, strip. **CV already does all of this** in
+   `_normalize_quote_text` (+ the haystack-cleaning in `check_quotes`), and does
+   *more* (strips bracketed alterations `[T]`→`t` and ellipses — legal-quote
+   conventions lq-ai lacks). **We borrow nothing here.**
+2. **OCR-conditional layer** — three substitutions, the entire borrow:
    - `rn` → `m` when preceded by a word char: `(?<=\w)rn`
    - `O` → `0` when adjacent to a digit: `(?<=\d)O|O(?=\d)`
    - `l` → `1` when adjacent to a digit: `(?<=\d)l|l(?=\d)`
 
-   **This is the entire borrow.** Each rule is one-directional and applied to
-   *both* the brief quote and the opinion text, so clean words containing
-   mid-word `rn` ("attorney", "return", "concern", "modern") collapse to the
-   *same* target on both sides — clean-text matching is unaffected. The residual
-   false-positive risk (a brief that wrote the m-form where the opinion genuinely
-   has the rn-form, or vice-versa) is exactly what the OCR gate eliminates.
+   One rule per pair, one-directional, applied to both sides so clean words with
+   mid-word `rn` ("attorney", "return", "concern", "modern") collapse to the same
+   target on both sides. The residual false-positive risk (brief wrote the m-form
+   where the opinion genuinely has the rn-form, or vice-versa) is exactly what the
+   OCR gate eliminates.
 
 ### Threshold reconciliation
 
-lq-ai compares with `rapidfuzz.fuzz.ratio` against a strict threshold of **95**
-(0–100 scale). CV compares with `difflib.SequenceMatcher.ratio()` on a **0–1
-scale**, with VERBATIM > 0.85 and CLOSE ≥ 0.6 (`check_quotes`). CV's verbatim cut
-is *more forgiving* than lq-ai's. We therefore **keep CV's thresholds unchanged**;
-the OCR rules simply raise the ratio on a true match against OCR'd text, nudging
-it from CLOSE up toward VERBATIM (or FABRICATED up toward CLOSE). No threshold or
-quote-floor change is needed.
+lq-ai uses `rapidfuzz.fuzz.ratio` vs. a strict **95** (0–100). CV uses
+`difflib.SequenceMatcher.ratio()` on **0–1**, VERBATIM > 0.85, CLOSE ≥ 0.6 — a
+*more forgiving* verbatim cut. We **keep CV's thresholds unchanged**; the OCR
+rules just raise the ratio on a true match against OCR'd text, nudging CLOSE →
+VERBATIM (or FABRICATED → CLOSE). No threshold or quote-floor change.
 
-## Design decision: the OCR gate (the crux)
+## Public contract (pins the grader's contract test)
 
-**Gate on CourtListener's `extracted_by_ocr` boolean** (confirmed present on the
-`opinions` endpoint). Apply the OCR rules **only** when that flag is `True` for
-the opinion backing a claim. When the flag is unknown — RECAP-document text,
-user-supplied / prepared-pairs opinion files, legacy workdirs — **default to
-`False`** (rules off). This is the cautious default: we never apply OCR
-substitutions unless CL authoritatively tells us the source was OCR'd.
+New module `src/citation_verifier/quote_matcher.py`, exported from `__init__.py`:
 
-Rejected alternatives:
-- *Apply unconditionally* (no gate): simpler, and the symmetric-collapse property
-  makes it mostly safe, but leaves a nonzero false-positive risk on clean
-  opinions. The false-positive constraint is paramount here, so we gate.
-- *Heuristic OCR detection from the text*: no authoritative signal; risks both
-  missing real OCR and falsely triggering on clean text.
+```python
+@dataclass(frozen=True)
+class QuoteVerification:
+    quote: str            # the input quote, echoed
+    result: str           # "VERBATIM" | "CLOSE" | "FABRICATED"
+    similarity: float     # 0.0–1.0 (difflib ratio; 1.0 = exact substring match)
+    matched_passage: str  # best-matching span from opinion_text w/ context ("" if none)
+    was_ocrd: bool        # echo of the input flag — whether OCR rules were applied
 
-### Plumbing the flag from CL → workdir → checker
+def verify_quote(
+    quote: str,
+    opinion_text: str,
+    *,
+    was_ocrd: bool = False,
+) -> QuoteVerification: ...
+```
 
-The flag lives on the opinion JSON at fetch time but the quote checker reads only
-the downloaded opinion *file*. Three small, localized changes carry it across:
+**Proposed, pending the `us-legal-research` session's confirmation** (see the
+coordination question in the cover note):
 
-1. **`client.py` — capture.** In both `get_opinion_text_with_metadata` variants
-   (sync + async) and their `_resolve_opinion_text_with_metadata` helpers, when a
-   sub-opinion yields usable text, read `opinion.get("extracted_by_ocr")` from
-   that same opinion JSON and add `"extracted_by_ocr": bool | None` to the
-   returned metadata dict. RECAP/docket and PDF-fallback return paths set it to
-   `None` (unknown). No extra API calls — the opinion JSON is already fetched.
-2. **`proposition_pipeline.py::_download_opinion` — persist a sidecar.** After a
-   successful text/HTML download, write `opinions/<base>.meta.json` containing at
-   least `{"extracted_by_ocr": <bool|null>, "source_url": <url>}`. The sidecar
-   sits beside the opinion file using the same `<base>` stem. (Sidecar chosen over
-   a new claims.csv/verification_results.csv column so the CSV schema — and the
-   `run_check_quotes` output the eval grader consumes — is untouched.)
-3. **`proposition_pipeline.py::check_quotes` — read + apply.** For each claim's
-   `opinion_file`, look up the sibling `<stem>.meta.json`; treat
-   `extracted_by_ocr is True` as the gate. Missing sidecar / missing key / `null`
-   → gate off. Pass the resolved boolean into `_best_match_with_passage`.
+- `result` is a plain `str` with the three documented values (minimal, stable
+  contract surface). Switchable to an exported `QuoteMatch` enum if the grader
+  prefers to assert on a type.
+- Field names `result` / `similarity` / `matched_passage`. Aligning before their
+  contract test is written is cheaper than after.
 
-## Matcher changes (`_best_match_with_passage` and helpers)
+Bucketing (the 0.85 / 0.6 thresholds, currently inline in `check_quotes`) moves
+*into* `verify_quote` so the primitive is complete. `check_quotes` then maps a
+`QuoteVerification` back onto its existing `{quote, result, similarity,
+matched_passage}` entry dict (no change to that on-disk shape — see Backward
+compatibility).
 
-### New pure function: `_normalize_ocr_confusions(text: str) -> str`
+## Module layout (`quote_matcher.py`)
 
-The borrow, ported verbatim in spirit:
+Moves the quote-matching internals out of `proposition_pipeline.py` into a
+well-bounded module (matching the `name_matcher.py` / `text_cleaner.py` pattern),
+giving the grader a stable seam decoupled from the pipeline:
+
+- `_normalize_quote_text` (moved) — existing legal-quote normalization.
+- `_normalize_ocr_confusions` (new) — the borrow.
+- `_best_match_with_passage` (moved) — gains an `ocr: bool = False` param.
+- `_extract_passage` (moved).
+- thresholds + `verify_quote` + `QuoteVerification` (new).
+
+`proposition_pipeline.py` imports these from `quote_matcher`. Any current
+`proposition_pipeline` references to the moved names are re-pointed; a module-level
+re-import alias keeps internal call sites and existing tests working
+(`from .quote_matcher import _normalize_quote_text, _best_match_with_passage`).
+
+### New pure function: `_normalize_ocr_confusions(text) -> str`
 
 ```python
 _OCR_RN_RE = re.compile(r"(?<=\w)rn")
@@ -117,104 +158,133 @@ def _normalize_ocr_confusions(text: str) -> str:
     return out
 ```
 
-Properties (enforced by tests): one rule per pair, one-directional, **idempotent**
-(`f(f(t)) == f(t)`), and a no-op on clean text that lacks the gated patterns.
+Properties (tested): one-directional, **idempotent** (`f(f(t)) == f(t)`), no-op
+on clean text lacking the gated patterns.
 
 ### Ordering constraint (the subtle bug to avoid)
 
-The `O`→`0` and `l`→`1` rules are **case-sensitive** (capital `O`, lowercase `l`).
-CV lowercases text before matching (`_normalize_quote_text(needle).lower()`,
-`haystack.lower()`). OCR normalization must therefore run **before** `.lower()`,
-or those two rules silently never fire. Pipeline per side: raw → existing
-normalization → **OCR normalization (case-preserving)** → `.lower()`.
+`O`→`0` and `l`→`1` are **case-sensitive** (capital `O`, lowercase `l`). CV
+lowercases before matching. OCR normalization must run **before** `.lower()`, or
+those two rules silently never fire. Per side: raw → `_normalize_quote_text` →
+**`_normalize_ocr_confusions` (case-preserving)** → `.lower()`.
 
-### Where it applies in `_best_match_with_passage`
+### Passage-position constraint
 
-`_best_match_with_passage` gains an `ocr: bool = False` parameter (default `False`
-keeps every existing caller and test unchanged).
+`rn`→`m` is length-*changing*, so it cannot touch the haystack used for passage
+extraction (the extractor relies on 1:1 positions). When `was_ocrd` is true,
+`_best_match_with_passage` builds a **separate** OCR-normalized comparison string
+(OCR-normalize then lowercase) for the exact-substring check and the
+sliding-window `SequenceMatcher`, but slices the displayed passage from the
+**original** haystack. The extractor already pads ±80 chars and trims to sentence
+boundaries, so the bounded offset from `rn`→`m` collapses is cosmetic and never
+changes the verdict. When `was_ocrd` is false, the code path is byte-for-byte
+identical to today (no normalized copy built).
 
-- **Needle:** `needle_norm = _normalize_quote_text(needle)`; if `ocr`, then
-  `_normalize_ocr_confusions(...)`; then `.lower()`.
-- **Haystack for *comparison*:** because `rn`→`m` is length-*changing*, it would
-  break the 1:1 position mapping the passage extractor relies on. So we keep the
-  original `haystack` for passage extraction and build a **separate**
-  OCR-normalized comparison string only when `ocr` is true: apply
-  `_normalize_ocr_confusions` to the haystack *before* lowercasing, and run the
-  exact-substring check and the sliding-window `SequenceMatcher` against that
-  string. The matched start index found in the normalized string is used to slice
-  a passage from the **original** haystack. Length drift from `rn`→`m` is bounded
-  by the number of `rn` occurrences before the match; the extractor already adds
-  ±80 chars of context and trims to sentence boundaries, so a small offset is
-  cosmetically tolerable and never changes the verdict. When `ocr` is false,
-  behavior is byte-for-byte identical to today (no normalized copy built).
+## The OCR gate (now an internal CV concern only)
 
-`check_quotes` passes the gate boolean through to `_best_match_with_passage`.
+The grader passes `was_ocrd` directly, so the gate is a non-issue for it. CV's
+*own* `check_quotes` still needs to source the flag per opinion. The flag is known
+at download time (`verify` step) but needed at check time (`check-quotes` step),
+in an offline/idempotent model — so it must be persisted in the workdir.
 
-## Backward compatibility (consumer constraint)
+**Decision: a single per-workdir manifest** `opinions/ocr_status.json` mapping
+opinion filename → bool. Chosen over a per-opinion sidecar (fewer files) and over
+a claims.csv column (keeps the CSV — and CV's own report/web-app consumers —
+untouched; no schema churn). Default when absent/unknown (legacy workdirs,
+user-supplied opinion files, RECAP/PDF text) is `False` — rules off, the cautious
+default.
 
-- **`run_check_quotes` return shape (`QuoteCheckStats`) is unchanged.** No new
-  fields, no removed fields. The eval grader keeps working as-is.
-- **`quote_check` / `quote_check_worst` / `quote_floor` CSV columns are
-  unchanged** in shape. Values can *improve* on OCR'd opinions (a quote that was
-  CLOSE/FABRICATED may now be VERBATIM/CLOSE) — that is the intended behavior
-  change, not a schema change.
-- **No new required column.** The OCR flag travels in a per-opinion sidecar file,
-  invisible to existing CSV consumers.
-- **New artifact:** `opinions/<base>.meta.json` sidecar files. Additive; consumers
-  that don't read them are unaffected.
+Plumbing:
 
-If a later need arises to expose per-quote "was OCR-normalized" provenance, it
-would be an *additive optional key* on the `quote_check` entry dict and a separate
-decision — out of scope here.
+1. **`client.py` — capture.** In both `get_opinion_text_with_metadata` variants
+   (sync + async) + `_resolve_opinion_text_with_metadata`, when a sub-opinion
+   yields usable text, read `opinion.get("extracted_by_ocr")` and add
+   `"extracted_by_ocr": bool | None` to the returned metadata dict. RECAP/docket
+   and PDF-fallback paths set it `None`. No extra API calls.
+2. **`proposition_pipeline.py` — write the manifest.** `_download_opinion` returns
+   the OCR flag alongside the filename; the download orchestrator (wave1/wave2)
+   collects `{filename: flag}` after the concurrent gather and writes
+   `opinions/ocr_status.json` once (race-free — single writer post-gather).
+3. **`proposition_pipeline.py::check_quotes` — read + gate.** Load
+   `opinions/ocr_status.json` once; for each claim look up its `opinion_file`;
+   pass `was_ocrd=manifest.get(basename, False)` into `verify_quote`.
+
+## Backward compatibility
+
+- **Public addition only:** `verify_quote` + `QuoteVerification` are new exports.
+  Nothing existing is removed or renamed.
+- **`run_check_quotes` / `QuoteCheckStats` shape unchanged.** The grader is moving
+  to the `verify_quote` seam, so this is no longer an *external* contract — but we
+  still preserve it for CV's own report + web app. The `quote_check` /
+  `quote_check_worst` / `quote_floor` CSV columns keep their shape; values may
+  *improve* on OCR'd opinions (intended behavior change, not schema change).
+- **No new claims.csv / verification_results.csv column.** The OCR flag rides in
+  `opinions/ocr_status.json` (a new additive artifact), invisible to CSV consumers.
+- `__init__.py` `__all__` gains `verify_quote`, `QuoteVerification` (and
+  `QuoteMatch` if the enum option is chosen).
 
 ## Testing (cassette-backed, offline)
 
-New tests in `tests/` (alongside `test_proposition_pipeline.py`):
+New `tests/test_quote_matcher.py`:
 
-1. **Per-rule unit tests** for `_normalize_ocr_confusions`:
-   - `rn`→`m` fires mid-word ("modern"→"modem", "concern"→"concem") and **not**
-     word-initially ("rnage" unchanged).
-   - `O`→`0` fires only adjacent to a digit ("O5"→"05", "5O"→"50"); "Office"
-     unchanged.
-   - `l`→`1` fires only adjacent to a digit ("l5"→"15", "5l"→"51"); "liability"
-     unchanged.
-2. **Idempotence:** `f(f(t)) == f(t)` over a representative input set.
-3. **Clean-text non-regression:** for inputs lacking any gated pattern, `f(t) == t`;
-   and at the matcher level, a clean-text quote/opinion pair yields the *same*
-   ratio with `ocr=True` and `ocr=False` (symmetric collapse).
-4. **OCR true-positive at the matcher level:** an opinion haystack containing the
-   OCR'd form ("modem" rendered as "modern") + a brief needle with the true form
-   ("modem") scores VERBATIM with `ocr=True`, but below VERBATIM with `ocr=False`
-   (demonstrates the fix and that the gate matters).
-5. **Gate plumbing:** `check_quotes` applies the rules iff the sidecar says
-   `extracted_by_ocr: true`; with no sidecar / `false` / `null`, behavior is
-   unchanged. `client` metadata dict carries `extracted_by_ocr` from the opinion
-   JSON (mocked response).
-6. **Passage extraction:** with `ocr=True` and an `rn`→`m` collapse before the
-   match, the extracted passage still comes from the original haystack and is
-   coherent (no index-out-of-range, sane bounds).
+1. **Per-rule unit tests** for `_normalize_ocr_confusions`: `rn`→`m` mid-word
+   ("modern"→"modem"), not word-initial ("rnage" unchanged); `O`→`0` only next to
+   a digit ("O5"→"05"), "Office" unchanged; `l`→`1` only next to a digit
+   ("l5"→"15"), "liability" unchanged.
+2. **Idempotence:** `f(f(t)) == f(t)` over a representative set.
+3. **Clean-text non-regression:** `f(t) == t` for inputs lacking gated patterns;
+   and `verify_quote(clean_q, clean_op, was_ocrd=True).similarity ==
+   verify_quote(clean_q, clean_op, was_ocrd=False).similarity` (symmetric collapse).
+4. **OCR true-positive:** opinion text with the OCR'd form ("modem" rendered
+   "modern") + quote with the true form ("modem") → `result == "VERBATIM"` with
+   `was_ocrd=True`, but below VERBATIM with `was_ocrd=False` (fix works; gate
+   matters).
+5. **Contract test** (mirrors the grader's): `verify_quote` returns a
+   `QuoteVerification` with the agreed fields/types; `result` ∈ the three values;
+   `similarity` ∈ [0, 1]; `was_ocrd` echoes the input; default `was_ocrd=False`.
+6. **Passage coherence:** with `was_ocrd=True` and an `rn`→`m` collapse before the
+   match, `matched_passage` is sliced from the original opinion text and is
+   in-bounds/coherent.
+
+Pipeline-level (in `tests/test_proposition_pipeline.py`):
+
+7. **Manifest gate:** `check_quotes` applies OCR rules iff
+   `opinions/ocr_status.json` marks the opinion `true`; absent/`false` → unchanged
+   behavior. `client` metadata dict carries `extracted_by_ocr` from a mocked
+   opinion JSON.
 
 ### Regression guard
 
-Run the existing suite — especially the real-citation benchmark guard and the
-existing quote-check tests — and confirm **no regressions**. The `ocr=False`
-default path must remain byte-for-byte identical to current behavior.
+Run the full suite — especially the real-citation benchmark guard and the existing
+quote-check tests — and confirm **no regressions**. The `was_ocrd=False` default
+path must remain byte-for-byte identical to current behavior.
 
 ## Version & changelog
 
 - Bump `pyproject.toml` `0.4.0` → `0.5.0`.
-- Add a CHANGELOG entry under `v0.5.0` describing the OCR-conditional quote
-  normalization, the `extracted_by_ocr` plumbing + sidecar, and the explicit
-  backward-compat guarantee for `run_check_quotes` output, so the
-  `us-legal-research` eval grader can pin the upgraded CV.
+- CHANGELOG `v0.5.0` entry: the public `verify_quote`/`QuoteVerification`
+  primitive, OCR-conditional normalization, `extracted_by_ocr` plumbing +
+  `ocr_status.json` manifest, and the explicit backward-compat guarantees — so the
+  `us-legal-research` grader can pin the upgraded CV.
 
 ## Files touched
 
 | File | Change |
 |------|--------|
+| `src/citation_verifier/quote_matcher.py` | **New.** `_normalize_quote_text` (moved), `_normalize_ocr_confusions` (new), `_best_match_with_passage` (moved, +`ocr` param), `_extract_passage` (moved), thresholds, `verify_quote`, `QuoteVerification`. |
+| `src/citation_verifier/__init__.py` | Export `verify_quote`, `QuoteVerification` (+ `QuoteMatch` if enum). |
 | `src/citation_verifier/client.py` | Capture `extracted_by_ocr` into the metadata dict (sync + async resolvers). |
-| `src/citation_verifier/proposition_pipeline.py` | `_normalize_ocr_confusions`; `ocr` param on `_best_match_with_passage`; write meta sidecar in `_download_opinion`; read sidecar + gate in `check_quotes`. |
-| `tests/test_proposition_pipeline.py` (or a new `tests/test_ocr_normalization.py`) | Per-rule, idempotence, clean-text non-regression, true-positive, gate, passage tests. |
+| `src/citation_verifier/proposition_pipeline.py` | Import quote internals from `quote_matcher`; `_download_opinion` returns OCR flag; orchestrator writes `opinions/ocr_status.json`; `check_quotes` reads manifest + calls `verify_quote` per quote. |
+| `tests/test_quote_matcher.py` | **New.** Per-rule, idempotence, clean-text, true-positive, contract, passage tests. |
+| `tests/test_proposition_pipeline.py` | Manifest-gate + client `extracted_by_ocr` tests. |
 | `pyproject.toml` | Version `0.4.0` → `0.5.0`. |
 | `CHANGELOG.md` | `v0.5.0` entry. |
-| `CLAUDE.md` | One-line note on the OCR gate + sidecar under the `check-quotes` / `_best_match_with_passage` description. |
+| `CLAUDE.md` | Note the new `quote_matcher.py` module, the `verify_quote` public primitive, OCR gate + `ocr_status.json`. |
+
+## Open items requiring cross-repo confirmation
+
+1. `result` as `str` vs. exported `QuoteMatch` enum.
+2. Field names `result` / `similarity` / `matched_passage` (vs. e.g. `category` /
+   `score`).
+3. Whether the grader wants `quote` echoed (post- or pre-normalization — proposal:
+   echo the raw input verbatim).
