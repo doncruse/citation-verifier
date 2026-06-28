@@ -91,15 +91,22 @@ lq-ai uses `rapidfuzz.fuzz.ratio` vs. a strict **95** (0–100). CV uses
 rules just raise the ratio on a true match against OCR'd text, nudging CLOSE →
 VERBATIM (or FABRICATED → CLOSE). No threshold or quote-floor change.
 
-## Public contract (pins the grader's contract test)
+## Public contract (pins the grader's contract test — CONFIRMED 2026-06-28)
 
-New module `src/citation_verifier/quote_matcher.py`, exported from `__init__.py`:
+New module `src/citation_verifier/quote_matcher.py`, exported from `__init__.py`.
+All three cross-repo contract decisions are confirmed by the `us-legal-research`
+session:
 
 ```python
+class QuoteMatch(str, enum.Enum):
+    VERBATIM = "VERBATIM"
+    CLOSE = "CLOSE"
+    FABRICATED = "FABRICATED"
+
 @dataclass(frozen=True)
 class QuoteVerification:
-    quote: str            # the input quote, echoed
-    result: str           # "VERBATIM" | "CLOSE" | "FABRICATED"
+    quote: str            # the RAW input quote, echoed verbatim (pre-normalization)
+    result: QuoteMatch    # the bucket — assert `qv.result is QuoteMatch.VERBATIM`
     similarity: float     # 0.0–1.0 (difflib ratio; 1.0 = exact substring match)
     matched_passage: str  # best-matching span from opinion_text w/ context ("" if none)
     was_ocrd: bool        # echo of the input flag — whether OCR rules were applied
@@ -112,14 +119,22 @@ def verify_quote(
 ) -> QuoteVerification: ...
 ```
 
-**Proposed, pending the `us-legal-research` session's confirmation** (see the
-coordination question in the cover note):
+Confirmed decisions:
 
-- `result` is a plain `str` with the three documented values (minimal, stable
-  contract surface). Switchable to an exported `QuoteMatch` enum if the grader
-  prefers to assert on a type.
-- Field names `result` / `similarity` / `matched_passage`. Aligning before their
-  contract test is written is cheaper than after.
+1. **`result` is an exported `QuoteMatch` enum** (not a bare `str`). The grader's
+   contract test asserts `qv.result is QuoteMatch.VERBATIM`, making a
+   renamed/added/removed bucket a *loud* tripwire rather than a silent
+   value-comparison miss. `QuoteMatch(str, Enum)` so `.value` is still a plain
+   string for the grader's enum-free JSON/scorecard artifacts. Exported alongside
+   `QuoteVerification`.
+2. **Field names `quote` / `result` / `similarity` / `matched_passage` /
+   `was_ocrd` accepted as-is.** No renames. `result` (not `verdict`) deliberately
+   avoids colliding with the proposition judge's yes/partial/no "verdict"
+   vocabulary. **No redundant `verbatim: bool`** — it's derivable from
+   `result is QuoteMatch.VERBATIM`.
+3. **`quote` echoes the RAW input verbatim** (not the normalized form). The
+   normalized form is a CV-internal detail the grader must not depend on; raw
+   makes each result self-describing.
 
 Bucketing (the 0.85 / 0.6 thresholds, currently inline in `check_quotes`) moves
 *into* `verify_quote` so the primitive is complete. `check_quotes` then maps a
@@ -137,7 +152,7 @@ giving the grader a stable seam decoupled from the pipeline:
 - `_normalize_ocr_confusions` (new) — the borrow.
 - `_best_match_with_passage` (moved) — gains an `ocr: bool = False` param.
 - `_extract_passage` (moved).
-- thresholds + `verify_quote` + `QuoteVerification` (new).
+- thresholds + `QuoteMatch` + `QuoteVerification` + `verify_quote` (new).
 
 `proposition_pipeline.py` imports these from `quote_matcher`. Any current
 `proposition_pipeline` references to the moved names are re-pointed; a module-level
@@ -198,9 +213,14 @@ Plumbing:
 
 1. **`client.py` — capture.** In both `get_opinion_text_with_metadata` variants
    (sync + async) + `_resolve_opinion_text_with_metadata`, when a sub-opinion
-   yields usable text, read `opinion.get("extracted_by_ocr")` and add
-   `"extracted_by_ocr": bool | None` to the returned metadata dict. RECAP/docket
-   and PDF-fallback paths set it `None`. No extra API calls.
+   yields usable text, read `opinion.get("extracted_by_ocr")` **from that same
+   sub-opinion JSON** and add `"extracted_by_ocr": bool | None` to the returned
+   metadata dict. The flag is a per-opinion field on the `/opinions/{id}/`
+   endpoint — it does **not** exist on the cluster (`/clusters/{id}/`), and a
+   cluster's sub-opinions (lead/concurrence/dissent) can each have a different
+   value — so it must be read off the specific sub-opinion the text came from.
+   RECAP/docket and PDF-fallback paths set it `None`. No extra API calls (the
+   sub-opinion JSON is already fetched for its text).
 2. **`proposition_pipeline.py` — write the manifest.** `_download_opinion` returns
    the OCR flag alongside the filename; the download orchestrator (wave1/wave2)
    collects `{filename: flag}` after the concurrent gather and writes
@@ -220,8 +240,8 @@ Plumbing:
   *improve* on OCR'd opinions (intended behavior change, not schema change).
 - **No new claims.csv / verification_results.csv column.** The OCR flag rides in
   `opinions/ocr_status.json` (a new additive artifact), invisible to CSV consumers.
-- `__init__.py` `__all__` gains `verify_quote`, `QuoteVerification` (and
-  `QuoteMatch` if the enum option is chosen).
+- `__init__.py` `__all__` gains `verify_quote`, `QuoteVerification`, and
+  `QuoteMatch`.
 
 ## Testing (cassette-backed, offline)
 
@@ -240,8 +260,10 @@ New `tests/test_quote_matcher.py`:
    `was_ocrd=True`, but below VERBATIM with `was_ocrd=False` (fix works; gate
    matters).
 5. **Contract test** (mirrors the grader's): `verify_quote` returns a
-   `QuoteVerification` with the agreed fields/types; `result` ∈ the three values;
-   `similarity` ∈ [0, 1]; `was_ocrd` echoes the input; default `was_ocrd=False`.
+   `QuoteVerification` whose `result is QuoteMatch.<bucket>` (identity, not just
+   value); `QuoteMatch` exported and `issubclass(QuoteMatch, str)` so `.value` is
+   a plain string; `quote` echoes the RAW input; `similarity` ∈ [0, 1];
+   `was_ocrd` echoes the input; default `was_ocrd=False`; no `verbatim` attribute.
 6. **Passage coherence:** with `was_ocrd=True` and an `rn`→`m` collapse before the
    match, `matched_passage` is sliced from the original opinion text and is
    in-bounds/coherent.
@@ -272,7 +294,7 @@ path must remain byte-for-byte identical to current behavior.
 | File | Change |
 |------|--------|
 | `src/citation_verifier/quote_matcher.py` | **New.** `_normalize_quote_text` (moved), `_normalize_ocr_confusions` (new), `_best_match_with_passage` (moved, +`ocr` param), `_extract_passage` (moved), thresholds, `verify_quote`, `QuoteVerification`. |
-| `src/citation_verifier/__init__.py` | Export `verify_quote`, `QuoteVerification` (+ `QuoteMatch` if enum). |
+| `src/citation_verifier/__init__.py` | Export `verify_quote`, `QuoteVerification`, `QuoteMatch`. |
 | `src/citation_verifier/client.py` | Capture `extracted_by_ocr` into the metadata dict (sync + async resolvers). |
 | `src/citation_verifier/proposition_pipeline.py` | Import quote internals from `quote_matcher`; `_download_opinion` returns OCR flag; orchestrator writes `opinions/ocr_status.json`; `check_quotes` reads manifest + calls `verify_quote` per quote. |
 | `tests/test_quote_matcher.py` | **New.** Per-rule, idempotence, clean-text, true-positive, contract, passage tests. |
@@ -281,10 +303,18 @@ path must remain byte-for-byte identical to current behavior.
 | `CHANGELOG.md` | `v0.5.0` entry. |
 | `CLAUDE.md` | Note the new `quote_matcher.py` module, the `verify_quote` public primitive, OCR gate + `ocr_status.json`. |
 
-## Open items requiring cross-repo confirmation
+## Cross-repo contract — RESOLVED (2026-06-28)
 
-1. `result` as `str` vs. exported `QuoteMatch` enum.
-2. Field names `result` / `similarity` / `matched_passage` (vs. e.g. `category` /
-   `score`).
-3. Whether the grader wants `quote` echoed (post- or pre-normalization — proposal:
-   echo the raw input verbatim).
+All three items confirmed by the `us-legal-research` session (see the "Public
+contract" section for the final shape):
+
+1. ✅ `result` is an exported **`QuoteMatch` enum** (`QuoteMatch(str, Enum)`).
+2. ✅ Field names `quote` / `result` / `similarity` / `matched_passage` /
+   `was_ocrd` accepted; no `verbatim: bool`.
+3. ✅ `quote` echoes the **raw** input.
+
+Grader-side, for the record: the grader sources `was_ocrd` from CL's
+per-sub-opinion `extracted_by_ocr` field (same field CV reads internally) and
+defaults `False` when absent; it consumes `result` + `similarity` without
+re-bucketing; and it keeps a gated CV contract test as the drift tripwire (skips
+until CV `0.5.0` is pinned, then goes green).
