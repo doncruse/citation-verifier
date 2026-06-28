@@ -1,4 +1,7 @@
-from citation_verifier.quote_matcher import _normalize_ocr_confusions
+from citation_verifier.quote_matcher import (
+    _best_match_with_passage,
+    _normalize_ocr_confusions,
+)
 
 
 class TestNormalizeOcrConfusions:
@@ -27,3 +30,36 @@ class TestNormalizeOcrConfusions:
     def test_clean_text_with_no_gated_patterns_is_unchanged(self):
         s = "The court held that summary judgment was proper."
         assert _normalize_ocr_confusions(s) == s
+
+
+class TestBestMatchOcr:
+    def test_ocr_false_is_unchanged_default(self):
+        # "modem" (true) vs an opinion that has the OCR'd "modern": no exact hit
+        r_off, _ = _best_match_with_passage("modem device", "the modern device works")
+        assert r_off < 1.0
+
+    def test_ocr_true_collapses_to_verbatim(self):
+        # Opinion text OCR'd "m" as "rn"; quote has the true "m"
+        ratio, passage = _best_match_with_passage(
+            "the modem device", "before the modern device after", ocr=True,
+        )
+        assert ratio == 1.0
+        assert passage  # non-empty, sliced from the original haystack
+        assert "device" in passage
+
+    def test_ocr_true_clean_text_same_ratio_as_off(self):
+        q = "summary judgment was proper"
+        h = "the court held that summary judgment was proper here"
+        on, _ = _best_match_with_passage(q, h, ocr=True)
+        off, _ = _best_match_with_passage(q, h, ocr=False)
+        assert on == off == 1.0
+
+    def test_ocr_passage_in_bounds_with_collapses_before_match(self):
+        # Many rn-words before the match must not throw / must stay in-bounds.
+        prefix = "return concern attorney govern modern " * 20
+        h = prefix + "the quoted phrase here"
+        ratio, passage = _best_match_with_passage(
+            "the quoted phrase here", h, ocr=True,
+        )
+        assert ratio == 1.0
+        assert isinstance(passage, str) and passage != ""

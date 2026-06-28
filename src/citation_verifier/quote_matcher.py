@@ -49,28 +49,37 @@ def _normalize_ocr_confusions(text: str) -> str:
 
 
 def _best_match_with_passage(
-    needle: str, haystack: str, context_chars: int = 80,
+    needle: str, haystack: str, context_chars: int = 80, *, ocr: bool = False,
 ) -> tuple[float, str]:
     """Find the best fuzzy match ratio and extract the matching passage.
 
-    Returns (ratio, passage) where passage is the best-matching text from
-    the haystack with surrounding context.  The haystack should already be
-    HTML-stripped clean text (check_quotes does this).  We normalize the
-    needle for matching but extract the passage from the original haystack
-    using haystack_lower (same length as haystack, so positions map 1:1).
+    When ``ocr`` is True, both the needle and a COPY of the haystack are
+    OCR-normalized (before lowercasing) for the comparison; the displayed
+    passage is still sliced from the ORIGINAL haystack. Because ``rn``->``m``
+    shortens text, the sliced position can drift by the number of collapses
+    before the match — bounded, cosmetic, and never affects the returned ratio
+    (the verdict). When ``ocr`` is False this is byte-for-byte the old path.
     """
     if not needle or not haystack:
         return 0.0, ""
-    needle_norm = _normalize_quote_text(needle).lower()
-    # Only lowercase the haystack (don't normalize — preserves positions)
-    haystack_lower = haystack.lower()
+
+    needle_norm = _normalize_quote_text(needle)
+    if ocr:
+        needle_norm = _normalize_ocr_confusions(needle_norm)
+    needle_norm = needle_norm.lower()
+
+    if ocr:
+        haystack_cmp = _normalize_ocr_confusions(haystack).lower()
+    else:
+        haystack_cmp = haystack.lower()
 
     if not needle_norm:
         return 0.0, ""
 
     # Exact substring = verbatim
-    if needle_norm in haystack_lower:
-        pos = haystack_lower.index(needle_norm)
+    if needle_norm in haystack_cmp:
+        pos = haystack_cmp.index(needle_norm)
+        pos = min(pos, len(haystack))  # guard against length drift
         return 1.0, _extract_passage(haystack, pos, len(needle_norm), context_chars)
 
     # Sliding window with fine step
@@ -78,8 +87,8 @@ def _best_match_with_passage(
     best_start = 0
     window = len(needle_norm)
     step = max(1, window // 8)
-    for start in range(0, max(1, len(haystack_lower) - window + 1), step):
-        chunk = haystack_lower[start:start + window + window // 2]
+    for start in range(0, max(1, len(haystack_cmp) - window + 1), step):
+        chunk = haystack_cmp[start:start + window + window // 2]
         ratio = difflib.SequenceMatcher(
             None, needle_norm, chunk, autojunk=False,
         ).ratio()
@@ -91,6 +100,7 @@ def _best_match_with_passage(
 
     passage = ""
     if best >= 0.4:
+        best_start = min(best_start, len(haystack))  # guard against drift
         passage = _extract_passage(
             haystack, best_start, window + window // 2, context_chars,
         )
