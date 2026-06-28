@@ -2,6 +2,36 @@
 
 All notable schema-level changes to citation-verifier. Per design v2 §2.6 / §5: additions to closed-set enums are minor-version changes, removals are major.
 
+## v0.5.0 — 2026-06-28 (Public quote primitive + OCR-confusion normalization)
+
+Design: `docs/superpowers/specs/2026-06-28-ocr-quote-normalization-design.md`.
+
+Additive feature layer; core verifier unchanged.
+
+### New public API (`quote_matcher.py`, exported from the package)
+
+- **`verify_quote(quote, opinion_text, *, was_ocrd=False) -> QuoteVerification`** —
+  workdir-free quote-fidelity primitive. `QuoteVerification` carries
+  `quote` (raw input), `result` (`QuoteMatch` enum), `similarity` (0-1),
+  `matched_passage`, `was_ocrd`. `QuoteMatch(str, Enum)` = VERBATIM/CLOSE/FABRICATED.
+- The legal-quote internals (`_normalize_quote_text`, `_best_match_with_passage`,
+  `_extract_passage`) moved into `quote_matcher.py`; still re-exported from
+  `proposition_pipeline` (and the `brief_pipeline` alias) for compatibility.
+
+### OCR-confusion normalization
+
+- Conservative one-directional rules (`rn`->`m` mid-word, `O`->`0` / `l`->`1`
+  digit-adjacent), applied to both quote and opinion text, ONLY when the opinion
+  was OCR'd. Gated on CourtListener's per-sub-opinion `extracted_by_ocr` field,
+  carried into the workdir via a new `opinions/ocr_status.json` manifest. Thresholds
+  and quote-floors unchanged; clean text is unaffected (symmetric collapse).
+
+### Backward compatibility
+
+- `run_check_quotes` / `QuoteCheckStats` and the `quote_check` / `quote_check_worst`
+  / `quote_floor` columns keep their shapes. No claims.csv schema change. Values may
+  improve on OCR'd opinions (intended). New artifact: `opinions/ocr_status.json`.
+
 ## v0.4.0 — 2026-06-14 (Proposition-verification pipeline)
 
 Design: `docs/plans/2026-05-20-citation-verifier-refactor-design-v2.md` (pipeline-redesign track, PR #21).
