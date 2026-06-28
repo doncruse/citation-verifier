@@ -1,6 +1,9 @@
 from citation_verifier.quote_matcher import (
+    QuoteMatch,
+    QuoteVerification,
     _best_match_with_passage,
     _normalize_ocr_confusions,
+    verify_quote,
 )
 
 
@@ -63,3 +66,48 @@ class TestBestMatchOcr:
         )
         assert ratio == 1.0
         assert isinstance(passage, str) and passage != ""
+
+
+class TestVerifyQuoteContract:
+    def test_returns_quoteverification_with_enum_result(self):
+        qv = verify_quote("hello world", "well, hello world!")
+        assert isinstance(qv, QuoteVerification)
+        assert qv.result is QuoteMatch.VERBATIM
+        assert isinstance(qv.result, QuoteMatch)
+
+    def test_quotematch_is_str_enum(self):
+        assert issubclass(QuoteMatch, str)
+        assert QuoteMatch.VERBATIM.value == "VERBATIM"
+
+    def test_echoes_raw_input_quote(self):
+        raw = "[T]he  court “held”"
+        qv = verify_quote(raw, "irrelevant text")
+        assert qv.quote == raw  # raw, NOT normalized
+
+    def test_was_ocrd_echoed_and_defaults_false(self):
+        assert verify_quote("a phrase", "x").was_ocrd is False
+        assert verify_quote("a phrase", "x", was_ocrd=True).was_ocrd is True
+
+    def test_similarity_in_unit_range(self):
+        qv = verify_quote("totally absent phrase zzz", "unrelated opinion text")
+        assert 0.0 <= qv.similarity <= 1.0
+
+    def test_no_verbatim_attribute(self):
+        assert not hasattr(verify_quote("a", "a"), "verbatim")
+
+    def test_buckets(self):
+        assert verify_quote("hello world", "say hello world now").result is QuoteMatch.VERBATIM
+        assert verify_quote("zzz qqq vvv", "nothing alike here").result is QuoteMatch.FABRICATED
+
+
+class TestVerifyQuoteOcr:
+    def test_ocr_fixes_false_negative(self):
+        # opinion OCR'd "modem" as "modern"; quote has the true "modem".
+        # The single rn->m collapse must drop the no-OCR ratio below the
+        # VERBATIM cut (so off != VERBATIM) yet restore an exact match on.
+        opinion = "The parties used the modern to connect."
+        quote = "used the modem"
+        off = verify_quote(quote, opinion, was_ocrd=False)
+        on = verify_quote(quote, opinion, was_ocrd=True)
+        assert on.result is QuoteMatch.VERBATIM
+        assert off.result is not QuoteMatch.VERBATIM

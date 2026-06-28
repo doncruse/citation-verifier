@@ -7,7 +7,9 @@ fuzzy best-match helpers, previously private to proposition_pipeline.
 from __future__ import annotations
 
 import difflib
+import enum
 import re
+from dataclasses import dataclass
 
 # --- Quote text normalization (moved verbatim from proposition_pipeline) ---
 
@@ -105,6 +107,56 @@ def _best_match_with_passage(
             haystack, best_start, window + window // 2, context_chars,
         )
     return best, passage
+
+
+# --- Public quote primitive ---
+
+# Bucketing thresholds (unchanged from check_quotes). VERBATIM is strictly
+# above _VERBATIM_MIN; CLOSE is at or above _CLOSE_MIN; else FABRICATED.
+_VERBATIM_MIN = 0.85
+_CLOSE_MIN = 0.6
+
+
+class QuoteMatch(str, enum.Enum):
+    """How well a quote matched the opinion text."""
+    VERBATIM = "VERBATIM"
+    CLOSE = "CLOSE"
+    FABRICATED = "FABRICATED"
+
+
+@dataclass(frozen=True)
+class QuoteVerification:
+    """Result of verifying one quote against one opinion's text."""
+    quote: str              # the RAW input quote, echoed verbatim
+    result: QuoteMatch
+    similarity: float       # 0.0-1.0 (difflib ratio; 1.0 = exact substring)
+    matched_passage: str    # best-matching span from opinion_text ("" if none)
+    was_ocrd: bool          # whether OCR-confusion rules were applied
+
+
+def verify_quote(
+    quote: str, opinion_text: str, *, was_ocrd: bool = False,
+) -> QuoteVerification:
+    """Verify a quote against opinion text. Public primitive.
+
+    Applies CV's legal-quote normalization always, and the conservative
+    OCR-confusion rules only when ``was_ocrd`` is True. Buckets the fuzzy ratio
+    into VERBATIM/CLOSE/FABRICATED on the existing thresholds.
+    """
+    ratio, passage = _best_match_with_passage(quote, opinion_text, ocr=was_ocrd)
+    if ratio > _VERBATIM_MIN:
+        result = QuoteMatch.VERBATIM
+    elif ratio >= _CLOSE_MIN:
+        result = QuoteMatch.CLOSE
+    else:
+        result = QuoteMatch.FABRICATED
+    return QuoteVerification(
+        quote=quote,
+        result=result,
+        similarity=round(ratio, 2),
+        matched_passage=passage,
+        was_ocrd=was_ocrd,
+    )
 
 
 def _extract_passage(
