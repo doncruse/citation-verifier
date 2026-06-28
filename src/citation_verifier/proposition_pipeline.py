@@ -362,11 +362,39 @@ async def _find_substantive_sibling(
     return best
 
 
+def _ocr_manifest_path(workdir: Path) -> Path:
+    return Path(workdir) / "opinions" / "ocr_status.json"
+
+
+def _read_ocr_manifest(workdir: Path) -> dict[str, object]:
+    """Read opinions/ocr_status.json -> {filename: extracted_by_ocr}. {} if absent."""
+    path = _ocr_manifest_path(workdir)
+    if not path.exists():
+        return {}
+    try:
+        data = json_mod.loads(path.read_text(encoding="utf-8"))
+        return data if isinstance(data, dict) else {}
+    except (json_mod.JSONDecodeError, OSError):
+        return {}
+
+
+def _write_ocr_manifest(workdir: Path, mapping: dict[str, object]) -> None:
+    """Merge `mapping` into opinions/ocr_status.json (no-op if mapping empty)."""
+    if not mapping:
+        return
+    merged = _read_ocr_manifest(workdir)
+    merged.update(mapping)
+    path = _ocr_manifest_path(workdir)
+    path.parent.mkdir(exist_ok=True)
+    path.write_text(json_mod.dumps(merged, indent=2), encoding="utf-8")
+
+
 async def _download_opinion(
     client: AsyncCourtListenerClient,
     workdir: Path,
     result: VerificationResult,
     citation: str,
+    ocr_manifest: dict[str, object] | None = None,
 ) -> str | None:
     """Download opinion text for a verified result. Returns saved filename or None."""
     matched_url = result.final_ids.absolute_url
@@ -467,6 +495,8 @@ async def _download_opinion(
         ext = ".html" if fmt == "html" else ".txt"
         filename = f"{base}{ext}"
         (opinions_dir / filename).write_text(text, encoding="utf-8")
+        if ocr_manifest is not None:
+            ocr_manifest[filename] = data.get("extracted_by_ocr")
         return filename
 
     except Exception:
@@ -504,6 +534,7 @@ async def wave1_verify_and_download(
     # if the pipeline swaps to a substantive sibling cluster — see
     # _download_opinion)
     download_stats = {"downloaded": 0, "failed": 0, "skipped": 0}
+    ocr_manifest: dict[str, object] = {}
 
     async with AsyncCourtListenerClient() as client:
         for i, (cite, result) in enumerate(zip(citations, results)):
@@ -511,11 +542,15 @@ async def wave1_verify_and_download(
                 download_stats["skipped"] += 1
                 continue
 
-            filename = await _download_opinion(client, workdir, result, cite)
+            filename = await _download_opinion(
+                client, workdir, result, cite, ocr_manifest,
+            )
             if filename:
                 download_stats["downloaded"] += 1
             else:
                 download_stats["failed"] += 1
+
+    _write_ocr_manifest(workdir, ocr_manifest)
 
     # Write verification_results.csv after downloads so any URL swaps persist
     _write_verification_csv(workdir, citations, results)
@@ -558,6 +593,7 @@ async def wave2_fallback_and_download(
     # result.final_ids.absolute_url when swapping to a substantive sibling
     # cluster)
     download_stats = {"downloaded": 0, "failed": 0, "skipped": 0}
+    ocr_manifest: dict[str, object] = {}
 
     async with AsyncCourtListenerClient() as client:
         for cite, result in zip(miss_citations, results):
@@ -565,11 +601,15 @@ async def wave2_fallback_and_download(
                 download_stats["skipped"] += 1
                 continue
 
-            filename = await _download_opinion(client, workdir, result, cite)
+            filename = await _download_opinion(
+                client, workdir, result, cite, ocr_manifest,
+            )
             if filename:
                 download_stats["downloaded"] += 1
             else:
                 download_stats["failed"] += 1
+
+    _write_ocr_manifest(workdir, ocr_manifest)
 
     # Append to verification_results.csv after downloads so URL swaps persist
     _write_verification_csv(workdir, miss_citations, results, append=True)

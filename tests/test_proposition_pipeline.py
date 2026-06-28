@@ -2038,3 +2038,16 @@ def test_resolver_captures_extracted_by_ocr(monkeypatch):
     )
     assert data is not None
     assert data["extracted_by_ocr"] is True
+
+
+def test_ocr_manifest_roundtrip(tmp_path):
+    from citation_verifier.proposition_pipeline import (
+        _read_ocr_manifest, _write_ocr_manifest,
+    )
+    assert _read_ocr_manifest(tmp_path) == {}
+    _write_ocr_manifest(tmp_path, {"A.html": True})
+    _write_ocr_manifest(tmp_path, {"B.txt": None})  # merge, don't clobber
+    m = _read_ocr_manifest(tmp_path)
+    assert m["A.html"] is True
+    assert "B.txt" in m
+    assert (tmp_path / "opinions" / "ocr_status.json").exists()
