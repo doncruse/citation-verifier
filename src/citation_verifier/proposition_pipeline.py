@@ -24,6 +24,7 @@ from .quote_matcher import (
     _best_match_with_passage,
     _extract_passage,
     _normalize_quote_text,
+    verify_quote,
 )
 from .report_template import generate_report_html
 from .verifier import CitationVerifier
@@ -1809,6 +1810,10 @@ def check_quotes(workdir: Path) -> QuoteCheckStats:
     with open(claims_path, newline="", encoding="utf-8") as f:
         claims = list(csv.DictReader(f))
 
+    # Per-opinion OCR gate (CL extracted_by_ocr, carried via the download
+    # manifest). Absent/unknown -> rules stay off (default behavior).
+    ocr_manifest = _read_ocr_manifest(workdir)
+
     # Cache opinion text by file path (HTML-stripped for clean matching)
     opinion_cache: dict[str, str] = {}
 
@@ -1869,32 +1874,32 @@ def check_quotes(workdir: Path) -> QuoteCheckStats:
             opinion_cache[opinion_file] = clean
         opinion_text = opinion_cache[opinion_file]
 
+        # OCR gate per opinion: only collapse rn/O/l when CL flagged this
+        # opinion as OCR-extracted. Unknown -> off (byte-identical to before).
+        was_ocrd = bool(ocr_manifest.get(Path(opinion_file).name, False))
+
         # Check each quote
         results = []
         worst = "VERBATIM"
         _WORST_ORDER = {"VERBATIM": 0, "CLOSE": 1, "FABRICATED": 2}
 
         for quote in quotes:
-            ratio, matched_passage = _best_match_with_passage(
-                quote, opinion_text,
-            )
-            if ratio > 0.85:
-                result = "VERBATIM"
+            qv = verify_quote(quote, opinion_text, was_ocrd=was_ocrd)
+            result = qv.result.value
+            if result == "VERBATIM":
                 stats.verbatim += 1
-            elif ratio >= 0.6:
-                result = "CLOSE"
+            elif result == "CLOSE":
                 stats.close += 1
             else:
-                result = "FABRICATED"
                 stats.fabricated += 1
 
             entry: dict[str, object] = {
                 "quote": quote,
                 "result": result,
-                "similarity": round(ratio, 2),
+                "similarity": qv.similarity,
             }
-            if matched_passage:
-                entry["matched_passage"] = matched_passage
+            if qv.matched_passage:
+                entry["matched_passage"] = qv.matched_passage
             results.append(entry)
 
             if _WORST_ORDER.get(result, 0) > _WORST_ORDER.get(worst, 0):

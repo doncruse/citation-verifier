@@ -2051,3 +2051,42 @@ def test_ocr_manifest_roundtrip(tmp_path):
     assert m["A.html"] is True
     assert "B.txt" in m
     assert (tmp_path / "opinions" / "ocr_status.json").exists()
+
+
+def test_check_quotes_applies_ocr_gate(tmp_path):
+    import csv as _csv
+    import json as _json
+    from citation_verifier.proposition_pipeline import (
+        check_quotes, _write_ocr_manifest,
+    )
+    wd = tmp_path
+    (wd / "opinions").mkdir()
+    # Opinion text OCR'd "modem" as "modern":
+    (wd / "opinions" / "Op.txt").write_text(
+        "The court found the modern was defective and unusable here.",
+        encoding="utf-8",
+    )
+    rows = [{
+        "claim_id": "c-1",
+        "proposition": "p",
+        "brief_sentence": "",
+        "quoted_text": _json.dumps(["the modem was defective"]),
+        "opinion_file": "opinions/Op.txt",
+    }]
+    cols = list(rows[0].keys())
+    with open(wd / "claims.csv", "w", newline="", encoding="utf-8") as f:
+        w = _csv.DictWriter(f, fieldnames=cols)
+        w.writeheader(); w.writerows(rows)
+
+    # Without the gate -> not verbatim
+    check_quotes(wd)
+    with open(wd / "claims.csv", newline="", encoding="utf-8") as f:
+        worst_off = list(_csv.DictReader(f))[0]["quote_check_worst"]
+    assert worst_off != "VERBATIM"
+
+    # Mark the opinion OCR'd, re-check -> verbatim
+    _write_ocr_manifest(wd, {"Op.txt": True})
+    check_quotes(wd)
+    with open(wd / "claims.csv", newline="", encoding="utf-8") as f:
+        worst_on = list(_csv.DictReader(f))[0]["quote_check_worst"]
+    assert worst_on == "VERBATIM"
