@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Proposition Verification Report — </title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  color: #2d2d2d;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+  background: #fafaf8;
+}
+h1, h2, h3 { font-family: 'Lora', serif; }
+h1 { font-size: 1.6rem; margin-bottom: 0.3rem; color: #1a1a1a; }
+h2 { font-size: 1.25rem; margin: 2rem 0 0.8rem; color: #333; border-bottom: 1px solid #ddd; padding-bottom: 0.3rem; }
+h3 { font-size: 1.05rem; margin: 1rem 0 0.5rem; }
+
+.meta { color: #666; font-size: 0.9rem; margin-bottom: 1.5rem; }
+.meta span { display: inline-block; margin-right: 1.5rem; }
+
+.dashboard { background: #fff; border: 1px solid #e0e0e0; border-radius: 6px; padding: 1.2rem 1.5rem; margin-bottom: 2rem; }
+.stats { display: flex; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 1rem; }
+.stat { text-align: center; }
+.stat-num { font-size: 1.8rem; font-weight: 600; }
+.stat-label { font-size: 0.8rem; color: #666; text-transform: uppercase; letter-spacing: 0.05em; }
+.stat-red .stat-num { color: #c0392b; }
+.stat-yellow .stat-num { color: #d4a017; }
+.stat-orange .stat-num { color: #e67e22; }
+.stat-green .stat-num { color: #27ae60; }
+.stat-gray .stat-num { color: #888; }
+
+.issue-list { list-style: none; padding: 0; }
+.issue-list li {
+  padding: 0.5rem 0.7rem;
+  margin-bottom: 0.4rem;
+  border-left: 4px solid #ccc;
+  background: #fefefe;
+  font-size: 0.9rem;
+}
+.issue-list li.sev-red { border-left-color: #c0392b; background: #fdf2f2; }
+.issue-list li.sev-yellow { border-left-color: #d4a017; background: #fefcf0; }
+.issue-list li.sev-orange { border-left-color: #e67e22; background: #fff7ef; }
+.issue-list li.sev-gray { border-left-color: #999; background: #f5f5f5; }
+.issue-list a { color: inherit; text-decoration: none; }
+.issue-list a:hover { text-decoration: underline; }
+
+.badge {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.15rem 0.5rem;
+  border-radius: 3px;
+  vertical-align: middle;
+}
+.badge-red { background: #f8d7da; color: #721c24; }
+.badge-yellow { background: #fff3cd; color: #856404; }
+.badge-orange { background: #ffe0b2; color: #8a4500; }
+.badge-green { background: #d4edda; color: #155724; }
+.badge-blue { background: #d1ecf1; color: #0c5460; }
+.badge-gray { background: #e9ecef; color: #495057; }
+
+.bq-brief {
+  border-left: 4px solid #e67e22;
+  background: #fef9f3;
+  padding: 0.7rem 1rem;
+  margin: 0.5rem 0;
+  font-size: 0.9rem;
+}
+.bq-opinion {
+  border-left: 4px solid #27ae60;
+  background: #f0faf4;
+  padding: 0.7rem 1rem;
+  margin: 0.5rem 0;
+  font-size: 0.9rem;
+}
+.bq-label { font-weight: 600; font-size: 0.8rem; color: #666; margin-bottom: 0.2rem; }
+
+.card-flags { margin: 0.2rem 0 0.5rem; }
+.flag-chip {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  background: #fff3e0;
+  color: #8a4500;
+  border: 1px solid #f0c27a;
+  border-radius: 3px;
+  padding: 0.1rem 0.5rem;
+  margin: 0 0.3rem 0.2rem 0;
+}
+
+details { margin-bottom: 0.8rem; }
+summary {
+  cursor: pointer;
+  padding: 0.6rem 0.8rem;
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  list-style: none;
+}
+summary::-webkit-details-marker { display: none; }
+summary::before { content: "\25B6\00a0"; font-size: 0.7rem; color: #888; }
+details[open] > summary::before { content: "\25BC\00a0"; }
+details[open] > summary { border-radius: 4px 4px 0 0; border-bottom: none; }
+.finding-body {
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-top: none;
+  border-radius: 0 0 4px 4px;
+  padding: 1rem;
+}
+.case-name { font-family: 'Lora', serif; font-style: italic; }
+.explanation { margin-top: 0.7rem; font-size: 0.9rem; line-height: 1.5; }
+.analysis { margin-top: 0.8rem; font-size: 0.92rem; line-height: 1.55; color: #2d2d2d; }
+.analysis p { margin-bottom: 0.6rem; }
+.analysis p:last-child { margin-bottom: 0; }
+.prop-list { margin: 0.3rem 0 0.6rem 1.2rem; font-size: 0.9rem; }
+.prop-list li { margin-bottom: 0.25rem; }
+
+.controls { margin-bottom: 0.5rem; font-size: 0.8rem; }
+.controls button {
+  background: none;
+  border: none;
+  color: #2980b9;
+  cursor: pointer;
+  font-size: 0.8rem;
+  padding: 0.2rem 0.4rem;
+}
+.controls button:hover { text-decoration: underline; }
+
+.verified-item {
+  padding: 0.3rem 0;
+  font-size: 0.85rem;
+  border-bottom: 1px solid #f0f0f0;
+}
+.checkmark { color: #27ae60; font-weight: bold; }
+
+.methodology { font-size: 0.85rem; color: #555; margin-top: 2rem; }
+.methodology h2 { font-size: 1.1rem; }
+.methodology ul { padding-left: 1.2rem; }
+.methodology li { margin-bottom: 0.5rem; }
+
+@media print {
+  details { open: true; }
+  details[open] > summary { border-bottom: 1px solid #e0e0e0; }
+  body { max-width: 100%; padding: 1rem; font-size: 12px; }
+  .controls { display: none; }
+  .dashboard { box-shadow: none; }
+}
+</style>
+<script>
+function expandAll() { document.querySelectorAll('details').forEach(d => d.open = true); }
+function collapseAll() { document.querySelectorAll('details').forEach(d => d.open = false); }
+</script>
+</head>
+<body>
+
+<h1>Proposition Verification Report</h1>
+<div class="meta">
+  <span><strong>Brief:</strong> </span><br>
+  <span><strong>Case:</strong> <em></em>, </span><br>
+  <span><strong>Filed:</strong> </span>
+  <span><strong>Report generated:</strong> </span>
+</div>
+
+
+<div class="dashboard">
+  <h2 style="border:none; margin-top:0; padding:0;">Summary</h2>
+  <div class="stats">
+    <div class="stat"><div class="stat-num">52</div><div class="stat-label">Claims checked</div></div>
+    <div class="stat stat-red"><div class="stat-num">2</div><div class="stat-label">Serious issues</div></div>
+    <div class="stat stat-yellow"><div class="stat-num">19</div><div class="stat-label">Concerns</div></div>
+    <div class="stat stat-orange"><div class="stat-num">0</div><div class="stat-label">Check cite</div></div>
+    <div class="stat stat-green"><div class="stat-num">31</div><div class="stat-label">Verified</div></div>
+    <div class="stat stat-gray"><div class="stat-num">0</div><div class="stat-label">Unable to verify</div></div>
+  </div>
+  <h3>Issues</h3>
+  <ul class="issue-list">
+    <li class="sev-yellow"><a href="#finding-1"><span class="badge badge-yellow">Opinion text truncated -- cannot verify</span> p. 1 &mdash; <em>Hague v. Committee for Industrial Organization</em>, 307 U.S. 496, 515 (1939) &mdash; The opinion file provided contains only Hague's one-paragraph per curiam disposition, which announces that &quot;the decree is modified and as modified affirmed&quot; and notes that &quot;Mr. Justice Roberts has an opinion in which…</a></li>
+<li class="sev-yellow"><a href="#finding-2"><span class="badge badge-yellow">Quote not found in opinion</span> p. 1 &mdash; <em>Gregory v. City of Chicago</em>, 394 U.S. 111, 125 (1969) &mdash; The brief attributes this quotation to Justice Black's concurrence at page 125, but the file provided contains only Chief Justice Warren's majority opinion, which runs through page 113; the concurrence is not included.</a></li>
+<li class="sev-yellow"><a href="#finding-3"><span class="badge badge-yellow">Quote not found in opinion</span> p. 1 &mdash; <em>Gregory v. City of Chicago</em>, 394 U.S. 111, 125 (1969) &mdash; This proposition is pinned to Justice Black's concurrence at page 125, which is not contained in the provided file; the file holds only the majority opinion, which ends at page 113 and nowhere uses the phrase &quot;heckler's…</a></li>
+<li class="sev-yellow"><a href="#finding-4"><span class="badge badge-yellow">Supported</span> p. 1 &mdash; <em>Goldhamer v. Nagode</em>, 621 F.3d 581 (7th Cir. 2010) &mdash; Goldhamer expressly endorses the heckler's-veto principle the brief cites it for, observing that the failure-to-disperse provision 'can be applied to impose what amounts to an unconstitutional &quot;heckler's veto&quot; of…</a></li>
+<li class="sev-yellow"><a href="#finding-5"><span class="badge badge-yellow">Overstated -- case partially supports</span> p. 1 &mdash; <em>Goldhamer v. Nagode</em>, 621 F.3d 581, 588–90 (7th Cir. 2010) &mdash; The second half of this sentence is well grounded but the first half overstates the holding.</a></li>
+<li class="sev-yellow"><a href="#finding-6"><span class="badge badge-yellow">Overstated -- case partially supports</span> p. 1 &mdash; <em>Thayer v. Chiczewski</em>, 705 F.3d 237, 248–49 (7th Cir. 2012) &mdash; The opinion does support the dual-requirement core of the proposition.</a></li>
+<li class="sev-yellow"><a href="#finding-7"><span class="badge badge-yellow">Overstated -- case partially supports</span> p. 1 &mdash; <em>Thayer v. Chiczewski</em>, 705 F.3d 237, 248–49 (7th Cir. 2012) &mdash; The opinion supports the general principle underlying the proposition: it holds that “speech alone cannot form the basis for a disorderly conduct charge” and that it “remains no crime to express an unpopular view even…</a></li>
+<li class="sev-yellow"><a href="#finding-8"><span class="badge badge-yellow">Reworded -- not a verbatim quote</span> p. 1 &mdash; <em>Coates v. City of Cincinnati</em>, 402 U.S. 611 (1971) &mdash; Coates squarely supports the narrower proposition that avoiding annoyance is not a proper basis for curtailing protected speech or assembly.</a></li>
+<li class="sev-red"><a href="#finding-9"><span class="badge badge-red">Not supported by cited case</span> p. 1 &mdash; <em>Thayer v. Chiczewski</em>, 705 F.3d 237, 246 (7th Cir. 2012) &mdash; Thayer v. Chiczewski is a Section 1983 qualified-immunity case about officers who issued a blanket order of dispersal to an entire antiwar assembly, formed a police line, and arrested those who failed to comply; the…</a></li>
+<li class="sev-yellow"><a href="#finding-10"><span class="badge badge-yellow">Overstated -- case partially supports</span> p. 1 &mdash; <em>Gregory v. City of Chicago</em>, 394 U.S. 111 (1969) &mdash; Gregory is topically on point -- peaceful marchers were arrested after police, fearing an impending civil disorder, ordered them to disperse, and the Court reversed -- but it does not hold that a speculative concern…</a></li>
+<li class="sev-yellow"><a href="#finding-11"><span class="badge badge-yellow">Paraphrase presented as direct quote</span> p. 1 &mdash; <em>Goldhamer v. Nagode</em>, 621 F.3d 581, 591 (7th Cir. 2010) &mdash; The quoted phrase 'the police appear to have had no arguable probable cause' does not appear in the opinion; it is a paraphrase set in quotation marks.</a></li>
+<li class="sev-yellow"><a href="#finding-12"><span class="badge badge-yellow">Citation resolves to different case</span> p. 1 &mdash; <em>Cox v. Louisiana</em>, 379 U.S. 571, 571–73 (1965) &mdash; The brief cites Cox v. Louisiana at 379 U.S. 571, which is the separate companion opinion (No. 49, the courthouse-picketing case), but the opinion provided here is the distinct No. 24 majority reported at 379 U.S. 536,…</a></li>
+<li class="sev-yellow"><a href="#finding-13"><span class="badge badge-yellow">Overstated -- case partially supports</span> p. 1 &mdash; <em>Barham v. Ramsey</em>, 434 F.3d 565, 573 (D.C. Cir. 2006) &mdash; Barham v. Ramsey is a Fourth Amendment qualified-immunity case about a mass arrest of anti-globalization demonstrators in Pershing Park.</a></li>
+<li class="sev-yellow"><a href="#finding-14"><span class="badge badge-yellow">Supported</span> p. 1 &mdash; <em>Vodak v. City of Chicago</em>, 639 F.3d 738, 748–49 (7th Cir. 2011) &mdash; Directly supported.</a></li>
+<li class="sev-yellow"><a href="#finding-15"><span class="badge badge-yellow">Citation resolves to different case</span> p. 1 &mdash; <em>Cox v. Louisiana</em>, 379 U.S. 571 (1965) &mdash; The brief cites Cox v. Louisiana at 379 U.S. 571 for the privilege/entrapment principle, but the file provided is the No. 24 opinion at 379 U.S. 536, which ends at page 558 and does not include page 571 — that pinpoint…</a></li>
+<li class="sev-yellow"><a href="#finding-16"><span class="badge badge-yellow">Opinion text truncated -- cannot verify</span> p. 1 &mdash; <em>Hague v. Committee for Industrial Organization</em>, 307 U.S. 496, 515 (1939) &mdash; The opinion file provided contains only Hague's one-paragraph per curiam disposition and a note that Justice Roberts authored a separate opinion; it does not include the substantive discussion of public forums,…</a></li>
+<li class="sev-yellow"><a href="#finding-17"><span class="badge badge-yellow">Overstated -- case partially supports</span> p. 1 &mdash; <em>Edwards v. South Carolina</em>, 372 U.S. 229 (1963) &mdash; Edwards supports the core idea that peaceful political protest sits at the apex of constitutional protection — the Court called the petitioners' assembly on public government grounds an exercise of free-speech,…</a></li>
+<li class="sev-yellow"><a href="#finding-18"><span class="badge badge-yellow">Overstated -- case partially supports</span> p. 1 &mdash; <em>Gregory v. City of Chicago</em>, 394 U.S. 111 (1969) &mdash; Gregory supports the general point that peaceful political protest is firmly protected, holding that petitioners' peaceful and orderly march falls well within the sphere of conduct protected by the First Amendment.</a></li>
+<li class="sev-yellow"><a href="#finding-19"><span class="badge badge-yellow">Supported</span> p. 1 &mdash; <em>Edwards v. South Carolina</em>, 372 U.S. 229 (1963) &mdash; Edwards supports the proposition that a merely speculative risk cannot justify suppressing peaceful assembly: the Court required a &quot;clear and present danger of a serious substantive evil,&quot; rejected reliance on testimony…</a></li>
+<li class="sev-yellow"><a href="#finding-20"><span class="badge badge-yellow">Overstated -- case partially supports</span> p. 1 &mdash; <em>Ward v. Rock Against Racism</em>, 491 U.S. 781 (1989) &mdash; Ward supplies the narrow-tailoring standard the brief invokes, but it does not hold that a blanket dispersal order fails that standard, and its central holding cuts partly against the brief's framing.</a></li>
+<li class="sev-red"><a href="#finding-21"><span class="badge badge-red">Not supported by cited case</span> p. 1 &mdash; <em>Cox v. Louisiana</em>, 379 U.S. 536 (1965) &mdash; Cox v. Louisiana (379 U.S. 536) is a First Amendment case reversing a single demonstration leader's convictions for disturbing the peace (on free-speech and vagueness grounds) and for obstructing public passages (on…</a></li>
+  </ul>
+</div>
+<h2>Findings</h2>
+<div class="controls"><button onclick="expandAll()">Expand All</button> | <button onclick="collapseAll()">Collapse All</button></div>
+<details id="finding-1">
+  <summary>
+    <strong>p. 1</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/103226/haguer-v-committee-for-industrial-organization/"><span class="case-name">Hague v. Committee for Industrial Organization</span></a>, 307 U.S. 496, 515 (1939)
+    &mdash; <span class="badge badge-yellow">Opinion text truncated -- cannot verify</span>
+  </summary>
+  <div class="finding-body">
+    
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief"><p>As Justice Roberts wrote in Hague v. Committee for Industrial Organization, 307 U.S. 496, 515 (1939) — the foundational case establishing the public forum doctrine: &quot;Streets and parks … have immemorially been held in trust for the use of the public and, time out of mind, have been used for purposes of assembly, communicating thoughts between citizens, and discussing public questions.&quot;</p></div>
+    
+    <div class="analysis"><p>The opinion file provided contains only Hague's one-paragraph per curiam disposition, which announces that &quot;the decree is modified and as modified affirmed&quot; and notes that &quot;Mr. Justice Roberts has an opinion in which Mr. Justice Black concurs.&quot; The body of Justice Roberts's opinion — where the cited public-forum language about streets and parks being &quot;held in trust for the use of the public&quot; appears — is not included in the text. Because the substantive passage the brief quotes and attributes to page 515 is absent from the document supplied, the proposition cannot be verified against this text.</p></div>
+  </div>
+</details><details id="finding-2">
+  <summary>
+    <strong>p. 1</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/107869/gregory-v-city-of-chicago/"><span class="case-name">Gregory v. City of Chicago</span></a>, 394 U.S. 111, 125 (1969)
+    &mdash; <span class="badge badge-yellow">Quote not found in opinion</span>
+  </summary>
+  <div class="finding-body">
+    
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief"><p>Justice Black's concurrence emphasized: &quot;To let a policeman's command become equivalent to a criminal statute comes dangerously near making our government one of men rather than of laws.&quot; Id. at 125.</p></div>
+    
+    <div class="analysis"><p>The brief attributes this quotation to Justice Black's concurrence at page 125, but the file provided contains only Chief Justice Warren's majority opinion, which runs through page 113; the concurrence is not included. The quoted language appears nowhere in the majority opinion, and the concurring opinion the brief relies on is absent from the supplied text, so its content can be neither confirmed nor refuted from this file.</p></div>
+  </div>
+</details><details id="finding-3">
+  <summary>
+    <strong>p. 1</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/107869/gregory-v-city-of-chicago/"><span class="case-name">Gregory v. City of Chicago</span></a>, 394 U.S. 111, 125 (1969)
+    &mdash; <span class="badge badge-yellow">Quote not found in opinion</span>
+  </summary>
+  <div class="finding-body">
+    
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief"><p>This is the forbidden &quot;heckler's veto.&quot; Gregory v. City of Chicago, 394 U.S. at 125 (Black, J., concurring); Goldhamer v. Nagode, 621 F.3d 581 (7th Cir. 2010).</p></div>
+    
+    <div class="analysis"><p>This proposition is pinned to Justice Black's concurrence at page 125, which is not contained in the provided file; the file holds only the majority opinion, which ends at page 113 and nowhere uses the phrase &quot;heckler's veto&quot; or addresses whether police may disperse a peaceful assembly because of a hostile crowd's reaction. Because the concurring opinion the brief relies on is missing from the supplied text, the heckler's-veto proposition cannot be verified against this file.</p></div>
+  </div>
+</details><details id="finding-4">
+  <summary>
+    <strong>p. 1</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/174622/goldhamer-v-nagode/"><span class="case-name">Goldhamer v. Nagode</span></a>, 621 F.3d 581 (7th Cir. 2010)
+    &mdash; <span class="badge badge-yellow">Supported</span>
+  </summary>
+  <div class="finding-body">
+    
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief"><p>This is the forbidden &quot;heckler's veto.&quot; Gregory v. City of Chicago, 394 U.S. at 125 (Black, J., concurring); Goldhamer v. Nagode, 621 F.3d 581 (7th Cir. 2010).</p></div>
+    <div class="bq-label">Actual language in opinion:</div><div class="bq-opinion"><p>this provision can be applied to impose what amounts to an unconstitutional 'heckler's veto' of protected speech.</p></div>
+    <div class="analysis"><p>Goldhamer expressly endorses the heckler's-veto principle the brief cites it for, observing that the failure-to-disperse provision 'can be applied to impose what amounts to an unconstitutional &quot;heckler's veto&quot; of protected speech' and that it 'can be misused to impose a heckler's veto or otherwise to suppress speech and expressive conduct protected by the First Amendment.' Although the Seventh Circuit ultimately resolved the case on standing and expressly did not decide the ordinance's constitutionality, it plainly recognizes the doctrine that a hostile audience's reaction cannot justify dispersing peaceful protest, so the citation accurately supports the general proposition.</p></div>
+  </div>
+</details><details id="finding-5">
+  <summary>
+    <strong>p. 1</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/174622/goldhamer-v-nagode/"><span class="case-name">Goldhamer v. Nagode</span></a>, 621 F.3d 581, 588–90 (7th Cir. 2010)
+    &mdash; <span class="badge badge-yellow">Overstated -- case partially supports</span>
+  </summary>
+  <div class="finding-body">
+    
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief"><p>In Goldhamer v. Nagode, the Seventh Circuit addressed a nearly identical situation [...]. The court held that Chicago Municipal Code § 8-4-010(d) cannot be applied as a heckler's veto and that the arrests were apparently without probable cause. 621 F.3d at 588–90.</p></div>
+    <div class="bq-label">Actual language in opinion:</div><div class="bq-opinion"><p>We do not address this provision's constitutionality because we conclude that the plaintiffs lack standing to challenge its facial validity.</p></div>
+    <div class="analysis"><p>The second half of this sentence is well grounded but the first half overstates the holding. The opinion repeatedly describes the plaintiffs' arrests as baseless and made 'without even arguable probable cause,' and the protest (peaceful leafletting near a recruiting booth) is indeed closely analogous, so the assertion that the arrests were apparently without probable cause is accurate.</p><p>But the court did not 'hold' that section 8-4-010(d) 'cannot be applied as a heckler's veto.' It expressly declined to reach the provision's constitutionality, resolving the case on standing grounds: 'We do not address this provision's constitutionality because we conclude that the plaintiffs lack standing to challenge its facial validity.' The heckler's-veto discussion is acknowledged only as a risk the provision could pose, not adjudicated as a holding, so attributing such a holding to the court overstates the decision.</p></div>
+  </div>
+</details><details id="finding-6">
+  <summary>
+    <strong>p. 1</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/808703/andy-thayer-v-ralph-chiczewski/"><span class="case-name">Thayer v. Chiczewski</span></a>, 705 F.3d 237, 248–49 (7th Cir. 2012)
+    &mdash; <span class="badge badge-yellow">Overstated -- case partially supports</span>
+  </summary>
+  <div class="finding-body">
+    
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief"><p>Courts require that the conduct both alarm others and provoke an actual, not merely speculative, breach of peace. Thayer v. Chiczewski, 705 F.3d 237, 248–49 (7th Cir. 2012).</p></div>
+    <div class="bq-label">Actual language in opinion:</div><div class="bq-opinion"><p>To commit disorderly conduct, “a person must engage in conduct that: (1) is unreasonable; (2) alarms or disturbs another; and (3) threatens to provoke or provokes a breach of the peace.”</p></div>
+    <div class="analysis"><p>The opinion does support the dual-requirement core of the proposition. Quoting Reher and the Illinois disorderly conduct statute (720 ILCS 5/26-1(a)(1)) at pages 248-49, the court states that disorderly conduct requires conduct that both “alarms or disturbs another” and provokes a breach of the peace, joined by “and,” so both elements are necessary.</p><p>The brief overstates the breach-of-the-peace element, however. The brief demands “an actual, not merely speculative, breach of the peace,” but the court's own formulation is that the conduct “threatens to provoke or provokes a breach of the peace.” Because a mere threat to provoke suffices under the opinion, the case does not require an actual rather than speculative breach, making the brief's gloss an overstatement of what Thayer holds.</p></div>
+  </div>
+</details><details id="finding-7">
+  <summary>
+    <strong>p. 1</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/808703/andy-thayer-v-ralph-chiczewski/"><span class="case-name">Thayer v. Chiczewski</span></a>, 705 F.3d 237, 248–49 (7th Cir. 2012)
+    &mdash; <span class="badge badge-yellow">Overstated -- case partially supports</span>
+  </summary>
+  <div class="finding-body">
+    
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief"><p>Moreover, as Illinois courts have held and the Seventh Circuit confirmed, peaceful picketing, placard-carrying, and chanting cannot form the basis of disorderly conduct charges. Id.</p></div>
+    <div class="bq-label">Actual language in opinion:</div><div class="bq-opinion"><p>“[S]peech alone cannot form the basis for a disorderly conduct charge.” ... “It remains no crime to express an unpopular view even if the person expressing those views draws attention to herself or himself or annoys others nearby.”</p></div>
+    <div class="analysis"><p>The opinion supports the general principle underlying the proposition: it holds that “speech alone cannot form the basis for a disorderly conduct charge” and that it “remains no crime to express an unpopular view even if the person expressing those views draws attention to herself or himself or annoys others nearby,” quoting Rokicki and Raby (the latter noting persons may not be punished “merely for peacefully expressing unpopular views”).</p><p>The brief extends that principle in two ways the opinion does not squarely endorse. It enumerates specific protest activities — picketing, placard-carrying, and chanting — that the opinion never lists, and it frames the rule as absolute. The same opinion recognizes that blocking the free flow of pedestrian or vehicular traffic can support a disorderly conduct conviction (citing Jones v. Watson and Marcavage), so peaceful picketing that obstructs a sidewalk is not categorically immune. The case supports the core idea but not the brief's absolute, enumerated formulation.</p></div>
+  </div>
+</details><details id="finding-8">
+  <summary>
+    <strong>p. 1</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/108348/coates-v-city-of-cincinnati/"><span class="case-name">Coates v. City of Cincinnati</span></a>, 402 U.S. 611 (1971)
+    &mdash; <span class="badge badge-yellow">Reworded -- not a verbatim quote</span>
+  </summary>
+  <div class="finding-body">
+    
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief"><p>The court held that &quot;avoiding annoyance is never a proper basis on which to curtail protected speech,&quot; citing Coates v. City of Cincinnati, 402 U.S. 611 (1971). Bell v. Keating, 697 F.3d at 454.</p></div>
+    <div class="bq-label">Actual language in opinion:</div><div class="bq-opinion"><p>The First and Fourteenth Amendments do not permit a State to make criminal the exercise of the right of assembly simply because its exercise may be “annoying” to some people.</p></div>
+    <div class="analysis"><p>Coates squarely supports the narrower proposition that avoiding annoyance is not a proper basis for curtailing protected speech or assembly. The Court struck down a Cincinnati ordinance criminalizing conduct “annoying to persons passing by” as both unconstitutionally vague and overbroad, holding that the First and Fourteenth Amendments do not permit a State to make criminal the exercise of the right of assembly simply because its exercise may be annoying to some people, and that mere public intolerance or animosity cannot be the basis for abridgment of these freedoms.</p><p>The substance is therefore well grounded in the cited opinion. The only gap is one of quotation form: the exact words “avoiding annoyance is never a proper basis on which to curtail protected speech” are the Seventh Circuit's formulation in Bell v. Keating, not language that appears in the Coates opinion itself. The brief's framing is accurate in attributing the underlying principle to Coates, but the quoted phrase is a reworded paraphrase rather than Coates's own text.</p></div>
+  </div>
+</details><details id="finding-9">
+  <summary>
+    <strong>p. 1</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/808703/andy-thayer-v-ralph-chiczewski/"><span class="case-name">Thayer v. Chiczewski</span></a>, 705 F.3d 237, 246 (7th Cir. 2012)
+    &mdash; <span class="badge badge-red">Not supported by cited case</span>
+  </summary>
+  <div class="finding-body">
+    
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief"><p>And as the Seventh Circuit recognized in Thayer v. Chiczewski, 705 F.3d at 246, Chicago officers may regulate specific individual acts of traffic obstruction without issuing a blanket dispersal order against an entire assembly.</p></div>
+    
+    <div class="analysis"><p>Thayer v. Chiczewski is a Section 1983 qualified-immunity case about officers who issued a blanket order of dispersal to an entire antiwar assembly, formed a police line, and arrested those who failed to comply; the court held the officers had arguable probable cause and were entitled to qualified immunity. It does not recognize the principle the brief attributes to it.</p><p>Nothing in the opinion states that officers may regulate specific individual acts of traffic obstruction without issuing a blanket dispersal order against an assembly. If anything the opinion runs the other way: it approves the officers' use of a blanket dispersal order directed at the whole crowd as “the most logical way” to manage the situation. The cited page 246 falls within the factual account of Lyttle's arrest and contains no such holding. The proposition ascribes a rule the case does not contain.</p></div>
+  </div>
+</details><details id="finding-10">
+  <summary>
+    <strong>p. 1</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/107869/gregory-v-city-of-chicago/"><span class="case-name">Gregory v. City of Chicago</span></a>, 394 U.S. 111 (1969)
+    &mdash; <span class="badge badge-yellow">Overstated -- case partially supports</span>
+  </summary>
+  <div class="finding-body">
+    
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief"><p>The &quot;potential for escalation&quot; is precisely the speculative, subjective concern that Edwards v. South Carolina and Gregory v. City of Chicago held to be constitutionally insufficient.</p></div>
+    <div class="bq-label">Actual language in opinion:</div><div class="bq-opinion"><p>However reasonable the police request may have been and however laudable the police motives, petitioners were charged and convicted for holding a demonstration, not for a refusal to obey a police officer.</p></div>
+    <div class="analysis"><p>Gregory is topically on point -- peaceful marchers were arrested after police, fearing an impending civil disorder, ordered them to disperse, and the Court reversed -- but it does not hold that a speculative concern about escalation is constitutionally insufficient to justify dispersing a peaceful assembly. The Court rested its reversal on the absence of any evidence of disorderly conduct and on the fact that petitioners were convicted for demonstrating rather than for refusing a police order, and it expressly declined to pass on the validity of the dispersal demand. The brief extends the holding beyond what the case decided.</p></div>
+  </div>
+</details><details id="finding-11">
+  <summary>
+    <strong>p. 1</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/174622/goldhamer-v-nagode/"><span class="case-name">Goldhamer v. Nagode</span></a>, 621 F.3d 581, 591 (7th Cir. 2010)
+    &mdash; <span class="badge badge-yellow">Paraphrase presented as direct quote</span>
+  </summary>
+  <div class="finding-body">
+    <div class="card-flags"><span class="flag-chip">&#9873; Pincite 591 outside the opinion's star-pagination range 583-589</span></div>
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief"><p>The Seventh Circuit in Goldhamer v. Nagode found that when &quot;the police appear to have had no arguable probable cause&quot; based on the predicate disorderly conduct, arrests for failure to disperse are actionable under § 1983. 621 F.3d at 591.</p></div>
+    <div class="bq-label">Actual language in opinion:</div><div class="bq-opinion"><p>Nevertheless, the police arrested these plaintiffs and had them charged with failure to disperse without even arguable probable cause for doing so.</p></div>
+    <div class="analysis"><p>The quoted phrase 'the police appear to have had no arguable probable cause' does not appear in the opinion; it is a paraphrase set in quotation marks. The court's actual language is that the plaintiffs were charged 'without even arguable probable cause' and that their 'arrests appear to have been baseless.'</p><p>On substance, however, the proposition is supported. The opinion treats a damages action as the proper remedy for exactly this scenario, noting that the plaintiffs 'had standing to pursue their claims for damages based on what may well have been unlawful arrests,' and that 'a claim for money damages ... is an appropriate and effective method for dealing with isolated circumstances in which police officers arrest civilians who are not even arguably violating the law.' The plaintiffs' suit was brought under 42 U.S.C. § 1983. The pinpoint to page 591 falls outside the opinion's range (581–589), but the supporting discussion appears at pages 585 and 588.</p></div>
+  </div>
+</details><details id="finding-12">
+  <summary>
+    <strong>p. 1</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/106968/cox-v-louisiana/"><span class="case-name">Cox v. Louisiana</span></a>, 379 U.S. 571, 571–73 (1965)
+    &mdash; <span class="badge badge-yellow">Citation resolves to different case</span>
+  </summary>
+  <div class="finding-body">
+    <div class="card-flags"><span class="flag-chip">&#9873; TOA/body citation mismatch: Cox v. Louisiana, 379 U.S. 536 (1965) vs Cox v. Louisiana, 379 U.S. 571 (1965)</span><span class="flag-chip">&#9873; Pincite 571 outside the opinion's star-pagination range 538-558</span></div>
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief"><p>The Supreme Court established in Cox v. Louisiana, 379 U.S. 571, 571–73 (1965), that police must give notice of a dispersal order and must not begin arresting demonstrators until that notice has been communicated.</p></div>
+    
+    <div class="analysis"><p>The brief cites Cox v. Louisiana at 379 U.S. 571, which is the separate companion opinion (No. 49, the courthouse-picketing case), but the opinion provided here is the distinct No. 24 majority reported at 379 U.S. 536, whose star-pagination ends at page 558 and which closes by directing the reader to the later opinions beginning at page 575 and 591. Page 571 and the cited 571–73 range are not contained in this document, so the provided text cannot ground the dispersal-order-notice proposition. For what it is worth, the 536 opinion reverses on free-speech and vagueness grounds and announces no rule requiring police to communicate a dispersal order before arresting; the legal effect of the order is among the matters this opinion defers to No. 49.</p></div>
+  </div>
+</details><details id="finding-13">
+  <summary>
+    <strong>p. 1</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/186594/barham-jeffrey-v-ramsey-charles-h/"><span class="case-name">Barham v. Ramsey</span></a>, 434 F.3d 565, 573 (D.C. Cir. 2006)
+    &mdash; <span class="badge badge-yellow">Overstated -- case partially supports</span>
+  </summary>
+  <div class="finding-body">
+    
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief"><p>Even where a dispersal order is valid, police must have individualized probable cause to believe each arrested person (1) heard the dispersal order, (2) understood it, and (3) willfully defied it. Vodak, 639 F.3d at 748; Barham v. Ramsey, 434 F.3d 565, 573 (D.C. Cir. 2006).</p></div>
+    <div class="bq-label">Actual language in opinion:</div><div class="bq-opinion"><p>Dellums held that a group of demonstrators lawfully gathered on the Capitol steps could not be arrested unless the Chief had reason to believe (1) that the demonstrators could be validly evicted under the Capitol Grounds ordinance, (2) that the police gave demonstrators an order to disperse that “apprised the crowd as a whole that it was under an obligation to leave,” and (3) that there had been a “reasonable opportunity” to comply. ... the “fair notice” required by the Cullinane court is notice reasonably likely to have reached all of the crowd despite any noise the demonstrators may have been making.</p></div>
+    <div class="analysis"><p>Barham v. Ramsey is a Fourth Amendment qualified-immunity case about a mass arrest of anti-globalization demonstrators in Pershing Park. It addresses the brief's general topic, holding that an officer cannot sweep up an “undifferentiated mass” of people absent probable cause “particularized with respect to” each person, and that police may arrest a crowd as a unit only after issuing a valid dispersal order with “fair notice” reasonably likely to reach the whole crowd and a reasonable opportunity to comply.</p><p>The gap is that the brief recasts those principles into a specific three-element test — individualized probable cause that each arrestee “heard,” “understood,” and “willfully defied” the order — that the opinion never articulates. Barham requires particularized probable cause for the offense of arrest and, separately, a valid order plus fair notice and opportunity to comply; it does not frame the notice-and-defiance elements as components of “individualized probable cause,” and “understood it” in particular has no counterpart in the text. Because the Pershing Park officers issued no dispersal order at all, the court never reached the question of what probable cause is needed to believe a particular person heard and defied an order. The proposition is a reasonable extension of the dispersal-order and particularized-probable-cause holdings, but it overstates and over-formalizes what the case actually decided.</p></div>
+  </div>
+</details><details id="finding-14">
+  <summary>
+    <strong>p. 1</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/212572/vodak-v-city-of-chicago/"><span class="case-name">Vodak v. City of Chicago</span></a>, 639 F.3d 738, 748–49 (7th Cir. 2011)
+    &mdash; <span class="badge badge-yellow">Supported</span>
+  </summary>
+  <div class="finding-body">
+    
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief"><p>The fact that some individuals in a group may have been disorderly does not supply probable cause to arrest all individuals, including those who were peaceably assembled and had not necessarily received the order. Vodak, 639 F.3d at 748–49 (&quot;The fact that some of the marchers were rowdy and may have committed criminal acts … need not be discussed in detail; demonstrators' misconduct cannot … be thought to have justified the mass arrests of [others].&quot;).</p></div>
+    
+    <div class="analysis"><p>Directly supported. The opinion states that &quot;the fact that some of the marchers were rowdy and may have committed criminal acts ... need not be discussed in detail; demonstrators' misconduct cannot on the present record be thought to have justified the mass arrests of persons trapped by the police on Chicago Avenue.&quot; The brief's quotation accurately reproduces this passage with ellipses and a bracketed substitution for &quot;persons trapped by the police on Chicago Avenue.&quot;</p></div>
+  </div>
+</details><details id="finding-15">
+  <summary>
+    <strong>p. 1</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/106968/cox-v-louisiana/"><span class="case-name">Cox v. Louisiana</span></a>, 379 U.S. 571 (1965)
+    &mdash; <span class="badge badge-yellow">Citation resolves to different case</span>
+  </summary>
+  <div class="finding-body">
+    <div class="card-flags"><span class="flag-chip">&#9873; TOA/body citation mismatch: Cox v. Louisiana, 379 U.S. 536 (1965) vs Cox v. Louisiana, 379 U.S. 571 (1965)</span></div>
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief"><p>[T]he government cannot entrap citizens &quot;by convicting a citizen for exercising a privilege which the State had clearly told him was available to him.&quot; Id. at 746 (quoting Cox v. Louisiana, 379 U.S. at 571).</p></div>
+    
+    <div class="analysis"><p>The brief cites Cox v. Louisiana at 379 U.S. 571 for the privilege/entrapment principle, but the file provided is the No. 24 opinion at 379 U.S. 536, which ends at page 558 and does not include page 571 — that pinpoint belongs to the companion No. 49 opinion. The provided 536 opinion's footnote 3 confirms the mismatch, stating that the 'permission' granted to the students 'is discussed at greater length in No. 49, where its legal effect is considered'; the holding the brief invokes thus lives in the companion opinion not contained in this file, so the proposition cannot be verified from the text supplied. The quoted language was also independently flagged FABRICATED.</p></div>
+  </div>
+</details><details id="finding-16">
+  <summary>
+    <strong>p. 1</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/103226/haguer-v-committee-for-industrial-organization/"><span class="case-name">Hague v. Committee for Industrial Organization</span></a>, 307 U.S. 496, 515 (1939)
+    &mdash; <span class="badge badge-yellow">Opinion text truncated -- cannot verify</span>
+  </summary>
+  <div class="finding-body">
+    
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief"><p>It sits at the zenith of constitutional protection under Hague v. CIO, Edwards v. South Carolina, and Gregory v. City of Chicago.</p></div>
+    
+    <div class="analysis"><p>The opinion file provided contains only Hague's one-paragraph per curiam disposition and a note that Justice Roberts authored a separate opinion; it does not include the substantive discussion of public forums, traditional assembly rights, or the degree of protection afforded political expression in such spaces. Because none of the text grounding the brief's &quot;zenith of constitutional protection in a traditional public forum&quot; proposition is present in the document supplied, the proposition cannot be verified against this text.</p></div>
+  </div>
+</details><details id="finding-17">
+  <summary>
+    <strong>p. 1</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/106538/edwards-v-south-carolina/"><span class="case-name">Edwards v. South Carolina</span></a>, 372 U.S. 229 (1963)
+    &mdash; <span class="badge badge-yellow">Overstated -- case partially supports</span>
+  </summary>
+  <div class="finding-body">
+    
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief"><p>It sits at the zenith of constitutional protection under Hague v. CIO, Edwards v. South Carolina, and Gregory v. City of Chicago.</p></div>
+    <div class="bq-label">Actual language in opinion:</div><div class="bq-opinion"><p>The circumstances in this case reflect an exercise of these basic constitutional rights in their most pristine and classic form.</p></div>
+    <div class="analysis"><p>Edwards supports the core idea that peaceful political protest sits at the apex of constitutional protection — the Court called the petitioners' assembly on public government grounds an exercise of free-speech, assembly, and petition rights &quot;in their most pristine and classic form.&quot; It does not, however, articulate &quot;traditional public forum&quot; doctrine or address a &quot;downtown plaza&quot;; that forum-specific framing is an extension of, rather than a holding in, Edwards, so the case partially but not fully supports the proposition as stated.</p></div>
+  </div>
+</details><details id="finding-18">
+  <summary>
+    <strong>p. 1</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/107869/gregory-v-city-of-chicago/"><span class="case-name">Gregory v. City of Chicago</span></a>, 394 U.S. 111 (1969)
+    &mdash; <span class="badge badge-yellow">Overstated -- case partially supports</span>
+  </summary>
+  <div class="finding-body">
+    
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief"><p>It sits at the zenith of constitutional protection under Hague v. CIO, Edwards v. South Carolina, and Gregory v. City of Chicago.</p></div>
+    <div class="bq-label">Actual language in opinion:</div><div class="bq-opinion"><p>Petitioners' march, if peaceful and orderly, falls well within the sphere of conduct protected by the First Amendment.</p></div>
+    <div class="analysis"><p>Gregory supports the general point that peaceful political protest is firmly protected, holding that petitioners' peaceful and orderly march falls well within the sphere of conduct protected by the First Amendment. But it does not analyze public-forum doctrine, does not involve a downtown plaza, and does not characterize any location as a traditional public forum or speak of a zenith of protection. Offered in a string alongside Hague, the public-forum case, Gregory contributes only the proposition that peaceful protest is highly protected, not the forum-based framing the sentence advances, so it partially supports the proposition.</p></div>
+  </div>
+</details><details id="finding-19">
+  <summary>
+    <strong>p. 1</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/106538/edwards-v-south-carolina/"><span class="case-name">Edwards v. South Carolina</span></a>, 372 U.S. 229 (1963)
+    &mdash; <span class="badge badge-yellow">Supported</span>
+  </summary>
+  <div class="finding-body">
+    
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief"><p>The &quot;potential for escalation&quot; justification is precisely the type of speculative risk that Edwards v. South Carolina held is constitutionally insufficient.</p></div>
+    <div class="bq-label">Actual language in opinion:</div><div class="bq-opinion"><p>protected against censorship or punishment, unless shown likely to produce a clear and present danger of a serious substantive evil that rises far above public inconvenience, annoyance, or unrest.</p></div>
+    <div class="analysis"><p>Edwards supports the proposition that a merely speculative risk cannot justify suppressing peaceful assembly: the Court required a &quot;clear and present danger of a serious substantive evil,&quot; rejected reliance on testimony that onlookers were &quot;possible trouble makers&quot; who &quot;could have been&quot; trouble but were not, and reversed because the evidence showed only that the protesters' views attracted a crowd needing police protection. The quoted phrase &quot;potential for escalation&quot; is the brief's own label for the asserted justification and does not appear in the opinion, but the substantive point is well grounded.</p></div>
+  </div>
+</details><details id="finding-20">
+  <summary>
+    <strong>p. 1</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/112315/ward-v-rock-against-racism/"><span class="case-name">Ward v. Rock Against Racism</span></a>, 491 U.S. 781 (1989)
+    &mdash; <span class="badge badge-yellow">Overstated -- case partially supports</span>
+  </summary>
+  <div class="finding-body">
+    
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief"><p>Even as a content-neutral restriction, the blanket order to disperse a 200-person peaceful protest entirely — rather than narrowly targeting individual acts of actual obstruction — was not narrowly tailored to serve a significant governmental interest under Ward v. Rock Against Racism, 491 U.S. 781.</p></div>
+    <div class="bq-label">Actual language in opinion:</div><div class="bq-opinion"><p>a regulation of the time, place, or manner of protected speech must be narrowly tailored to serve the government's legitimate, content-neutral interests but that it need not be the least restrictive or least intrusive means of doing so.</p></div>
+    <div class="analysis"><p>Ward supplies the narrow-tailoring standard the brief invokes, but it does not hold that a blanket dispersal order fails that standard, and its central holding cuts partly against the brief's framing. Ward concerns a municipal sound-amplification guideline, not crowd dispersal, and the Court expressly rejected the &quot;least intrusive means&quot; requirement, holding that a content-neutral regulation &quot;need not be the least restrictive or least intrusive means&quot; of serving the government's interest. The brief's argument that officers should have &quot;narrowly target[ed] individual acts&quot; instead of dispersing the whole assembly is a less-restrictive-alternative argument of the kind Ward disapproved.</p><p>Ward does recognize the outer limit the brief gestures toward — a regulation may not &quot;burden substantially more speech than is necessary&quot; to advance the government's goals — so the narrow-tailoring standard is correctly stated. But the specific conclusion that a blanket dispersal order flunks narrow tailoring is the brief's own extension and application, not a holding of Ward.</p></div>
+  </div>
+</details><details id="finding-21">
+  <summary>
+    <strong>p. 1</strong> &mdash;
+    <a href="https://www.courtlistener.com/opinion/106967/cox-v-louisiana/"><span class="case-name">Cox v. Louisiana</span></a>, 379 U.S. 536 (1965)
+    &mdash; <span class="badge badge-red">Not supported by cited case</span>
+  </summary>
+  <div class="finding-body">
+    <div class="card-flags"><span class="flag-chip">&#9873; TOA/body citation mismatch: Cox v. Louisiana, 379 U.S. 536 (1965) vs Cox v. Louisiana, 379 U.S. 571 (1965)</span></div>
+    <div class="bq-label">What the brief claims:</div><div class="bq-brief"><p>Under Cox v. Louisiana, 379 U.S. 536, and Vodak v. City of Chicago, 639 F.3d 738, police must clearly communicate a dispersal order to each individual and must have individualized probable cause to believe each arrestee heard and willfully defied the order.</p></div>
+    
+    <div class="analysis"><p>Cox v. Louisiana (379 U.S. 536) is a First Amendment case reversing a single demonstration leader's convictions for disturbing the peace (on free-speech and vagueness grounds) and for obstructing public passages (on standardless-discretion grounds). It does not address mass-arrest standards, individualized probable cause that each arrestee heard and willfully defied a dispersal order, or any requirement that a dispersal order be communicated person-by-person. Although the facts recite a sheriff's order to break up the demonstration, the decision turns on the constitutionality of the statutes, not on per-arrestee probable cause; that doctrine derives from the modern mass-arrest line the brief pairs it with, not from this opinion.</p></div>
+  </div>
+</details>
+
+<h2>Verified Citations</h2>
+<details>
+  <summary>31 citation-proposition pairs verified &mdash; click to expand</summary>
+  <div class="finding-body">
+    <div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 1</strong> &mdash; <a href="https://www.courtlistener.com/opinion/106538/edwards-v-south-carolina/"><em>Edwards v. South Carolina</em></a>, 372 U.S. 229, 235 (1963) &mdash; First Amendment protections apply to state and local governments, including police, through the Fourteenth Amendment. <span class="badge badge-green">Supported</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 1</strong> &mdash; <a href="https://www.courtlistener.com/opinion/110798/national-assn-for-the-advancement-of-colored-people-v-claiborne-hardware/"><em>NAACP v. Claiborne Hardware Co.</em></a>, 458 U.S. 886, 907–09 (1982) &mdash; The First Amendment's core purpose is to protect political dissent, particularly speech directed at government policy. <span class="badge badge-green">Supported</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 1</strong> &mdash; <a href="https://www.courtlistener.com/opinion/112315/ward-v-rock-against-racism/"><em>Ward v. Rock Against Racism</em></a>, 491 U.S. 781, 791 (1989) &mdash; Content-neutral time, place, and manner restrictions are valid only if content-neutral, narrowly tailored to a significant governmental interest, and leaving open ample alternative channels. <span class="badge badge-green">Supported</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 1</strong> &mdash; <a href="https://www.courtlistener.com/opinion/111245/clark-v-community-for-creative-non-violence/"><em>Clark v. Community for Creative Non-Violence</em></a>, 468 U.S. 288, 293 (1984) &mdash; Content-neutral time, place, and manner restrictions are valid only if content-neutral, narrowly tailored to a significant governmental interest, and leaving open ample alternative channels. <span class="badge badge-green">Supported</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 1</strong> &mdash; <a href="https://www.courtlistener.com/opinion/112315/ward-v-rock-against-racism/"><em>Ward v. Rock Against Racism</em></a>, 491 U.S. 781, 791 (1989) &mdash; A content-based restriction triggers strict scrutiny, and even content-neutral dispersal orders must satisfy each of the three time, place, and manner prongs. <span class="badge badge-green">Supported</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 1</strong> &mdash; <a href="https://www.courtlistener.com/opinion/106538/edwards-v-south-carolina/"><em>Edwards v. South Carolina</em></a>, 372 U.S. 229 (1963) &mdash; The Fourteenth Amendment does not permit a State to make criminal the peaceful expression of unpopular views. <span class="badge badge-green">Supported</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 1</strong> &mdash; <a href="https://www.courtlistener.com/opinion/106538/edwards-v-south-carolina/"><em>Edwards v. South Carolina</em></a>, 372 U.S. 229, 237 (1963) &mdash; Speech retains First Amendment protection even when it induces unrest or stirs anger, and only a clear and present danger of a serious substantive evil rising far above public inconvenience can justify suppression. <span class="badge badge-green">Supported</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 1</strong> &mdash; <a href="https://www.courtlistener.com/opinion/104668/terminiello-v-chicago/"><em>Terminiello v. City of Chicago</em></a>, 337 U.S. 1 (1949) &mdash; Speech retains First Amendment protection even when it induces a condition of unrest, creates dissatisfaction, or stirs people to anger. <span class="badge badge-green">Supported</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 1</strong> &mdash; <a href="https://www.courtlistener.com/opinion/107869/gregory-v-city-of-chicago/"><em>Gregory v. City of Chicago</em></a>, 394 U.S. 111 (1969) &mdash; Peaceful demonstrators' own conduct cannot form the basis of a criminal conviction, even where hostile bystanders threw rocks and eggs and police feared a riot. <span class="badge badge-green">Supported</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 1</strong> &mdash; <a href="https://www.courtlistener.com/opinion/808703/andy-thayer-v-ralph-chiczewski/"><em>Thayer v. Chiczewski</em></a>, 705 F.3d 237, 247 (7th Cir. 2012) &mdash; A sidewalk gathering or press conference requires no parade permit, as senior police officers testified under oath. <span class="badge badge-green">Supported</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 1</strong> &mdash; <a href="https://www.courtlistener.com/opinion/808173/buddy-bell-v-james-keating/"><em>Bell v. Keating</em></a>, 697 F.3d 445 (7th Cir. 2012) &mdash; The Seventh Circuit partially struck down Chicago Municipal Code § 8-4-010(d) as facially overbroad and unconstitutionally vague, severing the inconvenience/annoyance/alarm triggers and upholding only the substantial harm trigger. <span class="badge badge-green">Supported</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 1</strong> &mdash; <a href="https://www.courtlistener.com/opinion/808173/buddy-bell-v-james-keating/"><em>Bell v. Keating</em></a>, 697 F.3d 445, 454 (7th Cir. 2012) &mdash; Avoiding annoyance is never a proper basis on which to curtail protected speech. <span class="badge badge-green">Supported</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 1</strong> &mdash; <a href="https://www.courtlistener.com/opinion/808173/buddy-bell-v-james-keating/"><em>Bell v. Keating</em></a>, 697 F.3d 445, 455–58 (7th Cir. 2012) &mdash; The 'alarm' and 'annoyance' terms were struck as both overbroad and unconstitutionally vague for giving officers standardless discretion and failing to give adequate notice. <span class="badge badge-green">Supported</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 1</strong> &mdash; <a href="https://www.courtlistener.com/opinion/212572/vodak-v-city-of-chicago/"><em>Vodak v. City of Chicago</em></a>, 639 F.3d 738, 744 (7th Cir. 2011) &mdash; The court upheld the authority to issue a dispersal order where 8,000 protesters occupied arterial roadways and the march was getting out of hand. <span class="badge badge-green">Supported</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 1</strong> &mdash; <a href="https://www.courtlistener.com/opinion/106967/cox-v-louisiana/"><em>Cox v. Louisiana</em></a>, 379 U.S. 536, 554–55 (1965) &mdash; Even where traffic regulations are validly implicated, the government cannot use them as a pretext to suppress protected political expression. <span class="badge badge-green">Supported</span><div class="card-flags"><span class="flag-chip">&#9873; TOA/body citation mismatch: Cox v. Louisiana, 379 U.S. 536 (1965) vs Cox v. Louisiana, 379 U.S. 571 (1965)</span></div></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 1</strong> &mdash; <a href="https://www.courtlistener.com/opinion/106538/edwards-v-south-carolina/"><em>Edwards v. South Carolina</em></a>, 372 U.S. 229, 236 (1963) &mdash; Where police protection is ample and a watching crowd is not itself threatening, subjective police concern that a situation might deteriorate does not supply the clear and present danger needed to justify dispersing a peaceful assembly. <span class="badge badge-green">Supported</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 1</strong> &mdash; <a href="https://www.courtlistener.com/opinion/104844/feiner-v-new-york/"><em>Feiner v. New York</em></a>, 340 U.S. 315 (1951) &mdash; Feiner involved a speaker who genuinely incited near-riot conditions, with the crowd surging and police authority actively challenged, distinguishing it from an ordinary peaceful protest. <span class="badge badge-green">Supported</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 1</strong> &mdash; <a href="https://www.courtlistener.com/opinion/106538/edwards-v-south-carolina/"><em>Edwards v. South Carolina</em></a>, 372 U.S. 229, 237 (1963) &mdash; Speech may best serve its high purpose when it induces a condition of unrest, creates dissatisfaction, or stirs people to anger. <span class="badge badge-green">Supported</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 1</strong> &mdash; <a href="https://www.courtlistener.com/opinion/103632/chaplinsky-v-new-hampshire/"><em>Chaplinsky v. New Hampshire</em></a>, 315 U.S. 568 (1942) &mdash; Verbal disagreement is not a fighting-words situation absent actual, face-to-face provocations of an immediate breach of the peace. <span class="badge badge-green">Supported</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 1</strong> &mdash; <a href="https://www.courtlistener.com/opinion/112315/ward-v-rock-against-racism/"><em>Ward v. Rock Against Racism</em></a>, 491 U.S. 781 (1989) &mdash; A content-neutral time, place, and manner restriction must be narrowly tailored to serve a significant governmental interest and must leave open ample alternative channels. <span class="badge badge-green">Supported</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 1</strong> &mdash; <a href="https://www.courtlistener.com/opinion/107965/brandenburg-v-ohio/"><em>Brandenburg v. Ohio</em></a>, 395 U.S. 444, 447 (1969) &mdash; Advocacy of general ideas retains full First Amendment protection unless it is directed to inciting imminent lawless action and is likely to produce such action. <span class="badge badge-green">Supported</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 1</strong> &mdash; <a href="https://www.courtlistener.com/opinion/212572/vodak-v-city-of-chicago/"><em>Vodak v. City of Chicago</em></a>, 639 F.3d 738, 747 (7th Cir. 2011) &mdash; Before police can arrest peaceable demonstrators for defying orders, they must communicate the orders to the demonstrators. <span class="badge badge-green">Supported</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 1</strong> &mdash; <a href="https://www.courtlistener.com/opinion/212572/vodak-v-city-of-chicago/"><em>Vodak v. City of Chicago</em></a>, 639 F.3d 738, 748 (7th Cir. 2011) &mdash; Arrests are unlawful where there is no good reason to believe that the arrested protesters, or at least most of them, had heard the orders. <span class="badge badge-green">Supported</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 1</strong> &mdash; <a href="https://www.courtlistener.com/opinion/212572/vodak-v-city-of-chicago/"><em>Vodak v. City of Chicago</em></a>, 639 F.3d 738, 748 (7th Cir. 2011) &mdash; Police must have individualized probable cause to believe each arrested person heard, understood, and willfully defied the dispersal order. <span class="badge badge-green">Supported</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 1</strong> &mdash; <a href="https://www.courtlistener.com/opinion/212572/vodak-v-city-of-chicago/"><em>Vodak v. City of Chicago</em></a>, 639 F.3d 738, 746 (7th Cir. 2011) &mdash; The government cannot entrap citizens by convicting a citizen for exercising a privilege the State had clearly told him was available to him. <span class="badge badge-green">Supported</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 1</strong> &mdash; <a href="https://www.courtlistener.com/opinion/212572/vodak-v-city-of-chicago/"><em>Vodak v. City of Chicago</em></a>, 639 F.3d 738, 746 (7th Cir. 2011) &mdash; It would be an indefensible sort of entrapment by the State to allow lawful conduct, then issue a dispersal order, and immediately arrest those who did not comply. <span class="badge badge-green">Supported</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 1</strong> &mdash; <a href="https://www.courtlistener.com/opinion/109881/monell-v-new-york-city-dept-of-social-servs/"><em>Monell v. Dep't of Soc. Servs.</em></a>, 436 U.S. 658 (1978) &mdash; A municipality may be liable under § 1983 through its final policymaking authority. <span class="badge badge-green">Supported</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 1</strong> &mdash; <a href="https://www.courtlistener.com/opinion/212572/vodak-v-city-of-chicago/"><em>Vodak v. City of Chicago</em></a>, 639 F.3d 738, 750 (7th Cir. 2011) &mdash; Because Cox established the notice requirement decades before 2003, qualified immunity was unavailable then and a fortiori by 2025. <span class="badge badge-green">Supported</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 1</strong> &mdash; <a href="https://www.courtlistener.com/opinion/808173/buddy-bell-v-james-keating/"><em>Bell v. Keating</em></a>, 697 F.3d 445 (7th Cir. 2012) &mdash; As narrowed by Bell v. Keating, a lawful dispersal order under § 8-4-010(d) requires three or more persons in the immediate vicinity committing disorderly conduct likely to cause substantial harm. <span class="badge badge-green">Supported</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 1</strong> &mdash; <a href="https://www.courtlistener.com/opinion/212572/vodak-v-city-of-chicago/"><em>Vodak v. City of Chicago</em></a>, 639 F.3d 738 (7th Cir. 2011) &mdash; Police must clearly communicate a dispersal order to each individual and must have individualized probable cause to believe each arrestee heard and willfully defied it. <span class="badge badge-green">Supported</span></div><div class="verified-item"><span class="checkmark">&#10003;</span> <strong>p. 1</strong> &mdash; <a href="https://www.courtlistener.com/opinion/107965/brandenburg-v-ohio/"><em>Brandenburg v. Ohio</em></a>, 395 U.S. 444 (1969) &mdash; The Brandenburg standard requires speech directed to and likely to produce imminent lawless action, which was nowhere close to being met on these facts. <span class="badge badge-green">Supported</span></div>
+  </div>
+</details>
+<div class="methodology">
+  <h2>Methodology &amp; Limitations</h2>
+  <ul>
+    <li><strong>Quote verification</strong> is near-deterministic but limited by the quality of CourtListener's text. Minor discrepancies may reflect OCR artifacts in the source database rather than errors in the brief.</li>
+    <li><strong>Propositional support</strong> assessment is an AI judgment. It reflects Claude's reading of the opinion text and should be verified by counsel. Reasonable lawyers may disagree about whether a case "supports" a given proposition.</li>
+    <li>This report checks whether cited cases say what the brief claims they say. It does not assess the overall legal merit of the brief's arguments or whether the cited cases are the best authorities available.</li>
+    <li>Cases marked "unable to verify" should be checked through other sources (Westlaw, Lexis, etc.).</li>
+  </ul>
+  <h3>Verification method disclosure</h3>
+  <p>The following opinions were <strong>retrieved from CourtListener</strong> and verified against their full text:</p>
+  <ul>
+    <li><em>Edwards v. South Carolina</em>, 372 U.S. 229 (1963) (cluster 106538)</li>
+<li><em>National Ass'n for the Advancement of Colored People v. Claiborne Hardware Co.</em>, 458 U.S. 886, 907–09 (1982) (cluster 110798)</li>
+<li><em>Haguer v. Committee for Industrial Organization</em>, 307 U.S. 496, 515 (1939) (cluster 103226)</li>
+<li><em>Ward v. Rock Against Racism</em>, 491 U.S. 781 (1989) (cluster 112315)</li>
+<li><em>Clark v. Community for Creative Non-Violence</em>, 468 U.S. 288, 293 (1984) (cluster 111245)</li>
+<li><em>Terminiello v. Chicago</em>, 337 U.S. 1 (1949) (cluster 104668)</li>
+<li><em>Gregory v. City of Chicago</em>, 394 U.S. 111 (1969) (cluster 107869)</li>
+<li><em>Goldhamer v. Nagode</em>, 621 F.3d 581, 591 (7th Cir. 2010) (cluster 174622)</li>
+<li><em>Andy Thayer v. Ralph Chiczewski</em>, 705 F.3d 237, 246 (7th Cir. 2012) (cluster 808703)</li>
+<li><em>Buddy Bell v. James Keating</em>, 697 F.3d 445 (7th Cir. 2012) (cluster 808173)</li>
+<li><em>Coates v. City of Cincinnati</em>, 402 U.S. 611 (1971) (cluster 108348)</li>
+<li><em>Vodak v. City of Chicago</em>, 639 F.3d 738 (7th Cir. 2011) (cluster 212572)</li>
+<li><em>Cox v. Louisiana</em>, 379 U.S. 536 (1965) (cluster 106967)</li>
+<li><em>Feiner v. New York</em>, 340 U.S. 315 (1951) (cluster 104844)</li>
+<li><em>Chaplinsky v. New Hampshire</em>, 315 U.S. 568 (1942) (cluster 103632)</li>
+<li><em>Brandenburg v. Ohio</em>, 395 U.S. 444 (1969) (cluster 107965)</li>
+<li><em>Barham, Jeffrey v. Ramsey, Charles H.</em>, 434 F.3d 565, 573 (D.C. Cir. 2006) (cluster 186594)</li>
+<li><em>Monell v. New York City Dept. of Social Servs.</em>, 436 U.S. 658 (1978) (cluster 109881)</li>
+  </ul>
+  
+  <p>No opinions in this report were assessed from training knowledge. All assessments are based on retrieved opinion text.</p>
+</div>
+
+</body>
+</html>
