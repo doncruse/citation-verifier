@@ -2011,3 +2011,30 @@ class TestRunReport:
         stats = pp.run_report(wd)
         assert stats.path.exists()
         assert stats.verified == 1
+
+
+def test_resolver_captures_extracted_by_ocr(monkeypatch):
+    from citation_verifier.client import CourtListenerClient
+
+    client = CourtListenerClient(api_token="x")
+
+    def fake_request(method, url, **kwargs):
+        class R:
+            def __init__(self, payload):
+                self._p = payload
+            def json(self):
+                return self._p
+        if "/clusters/" in url:
+            return R({"sub_opinions": ["https://cl/api/opinions/9/"],
+                      "case_name": "Demo v. Test", "citations": [], "docket": ""})
+        if "/opinions/" in url:
+            return R({"plain_text": "Some opinion body text.",
+                      "extracted_by_ocr": True})
+        return R({})
+
+    monkeypatch.setattr(client, "_request_with_retry", fake_request)
+    data = client.get_opinion_text_with_metadata(
+        "https://www.courtlistener.com/opinion/123/demo-v-test/",
+    )
+    assert data is not None
+    assert data["extracted_by_ocr"] is True

@@ -429,6 +429,7 @@ class CourtListenerClient:
                 "docket_number": docket.get("docket_number", ""),
                 "citations": [],
                 "source_url": matched_url,
+                "extracted_by_ocr": None,
             }
 
         except Exception:
@@ -461,6 +462,7 @@ class CourtListenerClient:
 
             text = None
             fmt = "text"
+            extracted_by_ocr = None
             for op_url in cluster.get("sub_opinions", []):
                 op_id = op_url.rstrip("/").split("/")[-1]
                 opinion_resp = self._request_with_retry(
@@ -471,6 +473,7 @@ class CourtListenerClient:
                 if t:
                     text = t
                     fmt = f
+                    extracted_by_ocr = opinion.get("extracted_by_ocr")
                     break
 
             # PDF fallback when no text or HTML found
@@ -490,6 +493,7 @@ class CourtListenerClient:
                         "docket_number": "",
                         "citations": [],
                         "source_url": matched_url,
+                        "extracted_by_ocr": None,
                     }
 
             if not text:
@@ -538,6 +542,7 @@ class CourtListenerClient:
                 "docket_number": docket_number,
                 "citations": citations,
                 "source_url": matched_url,
+                "extracted_by_ocr": extracted_by_ocr,
             }
 
         except Exception:
@@ -891,6 +896,7 @@ class AsyncCourtListenerClient:
                 "docket_number": docket.get("docket_number", ""),
                 "citations": [],
                 "source_url": matched_url,
+                "extracted_by_ocr": None,
             }
 
         except Exception:
@@ -920,6 +926,7 @@ class AsyncCourtListenerClient:
 
             text = None
             fmt = "text"
+            extracted_by_ocr = None
             for op_url in cluster.get("sub_opinions", []):
                 op_id = op_url.rstrip("/").split("/")[-1]
                 opinion = await self._request_with_retry(
@@ -929,6 +936,7 @@ class AsyncCourtListenerClient:
                 if t:
                     text = t
                     fmt = f
+                    extracted_by_ocr = opinion.get("extracted_by_ocr")
                     break
 
             # PDF fallback when no text or HTML found
@@ -953,6 +961,7 @@ class AsyncCourtListenerClient:
                         "docket_number": "",
                         "citations": [],
                         "source_url": matched_url,
+                        "extracted_by_ocr": None,
                     }
 
             if not text:
@@ -1002,6 +1011,7 @@ class AsyncCourtListenerClient:
                 "docket_number": docket_number,
                 "citations": citations,
                 "source_url": matched_url,
+                "extracted_by_ocr": extracted_by_ocr,
             }
 
         except Exception:
