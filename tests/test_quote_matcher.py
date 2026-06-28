@@ -111,3 +111,13 @@ class TestVerifyQuoteOcr:
         on = verify_quote(quote, opinion, was_ocrd=True)
         assert on.result is QuoteMatch.VERBATIM
         assert off.result is not QuoteMatch.VERBATIM
+
+
+def test_public_exports():
+    import citation_verifier as cv
+    assert hasattr(cv, "verify_quote")
+    assert hasattr(cv, "QuoteVerification")
+    assert hasattr(cv, "QuoteMatch")
+    assert "verify_quote" in cv.__all__
+    assert "QuoteVerification" in cv.__all__
+    assert "QuoteMatch" in cv.__all__

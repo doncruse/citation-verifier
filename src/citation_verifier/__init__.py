@@ -8,6 +8,7 @@ from .models import (
     VerificationResult,
 )
 from .parser import parse_citation
+from .quote_matcher import QuoteMatch, QuoteVerification, verify_quote
 from .verifier import CitationVerifier
 
 __all__ = [
@@ -15,7 +16,10 @@ __all__ = [
     "CourtListenerClient",
     "CandidateMatch",
     "ParsedCitation",
+    "QuoteMatch",
+    "QuoteVerification",
     "Status",
     "VerificationResult",
     "parse_citation",
+    "verify_quote",
 ]
