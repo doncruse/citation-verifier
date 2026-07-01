@@ -94,8 +94,10 @@ adapters. Key design decisions:
 
 ## Validation sequence (from the audit checklist)
 
-1. Offline suite green (`test_executor`, `test_ab_runner`, `test_scoring`,
-   `test_proposition_pipeline`, `test_assessment_regression`).
+1. ✅ 2026-07-01 — offline suite green (860 passed: `test_executor`,
+   `test_messages_api_executor` (new), `test_ab_runner`, `test_scoring`,
+   `test_proposition_pipeline`, `test_assessment_regression`, rest).
+   Implementation committed as b19fbc2.
 2. Free (while SDK is subscription-covered): fresh same-day
    `opus-v2` SDK baseline over the 3 corpora; pinned `sonnet-v1` arm.
 3. Metered (~$2–4): `ab_test_runner.py --config opus-v2-api --corpus
@@ -103,3 +105,49 @@ adapters. Key design decisions:
    over-flags, 3/3 reds; A/B ≥55/61 vs the same-day SDK baseline.
 4. Only after 3 passes: consider flipping the CLI default when SDK
    billing changes. Until then SDK/jobs-mode remain the defaults.
+
+## Runbook for the validation session (steps 2–3; delegable, no design
+## judgment required — a fresh Opus session executing this verbatim is fine)
+
+Prereqs (all confirmed 2026-07-01 on the Mac): `.env` has a **valid**
+`ANTHROPIC_API_KEY` and `COURTLISTENER_API_TOKEN`; `claude-agent-sdk`,
+`fastapi`, `openai` installed in the venv. SDK runs additionally need
+`claude login` credentials on the machine. Windows: use
+`venv/Scripts/python.exe` instead of `venv/bin/python`.
+
+```bash
+# 1. FREE same-day SDK controls (run both while SDK is subscription-
+#    covered; ~15-20 min each, jobs run serially):
+venv/bin/python tools/ab_test_runner.py --config opus-v2 --corpus withers payne wainwright
+venv/bin/python tools/ab_test_runner.py --config sonnet-v1 --corpus withers payne wainwright
+
+# 2. METERED validation arm (~$2-4, concurrent so a few minutes):
+venv/bin/python tools/ab_test_runner.py --config opus-v2-api --corpus withers payne wainwright
+
+# 3. Compare the printed per-corpus scores, and optionally:
+venv/bin/python tools/ab_test_runner.py --compare tests/data/results/ab_opus-v2_<TS>.jsonl tests/data/results/ab_opus-v2-api_<TS>.jsonl
+```
+
+Interpretation:
+- Each run prints per-corpus scores and saves rows to
+  `tests/data/results/ab_<config>_<timestamp>.jsonl` (**gitignored** —
+  copy anything worth keeping to `scratch/ab_runs/` and commit).
+- If a run prints `WARNING ... dropped from scoring`, those are transient
+  job failures: rerun the SAME config over a fresh run (or rerun assess on
+  the run copy — resume-keyed) rather than accepting a partial score.
+- PASS bar for `opus-v2-api` (vs the SAME-DAY `opus-v2` SDK control, so
+  model drift is excluded): withers ≥16/19 yellows caught, ≤4 green
+  over-flags, 3/3 reds; payne+wainwright internal ≥55/61 combined. Also
+  eyeball total cost (sum `cost_usd` in the run copy's
+  `jobs/assess_results.jsonl`) — expect roughly $0.05–0.10/claim vs the
+  SDK's measured ~$0.42.
+- `sonnet-v1` (pinned-alias control) feeds cost-audit F2 later: record
+  its scores + lenient-error count next to the 2026-06-13 numbers in the
+  kettering retro table.
+- Record outcomes: append results to this file (below), update
+  `scratch/TODO.md` Priority-0, and commit + push. Do NOT flip any CLI
+  default in that session — that's a separate decision after review.
+
+## Results (append per run)
+
+_(none yet)_
