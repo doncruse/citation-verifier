@@ -14,6 +14,7 @@ from __future__ import annotations
 
 import json
 import os
+import re
 from contextlib import contextmanager
 from dataclasses import dataclass, field
 from pathlib import Path
@@ -134,13 +135,25 @@ class RecordedExecutor:
     Keyed by (claim_id, prompt_version); the rendered prompt text is
     ignored. Duplicate keys (resumed recording runs append) resolve to the
     last line, matching how a resuming live run supersedes earlier rows.
+
+    missing="raise" (default) enforces the strict cassette policy (the
+    regression tests and --replay). missing="skip" records the gap in
+    .misses and keeps yielding -- for scoring a live run where transient
+    job failures left some claims without verdicts (the 2026-06-13
+    sonnet-v2 A/B lost two corpora to a mid-generator raise here); the
+    caller reports the drop count, no silent truncation.
     """
 
-    def __init__(self, results_path: str | Path):
+    def __init__(self, results_path: str | Path, missing: str = "raise"):
+        if missing not in ("raise", "skip"):
+            raise ValueError(f"missing must be 'raise' or 'skip', "
+                             f"got {missing!r}")
         self.results_path = Path(results_path)
+        self.missing = missing
         self._recorded: dict[tuple[str, str], Verdict] = {}
-        for v in load_verdicts_jsonl(self.results_path):
-            self._recorded[(v.claim_id, v.prompt_version)] = v
+        if self.results_path.exists() or missing == "raise":
+            for v in load_verdicts_jsonl(self.results_path):
+                self._recorded[(v.claim_id, v.prompt_version)] = v
         self.misses: list[tuple[str, str]] = []
 
     def run(self, jobs: list[Job]) -> Iterator[Verdict]:
@@ -149,6 +162,8 @@ class RecordedExecutor:
                 key = (claim_id, job.prompt_version)
                 if key not in self._recorded:
                     self.misses.append(key)
+                    if self.missing == "skip":
+                        continue
                     raise RecordedVerdictMiss(
                         f"no recorded verdict for claim_id={claim_id} "
                         f"prompt_version={job.prompt_version} in "
@@ -173,8 +188,18 @@ _AUTH_HELP = ("Claude CLI credentials are stale or missing (401). "
               "No further jobs were attempted.")
 
 
-class AgentSDKAuthError(RuntimeError):
+class ExecutorAuthError(RuntimeError):
+    """Auth failure on a metered transport -- stop immediately, don't
+    burn N jobs. Base class so the CLI can catch every transport's
+    variant with one handler."""
+
+
+class AgentSDKAuthError(ExecutorAuthError):
     """Headless auth failure -- stop immediately, don't burn N jobs."""
+
+
+class MessagesAPIAuthError(ExecutorAuthError):
+    """Anthropic API auth failure (missing/invalid ANTHROPIC_API_KEY)."""
 
 
 @contextmanager
@@ -198,18 +223,70 @@ def _looks_like_auth_failure(text: str) -> bool:
     return any(m in low for m in _AUTH_MARKERS)
 
 
+_FENCED_JSON_RE = re.compile(r"```(?:json)?\s*(\{.*?\})\s*```", re.DOTALL)
+
+
 def _parse_json_object(text: str) -> dict[str, Any] | None:
-    """PoC parse rule: the JSON object between the first '{' and the last
-    '}' in the result text. None when absent or invalid."""
+    """Extract the verdict JSON object from a model's result text.
+
+    Tries, in order: the whole (stripped) text as JSON; the first fenced
+    ```json block; the span between the first '{' and the last '}' (the
+    original PoC rule, kept as the fallback -- it over-captures when
+    prose with braces follows the JSON, TODO review #6). None when
+    nothing parses to a dict."""
+    candidates = [text.strip()]
+    m = _FENCED_JSON_RE.search(text)
+    if m:
+        candidates.append(m.group(1))
     start = text.find("{")
     end = text.rfind("}")
-    if start == -1 or end <= start:
-        return None
-    try:
-        parsed = json.loads(text[start:end + 1])
-    except json.JSONDecodeError:
-        return None
-    return parsed if isinstance(parsed, dict) else None
+    if start != -1 and end > start:
+        candidates.append(text[start:end + 1])
+    for cand in candidates:
+        try:
+            parsed = json.loads(cand)
+        except json.JSONDecodeError:
+            continue
+        if isinstance(parsed, dict):
+            return parsed
+    return None
+
+
+def _fan_out_verdicts(job: Job, fields: dict[str, Any], model: str,
+                      elapsed_s: float, cost_usd: float,
+                      failures: list[tuple[str, str]]) -> list["Verdict"]:
+    """Shared Job-result -> Verdict(s) contract for live transports.
+
+    Packed jobs (assess-v2+) return a per-claim `verdicts` array: one
+    Verdict per entry, entries for unknown claim_ids recorded in
+    `failures` and dropped, claims the model skipped stay pending (the
+    resume key re-runs them). Cost/elapsed are attributed to the first
+    emitted claim only, so summing cost_usd over a cassette stays
+    truthful. Single-object results fan out identically to every
+    claim_id (the v1 shape)."""
+    if isinstance(fields.get("verdicts"), list):
+        out: list[Verdict] = []
+        known = set(job.claim_ids)
+        for entry in fields["verdicts"]:
+            if not isinstance(entry, dict):
+                continue
+            cid = entry.get("claim_id", "")
+            if cid not in known:
+                failures.append(
+                    (job.job_id,
+                     f"verdict for unknown claim_id {cid!r} dropped"))
+                continue
+            vfields = {k: v for k, v in entry.items() if k != "claim_id"}
+            out.append(Verdict(
+                claim_id=cid, fields=vfields, model=model,
+                prompt_version=job.prompt_version,
+                elapsed_s=elapsed_s if not out else 0.0,
+                cost_usd=cost_usd if not out else 0.0))
+        return out
+    return [Verdict(claim_id=cid, fields=fields, model=model,
+                    prompt_version=job.prompt_version,
+                    elapsed_s=elapsed_s, cost_usd=cost_usd)
+            for cid in job.claim_ids]
 
 
 class AgentSDKExecutor:
@@ -288,36 +365,9 @@ class AgentSDKExecutor:
         elapsed_s = (getattr(result_msg, "duration_ms", 0) or 0) / 1000.0
         cost_usd = getattr(result_msg, "total_cost_usd", 0.0) or 0.0
 
-        # Packed-job contract (assess-v2+): a per-claim verdicts array.
-        # Entries for unknown claim_ids are recorded and dropped; claims
-        # the model skipped stay pending (resume re-runs them). Cost is
-        # attributed to the first emitted claim only, so summing
-        # cost_usd over a cassette stays truthful.
-        if isinstance(fields.get("verdicts"), list):
-            out: list[Verdict] = []
-            known = set(job.claim_ids)
-            for entry in fields["verdicts"]:
-                if not isinstance(entry, dict):
-                    continue
-                cid = entry.get("claim_id", "")
-                if cid not in known:
-                    self.failures.append(
-                        (job.job_id,
-                         f"verdict for unknown claim_id {cid!r} dropped"))
-                    continue
-                vfields = {k: v for k, v in entry.items()
-                           if k != "claim_id"}
-                out.append(Verdict(
-                    claim_id=cid, fields=vfields, model=self.model,
-                    prompt_version=job.prompt_version,
-                    elapsed_s=elapsed_s if not out else 0.0,
-                    cost_usd=cost_usd if not out else 0.0))
-            return out
-
-        return [Verdict(claim_id=cid, fields=fields, model=self.model,
-                        prompt_version=job.prompt_version,
-                        elapsed_s=elapsed_s, cost_usd=cost_usd)
-                for cid in job.claim_ids]
+        # Packed-job contract (assess-v2+): shared with MessagesAPIExecutor.
+        return _fan_out_verdicts(job, fields, self.model, elapsed_s,
+                                 cost_usd, self.failures)
 
     @staticmethod
     async def _drain(query_fn: Any, prompt: str, options: Any) -> Any:
@@ -330,3 +380,233 @@ class AgentSDKExecutor:
             if type(msg).__name__.endswith("ResultMessage"):
                 result = msg
         return result
+
+
+# ---------------------------------------------------------------------------
+# MessagesAPIExecutor (design SS5 / cost-audit F1): direct Messages API.
+# ---------------------------------------------------------------------------
+
+_MODEL_ALIASES = {
+    "opus": "claude-opus-4-8",
+    "sonnet": "claude-sonnet-5",
+    "haiku": "claude-haiku-4-5",
+}
+
+# $/MTok (input, output). Cache reads bill ~0.1x input, writes ~1.25x.
+# Unknown models cost 0.0 (recorded, not guessed).
+_PRICING_PER_MTOK = {
+    "claude-opus-4-8": (5.0, 25.0),
+    "claude-sonnet-5": (3.0, 15.0),
+    "claude-haiku-4-5": (1.0, 5.0),
+}
+
+# Transport bridge: the versioned templates are written for a Read-tool
+# agent ("Read the opinion file at: ..."). The templates are byte-pinned
+# (cassette policy) so the adaptation happens here, around the untouched
+# job.prompt.
+_INLINE_NOTE = (
+    "The file(s) referenced by the instructions below are provided "
+    "inline above. You have no tools in this environment -- do not "
+    "attempt any tool call; treat the inline content as the file's "
+    "contents and follow the instructions.")
+
+_API_AUTH_HELP = (
+    "Anthropic API authentication failed. Add ANTHROPIC_API_KEY to the "
+    "project .env (or environment), then rerun this verb. No further "
+    "jobs were attempted.")
+
+
+class MessagesAPIExecutor:
+    """Direct Anthropic Messages API transport (the metered-cheap path).
+
+    One single-shot completion per job: job.files are inlined into the
+    user message (PDFs as base64 document blocks, everything else as
+    text), followed by the job's rendered prompt verbatim. No agent
+    harness, no Read loop.
+
+    Two modes: default runs jobs concurrently via streaming
+    `messages.stream` calls on a thread pool (streaming so long extract
+    outputs don't hit HTTP timeouts); `batch=True` submits one Message
+    Batch (50% off) and polls until it ends -- for the non-latency-
+    sensitive `full` chain.
+
+    Auth failures raise MessagesAPIAuthError immediately; other per-job
+    failures are recorded in .failures and the run continues (the
+    resume key re-runs them). Model aliases are pinned here so
+    Verdict.model always records an explicit model ID.
+    """
+
+    def __init__(self, model: str = "opus", cwd: str | Path | None = None,
+                 batch: bool = False, max_concurrency: int = 8,
+                 max_tokens: int = 32000, poll_interval_s: float = 20.0,
+                 client: Any = None):
+        self.model = _MODEL_ALIASES.get(model, model)
+        self.cwd = Path(cwd) if cwd is not None else None
+        self.batch = batch
+        self.max_concurrency = max_concurrency
+        self.max_tokens = max_tokens
+        self.poll_interval_s = poll_interval_s
+        self._client = client  # test seam; None = anthropic.Anthropic()
+        self.failures: list[tuple[str, str]] = []
+
+    # -- client / request construction ------------------------------------
+
+    def _get_client(self) -> Any:
+        if self._client is None:
+            from dotenv import load_dotenv
+            load_dotenv(
+                Path(__file__).resolve().parent.parent.parent / ".env")
+            import anthropic
+            self._client = anthropic.Anthropic()
+        return self._client
+
+    def _resolve_file(self, f: str) -> Path:
+        p = Path(f)
+        if not p.is_absolute() and self.cwd is not None:
+            p = self.cwd / p
+        return p
+
+    def _build_content(self, job: Job) -> list[dict[str, Any]]:
+        import base64
+
+        blocks: list[dict[str, Any]] = []
+        for f in job.files:
+            p = self._resolve_file(f)
+            if p.suffix.lower() == ".pdf":
+                data = base64.standard_b64encode(
+                    p.read_bytes()).decode("ascii")
+                blocks.append({
+                    "type": "document",
+                    "source": {"type": "base64",
+                               "media_type": "application/pdf",
+                               "data": data},
+                })
+            else:
+                blocks.append({
+                    "type": "text",
+                    "text": (f'<file path="{f}">\n'
+                             f'{p.read_text(encoding="utf-8")}\n</file>'),
+                })
+        blocks.append(
+            {"type": "text", "text": f"{_INLINE_NOTE}\n\n{job.prompt}"})
+        return blocks
+
+    def _request_params(self, job: Job) -> dict[str, Any]:
+        params: dict[str, Any] = {
+            "model": self.model,
+            "max_tokens": self.max_tokens,
+            "messages": [
+                {"role": "user", "content": self._build_content(job)}],
+        }
+        # Adaptive thinking for Opus/Sonnet tiers (matches the agentic
+        # transports the accuracy baselines were recorded on). Haiku 4.5
+        # doesn't support adaptive -- omit.
+        if not self.model.startswith("claude-haiku"):
+            params["thinking"] = {"type": "adaptive"}
+        return params
+
+    # -- accounting / parsing ----------------------------------------------
+
+    def _cost_usd(self, usage: Any) -> float:
+        rates = _PRICING_PER_MTOK.get(self.model)
+        if not rates or usage is None:
+            return 0.0
+        in_rate, out_rate = rates
+
+        def _u(field: str) -> int:
+            return getattr(usage, field, 0) or 0
+
+        cost = (_u("input_tokens") * in_rate
+                + _u("cache_creation_input_tokens") * in_rate * 1.25
+                + _u("cache_read_input_tokens") * in_rate * 0.1
+                + _u("output_tokens") * out_rate) / 1_000_000
+        return cost * (0.5 if self.batch else 1.0)
+
+    def _verdicts_from_message(self, job: Job, message: Any,
+                               elapsed_s: float) -> list[Verdict]:
+        text = "".join(
+            getattr(b, "text", "") for b in (message.content or [])
+            if getattr(b, "type", "") == "text")
+        fields = _parse_json_object(text)
+        if fields is None:
+            stop = getattr(message, "stop_reason", "")
+            self.failures.append(
+                (job.job_id,
+                 f"unparseable result (stop_reason={stop}): {text[:200]}"))
+            return []
+        return _fan_out_verdicts(job, fields, self.model, elapsed_s,
+                                 self._cost_usd(getattr(message, "usage",
+                                                        None)),
+                                 self.failures)
+
+    @staticmethod
+    def _is_auth_error(e: Exception) -> bool:
+        return type(e).__name__ == "AuthenticationError"
+
+    # -- run ---------------------------------------------------------------
+
+    def run(self, jobs: list[Job]) -> Iterator[Verdict]:
+        if not jobs:
+            return iter(())
+        if self.batch:
+            return self._run_batch(jobs)
+        return self._run_concurrent(jobs)
+
+    def _call_one(self, client: Any, job: Job) -> tuple[Any, float]:
+        import time
+
+        t0 = time.monotonic()
+        with client.messages.stream(**self._request_params(job)) as stream:
+            message = stream.get_final_message()
+        return message, time.monotonic() - t0
+
+    def _run_concurrent(self, jobs: list[Job]) -> Iterator[Verdict]:
+        from concurrent.futures import ThreadPoolExecutor, as_completed
+
+        client = self._get_client()
+        workers = max(1, min(self.max_concurrency, len(jobs)))
+        with ThreadPoolExecutor(max_workers=workers) as pool:
+            futures = {pool.submit(self._call_one, client, job): job
+                       for job in jobs}
+            for fut in as_completed(futures):
+                job = futures[fut]
+                try:
+                    message, elapsed_s = fut.result()
+                except Exception as e:
+                    if self._is_auth_error(e):
+                        raise MessagesAPIAuthError(_API_AUTH_HELP) from e
+                    self.failures.append(
+                        (job.job_id, f"{type(e).__name__}: {e}"))
+                    continue
+                yield from self._verdicts_from_message(job, message,
+                                                       elapsed_s)
+
+    def _run_batch(self, jobs: list[Job]) -> Iterator[Verdict]:
+        import time
+
+        client = self._get_client()
+        requests = [{"custom_id": job.job_id,
+                     "params": self._request_params(job)}
+                    for job in jobs]
+        try:
+            batch = client.messages.batches.create(requests=requests)
+            while getattr(batch, "processing_status", "") != "ended":
+                time.sleep(self.poll_interval_s)
+                batch = client.messages.batches.retrieve(batch.id)
+            results = client.messages.batches.results(batch.id)
+        except Exception as e:
+            if self._is_auth_error(e):
+                raise MessagesAPIAuthError(_API_AUTH_HELP) from e
+            raise
+        by_id = {job.job_id: job for job in jobs}
+        for result in results:
+            job = by_id.get(result.custom_id)
+            if job is None:
+                continue
+            if result.result.type != "succeeded":
+                self.failures.append(
+                    (result.custom_id,
+                     f"batch result: {result.result.type}"))
+                continue
+            yield from self._verdicts_from_message(
+                job, result.result.message, elapsed_s=0.0)

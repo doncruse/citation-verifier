@@ -43,6 +43,53 @@ class TestLiveModeOfflineSeam:
         assert (ab.CORPORA / "payne" / "jobs" /
                 "assess_results.jsonl").exists()
 
+    def test_missing_verdicts_score_the_rest_and_report_drop(
+            self, tmp_path, capsys):
+        """TODO Priority-1: a live run with transient job failures (gaps
+        in the results JSONL) must score the completed claims and report
+        the drop -- not die on RecordedVerdictMiss (the 2026-06-13
+        sonnet-v2 arm lost two corpora that way)."""
+        import json as json_mod
+
+        from citation_verifier.executor import (RecordedExecutor,
+                                                load_verdicts_jsonl)
+
+        src_cassette = (ab.CORPORA / "payne" / "jobs" /
+                        "assess_results.jsonl")
+        verdicts = [v for v in load_verdicts_jsonl(src_cassette)
+                    if v.prompt_version == "assess-v1"]
+        dropped = {verdicts[0].claim_id, verdicts[1].claim_id}
+        partial = tmp_path / "partial.jsonl"
+        with open(partial, "w", encoding="utf-8") as f:
+            for v in verdicts:
+                if v.claim_id in dropped:
+                    continue  # simulate two transient job failures
+                from citation_verifier.executor import verdict_to_json
+                f.write(json_mod.dumps(verdict_to_json(v)) + "\n")
+
+        def factory(config, wd, phase):
+            return RecordedExecutor(partial, missing="skip")
+
+        run_root = tmp_path / "run"
+        run_root.mkdir()
+        scores = ab.run_ab_config(
+            "gap-test", {"model": "opus"}, corpora=("payne",),
+            run_root=run_root, executor_factory=factory)
+        out = capsys.readouterr().out
+        assert "dropped from scoring" in out
+        # scored rows exclude only the dropped claims
+        scored_ids = {r["claim_id"] for r in scores["payne"].rows}
+        assert dropped.isdisjoint(scored_ids)
+        assert scores["payne"].total == 27 - len(dropped)
+
+    def test_api_transport_config_builds_messages_executor(self, tmp_path):
+        from citation_verifier.executor import MessagesAPIExecutor
+        ex = ab.make_executor({"executor": "api",
+                               "model": "claude-opus-4-8"}, tmp_path)
+        assert isinstance(ex, MessagesAPIExecutor)
+        assert ex.model == "claude-opus-4-8"
+        assert ex.batch is False
+
     def test_live_requires_run_root(self):
         with pytest.raises(ValueError, match="run_root"):
             ab.run_ab_config("x", {}, corpora=("payne",))

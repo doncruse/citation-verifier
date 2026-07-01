@@ -2,6 +2,49 @@
 
 All notable schema-level changes to citation-verifier. Per design v2 §2.6 / §5: additions to closed-set enums are minor-version changes, removals are major.
 
+## Unreleased (MessagesAPIExecutor + A/B harness gap tolerance)
+
+Plan: `docs/plans/2026-07-01-messages-api-executor-plan.md` (executing
+cost-audit F1, `docs/plans/2026-07-01-pipeline-cost-audit.md`). Additive;
+defaults unchanged (jobs mode in-session, sdk headless) until the API
+transport passes its live validation arm.
+
+### New (`executor.py`)
+
+- **`MessagesAPIExecutor`** — direct Anthropic Messages API transport:
+  one single-shot completion per job, `job.files` inlined (PDFs as base64
+  document blocks), the versioned prompt untouched (transport-level
+  bridge note only — cassette policy holds). Concurrent streaming calls
+  by default (`max_concurrency=8`); `batch=True` submits one Message
+  Batch (50% off) and polls. Model aliases pinned to explicit IDs
+  (`opus` → `claude-opus-4-8`, `sonnet` → `claude-sonnet-5`, `haiku` →
+  `claude-haiku-4-5`); `Verdict.model` records the resolved ID.
+  `Verdict.cost_usd` computed from `usage` at published per-MTok rates
+  (halved in batch mode). Auth failures raise **`MessagesAPIAuthError`**;
+  other per-job failures land in `.failures` and the run continues.
+  Requires `ANTHROPIC_API_KEY` in `.env`.
+- **`ExecutorAuthError`** — new base class; `AgentSDKAuthError` and
+  `MessagesAPIAuthError` both subclass it (the CLI catches the base).
+- **`RecordedExecutor(missing="skip")`** — records gaps in `.misses` and
+  keeps yielding instead of raising `RecordedVerdictMiss`; default stays
+  `"raise"` (strict cassette policy for the regression tests / --replay).
+- `_parse_json_object` tightened (PR #21 review #6 deferral): whole-text
+  parse, then fenced ```json block, then the legacy first-`{`/last-`}`
+  slice.
+- The packed-job `verdicts`-array fan-out is now the shared
+  `_fan_out_verdicts` helper (used by both live transports; behavior
+  unchanged).
+
+### CLI / harness
+
+- `verify-propositions`: `--executor api` (+ `--batch`); `--model`
+  aliases are pinned by the api executor.
+- `tools/ab_test_runner.py`: live runs score through a skip-mode
+  `RecordedExecutor` and **report** dropped claims instead of crashing on
+  the first missing verdict (TODO Priority-1, the 2026-06-13 sonnet-v2
+  crash). Config `"executor": "api"` supported; new pinned-model arms
+  `opus-v2-api` and `sonnet-v1-api` in `tests/ab_test_configs.json`.
+
 ## v0.5.0 — 2026-06-28 (Public quote primitive + OCR-confusion normalization)
 
 Design: `docs/superpowers/specs/2026-06-28-ocr-quote-normalization-design.md`.

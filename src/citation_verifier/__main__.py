@@ -564,15 +564,22 @@ def verify_propositions_main(argv: list[str] | None = None) -> int:
              "verb / full chain",
     )
     parser.add_argument(
-        "--executor", choices=["jobs", "sdk"], default="jobs",
+        "--executor", choices=["jobs", "sdk", "api"], default="jobs",
         help="LLM transport for extract/assess: jobs = write jobs file "
              "for Agent-tool subagents (in-session default); sdk = "
              "headless claude-agent-sdk (requires `claude login` "
-             "credentials)",
+             "credentials); api = direct Anthropic Messages API, opinion "
+             "text inlined (requires ANTHROPIC_API_KEY in .env)",
     )
     parser.add_argument(
         "--model", default="opus",
-        help="Model for the sdk executor (default opus)",
+        help="Model for the sdk/api executors (default opus; the api "
+             "executor pins aliases to explicit model IDs)",
+    )
+    parser.add_argument(
+        "--batch", action="store_true",
+        help="With --executor api: submit one Message Batch (50%% off, "
+             "async) instead of concurrent live calls",
     )
     parser.add_argument(
         "--prescreen", action="store_true",
@@ -602,13 +609,17 @@ def verify_propositions_main(argv: list[str] | None = None) -> int:
         if args.executor == "sdk":
             from .executor import AgentSDKExecutor
             return AgentSDKExecutor(model=args.model, cwd=str(workdir))
+        if args.executor == "api":
+            from .executor import MessagesAPIExecutor
+            return MessagesAPIExecutor(model=args.model, cwd=str(workdir),
+                                       batch=args.batch)
         return None
 
-    from .executor import AgentSDKAuthError
+    from .executor import ExecutorAuthError
     try:
         return _dispatch_proposition_verbs(args, workdir, pp, _progress,
                                            _make_executor)
-    except AgentSDKAuthError as e:
+    except ExecutorAuthError as e:
         print(f"Error: {e}", file=sys.stderr)
         return 1
 

@@ -48,16 +48,23 @@ def load_configs(path=CONFIGS_FILE):
 
 
 def make_executor(config, workdir, phase="assess"):
-    """Default executor factory: headless Agent SDK (design SS5).
+    """Default executor factory: headless Agent SDK (design SS5) or the
+    direct Messages API transport (cost-audit F1; config
+    `"executor": "api"`, optional `"batch": true`).
 
     phase is "prescreen" | "assess" -- the default factory ignores it
     (the model is already overridden in the config it receives); test
     seams use it to route to per-phase recorded cassettes."""
     transport = config.get("executor", "sdk")
+    if transport == "api":
+        from citation_verifier.executor import MessagesAPIExecutor
+        return MessagesAPIExecutor(model=config.get("model", "opus"),
+                                   cwd=str(workdir),
+                                   batch=bool(config.get("batch")))
     if transport != "sdk":
         raise ValueError(
             f"unsupported executor {transport!r}: the harness runs "
-            f"headless (sdk) or --replay only")
+            f"headless (sdk), api, or --replay only")
     from citation_verifier.executor import AgentSDKExecutor
     return AgentSDKExecutor(model=config.get("model", "opus"),
                             cwd=str(workdir))
@@ -119,8 +126,20 @@ def run_ab_config(config_name, config, corpora=DEFAULT_CORPORA,
             if stats.pending:
                 print(f"  WARNING {name}: {stats.pending} verdicts "
                       f"still pending -- scoring the rest")
-            scores[name] = score_workdir(wd,
+            # Score through a skip-mode RecordedExecutor so transient job
+            # failures don't kill the whole multi-corpus run (TODO
+            # Priority-1: the strict default raised RecordedVerdictMiss
+            # mid-generator and lost payne/wainwright in the 2026-06-13
+            # sonnet-v2 arm). The drop is reported, never silent.
+            from citation_verifier.executor import RecordedExecutor
+            scorer = RecordedExecutor(wd / "jobs" / "assess_results.jsonl",
+                                      missing="skip")
+            scores[name] = score_workdir(wd, executor=scorer,
                                          prompt_version=prompt_version)
+            if scorer.misses:
+                print(f"  WARNING {name}: {len(scorer.misses)} claims "
+                      f"dropped from scoring (no verdict): "
+                      f"{[m[0] for m in scorer.misses]}")
         print(format_report(f"{config_name}/{name}", scores[name]))
     return scores
 

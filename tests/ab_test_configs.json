@@ -48,6 +48,20 @@
       "model": "sonnet",
       "prompt_version": "assess-v1",
       "include_hints": false
+    },
+    "opus-v2-api": {
+      "description": "assess-v2 via the direct Messages API (opinion inlined, no agent harness) -- cost-audit F1 validation arm; must match the pinned opus-v2 baselines (withers >=16/19 yellows, <=4 green over-flags, 3/3 reds; A/B >=55/61)",
+      "model": "claude-opus-4-8",
+      "executor": "api",
+      "prompt_version": "assess-v2",
+      "include_hints": false
+    },
+    "sonnet-v1-api": {
+      "description": "assess-v1 single-claim on a PINNED current Sonnet via the API -- cost-audit F2 prerequisite re-run (the 2026-06-13 sonnet-v1 arm ran the unpinned CLI alias)",
+      "model": "claude-sonnet-5",
+      "executor": "api",
+      "prompt_version": "assess-v1",
+      "include_hints": false
     }
   }
 }

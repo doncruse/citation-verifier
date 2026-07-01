@@ -142,7 +142,7 @@ Consider penalizing more when the distinctive party (defendant) doesn't match at
 Weatherly v. Second Nw. Coop. Homes Ass'n scored only 53% partly because eyecite returned `dccrimct` but CL has `dc`. Either treat these as equivalent in court map, or fall back to prefix/substring match.
 - Francis v. Rehman, 110 A.3d 615 (dccrimct 2015) — NOT_FOUND despite exact reporter match, same root cause. https://www.courtlistener.com/opinion/2782310/michael-francis-and-queue-llc-v-munir-rehman-and-hak-llc/
 
-## Priority 0 — TIME-SENSITIVE: SDK subscription billing ends ~2026-06-15
+## Priority 0 — SDK billing transition (metered path BUILT 2026-07-01; validation pending)
 
 The `AgentSDKExecutor` runs headless via the Claude CLI's **subscription
 auth** (no per-token bill) — that's how the Step 8 re-record, the kettering
@@ -153,25 +153,32 @@ transport. Get the efficient metered path in place BEFORE the deadline.
 
 **Efficiency plan (the metered path the design always intended — §5
 "MessagesAPIExecutor, build last, optional" — now promoted to urgent):**
-1. **Build `MessagesAPIExecutor`** in `executor.py`: `anthropic` SDK, API
-   key auth, opinion text **inlined** (no agentic Read loop → leaner token
-   profile than the SDK's multi-turn reads), structured outputs for the
-   verdict JSON. Same `LLMExecutor.run(jobs)->verdicts` contract; drop-in
-   for assess/extract/prescreen. Wire `--executor api` in the CLI + harness.
-2. **Batches API (50% off)** — assess is non-latency-sensitive (wait for all
-   verdicts anyway), the textbook batch case. ~$13/run → ~$6.50. Add a
-   batch mode to MessagesAPIExecutor.
-3. **Prompt caching** — cache the stable assess-v2 system/template prefix
-   across the per-opinion jobs (each job re-sends the same criteria block).
-4. **Prereq:** `ANTHROPIC_API_KEY` in `.env` (only COURTLISTENER_API_TOKEN
-   is there today). Confirm with user.
+1. ✅ **BUILT 2026-07-01** — `MessagesAPIExecutor` in `executor.py`
+   (plan: `docs/plans/2026-07-01-messages-api-executor-plan.md`): opinion
+   text inlined, PDFs as document blocks, concurrent streaming calls,
+   `--executor api` wired in the CLI + A/B harness. Offline-tested
+   (tests/test_messages_api_executor.py); LIVE VALIDATION PENDING —
+   run `--config opus-v2-api` (~$2-4) against the pinned v2 baselines.
+   Billing update (user, 2026-07-01): SDK subscription coverage was
+   temporarily extended; SDK stays the headless default until it starts
+   drawing subscription credits, then flip to api.
+2. ✅ **BUILT 2026-07-01** — `batch=True` mode on MessagesAPIExecutor
+   (`--batch` in the CLI): one Message Batch, 50% off, polled. Same
+   pending validation as item 1.
+3. ~~Prompt caching~~ **DROPPED (cost-audit F7, 2026-07-01):** the
+   template is ~1.4K tokens — below Opus 4.8's 4,096-token minimum
+   cacheable prefix, so the marker would silently no-op; per-opinion
+   packing already captures the shareable-context win.
+4. **Prereq (still open):** `ANTHROPIC_API_KEY` in `.env` (only
+   COURTLISTENER_API_TOKEN is there today). Needed before the
+   opus-v2-api validation arm.
 Cost context (measured 2026-06-13): one Opus v2 kettering run ≈ $13 via
 SDK-notional/API rates, ~$6.50 with Batches; Sonnet several-fold cheaper
 (sonnet-v2 A/B running now will give the exact figure + accuracy delta).
 This is the call the model-default decision feeds into: pick {model ×
 batch × cache} for the cheapest path that holds accuracy.
 
-## Priority 1 — A/B harness robustness bug (found 2026-06-13 sonnet-v2 run)
+## ~~Priority 1 — A/B harness robustness bug~~ FIXED 2026-07-01 (skip-mode RecordedExecutor scores completed claims + reports the drop; tests/test_ab_runner.py::test_missing_verdicts_score_the_rest_and_report_drop)
 Live A/B (`tools/ab_test_runner.py`) crashes when an assess job fails
 transiently: the failed claim has no verdict, and `score_workdir`'s default
 RecordedExecutor raises `RecordedVerdictMiss` on the first gap → whole run
