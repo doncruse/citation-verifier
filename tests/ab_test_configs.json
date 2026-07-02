@@ -1,67 +1,41 @@
 {
   "configs": {
     "opus-baseline": {
-      "description": "Current approach: Opus, no hints, standard prompt",
+      "description": "Current approach: Opus, standard prompt",
       "model": "opus",
-      "include_hints": false,
       "include_brief_context": false
     },
     "sonnet-baseline": {
       "description": "Same prompt but Sonnet -- tests if cheaper model is good enough",
       "model": "sonnet",
-      "include_hints": false,
-      "include_brief_context": false
-    },
-    "sonnet-with-hints": {
-      "description": "Sonnet with Haiku summary hints -- can hints compensate for smaller model?",
-      "model": "sonnet",
-      "include_hints": true,
-      "include_brief_context": false
-    },
-    "opus-with-hints": {
-      "description": "Opus with Haiku summary hints -- does giving hints improve accuracy?",
-      "model": "opus",
-      "include_hints": true,
       "include_brief_context": false
     },
     "opus-v2": {
-      "description": "assess-v2 two-axis + blocks, per-opinion packed, no hints",
+      "description": "assess-v2 two-axis + blocks, per-opinion packed",
       "model": "opus",
-      "prompt_version": "assess-v2",
-      "include_hints": false
-    },
-    "opus-v2-hints": {
-      "description": "assess-v2 with Haiku prescreen hints (SS6.7 A/B arm)",
-      "model": "opus",
-      "prompt_version": "assess-v2",
-      "include_hints": true,
-      "prescreen_model": "haiku"
+      "prompt_version": "assess-v2"
     },
     "sonnet-v2": {
       "description": "assess-v2 on Sonnet -- cost/accuracy vs opus-v2 (old v1 data: sonnet 53/61 ~= opus 54/61, so promising)",
       "model": "sonnet",
-      "prompt_version": "assess-v2",
-      "include_hints": false
+      "prompt_version": "assess-v2"
     },
     "sonnet-v1": {
       "description": "assess-v1 single-claim on Sonnet -- is the cheap model fine on the simpler prompt? (old v1 data: sonnet 53/61 ~ opus 54/61)",
       "model": "sonnet",
-      "prompt_version": "assess-v1",
-      "include_hints": false
+      "prompt_version": "assess-v1"
     },
     "opus-v2-api": {
       "description": "assess-v2 via the direct Messages API (opinion inlined, no agent harness) -- cost-audit F1 validation arm; must match the pinned opus-v2 baselines (withers >=16/19 yellows, <=4 green over-flags, 3/3 reds; A/B >=55/61)",
       "model": "claude-opus-4-8",
       "executor": "api",
-      "prompt_version": "assess-v2",
-      "include_hints": false
+      "prompt_version": "assess-v2"
     },
     "sonnet-v1-api": {
       "description": "assess-v1 single-claim on a PINNED current Sonnet via the API -- cost-audit F2 prerequisite re-run (the 2026-06-13 sonnet-v1 arm ran the unpinned CLI alias)",
       "model": "claude-sonnet-5",
       "executor": "api",
-      "prompt_version": "assess-v1",
-      "include_hints": false
+      "prompt_version": "assess-v1"
     }
   }
 }

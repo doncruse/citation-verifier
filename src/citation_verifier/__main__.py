@@ -530,7 +530,7 @@ def verify_propositions_main(argv: list[str] | None = None) -> int:
              "merge = join claims to results + opinion linkage; "
              "check-quotes = quote verdicts + floors; crosscheck = "
              "TOA/court/pincite flags; triage = assessment depth per "
-             "claim (--prescreen for Haiku hints); assess = LLM "
+             "claim; assess = LLM "
              "assessment jobs (jobs mode by default); "
              "apply-assessments = verdicts JSONL -> claims.csv with "
              "floors; report = claims.csv -> report.html (SS6.9 lanes); "
@@ -580,11 +580,6 @@ def verify_propositions_main(argv: list[str] | None = None) -> int:
         "--batch", action="store_true",
         help="With --executor api: submit one Message Batch (50%% off, "
              "async) instead of concurrent live calls",
-    )
-    parser.add_argument(
-        "--prescreen", action="store_true",
-        help="Triage: run Haiku summary-hint prescreen jobs for long "
-             "opinions (default off pending the A/B re-run)",
     )
     args = parser.parse_args(argv)
 
@@ -692,14 +687,9 @@ def _dispatch_proposition_verbs(args, workdir, pp, _progress,
               f"{xstats.pincite_flags} pincite flags")
 
     if args.verb in ("triage", "full"):
-        tstats = pp.run_triage(workdir, prescreen=args.prescreen,
-                               executor=_make_executor())
+        tstats = pp.run_triage(workdir)
         print(f"[OK] triage: {tstats.full} full, {tstats.fast} fast, "
               f"{tstats.skipped} deterministic")
-        if tstats.prescreen_pending:
-            print(f"  PENDING: {tstats.prescreen_pending} prescreen "
-                  f"jobs -> jobs/prescreen.json (dispatch agents, "
-                  f"append to jobs/prescreen_results.jsonl, rerun)")
 
     # Product default is assess-v2 (two-axis + report blocks). The library
     # constant DEFAULT_PROMPT_VERSION stays assess-v1 for the frozen-cassette

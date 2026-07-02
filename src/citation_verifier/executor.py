@@ -1,6 +1,6 @@
 """LLM executor protocol + adapters (pipeline redesign design SS5).
 
-An LLM verb (assess, extract, prescreen) emits transport-neutral Jobs and
+An LLM verb (assess, extract) emits transport-neutral Jobs and
 consumes Verdicts; the executor between them is pluggable. This module
 defines the protocol, the JSONL verdict serialization shared by all
 adapters (jobs/<phase>_results.jsonl sidecars), and the offline

@@ -9,6 +9,21 @@ cost-audit F1, `docs/plans/2026-07-01-pipeline-cost-audit.md`). Additive;
 defaults unchanged (jobs mode in-session, sdk headless) until the API
 transport passes its live validation arm.
 
+### Removed (cost-audit F4 — Haiku prescreen path)
+
+- Deleted the Haiku summary-hint **prescreen** path (`run_triage`'s
+  `prescreen`/`executor`/`prompt_version` params and hint branch,
+  `render_prescreen_prompt`, `_PRESCREEN_SCHEMA`, `PRESCREEN_MIN_CHARS`,
+  `PRESCREEN_PROMPT_VERSION`, `prompts/prescreen_v1.md`, the `--prescreen`
+  CLI flag, `TriageStats.prescreen_done`/`prescreen_pending`, and the
+  A/B runner's `include_hints` plumbing + hint configs). The 2026-06-13
+  per-phase A/B measured it harmful (no A/B gain, regressed Withers 16→14
+  yellows in the lenient direction). `run_triage(workdir)` now takes no
+  args beyond the workdir. The `prescreen_hint` CSV column is still
+  **tolerated** as a legacy field (merge carries it through;
+  `render_assess_v2_claim_block` consumes it if present) but nothing
+  populates it. See `docs/plans/2026-07-01-pipeline-cost-audit.md` F4.
+
 ### New (`executor.py`)
 
 - **`MessagesAPIExecutor`** — direct Anthropic Messages API transport:
