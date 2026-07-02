@@ -7,7 +7,7 @@ import asyncio
 import json
 import sys
 
-from .brief_pipeline import _DOWNLOADABLE_STATUSES
+from .proposition_pipeline import _DOWNLOADABLE_STATUSES
 from .cache import VerificationCache
 from .models import Status, VerificationResult
 from .verifier import CitationVerifier
@@ -322,7 +322,7 @@ def verify_brief_main(argv: list[str] | None = None) -> int:
     args = parser.parse_args(argv)
 
     from pathlib import Path
-    from .brief_pipeline import (
+    from .proposition_pipeline import (
         wave1_verify_and_download,
         wave2_fallback_and_download,
         merge_claims,
@@ -352,7 +352,7 @@ def verify_brief_main(argv: list[str] | None = None) -> int:
         return citations
 
     if args.metadata_check:
-        from .brief_pipeline import metadata_check
+        from .proposition_pipeline import metadata_check
         result = metadata_check(workdir)
         print(f"Metadata check: {result.total_claims} claims")
         print(f"  Name mismatches: {result.name_mismatches}")
@@ -369,7 +369,7 @@ def verify_brief_main(argv: list[str] | None = None) -> int:
         return 0
 
     if args.report:
-        from .brief_pipeline import generate_report
+        from .proposition_pipeline import generate_report
         import json as json_mod
         meta_path = workdir / "brief_metadata.json"
         meta = {}
@@ -387,7 +387,7 @@ def verify_brief_main(argv: list[str] | None = None) -> int:
         return 0
 
     if args.check_quotes:
-        from .brief_pipeline import check_quotes
+        from .proposition_pipeline import check_quotes
         stats = check_quotes(workdir)
         print(f"Quote check: {stats.total_claims} claims, {stats.checked} checked")
         print(f"  VERBATIM: {stats.verbatim}, CLOSE: {stats.close}, FABRICATED: {stats.fabricated}")

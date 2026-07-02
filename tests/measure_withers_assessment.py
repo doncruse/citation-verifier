@@ -119,7 +119,7 @@ def load_sample() -> list[dict]:
 # ---------------------------------------------------------------------------
 
 def build_workdir(sample: list[dict]) -> None:
-    from citation_verifier.brief_pipeline import (
+    from citation_verifier.proposition_pipeline import (
         check_quotes, merge_claims, wave1_verify_and_download,
         wave2_fallback_and_download,
     )
@@ -170,7 +170,7 @@ def link_and_check_quotes() -> None:
     case_name) — a pipeline bug to log in the design doc. Workaround here:
     token-overlap match between the cl_url slug and the file stems.
     """
-    from citation_verifier.brief_pipeline import check_quotes, merge_claims
+    from citation_verifier.proposition_pipeline import check_quotes, merge_claims
 
     m = merge_claims(_WORKDIR)
     print(f"  merge: {m.matched} matched, {m.unmatched} unmatched, "
