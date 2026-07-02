@@ -407,6 +407,19 @@ class TestVerbs:
         run = json.loads((wd / "run.json").read_text(encoding="utf-8"))
         assert "merge" in run["verbs"]
 
+    def test_run_json_stamps_schema_version(self, tmp_path):
+        # claims.csv is an external interface (the us-legal-research
+        # memo-import skill consumes it); run.json pins the schema
+        # version so consumers can detect a breaking change.
+        from citation_verifier.proposition_pipeline import run_merge
+        wd = _claims_only_workdir(tmp_path)
+        with (wd / "verification_results.csv").open(
+                "w", newline="", encoding="utf-8") as f:
+            csv.DictWriter(f, fieldnames=["citation", "status"]).writeheader()
+        run_merge(wd)
+        run = json.loads((wd / "run.json").read_text(encoding="utf-8"))
+        assert run["schema_version"] == 1
+
 
 class TestExtractQuotedSpans:
     def test_two_word_span_extracted(self):
