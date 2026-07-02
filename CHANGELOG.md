@@ -35,6 +35,18 @@ transport passes its live validation arm.
   The metered assess-v3 prompt bump itself is deferred (F3-metered) — see
   `docs/plans/2026-07-01-pipeline-cost-audit.md` F3.
 
+### Changed (cost-audit F6 — A/B config cleanup)
+
+- Pruned `tests/ab_test_configs.json` to the four arms worth re-running:
+  `opus-v2`, `sonnet-v1`, `opus-v2-api`, `sonnet-v1-api`. Removed the
+  stale `opus-baseline` / `sonnet-baseline` / `sonnet-v2` arms, the dead
+  `include_brief_context` key, and pinned every `model` to an explicit ID
+  (`opus` → `claude-opus-4-8`, `sonnet` → `claude-sonnet-5`) so alias
+  drift can't silently change what an A/B measures. (The `brief_pipeline`
+  sys.modules alias removal in F6 is deferred to the 0.6 minor bump — see
+  the audit; removing it now at 0.5.0 would break the still-valued
+  `test_brief_pipeline.py` legacy suite.)
+
 ### New (`executor.py`)
 
 - **`MessagesAPIExecutor`** — direct Anthropic Messages API transport:

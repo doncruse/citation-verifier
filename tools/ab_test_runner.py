@@ -16,11 +16,11 @@ deleted in cost-audit F4 -- measured harmful, no A/B gain.)
 Usage:
     venv/Scripts/python.exe tools/ab_test_runner.py --replay
         # offline: score the frozen cassettes (the recorded baseline)
-    venv/Scripts/python.exe tools/ab_test_runner.py --config opus-baseline
+    venv/Scripts/python.exe tools/ab_test_runner.py --config opus-v2
         # live: copy corpora, run assess via the Agent SDK, score
     venv/Scripts/python.exe tools/ab_test_runner.py --config A B
     venv/Scripts/python.exe tools/ab_test_runner.py --compare X.jsonl Y.jsonl
-    venv/Scripts/python.exe tools/ab_test_runner.py --config opus-baseline --dry-run
+    venv/Scripts/python.exe tools/ab_test_runner.py --config opus-v2 --dry-run
 
 tests/ab_test_cases.json stays the human-review ledger; ground_truth.csv
 is generated from it by tests/build_assessment_corpora.py.
