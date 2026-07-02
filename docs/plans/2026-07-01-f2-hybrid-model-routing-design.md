@@ -70,6 +70,17 @@ helper so the two verbs cannot drift.
    the escalated claim_ids. Build the existing **packed-per-opinion v2
    jobs**. Run through `full_executor`. Opus authors every non-Green card.
 
+### Stats & cost accounting
+
+`AssessStats` gains `fast_kept`, `escalated`, and `escalated_cost_usd`.
+The escalation rate is the early-warning signal that Sonnet on
+single-claim v2 over-flags more than the June data suggested, and the
+discarded Sonnet verdicts take their `cost_usd` with them — the
+cassette's cost sum would otherwise silently **understate** true spend by
+the escalated claims' Sonnet cost (this repo's cassette cost sums get
+quoted; keep them honest). All three fields are stamped into `run.json`
+alongside the existing assess stats, and the CLI prints them.
+
 ### Persistence & resume
 
 Only *final* verdicts are appended to `assess_results.jsonl`:
@@ -101,6 +112,14 @@ persisted verdict short-circuits both passes for that claim.
   `hybrid-v2-api` (`fast_model: claude-sonnet-5`,
   `full_model: claude-opus-4-8`, `executor: api`, `prompt_version:
   assess-v2`). Scoring path unchanged (`score_workdir`, assess-v2).
+  **The hybrid branch MUST run `run_triage(wd, prescreen=False)` on the
+  run copy before assess** — verified 2026-07-01: all three frozen
+  corpora **lack the `triage_track` column**, and `run_ab_config` never
+  runs triage, so without this step the legacy-safety rule routes every
+  claim to Opus and the arm "passes" while measuring nothing (the two
+  safety features interact to defeat the test). The arm prints the
+  fast/full mix per corpus and **hard-fails if the fast-track count is 0**
+  — a vacuous run must be loud, never a trivial pass.
 - **No default flips.** Hybrid is opt-in, like the API transport (F1
   Step 4 unchanged).
 
@@ -114,7 +133,9 @@ persisted verdict short-circuits both passes for that claim.
   - full-track claims go only to `full_executor`;
   - escalated + full-track claims are packed per-opinion for Opus;
   - legacy empty `triage_track` → all claims routed to `full_executor`;
-  - resume skips claims with a persisted verdict.
+  - resume skips claims with a persisted verdict;
+  - `fast_kept` / `escalated` / `escalated_cost_usd` stats are correct
+    (escalated Sonnet cost captured even though the verdict is discarded).
 - **Metered validation arm (gate before use):** `hybrid-v2-api` over
   withers + payne + wainwright, scored against a same-day Opus control.
   **Accept only if all hold:** (a) **0 lenient-direction errors on the
@@ -123,8 +144,9 @@ persisted verdict short-circuits both passes for that claim.
   floor). This gate exists because single-claim-v2-on-Sonnet is unmeasured
   (the 2026-07-01 arm was assess-v1). Sonnet over-flagging on single-claim
   v2 shows up only as more escalations (extra cost, acceptable); a lenient
-  error is the hard fail. Also record the escalation rate and total cost
-  vs the Opus-only arm to confirm the savings materialize.
+  error is the hard fail. Also record the fast/full mix, the escalation
+  rate, and total cost **including `escalated_cost_usd`** vs the Opus-only
+  arm, to confirm the savings materialize net of discarded Sonnet calls.
 
 ## Files
 
