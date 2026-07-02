@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import json
 import logging
+import os
 from pathlib import Path
 from typing import Any
 
@@ -24,7 +25,41 @@ from .models import (
 
 logger = logging.getLogger(__name__)
 
-DEFAULT_CACHE_PATH = Path(".citation_cache.json")
+CACHE_FILENAME = ".citation_cache.json"
+DEFAULT_CACHE_PATH = Path(CACHE_FILENAME)
+
+# Env var that relocates the CL citation cache (and, in the proposition
+# pipeline, enables a persistent lookup cache). Unset -> historical
+# CWD-relative default, behavior unchanged.
+CACHE_DIR_ENV = "CITATION_VERIFIER_CACHE_DIR"
+
+
+def resolve_cache_dir(cli_value: str | None = None) -> Path | None:
+    """Resolve the cache directory. Precedence: explicit CLI value >
+    ``CITATION_VERIFIER_CACHE_DIR`` env var > None (the default -- no
+    relocation, CWD-relative cache). Returns a Path or None."""
+    if cli_value:
+        return Path(cli_value)
+    env = os.environ.get(CACHE_DIR_ENV)
+    if env:
+        return Path(env)
+    return None
+
+
+def citation_cache_path(cache_dir: Path | None) -> Path:
+    """Location of the CL citation cache file. ``None`` -> the CWD-relative
+    ``DEFAULT_CACHE_PATH`` (unchanged); a dir -> ``<dir>/.citation_cache.json``."""
+    if cache_dir is None:
+        return DEFAULT_CACHE_PATH
+    return Path(cache_dir) / CACHE_FILENAME
+
+
+def open_citation_cache(cache_dir: Path | None) -> VerificationCache:
+    """Open the CL citation cache rooted at ``cache_dir`` (creating the dir
+    when relocated). ``None`` -> the default CWD-relative cache."""
+    if cache_dir is not None:
+        Path(cache_dir).mkdir(parents=True, exist_ok=True)
+    return VerificationCache(citation_cache_path(cache_dir))
 
 
 def _serialize_path_entry(e: ResolutionPathEntry) -> dict[str, Any]:

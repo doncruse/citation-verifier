@@ -19,6 +19,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
+from .cache import VerificationCache, open_citation_cache, resolve_cache_dir
 from .client import AsyncCourtListenerClient
 from .models import Status, VerificationResult
 from .quote_matcher import (
@@ -399,14 +400,54 @@ def _write_ocr_manifest(workdir: Path, mapping: dict[str, object]) -> None:
     path.write_text(json_mod.dumps(merged, indent=2), encoding="utf-8")
 
 
+# opinions/manifest.json (memo-import): per-opinion metadata for downstream
+# tools, keyed by opinion file stem. Written at download time -- date_filed
+# rides along on the metadata fetch (client.get_opinion_text_with_metadata
+# already walks cluster->docket for it), so no extra cluster-endpoint call.
+def _utcnow_iso() -> str:
+    return datetime.now(timezone.utc).isoformat()
+
+
+def _opinion_manifest_path(workdir: Path) -> Path:
+    return Path(workdir) / "opinions" / "manifest.json"
+
+
+def _read_opinion_manifest(workdir: Path) -> dict[str, dict]:
+    """Read opinions/manifest.json -> {stem: {...}}. {} if absent/corrupt."""
+    path = _opinion_manifest_path(workdir)
+    if not path.exists():
+        return {}
+    try:
+        data = json_mod.loads(path.read_text(encoding="utf-8"))
+        return data if isinstance(data, dict) else {}
+    except (json_mod.JSONDecodeError, OSError):
+        return {}
+
+
+def _write_opinion_manifest(workdir: Path, mapping: dict[str, dict]) -> None:
+    """Merge `mapping` into opinions/manifest.json (no-op if empty)."""
+    if not mapping:
+        return
+    merged = _read_opinion_manifest(workdir)
+    merged.update(mapping)
+    path = _opinion_manifest_path(workdir)
+    path.parent.mkdir(exist_ok=True)
+    path.write_text(json_mod.dumps(merged, indent=2), encoding="utf-8")
+
+
 async def _download_opinion(
     client: AsyncCourtListenerClient,
     workdir: Path,
     result: VerificationResult,
     citation: str,
     ocr_manifest: dict[str, object] | None = None,
+    manifest: dict[str, dict] | None = None,
 ) -> str | None:
-    """Download opinion text for a verified result. Returns saved filename or None."""
+    """Download opinion text for a verified result. Returns saved filename or None.
+
+    When `manifest` is provided, records a per-opinion metadata entry
+    (keyed by file stem) for opinions/manifest.json -- capturing the
+    post-swap cluster_id/url and the fetch-time date_filed."""
     matched_url = result.final_ids.absolute_url
     if not matched_url:
         return None
@@ -490,12 +531,29 @@ async def _download_opinion(
         if not base:
             base = "unknown"
 
+        # Per-opinion manifest entry (keyed by file stem == base). Built once;
+        # recorded only on a successful write. cluster_id/absolute_url reflect
+        # any sibling-swap done above; date_filed rode along on the fetch.
+        def _record_manifest() -> None:
+            if manifest is None:
+                return
+            manifest[base] = {
+                "cluster_id": result.final_ids.cluster_id,
+                "case_name": case_name,
+                "court": data.get("court", "") or "",
+                "date_filed": data.get("date_filed", "") or "",
+                "citation": citation,
+                "absolute_url": result.final_ids.absolute_url or "",
+                "retrieved": _utcnow_iso(),
+            }
+
         if fmt == "pdf":
             pdf_bytes = data.get("pdf_bytes")
             if not pdf_bytes:
                 return None
             filename = f"{base}.pdf"
             (opinions_dir / filename).write_bytes(pdf_bytes)
+            _record_manifest()
             return filename
 
         text = data.get("text", "")
@@ -507,10 +565,58 @@ async def _download_opinion(
         (opinions_dir / filename).write_text(text, encoding="utf-8")
         if ocr_manifest is not None:
             ocr_manifest[filename] = data.get("extracted_by_ocr")
+        _record_manifest()
         return filename
 
     except Exception:
         return None
+
+
+# ---------------------------------------------------------------------------
+# Optional persistent CL lookup cache (memo-import: CITATION_VERIFIER_CACHE_DIR
+# / --cache-dir). Off by default -- cache=None reproduces the old behavior
+# exactly. When enabled, previously-resolved citations skip the CL API on
+# reruns, which is the big win when many memos cite the same landmark cases.
+# ---------------------------------------------------------------------------
+
+async def _verify_batch_cached(
+    verifier: CitationVerifier,
+    citations: list[str],
+    cache: VerificationCache | None,
+    *,
+    quick_only: bool,
+    progress_callback: Any = None,
+) -> list[VerificationResult]:
+    """verify_batch with an optional persistent cache in front.
+
+    Only resolved (downloadable) results are cached: a cached hit is always
+    safe to reuse (the citation resolved), while misses are never stored so
+    the fuzzy search/RECAP fallback still runs on every attempt and a
+    quick-only miss can't poison the full path. ``cache=None`` delegates
+    straight to ``verify_batch`` (unchanged default)."""
+    if cache is None:
+        return await verifier.verify_batch(
+            citations, quick_only=quick_only,
+            progress_callback=progress_callback,
+        )
+    results: list[VerificationResult | None] = [None] * len(citations)
+    miss_idx: list[int] = []
+    for i, cite in enumerate(citations):
+        hit = cache.get(cite)
+        if hit is not None and hit.status in _DOWNLOADABLE_STATUSES:
+            results[i] = hit
+        else:
+            miss_idx.append(i)
+    if miss_idx:
+        sub = await verifier.verify_batch(
+            [citations[i] for i in miss_idx], quick_only=quick_only,
+            progress_callback=progress_callback,
+        )
+        for j, i in enumerate(miss_idx):
+            results[i] = sub[j]
+            if sub[j].status in _DOWNLOADABLE_STATUSES:
+                cache.put(citations[i], sub[j])
+    return [r for r in results if r is not None]
 
 
 # ---------------------------------------------------------------------------
@@ -521,6 +627,7 @@ async def wave1_verify_and_download(
     workdir: Path,
     citations: list[str],
     progress_callback: Any = None,
+    cache: VerificationCache | None = None,
 ) -> Wave1Result:
     """Wave 1: quick batch lookup + download opinions for hits.
 
@@ -530,8 +637,9 @@ async def wave1_verify_and_download(
     workdir = Path(workdir)
     verifier = CitationVerifier()
 
-    results = await verifier.verify_batch(
-        citations, quick_only=True, progress_callback=progress_callback,
+    results = await _verify_batch_cached(
+        verifier, citations, cache, quick_only=True,
+        progress_callback=progress_callback,
     )
 
     # Identify misses for wave2
@@ -545,6 +653,7 @@ async def wave1_verify_and_download(
     # _download_opinion)
     download_stats = {"downloaded": 0, "failed": 0, "skipped": 0}
     ocr_manifest: dict[str, object] = {}
+    manifest: dict[str, dict] = {}
 
     async with AsyncCourtListenerClient() as client:
         for i, (cite, result) in enumerate(zip(citations, results)):
@@ -553,7 +662,7 @@ async def wave1_verify_and_download(
                 continue
 
             filename = await _download_opinion(
-                client, workdir, result, cite, ocr_manifest,
+                client, workdir, result, cite, ocr_manifest, manifest,
             )
             if filename:
                 download_stats["downloaded"] += 1
@@ -561,6 +670,7 @@ async def wave1_verify_and_download(
                 download_stats["failed"] += 1
 
     _write_ocr_manifest(workdir, ocr_manifest)
+    _write_opinion_manifest(workdir, manifest)
 
     # Write verification_results.csv after downloads so any URL swaps persist
     _write_verification_csv(workdir, citations, results)
@@ -581,6 +691,7 @@ async def wave2_fallback_and_download(
     citations: list[str],
     miss_indices: list[int],
     progress_callback: Any = None,
+    cache: VerificationCache | None = None,
 ) -> Wave2Result:
     """Wave 2: full pipeline verification for citations missed in wave1.
 
@@ -595,8 +706,9 @@ async def wave2_fallback_and_download(
     miss_citations = [citations[i] for i in miss_indices]
     verifier = CitationVerifier()
 
-    results = await verifier.verify_batch(
-        miss_citations, progress_callback=progress_callback,
+    results = await _verify_batch_cached(
+        verifier, miss_citations, cache, quick_only=False,
+        progress_callback=progress_callback,
     )
 
     # Download opinions for newly resolved citations (may mutate
@@ -604,6 +716,7 @@ async def wave2_fallback_and_download(
     # cluster)
     download_stats = {"downloaded": 0, "failed": 0, "skipped": 0}
     ocr_manifest: dict[str, object] = {}
+    manifest: dict[str, dict] = {}
 
     async with AsyncCourtListenerClient() as client:
         for cite, result in zip(miss_citations, results):
@@ -612,7 +725,7 @@ async def wave2_fallback_and_download(
                 continue
 
             filename = await _download_opinion(
-                client, workdir, result, cite, ocr_manifest,
+                client, workdir, result, cite, ocr_manifest, manifest,
             )
             if filename:
                 download_stats["downloaded"] += 1
@@ -620,6 +733,7 @@ async def wave2_fallback_and_download(
                 download_stats["failed"] += 1
 
     _write_ocr_manifest(workdir, ocr_manifest)
+    _write_opinion_manifest(workdir, manifest)
 
     # Append to verification_results.csv after downloads so URL swaps persist
     _write_verification_csv(workdir, miss_citations, results, append=True)
@@ -927,20 +1041,27 @@ def _write_extract_outputs(workdir: Path,
 
 async def run_verify(workdir: Path, citations: list[str] | None = None,
                      force: bool = False, progress_callback: Any = None,
+                     cache_dir: str | Path | None = None,
                      ) -> PipelineResult | None:
     """Verb 1 (design §3): wave1 + wave2 + opinion downloads. Idempotent --
     no-ops when verification_results.csv already exists (rerun with
-    force=True to redo). Returns None on the no-op path."""
+    force=True to redo). Returns None on the no-op path.
+
+    ``cache_dir`` (or the CITATION_VERIFIER_CACHE_DIR env var) enables a
+    persistent CL lookup cache rooted there; left unset, no pipeline cache
+    is used (default behavior unchanged)."""
     workdir = Path(workdir)
     if (workdir / "verification_results.csv").exists() and not force:
         return None
     if citations is None:
         citations = citations_from_workdir(workdir)
+    resolved = resolve_cache_dir(str(cache_dir) if cache_dir else None)
+    cache = open_citation_cache(resolved) if resolved is not None else None
     w1 = await wave1_verify_and_download(workdir, citations,
-                                         progress_callback)
+                                         progress_callback, cache=cache)
     w2 = await wave2_fallback_and_download(workdir, citations,
                                            w1.miss_indices,
-                                           progress_callback)
+                                           progress_callback, cache=cache)
     _update_run_json(workdir, "verify", citations=len(citations),
                      wave1_misses=len(w1.miss_indices))
     return PipelineResult(wave1=w1, wave2=w2,
@@ -1227,6 +1348,11 @@ def run_report(workdir: Path) -> ReportStats:
                 stats.check_cite += 1
             else:
                 stats.findings += 1
+    # findings.json: the report's per-claim data model for downstream tools
+    # (memo-import). Emitted alongside report.html; report.html unchanged.
+    (workdir / "findings.json").write_text(
+        json_mod.dumps({"claims": _build_findings_model(workdir)}, indent=2),
+        encoding="utf-8")
     _update_run_json(workdir, "report", findings=stats.findings,
                      check_cite=stats.check_cite,
                      verified=stats.verified, unable=stats.unable)
@@ -1949,6 +2075,72 @@ def metadata_check(workdir: Path) -> MetadataCheckResult:
 # Report generation
 # ---------------------------------------------------------------------------
 
+# Lane -> severity token, shared by generate_report (finding cards) and the
+# findings.json data model so the two never drift. Red/Yellow/CheckCite are
+# the finding severities the HTML template already used; Green/Gray extend
+# the same vocabulary to every claim.
+_LANE_SEVERITY = {
+    "Red": "red", "Yellow": "yellow", "CheckCite": "orange",
+    "Green": "green", "Gray": "gray",
+}
+
+
+def _lane_severity(lane: str) -> str:
+    return _LANE_SEVERITY.get(lane, "")
+
+
+def _claim_badge(claim: dict, lane: str) -> str:
+    """Effective badge label for a claim under its report lane. Mirrors the
+    generate_report card logic exactly so findings.json matches the HTML.
+
+      * Green  -> "Supported"
+      * Gray   -> "" (gray cards render an explanation, not a badge)
+      * CheckCite -> the forced Check Cite label (lane wins over any agent
+        badge)
+      * Red/Yellow -> agent badge, else status fallback, else severity default
+    """
+    from .scoring import CHECK_CITE, GRAY, GREEN
+
+    if lane == GREEN:
+        return "Supported"
+    if lane == GRAY:
+        return ""
+    if lane == CHECK_CITE:
+        return _STATUS_BADGE_FALLBACK["CITE_UNCONFIRMED"]
+    severity = _lane_severity(lane)
+    return (
+        claim.get("badge_label", "").strip()
+        or _STATUS_BADGE_FALLBACK.get(claim.get("cl_status", ""))
+        or ("Not supported by cited case" if severity == "red"
+            else "Overstated -- case partially supports")
+    )
+
+
+def _build_findings_model(workdir: Path) -> list[dict]:
+    """The report's per-claim data model as plain dicts (one per claims.csv
+    row, in order) for findings.json. Stable machine keys; lane/severity are
+    enum-ish tokens. Downstream tools read this instead of scraping the HTML."""
+    from .scoring import report_lane
+
+    workdir = Path(workdir)
+    with open(workdir / "claims.csv", newline="", encoding="utf-8") as f:
+        claims = list(csv.DictReader(f))
+    out: list[dict] = []
+    for c in claims:
+        lane = report_lane(c.get("cl_status", ""),
+                           c.get("assessment", "").strip(),
+                           c.get("opinion_file", ""))
+        out.append({
+            "claim_id": c.get("claim_id", ""),
+            "lane": lane,
+            "severity": _lane_severity(lane),
+            "badge_label": _claim_badge(c, lane),
+            "brief_block": c.get("brief_block", "").strip(),
+            "opinion_block": c.get("opinion_block", "").strip(),
+            "cl_url": c.get("cl_url", ""),
+        })
+    return out
+
 
 def generate_report(
     workdir: Path,
@@ -1965,7 +2157,7 @@ def generate_report(
 
     Returns the path to the generated report.
     """
-    from .scoring import CHECK_CITE, GRAY, GREEN, report_lane
+    from .scoring import GRAY, GREEN, report_lane
 
     workdir = Path(workdir)
     claims_path = workdir / "claims.csv"
@@ -2066,7 +2258,7 @@ def generate_report(
         else:
             # Red / Yellow / CheckCite finding card
             finding_counter += 1
-            severity = {"Red": "red", "Yellow": "yellow"}.get(lane, "orange")
+            severity = _lane_severity(lane)
 
             quoted_raw = claim.get("quoted_text", "").strip()
             quoted_strings: list[str] = []
@@ -2106,18 +2298,11 @@ def generate_report(
                 parts_legacy = [p for p in (legacy_overview, legacy_explanation) if p]
                 finding_analysis = "\n\n".join(parts_legacy)
 
-            if lane == CHECK_CITE:
-                # The lane label wins: an agent badge ("Not supported by
-                # cited case" etc.) would mislabel a Check Cite card. The
-                # agent's blocks/analysis still render below.
-                badge_label = _STATUS_BADGE_FALLBACK["CITE_UNCONFIRMED"]
-            else:
-                badge_label = (
-                    claim.get("badge_label", "").strip()
-                    or _STATUS_BADGE_FALLBACK.get(cl_status)
-                    or ("Not supported by cited case" if severity == "red"
-                        else "Overstated -- case partially supports")
-                )
+            # Badge for the finding card. Shared with findings.json via
+            # _claim_badge so the two never drift. For a Check Cite card the
+            # lane label wins over any agent badge; the agent's
+            # blocks/analysis still render below.
+            badge_label = _claim_badge(claim, lane)
 
             # Agent-authored quote blocks (optional). When present they
             # replace the deterministic fallbacks in the template.

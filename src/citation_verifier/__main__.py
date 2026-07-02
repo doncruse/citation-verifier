@@ -184,10 +184,23 @@ def main(argv: list[str] | None = None) -> int:
         action="store_true",
         help="Clear the results cache and exit",
     )
+    parser.add_argument(
+        "--cache-dir",
+        help="Directory holding .citation_cache.json (overrides the "
+             "CITATION_VERIFIER_CACHE_DIR env var). Default: current dir.",
+    )
     args = parser.parse_args(argv)
 
+    # --cache-dir (or CITATION_VERIFIER_CACHE_DIR) relocates the CL cache;
+    # unset -> the historical CWD-relative default (behavior unchanged).
+    from .cache import citation_cache_path, resolve_cache_dir
+    cache_dir = resolve_cache_dir(args.cache_dir)
+    if cache_dir is not None:
+        cache_dir.mkdir(parents=True, exist_ok=True)
+    cache_path = citation_cache_path(cache_dir)
+
     if args.clear_cache:
-        cache = VerificationCache()
+        cache = VerificationCache(cache_path)
         count = cache.clear()
         print(f"Cache cleared ({count} entries removed).")
         return 0
@@ -203,7 +216,7 @@ def main(argv: list[str] | None = None) -> int:
     if not citations:
         parser.error("No citations provided. Pass them as arguments or use --file.")
 
-    cache = None if args.no_cache else VerificationCache()
+    cache = None if args.no_cache else VerificationCache(cache_path)
     verifier = CitationVerifier()
 
     # Check cache for hits, collect misses for batch verification
@@ -581,6 +594,12 @@ def verify_propositions_main(argv: list[str] | None = None) -> int:
         help="With --executor api: submit one Message Batch (50%% off, "
              "async) instead of concurrent live calls",
     )
+    parser.add_argument(
+        "--cache-dir",
+        help="Relocate .citation_cache.json here and enable a persistent "
+             "CL lookup cache for the verify verb (overrides the "
+             "CITATION_VERIFIER_CACHE_DIR env var). Default: no cache.",
+    )
     args = parser.parse_args(argv)
 
     from pathlib import Path
@@ -657,7 +676,8 @@ def _dispatch_proposition_verbs(args, workdir, pp, _progress,
             ]
         result = asyncio.run(pp.run_verify(
             workdir, citations=citations, force=args.force,
-            progress_callback=_progress))
+            progress_callback=_progress,
+            cache_dir=getattr(args, "cache_dir", None)))
         if result is None:
             print("[OK] verify: already done (use --force to rerun)")
         else:
