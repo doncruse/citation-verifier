@@ -1,8 +1,9 @@
 """Proposition verification pipeline — idempotent verbs over a workdir.
 
-Evolved from brief_pipeline.py (pipeline-redesign design §2); brief_pipeline
-remains importable as a deprecated alias of this module for one minor
-version. Verbs land incrementally: verify/merge (§10 step 2) are here;
+Evolved from the old brief_pipeline.py (pipeline-redesign design §2). The
+deprecated `brief_pipeline` sys.modules alias was removed in 0.6.0 (one
+minor version after 0.5); import this module directly. Verbs land
+incrementally: verify/merge (§10 step 2) are here;
 check-quotes/crosscheck/triage/assess/apply-assessments/report follow.
 """
 

@@ -12,7 +12,7 @@ import json
 import pytest
 from pathlib import Path
 from unittest.mock import patch, AsyncMock, MagicMock
-from citation_verifier.brief_pipeline import merge_claims, MergeStats, _normalize_quote_text, check_quotes, QuoteCheckStats
+from citation_verifier.proposition_pipeline import merge_claims, MergeStats, _normalize_quote_text, check_quotes, QuoteCheckStats
 from citation_verifier.models import (
     FinalIds,
     ResolutionPathEntry,
@@ -161,10 +161,10 @@ def _make_result(status, url="", case_name="", syllabus="", nature_of_suit=""):
 # --- Task 4: wave1 ---
 
 class TestWave1:
-    @patch("citation_verifier.brief_pipeline.AsyncCourtListenerClient")
-    @patch("citation_verifier.brief_pipeline.CitationVerifier")
+    @patch("citation_verifier.proposition_pipeline.AsyncCourtListenerClient")
+    @patch("citation_verifier.proposition_pipeline.CitationVerifier")
     def test_wave1_downloads_verified_cases(self, mock_verifier_cls, mock_client_cls, tmp_path):
-        from citation_verifier.brief_pipeline import wave1_verify_and_download, Wave1Result
+        from citation_verifier.proposition_pipeline import wave1_verify_and_download, Wave1Result
 
         citations = ["Case A, 100 U.S. 1 (2000)", "Case B, 200 U.S. 2 (2001)"]
 
@@ -193,8 +193,8 @@ class TestWave1:
         assert (tmp_path / "opinions").exists()
         assert result.download_stats["downloaded"] == 2
 
-    @patch("citation_verifier.brief_pipeline.AsyncCourtListenerClient")
-    @patch("citation_verifier.brief_pipeline.CitationVerifier")
+    @patch("citation_verifier.proposition_pipeline.AsyncCourtListenerClient")
+    @patch("citation_verifier.proposition_pipeline.CitationVerifier")
     def test_wave1_swaps_short_order_for_substantive_sibling(
         self, mock_verifier_cls, mock_client_cls, tmp_path,
     ):
@@ -203,7 +203,7 @@ class TestWave1:
         carries the substantive merits opinion, and update matched_url in the
         result (so verification_results.csv reflects the swap).
         """
-        from citation_verifier.brief_pipeline import wave1_verify_and_download
+        from citation_verifier.proposition_pipeline import wave1_verify_and_download
 
         citations = ["In re Hertz Corp., 2024 LEXIS 1 (2024)"]
 
@@ -263,10 +263,10 @@ class TestWave1:
         assert "10265999" in vr_csv
         assert "10124964" not in vr_csv
 
-    @patch("citation_verifier.brief_pipeline.AsyncCourtListenerClient")
-    @patch("citation_verifier.brief_pipeline.CitationVerifier")
+    @patch("citation_verifier.proposition_pipeline.AsyncCourtListenerClient")
+    @patch("citation_verifier.proposition_pipeline.CitationVerifier")
     def test_wave1_identifies_misses(self, mock_verifier_cls, mock_client_cls, tmp_path):
-        from citation_verifier.brief_pipeline import wave1_verify_and_download, Wave1Result
+        from citation_verifier.proposition_pipeline import wave1_verify_and_download, Wave1Result
 
         citations = ["Found, 100 U.S. 1 (2000)", "Missing, 200 U.S. 2 (2001)"]
 
@@ -293,10 +293,10 @@ class TestWave1:
 # --- Task 5: wave2 ---
 
 class TestWave2:
-    @patch("citation_verifier.brief_pipeline.AsyncCourtListenerClient")
-    @patch("citation_verifier.brief_pipeline.CitationVerifier")
+    @patch("citation_verifier.proposition_pipeline.AsyncCourtListenerClient")
+    @patch("citation_verifier.proposition_pipeline.CitationVerifier")
     def test_wave2_runs_fallback_for_misses(self, mock_verifier_cls, mock_client_cls, tmp_path):
-        from citation_verifier.brief_pipeline import wave2_fallback_and_download, Wave2Result
+        from citation_verifier.proposition_pipeline import wave2_fallback_and_download, Wave2Result
 
         citations = ["Found, 100 U.S. 1 (2000)", "Miss1, 200 U.S. 2 (2001)", "Miss2, 300 U.S. 3 (2002)"]
         miss_indices = [1, 2]
@@ -336,11 +336,11 @@ class TestWave2:
 # --- Task 6: full_pipeline ---
 
 class TestFullPipeline:
-    @patch("citation_verifier.brief_pipeline.AsyncCourtListenerClient")
-    @patch("citation_verifier.brief_pipeline.CitationVerifier")
+    @patch("citation_verifier.proposition_pipeline.AsyncCourtListenerClient")
+    @patch("citation_verifier.proposition_pipeline.CitationVerifier")
     def test_full_pipeline_runs_wave1_wave2_merge(self, mock_verifier_cls, mock_client_cls, tmp_path):
         """full_pipeline runs wave1 + wave2 + merge in sequence."""
-        from citation_verifier.brief_pipeline import full_pipeline, PipelineResult
+        from citation_verifier.proposition_pipeline import full_pipeline, PipelineResult
 
         # Set up claims.csv
         (tmp_path / "claims.csv").write_text(
@@ -423,7 +423,7 @@ class TestWriteVerificationCsvSyllabus:
     citation_lookup entry's raw_response_summary)."""
 
     def test_syllabus_column_populated_when_present(self, tmp_path):
-        from citation_verifier.brief_pipeline import _write_verification_csv
+        from citation_verifier.proposition_pipeline import _write_verification_csv
 
         result = _make_result(
             Status.VERIFIED,
@@ -441,7 +441,7 @@ class TestWriteVerificationCsvSyllabus:
         assert rows[0]["syllabus"] == "RICO; anti-abortion protesters; Civil Rights"
 
     def test_syllabus_column_blank_when_absent(self, tmp_path):
-        from citation_verifier.brief_pipeline import _write_verification_csv
+        from citation_verifier.proposition_pipeline import _write_verification_csv
 
         result = _make_result(
             Status.VERIFIED,
@@ -457,7 +457,7 @@ class TestWriteVerificationCsvSyllabus:
         assert rows[0]["syllabus"] == ""
 
     def test_syllabus_column_blank_for_not_found(self, tmp_path):
-        from citation_verifier.brief_pipeline import _write_verification_csv
+        from citation_verifier.proposition_pipeline import _write_verification_csv
 
         # NOT_FOUND results have no citation_lookup resolved entry, so the
         # accessor returns None and the CSV column blanks.
@@ -592,7 +592,7 @@ class TestCheckQuotes:
 
 # --- metadata_check ---
 
-from citation_verifier.brief_pipeline import metadata_check, MetadataCheckResult, generate_report
+from citation_verifier.proposition_pipeline import metadata_check, MetadataCheckResult, generate_report
 
 
 class TestMetadataCheck:

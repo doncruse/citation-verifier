@@ -1,9 +1,10 @@
 """Tests for proposition_pipeline (pipeline redesign SS10 step 2).
 
-Covers what is NEW relative to brief_pipeline: the matched_case_name
-accessor (SS11 bug 1 source fix), slug-token opinion linkage, verify/merge
-verbs, and the brief_pipeline alias. Legacy behavior stays covered by
-test_brief_pipeline.py through the alias.
+Covers what is NEW relative to the old brief_pipeline: the
+matched_case_name accessor (SS11 bug 1 source fix), slug-token opinion
+linkage, verify/merge verbs, and (0.6.0) the removal of the deprecated
+brief_pipeline alias. Legacy behavior stays covered by
+test_brief_pipeline.py, which now imports proposition_pipeline directly.
 """
 import csv
 import json
@@ -85,16 +86,14 @@ class TestMatchedCaseNameAccessor:
         assert _result([]).matched_case_name == ""
 
 
-class TestBriefPipelineAlias:
-    def test_module_identity(self):
-        import citation_verifier.brief_pipeline as bp
-        import citation_verifier.proposition_pipeline as pp
-        assert bp is pp
-
-    def test_patch_through_alias_reaches_real_globals(self):
-        import citation_verifier.proposition_pipeline as pp
-        with patch("citation_verifier.brief_pipeline.CitationVerifier") as m:
-            assert pp.CitationVerifier is m
+class TestBriefPipelineAliasRemoved:
+    def test_alias_module_gone(self):
+        """0.6.0: the deprecated brief_pipeline sys.modules alias was
+        removed after one minor version (introduced 0.5). Importing it
+        now fails; callers use proposition_pipeline directly."""
+        import importlib
+        with pytest.raises(ModuleNotFoundError):
+            importlib.import_module("citation_verifier.brief_pipeline")
 
 
 class TestMatchedNameInCsv:

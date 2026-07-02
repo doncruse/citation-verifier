@@ -2,12 +2,21 @@
 
 All notable schema-level changes to citation-verifier. Per design v2 §2.6 / §5: additions to closed-set enums are minor-version changes, removals are major.
 
-## Unreleased (MessagesAPIExecutor + A/B harness gap tolerance)
+## v0.6.0 — 2026-07-02 (Direct-API transport + cost-audit cleanup)
 
 Plan: `docs/plans/2026-07-01-messages-api-executor-plan.md` (executing
 cost-audit F1, `docs/plans/2026-07-01-pipeline-cost-audit.md`). Additive;
 defaults unchanged (jobs mode in-session, sdk headless) until the API
 transport passes its live validation arm.
+
+### Removed (cost-audit F6 — deprecated `brief_pipeline` alias)
+
+- Removed the `citation_verifier.brief_pipeline` sys.modules alias (added
+  0.5 as a one-minor-version deprecation of the rename to
+  `proposition_pipeline`). Importing `citation_verifier.brief_pipeline`
+  now raises `ModuleNotFoundError`; all callers (`__main__`'s verify-brief
+  path, `test_brief_pipeline.py`, `measure_withers_assessment.py`) import
+  `proposition_pipeline` directly. Same globals, no behavior change.
 
 ### Removed (cost-audit F4 — Haiku prescreen path)
 
