@@ -9,6 +9,44 @@ cost-audit F1, `docs/plans/2026-07-01-pipeline-cost-audit.md`). Additive;
 defaults unchanged (jobs mode in-session, sdk headless) until the API
 transport passes its live validation arm.
 
+### Removed (cost-audit F4 — Haiku prescreen path)
+
+- Deleted the Haiku summary-hint **prescreen** path (`run_triage`'s
+  `prescreen`/`executor`/`prompt_version` params and hint branch,
+  `render_prescreen_prompt`, `_PRESCREEN_SCHEMA`, `PRESCREEN_MIN_CHARS`,
+  `PRESCREEN_PROMPT_VERSION`, `prompts/prescreen_v1.md`, the `--prescreen`
+  CLI flag, `TriageStats.prescreen_done`/`prescreen_pending`, and the
+  A/B runner's `include_hints` plumbing + hint configs). The 2026-06-13
+  per-phase A/B measured it harmful (no A/B gain, regressed Withers 16→14
+  yellows in the lenient direction). `run_triage(workdir)` now takes no
+  args beyond the workdir. The `prescreen_hint` CSV column is still
+  **tolerated** as a legacy field (merge carries it through;
+  `render_assess_v2_claim_block` consumes it if present) but nothing
+  populates it. See `docs/plans/2026-07-01-pipeline-cost-audit.md` F4.
+
+### Changed (cost-audit F3 — brief_block reliability)
+
+- `run_apply_assessments` now defaults a v2 verdict's `brief_block` from
+  the claim's `brief_sentence` when the agent omits/empties it (the
+  brief_block is the brief's own language, which claims.csv already holds
+  verbatim). No-op for existing cassettes (v2 agents emit it, and
+  `derive_color` never reads it, so no scored baseline moves); it makes a
+  future assess-v3 that drops the field from the `supported` schema safe.
+  The metered assess-v3 prompt bump itself is deferred (F3-metered) — see
+  `docs/plans/2026-07-01-pipeline-cost-audit.md` F3.
+
+### Changed (cost-audit F6 — A/B config cleanup)
+
+- Pruned `tests/ab_test_configs.json` to the four arms worth re-running:
+  `opus-v2`, `sonnet-v1`, `opus-v2-api`, `sonnet-v1-api`. Removed the
+  stale `opus-baseline` / `sonnet-baseline` / `sonnet-v2` arms, the dead
+  `include_brief_context` key, and pinned every `model` to an explicit ID
+  (`opus` → `claude-opus-4-8`, `sonnet` → `claude-sonnet-5`) so alias
+  drift can't silently change what an A/B measures. (The `brief_pipeline`
+  sys.modules alias removal in F6 is deferred to the 0.6 minor bump — see
+  the audit; removing it now at 0.5.0 would break the still-valued
+  `test_brief_pipeline.py` legacy suite.)
+
 ### New (`executor.py`)
 
 - **`MessagesAPIExecutor`** — direct Anthropic Messages API transport:

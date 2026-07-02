@@ -651,7 +651,6 @@ _LEADING_COMMENT_RE = re.compile(r"\A(?:\s*<!--.*?-->)*\s*", re.DOTALL)
 DEFAULT_PROMPT_VERSION = "assess-v1"
 ASSESS_V2_PROMPT_VERSION = "assess-v2"
 EXTRACT_PROMPT_VERSION = "extract-v1"
-PRESCREEN_PROMPT_VERSION = "prescreen-v1"
 
 
 def load_prompt_template(version: str) -> str:
@@ -734,14 +733,6 @@ def render_extract_prompt(version: str, document_path: str) -> str:
     render_assess_prompt."""
     return load_prompt_template(version).replace(
         "{document_path}", document_path)
-
-
-def render_prescreen_prompt(version: str, opinion_path: str,
-                            proposition: str) -> str:
-    """Render the Haiku prescreen prompt (design SS6.7)."""
-    body = load_prompt_template(version)
-    return body.replace("{opinion_path}", opinion_path).replace(
-        "{proposition}", proposition)
 
 
 # ---------------------------------------------------------------------------
@@ -1127,7 +1118,13 @@ def run_apply_assessments(workdir: Path,
                                  quote_axis)
             c["support"] = support
             c["badge_label"] = v.fields.get("badge_label", "")
-            c["brief_block"] = v.fields.get("brief_block", "")
+            # F3 (cost-audit): the brief_block is the brief's own language,
+            # which claims.csv already holds verbatim in brief_sentence.
+            # Default from it when the verdict omits/empties brief_block
+            # (a deterministic copy is more reliable than asking the agent
+            # to transcribe -- and lets a future assess-v3 drop the field).
+            c["brief_block"] = (v.fields.get("brief_block", "").strip()
+                                or c.get("brief_sentence", ""))
             c["opinion_block"] = v.fields.get("opinion_block", "")
             # v2 owns the analysis (richer than v1's rationale)
             c["finding_analysis"] = v.fields.get("finding_analysis", "")
@@ -1449,20 +1446,18 @@ def run_crosscheck(workdir: Path) -> CrosscheckStats:
 
 
 # ---------------------------------------------------------------------------
-# Verb 5: triage (design SS6.7) -- assessment depth + optional prescreen.
+# Verb 5: triage (design SS6.7) -- assessment depth per claim.
 # ---------------------------------------------------------------------------
-
-# SS6.7: opinions at/above this cleaned-text size get a Haiku
-# summary-hint prescreen (when enabled). Prior data: 76% exact hints,
-# ~15x cheaper. DEFAULT OFF — DECIDED 2026-06-13 by the per-phase A/B
-# re-run (opus-v2 vs opus-v2-hints over the 3 corpora): hints gave NO net
-# A/B gain (55/61 both) and REGRESSED Withers 16->14 yellows caught, both
-# losses in the lenient direction (withers-12, -44 flipped Yellow->Green)
-# -- the worst failure mode. The Haiku topline compresses away nuance the
-# full read needs. Wired but off; revisit only with a redesigned hint.
-PRESCREEN_MIN_CHARS = 20_000
-
-_PRESCREEN_SCHEMA = {"hint": "2-4 sentence summary-hint"}
+#
+# The Haiku summary-hint prescreen path was deleted 2026-07-02 (cost-audit
+# F4). It defaulted OFF because the 2026-06-13 per-phase A/B (opus-v2 vs
+# opus-v2-hints over the 3 corpora) measured it HARMFUL: no net A/B gain
+# (55/61 both) and a Withers 16->14 yellows regression, both losses in the
+# lenient direction -- the worst failure mode for a citation checker. The
+# `prescreen_hint` CSV column is still tolerated as a legacy field
+# (render_assess_v2_claim_block consumes it if present, merge carries it
+# through), but nothing populates it anymore. Revisiting hints means a new
+# prompt version anyway; see docs/plans/2026-07-01-pipeline-cost-audit.md F4.
 
 _CLEAN_VERIFIED_STATUSES = {
     "VERIFIED", "VERIFIED_PARTIAL", "VERIFIED_VIA_RECAP",
@@ -1534,29 +1529,17 @@ class TriageStats:
     full: int = 0
     fast: int = 0
     skipped: int = 0
-    prescreen_done: int = 0
-    prescreen_pending: int = 0
 
 
-def run_triage(workdir: Path, prescreen: bool = False,
-               executor: Any = None,
-               prompt_version: str = PRESCREEN_PROMPT_VERSION,
-               ) -> TriageStats:
+def run_triage(workdir: Path) -> TriageStats:
     """Verb 5 (design SS3 / SS6.7): assessment depth per claim.
 
     Writes triage_track ('full' | 'fast' | '' for the deterministic
-    lane) and, when prescreen=True, runs Haiku summary-hint jobs for
-    claims on long opinions (>= PRESCREEN_MIN_CHARS) through the
-    executor protocol (jobs/prescreen.json + jobs/
-    prescreen_results.jsonl, resume key = claim_id + prompt_version),
-    ingesting hints into prescreen_hint. Prescreen defaults OFF
-    (SS6.7 A/B re-run 2026-06-13: hints hurt -- no A/B gain, -2 Withers
-    yellows in the lenient direction; see PRESCREEN_MIN_CHARS comment).
-    Idempotent -- tracks recompute on rerun; hints are resume-keyed.
+    lane) via the deterministic rules in _triage_track_for. Idempotent --
+    tracks recompute on rerun. Any existing prescreen_hint column is
+    carried through unchanged (tolerated legacy field; the prescreen path
+    was deleted in cost-audit F4), but no new column is created.
     """
-    from .executor import AgentToolExecutor, Job, append_verdict_jsonl, \
-        load_verdicts_jsonl
-
     workdir = Path(workdir)
     with open(workdir / "claims.csv", newline="", encoding="utf-8") as f:
         claims = list(csv.DictReader(f))
@@ -1571,62 +1554,10 @@ def run_triage(workdir: Path, prescreen: bool = False,
             stats.fast += 1
         else:
             stats.skipped += 1
-        c.setdefault("prescreen_hint", "")
-
-    if prescreen:
-        results_path = workdir / "jobs" / "prescreen_results.jsonl"
-        hints: dict[str, str] = {}
-        if results_path.exists():
-            for v in load_verdicts_jsonl(results_path):
-                if v.prompt_version == prompt_version:
-                    hints[v.claim_id] = str(
-                        v.fields.get("hint", "")).strip()
-        opinion_cache: dict[str, str] = {}
-        todo: list[dict] = []
-        for c in claims:
-            if not c.get("triage_track"):
-                continue
-            if c["claim_id"] in hints:
-                c["prescreen_hint"] = hints[c["claim_id"]]
-                stats.prescreen_done += 1
-                continue
-            opinion_file = c.get("opinion_file", "") or ""
-            if opinion_file not in opinion_cache:
-                opinion_cache[opinion_file] = _read_clean_opinion(
-                    workdir, opinion_file)
-            if len(opinion_cache[opinion_file]) >= PRESCREEN_MIN_CHARS:
-                todo.append(c)
-        if todo:
-            jobs = [Job(
-                job_id=f"prescreen-{c['claim_id']}",
-                claim_ids=[c["claim_id"]],
-                prompt=render_prescreen_prompt(
-                    prompt_version,
-                    str(workdir / c["opinion_file"]),
-                    c.get("cited_for") or c["proposition"]),
-                prompt_version=prompt_version,
-                files=[c["opinion_file"]],
-                schema=_PRESCREEN_SCHEMA,
-            ) for c in todo]
-            if executor is None:
-                executor = AgentToolExecutor(
-                    workdir / "jobs" / "prescreen.json")
-            done_now: dict[str, str] = {}
-            for v in executor.run(jobs):
-                append_verdict_jsonl(results_path, v)
-                done_now[v.claim_id] = str(
-                    v.fields.get("hint", "")).strip()
-            for c in todo:
-                if c["claim_id"] in done_now:
-                    c["prescreen_hint"] = done_now[c["claim_id"]]
-                    stats.prescreen_done += 1
-                else:
-                    stats.prescreen_pending += 1
 
     fields = list(claims[0].keys()) if claims else []
-    for col in ("triage_track", "prescreen_hint"):
-        if col not in fields:
-            fields.append(col)
+    if "triage_track" not in fields:
+        fields.append("triage_track")
     for c in claims:
         for col in fields:
             c.setdefault(col, "")
@@ -1637,9 +1568,7 @@ def run_triage(workdir: Path, prescreen: bool = False,
         w.writerows(claims)
 
     _update_run_json(workdir, "triage", full=stats.full, fast=stats.fast,
-                     skipped=stats.skipped,
-                     prescreen_done=stats.prescreen_done,
-                     prescreen_pending=stats.prescreen_pending)
+                     skipped=stats.skipped)
     return stats
 
 

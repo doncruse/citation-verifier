@@ -901,16 +901,14 @@ class TestCli:
         assert "[OK] crosscheck" in out
         assert "1 court" in out
 
-    def test_triage_verb_dispatch_with_prescreen_flag(
+    def test_triage_verb_dispatch(
             self, tmp_path, monkeypatch, capsys):
         from citation_verifier.__main__ import verify_propositions_main
         from citation_verifier.proposition_pipeline import TriageStats
         captured = {}
 
-        def fake_triage(wd, prescreen=False, executor=None,
-                        prompt_version="prescreen-v1"):
-            captured["prescreen"] = prescreen
-            captured["executor"] = executor
+        def fake_triage(wd):
+            captured["called"] = True
             return TriageStats(full=2, fast=1, skipped=1)
 
         monkeypatch.setattr(
@@ -920,10 +918,17 @@ class TestCli:
         wd.mkdir()
         rc = verify_propositions_main([str(wd), "triage"])
         assert rc == 0
-        assert captured["prescreen"] is False
+        assert captured["called"] is True
         assert "[OK] triage" in capsys.readouterr().out
-        verify_propositions_main([str(wd), "triage", "--prescreen"])
-        assert captured["prescreen"] is True
+
+    def test_prescreen_flag_removed(self, tmp_path):
+        """F4: the prescreen path is deleted; --prescreen is no longer a
+        valid flag (argparse exits 2)."""
+        from citation_verifier.__main__ import verify_propositions_main
+        wd = tmp_path / "wd"
+        wd.mkdir()
+        with pytest.raises(SystemExit):
+            verify_propositions_main([str(wd), "triage", "--prescreen"])
 
     def test_full_chain_runs_new_verbs_in_order(
             self, tmp_path, monkeypatch):
@@ -943,8 +948,7 @@ class TestCli:
                             pp.CrosscheckStats())
         monkeypatch.setattr(
             pp, "run_triage",
-            lambda wd, prescreen=False, executor=None,
-            prompt_version="prescreen-v1": order.append("triage") or
+            lambda wd: order.append("triage") or
             pp.TriageStats())
         monkeypatch.setattr(
             pp, "run_assess",
@@ -991,8 +995,7 @@ class TestCli:
                             pp.CrosscheckStats())
         monkeypatch.setattr(
             pp, "run_triage",
-            lambda wd, prescreen=False, executor=None,
-            prompt_version="prescreen-v1": order.append("triage") or
+            lambda wd: order.append("triage") or
             pp.TriageStats())
         monkeypatch.setattr(
             pp, "run_assess",
@@ -1452,63 +1455,42 @@ class TestRunTriage:
         assert rows["t-06"]["triage_track"] == ""
         assert (stats.full, stats.fast, stats.skipped) == (4, 1, 1)
 
-    def test_prescreen_off_by_default_no_jobs(self, tmp_path):
+    def test_triage_preserves_legacy_prescreen_hint_column(self, tmp_path):
+        """F4: the prescreen path is deleted, but a legacy claims.csv that
+        already carries a prescreen_hint column round-trips it unchanged
+        (tolerated legacy column)."""
         import citation_verifier.proposition_pipeline as pp
         wd = self._wd(tmp_path)
-        big = "word " * 6000  # >= 20K chars
-        (wd / "opinions" / "big.txt").write_text(big, encoding="utf-8")
-        _triage_claims(wd, [
-            {"claim_id": "t-01", "cl_status": "VERIFIED",
-             "opinion_file": "opinions/big.txt", "quoted_text": "[]",
-             "quote_check_worst": "NO_QUOTES"},
-        ])
-        stats = pp.run_triage(wd)
-        assert stats.prescreen_pending == 0
-        assert not (wd / "jobs" / "prescreen.json").exists()
-
-    def test_prescreen_jobs_mode_emits_and_ingests(self, tmp_path):
-        import citation_verifier.proposition_pipeline as pp
-        from citation_verifier.executor import (
-            Verdict, append_verdict_jsonl)
-        wd = self._wd(tmp_path)
-        big = "word " * 6000
-        (wd / "opinions" / "big.txt").write_text(big, encoding="utf-8")
-        _triage_claims(wd, [
-            {"claim_id": "t-01", "cl_status": "VERIFIED",
-             "opinion_file": "opinions/big.txt", "quoted_text": "[]",
-             "quote_check_worst": "NO_QUOTES"},
-            {"claim_id": "t-02", "cl_status": "VERIFIED",
-             "opinion_file": "opinions/a.txt", "quoted_text": "[]",
-             "quote_check_worst": "NO_QUOTES"},  # small -> no prescreen
-        ])
-        stats = pp.run_triage(wd, prescreen=True)
-        assert stats.prescreen_pending == 1
-        jobs = json.loads((wd / "jobs" / "prescreen.json")
-                          .read_text(encoding="utf-8"))
-        assert len(jobs) == 1
-        assert jobs[0]["claim_ids"] == ["t-01"]
-        assert jobs[0]["prompt_version"] == "prescreen-v1"
-        # agent appends a hint verdict; rerun ingests it
-        append_verdict_jsonl(
-            wd / "jobs" / "prescreen_results.jsonl",
-            Verdict(claim_id="t-01",
-                    fields={"hint": "Case is about X, not Y."},
-                    model="haiku", prompt_version="prescreen-v1"))
-        stats2 = pp.run_triage(wd, prescreen=True)
-        assert stats2.prescreen_pending == 0
-        assert stats2.prescreen_done == 1
+        fields = ["claim_id", "proposition", "cited_case", "quoted_text",
+                  "cl_status", "opinion_file", "quote_check_worst",
+                  "prescreen_hint"]
+        with open(wd / "claims.csv", "w", newline="",
+                  encoding="utf-8") as f:
+            w = csv.DictWriter(f, fieldnames=fields)
+            w.writeheader()
+            w.writerow({"claim_id": "t-01", "proposition": "p",
+                        "cited_case": "c", "quoted_text": "[]",
+                        "cl_status": "VERIFIED",
+                        "opinion_file": "opinions/a.txt",
+                        "quote_check_worst": "NO_QUOTES",
+                        "prescreen_hint": "legacy hint text"})
+        pp.run_triage(wd)
         rows = {r["claim_id"]: r for r in csv.DictReader(
             (wd / "claims.csv").open(encoding="utf-8"))}
-        assert rows["t-01"]["prescreen_hint"] == "Case is about X, not Y."
-        assert rows["t-02"]["prescreen_hint"] == ""
+        assert rows["t-01"]["prescreen_hint"] == "legacy hint text"
+        assert rows["t-01"]["triage_track"] == "fast"
 
-    def test_prescreen_template_renders(self):
+    def test_triage_no_prescreen_kwarg(self, tmp_path):
+        """F4: run_triage no longer accepts a prescreen keyword."""
         import citation_verifier.proposition_pipeline as pp
-        prompt = pp.render_prescreen_prompt(
-            "prescreen-v1", "opinions/big.txt", "The proposition.")
-        assert "opinions/big.txt" in prompt
-        assert "The proposition." in prompt
-        assert "do NOT assess" in prompt
+        wd = self._wd(tmp_path)
+        _triage_claims(wd, [
+            {"claim_id": "t-01", "cl_status": "VERIFIED",
+             "opinion_file": "opinions/a.txt", "quoted_text": "[]",
+             "quote_check_worst": "NO_QUOTES"},
+        ])
+        with pytest.raises(TypeError):
+            pp.run_triage(wd, prescreen=True)
 
     def test_triage_on_withers_corpus_copy(self, tmp_path):
         """Corpus tolerance + sanity: every assessable claim gets a
@@ -1937,6 +1919,52 @@ class TestApplyAssessmentsV2:
         assert row["opinion_block"] == "ob"
         assert row["finding_analysis"] == "fa"
         assert row["assessed_by"] == "opus/assess-v2"
+
+    def test_brief_block_defaults_from_brief_sentence_when_empty(
+            self, tmp_path):
+        """F3: an empty verdict brief_block defaults to the claim's
+        brief_sentence (deterministic copy is more reliable than asking
+        the agent to transcribe the brief's own language)."""
+        import citation_verifier.proposition_pipeline as pp
+        from citation_verifier.executor import Verdict, append_verdict_jsonl
+        wd = _report_workdir(tmp_path, [_report_row(
+            "r-01", cl_status="VERIFIED", opinion_file="opinions/a.html",
+            quote_check_worst="NO_QUOTES",
+            brief_sentence="See Nix, 475 U.S. at 160 (the standard).")])
+        (wd / "jobs").mkdir()
+        append_verdict_jsonl(
+            wd / "jobs" / "assess_results.jsonl",
+            Verdict(claim_id="r-01",
+                    fields={"support": "supported", "badge_label": "",
+                            "brief_block": "", "opinion_block": "",
+                            "finding_analysis": "fa"},
+                    model="opus", prompt_version="assess-v2"))
+        pp.run_apply_assessments(wd, prompt_version="assess-v2")
+        (row,) = list(csv.DictReader(
+            (wd / "claims.csv").open(encoding="utf-8")))
+        assert row["brief_block"] == "See Nix, 475 U.S. at 160 (the standard)."
+
+    def test_nonempty_brief_block_not_overridden(self, tmp_path):
+        """F3: a non-empty verdict brief_block is kept verbatim -- the
+        brief_sentence default only fills an empty one."""
+        import citation_verifier.proposition_pipeline as pp
+        from citation_verifier.executor import Verdict, append_verdict_jsonl
+        wd = _report_workdir(tmp_path, [_report_row(
+            "r-01", cl_status="VERIFIED", opinion_file="opinions/a.html",
+            quote_check_worst="NO_QUOTES",
+            brief_sentence="fallback sentence")])
+        (wd / "jobs").mkdir()
+        append_verdict_jsonl(
+            wd / "jobs" / "assess_results.jsonl",
+            Verdict(claim_id="r-01",
+                    fields={"support": "unsupported", "badge_label": "",
+                            "brief_block": "agent-authored block",
+                            "opinion_block": "", "finding_analysis": "fa"},
+                    model="opus", prompt_version="assess-v2"))
+        pp.run_apply_assessments(wd, prompt_version="assess-v2")
+        (row,) = list(csv.DictReader(
+            (wd / "claims.csv").open(encoding="utf-8")))
+        assert row["brief_block"] == "agent-authored block"
 
     def test_quote_floor_still_guards(self, tmp_path):
         import citation_verifier.proposition_pipeline as pp

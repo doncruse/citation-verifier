@@ -9,19 +9,18 @@ prompt copy (the old tests/ab_test_runner.py copy WAS the assess-v1
 source text; it is now byte-pinned in
 src/citation_verifier/prompts/assess_v1.md).
 
-Config keys: model (default opus), executor ("sdk" only -- live runs
-need `claude login` credentials), prompt_version (default assess-v1).
-include_hints configs are rejected: assess-v1 cannot consume
-prescreen_hint (assess-v2 work).
+Config keys: model (default opus), executor ("sdk" | "api" | --replay),
+prompt_version (default assess-v1). (The Haiku prescreen-hint arm was
+deleted in cost-audit F4 -- measured harmful, no A/B gain.)
 
 Usage:
     venv/Scripts/python.exe tools/ab_test_runner.py --replay
         # offline: score the frozen cassettes (the recorded baseline)
-    venv/Scripts/python.exe tools/ab_test_runner.py --config opus-baseline
+    venv/Scripts/python.exe tools/ab_test_runner.py --config opus-v2
         # live: copy corpora, run assess via the Agent SDK, score
     venv/Scripts/python.exe tools/ab_test_runner.py --config A B
     venv/Scripts/python.exe tools/ab_test_runner.py --compare X.jsonl Y.jsonl
-    venv/Scripts/python.exe tools/ab_test_runner.py --config opus-baseline --dry-run
+    venv/Scripts/python.exe tools/ab_test_runner.py --config opus-v2 --dry-run
 
 tests/ab_test_cases.json stays the human-review ledger; ground_truth.csv
 is generated from it by tests/build_assessment_corpora.py.
@@ -52,7 +51,7 @@ def make_executor(config, workdir, phase="assess"):
     direct Messages API transport (cost-audit F1; config
     `"executor": "api"`, optional `"batch": true`).
 
-    phase is "prescreen" | "assess" -- the default factory ignores it
+    phase (currently always "assess") -- the default factory ignores it
     (the model is already overridden in the config it receives); test
     seams use it to route to per-phase recorded cassettes."""
     transport = config.get("executor", "sdk")
@@ -83,10 +82,6 @@ def run_ab_config(config_name, config, corpora=DEFAULT_CORPORA,
     from citation_verifier.scoring import format_report, score_workdir
 
     prompt_version = config.get("prompt_version", "assess-v1")
-    if config.get("include_hints") and prompt_version == "assess-v1":
-        raise ValueError(
-            "include_hints needs a hint-capable prompt: set "
-            "prompt_version to assess-v2 (v1 is byte-pinned, no hint)")
     scores = {}
     for name in corpora:
         src = CORPORA / name
@@ -103,20 +98,6 @@ def run_ab_config(config_name, config, corpora=DEFAULT_CORPORA,
                 cassette.unlink()  # fresh verdicts for this config
             executor = (executor_factory or make_executor)(
                 config, wd, "assess")
-            if config.get("include_hints"):
-                # SS6.7 A/B arm: Haiku prescreen hints recorded into the
-                # copy's claims.csv before assess renders the prompts.
-                from citation_verifier.proposition_pipeline import run_triage
-                pre_config = dict(config)
-                pre_config["model"] = config.get("prescreen_model",
-                                                 "haiku")
-                pre_ex = (executor_factory or make_executor)(
-                    pre_config, wd, "prescreen")
-                tstats = run_triage(wd, prescreen=True, executor=pre_ex)
-                if tstats.prescreen_pending:
-                    print(f"  WARNING {name}: "
-                          f"{tstats.prescreen_pending} prescreen hints "
-                          f"pending -- assess runs without them")
             stats = run_assess(wd, executor=executor,
                                prompt_version=prompt_version)
             failures = getattr(executor, "failures", [])
