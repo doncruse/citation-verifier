@@ -31,6 +31,14 @@ from .report_template import generate_report_html
 from .verifier import CitationVerifier
 
 
+# Version of the claims.csv column contract documented in
+# docs/claims-csv-schema.md. Stamped into every workdir's run.json by
+# _update_run_json so external consumers (the us-legal-research memo-import
+# skill) can detect a breaking change. Bump when a column is renamed,
+# removed, or its meaning/allowed values change.
+CLAIMS_SCHEMA_VERSION = 1
+
+
 # ---------------------------------------------------------------------------
 # Data structures
 # ---------------------------------------------------------------------------
@@ -750,6 +758,10 @@ def _update_run_json(workdir: Path, verb: str, **info: Any) -> None:
             data = json_mod.loads(path.read_text(encoding="utf-8"))
         except json_mod.JSONDecodeError:
             data = {}
+    # claims.csv column schema version (docs/claims-csv-schema.md). Pinned
+    # so external consumers -- the us-legal-research memo-import skill --
+    # can detect a breaking change; bump it when a column's meaning changes.
+    data["schema_version"] = CLAIMS_SCHEMA_VERSION
     if not data.get("git_hash"):
         try:
             data["git_hash"] = subprocess.run(

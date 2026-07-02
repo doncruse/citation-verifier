@@ -226,6 +226,8 @@ python -m citation_verifier verify-propositions matters/my-brief assess --replay
 
 Output lands in the workdir: `claims.csv` (the master state file) and `report.html` (the deliverable). Prompt templates are versioned files in `src/citation_verifier/prompts/` — editing one is a new prompt version and requires re-recording the assessment corpora cassettes.
 
+`claims.csv` is a stable external interface (consumed downstream, e.g. by the `us-legal-research` memo-import skill). Every column — its producing verb, type, and allowed values — is documented in [`docs/claims-csv-schema.md`](docs/claims-csv-schema.md). The contract is versioned by `proposition_pipeline.CLAIMS_SCHEMA_VERSION`, stamped into each workdir's `run.json` as `schema_version`.
+
 > A frozen `/verify-brief` skill and `brief_pipeline.py` alias remain for older `briefs/` runs; use `/proposition-verifier` for new work.
 
 ## Testing
