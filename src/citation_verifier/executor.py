@@ -20,6 +20,8 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Iterable, Iterator, Protocol
 
+from json_repair import repair_json
+
 
 @dataclass
 class Job:
@@ -230,10 +232,13 @@ def _parse_json_object(text: str) -> dict[str, Any] | None:
     """Extract the verdict JSON object from a model's result text.
 
     Tries, in order: the whole (stripped) text as JSON; the first fenced
-    ```json block; the span between the first '{' and the last '}' (the
-    original PoC rule, kept as the fallback -- it over-captures when
-    prose with braces follows the JSON, TODO review #6). None when
-    nothing parses to a dict."""
+    ```json block; the span between the first '{' and the last '}'; and
+    finally json_repair, which recovers the almost-valid JSON models
+    intermittently emit -- unescaped inner double-quotes in a string
+    value, or a missing closing brace (both observed from claude-sonnet-5
+    on 2026-07-01; see tests/test_parse_json_object.py). The strict
+    json.loads candidates run first so well-formed output is untouched;
+    json_repair is the last resort. None when nothing yields a dict."""
     candidates = [text.strip()]
     m = _FENCED_JSON_RE.search(text)
     if m:
@@ -249,6 +254,14 @@ def _parse_json_object(text: str) -> dict[str, Any] | None:
             continue
         if isinstance(parsed, dict):
             return parsed
+    # Last resort: repair malformed-but-nearly-valid JSON. json_repair
+    # returns "" for non-JSON prose, so a dict result means real recovery.
+    try:
+        repaired = repair_json(text, return_objects=True)
+    except Exception:
+        return None
+    if isinstance(repaired, dict) and repaired:
+        return repaired
     return None
 
 

@@ -20,6 +20,7 @@ dependencies = [
     "openai>=1.40",
     "anthropic>=0.40",
     "courts-db>=0.10",
+    "json-repair>=0.30",
 ]
 
 [project.optional-dependencies]

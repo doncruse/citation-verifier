@@ -203,11 +203,30 @@ From the independent review; full disposition in
   Fix when next touching the live verify path (write the CSV once after
   both waves, or add a completion sentinel). Touches live-API code the
   offline suite can't exercise — don't fix blind.
-- **_parse_json_object over-capture (review #6, note).** first-{/last-}
-  slicing fails if the model appends prose with braces after the JSON →
-  claim drops to recorded-failure/pending (fails SAFE, no wrong data).
-  Tighten (last balanced object, or fenced-block-first) when building
-  MessagesAPIExecutor.
+- ~~**_parse_json_object over-capture (review #6, note).**~~ **FIXED
+  2026-07-01 — and the "over-capture" label was wrong.** Investigation
+  (systematic-debugging + 3 real claude-sonnet-5 failures captured to
+  `scratch/parse_failure_raw.txt`) found the actual failure class is the
+  model intermittently emitting *almost*-valid JSON: (1) unescaped inner
+  double-quotes in a string value, (2) a missing closing brace. Trailing-
+  prose over-capture was already handled. All three pre-repair candidates
+  share the same malformed text, so none recovered → claim dropped to
+  pending (fails SAFE). Fix: added `json_repair` as the last-resort
+  candidate in `_parse_json_object` (strict `json.loads` candidates run
+  first, so well-formed output is untouched). Tests:
+  `tests/test_parse_json_object.py` (RED-verified against the 3 real
+  captures). Dep: `json-repair>=0.30` in pyproject.
+
+### Structured outputs for the verdict JSON — the source fix (roadmap)
+The deeper fix for the almost-valid-JSON class above: have the
+MessagesAPIExecutor use tool-use / structured outputs so the API
+*guarantees* schema-valid JSON, making `_parse_json_object` (and its
+json_repair fallback) moot. Deferred because it changes the output
+modality → requires re-recording the byte-pinned assess cassettes and a
+re-validation run (like the 2026-07-01 F1 arm). The json_repair fallback
+holds the line until then. (Design intent per the messages-api plan
+decision 5, which chose text-parsing "as a fallback so current tests
+hold.")
 
 ## Priority 2 — Improvements (better results)
 
