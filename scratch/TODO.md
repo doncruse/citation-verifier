@@ -173,14 +173,44 @@ transport. Get the efficient metered path in place BEFORE the deadline.
    template is ~1.4K tokens — below Opus 4.8's 4,096-token minimum
    cacheable prefix, so the marker would silently no-op; per-opinion
    packing already captures the shareable-context win.
-4. **Prereq (still open):** `ANTHROPIC_API_KEY` in `.env` (only
-   COURTLISTENER_API_TOKEN is there today). Needed before the
-   opus-v2-api validation arm.
+4. ✅ **Prereq DONE:** `ANTHROPIC_API_KEY` is in `.env` (confirmed
+   2026-07-02); the opus-v2-api validation arm ran green (item 1).
 Cost context (measured 2026-06-13): one Opus v2 kettering run ≈ $13 via
 SDK-notional/API rates, ~$6.50 with Batches; Sonnet several-fold cheaper
 (sonnet-v2 A/B running now will give the exact figure + accuracy delta).
 This is the call the model-default decision feeds into: pick {model ×
 batch × cache} for the cheapest path that holds accuracy.
+
+## Cost-audit follow-ups (F1–F7) — status 2026-07-02
+
+Audit: `docs/plans/2026-07-01-pipeline-cost-audit.md`.
+
+- ✅ **F1** (MessagesAPIExecutor / direct-API transport) — built + live-validated (see Priority-0 above).
+- ✅ **F4** (delete measured-harmful Haiku prescreen path) — done, merged PR #25.
+- ✅ **F3-offline** (default `brief_block` from `brief_sentence` in `run_apply_assessments`) — done, merged PR #25. No re-record needed (no scored baseline moved).
+- ✅ **F6** (prune stale A/B configs, pin model IDs) — done, merged PR #25. Alias removal shipped in **v0.6.0** (PR #26).
+- ⛔ **F5** skipped (superseded by F1); **F7** dropped (template below cacheable minimum).
+
+### ⏳ OPEN — F3-metered (assess-v3 prompt bump + re-record)
+The token-saving half of F3: a new **assess-v3** prompt that stops the agent
+*writing* `brief_block` for `supported` claims (drops it from the schema).
+The offline enabling half is already in (`run_apply_assessments` defaults it
+from `brief_sentence`), so v3 is a one-prompt change. **Blocked on a metered
+re-record** of the 3 corpora cassettes (`tests/build_assessment_corpora.py`)
+**+ re-deriving the human-adjudicated regression baselines** in
+`test_assessment_regression.py`. Payoff is small (~$0.009/claim, <15% of
+output tokens). **Recommendation: do NOT re-record solely for this** (the
+audit's own F3 guidance) — fold it into the *next* prompt-version bump so the
+re-record cost is shared. `ANTHROPIC_API_KEY` is now in `.env` if run anyway.
+
+### ⏳ PARKED — F2 (hybrid Sonnet/Opus routing)
+Shelved after failing its validation gate; **draft PR #24** kept, not merged.
+The gate was mis-specified (Opus itself trips it) and the cost case was weak
+(~18% vs 25–35% target). Corrected diagnosis + a **redesign brief** are in
+`docs/plans/2026-07-01-f2-hybrid-model-routing-design.md` (Validation outcome
+section) — hand that to Fable for the redesign (relative gate, mandatory
+same-day control, single-claim-v2 Sonnet eval, payne-23). Rebase onto current
+`main` (post-0.6.0).
 
 ## ~~Priority 1 — A/B harness robustness bug~~ FIXED 2026-07-01 (skip-mode RecordedExecutor scores completed claims + reports the drop; tests/test_ab_runner.py::test_missing_verdicts_score_the_rest_and_report_drop)
 Live A/B (`tools/ab_test_runner.py`) crashes when an assess job fails
