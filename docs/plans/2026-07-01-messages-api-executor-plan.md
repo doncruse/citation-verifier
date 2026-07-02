@@ -193,3 +193,28 @@ here), not the frozen number.
 **Step 4 NOT taken:** CLI default stays SDK/jobs-mode. SDK is still
 subscription-covered (per the 2026-07-01 billing extension); flip to `api`
 only when it starts drawing credits.
+
+### 2026-07-01 — cost-audit F2 prerequisite: sonnet-v1-api (pinned claude-sonnet-5)
+
+Ran `sonnet-v1-api` (pinned `claude-sonnet-5`, assess-v1 single-claim) over
+the 3 corpora via the validated API path. Snapshot:
+`scratch/ab_runs/ab_sonnet-v1-api_20260701-225621.jsonl`.
+
+- withers yellows 15/18*, over-flags **6**, reds 3/3; payne 22/27;
+  wainwright 29/33*; **A/B 51/60***.  (*3 jobs dropped — see parse bug.)
+- **Lenient-direction errors on the A/B set (payne+wainwright): 0.** Every
+  A/B miss was over-flagging (Green→Yellow/Red). The only 3 lenient errors
+  (Yellow→Green) were on withers, outside the A/B ground truth. **Confirms
+  the 2026-06-13 sonnet-v1 finding on the pinned current model**: Sonnet's
+  error mode is over-caution, not false assurance — the safety property the
+  F2 escalation design (Sonnet fast-track → escalate non-`supported` to
+  Opus) depends on.
+- Cost **$0.0395/claim** — half of Opus's $0.079. Total $3.56/90 jobs.
+
+**Blocker surfaced for F2:** the deferred `_parse_json_object` over-capture
+(TODO Priority-2 / PR#21 review #6) fired on **3/90** Sonnet jobs
+("unparseable result" — Sonnet appended rationale prose after the JSON).
+Skip-mode scoring tolerated it, but in production those claims fail-safe to
+pending. **Fix `_parse_json_object` (fenced-block-first / balanced-object)
+before F2 ships** — Sonnet triggers it more than Opus. F2 must also route
+Sonnet through single-claim jobs only (packed v2 broke the sonnet-v2 arm).
