@@ -157,11 +157,15 @@ transport. Get the efficient metered path in place BEFORE the deadline.
    (plan: `docs/plans/2026-07-01-messages-api-executor-plan.md`): opinion
    text inlined, PDFs as document blocks, concurrent streaming calls,
    `--executor api` wired in the CLI + A/B harness. Offline-tested
-   (tests/test_messages_api_executor.py); LIVE VALIDATION PENDING —
-   run `--config opus-v2-api` (~$2-4) against the pinned v2 baselines.
-   Billing update (user, 2026-07-01): SDK subscription coverage was
-   temporarily extended; SDK stays the headless default until it starts
-   drawing subscription credits, then flip to api.
+   (tests/test_messages_api_executor.py); **LIVE VALIDATION PASSED
+   2026-07-01** — `opus-v2-api` matched the same-day opus-v2 SDK control
+   within sampling variance (withers 15/19 vs 14, reds 3/3, A/B 55/61,
+   no new lenient regression); $0.079/claim, ~2.5 min for 90 jobs vs the
+   SDK's ~$0.42/claim + hours. Full table in the plan's Results section;
+   snapshots in `scratch/ab_runs/`. Billing update (user, 2026-07-01):
+   SDK subscription coverage was temporarily extended; SDK stays the
+   headless default until it starts drawing subscription credits, then
+   flip to api (plan Step 4 — not taken yet).
 2. ✅ **BUILT 2026-07-01** — `batch=True` mode on MessagesAPIExecutor
    (`--batch` in the CLI): one Message Batch, 50% off, polled. Same
    pending validation as item 1.

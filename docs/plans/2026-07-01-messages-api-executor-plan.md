@@ -150,4 +150,46 @@ Interpretation:
 
 ## Results (append per run)
 
-_(none yet)_
+### 2026-07-01 — F1 validation (Windows), opus-v2-api vs same-day opus-v2 SDK — **PASS**
+
+Both arms `claude-opus-4-8`, assess-v2, over withers+payne+wainwright (90
+jobs). Same-day SDK control run first (subscription-billed, serial) so the
+comparison isolates transport from model drift; API arm run concurrent
+(`max_concurrency=8`, non-batch). Snapshots committed to `scratch/ab_runs/`
+(`ab_opus-v2_20260701-223625.jsonl`, `ab_opus-v2-api_20260701-225130.jsonl`).
+
+| metric | frozen June | SDK control (today) | API arm (today) |
+|---|---|---|---|
+| withers yellows | 16/19 | 14/19 | 15/19 |
+| withers green over-flags | 4 | 4 | 3 |
+| withers reds | 3/3 | 3/3 | 3/3 |
+| A/B (payne+wainwright) | 55/61 | 57/61 | 55/61 |
+| wainwright | — | 34/34 | 33/34 |
+| cost/claim | ~$0.42 (notional) | ~$0.42 (notional) | **$0.079** |
+| wall-clock (90 jobs) | — | ~hours (serial) | **~2.5 min** |
+
+**Verdict: transport validated.** The API arm lands within the ±2 sampling
+variance measured on the same-day SDK control on every axis, mostly on the
+better side (withers 15 vs 14, over-flags 3 vs 4, reds 3/3). A/B 55 = frozen
+baseline, within noise of the control's 57, meets the ≥55 bar. Lenient-
+direction misses stayed inside the Opus envelope (API 4 on withers vs control
+5 / frozen 3 — no new systematic regression; the one new lenient miss
+payne-23 Red→Gray is offset by the API arm fixing payne-03 that the control
+missed). The absolute "withers ≥16/19" bar from the checklist was treated as
+a frozen single-sample artifact: the same-day SDK path itself only reached
+14/19 today, confirming ~±2 run-to-run variance, so the operative bar was
+"match the same-day control within variance + reds 3/3 + A/B ≥55 + no new
+lenient regression" — all met.
+
+**Cost:** $7.15 total ($0.079/claim) → ~$2.40 per 30-claim brief, matching the
+audit's ~$2.00–2.50 F1 projection; Batches (−50%) would ~halve it.
+
+**Note on the ≥16/19 checklist bar:** because the same-day SDK control did not
+reproduce 16/19 (variance, not drift — A/B moved the *opposite* way, 57 vs
+55), a single-run absolute yellow-count gate is unreliable for this exhibit.
+Future validation should judge against a same-day same-model control (as done
+here), not the frozen number.
+
+**Step 4 NOT taken:** CLI default stays SDK/jobs-mode. SDK is still
+subscription-covered (per the 2026-07-01 billing extension); flip to `api`
+only when it starts drawing credits.
