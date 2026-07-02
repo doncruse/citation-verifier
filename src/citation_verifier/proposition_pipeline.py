@@ -1118,7 +1118,13 @@ def run_apply_assessments(workdir: Path,
                                  quote_axis)
             c["support"] = support
             c["badge_label"] = v.fields.get("badge_label", "")
-            c["brief_block"] = v.fields.get("brief_block", "")
+            # F3 (cost-audit): the brief_block is the brief's own language,
+            # which claims.csv already holds verbatim in brief_sentence.
+            # Default from it when the verdict omits/empties brief_block
+            # (a deterministic copy is more reliable than asking the agent
+            # to transcribe -- and lets a future assess-v3 drop the field).
+            c["brief_block"] = (v.fields.get("brief_block", "").strip()
+                                or c.get("brief_sentence", ""))
             c["opinion_block"] = v.fields.get("opinion_block", "")
             # v2 owns the analysis (richer than v1's rationale)
             c["finding_analysis"] = v.fields.get("finding_analysis", "")

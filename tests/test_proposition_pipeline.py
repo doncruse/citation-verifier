@@ -1920,6 +1920,52 @@ class TestApplyAssessmentsV2:
         assert row["finding_analysis"] == "fa"
         assert row["assessed_by"] == "opus/assess-v2"
 
+    def test_brief_block_defaults_from_brief_sentence_when_empty(
+            self, tmp_path):
+        """F3: an empty verdict brief_block defaults to the claim's
+        brief_sentence (deterministic copy is more reliable than asking
+        the agent to transcribe the brief's own language)."""
+        import citation_verifier.proposition_pipeline as pp
+        from citation_verifier.executor import Verdict, append_verdict_jsonl
+        wd = _report_workdir(tmp_path, [_report_row(
+            "r-01", cl_status="VERIFIED", opinion_file="opinions/a.html",
+            quote_check_worst="NO_QUOTES",
+            brief_sentence="See Nix, 475 U.S. at 160 (the standard).")])
+        (wd / "jobs").mkdir()
+        append_verdict_jsonl(
+            wd / "jobs" / "assess_results.jsonl",
+            Verdict(claim_id="r-01",
+                    fields={"support": "supported", "badge_label": "",
+                            "brief_block": "", "opinion_block": "",
+                            "finding_analysis": "fa"},
+                    model="opus", prompt_version="assess-v2"))
+        pp.run_apply_assessments(wd, prompt_version="assess-v2")
+        (row,) = list(csv.DictReader(
+            (wd / "claims.csv").open(encoding="utf-8")))
+        assert row["brief_block"] == "See Nix, 475 U.S. at 160 (the standard)."
+
+    def test_nonempty_brief_block_not_overridden(self, tmp_path):
+        """F3: a non-empty verdict brief_block is kept verbatim -- the
+        brief_sentence default only fills an empty one."""
+        import citation_verifier.proposition_pipeline as pp
+        from citation_verifier.executor import Verdict, append_verdict_jsonl
+        wd = _report_workdir(tmp_path, [_report_row(
+            "r-01", cl_status="VERIFIED", opinion_file="opinions/a.html",
+            quote_check_worst="NO_QUOTES",
+            brief_sentence="fallback sentence")])
+        (wd / "jobs").mkdir()
+        append_verdict_jsonl(
+            wd / "jobs" / "assess_results.jsonl",
+            Verdict(claim_id="r-01",
+                    fields={"support": "unsupported", "badge_label": "",
+                            "brief_block": "agent-authored block",
+                            "opinion_block": "", "finding_analysis": "fa"},
+                    model="opus", prompt_version="assess-v2"))
+        pp.run_apply_assessments(wd, prompt_version="assess-v2")
+        (row,) = list(csv.DictReader(
+            (wd / "claims.csv").open(encoding="utf-8")))
+        assert row["brief_block"] == "agent-authored block"
+
     def test_quote_floor_still_guards(self, tmp_path):
         import citation_verifier.proposition_pipeline as pp
         wd = self._wd_with_v2(tmp_path, "supported", qcw="FABRICATED",

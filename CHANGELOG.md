@@ -24,6 +24,17 @@ transport passes its live validation arm.
   `render_assess_v2_claim_block` consumes it if present) but nothing
   populates it. See `docs/plans/2026-07-01-pipeline-cost-audit.md` F4.
 
+### Changed (cost-audit F3 — brief_block reliability)
+
+- `run_apply_assessments` now defaults a v2 verdict's `brief_block` from
+  the claim's `brief_sentence` when the agent omits/empties it (the
+  brief_block is the brief's own language, which claims.csv already holds
+  verbatim). No-op for existing cassettes (v2 agents emit it, and
+  `derive_color` never reads it, so no scored baseline moves); it makes a
+  future assess-v3 that drops the field from the `supported` schema safe.
+  The metered assess-v3 prompt bump itself is deferred (F3-metered) — see
+  `docs/plans/2026-07-01-pipeline-cost-audit.md` F3.
+
 ### New (`executor.py`)
 
 - **`MessagesAPIExecutor`** — direct Anthropic Messages API transport:
