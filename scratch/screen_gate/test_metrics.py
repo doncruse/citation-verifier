@@ -28,11 +28,13 @@ def test_gerund_parenthetical_counts():
 
 
 def test_proposition_repeat_detects_reshuffled_cites():
-    # same proposition restated with a DIFFERENT citation -> a repeat pair
-    txt = ("The statute bars retaliation against protected employees. "
-           "Alpha v. Beta, 100 F.3d 200 (9th Cir. 1999). "
-           "The statute bars retaliation against protected employees. "
-           "Gamma v. Delta, 300 F.3d 400 (9th Cir. 2001).")
+    # same proposition restated with a DIFFERENT citation -> a repeat pair.
+    # Bare reporter cites (no "X v. Y") so the sentence splitter keeps each
+    # proposition together with its citation in one unit.
+    txt = ("Retaliation against protected whistleblower employees is "
+           "statutorily barred, see 100 F.3d 200 (9th Cir. 1999). "
+           "Retaliation against protected whistleblower employees is "
+           "statutorily barred, see 300 F.3d 400 (9th Cir. 2001).")
     m = compute_metrics(txt)
     assert m["proposition_repeat_rate"] > 0.0
 
