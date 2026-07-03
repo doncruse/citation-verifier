@@ -64,5 +64,12 @@ spine (111 vs 65), so recall is not a concern.
 
 ## Next
 
-Corpus directories `corpus/bad/` and `corpus/control/` will be populated next;
-the gate is evaluated by running the battery over both and measuring separation.
+See **`PROJECT.md`** for the full project scope: what `screen` is (CV's rung-0
+document-level triage), why it lives here, the complete signal catalog (Tiers
+0–2), the stratified bad/control corpus, the SRL-vs-attorney finding, the gate
+methodology, and the ordered work plan with per-step model tiering.
+
+Immediate next steps: finish the matched-control pull, OCR the one scanned bad
+brief, migrate the corpus into `corpus/{bad,control}/`, implement the two
+remaining Tier-0 signals (`chatbot_preamble`, `pdf_metadata`), then run the gate
+and record which signals graduate to `src/`.
