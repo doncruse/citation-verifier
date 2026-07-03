@@ -390,6 +390,77 @@ class TestSubmitJobResult:
         assert not results.exists()
 
 
+def _make_minimal_pdf(path, text="Hello MCP"):
+    """One-page valid PDF with a correct xref (pdfplumber-readable)."""
+    stream = f"BT /F1 12 Tf 72 720 Td ({text}) Tj ET".encode()
+    objects = [
+        b"<< /Type /Catalog /Pages 2 0 R >>",
+        b"<< /Type /Pages /Kids [3 0 R] /Count 1 >>",
+        b"<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] "
+        b"/Contents 4 0 R /Resources << /Font << /F1 5 0 R >> >> >>",
+        b"<< /Length " + str(len(stream)).encode() + b" >>\nstream\n"
+        + stream + b"\nendstream",
+        b"<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>",
+    ]
+    out = bytearray(b"%PDF-1.4\n")
+    offsets = []
+    for i, obj in enumerate(objects, start=1):
+        offsets.append(len(out))
+        out += f"{i} 0 obj\n".encode() + obj + b"\nendobj\n"
+    xref_pos = len(out)
+    out += f"xref\n0 {len(objects) + 1}\n".encode()
+    out += b"0000000000 65535 f \n"
+    for off in offsets:
+        out += f"{off:010d} 00000 n \n".encode()
+    out += (f"trailer\n<< /Size {len(objects) + 1} /Root 1 0 R >>\n"
+            f"startxref\n{xref_pos}\n%%EOF").encode()
+    path.write_bytes(bytes(out))
+
+
+class TestIntakeDocument:
+    def test_pdf(self, root):
+        doc = root / "memo.pdf"
+        _make_minimal_pdf(doc)
+        out = mcp_server.intake_document(workdir=str(root / "wd"),
+                                         document=str(doc))
+        target = root / "wd" / "document.txt"
+        assert out["path"] == str(target) and out["pages"] == 1
+        assert "Hello MCP" in target.read_text(encoding="utf-8")
+
+    def test_docx(self, root):
+        import docx
+        doc_path = root / "memo.docx"
+        d = docx.Document()
+        d.add_paragraph("The parties stipulated to dismissal.")
+        d.save(str(doc_path))
+        out = mcp_server.intake_document(workdir=str(root / "wd"),
+                                         document=str(doc_path))
+        assert out["pages"] is None
+        text = (root / "wd" / "document.txt").read_text(encoding="utf-8")
+        assert "stipulated to dismissal" in text
+
+    def test_txt_passthrough(self, root):
+        doc = root / "memo.txt"
+        doc.write_text("plain text memo", encoding="utf-8")
+        out = mcp_server.intake_document(workdir=str(root / "wd"),
+                                         document=str(doc))
+        assert out["chars"] == len("plain text memo")
+
+    def test_unsupported_extension(self, root):
+        doc = root / "memo.wpd"
+        doc.write_bytes(b"x")
+        with pytest.raises(ToolError, match="unsupported document type"):
+            mcp_server.intake_document(workdir=str(root / "wd"),
+                                       document=str(doc))
+
+    def test_document_outside_roots_rejected(self, root, tmp_path):
+        outside = tmp_path / "evil.txt"
+        outside.write_text("x", encoding="utf-8")
+        with pytest.raises(ToolError, match="document"):
+            mcp_server.intake_document(workdir=str(root / "wd"),
+                                       document=str(outside))
+
+
 class TestStatus:
     def test_status_reports_files_and_pending(self, root):
         wd = root / "wd"

@@ -138,6 +138,49 @@ def report(workdir: str) -> dict:
     return out
 
 
+@mcp.tool(annotations={"readOnlyHint": False, "idempotentHint": True,
+                       "openWorldHint": False})
+def intake_document(workdir: str, document: str) -> dict:
+    """Extract text from a PDF / DOCX / TXT document into
+    <workdir>/document.txt so downstream callers need no shell.
+
+    PDF via pdfplumber (pages joined by blank lines -- the parser
+    treats consecutive newlines as paragraph breaks), DOCX via
+    python-docx paragraphs, .txt/.md copied through. Returns the
+    written path, character count, and page count (PDF only).
+    """
+    wd = _workdir(workdir)
+    doc = _resolve_under_roots(document, "document")
+    if not doc.is_file():
+        raise ToolError(f"document does not exist: {document}")
+    suffix = doc.suffix.lower()
+    pages: int | None = None
+    try:
+        if suffix == ".pdf":
+            import pdfplumber
+            with pdfplumber.open(doc) as pdf:
+                page_texts = [p.extract_text() or "" for p in pdf.pages]
+            pages = len(page_texts)
+            text = "\n\n".join(page_texts)
+        elif suffix == ".docx":
+            import docx
+            text = "\n".join(
+                p.text for p in docx.Document(str(doc)).paragraphs)
+        elif suffix in (".txt", ".md"):
+            text = doc.read_text(encoding="utf-8", errors="replace")
+        else:
+            raise ToolError(f"unsupported document type {suffix!r} "
+                            "(supported: .pdf, .docx, .txt, .md)")
+    except ToolError:
+        raise
+    except Exception as e:  # unreadable/corrupt document
+        raise ToolError(f"could not read {doc.name}: {e}") from e
+    target = wd / "document.txt"
+    target.write_text(text, encoding="utf-8")
+    return {"ok": True, "path": str(target), "chars": len(text),
+            "pages": pages}
+
+
 _DISPATCH_NEXT = (
     "dispatch one subagent per pending job: get_job for the full prompt, "
     "run it verbatim, submit the result envelope via submit_job_result, "
