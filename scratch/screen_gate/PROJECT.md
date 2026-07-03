@@ -119,11 +119,12 @@ RECAP; the offending filings are rarely free, so most were user-purchased):
 | Attorney | support-community-mph (Russo), tantaros-fox-news + surreply, withers-aberdeen, villalovos-vandepol (Gordon Rees, *defendant* side), johnson-dunn (defendant counsel), braun-day (has the chatbot preamble) |
 | Pro se | reed-community-health, stafford-taffet, sherwood-botetourt, burnside-verdick (scan — OCR pending) |
 
-**Control corpus — complete, 10 documents** (non-sanctioned filings matched on
+**Control corpus — complete, 11 documents** (non-sanctioned filings matched on
 court + document type + **filer stratum**; screened for no sanction/show-cause
-history and minimum citation count): 6 attorney (cand-msj, msnd-msj, nysd-mtd-opp,
-nysd-reply, caed-discovery, alnd-motion), 4 pro se (wawd-prose-resp,
-ord-prose-resp, vawd-prose-compl, iasd-prose-compl).
+history and minimum citation count): 7 attorney (cand-msj, msnd-msj, nysd-mtd-opp,
+nysd-reply, caed-discovery, alnd-motion, ilnd-compel), 4 pro se (wawd-prose-resp,
+ord-prose-resp, vawd-prose-compl, iasd-prose-compl). Balanced against the 11-doc
+bad corpus (7 attorney-side / 4 pro se).
 
 **Provenance safety:** Charlotin rows are "court-confirmed per Charlotin, not
 independently re-verified" — two known rows resolve to real clusters. Re-screen
