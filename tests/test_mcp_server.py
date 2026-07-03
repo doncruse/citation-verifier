@@ -258,6 +258,66 @@ class TestAssessTool:
         assert out["done"] == 2
 
 
+class TestFullTool:
+    def _patch_chain(self, monkeypatch, assess_pending):
+        from citation_verifier.proposition_pipeline import (
+            ApplyStats, AssessStats, CrosscheckStats, MergeStats,
+            QuoteCheckStats, ReportStats, TriageStats)
+
+        async def fake_verify(workdir, **kwargs):
+            return None  # already done
+
+        monkeypatch.setattr(mcp_server.pp, "run_verify", fake_verify)
+        monkeypatch.setattr(mcp_server.pp, "run_merge",
+                            lambda w: MergeStats(matched=1))
+        monkeypatch.setattr(mcp_server.pp, "run_check_quotes",
+                            lambda w: QuoteCheckStats(total_claims=1))
+        monkeypatch.setattr(mcp_server.pp, "run_crosscheck",
+                            lambda w: CrosscheckStats(total=1))
+        monkeypatch.setattr(mcp_server.pp, "run_triage",
+                            lambda w: TriageStats(full=1))
+        monkeypatch.setattr(
+            mcp_server.pp, "run_assess",
+            lambda workdir, executor=None, prompt_version=None:
+            AssessStats(eligible=1, done=0 if assess_pending else 1,
+                        pending=1 if assess_pending else 0))
+        monkeypatch.setattr(
+            mcp_server.pp, "run_apply_assessments",
+            lambda workdir, prompt_version=None: ApplyStats(applied=1))
+        monkeypatch.setattr(mcp_server.pp, "run_report",
+                            lambda w: ReportStats(path=Path(w) / "report.html",
+                                                  verified=1))
+
+    def test_full_stops_at_pending_assess(self, root, monkeypatch):
+        self._patch_chain(monkeypatch, assess_pending=True)
+        out = asyncio.run(mcp_server.full(workdir=str(root / "wd")))
+        assert out["status"] == "pending-assess"
+        assert "apply_assessments" not in out["steps"]
+        assert "report" not in out["steps"]
+        assert out["steps"]["merge"]["matched"] == 1
+
+    def test_full_runs_to_report(self, root, monkeypatch):
+        self._patch_chain(monkeypatch, assess_pending=False)
+        out = asyncio.run(mcp_server.full(workdir=str(root / "wd")))
+        assert out["status"] == "complete"
+        assert out["steps"]["apply_assessments"]["applied"] == 1
+        assert out["steps"]["report"]["path"].endswith("report.html")
+
+    def test_full_stops_at_pending_extract(self, root, monkeypatch):
+        from citation_verifier.proposition_pipeline import ExtractStats
+        doc = root / "memo.pdf"
+        doc.write_bytes(b"x")
+        (root / "wd" / "jobs").mkdir(exist_ok=True)
+        (root / "wd" / "jobs" / "extract.json").write_text(
+            "[]", encoding="utf-8")
+        monkeypatch.setattr(mcp_server.pp, "run_extract",
+                            lambda *a, **k: ExtractStats(pending=True))
+        out = asyncio.run(mcp_server.full(workdir=str(root / "wd"),
+                                          document=str(doc)))
+        assert out["status"] == "pending-extract"
+        assert list(out["steps"]) == ["extract"]
+
+
 _JOB_LINE = ('[{"job_id": "op1", "claim_ids": ["wd-01"],'
              ' "prompt": "ASSESS THIS", "prompt_version": "assess-v2",'
              ' "files": ["opinions/a.txt"], "schema": null,'

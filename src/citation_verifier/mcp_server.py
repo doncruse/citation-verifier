@@ -237,6 +237,56 @@ async def verify(workdir: str, citations: list[str] | None = None,
                             cache_dir, ctx)
 
 
+@mcp.tool(annotations={"readOnlyHint": False, "idempotentHint": True,
+                       "openWorldHint": True})
+async def full(workdir: str, document: str | None = None,
+               force: bool = False, prompt_version: str | None = None,
+               citations: list[str] | None = None,
+               cache_dir: str | None = None,
+               ctx: Context | None = None) -> dict:
+    """Run the whole pipeline: [extract ->] verify -> merge ->
+    check_quotes -> crosscheck -> triage -> assess (-> apply_assessments
+    -> report once verdicts are complete).
+
+    Mirrors the CLI's `full` verb: stops with status pending-extract /
+    pending-assess while LLM jobs are outstanding (dispatch via get_job
+    / submit_job_result, then call full again -- every verb is
+    idempotent). status=complete means report.html is written.
+    """
+    wd = _workdir(workdir)
+    steps: dict[str, Any] = {}
+    out: dict[str, Any] = {"status": "complete", "steps": steps}
+
+    if document:
+        doc = _resolve_under_roots(document, "document")
+        if not doc.is_file():
+            raise ToolError(f"document does not exist: {document}")
+        steps["extract"] = _do_extract(wd, doc, force)
+        if steps["extract"].get("pending"):
+            out["status"] = "pending-extract"
+            return out
+
+    steps["verify"] = await _do_verify(wd, citations, force, cache_dir,
+                                       ctx)
+    steps["merge"] = _stats(_call(pp.run_merge, wd))
+    steps["check_quotes"] = _stats(_call(pp.run_check_quotes, wd))
+    steps["crosscheck"] = _stats(_call(pp.run_crosscheck, wd))
+    steps["triage"] = _stats(_call(pp.run_triage, wd))
+
+    steps["assess"] = _do_assess(wd, prompt_version)
+    if steps["assess"].get("pending"):
+        out["status"] = "pending-assess"
+        return out
+
+    pv = prompt_version or pp.ASSESS_V2_PROMPT_VERSION
+    steps["apply_assessments"] = _stats(
+        _call(pp.run_apply_assessments, wd, prompt_version=pv))
+    report_stats = _call(pp.run_report, wd)
+    steps["report"] = _stats(report_stats)
+    steps["report"]["findings_json"] = str(wd / "findings.json")
+    return out
+
+
 def _check_phase(phase: str) -> str:
     if phase not in ("extract", "assess"):
         raise ToolError("phase must be 'extract' or 'assess'")
