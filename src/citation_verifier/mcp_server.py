@@ -10,6 +10,7 @@ Launch: citation-verifier-mcp --root <dir> [--root <dir> ...]
 from __future__ import annotations
 
 import argparse
+import asyncio
 import json
 from dataclasses import asdict
 from pathlib import Path
@@ -135,6 +136,50 @@ def report(workdir: str) -> dict:
     out = _stats(stats)
     out["findings_json"] = str(wd / "findings.json")
     return out
+
+
+async def _do_verify(wd: Path, citations: list[str] | None, force: bool,
+                     cache_dir: str | None,
+                     ctx: Context | None) -> dict[str, Any]:
+    resolved_cache = (str(_resolve_under_roots(cache_dir, "cache_dir"))
+                      if cache_dir else None)
+    progress_callback = None
+    if ctx is not None:
+        loop = asyncio.get_running_loop()
+
+        def progress_callback(done: int, total: int) -> None:
+            loop.create_task(ctx.report_progress(done, total))
+
+    from .executor import ExecutorAuthError
+    try:
+        result = await pp.run_verify(
+            wd, citations=citations, force=force,
+            progress_callback=progress_callback, cache_dir=resolved_cache)
+    except (FileNotFoundError, ValueError, ExecutorAuthError) as e:
+        raise ToolError(str(e)) from e
+    if result is None:
+        return {"ok": True, "already_done": True}
+    return {"ok": True, "already_done": False,
+            "wave1_misses": len(result.wave1.miss_indices),
+            "wave1_downloads": result.wave1.download_stats,
+            "wave2_downloads": result.wave2.download_stats}
+
+
+@mcp.tool(annotations={"readOnlyHint": False, "idempotentHint": True,
+                       "openWorldHint": True})
+async def verify(workdir: str, citations: list[str] | None = None,
+                 force: bool = False, cache_dir: str | None = None,
+                 ctx: Context | None = None) -> dict:
+    """Wave1 + wave2 citation verification + opinion downloads (verb 1).
+
+    Long-running (CourtListener is rate-limited to ~1 request/second);
+    progress is reported via MCP notifications. Idempotent: no-ops when
+    verification_results.csv exists (already_done=true; force=true to
+    redo), and a killed call can simply be re-issued to resume. Omitting
+    `citations` derives them from claims.csv / the extract lists.
+    """
+    return await _do_verify(_workdir(workdir), citations, force,
+                            cache_dir, ctx)
 
 
 @mcp.tool(annotations={"readOnlyHint": True, "idempotentHint": True,

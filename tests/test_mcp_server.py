@@ -2,6 +2,8 @@
 
 All offline: verbs are monkeypatched or run over tmp workdirs.
 """
+import asyncio
+
 import pytest
 
 pytest.importorskip("mcp", reason="mcp optional deps not installed")
@@ -114,6 +116,55 @@ class TestSimpleVerbTools:
         assert mcp_server.check_quotes(workdir=wd)["total_claims"] == 4
         assert mcp_server.crosscheck(workdir=wd)["court_mismatches"] == 1
         assert mcp_server.triage(workdir=wd)["full"] == 2
+
+
+class TestVerifyTool:
+    def _fake_result(self):
+        from citation_verifier.proposition_pipeline import (
+            MergeStats, PipelineResult, Wave1Result, Wave2Result)
+        return PipelineResult(
+            wave1=Wave1Result(results=[], miss_indices=[1, 4],
+                              download_stats={"downloaded": 3}),
+            wave2=Wave2Result(results=[], download_stats={"downloaded": 1}),
+            merge=MergeStats())
+
+    def test_verify_returns_wave_summary(self, root, monkeypatch):
+        seen = {}
+        fake_result = self._fake_result()
+
+        async def fake(workdir, citations=None, force=False,
+                       progress_callback=None, cache_dir=None):
+            seen.update(citations=citations, force=force,
+                        cache_dir=cache_dir)
+            if progress_callback:
+                progress_callback(1, 2)
+            return fake_result
+
+        monkeypatch.setattr(mcp_server.pp, "run_verify", fake)
+        out = asyncio.run(mcp_server.verify(
+            workdir=str(root / "wd"), citations=["576 U.S. 644"],
+            force=True))
+        assert out == {"ok": True, "already_done": False,
+                       "wave1_misses": 2,
+                       "wave1_downloads": {"downloaded": 3},
+                       "wave2_downloads": {"downloaded": 1}}
+        assert seen["citations"] == ["576 U.S. 644"]
+        assert seen["force"] is True
+        assert seen["cache_dir"] is None
+
+    def test_verify_noop_reports_already_done(self, root, monkeypatch):
+        async def fake(workdir, **kwargs):
+            return None
+        monkeypatch.setattr(mcp_server.pp, "run_verify", fake)
+        out = asyncio.run(mcp_server.verify(workdir=str(root / "wd")))
+        assert out == {"ok": True, "already_done": True}
+
+    def test_verify_cache_dir_is_root_checked(self, root, tmp_path):
+        (tmp_path / "outside").mkdir()
+        with pytest.raises(ToolError, match="cache_dir"):
+            asyncio.run(mcp_server.verify(
+                workdir=str(root / "wd"),
+                cache_dir=str(tmp_path / "outside")))
 
 
 class TestStatus:
