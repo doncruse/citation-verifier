@@ -1,0 +1,96 @@
+# Tier-0 screening gate — first full run (2026-07-03)
+
+Reproduce: `python run_gate.py` (reads the corpus in place from us-legal-research
+via `SCREEN_GATE_CORPUS`; see `run_gate.py` header). `--json` for machine output.
+
+## Corpus as run
+
+11 bad (7 attorney, 4 pro se), 7 control (4 attorney, 3 pro se). **Small n —
+every number below is directional, not a final verdict.**
+
+Two data-quality caveats that cap what this run can show:
+
+1. **`burnside-verdick.txt` is an un-OCR'd scan stub** — the file is only the
+   manifest header + 74 PACER page-stamp footers, **0 body text, 0 cites
+   extracted**. It contributes nothing until OCR'd (PROJECT.md §7 "OCR the
+   Burnside scan"). Effectively bad-pro_se n=3, not 4.
+2. **The two pro se / short-attorney workhorse signals are not implemented yet**
+   (`chatbot_preamble`, `pdf_metadata`, PROJECT.md §3). So recall on short and
+   pro se filings is structurally floored near zero in this run — the absence is
+   expected, not a finding against the approach.
+
+## Per-document flags
+
+| slug | label | filer | cites | flags | signals fired |
+|---|---|---|---|---|---|
+| support-community-mph | bad | attorney | 111 | 8 | arithmetic, authority_drift, court_contradiction, statute_grammar, style_variance |
+| tantaros-fox-news | bad | attorney | 31 | 1 | toa_body_diff |
+| tantaros-fox-news-surreply | bad | attorney | 16 | 0 | — |
+| withers-aberdeen | bad | attorney | 16 | 0 | — |
+| villalovos-vandepol | bad | attorney | 39 | 4 | authority_drift |
+| johnson-dunn | bad | attorney | 4 | 0 | — |
+| braun-day | bad | attorney | 11 | 0 | — (has the chatbot preamble — signal not built) |
+| reed-community-health | bad | pro_se | 10 | 0 | — (PDF Title "Creates a legal pleading" — signal not built) |
+| stafford-taffet | bad | pro_se | 42 | 0 | — |
+| sherwood-botetourt | bad | pro_se | 116 | 2 | authority_drift |
+| burnside-verdick | bad | pro_se | 0 | 0 | — (un-OCR'd stub) |
+| ctrl-cand-msj | control | attorney | 258 | 10 | authority_drift, style_variance, toa_body_diff |
+| ctrl-nysd-mtd-opp | control | attorney | 83 | 2 | style_variance, toa_body_diff |
+| ctrl-nysd-reply | control | attorney | 55 | 1 | toa_body_diff |
+| ctrl-msnd-msj | control | attorney | 116 | 0 | — |
+| ctrl-wawd-prose-resp | control | pro_se | 45 | 0 | — |
+| ctrl-ord-prose-resp | control | pro_se | 26 | 0 | — |
+| ctrl-vawd-prose-compl | control | pro_se | 2 | 0 | — |
+
+## Per-signal separation
+
+### Attorney stratum (bad=7, control=4) — where Tier-0 shape signals are defined
+
+| signal | recall (bad) | FP (control) | directional verdict |
+|---|---|---|---|
+| court_contradiction | 1/7 | 0/4 | **clean separator**, low recall |
+| statute_grammar | 1/7 | 0/4 | **clean separator**, low recall |
+| arithmetic | 1/7 | 0/4 | **clean separator**, low recall |
+| authority_drift | 2/7 | 1/4 | separates but has the government-litigant FP (ctrl-cand-msj) |
+| style_variance | 1/7 | 2/4 | **NOISE** — fires on 50% of controls |
+| toa_body_diff | 1/7 | 3/4 | **NOISE (worst)** — fires on 75% of controls |
+
+Caveat: the three "clean separators" **all fired only on the single MPH
+fixture.** Zero control FP is real and good, but their recall is measured off one
+richly-bad brief — treat "low recall" as "unknown recall."
+
+### Pro se stratum (bad=3 usable, control=3)
+
+Every Tier-0 shape signal is **silent on both sides** except `authority_drift`
+(1/3 bad — sherwood, the 133-page one — vs 0/3 control). This confirms
+PROJECT.md §5 finding #1 directly: **Tier-0 citation-shape signals do not detect
+short / pro se fabrication.** The tells for that stratum are metadata and chatbot
+preamble, which aren't built.
+
+## Directional verdict (six implemented signals)
+
+- **Keep, provisionally: `court_contradiction`, `statute_grammar`, `arithmetic`.**
+  Zero control FP, fully explainable as facts-about-text. Low/unknown recall is
+  acceptable for a high-precision tell. All three need more bad-brief firings
+  before recall is meaningful.
+- **`authority_drift`: keep but fix the FP.** Best recall (3 firings incl. one
+  pro se), but the government-litigant caption collision (PROJECT.md §5 #4, open
+  decision #3) tripped it on ctrl-cand-msj. Needs the disambiguation carve-out.
+- **`style_variance`: on the bubble.** 50% control FP as written fails the ship
+  rule. Tighten or drop — judgment call (PROJECT.md §7 reserves style-variance
+  thresholds for the reasoning-model session).
+- **`toa_body_diff`: closest to dead.** 75% control FP — it is catching benign
+  TOA-vs-body extraction differences in legitimate briefs, not fabrication. Needs
+  a materiality threshold to survive, or it dies at the gate.
+
+## Immediate next (unblocked, mostly mechanical)
+
+1. **Implement `chatbot_preamble`** — pure text, near-zero FP; braun-day is a
+   known positive that currently fires nothing. Highest recall/cost ratio left.
+2. **Implement `pdf_metadata`** — BUT metadata is captured for only 4 purchased
+   *bad* docs and **zero controls**, so it cannot be FP-gated yet. Need control
+   PDF metadata (capture at purchase / re-pull). Reed's Title "Creates a legal
+   pleading" is the single strongest tell in the whole corpus.
+3. **OCR `burnside-verdick`** or drop it from the gate.
+4. **Rework or retire `style_variance` + `toa_body_diff`** — the reasoning-model
+   FP-adjudication step (PROJECT.md §7).
