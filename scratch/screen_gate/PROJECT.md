@@ -119,9 +119,11 @@ RECAP; the offending filings are rarely free, so most were user-purchased):
 | Attorney | support-community-mph (Russo), tantaros-fox-news + surreply, withers-aberdeen, villalovos-vandepol (Gordon Rees, *defendant* side), johnson-dunn (defendant counsel), braun-day (has the chatbot preamble) |
 | Pro se | reed-community-health, stafford-taffet, sherwood-botetourt, burnside-verdick (scan — OCR pending) |
 
-**Control corpus — in progress** (non-sanctioned filings matched on court +
-document type + **filer stratum**; screened for no sanction/show-cause history and
-minimum citation count): 5 landed so far (3 attorney, 2 pro se); pull ongoing.
+**Control corpus — complete, 10 documents** (non-sanctioned filings matched on
+court + document type + **filer stratum**; screened for no sanction/show-cause
+history and minimum citation count): 6 attorney (cand-msj, msnd-msj, nysd-mtd-opp,
+nysd-reply, caed-discovery, alnd-motion), 4 pro se (wawd-prose-resp,
+ord-prose-resp, vawd-prose-compl, iasd-prose-compl).
 
 **Provenance safety:** Charlotin rows are "court-confirmed per Charlotin, not
 independently re-verified" — two known rows resolve to real clusters. Re-screen
@@ -152,6 +154,17 @@ document, not assumed from the case caption.
    can trip `authority_drift` on two genuinely different cases. Needs
    disambiguation or a documented FP carve-out; let the control corpus quantify
    it.
+5. **Document type is a second stratification axis, orthogonal to filer type.**
+   Building the pro se controls surfaced it: AO form **complaints** instruct filers
+   "do not cite any cases," so pro se complaints structurally carry ~0 citations —
+   the citation-shape signals (drift, TOA diff, court contradiction) are *undefined*
+   for that whole document class, pro se or attorney. A bad pro se complaint
+   (Burnside, and Sherwood as an unusually long non-form amended complaint) can only
+   be matched against a control **complaint**, and on that pairing only metadata +
+   preamble + arithmetic apply. Stratify the gate by (filer_type × doc_class), where
+   doc_class ∈ {complaint, brief/response, motion}. Practically: complaint-class
+   detection leans almost entirely on Tier-0 metadata/preamble + Tier-1 existence,
+   not the citation-shape battery.
 
 ## 6. Gate methodology + ship rule
 
