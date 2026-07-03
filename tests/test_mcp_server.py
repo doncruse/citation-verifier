@@ -167,6 +167,97 @@ class TestVerifyTool:
                 cache_dir=str(tmp_path / "outside")))
 
 
+_NEXT = "dispatch"  # substring of the pending 'next' instruction
+
+
+class TestExtractTool:
+    def test_extract_pending_lists_jobs(self, root, monkeypatch):
+        wd = root / "wd"
+        (wd / "jobs").mkdir(exist_ok=True)
+        (wd / "jobs" / "extract.json").write_text(
+            '[{"job_id": "extract", "claim_ids": ["extract"],'
+            ' "prompt": "big prompt", "prompt_version": "extract-v1",'
+            ' "files": ["memo.pdf"], "schema": null, "max_chars": null}]',
+            encoding="utf-8")
+        doc = root / "memo.pdf"
+        doc.write_bytes(b"%PDF-1.4 stub")
+        from citation_verifier.proposition_pipeline import ExtractStats
+
+        def fake(workdir, document, executor=None, force=False):
+            assert executor is None  # jobs mode only in v1
+            return ExtractStats(pending=True)
+        monkeypatch.setattr(mcp_server.pp, "run_extract", fake)
+        out = mcp_server.extract(workdir=str(wd), document=str(doc))
+        assert out["pending"] is True
+        assert out["pending_jobs"] == [{"job_id": "extract",
+                                        "claim_ids": ["extract"],
+                                        "files": ["memo.pdf"]}]
+        assert _NEXT in out["next"]
+        assert "prompt" not in out["pending_jobs"][0]
+
+    def test_extract_document_is_root_checked(self, root, tmp_path):
+        outside = tmp_path / "evil.pdf"
+        outside.write_bytes(b"x")
+        with pytest.raises(ToolError, match="document"):
+            mcp_server.extract(workdir=str(root / "wd"),
+                               document=str(outside))
+
+    def test_extract_noop(self, root, monkeypatch):
+        doc = root / "memo.pdf"
+        doc.write_bytes(b"x")
+        monkeypatch.setattr(mcp_server.pp, "run_extract",
+                            lambda *a, **k: None)
+        out = mcp_server.extract(workdir=str(root / "wd"),
+                                 document=str(doc))
+        assert out == {"ok": True, "already_done": True}
+
+    def test_extract_done(self, root, monkeypatch):
+        from citation_verifier.proposition_pipeline import ExtractStats
+        doc = root / "memo.pdf"
+        doc.write_bytes(b"x")
+        monkeypatch.setattr(
+            mcp_server.pp, "run_extract",
+            lambda *a, **k: ExtractStats(claims=7, toa=5, body=9))
+        out = mcp_server.extract(workdir=str(root / "wd"),
+                                 document=str(doc))
+        assert out["claims"] == 7 and out["pending"] is False
+
+
+class TestAssessTool:
+    def test_assess_pending_lists_jobs(self, root, monkeypatch):
+        wd = root / "wd"
+        (wd / "jobs").mkdir(exist_ok=True)
+        (wd / "jobs" / "assess.json").write_text(
+            '[{"job_id": "op1", "claim_ids": ["wd-01", "wd-02"],'
+            ' "prompt": "packed prompt", "prompt_version": "assess-v2",'
+            ' "files": ["opinions/a.txt"], "schema": null,'
+            ' "max_chars": null}]', encoding="utf-8")
+        from citation_verifier.proposition_pipeline import AssessStats
+        seen = {}
+
+        def fake(workdir, executor=None, prompt_version=None):
+            seen["pv"] = prompt_version
+            return AssessStats(eligible=2, done=0, pending=2)
+        monkeypatch.setattr(mcp_server.pp, "run_assess", fake)
+        out = mcp_server.assess(workdir=str(wd))
+        assert seen["pv"] == mcp_server.pp.ASSESS_V2_PROMPT_VERSION
+        assert out["pending"] is True
+        assert out["stats"]["pending"] == 2
+        assert out["pending_jobs"][0]["job_id"] == "op1"
+
+    def test_assess_complete(self, root, monkeypatch):
+        from citation_verifier.proposition_pipeline import AssessStats
+        monkeypatch.setattr(
+            mcp_server.pp, "run_assess",
+            lambda workdir, executor=None, prompt_version=None:
+            AssessStats(eligible=2, done=2, pending=0,
+                        skipped_deterministic=1))
+        out = mcp_server.assess(workdir=str(root / "wd"),
+                                prompt_version="assess-v1")
+        assert out["pending"] is False
+        assert out["done"] == 2
+
+
 class TestStatus:
     def test_status_reports_files_and_pending(self, root):
         wd = root / "wd"

@@ -138,6 +138,61 @@ def report(workdir: str) -> dict:
     return out
 
 
+_DISPATCH_NEXT = (
+    "dispatch one subagent per pending job: get_job for the full prompt, "
+    "run it verbatim, submit the result envelope via submit_job_result, "
+    "then call this tool again to ingest")
+
+
+def _do_extract(wd: Path, document: Path, force: bool) -> dict[str, Any]:
+    stats = _call(pp.run_extract, wd, document, executor=None, force=force)
+    if stats is None:
+        return {"ok": True, "already_done": True}
+    if stats.pending:
+        return {"ok": True, "pending": True,
+                "pending_jobs": _pending_jobs(wd, "extract"),
+                "next": _DISPATCH_NEXT}
+    return _stats(stats)
+
+
+def _do_assess(wd: Path, prompt_version: str | None) -> dict[str, Any]:
+    pv = prompt_version or pp.ASSESS_V2_PROMPT_VERSION
+    stats = _call(pp.run_assess, wd, executor=None, prompt_version=pv)
+    if stats.pending:
+        return {"ok": True, "pending": True, "stats": asdict(stats),
+                "pending_jobs": _pending_jobs(wd, "assess"),
+                "next": _DISPATCH_NEXT}
+    out = _stats(stats)
+    out["pending"] = False
+    return out
+
+
+@mcp.tool(annotations={"readOnlyHint": False, "idempotentHint": True,
+                       "openWorldHint": False})
+def extract(workdir: str, document: str, force: bool = False) -> dict:
+    """LLM verb 0: document -> claims.csv + TOA/body citation lists.
+
+    Jobs mode: first call returns pending=true with job summaries; use
+    get_job / submit_job_result, then call again to ingest. No-ops
+    (already_done=true) when claims.csv exists; force=true to redo.
+    """
+    wd = _workdir(workdir)
+    doc = _resolve_under_roots(document, "document")
+    if not doc.is_file():
+        raise ToolError(f"document does not exist: {document}")
+    return _do_extract(wd, doc, force)
+
+
+@mcp.tool(annotations={"readOnlyHint": False, "idempotentHint": True,
+                       "openWorldHint": False})
+def assess(workdir: str, prompt_version: str | None = None) -> dict:
+    """LLM verb 6: grouped assessment jobs (jobs mode; default
+    prompt_version assess-v2, the two-axis prompt). Same pending
+    protocol as extract; rerun to ingest submitted verdicts.
+    """
+    return _do_assess(_workdir(workdir), prompt_version)
+
+
 async def _do_verify(wd: Path, citations: list[str] | None, force: bool,
                      cache_dir: str | None,
                      ctx: Context | None) -> dict[str, Any]:
