@@ -83,6 +83,38 @@ preamble, which aren't built.
   TOA-vs-body extraction differences in legitimate briefs, not fabrication. Needs
   a materiality threshold to survive, or it dies at the gate.
 
+## Texture / tell-signal probe (2026-07-03, `probe_texture.py`)
+
+A throwaway diagnostic run to pressure-test two design assumptions before
+building. **Negative results — worth not re-discovering.**
+
+**Tell signals (preamble / metadata) are lottery tickets, not workhorses:**
+- `chatbot_preamble` recall = **1/11** (braun-day only). A loose phrase bank
+  ("here is a") false-fires on all 4 attorney controls; only tight phrases
+  ("court-ready", "you can insert", "calibrated for") isolate braun-day at 0 FP.
+- `pdf_metadata`: of 4 bad docs with captured metadata, only Reed
+  ("Creates a legal pleading") is an AI tell; Burnside = scanner string,
+  Sherwood/Stafford = normal Word. Realistic recall ~1–2/11, and **zero control
+  metadata exists** so its FP rate is unmeasurable. PROJECT.md §5 #3's framing of
+  these as "pro se workhorses" is **not supported** — they're rare smoking guns.
+
+**Cheap texture proxies do NOT separate — they anti-separate.** Group means
+(docs ≥5 cites): gerund-paren/cite bad-att 0.084 vs control-att 0.107;
+any-paren/cite bad 0.179 vs control 0.197; cite-density bad-att 6.9 vs
+control-att 14.0. On every proxy the **controls look more AI-textured**, because
+these metrics measure *professionalism* and the controls are best-in-class briefs
+(Earthjustice, AG coalitions) while the fabricated briefs are sparser/shorter.
+Texture separates quality, not AI-ness, and quality is confounded with the label.
+This is PROJECT.md's "likeliest to die at the gate" prediction arriving early.
+
+Caveats: tiny n (2–6/cell); and only the *easy* proxies were tested. The actual
+Tier-0.5 hypotheses (**proposition repetition with reshuffled cites**,
+**citation-to-proposition uniformity**) target the generation fingerprint rather
+than professionalism and remain **untested** — test those before retiring
+Tier 0.5. Also surfaced: the pro se bad briefs fire zero Tier-0 signals despite
+fake cites; only Tier-1 existence lookup catches them. There may be no zero-cost
+rung-0 detector for well-formed fabrication.
+
 ## Immediate next (unblocked, mostly mechanical)
 
 1. **Implement `chatbot_preamble`** — pure text, near-zero FP; braun-day is a
