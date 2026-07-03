@@ -22,6 +22,10 @@ import json
 import os
 import sys
 
+import json as _json
+from metrics import compute_metrics
+from compute_baselines import NUMERIC_KEYS
+
 from signal_battery import screen, SIGNALS
 
 CORPUS_ROOT = os.environ.get(
@@ -164,10 +168,107 @@ def print_report(docs):
     print("=" * 78)
 
 
+# Bad-doc -> cell map (PROJECT.md §4 strata + retrieval manifests).
+# doc_type: merits_brief = MSJ/MTD memos, oppositions, replies, discovery
+# *memoranda* that argue law; pleading = complaints; procedural_motion = bare
+# procedural motions. Assignments below reflect each filing's actual role.
+_BAD_DOC_CELLS = {
+    "support-community-mph--cand-63": "attorney__merits_brief",
+    "tantaros-fox-news":              "attorney__merits_brief",
+    "tantaros-fox-news-surreply":     "attorney__merits_brief",
+    "withers-aberdeen":               "attorney__merits_brief",
+    "villalovos-vandepol":            "attorney__procedural_motion",
+    "johnson-dunn":                   "attorney__procedural_motion",
+    "braun-day":                      "attorney__procedural_motion",
+    "reed-community-health":          "pro_se__merits_brief",
+    "stafford-taffet":                "pro_se__merits_brief",
+    "sherwood-botetourt":             "pro_se__pleading",
+    "burnside-verdick":               "pro_se__pleading",
+}
+
+
+def bad_doc_cells():
+    return dict(_BAD_DOC_CELLS)
+
+
+def robust_z(x, median, mad):
+    if mad == 0:
+        return 0.0
+    return (float(x) - float(median)) / (1.4826 * float(mad))
+
+
+def deviation_flags(m, cell_baseline, z_thresh=3.5):
+    flags = {}
+    for k in NUMERIC_KEYS:
+        if k in cell_baseline and k in m:
+            z = robust_z(m[k], cell_baseline[k]["median"], cell_baseline[k]["mad"])
+            if abs(z) >= z_thresh:
+                flags[k] = round(z, 2)
+    return flags
+
+
+def run_deviation(baseline_root, z_thresh=3.5):
+    """Score the 11 bad docs against their cell baselines and print the gate
+    test: bad-doc deviation rate vs. the baseline's own leave-one-out tail rate."""
+    with open(os.path.join(baseline_root, "baselines.json"), encoding="utf-8") as fh:
+        baselines = _json.load(fh)
+
+    print("=" * 78)
+    print("DEVIATION GATE — bad docs vs. stratum baseline")
+    print("=" * 78)
+    cells = bad_doc_cells()
+    for slug, cell in cells.items():
+        path = os.path.join(CORPUS_ROOT, "bad", slug)
+        txt = None
+        for ext in (".txt", ".md"):
+            if os.path.exists(path + ext):
+                txt = open(path + ext, encoding="utf-8", errors="replace").read()
+                break
+        if txt is None:
+            print(f"  {slug:32s} [MISSING TEXT]")
+            continue
+        cb = baselines.get(cell)
+        if not cb:
+            print(f"  {slug:32s} cell={cell} [NO BASELINE YET]")
+            continue
+        m = compute_metrics(txt)
+        flags = deviation_flags(m, cb, z_thresh)
+        fdesc = ", ".join(f"{k}={v:+.1f}" for k, v in flags.items()) or "(none)"
+        print(f"  {slug:32s} {cell:24s} flags: {fdesc}")
+
+    # baseline self-tail rate (leave-one-out) per cell, per metric
+    print("\nBaseline own-tail rate (LOO) per cell/metric — the null to beat:")
+    metrics_csv = os.path.join(baseline_root, "metrics.csv")
+    import csv as _csv
+    rows = list(_csv.DictReader(open(metrics_csv, encoding="utf-8"))) \
+        if os.path.exists(metrics_csv) else []
+    for cell in sorted({r["cell"] for r in rows}):
+        crows = [r for r in rows if r["cell"] == cell]
+        if len(crows) < 3:
+            print(f"  {cell:24s} n={len(crows)} (too few for LOO)")
+            continue
+        tail = 0
+        for i, r in enumerate(crows):
+            others = crows[:i] + crows[i + 1:]
+            cb = {k: {"median": __import__("statistics").median(
+                        [float(o[k]) for o in others]),
+                      "mad": __import__("compute_baselines").mad(
+                        [float(o[k]) for o in others])}
+                  for k in NUMERIC_KEYS}
+            if deviation_flags({k: float(r[k]) for k in NUMERIC_KEYS}, cb, z_thresh):
+                tail += 1
+        print(f"  {cell:24s} n={len(crows)} own-tail={tail}/{len(crows)}")
+
+
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("--json", action="store_true")
+    ap.add_argument("--deviation", metavar="BASELINE_ROOT",
+                    help="score bad docs against a baseline tree")
     args = ap.parse_args()
+    if args.deviation:
+        run_deviation(args.deviation)
+        raise SystemExit(0)
     docs = run()
     if args.json:
         strata, totals, table = summarize(docs)
