@@ -390,6 +390,39 @@ class TestSubmitJobResult:
         assert not results.exists()
 
 
+class TestApplyAssessments:
+    def test_apply(self, root, monkeypatch):
+        from citation_verifier.proposition_pipeline import ApplyStats
+        seen = {}
+
+        def fake(workdir, prompt_version=None):
+            seen["pv"] = prompt_version
+            return ApplyStats(applied=3, invalid=1,
+                              invalid_claims=["wd-02"])
+        monkeypatch.setattr(mcp_server.pp, "run_apply_assessments", fake)
+        out = mcp_server.apply_assessments(workdir=str(root / "wd"))
+        assert seen["pv"] == mcp_server.pp.ASSESS_V2_PROMPT_VERSION
+        assert out["applied"] == 3 and out["invalid_claims"] == ["wd-02"]
+
+
+EXPECTED_TOOLS = {
+    "intake_document", "extract", "verify", "merge", "check_quotes",
+    "crosscheck", "triage", "assess", "apply_assessments", "report",
+    "full", "get_job", "submit_job_result", "status",
+}
+
+
+class TestRegistration:
+    def test_all_tools_registered(self):
+        tools = asyncio.run(mcp_server.mcp.list_tools())
+        assert {t.name for t in tools} == EXPECTED_TOOLS
+
+    def test_every_tool_has_description(self):
+        tools = asyncio.run(mcp_server.mcp.list_tools())
+        for t in tools:
+            assert t.description and len(t.description) > 20, t.name
+
+
 def _make_minimal_pdf(path, text="Hello MCP"):
     """One-page valid PDF with a correct xref (pdfplumber-readable)."""
     stream = f"BT /F1 12 Tf 72 720 Td ({text}) Tj ET".encode()

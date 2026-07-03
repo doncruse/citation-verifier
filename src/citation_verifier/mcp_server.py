@@ -281,6 +281,18 @@ async def verify(workdir: str, citations: list[str] | None = None,
 
 
 @mcp.tool(annotations={"readOnlyHint": False, "idempotentHint": True,
+                       "openWorldHint": False})
+def apply_assessments(workdir: str,
+                      prompt_version: str | None = None) -> dict:
+    """Ingest verdicts JSONL into claims.csv with schema validation and
+    quote-floor enforcement (verb 7). The pipeline owns the CSV."""
+    pv = prompt_version or pp.ASSESS_V2_PROMPT_VERSION
+    stats = _call(pp.run_apply_assessments, _workdir(workdir),
+                  prompt_version=pv)
+    return _stats(stats)
+
+
+@mcp.tool(annotations={"readOnlyHint": False, "idempotentHint": True,
                        "openWorldHint": True})
 async def full(workdir: str, document: str | None = None,
                force: bool = False, prompt_version: str | None = None,

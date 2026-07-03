@@ -1,7 +1,7 @@
 # MCP Server Design — Typed Tool Surface for the Proposition Pipeline
 
 **Date:** 2026-07-02
-**Status:** Draft for review
+**Status:** Approved 2026-07-02; implemented (see `2026-07-02-mcp-server-plan.md`)
 **Driver:** [Issue #29](https://github.com/rlfordon/citation-verifier/issues/29) — expose the verify-propositions verbs as typed MCP tools so the Cabinet memo-import lane can drop its `Bash(python:*)` interpreter grant.
 **Prior art in this repo:** refactor design v2 §Phase 5 (MCP roadmap sketch, 2026-05-20); `scratch/ROADMAP.md` Tier 4 (candidates schema parked "until grounded callers — MCP server"); `scratch/drafts/foresight-88-consumer-api-access.md` (hosted/consumer MCP — explicitly *not* this design).
 
