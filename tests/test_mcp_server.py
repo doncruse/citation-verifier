@@ -258,6 +258,78 @@ class TestAssessTool:
         assert out["done"] == 2
 
 
+_JOB_LINE = ('[{"job_id": "op1", "claim_ids": ["wd-01"],'
+             ' "prompt": "ASSESS THIS", "prompt_version": "assess-v2",'
+             ' "files": ["opinions/a.txt"], "schema": null,'
+             ' "max_chars": null}]')
+
+
+class TestGetJob:
+    def test_returns_full_prompt(self, root):
+        wd = root / "wd"
+        (wd / "jobs").mkdir(exist_ok=True)
+        (wd / "jobs" / "assess.json").write_text(_JOB_LINE,
+                                                 encoding="utf-8")
+        out = mcp_server.get_job(workdir=str(wd), phase="assess",
+                                 job_id="op1")
+        assert out == {"ok": True, "job_id": "op1",
+                       "claim_ids": ["wd-01"], "prompt": "ASSESS THIS",
+                       "prompt_version": "assess-v2",
+                       "files": ["opinions/a.txt"]}
+
+    def test_unknown_phase_rejected(self, root):
+        with pytest.raises(ToolError, match="phase"):
+            mcp_server.get_job(workdir=str(root / "wd"),
+                               phase="../../etc", job_id="x")
+
+    def test_missing_jobs_file(self, root):
+        with pytest.raises(ToolError, match="run the assess tool first"):
+            mcp_server.get_job(workdir=str(root / "wd"), phase="assess",
+                               job_id="op1")
+
+    def test_unknown_job_id(self, root):
+        wd = root / "wd"
+        (wd / "jobs").mkdir(exist_ok=True)
+        (wd / "jobs" / "assess.json").write_text(_JOB_LINE,
+                                                 encoding="utf-8")
+        with pytest.raises(ToolError, match="job_id"):
+            mcp_server.get_job(workdir=str(wd), phase="assess",
+                               job_id="nope")
+
+
+class TestSubmitJobResult:
+    def test_appends_valid_envelope(self, root):
+        from citation_verifier.executor import load_verdicts_jsonl
+        wd = root / "wd"
+        envelope = {"claim_id": "wd-01", "prompt_version": "assess-v2",
+                    "model": "opus",
+                    "fields": {"verdicts": [{"claim_id": "wd-01",
+                                             "support": "supported"}]}}
+        out = mcp_server.submit_job_result(workdir=str(wd),
+                                           phase="assess",
+                                           result=envelope)
+        assert out["ok"] is True and out["total_results"] == 1
+        verdicts = load_verdicts_jsonl(wd / "jobs" / "assess_results.jsonl")
+        assert verdicts[0].claim_id == "wd-01"
+        assert verdicts[0].prompt_version == "assess-v2"
+        assert verdicts[0].model == "opus"
+        assert verdicts[0].fields["verdicts"][0]["support"] == "supported"
+
+    @pytest.mark.parametrize("broken", [
+        {"prompt_version": "assess-v2", "fields": {}},          # no claim_id
+        {"claim_id": "wd-01", "fields": {}},                    # no version
+        {"claim_id": "wd-01", "prompt_version": "assess-v2"},   # no fields
+        {"claim_id": "wd-01", "prompt_version": "assess-v2",
+         "fields": "not-an-object"},
+    ])
+    def test_rejects_malformed_envelope(self, root, broken):
+        with pytest.raises(ToolError):
+            mcp_server.submit_job_result(workdir=str(root / "wd"),
+                                         phase="assess", result=broken)
+        results = (root / "wd" / "jobs" / "assess_results.jsonl")
+        assert not results.exists()
+
+
 class TestStatus:
     def test_status_reports_files_and_pending(self, root):
         wd = root / "wd"

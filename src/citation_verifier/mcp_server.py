@@ -237,6 +237,66 @@ async def verify(workdir: str, citations: list[str] | None = None,
                             cache_dir, ctx)
 
 
+def _check_phase(phase: str) -> str:
+    if phase not in ("extract", "assess"):
+        raise ToolError("phase must be 'extract' or 'assess'")
+    return phase
+
+
+@mcp.tool(annotations={"readOnlyHint": True, "idempotentHint": True,
+                       "openWorldHint": False})
+def get_job(workdir: str, phase: str, job_id: str) -> dict:
+    """Fetch one pending LLM job's full prompt for subagent dispatch.
+
+    Reads the pipeline-written jobs/<phase>.json (call the extract or
+    assess tool first to generate it). The subagent should run the
+    prompt verbatim, Reading the listed files itself.
+    """
+    wd = _workdir(workdir)
+    _check_phase(phase)
+    jobs_file = wd / "jobs" / f"{phase}.json"
+    if not jobs_file.exists():
+        raise ToolError(f"no jobs/{phase}.json -- run the {phase} tool "
+                        "first to generate pending jobs")
+    for j in json.loads(jobs_file.read_text(encoding="utf-8")):
+        if j["job_id"] == job_id:
+            return {"ok": True, "job_id": j["job_id"],
+                    "claim_ids": j["claim_ids"], "prompt": j["prompt"],
+                    "prompt_version": j["prompt_version"],
+                    "files": j.get("files", [])}
+    raise ToolError(f"job_id {job_id!r} not found in jobs/{phase}.json")
+
+
+@mcp.tool(annotations={"readOnlyHint": False, "idempotentHint": False,
+                       "openWorldHint": False})
+def submit_job_result(workdir: str, phase: str, result: dict) -> dict:
+    """Append one validated result envelope to jobs/<phase>_results.jsonl.
+
+    Envelope shape: {"claim_id": str, "prompt_version": str,
+    "fields": object[, "model": str]} -- the same line subagents used
+    to append by hand. After submitting all jobs, call the phase's verb
+    tool again to ingest. Appends are serialized by the server; this
+    tool never touches claims.csv (apply_assessments owns it).
+    """
+    wd = _workdir(workdir)
+    _check_phase(phase)
+    for key in ("claim_id", "prompt_version", "fields"):
+        if key not in result:
+            raise ToolError(f"result envelope missing {key!r} "
+                            "(expected claim_id, prompt_version, fields)")
+    if not isinstance(result["fields"], dict):
+        raise ToolError("result 'fields' must be a JSON object")
+    verdict = Verdict(claim_id=str(result["claim_id"]),
+                      fields=result["fields"],
+                      model=str(result.get("model", "")),
+                      prompt_version=str(result["prompt_version"]))
+    results_path = wd / "jobs" / f"{phase}_results.jsonl"
+    append_verdict_jsonl(results_path, verdict)
+    total = len(results_path.read_text(encoding="utf-8").splitlines())
+    return {"ok": True, "results_file": str(results_path),
+            "total_results": total}
+
+
 @mcp.tool(annotations={"readOnlyHint": True, "idempotentHint": True,
                        "openWorldHint": False})
 def status(workdir: str) -> dict:
