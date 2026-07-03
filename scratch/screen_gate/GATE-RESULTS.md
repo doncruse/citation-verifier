@@ -115,6 +115,39 @@ Tier 0.5. Also surfaced: the pro se bad briefs fire zero Tier-0 signals despite
 fake cites; only Tier-1 existence lookup catches them. There may be no zero-cost
 rung-0 detector for well-formed fabrication.
 
+## Tier-0.5 probe #2 — the real hypotheses (2026-07-03, `probe_repetition.py`)
+
+Tested the two hypotheses that target the *generation fingerprint* rather than
+professionalism: **proposition repeat** (same point restated with different
+cites) and **cite-per-proposition uniformity** (CV). Verdict: **Tier 0.5 does
+not clear the gate on this corpus.**
+
+- **proposition_repeat — weak, confounded, pro-se-silent.** Normalized rate
+  leans right (bad-att 0.066 vs control-att 0.014) but a legit brief
+  (ctrl-cand-msj, 6 pairs, rate 0.039) lands inside the bad range; the bad mean
+  is inflated by braun-day (1 pair / 5 props = 0.200, n-noise) and the MPH
+  fixture. Zero firing across the entire pro se stratum. The one genuinely odd
+  datum is MPH's cluster of 4 reshuffled-cite propositions.
+- **cite_prop_uniformity (CV) — separates for the wrong reason.** bad-att CV
+  0.101 vs control-att 0.314 (bad more uniform, as hypothesized) — but only
+  because bad briefs cite one case per point while controls **string-cite**.
+  CV measures string-citation sophistication (professionalism), can't distinguish
+  "uniform because AI" from "uniform because unsophisticated filer," and would
+  flag honest pro se briefs.
+
+**Structural conclusion (both probes).** Our controls are best-in-class briefs,
+so every document-internal statistic — parenthetical rate, density, repetition,
+uniformity — ends up measuring **professionalism**, which is confounded with the
+label. There is no free-lunch zero-network statistical detector at rung 0 in this
+data. The signal that generalizes across all fabrication (including the pro se
+briefs that fire nothing on Tier 0/0.5) is **Tier-1 existence checking**.
+
+**One ember worth re-testing at 2x corpus:** proposition-repeat-with-different-
+cites (rate + max_cluster) is the only structural metric that leaned right
+without a pure professionalism confound — repeating a point with *different*
+authorities is genuinely unusual for a human. Re-test it, not the others, if the
+corpus doubles. Everything else in Tier 0.5 is retired.
+
 ## Immediate next (unblocked, mostly mechanical)
 
 1. **Implement `chatbot_preamble`** — pure text, near-zero FP; braun-day is a
