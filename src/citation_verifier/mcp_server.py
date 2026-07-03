@@ -62,6 +62,100 @@ def _workdir(value: str) -> Path:
     return p
 
 
+def _stats(obj: Any) -> dict[str, Any]:
+    """Dataclass stats -> JSON-safe dict with ok=True (Path -> str)."""
+    if obj is None:
+        return {"ok": True}
+    d = json.loads(json.dumps(asdict(obj), default=str))
+    return {"ok": True, **d}
+
+
+def _call(fn, *args, **kwargs):
+    """Run a verb, mapping known failures to actionable tool errors."""
+    from .executor import ExecutorAuthError
+    try:
+        return fn(*args, **kwargs)
+    except (FileNotFoundError, ValueError, ExecutorAuthError) as e:
+        raise ToolError(str(e)) from e
+
+
+def _pending_jobs(workdir: Path, phase: str) -> list[dict[str, Any]]:
+    """Job summaries (no prompts -- those are large; use get_job) from
+    the jobs file the executor wrote at pend time."""
+    jobs_file = workdir / "jobs" / f"{phase}.json"
+    if not jobs_file.exists():
+        return []
+    jobs = json.loads(jobs_file.read_text(encoding="utf-8"))
+    return [{"job_id": j["job_id"], "claim_ids": j["claim_ids"],
+             "files": j.get("files", [])} for j in jobs]
+
+
+@mcp.tool(annotations={"readOnlyHint": False, "idempotentHint": True,
+                       "openWorldHint": False})
+def merge(workdir: str) -> dict:
+    """Join claims.csv to verification_results.csv + link opinion files
+    (verb 2). Requires the verify tool to have run first."""
+    stats = _call(pp.run_merge, _workdir(workdir))
+    return _stats(stats)
+
+
+@mcp.tool(annotations={"readOnlyHint": False, "idempotentHint": True,
+                       "openWorldHint": False})
+def check_quotes(workdir: str) -> dict:
+    """Deterministic quote verdicts + quote floors (verb 3). Run after
+    merge."""
+    stats = _call(pp.run_check_quotes, _workdir(workdir))
+    return _stats(stats)
+
+
+@mcp.tool(annotations={"readOnlyHint": False, "idempotentHint": True,
+                       "openWorldHint": False})
+def crosscheck(workdir: str) -> dict:
+    """Deterministic TOA-vs-body, court, and pincite flags (verb 4).
+    Flags only -- never moves assessment colors."""
+    stats = _call(pp.run_crosscheck, _workdir(workdir))
+    return _stats(stats)
+
+
+@mcp.tool(annotations={"readOnlyHint": False, "idempotentHint": True,
+                       "openWorldHint": False})
+def triage(workdir: str) -> dict:
+    """Assessment-depth track per claim (verb 5): full | fast |
+    deterministic."""
+    stats = _call(pp.run_triage, _workdir(workdir))
+    return _stats(stats)
+
+
+@mcp.tool(annotations={"readOnlyHint": False, "idempotentHint": True,
+                       "openWorldHint": False})
+def report(workdir: str) -> dict:
+    """Render claims.csv -> report.html + findings.json (verb 8)."""
+    wd = _workdir(workdir)
+    stats = _call(pp.run_report, wd)
+    out = _stats(stats)
+    out["findings_json"] = str(wd / "findings.json")
+    return out
+
+
+@mcp.tool(annotations={"readOnlyHint": True, "idempotentHint": True,
+                       "openWorldHint": False})
+def status(workdir: str) -> dict:
+    """Workdir progress probe: which outputs exist, run.json stamps,
+    pending LLM-job counts. Read-only."""
+    wd = _workdir(workdir)
+    run: dict[str, Any] = {}
+    run_path = wd / "run.json"
+    if run_path.exists():
+        run = json.loads(run_path.read_text(encoding="utf-8"))
+    files = {name: (wd / name).exists()
+             for name in ("claims.csv", "verification_results.csv",
+                          "report.html", "findings.json")}
+    pending = {phase: len(_pending_jobs(wd, phase))
+               for phase in ("extract", "assess")}
+    return {"ok": True, "files": files, "run": run,
+            "pending_jobs": pending}
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
         prog="citation-verifier-mcp",
