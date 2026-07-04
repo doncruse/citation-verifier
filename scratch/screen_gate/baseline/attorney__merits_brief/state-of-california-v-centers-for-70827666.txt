@@ -1,0 +1,2371 @@
+      Case 1:25-cv-12019-NMG            Document 122    Filed 01/23/26    Page 1 of 43
+
+
+
+
+                          UNITED STATES DISTRICT COURT
+                        FOR THE DISTRICT OF MASSACHUSETTS
+
+
+
+
+STATE OF CALIFORNIA, et al.,
+               PLAINTIFFS,
+
+       v.
+                                                 Civil Action No. 1:25-CV-12019-NMG
+ROBERT F. KENNEDY, JR., in his
+official capacity as Secretary of the
+Department of Health and Human                         Leave to file excess pages
+Services, et al.,                                      granted on January 9, 2026
+
+              DEFENDANTS.
+
+
+
+
+      PLAINTIFF STATES’ MEMORANDUM OF LAW IN SUPPORT OF THEIR
+       MOTION FOR SUMMARY JUDGMENT ON CAUSES OF ACTION II-VI
+                   AND REQUEST FOR ORAL ARGUMENT
+Case 1:25-cv-12019-NMG                   Document 122                Filed 01/23/26             Page 2 of 43
+
+
+
+
+                                    TABLE OF CONTENTS
+
+                                                                                                                    Page
+
+ I.     INTRODUCTION ...................................................................................................1
+ II.    FACTUAL AND PROCEDURAL BACKGROUND.............................................2
+        A.   The Affordable Care Act Makes Coverage Accessible and
+             Affordable ....................................................................................................2
+        B.   The Rule Makes Coverage Less Accessible and Less Affordable ..............5
+        C.   Defendants Disregard Public Comments Pointing Out the Rule’s
+             Flawed Justifications ....................................................................................6
+        D.   The Plaintiff States’ Action .........................................................................7
+ III.   LEGAL STANDARD ..............................................................................................8
+ IV.    ARGUMENT ...........................................................................................................9
+        A.   The Rule Harms the States ...........................................................................9
+        B.   The Provisions Making Coverage Harder to Obtain Are Arbitrary
+             and Capricious, Contrary to Law, and Ultra Vires ....................................12
+             1.     Ending Guaranteed Coverage for Otherwise Eligible
+                    Individuals with Past-Due Premiums on Prior Policies, 45
+                    C.F.R. § 147.104(i), Is Unlawful and Arbitrary.............................12
+                    a.        Ending Guaranteed Issue is Contrary to Law ....................12
+                    b.        Ending Guaranteed Issue is Arbitrary and
+                              Capricious ..........................................................................13
+             2.     Requiring 75% Verification for Triggering-Event SEPs, 45
+                    C.F.R. § 155.420(g), is Arbitrary and Capricious ..........................14
+             3.     Shortening the Open Enrollment Period, 45 C.F.R.
+                    § 155.410(e) and (f), is Arbitrary and Capricious ..........................15
+        C.   The Provisions Making Coverage More Expensive Are Arbitrary
+             and Capricious, Contrary to Law, and Ultra Vires ....................................17
+             1.     The $5 Re-Enrollment Penalty, 45 C.F.R. § 155.335(a)(3)
+                    and (n), is Unlawful and Arbitrary .................................................17
+                    a.        The $5 Re-Enrollment Penalty Is Contrary to Law ...........17
+                    b.        The $5 Penalty Is Arbitrary and Capricious ......................18
+             2.     Ending Acceptance of Self-Attested Projected Household
+                    Income when IRS Data is Contradictory or Unavailable, 45
+                    C.F.R. § 155.320(c)(3)(iii), (5), is Arbitrary and Capricious ........19
+             3.     Shortening the FTR Eligibility Window to One Year, 45
+                    C.F.R. § 155.305(f), is Arbitrary and Capricious ..........................22
+             4.     Changing the Premium Adjustment Percentage
+                    Methodology, 45 C.F.R. § 156.130(e), is Arbitrary and
+                    Capricious ......................................................................................23
+
+
+                                                       i
+Case 1:25-cv-12019-NMG                Document 122                Filed 01/23/26             Page 3 of 43
+
+
+
+
+                                  TABLE OF CONTENTS
+                                      (continued)
+                                                                                                                Page
+
+      D.  The Provisions Making Coverage Less Valuable Are Arbitrary and
+          Capricious, Contrary to Law, and Ultra Vires ...........................................25
+          1.     Allowing Health Plans to Offer Less Valuable Coverage,
+                 45 C.F.R. §§ 156.140(c), 156.200(b)(3), and 156.400, is
+                 Arbitrary and Capricious................................................................25
+          2.     The Elimination of “Sex-Trait Modification Procedures” as
+                 an Essential Health Benefit is Unlawful and Arbitrary .................27
+                 a.        The EHB Modification is Contrary to Law .......................27
+                 b.        The EHB Modification is Arbitrary and Capricious ..........28
+ V.   CONCLUSION ......................................................................................................30
+
+
+
+
+                                               ii
+        Case 1:25-cv-12019-NMG                        Document 122                Filed 01/23/26              Page 4 of 43
+
+
+
+
+                                               TABLE OF AUTHORITIES
+
+                                                                                                                                 Page
+
+CASES
+
+Air All. Hous. v. EPA,
+    906 F.3d 1049 (D.C. Cir. 2018) ...............................................................................................18
+
+Azar v. Allina Health Servs.,
+   587 U.S. 566 (2019) .................................................................................................................13
+
+Bos. Redevelopment Auth. v. Nat’l Park Serv.,
+   838 F.3d 42 (1st Cir. 2016) ........................................................................................................9
+
+City of Columbus v. Cochran,
+    523 F. Supp. 3d 731 (D. Md. 2021) .....................................................................................8, 19
+
+City of Columbus v. Kennedy,
+    796 F. Supp. 3d 123 (D. Md. 2025) ................................................................................. passim
+
+Dep’t of Homeland Sec. v. Regents of the Univ. of Cal.,
+   591 U.S. 1 (2020) .....................................................................................................9, 19, 21, 24
+
+Encino Motorcars, LLC v. Navarro,
+   579 U.S. 211 (2016) .................................................................................................................24
+
+Fed. Comm’ns Comm. v. Prometheus Radio Proj.,
+   592 U.S. 414 (2021) ...........................................................................................................16, 20
+
+Getty v. Fed. Sav. & Loan Ins. Corp.,
+   805 F.2d 1050 (D.C. Cir. 1986) ...........................................................................................9, 22
+
+Grosso v. Surf. Transp’n Bd.,
+   804 F.3d 110 (1st Cir. 2015) ......................................................................................................9
+
+Judulang v. Holder,
+   565 U.S. 42 (2011) ...................................................................................................................24
+
+King v. Burwell,
+   576 U.S. 473 (2015) ...............................................................................................................2, 3
+
+Lujan v. Def’s of Wildlife,
+   504 U.S. 555 (1992) ...................................................................................................................9
+
+Mass. v. Nat’l Inst. of Health,
+  770 F. Supp. 3d 277 (D. Mass. 2025) ......................................................................................26
+
+
+                                                                    iii
+        Case 1:25-cv-12019-NMG                            Document 122                  Filed 01/23/26               Page 5 of 43
+
+
+
+
+                                                  TABLE OF AUTHORITIES
+                                                        (continued)
+                                                                                                                                          Page
+
+Michigan v. EPA,
+   576 U.S. 743 (2015) .................................................................................................................30
+
+Miss. Comm’n on Env’t Quality v. EPA,
+   790 F.3d 138 (D.C. Cir. 2015) .................................................................................................29
+
+Monsanto Co. v. Geertson Seed Farms,
+  561 U.S. 139 (2010) ...................................................................................................................9
+
+Motor Veh. Mfrs.' Ass'n of the U.S., Inc. v. State Farm Mut. Automobile Ins. Co.,
+   463 U.S. 29 (1983) ........................................................................................................... passim
+
+Nat’l Fed’n Indep. Bus. v. Sebelius,
+   567 U.S. 519 (2012) .................................................................................................................24
+
+Ohio v. EPA,
+   603 U.S. 279 (2024) .....................................................................................................14, 25, 26
+
+Perez v. Mortgage Bankers Ass’n,
+   575 U.S. 92 (2015) .........................................................................................................9, 15, 28
+
+Pub. Int. Legal Found., Inc. v. Bellows,
+   92 F.4th 36 (1st Cir. 2024) .......................................................................................................10
+
+Russello v. United States,
+   464 U.S. 16 (1983) ...................................................................................................................13
+
+TRW, Inc. v. Andrews,
+  534 U.S. 19 (2001) ...................................................................................................................12
+
+Util. Air Regul. Grp. v. EPA,
+    573 U.S. 302 (2014) .................................................................................................................18
+
+STATUTES
+
+5 U.S.C.
+   § 551...........................................................................................................................................8
+   § 704...........................................................................................................................................8
+   § 706.................................................................................................................................2, 9, 30
+
+
+
+
+                                                                        iv
+        Case 1:25-cv-12019-NMG                            Document 122                 Filed 01/23/26               Page 6 of 43
+
+
+
+
+                                                  TABLE OF AUTHORITIES
+                                                        (continued)
+                                                                                                                                         Page
+
+26 U.S.C.
+   § 36B ........................................................................................................................3, 17, 18, 22
+   § 36B(b) .............................................................................................................................17, 25
+   § 36B(f) ......................................................................................................................................4
+   § 5000A......................................................................................................................................3
+
+42 U.S.C.
+   § 300gg-1(a) ...................................................................................................................3, 12, 13
+   § 300gg-2(b).......................................................................................................................12, 13
+   § 18022(a) ..................................................................................................................................4
+   § 18022(b) ..........................................................................................................................27, 28
+   § 18022(d) ............................................................................................................................4, 26
+   § 18031.......................................................................................................................................3
+   § 18031(d) ..................................................................................................................................4
+   § 18041(c) ..................................................................................................................................3
+   § 18081.....................................................................................................................................17
+   § 18081(f)...........................................................................................................................17, 18
+   § 18082.....................................................................................................................................22
+   § 18082(c) ................................................................................................................................17
+
+American Rescue Plan Act of 2021,
+  Pub. L. No. 117-2, 135 Stat. 4 (2021) ........................................................................................3
+
+Families First Coronavirus Relief Act,
+   Pub. L. No. 116-127, § 6008(b)(3), 134 Stat. 178, 208-09 (2020) ............................................7
+
+Health Care and Education Reconciliation Act of 2010,
+   Pub. L. No. 111-152, 124 Stat. 1029 (2010) ..............................................................................2
+
+Patient Protection and Affordable Care Act,
+    Pub. L. No. 111-148, 124 Stat. 119 (2010) ................................................................................2
+
+
+
+
+                                                                        v
+        Case 1:25-cv-12019-NMG                          Document 122                 Filed 01/23/26               Page 7 of 43
+
+
+
+
+                                                 TABLE OF AUTHORITIES
+                                                       (continued)
+                                                                                                                                      Page
+
+REGULATIONS
+
+45 C.F.R.
+   § 147.104(i) ..............................................................................................................................12
+   § 155.305(f)..............................................................................................................................22
+   § 155.320(c) .............................................................................................................................19
+   § 155.335(a) .............................................................................................................................17
+   § 155.335(n) .............................................................................................................................17
+   § 155.410(e) .............................................................................................................................15
+   § 155.410(f)..............................................................................................................................15
+   § 155.420(g) .............................................................................................................................14
+   § 156.130(e) .............................................................................................................................23
+   § 156.140(c) .............................................................................................................................25
+   § 156.200(b) .............................................................................................................................25
+   § 156.400............................................................................................................................25, 27
+
+Patient Protection and Affordable Care Act; Market Stabilization,
+    82 Fed. Reg. 18,346 (Apr. 18, 2017) .......................................................................................16
+
+Patient Protection and Affordable Care Act; Marketplace Integrity and
+    Affordability,
+    90 Fed. Reg. 12,942 (Mar. 19, 2025) .........................................................................................6
+
+Patient Protection and Affordable Care Act; Marketplace Integrity and
+    Affordability,
+    90 Fed. Reg. 27,074 (June 25, 2025) ............................................................................... passim
+
+OTHER AUTHORITIES
+
+Am.'s Health Ins. Plans Ctr. for Pol'y & Rsch., Individual Health Insurance 2009:
+  A Comprehensive Survey of Premiums, Availability, and Benefits (2009) ................................3
+
+Dep't of Labor, Selected Medical Benefits: A Report from the Department of
+   Labor to the Department of Health and Human Services (Apr. 15, 2011) ..............................27
+
+
+
+
+                                                                      vi
+      Case 1:25-cv-12019-NMG            Document 122         Filed 01/23/26    Page 8 of 43
+
+
+
+
+I.    INTRODUCTION
+      Despite being told they were relying on an analysis of enrollment data with undisputed and
+
+foundational flaws, the U.S. Department of Health and Human Services and one of its sub-
+
+agencies, the Centers for Medicare and Medicaid Services, wrongly claimed that fraudulent and
+
+improper enrollments in coverage plague the Affordable Care Act’s (ACA) health insurance
+
+exchanges nationwide. Defendants persisted in this claim even though the evidence before the
+
+agency showed, at most, only a temporary and geographically limited issue caused by dishonest
+
+insurance brokers and agents—not consumers—concentrated in a handful of non-Plaintiff states
+
+that use the federal government’s own exchange, not the states’ exchanges. To tackle this
+
+manufactured crisis, Defendants adopted regulations that enact a battery of sweeping changes on
+
+federal and state exchanges that will make enrollment more difficult, require more paperwork,
+
+erect unlawful barriers to coverage, and make tax credits harder to obtain. These changes will
+
+cause harm not only to the very people the ACA was designed to protect, but also to states that
+
+must consequently bear costs associated with declining enrollment. By Defendants’ own
+
+estimates, up to 1.8 million people could lose their health insurance coverage in 2026 alone, yet
+several of the changes will not even address the problem Defendants claim they are targeting.
+
+This Rule is arbitrary, capricious, contrary to law, and ultra vires action.
+
+      Plaintiffs here, a coalition of twenty states and one governor’s office, challenge nine
+
+unlawful provisions of the Rule, which fall into three categories. First, the Rule makes health
+
+care coverage harder to obtain by limiting enrollment windows and erecting byzantine new
+verification and paperwork requirements that the lowest-income Americans will be worst-
+
+equipped to navigate. Second, it makes coverage more expensive by increasing premiums and
+
+making tax credits harder to obtain and keep. Third, the Rule lessens the value of the coverage
+
+obtained by allowing insurers deliberately to undershoot the ACA’s value targets and by
+
+prohibiting the coverage of medically necessary care as an essential health benefit (EHB). All
+
+provisions are arbitrary and capricious, and three—one from each category: the guaranteed
+
+coverage provision, the $5 fee, and the EHB provision—are also contrary to law and ultra vires.
+
+
+                                                  1
+      Case 1:25-cv-12019-NMG           Document 122         Filed 01/23/26      Page 9 of 43
+
+
+
+
+      This motion asks the Court to consider the merits of Plaintiffs’ challenges as to six of the
+
+provisions for the first time. The Court has reached the merits of the other three provisions but
+
+held open the possibility of future relief. As to one such claim—that the Rule’s modification of
+
+EHB was unlawful because the Secretary failed to comply with the statutory requirement to
+
+submit a report to Congress—Plaintiffs are entitled to relief for reasons already set forth by the
+
+Court, because the Secretary has failed to retroactively cure this procedural defect by submitting
+
+the report within the deadline required by the Court’s order.
+
+      Throughout rulemaking, Defendants failed to engage with and respond to commenters who
+pointed out that Defendants’ analysis of enrollment data was incorrect and therefore that their
+
+main justification for the Rule was nonexistent. In addition, Defendants repeatedly failed to
+
+justify the Rule’s severe harms, and they prioritized a policy goal—reducing hypothetical
+
+fraud—over Congress’s stated purposes for the ACA: increasing affordability and coverage of
+
+health insurance. Persuaded that this is likely not lawful agency decision-making, one district
+
+court has already preliminarily enjoined most of the provisions challenged here. See City of
+
+Columbus v. Kennedy, 796 F. Supp. 3d 123 (D. Md. 2025). This Court should follow suit,
+
+declare all challenged provisions unlawful, and vacate them under 5 U.S.C. § 706.
+
+II.   FACTUAL AND PROCEDURAL BACKGROUND
+      Plaintiff States incorporate by reference the factual background set forth in Plaintiffs’
+
+Complaint, ECF 1 at ¶¶ 35-77, and their Memorandum in Support of Motion for a Preliminary
+
+Injunction and Stay (hereafter “PI Mot.”), ECF 10 at 2-6.
+
+      A.    The Affordable Care Act Makes Coverage Accessible and Affordable
+      The purpose of the Patient Protection and Affordable Care Act, Pub. L. No. 111-148, 124
+
+Stat. 119 (2010) (as amended by Health Care and Education Reconciliation Act of 2010, Pub. L.
+
+No. 111-152, 124 Stat. 1029 (2010)), is “to make health insurance more affordable and thereby
+
+increase the number of Americans who are covered by it.” Order Denying Mot. for Prelim. Inj.
+
+(hereafter “PI Order”), ECF 105 at 2. The ACA adopts three “interlocking reforms.” King v.
+
+Burwell, 576 U.S. 473, 478–79 (2015). First, it “bars insurers from taking a person’s health into
+
+
+                                                 2
+     Case 1:25-cv-12019-NMG            Document 122         Filed 01/23/26      Page 10 of 43
+
+
+
+
+account when deciding whether to sell health insurance or how much to charge.” Id. at 479; 42
+
+U.S.C. § 300gg-1(a). 1 Second, to prevent adverse selection—i.e., consumers only buying
+                     0F
+
+
+
+
+coverage when sick—it “generally requires” everyone to purchase insurance. King, 576 U.S. at
+
+479; 26 U.S.C. § 5000A. Third, the ACA “gives tax credits to certain people to make insurance
+
+more affordable.” King, 576 U.S. at 479; 26 U.S.C. § 36B.
+
+      To allow consumers to cross-shop available plans, the ACA also creates health insurance
+
+markets, or exchanges, in each state. King, 576 U.S. at 479; 42 U.S.C. § 18031. Congress
+
+authorized exchanges to be operated either by the state directly, or, if a state opted not to
+
+establish an exchange, by the federal government. 42 U.S.C. § 18041(c).
+
+      Consumers may buy coverage during the annual open enrollment period (OEP) or special
+
+enrollment periods (SEPs). The OEP typically runs from mid-fall to early winter, depending on
+
+the exchange. Exchanges have long had flexibility to calibrate the length of the OEP to balance
+
+the risk of adverse selection against the need to ensure health coverage is accessible to as many
+
+people as possible. Some consumers need to enroll in coverage during an SEP due to a triggering
+
+event such as the loss of minimum essential coverage, birth of a child, or a move to a new area.
+
+      To help consumers afford the coverage the ACA requires them to buy, Congress created
+
+substantial new premium tax credits (PTC) for low-to-moderate-income individuals. Most
+
+consumers estimate their projected annual income and choose to claim that credit up front, as an
+
+“advance” PTC (APTC), when enrolling in coverage. The U.S. Treasury then pays that amount
+
+directly to the insurer to lower the consumer’s premium. 26 U.S.C. § 36B. To qualify for credits,
+
+a consumer’s projected household income for the coming year must fall between 100% and
+
+400% of the federal poverty level (FPL). 21F
+
+
+
+
+       1
+          See also Amicus Br. of Nat’l Health L. Prog., et al., ECF 68 at 2 (Prior to the ACA,
+“[n]early 13 percent of [applicants] were denied insurance due to pre-existing conditions”)
+(citing Am.’s Health Ins. Plans Ctr. for Pol’y & Rsch., Individual Health Insurance 2009: A
+Comprehensive Survey of Premiums, Availability, and Benefits 10 (2009),
+https://www.kff.org/wp-content/uploads/sites/2/2011/08/2009individualmarketsurvey
+finalreport.pdf).
+        2
+          Legislation passed during the COVID-19 pandemic temporarily expanded eligibility for
+PTCs to those earning above 400% of the federal poverty level, but it expired at the end of 2025.
+American Rescue Plan Act of 2021, Pub. L. No. 117-2, 135 Stat. 4 (2021).
+
+
+                                                  3
+     Case 1:25-cv-12019-NMG             Document 122       Filed 01/23/26      Page 11 of 43
+
+
+
+
+      After the plan year ends, those who claimed APTC must reconcile their projected
+
+household income against their actual household income as shown on their tax return. If an
+
+enrollee earned more than projected and thus collected more credits than permitted under the
+
+formula, that enrollee owes a tax liability for the difference. 26 U.S.C. § 36B(f)(2). Before the
+
+promulgation of the Rule, an enrollee who failed to file taxes and reconcile their claimed PTC
+
+award against their actual eligibility—known as failure to file and reconcile (FTR)—for two
+
+consecutive years lost their eligibility for any future APTCs and needed to file and reconcile
+
+before eligibility would be restored.
+      To afford consumers a range of options, plans eligible to be sold on the ACA’s exchanges
+
+offer different amounts of coverage. Bronze plans are designed to cover 60% of the consumer’s
+
+expected costs, leaving 40% to be paid out of the consumer’s pocket; silver, gold, and platinum
+
+plans cover 70%, 80%, and 90%, respectively, of the plan’s full value of benefits. 42 U.S.C.
+
+§ 18022(d)(1). This measure is known as actuarial value. Id. The Secretary “shall develop
+
+guidelines to provide for a de minimis variation” in these levels, but only “to account for
+
+differences in actuarial estimates.” Id. § (d)(2)(C).
+
+      Finally, the ACA also forbids certain individual and small-group plans from excluding
+
+from coverage at least ten “essential health benefits,” such as emergency services, maternity and
+
+newborn care, and prescription drugs. Classification of a particular service as an EHB prohibits
+
+insurers from excluding that service, protects consumers from high health care costs by imposing
+
+cost-sharing limits for those services, and ensures the service counts toward a plan’s actuarial
+value. The EHBs are minimum standards for these plans, and states are free to require
+
+“additional benefits,” although they must defray the cost of those additional benefits. 42 U.S.C.
+
+§ 18031(d)(3)(B). The ACA requires that the HHS Secretary “define” EHBs and, additionally,
+
+that he “submit a report to the appropriate committees of Congress” describing “a [Department
+
+of Labor] survey of employer-sponsored coverage” before “revising” these benefits. 42 U.S.C.
+
+§ 18022(a)(2).
+
+
+
+
+                                                  4
+     Case 1:25-cv-12019-NMG           Document 122         Filed 01/23/26     Page 12 of 43
+
+
+
+      B.    The Rule Makes Coverage Less Accessible and Less Affordable
+      The new regulation promulgated by HHS and CMS, Patient Protection and Affordable
+
+Care Act; Marketplace Integrity and Affordability, 90 Fed. Reg. 27,074 (June 25, 2025)
+
+(hereafter “Rule”), makes coverage harder to obtain, more expensive, and less valuable, in
+
+contravention of the express purpose of the ACA.
+
+      The Rule restricts a consumer’s ability to enroll in coverage through three provisions. First,
+
+the Rule ends the ACA’s guaranteed-issue requirement, allowing insurers to refuse to issue a
+
+new policy for individuals with past-due premiums from previous periods of coverage under a
+
+different policy. Rule at 27,084. Second, the Rule makes enrollment in SEPs more difficult,
+
+requiring the federal exchange to confirm eligibility for 75% of those claiming eligibility for an
+
+SEP. Rule at 27,148. Third, the Rule mandates a shorter OEP nationwide, rescinding states’
+
+flexibility. Rule at 27,222.
+
+      The Rule will make coverage less affordable in four important ways. First, the Rule
+
+requires the federal exchange to impose a $5 charge on enrollees who are by law entitled to pay
+
+$0 out-of-pocket premiums. Rule at 27,109. Second, the Rule forbids exchanges from accepting
+a consumer’s self-reported income, thus blocking the consumer from APTC, if IRS data
+
+regarding that consumer’s income is contradictory or unavailable. Rule at 27,221. Third, the
+
+Rule shortens the window for a consumer to reconcile their APTC claim against their tax return
+
+from two years to one year, making it harder to maintain eligibility for credits. Rule at 27,113.
+
+And fourth, the Rule changes the methodology for calculating a measure of inflation known as
+the premium adjustment percentage (PAP), which, in turn, will reduce the amount of credits
+
+available and increase maximum annual out-of-pocket cost limits. Rule at 27,166.
+
+      Finally, the Rule erodes the value of coverage that consumers can obtain on the
+
+marketplaces by allowing plans to undershoot actuarial value targets by up to four percentage
+
+points, Rule at 27,174, and by preventing an entire category of medically necessary health care
+
+from being covered as an essential health benefit. Rule at 27,223.
+
+
+
+
+                                                 5
+     Case 1:25-cv-12019-NMG            Document 122        Filed 01/23/26      Page 13 of 43
+
+
+
+      C.     Defendants Disregard Public Comments Pointing Out the Rule’s Flawed
+             Justifications
+      During rulemaking, Defendants claimed the primary justification for many of these
+
+changes was to “strengthen[] the integrity of the [ACA] eligibility and enrollment systems to
+
+reduce waste, fraud, and abuse.” Patient Protection and Affordable Care Act; Marketplace
+
+Integrity and Affordability, 90 Fed. Reg. 12,942, 12,942 (Mar. 19, 2025) (Proposed Rule). HHS
+
+asserted that insurance brokers and agents fraudulently enrolled consumers in coverage they
+
+either did not want or were not eligible for using tax credits to which they were not entitled,
+
+which both cost the federal government billions of dollars and imposed tax liabilities on
+
+unwitting consumers when those credits were due to be repaid. Proposed Rule at 12,942-43.
+
+While it is true that complaints of fraudulent and improper enrollments spiked in early 2024,
+
+CMS itself announced in October of that year that the problem had been handled: HHS had
+
+begun “blocking agents and brokers from making [unauthorized] changes” on the federal
+
+exchange and had resolved 99.6% of the complaints and had suspended 850 agents and brokers
+
+in connection with alleged fraudulent activity. AR at 035378-79. 3 Tellingly, in the final Rule,
+                                                                  2F
+
+
+
+
+Defendants point to no fraud occurring after these 2024 protection measures were adopted.
+
+Defendants in fact acknowledge that the number of complaints in December 2024—7,134—is “a
+
+decrease from the high of 39,985 complaints received in February 2024.” Rule at 27,133
+
+(emphasis added). Instead, Defendants cite two reports from the Paragon Health Institute to
+
+justify the Rule’s sweeping effects. Rule at 27,075, 27,114, 27,122, 27,141.
+
+      Commenters pointed out to Defendants the flaws with those reports. The Urban Institute,
+
+for instance, detailed how “three major methodological flaws in the Paragon report and in the
+
+CMS’s [sic] analysis” all “bias estimates of improper exchange enrollments in the same
+
+direction, leading to an overestimate.” AR at 031662-63; accord, e.g., 031752 (Center on Budget
+
+and Policy Priorities), 032728 (Colorado Consumer Health Initiative), 032759 (Washington
+
+Health Benefit Exchange), 033446 (Center on Health Policy at Brookings). These commenters
+
+described how Paragon compared one enrollment metric that included children against another
+       3
+           Citations to the Administrative Record will take the form “AR at ___.”
+
+
+                                                 6
+     Case 1:25-cv-12019-NMG           Document 122        Filed 01/23/26      Page 14 of 43
+
+
+
+
+metric that did not; failed to consider that, after the COVID-19 emergency ended, 15 million
+
+people were disenrolled from Medicaid, many of whom likely qualified for exchange coverage; 4       3F
+
+
+
+
+and failed to acknowledge that household income could be reported differently in different data
+
+sources because of methodological differences, not unethical conduct. E.g., AR at 031663-64.
+
+      Many more commenters, including the Plaintiff States, insurance departments, health
+
+insurance exchanges, public health departments, and others, detailed how the Rule would harm
+
+consumers, decrease enrollment, weaken risk pools, drive up costs, and erode the value of
+
+coverage. E.g., AR at 031352 (Plaintiff States), 029422 (New York City Department of Health
+
+and Mental Hygiene), 029061 (Massachusetts Health Connector), 024654 (Maryland Health
+
+Benefit Exchange), 034843 (Covered California). Crucially, these commenters emphasized that
+
+the federal exchange, not the states’ exchanges, was the source of nearly all the complaints of
+
+fraudulent and improper enrollments. E.g., AR at 031761. Even the Paragon authors
+
+acknowledged “a drastic difference between federal exchange states and state-based exchange
+
+states in fraudulent enrollment rates.” AR at 039318. The Rule simply dismisses these concerns.
+
+      D.    The Plaintiff States’ Action
+      On July 17, 2025, the Plaintiff States filed their Complaint for Declaratory and Injunctive
+
+Relief, ECF 1, alongside their Motion and Memorandum in Support of Motion for a Preliminary
+
+Injunction and Stay, ECF 5-6, supported by 26 declarations from affected stakeholders in the
+
+Plaintiff States, including their insurance departments, their exchanges, public health agencies,
+
+and others, ECF 6-1 to 6-27. The Complaint challenges nine provisions of the Rule, eight of
+
+which the Plaintiffs sought to preliminarily enjoin and stay. The Defendants opposed the motion,
+
+ECF 90 (hereafter “PI Opp.”), and this Court held oral argument on August 13, 2025. The Court
+
+denied the Plaintiffs’ motion by written order on October 1, 2025. PI Order, ECF 105.
+
+      In its Order denying the motion for a preliminary injunction and stay, the Court addressed
+
+the merits of three provisions. For five provisions—coverage denial for past-due premiums
+
+       4
+        See Families First Coronavirus Relief Act, Pub. L. No. 116-127, § 6008(b)(3), 134 Stat.
+178, 208-09 (2020) (guaranteeing no Medicaid disenrollments until end of public emergency).
+
+
+                                                 7
+     Case 1:25-cv-12019-NMG            Document 122         Filed 01/23/26      Page 15 of 43
+
+
+
+
+(Section IV.B.1 infra), the SEP verification requirement (IV.B.2), $5 charge (IV.C.1), premium
+
+adjustment percentage calculation methodology (IV.C.4), and actuarial value ranges (IV.D.1)—
+
+the Court did not address the merits, finding insufficient evidence of irreparable harm due to
+
+those provisions. PI Order at 11-14. Plaintiffs move here for the first time as to their ninth
+
+challenged provision—the shortening of the Open Enrollment Period (IV.B.3).
+
+      The Court previously addressed the merits of three provisions: the income verification
+
+requirement (Section IV.C.2 infra), the shortening of the FTR eligibility window (IV.C.3), and
+
+the elimination of “sex-trait modification procedures” as EHB (IV.D.2). As to the first two of
+these, the Court found the agency’s decision “reasonable” and “within the discretion of the
+
+agency.” PI Order at 22, 23. As to the EHB modification, the Court found that the Secretary
+
+“would be in compliance with the ACA” only if he “submits the required report at or before the
+
+time the provision becomes effective.” PI Order at 28. Because that provision was not yet
+
+effective, the Court found that Plaintiffs “[had] no more likelihood of success than likelihood of
+
+failure” and denied the PI on that basis. PI Order at 29. The EHB modification became effective
+
+on January 1, 2026, and the Secretary has not submitted the required report.
+
+      Separately, a federal district court stayed seven provisions from taking effect. See City of
+
+Columbus, 796 F. Supp. 3d at 151, 156, 158, 160, 163, 168, 170 (staying the $5 fee, actuarial
+
+value policy, revocation of guaranteed issue, SEP verification, failure to reconcile, and the two
+
+income-verification provisions, respectively). Notably, another court four years ago vacated a
+
+very similar income-verification policy, finding that “HHS’s decision to prioritize a hypothetical
+risk of fraud over the substantiated risk that its decision result in immense administrative burdens
+
+at best, and a loss of coverage for eligible individuals at worst, defies logic.” City of Columbus v.
+
+Cochran, 523 F. Supp. 3d 731, 763 (D. Md. 2021).
+
+III. LEGAL STANDARD
+      The Administrative Procedure Act (APA) provides that a “final agency action,” such as
+
+rulemaking, is “subject to judicial review.” 5 U.S.C. § 704; 5 U.S.C. § 551(4), (5). The statute
+
+empowers a federal court to “hold unlawful and set aside agency action” that is “arbitrary,
+
+
+                                                  8
+      Case 1:25-cv-12019-NMG           Document 122        Filed 01/23/26      Page 16 of 43
+
+
+
+
+capricious, an abuse of discretion, or otherwise not in accordance with law.” 5 5 U.S.C.
+                                                                               4F
+
+
+
+
+§ 706(2)(A). Agency actions are arbitrary and capricious if they fail to “articulate a satisfactory
+
+explanation” for their actions. Grosso v. Surf. Transp’n Bd., 804 F.3d 110, 116 (1st Cir. 2015);
+
+see Motor Veh. Mfrs.’ Ass’n of the U.S., Inc. v. State Farm Mut. Automobile Ins. Co., 463 U.S.
+
+29, 43, 48-49 (1983) (agency must “cogently explain” its reasoning, providing a “rational
+
+connection between the facts found and the choice made”). The APA “requires agencies to
+
+engage in reasoned decisionmaking.” Dep’t of Homeland Sec. v. Regents of the Univ. of Cal.,
+
+591 U.S. 1, 16 (2020). Further, “[a]n agency must consider and respond to significant
+
+comments” during rulemaking. Perez v. Mortgage Bankers Ass’n, 575 U.S. 92, 96 (2015).
+
+Conclusory responses do not suffice: “Stating that a factor was considered . . . is not a substitute
+
+for considering it.” Getty v. Fed. Sav. & Loan Ins. Corp., 805 F.2d 1050, 1055 (D.C. Cir. 1986).
+
+      Ordinarily, summary judgment is appropriate where there is no dispute of material fact—
+
+but “the summary judgment rubric has a special twist in the administrative law context.” Bos.
+
+Redevelopment Auth. v. Nat’l Park Serv., 838 F.3d 42, 47 (1st Cir. 2016) (internal citation
+
+omitted). “In that context . . . an inquiring court must review an agency action not to determine
+
+whether a dispute of fact remains but, rather, to determine whether the agency action was
+
+arbitrary and capricious,” id., or otherwise unlawful.
+
+IV.   ARGUMENT
+
+      A.    The Rule Harms the States
+      The States are suffering harms traceable to the Rule that would be redressed by this
+
+Court’s decision. Traceability is “a causal connection between the injury and the conduct
+
+complained of[.]” Lujan v. Def’s of Wildlife, 504 U.S. 555, 560 (1992). The harm need not be
+
+immediate to be redressable; an “injury is imminent if it is certainly impending or if there is a
+
+
+       5
+          Because declaratory relief and/or vacatur would be “sufficient to redress” the Plaintiff
+States’ injuries, Plaintiffs refrain from briefing the non-merits permanent injunction factors here.
+Monsanto Co. v. Geertson Seed Farms, 561 U.S. 139, 165-66 (2010) (observing that district
+courts should not issue permanent injunctions in APA cases unless doing so “would have [a]
+meaningful practical effect independent of [the] vacatur”).
+
+
+                                                  9
+     Case 1:25-cv-12019-NMG            Document 122         Filed 01/23/26      Page 17 of 43
+
+
+
+
+substantial risk that harm will occur.” Pub. Int. Legal Found., Inc. v. Bellows, 92 F.4th 36, 50
+
+(1st Cir. 2024) (emphasis in original).
+
+      The Rule harms Plaintiffs by causing the States to shoulder increased uncompensated care
+
+costs, decreasing revenues derived from enrollments, and imposing compliance costs. As
+
+discussed supra at Section II.B and in each of the following sections, the Rule includes
+
+provisions that will make health coverage harder to obtain, more expensive, and less valuable. It
+
+is undisputed that the Rule will cause premiums to rise. See, e.g., Rule at 27,206-07 (premium
+
+adjustment percentage methodology change will increase premiums by $530 million annually);
+27,116-17 (FTR one-year window will increase premiums); 27,119-31 (income verification
+
+provisions will increase premiums); 27,176-77 (actuarial value changes will increase net costs);
+
+27,192 (revocation of guaranteed issue will raise costs); accord City of Columbus, 796 F. Supp.
+
+3d at 144 (discussing same). These higher costs, as detailed by commenters during rulemaking
+
+and declarants in this litigation, will result in decreased enrollment, shrinking risk pools, and
+
+higher uncompensated care costs for states—including Plaintiff States. E.g., AR at 034843
+
+(Covered California), 029061 (Massachusetts Health Connector), 031352 (Plaintiff States); ECF
+
+10-4 (Altman Decl.) ¶ 24 (“It is important to highlight that a reduction in marketplace enrollment
+
+directly contributes to a rise in the uninsured rate, which in turn increases the burden of
+
+uncompensated care on the healthcare system.”); ECF 10-16 (Brown Decl.) ¶¶ 21-42 (describing
+
+New Jersey’s Uncompensated Care Fund); ECF 10-26 (Smith Decl.) ¶ 15 (facilities required to
+
+provide care for people who cannot pay will see costs rise); ECF 10-18 (Huck Decl.) ¶ 10
+(detailing uncompensated care costs incurred by University Hospital).
+
+      The Rule acknowledges these harms. See Rule at 27,213-14 (observing that those who lose
+
+coverage “may go uninsured,” which would “impose greater burdens on the health care system”
+
+through “increased emergency care utilization,” “uncompensated care,” and “additional costs” to
+
+the states, including “strain on emergency departments” and “reduction in labor productivity”);
+
+see also id. at 27,190 (“costs to State governments . . . in the form of charity care”). These
+
+undisputed harms are based on a “predictable chain of events,” with the “first domino” to fall if
+
+
+                                                 10
+     Case 1:25-cv-12019-NMG            Document 122         Filed 01/23/26      Page 18 of 43
+
+
+
+
+“the regulation goes into effect.” City of Columbus, 796 F. Supp. 3d at 173. Moreover, the same
+
+chain of events results in another distinct harm to Plaintiff States: the loss of revenue from the
+
+user fees levied on plans sold on the States’ exchanges. Commenters during rulemaking and
+
+declarants in this litigation have attested to this harm in Plaintiff States. E.g., ECF 10-6 (Michel
+
+Decl.) ¶¶ 14-15 (“decreases of approximately $4M in assessment revenue” in Connecticut); ECF
+
+10-10 (Winters Decl.) ¶¶ 9-12 ($1.8 million in lost enrollment revenue in Illinois); ECF 10-11
+
+(Schneider Decl.) ¶¶ 14-17 (discussing lost enrollment revenue in Maine); ECF 10-13 (Eberle
+
+Decl.) ¶¶ 12-14 ($4 million in lost revenue in Maryland); ECF 10-17 (Caulum Decl.) ¶¶ 14-17
+(lost enrollment revenue in Minnesota); ECF 10-19 (Zimmerman Decl.) ¶¶ 18-22 (same, New
+
+Jersey); ECF 10-22 (Humphreys Decl.) ¶¶ 24-29 (same, Pennsylvania); ECF 10-23 (Lang Decl.)
+
+¶¶ 13-15 (same, Rhode Island). And although Defendants acknowledge that the Rule might cause
+
+some insurers to “experience a reduction in premium revenue” due to diminished enrollment,
+
+Rule at 27,218, they never address the issue of diminished user fees for state exchanges, and
+
+never cite any evidence to suggest that revenue from declining enrollments could be offset by
+
+increased revenue from higher premiums.
+
+      In addition to uncompensated care costs and revenue losses, the States have incurred, and
+
+continue to incur, compliance costs associated with implementing these provisions. E.g., Michel
+
+Decl. ¶ 17 (Connecticut); Schneider Decl. ¶ 18 (Maine); ECF 10-12 (Woltman Decl.) ¶ 8
+
+(Massachusetts); Eberle Decl. ¶¶ 15-20 (Maryland); ECF 10-21 (Holahan Decl.) ¶ 20 (New
+
+York). This Court has found that certain challenged provisions have already resulted in
+compliance costs for Plaintiff States, see ECF 105 at 14, and the remaining provisions will result
+
+in compliance costs if allowed to go into effect. See Rule at 27,188-91 (regulatory impact
+
+analysis showing estimated compliance costs to states of each provision); see also Altman Decl.
+
+¶ 11 (“$1.5 million and 12,500 hours”); Humphreys Decl. ¶ 28 (“$5.5 million”). Finally, states’
+
+exchanges will still incur compliance costs as to the provisions of the Rule that bind only the
+
+federal exchange. For example, state exchanges provide consumer outreach and education, as
+
+well as mandatory training for brokers and enrollment assisters, all of which will have to be
+
+
+                                                 11
+     Case 1:25-cv-12019-NMG            Document 122         Filed 01/23/26      Page 19 of 43
+
+
+
+
+updated because of the Rule. E.g., ECF 10-20 (Baillio Decl.) ¶ 8 (New Mexico’s exchange trains
+
+enrollment assisters); ECF 10-25 (Ulrey Decl.) ¶ 14 (Washington’s provides training and
+
+customer education); Altman Decl. ¶ 11 (California, same); Michel Decl. ¶ 21 (Connecticut,
+
+same).
+
+      B.    The Provisions Making Coverage Harder to Obtain Are Arbitrary and
+            Capricious, Contrary to Law, and Ultra Vires
+
+            1.    Ending Guaranteed Coverage for Otherwise Eligible Individuals
+                  with Past-Due Premiums on Prior Policies, 45 C.F.R. § 147.104(i), Is
+                  Unlawful and Arbitrary
+      The Rule guts one of the ACA’s most important provisions: the guarantee that eligible
+applicants cannot be denied coverage. In contrast, the Rule allows insurance plans to deny
+
+coverage to individuals who owe a past-due premium on a prior policy, even if they pay the
+
+premium due on the policy for which they are applying. This change is both unlawful and
+
+arbitrary. The Court did not previously address the merits of this claim. PI Order at 11-14.
+
+                  a.     Ending Guaranteed Issue is Contrary to Law
+      Insurers may not refuse to issue new coverage to eligible enrollees. This longstanding
+
+policy is commanded by the ACA’s so-called “guaranteed issue” provision, which requires that
+
+participating insurers “must accept every employer and individual in the State that applies for
+
+such coverage,” subject to certain exceptions, 42 U.S.C. § 300gg-1(a) (emphasis added). No
+
+exception allows for denial of coverage due to past-due premiums under a different policy. The
+
+agency may not re-write the statute to create a new exception that Congress did not itself
+enumerate. See TRW, Inc. v. Andrews, 534 U.S. 19, 28 (2001) (“Where Congress explicitly
+
+enumerates certain exceptions to a general prohibition, additional exceptions are not to be
+
+implied, in the absence of evidence of a contrary legislative intent.”) (internal citation omitted).
+
+      Had Congress meant to create an exception to the ACA’s guaranteed issue requirement for
+
+enrollees who had not paid premiums owed under a different prior policy, it could have done so;
+
+in fact, Congress did include such an exception to the guaranteed renewability requirement, set
+
+forth in a neighboring section of the ACA, 42 U.S.C. § 300gg-2(b)(1). “[W]here Congress
+
+
+
+                                                 12
+     Case 1:25-cv-12019-NMG            Document 122        Filed 01/23/26      Page 20 of 43
+
+
+
+
+includes particular language in one section of a statute but omits it in another section of the same
+
+Act, it is generally presumed that Congress acts intentionally and purposely in the disparate
+
+inclusion or exclusion.” Russello v. United States, 464 U.S. 16, 23 (1983). That is exactly what
+
+Congress did here. The guaranteed renewability statute does allow insurers to drop coverage for
+
+consumers who owe past-due premiums: “A health insurance issuer may nonrenew or
+
+discontinue health insurance coverage . . . based [on] [n]onpayment of premiums.” 42 U.S.C.
+
+§ 300gg-2(b). But no such provision exists in the guaranteed-issue provision. “This demonstrates
+
+Congress’s understanding that an outstanding debt could prevent an enrollee from maintaining
+the policy he or she currently has, but that the debt wouldn't lock the enrollee out of the market
+
+altogether.” City of Columbus, 796 F. Supp. 3d at 157 (internal citation omitted). The Rule
+
+attempts to blur this distinction by proclaiming that “the guaranteed availability provision is not
+
+intended to require issuers to provide coverage to applicants who have not paid for such
+
+coverage,” Rule at 27,087, but this reading is belied by the ACA’s plain language. Insurers must
+
+issue a new policy to an eligible applicant who has paid for that new policy, 42 U.S.C. § 300gg-
+
+1(a), even if they need not renew an existing policy for an applicant who has not paid for prior
+
+periods of coverage under that policy, 42 U.S.C. § 300gg-2(b)(1). Accordingly, Defendants’
+
+attempt to “rewrite [the ACA] under the banner of [their] own policy concerns,” Azar v. Allina
+
+Health Servs., 587 U.S. 566, 581 (2019), is patently unlawful.
+
+                  b.    Ending Guaranteed Issue is Arbitrary and Capricious
+      This provision is also arbitrary and capricious. Commenters explained that this change
+would result in otherwise eligible enrollees being locked out of the market due to perceived
+
+premium debts that arise for reasons that are no fault of their own. See, e.g., AR at 024765-66
+
+(National Health Law Program explaining how perceived premium debt can occur through
+
+insurer accounting errors and exchange recordkeeping mistakes); 031756-60 (Center on Budget
+
+and Policy Priorities explaining that consumers may be unaware they have entered a grace period
+
+during which they still owe premiums). HHS even acknowledged that consumers might fail to
+
+pay premiums for a variety of reasons, such as if they switch to new coverage and simply stop
+
+
+                                                 13
+     Case 1:25-cv-12019-NMG           Document 122        Filed 01/23/26      Page 21 of 43
+
+
+
+
+making premium payments rather than formally canceling coverage, see Rule at 27,088, but
+
+nonetheless attached no notice requirement to this provision of the Rule. HHS’s failure to
+
+explain its decision not to require consumer notice is arbitrary and capricious. See Ohio v. EPA,
+
+603 U.S. 279, 294 (2024) (agency must not neglect “an important aspect of the problem”).
+
+            2.    Requiring 75% Verification for Triggering-Event SEPs, 45 C.F.R.
+                  § 155.420(g), is Arbitrary and Capricious
+      Individuals seeking health coverage typically sign up during annual open enrollment
+
+periods (OEPs). But those who experience certain major life events—such as the loss of
+
+minimum essential coverage, the loss of a job, a move to a new area, or the birth of a child—may
+be eligible for special enrollment periods (SEPs). The Rule requires all exchanges on the federal
+
+platform to require supporting documentation from 75% of those claiming eligibility via SEPs,
+
+and this pre-enrollment verification requirement applies to all types of SEP—not just the loss of
+
+minimum essential coverage, as the prior policy required. Rule at 27,079. HHS estimates more
+
+than a quarter of a million people will encounter an enrollment roadblock due to this verification
+
+requirement. See Rule at 27,186 (estimating 293,073 new SEP enrollment verification issues due
+
+to this change). This change is not reasonably related to the Department’s stated goals because it
+
+is unlikely to reduce purported fraud or improper enrollments. The Court did not previously
+
+address the merits of this claim. PI Order at 11-14.
+
+      Defendants claim that this change protects marketplaces from “misuse or abuse” by
+
+“ineligible individuals enrolling only after they become sick or otherwise need expensive health
+care services or medical products/equipment.” Rule at 27,149. But this is a stark reversal from
+
+the agency’s prior view—that these verification burdens negatively impact the risk pool, Rule at
+
+27,149—even though HHS provides no new data showing such “misuse or abuse” is happening,
+
+nor any explanation for how a provision that sunsets after one year, Rule at 27,151, could
+
+effectively combat it. Instead, HHS reinterprets nearly decade-old data and ignores evidence
+
+showing fewer people abusing the SEPs. Rule at 27,149-50. Defendants offer a solution that “is
+
+unmoored from the problem it seeks to address.” City of Columbus, 796 F. Supp. 3d at 159.
+
+
+
+                                                14
+     Case 1:25-cv-12019-NMG            Document 122         Filed 01/23/26     Page 22 of 43
+
+
+
+
+      Commenters pointed out that the average cost to insure SEP enrollees is often the same as,
+
+or lower than, the cost to insure non-SEP enrollees. E.g., AR at 034846-47 (Covered California),
+
+032768 (Washington Health Benefit Exchange). Maryland’s exchange wrote that SEP enrollees
+
+tended to be younger than OEP enrollees and were more likely to be unsubsidized, and that this
+
+change could “increase adverse selection by discouraging enrollment by younger, healthier
+
+individuals.” AR at 024656-57. The Rule acknowledges these facts and the corresponding harms
+
+to the risk pool. Rule at 27,148, 27,150. Indeed, HHS’s own data showed that many qualified
+
+enrollees—more than 75,000 individuals—struggle to submit documents and verify their
+eligibility in time, resulting in lost coverage. Proposed Rule at 12,983; Rule at 27,149. But HHS
+
+fails to engage with commenters’ data on this point, flunking the requirement that it “must
+
+consider and respond to significant comments received during the period for public comment.”
+
+Perez, 575 U.S. at 96.
+
+            3.    Shortening the Open Enrollment Period, 45 C.F.R. § 155.410(e) and
+                  (f), is Arbitrary and Capricious
+      HHS has long allowed the states’ exchanges to determine the length of their own open
+
+enrollment periods, within certain constraints. California, for instance, has utilized a 91-day OEP
+
+(from November 1 to January 31) for over ten years. The Rule ends this flexibility, limiting the
+
+OEP to nine weeks (63 days) on the federal and state exchanges, requiring it to begin no later
+
+than November 1 and end no later than December 31. Rule at 27,222. This cuts the OEP in some
+
+states, like California, by more than thirty percent. Because this change takes effect for the 2027
+plan year, Plaintiffs did not request preliminary relief on this claim.
+
+      Defendants claim the shorter OEP will reduce adverse selection, which, in turn, will reduce
+
+premiums, inducing younger and unsubsidized consumers to enroll. Rule at 27,201. But this
+
+assertion ignores state exchanges’ comments that the shorter OEP will generate confusion and
+
+reduce enrollment, especially among younger consumers—contributing to adverse selection—
+
+while increasing the burden on navigators and agents who assist consumers to enroll. AR at
+
+033198 (State Marketplace Network warning that “condensing enrollment periods in states with
+
+
+
+                                                 15
+     Case 1:25-cv-12019-NMG           Document 122        Filed 01/23/26      Page 23 of 43
+
+
+
+
+long-established enrollment deadlines will create confusion and lower enrollment”); 029065-66
+
+(Massachusetts Health Connector warning that shorter OEP will “weaken the merged market risk
+
+pool and increase premiums for all segments of the merged market”); 031356 (“Navigators,
+
+certified application counselors (CACs), agents, and brokers” need time “to fully assist all
+
+interested Exchange applicants”); accord City of Columbus, 796 F. Supp. 3d. at 144 (describing
+
+insurer UnitedHealthcare increasing premiums in part because the “shortening of the open
+
+enrollment period” and other changes in the Rule “will lead to healthier enrollees leaving the
+
+market and an overall worsening of the risk pool”).
+      HHS has acknowledged that, for many consumers, the ability to switch plans in January is
+
+valuable because some enrollees “may not learn of cost increases” until the new year, and the
+
+longer OEP affords consumers “the opportunity to change plans” if they choose to. Rule at
+
+27,136, 27,140. In fact, HHS itself previously adopted the position that a longer OEP is a benefit
+
+for the marketplaces because younger and healthier enrollees often enroll later. Patient Protection
+
+and Affordable Care Act; Market Stabilization, 82 Fed. Reg. 18,346, 18,377 (Apr. 18, 2017).
+
+Defendants’ only response to these concerns is that they will “provide notice in advance of the
+
+OEP to consumers about the importance of updating information for the future plan year and
+
+actively comparing plan options and prices” so that consumers will not be caught off-guard when
+
+they receive their updated bills in January. Rule at 27,139. But merely asserting that Defendants
+
+will take some minimal step to address one element of a problem they are creating does nothing
+
+to explain why the change is necessary in the first place and does not come close to the
+“reasonable explan[ation]” required by the APA, Fed. Commc’ns Comm’n. v. Prometheus Radio
+
+Proj., 592 U.S. 414, 423 (2021), nor does Defendants’ explanation make any attempt to draw “a
+
+rational connection between the facts found and the choice made,” State Farm, 463 U.S. at 43.
+
+
+
+
+                                                16
+     Case 1:25-cv-12019-NMG           Document 122         Filed 01/23/26     Page 24 of 43
+
+
+
+      C.    The Provisions Making Coverage More Expensive Are Arbitrary and
+            Capricious, Contrary to Law, and Ultra Vires
+
+            1.    The $5 Re-Enrollment Penalty, 45 C.F.R. § 155.335(a)(3) and (n), is
+                  Unlawful and Arbitrary
+      Since the ACA’s enactment, those who maintain eligibility for coverage from year to year
+
+have been automatically re-enrolled in the same plan unless they disenrolled or selected a
+
+different one. For such individuals who qualify for sufficient APTC to fully cover their
+
+premium—leaving $0 in out-of-pocket premiums—the Rule now directs the federal exchange to
+
+reduce the APTC award by $5 per month—meaning enrollees would owe $5—until they confirm
+
+their continued eligibility for no-cost coverage. This provision violates the plain text of the ACA.
+
+It also does nothing to further HHS’s stated goal of reducing improper enrollments and ignores
+
+the evidence available to the agency, rendering it arbitrary and capricious. The Court did not
+
+previously address the merits of this claim. PI Order at 11-14.
+
+                  a.    The $5 Re-Enrollment Penalty Is Contrary to Law
+      The ACA sets forth a formula for calculating the amount of PTC (and thus APTC) that an
+
+enrollee receives, considering household size, household income as a percentage of the federal
+poverty level, the rate of inflation, and the cost of a benchmark plan. 26 U.S.C. § 36B(b). The
+
+formula is definitive, leaving no room for the Secretary’s discretion. The ACA further requires
+
+that the Secretary of the Treasury—not HHS—“shall make the advance payment” of the APTC
+
+calculated in accordance with Section 36B’s formula. 42 U.S.C. § 18082(c)(2)(A). Defendants,
+
+in short, cannot tweak the calculation of the APTC amount and have no role in distributing it.
+The Rule, however, unilaterally reduces the APTC award by $5. This is unlawful. In short,
+
+“CMS lacks authority to tinker with the premium cost structure outlined in 26 U.S.C. § 36B.”
+
+City of Columbus, 796 F. Supp. 3d at 150.
+
+      The Rule asserts that 42 U.S.C. § 18081(f)(1)(B) gives the Secretary that authority,
+
+characterizing the $5 penalty as an “eligibility redetermination provision” issued under Section
+
+18081(f)(1)(B) and not as a change to the PTC formula. Rule at 27,102, 27,109. But this is
+
+wrong for two reasons. First, nothing in Section 18081 gives the Secretary or anybody else the
+
+
+
+                                                17
+     Case 1:25-cv-12019-NMG            Document 122         Filed 01/23/26       Page 25 of 43
+
+
+
+
+authority to deviate from the APTC calculation formula mandated by 26 U.S.C. § 36B, and “an
+
+agency may not rewrite clear statutory terms to suit its own sense of how the statute should
+
+operate.” Util. Air Regul. Grp. v. EPA, 573 U.S. 302, 328 (2014). Second, “it is well established
+
+that an agency may not circumvent specific statutory limits on its actions by relying on separate,
+
+general rulemaking authority.” Air All. Hous. v. EPA, 906 F.3d 1049, 1061 (D.C. Cir. 2018).
+
+Section 18081(f)(1)(B)—which allows the Secretary to “establish procedures [for]
+
+redetermin[ing] eligibility on a periodic basis in appropriate circumstances”—is just such a
+
+statute providing general regulatory authority. Defendants cannot circumvent the more specific
+language at 26 U.S.C. § 36B simply by deeming their unlawful revision to its statutory formula
+
+an eligibility redetermination provision. Therefore, this provision is contrary to law.
+
+                   b.    The $5 Penalty Is Arbitrary and Capricious
+      HHS also failed to address the known-harmful effects of barriers to enrollment. The $5
+
+penalty would require those who qualify for $0 premiums to return to the exchange or else pay
+
+premiums they do not owe. One study in the record found that this kind of “small hassle” has
+
+been shown to cause “one-third of eligible individuals” to “simply fail to take up health
+
+insurance” and has an impact on enrollment equivalent to a $470 annual premium increase. AR
+
+at 038968. Defendants were aware of that study but never addressed its significant findings
+
+regarding barriers to enrollment. Another commenter cited “direct evidence” of what happens
+
+when consumers face a “$0-to-positive premium transition”: the result was “an excess 14%
+
+attrition, largely occurring immediately . . . . Put another way, 1 in 7 lost coverage as a result of
+new monthly premiums” that were under ten dollars. AR at 030427. Moreover, any surprise bill
+
+amount might go overlooked, especially by long-term enrollees who are accustomed to the
+
+automatic re-enrollment process, “complicat[ing] a previously clear picture.” AR at 034849.
+
+      Defendants do not respond to these myriad concerns. They acknowledge that this policy
+
+could “compromise the Exchange risk pool” by causing “younger and healthier individuals” to
+
+lose coverage, Rule at 27,107, but write only that they “will provide more information about
+
+consumer outreach through existing interested party forums.” Rule at 27,109. Further, they stress
+
+
+                                                  18
+     Case 1:25-cv-12019-NMG            Document 122        Filed 01/23/26      Page 26 of 43
+
+
+
+
+that this policy is necessary to ensure that consumers are not wrongfully re-enrolling in $0
+
+premium coverage to which they are not entitled. Rule at 27,103.
+
+      But on this point, Defendants’ logic backfires. The Rule itself argues that the “temporary
+
+expansion of ACA premium subsidies” enacted by Congress in response to the COVID-19
+
+pandemic was responsible for a “significant[] increase” in “the number of enrollees” receiving a
+
+full subsidy. Rule at 27,103, 27,105-06; PI Opp. at 16. But rather than acknowledging that these
+
+enhanced premiums were set to expire at the end of 2025, Defendants pivot to arguing that the $5
+
+charge is a mere “prompt” for individuals “to update or confirm” their eligibility for subsidized
+coverage. Rule at 27,103; PI Opp. at 17. This leaves Plaintiffs’ argument unaddressed.
+
+Defendants do not explain why, if the enhanced premium tax credits drove improper
+
+enrollments, the $5 penalty is necessary after those credits expire. This is not “reasoned
+
+decisionmaking.” Regents of the Univ. of Cal., 591 U.S. at 16.
+
+            2.    Ending Acceptance of Self-Attested Projected Household Income
+                  when IRS Data is Contradictory or Unavailable, 45 C.F.R.
+                  § 155.320(c)(3)(iii), (5), is Arbitrary and Capricious
+      The Rule makes two arbitrary changes to the methods all exchanges must use to verify an
+
+applicant’s projected household income when applying for subsidies. First, the Rule forbids
+
+exchanges from accepting the attestation of an enrollee who projects annual household income
+
+above 100% FPL if existing tax data from the IRS shows a lower income and if the difference is
+
+above a “reasonable threshold.” Rule at 27,221. When that occurs, the exchange generates a
+
+“data matching issue” (DMI) (the “contradictory-data DMI”). Rule at 27,221. Second, if there is
+no IRS data available to corroborate the enrollee’s attestation, the Rule requires exchanges to
+
+generate a DMI (the “missing-data DMI”). Id. In either case, consumers must submit additional
+
+paperwork before they may obtain health insurance. Id. The Court found Plaintiffs were
+
+suffering “irreparable economic harm” due to this provision, PI Order at 15, but declined to grant
+
+preliminary relief, PI Order at 19-22. In 2021, a federal district court invalided this same policy.
+
+See Cochran, 523 F. Supp. 3d at 763 (income verification requirements address a “hypothetical”
+
+concern and “def[y] logic”). Defendants’ second attempt should fare no better: Because there is
+
+
+                                                 19
+     Case 1:25-cv-12019-NMG           Document 122         Filed 01/23/26      Page 27 of 43
+
+
+
+
+no “evidence of a nexus between fraudulent enrollment and self-attestation” and there is a “lack
+
+of sufficient data” justifying the impact on consumers, these provisions are “‘not reasonable [or]
+
+reasonably explained.’” City of Columbus, 796 F. Supp. 3d at 168-70 (emphasis in original)
+
+(citing Prometheus Radio Proj., 592 U.S. at 423).
+
+      These changes will create significant barriers to coverage among the population of
+
+individuals least able to satisfy the verification requirements, clear the DMIs, and obtain
+
+coverage, while creating enormous financial and administrative burdens for the exchanges. HHS
+
+estimates that these two new requirements together will generate an estimated 2.7 million DMIs
+annually—each one of which represents a single person who will be unable to enroll in health
+
+insurance until they have gathered and submitted the necessary paperwork for approval.
+
+Additionally, the vast majority of these DMIs, 2.1 million, will be generated not because of
+
+contradictory IRS data, but missing data, which may be no fault of the consumer, and the
+
+coverage losses will be “concentrated among the young.” AR at 033759-60. Moreover, low-
+
+income consumers often have widely variable income. See Amicus Br. of Nat’l Health L. Prog.,
+
+et al., ECF 68, at 12; see also AR at 033761 (“For low-income workers, the standard deviation of
+
+monthly income was 85% of the mean—so that someone who earned an average of $1000 per
+
+month had so much variation month-to-month that a month where their income was anything
+
+from $150 to $1850 would be within a single standard deviation.”).
+
+      The costs to the Plaintiff States of implementing this Rule are also substantial. The
+
+contradictory-data DMI will cause the states to spend $12.4 million to receive, review, and verify
+documents and conduct outreach and communication with consumers, on top of $14.7 million in
+
+one-time system update costs. Rule at 27,199. Then, because this Rule provision is set to sunset
+
+after PY 2026, the states will spend another $14.7 million to undo this change. Id. Consumers
+
+will spend $13 million complying with this Rule; for those who cannot comply, 81,000 will lose
+
+access to APTC (50,000 on the federal exchange and 31,000 on the state exchanges). Id.
+
+      As for the missing-data DMI, HHS estimates the cost to the States at $62.8 million in
+
+verification costs, plus $16.6 million in one-time system update costs—times two, because of the
+
+
+                                                20
+     Case 1:25-cv-12019-NMG            Document 122         Filed 01/23/26      Page 28 of 43
+
+
+
+
+one-year sunset provision. Rule at 27,200. HHS further expects 252,000 people to lose APTC on
+
+the federal exchange, and another 155,000 on the state exchanges. Id.
+
+      Defendants claim that these harms are justified because sufficiently large numbers of
+
+consumers “are intentionally inflating their incomes,” Rule at 27,121, and HHS must “steward[]
+
+taxpayer dollars,” PI Opp. at 18-19. But this conclusion improperly relies on the flawed Paragon
+
+analyses described above, as well as a misreading of the data before the agency. In fact, one of
+
+the authors of a study cited in the Proposed Rule made clear in a comment letter that her study
+
+did not support Defendants’ attempt to justify the contradictory-data DMI. See AR at 031663
+(HHS misunderstood Dr. Jessica Banthin’s study, which “refrain[s] from estimating the exact
+
+number of people who enroll improperly” because of an “inconsistency . . . in how income is
+
+measured” and because “it is not improper or fraudulent for people seeking coverage . . . to
+
+anticipate that [their incomes] will be greater than that of a previous year.”) Defendants have
+
+“failed to meaningfully address the comments pointing out potential flaws in the data contained
+
+in the Paragon report, despite continuing to rely on such data to justify the provision in the
+
+Rule.” City of Columbus, 796 F. Supp. 3d at 168. This is not “reasoned decisionmaking.”
+
+Regents of the Univ. of Cal., 591 U.S. at 16.
+
+      Additionally, even taking Defendants at their word, the problem that this policy change
+
+seeks to solve is confined to states that did not expand their Medicaid programs to cover low-
+
+income adults. For those that did expand Medicaid, as every Plaintiff save Wisconsin has, a low-
+
+income consumer can enroll in Medicaid and so has no incentive to inflate income to qualify for
+APTC and enroll in a subsidized plan on the exchanges. AR at 032762.
+
+      Not only do Defendants fail to justify this provision, but they also fail to grapple with its
+
+enormous burden on consumers—while contradicting themselves. Defendants claim that “the
+
+[income verification] process does not impose a substantial burden,” Rule at 27,200, and further
+
+claim it is “likely” that consumers would “have documentation other than tax information, such
+
+as pay stubs . . . readily available” for income verification purposes. Rule at 27,132. Yet
+
+simultaneously, Defendants acknowledge “that income verification can be more challenging for
+
+
+                                                 21
+     Case 1:25-cv-12019-NMG            Document 122        Filed 01/23/26      Page 29 of 43
+
+
+
+
+lower-income tax filers due to less consistent employment,” Rule at 27,200, and further
+
+acknowledge HHS’s own “concerns related to the risk of coverage loss by low-income persons,”
+
+Rule at 27,131. Moreover, commenters and amici pointed out that large numbers of low-income
+
+consumers, especially those working irregular shifts, multiple jobs, gig-economy jobs, or cash-
+
+paid jobs might not have pay stubs or might have extremely variable income.
+
+      Bare assertions that the agency has considered and rejected an objection are not enough to
+
+survive an APA challenge. “Stating that a factor was considered . . . is not a substitute for
+
+considering it.” Getty, 805 F.2d at 1055. It is not enough for Defendants to assert some rationale
+for their chosen course of action; they must connect the decision taken with “evidence before the
+
+agency.” State Farm, 463 U.S. at 43 (emphasis added). Here, there is no evidence supporting the
+
+efficacy of the DMIs, and Defendants did not adequately consider their impact on consumers.
+
+            3.        Shortening the FTR Eligibility Window to One Year, 45 C.F.R.
+                      § 155.305(f), is Arbitrary and Capricious
+      As explained above, the ACA awards APTC to enrollees based on their projected
+
+household income for the coming year. 26 U.S.C. § 36B; 42 U.S.C. § 18082. The enrollee then
+
+reconciles their projected household income against their actual household income when they file
+
+taxes the following year. HHS cannot access a consumer’s tax data housed at the IRS. See Rule
+
+at 27,116 (“privacy concerns” prevent HHS from knowing an individual’s tax status). Prior to the
+
+Rule, an enrollee who failed to file taxes and reconcile APTC against their actual income for two
+
+consecutive years lost eligibility for APTCs until they completed this process. The Rule
+temporarily ends this policy, imposing a one-year FTR window for PY 2026, before reverting to
+
+a two-year FTR window for PY 2027. The Court found Plaintiffs were suffering “irreparable
+
+economic harm” due to this provision, PI Order at 15, but declined to grant preliminary relief, PI
+
+Order at 22-24. 65F
+
+
+
+
+       6
+         The Court previously found that the fact that there are fewer people with two-year codes
+than one-year codes “shows the need for a stricter enforcement policy” because those who
+receive a one-year code “have no incentive to reconcile” until the second year, “because they
+know they will remain eligible” until the grace period expires. PI Order at 22. However, the
+evidence before the agency led HHS to find that one-year notices sent during the open
+                                                                                    (continued…)
+
+
+                                                 22
+     Case 1:25-cv-12019-NMG            Document 122         Filed 01/23/26      Page 30 of 43
+
+
+
+
+      To be clear, this change is not about fraud—whether after one year or two, everyone must
+
+square up eventually—it is about the length of time consumers are afforded to reconcile their
+
+APTC. Defendants argue that the one-year FTR window will save the federal government money
+
+by recouping excess APTC more quickly. PI Opp. at 14. But there are at least two problems with
+
+this argument. First, as this Court previously recognized, PI Order at 22, the population of APTC
+
+claimants with two-year FTR codes is much smaller than the population of APTC claimants with
+
+one-year FTR codes. In Massachusetts, for instance, the ratio was ten to one. AR at 031360. This
+
+implies most people who do receive such a code are able to clear that status before the second
+year, undermining Defendants’ argument that any significant number of enrollees are free riding
+
+on the two-year grace period to claim APTCs to which they are not eligible.
+
+      The second problem with Defendants’ argument is that tax law already requires consumers
+
+to pay back any excess APTC. Wholly separate from the FTR rules, the IRS assesses a tax
+
+liability against a consumer who fails to show that they were entitled to the tax credits they
+
+claimed. The agency has not provided any evidence to show that this is not happening as it
+
+should and instead invokes, once again, concerns about alleged improper enrollment to justify
+
+this policy. Rule at 27,116. Because Defendants have not shown that the problem exists in the
+
+first place, no “facts” exist to justify this change. State Farm, 463 U.S. at 43.
+
+            4.    Changing the Premium Adjustment Percentage Methodology, 45
+                  C.F.R. § 156.130(e), is Arbitrary and Capricious
+      The Rule changes the calculation of the premium adjustment percentage (PAP), which is a
+measure of inflation. The PAP, in turn, affects maximum out-of-pocket limits and premium costs
+
+for consumers. The Rule raises the PAP by including premiums in the individual and employer-
+
+sponsored marketplaces (rather than the employer-sponsored marketplace alone). Rule at 27,166-
+
+73. Plaintiffs allege that this change is arbitrary and capricious. The Court did not previously
+
+address the merits of this claim. PI Order at 11-14.
+
+
+
+enrollment period “were relatively effective” in resolving FTR issues, Rule at 27,114, indicating
+that those who received a one-year notice were adequately incentivized to clear their FTR status.
+
+
+                                                  23
+     Case 1:25-cv-12019-NMG           Document 122         Filed 01/23/26      Page 31 of 43
+
+
+
+
+      This change “artificially inflates premium growth over time,” AR at 033743, and will
+
+reduce APTC awards to consumers by “between $1.27 billion and $1.55 billion annually from
+
+2026 to 2030,” Rule at 27,207, resulting in significantly higher net premiums for millions of
+
+families. It will also cause 80,000 individuals to drop their coverage. Rule at 27,206-07. This
+
+change is arbitrary and capricious for two reasons.
+
+      First, the premium adjustment percentage is supposed to measure underlying trends in
+
+health coverage costs, but the individual-market premiums in 2013, prior to the ACA’s
+
+enactment, were much more volatile than the group marketplace premiums. AR at 033743; Rule
+at 27,173. Including the more-volatile individual market in this calculation will increase net
+
+premiums for “not only Marketplace enrollees but also the 160 million people with employer-
+
+sponsored coverage,” AR at 033743, and HHS has not adequately balanced this burden against
+
+the Rule’s purported benefits. Defendants claim the change is required to bring the PAP in line
+
+with true inflation in the marketplace, but do not explain why the current PAP formula, which
+
+was used from 2015-19 and again from 2022-25, is inaccurate. The main purpose of the ACA
+
+was to “increase the number of Americans covered by health insurance and decrease the cost of
+
+health care.” Nat’l Fed’n Indep. Bus. v. Sebelius, 567 U.S. 519, 538 (2012). This policy does the
+
+opposite—raising costs and lowering enrollment. Because Defendants have not offered a strong
+
+justification for contravening the ACA’s purpose, this provision is arbitrary and capricious. See
+
+Judulang v. Holder, 565 U.S. 42, 64 (2011) (an agency is not free to exercise its discretion in a
+
+manner that is “unmoored from the purposes and concerns” of the statute).
+      Second, HHS failed to “be cognizant that longstanding policies may have ‘engendered
+
+serious reliance interests that must be taken into account.’” Regents of Univ. of Cal., 591 U.S. at
+
+30 (quoting Encino Motorcars, LLC v. Navarro, 579 U.S. 211, 222 (2016)). The 24 million
+
+healthcare consumers who obtained health coverage through the exchanges in 2025 rely on HHS
+
+to keep healthcare premiums and out-of-pocket costs from rising too rapidly. As commenters
+
+explained, “this change would expose a typical family to an additional $900 in cost-sharing and
+
+$300 in premiums annually” when combined with the change to the actuarial value provision
+
+
+                                                24
+     Case 1:25-cv-12019-NMG            Document 122        Filed 01/23/26      Page 32 of 43
+
+
+
+
+discussed in the following section. AR at 033743. Defendants acted capriciously by ignoring “an
+
+important aspect of the problem,” Ohio, 603 U.S. at 294, failing to consider the 80,000 people
+
+who will lose coverage as costs rise and the risk pool considerations that loss entails.
+
+      D.    The Provisions Making Coverage Less Valuable Are Arbitrary and
+            Capricious, Contrary to Law, and Ultra Vires
+
+            1.    Allowing Health Plans to Offer Less Valuable Coverage, 45 C.F.R.
+                  §§ 156.140(c), 156.200(b)(3), and 156.400, is Arbitrary and
+                  Capricious
+      Plans on the ACA marketplaces are categorized into tiers based on how much of the
+
+expected cost will be covered by the plan, and how much will be borne by the enrollee, a
+measure known as actuarial value (AV). A bronze-tier plan is designed to cover 60% of the
+
+expected cost, leaving 40% to be paid through co-pays, premiums, and coinsurance. Silver, gold,
+
+and platinum plans target 70%, 80%, and 90%, respectively, of the enrollee’s expected costs.
+
+The Rule allows all plans to undershoot the targeted levels of coverage within each metal tier by
+
+four percentage points. For example, the Rule allows insurers to lower the value of silver-tier
+
+plans to just 66%. The Court found Plaintiffs were suffering “irreparable economic harm” due to
+
+this provision, PI Order at 15, but declined to grant preliminary relief, PI Order at 24-29.
+
+      Allowing insurers to undershoot AV targets will reduce their costs, lowering the cost of the
+
+benchmark plan used to set premium tax credits. 26 U.S.C. § 36B(b)(2)(B). As a result, tax
+
+credits for all enrollees will be slashed by $1.2 billion for 2026, by Defendants’ own estimate.
+
+Rule at 27,208. As credits evaporate, premiums “will increase . . . for comparable coverage for
+subsidized enrollees, who represent most of the risk pool,” leading to coverage losses. AR at
+
+033745. Reducing these AV targets will increase consumer costs by around $714 for a family of
+
+four, AR at 031785-86, on top of the cost increases due to the change to the premium adjustment
+
+percentage discussed previously. This provision therefore reduces enrollment, weakens the risk
+
+pool, and increases costs for those who remain enrolled. AR at 034403, 030495, 033744-45.
+
+      This change is arbitrary and capricious for two reasons. First, HHS’s primary justifications
+
+are conclusory and unsupported by evidence. Defendants claimed the prior AV ranges
+
+
+
+                                                 25
+     Case 1:25-cv-12019-NMG           Document 122         Filed 01/23/26      Page 33 of 43
+
+
+
+
+“substantially reduce[d] issuer flexibility” and that plan issuers “voiced concern about their
+
+ability to continue to participate in the market generally.” Rule at 27,175. But the Rule offers no
+
+empirical support for these assertions, and by contrast, at least one commenter pointed to
+
+increased issuer participation since the prior de minimis ranges were adopted. See AR at 033745
+
+(insurer participation increased after HHS adopted the prior narrower AV ranges). HHS also
+
+asserts that the changes will improve the risk pool by promoting unsubsidized (and healthier)
+
+enrollee participation through lowered premiums. Rule at 27,175. But, as commenters noted, the
+
+“vast majority” of consumers will face higher costs because, “due to smaller APTCs, recipients
+will face the choice of either purchasing less comprehensive coverage or paying more in
+
+premiums for comparable coverage.” AR at 033744. “There is no data to back up the claim and
+
+reasoning that coverage would become ‘more affordable’ over time when even CMS itself
+
+estimates that [this policy] will reduce aggregate PTCs by $1.2 billion in 2026.” City of
+
+Columbus, 796 F. Supp. 3d at 156 (emphasis in original). HHS’s purported justification lacks
+
+support and “runs counter to the evidence before the agency.” State Farm, 463 U.S. at 43.
+
+      Second, the Rule fails to consider that the impact on net premiums is only half the story.
+
+While Defendants admit that the loss of APTC due to this provision will cause “an initial
+
+weakening of the risk pool” caused by healthier, subsidized enrollees “drop[ping] coverage when
+
+net premiums rise,” Rule at 27,177, they fail to consider that this provision increases gross
+
+premiums as well, affecting all enrollees—not just subsidized ones. This, in turn, will have a
+
+larger impact on the risk pool than Defendants acknowledge. AR at 033745. This is “an
+important aspect of the problem,” Ohio, 603 U.S. at 294, that Defendants overlook.
+
+      Finally, the Rule does not attempt to explain this change in terms of the law’s allowance
+
+for “differences in actuarial estimates,” Rule at 27,175, so the agency has not adopted a guideline
+
+providing for “a de minimis variation in the actuarial valuations used in determining the level of
+
+coverage of a plan to account for differences in actuarial estimates,” 42 U.S.C. § 18022(d)(3).
+
+Defendants’ contrary assertion is a “conclusory statement[]” that cannot satisfy the APA. Mass.
+
+v. Nat’l Inst. of Health, 770 F. Supp. 3d 277, 306 (D. Mass. 2025).
+
+
+                                                26
+     Case 1:25-cv-12019-NMG            Document 122         Filed 01/23/26       Page 34 of 43
+
+
+
+            2.    The Elimination of “Sex-Trait Modification Procedures” as an
+                  Essential Health Benefit is Unlawful and Arbitrary
+      For the first time, the Rule forbids plan issuers from “includ[ing] . . . specified sex-trait
+
+modification procedures (as defined at 45 C.F.R. § 156.400) as EHB.” Rule at 27,223. As this
+
+Court previously observed, removal of a treatment as an EHB takes it outside the protection of
+
+“[s]everal key ACA financial protections, i.e., provisions that cap annual out-of-pocket costs and
+
+prohibit dollar limits on care[.]” PI Order at 7-8. This provision of the Rule is both contrary to
+
+law and arbitrary and capricious.
+
+                  a.     The EHB Modification is Contrary to Law
+      The ACA mandates that “the [HHS] Secretary shall define the [EHBs],” 42 U.S.C.
+
+§ 18022(b)(1), and shall “periodically update the [EHBs] under paragraph (1) to address any . . .
+
+changes in the evidence base the Secretary identifies” when conducting his review,
+
+§ 18022(b)(4)(H). When “revising the benefits under paragraph (4)(H),” the Secretary must
+
+“submit a report to the appropriate committees of Congress” that must certify that the EHBs
+
+“meet the limitation described in paragraph (2).” That “limitation” is the following:
+
+      The Secretary shall ensure that the scope of the essential health benefits under
+      paragraph (1) is equal to the scope of benefits provided under a typical employer
+      plan, as determined by the Secretary. To inform this determination, the Secretary of
+      Labor shall conduct a survey of employer-sponsored coverage to determine the
+      benefits typically covered by employers, including multiemployer plans, and provide
+      a report on such survey to the Secretary.
+42 U.S.C. § 18022(b)(2)(A). In short, when the Secretary modifies EHBs, he must submit a
+
+report to Congress certifying that the modification is consistent with the scope of benefits offered
+by “a typical employer plan,” and that this determination has been “inform[ed]” by a “survey of
+
+employer-sponsored coverage” performed by the Secretary of Labor. Id. The Department of
+
+Labor completed its only such survey in 2011, using data from 2008 and 2009. 7 Defendants do
+                                                                                   6F
+
+
+
+
+not assert that they even glanced at that survey, let alone that it “informed” the Secretary’s
+
+decision as required by Section 18022(b)(2)(A), as it is absent from the Administrative Record.
+
+       7
+         Dep’t of Labor, Selected Medical Benefits: A Report from the Department of Labor to
+the Department of Health and Human Services (Apr. 15, 2011), available at https://www.bls.gov
+/ebs/additional-resources/selected-medical-benefits-a-report-from-dol-to-hhs.pdf.
+
+
+                                                  27
+     Case 1:25-cv-12019-NMG           Document 122         Filed 01/23/26      Page 35 of 43
+
+
+
+
+      Defendants unlawfully excluded Congress from the rulemaking process by failing to
+
+submit a report to the legislature as required. Defendants have unsuccessfully argued that no
+
+report to Congress is needed because subsection (b)(2)(A)’s requirements do not apply here. But
+
+as this Court already found, “[c]ontrary to Defendants’ assertion,” the “statutory scheme makes
+
+clear” that “the Secretary must follow [the reporting requirement of 42 U.S.C. § 18022(b)(2)(B)]
+
+when exercising his authority to define and revise EHBs under [subsections] (b)(1) and
+
+(b)(4)(H).” PI Order at 27. “Thus,” the Secretary was required “to submit the required report at
+
+or before the time the provision [became] effective,” that is, January 1, 2026. PI Order at 28. In
+fact, the Secretary needed to submit the report to Congress well in advance of the Rule’s
+
+effective date, to allow for the agency to respond to any “significant comments” Congress might
+
+submit. Perez, 575 U.S. at 96. But in any event, even assuming a retroactive submission could
+
+have cured the deficiency, no such report was ever submitted to Congress. Therefore, the Rule’s
+
+modification to the allowable EHBs without notification to Congress and without the required
+
+Department of Labor employer survey was contrary to law and ultra vires, and must be set aside.
+
+42 U.S.C. § 18022(b)(2)(A).
+
+      Finally, 42 U.S.C. § 18022(b)(2)(A) requires the Secretary to define EHBs to “be equal in
+
+scope to the benefits provided under a typical employer plan.” Therefore, if the Secretary ignored
+
+or misunderstood the definition of “typical”—and he did, as the next section explains—then his
+
+modification to EHBs would also be contrary to law for that reason.
+
+                  b.    The EHB Modification is Arbitrary and Capricious
+      The Rule’s exclusion of “specified sex-trait modification procedures” from EHB is
+
+arbitrary and capricious because Defendants adopted an incorrect definition of a typical
+
+employer plan and disregarded the need for a state-by-state definition of typicality.
+
+      First, as discussed above, Congress intended the Department of Labor’s survey of
+
+employer-sponsored coverage to “inform [the HHS Secretary’s] determination” of “the scope of
+
+benefits provided under a typical employer plan.” 42 U.S.C. § 18022(b)(2)(A). Because
+
+Defendants determined typicality without reference to any such survey, their determination was
+
+
+                                                28
+     Case 1:25-cv-12019-NMG            Document 122         Filed 01/23/26     Page 36 of 43
+
+
+
+
+arbitrary. See State Farm, 463 U.S. at 43 (action is arbitrary where agency “relied on factors
+
+which Congress has not intended it to consider” or “entirely failed to consider an important
+
+aspect of the problem”).
+
+      Second, Defendants’ incorrect understanding of typicality is based on an erroneous
+
+premise. The agency justifies the exclusion of sex-trait modification procedures as EHB in part
+
+by reference to the supposedly low utilization rate for such care. Rule at 27,155. But Defendants
+
+do not explain why utilization rates are relevant to determining typicality. Utilization has nothing
+
+to do with typicality of coverage: Heart and lung transplants, for instance, are rare, yet widely
+covered. And other treatments with high utilization rates are excluded as EHB, such as non-
+
+pediatric dental or eye exam services, long-term nursing care, and non-medically necessary
+
+orthodontia. Put simply, utilization data has never been used as a basis for excluding certain
+
+medical services from EHB, and Defendants fail to explain their decision to consider it now
+
+despite its patent irrelevance to the question of typicality of coverage.
+
+      Third, Defendants’ determination of typicality is arbitrary for the independent reason that
+
+HHS was “unable or unwilling” to neutrally consider the evidence before it. Miss. Comm’n on
+
+Env’t Quality v. EPA, 790 F.3d 138, 183 (D.C. Cir. 2015). Specifically, HHS disregarded
+
+without meaningful explanation all but one of the metrics of typicality proposed by commenters,
+
+electing not to define typicality by reference to the plans that cover most workers in a given state,
+
+or the states’ plans that cover their own employees, or the plans of companies with 5,000 or more
+
+workers. By each of those metrics, a “typical employer plan” would cover sex-trait modification
+procedures. Instead, HHS established typicality by looking only at small business plans, and
+
+without performing a formal analysis or survey of those plans. See Rule at 27,155 (stating
+
+unsupported “belie[f]” that “small business health options program (SHOP) [plans are] more
+
+reflective of the coverage typically provided by the majority of employers”). Nowhere in the
+
+Rule does HHS actually marshal data to support its belief that SHOP plans represent the
+
+“typical” employer plan. And if HHS had marshaled such data, it would have seen that many
+
+SHOP plans, being fully insured, do cover medically necessary treatment for gender dysphoria,
+
+
+                                                 29
+     Case 1:25-cv-12019-NMG                Document 122    Filed 01/23/26      Page 37 of 43
+
+
+
+
+including sex-trait modification procedures, in all states that mandate such coverage. Yet the
+
+Rule makes no effort to disaggregate SHOP plans that do cover such care from those that do not,
+
+rendering its blanket assertions about SHOP plans unreliable.
+
+      Under nearly any analysis, employer plans typically do cover medically necessary
+
+treatments for gender dysphoria, including sex-trait modification procedures. In fact, Defendants
+
+themselves admit that seventy-two percent of Fortune 500 companies’ health plans, and “over
+
+1,300 major employers nationwide,” provide this coverage. Rule at 27,154; see AR at 036261
+
+(Corporate Equality Index 2025). Fifty percent of companies with 5,000 or more workers
+certified that their plans cover gender-affirming hormone therapy. AR at 035628 (KFF Employer
+
+Health Benefits Annual Survey 2024). Further, of the states whose employer plans mention such
+
+care, 24 cover it while 14 do not, and 12 “do not mention or have no clear policy” on such
+
+coverage, meaning 63% of the plans that mention it require it to be covered. Rule at 27,153.
+
+      Despite having acknowledged in 2011 that “large employer plans . . . account for the
+
+majority of employer plan enrollees,” 8 and despite recognizing the vast array of employers
+                                      7F
+
+
+
+
+offering this coverage and of employees who are enrolled in plans that offer it, HHS focuses
+
+myopically on its flawed analysis of small business plans. Rule at 27,155. This is not a “dispute[]
+
+over interpretation of data,” PI Order at 26, but rather a misunderstanding of what constitutes a
+
+“typical” employer plan based on multiple faulty premises. This arbitrary and capricious
+
+conclusion is not “reasoned decisionmaking.” Michigan v. EPA, 576 U.S. 743, 750 (2015).
+
+V.    CONCLUSION
+      For these reasons, the Plaintiff States are entitled to: (1) a declaratory judgment finding
+
+that the Rule’s challenged provisions are (a) contrary to the laws of the United States (Counts II
+
+and III), (b) arbitrary and capricious (Counts IV and V), and (c) ultra vires agency action (Count
+
+VI), as appropriate to each provision; and (2) vacatur of all challenged provisions under Section
+
+706 of the APA.
+       8
+         Centers for Medicare and Medicaid Servs., Ctr. for Consumer Information & Oversight,
+Essential Health Benefits Bulletin (Dec. 16, 2011) at 3-4, available at https://www.cms.gov/
+cciio/resources/files/downloads/essential_health_benefits_bulletin.pdf.
+
+
+                                                  30
+    Case 1:25-cv-12019-NMG           Document 122       Filed 01/23/26      Page 38 of 43
+
+
+
+Dated: January 23, 2026                        Respectfully Submitted,
+
+ANDREA JOY CAMPBELL                            ROB BONTA
+Attorney General                               Attorney General
+Commonwealth of Massachusetts                  State of California
+
+/s/ Allyson Slater                             /s/ Sean C. McGuire
+ALLYSON SLATER (BBO No. 704545)                SEAN C. MCGUIRE*
+Director, Reproductive Justice Unit            Deputy Attorney General
+MORGAN CARMEN                                  NELI PALMA*
+JAK KUNDL                                      Senior Assistant Attorney General
+Assistant Attorneys General                    NIMROD PITSKER ELIAS*
+Office of the Attorney General                 Supervising Deputy Attorney General
+One Ashburton Place, 20th Floor                CRYSTAL ADAMS*
+Boston, MA                                     HILARY BURKE CHAN*
+(617) 963-2811                                 Deputy Attorneys General
+Allyson.Slater@mass.gov                        600 West Broadway, Suite 1800
+Attorneys for Plaintiff Commonwealth of        San Diego, CA 92101
+Massachusetts                                  (619) 738-9543
+                                               Sean.McGuire@doj.ca.gov
+                                               Attorneys for Plaintiff State of California
+
+JENNIFER DAVENPORT                             KRISTIN K. MAYES
+Acting Attorney General                        Attorney General
+State of New Jersey                            State of Arizona
+
+/s/ Mayur P. Saxena                            /s/ Joshua Nomkin
+JEREMY M. FEIGENBAUM                           JOSHUA NOMKIN*
+Solicitor General                              LAUREN WATFORD*
+MAYUR P. SAXENA*                               Office of the Attorney General
+Assistant Attorney General                     2005 North Central Avenue
+JOSHUA P. BOHN*                                Phoenix, Arizona 85004
+BRYCE K. HURST                                 (602) 542-3333
+AMANDA I. MOREJON                              Joshua.Nomkin@azag.gov
+ESTEFANIA PUGLIESE-SAVILLE                     Lauren.Watford@azag.gov
+Deputy Attorneys General                       Attorneys for Plaintiff State of Arizona
+Office of the Attorney General
+25 Market Street
+Trenton, NJ 08625
+Telephone: (609) 969-5365
+Email: Mayur.Saxena@law.njoag.gov
+Attorneys for Plaintiff State of New Jersey
+
+
+
+
+* Denotes pro hac vice admission
+
+
+
+
+                                              31
+    Case 1:25-cv-12019-NMG           Document 122     Filed 01/23/26      Page 39 of 43
+
+
+
+PHILIP J. WEISER                             WILLIAM TONG
+Attorney General                             Attorney General
+State of Colorado                            State of Connecticut
+
+/s/ David Moskowitz                          /s/ Janelle Medeiros
+DAVID MOSKOWITZ*                             JANELLE MEDEIROS*
+Deputy Solicitor General                     Special Counsel for Civil Rights
+Colorado Department of Law                   165 Capitol Ave
+1300 Broadway, 10th Floor                    Hartford, CT 06106
+Denver, CO 80203                             (860) 808-5450
+Phone: (720) 508-6000                        Janelle.Medeiros@ct.gov
+David.Moskowitz@coag.gov                     Attorneys for Plaintiff State of Connecticut
+Attorneys for Plaintiff State of Colorado
+
+KATHLEEN JENNINGS                            KWAME RAOUL
+Attorney General                             Attorney General
+State of Delaware                            State of Illinois
+
+/s/ Vanessa L. Kassab                        /s/ Alice L. Riechers
+IAN R. LISTON*                               SARAH J. NORTH*
+Director of Impact Litigation                Deputy Chief, Public Interest Division
+VANESSA L. KASSAB*                           ALICE L. RIECHERS*
+Deputy Attorneys General                     Assistant Attorney General,
+Delaware Department of Justice               Special Litigation Bureau
+820 N. French Street                         Office of the Illinois Attorney General
+Wilmington, DE 19801                         115 S. LaSalle Street
+(302) 683-8899                               Chicago, IL 60603
+Vanessa.Kassab@delaware.gov                  312-814-3000
+Attorneys for Plaintiff State of Delaware    Sarah.North@ilag.gov
+                                             Alice.Riechers@ilag.gov
+                                             Attorneys for Plaintiff State of Illinois
+
+AARON M. FREY                                ANTHONY G. BROWN
+Attorney General                             Attorney General
+State of Maine                               State of Maryland
+
+/s/ Molly A. Moynihan                        /s Michael Drezner
+MOLLY A. MOYNIHAN*                           MICHAEL DREZNER*
+Assistant Attorneys General                  Senior Assistant Attorney General
+Office of the Attorney General               Office of the Attorney General
+6 State House Station                        200 Saint Paul Place, 20th Floor
+Augusta, ME 04333-0006                       Baltimore, MD 21202
+Tel.: 207-626-8800                           410-576-6959
+Lauren.LaRochelle@maine.gov                  MDrezner@oag.state.md.us
+Attorneys for Plaintiff State of Maine       Attorneys for Plaintiff State of Maryland
+
+
+
+
+* Denotes pro hac vice admission
+
+
+
+
+                                            32
+    Case 1:25-cv-12019-NMG           Document 122      Filed 01/23/26      Page 40 of 43
+
+
+
+DANA NESSEL                                    KEITH ELLISON
+Attorney General                               Attorney General
+State of Michigan                              State of Minnesota
+
+/s/ Carl Hammaker                              /s/ Lindsey E. Middlecamp
+CARL HAMMAKER (P81203)*                        LINDSEY E. MIDDLECAMP**
+AARON LEVIN (P81310)*                          Special Counsel, Rule of Law
+Assistant Attorneys General                    445 Minnesota Street, Suite 600
+Michigan Department of Attorney General        St. Paul, MN 55101
+525 W. Ottawa St.                              (651) 300-0711
+Lansing, MI 48933-1067                         Lindsey.Middlecamp@ag.state.mn.us
+517.335.7573                                   Attorneys for Plaintiff State of Minnesota
+HammakerC@michigan.gov
+LevinA@michigan.gov
+Attorneys for Plaintiff State of Michigan
+
+RAÚL TORREZ                                    AARON D. FORD
+Attorney General                               Attorney General
+State of New Mexico                            State of Nevada
+
+/s/ Aletheia V.P. Allen                        /s/ Heidi Parry Stern
+ALETHEIA V.P. ALLEN*                           HEIDI PARRY STERN (Bar. No. 8873)*
+Solicitor General                              Solicitor General
+LAWRENCE M. MARCUS*                            Office of the Nevada Attorney General
+Assistant Solicitor General                    1 State of Nevada Way, Ste. 100
+New Mexico Department of Justice               Las Vegas, NV 89119
+201 Third St. NW, Suite 300                    HStern@ag.nv.gov
+Albuquerque, NM 87102                          Attorneys for Plaintiff State of Nevada
+505-527-2776
+AAllen@nmdoj.gov
+Attorneys for Plaintiff State of New Mexico
+
+LETITIA JAMES                                  DAN RAYFIELD
+Attorney General                               Attorney General
+State of New York                              State of Oregon
+
+/s/ Stephen Thompson                           /s/ Scott P. Kennedy
+STEPHEN C. THOMPSON*                           SCOTT P. KENNEDY*
+Special Counsel                                Senior Assistant Attorney General
+ANDRES IVAN NAVEDO*                            Oregon Department of Justice
+Assistant Attorney General                     100 SW Market Street
+28 Liberty Street                              Portland, OR 97201
+New York, NY 10005                             Tel (971) 453-9050
+(212) 416-6183                                 Fax (971) 673-5000
+stephen.thompson@ag.ny.gov                     Scott.Kennedy@doj.oregon.gov
+Attorneys for Plaintiff State of New York      Attorneys for Plaintiff State of Oregon
+
+
+
+
+* Denotes pro hac vice admission
+** Denotes pro hac vice forthcoming
+
+
+
+                                              33
+    Case 1:25-cv-12019-NMG            Document 122     Filed 01/23/26      Page 41 of 43
+
+
+
+
+JOSH SHAPIRO                                   PETER F. NERONHA
+in his official capacity as Governor of the    Attorney General
+Commonwealth of Pennsylvania                   State of Rhode Island
+
+Jennifer Selber                                /s/ Julia Harvey
+ General Counsel                               JULIA HARVEY (RI Bar No. 10529)*
+                                               Special Assistant Attorney General
+/s/ Aimee D. Thomson                           150 South Main Street
+AIMEE D. THOMSON*                              Providence, RI 02903
+Deputy General Counsel                         (401) 274-4400, Ext. 2103
+Pennsylvania Office of the Governor            JHarvey@riag.ri.gov
+30 N. 3rd St., Suite 200                       Attorneys for Plaintiff State of Rhode Island
+Harrisburg, PA 17101
+(223) 234-4986
+AimeeThomson@pa.gov
+Counsel for Governor Josh Shapiro
+
+CHARITY R. CLARK                               NICHOLAS W. BROWN
+Attorney General                               Attorney General
+State of Vermont                               State of Washington
+
+/s/ Jonathan T. Rose                           /s/ William McGinty
+JONATHAN T. ROSE*                              WILLIAM MCGINTY, WSBA 41868*
+Solicitor General                              Deputy Solicitor General
+109 State Street                               1125 Washington Street SE
+Montpelier, VT 05609                           PO Box 40100
+(802) 828-3171                                 Olympia, WA 98504-0100
+Jonathan.Rose@vermont.gov                      William.McGinty@atg.wa.gov
+Attorneys for Plaintiff State of Vermont       360-709-6027
+                                               Attorneys for Plaintiff State of Washington
+JOSHUA L. KAUL
+Attorney General
+State of Wisconsin
+
+/s/ Jody J. Schmelzer
+JODY J. SCHMELZER*
+Assistant Attorney General
+Wisconsin Department of Justice
+17 West Main Street
+Post Office Box 7857
+Madison, WI 53707-7857
+(608) 266-3094
+Jody.Schmelzer@wisdoj.gov
+Attorneys for Plaintiff State of Wisconsin
+
+
+* Denotes pro hac vice admission
+
+
+
+
+                                              34
+     Case 1:25-cv-12019-NMG           Document 122        Filed 01/23/26     Page 42 of 43
+
+
+
+
+                              LOCAL RULE 7.1 CERTIFICATE
+
+      I certify that at 3:01 p.m. Eastern time on January 20, 2026, I spoke by phone with Jordan
+
+Hulseberg, Trial Attorney, Federal Programs Branch, Civil Division, U.S. Department of Justice,
+
+regarding the relief requested in this motion. The parties met and conferred in good faith and
+
+were unable to resolve or narrow the subject of this motion.
+
+
+
+                                                      /s/ Sean C. McGuire
+                                                      Sean C. McGuire
+                                                      Deputy Attorney General
+                                                      California Department of Justice
+
+                                                      Counsel for Plaintiff State of California
+
+
+
+
+                                                35
+     Case 1:25-cv-12019-NMG            Document 122        Filed 01/23/26      Page 43 of 43
+
+
+
+
+                                    CERTIFICATE OF SERVICE
+
+      I certify that this document filed through the ECF system will be sent electronically to the
+
+registered participants as identified on the Notice of Electronic Filing (NEF) and paper copies
+
+will be sent to those indicated as non-registered participants.
+
+
+                                                        /s/ Sean C. McGuire
+                                                        Sean C. McGuire
+                                                        Deputy Attorney General
+                                                        California Department of Justice
+
+                                                        Counsel for Plaintiff State of California
+
+
+
+
+                                                 36
+

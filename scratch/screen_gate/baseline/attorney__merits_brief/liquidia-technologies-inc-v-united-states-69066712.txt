@@ -1,0 +1,2500 @@
+       Case 1:24-cv-02428-TJK         Document 93   Filed 01/28/25   Page 1 of 47
+
+
+
+
+                      IN THE UNITED STATES DISTRICT COURT
+                          FOR THE DISTRICT OF COLUMBIA
+
+
+LIQUIDIA TECHNOLOGIES, INC.,
+                  Plaintiff,
+      v.
+UNITED STATES FOOD AND DRUG
+ADMINISTRATION, ROBERT M.
+CALIFF, M.D., in his official capacity as
+                                                     PUBLIC/UNREDACTED
+COMMISSIONER OF FOOD AND
+DRUGS, UNITED STATES
+                                                     No. 1:24-cv-2428-TJK
+DEPARTMENT OF HEALTH AND
+HUMAN SERVICES, XAVIER
+                                                     ORAL ARGUMENT REQUESTED
+BECERRA, in his official capacity as
+SECRETARY OF HEALTH AND
+HUMAN SERVICES,
+                  Defendants, and
+UNITED THERAPEUTICS CORP.,
+                  Intervenor-Defendant and
+                  Cross-Claimant.
+
+             UTC’S MEMORANDUM IN SUPPORT OF ITS MOTION FOR
+                         SUMMARY JUDGMENT
+Shaun R. Snader (D.C. Bar No. 492231)           William C. Jackson (D.C. Bar No. 475200)
+UNITED THERAPEUTICS CORPORATION                 William M. Jay (D.C. Bar No. 480185)
+1735 Connecticut Ave. NW, 2nd Floor             Brian T. Burgess (D.C. Bar No. 1020915)
+Washington, DC 20009                            GOODWIN PROCTER LLP
+(202) 304-1701                                  1900 N Street, NW
+                                                Washington, DC 20001
+Douglas Carsten (admitted pro hac vice)
+                                                (202) 346-4000
+Art Dykhuis (admitted pro hac vice)
+MCDERMOTT WILL & EMERY LLP                  Kurt R. Karst (D.C. Bar No. 482615)
+18565 Jamboree Road, Suite 250              Michael D. Shumsky (D.C. Bar No. 495078)
+Irvine, CA 92615                            Sara Wexler Koblitz (D.C. Bar No. 1017284)
+(949) 851-0633                              HYMAN, PHELPS & MCNAMARA, P.C.
+Adam W. Burrowbridge (D.C. Bar No. 1001783) 700 13th Street, NW, Suite 1200
+MCDERMOTT WILL & EMERY LLP                  Washington, DC 20005
+500 North Capitol Street, NW                (202) 737-5600
+Washington, DC 20001
+(202) 756-8797                              Counsel for United Therapeutics Corporation
+                                            January 17, 2025
+          Case 1:24-cv-02428-TJK                          Document 93                 Filed 01/28/25               Page 2 of 47
+
+
+
+
+                                                     TABLE OF CONTENTS
+
+Introduction ......................................................................................................................................1
+
+Background ......................................................................................................................................3
+
+           I.         Statutory and Regulatory Framework ......................................................................3
+
+                      A.          The FDCA, the Hatch-Waxman Act, and PDUFA ..................................... 3
+
+                      B.          Patent disputes under the Hatch-Waxman Act ........................................... 5
+
+                      C.          FDA’s Bundling Rule ................................................................................. 6
+
+                      D.          The Medicare Modernization Act ............................................................. 10
+
+           II.        Factual Background ...............................................................................................12
+
+                      A.          UTC develops novel treatments for pulmonary hypertension. ................. 12
+
+                      B.          Liquidia applies to market a follow-on treprostinil product, leading
+                                  to patent litigation. .................................................................................... 13
+
+                      C.          Liquidia submits an amendment to add the PH-ILD indication,
+                                  after telling FDA it would wait until after final approval of its
+                                  original application. .................................................................................. 14
+
+                      D.          UTC challenges FDA’s acceptance of Liquidia’s improperly
+                                  bundled application. .................................................................................. 16
+
+                      E.          FDA reaffirms its decision to accept Liquidia’s amendment and to
+                                  depart from the Bundling Rule. ................................................................ 18
+
+                      F.          Liquidia brings this action, and UTC files a crossclaim. .......................... 20
+
+LEGAL STANDARDS .................................................................................................................21
+
+ARGUMENT .................................................................................................................................21
+
+           I.         FDA’s decision to accept Liquidia’s amendment in direct contravention of
+                      the Bundling Rule was arbitrary and capricious. ...................................................21
+
+                      A.          The Bundling Rule prohibits adding indications through
+                                  amendments and required FDA to reject Liquidia’s proposed
+                                  amendment. ............................................................................................... 22
+
+                      B.          FDA’s newly announced exception to the Bundling Rule fails to
+                                  address an important aspect of the Bundling Rule’s historic
+                                  purpose. ..................................................................................................... 28
+
+
+                                                                         i
+          Case 1:24-cv-02428-TJK                         Document 93                 Filed 01/28/25              Page 3 of 47
+
+
+
+
+                      C.         FDA failed to meaningfully consider the reliance interests of
+                                 innovators like UTC in faithful application of the Bundling Rule. .......... 33
+
+           II.        This Court should vacate FDA’s decision accepting the PH-ILD
+                      amendment for review. ..........................................................................................36
+
+Conclusion .....................................................................................................................................37
+
+
+
+
+                                                                       ii
+          Case 1:24-cv-02428-TJK                      Document 93               Filed 01/28/25             Page 4 of 47
+
+
+
+
+                                               TABLE OF AUTHORITIES
+
+                                                                                                                              Page(s)
+
+Cases:
+
+Am. Acad. of Pediatrics v. FDA,
+   379 F. Supp. 3d 461 (D. Md. 2019) .........................................................................................35
+
+*Appalachian Power Co. v. EPA,
+   208 F.3d 1015 (D.C. Cir. 2000) .........................................................................................23, 24
+
+Bristol-Myers Squibb Co. v. Royce Labs., Inc.,
+    69 F.3d 1130 (Fed. Cir. 1995)..................................................................................................29
+
+City of Port Isabel v. FERC,
+    111 F.4th 1198 (D.C. Cir. 2024) ..............................................................................................23
+
+CSL Plasma Inc. v. U.S. Customs & Border Prot.,
+   628 F. Supp. 3d 243 (D.D.C. 2022) ...................................................................................35, 36
+
+Ctr. for Biol. Diversity v. Regan,
+    734 F. Supp. 3d 1 (D.D.C. 2024) .............................................................................................37
+
+*Dep’t of Homeland Sec. v. Regents of the Univ. of Cal.,
+   591 U.S. 1 (2020) ...............................................................................................................33, 34
+
+Eli Lilly & Co. v. Teva Pharms. USA, Inc.,
+    557 F.3d 1346 (Fed. Cir. 2009)..................................................................................................6
+
+*Endo Par Innovation Co. v. Becerra,
+   No. 24-cv-999-TJK, 2024 WL 2988904 (D.D.C. Jun. 10, 2024) ......................1, 29, 33, 35, 37
+
+*Gen. Elec. Co. v. EPA,
+   290 F.3d 377 (D.C. Cir. 2002) .....................................................................................23, 24, 26
+
+Int’l Org. of Masters, Mates & Pilots v. NLRB,
+    61 F.4th 169 (D.C. Cir. 2023) ..................................................................................................33
+
+Jennings v. Rodriguez,
+   583 U.S. 281 (2018) .................................................................................................................31
+
+Jicarilla Apache Nation v. U.S. Dep’t of Interior,
+    613 F.3d 1112 (D.C. Cir. 2010) ...............................................................................................21
+
+Ky. Mun. Energy Agency v. FERC,
+    45 F.4th 162 (D.C. Cir. 2022) ..................................................................................................28
+
+
+
+
+                                                                   iii
+          Case 1:24-cv-02428-TJK                         Document 93                Filed 01/28/25               Page 5 of 47
+
+
+
+
+Liquidia Techs., Inc. v. United Therapeutics Corp.,
+   No. IPR2021-00406, 2022 WL 2820717 (P.T.A.B. July 19, 2022) ........................................14
+
+*Motor Vehicle Mfrs. Ass’n of the U.S., Inc. v. State Farm Mut. Auto. Ins.,
+  463 U.S. 29 (1983) ...................................................................................................2, 21, 28, 32
+
+Mylan Pharms., Inc. v. Sebelius,
+   856 F. Supp. 2d 196 (D.D.C. 2012) .........................................................................................29
+
+NAACP v. Trump,
+  298 F. Supp. 3d 209 (D.D.C. 2018) .........................................................................................36
+
+Ohio v. EPA,
+   603 U.S. 279 (2024) .................................................................................................................32
+
+Pol’y & Rsch., LLC v. HHS,
+   313 F. Supp. 3d 62 (D.D.C. 2018) ...........................................................................................21
+
+Quantum Ent’t, Ltd. v. U.S. Dep’t of Interior, Bureau of Indian Affairs,
+   597 F. Supp. 2d 146 (D.D.C. 2009) .........................................................................................28
+
+SEC v. Chenery Corp.,
+   318 U.S. 80 (1943) ...................................................................................................................23
+
+Syncor Int’l Corp. v. Shalala,
+   127 F.3d 90 (D.C. Cir. 1997) ...................................................................................................35
+
+Teva Pharms. USA, Inc. v. Sebelius,
+   595 F.3d 1303 (D.C. Cir. 2010) ...........................................................................................6, 29
+
+United Therapeutics Corp. v. Liquidia Techs., Inc.,
+   2023 WL 8794633 (Fed. Cir. Dec. 20, 2023) ..........................................................................14
+
+United Therapeutics Corp. v. Liquidia Techs., Inc.,
+   2024 WL 2805082 (D. Del. May 31, 2024) .............................................................................16
+
+United Therapeutics Corp. v. Liquidia Techs., Inc.,
+   74 F.4th 1360 (Fed. Cir. 2023), cert denied, No. 23-804, 2024 WL 675262
+   (Feb. 20, 2024) .........................................................................................................................14
+
+Vanda Pharms. Inc. v. West-Ward Pharms. Int’l Ltd.,
+   887 F.3d 1117 (Fed. Cir. 2018)................................................................................................11
+
+Veloxis Pharms., Inc. v. FDA,
+   109 F. Supp. 3d 104 (D.D.C. 2015) ...........................................................................................4
+
+Statutes:
+
+5 U.S.C. § 706 ................................................................................................................................21
+
+
+                                                                       iv
+          Case 1:24-cv-02428-TJK                          Document 93                  Filed 01/28/25               Page 6 of 47
+
+
+
+
+5 U.S.C. § 706(2) ...........................................................................................................................36
+
+21 U.S.C. § 355:
+
+     § 355...........................................................................................................................................3
+
+     § 355(a) ......................................................................................................................................3
+
+     § 355(b) ......................................................................................................................................4
+
+     § 355(b)(1) .................................................................................................................................3
+
+     § 355(b)(1)(A) ............................................................................................................................3
+
+     § 355(b)(1)(A)(viii) ....................................................................................................................5
+
+     § 355(b)(2)(A)(iv) ......................................................................................................................6
+
+     § 355(b)(4)(A) ....................................................................................................................11, 30
+
+     § 355(b)(4)(B) ....................................................................................................................11, 31
+
+     § 355(c)(2) .................................................................................................................................5
+
+     § 355(c)(3) .................................................................................................................................6
+
+     § 355(c)(3)(C) ................................................................................................................6, 10, 30
+
+     § 355(c)(3)(C)(i) ........................................................................................................................6
+
+     § 355(c)(3)(C)(ii) .......................................................................................................................6
+
+     § 355(d)(2) .................................................................................................................................3
+
+     § 355(j)(2)(A).............................................................................................................................4
+
+     § 355(j)(7)(A)(i) .........................................................................................................................5
+
+21 U.S.C. § 371(h)(C)(i) ................................................................................................................28
+
+21 U.S.C. § 379g ..............................................................................................................................4
+
+21 U.S.C. § 379g(1) .........................................................................................................................4
+
+21 U.S.C. § 379h(a)(1)(A) ...............................................................................................................4
+
+35 U.S.C. § 271(e)(2)(A) .................................................................................................................6
+
+Drug Price Competition and Patent Term Restoration Act (Hatch-Waxman Act),
+   Pub. L. No. 98-417, 98 Stat. 1585 (1984) ..................................................................................3
+
+
+                                                                         v
+          Case 1:24-cv-02428-TJK                          Document 93                 Filed 01/28/25               Page 7 of 47
+
+
+
+
+Medicare Modernization Act, Pub. L. No. 108-173, 117 Stat. 2066 (2003) .................................10
+
+Prescription Drug User Fee Act (PDUFA), Pub. L. 102-571, 106 Stat. 4491
+   (1992) .........................................................................................................................................4
+
+Regulations & Regulatory Materials:
+
+21 C.F.R. § 314.50(h) ......................................................................................................................5
+
+21 C.F.R. § 314.50(i)(1)(i)(A)(4).....................................................................................................6
+
+21 C.F.R. § 314.53(d) ......................................................................................................................5
+
+21 C.F.R. § 314.60(e).....................................................................................................................30
+
+21 C.F.R. § 314.70 .........................................................................................................................32
+
+21 C.F.R. § 314.70(h) ....................................................................................................................30
+
+21 C.F.R. § 314.94(a)(12) ................................................................................................................6
+
+21 C.F.R. § 314.96(d)(1) ................................................................................................................33
+
+21 C.F.R. § 314.110(b)(1)(ii) .........................................................................................................15
+
+148 Cong. Rec. S6844 (daily ed. July 16, 2002) .....................................................2, 10, 11, 25, 29
+
+Abbreviated New Drug Applications and 505(b)(2) Applications,
+   81 Fed. Reg. 69,580 (Oct. 6, 2016)......................................................................................8, 12
+
+*Proposed Rule, Abbreviated New Drug Applications and 505(b)(2) Applications,
+   80 Fed. Reg. 6802 (Feb. 6, 2015) ..........................................................9, 11, 23, 26, 29, 31, 33
+
+Other Authorities:
+
+Examining Issues Related to Competition in the Pharmaceutical Marketplace: A
+   Review of the FTC Report, Generic Drug Entry Prior to Patent Expiration:
+   Hearing Before the Subcomm. on Health of the H. Comm. on Energy & Com.,
+   107th Cong. 49 (2002) .............................................................................................................26
+
+FDA, Approval Package, Administrative & Correspondence Document(s), NDA
+  021822 (Aptivus) (May 19, 2006),
+  https://www.accessdata.fda.gov/drugsatfda_docs/nda/
+  2008/021822s000admincorres.pdf ...........................................................................................23
+
+FDA, Approval Package, Administrative & Correspondence Documents, NDA
+  208780 (May 2015),
+  https://www.accessdata.fda.gov/drugsatfda_docs/nda/2017/208780Orig1s000
+  AdminCorres.pdf .......................................................................................................................9
+
+
+                                                                        vi
+          Case 1:24-cv-02428-TJK                      Document 93               Filed 01/28/25             Page 8 of 47
+
+
+
+
+FDA, Approval Package, Administrative & Correspondence Documents, NDA
+  209400 (Nov. 2015),
+  https://www.accessdata.fda.gov/drugsatfda_docs/nda/2017/209400Orig1s000
+  AdminCorres.pdf .......................................................................................................................9
+
+FDA, Approval Package, Administrative & Correspondence Documents, NDA
+  210709 (May 2017),
+  https://www.accessdata.fda.gov/drugsatfda_docs/nda/2017/210709Orig1s000
+  AdminCorres.pdf .......................................................................................................................9
+
+FDA, Approval Package, Proprietary Name Review(s), Application Nos. 761285
+  & 761331 (Sept. 22, 2023),
+  https://www.accessdata.fda.gov/drugsatfda_docs/nda/2024/761285Orig1s000,
+  761331Origs000NameR.pdf ......................................................................................................9
+
+FDA PDUFA Reauthorization Performance Goals and Procedures Fiscal Years
+  2023 Through 2027,
+  https://www.fda.gov/media/151712/download?attachment ......................................................5
+
+FDA, SOPP 8401: Administrative Processing of Original Biologics License
+  Applications (BLA) and New Drug Applications (NDA) ,(2024)
+  https://www.fda.gov/media/85659/download ............................................................................8
+
+H.R. Rep. No. 108-391 (2003).....................................................................................10, 11, 25, 36
+
+Notice, Draft Guidance for Industry on Separate Marketing Applications and
+   Definition of Clinical Data for Purposes of Assessing User Fees; Availability,
+   66 Fed. Reg. 11175 (Feb. 13, 2001), available at
+   https://www.govinfo.gov/content/pkg/FR-2001-02-22/pdf/01-4311.pdf ..................................7
+
+A. Scalia & B. Garner, Reading Law (2012) .................................................................................31
+
+United Therapeutics, Press Release (May 24, 2022), https://ir.unither.com/press-
+   releases/2022/05-24-2022 ........................................................................................................13
+
+UTC, United Therapeutics Corporation History, https://www.unither./us/history .......................12
+
+
+
+
+                                                                   vii
+         Case 1:24-cv-02428-TJK                  Document 93            Filed 01/28/25   Page 9 of 47
+
+
+
+
+                                                     GLOSSARY
+
+ANDA ................................................abbreviated new drug application
+
+APA....................................................Administrative Procedure Act, 5 U.S.C. § 500 et seq.
+
+Cross-claim ........................................United Therapeutics Corporation’s Cross-Claims Against
+                                                    Food and Drug Administration, Robert M. Califf, M.D., in
+                                                    his official capacity as Commissioner of FDA; the United
+                                                    States Department of Health and Human Services (“HHS”);
+                                                    and Xavier Becerra, in his official capacity as Secretary of
+                                                    HHS (ECF No. 30)
+
+FDA....................................................Food and Drug Administration
+
+FDCA .................................................Federal Food, Drug, and Cosmetic Act (FDCA), 21 U.S.C.
+                                                      § 301 et seq.
+
+Liquidia ..............................................Liquidia Technologies, Inc.
+
+MMA..................................................Medicare Prescription Drug, Improvement, and
+                                                     Modernization Act of 2003, Pub. L. No. 108-173, 117 Stat.
+                                                     2066 (2003)
+
+NDA ...................................................new drug application
+
+PAH....................................................pulmonary arterial hypertension
+
+PH ......................................................pulmonary hypertension
+
+PH-ILD ..............................................pulmonary hypertension associated with interstitial lung
+                                                     disease
+
+UTC....................................................United Therapeutics Corporation
+
+
+
+
+                                                            viii
+      Case 1:24-cv-02428-TJK           Document 93        Filed 01/28/25      Page 10 of 47
+
+
+
+
+                                        INTRODUCTION
+
+       For more than three decades, the U.S. Food and Drug Administration has communicated a
+
+clear rule to drug companies: if you want to add a new approved use (“indication”) for a drug
+
+product while your initial application is pending, file a new standalone application—not an
+
+amendment. This “Bundling Rule” is a procedural directive with outsized substantive impact.
+
+Under the Hatch-Waxman Act (as amended), when a company seeking to market a follow-on
+
+version of an approved drug product files a new application with a “paragraph IV” certification—
+
+effectively challenging the scope and/or validity of patents listed by the innovator for the existing
+
+product—that certification typically triggers a statutory 30-month stay before FDA can approve
+
+the follow-on product. This automatic stay provides a critical protection for both innovators and
+
+follow-on companies allowing them to resolve patent disputes before market entry. But matters
+
+proceed differently when the follow-on applicant seeks approval for a new use via an amendment
+
+rather than a new application. For any patent listed by the innovator after the competitor’s original
+
+application but before the amendment, the competitor can submit a paragraph IV certification
+
+without triggering a stay. Thus, the question of whether FDA allows an amendment (or requires
+
+submission of a new application) often makes the difference between whether an innovator secures
+
+“its statutory entitlement to the 30-month stay.” Endo Par Innovation Co. v. Becerra, No. 24-cv-
+
+999-TJK, 2024 WL 2988904, at *6-7 (D.D.C. Jun. 10, 2024).
+
+       In this case, Liquidia is seeking approval for a follow-on version of UTC’s inhaled
+
+treprostinil product. Although Liquidia’s original application is still pending, FDA let Liquidia
+
+add a new indication by amendment rather than a new standalone application, contradicting the
+
+decades-old Bundling Rule. As a result, Liquidia avoided the 30-month stay that would have been
+
+triggered if it had instead filed a new application. None of this is disputed. Indeed, FDA concedes
+
+that it “depart[ed]” from the Bundling Rule, invoking a purported exception to the Bundling Rule
+
+
+                                                 1
+        Case 1:24-cv-02428-TJK         Document 93        Filed 01/28/25      Page 11 of 47
+
+
+
+
+that it supposedly first applied in 2018 but has never previously disclosed or explained. FDA-
+
+000162. To this day, FDA’s written instructions to applicants remain unchanged (and preclude
+
+Liquidia’s amendment). The agency has merely offered that it “intends to further consider”
+
+whether to provide “additional clarification of its position” sometime in the future. FDA-000178
+
+n.93.
+
+        FDA’s decision to disregard its Bundling Rule and accept Liquidia’s amendment is
+
+arbitrary and capricious. Although FDA disparages the Bundling Rule as mere informal guidance,
+
+it is a binding norm that has governed the application process for decades. Indeed, Congress
+
+legislated against the backdrop of FDA’s Bundling Rule when it amended the Hatch-Waxman Act,
+
+as it recognized that FDA’s limits on amendments would ensure the automatic stay would apply
+
+to patents on important innovations, such as a “different or improved use for the product.” 148
+
+Cong. Rec. S6844 (daily ed. July 16, 2002) (statement of Sen. Collins). FDA’s creation of a new
+
+exception to allow amendments adding new indications—if the follow-on applicant relies on no
+
+new clinical data—falls short of reasoned decision-making. FDA has sought to justify its
+
+exception based on considerations of administrative convenience, disregarding the central role the
+
+Bundling Rule plays in protecting innovators’ patent rights. This failure to “consider an important
+
+aspect of the problem” was arbitrary and capricious. Motor Vehicle Mfrs. Ass’n of the U.S., Inc.
+
+v. State Farm Mut. Auto. Ins., 463 U.S. 29, 43 (1983). FDA also failed to seriously consider the
+
+significant reliance interests of UTC and other innovators in faithful application of the Bundling
+
+Rule, with the agency describing those interests “as doubtful and at most limited” before asserting
+
+in conclusory fashion that they are “outweighed.” FDA-000184. This, too, is inadequate. Before
+
+abrogating a three-decades-old policy, FDA was required to do more than offer lip service to the
+
+significant reliance interests at stake. In failing to do so, FDA deprived UTC of a critical statutory
+
+
+
+
+                                                  2
+       Case 1:24-cv-02428-TJK         Document 93        Filed 01/28/25     Page 12 of 47
+
+
+
+
+protection, stripping away its opportunity to secure an automatic 30-month stay while pursuing its
+
+patent rights.
+
+        For all these reasons, and as further explained below, the Court should set aside FDA’s
+
+decision to accept Liquidia’s amendment in contravention of the agency’s Bundling Rule.
+
+                                        BACKGROUND
+
+I.      Statutory and Regulatory Framework
+
+        A.       The FDCA, the Hatch-Waxman Act, and PDUFA
+
+        Before marketing a drug, an applicant must first demonstrate to FDA’s satisfaction that the
+
+product is effective and safe for its intended use. See 21 U.S.C. § 355(d)(2); see generally id.
+
+§ 355(a). To do so, the applicant must submit either an NDA under section 505(b)(1) of the FDCA,
+
+21 U.S.C. § 355(b)(1), 1 or one of the more streamlined applications created by the Drug Price
+
+Competition and Patent Term Restoration Act (Hatch-Waxman Act), Pub. L. No. 98-417, 98 Stat.
+
+1585 (1984). The choice depends on whether (and to what extent) the applicant relies on other
+
+sponsors’ previous FDA approvals and their associated studies.
+
+        If an applicant seeks approval for an entirely new drug product—a “brand-name” drug—it
+
+typically submits a full, standalone NDA under section 505(b)(1). An NDA must include the “full
+
+reports of investigations” conducted or licensed by the sponsor showing “whether such drug is
+
+safe for use and whether such drug is effective in use.” 21 U.S.C. § 355(b)(1)(A). By contrast, if
+
+an applicant seeks to market a generic drug that is a copy of an approved brand drug, the applicant
+
+may submit an abbreviated new drug application (ANDA) establishing that the proposed generic
+
+
+
+
+1
+ Section 505 of the FDCA is codified at 21 U.S.C. § 355. This memorandum refers to provisions
+of the session law in text and provisions of the U.S. Code in citations.
+
+
+                                                 3
+      Case 1:24-cv-02428-TJK           Document 93        Filed 01/28/25      Page 13 of 47
+
+
+
+
+drug is bioequivalent and pharmaceutically equivalent to a previously approved “reference listed
+
+drug” (i.e., the brand-name product). See id. § 355(j)(2)(A).
+
+       The Hatch-Waxman Act also establishes an intermediate pathway for approval of a new
+
+drug product that shares features with a previously approved drug: an application under section
+
+505(b)(2) of the FDCA. This case involves such a section 505(b)(2) application. “Like the full
+
+NDA, a [section] 505(b)(2) application must directly demonstrate that the proposed drug product
+
+is safe and effective[.]” Veloxis Pharms., Inc. v. FDA, 109 F. Supp. 3d 104, 108 (D.D.C. 2015).
+
+But to do so, the section 505(b)(2) NDA “can rely on clinical studies that were previously
+
+submitted to FDA in support of another drug and that were not conducted or licensed by the
+
+[section] 505(b)(2) sponsor.” Id. at 109 (alterations omitted). In other words, a section 505(b)(2)
+
+application uses clinical studies to demonstrate the safety and effectiveness of the proposed new
+
+drug but differs from a section 505(b)(1) application because it relies, in whole or in part, on
+
+another sponsor’s safety or efficacy data from a previously approved drug.
+
+       FDA requires applicants submitting certain human drug applications to pay user fees under
+
+the Prescription Drug User Fee Act (PDUFA). See Pub. L. 102-571, 106 Stat. 4491 (1992),
+
+codified at 21 U.S.C. § 379g et seq. Under the PDUFA statute, a “human drug application”
+
+includes applications for the “approval of a new drug submitted under [21 U.S.C. § 355(b)]” but
+
+“does not include a supplement to such an application.” 21 U.S.C. § 379g(1). PDUFA provides
+
+that human drug applications “shall be subject to a fee,” including the fee “established … for a
+
+human drug application for which clinical data (other than bioavailability or bioequivalence
+
+studies) with respect to safety or effectiveness are required for approval” or the fee established for
+
+a human drug application for which these data “are not required for approval.” Id. § 379h(a)(1)(A).
+
+As part of its obligations under PDUFA, FDA sets its performance goals in a “commitment letter,”
+
+
+
+
+                                                  4
+      Case 1:24-cv-02428-TJK         Document 93          Filed 01/28/25   Page 14 of 47
+
+
+
+
+which lays out its intended timeline for acting on NDAs. See FDA PDUFA Reauthorization
+
+Performance    Goals    and   Procedures    Fiscal   Years     2023   Through    2027    at   4-6,
+
+https://www.fda.gov/media/151712/download?attachment.
+
+       B.      Patent disputes under the Hatch-Waxman Act
+
+       Many innovative drug products that improve the lives of patients also are the type of novel
+
+and valuable inventions that earn a patent. To strike a balance between expediting the entry of
+
+follow-on products and respecting innovators’ patent rights, the Hatch-Waxman Act creates a
+
+carefully calibrated process for identifying and resolving patent disputes between brand-name
+
+manufacturers on the one hand and would-be generic and section 505(b)(2) competitors on the
+
+other. Considered as a whole, this statutory framework promotes the orderly resolution of patent
+
+disputes before a follow-on product from an ANDA or section 505(b)(2) application enters the
+
+market.
+
+       The process begins with the brand-name manufacturer’s public identification of its patents.
+
+When an applicant files an NDA, it submits to FDA for listing information on each patent that
+
+claims the proposed drug or a method of using the proposed drug for which “a claim of patent
+
+infringement could reasonably be asserted if a person not licensed by the owner engaged in the
+
+manufacture, use, or sale of the drug.” 21 U.S.C. § 355(b)(1)(A)(viii); 21 C.F.R. § 314.50(h). The
+
+brand manufacturer must also submit timely updates to FDA of any such newly issued patents,
+
+both while the application is pending and after NDA approval. 21 U.S.C. § 355(c)(2); 21 C.F.R.
+
+§ 314.53(d). FDA publishes all such listed patents for each approved drug in a compendium called
+
+Approved Drug Products with Therapeutic Equivalence Evaluations, more commonly known as
+
+the “Orange Book.” 21 U.S.C. § 355(c)(2), (j)(7)(A)(i).
+
+       When seeking approval, generic and section 505(b)(2) applicants must then include in their
+
+applications a certification regarding all such Orange Book-listed patents. Several types of
+
+
+                                                5
+      Case 1:24-cv-02428-TJK            Document 93        Filed 01/28/25       Page 15 of 47
+
+
+
+
+certifications exist; relevant here is the “paragraph IV” certification. If there are any patents listed
+
+in the Orange Book for a given brand-name drug, and if the section 505(b)(2) applicant that cites
+
+such brand-name drug wants to market its product before the expiration of any of those patents, a
+
+“paragraph IV” certification allows it to represent that, in its view, the patent is invalid or
+
+unenforceable or will not be infringed by the proposed follow-on drug.                      21 U.S.C.
+
+§ 355(b)(2)(A)(iv); 21 C.F.R. §§ 314.50(i)(1)(i)(A)(4), 314.94(a)(12).
+
+        Submitting a paragraph IV certification “comes with a risk” because it is a technical act of
+
+patent infringement that allows the patent owner to sue immediately—i.e., before the follow-on
+
+product has been approved and marketed. Teva Pharms. USA, Inc. v. Sebelius, 595 F.3d 1303,
+
+1305 (D.C. Cir. 2010); 35 U.S.C. § 271(e)(2)(A). Filing suit within 45 days of receiving notice of
+
+the paragraph IV certification typically triggers an automatic stay of FDA’s ability to approve the
+
+505(b)(2) application for up to 30 months. 21 U.S.C. § 355(c)(3)(C). This stay allows patent
+
+disputes to be litigated in an orderly manner before approval and market entry of the follow-on
+
+product. See Eli Lilly & Co. v. Teva Pharms. USA, Inc., 557 F.3d 1346, 1348-49 (Fed. Cir. 2009).
+
+If the patent litigation ends sooner than 30 months, so does the stay.                 See 21 U.S.C.
+
+§ 355(c)(3)(C)(i)-(ii).
+
+        As explained in more detail below, pp. 10-12, infra, the automatic 30-month stay is
+
+available only for patents submitted to FDA before the relevant original 505(b)(2) application was
+
+submitted to the agency. See 21 U.S.C. § 355(c)(3).
+
+        C.      FDA’s Bundling Rule
+
+        For more than three decades, FDA’s “Bundling Rule” has provided that an applicant may
+
+not add a new indication to a pending application—including a “tentatively approved”
+
+application—via an amendment. Instead, FDA has long maintained that efforts to seek new
+
+indications, together with several other types of requests, require entirely new applications.
+
+
+                                                   6
+      Case 1:24-cv-02428-TJK           Document 93        Filed 01/28/25      Page 16 of 47
+
+
+
+
+       In its 1993 articulation of the rule, FDA explained to applicants “what should be contained
+
+in separate marketing applications and what should be combined into one application.” FDA-
+
+000936. FDA stated that certain proposed additions or alternatives were not proper subjects for
+
+amendment, but rather could be sought only in a new application. As most relevant here, the 1993
+
+Bundling Rule directed that “[a]fter initial submission, a pending original or supplemental
+
+application should not be amended to add a new indication.” FDA-000940. Instead, “[i]f the
+
+original application is not yet approved, a request for approval of other indications or claims”
+
+should “be submitted in a separate, original application.” Id. Notably, this proscription was in
+
+addition to the Bundling Rule’s directive that “[n]ew clinical or in vitro data to support a new
+
+claim(s) should not be submitted to an already submitted original application during the review of
+
+that application.” Id. FDA stated, however, that “in rare instances,” supplementary clinical data
+
+could be provided to support “[p]reviously submitted indications or claims.” Id. Leaving aside
+
+indications, FDA instructed that “[e]very different active ingredient … should be submitted in a
+
+separate original application,” as should “[p]roducts to be administered using different routes of
+
+administration” and “[d]ifferent dosage forms” (subject to narrow exceptions). FDA-000937-938.
+
+In contrast, applicants seeking approval for “[d]ifferent strengths or concentrations” of a drug were
+
+directed to combine their requests into a single application. Id.
+
+       FDA has carried forward the Bundling Rule throughout the years with only minor changes,
+
+immaterial here, with FDA providing notice to the public of revisions and providing an opportunity
+
+for written comments.      See Notice, Draft Guidance for Industry on Separate Marketing
+
+Applications and Definition of Clinical Data for Purposes of Assessing User Fees; Availability, 66
+
+Fed. Reg. 11175, 11175-11176 (Feb. 13, 2001), available at https://www.govinfo.gov/content/
+
+pkg/FR-2001-02-22/pdf/01-4311.pdf. In its current form, issued by FDA in 2004, the Bundling
+
+
+
+
+                                                 7
+      Case 1:24-cv-02428-TJK          Document 93        Filed 01/28/25      Page 17 of 47
+
+
+
+
+Rule provides that:
+
+       After initial submission, a pending original or supplemental application should not
+       be amended to add a new indication or claim. … If the original application is not
+       yet approved, a request for approval of other new indications or claims should be
+       submitted in a separate, original application.
+
+FDA-000974-975. 2
+
+       FDA has repeatedly applied the Bundling Rule to reject non-compliant submissions. See,
+
+e.g., Abbreviated New Drug Applications and 505(b)(2) Applications, 81 Fed. Reg. 69,580, 69,635
+
+(Oct. 6, 2016) (maintaining that applicant may not “amend[] or supplement[] a 505(b)(2)
+
+application to seek approval of a drug that has been modified to have a different active ingredient,
+
+different route of administration, different dosage form, or certain differences in excipients than
+
+the drug proposed in the original submission of the 505(b)(2) application”). Indeed, FDA
+
+reiterated the rule at least as recently as January 2024. See FDA, SOPP 8401: Administrative
+
+Processing of Original Biologics License Applications (BLA) and New Drug Applications (NDA)
+
+at 12 (2024), https://www.fda.gov/media/85659/download. The guidance documents articulating
+
+the Bundling Rule are publicly available from FDA to this day, with no hint that any of the
+
+agency’s rules, policies, and procedures have changed.
+
+       Over this extended period, FDA has also shown that it understood the Bundling Rule to
+
+bind both itself and applicants. For example, before FDA accepts an application (including an
+
+amendment) for substantive review, FDA staff must complete the agency’s “RPM Filing Review”
+
+checklist to ensure that the submission is lawful and consistent with the statute. As relevant here,
+
+that checklist permits FDA to accept only those applications that comply with the Bundling Rule:
+
+
+
+
+2
+ This memorandum refers to the 1993 Bundling Rule and 2004 Bundling Rule collectively as “the
+Bundling Rule,” reflecting the fact that there are no material differences between the two versions.
+
+
+                                                 8
+        Case 1:24-cv-02428-TJK       Document 93       Filed 01/28/25      Page 18 of 47
+
+
+
+
+“Has the user fee bundling policy been appropriately applied? If no, or you are not sure, consult
+
+the User Fee Staff.” FDA-001276.
+
+         FDA has repeatedly enforced the Bundling Rule against companies seeking to add new
+
+indications by way of an amendment. 3 Indeed, in rejecting an applicant’s attempt to “resubmit
+
+[an] NDA” with a new indication, FDA emphasized that this proposed submission “does not
+
+follow” the Bundling Rule and explained that the new indication “must be submitted as a new
+
+NDA application.” 4 FDA similarly referred applicants to the Bundling Rule when informing them
+
+that any amendments adding an indication “should be submitted in a separate original application”
+
+and even offering to “set up a teleconference with [the agency’s] User Fee staff to discuss this
+
+matter.” 5 FDA has also applied the Bundling Rule in various additional contexts, including
+
+sought-after changes to pending applications that are likely to implicate patent rights, such as
+
+changes to the dosage form or route of administration. 6 Given its consistent enforcement of the
+
+Bundling Rule as a mandatory, binding rule, FDA has unsurprisingly characterized the Bundling
+
+Rule as a “require[ment].” FDA, Proposed Rule, Abbreviated New Drug Applications and
+
+505(b)(2) Applications, 80 Fed. Reg. 6802, 6851 (Feb. 6, 2015) (“Consistent with FDA’s
+
+
+3
+  See, e.g., FDA-001195-1196; FDA-000512; FDA-001286; see also FDA, Approval Package,
+Proprietary Name Review(s), Application Nos. 761285 & 761331, PDF p. 3 (Sept. 22, 2023),
+https://www.accessdata.fda.gov/drugsatfda_docs/nda/2024/761285Orig1s000,761331Orig
+1s000NameR.pdf (Ustekinumab Correspondence).
+4
+    See, e.g., FDA-001195-1196.
+5
+    FDA-000512.
+6
+ See, e.g., FDA, Approval Package, Administrative & Correspondence Documents, NDA 210709,
+PDF p. 60 (May 2017), https://www.accessdata.fda.gov/drugsatfda_docs/nda/2017/210709Orig1s
+000AdminCorres.pdf (Tekturna Correspondence); FDA, Approval Package, Administrative &
+Correspondence Documents, NDA 209400, PDF pp. 63-64 (Nov. 2015), https://www.accessdata.
+fda.gov/drugsatfda_docs/nda/2017/209400Orig1s000AdminCorres.pdf                (Omeprazole
+Correspondence); FDA, Approval Package, Administrative & Correspondence Documents, NDA
+208780, PDF p. 76 (May 2015), https://www.accessdata.fda.gov/drugsatfda_docs/nda/2017/2087
+80Orig1s000AdminCorres.pdf (Esbriet Correspondence).
+
+
+                                               9
+      Case 1:24-cv-02428-TJK          Document 93       Filed 01/28/25      Page 19 of 47
+
+
+
+
+‘bundling’ policy …, the applicant is required to submit a new 505(b)(2) application [in certain
+
+circumstances].” (emphasis added)).
+
+       D.      The Medicare Modernization Act
+
+       In 2003, a decade after FDA established the Bundling Rule, Congress enacted the Medicare
+
+Modernization Act (MMA), Pub. L. No. 108-173, 117 Stat. 2066. Among other things, the MMA
+
+reformed the process for the automatic 30-month stay to ensure that it operates for its intended
+
+purpose: to provide an opportunity to litigate significant patent disputes prior to market-altering
+
+approvals. Before the MMA, brand manufacturers sometimes could secure multiple 30-month
+
+stays by listing new—but insignificant—patents after the submission of a section 505(b)(2)
+
+application or ANDA. For example, a brand manufacturer might have secured a patent covering
+
+minor secondary changes to a drug product (e.g., related to color or packaging) and used it to
+
+trigger a new stay, even though the change “really did not indicate a different or improved use for
+
+the product.” 148 Cong. Rec. S6844 (daily ed. July 16, 2002) (statement of Sen. Collins).
+
+Congress curbed this practice by amending the language of section 505(c) to provide that a 30-
+
+month stay kicks in only with respect to patents listed in the Orange Book “before the date on
+
+which the [ANDA or section 505(b)(2)] application (excluding an amendment or supplement to
+
+the application) was submitted.” 21 U.S.C. § 355(c)(3)(C).
+
+       In passing the MMA, Congress legislated against the backdrop of the Bundling Rule,
+
+building off its understood constraints on submitting amendments. As discussed, the Bundling
+
+Rule was a fixture of FDA’s regulatory regime for more than a decade before the MMA’s passage.
+
+See pp. 5-9, supra. And Congress “d[id] not intend [the MMA] to alter current [FDA] practice
+
+regarding acceptance of … amendments and supplements to pending and approved [applications].”
+
+H.R. Rep. No. 108-391, at 835 (2003) (emphasis added). Instead, Congress “intend[ed] [the
+
+MMA] to reflect FDA’s current practice regarding those changes and variations to both innovator
+
+
+                                                10
+      Case 1:24-cv-02428-TJK           Document 93         Filed 01/28/25      Page 20 of 47
+
+
+
+
+and generic drugs that may be approved under amendments and supplements to previously filed
+
+NDAs and ANDAs.” Id. With the Bundling Rule in place, Congress understood that the MMA
+
+would not prevent a 30-month stay in the event of a follow-on patent for significant changes
+
+reflecting “different or improved use[s] for [a] product,” 148 Cong. Rec. at S6844, because the
+
+Bundling Rule would bar the addition of such “different or improved” uses by way of an
+
+amendment to an existing application. Developing a new use for a drug is exactly the type of
+
+innovation that often results in issuance of a new patent for the method of treatment. See, e.g.,
+
+Vanda Pharms. Inc. v. West-Ward Pharms. Int’l Ltd., 887 F.3d 1117, 1133-36 (Fed. Cir. 2018)
+
+(recognizing that discoveries of applying an existing drug “to treat a particular disease” are eligible
+
+for patent protection).
+
+       Consistent with the Bundling Rule, the MMA provides that “[a]n applicant may not amend
+
+or supplement an application … to seek approval of a drug that is a different drug than the drug
+
+identified in the application as submitted to the Secretary.” 21 U.S.C. § 355(b)(4)(A). Congress
+
+further echoed the Bundling Rule by making an exception for “approval of a different strength,”
+
+as the MMA permits an applicant to submit an amendment to a pending NDA to seek approval for
+
+a different strength—the type of minor change that is unlikely to implicate the innovator’s patent
+
+rights. See 21 U.S.C. § 355(b)(4)(B) (“[N]othing in this subsection or subsection (c)(3) prohibits
+
+an applicant from amending or supplementing the application to seek approval of a different
+
+strength.”). By contrast, the MMA contains no exception allowing for the addition of a new
+
+indication by amendment—a possibility that would have contradicted the Bundling Rule and the
+
+exact type of change that is likely to implicate the innovator’s patent rights.
+
+       In adopting regulations to implement the MMA, FDA reaffirmed that the Bundling Rule
+
+established what an applicant is “required” to do. 80 Fed. Reg. at 6851. On the specific issue here,
+
+
+
+
+                                                  11
+       Case 1:24-cv-02428-TJK          Document 93          Filed 01/28/25    Page 21 of 47
+
+
+
+
+FDA reiterated in the preamble to its Final Rule that “[m]ost requests for approval of a different
+
+indication or condition of use by a 505(b)(2) applicant should not be made as an amendment to the
+
+505(b)(2) application.” Abbreviated New Drug Applications and 505(b)(2) Applications, 81 Fed.
+
+Reg. 69,580, 69,616 (Oct. 6, 2016). FDA identified just a single exception to that general rule
+
+(irrelevant here) where an “indication changed from prescription status to OTC use.” Id. Such a
+
+change, which concerns only the regulatory status of a product without altering its treatment use,
+
+is unlikely to implicate new patent protections connected to that change in status.
+
+II.    Factual Background
+
+       This case concerns a prescription drug containing treprostinil and its innovative use to treat
+
+a form of pulmonary hypertension (PH). PH is a rare, chronic, and often fatal disease generally
+
+characterized by increased pressure in the blood vessels between the heart and lungs. Crossclaim
+
+¶ 38. That increased pressure strains the heart and, over time, can result in heart failure and death.
+
+Id. The World Health Organization has designated five subcategories of PH, each with a different
+
+cause and different expected clinical outcomes. Treprostinil is one of several therapies approved
+
+for Group I PH (also known as pulmonary arterial hypertension (PAH)). In contrast, treprostinil
+
+is the only therapy ever approved to treat patients with pulmonary hypertension associated with
+
+interstitial lung disease (PH-ILD), part of Group III PH.
+
+       As discussed, UTC has pioneered several inventions to treat various forms of PH. For its
+
+part, Liquidia is seeking to launch a follow-on product that leverages UTC’s innovations.
+
+       A.      UTC develops novel treatments for pulmonary hypertension.
+
+       UTC develops and commercializes products designed to address the needs of patients with
+
+chronic and life-threatening rare conditions. Indeed, UTC was created to develop treatments for
+
+PAH.     UTC, United Therapeutics Corporation History, https://www.unither.com/about-
+
+us/history.    UTC’s treprostinil-based drug products include: an infusion administered
+
+
+                                                 12
+      Case 1:24-cv-02428-TJK         Document 93        Filed 01/28/25     Page 22 of 47
+
+
+
+
+subcutaneously or intravenously (Remodulin®), an extended-release tablet (Orenitram®), a
+
+nebulized inhaler (Tyvaso®), and a dry powder inhaler (Tyvaso DPI®). UTC’s efforts to develop
+
+innovative treprostinil-based therapies have led to numerous UTC patents, including U.S. Patent
+
+No. 11,826,327 (’327 patent), which issued on November 28, 2023 and expires in 2042. FDA-
+
+000166; Crossclaim ¶¶ 44, 56. The ’327 patent claims methods of using inhaled treprostinil to
+
+improve exercise capacity in patients with PH-ILD. See Crossclaim ¶ 56.
+
+       In 2009, FDA approved Tyvaso, the first inhaled treprostinil PAH therapy. See FDA-
+
+000163. In 2020, UTC discovered that inhaled treprostinil can improve exercise capacity in
+
+patients with PH-ILD and, in 2021, received FDA approval for a treprostinil-based treatment for
+
+patients with PH-ILD. See FDA-000163. This first-and-only approved PH-ILD therapy follows
+
+multiple failures to use other drugs to successfully treat PH-ILD. In 2022, FDA also approved
+
+Tyvaso DPI, the first dry powder inhaler version of treprostinil, to treat both PAH and PH-ILD.
+
+United Therapeutics, Press Release (May 24, 2022), https://ir.unither.com/press-releases/2022/05-
+
+24-2022.
+
+       B.     Liquidia applies to market a follow-on treprostinil product, leading to patent
+              litigation.
+
+       Liquidia is a biopharmaceutical company seeking FDA approval to market Yutrepia™, a
+
+dry powder inhaled version of treprostinil. FDA-000163-164. When filing its original 505(b)(2)
+
+application in 2020, Liquidia relied on UTC’s approved Tyvaso product as a shortcut for securing
+
+approval of its own product to treat PAH. FDA-000164. Liquidia included paragraph IV
+
+certifications to UTC’s then-listed Orange Book patents. FDA-000164-165.
+
+       After Liquidia submitted its original 505(b)(2) application in 2020, UTC filed suit against
+
+Liquidia in the District of Delaware, asserting that Liquidia’s Yutrepia product would infringe
+
+several patents. FDA-000164-165. As a result of UTC’s timely suit, Liquidia was subject to a 30-
+
+
+
+                                               13
+      Case 1:24-cv-02428-TJK           Document 93        Filed 01/28/25      Page 23 of 47
+
+
+
+
+month stay on final approval of its application. Thus, in reviewing Liquidia’s original 505(b)(2)
+
+application, FDA determined it could receive only tentative approval, because final approval was
+
+subject to termination of the 30-month stay and potentially other exclusivities. FDA-000240.
+
+       After a four-day trial, the District of Delaware concluded that Liquidia infringed certain
+
+claims of UTC’s Patent No. 10,716,793 (’793 patent) and awarded the statutory Hatch-Waxman
+
+remedy: an order barring FDA from granting final approval of Liquidia’s NDA before May 14,
+
+2027. United Therapeutics Corp. v. Liquidia Techs., Inc., No. 20-cv-755, ECF No. 436 ¶¶ 3-4 (D.
+
+Del. Sept. 9, 2022). The Federal Circuit affirmed this decision. United Therapeutics Corp. v.
+
+Liquidia Techs., Inc., 74 F.4th 1360 (Fed. Cir. 2023), cert denied, No. 23-804, 2024 WL 675262
+
+(Feb. 20, 2024). In parallel to that litigation, Liquidia sought to administratively cancel claims of
+
+the ’793 patent through a process at the U.S. Patent & Trademark Office (Patent Office) called
+
+“inter partes review.” Liquidia Techs., Inc. v. United Therapeutics Corp., No. IPR2021-00406,
+
+2022 WL 2820717 (P.T.A.B. July 19, 2022). The Patent Trial and Appeal Board found the claims
+
+unpatentable, and UTC appealed to the Federal Circuit, which affirmed. United Therapeutics
+
+Corp. v. Liquidia Techs., Inc., 2023 WL 8794633 (Fed. Cir. Dec. 20, 2023). After UTC exhausted
+
+its appellate rights, the Patent Office cancelled the ’793 patent on November 12, 2024.
+
+       C.      Liquidia submits an amendment to add the PH-ILD indication, after telling
+               FDA it would wait until after final approval of its original application.
+
+       After UTC secured approval for the new PH-ILD indication, Liquidia strategized over how
+
+to piggyback on that new approval. In a May 2022 correspondence from FDA memorializing its
+
+discussion with Liquidia, the agency noted that “[w]ith the assumption of final approval” for its
+
+original application, Liquidia “plans to submit a supplemental 505(b)(2) application” “to pursue
+
+alignment with the Tyvaso labeling by expanding the indication statement to include” PH-ILD.
+
+FDA-000277.      Proceeding in this manner—i.e., waiting until after FDA finally approved
+
+
+
+                                                 14
+      Case 1:24-cv-02428-TJK          Document 93        Filed 01/28/25      Page 24 of 47
+
+
+
+
+Liquidia’s original NDA—would have aligned with the Bundling Rule, which prohibits amending
+
+a “pending original or supplemental application … to add a new indication.” FDA-000974.
+
+       Yet Liquidia then changed course. Liquidia chose not to submit “a supplemental …
+
+application” after final approval. FDA-000277. Instead, on July 24, 2023, Liquidia submitted an
+
+amendment to “expand[] the indication statement” of its application by adding PH-ILD. FDA-
+
+000286; see FDA-000287-306. FDA acknowledged receipt of the amendment, which it treated as
+
+a “complete, class 2 response” to the agency’s earlier tentative approval letter, triggering a new
+
+six-month review period for the amendment. FDA-000316. 7
+
+       Liquidia submitted paragraph IV certifications based on its amendment adding the PH-ILD
+
+indication, including with respect to the ’793 patent. FDA-000166. UTC again timely filed suit,
+
+asserting infringement claims against Liquidia in the District of Delaware. Compl., United
+
+Therapeutics Corp. v. Liquidia Techs., Inc., No. 23-cv-975 (D. Del. Sept. 5, 2023), ECF No. 1. 8
+
+But this time, FDA determined that UTC’s timely patent suit would not trigger an automatic 30-
+
+month stay for patents listed after the submission date of Liquidia’s original 505(b)(2) application
+
+(in 2020). FDA-000166. In December 2023, Liquidia amended its 505(b)(2) application again to
+
+include a paragraph IV certification for the ’327 patent. FDA-000166. Within 45 days of receiving
+
+notice of that paragraph IV certification, UTC amended its Delaware complaint to assert
+
+infringement of the ’327 patent. First Am. Compl., United Therapeutics Corp. v. Liquidia Techs.,
+
+Inc., No. 23-cv-975 (D. Del. Nov. 30, 2023), ECF No. 8.
+
+       Patent litigation between UTC and Liquidia is ongoing. On May 31, 2024, the district
+
+
+7
+  A Class 2 resubmission is a “resubmission of an application or efficacy supplement that …
+constitutes an agreement by the applicant to start a new 6-month review cycle.” 21 C.F.R.
+§ 314.110(b)(1)(ii).
+8
+ In view of the Federal Circuit’s later decision affirming the Patent Office’s administrative review
+decision, UTC ultimately stipulated to the dismissal of counts of infringement of the ’793 patent.
+
+
+                                                15
+      Case 1:24-cv-02428-TJK         Document 93        Filed 01/28/25    Page 25 of 47
+
+
+
+
+court denied UTC’s motion to preliminarily enjoin Liquidia from launching Yutrepia for the PH-
+
+ILD indication. See United Therapeutics Corp. v. Liquidia Techs., Inc., 2024 WL 2805082 (D.
+
+Del.). The court scheduled trial to begin on June 23, 2025.
+
+       D.      UTC challenges FDA’s acceptance of Liquidia’s improperly bundled
+               application.
+
+       When UTC became aware that FDA had accepted Liquidia’s amended application in
+
+contravention of the Bundling Rule, it promptly raised objections. On December 29, 2023, UTC
+
+submitted a letter to FDA, explaining to FDA that acceptance of Liquidia’s amendment for
+
+Yutrepia adding the PH-ILD indication violates the agency’s longstanding Bundling Rule. FDA-
+
+000001-18. UTC asked FDA to rescind its unlawful action and require Liquidia to file a new
+
+application if it still wished to pursue the PH-ILD indication. FDA-000002.
+
+       Unbeknownst to UTC at the time, Liquidia initially reacted to UTC’s submission by
+
+proposing to amend its application, in a manner that would come into compliance with the
+
+Bundling Rule. Specifically, on January 8, 2024, Liquidia submitted another amendment to FDA
+
+requesting final approval for “only … the PAH indication.” FDA-000354 (emphasis added). In
+
+response, FDA convened a teleconference with Liquidia. In that conference, FDA sought to clarify
+
+Liquidia’s position, warning about the impact a further amendment would have on the review
+
+timeline. FDA-000353-356. Liquidia then backtracked, stating that it still “wish[ed] to seek
+
+approval of both the PAH and PH-ILD indications” in a single amended application. FDA-
+
+000356. Before doing so, Liquidia “asked FDA to confirm” that patents listed in the Orange Book
+
+after its July 2023 amendment “would not give rise to a 30-month stay of approval,” and FDA
+
+agreed. Id.
+
+       After formally withdrawing its PAH-only amendment, id., Liquidia chose to double-down,
+
+submitting a letter to FDA in response to UTC. FDA-000019-36. In the letter, Liquidia defended
+
+
+
+                                               16
+      Case 1:24-cv-02428-TJK          Document 93        Filed 01/28/25      Page 26 of 47
+
+
+
+
+its submission and argued, among other things, that FDA’s “Bundling Guidance has been
+
+superseded in relevant part” by the 2003 MMA and the agency’s implementing regulations. FDA-
+
+000020. UTC submitted a reply, explaining that Liquidia’s attempt to treat the Bundling Rule as
+
+outdated and inoperative was contrary to the MMA, FDA regulations, and established FDA
+
+practice. FDA-000086-103. UTC further explained that because final approval of Liquidia’s
+
+improperly bundled 505(b)(2) application would cause UTC to suffer irreparable harm, UTC
+
+would need to file suit unless FDA took prompt corrective action. FDA-000103.
+
+       In February 2024, after FDA failed to timely respond, UTC filed suit against FDA in this
+
+District, which UTC promptly followed with a motion for preliminary injunction. See United
+
+Therapeutics Corp. v. FDA, No. 24-cv-484. UTC alleged that FDA violated the Administrative
+
+Procedure Act (APA) and long-established agency policy by accepting Liquidia’s amendment to
+
+add the new PH-ILD indication to its pending application. Compl., No. 24-cv-484, (D.D.C. Feb.
+
+20, 2024), ECF No. 1. Liquidia intervened as a defendant. Minute Order, No. 24-cv-484 (D.D.C.
+
+Mar. 5, 2024).
+
+       In response to the suit, FDA represented to the District Court (Bates, J.) that it had not yet
+
+decided whether “Liquidia’s amendment is proper,” and that the agency was still “actively
+
+considering that issue in light of UTC and Liquidia’s submissions to the agency.” Fed. Defs.’ Opp.
+
+to Pl.’s TRO/PI Mot. at 11-12, No. 24-cv-484-JDB (D.D.C. Mar. 18, 2024), ECF No. 25. 9 Relying
+
+on FDA’s representation, the district court denied UTC’s motion for preliminary injunction,
+
+reasoning that FDA likely had not yet taken final agency action. Transcript of Motions Hearing,
+
+No. 24-cv-484 (D.D.C. Mar. 29, 2024), ECF No. 34. But recognizing that a final approval decision
+
+
+9
+  FDA’s representation is difficult to reconcile with the agency’s unqualified statement to Liquidia
+that Liquidia would face no 30-month stay based on submission of its PH-ILD amendment. See
+p. 15, supra.
+
+
+                                                17
+      Case 1:24-cv-02428-TJK          Document 93        Filed 01/28/25     Page 27 of 47
+
+
+
+
+could immediately ripen UTC’s claim for irreparable harm, the court ordered FDA to provide the
+
+court and the parties with at least three business days’ notice before issuing any decision on
+
+Liquidia’s amended NDA. No. 24-cv-484, ECF No. 18. On August 13, 2024, FDA provided that
+
+notice pursuant to the Court’s order without specifying the substance of its decision.
+
+       E.      FDA reaffirms its decision to accept Liquidia’s amendment and to depart from
+               the Bundling Rule.
+
+       On August 16, 2024, FDA issued a letter decision in response to UTC’s submission (the
+
+“Bundling Decision”). FDA-000162-187. FDA “conclud[ed]” that Liquidia’s request to add the
+
+PH-ILD indication to its pending 505(b)(2) application “is not precluded by statute or regulation
+
+and is appropriate for FDA to review.” FDA-000187.
+
+       In the Bundling Decision, FDA acknowledged that its longstanding guidance instructed
+
+“against amendments seeking to add a new indication” to pending applications. FDA-000169.
+
+And FDA reaffirmed that “most requests for a new indication must be submitted in a new original
+
+application or supplemental application.” FDA-000162-163. But FDA concluded it should
+
+“depart from the policy stated in its guidance documents” in Liquidia’s case, based on a purported
+
+(and previously undisclosed) exception for 505(b)(2) applications that, in FDA’s view, did not
+
+provide any new data to support approval of the additional indication. FDA-000162, -183-184.
+
+Under this view, follow-on 505(b)(2) applicants that do the least independent work—because they
+
+only “request[] a change to seek approval for an indication approved for the relied-upon listed
+
+drug” without providing any further supportive data—are exempted from the Bundling Rule’s
+
+restrictions on amendments. FDA-000184.
+
+       In support of its decision, FDA asserted that the statute and agency regulations permit
+
+Liquidia’s amendment, and that the Bundling Rule was only “nonbinding” and “d[id] not create
+
+legal rights or obligations.” FDA-000162, -171, -183. Notably, however, FDA rejected Liquidia’s
+
+
+
+                                                18
+      Case 1:24-cv-02428-TJK          Document 93        Filed 01/28/25      Page 28 of 47
+
+
+
+
+contention that agency regulations had “superseded” the Bundling Rule as “sweep[ing] too
+
+broadly.” FDA-000186.
+
+       FDA admitted that it had previously told applicants that “a new indication should not be
+
+submitted as an amendment,” and that “on at least one occasion,” the agency had gone further and
+
+“advised an applicant that it could not submit an amendment to add a new indication.” FDA-
+
+000185-186 & n.111 (emphasis added). And FDA acknowledged that agency manuals describe
+
+steps applicants should take “to be in compliance with the Bundling Guidance”—a directive FDA
+
+recognizes “could be misunderstood” to imply “the guidance is binding.” FDA-000186 & n.113
+
+(brackets omitted). But FDA insisted that the Bundling Rule merely provides recommendations
+
+that the agency may choose to discard, with the agency suggesting it might clarify the matter
+
+moving forward “to avoid the possibility of confusion among FDA staff or the public.” Id. FDA
+
+further asserted that the “reliance interests” of innovators like UTC in the agency “maintaining its
+
+interpretation” are “doubtful and at most limited,” and that the Bundling Rule “did not create a
+
+reliance interest” related to how FDA’s filing practices determine application of “a 30-month
+
+statutory stay of approval.” FDA-000184 & n.105.
+
+       As support for its departure from the Bundling Rule, FDA pointed to a December 2018
+
+decision to allow a pending NDA (pemetrexed) to be amended to add a new indication. According
+
+to FDA, the pemetrexed application was “not based on new data” because the “applicant has
+
+already provided an adequate scientific bridge” to the relied-upon listed drug. FDA-000178. But
+
+the reasoning in the 2018 internal memorandum is scant: the memo is just two paragraphs, one of
+
+which merely summarizes the NDA and amendment at issue. FDA-001272. The only paragraph
+
+of analysis noted that the amendment was not based on new data, with no explanation as to why
+
+this justified departing from the Bundling Rule. FDA-001272. Nor did the paragraph address the
+
+
+
+
+                                                19
+      Case 1:24-cv-02428-TJK           Document 93        Filed 01/28/25      Page 29 of 47
+
+
+
+
+relationship between the Bundling Rule and the Hatch-Waxman Act’s patent certification
+
+requirements. Instead, it simply noted that FDA was “currently considering whether the bundling
+
+guidance and policy regarding amendments to add a new indication are appropriate under these
+
+circumstances.” Id. Ultimately, FDA did not approve the inappropriately bundled pemetrexed
+
+505(b)(2) application, because the applicant withdrew the new indication after FDA issued a
+
+complete response letter based on a different deficiency. FDA-000178 n.92.
+
+       On the same day that FDA issued the Bundling Decision, FDA informed Liquidia that it
+
+was granting tentative approval for its Yutrepia product for both the PAH and the PH-ILD
+
+indications. FDA-000358-360. FDA did not grant final approval to Liquidia because, as it
+
+explained in a separate letter, Yutrepia falls within the scope of a three-year regulatory exclusivity
+
+that UTC earned in securing approval of Tyvaso DPI—a novel dry powder dosage form of
+
+treprostinil. FDA-000358. UTC’s exclusivity will expire on May 23, 2025. Crossclaim ¶ 12.
+
+       Following FDA’s decision, UTC voluntarily dismissed its action. No. 24-cv-484, ECF No.
+
+56. As UTC explained, it took this step in response to Liquidia’s argument that UTC’s initial
+
+suit—filed before FDA’s letter decision on the Bundling Rule—was “incurably premature” as
+
+filed. Id., ECF No. 36 at 4 n.1.
+
+       F.      Liquidia brings this action, and UTC files a crossclaim.
+
+       On August 21, 2024, Liquidia filed the present suit against the Federal Defendants to
+
+challenge FDA’s decision finding that final approval of Yutrepia is blocked by UTC’s three-year
+
+exclusivity. The Court granted UTC’s motion to intervene. Minute Order (Aug. 30, 2024).
+
+       On September 16, 2024, UTC filed its answer to Liquidia’s complaint, which included a
+
+crossclaim against the Federal Defendants challenging FDA’s decision to allow Liquidia’s
+
+amendment in contravention of the Bundling Rule. Crossclaim ¶¶ 77-91. The Federal Defendants
+
+resisted producing the administrative record, ECF No. 43 at 3 n.2, until this Court ordered them to
+
+
+                                                 20
+      Case 1:24-cv-02428-TJK          Document 93        Filed 01/28/25      Page 30 of 47
+
+
+
+
+do so by December 19, 2024. The Federal Defendants and Liquidia moved to dismiss UTC’s
+
+crossclaim on November 15, 2024. Those motions remain pending. Now that the Federal
+
+Defendants have produced the administrative record, however, this Court may adjudicate the
+
+merits of UTC’s crossclaim. UTC accordingly moves for summary judgment on its crossclaim.
+
+                                     LEGAL STANDARDS
+
+       The summary judgment standard “functions slightly differently” in the APA context, as the
+
+“court must limit its review to the ‘administrative record’ and the facts and reasons contained
+
+therein to determine whether the agency’s action was consistent with the relevant APA standard
+
+of review.” Pol’y & Rsch., LLC v. HHS, 313 F. Supp. 3d 62, 74 (D.D.C. 2018) (citation and
+
+quotation marks omitted). Under the APA, this Court must set aside FDA’s agency action if it is
+
+“arbitrary, capricious, an abuse of discretion, or otherwise not in accordance with law.” 5 U.S.C.
+
+§ 706. If the agency “has ‘failed to consider an important aspect of the problem before it, [courts]
+
+will hold the agency action to be arbitrary and capricious.” Jicarilla Apache Nation v. U.S. Dep’t
+
+of Interior, 613 F.3d 1112, 1118 (D.C. Cir. 2010) (quoting State Farm, 463 U.S. at 43). The
+
+“agency’s explanation for its decision must be ‘sufficient to enable [the court] to conclude that it
+
+was the product of reasoned decisionmaking.’” Id. (quoting State Farm, 463 U.S. at 52) (alteration
+
+omitted).
+
+                                          ARGUMENT
+
+I.     FDA’s decision to accept Liquidia’s amendment in direct contravention of the
+       Bundling Rule was arbitrary and capricious.
+
+       If FDA had followed its Bundling Rule—set forth in long-established guidance that the
+
+agency has not changed—it could not have accepted Liquidia’s amendment adding the new PH-
+
+ILD indication to its pending application. FDA concedes as much, recognizing that its decision to
+
+accept Liquidia’s amendment marked a “depart[ure] from the policy stated in its guidance
+
+
+
+                                                21
+      Case 1:24-cv-02428-TJK          Document 93       Filed 01/28/25      Page 31 of 47
+
+
+
+
+documents.” FDA-000162. FDA’s about-face was arbitrary and capricious and should be set
+
+aside. In purporting to apply a previously undisclosed exception to the Bundling Rule, FDA
+
+ignored an important aspect of the issue it faced, failing to account for the manner in which the
+
+Bundling Rule intersects with, and reinforces the objectives of, the Hatch-Waxman Act’s patent-
+
+certification requirements. FDA also improperly disregarded the significant reliance interests of
+
+innovators like UTC in the agency’s adherence to its longstanding public position.
+
+       A.      The Bundling Rule prohibits adding indications through amendments and
+               required FDA to reject Liquidia’s proposed amendment.
+
+       The Bundling Rule sets forth FDA’s decades-old policy establishing the types of changes
+
+that require a “separate marketing application.” FDA-000971. By its terms, the Bundling Rule
+
+precludes adding an indication through an amendment, providing that “[a]fter initial submission,
+
+a pending original or supplemental application should not be amended to add a new indication or
+
+claim.” FDA-000975 (emphasis added). The Rule goes on to emphasize that “[i]f the original
+
+application is not yet approved, a request for approval of other new indications or claims should
+
+be submitted in a separate, original application.” Id. It is only after “the initial application is
+
+approved,” that “the application can be subsequently supplemented to add a new indication.” Id.
+
+       Liquidia’s amendment violates the plain terms of the Bundling Rule, as that Rule has been
+
+articulated to the public for decades.    Liquidia’s original 505(b)(2) application “is not yet
+
+approved.” Id.; see FDA-000241 (letter from FDA to Liquidia explaining that “[u]ntil we issue a
+
+final approval letter, this NDA is not approved”). Yet Liquidia amended its pending application
+
+to add the new PH-ILD indication, FDA-000286—exactly what the Bundling Rule specifies an
+
+applicant “should not” do, FDA-000975. Notably, although Liquidia has argued that the Bundling
+
+Rule did not apply here because it submitted its amendment after FDA granted tentative approval
+
+to its original 505(b)(2) application, ECF No. 69-1 at 24, 26, 28, FDA has rejected such an
+
+
+
+                                                22
+      Case 1:24-cv-02428-TJK          Document 93        Filed 01/28/25     Page 32 of 47
+
+
+
+
+exception. 10 An application that has been tentatively approved is still “pending.” FDA-000975.
+
+The drug product “may not be legally marketed” until FDA grants final approval. FDA-000241.
+
+In any event, there is no basis for Liquidia to defend FDA’s decision based on a rationale that FDA
+
+itself did not endorse. See City of Port Isabel v. FERC, 111 F.4th 1198, 1215 (D.C. Cir. 2024)
+
+(citing SEC v. Chenery Corp., 318 U.S. 80, 94 (1943)).
+
+       Without disputing that the clear terms of the Bundling Rule preclude Liquidia’s
+
+amendment, FDA observed that its Bunding Rule is set forth in agency “guidance” that is
+
+“nonbinding” and “does not create legal rights or obligations.” FDA-000162. But FDA cannot
+
+disregard the Bundling Rule on this basis. To the contrary, the D.C. Circuit has made clear that a
+
+nominally non-binding guidance document can have the “force of law” if it “is applied by the
+
+agency in a way that indicates it is binding.” Gen. Elec. Co. v. EPA, 290 F.3d 377, 383-84 (D.C.
+
+Cir. 2002) (treating EPA guidance document as binding because “[t]o the applicant reading the
+
+Guidance Document the message is clear: in reviewing applications the Agency will not be open
+
+to considering approaches other than those prescribed in the Document”); see also Appalachian
+
+Power Co. v. EPA, 208 F.3d 1015, 1023 (D.C. Cir. 2000) (treating agency guidance document as
+
+binding notwithstanding disclaimer that “[t]he policies set forth in this paper are intended solely
+
+as guidance, do not represent final Agency action, and cannot be relied upon to create any rights
+
+enforceable by any party”).
+
+       Here, FDA’s public statements on the Bundling Rule showed that it binds both applicants
+
+and the agency. FDA has described the rule as a “require[ment].” 80 Fed. Reg. at 6851. It has
+
+
+10
+  See FDA, Approval Package, Administrative & Correspondence Document(s), NDA 021822
+(Aptivus), PDF pages 5-6 (May 19, 2006), https://www.accessdata.fda.gov/drugsatfda_docs/nda/
+2008/021822s000admincorres.pdf (applying the Bundling Rule to reject a request for approval of
+a new indication, notwithstanding an earlier determination by the agency that the original
+application was “approvable” because it was still “pending”).
+
+
+                                                23
+        Case 1:24-cv-02428-TJK         Document 93        Filed 01/28/25      Page 33 of 47
+
+
+
+
+developed a checklist that precludes agency staff from accepting a submission that does not
+
+comply with the Bundling Rule, as staff must ensure that the Bundling Rule has “been
+
+appropriately applied.” See FDA-001276 (“Has the user fee bundling policy been appropriately
+
+applied? If no, or you are not sure, consult the User Fee Staff.”). Similarly, FDA’s Manual of
+
+Policies and Procedures directs that an NDA seeking to add “a new indication or claim for a drug
+
+product” must be “submitted as a separate NDA so as to be in compliance” with the Bundling
+
+Rule.    FDA-001550 (emphasis added).        FDA concedes that the word “compliance” could
+
+reasonably imply that the Bundling Rule sets a binding obligation, stating only that it “intend[s] to
+
+revise this statement” sometime in the future “to avoid the possibility of confusion among FDA
+
+staff or the public.” FDA-000186 n.113. That FDA proposes such a revision in the future
+
+underscores the point: as matters stand, the Bundling Rule and various agency documents
+
+referencing it all “read[] like a ukase”—they “command[],” “order[],” “dictate[].” Appalachian
+
+Power, 208 F.3d at 1023. Based on these agency documents, “private parties are reasonably led
+
+to believe that failure to conform” to the Bundling Rule “will bring adverse consequences, such as
+
+… denial of an application.” Gen. Elec. Co., 290 F.3d at 383 (citation omitted).
+
+        FDA’s historic practice of applying the Bundling Rule confirms what is apparent from
+
+these regulatory directives: it is a command that structures the agency’s review process, not an
+
+idle suggestion that applicants may choose to ignore. As FDA concedes, “on at least one
+
+occasion,” it “advised an applicant that it could not submit an amendment to add a new indication.”
+
+FDA-000185 n.111. The record shows that this conceded instance of mandatory treatment is not
+
+isolated, as FDA has rejected proposed amendments that included a new indication where that
+
+amendment “does not follow the Guidance for Industry” articulating the Bundling Rule. FDA-
+
+001195. See pp. 5-10 & nn. 3-6, supra. For instance, in 2006, FDA denied Boehringer Ingelheim
+
+
+
+
+                                                 24
+      Case 1:24-cv-02428-TJK         Document 93        Filed 01/28/25     Page 34 of 47
+
+
+
+
+Pharmaceuticals’ attempt to amend an NDA for Aptivus (tipranavir) oral solution. As the agency
+
+then explained, “[b]ecause [the] original NDA … was intended for an adult indication,” the
+
+“proposal to resubmit the NDA with a pediatric indication [was] considered a new indication and
+
+thus [had to] be submitted as a new NDA application.” FDA-001195-1196. Similarly, in 2015,
+
+FDA explained to HQ Specialty Pharma that it could not amend a previously submitted NDA for
+
+a dexmedetomidine hydrochloride injection product to include a new indication. FDA-000512.
+
+Citing the Bundling Rule, the agency explained to HQ Specialty Pharma that “if you amend a
+
+pending application and add another indication, it should be submitted in a separate original
+
+application.” Id.
+
+       Any effort to minimize the Bundling Rule as mere nonbinding advice also fails to account
+
+for the manner in which FDA’s policy on amendments has long been understood to structure the
+
+Hatch-Waxman review process. As described above, pp. 10-12, supra, when Congress enacted
+
+the MMA to amend the FDCA in 2003, it legislated against the backdrop of the Bundling Rule.
+
+The House Committee Report for the MMA expressly noted Congress’s “inten[t] . . . to reflect the
+
+FDA’s current practice regarding those changes and variations to both innovator and generic drugs
+
+that may be approved under amendments and supplements to previously filed NDAs and ANDAs.”
+
+H.R. Rep. No. 108-391, at 835 (2003). Thus, when Congress amended the law to prevent
+
+innovators from securing serial 30-month stays based on insignificant modifications, it was
+
+understood that the Bundling Rule would ensure that an automatic stay would still be available for
+
+patents covering significant innovations such as “different or improved use[s] for [a] product”—
+
+i.e., new indications. 148 Cong. Rec. at S6844.
+
+       In its decision, FDA contends (at FDA-000185 & n.109) that the Bundling Rule provides
+
+no clear background rule restricting amendments adding new indications because FDA has stated
+
+
+
+
+                                               25
+      Case 1:24-cv-02428-TJK          Document 93        Filed 01/28/25      Page 35 of 47
+
+
+
+
+that there may be limited “scenarios” where an applicant may submit an amendment to a 505(b)(2)
+
+application for a new indication. See 80 Fed. Reg. 6802, 6849 (Feb. 6, 2015) (preamble to
+
+proposed rule implementing the MMA). But the only example identified by FDA is revealing—
+
+specifically, a request for approval of a drug product that has “changed from prescription status to
+
+OTC use for the listed drug.” Id. Such a regulatory switch does not involve the treatment of a
+
+new condition, much less one protected by new valuable patents tied to the new regulatory status.
+
+As a result, the amendment process poses no risk of the applicant “us[ing] the amendment …
+
+process to evade the possibility of a 30-month stay of approval.” Id. at 6851. In contrast, a
+
+“substantial change in indication” that involves using an existing product to treat a new condition
+
+is the type of “innovation” that requires a new drug application. Examining Issues Related to
+
+Competition in the Pharmaceutical Marketplace: A Review of the FTC Report, Generic Drug
+
+Entry Prior to Patent Expiration: Hearing Before the Subcomm. on Health of the H. Comm. on
+
+Energy & Com., 107th Cong. 49 (2002) (colloquy between Rep. Waxman and FDA
+
+Commissioner).
+
+       “In sum, the commands of the [Bundling Rule],” as backed up by decades of agency
+
+practice, “indicate that it has the force of law.” Gen. Elec. Co., 290 F.3d at 385. That remains so
+
+notwithstanding FDA’s assertion that, since 2018, it has applied a previously undisclosed
+
+exception to the Bundling Rule in instances where an amendment for a new indication does not
+
+rely on any clinical data in the submission. FDA-000178-179. None of the agency decisions
+
+referenced in FDA’s decision letter purport to rely on any such exception—indeed, they contain
+
+no relevant reasoning at all. See FDA-000637-695 (Fulvestrant); FDA-000886-909 (Romidepsin);
+
+
+
+
+                                                26
+      Case 1:24-cv-02428-TJK          Document 93        Filed 01/28/25      Page 36 of 47
+
+
+
+
+FDA-000726-756 (Paclitaxel NDA 211875); FDA-000791-828 (Paclitaxel NDA 216338); FDA-
+
+000456-505 (Bortezomib). 11
+
+       To the contrary, the only reference to an unwritten exception in the administrative record
+
+comes from a previously undisclosed 2018 FDA decision involving an amendment to an
+
+application for a product (pemetrexed) that was not ultimately approved. See FDA-000177-178
+
+& n.92. The decision is described in a two-paragraph “memorandum to file” with minimal
+
+reasoning. FDA-001272. Indeed, that secret internal memorandum observed that the agency was
+
+“currently considering whether the bundling guidance and policy regarding amendments to add a
+
+new indication” should be modified for situations in which no new data was submitted. Id. But
+
+until the decision challenged here, the record reveals no instances of FDA expressly embracing
+
+such an exception, much less explaining it to the public. Certainly, FDA never modified its
+
+directives in any of its guidance documents or other public-facing communications. Even now,
+
+FDA states only that it “intends to further consider whether an additional clarification” is
+
+appropriate. FDA-000178 n.93.
+
+       This is not how the administrative process is supposed to work.            Notwithstanding
+
+boilerplate disclaimers about established guidance being nonbinding, regulated entities are entitled
+
+to take an agency’s written directives at face value, rather than suppose categorical instructions
+
+that applicants “should not” submit certain amendments, FDA-000975, are subject to secret,
+
+unexplained exceptions. Indeed, recognizing the importance of consistent agency guidance in this
+
+
+11
+  Many of the decisions also arise in materially different factual circumstances. In Fulvestrant,
+Romidepsin, Paclitaxel NDA 211875, and Paclitaxel NDA 216338, the applicant sought to amend
+because of a change in the patent landscape protecting the innovator product, such as patent
+expiration or settlement. Fulvestrant NDA 210326 (FDA-00547); Romidepsin NDA 208574
+(FDA-000854); Paclitaxel NDA 211875 (FDA-000720); Paclitaxel NDA 216338 (FDA-000780).
+These were not cases where, as here, the innovator produced new data showing that its product
+was safe and effective in a new indication, upon which the 505(b)(2) applicant then sought to rely.
+
+
+                                                27
+      Case 1:24-cv-02428-TJK           Document 93        Filed 01/28/25      Page 37 of 47
+
+
+
+
+industry, Congress requires FDA to “ensure public participation” before implementing “changes
+
+in interpretation or policy.” 21 U.S.C. § 371(h)(C)(i). FDA has flouted that directive, as it now
+
+purports to apply an unwritten exception to an established guidance document while still
+
+describing the Bundling Rule to the public as representing the agency’s “current thinking on this
+
+topic.” FDA-000971. FDA’s admitted disregard of the clear terms of the Bundling Rule is
+
+arbitrary and capricious.
+
+       B.      FDA’s newly announced exception to the Bundling Rule fails to address an
+               important aspect of the Bundling Rule’s historic purpose.
+
+       FDA’s decision “to depart from the policy” stated in the Bundling Rule, FDA-000162, is
+
+arbitrary and capricious also because it “fail[ed] to consider important aspects of the problem
+
+presented to the agency.” Quantum Ent’t, Ltd. v. U.S. Dep’t of Interior, Bureau of Indian Affairs,
+
+597 F. Supp. 2d 146, 153 (D.D.C. 2009) (citing State Farm, 463 U.S. at 43); see also Ky. Mun.
+
+Energy Agency v. FERC, 45 F.4th 162, 177 (D.C. Cir. 2022) (“Agencies cannot disregard
+
+important aspects of a problem before them.”).
+
+       In deciding to allow Liquidia’s amendment because it presents no clinical data of its own,
+
+and instead piggybacks entirely on UTC’s concerning the use of treprostinil to treat PH-ILD, FDA
+
+relied on the “limited” “amount of work required for the Agency’s review.” FDA-000184.
+
+According to FDA, “concerns about developing an application on the clock that supported the
+
+more general policy stated in the Bundling Guidance are substantially reduced” “[i]n this limited
+
+circumstance,” and permitting the amendment would further “PDUFA program goals of efficient
+
+and effective” application processing. Id. But even if this rationalization were credited, it accounts
+
+for only one of the historic purposes underlying the Bundling Rule, disregarding the important role
+
+the Bundling Rule has come to serve in ensuring the patent-certification process in the Hatch-
+
+Waxman Act operates in the manner Congress intended.
+
+
+
+                                                 28
+      Case 1:24-cv-02428-TJK           Document 93         Filed 01/28/25      Page 38 of 47
+
+
+
+
+       As discussed above, pp. 3-6, 10-12, supra, the Hatch-Waxman Act, as amended by the
+
+MMA, reflects a careful balance of the public’s interests in innovation and access to lower-priced
+
+prescription drugs. Bristol-Myers Squibb Co. v. Royce Labs., Inc., 69 F.3d 1130, 1132 (Fed. Cir.
+
+1995); Teva Pharms. USA Inc. v. Sebelius, 595 F.3d 1303, 1315 n.4 (D.C. Cir. 2010). A central
+
+aspect of the statutory framework is the automatic 30-month stay that ordinarily applies when a
+
+patent owner brings a timely suit in response to a follow-on applicant’s Paragraph IV certification.
+
+The patent owner’s “30-month stay is independent of whether its patent claims … turn out to
+
+succeed,” as the very “point of the 30-month stay is to ‘allow[] the patent holder to assert its patent
+
+rights before the generic competitor is permitted to enter the market.’” Endo, 2024 WL 2988904,
+
+at *7 (quoting Mylan Pharms., Inc. v. Sebelius, 856 F. Supp. 2d 196, 201 (D.D.C. 2012)).
+
+       But following the 2003 MMA amendments, FDA policy on when and how 505(b)(2)
+
+applicants may amend pending applications plays a critical role in ensuring the automatic-stay
+
+process operates as intended. If a 505(b)(2) applicant is permitted to expand its requested approval
+
+by filing an amendment—rather than submitting a new application—it can avoid triggering the
+
+30-month stay on any newly issued patent. FDA itself has recognized this framework creates a
+
+potential “incentive for a 505(b)(2) … applicant to seek approval for a change to drug … through
+
+an amendment” in order to “evade the possibility of a 30-month stay of approval that otherwise
+
+would have applied.” 80 Fed. Reg. at 6851.
+
+       In some cases, permitting an amendment that avoids a stay may be appropriate. After all,
+
+Congress amended the automatic-stay rules so that new patents on minor changes to a drug product
+
+that did not reflect “a different or improved use” would not trigger second a 30-month stay. 148
+
+Cong. Rec. S6844 (daily ed. July 16, 2002) (statement of Sen. Collins). For example, if, after a
+
+505(b)(2) application was filed, a patent owner obtains and timely lists a new patent on the
+
+
+
+
+                                                  29
+      Case 1:24-cv-02428-TJK           Document 93        Filed 01/28/25      Page 39 of 47
+
+
+
+
+product’s packaging, the 505(b)(2) applicant might need to submit a new patent certification, but
+
+a paragraph IV certification would not result in an automatic stay; the patent would postdate the
+
+original application, insulating any amendment to address the packaging issue from a new stay.
+
+See 21 U.S.C. § 355(c)(3)(C). By contrast, there are also instances in which permitting an
+
+amendment would circumvent Congress’s intended policy. In particular, when Congress enacted
+
+the MMA, 505(b)(2) applicants could not avoid triggering a stay with a paragraph IV certification
+
+on a new patent claiming a new use of a drug product. That is a more significant innovation, which
+
+is reflected by the fact that FDA policies in place then did not allow 505(b)(2) applicants to add
+
+new indications via amendment. See pp. 10-12, supra. And Congress made clear that it was
+
+building upon that status quo, as it “intend[ed] [the MMA] to reflect the FDA’s current practice
+
+regarding those changes and variations to both innovator and generic drugs that may be approved
+
+under amendments and supplements to previously filed NDAs and ANDAs.” Id.
+
+       FDA’s ad hoc decision to carve out an exception to the Bundling Rule’s general bar on
+
+new indications via amendment fails to adequately consider this legal backdrop. Instead, much of
+
+its decision is devoted to arguing that it had discretion to adopt an exception—a distinct question
+
+from whether the exception is reasonable and adequately explained.
+
+       In its Bundling Decision, FDA observes that the MMA prohibits applicants from amending
+
+or supplementing a 505(b)(2) application to seek approval of a “different drug,” 21 U.S.C.
+
+§ 355(b)(4)(A), and it then notes that the agency, by regulation, “did not define ‘different drug’ to
+
+include a request for approval of a new indication.” FDA-000180 (citing 21 C.F.R. §§ 314.60(e),
+
+314.70(h)). FDA then leaps to infer that because (in its view) neither the statute nor agency
+
+regulations specifically bar amendments for new indications, it would “chang[e] the legislative
+
+balance rather than preserv[e] it” for FDA policy to preclude such amendments. FDA-000182.
+
+
+
+
+                                                 30
+      Case 1:24-cv-02428-TJK           Document 93        Filed 01/28/25      Page 40 of 47
+
+
+
+
+That reasoning is backwards. In dictating rules for amendments, Congress specified that applicants
+
+should be allowed to “amend[] or supplement[]” an application “to seek approval of a different
+
+strength” for a drug product. 21 U.S.C. § 355(b)(4)(B). Conspicuously, no such allowance is
+
+provided for new indications, signaling that Congress preserved the status quo in which such
+
+amendments were not allowed. See Jennings v. Rodriguez, 583 U.S. 281, 300 (2018) (“The
+
+expression of one thing implies the exclusion of others (expressio unius est exclusio alterius).”
+
+(quoting A. Scalia & B. Garner, Reading Law 107 (2012)).
+
+       But even assuming neither the statute nor agency regulations preclude FDA from creating
+
+an exception to the Bundling Rule to allow certain amendments adding new indications, the
+
+decision alters the status quo with significant implications for patent rights. Yet FDA skipped over
+
+this key issue. After concluding its departure was not barred by statute or regulation, FDA justified
+
+its previously undisclosed exception to the Bundling Rule based exclusively on questions of
+
+administrative convenience and “user fee implications.” FDA-000184. Thus, even though FDA
+
+has previously recognized that the permissibility of certain categories of amendments is properly
+
+informed by the impact of allowing the amendment on patent rights and the question whether an
+
+“opportunity for 30-month stay would be appropriate,” 80 Fed. Reg. at 6851, FDA disregarded
+
+that issue here. 12 In particular, FDA never explained why a 505(b)(2) application that omits any
+
+new clinical information in support of a new indication should be allowed to avoid a 30-month
+
+stay, whereas an application that includes some of its own clinical information cannot. Nor is it
+
+
+
+12
+   FDA did assert (in cursory fashion) that it doubted whether any innovator “has a cognizable
+interest” in FDA adhering to the Bundling Rule, and that any such interest was “outweighed” by
+other considerations. FDA-000184. As discussed below, this brief discussion of reliance interests
+was itself inadequate. See Part I.C, infra. Regardless, reliance aside, this passing reference is non-
+responsive to the point that FDA failed to address the impact of changing its policies on the
+effective operation of the Hatch-Waxman litigation process, as envisioned by Congress.
+
+
+                                                 31
+      Case 1:24-cv-02428-TJK            Document 93        Filed 01/28/25       Page 41 of 47
+
+
+
+
+clear how FDA could justify such treatment—if anything, instances where the 505(b)(2)
+
+application is completely piggybacking on the innovator’s data are more likely to implicate patents
+
+on a significant new innovation. But regardless of what explanation FDA might theoretically
+
+provide, its failure “to consider an important aspect of the problem” in the Bundling Decision (or
+
+anywhere else in the administrative record) renders its decision arbitrary and capricious. See State
+
+Farm, 463 U.S. at 43.
+
+        It is no answer that FDA displayed some general awareness of the impact its unwritten
+
+exception to the Bundling Rule will have on an innovator’s statutory right to an automatic stay.
+
+E.g., FDA-000184. “[A]wareness is not itself an explanation.” Ohio v. EPA, 603 U.S. 279, 295
+
+(2024). FDA created an exception on the theory that some of the Bundling Rule’s animating
+
+rationales were not implicated by Liquidia’s 505(b)(2) amendment, without meaningfully
+
+addressing the pivotal role the Bundling Rule now plays in protecting patent rights or considering
+
+whether that purpose counsels against an exception grounded in administrative convenience. See
+
+FDA-000184.
+
+        FDA’s brief reference to the Bundling Rule’s treatment of supplements (rather than
+
+amendments) does not fill the gap. See FDA-000182. FDA seems to imply that because applicants
+
+are allowed to pursue new indications by supplement—which sometimes may also allow them to
+
+avoid an automatic stay—the Bundling Rule’s restrictions on amendments is not connected to the
+
+protection of patent rights. But as this case illustrates, the distinction between a right to supplement
+
+an application and amendment can be significant, with the amendment route typically providing a
+
+more accelerated path for a follow-on applicant to expand its approval since it allows applicants
+
+to stack requests together without waiting for FDA to finally approve the initial application
+
+(following expiry of any applicable regulatory exclusivities). See 21 C.F.R. § 314.70 (explaining
+
+
+
+
+                                                  32
+      Case 1:24-cv-02428-TJK           Document 93        Filed 01/28/25      Page 42 of 47
+
+
+
+
+that a supplement allows only certain changes to an “approved NDA”). It is thus unremarkable
+
+that there would be tighter restrictions on a 505(b)(2) applicant’s ability to amend versus
+
+supplement. Indeed, in other contexts, FDA regulations impose certain patent-certification rules
+
+only for amendments, not supplements. See 21 C.F.R. § 314.96(d)(1). In any event, the divergence
+
+between FDA’s rules for amendments and supplements is longstanding, and Congress legislated
+
+against the backdrop of stricter rules for amendments when it enacted the 2003 MMA. See pp. 10-
+
+12, supra. It is thus nonresponsive for FDA to point to its long-established policy on supplements
+
+as an explanation for “depart[ing]” from its equally long-established policy for amendments.
+
+FDA-000162. 13
+
+       C.      FDA failed to meaningfully consider the reliance interests of innovators like
+               UTC in faithful application of the Bundling Rule.
+
+       Even when an agency has discretion to change course, it must consider the fact that its
+
+“‘longstanding policies may have engendered serious reliance interests that must be taken into
+
+account,’ as failure to do so renders the new rule arbitrary and capricious.” Int’l Org. of Masters,
+
+Mates & Pilots v. NLRB, 61 F.4th 169, 179 (D.C. Cir. 2023) (quoting Dep’t of Homeland Sec. v.
+
+Regents of the Univ. of Cal., 591 U.S. 1, 30 (2020)); see also Endo, 2024 WL 2988904, at *6 (“[A]
+
+change of policy must also consider the alternatives that are within the ambit of the existing policy
+
+and must address whether there was legitimate reliance on the old policy.” (quotation marks and
+
+citation omitted)). Agencies are subject to this obligation regardless of whether a policy purported
+
+to disclaim conferral of “substantive rights.” Regents, 591 U.S. at 31.
+
+
+
+13
+   FDA’s reference to ANDAs (FDA-000181) is likewise a non-sequitur. FDA has recognized
+that the Bundling Rule requires treating 505(b)(2) applications and ANDAs differently in the
+patent context, see 80 Fed. Reg. at 6851, and FDA did not justify its decision to depart from the
+Bundling Rule as based on any desire to harmonize treatment of ANDAs and 505(b)(2)
+applications.
+
+
+                                                 33
+      Case 1:24-cv-02428-TJK          Document 93        Filed 01/28/25      Page 43 of 47
+
+
+
+
+       The agency fell short here. Rather than seriously engage with reliance interests fostered
+
+by a written policy that has been in place for decades and repeatedly reaffirmed, FDA disparaged
+
+the “potential reliance interests of innovators” like UTC as “doubtful and at most limited.” FDA-
+
+000184 & n.105. It then asserted in conclusory fashion that “any such interest” is “outweighed
+
+by” the agency’s “reasons for changing position.” FDA-000184. But none of FDA’s passing
+
+reasons for discounting the reliance interests of innovators withstand scrutiny.
+
+       First, FDA “not[ed] that Congress made separate provision to protect innovators’
+
+intellectual property rights when it enacted the Hatch-Waxman, and the MMA, and these
+
+protections do not preclude” Liquidia’s amendment. FDA-000184. That argument misses the
+
+point twice over. The issue is not whether FDA’s decision is “preclude[d]” by statute—agencies
+
+must account for reliance interests precisely when the statutory framework provides them with
+
+“flexibility.” Regents, 591 U.S. at 32. More fundamentally, the notion that the Bundling Rule is
+
+“separate” from the statutory protections provided for innovators’ patent rights, FDA-000184,
+
+ignores the way the Bundling Rule interacts with those protections. If FDA had applied the
+
+Bundling Rule here rather than applying a secret exception, Liquidia would have had to file a new
+
+NDA for the PH-ILD indication while its original application is still pending, which would have
+
+provided UTC with an opportunity to secure an automatic stay. E.g., UTC Crossclaim ¶ 13. And
+
+while FDA “note[d]” that NDA holders may still pursue patent litigation and “seek injunctive
+
+relief” when a 505(b)(2) applicant bypasses an automatic stay by filing an amendment, FDA-
+
+000182 n.101, that is no substitute for the statutory protection. As this Court recognized, the
+
+statutory “entitlement to a 30-month stay is independent” of whether the patent claims ultimately
+
+succeed, since “the point” of the protection is to provide the innovator with a chance to vindicate
+
+
+
+
+                                                34
+      Case 1:24-cv-02428-TJK           Document 93        Filed 01/28/25      Page 44 of 47
+
+
+
+
+its patent rights “before” the follow-on product enters the market. Endo, 2024 WL 2988904, at *7
+
+(quotation marks omitted). 14
+
+       Second, FDA argued that innovators lacked a reliance interest in FDA’s longstanding
+
+policy because the Bundling Rule was articulated in “guidance” that “was not binding,” and the
+
+agency had advised that there might be exceptions to the general bar on indication-adding
+
+amendments.     FDA-000184 n.105.       But that attempt to explain away reliance is likewise
+
+misguided. “An agency remains obligated to weigh reliance interests against policy concerns even
+
+if the policy or practice in question was never formally implemented” in a binding regulation. CSL
+
+Plasma Inc. v. U.S. Customs & Border Prot., 628 F. Supp. 3d 243, 259 (D.D.C. 2022). That is
+
+especially true where, as with FDA, an agency has a history of using guidance documents to
+
+articulate effectively binding rules. See, e.g., Syncor Int’l Corp. v. Shalala, 127 F.3d 90, 93 (D.C.
+
+Cir. 1997); Am. Acad. of Pediatrics v. FDA, 379 F. Supp. 3d 461, 487-88, 497-98 (D. Md. 2019).
+
+As explained above, pp. 5-9, supra, FDA has long applied the Bundling Rule to applicants as a
+
+binding rule.
+
+       FDA’s contention that the regulated industry was nonetheless on notice of the possibility
+
+for exceptions is baseless. As discussed, p. 12, supra, the only exception to the Bundling Rule for
+
+indication-adding amendments previously disclosed by FDA concerned switches, which by their
+
+nature are unlikely to implicate new innovator patent rights. And the purported other “occasions”
+
+that FDA “reviewed and approved amendments to 505(b)(2) applications,” FDA-000184 n.105,
+
+
+14
+  FDA also again referenced the possibility that an applicant could wait until after obtaining final
+approval to submit a supplement for a new indication. FDA-000184 n.105. But as discussed, pp.
+32-33, supra, a supplemental application proceeds on a different timeline than an amendment, and
+FDA’s Bundling Rule has long distinguished between the two with respect to applications for a
+new indication. The existence of this alternative, often slower, path for 505(b)(2) applicants to
+pursue approval for new uses thus does nothing to diminish the reliance interest of innovators on
+FDA adhering to its longstanding policies limiting amendments.
+
+
+                                                 35
+      Case 1:24-cv-02428-TJK          Document 93       Filed 01/28/25      Page 45 of 47
+
+
+
+
+could not possibly impact legitimate reliance interests, since none of the departures from the
+
+Bundling Rule that FDA now invokes were previously disclosed to the public, much less
+
+explained. Once again, the public is entitled to take an agency at its word when the agency
+
+represents that its written directions reflect its “current thinking.” FDA-000971
+
+       Finally, FDA asserted that its Bundling Rule was “issued to provide FDA’s policies for
+
+implementing the PDUFA, and to allow FDA to carry out an orderly review process aligned with
+
+its negotiated commitments under the statute.” FDA-000184 n.105. But as discussed, pp. 29-30,
+
+supra, that characterization ignores the additional role the Bundling Rule now plays after the
+
+MMA’s enactment in policing whether 505(b)(2) applicants should be allowed to seek expanded
+
+approvals without triggering an automatic stay. The connection is no accident: Congress built the
+
+MMA provisions on its understanding that FDA’s practices “regarding acceptance of …
+
+amendments” would carry forward undisturbed. H.R. Rep. No. 108-391, at 835 (2003).
+
+       Once FDA’s improper grounds for minimizing UTC’s reliance interests are stripped away,
+
+all that remains is its unreasoned one-sentence assertion that any “limited” reliance interests are
+
+“outweighed” by the agency’s “reasons for changing position.” FDA-000184. This boilerplate
+
+assertion is plainly inadequate. An agency’s burden to “address why the policy shift outweighs
+
+the alleged reliance interests” “is not satisfied by a one-sentence acknowledgement.” CSL Plasma,
+
+628 F. Supp. 3d at 261. For this reason, too, the Bundling Decision is arbitrary and capricious.
+
+II.    This Court should vacate FDA’s decision accepting the PH-ILD amendment for
+       review.
+
+       Because FDA’s decision to accept Liquidia’s PH-ILD amendment for review was arbitrary
+
+and capricious, this Court should “set aside [the] agency action.” 5 U.S.C. § 706(2). FDA’s
+
+decision was unsupported, and “[u]nsupported agency action normally warrants vacatur.” NAACP
+
+v. Trump, 298 F. Supp. 3d 209, 244 (D.D.C. 2018) (citation omitted). There is no basis for an
+
+
+
+                                                36
+      Case 1:24-cv-02428-TJK          Document 93        Filed 01/28/25      Page 46 of 47
+
+
+
+
+exception to that default remedy here. FDA’s decision to accept Liquidia’s amendment contains
+
+“serious” “flaws” that cannot readily be cured. Ctr. for Biol. Diversity v. Regan, 734 F. Supp. 3d
+
+1, 62 (D.D.C. 2024).
+
+       Moreover, vacating FDA’s unlawful decision would not have “disruptive consequences.”
+
+Id. To the contrary, vacatur would preserve the status quo by preventing the premature final
+
+approval of Liquidia’s NDA in contravention of UTC’s statutory right to a 30-month stay, which
+
+would have been triggered by the filing of a new 505(b)(2) application for PH-ILD in compliance
+
+with the Bundling Rule. As this Court has recognized, “the loss of [the] statutory entitlement to
+
+the 30-month stay,” and the resulting economic injuries, qualify as “irreparable” harm because “it
+
+cannot be recaptured later.” Endo, 2024 WL 2988904, at *7. And although FDA and Liquidia
+
+have speculated about possible alternative pathways for Liquidia to pursue if the Bundling Rule
+
+were properly enforced, FDA Mot. to Dismiss, ECF No. 71-1 at 12; Liquidia Mot. to Dismiss,
+
+ECF No. 69-1, at 17-18, such speculation is irrelevant to the issues before this Court.
+
+                                         CONCLUSION
+
+       For the reasons stated above, this Court should grant UTC’s motion for summary judgment
+
+and vacate FDA’s decision accepting Liquidia’s PH-ILD amendment for review.
+
+
+
+
+                                                37
+     Case 1:24-cv-02428-TJK        Document 93   Filed 01/28/25      Page 47 of 47
+
+
+
+
+January 17, 2025                           Respectfully submitted.
+
+                                            /s/ Brian T. Burgess
+Shaun R. Snader (D.C. Bar No. 492231)      William C. Jackson (D.C. Bar. No. 475200)
+UNITED THERAPEUTICS CORPORATION            William M. Jay (D.C. Bar No. 480185)
+1735 Connecticut Ave. NW, 2nd Floor        Brian T. Burgess (D.C. Bar No. 1020915)
+Washington, DC 20009                       GOODWIN PROCTER LLP
+(202) 304-1701                             1900 N Street, NW
+                                           Washington, DC 20001
+Douglas Carsten (admitted pro hac vice)
+                                           (202) 346-4000
+Art Dykhuis (admitted pro hac vice)
+MCDERMOTT WILL & EMERY LLP
+                                           Kurt R. Karst (D.C. Bar No. 482615)
+18565 Jamboree Road, Suite 250
+                                           Michael D. Shumsky (D.C. Bar No. 495078)
+Irvine, CA 92615
+                                           Sara Wexler Koblitz (D.C. Bar No. 1017284)
+(949) 851-0633
+                                           HYMAN, PHELPS & MCNAMARA, P.C.
+Adam W. Burrowbridge (D.C. Bar No.         700 13th Street, NW, Suite 1200
+  1001783)                                 Washington, DC 20005
+MCDERMOTT WILL & EMERY LLP                 (202) 737-5600
+500 North Capitol Street, NW
+Washington, DC 20001
+(202) 756-8797
+
+                                           Counsel for United Therapeutics Corporation
+
+
+
+
+                                          38
+

@@ -1,0 +1,1677 @@
+       Case 1:25-cv-01020-TJK        Document 57       Filed 03/31/26       Page 1 of 31
+
+
+
+
+                            UNITED STATES DISTRICT COURT
+                            FOR THE DISTRICT OF COLUMBIA
+
+
+CITIZENS FOR RESPONSIBILITY AND
+ETHICS IN WASHINGTON,
+
+              Plaintiff,
+
+       v.                                          Civil Action No. 25-1020 (TJK)
+
+U.S. CENTERS FOR DISEASE CONTROL
+AND PREVENTION et al.,
+
+              Defendants.
+
+
+                                MEMORANDUM OPINION
+
+       Citizens for Responsibility and Ethics in Washington, commonly known as CREW, is a
+
+nonprofit government watchdog. CREW routinely submits requests for records to government
+
+agencies under the Freedom of Information Act, or FOIA. One agency to which CREW submits
+
+requests is the Centers for Disease Control, housed under the Department of Health and Human
+
+Services. On April 1, 2025, CREW submitted five expedited FOIA request to the CDC. As it
+
+happened, on that same day, as part of an agency-wide reduction in workforce, all employees
+
+within CDC whose jobs were to respond to FOIA requests were placed on leave and the CDC
+
+FOIA office was shuttered. All FOIA requests made to the CDC would instead be handled by the
+
+Office of the Secretary, a different division of HHS. After becoming aware of these developments
+
+a few days later, CREW sued, alleging that its FOIA requests were not being properly processed
+
+under FOIA and that the closure of the CDC FOIA office was unlawful under both FOIA (through
+
+a policy-or practice claim) and the Administrative Procedure Act, or APA.
+
+       CREW moves for summary judgment on the latter two claims, and Defendants move both
+
+to dismiss and for summary judgment. For the reasons explained below, although the record sug-
+
+gests that the closure of the CDC FOIA office impaired—to some degree—HHS’s ability to
+       Case 1:25-cv-01020-TJK          Document 57        Filed 03/31/26      Page 2 of 31
+
+
+
+
+process requests for CDC records, the Court will deny Defendants’ motion to dismiss CREW’s
+
+policy-or practice FOIA claim, deny without prejudice both parties’ motions for summary judg-
+
+ment, and allow to the parties to renew their motions with an updated factual record. The Court
+
+will also, as explained, grant Defendants’ motion to dismiss CREW’s APA claim.
+
+I.     Regulatory and Factual Background
+
+       FOIA requires agencies to make records available to any person whose request “reasonably
+
+describes such records” and satisfies agency procedures. 5 U.S.C. § 552(a)(3)(A). Along with
+
+requiring agencies to process and produce records upon request, FOIA places several other ongo-
+
+ing obligations on agencies. For example, “[e]ach agency” must “make available for public in-
+
+spection” certain “administrative staff manuals” and copies of released records likely to be subject
+
+to repeat requests. §§ 552(a)(2)(C), (D). Agencies must also create systems to assign “individu-
+
+alized tracking number[s]” to requests and establish methods for communicating with requesters.
+
+§ 552(a)(7). And to ensure “efficient and appropriate compliance,” each agency must “designate
+
+a Chief FOIA Officer.” § 552(j)(1), (2). All told, FOIA imposes several statutory requirements
+
+on covered agencies so that “citizens” can “know what their Government is up to”—a “structural
+
+necessity in a real democracy.” Nat’l Archives & Recs. Admin. v. Favish, 541 U.S. 157, 171–72
+
+(2004) (internal quotation marks and citation omitted).
+
+       Until recently, the Department of Health and Human Services (“HHS”) complied with its
+
+FOIA requirements through a “decentralized” system that “consisted of independently run FOIA
+
+offices at eleven [divisions of HHS] including at the Center for Disease Control and Prevention.”
+
+ECF No. 43-3 ¶ 7. At the top of this system sat the FOIA office for the Office of the Secretary
+
+(“OS”) which was responsible for processing initial FOIA requests for records that belonged to no
+
+one particular division, as well as generally “monitor[ing] FOIA implementation throughout
+
+[HHS].” Id. ¶ 8; see also ECF No. 31 ¶ 25. But FOIA requests made to the Centers for Disease
+
+
+                                                 2
+       Case 1:25-cv-01020-TJK          Document 57       Filed 03/31/26        Page 3 of 31
+
+
+
+
+Control (“CDC”) for CDC-specific records were mainly processed and responded to by the CDC
+
+FOIA office. ECF No. 43-3 ¶ 8; see also ECF No. 43-1 ¶ 39.
+
+       HHS’s decentralized FOIA system changed under the current administration. On February
+
+11, 2025, President Trump issued an Executive Order titled “Implementing the President’s ‘De-
+
+partment of Government Efficiency’ Workforce Optimization Initiative,” which instructed agency
+
+heads to prepare “to initiate large-scale reductions in force.” Exec. Order No. 14210, 90 Fed. Reg.
+
+9669 (Feb. 11, 2025). Under that Executive Order, HHS announced that it planned to “restructure
+
+and downsize its workforce by 20,000 employees, from 82,000 to 62,000 full-time employees.”
+
+ECF No. 43-1 ¶ 2 (citing Press Release, Dep’t of Health and Human Servs., HHS Announces
+
+Transformation to Make America Healthy Again (Mar. 27, 2025), https://www.hhs.gov/press-
+
+room/hhs-restructuring-doge.html).
+
+       On April 1, 2025, CDC shuttered its FOIA office. ECF No. 43-1 ¶ 6; ECF No. 31 ¶ 36.
+
+All 23 full-time employees in the office were told that day via email that they would be “separated
+
+from HHS effective June 2, 2025.” ECF No. 43-1 ¶¶ 3, 4, 6. Though they did not formally lose
+
+employment for another few months, all CDC FOIA employees were immediately placed on ad-
+
+ministrative leave and lost access to CDC’s physical office spaces. Id. ¶ 5.
+
+       The same day, CREW submitted five expedited FOIA requests to the CDC.1 ECF No. 31
+
+¶¶ 43–48; ECF No. 43-1 ¶¶ 11–14. In response to its requests, CREW received automated emails
+
+from the CDC FOIA office stating: “Hello, the FOIA office has been placed on admin leave and
+
+is unable to respond to any emails.” ECF No. 43-1 ¶ 21; ECF No. 13-3 ¶ 14. CREW then emailed
+
+HHS directly asking whether the CDC was still processing FOIA requests. ECF No. 43-1 ¶ 23.
+
+
+
+       1
+          The specifics of CREW’s requests are not relevant to the motions before the Court. See
+ECF No. 41 (moving to stay the dispute over the CDC’s alleged “failure to process [CREW’s] five
+April 1, 2025 FOIA requests”); Minute Order of August 27, 2025 (granting the stay).
+
+                                                3
+       Case 1:25-cv-01020-TJK          Document 57        Filed 03/31/26      Page 4 of 31
+
+
+
+
+       Receiving no response, CREW sued the CDC, HHS, and their top officials three days later,
+
+on April 4, 2025. ECF No. 1. Later that month, CREW moved for a preliminary injunction and
+
+partial summary judgment. See ECF No. 13. After a hearing on the preliminary injunction in mid-
+
+May, the Court denied CREW’s motion. See ECF No. 28. The Court explained that CREW had
+
+failed to show that it would suffer irreparable injury without immediate relief, because neither of
+
+CREW’s two alleged harms—the inability to receive specific records regarding the measles out-
+
+break, and the hit to its general organizational mission of disseminating information to the public—
+
+met the high standard in this Circuit for irreparable harm. See ECF No. 29 at 7–8.
+
+       In June 2025, CREW filed an amended complaint with three counts. See ECF No. 31. In
+
+Count I, CREW alleges that Defendants violated FOIA by failing to process its five requests for
+
+records. Id. ¶¶ 74–81. In Count II, CREW claims that Defendants violated FOIA by “eliminating
+
+the CDC FOIA office” and “shift[ing] all its responsibilities to the OS FOIA office,” which
+
+amounts to a “policy or practice” that violates various FOIA requirements. Id. ¶¶ 82–87. And in
+
+Count III, CREW claims that the same actions that constitute the policy or practice violate the
+
+APA because they are contrary to law. Id. ¶¶ 88–94.
+
+       In August 2025, the parties agreed upon a disclosure schedule as to the records that are the
+
+subject of Count I and jointly moved to stay dispositive motions briefing on that count. See ECF
+
+No. 41. The Court granted that stay, see Minute Order of August 27, 2025, leaving only Counts
+
+II and III—the two aimed at the closure of the CDC FOIA office—at issue here. Pending before
+
+the Court are CREW’s motion for summary judgment on those two counts and Defendants’ cross-
+
+motion to dismiss and, in the alternative, for summary judgment. See ECF Nos. 33, 44, 45.
+
+II.    Analysis
+
+       The FOIA and APA claims at issue share the same core assertion: that the closure of the
+
+CDC FOIA office and rerouting of requests to OS FOIA has resulted in violations of various
+
+
+                                                 4
+       Case 1:25-cv-01020-TJK         Document 57        Filed 03/31/26      Page 5 of 31
+
+
+
+
+statutory and regulatory FOIA provisions. In Count II, CREW brings a claim under FOIA, assert-
+
+ing that Defendants have a policy or practice of violating the FOIA statute and related HHS regu-
+
+lations. For this alleged policy-or-practice FOIA violation, CREW requests “declaratory” and
+
+“prospective injunctive relief” from the Court that “[a]t a minimum . . . require[s] Defendants to
+
+augment, temporarily or permanently, CDC FOIA review resources.” ECF No. 35-1 at 43 (internal
+
+quotations and citations omitted). In Count III, CREW brings a claim under the APA, asserting
+
+that the aforementioned violations of the FOIA statute and related HHS regulations are “not in
+
+accordance with law.” 5 U.S.C. § 706(2). For this tag-along APA violation, CREW asks the Court
+
+to “set aside and enjoin [Defendants’] final decision to render the [CDC’s] FOIA office ‘non-
+
+operational.’” ECF No. 35-1 at 50 (citing ECF No. 31 ¶ 4).
+
+       Before the Court are the parties’ dueling motions. Defendants move both to dismiss and
+
+for summary judgment for a mix of reasons. Defendants assert first that CREW lacks standing to
+
+bring either count. ECF No. 43 at 18–19, 45–47. Then, on the merits of Count II, Defendants
+
+argue that CREW’s FOIA claim should be dismissed for failure to state a claim, or in the alterna-
+
+tive, that summary judgment should be granted in their favor. ECF No. 43 at 10–12. And on the
+
+merits of Count III, Defendants assert that CREW’s APA claim should be dismissed for failure to
+
+state a claim. ECF No. 43 at 20. CREW, for its part, argues that the Court should reach the merits
+
+on both counts and moves for summary judgment in its favor on both. ECF No. 35-1 at 8.
+
+       The Court finds that it has jurisdiction over Counts II and III. It also finds that CREW has
+
+stated a FOIA claim upon which relief can be granted in Count II, and so will deny Defendants’
+
+motion to dismiss on that count. But on this record, the Court agrees with neither side’s request
+
+for summary judgment on Count II. Thus, it will deny without prejudice both parties’ summary-
+
+judgment motions on that count. And as for Count III, the Court agrees with Defendants and will
+
+dismiss CREW’s APA claim for failure to state a claim.
+
+                                                5
+       Case 1:25-cv-01020-TJK           Document 57        Filed 03/31/26         Page 6 of 31
+
+
+
+
+       A.      The Court Will Deny Defendants’ Motion to Dismiss to the Extent it Seeks
+               Dismissal of Counts II and III For Lack of Standing
+
+       “Federal courts are courts of limited jurisdiction,” possessing “only that power authorized
+
+by Constitution and statute, which is not to be expanded by judicial decree.” Kokkonen v. Guard-
+
+ian Life Ins. Co. of Am., 511 U.S. 375, 377 (1994) (citations omitted). A challenge to a plaintiff’s
+
+standing to bring a claim goes to the limited subject-matter jurisdiction of the court. See Lujan v.
+
+Defs. of Wildlife, 504 U.S. 555, 560–61 (1992). As the “party invoking federal jurisdiction,” the
+
+plaintiff bears the burden of establishing standing. Id. When standing is contested as part of
+
+summary judgment briefing, “the plaintiff can no longer rest on such ‘mere allegations,’ but must
+
+‘set forth’ by affidavit or other evidence ‘specific facts,’ which for purposes of the summary judg-
+
+ment motion will be taken to be true.” Id. at 561 (quoting Fed. R. Civ. P. 56(e)).
+
+       “‘[T]he irreducible constitutional minimum of standing contains three elements’: injury in
+
+fact, causation, and redressability.” Diamond Alt. Energy, LLC v. EPA, 606 U.S. 100, 111 (2025)
+
+(quoting Lujan, 504 U.S. 555 at 560). A plaintiff must establish these three elements “for each
+
+claim he seeks to press and for each form of relief that is sought,” for “standing is not dispensed
+
+in gross.” John Doe Co. v. CFPB, 849 F.3d 1129, 1132 (D.C. Cir. 2017) (internal citation and
+
+quotations omitted). “The first requirement, injury in fact, requires the plaintiff to demonstrate an
+
+injury that is ‘concrete,’ ‘particularized,’ and ‘actual or imminent, not speculative.’” Diamond Alt.
+
+Energy, 606 U.S. at 111 (quoting FDA v. Alliance for Hippocratic Med., 602 U.S. 367, 381
+
+(2024)). “The second and third requirements, causation and redressability, are usually flip sides
+
+of the same coin. Causation requires the plaintiff to show that the injury was likely caused by the
+
+defendant, and redressability requires the plaintiff to demonstrate that the injury would likely be
+
+redressed by judicial relief.” Id. (internal citations and quotations omitted).
+
+       Defendants move to dismiss Counts II and III for lack of standing. The Court disagrees on
+
+
+
+                                                  6
+       Case 1:25-cv-01020-TJK          Document 57        Filed 03/31/26      Page 7 of 31
+
+
+
+
+both. First, with respect to Count III, Defendants argue that CREW cannot use the APA to chal-
+
+lenge the closure of the CDC FOIA office because “CREW and its employees were not terminated”
+
+by the closure and so did not suffer an injury. ECF No. 43 at 18–19. Defendants assert that the
+
+only individuals that have standing to challenge the closure itself are the 23 CDC FOIA employees
+
+who were terminated, and CREW cannot bring suit on their behalf. Id. at 19 (citing Powers v.
+
+Ohio, 499 U.S. 400, 410–11 (1991) (listing the requirements for third-party standing)).
+
+       But Defendants’ argument mistakenly assumes that the closure of the CDC FOIA office
+
+can inflict only one injury. While the office closure injured the office’s employees by terminating
+
+their jobs, the closure also allegedly “depriv[es] CREW of basic access to agency records” and
+
+thereby stymies its mission of “disseminating information about public officials and their actions.”
+
+ECF No. 47 at 35 (cleaned up). CREW’s suit over the loss of an upstream informational input
+
+necessary for its organizational mission is “not dissimilar to a retailer who sues a manufacturer for
+
+selling defective goods to the retailer”—an injury long recognized to afford standing to an organ-
+
+ization. Alliance for Hippocratic Medicine, 602 U.S. at 395 (discussing Havens Realty Corp. v.
+
+Coleman, 455 U.S. 363, 379 (1982)). So CREW has standing to bring an APA claim.
+
+       Second, Defendants argue that CREW lacks standing to bring a FOIA claim that Defend-
+
+ants are violating the “reading-room” provision of the FOIA statute, see ECF No. 43 at 46–47
+
+(citing 5 U.S.C. § 552(a)(4)(B)), and the “research-data” FOIA regulation, see id. at 47 (citing 45
+
+C.F.R. § 75.322(e)). The Court cannot redress the former, Defendants say, because the D.C. Cir-
+
+cuit has held that the FOIA statute “‘does not authorize district courts to order publication’ of
+
+documents subject to the” reading-room provision. Id. at 46 (quoting CREW v. DOJ, 846 F.3d
+
+
+
+
+                                                 7
+       Case 1:25-cv-01020-TJK          Document 57        Filed 03/31/26      Page 8 of 31
+
+
+
+
+1235, 1243 (D.C. Cir. 2017) (“CREW II”)).2 And the latter is not an injury, Defendants say, be-
+
+cause CREW “has not alleged or submitted evidence that it submitted a request for ‘research data
+
+made available under the provisions of 45 CFR 75.322(e).’” Id. at 47 (quoting ECF No. 31 ¶ 23).
+
+       Defendants misread CREW’s amended complaint. While CREW must demonstrate stand-
+
+ing “for each claim [it] seeks to press,” John Doe Co., 849 F.3d at 1132, CREW has not brought
+
+standalone claims for violations of the reading-room provision and research-data regulation. Ra-
+
+ther, these alleged violations support CREW’s overarching claim that “eliminating the CDC FOIA
+
+office” amounts to a “policy or practice of violating FOIA.” ECF No. 31 ¶ 84; see also ECF No.
+
+47 at 33 (“CREW relies on the reading-room and research-data provisions to support its claim that
+
+. . . Defendants [must] maintain a functional CDC FOIA office . . . and that Defendants have vio-
+
+lated this requirement by shuttering the office.”). CREW has standing to bring this claim, as it has
+
+suffered informational injury caused by the closure of the CDC FOIA office in several ways (as
+
+explained above), and its injury can be redressed in some way by the Court under the FOIA statute,
+
+which affords courts the authority to fashion “broad” and “flexible” equitable remedies. CREW
+
+II, 846 F.3d at 1241–42 (internal citation and quotations omitted). So even assuming the Court
+
+could not provide separate redress for these two alleged violations of law CREW identifies, that
+
+would not defeat CREW’s standing to bring its alleged policy-or-practice FOIA claim.
+
+       For these reasons, to the extent Defendants seek to dismiss Counts II or III on standing
+
+grounds, the Court will deny their motion.
+
+       B.      The Court Will Neither Dismiss Count II nor Grant Summary Judgment on
+               Count II to Either CREW or Defendants at This Time
+
+       As mentioned, in Count II, CREW brings a policy-or-practice FOIA claim that contests
+
+
+       2
+         The D.C. Circuit has decided many appeals with CREW as a party. Two of these cases
+play a large role in the Court’s analysis. To distinguish between them, the Court refers to them
+“CREW I” and “CREW II” based on the order that they were decided.
+
+                                                 8
+       Case 1:25-cv-01020-TJK           Document 57         Filed 03/31/26      Page 9 of 31
+
+
+
+
+Defendants’ closure of the CDC FOIA office and rerouting of FOIA requests to OS FOIA. This
+
+policy or practice is alleged to have caused three sets of FOIA violations: (1) delays and lapses
+
+when responding to FOIA requests, in violation of 5 U.S.C. §§ 552(a)(3) and (a)(6), see ECF No.
+
+31 ¶¶ 84b–c; (2) a failure to comply with the “reading room,” “status update,” and “system guide”
+
+provisions of FOIA, in violation of §§ 552(a)(2), (a)(7), and (g), see ECF No. 31 ¶¶ 84a, d, e; and
+
+(3) a failure to comply with internal HHS regulations that require that a CDC FOIA office exist in
+
+some capacity, in violation of 45 C.F.R. § 5.3 and other related provisions, see ECF No. 31 ¶¶ 23,
+
+84f, 85. CREW moves for summary judgment on this count. Defendants move to dismiss it for
+
+failure to state a claim and cross-move for summary judgment.
+
+               1.      The Court Will Deny Defendants’ Motion to Dismiss Count II Because
+                       CREW States a Policy-or-Practice FOIA Claim
+
+       Defendants move to dismiss CREW’s FOIA claim for failure to state a claim under Rule
+
+12(b)(6). See ECF No. 47. “To survive a motion to dismiss [under Rule 12(b)(6)], a complaint
+
+must contain sufficient factual matter, accepted as true, to ‘state a claim to relief that is plausible
+
+on its face.’” Ashcroft v. Iqbal, 556 U.S. 662, 678 (2009) (quoting Bell Atl. Corp. v. Twombly, 550
+
+U.S. 544, 570 (2007)). A claim is facially plausible “when the plaintiff pleads factual content that
+
+allows the court to draw [a] reasonable inference that the defendant is liable for the misconduct
+
+alleged.” Id. (citing Twombly, 550 U.S. at 556). For a motion to dismiss under Rule 12(b)(6), the
+
+court takes all facts alleged in the complaint as true. Twombly, 550 U.S. at 556.
+
+       The Court finds that CREW has stated a FOIA claim. Congress enacted FOIA “to pierce
+
+the veil of administrative secrecy and to open agency action to the light of public scrutiny.” Dep’t
+
+of the Air Force v. Rose, 425 U.S. 352, 361 (1976) (citation omitted). FOIA primarily sheds light
+
+on administrative agencies through its requirement that an agency “make [] records promptly avail-
+
+able” when a member of the public submits a “request for records which (i) reasonably describes
+
+
+
+                                                  9
+      Case 1:25-cv-01020-TJK           Document 57        Filed 03/31/26      Page 10 of 31
+
+
+
+
+such records and (ii) is made in accordance with [the agency’s] published rules.” 5 U.S.C.
+
+§ 552(a)(3)(A). As part of this prompt disclosure regime, FOIA requires that agencies “determine
+
+within 20 days . . . after the receipt of any such request whether to comply with such request,”
+
+extendable only for “unusual circumstances” that must be explained “by written notice” to the
+
+requester. Id. §§ 552(a)(6)(A)(i), (B)(i). When a request is not addressed promptly, or the re-
+
+quester disagrees with the scope of the agency’s disclosures, the requester may bring suit in court
+
+“to enjoin the agency from withholding agency records and to order the production of any agency
+
+records improperly withheld from the complainant.” Id. § 552(a)(4)(B).
+
+       But FOIA permits a party to sue over more than an agency’s response to a specific request
+
+for records. The D.C. Circuit has long recognized that, separate from challenging an agency’s
+
+response to any specific request, a plaintiff may bring “a claim that an agency policy or practice
+
+will impair the party’s lawful access to information in the future.” Payne Enter., Inc. v. United
+
+States, 837 F.2d 486, 491 (D.C. Cir. 1988). This requires a plaintiff to show that the agency en-
+
+gages in an “impermissible practice” when responding to FOIA requests, and that the plaintiff will
+
+“suffer continuing injury due to this practice.” Id. (internal citation and quotations omitted). “That
+
+is to say, a plaintiff must plead (1) some policy or practice that (2) results in a repeated violation
+
+of FOIA.” Am. Ctr. For L. and Just. v. Dep’t of State, 249 F. Supp. 3d 275, 282 (D.D.C. 2017).
+
+       CREW has sufficiently pled both elements of a policy-or-practice claim. First, CREW
+
+identifies a concrete policy: that Defendants have “eliminat[ed] the CDC FOIA office and . . .
+
+shift[ed] all its responsibilities to the OS FOIA office.” ECF No. 31 ¶ 84. To be sure, this is not
+
+a singular policy so much as it is a combination of actions taken by Defendants at the agency level,
+
+including the initial April 1, 2025 reduction in CDC FOIA staff, as well as later reconfigurations
+
+of how HHS electronically routes FOIA requests. But the contours of the policy or practice need
+
+not be sharply “articulated in regulations or an official statement of policy.” Payne, 837 F.2d at
+
+                                                 10
+      Case 1:25-cv-01020-TJK          Document 57        Filed 03/31/26      Page 11 of 31
+
+
+
+
+491. In fact, a policy or practice can even be “informal,” Payne, 837 F.2d at 491, even though
+
+many of aspects of the policy or practice alleged here are set forth in official statements relating
+
+to the President’s “Workforce Optimization Initiative” Executive Order—see, e.g., Press Release,
+
+Dep’t of Health and Human Servs., HHS Announces Transformation to Make America Healthy
+
+Again (Mar. 27, 2025), https://www.hhs.gov/press-room/hhs-restructuring-doge.html. The only
+
+requirement for an agency’s actions to constitute a policy or practice is that they be systemic and
+
+“not merely” the result of “isolated mistakes by agency officials.” Id. Defendants’ wholesale
+
+office closure and routing all CDC FOIA requests to OS FOIA satisfies this requirement, and
+
+Defendants do not—and could not—argue otherwise. See ECF No. 43 at 28–32 (moving to dis-
+
+miss for failure to state a claim only on the grounds that any delay in processing FOIA requests
+
+does not violate FOIA).
+
+       Second, CREW plausibly alleges that the policy or practice of closing the CDC FOIA of-
+
+fice has violated and will continue to violate several FOIA requirements. Among other violations,
+
+CREW asserts that Defendants are “failing to make available for public inspection in an electronic
+
+format all up-to-date CDC reading-room records required under 5 U.S.C. § 552(a)(2),” “failing to
+
+‘make reasonable efforts to search for’ CDC records and make requested CDC records ‘promptly
+
+available,’ as required under 5 U.S.C. § 552(a)(3),” and “failing to make determinations on stand-
+
+ard and expedited FOIA requests for CDC records within the time periods required under 5 U.S.C.
+
+§ 552(a)(6).” ECF No. 31 ¶¶ 84a–c. It is “settled law” that “agency conduct resulting in long
+
+delays in making requested non-exempt records available may serve as the basis for a policy or
+
+practice claim.” Jud. Watch, Inc. v. United States Dep’t of Homeland Sec., 895 F.3d 770, 777–78
+
+(D.C. Cir. 2018). The same is true for agency conduct that violates the “reading-room provision.”
+
+CREW II, 846 F.3d at 1240. So CREW need only allege sufficient facts showing that these viola-
+
+tions have plausibly occurred.
+
+                                                11
+      Case 1:25-cv-01020-TJK           Document 57      Filed 03/31/26      Page 12 of 31
+
+
+
+
+       CREW clears this bar easily. It alleges that after the closure, several of its FOIA requests
+
+to HHS went unanswered for months, ECF No. 33 ¶¶ 57–59; that other organizations that filed
+
+FOIA requests at the time were similarly “stonewall[ed],” id. ¶ 67 & n.47; that the CDC has ceased
+
+updating its online FOIA portal and reading-room web page, id. ¶ 67 & n.49; and that OS FOIA
+
+does not have the staff, resources, or expertise to process all FOIA requests made to the HHS, id.
+
+¶¶ 68–72. Taking these allegations as true, as the Court must in resolving a motion to dismiss, the
+
+Court finds that CREW has plausibly alleged that closing the CDC FOIA office and subsequent
+
+rerouting will result in repeated violations of at least some of FOIA’s statutory requirements. See
+
+Jud. Watch, 895 F.3d at 780.3
+
+       For these reasons, the Court will deny Defendants’ motion to the extent that it seeks to
+
+dismiss Count II for failure to state a claim.
+
+               2.      The Court Will Deny Without Prejudice Both CREW and Defendants’
+                       Motions for Summary Judgment on Count II
+
+       CREW moves for summary judgment in its favor on Count II because Defendants’ closure
+
+of the CDC FOIA office violates FOIA. Defendants cross-move for summary judgment, arguing
+
+that Defendants are complying with FOIA and will continue to do so. “In the FOIA context, a
+
+district court reviewing a motion for summary judgment conducts a de novo review of the record,
+
+and the responding federal agency bears the burden of proving that it has complied with its obli-
+
+gations under the FOIA.” MacLeod v. DHS, No. 15-cv-1792, 2017 WL 4220398, at *6 (D.D.C.
+
+Sept. 21, 2017) (Jackson, J.) (citing 5 U.S.C. § 552(a)(4)(B)). Summary judgment may be granted
+
+
+       3
+          The D.C. Circuit has not addressed whether a violation of the timelines for determination
+in 5 U.S.C. § 552(a)(6) standing alone can be the basis for a policy-or-practice claim. See Jud.
+Watch, 895 F.3d at 786 (Pillard, J., concurring) (confirming that the Circuit’s cases “have never
+so held” on the question one way or the other). The Court need not answer the question, as CREW
+has plausibly alleged other FOIA violations, such as the violation of the requirement to make doc-
+uments “promptly available” and the reading-room requirement, and those violations provide a
+basis for a policy-or-practice claim. See CREW II, 846 F.3d at 1240–42.
+
+                                                 12
+      Case 1:25-cv-01020-TJK          Document 57        Filed 03/31/26      Page 13 of 31
+
+
+
+
+“when, viewing the evidence in the light most favorable to the non-movants and drawing all rea-
+
+sonable inferences accordingly, no reasonable jury could reach a verdict in their favor.” Lopez v.
+
+Council on Am.-Islamic Rels. Action Network, Inc., 826 F.3d 492, 496 (D.C. Cir. 2016). “The
+
+evidence presented must show ‘that there is no genuine dispute as to any material fact and the
+
+movant[s] [are] entitled to judgment as a matter of law.’” Id. (quoting Fed. R. Civ. P. 56(a)). For
+
+the reasons explained below, the Court will deny both parties’ motions without prejudice.
+
+                       a.     Delay in Processing FOIA Requests
+
+       As described above, CREW accuses Defendants of violating FOIA by not timely pro-
+
+cessing requests for records in several ways. ECF No. 31 ¶¶ 84a–c. When an agency receives a
+
+specific request for records under 5 U.S.C. § 552(a)(3), the agency must “determine within 20 days
+
+(excepting Saturdays, Sundays, and legal public holidays) after the receipt of [] such request
+
+whether to comply with such request and shall immediately notify the person making such request
+
+of . . . such determination and the reasons therefor.” § 552(a)(6)(A). The 20-day window can be
+
+extended or tolled briefly for several reasons, one of which is when there are “unusual circum-
+
+stances” present, such as “the need to search for and collect the requested records from . . . other
+
+establishments that are separate from the office processing the request,” in which case the agency
+
+may take an extension of at most “ten working days.” §§ 552(a)(6)(B)(i), (iii). “[I]f the agency
+
+fails to comply with the applicable time limit provisions,” the requester “shall be deemed to have
+
+exhausted his administrative remedies with respect to such request.” § 552(a)(6)(C)(i). In sum,
+
+an agency has 20 working days—extendable to 30 in unusual circumstances—to determine
+
+whether to disclose requested records, after which the requester may sue.
+
+       After litigation begins, these deadlines no longer control the courts’ decision making or the
+
+disclosure schedule. “If the agency does not adhere to FOIA’s explicit timelines, the ‘penalty’ is
+
+that the agency cannot rely on the administrative exhaustion requirement to keep cases from
+
+
+                                                13
+      Case 1:25-cv-01020-TJK           Document 57        Filed 03/31/26      Page 14 of 31
+
+
+
+
+getting into court”—nothing more. CREW v. FEC, 711 F.3d 180, 189 (D.C. Cir. 2013) (“CREW
+
+I”) (Kavanaugh, J.). That is, the plaintiff-requester is not entitled to court-ordered disclosure of
+
+non-exempt documents simply because the agency has taken longer than the statutory determina-
+
+tion timeline. Indeed, “it would be a practical impossibility for agencies to process all FOIA re-
+
+quests completely within twenty days.” Id. (cleaned up).4
+
+       Instead, a different standard applies after litigation starts. “Once in court . . . the agency
+
+may further extend its response time if it demonstrates ‘exceptional circumstances’ to the court.”
+
+CREW I, 711 F.3d at 185. The phrase “exceptional circumstances”—unlike “unusual circum-
+
+stances”—is not sharply defined, leaving flexibility for the court to decide case-by-case. See id.
+
+at 185 n.2. The statute only clarifies that “the term ‘exceptional circumstances’ does not include
+
+a delay that results from a predictable agency workload of requests under this section, unless the
+
+agency demonstrates reasonable progress in reducing its backlog of pending requests.” 5 U.S.C.
+
+§ 552(a)(6)(C)(ii) (emphases added). The D.C. Circuit has further fleshed out the standard, finding
+
+exceptional circumstances to exist when the agency “is deluged with a volume of requests for
+
+information vastly in excess of that anticipated by Congress, when the existing resources are inad-
+
+equate to deal with the volume of such requests within the time limits of subsection (6)(A), and
+
+when the agency can show that it ‘is exercising due diligence’ in processing the requests.” Open
+
+America v. Watergate Special Prosecution Force, 547 F.2d 605, 616 (D.C. Cir. 1976). Under such
+
+
+
+       4
+          Besides practical realities, the text of the FOIA statute “recognizes that agencies may not
+always be able to adhere to the timelines that trigger the exhaustion requirement.” CREW I, 711
+F.3d at 189. For example, each agency is required to submit an annual report that contains “the
+number of requests for records to which the agency has responded with a determination within a
+period of greater than 400 days.” 5 U.S.C. § 552(e)(1)(G)(iv). Such a reporting requirement would
+be strange if agencies were required by law to make all determinations within 20 or 30 days. And
+this is only one of “several statutory provisions [that] acknowledge[s] that some requests may
+require significant processing time . . . before a ‘determination’ can be made.” CREW I, 711 F.3d
+at 189 n.8.
+
+                                                 14
+      Case 1:25-cv-01020-TJK           Document 57        Filed 03/31/26      Page 15 of 31
+
+
+
+
+exceptional circumstances, “the court may retain jurisdiction and allow the agency additional time
+
+to complete its review of the records.” CREW I, 711 F.3d at 185 (quoting § 552(a)(6)(C)(i)).
+
+       If, in the end, an agency cannot show that its delay stems from exceptional circumstances,
+
+“FOIA section 552(a)(4)(B) vests courts with broad equitable authority” to provide relief to the
+
+plaintiff—though not to the public as a whole. CREW II, 846 F.3d at 1241, 1243. Yet even the
+
+existence of a policy or practice resulting in repeated and unexcused delay will not necessarily
+
+entitle the plaintiff to equitable relief beyond a simple production order. “[N]ot all agency delay
+
+or other failure to comply with FOIA’s procedural requirements will warrant judicial intervention,
+
+much less injunctive relief.” Jud. Watch, 895 F.3d at 782. Before providing equitable relief, the
+
+court must assess whether “whether the agency’s conduct in failing to conform to FOIA’s proce-
+
+dural requirements demonstrates a lack of due diligence and is so delinquent or recalcitrant as to
+
+warrant injunctive relief because ordinary remedies, such as a production order, would be inade-
+
+quate to overcome an agency policy or practice.” Id. at 783. “Factors to be considered are the
+
+bona fides of the expressed intent to comply, the effectiveness of the discontinuance [of the viola-
+
+tion] and, in some cases, the character of the past violations.” Id. (alteration in original) (quoting
+
+United States v. W.T. Grant Co., 345 U.S. 629, 633 (1953)). Ultimately, courts should be sparing
+
+with equitable relief, as “only a rare instance of agency delinquency in meeting its duties” under
+
+the FOIA statute “will warrant a prospective injunction.” CREW II, 846 F.3d at 1246.
+
+       The Court will deny without prejudice both parties’ motions for summary judgment and
+
+allow them to renew them on an updated factual record. The record before the Court does not—
+
+at least not yet—support any relief that CREW requests to address the processing delays it has
+
+shown. No doubt, widespread delay has followed the closure of the CDC FOIA office and subse-
+
+quent rerouting of requests to the OS FOIA office. But even if that delay does not result from
+
+“exceptional circumstances,” it appears to show signs of abating as the initial friction from
+
+                                                 15
+      Case 1:25-cv-01020-TJK           Document 57        Filed 03/31/26      Page 16 of 31
+
+
+
+
+reorganizing HHS’s FOIA structure dissipates. And it is hard to tell how much the closure of the
+
+CDC FOIA office has increased delay times at all, given that FOIA processing times even before
+
+April 1, 2025, were often far outside of statutory timelines.5 Still, the Court recognizes that sum-
+
+mary judgment may be warranted for CREW on an updated record, depending on what it shows.6
+
+       To begin, the record does reveal a pattern of delayed response since Defendants’ closure
+
+of the CDC FOIA office on April 1, 2025. CREW has amassed a formidable parade of declarations
+
+all stating the same thing: that responses to FOIA requests made for CDC records in the wake of
+
+April 1 were delayed by months, and that inquiries regarding those FOIA requests have been stone-
+
+walled for various technological and staffing reasons. CREW alleged in a declaration that by July
+
+17, 2025, CREW had received no correspondence at all from Defendants on three of their five
+
+FOIA requests made on April 1. ECF No. 33-2 ¶¶ 1–5. In a supplemental declaration filed on
+
+October 21, 2025, CREW added that for subsequent FOIA requests filed on May 21 and June 25,
+
+Defendants did not send an acknowledgment until September 2, and the response was merely to
+
+
+
+       5
+         There is no dispute that Defendants failed to respond with a determination to CREW’s
+five specific FOIA requests within the statutory timelines, so CREW is properly in court. See ECF
+No. 43-1 ¶ 29.
+       6
+          Courts in this Circuit regularly deny cross-motions for summary judgment without prej-
+udice in FOIA cases to allow for further factual development. See, e.g., Jud. Watch, Inc. v. Dep’t
+of the Navy, 25 F. Supp. 3d 131, 134 (D.D.C. 2014) (Jackson, J.) (denying cross-motions without
+prejudice “[b]ecause the Court finds that it lacks sufficient information to determine” the contested
+FOIA issue); Ctr. for Pub. Integrity v. U.S. Dep’t of Energy, 393 F. Supp. 86, 93 (D.D.C. 2019)
+(denying cross-motions without prejudice because “the Court has no basis to determine whether,
+or to what extent” either party prevails on the contested FOIA issue); 100Reporters v. U.S. Dep’t
+of State, 602 F. Supp. 3d 41, 67 (D.D.C. 2022) (denying cross-motions without prejudice because
+“it is premature for the Court to pass on” a contested FOIA issue); see also Farahi v. FBI, 153
+F.4th 1283, 1285, 1287 (D.C. Cir. 2025) (affirming the district court, which had denied summary
+judgment without prejudice before later granting summary judgment on a fuller record). Doing so
+properly balances the requirements for a grant of summary judgment, see Fed. R. Civ. P. 56, with
+the fact that “FOIA cases typically and appropriately are decided on motions for summary judg-
+ment.” Am. Immigr. Council v. DHS, 30 F. Supp. 3d 67, 72 (D.D.C. 2014) (citations omitted).
+
+
+                                                 16
+      Case 1:25-cv-01020-TJK          Document 57       Filed 03/31/26      Page 17 of 31
+
+
+
+
+ask for more time to respond. See ECF No. 47-1 ¶¶ 9–16; id. at 52–72. The supplemental decla-
+
+ration also clarified that various CDC FOIA tracker webpages were broken, preventing CREW
+
+from “reviewing the status of its pending requests.” Id. ¶¶ 27–28; id. at 84–131.
+
+       Other organizations that have submitted FOIA requests to the CDC since April 1 report
+
+experiencing similar delays. An employee at the ACLU declared on October 16, 2025 that despite
+
+a grant of expedited processing for a FOIA request made on February 7 and a promise that a “final
+
+response” could be reasonably anticipated by May 4, the CDC had sent no further correspondence
+
+in the eight months since. ECF No. 47-9 ¶¶ 1–8. Counsel at the Sierra Club declared on October
+
+20, 2025 that she had received an acknowledgment of receipt on July 30 for a FOIA request made
+
+on April 1, but nothing more. ECF No. 47-5 ¶¶ 6–8. An employee at the Democracy Forward
+
+Foundation declared on October 14, 2025 that Defendants had not yet assigned a tracking number
+
+to the Foundation’s FOIA request to the CDC made on April 25. ECF No. 47-8 ¶ 20. An employee
+
+at American Oversight declared on October 17, 2025 that “American Oversight has received only
+
+acknowledgment letters from CDC since April 1, 2025, but has had no substantive communica-
+
+tions with CDC regarding any submitted FOIA requests”; in fact, “for the 12 requests submitted
+
+after April 1, 2025, American Oversight has received . . . no communications at all” for five. ECF
+
+No. 47-2 ¶¶ 7, 30. An employee at the Union of Concerned Scientists declared on October 17,
+
+2025 that the Union filed a FOIA request with the CDC on March 11 and received an acknowl-
+
+edgment letter and tracking number on March 27, but then received no further correspondence for
+
+months. ECF No. 47-7 ¶¶ 1–5; see ECF No. 26-6 ¶ 5. The silence was broken by an August 13
+
+email from the HHS FOIA Public Liaison that informed the Union that the agency “has a backlog
+
+of approximately 7,000 requests and limited resources” and that “it will take at least four more
+
+months” before a final response could be issued on the Union’s March 11th FOIA request; no
+
+further update has since been given. ECF No. 47-7 ¶¶ 5–8. Defendants largely do not contest the
+
+                                               17
+      Case 1:25-cv-01020-TJK           Document 57        Filed 03/31/26     Page 18 of 31
+
+
+
+
+contents of most of these declarations. See ECF No. 43-3 ¶¶ 51–54 (confirming Sierra Club,
+
+American Oversight, and Union of Concerned Scientists’ experiences); ECF No. 44-1 ¶¶ 96–99
+
+(same).
+
+          The near silence from Defendants on FOIA requests has been particularly difficult to han-
+
+dle, these organizations say, because other windows for contacting Defendants were apparently
+
+boarded up for some time. “[M]ultiple attempts” from the Democracy Forward Foundation to
+
+reach Defendants in the months between April and October failed: emails to the CDC and HHS
+
+addresses “received no response”; the CDC FOIA portal could not be used because the Foundation
+
+was “unable to access [its] account” and could not reset its password because CDC failed to send
+
+the reset “verification email”; and phone calls placed to “the publicly listed phone line for HHS’s
+
+main FOIA” were rebuffed with “an automated message stating that this phone number has been
+
+disconnected.” ECF No. 47-8 ¶¶ 20–25. An employee at Knowledge Ecology International states
+
+that she reached out to both the CDC FOIA email and the HHS FOIA Public Liaison on September
+
+26, 2025, and was met solely with automatic-reply emails. ECF No. 47-3 ¶¶ 5–8. The Union of
+
+Concerned Scientists reports the same experience of trying and failing to reach someone within
+
+the CDC or HHS during these months. ECF No. 47-7 ¶¶ 4, 6.
+
+          This period of unresponsiveness is unsurprising given the apparent turmoil within HHS
+
+after April 1, 2025. Internal emails from William H. Holzerland, the HHS employee “responsible
+
+for supervising the handling of all FOIA matters and litigations received by [OS-FOIA],” ECF No.
+
+43-3 ¶ 1, reveal that OS FOIA “received zero advance notice” that various HHS OpDiv FOIA
+
+offices would be closing on April 1. ECF No. 47-1 ¶ 6. At the time, OS FOIA did “not yet have
+
+access to existing CDC/NIH/FDA requests” as a technological matter. Id. Understandably, then,
+
+it was “clear” in early April to HHS FOIA staff that “there will be widespread, significant service
+
+delays across nearly every HHS OpDiv FOIA program” in the near term. Id. Apart from
+
+                                                 18
+      Case 1:25-cv-01020-TJK          Document 57        Filed 03/31/26      Page 19 of 31
+
+
+
+
+technological problems, OS FOIA also recognized that without “additional personnel or funding
+
+. . . dedicated to the absorption of existing HHS FOIA programs,” the new practice of funneling
+
+all HHS FOIA requests to OS FOIA would swell the amount of “statutorily-mandated daily work
+
+and litigation” to a level “far beyond the capacity of the current OS FOIA team.” Id.
+
+       That said, what the record does not show is that these extensive delays have persisted to
+
+the present day. The last round of declarations from CREW date back to October 2025, about six
+
+months ago. And Defendants provide reasons to think that many delays in the first several months
+
+after the closure of the CDC FOIA office resulted from temporary difficulties that have now im-
+
+proved and will continue to improve over time. For example, Holzerland at OS FOIA declares
+
+that “the OS FOIA system that existed as of April 1, 2025 ended on August 30, 2025,” and that
+
+“as of September 3, 2025,” FOIA requests are finally “managed by OS-FOIA personnel” in an
+
+integrated “information technology environment.” ECF No. 43-3 ¶ 11. Defendants are making
+
+further technological changes that they believe will streamline access to disclosed records, such as
+
+by implementing a “centralized” portal for accessing required disclosures and “incorporat[ing]
+
+artificial intelligence (AI) tools into the initial review of FOIA-responsive records.” ECF No. 50-
+
+1 ¶¶ 17–18. Additionally, after the April 1 closure, HHS received authorization to “hire ten (10)
+
+additional staff members to strengthen FOIA operations.” Id. ¶ 19. Hiring was temporarily sty-
+
+mied because of the government shutdown that occurred between October 1, 2025 to November
+
+12, 2025, see id. ¶ 14, but nothing in the record suggests that OS FOIA has not used this authori-
+
+zation since November.7
+
+       The current record also does not allow the Court to conclude how much of the delay today
+
+
+
+       7
+        The government shutdown also means that any lack of response between October 1, 2025
+and November 12, 2025 would not result from Defendants’ policies, but the shutdown itself. ECF
+No. 50-1 ¶ 14.
+
+                                                19
+      Case 1:25-cv-01020-TJK          Document 57        Filed 03/31/26    Page 20 of 31
+
+
+
+
+is historically abnormal for HHS. Even before the closure of the CDC FOIA office, determinations
+
+for requests were delayed for extended periods of time. A declaration from White Coat Waste, for
+
+example, states that it submitted a FOIA request on January 2, 2025, clarified the scope of the
+
+request on January 14, 2025—and then did “not receive[] any additional communication from
+
+Defendants” through July 2025 despite the fact that the “CDC’s deadline to issue an initial deter-
+
+mination on this request was January 31, 2025.” ECF No. 33-5 ¶¶ 7–10. The first four months of
+
+that delay cannot be attributed to the closure of the CDC FOIA office, because that portion pre-
+
+dates the closure. More extreme is a FOIA request submitted by Knowledge Ecology International
+
+on September 29, 2023, that was apparently ignored for the entire year and a half before April 1,
+
+2025. ECF No. 33-4 ¶ 14. To be sure, the Court does not excuse the apparent failure to process
+
+that request. But the point is: whatever happened cannot be blamed on the later-implemented
+
+policy of closing the CDC FOIA office.
+
+       Finally, the record shows—and CREW does not dispute—that OS FOIA is making pro-
+
+gress on some FOIA requests. For the five FOIA requests submitted by CREW on April 1, 2025,
+
+for example, Defendants have “completed processing for four out of the five,” sending three “final
+
+response[] letters . . . on September 30, 2025, and a fourth on December 8, 2025.” ECF No. 55 at
+
+1. As for the fifth, Defendants have “processed [1,783] pages” out of an identified 1,800 as of
+
+February 27, 2026. Id. Holzerland adds that between April 1, 2025, and December 5, 2025, “OS-
+
+FOIA has issued [135] litigation productions, encompassing [64,835] pages reviewed and [51,797]
+
+released,” and is “actively reviewing” another “[100,000] pages of records” that are “responsive
+
+to approximately [700] pending FOIA requests outside of litigation.” ECF No. 50-1 ¶¶ 16–17. Of
+
+the total 135 litigation productions, 19 are “CDC-related,” which required “reviewing at least
+
+[3,989] pages and releasing at least [3,462]” of them. Id. ¶ 16.
+
+       Considered as a whole, the record depicts an agency at least temporarily diminished last
+
+                                                20
+      Case 1:25-cv-01020-TJK          Document 57        Filed 03/31/26      Page 21 of 31
+
+
+
+
+year but plodding on, and holding out the potential for improvement, perhaps even measured
+
+against the status quo before April 1, 2025. To be sure, as CREW points out, any wounds the
+
+agency has suffered to its FOIA processing capacity since April 1, 2025, are self-inflicted. The
+
+Court agrees that it would be perverse if a federal agency could “‘avoid its obligations under
+
+FOIA—including the obligation to process a [records] request in an efficient and prompt manner—
+
+by simply implementing a reduction-in-force’ . . . [of] its FOIA personnel.” ECF No. 35-1 at 8
+
+(quoting Ctr. to Advance Sec. in Am. v. U.S. Agency for Int’l Dev., No. 24-cv-3505 (RDM), 2025
+
+WL 763735, at *2 (D.D.C. Mar. 11, 2025)). For this reason, the Court is skeptical of Defendants’
+
+argument that any delays stemming from the closure of the CDC FOIA office—to the extent they
+
+can be gleaned on this record—are excusable due to the presence of “exceptional circumstances.”
+
+ECF No. 43 at 29; ECF No. 50 at 12–13. Defendants’ attempt to blame exceptional circumstances
+
+that they themselves have created “calls to mind the man sentenced to death for killing his parents,
+
+who pleads for mercy on the ground that he is an orphan.” Glossip v. Gross, 576 U.S. 863, 898
+
+(2015) (Scalia, J., concurring).
+
+       Still, the Court will deny without prejudice both parties’ motions for summary judgment,
+
+because on the mixed, stale, and incomplete record before it, CREW is not entitled to the sort of
+
+injunctive relief to address these delays that it requests. Even when an agency is “failing to con-
+
+form to FOIA’s procedural requirements,” that failure is not itself enough to “warrant injunctive
+
+relief” beyond “ordinary remedies, such as a production order.” Wash. Lawyers’ Comm. for C.R.
+
+& Urb. Affs. v. DOJ., 145 F.4th 63, 70 (D.C. Cir. 2025) (quoting Jud. Watch, 895 F.3d at 783).
+
+Instead, the agency’s conduct must “demonstrate[] a lack of due diligence” and be “so delinquent
+
+or recalcitrant” that judicial intervention is necessary. Id. The record does not now support that
+
+conclusion, although an updated factual record may, depending on what it shows about how
+
+
+
+
+                                                21
+      Case 1:25-cv-01020-TJK          Document 57        Filed 03/31/26      Page 22 of 31
+
+
+
+
+Defendants have met—or failed to meet—their FOIA obligations as more time has passed.8
+
+       That this standard is not met now is illustrated by the fact that on this record, both sides
+
+have some semblance of a story to tell. True, “staffing shortages and work overload”—especially
+
+those self-inflicted—“may not render injunctive relief inappropriate.” Jud. Watch, 895 F.3d at
+
+783. But the Court need not be blind to the “practical impossibility” that agencies face when
+
+attempting to comply with FOIA’s tight deadlines. CREW I, 711 F.3d at 189 (cleaned up). As
+
+described above, after the closure of the CDC FOIA office under the President’s “Workforce Op-
+
+timization Initiative” Executive Order, Defendants have shown an intent to comply with FOIA
+
+requests, have taken concrete technological and staffing steps to improve response times, and have
+
+been working to reduce the backlog, including by processing thousands of pages of records for
+
+CREW’s requests. Indeed, when the Court denied CREW’s motion for a preliminary injunction
+
+in June 2025, it remarked that “the record shows that HHS is doing something to process FOIA
+
+requests as part of its centralization effort,” and that “CREW exaggerates when it says that ‘De-
+
+fendants have established no alternative system to receive and process FOIA requests.’” ECF No.
+
+29 at 19 (quoting ECF No. 13-1 at 47).
+
+       CREW has—justifiably—complained of growing pains as Defendants have tried to con-
+
+solidate, streamline, and update their FOIA processing system.9 But as Defendants point out,
+
+
+       8
+          Defendants overreach when they argue that “[a]n agency’s ultimate success on a policy-
+or-practice claim will turn on whether it can establish ‘good faith effort and due diligence’ in
+responding to requests.” ECF No. 43 at 53 (quoting Jud. Watch, 895 F.3d at 783). “Nothing in
+FOIA suggests that a plaintiff in a FOIA policy or practice case must affirmatively demonstrate
+that the agency is acting in bad faith to survive summary judgment. . . . [a]n agency may be ‘de-
+linquent or recalcitrant’ in meeting its FOIA obligations without rising to the level of bad faith.”
+Wash. Lawyers’ Comm., 145 F.4th at 70 (quotations omitted).
+       9
+         An example of a growing pain is Defendants’ assertion, at least as of September 2025,
+that “unusual circumstances” exist for every FOIA request for CDC records, providing them a 10-
+day extension for all determinations. See ECF No. 47-1 ¶ 15. The asserted “unusual circumstance”
+
+
+                                                22
+      Case 1:25-cv-01020-TJK          Document 57        Filed 03/31/26      Page 23 of 31
+
+
+
+
+“[t]here is no requirement that government be ossified and unchanging.” ECF No. 43 at 15. One
+
+of the lessons from the D.C. Circuit’s FOIA precedents is that FOIA’s worthy goal of “pierc[ing]
+
+the veil of administrative secrecy,” Rose, 425 U.S. at 361, must be tempered by practical re-
+
+strictions—a balance recognized within the statute’s text, see, e.g., Open America, 547 F.2d at
+
+610–12; CREW I, 711 F.3d at 189 & n.8. Another lesson: courts should hesitate to grant relief
+
+beyond individual production orders, or else they may cause “the regulation of [FOIA] priorities
+
+in all agencies . . . [to] become the function of the courts.” Open America, 547 F.2d at 615; see
+
+also CREW II, 846 F.3d at 1246. The Court’s decision to deny both motions without prejudice
+
+reflects those lessons. That said, the Court will carefully consider any updated information that
+
+CREW and Defendants provide to it about Defendants’ more recent compliance—or lack
+
+thereof—with their FOIA obligations, along with any renewed motions for summary judgment.
+
+                       b.     Violations of Additional FOIA Provisions
+
+       Along with additional delay in processing specific requests, CREW alleges that the closure
+
+of the CDC FOIA office has resulted in violations of the “reading room,” “status update,” and
+
+“system guide” provisions of FOIA. See ECF No. 31 ¶¶ 84a, d, e (citing 5 U.S.C. §§ 552(a)(2),
+
+(a)(7), and (g)). Under these provisions, agencies must “make available for public inspection”
+
+certain “administrative staff manuals” and copies of released records likely to be subject to repeat
+
+requests. § 552(a)(2). Agencies must also create systems to assign “individualized tracking num-
+
+ber[s]” to requests and establish methods for communicating with requesters. § 552(a)(7). And
+
+the “head of each agency shall prepare and make available for public inspection in an electronic
+
+
+is that the requested records “require a search in another office.” ECF No. 43-1 ¶ 33. While this
+may be accurate, the reason CDC records are in another office from where FOIA requests are
+processed is because OS FOIA is now handling the requests for CDC records. See ECF No. 35-1
+at 35. The temporary use of this “unusual circumstances” extension is not necessarily unreasona-
+ble as a stopgap. But if invoked permanently, it could be a sign of the sort of delinquency and
+recalcitrance that warrants judicial intervention.
+
+                                                23
+      Case 1:25-cv-01020-TJK          Document 57        Filed 03/31/26      Page 24 of 31
+
+
+
+
+format, reference material or a guide for requesting records.” § 552(g). For much the same reasons
+
+as above, the Court will also refrain for now from granting relief on the basis of any violations of
+
+these requirements.
+
+       To begin, CREW appears to have dropped any argument related to the “status update” and
+
+“system guide” statutory provisions. CREW mentions the former once in passing in its motion for
+
+summary judgment, see ECF No. 35-1 at 41, and never mentions the latter. Nor do the two come
+
+up again in later filings. In fact, CREW’s own filings appear to suggest that OS FOIA’s system is
+
+now capable of “assign[ing] an individualized tracking number,” contrary to what it alleges in the
+
+amended complaint, ECF No. 31. § 552(a)(7). In a declaration, CREW stated that it submitted
+
+two FOIA requests in September 2025 “through the HHS FOIA Public Access Link Portal” and
+
+received “automated email[s]” that assigned tracking numbers without any difficulty. ECF No.
+
+47-1 ¶¶ 18–19. For these reasons, the Court does not address any possible violation of §§ 552(a)(7)
+
+and (g).
+
+       That leaves the reading-room requirement under § 552(a)(2). The record on Defendants’
+
+compliance with this provision is muddled. In October, CREW asserted in a declaration that “[t]he
+
+CDC FOIA reading-room website is no longer online.” ECF No. 47-1 ¶ 20. Defendants counter
+
+that § 552(a)(2) only requires the “agency” to have a reading room, and “[b]ecause of the FOIA
+
+reorganization” all reading-room disclosures will be through OS FOIA, and “[c]ontent that might
+
+otherwise have been posted to the former CDC-FOIA website will be posted to HHS.gov.” ECF
+
+No. 43-3 ¶ 95. Defendants add that HHS is now making “proactive disclosures” per the reading-
+
+room requirement and was planning to create a “centralized” portal for all disclosures, including
+
+reading-room disclosure, by the “end of December 2025.” ECF No. 50 at 12. CREW retorts that
+
+it is “likely” that most or all of Defendants’ reading-room disclosures in the months after April
+
+were for “non-CDC records” from other divisions of HHS but cannot say so for sure. ECF No.
+
+                                                24
+      Case 1:25-cv-01020-TJK           Document 57        Filed 03/31/26      Page 25 of 31
+
+
+
+
+48-1 ¶ 47. Neither party has provided any information what has occurred since the calendar turned
+
+to 2026.
+
+       Once again, the Court will deny without prejudice both motions for summary judgment as
+
+to these other FOIA provisions because CREW has not—at least not yet—shown that any of the
+
+relief it seeks is warranted. On this record, no clear picture emerges of the current state of De-
+
+fendants’ webpages and what types of records have been uploaded online. Like the processing
+
+delays discussed above, it appears that the difficulties with centralizing and updating HHS’s read-
+
+ing room may be abating as OS FOIA’s technological capacity grows and CDC records are mi-
+
+grated over. So right now, the Court cannot say that this is the “rare instance of agency delinquency
+
+in meeting its duties under the reading-room provision” that warrants equitable relief. CREW II,
+
+846 F.3d at 1246.
+
+                       c.      Violations of FOIA Regulations
+
+       The only additional basis for CREW’s FOIA policy-or-practice claim is HHS’s own regu-
+
+lations. CREW alleges that Defendants’ policy of closing the CDC FOIA office and rerouting
+
+requests to OS FOIA “violate[s] HHS regulations providing that the department’s FOIA operations
+
+are intentionally decentralized, and that HHS divisions therefore have separate FOIA offices, op-
+
+erations, programs, and officials, each responsible for their own FOIA work.” ECF No. 31 ¶ 85
+
+(citing 45 C.F.R. §§ 5.2(b), 5.3, 5.23(a), 5.25); see also id. ¶ 23 (mentioning that 45 C.F.R.
+
+§ 75.322(e), the “research-data” provision, assumes the existence of separate FOIA divisions).
+
+       Although it is unclear if CREW relies on this theory as a basis for summary judgment on
+
+Count II, the theory gets it nowhere. A policy-or-practice claim can be raised for an agency’s
+
+systemic “failure to abide by the terms of the FOIA.” Payne, 837 F.2d at 491 (emphasis added).
+
+That is, a policy-or-practice claim must be based on a violation of the FOIA statute itself—not just
+
+on a violation of agency FOIA regulations. To be sure, at times a regulation is coextensive with
+
+
+                                                 25
+       Case 1:25-cv-01020-TJK          Document 57        Filed 03/31/26      Page 26 of 31
+
+
+
+
+its statute, making a violation of the regulation and a violation of the statute one and the same. See
+
+Alexander v. Sandoval, 532 U.S. 275, 284 (2001). But often, regulation will require what statute
+
+does not, and in those cases, a violation of the former will not suffice to show a violation of the
+
+latter. See id. at 285.
+
+        The gap between regulation and statute was highlighted in Newport Aeronautical Sales v.
+
+Dep’t of Air Force, 684 F.3d 160 (D.C. Cir. 2012). In that case, the plaintiff—Newport—claimed
+
+that the Air Force had a policy or practice of “refus[ing] to disclose non-critical information
+
+. . . contrary to FOIA.” Id. at 163. In response, the Air Force argued that it was properly with-
+
+holding under FOIA Exemption 3, which permits agencies to withhold records “specifically ex-
+
+empted from disclosure by statute.” Id. at 164 (citing 5 U.S.C. § 552(b)(3)). The agency relied
+
+on 10 U.S.C. § 130(a) as its Exemption 3 statute, which permitted it to withhold “technical data
+
+with military or space application,” with some caveats. Id. at 165. Newport argued that whatever
+
+the application of § 130(a), it was entitled to judgment on its FOIA policy-or-practice claim be-
+
+cause the Air Force’s withholding of non-critical records violated Directive 5230.25, an infor-
+
+mation-disclosure regulation that only permitted the Air Force to withhold “critical technology”—
+
+a narrower set of records. Id. at 167. This regulatory violation, Newport contended, violated
+
+FOIA’s disclosure requirement. The D.C. Circuit rejected this argument, explaining that “it is not
+
+enough for Newport to show that the Air Force’s policy violates 5230.25. It must also demonstrate
+
+that the policy violates FOIA.” Id. This, Newport could not do. Id. at 168.
+
+        Much like Newport, CREW claims that, even if HHS has not violated the FOIA statute,
+
+the closure of the CDC FOIA office violated agency regulations. As CREW points out, HHS has
+
+indeed promulgated regulations that describe its FOIA operations as “decentralized.” ECF No. 31
+
+¶ 24 (quoting 45 C.F.R. § 5.3). As part of that decentralization, the regulations require, among
+
+other things, “that each HHS ‘Operating Division,’ including CDC . . . has its own ‘respective’
+
+                                                 26
+      Case 1:25-cv-01020-TJK          Document 57        Filed 03/31/26      Page 27 of 31
+
+
+
+
+FOIA ‘officials,’ ‘operations,’ and ‘programs’” and “maintain[] its own reading-room website.”
+
+Id. ¶¶ 21, 23. But these requirements, like Directive 5230.25 in Newport, are found nowhere in
+
+FOIA itself, and CREW—rightly—does not argue that HHS’s self-imposed decentralization is
+
+statutorily required. So “even assuming arguendo that [HHS] is violating [45 C.F.R. §§ 5.2(b),
+
+5.3, 5.23(a), 5.25]” in reorganizing its internal FOIA structure, “that practice does not violate
+
+FOIA.” Newport, 684 F.3d at 168. And it is only a “failure to abide by the terms of the FOIA”
+
+that will support a policy-or-practice claim. Payne, 837 F.2d at 491.
+
+       To be sure, an agency must ordinarily comply with its own regulations. See United States
+
+ex rel. Accardi v. Shaughnessy, 347 U.S. 260, 266–67 (1954). But an agency’s compliance with
+
+its own regulations is enforceable through the APA, if it is enforceable at all—something CREW
+
+appears to recognize, given that for the most part, it houses its regulatory arguments exclusively
+
+under the APA section of its motion for summary judgment. See ECF No. 35-1 at 45–50.10
+
+       For all these reasons, the Court will deny without prejudice both CREW and Defendants’
+
+motions for summary judgment on Count II.
+
+       C.      The Court Will Grant Defendants’ Motion to Dismiss Count III Because
+               CREW Fails to State a Claim
+
+       CREW seeks relief for all the same reasons under the APA as it does under FOIA. See
+
+ECF No. 31 ¶¶ 88–94; ECF No. 35-1 at 45–50. But far from needing any fact-intensive review of
+
+
+
+       10
+            Moreover, not everything an agency publishes in the Federal Register about its opera-
+tions are binding regulations. See Cmty. Nutrition Inst. v. Young, 828 F.2d 943, 947 n.8 (D.C. Cir.
+1987). “It is beyond question that many such statements [about an agency’s own operations] are
+non-binding in nature and would thus be characterized by a court as interpretative rules or policy
+statements.” Id. at 949. Here, the provisions that HHS allegedly violated are either lists of defi-
+nitions, see 45 C.F.R. § 5.3 (titled “Definitions”), or appear to be FAQ-style guidance for the pub-
+lic, see, e.g., id. § 5.23 (titled “Where do I send my FOIA request?”). Given their language, it is
+unclear to the Court to what extent HHS could be held liable for violating such provisions—even
+if it was violating them, and even if CREW could bring a policy-or-practice claim based only on
+a violation of a regulation.
+
+                                                27
+      Case 1:25-cv-01020-TJK          Document 57        Filed 03/31/26        Page 28 of 31
+
+
+
+
+the record on summary judgment, the Court will dismiss CREW’s APA claim for failure to state
+
+a claim.
+
+       The APA provides judicial review only for “final agency action for which there is no other
+
+adequate remedy in a court.” 5 U.S.C. § 704. Though the APA was meant to “provid[e] a broad
+
+spectrum of judicial review of agency action,” it “does not provide additional judicial remedies in
+
+situations where the Congress has provided special and adequate review procedures.” Bowen v.
+
+Massachusetts, 487 U.S. 879, 903 (1988) (quotation omitted). Thus, “[w]hen considering whether
+
+an alternative remedy is ‘adequate’ and therefore preclusive of APA review,” courts must “look
+
+for ‘clear and convincing evidence’ of ‘legislative intent’ to create a special, alternative remedy
+
+and thereby bar APA review.” CREW II, 846 F.3d at 1244 (quoting Garcia v. Vilsack, 563 F.3d
+
+519, 523 (D.C. Cir. 2009)). “Succinctly put, where a statute affords an opportunity for de novo
+
+district-court review, . . . APA review [is] precluded because ‘Congress did not intend to permit a
+
+litigant . . . to utilize simultaneously both [the review provision] and the APA.’” El Rio Santa
+
+Cruz Neighborhood Health Ctr., Inc. v. HHS, 396 F.3d 1265, 1270 (D.C. Cir. 2005) (quoting Env’t.
+
+Def. Fund v. Reilly, 909 F.2d 1497, 1501 (D.C. Cir. 1990)). Importantly, the other review provi-
+
+sion need not provide “identical” relief to be “adequate”; it must only offer relief “of the same
+
+genre.” Vilsack, 563 F.3d at 522 (internal citation and quotations omitted).
+
+       The D.C. Circuit has already concluded that FOIA precludes APA review in a similar case
+
+with a similar claim. In that other case, CREW brought an APA claim against the Office of Legal
+
+Counsel, “challenging as arbitrary, capricious, and contrary to law [the agency’s] purported failure
+
+to meets its disclosure obligations under FOIA’s reading-room requirements.” CREW II, 846 F.3d
+
+at 1240 (citing 5 U.S.C. § 552(a)(2)). It sought an injunction that “would apply prospectively,”
+
+“impose an affirmative obligation to disclose” certain documents “regardless of whether someone
+
+specifically request[ed] a given document,” “mandate that the agency make documents available
+
+                                                28
+      Case 1:25-cv-01020-TJK           Document 57        Filed 03/31/26      Page 29 of 31
+
+
+
+
+to the public, as opposed to just CREW,” and “make available to the public an index of all such
+
+documents.” Id. The Circuit determined that CREW’s APA claim was precluded, for “FOIA
+
+offer[ed] an ‘adequate remedy’ within the meaning of section 704, as it exhibits all of the indicators
+
+. . . [of] Congressional intent.” Id. at 1245. The statute “contains an express private right of ac-
+
+tion,” provides for de novo review, and permits suits “to enforce the reading-room provision” that
+
+was at issue. Id. All of this reflected “a carefully balanced scheme of public rights and agency
+
+obligations” that would be upset if the APA were added to the scales. Id. (quoting Kissinger v.
+
+Reps. Comm. for Freedom of the Press, 445 U.S. 136, 150 (1980)).
+
+       Notably, the Circuit held that an APA claim was precluded even though CREW sought an
+
+injunction broader in scope than what it could obtain under FOIA. “[C]ourts lack authority under
+
+FOIA to order agencies to make records available for public inspection”; they can only issue pro-
+
+spective injunctions ordering disclosure of records to the requester alone. CREW II, 846 F.3d at
+
+1246 (cleaned up). But “despite some mismatch,” the important part was that under FOIA,
+
+“CREW itself [could] gain access to all the records it seeks,” and that was adequate in light of
+
+what CREW ultimately wanted—for the agency to comply with FOIA’s requirements and disclose
+
+documents. Id.
+
+       CREW is in the materially same position here. Like before, it brought an APA claim that
+
+piggybacks on an alleged underlying FOIA violation. ECF No. 31 ¶¶ 90a–f. Like before, it did
+
+so to compel the agency to comply with FOIA’s requirements and disclose documents (as well as,
+
+in this case, to disclose them faster). Id. at 26–27. Like before, the FOIA statute provides a private
+
+right of action for CREW to seek de novo review for the offending agency’s alleged legal viola-
+
+tions. Indeed, CREW has availed itself of that private right of action here, as reflected above.
+
+There is no reason for CREW’s second attempt at this argument to go any differently than the first.
+
+       In response, CREW contends that “APA review is available because APA relief would
+
+                                                 29
+      Case 1:25-cv-01020-TJK         Document 57        Filed 03/31/26     Page 30 of 31
+
+
+
+
+provide CREW with a different ‘genre’ of remedy from FOIA remedies.” ECF No. 35-1 at 46
+
+(quoting El Rio Santa Cruz, 396 F.3d at 1272). It argues that the APA would permit the Court to
+
+“set aside” the closure of the CDC FOIA office, which would be relief that is “distinct from . . .
+
+the downstream impact of that APA violation on the processing of CREW FOIA requests.” Id. at
+
+47; see also ECF No. 47 at 35 (“CREW and Defendants are not disputing whether particular rec-
+
+ords can be withheld,” but are instead disputing “the wholesale elimination of an agency’s FOIA
+
+function”). And it argues that this “set aside” relief—which would operate upstream of any spe-
+
+cific records request—was not present in CREW II, making that case distinguishable. ECF No. 47
+
+at 34–35 (citing CREW II, 846 F.3d at 1238–39).
+
+       CREW is right that setting aside HHS’s CDC FOIA office closure would indeed be a rem-
+
+edy unavailable under FOIA. But CREW’s arguments misunderstand what makes an alternative
+
+remedy “adequate.” The question is whether Congress intended claims like CREW’s to be chan-
+
+neled into the procedure laid out by FOIA. See Bowen, 487 U.S. at 903. The answer is yes—
+
+because, despite the different wrapper, CREW’s APA claim fundamentally seeks to redress the
+
+same injury as its FOIA claim. This is obvious from CREW’s own filings. CREW asserts that the
+
+closure of the CDC FOIA office harms CREW “by depriving CREW of basic access to agency
+
+records”—precisely what FOIA was meant to address. ECF No. 47 at 32. In its amended com-
+
+plaint, CREW pleads the exact same legal violations to support its FOIA and APA claims. Com-
+
+pare ECF No. 31 ¶¶ 84a–f, with id. ¶¶ 90a–f. Unsurprisingly, CREW also represents that its
+
+“[FOIA] policy-or-practice and APA claims are linked.” ECF No. 39 at 20 n.8. And because
+
+Congress gave courts “broad equitable authority” to issue “prospective injunctive relief” under
+
+FOIA, there is “no yawning gap between the relief FOIA affords and the relief CREW seeks under
+
+the APA.” CREW II, 846 F.3d at 1241–42, 1246. If such a gap existed—if, for example, the non-
+
+APA statutory remedy offered only monetary relief—it might be inferred that Congress did not
+
+                                               30
+       Case 1:25-cv-01020-TJK           Document 57      Filed 03/31/26      Page 31 of 31
+
+
+
+
+intend such a statute to supplant the APA and its authority to grant broad prospective relief. See
+
+Bowen, 487 U.S. at 905 & n.42. But no such gap exists. CREW recognizes as much by alleging
+
+in its amended complaint that it “seeks relief under the APA” only “[t]o the extent the Court finds
+
+that FOIA does not authorize relief.” ECF No. 31 ¶ 94. It seems evident, then, that CREW un-
+
+derstands that the two statutes offer overlapping relief within the same genre. The remedy offered
+
+by FOIA is plainly “adequate” for a plaintiff in CREW’s shoes. So as before, CREW cannot sue
+
+under the APA.
+
+       For these reasons, the Court will grant Defendants’ motion to the extent that it seeks to
+
+dismiss Count III for failure to state a claim.
+
+III.   Conclusion
+
+       For all these reasons, the Court will deny Defendants’ motion to dismiss Count II, deny
+
+without prejudice both parties’ motions for summary judgment on Count II, and grant Defendants’
+
+motion to dismiss Count III for failure to state a claim. The Court will also require the parties to
+
+inform the Court how they wish to proceed with respect to Count II in their joint status report due
+
+on April 28, 2026. A separate order will issue.
+
+
+                                                             /s/ Timothy J. Kelly
+                                                             TIMOTHY J. KELLY
+                                                             United States District Judge
+Date: March 31, 2026
+
+
+
+
+                                                  31
+

@@ -1,0 +1,812 @@
+               IN THE UNITED STATES BANKRUPTCY COURT
+                FOR THE MIDDLE DISTRICT OF TENNESSEE
+                         NASHVILLE DIVISION
+
+
+
+ IN RE:                                       Case No. 3:19-bk-07235
+                                              Chapter 7
+ CUMMINGS MANOOKIAN, PLLC                     Judge Walker
+
+       Debtor.                                Adv. Proc. No. 3:23-ap-90036
+
+ BRIAN CUMMINGS,
+
+       Plaintiff,
+
+ v.
+
+ BRETTON KEEFER, JEANNE
+ BURTON, and AFSOON HAGH
+
+       Defendants.
+
+
+
+                       DEFENDANT AFSOON HAGH’S
+                      MEMORANDUM IN SUPPORT OF
+                     MOTION FOR SUMMARY JUDGMENT
+
+
+                               I. INTRODUCTION
+
+      This adversary proceeding represents a legally baseless attempt by a former
+
+attorney, Plaintiff Brian Cummings, to recover attorney’s fees from a case he
+
+voluntarily abandoned years prior to its settlement. The Plaintiff has sued the
+
+wrong party, under a contract that bars his recovery, supported by a record
+
+completely devoid of evidence. The Plaintiff’s claims against Defendant Afsoon
+
+Hagh fail at every level of legal scrutiny—procedural, statutory, and contractual.
+
+
+
+
+                                          1
+Case 3:23-ap-90036   Doc 57    Filed 01/23/26 Entered 01/23/26 23:48:03   Desc Main
+                              Document      Page 1 of 17
+      The material facts are stark, documented, and undisputed. Brian Cummings
+
+drafted an engagement letter for the underlying Shoemaker matter that drew a
+
+sharp, dispositive distinction between being "discharged" by a client (which
+
+preserved a right to a quantum meruit fee) and "withdrawing" from representation
+
+(which limited recovery to advanced expenses only). In October 2020, citing
+
+personal friction with co-counsel and the client, Mr. Cummings voluntarily
+
+withdrew. He was not fired. He simply quit. Under the plain language of the
+
+contract he wrote, his right to a fee was extinguished the moment he walked away.
+
+      Furthermore, Mr. Cummings has misdirected his claims against Afsoon
+
+Hagh in her individual capacity. Yet, Ms. Hagh was not his client, nor was she a
+
+party to his engagement agreement. She practiced law through Hagh Law PLLC, a
+
+separate legal entity formed under Tennessee law. Under Tennessee’s Revised
+
+Limited Liability Company Act, Ms. Hagh is personally shielded from the liabilities
+
+of her firm. Mr. Cummings has ignored this fundamental corporate distinction,
+
+just as he has ignored his obligation to prosecute this case. He has conducted zero
+
+discovery—no depositions, no interrogatories, no requests for production. He now
+
+faces summary judgment with a record completely devoid of evidence to support
+
+his claims against Ms. Hagh.
+
+      This Memorandum details why the Court must grant summary judgment:
+
+(1) Ms. Hagh is shielded from personal liability by statute; (2) Mr. Cummings
+
+contractually forfeited his fee by voluntarily withdrawing; (3) the existence of an
+
+express contract bars any unjust enrichment claim; and (4) the Plaintiff has failed
+
+
+                                          2
+Case 3:23-ap-90036   Doc 57    Filed 01/23/26 Entered 01/23/26 23:48:03   Desc Main
+                              Document      Page 2 of 17
+to marshal any evidence to support the essential elements of his case under the
+
+Celotex standard.
+
+
+                          II. STATEMENT OF FACTS
+
+      The following facts are drawn from the pleadings, the attached exhibits, and
+
+the record of proceedings. They are undisputed.
+
+A. The Corporate Structure and Parties
+
+      Afsoon Hagh is an attorney licensed to practice in Tennessee and is a
+
+member of Hagh Law PLLC. She is sued here in her individual capacity. Hagh Law
+
+PLLC is a professional limited liability company organized under the laws of
+
+Tennessee. It is a separate legal entity distinct from its members.
+
+      Brian Cummings ("Plaintiff") is an attorney and former partner of
+
+Cummings Manookian, PLC.
+
+      The legal services at issue were performed in the case Bretton Keefer, on
+
+behalf of the deceased Chesta Shoemaker v. Vanderbilt University Medical
+
+Center, Docket No. 19C358, in the Circuit Court for Davidson County, Tennessee
+
+(the “Shoemaker Matter”).
+
+B. The Cummings Manookian Engagement Agreement (2017)
+
+      In April 2017, Mr. Cummings, on behalf of his then-firm Cummings
+
+Manookian, entered into an Attorney-Client Agreement ("2017 Agreement") with
+
+the client, Bretton Keefer. The 2017 Agreement was drafted by Mr. Cummings.
+
+
+
+
+                                          3
+Case 3:23-ap-90036   Doc 57    Filed 01/23/26 Entered 01/23/26 23:48:03   Desc Main
+                              Document      Page 3 of 17
+The 2017 Agreement contained specific provisions regarding the termination of the
+
+attorney-client relationship. Specifically, it stated:
+
+       Discharge: "You have the right to change attorneys... If you terminate the
+
+representation before the conclusion of the matter, we will additionally be entitled
+
+to receive from the proceeds of any recovery a reasonable fee for the work we have
+
+performed...".
+
+       Withdrawal: "We may choose to withdraw from representing you... A
+
+'withdrawal' by this firm does not relieve you of the responsibility to pay advanced
+
+costs.".
+
+       Crucially, the "Withdrawal" provision did not reserve a right to an
+
+attorney's fee, unlike the "Discharge" provision.
+
+C. Mr. Cummings’ Voluntary Withdrawal
+
+       On October 2, 2020, Brian Cummings sent a letter ("Withdrawal Letter") to
+
+Bretton Keefer and Afsoon Hagh stating, "I am writing to communicate that,
+
+effective today, I am withdrawing as co-counsel in this matter". In the Withdrawal
+
+Letter, Mr. Cummings cited "strained" relationships and "personal conflict" as the
+
+reasons for his withdrawal.
+
+       He stated, "I believe I am ethically required to withdraw... based on your
+
+very recent comments" regarding a fee dispute and a request that the client sign a
+
+new retainer agreement limiting negative online reviews. Mr. Cummings was not
+
+discharged by the client; he initiated the termination of the representation.
+
+
+
+
+                                           4
+Case 3:23-ap-90036    Doc 57    Filed 01/23/26 Entered 01/23/26 23:48:03   Desc Main
+                               Document      Page 4 of 17
+Following his withdrawal, Mr. Cummings filed a "Notice of Attorney's Lien" on
+
+November 27, 2020.
+
+D. The Hagh Law Engagement Agreement (2021)
+
+      On April 26, 2021, a new engagement agreement ("2021 Agreement") was
+
+executed between Hagh Law (represented by Afsoon Hagh) and Edwards
+
+Kirby (represented by John Edwards) and the client, Bretton Keefer. Afsoon Hagh
+
+signed the 2021 Agreement in her capacity as a representative of "Hagh Law," not
+
+in her individual capacity for personal liability. The 2021 Agreement explicitly
+
+identifies the legal counsel as "Hagh Law or Edwards Kirby," establishing privity
+
+between the client and the corporate entities, not Ms. Hagh individually. The 2021
+
+Agreement allocates the contingency fee between Hagh Law and Edwards Kirby. It
+
+does not allocate any fee to Afsoon Hagh personally.
+
+E. Lack of Discovery and Evidence
+
+      The Plaintiff initiated the underlying state court action in March 2022,
+
+which was subsequently removed to this Court. Since the inception of this
+
+litigation, Plaintiff has served no interrogatories on Ms. Hagh. Plaintiff has taken
+
+no depositions of Ms. Hagh or any corporate representative of Hagh Law PLLC.
+
+Plaintiff has served no requests for admission upon Ms. Hagh. There is no evidence
+
+in the record that Ms. Hagh personally, rather than Hagh Law PLLC, retained
+
+custody of the disputed attorney’s fees.
+
+
+
+
+                                          5
+Case 3:23-ap-90036   Doc 57    Filed 01/23/26 Entered 01/23/26 23:48:03   Desc Main
+                              Document      Page 5 of 17
+                         III. STANDARD OF REVIEW
+
+       Summary judgment is the procedural mechanism designed to "pierce the
+
+pleadings and to assess the proof in order to see whether there is a genuine need
+
+for trial." Fed. R. Civ. P. 56 Advisory Committee Notes (1963). Under Federal Rule
+
+of Civil Procedure 56(a), applicable here via Federal Rule of Bankruptcy Procedure
+
+7056, judgment "shall" be granted if the movant shows that there is no genuine
+
+dispute as to any material fact and the movant is entitled to judgment as a matter
+
+of law.
+
+       The Supreme Court’s decision in Celotex Corp. v. Catrett, 477 U.S. 317
+
+(1986), fundamentally shifted the burden in summary judgment proceedings. The
+
+moving party is not required to produce evidence negating the opponent's claim.
+
+Rather, the movant need only demonstrate that the non-moving party has failed to
+
+make a showing sufficient to establish the existence of an element essential to that
+
+party's case, and on which that party will bear the burden of proof at trial. Id. at
+
+322.
+
+       When the non-moving party bears the burden of proof at trial—as Mr.
+
+Cummings does here on his claims of contract breach and unjust enrichment—the
+
+moving party may discharge its burden by "pointing out to the district court... that
+
+there is an absence of evidence to support the nonmoving party's case." Id. at 325.
+
+Once this showing is made, the burden shifts to the non-movant to "go beyond the
+
+pleadings" and designate "specific facts showing that there is a genuine issue for
+
+trial." Id. at 324.
+
+
+                                           6
+Case 3:23-ap-90036    Doc 57    Filed 01/23/26 Entered 01/23/26 23:48:03   Desc Main
+                               Document      Page 6 of 17
+      Tennessee law, which governs the substantive claims in this adversary
+
+proceeding, aligns with the federal standard. In Rye v. Women's Care Center of
+
+Memphis, MPLLC, 477 S.W.3d 235 (Tenn. 2015), the Tennessee Supreme Court
+
+adopted the Celotex standard, overruling prior state precedents that placed a
+
+heavier burden on movants. Under Rye, summary judgment is mandated when the
+
+non-movant's evidence is insufficient to establish an essential element of their
+
+claim. Id. at 264.
+
+      Here, Ms. Hagh asserts that Mr. Cummings cannot prove essential elements
+
+of his claims: (1) that she is personally liable despite the corporate shield; (2) that
+
+he is contractually entitled to a fee despite withdrawing; and (3) that he conferred
+
+a benefit on her individually. Because he has conducted no discovery, he has no
+
+evidence to rebut this assertion, making summary judgment mandatory.
+
+
+                                  IV. ARGUMENT
+
+A.    Afsoon Hagh is not a Proper Party Defendant Under Tennessee’s
+      Revised LLC Act
+
+      The Plaintiff’s decision to sue Afsoon Hagh in her individual capacity is a
+
+fatal legal error. The attorney’s fees at issue were earned by and paid to "Hagh Law
+
+PLLC," a distinct legal entity. Tennessee law provides a robust statutory shield
+
+protecting LLC members from personal liability for the obligations of the entity, a
+
+shield the Plaintiff has failed to pierce.
+
+1. The Statutory Shield of Limited Liability
+
+
+
+
+                                           7
+Case 3:23-ap-90036    Doc 57    Filed 01/23/26 Entered 01/23/26 23:48:03     Desc Main
+                               Document      Page 7 of 17
+      Tennessee’s Revised Limited Liability Company Act (the "Revised Act")
+
+governs Hagh Law PLLC. A foundational principle of the Revised Act is the
+
+distinction between the entity and its members. Tenn. Code Ann. § 48-249-114
+
+provides:
+
+
+      (A) The debts, obligations and liabilities of an LLC, whether arising in
+      contract, tort or otherwise, are solely the debts, obligations and
+      liabilities of the LLC; (B) A member, holder, director, manager,
+      officer, employee or other agent of an LLC does not have any personal
+      obligation, and is not otherwise personally liable, for the acts, debts,
+      liabilities or obligations of the LLC.
+
+      This statutory language is unambiguous. It creates a presumption that
+
+liabilities arising from the business of the LLC—such as disputes over fee splits
+
+with co-counsel—rest solely with the LLC. The fees from the Shoemaker settlement
+
+were contractually owed to "Hagh Law," as evidenced by the 2021 Engagement
+
+Agreement. Ms. Hagh signed that agreement explicitly as a member of the firm,
+
+not in her personal capacity. Therefore, any claim for a portion of those fees lies
+
+against the firm, not Ms. Hagh personally.
+
+      While Tenn. Code Ann. § 48-249-1119(a) provides an exception for a
+
+professional’s own "negligent or wrongful acts or omissions" (i.e., malpractice),
+
+this exception is strictly limited to professional services rendered to a client. It does
+
+not extend to general commercial disputes or fee disputes between attorneys. The
+
+dispute here is over a commercial obligation (the division of a fee), not a claim of
+
+
+
+                                           8
+Case 3:23-ap-90036    Doc 57    Filed 01/23/26 Entered 01/23/26 23:48:03      Desc Main
+                               Document      Page 8 of 17
+professional malpractice by Ms. Hagh against a client. Therefore, the general
+
+limited liability rule of § 48-249-114 controls, shielding Ms. Hagh from personal
+
+liability.
+
+2. Plaintiff Fails to Satisfy the "Veil Piercing" Standard
+
+       To circumvent the statutory shield, Mr. Cummings would need to "pierce the
+
+corporate veil." Tennessee courts exercise this power "with great caution and not
+
+precipitately." Schlater v. Haynie, 833 S.W.2d 919, 925 (Tenn. Ct. App. 1991). The
+
+Tennessee Supreme Court recently clarified and reaffirmed the rigorous three-part
+
+test for piercing the veil in Youree v. Recovery House of East Tennessee, LLC, 705
+
+S.W.3d 193 (Tenn. 2025) (reaffirming Continental Bankers Life Ins. Co. v. Bank
+
+of Alamo, 578 S.W.2d 625 (Tenn. 1979)).
+
+       Under Youree, a plaintiff must prove:
+
+   1. Domination: The individual exercises such complete dominion over the
+
+       entity that the entity has no separate mind, will, or existence of its own;
+
+   2. Fraud/Wrong: This control was used to commit fraud, a wrong, or a
+
+       violation of statutory or other duty; and
+
+   3. Causation: The control and breach of duty proximately caused the injury or
+
+       unjust loss complained of.
+
+       Mr. Cummings has failed to even allege facts supporting any of these
+
+elements, let alone produce evidence to survive summary judgment.
+
+
+
+
+                                           9
+Case 3:23-ap-90036    Doc 57    Filed 01/23/26 Entered 01/23/26 23:48:03    Desc Main
+                               Document      Page 9 of 17
+     •   No Domination: There is no evidence that Hagh Law PLLC is a sham entity,
+
+         that it lacks capitalization, or that it fails to observe corporate formalities.
+
+     •   No Fraud: There is no evidence that Ms. Hagh used the corporate form to
+
+         defraud Mr. Cummings. The fees were paid to the firm in the ordinary course
+
+         of business under a valid contract.
+
+     •   No Causation: Mr. Cummings’ alleged loss (failure to receive a fee) was
+
+         caused by his own voluntary withdrawal and the terms of his contract, not
+
+         by Ms. Hagh’s use of the LLC form.
+
+
+         Without evidence to satisfy the Youree test, the corporate veil remains
+
+intact. As stated in Miller v. Sabilia, an LLC member cannot be sued simply by
+
+reason of membership in the LLC. Ms. Hagh is an improper defendant, and the
+
+claims against her must be dismissed.
+
+B.       PLAINTIFF CONTRACTUALLY FORFEITED                             HIS     FEE     BY
+         VOLUNTARILY WITHDRAWING
+
+         Even if Mr. Cummings had sued the proper party, his claim fails on the
+
+merits because he voluntarily withdrew from the Shoemaker representation.
+
+Under Tennessee contract law and the specific terms of the engagement agreement
+
+he drafted, this withdrawal extinguished his right to a contingency fee.
+
+1. The Contract Terms Bar Recovery Under Contra Proferentem
+
+         The relationship between Mr. Cummings and the client was governed by the
+
+2017 Attorney-Client Agreement. Tennessee courts interpret contracts according
+
+to their plain terms, giving words their "natural and ordinary meaning." Individual
+
+
+                                             10
+Case 3:23-ap-90036      Doc 57    Filed 01/23/26 Entered 01/23/26 23:48:03       Desc Main
+                                 Document     Page 10 of 17
+Healthcare Specialists, Inc. v. BlueCross BlueShield of Tenn., Inc., 566 S.W.3d
+
+671, 694 (Tenn. 2019). Crucially, any ambiguity in an attorney-client fee agreement
+
+is strictly construed against the drafter—the attorney. White v. Empire Exp., Inc.,
+
+395 F.W.3d 696, 714 (Tenn. Ct. App. 2012).
+
+       The 2017 Agreement, drafted by Mr. Cummings, creates a dispositive
+
+distinction between "Termination" (discharge by the client) and "Withdrawal"
+
+(voluntary exit by the lawyer):
+
+
+   •   Termination Clause: "If you terminate the representation before the
+
+       conclusion of the matter, we will additionally be entitled to receive from the
+
+       proceeds of any recovery a reasonable fee for the work we have
+
+       performed...".
+
+   •   Withdrawal Clause: "We may choose to withdraw from representing
+
+       you... A 'withdrawal' by this firm does not relieve you of the responsibility to
+
+       pay advanced costs.".
+
+
+       The "Withdrawal" clause conspicuously omits any right to an attorney's fee.
+
+It reserves only the right to be reimbursed for "advanced costs." Under the canon
+
+of expressio unius est exclusio alterius (the expression of one thing implies the
+
+exclusion of others), the inclusion of a fee right in the termination clause and its
+
+exclusion in the withdrawal clause demonstrates a clear intent that no fee is owed
+
+upon voluntary withdrawal.
+
+
+
+
+                                             11
+Case 3:23-ap-90036      Doc 57    Filed 01/23/26 Entered 01/23/26 23:48:03   Desc Main
+                                 Document     Page 11 of 17
+      Mr. Cummings, as the sophisticated drafter, could have included language
+
+preserving his fee in the event of withdrawal. He did not. Under contra
+
+proferentem, this omission must be construed against him. The contract provides
+
+for expenses only—which he has already received. He is entitled to nothing more.
+
+2. Withdrawal Was Voluntary, Not "For Cause"
+
+      Mr. Cummings attempts to avoid this contractual bar by claiming he was
+
+"ethically required" to withdraw. The record contradicts this assertion. The
+
+October 2, 2020 Withdrawal Letter cites "strained" relationships and "personal
+
+conflict" following comments by the client and co-counsel.
+
+      Under Tennessee Rule of Professional Conduct 1.16, "mandatory
+
+withdrawal" is required only if "the representation will result in violation of the
+
+Rules of Professional Conduct or other law" or the lawyer's physical/mental
+
+condition impairs representation. "Strained relationships" or a client's refusal to
+
+sign a new fee agreement (limiting online reviews) do not trigger mandatory
+
+withdrawal. They are grounds for voluntary withdrawal under Rule 1.16(b)
+
+(withdrawal permitted if it can be accomplished without material adverse effect).
+
+Tennessee courts and legal authorities generally hold that an attorney who
+
+voluntarily withdraws without "just cause" forfeits their right to a fee. Lofton v.
+
+Fairmont Specialist Ins. Managers, Inc. is instructive. There, the court held that
+
+an attorney who voluntarily withdrew because the client rejected a settlement offer
+
+(a disagreement on strategy) forfeited the fee, stating, "It is simply incongruous for
+
+
+
+
+                                          12
+Case 3:23-ap-90036   Doc 57    Filed 01/23/26 Entered 01/23/26 23:48:03     Desc Main
+                              Document     Page 12 of 17
+Lofton to agree to such contractual provision and then to withdraw when Maxey
+
+exercised her right".
+
+      Similarly, Mr. Cummings withdrew because he was unhappy with the
+
+client's comments and refusal to accept new terms. This was a strategic business
+
+decision, not an ethical compulsion. By prioritizing his comfort over the client's
+
+representation, he voluntarily abandoned the contract. He cannot now claim the
+
+benefits of a contract he chose to terminate.
+
+C. The Unjust Enrichment Claim is Barred By Law
+
+      Plaintiff attempts to plead around his contractual forfeiture by asserting a
+
+claim for unjust enrichment. This claim fails for three independent reasons under
+
+Tennessee law.
+
+1. Existence of an Express Contract
+
+      It is a bedrock principle of Tennessee law that "unjust enrichment is a quasi-
+
+contractual theory... in which a court may impose a contractual obligation where
+
+one does not exist." Whitehaven Cmty. Baptist Church v. Holloway, 973 S.W.2d
+
+592, 596 (Tenn. 1998). However, courts will not impose a quasi-contract when a
+
+valid, express contract already governs the subject matter. Jaffe v. Bolton, 817
+
+S.W.2d 19, 26 (Tenn. Ct. App. 1991); Crye-Leike, Inc. v. Carver, 415 S.W.3d 808
+
+(Tenn. Ct. App. 2011).
+
+      Here, the subject matter—Mr. Cummings’ compensation for the Shoemaker
+
+matter—was governed by the express 2017 Agreement. That agreement defined
+
+
+
+
+                                             13
+Case 3:23-ap-90036      Doc 57    Filed 01/23/26 Entered 01/23/26 23:48:03   Desc Main
+                                 Document     Page 13 of 17
+exactly what he would be paid if he withdrew (costs only). He cannot use unjust
+
+enrichment to rewrite the terms of an agreement he drafted but now regrets.
+
+2. Failure to Exhaust Remedies
+
+      To maintain an unjust enrichment claim against a third party (here, Ms.
+
+Hagh), a plaintiff must demonstrate that they have exhausted all remedies against
+
+the party with whom they were in privity (the client, Mr. Keefer). Paschall's, Inc.
+
+v. Dozier, 407 S.W.2d 150, 155 (Tenn. 1966). The Tennessee Supreme Court has
+
+emphasized that exhaustion of remedies against the direct obligor is a prerequisite
+
+to recovery against a third party.
+
+      Mr. Cummings was in privity with Mr. Keefer. If he believed he was owed a
+
+fee, his remedy was to sue Mr. Keefer for breach of contract or quantum meruit
+
+(claims he effectively waived by withdrawing). He has not shown that Mr. Keefer
+
+is insolvent or that pursuing him is futile; in fact, he settled the case against Keefer.
+
+He cannot skip the exhaustion requirement to target co-counsel directly.
+
+3. Ms. Hagh Individually Was Not "Enriched"
+
+      The most basic element of unjust enrichment is that a benefit was conferred
+
+upon the defendant. The attorney’s fees in the Shoemaker matter were paid to the
+
+law firms—Hagh Law PLLC and Edwards Kirby. Ms. Hagh, as an individual, did
+
+not receive these fees in her personal capacity; even assuming the facts alleged by
+
+Mr. Cummings were supported by admissible evidence—and they are not—the
+
+PLLC would have received these funds.
+
+
+
+
+                                           14
+Case 3:23-ap-90036    Doc 57    Filed 01/23/26 Entered 01/23/26 23:48:03      Desc Main
+                               Document     Page 14 of 17
+         In Howard v. Turnbull, the court held that an LLC member cannot be sued
+
+for unjust enrichment regarding benefits conferred upon the LLC, as the "benefit"
+
+resides with the entity. Any alleged "enrichment" here would sit in the operating
+
+accounts of Hagh Law PLLC or the trust account holding the disputed funds—and
+
+Mr. Cummings has failed to marshal any evidence proving the existence or
+
+whereabouts of such funds. Under any standard, Ms. Hagh individually has
+
+received no benefit that would support a personal judgment against her.
+
+D.       Summary Judgment is Mandatory Due to Plaintiff's Failure to
+         Prosecute Discovery
+
+         Finally, summary judgment must be granted because Mr. Cummings has
+
+completely failed to prosecute his case or develop evidence to support his
+
+allegations.
+
+         This case has been pending for years. Yet, as the docket reflects, the Plaintiff
+
+has engaged in no discovery:
+
+     •   He has not deposed Afsoon Hagh.
+
+     •   He has not deposed Bretton Keefer.
+
+     •   He has not deposed Jeanne Burton.
+
+     •   He has not attempted to depose anyone.
+
+     •   He has not served interrogatories to determine the flow of funds.
+
+     •   He has not requested admissions regarding the contract or withdrawal.
+
+         In the Sixth Circuit, a plaintiff's failure to conduct discovery is fatal at the
+
+summary judgment stage. "The nonmoving party must do more than simply show
+
+
+
+                                             15
+Case 3:23-ap-90036      Doc 57    Filed 01/23/26 Entered 01/23/26 23:48:03     Desc Main
+                                 Document     Page 15 of 17
+that there is some metaphysical doubt as to the material facts." Street v. J.C.
+
+Bradford & Co., 886 F.2d 1472, 1480 (6th Cir. 1989) (adopting the "new era" of
+
+summary judgment under Celotex). Where a plaintiff fails to substantiate their
+
+claims with record evidence—relying instead on the allegations of the complaint—
+
+summary judgment is appropriate. Shorts v. Bartholomew, 255 F. App'x 46, 50
+
+(6th Cir. 2007).
+
+      Mr. Cummings alleges that Ms. Hagh is personally liable. He bears the
+
+burden of proof. Yet he has no contract signed by her individually. He has no bank
+
+records showing she holds the funds personally. He has no evidence of fraud to
+
+pierce the corporate veil. And he has developed no testimony to establish the
+
+elements of his claims. Without such evidence, "there can be 'no genuine issue as
+
+to any material fact,' since a complete failure of proof concerning an essential
+
+element of the nonmoving party's case necessarily renders all other facts
+
+immaterial." Celotex, 477 U.S. at 323.
+
+      The Court cannot allow a plaintiff to survive summary judgment on mere
+
+speculation. Mr. Cummings’ failure to conduct discovery is a concession that no
+
+such evidence exists.
+
+                                    V. CONCLUSION
+
+      Brian Cummings drafted a contract that denied him a fee if he quit. He then
+
+quit. Now, he seeks to rewrite that contract and sue an individual attorney for fees
+
+earned by corporate entities, all while failing to conduct a shred of discovery to
+
+support his claims.
+
+
+                                             16
+Case 3:23-ap-90036      Doc 57    Filed 01/23/26 Entered 01/23/26 23:48:03   Desc Main
+                                 Document     Page 16 of 17
+      The law protects Ms. Hagh from personal liability for her firm’s obligations.
+
+The contract bars Mr. Cummings’ recovery due to his voluntary withdrawal. The
+
+doctrine of unjust enrichment does not apply where an express contract exists. And
+
+the rules of civil procedure demand that a plaintiff present evidence to survive
+
+summary judgment—evidence Mr. Cummings simply does not have.
+
+      For all these reasons, there are no genuine issues of material fact, and
+
+Defendant Afsoon Hagh is entitled to judgment as a matter of law.
+
+
+
+
+Date: January 23, 2026                         Respectfully submitted,
+
+
+                                               /s/ John Spragens
+                                               John Spragens (TN Bar No. 31445)
+                                               Spragens Law PLC
+                                               915 Rep. John Lewis Way S., Suite 100
+                                               Nashville, TN 37203
+                                               T: (615) 983-8900
+                                               F: (615) 682-8533
+                                               john@spragenslaw.com
+
+                                               Attorney for Bretton Keefer and Afsoon
+                                               Hagh
+
+
+
+
+                            CERTIFICATE OF SERVICE
+
+       The undersigned hereby certifies that the foregoing was filed January 23, 2026 and
+served electronically upon all parties in interest or their counsel as indicated on the
+receipt issued by the Court’s electronic filing system.
+
+
+                                                /s/ John Spragens
+
+
+
+                                           17
+Case 3:23-ap-90036    Doc 57    Filed 01/23/26 Entered 01/23/26 23:48:03      Desc Main
+                               Document     Page 17 of 17
+

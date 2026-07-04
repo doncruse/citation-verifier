@@ -4,7 +4,8 @@ Per task-4a brief: only the pure, deterministic, zero-network, zero-LLM
 functions are unit-tested here. `pull_candidate` (network) is validated
 in Task 4b.
 """
-from pull_baseline import classify_doctype, sanction_hits, slugify, manifest_row
+from pull_baseline import (classify_doctype, sanction_hits, slugify, doc_slug,
+                           manifest_row)
 
 
 # --- classify_doctype ---
@@ -60,6 +61,19 @@ def test_slugify_falls_back_to_docket():
 
 def test_slugify_final_fallback():
     assert slugify("", "") == "doc"
+
+
+# --- doc_slug (per-cell uniqueness via docket_id suffix) ---
+
+def test_doc_slug_suffixes_docket_id():
+    assert doc_slug("Smith v. Jones", "1:24-cv-1", 555) == "smith-v-jones-555"
+
+
+def test_doc_slug_disambiguates_same_case_name():
+    # two different dockets, identical case name -> distinct slugs
+    a = doc_slug("Citizens for Responsibility and Ethics in Washington", "", 111)
+    b = doc_slug("Citizens for Responsibility and Ethics in Washington", "", 222)
+    assert a != b and a.endswith("-111") and b.endswith("-222")
 
 
 # --- manifest_row ---

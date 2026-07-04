@@ -1,0 +1,3012 @@
+      Case 3:23-cv-01103-RNC Document 28-1 Filed 09/27/23 Page 1 of 56
+
+
+
+
+                         IN THE UNITED STATES DISTRICT COURT
+                           FOR THE DISTRICT OF CONNECTICUT
+
+
+
+BOEHRINGER INGELHEIM
+PHARMACEUTICALS, INC.,
+
+       Plaintiff,
+
+                    v.                     Civil Action No. 3:23-CV-01103-RNC
+
+UNITED STATES DEPARTMENT OF
+HEALTH AND HUMAN SERVICES et al.,
+
+       Defendants.
+
+
+                        MEMORANDUM OF LAW IN SUPPORT OF
+                    PLAINTIFF’S MOTION FOR SUMMARY JUDGMENT
+
+Robert A. Long, Jr. (pro hac vice)         James T. Shearin [01326]
+Kevin F. King (pro hac vice)               Marcy Tench Stovall [14238]
+Thomas Brugato (pro hac vice)              PULLMAN & COMLEY, LLC
+Michael M. Maya (pro hac vice)             850 Main Street
+COVINGTON & BURLING LLP                    P.O. Box 7006
+850 Tenth Street, NW                       Bridgeport, CT 06601-7006
+Washington, DC 20001-4956                  Juris No. 47892
+Tel.: (202) 662-6000                       Tel.: (203) 330-2000
+Fax: (202) 662-6291                        Fax: (203) 576-8888
+                                           jtshearin@pullcom.com
+
+                                           Counsel for Plaintiff
+                                           Boehringer Ingelheim Pharmaceuticals, Inc.
+           Case 3:23-cv-01103-RNC Document 28-1 Filed 09/27/23 Page 2 of 56
+
+
+
+
+                                                   TABLE OF CONTENTS
+
+TABLE OF AUTHORITIES .......................................................................................................... ii
+
+INTRODUCTION AND SUMMARY OF ARGUMENT ............................................................. 1
+
+BACKGROUND ............................................................................................................................ 4
+
+I.        The Prescription Drug Market and Pharmaceutical Innovation. ........................................ 4
+
+II.       The Inflation Reduction Act’s Drug Price Negotiation Program. ...................................... 6
+
+III.      The Program’s Adverse Effects on BI and Jardiance®. ...................................................... 9
+
+LEGAL STANDARD ................................................................................................................... 10
+
+ARGUMENT ................................................................................................................................ 11
+
+I.        The Program’s One-Sided Procedures Violate BI’s Due Process Rights. ........................ 11
+
+          A.         BI’s Property Interests Are At Stake. ................................................................... 12
+
+          B.         The Program Deprives BI of Those Interests With Little to No Process.............. 13
+
+          C.         The Process Provided by the Program Is Constitutionally Inadequate. ................ 17
+
+II.       The Program Effects a Physical Taking of BI’s Jardiance® Products. ............................. 20
+
+III.      The Program Compels BI’s Speech in Violation of the First Amendment. ..................... 25
+
+          A.         The IRA Unlawfully Compels BI’s Speech.......................................................... 25
+
+          B.         The Manufacturer Agreement’s Disclaimer Exacerbates, Rather than
+                     Cures, the First Amendment Violation. ................................................................ 29
+
+IV.       The IRA Imposes Excessive Fines in Violation of the Eighth Amendment..................... 31
+
+V.        The Program Is Not Voluntary. ........................................................................................ 34
+
+VI.       Even if the Program Were Voluntary, It Would Violate the Unconstitutional
+          Conditions Doctrine. ......................................................................................................... 39
+
+VII.      The Manufacturer Agreement Violates the Administrative Procedure Act and
+          Medicare Act. .................................................................................................................... 43
+
+CONCLUSION ............................................................................................................................. 45
+
+
+
+
+                                                                      i
+          Case 3:23-cv-01103-RNC Document 28-1 Filed 09/27/23 Page 3 of 56
+
+
+
+
+                                               TABLE OF AUTHORITIES
+
+                                                                                                                              Page(s)
+
+Cases
+
+Adamo Wrecking Co. v. United States,
+   434 U.S. 275 (1978) .................................................................................................................18
+
+Admiral Ins. Co. v. Niagara Transformer Corp.,
+   57 F.4th 85 (2d Cir. 2023) .......................................................................................................24
+
+Am. Hosp. Ass’n v. Bowen,
+   834 F.2d 1037 (D.C. Cir. 1987) ...............................................................................................45
+
+Amalgamated Meat Cutters & Butchers Workmen v. Connally,
+  337 F. Supp. 737 (D.D.C. 1971) ..............................................................................................17
+
+Armstrong v. Manzo,
+   380 U.S. 545 (1965) .................................................................................................................11
+
+Austin v. United States,
+   509 U.S. 602 (1993) ...........................................................................................................31, 32
+
+Azar v. Allina Health Servs.,
+   139 S. Ct. 1804 (2019) .............................................................................................................44
+
+Bob Jones Univ. v. Simon,
+   416 U.S. 725 (1974) .................................................................................................................34
+
+Bowen v. Georgetown Univ. Hosp.,
+   488 U.S. 204 (1988) .................................................................................................................30
+
+Bowles v. Willingham,
+   321 U.S. 503 (1944) ......................................................................................................... passim
+
+Boy Scouts of Am. v. Wyman,
+   335 F.3d 80 (2d Cir. 2003).......................................................................................................40
+
+Burns v. Martuscello,
+   890 F.3d 77 (2d Cir. 2018)...........................................................................................25, 26, 28
+
+Cal. Cmtys. Against Toxics v. EPA,
+   934 F.3d 627 (D.C. Cir 2019) ..................................................................................................44
+
+Carter v. Carter Coal Co.,
+   298 U.S. 238 (1936) .................................................................................................................37
+
+
+
+                                                                    ii
+           Case 3:23-cv-01103-RNC Document 28-1 Filed 09/27/23 Page 4 of 56
+
+
+
+
+Cedar Point Nursery v. Hassid,
+   141 S. Ct. 1063 (2021) ...........................................................................................12, 20, 21, 23
+
+Cmty. Hous. Improvement Program v. City of New York,
+  59 F.4th 540 (2d Cir. 2023) .....................................................................................................18
+
+Concrete Pipe & Prods. of Cal., Inc. v. Constr. Laborers Pension Tr. for S. Cal.,
+   508 U.S. 602 (1993) ...........................................................................................................11, 14
+
+Connecticut v. Doehr,
+   501 U.S. 1 (1991) .....................................................................................................................15
+
+Cooper Indus., Inc. v. Leatherman Tool Grp., Inc.,
+   532 U.S. 424 (2001) ...........................................................................................................32, 33
+
+Dep’t of Rev. of Montana v. Kurth Ranch,
+   511 U.S. 767 (1994) .................................................................................................................31
+
+Di Giovanni v. Camden Fire Ins. Ass’n,
+   296 U.S. 64 (1935) ...................................................................................................................24
+
+Dolan v. City of Tigard,
+   512 U.S. 374 (1994) .................................................................................................................42
+
+Duke Power Co. v. Carolina Env’t Study Grp.,
+   438 U.S. 59 (1978) ...................................................................................................................25
+
+Dusenbery v. United States,
+   534 U.S. 161 (2002) .................................................................................................................41
+
+Elrod v. Burns,
+   427 U.S. 347 (1976) .................................................................................................................29
+
+Enochs v. Williams Packing & Nav. Co.,
+   370 U.S. 1 (1962) .....................................................................................................................34
+
+Fisher v. United States,
+   148 Fed. Cl. 478 (2020) ...........................................................................................................35
+
+Ford Motor Credit Co. v. NYC Police Dep’t,
+   503 F.3d 186 (2d Cir. 2007).....................................................................................................23
+
+Francis v. Fiacco,
+   942 F.3d 126 (2d Cir. 2019).....................................................................................................17
+
+Frost v. R.R. Comm’n of Cal.,
+   271 U.S. 583 (1926) ...........................................................................................................41, 43
+
+
+
+                                                                    iii
+           Case 3:23-cv-01103-RNC Document 28-1 Filed 09/27/23 Page 5 of 56
+
+
+
+
+Garelick v. Sullivan,
+   987 F.2d 913 (2d Cir. 1993).....................................................................................................39
+
+Goe v. Zucker,
+   43 F.4th 19 (2d Cir. 2022) .......................................................................................................40
+
+Gonnella v. SEC,
+   954 F.3d 536 (2d Cir. 2020).....................................................................................................44
+
+Heldman on Behalf of T.H. v. Sobol,
+   962 F.2d 148 (2d Cir. 1992).....................................................................................................14
+
+Hill v. Wallace,
+    259 U.S. 44 (1922) ...................................................................................................................34
+
+Hodel v. Va. Surface Min. & Reclamation Ass’n,
+   452 U.S. 264 (1981) .................................................................................................................20
+
+Holmes v. N.Y.C. Hous. Auth.,
+   398 F.2d 262 (2d Cir. 1968).....................................................................................................16
+
+Honda Motor Co. v. Oberg,
+   512 U.S. 415 (1994) .................................................................................................................11
+
+Horne v. USDA,
+   576 U.S. 350 (2015) ......................................................................................................... passim
+
+Hurley v. Irish-Am. Gay, Lesbian & Bisexual Grp. of Boston,
+   515 U.S. 557 (1995) .................................................................................................................26
+
+Jackler v. Byrne,
+   658 F.3d 225 (2d. Cir. 2011)..............................................................................................25, 26
+
+Janus v. Am. Fed’n of State, Cnty., & Mun. Emps., Council 31,
+   138 S. Ct. 2448 (2018) .............................................................................................................25
+
+Jazz Pharms., Inc. v. Synchrony Grp.,
+   343 F. Supp. 3d 434 (E.D. Pa. 2018) .......................................................................................13
+
+John Doe No. 1 v. Reed,
+   561 U.S. 186 (2010) .................................................................................................................26
+
+Kaiser Aetna v. United States,
+   444 U.S. 164 (1979) .................................................................................................................20
+
+Knick v. Township of Scott,
+   139 S. Ct. 2162 (2019) .............................................................................................................25
+
+
+
+                                                                    iv
+          Case 3:23-cv-01103-RNC Document 28-1 Filed 09/27/23 Page 6 of 56
+
+
+
+
+Koontz v. St. Johns River Water Mgmt. Dist.,
+   570 U.S. 595 (2013) .....................................................................................................40, 41, 42
+
+Lawrence v. Reed,
+   406 F.3d 1224 (10th Cir. 2005) ...............................................................................................17
+
+Lockerty v. Phillips,
+   319 U.S. 182 (1943) .................................................................................................................18
+
+Loretto v. Teleprompter Manhattan CATV Corp.,
+   458 U.S. 419 (1982) ...........................................................................................................12, 21
+
+Mathews v. Eldridge,
+   424 U.S. 319 (1976) .....................................................................................................11, 15, 17
+
+McClendon v. Rosetti,
+  460 F.2d 111 (2d Cir. 1972).....................................................................................................16
+
+McCutcheon v. Colgate-Palmolive Co.,
+  62 F.4th 674 (2d Cir. 2023) .....................................................................................................11
+
+Mid Continent Nail Corp. v. United States,
+   846 F.3d 1364 (Fed. Cir. 2017)................................................................................................30
+
+Mora v. Mejias,
+  223 F.2d 814 (1st Cir. 1955) ....................................................................................................36
+
+N.Y. Times Co. v. Sullivan,
+   376 U.S. 254 (1964) .................................................................................................................29
+
+Narumanchi v. Bd. of Trs. of Conn. State Univ.,
+   850 F.2d 70 (2d Cir. 1988).......................................................................................................12
+
+Nat’l Fed’n of Indep. Bus. v. Sebelius,
+   567 U.S. 519 (2012) ......................................................................................................... passim
+
+Nat’l Inst. of Fam. & Life Advocs. v. Becerra,
+   138 S. Ct. 2361 (2018) .......................................................................................................28, 29
+
+Nat’l Mining Ass’n v. McCarthy,
+   758 F.3d 243 (D.C. Cir. 2014) .................................................................................................44
+
+New Hope Fam. Servs., Inc. v. Poole,
+   966 F.3d 145 (2d Cir. 2020).....................................................................................................25
+
+New York v. HHS,
+   414 F. Supp. 3d 475 (S.D.N.Y. 2019)......................................................................................11
+
+
+
+                                                                    v
+           Case 3:23-cv-01103-RNC Document 28-1 Filed 09/27/23 Page 7 of 56
+
+
+
+
+O’Connor v. Pierson,
+   426 F.3d 187 (2d Cir. 2005)...............................................................................................39, 40
+
+Ohio Bell Tel. Co. v. Pub. Utils. Comm’n,
+   301 U.S. 292 (1937) .................................................................................................................16
+
+Old Dearborn Distrib. Co. v. Seagram-Distillers Corp.,
+   299 U.S. 183 (1936) .................................................................................................................12
+
+Pac. Gas & Elec. Co. v. Pub. Util. Comm’n of Cal.,
+   475 U.S. 1 (1986) .....................................................................................................................28
+
+Penn Cent. Transp. Co. v. City of New York,
+   438 U.S. 104 (1978) .................................................................................................................20
+
+Pennell v. City of San Jose,
+   485 U.S. 1 (1988) .....................................................................................................................13
+
+Pennsylvania Coal Co. v. Mahon,
+   260 U.S. 393 (1922) ...................................................................................................................1
+
+Perry v. Sindermann,
+   408 U.S. 593 (1972) .................................................................................................................40
+
+Peters v. Kiff,
+   407 U.S. 493 (1972) .................................................................................................................14
+
+Pharm. Res. & Mfrs. of Am. v. Williams,
+   64 F.4th 932 (8th Cir. 2023) ..............................................................................................24, 25
+
+R.S.W.W., Inc. v. City of Keego Harbor,
+    397 F.3d 427 (6th Cir. 2005) ...................................................................................................41
+
+Ralls Corp. v. CFIUS,
+   758 F.3d 296 (D.C. Cir. 2014) .................................................................................................15
+
+Riley v. Nat’l Fed. of the Blind of N.C., Inc.,
+    487 U.S. 781 (1988) .................................................................................................................28
+
+Ruckelshaus v. Monsanto Co.,
+   467 U.S. 986 (1984) ...........................................................................................................13, 24
+
+Safelite Group, Inc. v. Jepsen,
+    764 F.3d 258 (2d Cir. 2014).....................................................................................................29
+
+Sanofi Aventis U.S. LLC v. HHS,
+   58 F.4th 696 (3d Cir. 2023) .......................................................................................................5
+
+
+
+                                                                    vi
+           Case 3:23-cv-01103-RNC Document 28-1 Filed 09/27/23 Page 8 of 56
+
+
+
+
+Seila Law LLC v. CFPB,
+    140 S. Ct. 2183 (2020) .............................................................................................................18
+
+Speiser v. Randall,
+   357 U.S. 513 (1958) .................................................................................................................40
+
+Story v. Green,
+    978 F.2d 60 (2d Cir. 1992).......................................................................................................12
+
+Sweet v. Sheahan,
+   235 F.3d 80 (2d Cir. 2000).......................................................................................................44
+
+Tahoe-Sierra Pres. Council, Inc. v. Tahoe Reg’l Plan. Agency,
+   535 U.S. 302 (2002) .................................................................................................................23
+
+Tenoco Oil Co. v. Dep’t of Consumer Affs.,
+   876 F.2d 1013 (1st Cir. 1989) ..................................................................................................35
+
+Texas v. Johnson,
+   491 U.S. 397 (1989) .................................................................................................................30
+
+Thomas James Assocs., Inc. v. Jameson,
+   102 F.3d 60 (2d Cir. 1996).......................................................................................................26
+
+Thompson v. Deal,
+   92 F.2d 478 (D.C. Cir. 1937) .............................................................................................37, 38
+
+Townley v. Hecker,
+   748 F.2d 109 (2d Cir. 1984).....................................................................................................15
+
+Trebor Sportswear Co. v. Limited Stores, Inc.,
+   865 F.2d 506 (2d Cir. 1989).....................................................................................................11
+
+Tumey v. Ohio,
+   273 U.S. 510 (1927) .................................................................................................................14
+
+Turner Broad. Sys., Inc. v. FCC,
+   512 U.S. 622 (1994) ...........................................................................................................28, 29
+
+Turner v. Rogers,
+   564 U.S. 431 (2011) .................................................................................................................17
+
+Twin City Pipe Line Co. v. Harding Glass Co.,
+   283 U.S. 353 (1931) .................................................................................................................30
+
+Tyler v. Hennepin County,
+    598 U.S. 631 (2023) .................................................................................................................31
+
+
+
+                                                                   vii
+           Case 3:23-cv-01103-RNC Document 28-1 Filed 09/27/23 Page 9 of 56
+
+
+
+
+Union Pac. R.R. Co. v. Pub. Serv. Comm’n,
+   248 U.S. 67 (1918) ...................................................................................................................36
+
+United States v. 50 Acres of Land,
+   469 U.S. 24 (1984) ...................................................................................................................23
+
+United States v. Bajakajian,
+   524 U.S. 321 (1998) ...........................................................................................................31, 32
+
+United States v. Butler,
+   297 U.S. 1 (1936) .....................................................................................................................37
+
+United States v. Constantine,
+   296 U.S. 287 (1935) .................................................................................................................31
+
+USAID v. All. For Open Soc’y Int’l,
+  570 U.S. 205 (2013) ......................................................................................................... passim
+
+Util. Air Regul. Grp. v. EPA,
+    573 U.S. 302 (2014) .................................................................................................................38
+
+Valancourt Books, LLC v. Garland,
+   2023 WL 5536195 (D.C. Cir. Aug. 29, 2023) .............................................................23, 24, 39
+
+W. Va. State Bd. of Educ. v. Barnette,
+   319 U.S. 624 (1943) .................................................................................................................30
+
+White v. Roughton,
+   530 F.2d 750 (7th Cir. 1976) ...................................................................................................16
+
+Whitman v. Am. Trucking Assocs.,
+   531 U.S. 457 (2001) .................................................................................................................30
+
+Withrow v. Larkin,
+   421 U.S. 35 (1975) ...................................................................................................................14
+
+Wolff v. McDonnell,
+   418 U.S. 539 (1974) .................................................................................................................16
+
+Yakus v. United States,
+   321 U.S. 414 (1944) ......................................................................................................... passim
+
+Zauderer v. Off. of Disciplinary Couns.,
+   471 U.S. 626 ............................................................................................................................29
+
+
+
+
+                                                                    viii
+          Case 3:23-cv-01103-RNC Document 28-1 Filed 09/27/23 Page 10 of 56
+
+
+
+
+Statutes
+
+26 U.S.C.
+   § 5000D ......................................................................................7, 10, 23, 31, 33, 35, 38, 40, 42
+   § 6663.......................................................................................................................................33
+   § 7421.......................................................................................................................................34
+
+42 U.S.C.
+   § 1320f .....................................................................................................................4, 6–7, 9, 25
+   § 1320f-1 ..........................................................................................................................6–7, 42
+   § 1320f-2 ............................................................................................7–8, 12–13, 22, 25–27, 30
+   § 1320f-3 ..............................................................................................4, 7–8, 14–16, 24, 27–28
+   § 1320f-4 ..................................................................................................................................16
+   § 1320f-6 ........................................................................................................................9, 22, 23
+   § 1320f-7 ........................................................................................................................8, 14, 19
+   § 1395hh...................................................................................................................................44
+   § 1395w-111 ..............................................................................................................................6
+   § 1395w-114a...........................................................................................................................38
+   § 1396r-8 ..................................................................................................................................38
+
+Conn. Gen. Stat. Ann. § 35-50. ......................................................................................................13
+
+Emergency Price Control Act of 1942, Pub. L. No. 77-421, 56 Stat. 23.................................18, 19
+
+Other Authorities
+
+Black’s Law Dictionary (11th ed. 2019)........................................................................................27
+
+Cong. Budget Off., Prescription Drug Prices: Spending, Use, and Prices (2022) .........................5
+
+David H. Crean, Is the USA’s Innovation Leadership Position At-Risk?, Pharma
+   Boardroom (Nov. 13, 2020) .......................................................................................................5
+
+FDA, FDA-Approved Drugs Listing for NDA 204629 ....................................................................9
+
+Fed. R. Civ. P. 56 ...........................................................................................................................11
+
+Joseph A. DiMasi et al., Innovation in the Pharmaceutical Industry: New
+   Estimates of R&D Costs, 47 J. Health Econ. 20 (2016) ............................................................5
+
+Michael Erman & Patrick Wingrove, U.S. Will Allow Drugmakers to Discuss
+   Medicare Drug Price Negotiations, Reuters (June 30, 2023) .................................................29
+
+National Tracking Poll #2109099, Morning Consult (Sept. 16–19, 2021)....................................29
+
+Remarks by Pres. Biden on Medicare and the Inflation Reduction Act (Sept. 27, 2022) .............29
+
+
+
+
+                                                                       ix
+       Case 3:23-cv-01103-RNC Document 28-1 Filed 09/27/23 Page 11 of 56
+
+
+
+
+                   INTRODUCTION AND SUMMARY OF ARGUMENT
+
+       The Constitution requires Congress to turn square corners when enacting laws that burden
+
+constitutional rights. Even when Congress has a strong “desire to improve the public condition,”
+
+that “is not enough to warrant achieving the desire by a shorter cut than the constitutional way.”
+
+Horne v. USDA, 576 U.S. 350, 362 (2015) (quoting Pennsylvania Coal Co. v. Mahon, 260 U.S.
+
+393, 416 (1922) (Holmes, J.)). The Medicare Drug Price Negotiation Program (“Program”) fails
+
+that test because it repeatedly relies on shortcuts that infringe regulated parties’ rights under the
+
+First, Fifth, and Eighth Amendments.
+
+       Defendants—acting through the Centers for Medicare and Medicaid Services (“CMS”)—
+
+recently issued an order subjecting Jardiance®, a groundbreaking medication marketed by Plaintiff
+
+Boehringer Ingelheim Pharmaceuticals, Inc. (“BI”), to the Program. As a result, BI must engage
+
+in a process the Inflation Reduction Act (“IRA”) describes as a “negotiation” with CMS regarding
+
+a “maximum fair price” for Jardiance®. But that process is a sham from beginning to end. Stripped
+
+of its misleading labels and procedural smokescreens, the Program amounts to Government price
+
+setting without key safeguards required by the Constitution. The “agreement” that purportedly
+
+begins the “negotiation” process is not an agreement, but a set of mandates issued by CMS in its
+
+capacity as a regulator.    The “negotiations” themselves are not bilateral bargaining but a
+
+performative exercise that ends with CMS—the same agency that pays for the drugs subject to the
+
+Program—unilaterally picking the price it will pay. And the IRA, which governs the Program, not
+
+only prohibits judicial review of the price caps CMS imposes, but also requires BI to grant a broad
+
+range of Medicare participants “access” to Jardiance® on the terms dictated by CMS, on pain of
+
+billions of dollars in penalties. Congress has enacted price-setting regimes in the past, but none of
+
+them cast aside the constitutional rights of regulated parties in the ways the Program does here.
+
+
+
+                                                 1
+       Case 3:23-cv-01103-RNC Document 28-1 Filed 09/27/23 Page 12 of 56
+
+
+
+
+       Congress could have pursued its aims in much simpler fashion, empowering CMS to adopt
+
+price regulations in the same manner as other federal agencies. But that approach would have left
+
+a clear line of accountability between the Program’s architects and the inevitable downstream
+
+consequences of their action: sharp reductions in development of innovative new medicines and
+
+the availability of life-saving treatments, particularly for rare diseases and patient populations with
+
+special needs, such as children. By clothing the Program in the garb of voluntary negotiations,
+
+while compelling regulated parties to participate through elaborate mandates, Congress sought to
+
+avoid responsibility for those harmful consequences.
+
+       The question in this case is whether Congress took “a shorter cut than the constitutional
+
+way” in designing the Program. Horne, 576 U.S. at 362 (cleaned up). The answer is yes, for four
+
+reasons.
+
+       First, the Program violates BI’s Fifth Amendment due process rights. Despite depriving
+
+BI of multiple constitutionally protected property interests, the Program omits procedural
+
+protections that courts have held are essential components of due process. The Program provides
+
+no meaningful opportunity to be heard by an impartial decision maker. Indeed, CMS has both a
+
+statutory duty and a built-in financial incentive to drive the maximum price as low as possible.
+
+The Program’s so-called negotiations also do not provide adequate process: the Program lacks
+
+ascertainable standards for setting the price for Jardiance®; CMS is not obligated to disclose the
+
+evidence it relies upon; and CMS need not engage in reasoned decisionmaking or consider BI’s
+
+submissions during the “negotiation” process. That the IRA forecloses judicial and administrative
+
+review of CMS’s actions only exacerbates these constitutional injuries.
+
+       Second, the Program violates the Fifth Amendment’s Takings Clause. The IRA empowers
+
+third parties to take possession of BI’s Jardiance® on terms set by CMS and ensures that access
+
+
+
+                                                  2
+       Case 3:23-cv-01103-RNC Document 28-1 Filed 09/27/23 Page 13 of 56
+
+
+
+
+through expansive coverage requirements. As a result, BI will be forced to hand over its Jardiance®
+
+products, losing the rights to control the disposition of that property and to exclude others from
+
+accessing it against BI’s will. The IRA does not afford BI just compensation for this appropriation,
+
+but instead requires CMS to pay far less than the fair market value guaranteed by the Constitution.
+
+       Third, the IRA violates the First Amendment by compelling BI to endorse the
+
+Government’s preferred narrative regarding the Program. The IRA inflicts that harm by forcing
+
+BI to sign an “agreement” stating that the company will “negotiate” a “maximum fair price” for
+
+Jardiance®—thus falsely conveying that BI has voluntarily agreed to participate in the Program,
+
+that the Program involves arms-length negotiations, and that the Program results in a “fair” price
+
+for Jardiance® products. None of those compelled statements are necessary for CMS to adopt
+
+Medicare price regulations, but all of them are necessary to carry out Congress’s carefully
+
+orchestrated avoidance of accountability for the Program’s adverse effects. BI disagrees with the
+
+Government’s messages and cannot constitutionally be compelled to convey them.
+
+       Fourth, the Program violates the Eighth Amendment’s Excessive Fines Clause. Under the
+
+IRA, BI will be subject to a penalty, labeled as a tax, on every domestic sale of Jardiance® if BI
+
+does not comply with CMS’s order to participate in the Program. This penalty starts at nearly
+
+twice the gross revenues of Jardiance® sales nationwide and balloons to 19 times the gross revenues
+
+until BI accedes to the Program’s requirements—resulting in fines of between $500 million and
+
+$5.5 billion per week. Congress understood that these extravagant penalty provisions would not
+
+generate a single dollar of revenue because they are so punitive and disproportionate that no
+
+rational manufacturer would ever trigger their application.
+
+       The Government has gone to great lengths to sidestep these constitutional violations by
+
+portraying the Program as voluntary. According to the Government, the Program gives BI the
+
+
+
+                                                 3
+       Case 3:23-cv-01103-RNC Document 28-1 Filed 09/27/23 Page 14 of 56
+
+
+
+
+“options” of paying the unconstitutionally excessive penalties described above or withdrawing
+
+Jardiance® and all of BI’s other products from Medicare and Medicaid, which together account
+
+for approximately 40 percent of the U.S. pharmaceutical market. Each of these purported options
+
+is a mirage that would be financially ruinous for BI and devastating to the millions of patients BI
+
+serves. Collectively, these “options” make plain that the Program is voluntary in name only. But
+
+even if the Program were voluntary, it would still raise similar concerns by unconstitutionally
+
+conditioning BI’s participation in Medicare and Medicaid on relinquishment of the rights
+
+discussed above. Voluntary or not (and it is decidedly not), the Program is unconstitutional.
+
+       Apart from these constitutional violations, CMS violated bedrock administrative
+
+procedures in implementing the Program. CMS promulgated the “Manufacturer Agreement,”
+
+which is a legislative rule given its sweeping scope and obligations, without conducting required
+
+notice-and-comment proceedings. Accordingly, the Court should set aside the Agreement.
+
+       By August 1, 2024, in the absence of judicial intervention, BI will be required to sign a
+
+further agreement adopting a specific “maximum fair price” for Jardiance®. See 42 U.S.C.
+
+§§ 1320f(d)(2)(B), 1320f(b)(4)(B), 1320f-3(a)(1). Given the irreparable harm that would result
+
+from that agreement, BI respectfully requests that the Court hold a hearing on the parties’ cross-
+
+motions for summary judgment promptly after the close of briefing and issue a ruling on those
+
+motions before the August 1, 2024 deadline.
+
+                                        BACKGROUND
+
+I.     The Prescription Drug Market and Pharmaceutical Innovation.
+
+       The U.S. pharmaceutical industry is at the forefront of the worldwide quest for innovative
+
+treatments that allow patients to live longer, healthier lives. Drugs developed in the United States
+
+
+
+
+                                                 4
+           Case 3:23-cv-01103-RNC Document 28-1 Filed 09/27/23 Page 15 of 56
+
+
+
+
+“account for almost half” of the “medicines under development globally.” 1 Innovators like BI,
+
+however, face daunting odds and incur great financial risk when developing new drugs. For every
+
+5,000 compounds that enter preclinical testing, only one will obtain Food and Drug Administration
+
+(“FDA”) approval—a success rate of just 0.02 percent. 2 Even among compounds that reach the
+
+clinical trial stage, only 12 percent are approved by FDA. 3 All told, an approved drug on average
+
+requires billions of dollars of investment. 4 And even then, only 20 percent of FDA-approved drugs
+
+that make it to market recoup the costs incurred in their own development—let alone provide
+
+funding for the many projects that fail. 5
+
+            Because of the enormous costs and failure rate associated with developing new drugs,
+
+investments in innovation depend on the revenues from the tiny fraction of drugs that receive FDA
+
+approval and the small subset of those that achieve market success. See Marsh Decl. ¶ 17. The
+
+small number “of successful projects that result in new commercialized drugs have to provide
+
+enough revenue to justify the investment” in the large number of “failed compounds.” 6
+
+            Medicare and Medicaid are essential to the economics of this innovation ecosystem.
+
+Together, they account for nearly 40 percent of U.S. prescription drug spending. 7 Through these
+
+programs, the Government acts as both a dominant market participant and a regulator, serving as
+
+
+
+
+1
+  David H. Crean, Is the USA’s Innovation Leadership Position At-Risk?, Pharma Boardroom (Nov. 13, 2020),
+https://perma.cc/2JN2-W7PC.
+2
+    See Shearin Decl. Ex. E at 837.
+3
+ See Joseph A. DiMasi et al., Innovation in the Pharmaceutical Industry: New Estimates of R&D Costs, 47 J. Health
+Econ. 20, 23 (2016), https://perma.cc/QB83-CBFZ.
+4
+    See id. at 26.
+5
+    See Shearin Decl. Ex. G at 1004.
+6
+    Id. Ex. F at 4.
+7
+ See id. Ex. H; Sanofi Aventis U.S. LLC v. HHS, 58 F.4th 696, 699 (3d Cir. 2023) (“[t]he federal government dominates
+the healthcare market,” “paying for almost half the annual nationwide spending on prescription drugs” (citing Cong.
+Budget Off., Prescription Drug Prices: Spending, Use, and Prices 8 (2022))).
+
+                                                         5
+       Case 3:23-cv-01103-RNC Document 28-1 Filed 09/27/23 Page 16 of 56
+
+
+
+
+the ultimate payer for a large proportion of the drugs dispensed to elderly, disabled, and lower-
+
+income patients. Medicare Part D provides these benefits for self-administered prescription drugs
+
+to any Medicare beneficiary who chooses to enroll. Under Part D, CMS pays private health
+
+insurance plans for a portion of the cost of such drugs. In turn, plan sponsors pay pharmacies
+
+negotiated, market-based prices for covered drugs and negotiate competitive rebates from
+
+manufacturers (which in return receive improved access to patients). When Congress created
+
+Medicare Part D in 2003, it prohibited the Department of Health and Human Services (“HHS”)
+
+from “interfer[ing] with the negotiations between drug manufacturers[,] pharmacies[,] and [private
+
+health plans]” regarding the price of Part D drugs. 42 U.S.C. § 1395w-111(i). This complex
+
+system serves important goals: manufacturers are compensated for their products at market-based
+
+rates, enabling the drug innovation ecosystem to thrive, and ultimately providing improved
+
+treatments for patients.
+
+II.    The Inflation Reduction Act’s Drug Price Negotiation Program.
+
+       The IRA, enacted in 2022, marks a sea change from this established system by imposing
+
+price controls manufacturers have no choice but to accept. The IRA requires the Secretary of HHS
+
+to administer the Program, 42 U.S.C. § 1320f(a); the Secretary has delegated that authority to CMS.
+
+Under the guise of a “negotiation” process, CMS is to unilaterally impose a so-called “maximum
+
+fair price” for each selected drug, id. § 1320f-2(a)(1), which establishes a ceiling for how much
+
+manufacturers may charge Medicare participants for their drugs, see id. § 1320f-2(a)(1)–(3).
+
+       Implementation of the Program began in 2023, starting with identification of the 50
+
+qualifying drugs “with the highest total expenditures under [Medicare] [P]art D.” Id. § 1320f-
+
+1(d)(1)(A). CMS was required, by September 1, 2023, to publish an order selecting ten of those
+
+50 drugs for the Program’s first year. See id. §§ 1320f(d)(1), 1320f-1(a)(1), 1320f-3(g). CMS’s
+
+
+
+                                                6
+           Case 3:23-cv-01103-RNC Document 28-1 Filed 09/27/23 Page 17 of 56
+
+
+
+
+order, issued on August 29, 2023, selected BI’s drug Jardiance®. Shearin Decl. Ex. A. More drugs
+
+are to be added to the Program in subsequent years. See 42 U.S.C. § 1320f-1(a)(2)–(4).
+
+           For drugs selected for the Program’s first year, like Jardiance®, the IRA dictates that the
+
+manufacturer “shall enter into [an] agreemen[t]” with CMS no later than October 1, 2023, to
+
+“negotiate” a “maximum fair price.” Id. §§ 1320f(d)(2)(A), 1320f-2(a). CMS unilaterally drafted
+
+this “Manufacturer Agreement” and declared its terms “final”—all without providing
+
+manufacturers an opportunity to comment or propose revisions. Shearin Decl. Ex. B at 30; see
+
+also id. Ex. C. After signing the Manufacturer Agreement, the manufacturer shall “agree to” the
+
+price determined by CMS by August 1, 2024. 42 U.S.C. §§ 1320f(d)(2)(B), 1320f-2(a)(1). If a
+
+manufacturer of a selected drug fails to execute either of these “agreements”—to negotiate or to
+
+the CMS-imposed “maximum fair price”—it is automatically subjected to excise tax penalties on
+
+all domestic sales of that drug that begin at 186 percent and escalate to 1,900 percent—nineteen
+
+times the gross sales revenues—after nine months. See 26 U.S.C. § 5000D(a), (b)(1), (d). 8 This
+
+penalty takes effect the day after the “agreement” deadline lapses and continues until the
+
+manufacturer complies with the Program’s requirements. Id. § 5000D(b)(1)(A), (b)(2)(A).
+
+           The IRA sets a ceiling on the “maximum fair price” for a selected drug. Specifically, the
+
+“maximum fair price” cannot exceed the lower of (1) what Medicare Part D and Medicare
+
+Advantage plans have paid for the drug (net of all rebates) or (2) a percentage of a benchmark
+
+price equal to what wholesalers and retail pharmacies paid for the drug in 2021 (adjusted for
+
+inflation). See 42 U.S.C. § 1320f-3(c)(1)–(3). The latter, percentage-based ceiling depends on
+
+how long the drug has been on the market; the ceiling starts at 75 percent of the benchmark price,
+
+decreases to 65 percent of that price for drugs that have been approved for at least 12 years, and
+
+
+8
+    See also Shearin Decl. Ex. L at 4, tbl. 2. (explaining how the tax rates are computed).
+
+                                                             7
+       Case 3:23-cv-01103-RNC Document 28-1 Filed 09/27/23 Page 18 of 56
+
+
+
+
+then further decreases to 40 percent of the benchmark price for drugs that have been approved for
+
+at least 16 years. See id. § 1320f-3(c)(3)(A), 1320f-3(c)(3)(C), (5). For the vast majority of drugs,
+
+including Jardiance®, the IRA does not prescribe any floor for the “maximum fair price,” meaning
+
+that CMS may select any price below the ceiling—in theory, all the way down to one cent. See id.
+
+§ 1320f-3(d) (inapplicable temporary price floor “for small biotech drugs”).
+
+       The process that results in a “maximum fair price” is not a true “negotiation,” but instead
+
+involves unilateral price setting by CMS. The agency makes an initial “offer” of a “maximum fair
+
+price” for the selected drug, and the manufacturer may make a “counteroffer” within 30 days. Id.
+
+§ 1320f-3(b)(2)(B)–(D). CMS need only provide a “concise justification” for its offer. Id.
+
+§ 1320f-3(b)(2)(B). A manufacturer’s counteroffer must be based exclusively on a narrow,
+
+enumerated set of factors. See id. § 1320f-3(b)(2)(C), (e). Although CMS must “respond in
+
+writing” to that counteroffer, id. § 1320f-3(b)(2)(C), (D), the response need not be grounded in the
+
+record, reflect reasoned decisionmaking, or satisfy any other criteria. CMS then issues a “final
+
+offer” by July 15, 2024, which the manufacturer must accept—or else pay the excise tax penalties
+
+described above, see id. §§ 1320f-3(b)(2)(E), 1320f-4(a). The IRA requires CMS to pursue “the
+
+lowest maximum fair price for each selected drug,” id. § 1320f-3(b)(1) (emphasis added), and
+
+prohibits any “administrative or judicial review” of the prices imposed by CMS, id. § 1320f-7(3).
+
+       Beginning on January 1, 2026, the manufacturer of a selected drug must provide hospitals,
+
+physicians, and other Medicare participants “access” to the drug at the “maximum fair price.” Id.
+
+§ 1320f-2(a). Along with other aspects of the IRA that expand Medicare coverage for selected
+
+drugs, this right of access means that manufacturers will be required to transfer their drug products
+
+to these third parties on CMS’s terms. Manufacturers that fail to comply face civil monetary
+
+
+
+
+                                                 8
+          Case 3:23-cv-01103-RNC Document 28-1 Filed 09/27/23 Page 19 of 56
+
+
+
+
+penalties equal to ten times the difference between the price actually charged for the drug and the
+
+“maximum fair price.” Id. § 1320f-6(a).
+
+III.      The Program’s Adverse Effects on BI and Jardiance®.
+
+          BI’s Jardiance® is approved for a variety of uses, including lowering blood sugar in patients
+
+with type 2 diabetes and reducing the risk of cardiovascular death in adults with type 2 diabetes or
+
+heart disease. Marsh Decl. ¶ 5. 9 FDA first approved Jardiance® in 2014, following BI’s
+
+investment of billions of dollars and years of research and development. Since then, FDA has
+
+approved several additional indications for Jardiance® based on BI’s continuing research and
+
+development—thus allowing the drug to help a broad range of patient populations. See id. ¶ 5.
+
+For example, a 2015 landmark clinical trial showed that Jardiance® produces a statistically
+
+significant reduction of adverse cardiovascular outcomes in patients with type 2 diabetes and
+
+established cardiovascular disease, revolutionizing treatment guidelines around the world. Later
+
+clinical trials led FDA to approve Jardiance® for use in reducing the risk of cardiovascular death
+
+in adults with heart failure and adults with type 2 diabetes, and also in treating type 2 diabetes in
+
+children 10 years and older. See id. ¶ 5; see also supra note 9. Earlier this month, FDA issued a
+
+further approval for use of Jardiance® to reduce the risk of end-stage kidney disease, cardiovascular
+
+death, and hospitalization in adults with chronic kidney disease. See id. ¶ 5; see also supra
+
+note 9.
+
+          Because CMS selected Jardiance® for the Program, BI is required by statute to sign the
+
+Manufacturer Agreement by October 1, 2023, stating that BI will participate in a price-setting
+
+“negotiation” with CMS. Marsh Decl. ¶ 11; 42 U.S.C. §§ 1320f(d)(2), 1320f-2(a). Should BI
+
+
+
+
+9
+  BI holds the New Drug Application (“NDA”) for Jardiance®. See FDA, FDA-Approved Drugs Listing for NDA
+204629, https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=BasicSearch.process.
+
+                                                   9
+       Case 3:23-cv-01103-RNC Document 28-1 Filed 09/27/23 Page 20 of 56
+
+
+
+
+refuse to sign, it would have to pay a crushing penalty—$500 million per week initially, increasing
+
+to over $5.5 billion per week—on every domestic sale of Jardiance®. See 26 U.S.C. § 5000D(d);
+
+Marsh Decl. ¶ 16. Alternatively, the IRA provides that the Program’s requirements and penalties
+
+would not apply to BI if the company withdrew all of its products—not just Jardiance®—from
+
+Medicare and Medicaid. See 26 U.S.C. § 5000D(c).
+
+       Jardiance®’s selection poses a serious threat to BI’s ability to develop innovative new
+
+treatments. BI’s continued investments depend on revenues from the small fraction of its drugs
+
+that are approved by FDA and succeed in the marketplace, such as Jardiance®. See Marsh Decl.
+
+¶ 17. A significant portion of those revenues come from Medicare and Medicaid, through which
+
+BI makes all of its drugs (numbering more than 20) available. Indeed, Medicare and Medicaid
+
+revenues account for more than half of BI’s U.S. net sales in many years and made up more than
+
+55 percent of the company’s U.S. net sales in 2022. Id. ¶ 7.
+
+       For similar reasons, withdrawing all of BI’s drugs from Medicare and Medicaid is not an
+
+option. See id. ¶ 17. Such a drastic measure would deprive BI of the resources it needs to continue
+
+developing innovative treatments and would force patients who rely on BI drugs to switch to other
+
+treatments that may be less effective or cause adverse reactions. See id. Where BI’s drug is the
+
+only FDA-approved treatment for a particular condition or subset of patients—as is the case with
+
+Spevigo®, which treats a rare, lifelong skin disease—forced withdrawal from Medicare and
+
+Medicaid would leave patients in those programs without insurance for any FDA-approved
+
+treatment. See id. ¶ 19. BI cannot walk away from its ethical obligation and longstanding
+
+commitment to its patients in that way. See id. ¶ 18.
+
+                                     LEGAL STANDARD
+
+       “Summary judgment is appropriate if the record establishes that ‘there is no genuine
+
+dispute as to any material fact and the movant is entitled to judgment as a matter of law.’”
+                                                10
+       Case 3:23-cv-01103-RNC Document 28-1 Filed 09/27/23 Page 21 of 56
+
+
+
+
+McCutcheon v. Colgate-Palmolive Co., 62 F.4th 674, 686 (2d Cir. 2023) (quoting Fed. R. Civ. P.
+
+56(a)). Here, the parties have stipulated that “this case … can properly be resolved through” cross-
+
+motions for summary judgment, ECF 16 ¶ 2, because neither party needs discovery to obtain
+
+“information that is essential to” its position, Trebor Sportswear Co. v. Limited Stores, Inc., 865
+
+F.2d 506, 511–12 (2d Cir. 1989) (cleaned up), and BI’s claims “presen[t] legal questions regarding
+
+the constitutionality of a federal statute (and the validity of related administrative action),” ECF
+
+16 ¶ 2; see also New York v. HHS, 414 F. Supp. 3d 475, 516 (S.D.N.Y. 2019) (typical Rule 56
+
+standard “does not apply” where plaintiff is challenging federal agency action (citation omitted)).
+
+                                          ARGUMENT
+
+I.     The Program’s One-Sided Procedures Violate BI’s Due Process Rights.
+
+       The Program discards bedrock procedural safeguards present in other price-setting
+
+programs and, in doing so, violates BI’s Fifth Amendment due process rights. “The fundamental
+
+requirement of due process is the opportunity to be heard ‘at a meaningful time and in a meaningful
+
+manner,’” Mathews v. Eldridge, 424 U.S. 319, 333 (1976) (quoting Armstrong v. Manzo, 380 U.S.
+
+545, 552 (1965)), by a “neutral and detached” decisionmaker, Concrete Pipe & Prods. of Cal., Inc.
+
+v. Constr. Laborers Pension Tr. for S. Cal., 508 U.S. 602, 617–18 (1993). The “whole purpose”
+
+of these protections is to prevent “arbitrary deprivations of liberty or freedom.” Honda Motor Co.
+
+v. Oberg, 512 U.S. 415, 434 (1994).
+
+       The Program fails to satisfy these requirements. It strips BI of constitutionally protected
+
+property interests without affording BI anything close to the procedures or meaningful hearing due
+
+process requires. Because CMS has issued an order selecting Jardiance® for the Program, BI is
+
+faced with a Hobson’s choice between paying confiscatory penalties or engaging in a performative
+
+“negotiation” in which an agency with a financial stake will dictate a price for BI’s drug—
+
+unconstrained by ascertainable standards, any guarantee that the resulting price will be fair and
+
+                                                11
+        Case 3:23-cv-01103-RNC Document 28-1 Filed 09/27/23 Page 22 of 56
+
+
+
+
+equitable, or the prospect of administrative or judicial review. That scheme violates BI’s due
+
+process rights multiple times over. Indeed, as far as BI is aware, no court has ever upheld a scheme
+
+that deprives regulated parties of core procedural safeguards in the way the Program does here.
+
+        A.       BI’s Property Interests Are At Stake.
+
+        In analyzing a procedural due process claim, “[t]he threshold issue is always whether the
+
+plaintiff has a property or liberty interest protected by the Constitution.” Narumanchi v. Bd. of
+
+Trs. of Conn. State Univ., 850 F.2d 70, 72 (2d Cir. 1988). Here, the Program strips BI of multiple
+
+constitutionally protected property interests.
+
+        First, the Program will deprive BI of its property interest in physical doses of Jardiance®.
+
+As the owner of the drugs, BI holds rights that include “the rights to possess, use and dispose of”
+
+those drugs, Horne v. Dep’t of Agric., 576 U.S. 350, 361–62 (2015) (quoting Loretto v.
+
+Teleprompter Manhattan CATV Corp., 458 U.S. 419, 435 (1982)), as well as the “right of access”
+
+to those drugs and the crucial “right to exclude” others from them, Cedar Point Nursery v. Hassid,
+
+141 S. Ct. 1063, 2072 (2021). 10            The Program overrides those rights by granting eligible
+
+beneficiaries and their providers “access” to Jardiance® tablets on terms BI would never
+
+voluntarily accept. See 42 U.S.C. § 1320f-2(a)(3).
+
+        It is also a “well-settled general principle that the right of the owner of property to fix the
+
+price at which he will sell it is an inherent attribute of the property itself, and as such is within the
+
+protection of the Fifth … Amendmen[t].” Old Dearborn Distrib. Co. v. Seagram-Distillers Corp.,
+
+299 U.S. 183, 192 (1936). Courts have thus long analyzed price-control regimes through the lens
+
+of procedural due process, confirming that such regimes necessarily implicate this property interest
+
+
+10
+  Although Cedar Point and Horne were decided under the Takings Clause, they are instructive about what constitutes
+“property” protected by the Due Process Clause. Story v. Green, 978 F.2d 60, 62 (2d Cir. 1992). Particularly in light
+of the presumption of consistent usage, it would make little sense if “property” meant different things in the fourth
+and fifth clauses of the Fifth Amendment.
+
+                                                        12
+       Case 3:23-cv-01103-RNC Document 28-1 Filed 09/27/23 Page 23 of 56
+
+
+
+
+even where no one is compelled to engage in a sale. See Bowles v. Willingham, 321 U.S. 503, 517
+
+(1944); Yakus v. United States, 321 U.S. 414, 438 (1944); cf. Pennell v. City of San Jose, 485 U.S.
+
+1, 11 (1988) (price-control regulations subject to due process challenge).
+
+        The Program also deprives BI of property interests in its confidential data regarding
+
+Jardiance®. The IRA requires BI to turn over to CMS not only sales data, but also whatever other
+
+“information that [CMS] requires to carry out the negotiation.” 42 U.S.C. § 1320f-2(a)(4). CMS
+
+has demanded a range of highly confidential business information, including how much BI has
+
+spent researching and developing Jardiance®, the extent to which it has recouped those costs, and
+
+unit costs of production and distribution of the drug. Shearin Decl. Ex. B at 133, 188–98. That
+
+and other information is valuable to BI and would be valuable to its competitors, and BI
+
+accordingly treats the information as confidential. See Marsh Decl. ¶ 21. These data are protected
+
+as trade secrets under state law, 11 and are thus property protected by the Fifth Amendment.
+
+Ruckelshaus v. Monsanto Co., 467 U.S. 986, 1001–03 (1984); see, e.g., Jazz Pharms., Inc. v.
+
+Synchrony Grp., 343 F. Supp. 3d 434, 445 (E.D. Pa. 2018) (drug-marketing strategy constituted
+
+protected trade secret). CMS cannot order BI to turn over that confidential data, in order to use it
+
+against BI, without due process.
+
+        B.      The Program Deprives BI of Those Interests With Little to No Process.
+
+        Price-setting programs typically empower a government agency to establish price caps
+
+while granting regulated parties protections necessary to ensure that the caps are procedurally and
+
+substantively reasonable. The Program discards that model, resulting in a one-sided scheme with
+
+no meaningful external constraints on CMS’s action. No court has ever upheld a framework like
+
+
+
+
+11
+   Every state protects trade secrets from unauthorized disclosure, and the vast majority of states (including
+Connecticut) have enacted the Uniform Trade Secrets Act. See, e.g., Conn. Gen. Stat. Ann. § 35-50 et seq.
+
+                                                     13
+       Case 3:23-cv-01103-RNC Document 28-1 Filed 09/27/23 Page 24 of 56
+
+
+
+
+the one at issue here. Indeed, the Program provides even fewer protections than emergency
+
+wartime price-control regimes. If meaningful administrative process and judicial review were
+
+afforded to thousands of market participants in those circumstances, there is no reason they can,
+
+consistent with due process, be withheld from a small number of manufacturers during peacetime.
+
+       The Program violates the Fifth Amendment’s due process requirements in at least four ways.
+
+       First, CMS is inherently biased because it both sets drug prices and pays the lion’s share
+
+of the price that it sets. “Due process requires a competent and impartial tribunal,” regardless of
+
+“any particular form of proceeding.” Peters v. Kiff, 407 U.S. 493, 501 (1972); see also Concrete
+
+Pipe, 508 U.S. at 617; Heldman on Behalf of T.H. v. Sobol, 962 F.2d 148, 154 (2d Cir. 1992). The
+
+absence of impartiality—and the resulting due process violation—is most apparent when the
+
+decisionmaker has a “pecuniary interest in the outcome” of the proceeding. Tumey v. Ohio, 273
+
+U.S. 510, 535 (1927); see Withrow v. Larkin, 421 U.S. 35, 47 (1975). Here, the “negotiation” is
+
+irrevocably tainted because CMS, the agency that determines the “maximum fair price,” also pays
+
+a significant share of drug costs, and thus has an obvious financial interest in setting drug prices
+
+as low as possible. The IRA compounds the problem by requiring CMS to pursue “the lowest
+
+maximum fair price for each selected drug.” 42 U.S.C. § 1320f-3(b)(1) (emphasis added).
+
+       Second, the IRA prohibits any administrative or judicial review of CMS’s “maximum fair
+
+price” determination, as well as other key CMS actions implementing the Program. Id. § 1320f-
+
+7(3). In doing so, the Program deprives BI of post-deprivation process and shields CMS from any
+
+review by an impartial judicial or administrative tribunal—further underscoring the Program’s
+
+constitutional infirmity. See Yakus, 321 U.S. at 444 (there must be “an opportunity to be heard
+
+and for judicial review which satisfies the demands of due process”); Bowles, 321 U.S. at 521
+
+(“where Congress has provided for judicial review after the regulations or orders have been made
+
+
+
+                                                14
+       Case 3:23-cv-01103-RNC Document 28-1 Filed 09/27/23 Page 25 of 56
+
+
+
+
+effective it has done all that due process under the war emergency requires”). Although the denial
+
+of administrative and judicial review may not independently constitute a Fifth Amendment
+
+violation, here the combination of that denial together with the Program’s other shortcuts amounts
+
+to a violation of BI’s due process rights.
+
+       Third, the “negotiation” does not provide an opportunity for a meaningful hearing. See
+
+Mathews, 424 U.S. at 333. In this “negotiation,” CMS first makes an “initial offer” representing
+
+its “proposal for the maximum fair price of the drug.” 42 U.S.C. § 1320f-3(b)(2)(B). The
+
+manufacturer then has 30 days to make a “counteroffer” that is subject to the statute’s constraints.
+
+See id. § 1320f-3(b)(2)(C)(ii), (e). The IRA does not require CMS to do anything in response to
+
+this counteroffer, beyond “respond[ing] in writing to” it. Id. § 1320f-3(b)(2)(D). CMS need not,
+
+for example, provide a reasoned explanation for its response to the counteroffer. That threadbare
+
+procedure is insufficient. Cf. Connecticut v. Doehr, 501 U.S. 1, 4 (1991) (law authorizing
+
+deprivation of property without prior notice or hearing or extraordinary circumstances violates
+
+Fourteenth Amendment Due Process Clause).
+
+       The “negotiation” also falls short of due process because it allows CMS to establish the
+
+“maximum fair price” without giving BI an opportunity to respond to the evidence on which the
+
+agency relies. Due process requires the Government to provide regulated parties with access to
+
+the evidence against them and an “opportunity to meet it.” Mathews, 424 U.S. at 348 (cleaned
+
+up); see Townley v. Hecker, 748 F.2d 109, 114 (2d Cir. 1984) (agency violated due process by
+
+relying on evidence that it did not give claimant opportunity to rebut). This principle applies even
+
+when sensitive government interests are at stake. See Ralls Corp. v. CFIUS, 758 F.3d 296, 319
+
+(D.C. Cir. 2014). But the IRA does not require CMS to disclose to BI the evidence on which it
+
+will rely in setting the “maximum fair price” for Jardiance® and instead provides that CMS need
+
+
+
+                                                15
+       Case 3:23-cv-01103-RNC Document 28-1 Filed 09/27/23 Page 26 of 56
+
+
+
+
+only state a “concise justification” for its initial offer. 42 U.S.C. §§ 1320f-3(b)(2)(B), 1320f-
+
+4(a)(2)(B). That superficial approach likewise falls short of the constitutional minimum. See Ohio
+
+Bell Tel. Co. v. Pub. Utils. Comm’n, 301 U.S. 292, 302 (1937).
+
+       Fourth, the IRA does not provide ascertainable standards that CMS must follow when
+
+determining the “maximum fair price.” “The touchstone of due process is protection of the
+
+individual against arbitrary action of government.” Wolff v. McDonnell, 418 U.S. 539, 558 (1974).
+
+To guard against arbitrariness, government action must be channeled and limited by “ascertainable
+
+standards,” lest “the existence of an absolute and uncontrolled discretion in an agency of
+
+government vested with the administration of a vast program” prove “an intolerable invitation to
+
+abuse.” Holmes v. N.Y.C. Hous. Auth., 398 F.2d 262, 265 (2d Cir. 1968). In other words, “the
+
+standards prescribed by the” IRA must be “adequate … for judicial review” to be meaningful.
+
+Bowles, 321 U.S. at 516. Government action unconstrained by such limiting principles offends
+
+not only the separation of powers, but also due process. See Holmes, 398 F.2d at 264–65; accord,
+
+e.g., White v. Roughton, 530 F.2d 750, 753 (7th Cir. 1976); McClendon v. Rosetti, 460 F.2d 111,
+
+115–16 (2d Cir. 1972).
+
+       Although the IRA sets forth certain “factors” that CMS “shall consider,” 42 U.S.C.
+
+§ 1320f-3(e), it does not explain how the agency is to weigh them or provide any means to ensure
+
+that the agency has, in fact, weighed them. Moreover, the “maximum fair price” is defined as any
+
+price that is dictated at the end of the negotiations—there is no requirement that it actually be
+
+“fair.” See id. § 1320f(c)(3). Nothing in the statute curbs CMS’s ability to “fix [prices] ... where
+
+[it] might like and at whatever levels [it] pleases,” Bowles, 321 U.S. at 514—no matter how
+
+confiscatory those prices might be. Indeed, while the IRA imposes a ceiling on the “maximum
+
+fair price,” 42 U.S.C. § 1320f-3(c), it imposes no floor, and thus leaves CMS free to determine
+
+
+
+                                                16
+        Case 3:23-cv-01103-RNC Document 28-1 Filed 09/27/23 Page 27 of 56
+
+
+
+
+that the “fair” price of a drug that a company has invested billions in developing is just one cent
+
+per dose. The statute thus not only fails to adequately cabin CMS’s discretion, but it fails to prevent
+
+the agency from setting prices at levels so low as to be “unfair and inequitable”; it is thus
+
+unconstitutional. See Amalgamated Meat Cutters & Butchers Workmen v. Connally, 337 F. Supp.
+
+737, 755 (D.D.C. 1971).
+
+         C.       The Process Provided by the Program Is Constitutionally Inadequate.
+
+         As described above, the Program will deprive BI of valuable property interests through a
+
+“negotiation” process that is merely a façade for CMS’s dictating prices for selected drugs.
+
+Because the Program provides BI no meaningful opportunity to be heard, before or after the
+
+“maximum fair price” for Jardiance® is set, there is no need to apply the Mathews balancing test
+
+to determine whether pre-deprivation process is required, or whether post-deprivation process
+
+would suffice. See Lawrence v. Reed, 406 F.3d 1224, 1233 (10th Cir. 2005) (one “need not
+
+understand the niceties of Mathews to know” that providing “no hearing whatsoever ... is
+
+unconstitutional”). 12
+
+         More instructive is a comparison to prior price-control regimes, which further demonstrates
+
+the Program’s due process failings. Even laws enacted during wartime, at the low-water mark for
+
+due process rights, contained significantly more robust procedural protections for affected
+
+parties—and the features that allowed the Supreme Court to uphold those programs are absent
+
+
+12
+   Even if the Mathews test were relevant, the Program would fail. First, the “nature of the private interest that will
+be affected” is significant. Turner v. Rogers, 564 U.S. 431, 444 (2011); see Mathews, 424 U.S. at 335. The Program
+will deprive BI of revenues essential to new drug development, undermining long-term incentives for innovation, and
+thereby endangering manufacturers and patients alike. See supra p. 10. Second, the “comparative risk of an erroneous
+deprivation of [those interests] with and without additional or substitute procedural safeguards” is high, Turner, 564
+U.S. at 444–45, because the Program allows CMS to dictate prices without meaningful constraints or input from
+affected parties, creating a grave risk that CMS will set prices at erroneous levels that threaten BI’s business and
+incentives for innovation. Third, “the nature and magnitude of any countervailing interest,” id. at 445, do not support
+the Government since only ten drugs are at issue and having to follow basic procedural constraints would not
+significantly burden CMS. See Francis v. Fiacco, 942 F.3d 126, 144 (2d Cir. 2019) (third Mathews factor did not
+support government where additional process would affect only a “few” cases).
+
+                                                         17
+       Case 3:23-cv-01103-RNC Document 28-1 Filed 09/27/23 Page 28 of 56
+
+
+
+
+here. Instead, by enabling CMS to impose price controls without meaningful limits on its
+
+discretion, without a meaningful opportunity for BI to be heard, and without any prospect of
+
+judicial review, the Program presents a “novel context” unmoored from these precedents, which
+
+further confirms the Program’s constitutional defects. See Seila Law LLC v. CFPB, 140 S. Ct.
+
+2183, 2192 (2020).
+
+       Precedent concerning the Emergency Price Control Act of 1942 (“EPCA”), Pub. L. No.
+
+77-421, 56 Stat. 23, illustrates the point. EPCA, enacted shortly after the United States entered
+
+World War II, sought to curb “inflationary pressures brought about in part by” the war “and
+
+creat[e] a nationwide system of price controls.” Cmty. Hous. Improvement Program v. City of
+
+New York, 59 F.4th 540, 545 (2d Cir. 2023).          The statute created an Office of the Price
+
+Administrator and charged the Administrator with prescribing such “maximum prices as in his
+
+judgment will be generally fair and equitable and will effectuate the purposes of th[e] Act,” when
+
+prices had risen or were expected to rise to prescribed levels. EPCA § 2(a). Even though EPCA
+
+was a “war emergency measure,” Adamo Wrecking Co. v. United States, 434 U.S. 275, 290 (1978)
+
+(Powell, J., concurring), it provided multiple procedural protections the Program lacks.
+
+       First, EPCA provided for review by multiple layers of impartial authorities: the
+
+Administrator, a special court of appeals, and the Supreme Court. See Yakus, 321 U.S. at 418–19,
+
+433, 435; Bowles, 321 U.S. at 516, 520–21; Lockerty v. Phillips, 319 U.S. 182, 188–89 (1943).
+
+       Second, EPCA allowed for judicial “review [of] all questions of law, including the question
+
+whether the Administrator’s determination is supported by evidence,” and even allowed for
+
+introduction of new evidence in certain circumstances. Yakus, 321 U.S. at 437.
+
+       Third, EPCA provided a robust administrative process by which regulated parties could
+
+protest particular price controls and receive an “administrative hearing” at which they could
+
+
+
+                                                18
+       Case 3:23-cv-01103-RNC Document 28-1 Filed 09/27/23 Page 29 of 56
+
+
+
+
+“presen[t] documentary evidence, affidavits[,] and briefs.” Id. at 436; see generally id. at 435–37.
+
+After the hearing, the Administrator was required to “inform the protestant of the grounds for his
+
+decision denying a protest.” Id. at 436. Judicial review was available based on “[t]hese materials
+
+and the grounds for decision which they furnished.” Bowles, 321 U.S. at 515.
+
+       Fourth, EPCA provided ascertainable standards to guide the Administrator’s discretion,
+
+namely, that when prices rose to a prescribed level, the Administrator should set prices that were
+
+“fair and equitable” and would “effectuate th[e statute’s] purposes.” EPCA § 2(a); see also id.
+
+§ 1(a) (statement of purposes); Bowles, 321 U.S. at 513–14 (“There is no grant of unbridled
+
+administrative discretion[.]”); cf. Yakus, 321 U.S. at 426 (rejecting nondelegation challenge
+
+because EPCA provided “sufficiently definite and precise” standards).
+
+       Those protections played a key role in the Supreme Court’s decisions upholding provisions
+
+of EPCA against due process challenges. See Bowles, 321 U.S. at 509–10, 521 (rent-control
+
+provisions); Yakus, 321 U.S. at 431–43 (provisions regarding judicial review).           But these
+
+protections are notably absent from the Program. As discussed above, the Program provides no
+
+meaningful constraint on how CMS determines the “maximum fair price” and lacks any safeguard
+
+against CMS’s selection of unfair, inequitable, and confiscatory prices. See supra p. 8. The IRA
+
+fails to ensure a meaningful administrative hearing because it does not require CMS to provide a
+
+reasoned response to the manufacturer’s position, does not allow the manufacturer to review and
+
+rebut evidence on which CMS relies, and shields key determinations, including the “maximum fair
+
+price,” from any oversight by courts or other impartial arbiters. See 42 U.S.C. § 1320f-7(3).
+
+       The Program’s departure from this prior price-control regime is particularly stark given
+
+that EPCA was upheld in the context of “the urgency and exigencies of wartime price regulation,”
+
+Yakus, 321 U.S. at 435, and provided substantial administrative and judicial process even though
+
+
+
+                                                19
+        Case 3:23-cv-01103-RNC Document 28-1 Filed 09/27/23 Page 30 of 56
+
+
+
+
+it affected “thousands” of landlords and a broad range of other market participants, see Bowles,
+
+321 U.S. at 521. No less is required as to ten pharmaceutical companies in a time of peace. 13
+
+II.      The Program Effects a Physical Taking of BI’s Jardiance® Products.
+
+         The Program also violates BI’s property rights under the Takings Clause by forcing BI to
+
+transfer Jardiance® tablets to third parties on the Government’s terms and capping BI’s
+
+compensation well below market-based prices. The Program thus goes far beyond regulating drug
+
+prices by effecting a physical taking of BI’s property without just compensation, in violation of
+
+the Fifth Amendment.
+
+         The Takings Clause prohibits the Government from appropriating private property without
+
+just compensation. U.S. Const. amend. V. This protection applies to personal property, including
+
+products like the Jardiance® tablets BI manufactures and sells. See Horne, 576 U.S. at 359. The
+
+Takings Clause thus safeguards not only BI’s “rights to possess, use and dispose of” its Jardiance®
+
+tablets, id. at 360 (cleaned up), but also BI’s “fundamental” and “essential” “right to exclude
+
+others” from accessing its property, Kaiser Aetna v. United States, 444 U.S. 164, 176 (1979). Yet
+
+when the Government appropriates these property rights “for itself or a third party,” it inflicts a
+
+physical taking. Cedar Point Nursery, 141 S. Ct. at 2071. When a physical taking occurs, a
+
+“simple, per se rule” applies: the Government “must pay for what it takes.” Id. 14
+
+
+
+
+13
+  Declaratory and injunctive relief is appropriate because here the Court can “say in advance of resort to the statutory
+procedure that it is incapable of affording due process,” such that BI’s “constitutional rights have been or will be
+infringed.” Yakus, 321 U.S. at 435; see also Hodel v. Va. Surface Min. & Reclamation Ass’n, 452 U.S. 264, 302
+(1981) (“The relevant inquiry is not whether a[n administrative] order should have been issued in a particular case,
+but whether the statutory procedure itself is incapable of affording due process.”).
+14
+  Because BI brings only a physical takings claim, the Court need not consider the factors involved in the “ad hoc,
+factual inquiry” for regulatory takings claims. Penn Cent. Transp. Co. v. City of New York, 438 U.S. 104, 124 (1978);
+see also Horne, 576 U.S. at 362 (physical takings are “of such a unique character that [they are] a taking without
+regard to other factors that a court might ordinarily examine” (cleaned up)).
+
+                                                          20
+       Case 3:23-cv-01103-RNC Document 28-1 Filed 09/27/23 Page 31 of 56
+
+
+
+
+       Physical takings can occur in several ways, at least two of which are relevant here:
+
+(1) forcing an owner to transfer property to another, see Horne, 576 U.S. at 364; and (2) granting
+
+third parties access to the owner’s property, thus eliminating the owner’s rights to exclude and to
+
+control the disposition of its property, see Cedar Point, 141 S. Ct. at 2072.
+
+       In Horne, regulations forced raisin growers to “physical[ly] surrender” some of their crops
+
+“to the Government, free of charge.” 576 U.S. at 355, 364. That “actual taking of possession and
+
+control” meant that the growers had lost key property rights in their raisins, including the “right to
+
+control their [raisins’] disposition.” Id. at 361–62, 364 (cleaned up). This forced transfer was “a
+
+clear physical taking.” Id. at 361, 367. The fact that the growers retained a contingent right to
+
+receive payment for their raisins, at a level determined by the Government, did not undermine that
+
+conclusion, see id. at 362–63, just as the owner’s continued ability “to economically benefit from
+
+the property” was irrelevant to the takings analysis in Loretto, see 458 U.S. at 430.
+
+       The Court similarly found a physical taking in Cedar Point. There, California had granted
+
+union organizers a “right of access” to “the premises of an agricultural employer” for several days
+
+throughout the year. 141 S. Ct. at 2069 (cleaned up). While the state had not actually “acquir[ed]
+
+title to” the employer’s property (as in Horne), this third-party right of access on the state’s terms
+
+still inflicted a “physical takin[g] requiring just compensation.” This was so because the law
+
+replaced “the owner’s right to exclude” with third parties’ “right to invade.” Id. at 2072, 2074. As
+
+in Loretto, the fact that the employer retained ownership of its property was immaterial; what
+
+counted was the Government’s nonconsensual appropriation of the employer’s rights to use and
+
+exclude others from the property. See id. at 2072–74.
+
+       The Program suffers from the same constitutional defects. As in Horne, BI will be forced
+
+to transfer its Jardiance® products to third parties. And as in Cedar Point, the IRA grants third
+
+
+
+                                                 21
+       Case 3:23-cv-01103-RNC Document 28-1 Filed 09/27/23 Page 32 of 56
+
+
+
+
+parties a statutory right to access BI’s Jardiance® tablets. The combination of this forced transfer
+
+and third-party access prevent BI from exercising its rights to exclude and to control the disposition
+
+of its Jardiance® tablets, appropriating BI’s ability to choose whether, and on what terms, others
+
+may take possession of its property.
+
+       This taking starts with the IRA’s access requirement. BI will be obligated to “provid[e]”
+
+Medicare Part D enrollees, hospitals, physicians, and other dispensing providers “access to the
+
+maximum fair price … with respect to [its] selected drug” Jardiance®. 42 U.S.C. § 1320f-2(a)(3);
+
+see also Shearin Decl. Ex. C at 1. Due to this access requirement, BI will no longer be able to
+
+decide whether, and on what terms, it is willing to offer Jardiance® tablets for sale. Instead,
+
+Medicare participants will have the right to obtain Jardiance® tablets at the CMS-dictated price,
+
+and BI will have no choice but to comply when participants exercise that right. See 42 U.S.C.
+
+§ 1320f-6(a) (imposing civil monetary penalties for failure to “provide access to” that price).
+
+Simply put, the access requirement replaces BI’s property rights in its Jardiance® tablets with third
+
+parties’ right to access those tablets on the Government’s terms.
+
+       The IRA cements third-party access through its formulary inclusion requirement. Before
+
+the IRA, BI retained the right to negotiate with Medicare Part D plan sponsors to determine the
+
+pricing and availability of Jardiance® through Part D plans to enrollees. Now, however, every Part
+
+D plan must include Jardiance® on its list of covered drugs (a list commonly referred to as a plan’s
+
+“Part D formulary”), subject to the terms established through the Program. See id. § 1395w-
+
+104(b)(3)(I). This requirement expands the breadth of the taking by providing every Medicare
+
+enrollee access to Jardiance® through a Part D plan. Moreover, the requirement strips BI of the
+
+right to “control” the “use and dispos[ition] of” its Jardiance® tablets by eliminating BI’s ability to
+
+negotiate whether Jardiance® should be included on a Part D plan formulary and if so, the
+
+
+
+                                                  22
+       Case 3:23-cv-01103-RNC Document 28-1 Filed 09/27/23 Page 33 of 56
+
+
+
+
+specifications (including price) for that participation. See Horne, 576 U.S. at 361–62, 364 (cleaned
+
+up).
+
+       As in Horne and Cedar Point, the IRA enforces this taking through severe penalties. See
+
+supra pp. 7, 9–10; see also 42 U.S.C. § 1320f-6(a), (c); 26 U.S.C. § 5000D. The growers in Horne
+
+were assessed a civil penalty for failing to turn over their raisins. 576 U.S. at 356. And the
+
+employers in Cedar Point were met with unfair labor practice sanctions for refusing to grant
+
+access. 141 S. Ct. at 2069, 2070. That these property owners could have incurred penalties to
+
+avoid giving up their property rights did not change the fact that a taking had occurred. See, e.g.,
+
+Horne, 576 U.S. at 356 (finding a physical taking despite the growers refusing to surrender their
+
+raisins and being assessed a penalty). “Just as the alternative of a fine in Horne did not save the
+
+statute from constituting a taking,” Valancourt Books, LLC v. Garland, 2023 WL 5536195, at *9
+
+(D.C. Cir. Aug. 29, 2023), the Program’s purported options of paying crippling excise tax penalties
+
+or completely withdrawing from Medicare and Medicaid do not remediate the IRA’s taking.
+
+       The Program also ensures that BI will not be justly compensated for these takings. See
+
+Tahoe-Sierra Pres. Council, Inc. v. Tahoe Reg’l Plan. Agency, 535 U.S. 302, 322 (2002) (physical
+
+taking triggers the Government’s “categorical duty to compensate the former owner”). That BI
+
+receives some compensation for its drugs does not solve the problem. See Horne, 576 U.S. at 364
+
+(“[O]nce there is a taking, as in the case of a physical appropriation, any payment from the
+
+Government in connection with that action goes, at most, to the question of just compensation.”).
+
+Just compensation is “measured by the market value of the property at the time of the taking.”
+
+United States v. 50 Acres of Land, 469 U.S. 24, 29 (1984) (cleaned up); accord Horne, 576 U.S.
+
+366–69; Ford Motor Credit Co. v. NYC Police Dep’t, 503 F.3d 186, 191 (2d Cir. 2007). Yet the
+
+IRA caps the “maximum fair price”—i.e., the most compensation BI can receive for its lost
+
+
+
+                                                23
+       Case 3:23-cv-01103-RNC Document 28-1 Filed 09/27/23 Page 34 of 56
+
+
+
+
+property—below market-based prices. See 42 U.S.C. § 1320f-3(c)(1). The IRA then obligates
+
+CMS to drive the maximum fair price below that ceiling to “achieve the lowest maximum fair
+
+price for each selected drug.” Id. § 1320f-3(b)(1). Thus, no matter what price CMS ends up
+
+selecting for BI’s Jardiance® tablets, BI’s compensation will always be below market value.
+
+       Declaratory relief is appropriate in light of those characteristics. The relevant factors
+
+include whether such relief will “clarif[y] or settl[e] the legal issues involved,” “finalize the
+
+controversy and offer relief from uncertainty,” further “judicial efficiency and judicial economy,”
+
+and “whether there is a better or more effective remedy.” Admiral Ins. Co. v. Niagara Transformer
+
+Corp., 57 F.4th 85, 99–100 (2d Cir. 2023) (cleaned up). These factors all weigh in BI’s favor.
+
+Definitively settling whether the Program effects a physical taking without just compensation will
+
+remove uncertainty for both the Government and BI before the Program’s mandates go into effect.
+
+Resolving this issue now will also avoid protracted litigation and repeated lawsuits each time BI
+
+is forced to hand over a dose of Jardiance® on the Government’s terms. See Di Giovanni v.
+
+Camden Fire Ins. Ass’n, 296 U.S. 64, 70 (1935). Moreover, courts often find declaratory relief
+
+the appropriate remedy in situations such as these before a taking has actually occurred. See, e.g.,
+
+Ruckelshaus, 467 U.S. at 998, 1013 (holding that disclosure of trade secrets to federal agency “will
+
+constitute a taking” (emphasis added)); Pharm. Res. & Mfrs. of Am. v. Williams, 64 F.4th 932, 942
+
+(8th Cir. 2023) (“PhRMA”) (granting declaratory relief where insulin manufacturer would
+
+otherwise need to “repeatedly bring new suits to obtain just compensation for all the insulin taken
+
+by the Act”); Valancourt Books, 2023 WL 5536195, at *3, *6 (holding that requirement to “provide
+
+physical copies of books” effected a “classic taking” in suit for declaratory relief). Indeed, as the
+
+Supreme Court has noted, declaratory relief “allows individuals threatened with a taking to seek a
+
+declaration of the constitutionality of the disputed governmental action before potentially
+
+
+
+                                                 24
+        Case 3:23-cv-01103-RNC Document 28-1 Filed 09/27/23 Page 35 of 56
+
+
+
+
+uncompensable damages are sustained.” Duke Power Co. v. Carolina Env’t Study Grp., 438 U.S.
+
+59, 71 n.15 (1978). Such is the case here. 15
+
+III.     The Program Compels BI’s Speech in Violation of the First Amendment.
+
+         A.       The IRA Unlawfully Compels BI’s Speech.
+
+         The IRA violates BI’s First Amendment rights by compelling BI to echo the Government’s
+
+preferred narrative regarding the Program. “[T]he First Amendment protects the right to decide
+
+what to say and what not to say.” Burns v. Martuscello, 890 F.3d 77, 84 (2d Cir. 2018) (cleaned
+
+up); accord Janus v. Am. Fed’n of State, Cnty., & Mun. Emps., Council 31, 138 S. Ct. 2448, 2463
+
+(2018). This “right not to speak” is “central to our system of government” and “must be jealously
+
+guarded.” Burns, 890 F.3d at 85. Government thus “cannot tell people that there are things they
+
+must say” without “plainly violat[ing] the First Amendment.” New Hope Fam. Servs., Inc. v.
+
+Poole, 966 F.3d 145, 170 (2d Cir. 2020) (cleaned up). These constitutional protections are an
+
+especially important bulwark against “governmental efforts to require [individuals] to make
+
+statements [they] believe are false.” Jackler v. Byrne, 658 F.3d 225, 241 (2d. Cir. 2011).
+
+         The IRA transgresses these principles. Because CMS selected Jardiance® for the Program,
+
+BI has until October 1, 2023, to sign an “agreement” to comply with the Program’s terms. See 42
+
+U.S.C. §§ 1320f(b)(4), (d)(2)(A), 1320f-2(a). The IRA requires that agreement to state that the
+
+manufacturer “agree[s]” to participate in the Program and engage in a “negotiation” that will result
+
+
+
+15
+   While “enjoin[ing] the government’s action effecting a taking” is generally inappropriate when “an adequate
+provision for obtaining just compensation exists,” Knick v. Township of Scott, 139 S. Ct. 2162, 2176 (2019) (emphasis
+added), BI seeks only declaratory relief, see ECF 1 ¶ 199. Even if Knick were applicable, declaratory relief would
+still be available because BI lacks an adequate remedy: the IRA authorizes a repetitive (and essentially endless) series
+of new, per se takings while Jardiance® is subject to the Program, leaving BI to “repeatedly bring new suits to obtain
+just compensation” each time a shipment of Jardiance® tablets is taken. PhRMA, 64 F.4th at 942 (cleaned up). The
+problem, however, is that “[a]n inverse condemnation action to reimburse a manufacturer for each discrete alleged
+taking is incapable of compensating the manufacturers for the repetitive, future takings that will occur under the Act’s
+requirements.” Id. at 945 (emphasis added).
+
+
+
+                                                          25
+        Case 3:23-cv-01103-RNC Document 28-1 Filed 09/27/23 Page 36 of 56
+
+
+
+
+in an agreed-upon “maximum fair price.” Id. § 1320f-2(a). The text of the Manufacturer
+
+Agreement issued unilaterally by CMS conveys these messages with even greater clarity. 16
+
+Signing that document will convey to a reasonable observer that BI “manifest[s] [its] assent” to all
+
+of these messages. Thomas James Assocs., Inc. v. Jameson, 102 F.3d 60, 65 n.2 (2d Cir. 1996);
+
+see also John Doe No. 1 v. Reed, 561 U.S. 186, 194–95 (2010) (signing a petition expresses views
+
+and thus implicates First Amendment rights). Yet because the IRA compels BI’s signature, see
+
+infra Part V, it forces BI to express the Government’s messages, “vitiat[ing]” BI’s right to decide
+
+which messages it will and will not speak. Burns, 890 F.3d at 84. But for the IRA’s compulsion,
+
+BI would not convey these messages. See Marsh Decl. ¶¶ 13–14.
+
+         BI strongly disagrees with the messages it is being forced to express. See Jackler, 658 F.3d
+
+at 241; see also Hurley v. Irish-Am. Gay, Lesbian & Bisexual Grp. of Boston, 515 U.S. 557, 573
+
+(1995) (Government “may not compel affirmance of a belief with which the speaker disagrees”).
+
+The IRA requires BI to communicate that it has voluntarily agreed to participate in the Program.
+
+See 42 U.S.C. § 1320f-2(a). Yet BI disagrees that the Program involves a voluntary agreement.
+
+CMS issued the Manufacturer Agreement on a take-it-or-leave-it basis with no mechanism for
+
+manufacturers to propose changes, see generally Shearin Decl. Ex. D; it designated the Agreement
+
+as “final” upon issuance and did not provide manufacturers with an opportunity to comment after
+
+making its terms public, see id. Ex. B at 30; and CMS has pointedly reminded manufacturers of
+
+the financially ruinous consequences of failing to sign the Agreement, see id. Ex. B § 40.1. CMS
+
+
+
+
+16
+  See Shearin Decl. Ex. C at 1 (“the Manufacturer, on its own behalf … hereby agree[s] to the following”), § II (“CMS
+and the Manufacturer agree ... [that] [d]uring the negotiation period … CMS and the Manufacturer shall negotiate to
+determine … a maximum fair price[.]”), § V (“By signing the Agreement, the Manufacturer agrees to abide by all
+provisions set forth in this Agreement[.]”), add. 1 (“the Manufacturer and CMS have engaged in negotiation of the
+price for the Selected Drug … [and] now agree to a price”).
+
+                                                         26
+       Case 3:23-cv-01103-RNC Document 28-1 Filed 09/27/23 Page 37 of 56
+
+
+
+
+even claims the power to unilaterally change the terms of the Agreement after BI has signed it.
+
+See id. Ex. C §§ II(e), IV(b).
+
+       The IRA likewise forces BI to communicate that the Program involves an actual
+
+“negotiation.” See, e.g., 42 U.S.C. § 1320f-2; Shearin Decl. Ex. C at 1. But BI disagrees with this
+
+message as well. A true negotiation ends only when both parties voluntarily agree to the terms.
+
+See Black’s Law Dictionary (11th ed. 2019) (defining “negotiation” as a “consensual bargaining
+
+process”). To be sure, the Program is designed to look like a negotiation, with CMS’s offer, a
+
+manufacturer’s counter, and CMS’s response. See 42 U.S.C. § 1320f-3(b)(2); Shearin Decl. Ex. B
+
+§ 60.4. Yet behind this performative exchange loom the same threats compelling BI to participate
+
+in the Program: paying ruinous excise tax penalties or withdrawing all of its products from
+
+Medicare and Medicaid. As with its “choice” to participate in the Program, BI’s ability to negotiate
+
+over Jardiance®’s price is illusory—it must accept the Government’s preferred price because it has
+
+no other choice. See Marsh Decl. ¶¶ 14–17.
+
+       Moreover, the IRA requires BI to convey that this “negotiation” will result in a price for
+
+Jardiance® that is not only “fair”, but also the “maximum fair price,” implying that all higher prices
+
+are unfair. See 42 U.S.C. §§ 1320f-2, 1320f-3; Shearin Decl. Ex. C at 1 (agreeing to “negotiate to
+
+determine a … ‘maximum fair price’”), §§ II(a), (c), add. 1. But as discussed above, CMS will set
+
+the price for Jardiance® at the “lowest” “maximum fair price” and below market-based prices, see
+
+supra pp. 7–8, 24, despite market value being the accepted metric for determining a fair price, see
+
+Horne, 576 U.S. at 368–70. What is more, fairness connotes “impartiality” or “disinteres[t].”
+
+Black’s Law Dictionary (11th ed. 2019). The Program, however, lacks a neutral arbiter: with the
+
+threat of penalties in one hand and a shield from judicial review in the other, the agency
+
+commissioned with driving drug prices down to lower its own costs sets these purportedly “fair”
+
+
+
+                                                 27
+       Case 3:23-cv-01103-RNC Document 28-1 Filed 09/27/23 Page 38 of 56
+
+
+
+
+prices. Thus, BI maintains that any price CMS selects for Jardiance® will be unfair. See Marsh
+
+Decl. ¶¶ 13–14. BI should not be compelled “to affirm in one breath that which [it] would deny
+
+in the next.” Pac. Gas & Elec. Co. v. Pub. Util. Comm’n of Cal., 475 U.S. 1, 16 (1986) (“PG&E”).
+
+       Because the IRA “compel[s] [BI] to utter or distribute speech bearing a particular
+
+message,” it is subject to “the most exacting scrutiny.” Turner Broad. Sys., Inc. v. FCC, 512 U.S.
+
+622, 642 (1994); accord Burns, 890 F.3d at 85. Strict scrutiny applies because the Government
+
+“necessarily alters the content of [BI’s] speech” and imposes a “content-based regulation of
+
+speech” when it “[m]andat[es] speech that [BI] would not otherwise make.” Riley v. Nat’l Fed. of
+
+the Blind of N.C., Inc., 487 U.S. 781, 795 (1988); accord Nat’l Inst. of Fam. & Life Advocs. v.
+
+Becerra, 138 S. Ct. 2361, 2371 (2018) (“NIFLA”).
+
+       The IRA fails that test because compelling BI’s speech is not “a narrowly tailored means
+
+of serving a compelling [governmental] interest.” PG&E, 475 U.S. at 19. Indeed, the Government
+
+has no valid interest (much less a compelling one) in forcing private parties to echo its messages,
+
+nor does it have a legitimate interest in deceiving the public as to the Program’s true nature. Yet
+
+that is exactly what the Program does: conscript unwilling manufacturers to feign agreement so
+
+that the Government can avoid full responsibility for the Program’s inevitable harms to
+
+pharmaceutical innovation and patient treatment options. Even considering the IRA’s stated
+
+interest of reducing drug costs, see 42 U.S.C. § 1320f-3(b)(1), compelling speech is not necessary to
+
+the Program: CMS could still set drug prices without forcing manufacturers to sign a faux
+
+Agreement that furthers the Government’s message. Price-setting programs frequently operate
+
+without a purported contract between regulator and regulated, but taking that approach here would
+
+force the Government to take accountability for the Program’s effects and deprive the Government
+
+
+
+
+                                                 28
+        Case 3:23-cv-01103-RNC Document 28-1 Filed 09/27/23 Page 39 of 56
+
+
+
+
+of the politically popular 17 argument that the Program merely involves empowering CMS to
+
+negotiate Medicare drug prices. 18 The First Amendment exists to protect “uninhibited, robust, and
+
+wide-open” debate, N.Y. Times Co. v. Sullivan, 376 U.S. 254, 270 (1964), from such governmental
+
+efforts to “manipulate the public debate through coercion,” Turner, 512 U.S. at 641. 19
+
+         These First Amendment violations “unquestionably constitut[e] irreparable injury.” Elrod
+
+v. Burns, 427 U.S. 347, 373 (1976); see also, e.g., NIFLA, 138 S. Ct. at 2370. Accordingly, the
+
+Court should invalidate the Agreement and enjoin Defendants from enforcing its terms, and the
+
+Program’s penalties, against BI.
+
+         B.       The Manufacturer Agreement’s Disclaimer Exacerbates, Rather than Cures,
+                  the First Amendment Violation.
+
+         Facing similar constitutional claims in other lawsuits, CMS included a provision in the
+
+Manufacturer Agreement aimed at fending off First Amendment claims. The provision states that
+
+a manufacturer, in signing the Agreement, “does not make any statement regarding or
+
+endors[ing] … CMS’ views, and makes no representation or promise beyond its intention to
+
+comply with its obligations” under the Agreement. Shearin Decl. Ex. C § IV(f). Aside from this
+
+
+17
+   Compare National Tracking Poll #2109099, at 13, Morning Consult (Sept. 16–19, 2021), https://perma.cc/9XCL-
+JECJ (American public supports “allowing the federal government to directly negotiate with drug companies to get a
+lower price on medications”); with id. at 17 (less than half of Americans support “effectively allowing the federal
+government to set the prices of drugs”).
+18
+   The President and CMS Administrator Brooks-LaSure have repeatedly advanced this argument in support of the
+Program. See, e.g., Remarks by Pres. Biden on Medicare and the Inflation Reduction Act (Sept. 27, 2022),
+https://www.whitehouse.gov/briefing-room/speeches-remarks/2022/09/27/remarks-by-president-biden-on-medicare-
+and-the-inflation-reduction-act/ (“Medicare will finally get the power to negotiate lower prescription drug prices.”);
+Michael Erman & Patrick Wingrove, U.S. Will Allow Drugmakers to Discuss Medicare Drug Price Negotiations,
+Reuters (June 30, 2023), https://www.nasdaq.com/articles/u.s.-will-allow-drugmakers-to-discuss-medicare-drug-
+price-negotiations (quoting Administrator Brooks-LaSure statement that Program involves “negotiat[ing] with us
+directly”).
+19
+   The lesser scrutiny that applies to certain types of compelled commercial speech does not apply here because the
+Program goes well beyond “mandat[ing] the disclosure of ‘purely factual and uncontroversial information,’” and
+instead compels BI to further the Government’s message. See Safelite Group, Inc. v. Jepsen, 764 F.3d 258, 263 (2d
+Cir. 2014) (quoting Zauderer v. Off. of Disciplinary Couns., 471 U.S. 626, 651 (1985)). Even if that lower standard
+applied, however, the Program would still fail because the Government has no valid interest in compelling
+manufacturers’ speech and doing so is unnecessary to the Program.
+
+                                                         29
+       Case 3:23-cv-01103-RNC Document 28-1 Filed 09/27/23 Page 40 of 56
+
+
+
+
+provision being “nothing more than [a] convenient litigating position,” Bowen v. Georgetown
+
+Univ. Hosp., 488 U.S. 204, 213 (1988), CMS’s “administrative gamesmanship” fails for multiple
+
+reasons, Mid Continent Nail Corp. v. United States, 846 F.3d 1364, 1381 (Fed. Cir. 2017).
+
+       First, it is doctrinally irrelevant. The First Amendment protects against compelled speech
+
+regardless of whether the speaker adopts the Government’s message as its own. See W. Va. State
+
+Bd. of Educ. v. Barnette, 319 U.S. 624, 633 (1943) (finding compelled speech unconstitutional
+
+even when uttered “without belief and by a gesture barren of meaning”). Second, the disclaimer
+
+provision compels more speech (as CMS unilaterally included it in the Agreement and is forcing
+
+BI to assent). Additional compelled speech does not negate already compelled speech. Third, the
+
+disclaimer provision’s attempted waiver of constitutional rights is unenforceable due to the
+
+Program’s coercive nature. See Twin City Pipe Line Co. v. Harding Glass Co., 283 U.S. 353, 356–
+
+57 (1931) (contractual terms are unenforceable when they “contraven[e] … public policy” or “the
+
+Constitution”). Fourth, CMS cannot brush aside the constitutional infirmity in an agreement of
+
+its own creation because the statute is the source of the speech mandate and thus creates the
+
+constitutional injury. See 42 U.S.C. § 1320f-2(a); cf. Whitman v. Am. Trucking Assocs., 531 U.S.
+
+457, 472–73 (2001) (agency interpretation cannot cure an unconstitutional statute). Fifth, a
+
+provision buried in the middle of the Agreement will not change the public’s perception of the
+
+“overwhelmingly apparent” message expressed by signing the Agreement: that BI agreed to
+
+participate in the Program and engage in an arms-length negotiation of a fair price for Jardiance®.
+
+See Texas v. Johnson, 491 U.S. 397, 404, 405 (1989) (expressive conduct is evaluated in “the
+
+context in which it occurred,” including “the likelihood … that the message would have be
+
+understood by those who viewed it”).
+
+
+
+
+                                                30
+       Case 3:23-cv-01103-RNC Document 28-1 Filed 09/27/23 Page 41 of 56
+
+
+
+
+IV.    The IRA Imposes Excessive Fines in Violation of the Eighth Amendment.
+
+       To ensure that manufacturers submit to the Program, the IRA imposes massive penalties,
+
+posing as “excise taxes,” on manufacturers that do not participate in the Program. That “tax”
+
+requires manufacturers to pay a multiple of the value of all domestic sales of the selected drug,
+
+beginning at 186 percent of gross sales revenues and escalating to 1,900 percent, for each day that
+
+the manufacturer does not participate in the Program. See 26 U.S.C. § 5000D(a), (b)(1), (d). These
+
+extortionate penalties violate the Excessive Fines Clause of the Eighth Amendment.
+
+       A monetary sanction is a “fin[e]” within the meaning of the Eighth Amendment if it
+
+“serv[es] in part to punish,” Austin v. United States, 509 U.S. 602, 610 (1993), for example by
+
+“[d]eterr[ing]” disfavored conduct without “serv[ing] the remedial purpose of compensating the
+
+Government for a loss,” United States v. Bajakajian, 524 U.S. 321, 329 (1998). Even if an exaction
+
+can be said to have some remedial purpose, “the Excessive Fines Clause applies” if “the law
+
+‘cannot fairly be said solely to serve a remedial purpose.’” Tyler v. Hennepin County, 598 U.S.
+
+631, 648 (2023) (Gorsuch, J., joined by Jackson, J., concurring) (quoting Austin, 509 U.S. at 610).
+
+       The IRA’s “excise tax” is a fine within the meaning of the Excessive Fines Clause,
+
+notwithstanding its label, because it is punitive and coercive, and it lacks a true remedial purpose.
+
+The penalties are designed to force manufacturers to participate in the Program and to accept the
+
+CMS-imposed “maximum fair price.” Although Congress labeled the exaction as a “tax,” for
+
+constitutional purposes substance trumps form and the fine’s “practical characteristics” are
+
+controlling. Nat’l Fed’n of Indep. Bus. v. Sebelius, 567 U.S. 519, 565 (2012) (“NFIB”); see also
+
+United States v. Constantine, 296 U.S. 287, 294–95 (1935) (finding $1,000 tax on unlawful liquor
+
+sales to be a penalty because “a penalty ... cannot be converted into a tax by so naming it,” courts
+
+must focus on the provision’s “purpose and operation, regardless of name,” and “the exaction in
+
+question [wa]s highly exorbitant”); Dep’t of Rev. of Montana v. Kurth Ranch, 511 U.S. 767, 779
+                                                 31
+       Case 3:23-cv-01103-RNC Document 28-1 Filed 09/27/23 Page 42 of 56
+
+
+
+
+(1994) (“[T]here comes a time in the extension of the penalizing features of the so-called tax when
+
+it loses its character as such and becomes a mere penalty with the characteristics of regulation and
+
+punishment.” (cleaned up)).
+
+        When a so-called “tax” imposes an “exceedingly heavy burden” and is not expected to
+
+raise any revenue at all, it is not a tax for constitutional purposes. NFIB, 567 U.S. at 565. The
+
+Program’s excise tax penalty falls within that category because it is so onerous that no
+
+manufacturer would ever willingly incur it. This is self-evident from the extortionate amount of
+
+the penalties, and it is confirmed by the Joint Committee on Taxation’s projection that a nearly
+
+identical provision in predecessor legislation would not raise a single dollar of revenue. See
+
+Shearin Decl. Ex. I at 8. As the Congressional Budget Office (“CBO”) explained in its report on
+
+the Program’s budgetary effects, “drug manufacturers will comply with the negotiation process
+
+because the costs of not doing so are greater than the revenue loss from lower, negotiated prices.”
+
+Id. Ex J. at 10.
+
+        The excise tax penalty is also an unconstitutionally excessive fine. “The touchstone of the
+
+constitutional inquiry under the Excessive Fines Clause is the principle of proportionality: The
+
+amount of the forfeiture must bear some relationship to the gravity of the offense that it is designed
+
+to punish.” Bajakajian, 524 U.S. at 334 (citing Austin, 509 U.S. at 622–23). In evaluating
+
+proportionality, courts consider “(1) the degree of the defendant’s reprehensibility or culpability;
+
+(2) the relationship between the penalty and the harm to the victim caused by the defendant’s
+
+actions; and (3) the sanctions imposed in other cases for comparable misconduct.” Cooper Indus.,
+
+Inc. v. Leatherman Tool Grp., Inc., 532 U.S. 424, 425 (2001) (citations omitted).
+
+        Here, proportionality is not a close question. To start, “reprehensibility or culpability” is
+
+nonexistent when the “offense” being punished is declining to participate in the Program’s one-
+
+
+
+                                                 32
+        Case 3:23-cv-01103-RNC Document 28-1 Filed 09/27/23 Page 43 of 56
+
+
+
+
+sided and unconstitutionally coercive price-setting scheme. Moreover, there is no reasonable
+
+relationship between the outsized penalty and any “harm” caused by a manufacturer’s failure to
+
+acquiesce in the Program’s requirements. As soon as a manufacturer triggers the “tax,” for each
+
+day a manufacturer remains “noncompliant,” it faces a penalty, starting at 186 percent of the total
+
+daily domestic gross revenues for the drug and escalating to an astronomical 1,900 percent—
+
+nineteen times gross sales revenue—within nine months. See 26 U.S.C. § 5000D(a), (b)(1), (d).
+
+As applied to BI, those provisions mean that the company would face penalties of between $500
+
+million and $5.5 billion per week. See Marsh Decl. ¶ 16.
+
+         Numerous features of the penalty demonstrate its disproportionality. The penalty amount
+
+is a multiple of the value of the product, not a fraction. See 26 U.S.C. § 5000D(a), (d) (setting
+
+forth the formula and rates); see Shearin Decl. Ex. L at 4, tbl. 2 (computing the applicable tax
+
+rates). 20 The penalty applies to all domestic sales of the drug, not just sales through Medicare. Id.
+
+§ 5000D(a). The penalty can begin accruing more than two years before the January 1, 2026
+
+effective date of the CMS-dictated price. See id. § 5000D(a)(1). Finally, BI is aware of no other
+
+statute that imposes similar sanctions “for comparable misconduct.” Cooper Indus., 532 U.S. at
+
+435. For example, the penalty for civil tax fraud is “an amount equal to 75 percent of the portion
+
+of the underpayment which is attributable to fraud.” 26 U.S.C. § 6663(a). All told, the excise tax
+
+penalty at issue here is a fine, is excessive, and therefore is unconstitutional.
+
+
+
+
+20
+   In an attempt to minimize the excessive nature of this “tax”, the IRS issued a Notice announcing its intent to propose
+implementing regulations. See Shearin Decl. Ex. K. The Notice cannot cure these constitutional flaws. The Notice
+disregards the statutory text, which imposes the tax on any “sale by the manufacturer … of any designated drug,” 26
+U.S.C. § 5000D(a), and thus, contrary to the Notice’s claims, is not limited to sales under Medicare. The Notice also
+attempts to minimize the tax by suggesting that the price paid by the purchaser will be presumed to include the tax.
+Shearin Decl. Ex. K § 3.02. This sleight of hand, however, results in the same tax-to-value ratio: the maximum tax
+would still constitute 1,900 percent of the actual value of the product (e.g., a $2000 sale would consist of $1900 in tax
+and only $100 in actual product value). In all events, even a 95 percent tax is an extraordinary and punitive levy.
+
+                                                          33
+       Case 3:23-cv-01103-RNC Document 28-1 Filed 09/27/23 Page 44 of 56
+
+
+
+
+       The Anti-Injunction Act does not bar this Court from adjudicating this Eighth Amendment
+
+claim. While the Anti-Injunction Act provides that “no suit for the purpose of restraining the
+
+assessment or collection of any tax shall be maintained in any court by any person,” id. § 7421(a),
+
+the Act does not bar relief where a plaintiff who would otherwise suffer irreparable injury can
+
+demonstrate “certainty of success on the merits.” Bob Jones Univ. v. Simon, 416 U.S. 725, 737
+
+(1974) (citing Enochs v. Williams Packing & Nav. Co., 370 U.S. 1, 6–7 (1962)). Here, BI would
+
+suffer irreparable injury by being forced either to participate in the Program or pay ruinous excise
+
+tax penalties, and for the reasons given above, there is a certainty of success on the merits (i.e., the
+
+“excise tax” is an unconstitutionally excessive fine). Nor would suing for a refund each time the
+
+“tax” is levied be an adequate legal remedy, as “su[ing] to recover it back would necessitate a
+
+multiplicity of suits,” Hill v. Wallace, 259 U.S. 44, 47, 62 (1922), and the enormity of the fine
+
+would make it impractical for BI to pay it for any meaningful period of time.
+
+V.     The Program Is Not Voluntary.
+
+       The Government seeks to sidestep the Program’s constitutional shortcomings by arguing
+
+that manufacturers’ obligations stem only from their “voluntary participation” in the
+
+Program. E.g., Shearin Decl. Ex. B at 129. But the Program is designed to make it practically and
+
+legally impossible for manufacturers to avoid participating. That makes sense: the Government
+
+needs manufacturers to participate in the Program in order for the most widely used prescription
+
+drugs to be available through Medicare, and so has structured the Program in a way that guarantees
+
+that outcome. Thus, manufacturers’ participation is not “voluntary” in any meaningful sense.
+
+       As discussed above, if BI does not enter into an agreement to “negotiate” the price of
+
+Jardiance®, it will begin incurring billions of dollars in excise “tax” penalties. See supra pp. 9–
+
+10; Marsh Decl. ¶ 16. Given these draconian consequences, there is no reasonable sense in which
+
+BI’s participation in the Program is voluntary. See NFIB, 567 U.S. at 582.
+                                                  34
+       Case 3:23-cv-01103-RNC Document 28-1 Filed 09/27/23 Page 45 of 56
+
+
+
+
+       Alternatively, the IRA purports to offer manufacturers the option of avoiding the
+
+“negotiation” and these coercive excise tax penalties by withdrawing all of their drugs from
+
+Medicare and Medicaid altogether. See 26 U.S.C. § 5000D(c). That is not a real option for BI. To
+
+avoid accepting the “negotiated” price or incurring ruinous penalties, BI would have to withdraw
+
+all of its products, more than 20 drugs, from Medicare and Medicaid, which would cut the company
+
+off from nearly half the U.S. healthcare market. See Marsh Decl. ¶¶ 7, 9, 17. Indeed, more than
+
+half of BI’s net sales come from Medicare and Medicaid in many years, including more than 55
+
+percent in 2022. See id. ¶ 7. Forcing BI to abandon that market is “economic dragooning that
+
+leaves [BI] with no real option but to acquiesce” in the Program. NFIB, 567 U.S. at 582 (Federal
+
+Government could not condition Medicaid funding, representing 10 percent of state budgets, on
+
+states’ implementation of Medicaid expansion); see also Tenoco Oil Co. v. Dep’t of Consumer
+
+Affs., 876 F.2d 1013, 1027 n.21 (1st Cir. 1989) (“supposed freedom to temporarily leave the market
+
+may be largely illusory” where “such a course might very well be economically prohibitive”);
+
+Fisher v. United States, 148 Fed. Cl. 478 (2020) (coercion present where “there is no choice, in
+
+any meaningful sense” because “there is only one realistic option”).
+
+       Moreover, withdrawing BI’s drugs would leave millions of Medicare and Medicaid
+
+patients (including more than 1.3 million Jardiance® patients in Medicare alone) without insurance
+
+for drugs they rely upon to treat serious, often life-threatening conditions. See Marsh Decl. ¶¶ 8,
+
+18. Many of those patients would have to switch from their current medication to other treatments
+
+that would be less effective or cause adverse reactions, and some patients would be left without
+
+insurance for any FDA-approved treatment. See id. ¶¶ 18–19. In similar circumstances, courts
+
+have recognized that it defies reality to consider withdrawal from the market a realistic option. For
+
+example, in connection with an order imposing price controls on rice imports to Puerto Rico, a
+
+
+
+                                                 35
+       Case 3:23-cv-01103-RNC Document 28-1 Filed 09/27/23 Page 46 of 56
+
+
+
+
+court observed that “[c]ertainly it was not contemplated that the order would stop the importation
+
+of this necessity of the Puerto Rican people. Accordingly the application of the principle that the
+
+members of the industry could escape loss by withdrawing from the business of importing rice is
+
+not an honest answer to the question at issue.” Mora v. Mejias, 223 F.2d 814, 817 (1st Cir.
+
+1955). So too here.
+
+       When enacting the IRA, Congress was well aware that the statute would leave
+
+manufacturers with no choice but to accept the Government-imposed “maximum fair price.” As
+
+discussed above, Congress and the CBO both concluded that the excise tax penalty would raise no
+
+revenue because no manufacturer could pay it. See supra p. 32. Indeed, mandatory participation
+
+is central to the Program’s design. The Government needs manufacturers to submit to the Program
+
+so that the most widely prescribed drugs will remain available to the millions of Americans who
+
+depend on Medicare and Medicaid for health insurance. It would defeat Congress’s purpose—and
+
+the Government’s public messages in promoting the IRA—if Medicare and Medicaid patients lost
+
+access to their drugs. Congress addressed that dynamic by making the Program voluntary in name
+
+but mandatory in practice.
+
+       Courts have repeatedly concluded that actions taken under threat of severe economic
+
+coercion are not voluntary. In NFIB, the Supreme Court rejected congressional attempts to
+
+“economic[ally] dragoo[n] … States” so that they had “no real option but to acquiesce in the
+
+Medicaid expansion.” 567 U.S. at 582. The Supreme Court reached a similar conclusion in Union
+
+Pacific Rail Road Co. v. Public Service Commission, a case involving regulation of private parties,
+
+concluding that the Government may not “impose an unconstitutional burden by threat of penalties
+
+worse than [that burden] in case of failure to accept it, and then to declare the acceptance
+
+voluntary.” 248 U.S. 67, 70 (1918). In such circumstances, economic “duress” negates any
+
+
+
+                                                36
+       Case 3:23-cv-01103-RNC Document 28-1 Filed 09/27/23 Page 47 of 56
+
+
+
+
+purported “choice” between compliance and “grave penalties” because it is “practically impossible
+
+not to comply with the terms of the law.” Id. Likewise, in United States v. Butler, the Court
+
+recognized that a “regulation is not in fact voluntary,” and the “asserted power of choice illusory,”
+
+where Congress had used “coercion by economic pressure” “to induce to surrender [of a private
+
+party’s] independence of action.” 297 U.S. 1, 70–71 (1936); see also Carter v. Carter Coal Co.,
+
+298 U.S. 238, 289 (1936) (concluding that purportedly voluntary “agreement” to participate in
+
+coal regulation program was “coerce[d]” and “lack[ed] the essential element of consent” because
+
+it was backed by provisions imposing substantial taxes for noncompliance, and observing that
+
+“[o]ne who does a thing in order to avoid a penalty does not agree”).
+
+       Relying on those principles, the D.C. Circuit has held that a similarly structured federal
+
+program for cotton growers was not voluntary. See Thompson v. Deal, 92 F.2d 478 (D.C. Cir.
+
+1937). The program at issue in Thompson required growers to sign an agreement with the
+
+Secretary of Agriculture to adhere to production limits imposed under threat of a “confiscatory”
+
+tax “not designed to raise revenue” but to “coerc[e]” the Government’s cotton production quotas.
+
+See id. at 480, 484. “No farmer, therefore, was in position to refuse to sign the agreement which
+
+the act required and to accept his allotment as the Secretary made it.” Id. at 484. Growers who
+
+produced more than their allotment faced four illusory options (not unlike the purported options
+
+BI faces under the Program): (1) pay 50 percent of the excess cotton’s value in taxes; (2) sell the
+
+excess cotton without paying the tax and be fined and imprisoned for noncompliance; (3) hold on
+
+to the cotton and receive no return; or (4) purchase certificates, at 40 percent of the cotton’s value,
+
+to sell the excess cotton tax-free. See id. at 480–81, 484. Growers “chose the least of the evils
+
+and purchased certificates,” arguing that “they made the payments under duress.” Id. at 481. The
+
+court agreed, holding that the growers involuntarily purchased the certificates under duress “to
+
+
+
+                                                  37
+       Case 3:23-cv-01103-RNC Document 28-1 Filed 09/27/23 Page 48 of 56
+
+
+
+
+prevent great property loss or heavy penalties [as] there [was] no adequate remedy except to submit
+
+to an unjust or illegal demand and then seek redress in the courts.” Id. at 484 (cleaned up). The
+
+same is true here.
+
+       Moreover, even if a manufacturer wished to withdraw from Medicare and Medicaid rather
+
+than agree to the “negotiation,” the structure of the Program makes it legally impossible to do so
+
+before incurring substantial penalties. Under the IRA, a manufacturer’s request to withdraw from
+
+Medicare and Medicaid does not take effect until at least 11 months and up to 23 months after it
+
+is submitted. 42 U.S.C. § 1395w-114a(b)(4)(B)(ii). Manufacturers who do not “negotiate” will
+
+thus incur enormous penalties while waiting for their withdrawal request to be granted.
+
+       Presumably recognizing that this lengthy delay undermines its position that the Program is
+
+voluntary, CMS has issued guidance purporting to create an accelerated pathway for manufacturers
+
+to terminate participation in Medicare and Medicaid. See Shearin Decl. Ex. B at 33–34, 129–
+
+31. Under that pathway, CMS has stated that it will treat termination requests by manufacturers
+
+as terminations by the Government for “willful violation ... or other good cause,” which are subject
+
+to only a 30- or 60-day delay. 42 U.S.C. §§ 1395w-114a(b)(4)(B)(i)–(ii), 1396r-8(b)(4)(B)(i);
+
+Shearin Decl. Ex. B at 33–34, 129–31. But the text and structure of the relevant statutory
+
+provisions foreclose CMS’s attempt to “rewrite clear statutory terms to suit its own sense of how
+
+the statute should operate” through nonbinding guidance. Util. Air Regul. Grp. v. EPA, 573 U.S.
+
+302, 328 (2014). By treating termination requests by manufacturers as termination requests by the
+
+Government, the guidance conflates distinct provisions of the IRA and ignores the timing
+
+provisions applicable only to manufacturers. Compare 42 U.S.C. § 1395w-114a(4)(B)(i), with id.
+
+§ 1395w-114a(4)(B)(ii).
+
+
+
+
+                                                38
+        Case 3:23-cv-01103-RNC Document 28-1 Filed 09/27/23 Page 49 of 56
+
+
+
+
+        Nor can the government avoid the conclusion that a taking has occurred by relying on
+
+inapposite caselaw about voluntary participation in a marketplace. For example, the Government
+
+relies on Garelick v. Sullivan, 987 F.2d 913 (2d Cir. 1993), which rejected a takings challenge to
+
+provisions limiting the amounts anesthesiologists could charge Medicare beneficiaries, because
+
+the anesthesiologists “voluntarily participate[d] in a price-regulated program or activity” and
+
+suffered “no legal compulsion.”            Id. at 916. Unlike in Garelick, however, BI and other
+
+manufacturers are effectively “compelled to engage in price regulated activity.” Id. And in any
+
+event, Garelick’s reasoning—which was limited to takings claims—is inconsistent with the
+
+Supreme Court’s later decision in Horne, which rejected the notion that a physical exaction is not
+
+a taking because the owners voluntarily chose to participate in the relevant market. See 576 U.S.
+
+365–66 (raisin-reserve requirement a taking even if farmers could have avoided it by growing
+
+other crops); see also Valancourt Books, 2023 WL 5536195, at *6. 21
+
+VI.     Even if the Program Were Voluntary, It Would Violate the Unconstitutional
+        Conditions Doctrine.
+
+        Even if participation in the Program were voluntary, the Program would still be
+
+unconstitutional. Congress cannot lawfully condition BI’s participation in Medicare and Medicaid
+
+on its participation in the Program and the resulting relinquishment of constitutional rights. “It is
+
+settled law that the government may not, as a general rule, grant even a gratuitous benefit on
+
+condition that the beneficiary relinquish a constitutional right.” O’Connor v. Pierson, 426 F.3d
+
+
+
+
+21
+  To the extent Garelick’s reasoning remains good law, Supreme Court precedent makes clear it is limited to takings
+claims. For example, the price-control regimes in Bowles and Yakus did not compel anyone to sell price-controlled
+goods or provide rent-controlled housing, yet the Court analyzed due process and other constitutional challenges
+against those regimes in detail, demonstrating that “voluntariness” alone does not shield price-control regimes from
+constitutional scrutiny. Compare Bowles, 321 U.S. at 517 (noting that “[t]here is no requirement that the apartments
+in question be used for purposes which bring them under the Act.”), with id. at 519–20 (separately discussing due
+process claim); see also Yakus, 321 U.S. at 438 (statute “provide[d] that no one shall be compelled to sell any
+commodity”).
+
+                                                        39
+       Case 3:23-cv-01103-RNC Document 28-1 Filed 09/27/23 Page 50 of 56
+
+
+
+
+187, 201 (2d Cir. 2005) (cleaned up); accord Koontz v. St. Johns River Water Mgmt. Dist., 570
+
+U.S. 595, 606 (2013). In other words, the Government cannot use “as a stick” the “granting and
+
+withholding of benefits … to coerce recipients of those benefits to engage in certain behaviors”
+
+where requiring recipients to engage in those same behaviors “would be a constitutional violation.”
+
+Goe v. Zucker, 43 F.4th 19, 34 n.16 (2d Cir. 2022). This protection prevents the Government from
+
+“produc[ing] a result which [it] could not command directly,” Speiser v. Randall, 357 U.S. 513,
+
+526 (1958), and “vindicates the Constitution’s enumerated rights by preventing the government
+
+from coercing people into giving them up,” Koontz, 570 U.S. at 604. Even when an individual
+
+“has no ‘right’ to a valuable governmental benefit,” these protections apply with full force. Perry
+
+v. Sindermann, 408 U.S. 593, 597 (1972); accord O’Connor, 426 F.3d at 201.
+
+       Even assuming Program participation were voluntary, it would become a condition of BI’s
+
+ability to participate in Medicare and Medicaid. BI markets more than 20 products reimbursed by
+
+Medicare and Medicaid. Marsh Decl. ¶ 7. Because of the IRA, however, BI must now withdraw
+
+all of its products from Medicare and Medicaid unless it submits to the Program’s requirements.
+
+See 26 U.S.C. § 5000D(c). As CMS has explained, “the IRA expressly connects” a manufacturer’s
+
+participation in the Program to the manufacturer’s “participation in [Medicare and Medicaid].”
+
+Shearin Decl. Ex. B § 40.1. And because the Program deprives BI of its constitutional rights, see
+
+supra Parts I–III, giving BI the option of participating in the purportedly voluntary Program would
+
+thus “condition certain government benefits” (i.e., BI’s broader Medicare and Medicaid
+
+participation) “on the relinquishment of constitutional rights.” Boy Scouts of Am. v. Wyman, 335
+
+F.3d 80, 91 (2d Cir. 2003).
+
+       This condition is unconstitutional in at least three distinct ways.
+
+
+
+
+                                                 40
+       Case 3:23-cv-01103-RNC Document 28-1 Filed 09/27/23 Page 51 of 56
+
+
+
+
+       1. In the due process context, a condition is unconstitutional when the Government
+
+“condition[s] benefits on a citizen’s agreement to surrender due process rights.” R.S.W.W., Inc. v.
+
+City of Keego Harbor, 397 F.3d 427, 434 (6th Cir. 2005). This inquiry is straightforward: What
+
+the Constitutional protects “against direct assault,” it also protects “by the indirect, but no less
+
+effective process of requiring a surrender, which, though in form voluntary, in fact lacks none of
+
+the elements of compulsion.” Frost v. R.R. Comm’n of Cal., 271 U.S. 583, 593 (1926); see also
+
+Koontz, 570 U.S. at 604. The Constitution precludes the Government from directly depriving BI
+
+of its property without due process of law, see Dusenbery v. United States, 534 U.S. 161, 167
+
+(2002), and so the Government cannot do so indirectly. By making Medicare and Medicaid
+
+participation contingent on Program participation, the Government would unconstitutionally
+
+require BI to give up its due process rights to obtain a government benefit. See supra Part I. “It
+
+would be a palpable incongruity” to allow the Government to indirectly require BI to give up its
+
+property without due process “under the guise of a[n] … exchange” for a benefit, when the
+
+Government could not do so directly. Frost, 271 U.S. at 593.
+
+       2. In the takings context, a condition is unconstitutional when there is either no connection
+
+or no rough proportionality “between the property that the Government demands and the social
+
+costs” of the granted benefit. Koontz, 570 U.S. at 605–06. The Program fails under both prongs.
+
+       First, there is no connection. The IRA provides no explanation (nor has CMS) as to why
+
+Medicare and Medicaid participation relates to BI’s property rights in Jardiance®.           Forced
+
+appropriation of those rights does not “internaliz[e]” any “negative externalities” or “social costs”
+
+associated with Medicare or Medicaid participation. Id. This is especially so because BI offers
+
+more than 20 products through these programs and helps millions of patients each year, creating
+
+social benefits, not social costs. Marsh Decl. ¶¶ 8, 18. Without this connection, the Government
+
+
+
+                                                 41
+       Case 3:23-cv-01103-RNC Document 28-1 Filed 09/27/23 Page 52 of 56
+
+
+
+
+is “left … in the position of simply trying to obtain [BI’s property] through gimmickry [by] an out-
+
+and-out plan of extortion.” Dolan v. City of Tigard, 512 U.S. 374, 387 (1994) (cleaned up).
+
+       Second, assuming there were some connection between BI’s property rights in Jardiance®
+
+and BI’s broader Medicare and Medicaid participation, the gross disproportionality of the
+
+Program’s participation conditions is plain.         The Program involves only one BI drug—
+
+Jardiance®—and only because of that drug’s use in one Medicare program—Medicare Part D. See
+
+42 U.S.C. § 1320f-1(b)(2), (d)(1)(A). Yet the IRA conditions BI’s ability to offer all of its products
+
+in every part of Medicare and Medicaid. See Marsh Decl. ¶17; 26 U.S.C. § 5000D. The IRA also
+
+leverages BI’s existing Medicare and Medicaid agreements to compel future conduct (i.e., sales of
+
+Jardiance® products at the “maximum fair price” starting in 2026)—a coercive tactic the Supreme
+
+Court rebuffed when Congress tried to “penalize States that choose not to participate in [a] new
+
+[federal] program by taking away their existing Medicaid funding.” NFIB, 567 U.S. at 585. The
+
+Government cannot deny BI the benefit of participating in Medicare and Medicaid simply because
+
+BI “exercises a constitutional right” to control the disposition of, and set the terms of access to, its
+
+property. Koontz, 570 U.S. at 604 (cleaned up).
+
+       3. In the First Amendment context, a condition is unconstitutional if individuals are
+
+“requir[ed] … to profess a specific belief” to receive a government benefit. USAID v. All. For
+
+Open Soc’y Int’l, 570 U.S. 205, 218–19 (2013). Congress could not, for example, condition federal
+
+funding on recipients first “agree[ing] in the [funding] award document that [they are] opposed to
+
+prostitution and sex trafficking.” Id. at 210. That condition was unconstitutional because, by
+
+compelling speech, Congress “affect[ed] protected conduct outside the scope of the federally
+
+funded program” and thus went beyond its ability to choose what conduct it would and would not
+
+fund. Id. at 218 (cleaned up). Similarly here, BI’s continued ability to offer its products in
+
+
+
+                                                  42
+       Case 3:23-cv-01103-RNC Document 28-1 Filed 09/27/23 Page 53 of 56
+
+
+
+
+Medicare and Medicaid turns on BI’s signing an agreement and conveying messages it would not
+
+otherwise express: that the Program involves a voluntary agreement, an arms-length negotiation,
+
+and a fair price for Jardiance®. And, as in USAID, this compelled speech affects only “protected
+
+conduct outside the scope of” Medicare and Medicaid, as Congress could have achieved its goal
+
+of lowering drug prices without requiring manufacturers “to pledge allegiance to the Government’s
+
+policy.” Id. at 218, 220; see also supra pp. 28–29.
+
+       Regardless of the right involved, the conclusion is the same: a voluntary Program would
+
+still condition “a valuable privilege which the [Government] threatens to otherwise withhold” on
+
+“the relinquishment of constitutional rights.” Frost, 271 U.S. at 593–94. The reality, of course, is
+
+that the Program is not voluntary. See supra Part V. But were it otherwise, BI’s only “choice”
+
+would be “between the rock and the whirlpool—an option to forego a privilege which [is] vital to
+
+[its] livelihood or submit to a requirement which … constitutes an intolerable burden.” Frost, 271
+
+U.S. at 593. The Constitution precludes the Government from foisting that choice on BI and
+
+indirectly “manipulat[ing]” its constitutional rights “out of existence.” Id. at 594.
+
+VII.   The Manufacturer Agreement Violates the Administrative Procedure Act and
+       Medicare Act.
+
+       CMS compounded the IRA’s constitutional violations by implementing the Program in a
+
+way that violates the Administrative Procedure Act (“APA”) and the Medicare Act. Specifically,
+
+CMS issued the form Manufacturer Agreement summarily, without providing an opportunity for
+
+comment on its terms. That omission was improper because the Agreement, which imposes
+
+substantive requirements on manufacturers and obligates them to comply with CMS’s guidance,
+
+is a legislative rule subject to mandatory notice-and-comment procedures.
+
+       CMS openly acknowledged its refusal to accept comments, stating that “[i]n light of the
+
+complexity of the actions the agency must undertake” to implement the Program, “CMS will not
+
+
+                                                 43
+       Case 3:23-cv-01103-RNC Document 28-1 Filed 09/27/23 Page 54 of 56
+
+
+
+
+provide a comment period on the Agreement.” Shearin Decl. Ex. B at 30. Consistent with that
+
+approach, CMS published the Agreement on July 3, 2023, id. Ex. D, and described that document
+
+as “the final text of the Agreement,” id. Decl. Ex. B at 30—all without providing manufacturers
+
+an opportunity to comment on the Agreement before it was finalized.
+
+       That rushed process was unlawful. Under the APA, agency action purporting to “impose
+
+legally binding obligations or prohibitions on regulated parties—and that would be the basis for an
+
+enforcement action for violations of those obligations or requirements” is a “legislative rule” that
+
+must be promulgated using notice-and-comment procedures. Nat’l Mining Ass’n v. McCarthy, 758
+
+F.3d 243, 251 (D.C. Cir. 2014). The Medicare Act similarly requires notice and comment for any
+
+“rule, requirement, or other statement of policy … that establishes or changes a substantive legal
+
+standard.” 42 U.S.C. § 1395hh(a)(2); Azar v. Allina Health Servs., 139 S. Ct. 1804, 1810–11 (2019).
+
+       Legislative rules “bind members of the agency and the public” and can impose on them
+
+“obligations … distinct from, and in addition to, those imposed by statute.” Sweet v. Sheahan, 235
+
+F.3d 80, 91 (2d Cir. 2000). The key factor in identifying a legislative rule is whether an action has
+
+“actual legal effect.” Cal. Cmtys. Against Toxics v. EPA, 934 F.3d 627, 635 (D.C. Cir 2019) (citing
+
+Nat’l Mining Ass’n, 758 F.3d at 252).
+
+       The Manufacturer Agreement is a legislative rule—and thus triggered the notice-and-
+
+comment requirement—because it establishes substantive standards for the Program, sets forth a
+
+basis for enforcement, and creates legal obligations for manufacturers. See Sweet, 235 F.3d at 92.
+
+The Agreement changes manufacturers’ existing rights by imposing new duties on them, which
+
+(like violations of the governing statute) are enforced through imposition of excise tax penalties
+
+and additional civil monetary penalties. See Gonnella v. SEC, 954 F.3d 536, 546 (2d Cir. 2020);
+
+see also Shearin Decl. Ex. C § IV(j).
+
+
+
+                                                 44
+       Case 3:23-cv-01103-RNC Document 28-1 Filed 09/27/23 Page 55 of 56
+
+
+
+
+       The Agreement differs from an ordinary contract because it contains broad, regulatory
+
+terms that establish various Program requirements in the first instance. See, e.g., Shearin Decl.
+
+Ex. B at 93 (Agreement spells out “Program requirements for participating manufacturers”).
+
+Under the Agreement, manufacturers “shall comply with requirements determined by CMS to be
+
+necessary for purposes of administering the” Program, and “CMS retains authority to amend th[e]
+
+Agreement” after the fact, without the manufacturer’s consent. Id. Ex. C §§ II(e), IV(b). Those
+
+are mandates issued by CMS in its capacity as a regulator, not contractual terms between
+
+consenting parties. The programmatic nature of the Agreement is also apparent from its terms that
+
+require manufacturers to comply with all future CMS guidance—thus elevating the guidance from
+
+its usual, sub-regulatory status to binding law. See id. §§ II preamble, II(e), IV(b).
+
+       Where a program is implemented via contractual arrangements, “any contract provisions
+
+that are legislative are subject to [the APA’s] notice and comment requirements.” Am. Hosp. Ass’n
+
+v. Bowen, 834 F.2d 1037, 1053–54 (D.C. Cir. 1987). Thus, CMS “may not hide behind its authority
+
+to contract in order to evade the APA. Otherwise it could implement the entire … program through
+
+contract provisions,”—including provisions incorporating its own guidance—“without
+
+promulgating a single regulation or allowing for any public participation. Congress could not have
+
+intended so extraordinary a possibility without expressly saying so.” Id. at 1054. CMS issued the
+
+Agreement in violation of these principles.
+
+                                          CONCLUSION
+
+       For the foregoing reasons, the Court should enter summary judgment for BI, declare that
+
+the Program is unconstitutional, set aside CMS’s Manufacturer Agreement, and enjoin
+
+enforcement of the Program’s requirements against BI.
+
+
+
+
+                                                 45
+     Case 3:23-cv-01103-RNC Document 28-1 Filed 09/27/23 Page 56 of 56
+
+
+
+
+                                     Respectfully submitted,
+
+                                     /s/ James T. Shearin
+
+Robert A. Long, Jr. (pro hac vice)    James T. Shearin [01326]
+Kevin F. King (pro hac vice)          Marcy Tench Stovall [14238]
+Thomas Brugato (pro hac vice)         PULLMAN & COMLEY, LLC
+Michael M. Maya (pro hac vice)        850 Main Street
+COVINGTON & BURLING LLP               P.O. Box 7006
+850 Tenth Street, NW                  Bridgeport, CT 06601-7006
+Washington, DC 20001-4956             Juris No. 47892
+Tel.: (202) 662-6000                  Tel.: (203) 330-2000
+Fax: (202) 662-6291                   Fax: (203) 576-8888
+                                      jtshearin@pullcom.com
+
+                                      Counsel for Plaintiff
+                                      Boehringer Ingelheim Pharmaceuticals, Inc.
+September 27, 2023
+
+
+
+
+                                        46
+

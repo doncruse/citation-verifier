@@ -1,0 +1,1809 @@
+  Case 2:23-cv-00102-Z Document 9 Filed 07/11/23   Page 1 of 36 PageID 224
+
+
+
+                     UNITED STATES DISTRICT COURT
+                      NORTHERN DISTRICT OF TEXAS
+                          AMARILLO DIVISION
+
+
+FREEDOM COALITION OF DOCTORS FOR
+CHOICE,
+
+                          Plaintiff,        Civil Action No. 2:23-cv-00102
+      -against-
+
+CENTERS FOR DISEASE CONTROL AND
+PREVENTION, AND DEPARTMENT OF
+HEALTH & HUMAN SERVICES,
+
+                          Defendants.
+
+
+
+
+PLAINTIFF’S BRIEF AND MEMORANDUM OF LAW IN SUPPORT OF ITS MOTION
+                      FOR SUMMARY JUDGMENT
+
+
+
+
+                                        i
+     Case 2:23-cv-00102-Z Document 9 Filed 07/11/23                                              Page 2 of 36 PageID 225
+
+
+
+                                    TABLE OF CONTENTS
+INTRODUCTION......................................................................................................................... 1
+FACTS ........................................................................................................................................... 5
+   I.        The Freedom Coalition..................................................................................................... 5
+
+   II.       COVID-19 Vaccines ........................................................................................................ 8
+
+   III.      V-Safe............................................................................................................................. 10
+
+   IV.       V-Safe Users .................................................................................................................. 11
+
+   V.        The Data V-Safe Collects ............................................................................................... 12
+
+   VI.       CDC Designed V-Safe to Hide Important Data in the Free-Text Fields ....................... 16
+
+   VII.      Location of the Requested V-Safe Data ......................................................................... 18
+
+   VIII. The FOIA Request and Administrative History ............................................................. 20
+
+LEGAL STANDARD ................................................................................................................. 23
+   IX.       Summary Judgment ........................................................................................................ 23
+
+   X.        Freedom of Information Act, 5 U.S.C. § 552 ................................................................. 24
+
+ARGUMENT ............................................................................................................................... 26
+   I.        CDC and HHS Did Not Timely Respond to Plaintiff’s Appeal ..................................... 26
+
+   II.       CDC is Improperly Withholding Responsive Records .................................................. 27
+
+   III.      CDC improperly denied the fee waiver.......................................................................... 32
+
+
+
+
+                                                                        ii
+     Case 2:23-cv-00102-Z Document 9 Filed 07/11/23                                               Page 3 of 36 PageID 226
+
+
+
+                                                  TABLE OF AUTHORITIES
+
+Cases
+
+Celotex Corp. v. Catrett, 477 U.S. 317, 324 (1986) ..................................................................... 23
+
+Coleman v. Houston Indep. Sch. Dist., 113 F.3d 528, 533 (5th Cir. 1997) .................................. 23
+
+Defenders of Wildlife v. U.S. Border Patrol, 623 F. Supp. 2d 83, 87 (D.D.C. 2009)................... 23
+
+Driggers v. United States, No. 3:11-CV-0229-N, 2011 U.S. Dist. LEXIS 152931, 2011 WL
+  5525337, at *3 (N.D. Tex. Oct. 26, 2011)................................................................................. 24
+
+Highland Capital Mgmt., LP v. IRS, No. 3:17-cv-2906G, 2019 U.S. Dist. LEXIS 42366, at *14
+  (N.D.Tex. Mar. 15, 2019).......................................................................................................... 28
+
+Keeping Gov’t Beholden, Inc. v. DOJ, No. 17-1569 (FYP), 2021 WL 5918627 (D.D.C. Dec. 31,
+  2021).......................................................................................................................................... 31
+
+PHMPT et al. v. Food and Drug Administration, No. 4:22-cv-00915-P, at 4 (NDTX May 9,
+ 2023).......................................................................................................................................... 29
+
+PHMPT v. FDA, Case. No. 4:21-cv-01508-P ............................................................................... 31
+
+Statutes
+
+42 U.S.C. § 247d-6d ....................................................................................................................... 9
+
+5 U.S.C. § 552 ........................................................................................................................ passim
+
+5 U.S.C. § 552(a)(4)(A)(iii) .................................................................................................... 21, 32
+
+5 U.S.C. § 552(a)(6)I(i)(I)............................................................................................................. 21
+
+Rules
+
+Fed. R. Civ. P. 56(c) ..................................................................................................................... 23
+
+Tex. Civ. Prac. & Rem. Code § 74.101............................................................................................ 3
+
+
+
+
+                                                                        iii
+   Case 2:23-cv-00102-Z Document 9 Filed 07/11/23                 Page 4 of 36 PageID 227
+
+
+
+                                        INTRODUCTION
+
+       The issue presented to this Court is purely a question of law: namely, whether Centers for
+
+Disease Control and Prevention (“CDC”) can withhold or otherwise refuse to disclose data that
+
+was collected from Americans and used to justify CDC’s claims that Covid-19 vaccines are “safe
+
+and effective.” It is undisputed that CDC denied Plaintiff’s initial Freedom of Information Act
+
+(“FOIA”) request for all data obtained from v-safe users from the free-text fields within the v-safe
+
+program for Covid-19 vaccines. Dkt. 1 ¶62. It is undisputed that CDC has failed to respond to
+
+Plaintiff’s January 13, 2023 appeal challenging that agency decision failed to establish the validity
+
+of its claimed withholdings as it is obligated to do pursuant to FOIA. Dkt. 1 ¶66. And it is
+
+undisputed that CDC’s legal counsel has openly stated to undersigned counsel that the agency will
+
+not produce the data short of a court order. Appendix (“App.”) at APP0004 ¶ 15. Because CDC’s
+
+refusal to produce the data violates the Freedom of Information Act (“FOIA”), Plaintiff requests
+
+that this Court grant it summary judgment and, thus, access to the data to which it and all
+
+Americans are entitled.
+
+       As background, in December 2020, the Food and Drug Administration (“FDA”) issued
+
+emergency use authorizations (“EUA”) for the first COVID-19 vaccines, followed by additional
+
+authorizations and licensures in rapid succession thereafter. Dkt. 1 ¶28. While FDA authorizes and
+
+approves vaccines, it is CDC, an agency within the U.S. Department of Health & Human Services
+
+(“HHS”), that is charged with monitoring the safety of these vaccines. Dkt. 1 ¶32.
+
+       The federal government mandated that hundreds of millions of Americans receive these
+
+products and has given the pharmaceutical companies financial immunity for injuries caused by
+
+these products. Dkt. 1 ¶30. Mandating that millions of Americans inject a product for which they
+
+
+
+
+                                           Page 1 of 33
+      Case 2:23-cv-00102-Z Document 9 Filed 07/11/23              Page 5 of 36 PageID 228
+
+
+
+cannot hold the manufacturer liable for injuries demands complete transparency, especially when
+
+it comes to the data underlying claims of the product’s safety. Dkt. 1 ¶31.
+
+          The Freedom of Information Act (“FOIA”) exists precisely so that Americans can obtain
+
+transparency and, in this case, obtain the core data which supports CDC’s claims that these
+
+products are safe. Dkt. 1 ¶4.
+
+          CDC claims that the current “COVID-19 vaccines are being administered under the most
+
+intensive vaccine safety monitoring effort in U.S. history,”1 and because its existing Vaccine
+
+Adverse Events Reporting System (“VAERS”) cannot determine causation and was otherwise
+
+unreliable,2 it deployed a new safety monitoring system for the COVID-19 vaccines: v-safe. Dkt.
+
+1 ¶5.
+
+          V-safe is CDC’s premier system for tracking the safety of COVID-19 vaccines. Dkt. 1 ¶6.
+
+It is a smartphone-based program that allows vaccine recipients to “tell CDC about any side effects
+
+after getting the COVID-19 vaccine.”3 Its purpose, as explained by CDC, “is to rapidly
+
+characterize the safety profile of COVID-19 vaccines when given outside a clinical trial setting
+
+and to detect and evaluate clinically important adverse events and safety issues that might impact
+
+policy or regulatory decisions.”4 Dkt. 1 ¶6.
+
+          While v-safe collected a limited amount of safety information from its approximately 10
+
+million users using check-the-box options, the program also provided a few free-text fields (limited
+
+
+
+
+1
+  https://www.cdc.gov/vaccines/acip/meetings/downloads/slides-2021-10-20-21/05-COVID-Hause
+-508.pdf.
+2
+    Id.
+3
+    https://www.cdc.gov/coronavirus/2019-ncov/vaccines/safety/vsafe.html.
+4
+    https://www.cdc.gov/vaccinesafety/pdf/V-safe-Protocol-V6-508.pdf at 5.
+
+
+                                            Page 2 of 33
+    Case 2:23-cv-00102-Z Document 9 Filed 07/11/23                  Page 6 of 36 PageID 229
+
+
+
+to 250 characters each) for users to provide additional safety information. CDC has represented
+
+that it received 7.8 million free-text entries from v-safe users. Dkt. 1 ¶7.
+
+       These free-text entries provide the most critical and informative dataset available for
+
+assessing the safety and efficacy of the existing COVID-19 vaccines because they were collected
+
+from a known universe of users directly reporting their symptoms and reactions. Thus, the rate at
+
+which an adverse event is reported can be calculated and relied upon. Dkt. 1 ¶8. Moreover, unlike
+
+other safety data the government has relied upon, v-safe data is not filtered through the companies
+
+selling the vaccines which, in turn, removes conflicts of interest that could potentially influence
+
+the data. Dkt. 1 ¶8.
+
+       Delays in disclosing this data prevent the public and the scientific community from
+
+immediately accessing, analyzing, and synthesizing critical safety information. Dkt. 1 ¶9. These
+
+delays compromise the public’s significant recognized interest in, inter alia, transparency and
+
+informed consent, and their ability to assess potential harms, develop strategies to prevent such
+
+harms, and treat those who have already been harmed.5 That is, for example, the core mission of
+
+numerous groups that have formed to treat individuals injured by COVID-19 vaccines. Dkt. 1 ¶9;
+
+App. at APP0169 ¶ 14.
+
+       For example, React19 is a group comprised of over 30,000 individuals, including hundreds
+
+of medical professionals, who have been seriously injured by a COVID-19 vaccine. They are
+
+desperately seeking reliable data that can help explain the harms suffered among their members,
+
+which are currently only being observed in a non-systematic fashion. Until these harms are
+
+
+
+5
+  A right to informed consent has been codified in jurisdictions across the United States. See, e.g.,
+Tex. Civ. Prac. & Rem. Code § 74.101 (“recovery may be obtained [when there is] negligence in
+failing to disclose the risks or hazards that could have influenced a reasonable person in making a
+decision to give or withhold consent”).
+
+
+                                            Page 3 of 33
+     Case 2:23-cv-00102-Z Document 9 Filed 07/11/23                Page 7 of 36 PageID 230
+
+
+
+scientifically established through systematic datasets, the medical health establishment (including
+
+NIH, universities, etc.) will not fund research to address these harms and insurance companies will
+
+not pay for potential treatments. Moreover, irrespective of how many people complain of the harm
+
+– even if there are tens of thousands – without systematic datasets, the medical health establishment
+
+considers these complaints as mere anecdotes. Thus, these harms are allowed to continue
+
+dangerously unabated; this will not change until the public, including groups like React19, can get
+
+the data needed to systematically show what harms are caused by COVID-19 vaccines; they
+
+desperately need v-safe’s free-text data to have a systematic dataset that may scientifically validate
+
+their harms so that the medical community will acknowledge them and then provide medical care.
+
+Dkt. 1 ¶10; App. at APP0169 ¶ 16.
+
+         Transparency is even more critical because CDC has added the COVID-19 vaccines to its
+
+routine childhood immunization schedule.6 This policy will likely cause states to create policies
+
+that grant or restrict certain privileges, such as attending school, based on a child’s COVID-19
+
+vaccination status. Dkt. 1 ¶11. Parents who are confronted with COVID-19 vaccine mandates are
+
+forced to choose between allowing their children to receive a vaccine without all the information
+
+available to make an informed decision, or their child being prevented from receiving an education
+
+based upon their vaccination status. Therefore, no matter a parent’s choice when confronted with
+
+a COVID-19 vaccine mandate, a delay in the disclosure of the information sought in this request
+
+would compromise the public’s significant recognized interest of informed consent. Dkt. 1 ¶11.
+
+         The information sought is also more urgent than ever because the federal government has
+
+implemented policies and a multi-billion-dollar messaging campaign designed to promote the
+
+
+
+
+6
+    See https://www.cdc.gov/vaccines/schedules/hcp/imz/child-adolescent.html.
+
+
+                                            Page 4 of 33
+     Case 2:23-cv-00102-Z Document 9 Filed 07/11/23                 Page 8 of 36 PageID 231
+
+
+
+public’s uptake of COVID-19 vaccines and boosters.7 However, as it promotes these products, the
+
+federal government has an obligation to at least be transparent with the information it possesses
+
+regarding the possible risks and harms of receiving these medical products. This transparency will
+
+allow consumers to make the most informed decision possible. Dkt. 1 ¶12.
+
+         In line with its sole mission, and pursuant to FOIA, Plaintiff sought from CDC: “All data
+
+obtained from v-safe users/registrants from the free text fields within the v-safe program for
+
+COVID-19 vaccines and the registrant code associated with each free text field/entry.” Dkt.
+
+1 ¶15; App. At APP0170 ¶ 20. CDC refused to disclose the data claiming “the agency lacks the
+
+resources to manually review the data collected.” Dkt. 1 ¶15; App. at APP0170 ¶ 21.
+
+         As outlined more fully below, CDC has violated and continues to violate FOIA by failing
+
+to respond to Plaintiff’s appeal, wrongly denying Plaintiff’s fee waiver, failing to establish the
+
+validity of its claimed withholdings and, most importantly, by continuing to withhold data that is
+
+not exempt from disclosure and that the American public has every right to see.
+
+                                               FACTS
+
+    I.   The Freedom Coalition
+
+         Plaintiff Freedom Coalition of Doctors for Choice (“Freedom Coalition” or “Plaintiff”)
+
+is a not-for-profit that was formed and exists for the sole purpose of obtaining and disseminating
+
+to the public the v-safe free-text data. This coalition is made up of medical and public health
+
+professionals, scientists, and journalists. It takes no position on this data other than that it should
+
+be made available to the public and scientific community as soon as possible. All data obtained
+
+
+
+
+7
+   See e.g. https://www.whitehouse.gov/briefing-room/statements-releases/2022/10/25/fact-sheet-
+president-biden-to-announce-additional-efforts-to-help-americans-get-their-free-updated-covid-19-
+vaccine-this-fall/.
+
+
+                                            Page 5 of 33
+   Case 2:23-cv-00102-Z Document 9 Filed 07/11/23               Page 9 of 36 PageID 232
+
+
+
+will be made available on its website, www.drsforchoice.org, upon receipt. Dkt. 1 ¶14; App. at
+
+APP0166 ¶ 5.
+
+       As provided on its website, its mission is as follows:
+
+
+
+
+       Dkt. 1 ¶19; App. at APP0167 ¶ 6.
+
+       Freedom Coalition currently has 91 members, including at least 46 medical doctors, 16
+
+PhDs, 21 nurse practitioners or registered nurses, as well as professors from medical schools,
+
+including from UCLA and the University of Texas. Dkt. 1 ¶20; App. at APP0167 ¶ 7.
+
+       At all times relevant hereto, Freedom Coalition’s headquarters is and has been at 600 S
+
+Tyler St, Suite 2100 #177, Amarillo, TX 79101 and its most recent board meeting was held on
+
+March 29, 2023 at its headquarters in Amarillo, TX, which is the usual and customary location of
+
+its board meetings. The Freedom Coalition has six board members. Three of its board members
+
+reside in Amarillo, Texas (Drs. Pia and Rolf Habersang, and Dr. Deborah Moore), and a fourth
+
+works in Amarillo, Texas (Dr. Richard Bartlett). Dkt. 1 ¶21; App. at APP0167 ¶ 8.
+
+
+
+
+                                          Page 6 of 33
+     Case 2:23-cv-00102-Z Document 9 Filed 07/11/23                Page 10 of 36 PageID 233
+
+
+
+         Dr. Richard Bartlett is an emergency room physician practicing in Amarillo and Lubbock,
+
+Texas. Dr. Bartlett identified and advocated for the use of budesonide in the treatment of COVID-
+
+19, which has become a treatment option in hospitals across the country, including Odessa Medical
+
+Center and Odessa Regional Medical Center. The therapeutic effect of budesonide was confirmed
+
+by Oxford University in multiple randomized controlled trials, including the STOIC TRIAL in
+
+which Oxford concluded that 90% of COVID hospitalizations could have been prevented with
+
+budesonide.8 Dkt. 1 ¶22; App. at APP0166 ¶ 1, 4.
+
+         Dr. Deborah L. Moore lives in Amarillo, Texas and has her medical office at 6141 West
+
+Amarillo Boulevard, Amarillo, Texas 79106. Dr. Moore is a family medicine doctor and is the
+
+physician-owner and founder of a well-respected family medicine practice in Amarillo. Dr. Moore
+
+received her medical degree from Texas A&M Health Science Center College of Medicine and
+
+recently published a book titled Covid Treatment: A Clinician’s Guide and Commentary on the
+
+Management of Covid-19 based on her clinical experience treating patients with COVID-19. Dkt.
+
+1 ¶23; App. at APP0168 ¶ 9.
+
+         Pia Habersang, EdD, CNS, MSN, APRN is a primary care provider with over 40 years of
+
+experience with children in hospital and outpatient settings. In 2013, Dr. Habersang founded the
+
+Pediatric Wellness Center of Amarillo located at 1901 Medi Park Drive, Suite # 110, Amarillo,
+
+TX, where she currently practices. Her Doctorate in Child and Youth Studies prepared her to apply
+
+knowledge of early childhood developmental milestones throughout adolescence into primary
+
+care. Dkt. 1 ¶24; App. at APP0168 ¶ 10.
+
+         Rolf Habersang, MD, MPH, and TM is a physician in Amarillo. He previously specialized
+
+in pediatric critical care medicine in Amarillo and was affiliated with multiple hospitals in the area.
+
+
+8
+    See https://pubmed.ncbi.nlm.nih.gov/33844996/.
+
+
+                                            Page 7 of 33
+     Case 2:23-cv-00102-Z Document 9 Filed 07/11/23              Page 11 of 36 PageID 234
+
+
+
+He received his medical degree from University of Basel Switzerland. He has been practicing and
+
+teaching since 1973 as a Professor in the Department of Pediatrics at Texas Tech University Health
+
+Sciences Center. In 2002, Dr. Habersang founded Integrated Complementary Alternative
+
+Medicine in Amarillo, where he takes care of mostly adult patients, while still seeing some patients
+
+at Texas Tech on a part-time basis. Dr. Habersang is also the supervising and supportive physician
+
+at the Pediatric Wellness Center of Amarillo (founded in 2013), located at 1901 Medi Park Dr.
+
+Suite # 110, Amarillo, TX where he co-manages patient care with Dr. Pia Habersang. Dkt. 1 ¶25;
+
+App. at APP0168 ¶ 11.
+
+          Camilla Glenn, APRN, FNP-C is a primary care provider practicing in Lubbock, Texas
+
+who worked for a medical organization that laid her off because they disfavored her providing
+
+informed consent to patients regarding COVID-19 vaccines. Dkt. 1 ¶26; App. at APP0169 ¶ 12.
+
+          Dr. Paul Thomas is a general surgeon practicing in Lubbock, Texas and the founder of
+
+Operation H.O.P.E. USA, a non-profit that, among other things, provides medical care in areas of
+
+the world where there may be scant or no capable medical service. Dkt. 1 ¶27; App. at APP0169
+
+¶ 13.
+
+    II.   COVID-19 Vaccines
+
+          In December 2020, FDA issued EUAs for the Pfizer-BioNTech and Moderna COVID-19
+
+vaccines.9 Dkt. 1 ¶28. In February 2021, FDA issued an EUA for the Janssen COVID-19 vaccine
+
+
+
+
+9
+  See https://www.fda.gov/news-events/press-announcements/fda-takes-key-action-fight-against-
+covid-19-issuing-emergency-use-authorization-first-covid-19;           https://www.fda.gov/news-
+events/press-announcements/fda-takes-additional-action-fight-against-covid-19-issuing-
+emergency-use-authorization-second-covid.
+
+
+                                           Page 8 of 33
+     Case 2:23-cv-00102-Z Document 9 Filed 07/11/23               Page 12 of 36 PageID 235
+
+
+
+and other authorizations and licensures of COVID-19 vaccines followed in succession thereafter.10
+
+Dkt. 1 ¶28.
+
+         These products were then mandated on more than 100 million Americans under the threat
+
+of losing their jobs, being separated from the military, being excluded from educational
+
+institutions, and from otherwise participating in civil society.11 The federal government has, for
+
+example, issued mandates for private employees, public employees, and the military, although
+
+many of these have since been enjoined or rescinded.12 Dkt. 1 ¶29.
+
+         While mandating this product, the federal government has also given the pharmaceutical
+
+companies selling these vaccines, and all those associated with administering and promoting them,
+
+complete legal immunity for any injury caused by these vaccines. 42 U.S.C. § 247d-6d (providing
+
+that any “manufacturer” of “any vaccine, used to . . . prevent or mitigate COVID-19” shall be
+
+“immune from suit and liability under Federal and State law with respect to all claims . . . resulting
+
+from . . . [its] use by an individual”). These pharmaceutical companies are even immune from
+
+liability for willful misconduct unless the federal government—which promoted, licensed, and
+
+mandated this product—first brings this claim. Id.
+
+
+
+
+10
+   See https://www.fda.gov/news-events/press-announcements/fda-issues-emergency-use-authoriza
+tion-third-covid-19-vaccine; https://www.fda.gov/news-events/press-announcements/fda-approves-
+first-covid-19-vaccine; https://www.fda.gov/news-events/press-announcements/coronavirus-covid-
+19-update-fda-authorizes-emergency-use-novavax-covid-19-vaccine-adjuvanted.
+11
+     https://www.whitehouse.gov/covidplan/.
+12
+  https://www.whitehouse.gov/covidplan/; https://www.federalregister.gov/documents/2021/11/05/
+2021-23643/covid-19-vaccination-and-testing-emergency-temporary-standard;          https://www.
+federalregister.gov/documents/2021/11/05/2021-23831/medicare-and-medicaid-programs-
+omnibus-covid-19-health-care-staff-vaccination; https://media.defense.gov/2021/Aug/25/20028388
+26/-1/-1/0/MEMORANDUM-FOR-MANDATORY-CORONAVIRUS-DISEASE-2019-
+VACCINATION-OF-DEPARTMENT-OF-DEFENSE-SERVICE-MEMBERS.PDF.
+
+
+                                              Page 9 of 33
+     Case 2:23-cv-00102-Z Document 9 Filed 07/11/23               Page 13 of 36 PageID 236
+
+
+
+III.       V-Safe
+
+           Because the government has been and continues to be engaged in a vigorous effort to get
+
+these vaccines into the arm of nearly every American, by mandate or otherwise, it is essential that
+
+these products are safe and afford the American people transparency regarding the data supporting
+
+that assurance. Dkt. 1 ¶31.
+
+           CDC is the primary federal agency responsible for monitoring the safety of COVID-19
+
+vaccines and assures the public that “COVID-19 vaccines are being administered under the most
+
+intensive vaccine safety monitoring effort in U.S. history[.]”13 Dkt. 1 ¶32.
+
+           CDC’s premier system for monitoring the safety of COVID-19 vaccines is v-safe, a
+
+smartphone-based program14 which uses “text messages and web surveys to ask how [users] feel,
+
+including if [users] experience any side effects after vaccination.”15 As explained by CDC, the
+
+program “helps CDC gather important information and monitor any potential side effects in real
+
+time so scientists can quickly study them and determine if there is a safety concern with a particular
+
+vaccine.”16 CDC ironically represents that “[t]his information helps [it] communicate timely and
+
+transparent information about the safety of vaccines to public health officials, healthcare
+
+providers, and the public.”17 Dkt. 1 ¶33.
+
+
+
+
+13
+       https://www.cdc.gov/vaccines/acip/meetings/downloads/slides-2021-10-20-21/05-COVID-
+Hause-508.pdf.
+14
+ See https://www.cdc.gov/coronavirus/2019-ncov/vaccines/safety.html (listing v-safe as one of the
+ways “CDC expanded and strengthened the country’s ability to monitory vaccine safety”).
+15
+     Id.
+16
+     Id.
+17
+     Id (emphasis added).
+
+
+                                            Page 10 of 33
+     Case 2:23-cv-00102-Z Document 9 Filed 07/11/23              Page 14 of 36 PageID 237
+
+
+
+           On November 19, 2020, CDC published a protocol for developing v-safe titled “V-safe
+
+active surveillance for COVID-19 vaccine safety” (the “V-Safe Protocol”).18 The V-Safe Protocol
+
+explains that “[t]he purpose of v-safe surveillance is to rapidly characterize the safety profile of
+
+COVID-19 vaccines when given outside a clinical trial setting and to detect and evaluate clinically
+
+important adverse events and safety issues that might impact policy or regulatory decisions.”19
+
+Dkt. 1 ¶34.
+
+IV.        V-Safe Users
+
+           V-safe was launched simultaneously with the EUA of the first COVID-19 vaccine in
+
+December 2020. Nine million of the approximate 10 million users who registered for v-safe did so
+
+between December 2020 and April 2021. The following chart breaks down the number of new v-
+
+safe users by month:20
+
+
+
+
+           Dkt. 1 ¶35.
+
+
+18
+     https://web.archive.org/web/20210102024902/https://www.cdc.gov/vaccinesafety/pdf/V-safe-
+Protocol-508.pdf.
+19
+     Id. at 1.
+20
+     https://icandecide.org/v-safe-data/.
+
+
+                                            Page 11 of 33
+     Case 2:23-cv-00102-Z Document 9 Filed 07/11/23                Page 15 of 36 PageID 238
+
+
+
+         This period from December 2020 to April 2021 was a time when there was high enthusiasm
+
+for, and nobody was yet mandated to receive, the vaccine. Most v-safe users were likely
+
+enthusiastic about the vaccine and signed up to participate in its roll-out, not to report issues. Dkt.
+
+1 ¶36.
+
+         The data submitted by 10 million v-safe users, therefore, is likely a good reflection of the
+
+experience of the larger population of 265 million Americans who received at least one dose of a
+
+COVID-19 vaccine. The 10 million v-safe users, if anything, may have been prone to underreport
+
+health impacts, not overreport. Dkt. 1 ¶37.
+
+ V.      The Data V-Safe Collects
+
+         V-safe collects COVID-19 vaccine safety information in two ways:
+
+                 (1) check-the-box options limited to two categories of information, (a) symptoms
+
+                     and (b) health impacts, and
+
+                 (2) free-text fields.
+
+Dkt. 1 ¶38.
+
+         Regarding symptoms collected using check-the-box options, v-safe users are asked to
+
+select one or more of 10 listed symptoms that occurred within the first week after vaccination.
+
+These symptoms are those that CDC says are normal after vaccination and are actually a sign the
+
+vaccine is working by producing an immune response. As CDC explains: “Any side effects from
+
+getting the vaccine are normal signs the body is building protection.”21 Meaning, the check-the-
+
+box symptoms data collected by v-safe was effectively useless for assessing safety of the COVID-
+
+19 vaccines. Indeed, the 10 million v-safe users reported over 70 million check-the-box symptoms,
+
+
+
+
+21
+     https://www.cdc.gov/coronavirus/2019-ncov/vaccines/different-vaccines/how-they-work.html.
+
+
+                                            Page 12 of 33
+     Case 2:23-cv-00102-Z Document 9 Filed 07/11/23               Page 16 of 36 PageID 239
+
+
+
+and this did not raise any concerns for CDC as seen from the numerous studies CDC published
+
+with this data evidencing these high rates.22 Dkt. 1 ¶39.
+
+        Here is an image of a survey sent to v-safe users during the first week after injection:
+
+
+
+
+22
+    See e.g., https://www.cdc.gov/mmwr/volumes/71/wr/mm7107e1.htm; https://www.cdc.gov
+/mmwr/volumes/70/wr/mm7039e4.htm; https://www.cdc.gov/mmwr/volumes/70/wr/mm7018e2.
+htm; https://jamanetwork.com/journals/jama/fullarticle/2778441; https://www.cdc.gov/mmwr/
+volumes/70/wr/mm7008e3.htm; https://www.cdc.gov/mmwr/volumes/70/wr/mm705152a1.htm;
+https://www.cdc.gov/mmwr/volumes/70/wr/mm7031e1.htm.
+
+
+                                           Page 13 of 33
+     Case 2:23-cv-00102-Z Document 9 Filed 07/11/23               Page 17 of 36 PageID 240
+
+
+
+Dkt. 1 ¶40.
+
+        The only other check-the-box safety information collected (other than symptoms) was
+
+whether users reported needing medical care, missed school or work, or could not perform normal
+
+daily activities (the “health impact data”). If a user selected that he or she needed medical care,
+
+the user was asked to select whether he or she sought telehealth, urgent care, emergency care, or
+
+were hospitalized (as seen in the image above). Dkt. 1 ¶41.
+
+        The health impact data, unlike the check-the-box symptoms data which was collected for
+
+only the first week after injection, was collected weekly for the first six weeks after injection and
+
+then at 3, 6, and 12 months. Since CDC dubbed v-safe a “real time” surveillance program,
+
+presumably this is the data CDC would use to rapidly detect any safety issues.23 Dkt. 1 ¶42.
+
+        Since 2021, CDC has published over 20 studies to support its claim that COVID-19
+
+vaccines are safe. The main data used in these studies is v-safe’s health impact data, with a focus
+
+on the rate of people who reported needing medical care after the vaccine. The studies formed the
+
+core of CDC’s support for the safety of COVID-19 vaccines, however, they only report the first
+
+week of health impact data after injection. This is, at best, highly misleading because CDC is well
+
+aware that injuries from COVID-19 vaccines can occur well after the first week.24 Dkt. 1 ¶43.
+
+        When CDC finally released the check-the-box data to the public, after over two years of
+
+legal demands by another group and a federal lawsuit, the data it hid from the public for over two
+
+years showed that 7.7% of v-safe users reported needing medical care after a COVID-19 vaccine
+
+
+23
+   https://www.cdc.gov/coronavirus/2019-ncov/vaccines/safety.html (“These platforms give CDC
+scientists information about the safety of COVID-19 vaccines in real time.”).
+24
+     For example, myocarditis can arise at least 42 days after vaccination, see
+https://pubmed.ncbi.nlm.nih.gov/34614329/ at Figure 1. Thrombosis with thrombocytopenia
+syndrome (TTS), which can also be caused by the COVID-19 vaccine, can arise up to 18 days after
+vaccination. See https://www.cdc.gov/vaccines/acip/meetings/downloads/slides-2021-12-16/02-
+COVID-See-508.pdf at slide 16.
+
+
+                                           Page 14 of 33
+     Case 2:23-cv-00102-Z Document 9 Filed 07/11/23                  Page 18 of 36 PageID 241
+
+
+
+and an additional 25% of v-safe users who reported missing school or work or being unable to
+
+perform normal activities after the injection.25 Dkt. 1 ¶44.
+
+
+
+
+Dkt. 1 ¶44.
+
+           While the public is rightly concerned about these very high rates of reported health impacts,
+
+Freedom Coalition is seriously concerned about the fact that CDC was not transparent about
+
+this information with the public—that it hid the real rates of health impact from COVID-19
+
+vaccines from the public for over two years while misleadingly revealing only the first week of
+
+data. Freedom Coalition finds this lack of transparency deeply troubling and wants the full v-safe
+
+dataset made public immediately so that independent scientists can review this data—paid for by
+
+the American people—to assess what injuries COVID-19 vaccines may cause in order to prevent
+
+further injuries and advance treatment for those injured. Dkt. 1 ¶45.
+
+           CDC has published two studies the Freedom Coalition can identify that involve free-text
+
+data. The first involves menstrual irregularities and vaginal bleeding.26 In this study, 63,815 v-safe
+
+users reported irregularities in the timing and severity of menstruation and vaginal bleeding in the
+
+free-text fields. CDC concluded that it “is unable to characterise the relationship of these symptoms
+
+to COVID-19 vaccination,”27 but it could not objectively reach this conclusion as it had previously
+
+
+25
+     https://icandecide.org/v-safe-data/.
+26
+     See https://pubmed.ncbi.nlm.nih.gov/35961858/.
+27
+     Id.
+
+
+                                              Page 15 of 33
+     Case 2:23-cv-00102-Z Document 9 Filed 07/11/23               Page 19 of 36 PageID 242
+
+
+
+declared these products “safe” and that there is “no evidence that COVID-19 vaccines impact
+
+fertility.”28 The second study involves review of free-text responses on day 14 after injection for
+
+reports of the same list of 10 symptoms collected during the first week using check-the-box
+
+questions.29 CDC reviewed a total of 245,606 free-text entries to collect what is essentially
+
+pointless data regarding symptoms it says are common and expected after vaccination. Dkt. 1 ¶46.
+
+          Independent scientists again need the requested free-text data—data that actually provides
+
+critical information to assess the safety of the COVID-19 vaccines—to conduct meaningful
+
+studies. Dkt. 1 ¶47.
+
+VI.       CDC Designed V-Safe to Hide Important Data in the Free-Text Fields
+
+          CDC could have made v-safe a rapid and robust safety system by simply including check-
+
+the-box options for adverse events of concern (e.g., a check-the-box option for myocarditis or chest
+
+pain). In fact, the first version of the V-Safe Protocol, prior to the program’s launch, identified
+
+adverse events of special interest (“AESI”) in a chart titled Prespecified Medical Conditions:
+
+
+
+
+28
+        http://web.archive.org/web/20220304222019/https://www.cdc.gov/coronavirus/2019-ncov/
+vaccines/planning-for-pregnancy.html (archived CDC page from March 4, 2022). Compare with
+same CDC page from February 28, 2022: “Results from recent research studies show that people
+who menstruate may observe small, temporary changes in menstruation after COVID-19
+vaccination, including: Longer-lasting menstrual periods, Shorter intervals between periods, Heavier
+bleeding than usual. Despite these temporary changes in menstruation, there is no evidence that
+COVID-19 vaccines cause fertility problems.”                https://www.cdc.gov/coronavirus/2019-
+ncov/vaccines/planning-for-pregnancy.html.
+29
+     See https://pubmed.ncbi.nlm.nih.gov/34763946/.
+
+
+                                            Page 16 of 33
+     Case 2:23-cv-00102-Z Document 9 Filed 07/11/23               Page 20 of 36 PageID 243
+
+
+
+
+Dkt. 1 ¶48.
+
+          CDC also identified all but two (pregnancy and coagulopathy) of these AESIs in an
+
+October 22, 2020 presentation titled “CDC post-authorization/post-licensure safety monitoring of
+
+COVID-19 vaccines.”30 Many of these AESIs were also identified in a July 2020 NEJM study,31
+
+as well as in an October 16, 2020 JAMA article.32 Dkt. 1 ¶49.
+
+          Despite CDC itself directly identifying these adverse events as harms of special interest
+
+before the launch of v-safe, it did not include check-the-box options for these harms or for common
+
+symptoms from these harms in the system. Dkt. 1 ¶50.
+
+          CDC could have taken advantage of this incredible opportunity—wherein v-safe was
+
+already capturing health data from over 10 million users—to easily include these AESIs as check-
+
+the-box options for v-safe users. This would have enabled CDC and the scientific community to
+
+
+
+
+30
+     See https://cacmap.fda.gov/media/143530/download at 31.
+31
+     See https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7377258/#ap2.
+32
+     See https://jamanetwork.com/journals/jama/fullarticle/2772137.
+
+
+                                            Page 17 of 33
+     Case 2:23-cv-00102-Z Document 9 Filed 07/11/23                 Page 21 of 36 PageID 244
+
+
+
+easily calculate a rate for which v-safe users had myocarditis, or other adverse events that had been
+
+prespecified by CDC as potential problems (e.g., strokes, seizures, etc.). Dkt. 1 ¶51.
+
+           Instead, CDC purposely chose to limit potential reporting of any such adverse events to the
+
+free-text fields knowing full well that, among other issues, fewer people would report issues in a
+
+free-text field (versus a check-the-box option) and this free-text data would be more difficult to
+
+standardize. In that regard, CDC did not design this system with the interests of the public in mind,
+
+but rather its own interest to assure control of the data so it can release only data which comports
+
+with its a priori publicly announced policy claim that these products are “safe.” Dkt. 1 ¶52.
+
+VII.       Location of the Requested V-Safe Data
+
+           The V-Safe Protocol indicates that “V-safe data will be collected, managed, and housed on
+
+a secure server by Oracle.”33 The V-Safe Protocol further provides:
+
+                  Oracle staff will not be able to view any individualized survey data
+                  (including variables with personally identifiable information [PII])
+                  but, rather, will have access to aggregate deidentified data for
+                  reporting. CDC will have “read” access to the individualized survey
+                  data, including PII, provided by Oracle. On a continuous basis
+                  (either daily or weekly), these survey data will be accessible to CDC
+                  through downloads from the secure server.34
+
+Dkt. 1 ¶53.
+
+           In addition, the V-Safe Protocol states, “No PII [personally identifiable information] will
+
+be included in any v-safe analyses, manuscripts, or data sets shared through external data
+
+requests,”35 and that it “is anticipated that v-safe data will be shared with the scientific
+
+community.”36 Dkt. 1 ¶54.
+
+
+33
+     https://www.cdc.gov/vaccinesafety/pdf/V-safe-Protocol-V6-508.pdf at 11.
+34
+     Id.
+35
+     Id.
+36
+     Id. at 15.
+
+
+                                             Page 18 of 33
+     Case 2:23-cv-00102-Z Document 9 Filed 07/11/23                Page 22 of 36 PageID 245
+
+
+
+          Once the data started being gathered, it became apparent that what was “shared with the
+
+scientific community” was CDC’s cherry-picked health impact data limited to one-week post-
+
+vaccination. After public demands for release of the full dataset grew, CDC in 2022 updated the
+
+V-Safe Protocol concerning data management. Up until version 5, it provides that “A final data
+
+set at the end of the v-safe program with deidentified aggregate data will be made available for
+
+external data requests or through Freedom of Information Act (FOIA) requests.”37 The current
+
+version, version 6, now states:
+
+                 A data set with deidentified individual-level data will be created and
+                 posted twice a year to data.cdc.gov or through Freedom of
+                 Information Act (FOIA) requests. Data shared externally will go
+                 through a systematic process to remove PII and be cleared through
+                 the relevant clearance processes.38
+
+Dkt. 1 ¶55.
+
+          Recently, CDC announced that it closed enrollment in v-safe for Covid-19 vaccines and
+
+that “v-safe participants will continue to have access to their account … until June 30.”39 This
+
+likely would reflect the “end of the program” as referenced in earlier protocols. And more than six
+
+months have elapsed since CDC “created and posted … [v-safe data] to data.cdc.gov.”40
+
+Nonetheless, to date, data released to the public has been limited to the check-the-box data despite
+
+v-safe’s own protocols calling for the release of all the data. Dkt. 1 ¶56.
+
+
+
+
+37
+     https://www.cdc.gov/vaccinesafety/pdf/V-safe-Protocol-V5-508.pdf at 12.
+38
+     https://www.cdc.gov/vaccinesafety/pdf/V-safe-Protocol-V6-508.pdf at 12.
+39
+     https://www.cdc.gov/vaccinesafety/ensuringsafety/monitoring/v-safe/index.html. (Plaintiff
+notes that Defendant is hereby notified to preserve all records related to the allegations in this
+complaint, including but not limited to the free-text fields within the COVID-19 v-safe data.
+Plaintiff will also send a preservation demand under separate cover.).
+40
+     https://data.cdc.gov/Public-Health-Surveillance/v-safe/dqgu-gg5d.
+
+
+                                            Page 19 of 33
+    Case 2:23-cv-00102-Z Document 9 Filed 07/11/23                 Page 23 of 36 PageID 246
+
+
+
+         In sum, despite the foregoing claims of transparency and the purported plan to make the
+
+ data public, CDC only published highly unethical and misleading studies for two years, only
+
+ released the check-the-box data after being sued for same, and has now refused to release any of
+
+ the critical free-text data to the public. Dkt. 1 ¶57.
+
+         The v-safe data does exist elsewhere. CDC contracted with a third party, General Dynamics
+
+ Information Technology, Inc. (“GDIT”)—for an initial amount of $6,491,148.18—to “convert[]
+
+ the free text responses in v-safe to standardized MedDRA [The Medical Dictionary for Regulatory
+
+ Activities] terms.” Dkt. 1 at Exhibit A. This contract between CDC and GDIT reveals that all the
+
+ responsive records at issue in this matter already exist in CSV (comma-separate values) format;
+
+ this is how the records are sent to GDIT from CDC. What this means is that although there is a
+
+ large volume of responsive records (each capped at 250 characters in length), these records are in
+
+ a CSV file that already exists and that is easily searchable. Further, CDC has already agreed to pay
+
+ to have individuals manually review each and every free-text field for the purpose of converting
+
+ them into standardized codes. Certainly, a review for redacting any potential personally
+
+ identifiable information (“PII”) is less labor intensive than this. Query the minimal additional
+
+ work that would be needed to screen for PII while every single entry is already being carefully
+
+ reviewed by individuals to convert them consistently and accurately into codes. Id; Dkt. 1 ¶58.
+
+         To ensure that CDC expeditiously acts in furtherance of its commitment to “openness and
+
+ accountability” regarding the safety of COVID-19 vaccines, and the urgency with which the
+
+ scientific and medical community needs this specific data, Plaintiff made an expedited FOIA
+
+ request for the critical free-text response data submitted to v-safe. Dkt. 1 ¶59.
+
+VIII.    The FOIA Request and Administrative History
+
+         On January 3, 2023, Plaintiff, through Counsel, submitted a FOIA request to CDC seeking:
+
+
+
+
+                                              Page 20 of 33
+  Case 2:23-cv-00102-Z Document 9 Filed 07/11/23                    Page 24 of 36 PageID 247
+
+
+
+                All data obtained from v-safe users/registrants from the free
+                text fields within the v-safe program for COVID-19 vaccines
+                and the registrant code associated with each free text field/entry.
+                (Note that all records from pre-populated fields, other than
+                registrant code, can be excluded). Dkt. 1 at Exhibit B.
+
+Pursuant to 5 U.S.C. § 552(a)(6)I(i)(I), the request also sought expedited processing based on a
+
+demonstrated “compelling need.” Id. Plaintiff also sought a waiver of fees pursuant to 5 U.S.C. §
+
+552(a)(4)(A)(iii) on the basis that “disclosure of the [requested] information is in the public interest
+
+because it is likely to contribute significantly to public understanding of the operations or activities
+
+of the government[.]” And it explained why the disclosure of the requested information would
+
+contribute to the public’s understanding. Id.
+
+        On January 4, 2023, CDC acknowledged the request, assigned it request number 23-00462-
+
+FOIA, and denied Plaintiff’s request for expedited processing, as well as Plaintiff’s request for a
+
+fee waiver. See Dkt. 1 at Exhibit C.
+
+        On January 12, 2023, CDC issued its final determination regarding the request which stated
+
+in relevant part:
+
+                Please be informed that the agency is withholding the v-safe
+                free-text-fields data for the following reasons:
+
+                -   There are 7.8 million free-text field entries collected in v-
+                    safe from registered users that contain personal identifiable
+                    information (PII).
+                -   The agency lacks the resources to manually review the data
+                    collected from these registrants.
+
+Dkt. 1 at Exhibit D.
+
+        Notably, the agency claimed no statutory exemptions for the complete withholding.
+
+        On January 13, 2023, Plaintiff submitted an appeal challenging CDC’s improper
+
+withholding of the responsive records to HHS. See Dkt. 1 at Exhibit E.
+
+
+
+
+                                            Page 21 of 33
+  Case 2:23-cv-00102-Z Document 9 Filed 07/11/23                  Page 25 of 36 PageID 248
+
+
+
+        On January 17, 2023, CDC and HHS acknowledged the January 13, 2023 appeal and stated,
+
+in relevant part:
+
+                Pursuant to 5 U.S.C. § 552(a)(6)(B)(i) and 5 U.S.C. §
+                552(a)(6)(B)(iii) of the FOIA and 45 C.F.R. § 5.24(f) of the HHS
+                FOIA regulations, your appeal falls under “unusual
+                circumstances” in that our office will need to consult with another
+                office or agency that has substantial interest in the determination of
+                the appeal. The actual processing time will depend on the
+                complexity of the issues presented in the appeal and consultation
+                with other U.S. Department of Health and Human Services (HHS)
+                components involved. Dkt. 1 at Exhibit F (emphasis added).
+
+        On March 31, 2023, Plaintiff submitted an appeal challenging CDC’s improper denial of
+
+the fee waiver, Dkt. 1 at Exhibit G, which HHS acknowledged receipt of on April 3, 2023, Dkt. 1
+
+at Exhibit H.
+
+        CDC and HHS subsequently failed to make a final determination on these appeals within
+
+twenty business days as required by FOIA, making this matter immediately justiciable. 5 U.S.C. §
+
+552 (“Each agency, upon any request for records … shall … make a determination with respect to
+
+any appeal within twenty [business] days … after the receipt of such appeal” and a “person making
+
+a request to any agency for records … shall be deemed to have exhausted his administrative
+
+remedies with respect to such request if the agency fails to comply with the applicable time limit
+
+provisions of this paragraph.”). Dkt. 1 ¶66.
+
+        CDC and HHS also failed to make a final determination on these appeals within the ten
+
+additional business days permitted by FOIA. 5 U.S.C. § 552 (a)(6)(B)(i) (“In unusual
+
+circumstances as specified in this subparagraph, the time limits prescribed in either clause (i) or
+
+clause (ii) of subparagraph (A) may be extended by written notice to the person making such
+
+request setting forth the unusual circumstances for such extension and the date on which a
+
+determination is expected to be dispatched. No such notice shall specify a date that would result
+
+
+
+
+                                           Page 22 of 33
+  Case 2:23-cv-00102-Z Document 9 Filed 07/11/23                    Page 26 of 36 PageID 249
+
+
+
+in an extension for more than ten working days, except as provided in clause (ii) of this
+
+subparagraph.”). Dkt. 1 ¶67.
+
+       Nor has CDC discussed with Plaintiff how it could effectively limit the scope of the request.
+
+Dkt. 1 ¶68.
+
+       Therefore, CDC has violated the time limits prescribed by FOIA and has failed to justify
+
+its complete withholding of documents responsive to Plaintiff’s request. Dkt. 1 ¶69.
+
+                                       LEGAL STANDARD
+
+IX.    Summary Judgment
+
+       Plaintiff submits that there are no genuine issues of fact in this matter, and that it is entitled
+
+to judgment as a matter of law. Summary judgment is appropriate if no genuine issue of material
+
+fact exists and the moving party is entitled to judgment as a matter of law. Fed. R. Civ. P. 56(c).
+
+The Court views the evidence in a light most favorable to the nonmovant. Coleman v. Houston
+
+Indep. Sch. Dist., 113 F.3d 528, 533 (5th Cir. 1997). The nonmovant must go beyond the pleadings
+
+and come forward with specific facts indicating a genuine issue for trial to avoid summary
+
+judgment. Celotex Corp. v. Catrett, 477 U.S. 317, 324 (1986).
+
+       “FOIA cases typically and appropriately are decided on motions for summary
+
+judgment.” Defenders of Wildlife v. U.S. Border Patrol, 623 F. Supp. 2d 83, 87 (D.D.C. 2009).
+
+“The FOIA expressly places the burden on the defending agency to sustain its action and show
+
+that it acted in accordance with the statute.” Driggers v. United States, No. 3:11-CV-0229-N, 2011
+
+U.S. Dist. LEXIS 152931, 2011 WL 5525337, at *3 (N.D. Tex. Oct. 26, 2011) (Ramirez,
+
+M.J.) (citing Batton, 598 F.3d at 175; Cooper Cameron, 280 F.3d at 543); see also 5 U.S.C. §
+
+552(a)(4)(B) (“. . . and the burden is on the agency to sustain its action.”).
+
+
+
+
+                                            Page 23 of 33
+   Case 2:23-cv-00102-Z Document 9 Filed 07/11/23                  Page 27 of 36 PageID 250
+
+
+
+ X.      Freedom of Information Act, 5 U.S.C. § 552
+
+         The Freedom of Information Act, codified at 5 U.S.C. § 552, was signed into law in 1966
+
+and gives the public right to access records from any federal agency. FOIA is intended to increase
+
+transparency and plays a critical role in keeping government transparent and accountable.
+
+         5 U.S.C. § 552(a)(3)(A) states in relevant part: “Except with respect to the records made
+
+available under paragraphs (1) and (2) of this subsection, and except as provided in subparagraph
+
+(E), each agency, upon any request for records which (i) reasonably describes such records and (ii)
+
+is made in accordance with published rules stating the time, place, fees (if any), and procedures to
+
+be followed, shall make the records promptly available to any person.” (Emphasis added.)
+
+         5 U.S.C. § 552(a)(8)(A)(i) and (ii) state: “An agency shall -- (i) withhold information under
+
+this section only if -- (I) the agency reasonably foresees that disclosure would harm an interest
+
+protected by an exemption described in subsection (b); or (II) disclosure is prohibited by law; and
+
+(ii)   (I)   consider   whether   partial   disclosure   of   information   is   possible   whenever
+
+the agency determines that a full disclosure of a requested record is not possible; and (II) take
+
+reasonable steps necessary to segregate and release nonexempt information.” (Emphasis added.)
+
+         5 U.S.C. § 552(a)(6)(A)(ii) states in relevant part: “Each agency, upon any request for
+
+records made under paragraph (1), (2), or (3) of this subsection, shall— make a determination with
+
+respect to any appeal within twenty days (excepting Saturdays, Sundays, and legal public holidays)
+
+after the receipt of such appeal. If on appeal the denial of the request for records is in whole or in
+
+part upheld, the agency shall notify the person making such request of the provisions for judicial
+
+review of that determination under paragraph (4) of this subsection.” (Emphasis added.)
+
+         5 U.S.C. § 552(a)(6)(B)(i) states: “In unusual circumstances as specified in this
+
+subparagraph, the time limits prescribed in either clause (i) or clause (ii) of subparagraph (A) may
+
+
+
+
+                                            Page 24 of 33
+  Case 2:23-cv-00102-Z Document 9 Filed 07/11/23                  Page 28 of 36 PageID 251
+
+
+
+be extended by written notice to the person making such request setting forth the unusual
+
+circumstances for such extension and the date on which a determination is expected to be
+
+dispatched. No such notice shall specify a date that would result in an extension for more than ten
+
+working days, except as provided in clause (ii) of this subparagraph.” (Emphasis added.)
+
+       5 U.S.C. § 552(a)(6)(C)(i) states: “Any person making a request to any agency for records
+
+under paragraph (1), (2), or (3) of this subsection shall be deemed to have exhausted his
+
+administrative remedies with respect to such request if the agency fails to comply with the
+
+applicable time limit provisions of this paragraph. If the Government can show exceptional
+
+circumstances exist and that the agency is exercising due diligence in responding to the request,
+
+the court may retain jurisdiction and allow the agency additional time to complete its review of the
+
+records. Upon any determination by an agency to comply with a request for records, the records
+
+shall be made promptly available to such person making such request. Any notification of denial
+
+of any request for records under this subsection shall set forth the names and titles or positions of
+
+each person responsible for the denial of such request.” (Emphasis added.)
+
+       5 U.S.C. § 552(a)(4)(A)(viii) states: “Except as provided in subclause (II), an agency shall
+
+not assess any search fees (or in the case of a requester described under clause (ii)(II) of this
+
+subparagraph, duplication fees) under this subparagraph if the agency has failed to comply with
+
+any time limit under paragraph (6) … If an agency has determined that unusual
+
+circumstances apply (as the term is defined in paragraph (6)(B)) and the agency provided a timely
+
+written notice to the requester in accordance with paragraph (6)(B), a failure described in subclause
+
+(I) is excused for an additional 10 days. If the agency fails to comply with the extended time limit,
+
+the agency may not assess any search fees (or in the case of a requester described under clause
+
+(ii)(II) of this subparagraph, duplication fees) … If an agency has determined that unusual
+
+
+
+
+                                           Page 25 of 33
+  Case 2:23-cv-00102-Z Document 9 Filed 07/11/23                Page 29 of 36 PageID 252
+
+
+
+circumstances apply and more than 5,000 pages are necessary to respond to the request,
+
+an agency may charge search fees (or in the case of a requester described under clause (ii)(II) of
+
+this subparagraph, duplication fees) if the agency has provided a timely written notice to the
+
+requester in accordance with paragraph (6)(B) and the agency has discussed with the requester via
+
+written mail, electronic mail, or telephone (or made not less than 3 good-faith attempts to do so)
+
+how the requester could effectively limit the scope of the request in accordance with paragraph
+
+(6)(B)(ii).” (Emphasis added.)
+
+                                          ARGUMENT
+
+  I.   CDC and HHS Did Not Timely Respond to Plaintiff’s Appeal
+
+       As described in section VIII, supra, Plaintiff made a FOIA request to CDC and requested
+
+expedited processing due to the urgency of the request and compelling need for the responsive
+
+documents. CDC denied expedited processing and, soon thereafter, issued a final determination.
+
+That final determination stated that the agency was withholding the responsive documents in full.
+
+The agency did not make an attempt to discuss with Plaintiff how it could effectively limit the
+
+scope of the request. Dkt. 1 ¶70.
+
+       Plaintiff submitted an appeal on January 13, 2023 of the records denial and CDC and HHS
+
+acknowledged the appeal on January 17, 2023, stating that due to “unusual circumstances,” the
+
+agency would need additional time to respond to the appeal. Pursuant to FOIA—specifically 5
+
+U.S.C. § 552(a)(6)(A)(ii) and 5 U.S.C. § 552(a)(6)(B)(i)—the agency had 30 business days to
+
+respond. That date has come and gone and still the agency has not responded to Plaintiff’s appeal.
+
+Therefore, CDC and HHS have violated FOIA and Plaintiff has exhausted its administrative
+
+remedies which led to the instant action. Dkt. 1 ¶71.
+
+
+
+
+                                          Page 26 of 33
+  Case 2:23-cv-00102-Z Document 9 Filed 07/11/23                  Page 30 of 36 PageID 253
+
+
+
+       Plaintiff submitted an appeal on the fee waiver denial on March 31, 2023 and CDC and
+
+HHS acknowledged the appeal on April 1, 2023, stating that due to “unusual circumstances,” the
+
+agency would need additional time to respond to the appeal. Pursuant to FOIA—specifically 5
+
+U.S.C. § 552(a)(6)(A)(ii) and 5 U.S.C. § 552(a)(6)(B)(i)—the agency had 30 business days to
+
+respond. That date has come and gone and still the agency has not responded to Plaintiff’s appeal.
+
+Therefore, CDC has violated FOIA and Plaintiff has exhausted its administrative remedies which
+
+led to the instant action. Dkt. 1 ¶72.
+
+ II.   CDC is Improperly Withholding Responsive Records
+
+       CDC is improperly withholding the v-safe free-text data and has not identified a statutory
+
+exemption to justify its doing so. Recognizing that “FOIA embodies a philosophy of full disclosure
+
+by government agencies and requires them to make their records available to the public” and that
+
+“[m]oreover, [t]he FOIA was enacted to pierce the veil of administrative secrecy and to open
+
+agency action to the light of public scrutiny,” the Northern District of Texas has held that, “the
+
+exemptions an agency may claim to disclosure are explicitly limited by statute and should be
+
+construed narrowly.” Highland Capital Mgmt., LP v. IRS, No. 3:17-cv-2906G, 2019 U.S. Dist.
+
+LEXIS 42366, at *14 (N.D.Tex. Mar. 15, 2019) (internal quotations and citations omitted). Here,
+
+the agency has failed to even identify any claimed statutory exemption to justify its complete
+
+withholding.
+
+       The need to produce this data is urgent and, as explained below, it is reasonable for CDC
+
+to timely complete production of this data. CDC has rejected this proposal. Dkt. 1 ¶73.
+
+       Plaintiff understands that the free-text data consists of responses to the following questions:
+
+           •   “Enter your/their highest temperature reading from today”
+
+           •   “Any other symptoms or health conditions you want to report:”
+
+
+
+
+                                           Page 27 of 33
+     Case 2:23-cv-00102-Z Document 9 Filed 07/11/23                 Page 31 of 36 PageID 254
+
+
+
+              •   “What type of healthcare visit did you/they have? Other - please describe:”
+
+              •   “Please describe the symptoms or health conditions” or “Since your/their last
+                  check-in, have you/they experienced any new or worsening symptoms or health
+                  conditions? If yes, please describe:”
+
+Dkt. 1 ¶74.
+
+        As is plain from these questions, they each request information regarding symptoms, not
+
+PII such as name, social security number, birth date, address, etc.41 A user would have no plain
+
+reason to include PII in these fields since v-safe already asked for that information in separate
+
+fields (not part of the instant request). It is therefore unlikely that there would be much PII in any
+
+of the free-text fields and, in the event there is occasional PII entered by a user, there are automated
+
+programs that can search for such PII.42 Dkt. 1 ¶75.
+
+        That said, Plaintiff certainly understands that the free-text fields will need to be reviewed
+
+for PII, likely using a mix of automated and manual review, before being produced, however
+
+CDC’s defense that the “agency lacks the resources to manually review the data collected from
+
+these registrants” is without merit. Dkt. 1 ¶76. In a separate and recent FOIA matter where the
+
+plaintiffs sought close to 5 million pages of records, the district court recognized “the limited
+
+resources” that a federal agency dedicated to FOIA requests yet held that, “the number of resources
+
+
+
+
+41
+  For the avoidance of doubt, Plaintiff is not seeking data from any fields wherein v-safe users were
+prompted to enter their name, phone number, email address, or any other PII, in order to register for
+v-safe.
+42
+  E.g., Microsoft has PII detection services which can be used to flag and redact, inter alia, names,
+phone numbers, addresses, email, URLs, IP addresses, age, routing numbers, credit card numbers,
+bank account numbers, etc. https://learn.microsoft.com/en-us/azure/cognitive-services/language-
+service/personally-identifiable-information/concepts/entity-categories see also, e.g., https://pii-
+tools.com/; https://www.manageengine.com/data-security/?utm_source=comparitech&utm_med
+ium=cpc&utm_campaign=DSP-ADTools_best-pii-scanning-tools; https://www.endpointprotector.
+com/;      https://www.digitalguardian.com/products/data-discovery;       https://www.teramind.co/
+product/teramind-dlp.
+
+
+                                            Page 28 of 33
+     Case 2:23-cv-00102-Z Document 9 Filed 07/11/23                Page 32 of 36 PageID 255
+
+
+
+an agency dedicates to [FOIA] requests does not dictate the bounds of an individual’s FOIA
+
+rights.” PHMPT et al. v. Food and Drug Administration, No. 4:22-cv-00915-P, at 4 (NDTX May
+
+9, 2023).
+
+          CDC had a discretionary budget of $8.7 billion in 2022 and a proposed discretionary budget
+
+of $10.675 billion in 2023 and there are likely few tasks, if any, it must fulfill that are more
+
+important than being transparent about the single biggest initiative over the last two years—maybe
+
+its history—of seeking to get every single American injected with a COVID-19 vaccine product,
+
+justified by the claim that they are safe and effective. Dkt. 1 ¶77.
+
+          CDC has also received special allocations from Congress regarding COVID-19, including:
+
+          •   Coronavirus Response and Relief Supplemental Appropriations Act which provided
+
+              $8.75 billion to CDC to plan, prepare for, promote, distribute, administer, monitor, and
+
+              track COVID vaccines to ensure broad-based distribution, access, and vaccine
+
+              coverage;
+
+          •   American Rescue Plan Act which provided $11.52 billion to CDC to plan, prepare for,
+
+              promote, distribute, administer, monitor, and track vaccines; strengthen vaccine
+
+              confidence in the U.S., provide information, and improve rates of vaccination;
+
+          •   Coronavirus Preparedness and Response Supplemental Appropriations Act which
+
+              provided $2.2 billion to CDC to prevent, prepare for and respond to COVID-19; and
+
+          •   CARES Act which provided $4.3 billion to CDC to prevent, prepare for and respond
+
+              to COVID-19.43
+
+Dkt. 1 ¶78.
+
+
+
+
+43
+     See https://www.cdc.gov/budget/fact-sheets/covid-19/index.html.
+
+
+                                             Page 29 of 33
+     Case 2:23-cv-00102-Z Document 9 Filed 07/11/23              Page 33 of 36 PageID 256
+
+
+
+        CDC’s claim that it lacks resources to review the data, therefore, is truly incredible. The
+
+resources needed to review the v-safe free-text fields is likely a rounding error with regard to the
+
+amount CDC pays for janitorial services for its buildings. Dkt. 1 ¶79.
+
+        In the universe of the 14,703 v-safe free-text entries CDC has produced (from its v-safe
+
+motivation survey data, not health data), the average entry was 35 characters in length. Assuming
+
+that average per-entry character amount is the same for the free-text fields being requested here,
+
+then the 7.8 million free-text entries CDC claims it needs to review for PII44 equates to 83,333
+
+pages to review.45 Dkt. 1 ¶80.
+
+        With the resources available to CDC, and the ease of reviewing for only PII in these
+
+documents, CDC should easily accomplish this task within weeks. For example, the FDA has
+
+produced over 90,000 pages a month in response to a FOIA request for the Pfizer documents
+
+provided to the FDA to license its COVID-19 vaccine, and that review required reviewing for PII
+
+and trade secrets. See PHMPT v. FDA, Case. No. 4:21-cv-01508-P, ECF Nos. 62 and 64. If the
+
+FDA can review 90,000 pages in a month, CDC, with triple FDA’s discretionary budget, should
+
+be able to do at least that much, too. Dkt. 1 ¶81.
+
+        CDC is also well equipped and accustomed to conducting such reviews because it conducts
+
+this same type of review every day for VAERS reports. Every month since 2021 it has reviewed
+
+an average of 38,580 reports submitted to VAERS to publish the symptoms reported therein on its
+
+
+
+
+44
+  And it is unclear whether this 7.8 million includes “entries” of users’ names, emails, and phone
+numbers submitted upon registration. If the 7.8 million includes those fields, those are easily
+segregable and do not need to be reviewed or produced which would greatly reduce the number of
+entries at issue.
+45
+  7.8 million multiplied by 35 equals a total of 273 million characters, and dividing this number by
+the 3,276 average characters per page (12 font, Times New Roman, single spaced and 1 inch
+margins) results in 83,333 pages of text for CDC to review.
+
+
+                                           Page 30 of 33
+  Case 2:23-cv-00102-Z Document 9 Filed 07/11/23                   Page 34 of 36 PageID 257
+
+
+
+public facing VAERS system. Similarly, it can easily process the v-safe data here for PII if is so
+
+desired. Dkt. 1 ¶82.
+
+         Even if the review of the responsive documents is a heavy lift for the agency and demands
+
+resources that outweigh other FOIA requests, the agency should be made to produce the records.
+
+See Keeping Gov’t Beholden, Inc. v. DOJ, No. 17-1569 (FYP), 2021 WL 5918627 (D.D.C. Dec.
+
+31, 2021) (“This Court is skeptical that a FOIA request may be denied based on sheer volume of
+
+records requested alone. In fact, ‘the dominant objective of FOIA is disclosure, and exemptions
+
+are to be narrowly construed.’ FOIA puts no restrictions on the quantity of records that may be
+
+sought, but rather anticipates requests for voluminous records.”) (internal citations omitted). Dkt.
+
+1 ¶83.
+
+         Plaintiff is not demanding a fishing expedition to locate responsive documents; it has made
+
+a specific request for an identifiable and easily located universe of documents that are directly
+
+related to Plaintiff and the public’s interests. Taxpayers paid for v-safe to track the safety of
+
+products. Taxpayers also funded development and manufacturing of many of these vaccines. They
+
+paid to purchase them, and had these products mandated on them under threat of losing their jobs,
+
+going to school, being discharged from the miliary, and being excluded from parts of civil society,
+
+often as a direct result of federal government mandates. As a result, they are entitled to the data
+
+that is requested by Plaintiff even if it comes at an additional cost. This data cannot be obtained
+
+through any other sources, it cannot be replicated, and is therefore priceless. Dkt. 1 ¶84.
+
+         The reality, however, is that CDC can easily process the current request. Indeed, it requires
+
+suspending reality to believe that CDC lacks the resources to review the v-safe data for PII. The
+
+real reason CDC is objecting to producing this data is it does not want to make it public.
+
+CDC does not want the public to scrutinize its claims. It wants to do precisely what FOIA finds
+
+
+
+
+                                            Page 31 of 33
+  Case 2:23-cv-00102-Z Document 9 Filed 07/11/23                   Page 35 of 36 PageID 258
+
+
+
+abhorrent: kill transparency and prevent the public from have visibility into its claim that COVID-
+
+19 vaccines are “safe and effective,” a claim used to crush the civil and individual rights of millions
+
+of Americans over the last two years, often at CDC’s recommendation or encouragement. Dkt. 1
+
+¶85.
+
+       CDC plainly believes that its decisions should face no public scrutiny. That what it
+
+recommends should be treated as gospel. That everyone needs to do what it says without question.
+
+CDC has plainly forgotten it still works for the American people and not the other way around.
+
+Dkt. 1 ¶86.
+
+III.   CDC improperly denied the fee waiver
+
+       Pursuant to 5 U.S.C. § 552(a)(4)(A)(iii), fees must be waived where “disclosure of the
+
+[requested] information is in the public interest because it is likely to contribute significantly to
+
+public understanding of the operations or activities of the government[.]” The disclosure of the
+
+requested information will and would contribute to the public’s understanding in at least three
+
+ways: (1) the disclosure of the requested information will provide the public with primary source
+
+documentation of the reactions v-safe participants experienced during regularly set intervals after
+
+receiving various doses of the COVID-19 vaccines originally approved under the government
+
+issued Emergency Use Authorization; (2) this data will shed light on the overall safety and efficacy
+
+of the COVID-19 vaccines for the over 10 million v-safe participants, a substantial sample size to
+
+synthesize important information regarding the vaccines’ safety and efficacy; and (3) the
+
+disclosure of the information described above will shed light on whether CDC and other health
+
+agencies appropriately monitored and acted upon the information provided by v-safe participants.
+
+The information the organization requests will not contribute to any commercial activities. Dkt. 1
+
+¶87. CDC therefore erred in its denial of the fee waiver. Dkt. 1 ¶88.
+
+
+
+
+                                            Page 32 of 33
+  Case 2:23-cv-00102-Z Document 9 Filed 07/11/23                  Page 36 of 36 PageID 259
+
+
+
+                                          CONCLUSION
+       CDC has clear obligations pursuant to FOIA, an act implemented for situations precisely
+
+like this one. CDC used taxpayer dollars to collect information from Americans about a product
+
+that American taxpayers funded and were, in many situations, mandated to take. CDC has violated
+
+FOIA in its denial of Plaintiff’s initial request, in its refusal to respond to Plaintiff’s appeal, in
+
+wrongly denying Plaintiff’s fee waiver, and in its representation that, absent a court order, it will
+
+not produce the data. Plaintiff implores this Court for that Order.           Accordingly, Plaintiff
+
+respectfully requests this Court to grant its motion for summary judgment.
+
+Dated: July 11, 2023
+
+
+                                                      /s/
+                                                      John C. Sullivan
+                                                      S|L LAW PLLC
+                                                      Texas Bar Number: 24083920
+                                                      610 Uptown Boulevard, Suite 2000
+                                                      Cedar Hill, Texas 75104
+                                                      (469) 523–1351 (v)
+                                                      (469) 613-0891 (f)
+                                                      john.sullivan@the-sl-lawfirm.com
+
+                                                      /s/
+                                                      Christopher Wiest (pro hac vice)
+                                                      Chris Wiest, Atty at Law, PLLC
+                                                      25 Town Center Boulevard, Suite 104
+                                                      Crestview Hills, KY 41017
+                                                      (513) 257-1895 (c)
+                                                      (859) 495-0803 (f)
+                                                      chris@cwiestlaw.com
+                                                      Attorneys for Plaintiff
+
+                                 CERTIFICATE OF SERVICE
+
+       I certify that I have served a copy of the foregoing upon the Defendants, through CM/ECF,
+
+and by ordinary U.S. mail to the parties and their Counsel, this 11 day of July, 2023.
+
+                                                      /s/Christopher Wiest
+
+
+
+                                           Page 33 of 33
+

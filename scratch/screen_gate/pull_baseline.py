@@ -128,6 +128,14 @@ def slugify(case_name: str, docket_number: str = "") -> str:
     return "-".join(tokens[:6])
 
 
+def doc_slug(case_name: str, docket_number: str, docket_id) -> str:
+    """Per-document slug guaranteed unique within a cell by suffixing the
+    docket_id. Two different dockets sharing a case name (e.g. two "Citizens
+    for Responsibility and Ethics" suits) would otherwise slugify identically
+    and overwrite each other's saved text (Task 4b pilot finding)."""
+    return f"{slugify(case_name, docket_number)}-{docket_id}"
+
+
 # --- manifest_row ------------------------------------------------------
 
 def manifest_row(
@@ -160,8 +168,14 @@ def manifest_row(
 
 # --- pull_candidate (network; not unit-tested here, see Task 4b) -------
 
-async def pull_candidate(client, docket_id, document_number, cell_dir, meta) -> dict | None:
+async def pull_candidate(client, docket_id, document_number, cell_dir, meta,
+                         min_chars: int = 0) -> dict | None:
     """Fetch one RECAP document, save its text, and return a manifest row.
+
+    Returns None when no text is available or the extracted text is shorter
+    than `min_chars` (a data-quality guard against cover-page / fragment
+    extractions -- NOT a citation floor; the natural citation distribution is
+    preserved). Slug is docket_id-suffixed for per-cell uniqueness.
 
     Not unit-tested in this task -- validated against the live CourtListener
     API in Task 4b.
@@ -170,8 +184,10 @@ async def pull_candidate(client, docket_id, document_number, cell_dir, meta) -> 
     data = await client.get_opinion_text_with_metadata(url)
     if not data or not data.get("text"):
         return None
+    if len(data["text"]) < min_chars:
+        return None
 
-    slug = slugify(data.get("case_name", ""), data.get("docket_number", ""))
+    slug = doc_slug(data.get("case_name", ""), data.get("docket_number", ""), docket_id)
 
     os.makedirs(cell_dir, exist_ok=True)
     out_path = os.path.join(cell_dir, f"{slug}.txt")

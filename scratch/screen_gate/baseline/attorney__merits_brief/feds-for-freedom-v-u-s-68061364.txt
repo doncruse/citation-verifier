@@ -1,0 +1,582 @@
+       Case 1:23-cv-03607-TJK         Document 19       Filed 02/18/25     Page 1 of 11
+
+
+
+
+                            UNITED STATES DISTRICT COURT
+                            FOR THE DISTRICT OF COLUMBIA
+
+
+FEDS FOR FREEDOM,
+
+               Plaintiff,
+
+       v.                                           Civil Action No. 23-3607 (TJK)
+
+U.S. DEPARTMENT OF DEFENSE,
+
+               Defendant.
+
+
+                                MEMORANDUM OPINION
+
+       In December 2023, Feds for Freedom filed this Freedom of Information Act case seeking
+
+to compel the Department of Defense to process its request for records relating to the COVID-19
+
+pandemic and Operation Warp Speed. Defendant now moves for summary judgment, arguing that
+
+it need not respond to Plaintiff’s request because it is unduly burdensome. The Court agrees.
+
+Accordingly, the Court will grant Defendant’s motion and enter judgment in its favor.
+
+I.     Background
+
+       On March 10, 2023, Feds for Freedom, an organization formed “to protect employee rights
+
+by confronting the federal government’s mandates requiring vaccination for COVID-19,” sent a
+
+Freedom of Information Act (“FOIA”) request to the Department of Defense seeking “all commu-
+
+nications to/from or carbon copying (cc) or blind carbon copying (BCC) [Captain] David Soldow
+
+related to COVID-19 and Operation Warp Speed.” ECF No. 1 ¶¶ 8, 13; ECF No. 1-1 at 4. Oper-
+
+ation Warp Speed was “a partnership between the Departments of Health and Human Services and
+
+[Defense] aimed to help accelerate the development of a COVID-19 vaccine.” ECF No. 17-1
+       Case 1:23-cv-03607-TJK          Document 19        Filed 02/18/25      Page 2 of 11
+
+
+
+
+(“Herrington Decl.”)1 ¶ 5. And Captain Soldow—the Executive Secretary for the Office of the
+
+Secretary of Defense from April 2020 to August 2021—was tasked with “support[ing]” the Of-
+
+fice’s “immediate office management by tasking,” “processing,” and “manag[ing] all correspond-
+
+ence sent to and prepared for the [Secretary] and [Deputy Secretary of Defense].” Id. ¶ 7.
+
+       Defendant confirmed that it received the request. ECF No. 1 ¶ 14. And at Defendant’s
+
+request, Plaintiff provided a date range for the records it sought: April 1, 2020, to May 1, 2022.
+
+Id. ¶ 15. Still, Defendant failed to timely respond. ECF No. 1 ¶¶ 14–18. So Plaintiff sued, seeking
+
+“[a]n Order from this Court that [Defendant] is to process and release all records responsive to the
+
+Request immediately.” Id. at 5.
+
+       Defendant represents, without contradiction, that Plaintiff refused to consider narrowing
+
+its request any further. ECF No. 13 at 2. So Defendant now moves for summary judgment, arguing
+
+that it need not respond to the request because its scope is so unreasonably expansive that pro-
+
+cessing and responding to it would be unduly burdensome. Id. at 3–4.
+
+II.    Legal Standards
+
+       “Summary judgment is appropriately granted when, viewing the evidence in the light most
+
+favorable to the non-movant[] and drawing all reasonable inferences accordingly, no reasonable
+
+jury could reach a verdict in [its] favor.” Lopez v. Council on Am.-Islamic Rels. Action Network,
+
+Inc., 826 F.3d 492, 496 (D.C. Cir. 2016). “The evidence presented must show ‘that there is no
+
+genuine dispute as to any material fact and the movant is entitled to judgment as a matter of law.’”
+
+Id. (quoting Fed. R. Civ. P. 56(a)). “In the FOIA context, a district court reviewing a motion for
+
+summary judgment conducts a de novo review of the record, and the responding federal agency
+
+
+       1
+        ECF No. 17-1 includes two declarations by Mark. H. Herrington. Both are organized by
+paragraph. The Court’s reference to the Herrington Declaration refers to the earlier declaration,
+ECF No. 17-1 at 2–6.
+
+
+
+                                                 2
+       Case 1:23-cv-03607-TJK            Document 19         Filed 02/18/25       Page 3 of 11
+
+
+
+
+bears the burden of proving that it has complied with its obligations under the FOIA.” MacLeod
+
+v. DHS, No. 15-cv-1792 (KBJ), 2017 WL 4220398, at *6 (D.D.C. Sept. 21, 2017) (citing 5 U.S.C.
+
+§ 552(a)(4)(B)).
+
+III.    Analysis
+
+        There is no genuine dispute of material fact that Plaintiff’s FOIA request would be unrea-
+
+sonably burdensome on Defendant. As such, Defendant is entitled to judgment as a matter of law,
+
+and the Court will enter summary judgment in its favor.
+
+        FOIA requires agencies to produce responsive records to requests that “reasonably de-
+
+scribe[]” the records sought. 5 U.S.C. § 552(a)(3)(A). FOIA requests fail this requirement, mean-
+
+ing agencies need not respond to them, when the requests (1) rely upon “vague words and descrip-
+
+tions,” (2) “seek[] difficult to locate records,” or (3) impose “overly burdensome post-search ef-
+
+forts.” Ctr. for Immigr. Stud. v. USCIS, 628 F. Supp. 3d 266, 271–72 (D.D.C. 2022). Defendant
+
+argues that Plaintiff’s FOIA request falls squarely within this third category.
+
+        The D.C. Circuit established this category in American Federation of Government Employ-
+
+ees v. Department of Commerce (AFGE), 907 F.2d 203 (D.C. Cir. 1990). There, the FOIA requests
+
+at issue sought two “broad” categories of records that included “every chronological office file and
+
+correspondence file, internal and external, for every branch office, staff office, assistant division
+
+chief office, division chief office, assistant director’s office, deputy director’s office, and director’s
+
+office” and “every division or staff administrative office file in the [Census] Bureau which records,
+
+catalogues, or stores SF–52s or stores promotion recommendation memos, or both.” Id. at 205,
+
+208–09. According to the Circuit, such requests, which “might identify the documents requested
+
+with sufficient precision to enable the agency to identify them,” still do not “reasonably describe[]
+
+a class of documents subject to disclosure” because they are “so broad as to impose an unreason-
+
+able burden upon the agency.” Id. at 209 (quotation and internal quotation marks omitted). In
+
+
+                                                    3
+       Case 1:23-cv-03607-TJK          Document 19        Filed 02/18/25      Page 4 of 11
+
+
+
+
+other words, even when a request describes the records it seeks with sufficient precision, that de-
+
+scription is still not reasonable as required by 5 U.S.C. § 552(a)(3)(A) when responding to the
+
+request would unduly burden the agency. Id.
+
+       The Circuit identified two reasons for concluding that the requests at issue would impose
+
+an unreasonable burden on the agency. First, responding would be quite costly as it “would require
+
+the agency to locate, review, redact, and arrange for inspection a vast quantity of material.” AFGE,
+
+907 F.2d at 209. Second, the requests were “largely unnecessary to the [requesters]’ purpose.” Id.
+
+Because the purpose animating the request was to shed light on the agency’s promotion practices,
+
+the Circuit concluded that the broad requests were unreasonably burdensome because they were
+
+unnecessarily duplicative and extended to documents “in no way tied to [the requesters’] expressed
+
+concern.” Id.
+
+       Defendants argue that Plaintiff’s request is unreasonably burdensome under AFGE because
+
+responding to Plaintiff’s request (1) would require substantial time and resources and (2) is to a
+
+large degree unnecessary, considering Plaintiff’s goals. The Court agrees.
+
+       A.       Plaintiff’s Request Would Require Defendant to Invest Substantial Time and
+                Resources
+
+       Starting with the first of AFGE’s considerations, Defendant’s declaration from a former
+
+FOIA attorney establishes that Plaintiff’s request would involve significant resources and post-
+
+search efforts. Specifically, the declaration asserts that, because of the cross-cutting impact
+
+COVID-19 had on the Department’s functioning, Plaintiff’s request would be akin to a FOIA re-
+
+quest seeking “all communications regarding Iraq or Afghanistan during 25 months at the height
+
+of either campaign.” Herrington Decl. ¶ 5. In support, the declaration states that a preliminary
+
+search based upon Plaintiff’s request yielded over 1.2 gigabytes of records, a volume “so large that
+
+attempts to get an accurate document and page count have failed.” Id. ¶ 9. Estimates, however,
+
+
+
+                                                 4
+       Case 1:23-cv-03607-TJK           Document 19        Filed 02/18/25      Page 5 of 11
+
+
+
+
+are that “there are over 2,000 [responsive] emails, each with attachments.” Id.2 With each email
+
+containing an estimated average of “3 pages per email” and “10 pages per attachment,” Plaintiff’s
+
+request would cover over “26,000 pages of records.” Id.
+
+       The sheer volume of responsive pages is not the only issue. Instead, as the requested “rec-
+
+ords are communication to or from the Department’s front office, the discussions would require
+
+the most scrutinous review.” Herrington Decl. ¶ 10. And because of various “required actions,”
+
+including “initial review, the need to send documents to subordinate [Department] components or
+
+other federal agencies for consultations, final quality control, and legal review,” processing each
+
+page would likely “take an average of 15 minutes.” Id. In sum, Plaintiff’s request would require
+
+about 6,500 hours of work. Id.
+
+       This falls well beyond the normal range of time courts in this district have determined to
+
+be reasonable. When searches or processing fall within the tens- or hundreds-of-hours range,
+
+courts routinely find the requests reasonable. In People for American Way Foundation v. DOJ,
+
+for example, the court concluded that a request was not unduly burdensome since it would take
+
+only “120 hours of work—something that could be achieved by three full-time employees during
+
+a single week.” 451 F. Supp. 2d 6, 15 (D.D.C. 2006). This is so even when processing would
+
+extend into the lower thousands of hours. E.g., Kwoka v. IRS, No. 17-cv-1157 (DLF), 2018 WL
+
+4681000, at *5 (D.D.C. Sept. 28, 2018) (2,200 hours).
+
+       When search and review would extend into the multiple thousands of hours, however, a
+
+different pattern emerges. In Wolf v. CIA, for example, the court held that a search that would take
+
+
+
+       2
+          The declaration warns that these numbers are likely underinclusive as the declarant did
+not know whether all Plaintiff’s requested search terms were used. Herrington Decl. ¶ 9. Con-
+sistent with its obligation to view the facts in the light most favorable to Plaintiff, the Court de-
+clines to give Defendant this benefit of the doubt and will not treat its estimates as underinclusive.
+
+
+
+                                                  5
+       Case 1:23-cv-03607-TJK          Document 19        Filed 02/18/25      Page 6 of 11
+
+
+
+
+“approximately 3675 hours and cost about $147,000” was unduly burdensome. 569 F. Supp. 2d
+
+1, 9 (D.D.C. 2008). Similarly, in Center for Immigration Studies v. USCIS, the court found that
+
+“the burden” of a FOIA request was “too high” where the agency estimated that it would take
+
+8,151 hours to review and process the requested material. 628 F. Supp. 3d at 272–73; see also
+
+Ayuda, Inc. v. FTC, 70 F. Supp. 3d 247, 275–76 (D.D.C. 2014) (8,000 hours). Furthermore, if a
+
+search would require a multi-member team to spend every working hour for a year or more on a
+
+FOIA request, a court may be able to conclude that the search is burdensome. Int’l Couns. Bureau
+
+v. DOD, 723 F. Supp. 2d 54, 59–60 (D.D.C. 2010).
+
+       Here, Plaintiff’s request fits neatly within the range of required-response time that courts
+
+have determined to be unreasonable. It would require nearly twice the time that the court in Wolf
+
+determined was unduly burdensome. 569 F. Supp. 2d at 9. Additionally, it would take a team of
+
+three FOIA attorneys, working around the clock, over a year to accomplish the over 6,500 hours
+
+of work required to complete Plaintiff’s request.3 See Int’l Couns. Bureau, 723 F. Supp. 2d at 59–
+
+60.
+
+       Plaintiff’s responses are unpersuasive. First, it argues that its request is not unduly bur-
+
+densome as it targets only “a single official’s communications . . . related to a single operation.”
+
+ECF No. 14 at 3. But this ignores the status of that official and the nature of the operation (not to
+
+mention it also ignores that the request sought all communications related to COVID-19 generally,
+
+not just Operation Warp Speed, ECF No. 1-1 at 4). As Defendant’s declaration lays out, Captain
+
+Soldow’s role as Executive Secretary meant he was responsible for processing and managing all
+
+correspondence for the Secretary and Deputy Secretary of Defense. Herrington Decl. ¶ 8. Thus,
+
+
+
+       3
+         With 40 hours in a work week and 52 weeks in a year, there are 2,080 working hours in
+a year, not including any holidays or vacations.
+
+
+
+                                                 6
+       Case 1:23-cv-03607-TJK          Document 19        Filed 02/18/25      Page 7 of 11
+
+
+
+
+a request for these communications “is essentially a request for all communications to or from the
+
+Office of the Secretary of Defense” regarding COVID-19 and Operation Warp Speed. Id. So
+
+Defendant is not attempting to “re-cast[]” Plaintiff’s request as broader than it is. ECF No. 14 at
+
+3. It merely recognizes that the request, because of the nature of the subject matter and the status
+
+of the official at issue, would be akin to asking Defendant to produce “all communications” from
+
+the Office of the Secretary of Defense “regarding Iraq or Afghanistan . . . at the height of either
+
+campaign.” Herrington Decl. ¶ 5.
+
+       Second, Plaintiff argues that Defendant is making much ado about nothing because the 1.2
+
+gigabytes of information Defendant found in a preliminary search would fit on a $2 flash drive or
+
+in five maximum-capacity emails sent by Gmail. ECF No. 14 at 3. But the size of any given file
+
+does not necessarily reflect the amount of time that it would take for Defendant to review it: A
+
+high-resolution picture, for example, could take mere seconds to review despite having a large file
+
+size, while a small file containing a long document full of text could take much longer. For this
+
+reason, courts have focused on an agency’s “good faith estimate of the excessive amount of time
+
+required to complete a search that it feels is unreasonably burdensome” in deciding whether to
+
+“uph[o]ld the agency’s refusal to conduct the requested search.” Pinson v. DOJ, 80 F. Supp. 3d
+
+211, 216 (D.D.C. 2015). Here, Defendant’s declaration shows that Plaintiff’s request would take
+
+“the thousands of hours courts in this district have found to impose an undue burden.” War Horse
+
+News, Inc. v. U.S. Dep’t of the Navy, No. 22-cv-3303 (TSC), 2024 WL 4346345, at *8 (D.D.C.
+
+Sept. 30, 2024). The size of the files involved is simply beside the point.
+
+       Third, Plaintiff argues that a search producing 26,000 pages of documents “is common for
+
+issues of this kind.” ECF No. 14 at 3–4. Even if that is true, it still misunderstands the relevant
+
+inquiry. As just discussed, courts focus on the time and expense that responding to a FOIA request
+
+
+
+
+                                                 7
+       Case 1:23-cv-03607-TJK            Document 19         Filed 02/18/25       Page 8 of 11
+
+
+
+
+would require in assessing the request’s reasonableness. E.g., Wolf, 569 F. Supp. 2d at 9 (holding
+
+that the review of microfilms that “would take approximately 3675 hours and cost about $147,000”
+
+was “unreasonably burdensome”). The number of pages, divorced from the resources that would
+
+be required to process those pages, only tells a fragment of the story.
+
+        For this reason, the Court finds Public Health & Medical Professionals for Transparency
+
+v. FDA, No. 4:21-cv-1058-P, 2022 WL 90237 (N.D. Tex. Jan. 6, 2022), inapposite. First, that case
+
+involved the setting of a production schedule, not whether the agency had to respond to the FOIA
+
+request. Id. at *2 (“To that end, the Court further concludes that the production rate, as detailed
+
+below, appropriately balances the need for unprecedented urgency in processing this request with
+
+the agency’s concerns regarding the burdens of production.” (emphasis added)). Second, and more
+
+importantly, while the court did order the agency to produce many tens of thousands of pages on
+
+a relatively expedited timeline, it did not discuss how much time processing those pages would
+
+take. See id. at *1–2. Indeed, it appears that processing would take nowhere near as long per page
+
+as it would here, as the agency itself suggested that it could produce 12,000 pages within a month
+
+of the court’s order. Id. at *2. So this out-of-circuit authority does little to help Plaintiff.
+
+        Finally, Plaintiff argues that “the notion that each page would take an average of 15 minutes
+
+to review is inflated.” ECF No. 14 at 4. Instead, Plaintiff speculates that “[f]ifteen minutes is
+
+likely to be the outer limited expended on any single page, and likely to be an outer limit reached
+
+only rarely.” Id. Plaintiff’s support? Nothing. Yet “affidavits submitted by the agency to demon-
+
+strate the adequacy of its response [to a FOIA request] are presumed to be in good faith.” Hall v.
+
+CIA, 881 F. Supp. 2d 38, 52 (D.D.C. 2012). This extends to declarations and affidavits laying out
+
+“good faith estimate[s] of the excessive amount of time required to” respond to a FOIA request.
+
+Pinson, 80 F. Supp. 3d at 216. “[P]urely speculative claims” are insufficient to rebut that
+
+
+
+
+                                                   8
+       Case 1:23-cv-03607-TJK          Document 19       Filed 02/18/25      Page 9 of 11
+
+
+
+
+presumption. Wolf, 569 F. Supp. 2d at 10 (quoting SafeCard Servs., Inc. v. SEC, 926 F.2d 1197,
+
+1200 (D.C. Cir. 1991)).
+
+       Here, Defendant’s estimate is supported by the sworn declaration of a former Associate
+
+Deputy General Counsel who has seventeen years’ worth of experience in overseeing FOIA liti-
+
+gation. Herrington Decl. ¶ 1. And it is uncontroversial that records relating to officials in “high
+
+positions” must be “review[ed] . . . closely for redactions” before they can be produced. Ctr. for
+
+Immigr. Stud., 628 F. Supp. 3d at 273. Because Plaintiff has presented nothing more than “purely
+
+speculative claims” attacking the truthfulness of Defendant’s declaration, “the Court credits [De-
+
+fendant]’s representation that, based on the high position of” Captain Soldow and the office he
+
+worked in, each page would take 15 minutes on average to fully process. Id. So the Court further
+
+credits Defendant’s estimate that it would take over 6,500 hours “to locate, review, redact, and
+
+arrange for inspection” the material responsive to Plaintiff’s FOIA request. AFGE, 907 F.2d at
+
+209.
+
+       B.      Plaintiff’s Request Is Largely Unnecessary for Plaintiff’s Purpose
+
+       All the above said, “burdensomeness does not boil down to a simple game of numbers.”
+
+Ctr. for Immigr. Stud., 628 F. Supp. 3d at 273. FOIA requests can and do include productions that
+
+take years to complete. Id; see also War Horse News, Inc, 2024 WL 4346345, at *9 (finding
+
+“roughly 8,500 hours of review time” reasonable under the circumstances).4 This is where AFGE’s
+
+
+       4
+            The Court notes that at least part of the court’s decision in War Horse News, Inc. was
+based on that court’s skepticism about whether a burdensome review of identified records “fit[s]
+. . . into FOIA’s rule that an agency need not undertake an overly burdensome search.” 2024 WL
+4346345, at *8. But, as discussed above, the D.C. Circuit has expressly blessed this approach. See
+AFGE, 907 F.2d at 209 (“While Requests 3A and 3B might identify the documents requested with
+sufficient precision to enable the agency to identify them—we do not think that is in dispute here—
+it is clear that these requests are so broad as to impose an unreasonable burden upon the agency.
+They would require the agency to locate, review, redact, and arrange for inspection a vast quantity
+of material.”).
+
+
+
+                                                9
+      Case 1:23-cv-03607-TJK           Document 19         Filed 02/18/25      Page 10 of 11
+
+
+
+
+second consideration—the reasonableness of the request in light of the requester’s “purpose,” 907
+
+F.2d at 209—comes into play.
+
+       Defendant argues that the breadth of Plaintiff’s request is unreasonable in light of Plain-
+
+tiff’s asserted purpose. In its complaint, Plaintiff alleges that its “purpose . . . is to protect em-
+
+ployee rights by confronting the federal government’s mandates requiring vaccination for COVID-
+
+19.” ECF No. 1 ¶ 8. But Plaintiff’s FOIA request is not so limited. It sought “all communications
+
+related to” COVID-19 generally and, more specifically, “to Operation Warp Speed (OWS), com-
+
+panies contracted to work with [the Department,] and other government elements on OWS,” in-
+
+cluding communications regarding “any commercial contracts and/or [Department] contracts
+
+made between the federal government and companies involved in OWS.” ECF No. 1-1 at 4.
+
+       Thus, Plaintiff’s request asks for records well beyond its asserted interest, and it would
+
+undoubtedly require the agency to process “thousands of [pages] with no conceivable relation to
+
+the policies in which [Plaintiff] proclaims an interest.” Ctr. for Immigr. Stud., 628 F. Supp. 3d at
+
+273. As Defendant’s declaration explains, the COVID-19 pandemic impacted Defendant “in in-
+
+numerable ways during” the period at issue in Plaintiff’s FOIA request. Herrington Decl. ¶ 5.
+
+While some responsive records would surely involve “vaccine mandates and exceptions thereto,”
+
+they would also include many other—at best tangentially related—issues, such as Department pol-
+
+icy on “how to continue the Department’s vital global missions while keeping both the military
+
+and civilian workforce safe; quarantine policies; . . . and involvement in . . . accelerat[ing] the de-
+
+velopment of a COVID-19 vaccine.” Id.
+
+       Plaintiff does not explain how this expansive category of records bears on its relatively
+
+limited purpose of “protect[ing] employee rights by confronting the federal government’s man-
+
+dates requiring vaccination for COVID-19.” ECF No. 1 ¶ 8. Indeed, it does not respond to this
+
+
+
+
+                                                  10
+      Case 1:23-cv-03607-TJK          Document 19       Filed 02/18/25      Page 11 of 11
+
+
+
+
+portion of Defendant’s burdensomeness challenge at all. See ECF No. 14 at 2–4. And regrettably,
+
+Plaintiff chose not to work with Defendant to narrow its request to focus on records in which it is
+
+truly interested. ECF No. 13 at 2. Thus, the burden that Plaintiff’s request would place on De-
+
+fendant “is ‘more obvious[ly]’ unreasonable given this mismatch between the material that [Plain-
+
+tiff] says it wants and the material that [Plaintiff’s] requests will force [Defendant] to review.”
+
+Ctr. for Immigr. Stud., 628 F. Supp. 3d at 273–74 (quoting AFGE, 907 F.2d at 209).
+
+IV.    Conclusion
+
+       For all the above reasons, the Court concludes that Plaintiff’s FOIA request is unduly bur-
+
+densome. So it will grant Defendant’s Motion for Summary Judgment and enter judgment in its
+
+favor. A separate order will issue.
+
+
+                                                            /s/ Timothy J. Kelly
+                                                            TIMOTHY J. KELLY
+                                                            United States District Judge
+Date: February 18, 2025
+
+
+
+
+                                                11
+

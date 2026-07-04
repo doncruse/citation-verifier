@@ -1,0 +1,597 @@
+       Case 1:26-cv-00076-MAU           Document 29       Filed 07/03/26        Page 1 of 11
+
+                       IN THE UNITED STATES DISTRICT COURT
+                           FOR THE DISTRICT OF COLUMBIA
+
+
+NATIONAL HOUSING TRUST COMMUNITY *
+DEVELOPMENT FUND
+                                    *
+         Plaintiff
+                                    *                        Case No.: 1:26-cv-00076-MAU
+v.
+                                    *
+NORTH EAST HOUSING INITIATIVE, INC.
+                                    *
+         Defendant
+*    *   *       *  *    *     *    *                        *       *      *       *       *
+
+
+
+     REPLY IN SUPPORT OF MOTION TO WITHDRAW AS COUNSEL OF RECORD
+
+       Undersigned counsel respectfully submits this Reply in further support of the Motion to
+
+Withdraw as Counsel of Record and in response to Plaintiff’s Opposition.
+
+
+                                          ARGUMENT
+
+I.     PLAINTIFF’S OPPOSITION IS ADDRESSED TO THE WRONG MOTION.
+
+       Plaintiff’s Opposition devotes the majority of its pages to arguing the merits of Defendant’s
+
+affirmative defenses. By doing so, Plaintiff's Opposition functions as an extension of the arguments
+
+advanced in its pending Motion for Summary Judgment before Defendant has had an opportunity
+
+to respond. The question before the Court is narrow — whether withdrawal is appropriate under
+
+Local Civil Rule 83.6 and whether Plaintiff has established any basis for denying that relief under
+
+Rule 83.6(d). The merits of Defendant’s legal defenses are simply not at issue here.
+
+
+       While Plaintiff understandably opposes withdrawal, its preference that undersigned
+
+counsel remain in the case does not define the Rule 83.6 inquiry. The attorney-client relationship
+
+exists between undersigned counsel and Defendant, not Plaintiff, and the Court's task is to
+
+determine whether the standards governing withdrawal have been satisfied, not whether
+       Case 1:26-cv-00076-MAU            Document 29        Filed 07/03/26       Page 2 of 11
+
+
+
+
+maintaining the existing attorney-client relationship would better serve Plaintiff's litigation
+
+interests.
+
+
+        Plaintiff’s suggestion that the Court should deny withdrawal because Defendant’s defenses
+
+are unlikely to succeed inverts the proper inquiry. Whether NEHI will prevail on its affirmative
+
+defenses is a question for the Court on the merits, not a threshold for determining whether counsel
+
+may withdraw. Plaintiff cites no authority suggesting that a court should evaluate the merits of a
+
+client’s defenses in deciding whether counsel should be permitted to withdraw. Nor does Plaintiff
+
+cite any authority establishing that the grounds stated in the Motion to Withdraw are legally
+
+insufficient under Local Civil Rule 83.6.
+
+II.     THE MOTION FULLY COMPLIES WITH LOCAL CIVIL RULE 83.6(C).
+
+        Undersigned counsel’s Motion to Withdraw fully complies with Local Civil Rule 83.6(c).
+
+The Rule provides that an attorney may withdraw an appearance only by order of the Court upon
+
+motion served on all parties and accompanied by a certificate of service listing the client's last
+
+known address and certifying that the client has been served with both the motion and notice to
+
+obtain substitute counsel. The Motion satisfied each of these requirements. Local Civil Rule
+
+83.6(c) does not require counsel to disclose the specific reasons for withdrawal; rather, it requires
+
+only compliance with these procedural requirements and certifications. Plaintiff cites no authority
+
+establishing otherwise.
+
+III.    PLAINTIFF HAS FAILED TO ESTABLISH ANY OF THE THREE GROUNDS
+        FOR DENIAL UNDER LOCAL CIVIL RULE 83.6(d).
+
+        Local Civil Rule 83.6(d) authorizes denial of a motion to withdraw only if the withdrawal
+
+would: (1) unduly delay trial of the case; (2) be unfairly prejudicial to a party; or (3) otherwise not
+
+
+
+
+                                                   2
+      Case 1:26-cv-00076-MAU            Document 29        Filed 07/03/26      Page 3 of 11
+
+
+
+
+be in the interest of justice. Plaintiff's Opposition neither establishes nor meaningfully addresses
+
+any of the three grounds for denying withdrawal under Rule 83.6(d). None are present here.
+
+
+       First, withdrawal will not unduly delay trial. No trial date has been set in this matter. See,
+
+ECF No. 20. The case is presently at the dispositive-motion stage, and no trial date has been
+
+scheduled. Courts in this District have consistently recognized that where no trial date has been
+
+set, withdrawal will not unduly delay the proceedings. See, Nasreen v. Capitol Petroleum Grp.,
+
+LLC, No. 20-1867, 2021 WL 5310565, at *2 (D.D.C. Nov. 15, 2021) (“No trial date has been set,
+
+so withdrawal will not delay the trial in any way.”)(quoting Rehab Auf v. Medford, No. 20-cv-
+
+0815 (ABJ), 2021 WL 3025216, at *1 (D.D.C. Jan. 5, 2021)(granting withdrawal although case
+
+had been pending sixteen months); Hudson v. Am. Fed'n of Gov't Emps., 391 F. Supp. 3d 71, 75
+
+(D.D.C. 2019) (finding “no possibility for undue delay” where no trial date had been set and no
+
+major looming deadlines existed). Indeed, the court in Nasreen granted withdrawal and extended
+
+the discovery schedule even though the case had already been pending for approximately sixteen
+
+months. Nasreen, 2021 WL 5310565, at *3-4. Likewise, in Honda Power Equipment Manuf’g,
+
+Inc. v. Woodhouse, 219 F.R.D. 2, 6 (D.D.C. 2003), the court permitted withdrawal where the
+
+litigation had been pending for nearly three years. This action, by contrast, has been pending only
+
+approximately six months.
+
+
+       Second, Plaintiff has not demonstrated unfair prejudice. The prejudice identified by
+
+Plaintiff is not the type of prejudice contemplated by Rule 83.6(d). The Rule is concerned with
+
+unfair prejudice resulting from counsel’s withdrawal, not the loss of a strategic litigation
+
+advantage. Rather than identifying prejudice arising from counsel's withdrawal, Plaintiff devotes
+
+substantial portions of its Opposition to the purported merits of Defendant's affirmative defenses,
+
+
+
+
+                                                 3
+          Case 1:26-cv-00076-MAU           Document 29        Filed 07/03/26      Page 4 of 11
+
+
+
+
+the characterization of deposition testimony, and Plaintiff's pending Motion for Summary
+
+Judgment. Those arguments seek to preserve Plaintiff's strategic litigation position rather than
+
+demonstrate that withdrawal itself would result in unfair prejudice. Plaintiff cites no authority
+
+suggesting that an opposing party's interest in maintaining its strategic litigation position
+
+constitutes the type of “unfair prejudice” that justifies compelling counsel to continue a
+
+representation that has become unreasonably difficult.
+
+
+           As courts in this District have recognized, ““ [u]nfair prejudice’ in this context is a hefty
+
+standard[.]”Hudson, 391 F. Supp. 3d at 75 (citation omitted). “The fact that finding new counsel
+
+may require time, effort, and funding is a burden[] facing every litigant and do[es] not constitute
+
+undue prejudice.” Id. (quoting Banneker Ventures, LLC, 2016 WL 1304834, at *3). It is likewise
+
+well established that “[i]nconvenience or additional cost to a defendant is not necessarily undue
+
+prejudice.” City of Moundridge v. Exxon Mobil Corp., 250 F.R.D. 1, 6–7 (D.D.C. 2008); accord
+
+Bronner v. Duggan, 324 F.R.D. 285, 291 (D.D.C. 2018). The mere cost of litigation does not
+
+constitute unfair prejudice. Randall v. Merrill Lynch, Pierce, Fenner & Smith, Inc., 110 F.R.D.
+
+342, 345 (D.D.C. 1986). Likewise, the possibility that Defendant’s response deadline may require
+
+adjustment while it addresses its representation is an ordinary consequence of withdrawal, not a
+
+cognizable harm rising to the level of unfair prejudice. Moreover, Plaintiff itself negotiated eight
+
+loan modifications over a period of approximately three years,1 repeatedly extending NEHI’s
+
+repayment obligations. Against that backdrop, a temporary period of thirty (30) or even sixty (60)
+
+days to permit Defendant to address its representation cannot fairly be characterized as causing
+
+unfair prejudice.
+
+
+
+
+1
+    Compl. ¶¶ 7, 22-23. ECF. No. 1
+
+
+                                                     4
+       Case 1:26-cv-00076-MAU            Document 29         Filed 07/03/26      Page 5 of 11
+
+
+
+
+        Finally, granting withdrawal is in the interest of justice. Compelling counsel to continue a
+
+representation under circumstances that have rendered continued representation unreasonably
+
+difficult serves neither the client nor the orderly administration of justice. The decision whether to
+
+permit withdrawal rests within the Court's sound discretion. Hudson, 391 F. Supp. 3d at 73. That
+
+discretion is not served by requiring counsel to remain in a representation where the circumstances
+
+giving rise to the request for withdrawal persist.
+
+
+        Accordingly, because Plaintiff has failed to establish any of the three grounds that would
+
+authorize denial under Local Civil Rule 83.6(d), the Motion to Withdraw should be granted.
+
+
+IV.     PLAINTIFF’S OPPOSITION IMPROPERLY ATTEMPTS TO LITIGATE THE
+        MERITS AND RELIES ON A ONE-SIDED CHARACTERIZATION OF THE
+        RECORD.
+
+        Undersigned counsel does not intend to engage in merits briefing in response to a motion
+
+to withdraw. Doing so would be procedurally improper, as the issues raised in Plaintiff's pending
+
+Motion for Summary Judgment will be addressed, in the ordinary course. The Court need not and
+
+should not resolve those issues in deciding the present Motion. However, because Plaintiff's
+
+Opposition relies on a one-sided characterization of the record to argue that this Motion is merely
+
+another attempt by Defendant to delay these proceedings, the limited discussion that follows is
+
+offered solely to protect the integrity of the record by demonstrating that Plaintiff's narrative omits
+
+significant factual context and presents disputed factual and legal issues as though they were
+
+undisputed. It is not offered to litigate the merits, but to ensure that Plaintiff's characterization of
+
+the underlying dispute does not influence the Court's determination of whether withdrawal is
+
+appropriate under Local Civil Rule 83.6.
+
+
+
+
+                                                     5
+      Case 1:26-cv-00076-MAU            Document 29         Filed 07/03/26      Page 6 of 11
+
+
+
+
+       Plaintiff repeatedly equates Defendant’s acknowledgment that the loan obligations remain
+
+outstanding with a concession that Defendant has no viable affirmative defenses. The two are not
+
+synonymous, and the legal significance of the underlying facts is a question properly reserved for
+
+summary judgment, not a motion to withdraw.
+
+
+       Plaintiff also portrays this Motion as merely the latest in a pattern of delay by Defendant.
+
+In doing so, however, Plaintiff presents a one-sided narrative of the parties’ relationship by
+
+characterizing Defendant’s nonpayment as though it resulted solely from unilateral delay. That
+
+narrative omits the undisputed purpose of the Initial Loan — to provide bridge financing pending
+
+delayed DHCD reimbursements and the parties’ subsequent course of dealing, including eight
+
+negotiated loan modifications executed against that backdrop. Compl. ¶¶ 7, 22-23 (ECF. No. 1);
+
+Pl. Opp. at 2 (ECF No. 28). Whether those facts ultimately support Defendant's affirmative
+
+defenses is not before the Court. 2 They do, however, demonstrate that Plaintiff's characterization
+
+of Defendant's conduct as nothing more than serial delay rests on an incomplete presentation of
+
+the factual record and should not influence the Court's resolution of this procedural motion..
+
+Undersigned counsel raises this limited point not to litigate the merits, but because Plaintiff relies
+
+on that incomplete narrative to argue that the Motion to Withdraw is itself merely another effort
+
+to delay these proceedings.
+
+
+
+
+2 Plaintiff also emphasizes that Defendant's Answer asserted affirmative defenses in general terms.
+
+ECF No. 28 at 2. If Plaintiff believed those defenses were inadequately pleaded, the Federal Rules
+provided an appropriate procedural mechanism to challenge them at the outset of this litigation.
+Plaintiff did not do so. Instead, Plaintiff proceeded through discovery, took Defendant's Rule
+30(b)(6) deposition, filed its Motion for Summary Judgment, and now attempts to challenge the
+sufficiency of those defenses in opposition to a motion to withdraw. The adequacy of Defendant’s
+pleading is not before the Court on this Motion.
+
+
+
+
+                                                  6
+      Case 1:26-cv-00076-MAU            Document 29       Filed 07/03/26      Page 7 of 11
+
+
+
+
+       Plaintiff repeatedly relies on isolated excerpts from Mr. Good’s testimony while
+
+disregarding the testimony that followed, asserting that Defendant’s corporate designee failed to
+
+articulate those defenses during his Rule 30(b)(6) deposition. What Plaintiff omits is equally
+
+significant. Mr. Good did not dispute that the loan obligations remain outstanding. See, ECF No.
+
+28, Ex. 1 (Good Dep. Tr.) at 115:10–11. Rather, he testified that “there were mitigating factors
+
+that prevented us from being able to make the payments in accordance with the outlined
+
+agreement,” id. at 115:12–15 — including the City of Baltimore’s suspension of more than $3
+
+million in AHTF grant reimbursements, id. at 134:1–10, the resulting disruption to NEHI’s
+
+operations and financing, id. at 116:17–22; 134:1–16, and the parties’ repeated loan modifications
+
+in response to those circumstances, ECF No. 28 at 2; id. at, Ex. 1 (Good Dep. Tr.) at 72:15–22.
+
+Whether those facts ultimately support Defendant’s affirmative defenses is a question for summary
+
+judgment after full briefing, not for resolution in the context of a motion to withdraw.
+
+
+       Further, Plaintiff’s apparent expectation that a lay corporate representative should
+
+articulate legal theories during a deposition misapprehends the purpose of Rule 30(b)(6) testimony.
+
+Courts have rejected precisely this argument. In Am. Nat’l Red Cross v. Travelers Indemnity Co.
+
+of Rhode Island, the plaintiff sought summary judgment because the defendant's Rule 30(b)(6)
+
+designee could not identify the facts and documents supporting several affirmative defenses. 896
+
+F. Supp. 8, 13–14 (D.D.C. 1995). The court rejected that contention, holding that requiring a
+
+corporate designee to marshal the evidence supporting affirmative defenses improperly intruded
+
+upon counsel’s work product because it sought “insight into Travelers’ defense plan.” Id. at 14
+
+(quoting SEC v. Morelli, 143 F.R.D. 42, 47 (S.D.N.Y. 1992)). A Rule 30(b)(6) witness’s inability
+
+to articulate counsel’s legal theories therefore does not render affirmative defenses unprovable.
+
+
+
+
+                                                 7
+       Case 1:26-cv-00076-MAU            Document 29        Filed 07/03/26      Page 8 of 11
+
+
+
+
+       The same principle governs here, though the procedural posture differs in a way that only
+
+strengthens Defendant’s position. In Red Cross, the deponent invoked the work-product doctrine
+
+and attorney-client privilege and refused to answer. Here, Mr. Good did not refuse to answer; he
+
+testified extensively regarding the factual circumstances underlying Defendant's position.
+
+Undersigned counsel objected throughout on the ground that Plaintiff’s questions called for legal
+
+conclusions. See, ECF No. 28, Ex. 1 (Good Dep. Tr.) at 51:21–22; 52:19–20; 56:17–19; 58:3–8;
+
+59:9–11; 62:15–17; 64:16–17; 67:21–22; 68:15–20. Work-product protection and the legal-
+
+conclusion limitation protect the same underlying principle – a 30(b)(6) deponent cannot be used
+
+to force a party to do counsel’s work, whether that means revealing how counsel plans to marshal
+
+evidence or articulating how facts translate into legal theories. Mr. Good testified at length about
+
+the factual circumstances that, in Defendant’s view, prevented performance, including the City of
+
+Baltimore’s suspension of over $3 million in AHTF grant reimbursements and the parties’ repeated
+
+loan modifications in response to those circumstances. See, ECF No. 28, Ex. 1 (Good Dep. Tr.) at
+
+116:21–22; 134:1–10. What Mr. Good could not do, and cannot fairly be expected to do, is
+
+translate those facts into the legal framework of the defenses counsel intends to present. That
+
+translation is the province of counsel. See also, Neponset Landing Corp. v. Nw. Mut. Life Ins. Co.,
+
+279 F.R.D. 59, 62 (D. Mass. 2011) (a “lay witness should not be expected to testify as to how any
+
+such facts form the basis of a legal affirmative defense”; depositions “are designed to discover
+
+facts, not legal theories”). Plaintiff's attempt to equate Mr. Good’s inability to articulate counsel’s
+
+legal theories with the absence of viable affirmative defenses therefore fails as a matter of law.
+
+Whether Defendant’s affirmative defenses ultimately succeed is an issue for summary judgment
+
+after full briefing, not for resolution through selected deposition excerpts offered in opposition to
+
+a procedural motion.
+
+
+
+
+                                                  8
+      Case 1:26-cv-00076-MAU            Document 29       Filed 07/03/26     Page 9 of 11
+
+
+
+
+V.     THE CONDITIONS PLAINTIFF REQUESTS WOULD OPERATE AS A
+       MECHANISM TO ENGINEER A DEFAULT, NOT A MEANINGFUL REMEDY.
+
+       Plaintiff’s request that the Court condition withdrawal on a fourteen-day deadline for NEHI
+
+to obtain representation ignores the practical reality established by Plaintiff’s own submissions.
+
+Plaintiff has placed on the public record that NEHI has $37 in its bank account and has been denied
+
+consolidation loans by five financial institutions. Against that backdrop, a fourteen-day deadline
+
+to retain counsel is not a meaningful condition — it is a mechanism to engineer a default. The
+
+Court should impose whatever timeline is reasonable given the actual circumstances, not the
+
+timeline that benefits Plaintiff. See, Nasreen, 2021 WL 5310565, at *3–4 (granting withdrawal and
+
+simultaneously extending discovery deadline sua sponte to accommodate transition to new
+
+counsel, recognizing that the time required to secure new representation is a relevant factor in
+
+fashioning appropriate relief).
+
+
+       Plaintiff's Opposition itself underscores why Defendant should be afforded a reasonable
+
+opportunity to address its representation before the merits are adjudicated. Plaintiff devotes
+
+substantial portions of its brief to advancing merits arguments concerning Defendant’s affirmative
+
+defenses and the legal significance of deposition testimony. If anything, Plaintiff's decision to
+
+devote substantial portions of its Opposition to the merits confirms why those issues should be
+
+addressed through the ordinary summary judgment process after Defendant has had a reasonable
+
+opportunity to address its representation.
+
+
+       The Court’s authority to manage its docket is not served by compelling an attorney to
+
+continue representation under circumstances that render it unreasonably difficult. Should the Court
+
+grant the Motion to Withdraw, it may, consistent with the approach taken in Nasreen, modify the
+
+scheduling order on its own motion to afford Defendant a reasonable opportunity to secure
+
+
+
+                                                 9
+      Case 1:26-cv-00076-MAU          Document 29        Filed 07/03/26      Page 10 of 11
+
+
+
+
+representation, without the need to impose the unrealistic fourteen-day deadline Plaintiff seeks.
+
+See, Nasreen, 2021 WL 5310565, at *3–4 (granting counsel's motion to withdraw and, although
+
+the case had been pending for approximately sixteen months, sua sponte extending the discovery
+
+deadline to accommodate the transition to new counsel). If the court in Nasreen found it
+
+appropriate to extend deadlines sua sponte after permitting withdrawal in a case that had already
+
+been pending for approximately sixteen months, there is even less reason to deny a similar
+
+accommodation here, where this action has been pending for only approximately six months.
+
+
+VI.    PLAINTIFF'S DESIRE FOR FURTHER EXPLANATION DOES NOT OVERRIDE
+       COUNSEL’S ETHICAL OBLIGATIONS.
+
+       The specific circumstances giving rise to this withdrawal are protected from compelled
+
+disclosure by D.C. Rule of Professional Conduct 1.6, which prohibits counsel from disclosing
+
+confidential client information without client consent. This prohibition applies with full force in
+
+the withdrawal context. In Continental Transfert Technique Ltd. v. Federal Government of
+
+Nigeria, 234 F. Supp. 3d 206 (D.D.C. 2017), defense counsel declined to publicly explain why
+
+continued representation had been rendered impossible on the ground that to do so would reveal
+
+client confidences in violation of Rule 1.6(a). The court accommodated that obligation by ordering
+
+in camera submission of documentary proof rather than compelling public disclosure. Similarly,
+
+in Sabre Int’l Security v. Torres Advanced Enter. Sol., LLC, 219 F. Supp. 3d 155 (D.D.C. 2016),
+
+the court permitted counsel to submit a confidential declaration under seal for in camera review,
+
+specifically recognizing that the basis for withdrawal implicated privileged communications that
+
+could not be placed on the public record.
+
+       In the instant case, during the parties’ meet and confer on Defendant’s Motion to Stay,
+
+Plaintiff’s counsel requested that undersigned counsel disclose the reasons for withdrawal.
+
+
+
+                                                10
+      Case 1:26-cv-00076-MAU          Document 29        Filed 07/03/26     Page 11 of 11
+
+
+
+
+Undersigned counsel advised that those reasons are protected by the attorney-client privilege and
+
+declined to disclose them on that basis. Plaintiff’s Opposition is, in effect, an effort to obtain
+
+through judicial compulsion what Rule 1.6 prohibits.
+
+
+                                        CONCLUSION
+
+       For the foregoing reasons, and for the reasons set forth in the Motion to Withdraw,
+
+undersigned counsel respectfully requests that the Court grant the Motion to Withdraw as Counsel
+
+of Record.
+
+Dated: July 3, 2026                                  Respectfully submitted,
+                                                     /s/Dayna C. Cooper
+                                                     Dayna C. Cooper (Bar No. 1033851)
+                                                     1 Olympic Pl., Suite 900
+                                                     Towson, MD 21204
+                                                     (202) 642-5470 (office)
+                                                     Dayna@CooperLegalSolutions.com
+                                                     Counsel for Defendant,
+                                                     North East Housing Initiative, Inc.
+
+
+
+                                CERTIFICATE OF SERVICE
+
+       I hereby certify that on this date, July 3, 2026, the foregoing document was filed
+
+electronically via the Court’s CM/ECF system, which will serve a copy on all registered counsel
+
+of record, including:
+
+
+                                      Joel W. Ruderman
+                                     Jennifer L. Kneeland
+                        WATT, TIEDER, HOFFAR & FITZGERALD, L.L.P.
+                                  jruderman@watttieder.com
+                                  jkneeland@watttieder.com
+
+
+                                                     /s/Dayna C. Cooper/
+                                                     Dayna C. Cooper
+
+
+
+                                                11
+
