@@ -1,0 +1,231 @@
+        Case 5:25-cv-00252-JKP           Document 9        Filed 05/30/25      Page 1 of 5
+
+
+
+                              UNITED STATES DISTRICT COURT
+                               WESTERN DISTRICT OF TEXAS
+                                  SAN ANTONIO DIVISION
+
+ MATTHEW ANDREW GARCES,                           §
+                                                  §
+                        Plaintiff,                §
+                                                  §
+ v.                                               §             SA-25-CV-252-FB (HJB)
+                                                  §
+ U.S. DEPARTMENT OF JUSTICE, CIVIL                §
+ RIGHTS DIVISION,                                 §
+                                                  §
+                        Defendant.                §
+
+                           REPORT AND RECOMMENDATION
+                        OF UNITED STATES MAGISTRATE JUDGE
+
+To the Honorable United States District Judge Fred Biery:
+
+       Before the Court is the status of the above case, which was automatically referred to the
+
+undersigned for disposition of the application to proceed in forma pauperis (“IFP”) and a review
+
+under 28 U.S.C. § 1915(e), pursuant to this Division’s October 8, 2019, Standing Order. For the
+
+reasons below, I recommend that this case be DISMISSED pursuant to 28 U.S.C. § 1915(e).
+
+       In IFP cases like this one, § 1915 requires that the court “dismiss the case at any time” if it
+
+determines that it “fails to state a claim on which relief may be granted.”               28 U.S.C.
+
+§ 1915(e)(2)(B)(ii).   The Court is “vested with especially broad discretion” in making this
+
+determination. Green v. McKaskle, 788 F.2d 1116, 1119 (5th Cir. 1986). To state a claim upon
+
+which relief may be granted, the complaint must include “enough facts to state a claim to relief
+
+that is plausible on its face.” Bell Atl. Corp. v. Twombly, 550 U.S. 544, 570 (2007). A claim is
+
+facially plausible only “when the plaintiff pleads factual content that allows the court to draw the
+
+reasonable inference that the defendant is liable for the misconduct alleged.” Ashcroft v. Iqbal,
+
+556 U.S. 662, 678 (2009). The complaint must also plainly show the basis for the Court’s
+
+jurisdiction, because federal courts have “limited jurisdiction” and “possess only that power
+           Case 5:25-cv-00252-JKP         Document 9       Filed 05/30/25       Page 2 of 5
+
+
+
+authorized by Constitution and statute.” Kokkonen v. Guardian Life Ins. Co. of Am., 511 U.S.
+
+375, 377 (1994); see also FED. R. CIV. P. 8(a)(1) (pleading must contain “a short and plain
+
+statement of the grounds for the court's jurisdiction”).
+
+       Complaints filed by pro se litigants, “however inartfully pleaded,” are entitled to a liberal
+
+construction and are therefore “held to less stringent standards than formal pleadings drafted by
+
+lawyers.” Erickson v. Pardus, 551 U.S. 89, 94 (2007) (internal quotation marks and citation
+
+omitted). But even under these lenient standards, a pro se plaintiff must allege more than “‘labels
+
+and conclusions’ or a ‘formulaic recitation of the elements of a cause of action.’” Iqbal, 556 U.S.
+
+at 678 (quoting Twombly, 550 U.S. at 555). “Threadbare recitals of the elements of a cause of
+
+action, supported by mere conclusory statements, do not suffice.” Iqbal, 556 U.S. at 678.
+
+       In his complaint, Plaintiff alleges that he is disabled and has been treated unfairly by a state
+
+judge and probation officer while serving a probation term imposed by the Bexar County courts.
+
+(Docket Entry 1-1, at 2.) He states that he complained about his mistreatment to the Defendant
+
+Department of Justice, Civil Rights Division, but that the Department failed to investigate his
+
+claims. (Id.) Plaintiff asserts violations of the Americans with Disabilities Act (“ADA”), 42
+
+U.S.C. §§ 12101, et seq., and violations of the Eighth and Fourteenth Amendments. (Id. at 3.)
+
+He seeks $1 million in compensatory relief as well as injunctive relief, declaratory judgment, and
+
+expungement of his criminal record. (Id. at 3–4.) Plaintiff’s claims are similar to those made in
+
+Garces v. Garland, et al., SA-25-CV-128-FB (HJB), one of twelve pro se lawsuits Plaintiff has
+
+filed in the San Antonio Division so far this year. 1
+
+
+       1
+          See Garces v. Hernandez, et al., SA-25-CV-81-JKP; Garces v. Hernandez, SA-25-CV-
+82-FB; Garces v. City of San Antonio, et al., SA-25-CV-127-FB; Garces v. Garland, et al., SA-
+25-CV-128-FB; Garces v. Mohammed, SA-25-CV-141-JKP (ESC); Garces v. United Health
+Care, et al., SA-25-CV-256-FB (RBF); Garces v. Hernandez, SA-25-CV-313-XR; Garces v. Ruiz,
+et al., SA-25-CV-339-JKP (HJB); Garces v. San Antonio Police Department, SA-25-CV-388-FB
+(HJB); Garcia v. Rossbach, et al., SA-25-CV-441-JKP (HJB); Garces v. Contreras et al., SA-25-
+
+                                                  2
+            Case 5:25-cv-00252-JKP        Document 9        Filed 05/30/25       Page 3 of 5
+
+
+
+        Plaintiff’s complaint does not state a valid claim for relief. His cause of action against the
+
+Department of Justice for failing to investigate his purported ADA or constitutional claims fails
+
+for lack of jurisdiction: federal courts generally do not resolve claims that the Executive Branch
+
+failed to prosecute an action in either the civil or criminal context, and “a private citizen lacks a
+
+judicially cognizable interest in the prosecution or nonprosecution of another.”              Leeke v.
+
+Timmerman, 454 U.S. 83, 85–86 (1981); see, e.g., United States v, Tex., 599 U.S. 670, 678–79
+
+(2023) (immigration enforcement); Heckler v. Chaney, 470 U.S. 821, 831 (1985) (agency action);
+
+Linda R.S., v. Richard D., 410 U.S. 614, 616, 619 (1973) (district attorney declining prosecution).
+
+As for Plaintiff’s constitutional claims, they apparently are not directed at the Department, but at
+
+the state judge and probation officer, who are not named as Defendants in this case. 2 (See Docket
+
+Entry 1-1, at 1, 3.)
+
+        As a pro se litigant, Plaintiff was provided an opportunity to amend his complaint in order
+
+to state a claim for relief. See Neitzke v. Williams, 490 U.S. 319, 329 (1989). The undersigned
+
+required him to show cause why his case should not be dismissed by filing an amended complaint
+
+stating a plausible, non-frivolous claim for relief. (Docket Entry 3.) Plaintiff was specifically
+
+admonished that failure to file the amended complaint as ordered, and thereby cure the deficiencies
+
+in his original complaint, could result in dismissal without further opportunity to amend. See
+
+Brewster v. Dretke, 587 F.3d 764, 768 (5th Cir. 2009) (“[L]eave to amend is not required . . . if the
+
+plaintiff has already pleaded his ‘best case.’”) (citation omitted); Dark v. Potter, 293 F. App’x 254,
+
+257 (5th Cir. Aug. 26, 2008) (“[A] plaintiff asserts [his] best case after the plaintiff is ‘apprised of
+
+
+
+CV-539-OLG (ESC).
+        2
+       The judge and probation officer were named as defendants in another of Plaintiff’s cases,
+which was dismissed on other grounds by the District Court. See Garces v. Garland, et al., SA-
+25-CV-128-FB (Docket Entry 14) (W. D. Tex. Apr. 29, 2024).
+
+                                                   3
+         Case 5:25-cv-00252-JKP           Document 9        Filed 05/30/25       Page 4 of 5
+
+
+
+the insufficiency’ of the complaint.”) (citation omitted). Plaintiff did not respond to the Show
+
+Cause Order; accordingly, dismissal is appropriate.
+
+        Based on the foregoing, I recommend that Plaintiff’s complaint be DISMISSED pursuant
+
+to 28 U.S.C. § 1915(e).
+
+                                     Notice of Right to Object
+
+        The United States District Clerk shall serve a copy of this Report and Recommendation on
+
+all parties by either (1) electronic transmittal to all parties represented by attorneys registered as a
+
+“filing user” with the Clerk of Court, or (2) by mailing a copy to those not registered by certified
+
+mail, return receipt requested. Written objections to this Report and Recommendation must be
+
+filed within 14 days after being served with a copy of the same, unless this time period is modified
+
+by the District Court. 28 U.S.C. § 636(b)(1); FED. R. CIV. P. 72(b).
+
+        The parties shall file any objections with the Clerk of the Court and serve the objections
+
+on all other parties. An objecting party must specifically identify those findings, conclusions, or
+
+recommendations to which objections are being made and the basis for such objections;
+
+“objections that are frivolous, conclusory, or general in nature needn't be considered.” Williams
+
+v. Lakeview Loan Servicing LLC, 694 F. Supp. 3d 874, 881 (S.D. Tex. 2023) (citing Battle v. United
+
+States Parole Comm’n, 834 F.2d 419, 421 (5th Cir. 1987)).
+
+        A party’s failure to file written objections to the proposed findings, conclusions, and
+
+recommendations contained in this Report and Recommendation shall bar the party from a de novo
+
+review by the District Court. Thomas v. Arn, 474 U.S. 140, 149–52 (1985); Acuña v. Brown &
+
+Root, Inc., 200 F.3d 335, 340 (5th Cir. 2000). Additionally, failure to file timely written objections
+
+to the proposed findings, conclusions, and recommendations contained in this Report and
+
+Recommendation shall bar the aggrieved party, except upon grounds of plain error, from attacking
+
+
+
+                                                   4
+        Case 5:25-cv-00252-JKP         Document 9      Filed 05/30/25     Page 5 of 5
+
+
+
+on appeal the unobjected-to, proposed findings and conclusions accepted by the district court.
+
+Douglass v. United Servs. Auto. Ass’n, 79 F.3d 1415, 1428–29 (5th Cir. 1996) (en banc).
+
+       SIGNED on May 30, 2025.
+
+
+
+                                                   Henry J. Bemporad
+                                                   United States Magistrate Judge
+
+
+
+
+                                               5
+

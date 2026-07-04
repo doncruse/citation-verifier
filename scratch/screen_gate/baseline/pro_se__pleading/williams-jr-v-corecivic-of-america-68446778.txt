@@ -1,0 +1,282 @@
+                  IN THE UNITED STATES DISTRICT COURT FOR THE
+                          MIDDLE DISTRICT OF TENNESSEE
+                               COLUMBIA DIVISION
+
+ MARVIN WILLIAMS, JR., #525530,                     )
+                                                    )
+          Plaintiff,                                )
+                                                    )
+ v.                                                 )   NO. 1:24-cv-00042
+                                                    )
+ CORECIVIC OF AMERICA, et al.,                      )   JUDGE CAMPBELL
+                                                    )
+          Defendants.                               )
+
+
+                           MEMORANDUM OPINION AND ORDER
+
+         Marvin Williams, a state inmate confined at the South Central Correctional Facility
+
+(SCCF), has filed a pro se civil rights Complaint under 42 U.S.C. § 1983 (Doc. No. 1), an
+
+application for leave to proceed in forma pauperis (IFP) (Doc. No. 2), and a supplement to the
+
+Complaint. (Doc. No. 6.)
+
+         The case is before the Court for ruling on Plaintiff’s IFP application and for initial review
+
+under the Prison Litigation Reform Act (PLRA).
+
+                              I. APPLICATION TO PROCEED IFP
+
+         A prisoner bringing a civil action may be permitted to file suit without prepaying the filing
+
+fee. 28 U.S.C. § 1915(a). Plaintiff’s IFP application establishes that he lacks the funds to prepay
+
+the filing fee. Accordingly, the IFP application (Doc. No. 2) is GRANTED and a $350 filing fee
+
+is ASSESSED. The fee will be collected in installments as described below.
+
+         The warden of the facility in which Plaintiff is currently housed, as custodian of his trust
+
+account, is DIRECTED to submit to the Clerk of Court, as an initial payment, the greater of: (a)
+
+20% of the average monthly deposits to Plaintiff’s credit at the jail; or (b) 20% of the average
+
+monthly balance to Plaintiff’s credit for the six-month period immediately preceding the filing of
+
+
+
+      Case 1:24-cv-00042       Document 7        Filed 08/21/24      Page 1 of 6 PageID #: 27
+the Complaint. 28 U.S.C. § 1915(b)(1). Thereafter, the custodian shall submit 20% of Plaintiff’s
+
+preceding monthly income (or income credited to Plaintiff for the preceding month), but only when
+
+the balance in his account exceeds $10. Id. § 1915(b)(2). Payments shall continue until the $350
+
+filing fee has been paid in full to the Clerk of Court. Id. § 1915(b)(3).
+
+        The Clerk of Court MUST send a copy of this Order to the warden of the facility in which
+
+Plaintiff is currently housed to ensure compliance with that portion of 28 U.S.C. § 1915 pertaining
+
+to the payment of the filing fee. If Plaintiff is transferred from his present place of confinement,
+
+the custodian must ensure that a copy of this Order follows Plaintiff to his new place of
+
+confinement, for continued compliance with the Order. All payments made pursuant to this Order
+
+must be submitted to the Clerk of Court for the United States District Court for the Middle District
+
+of Tennessee, 719 Church Street, Nashville, TN 37203.
+
+                                       II. INITIAL REVIEW
+
+A. Legal Standard
+
+        In cases filed by prisoners, the Court must conduct an initial screening and dismiss the
+
+Complaint (or any portion thereof) if it is facially frivolous or malicious, if it fails to state a claim
+
+upon which relief may be granted, or if it seeks monetary relief against a defendant who is immune
+
+from such relief. 28 U.S.C. § 1915A; 42 U.S.C. § 1997e(c). Review under the same criteria is also
+
+authorized under 28 U.S.C. § 1915(e)(2) when the prisoner proceeds IFP.
+
+        To determine whether the Complaint states a claim upon which relief may be granted, the
+
+Court reviews for whether it alleges sufficient facts “to state a claim to relief that is plausible on
+
+its face,” such that it would survive a motion to dismiss under Federal Rule of Civil Procedure
+
+12(b)(6). Hill v. Lappin, 630 F.3d 468, 470–71 (6th Cir. 2010) (quoting Ashcroft v. Iqbal, 556 U.S.
+
+662, 678 (2009)). At this stage, “the Court assumes the truth of ‘well-pleaded factual allegations’
+
+
+
+                                                   2
+
+   Case 1:24-cv-00042          Document 7         Filed 08/21/24      Page 2 of 6 PageID #: 28
+and ‘reasonable inference[s]’ therefrom,” Nat’l Rifle Ass’n of Am. v. Vullo, 602 U.S. 175, 181
+
+(2024) (quoting Iqbal, 556 U.S. at 678–79), but is “not required to accept legal conclusions or
+
+unwarranted factual inferences as true.” Inner City Contracting, LLC v. Charter Twp. of Northville,
+
+Michigan, 87 F.4th 743, 749 (6th Cir. 2023) (citation omitted). The Court must also afford the pro
+
+se Complaint a liberal construction, Erickson v. Pardus, 551 U.S. 89, 94 (2007), while viewing it
+
+in the light most favorable to Plaintiff. Inner City, supra.
+
+       Plaintiff filed the Complaint under Section 1983, which authorizes a federal action against
+
+any person who, “under color of state law, deprives [another] person of rights, privileges, or
+
+immunities secured by the Constitution or conferred by federal statute.” Wurzelbacher v. Jones-
+
+Kelley, 675 F.3d 580, 583 (6th Cir. 2012) (citations omitted); 42 U.S.C. § 1983. The Complaint
+
+must therefore plausibly allege (1) a deprivation of a constitutional or other federal right, and (2)
+
+that the deprivation was caused by a “state actor.” Carl v. Muskegon Cnty., 763 F.3d 592, 595 (6th
+
+Cir. 2014).
+
+B. Facts
+
+       The Complaint alleges that, around the hours of “16:00 and 17:00” on September 30, 2023,
+
+Plaintiff was handcuffed by Correctional Officer Downing to “the outside door handle through the
+
+side flap.” (Doc. No. 1 at 4.) Downing then stood there and laughed, while Correctional Officer
+
+Gulledge gave an extra pair of cuffs to make the chain longer. (Id.) Plaintiff names both officers
+
+as defendants and claims that their treatment of him amounted to cruel and unusual punishment.
+
+(Id.) He also names as defendants CoreCivic of America and SCCF Warden Grady Perry. He states
+
+that “higher administration” only came to where he was chained to the outside door handle when
+
+he started to yell; that other officers tried to help; and that Officer Downing “intended to hurt
+
+[him].” (Id.) He asks for SCCF to be held accountable for allowing Downing “to facially target”
+
+
+
+                                                  3
+
+   Case 1:24-cv-00042          Document 7        Filed 08/21/24     Page 3 of 6 PageID #: 29
+him, refers to “injuries [he] received during the altercation,” and seeks an award of damages. (Id.
+
+at 5.) These allegations are repeated verbatim in Plaintiff’s supplemental pleading, which is styled
+
+“Beyond Use of Excessive Force.” (Doc. No. 6.)
+
+C. Analysis
+
+        The Eighth Amendment’s Cruel and Unusual Punishments Clause prohibits the use of
+
+excessive force against convicted inmates. The “core judicial inquiry” in considering such a claim
+
+is “whether force was applied in a good-faith effort to maintain or restore discipline, or maliciously
+
+and sadistically to cause harm.’” Wilkins v. Gaddy, 559 U.S. 34, 37 (2010) (quoting Hudson v.
+
+McMillian, 503 U.S. 1, 7 (1992)). In addition to this subjective inquiry, there is also an objective
+
+component to Eighth Amendment excessive-force claims, which requires the pain inflicted to be
+
+sufficiently serious. Cordell v. McKinney, 759 F.3d 573, 580 (6th Cir. 2014) (quoting Williams v.
+
+Curtin, 631 F.3d 380, 383 (6th Cir. 2011)). However, the Court may not apply a “de minimis
+
+injury” test to such claims, as “the judicial inquiry should focus on ‘the nature of the force rather
+
+than the extent of the injury.’” Williams, 631 F.3d at 384 (quoting Wilkins, 559 U.S. at 34).
+
+       Due to the limited factual allegations presented here, the Court cannot find the objective
+
+component of Plaintiff’s Eighth Amendment claim met. It is not clear what he means when he
+
+states that he was chained to “the outside door handle through the side flap.” (Doc. No. 1 at 4.) It
+
+is also not clear whether he was chained there for only one hour, or whether he endured a longer
+
+period of restraint that began at “approx. around hrs of 16:00 and 17:00.” (Id.) Finally, the nature
+
+and extent of the alleged injuries he suffered “during the altercation” are not clear. (Id. at 5.) The
+
+allegations of the Complaint suggest that the restraint it describes was not applied “in a good-faith
+
+effort to maintain or restore discipline,” Wilkins, 559 U.S. at 37, but additional, non-conclusory
+
+allegations of fact are required for the Court to determine whether an excessive-force claim is
+
+
+
+                                                  4
+
+   Case 1:24-cv-00042         Document 7        Filed 08/21/24      Page 4 of 6 PageID #: 30
+plausibly stated.
+
+       Although the Complaint as currently constituted does not state any plausible claim, the
+
+Court in its discretion “can allow a plaintiff to amend his complaint even when the complaint is
+
+subject to dismissal under the PLRA.” LaFountain v. Harry, 716 F.3d 944, 951 (6th Cir. 2013).
+
+The Court will exercise that discretion in this case and allow Plaintiff an opportunity to amend in
+
+order to provide additional factual support for his excessive-force claim against Defendants
+
+Downing and Gulledge.
+
+       As to CoreCivic and Warden Perry, Plaintiff’s pleadings do not support the liability of
+
+either Defendant. His allegations do not suggest that any policy in place at SCCF was behind the
+
+officers’ use of force, as would be required to plausibly claim a right to relief against SCCF’s
+
+corporate operator, CoreCivic, or against Warden Perry in his official capacity. See Savoie v.
+
+Martin, 673 F.3d 488, 494 (6th Cir. 2012); see also Perry v. Tennessee, No. 3:21-CV-00461, 2021
+
+WL 4594783, at *4 (M.D. Tenn. Oct. 6, 2021) (finding official-capacity claim against warden of
+
+CoreCivic prison redundant of claim against CoreCivic). Nor is Warden Perry alleged to have
+
+overseen or otherwise been personally involved in the use of force described in Plaintiff’s
+
+pleadings, such that Plaintiff could plausibly prevail against the Warden in his individual capacity.
+
+See Herndon v. Heyns, 702 F. App’x 325, 327 (6th Cir. 2017) (affirming judgment for warden
+
+after finding that the complaint failed to “allege any personal involvement” or “wrongdoing on
+
+[warden’s] part”). Accordingly, CoreCivic and Warden Perry will be dismissed from this action.
+
+                                       III. CONCLUSION
+
+       As explained above, although the Complaint is subject to dismissal for failure to state a
+
+claim on which relief may be granted, 28 U.S.C. §§ 1915(e)(2)(B)(ii), 1915A(b)(1), the Court will
+
+allow Plaintiff to file an Amended Complaint in response to this Order within 30 DAYS of the
+
+
+
+                                                 5
+
+   Case 1:24-cv-00042         Document 7        Filed 08/21/24      Page 5 of 6 PageID #: 31
+entry of the Order. The scope of the allowed amendment is limited to the provision of additional
+
+facts in support of the excessive force claim against Defendants Downing and Gulledge.
+
+Defendants CoreCivic of America and Warden Grady Perry are DISMISSED from this action.
+
+       The Clerk is DIRECTED to provide Plaintiff with a form for filing a civil rights complaint
+
+(Pro Se Form 14). Plaintiff is cautioned that failure to file an Amended Complaint using the
+
+provided form within 30 days (or to seek an extension of this deadline before it expires), or failure
+
+to keep the Court apprised of his current address, will result in the dismissal of this action.
+
+       It is so ORDERED.
+
+
+                                               ____________________________________
+                                               WILLIAM L. CAMPBELL, JR.
+                                               CHIEF UNITED STATES DISTRICT JUDGE
+
+
+
+
+                                                  6
+
+   Case 1:24-cv-00042          Document 7       Filed 08/21/24       Page 6 of 6 PageID #: 32
+

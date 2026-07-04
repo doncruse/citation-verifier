@@ -1,0 +1,460 @@
+             Case: 1:25-cv-10936 Document #: 42 Filed: 02/11/26 Page 1 of 9 PageID #:688
+BC
+                                                                                FIL1E/2D
+                                                                                       026
+                                                                                                             MAM
+                   IN THE UNITED STATES DISTRICT COURT FOR THE NORTHERN
+                                                                                     2/1
+                                                                             . BRUTO    N
+                            DISTRICT OF ILLINOIS EASTERN DIVISION  THOMA.SDG
+                                                                           IS T R IC T COURT
+                                                                CLERK, U.S
+
+
+
+     Alfred Holt and Marilia Coutinho Espinola, ​​        )
+           ​​      ​       ​       ​     ​       ​        )
+                           Plaintiffs, ​ ​       ​        )       Case No.: 1:25-cv-10936
+                                                          )
+     vs. ​     ​       ​    ​      ​       ​      ​       )​      Judge LaShonda A. Hunt
+                                                          )​
+                                                          )       Magistrate Judge Keri L. Holleb
+     BH Management Services, LLC,                         )       Hotaling
+     Amzak Waukegan, LLC,                                 )
+     Katrina Blair, and                                   )       Jury Trial Demanded
+     LaQuevia Miller,​                                    )
+                                                          )
+                           Defendants. ​   ​      ​
+
+
+
+             PLAINTIFFS’ RESPONSE IN OPPOSITION TO DEFENDANTS’ MOTION TO
+                                   DISMISS (ECF No. 40)
+
+
+     Plaintiffs Alfred Holt and Marilia Coutinho Espinola (“Plaintiffs”), pro se, submit this Response
+
+     in Opposition to Defendants’ Motion to Dismiss pursuant to Rules 12(b)(1) and 12(b)(6) (ECF
+
+     No. 40). Defendants’ Motion asks the Court to weigh facts, draw inferences against Plaintiffs,
+
+     and decide merits issues that must be resolved on a developed record. Under Rule 12, the Court
+
+     must accept the well-pleaded allegations of the First Amended Complaint (“FAC,” ECF No. 30)
+
+     as true and draw reasonable inferences in Plaintiffs’ favor. When the FAC is read as a whole, it
+
+     pleads concrete injuries and plausible claims under the Fair Housing Act (“FHA”), 42 U.S.C. §§
+
+     3604(b) and 3617, and 42 U.S.C. §§ 1981 and 1982, as well as related Illinois common-law
+
+     claims arising from the same retaliatory campaign. The Motion should be denied.
+
+
+
+
+                                                                                                         1
+    Case: 1:25-cv-10936 Document #: 42 Filed: 02/11/26 Page 2 of 9 PageID #:689
+
+
+
+
+                   I. RELEVANT PLEADING FACTS (FROM THE FAC)
+
+This case arises from Defendants’ response to Plaintiffs’ protected civil-rights complaint
+
+regarding race-based on profiling and the racist conduct of Defendants’ towing vendor. The FAC
+
+alleges, among other things:
+
+
+• On September 25, 2024, Plaintiff Holt complained to management about racial profiling and
+
+racist conduct by the towing vendor and asked management to address the issue. (FAC ¶¶
+
+18–23.)
+
+
+• Rather than investigate the protected complaint, Defendants escalated enforcement:
+
+management locked Plaintiffs out of the online rent payment portal beginning September 30,
+
+2024 (FAC ¶¶ 26–27), served a lease-violation notice based on an unverified “marijuana”
+
+allegation, and pursued eviction proceedings. (FAC ¶¶ 30–36.)
+
+
+• Plaintiffs incurred concrete economic losses (including towing losses) and accrued late fees
+
+while the portal remained restricted, and Plaintiffs experienced privacy and emotional harms
+
+from an unannounced entry into their home while a resident was showering. (FAC ¶¶ 37–46,
+
+50–62.)
+
+• The FAC pleads Defendant-specific conduct by BH Management and AMZAK Waukegan as
+
+principals responsible for policies and lease enforcement, and by Blair and Miller as individual
+
+actors involved in the portal restriction, notices, and entry. (See, e.g., FAC ¶¶ 12–17, 24–27,
+
+34–41.)
+
+                                    II. LEGAL STANDARDS
+
+Rule 12(b)(1) addresses subject-matter jurisdiction. On a facial standing challenge, the Court
+
+
+                                                                                                   2
+    Case: 1:25-cv-10936 Document #: 42 Filed: 02/11/26 Page 3 of 9 PageID #:690
+
+
+
+
+accepts the complaint’s well-pleaded allegations as true and asks whether Plaintiffs have
+
+plausibly alleged an injury in fact that is concrete and particularized, fairly traceable to
+
+Defendants’ conduct, and likely redressable by the requested relief. Lujan v. Defs. of Wildlife,
+
+504 U.S. 555, 560–61 (1992). Rule 12(b)(6) tests whether the complaint states a plausible claim
+
+for relief. Ashcroft v. Iqbal, 556 U.S. 662, 678 (2009). Pro se pleadings are construed liberally.
+
+The Court does not resolve factual disputes, evaluate credibility, or decide whether Plaintiffs will
+
+ultimately win.
+
+                                         III. ARGUMENT
+
+
+A. Plaintiffs Have Article III Standing (Rule 12(b)(1))
+
+At this stage, the Court’s task is not to determine whether Plaintiffs will ultimately prevail, but
+
+whether the FAC plausibly alleges a violation of federal law. Under Seventh Circuit precedent,
+
+dismissal is appropriate only where no set of facts consistent with the complaint would entitle
+
+Plaintiffs to relief. Defendants’ standing argument fails because it improperly focuses on disputed
+
+damages theories instead of the threshold question: whether Plaintiffs allege at least one concrete
+
+injury fairly traceable to Defendants and redressable by this Court. The FAC easily does. First,
+
+Plaintiffs allege concrete economic injury from towing and related charges tied to Defendants’
+
+vendor relationship and enforcement decisions. (FAC ¶¶ 37–41, 44–46.) Even small
+
+out-of-pocket losses satisfy injury in fact. Second, Plaintiffs allege concrete privacy harm from an
+
+unauthorized or unannounced entry into their home while a resident was showering. (FAC ¶¶
+
+50–56.) Privacy intrusions are classic concrete injuries. Third, Plaintiffs allege concrete injury
+
+from being locked out of the rent payment portal and the resulting accrual of late fees and
+
+enforcement action. (FAC ¶¶ 26–27, 33–36, 44–46.) Fourth, the FHA recognizes dignitary and
+
+
+
+                                                                                                      3
+    Case: 1:25-cv-10936 Document #: 42 Filed: 02/11/26 Page 4 of 9 PageID #:691
+
+
+
+
+housing-related harms; at the pleading stage, discriminatory treatment and retaliation in the
+
+housing context are cognizable injuries. See Havens Realty Corp. v. Coleman, 455 U.S. 363,
+
+373–74 (1982). These injuries are fairly traceable to Defendants’ challenged conduct (portal
+
+restriction, enforcement actions, vendor towing practices, entry into the unit) and are redressable
+
+by damages and injunctive/declaratory relief. Standing is therefore satisfied, and Rule 12(b)(1)
+
+dismissal is improper.
+
+
+B. The FAC Is Not a “Shotgun Pleading” and Gives Fair Notice
+
+Defendants’ “shotgun pleading” label is rhetoric, not analysis. The FAC is organized by
+
+numbered paragraphs and separate counts; it identifies who did what and when, and it ties each
+
+count to the relevant actors. For example, Count I is brought against BH and Blair, and the
+
+factual section specifically pleads the September 25, 2024 protected complaint and the
+
+September 30, 2024 portal restriction. (FAC ¶¶ 18–27.) Count VI is brought against BH and
+
+Miller and alleges the October 15, 2024 entry. (FAC ¶¶ 50–56.) This is the opposite of a pleading
+
+that “makes it impossible to discern” the claim. See Swanson v. Citibank, N.A., 614 F.3d 400,
+
+404–05 (7th Cir. 2010) (housing discrimination complaints need only identify the type of
+
+discrimination, by whom, and when). If Defendants want more detail, the remedy is discovery,
+
+not dismissal with prejudice.
+
+
+C. Count I (FHA Retaliation, 42 U.S.C. § 3617) Is Plausibly Pled
+
+To state FHA retaliation under § 3617, Plaintiffs must plausibly allege protected activity, an
+
+adverse action, and a causal connection. Wetzel v. Glen St. Andrew Living Cmty., LLC, 901 F.3d
+
+856, 868 (7th Cir. 2018). The FAC alleges protected activity: Holt complained to management
+
+
+
+
+                                                                                                   4
+    Case: 1:25-cv-10936 Document #: 42 Filed: 02/11/26 Page 5 of 9 PageID #:692
+
+
+
+
+about racial profiling and the racist conduct of Defendants’ vendor. (FAC ¶¶ 18–23.) It alleges
+
+adverse actions that would deter a reasonable tenant: restricting Plaintiffs’ rent payment portal
+
+(FAC ¶¶ 26–27), escalating enforcement based on an unverified “marijuana” allegation (FAC ¶¶
+
+30–36), and initiating eviction proceedings. And it alleges causation through close temporal
+
+proximity and surrounding circumstances namely, Defendants’ alleged failure to investigate the
+
+protected complaint and their immediate pivot to punitive enforcement. Whether Defendants’
+
+proffered reasons were legitimate or pretextual is a question for summary judgment or trial, not
+
+Rule 12 dismissal. Defendants’ Motion repeatedly argues their actions were “facially neutral”
+
+and “routine.” That is a merits defense. At Rule 12, Plaintiffs need only allege a plausible
+
+retaliatory link; the FAC does so with dates, actors, and concrete consequences.
+
+
+D. Count II (FHA Discrimination, 42 U.S.C. § 3604(b)) Is Plausibly Pled
+
+Section 3604(b) prohibits discrimination in the terms, conditions, privileges, services, or
+
+facilities of a rental. Plaintiffs allege discriminatory and retaliatory treatment affecting core
+
+“services” of tenancy—parking enforcement and towing, rent-payment access, and management
+
+responses to their complaint about racial profiling and racist vendor conduct. (FAC ¶¶ 18–41.)
+
+Defendants argue Plaintiffs must plead comparator evidence or race-based comments. That is not
+
+the Rule 8/Swanson standard. Plaintiffs plausibly allege that after raising a race-based complaint,
+
+Defendants responded with adverse tenancy actions (portal restriction, towing
+
+escalation/enforcement, and notices) rather than addressing discrimination. Whether Defendants
+
+will ultimately prove legitimate reasons is for discovery. At this stage, it is enough that Plaintiffs
+
+plead a plausible inference that discriminatory animus and retaliation affected the conditions and
+
+services of their housing.
+
+
+                                                                                                         5
+    Case: 1:25-cv-10936 Document #: 42 Filed: 02/11/26 Page 6 of 9 PageID #:693
+
+
+
+
+E. Counts III & IV (42 U.S.C. §§ 1981 and 1982) Are Plausibly Pled Under Comcast
+
+Defendants rely on Comcast to argue Plaintiffs must plead “but-for” causation with detailed
+
+proof. Comcast requires plausibility, not proof. Plaintiffs allege intentional race-based
+
+interference with their contractual and property rights as tenants: they complained about racial
+
+profiling and racist vendor conduct (FAC ¶¶ 18–23), Defendants allegedly disregarded that
+
+complaint and escalated enforcement (FAC ¶¶ 24–41), restricted access to the standard
+
+rent-payment mechanism (FAC ¶¶ 26–27), and used pretextual violations to pressure
+
+termination. (FAC ¶¶ 30–36.) Those allegations, taken as true, support a plausible inference
+
+that but for Plaintiffs’ race and their race-based complaint, Defendants would not have imposed
+
+these restrictions and escalated enforcement in the same manner. Comparator evidence and
+
+Defendants’ proffered “neutral” explanations are classic discovery issues. Dismissal at the
+
+pleading stage is not warranted.
+
+
+F. Count V (Breach of Covenant of Quiet Enjoyment) Is Plausibly Pled
+
+Illinois’ covenant of quiet enjoyment protects tenants from substantial interference with their use
+
+and enjoyment of the premises. The FAC alleges more than a “minor inconvenience”: Plaintiffs
+
+allege a sustained campaign of interference connected to enforcement escalation, including
+
+payment restriction affecting continued tenancy, repeated towing tied to parking enforcement,
+
+and an unannounced entry. (FAC ¶¶ 26–41, 50–56.) Defendants’ argument that Plaintiffs
+
+“remained in the unit” does not defeat the claim at Rule 12. Constructive-interference claims turn
+
+on the degree and character of interference, which is fact-intensive. At minimum, Plaintiffs plead
+
+plausible substantial interference sufficient to proceed to discovery.
+
+
+
+
+                                                                                                   6
+    Case: 1:25-cv-10936 Document #: 42 Filed: 02/11/26 Page 7 of 9 PageID #:694
+
+
+
+
+G. Count VI (Intrusion Upon Seclusion and Trespass) Is Plausibly Pled
+
+Plaintiffs allege that Defendant Miller entered their home without notice while a resident was
+
+showering. (FAC ¶¶ 50–56.) An unauthorized entry into a private dwelling implicates both
+
+seclusion and possessory interests; whether the conduct was “highly offensive” and whether it
+
+exceeded any lease-based right of entry are fact questions not suited for dismissal on the
+
+pleadings. Defendants’ assertion that a single entry cannot be “highly offensive” is not a
+
+categorical rule. Entering a tenant’s home without notice while a resident is in a state of undress
+
+is plausibly offensive to a reasonable person, and Plaintiffs allege resulting distress. BH’s
+
+involvement (policy, supervision, and scope of employment) is also plausibly alleged and may be
+
+explored in discovery.
+
+H. Count VII (Abuse of Process) Is Plausibly Pled
+
+Defendants argue abuse of process fails because Plaintiffs merely allege initiation of proceedings.
+
+The FAC alleges more: it alleges the use of legal process and notices as instruments of retaliation
+
+and coercion following a protected complaint, including employing pretextual violations and
+
+escalating enforcement to force Plaintiffs out and punish protected activity. (FAC ¶¶ 30–41,
+
+58–62.) Whether Defendants committed an “improper act” in the use of process (beyond filing)
+
+and whether they used the process for an ulterior purpose are fact-intensive questions. Plaintiffs
+
+should be permitted discovery, including Defendants’ communications and policies, before the
+
+Court forecloses the claim with prejudice.
+
+
+I. Count VIII (IIED) Is Plausibly Pled
+
+Illinois IIED requires extreme and outrageous conduct, intent or knowledge of a high probability
+
+of causing distress, and severe distress. The FAC alleges a pattern of conduct—including
+
+
+                                                                                                      7
+    Case: 1:25-cv-10936 Document #: 42 Filed: 02/11/26 Page 8 of 9 PageID #:695
+
+
+
+
+ignoring a protected racial-profiling complaint, escalating enforcement in response, locking rent
+
+payment access, repeated towing consequences, and an unannounced entry during a
+
+shower—followed by significant emotional and physical consequences. (FAC ¶¶ 18–41, 50–56,
+
+44–46.) While Defendants characterize these acts as “routine,” that is a disputed characterization.
+
+In context, a retaliatory campaign targeting tenants after a race-based complaint, coupled with an
+
+intrusive entry into the home, plausibly crosses the threshold required to plead IIED. Whether the
+
+conduct is ultimately “extreme and outrageous” is typically a question informed by context and
+
+record evidence; dismissal at Rule 12 is premature.
+
+
+J. Punitive Damages
+
+Defendants’ request to strike punitive damages is premature. Punitive damages may be available
+
+under federal civil-rights statutes and, where permitted, for willful and wanton
+
+conduct under Illinois law. The FAC pleads willful, retaliatory, and discriminatory conduct and
+
+seeks punitive damages based on that alleged state of mind. Whether Plaintiffs can prove the
+
+requisite intent is a merits question for discovery and summary judgment, not a pleading defect.
+
+
+
+                                        IV. CONCLUSION
+
+For the foregoing reasons, Plaintiffs respectfully request that the Court deny Defendants’ Motion
+
+to Dismiss in its entirety. In the alternative, if the Court finds any count inadequately pled,
+
+Plaintiffs request leave to amend rather than dismissal with prejudice.
+
+
+Dated: February 11, 2026
+
+Respectfully submitted,
+
+
+
+
+                                                                                                    8
+    Case: 1:25-cv-10936 Document #: 42 Filed: 02/11/26 Page 9 of 9 PageID #:696
+
+
+
+
+/s/ Alfred Holt​
+ Alfred Holt, Pro Se​
+/s/ Marilia Coutinho Espinola​
+ Marilia Coutinho Espinola, Pro Se ​ ​ ​             ​      ​       ​       ​      ​       ​        ​
+805 Baldwin Ave, Waukegan, IL 60085​
+Ph:(224) 518-8376 E:albizsmart@gmail.com
+
+
+
+
+                                    CERTIFICATE OF SERVICE​
+
+
+       I certify that on February 11, 2026, I served a true and correct copy of the foregoing
+       Plaintiffs’ Response in Opposition to Defendants’ Motion to Dismiss upon counsel for
+       Defendants via email at: LitchfieldP@LitchfieldCavo.com and
+       Stillman@LitchfieldCavo.com, and via the Court’s CM/ECF system to the extent
+       applicable.
+
+
+       Respectfully submitted,        ​      ​       ​      ​       ​       ​      ​       ​
+​
+ /s/ Alfred Holt​     ​       ​      ​       ​           Dated: February 11, 2026​
+ Alfred Holt, Pro Se​ ​       ​      ​       ​       ​     ​       ​      ​      ​         ​
+/s/ Marilia Coutinho Espinola​
+ Marilia Coutinho Espinola
+
+
+
+
+                                                                                                9
+

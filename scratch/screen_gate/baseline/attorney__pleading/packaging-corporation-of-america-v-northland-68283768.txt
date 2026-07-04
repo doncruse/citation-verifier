@@ -1,0 +1,1590 @@
+     Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 1 of 197 PageID #:1
+
+
+
+
+                       IN THE UNITED STATES DISTRICT COURT
+                      FOR THE NORTHERN DISTRICT OF ILLINOIS
+                                 EASTERN DIVISION
+
+PACKAGING CORPORATION OF             )
+AMERICA,                             )
+                                     )
+                   Plaintiff,        )                 No.
+                                     )
+             v.                      )
+                                     )                 JURY TRIAL DEMANDED
+                                     )
+ NORTHLAND INSURANCE COMPANY, )
+                                     )
+                   Defendant.        )
+____________________________________ )
+
+
+    COMPLAINT FOR DECLARATORY JUDGMENT, BREACH OF CONTRACT,
+                 AND EXTRA-CONTRACTUAL RELIEF
+
+       NOW COMES Packaging Corporation of America (“PCA”), through its counsel, and for
+
+its Complaint against Defendant Northland Insurance Company (“Northland”), with knowledge as
+
+to its own acts and on information and belief as to the acts of all others, alleges as follows:
+
+                                  NATURE OF THE ACTION
+
+       1.      This is an action for declaratory judgment, breach of contract, and extra-contractual
+
+relief against Northland under a liability insurance policy sold by Northland to J.A. Trucking, Inc.
+
+(“JA”), which explicitly names PCA as an insured. PCA brings this action to redress Northland’s
+
+breaches of its insuring obligations under the policy with respect to Northland’s failure to defend
+
+an underlying lawsuit brought against PCA in Pennsylvania state court in connection with the
+
+death of Samuel Plazio. The underlying suit alleges that Mr. Plazio was killed when one of JA’s
+
+employees, William Day, backed his truck into Mr. Plazio, pinning him between the truck and a
+
+loading dock at a PCA facility.
+      Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 2 of 197 PageID #:2
+
+
+
+
+        2.     The underlying litigation alleges that both JA and its driver, Mr. Day, were
+
+negligent in causing Mr. Plazio’s death. Although the Northland policy includes a promise by
+
+Northland to defend the insureds, including PCA, against suits alleging bodily injury, Northland
+
+has failed and refused to defend PCA against the underlying suit on the false premise that there is
+
+no possibility that PCA could be required to pay damages in that suit for the negligence of JA or
+
+its driver. That is plainly not so under Pennsylvania tort law, and Northland’s pretense to the
+
+contrary, along with its failure to respond promptly and reasonably to PCA’s communications and
+
+requests for coverage are textbook bad faith.
+
+        3.     In addition to its bad faith denial of coverage, Northland has violated applicable
+
+insurance regulations and statutes by, among other things, failing to conduct a reasonable
+
+investigation of the facts underlying the occurrence giving rise to the lawsuit against PCA, by
+
+failing to account for the operation of Pennsylvania tort law and its effect on PCA’s potential
+
+liability, and by failing to timely respond to PCA’s communications regarding the underlying
+
+litigation.
+
+        4.     Northland’s denials of coverage and its claims handling conduct are vexatious,
+
+unreasonable, and constitute breaches of Northland’s statutory and regulatory duties and its
+
+common law duties of good faith and fair dealing toward PCA.
+
+                                          THE PARTIES
+
+        5.     Plaintiff PCA is a corporation organized under the laws of Delaware, with its
+
+principal place of business in Lake Forest, Illinois.
+
+        6.     Defendant Northland is a corporation organized under the laws of Connecticut, with
+
+its principal place of business in Connecticut. At all relevant times, Northland was licensed to do
+
+and was doing business in the State of Illinois, including in this District.
+
+
+
+
+                                                 -2-
+     Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 3 of 197 PageID #:3
+
+
+
+
+.
+
+                                JURISDICTION AND VENUE
+
+       7.      This Court has subject matter jurisdiction over this matter under 28 U.S.C.
+
+§ 1332(a) and 28 U.S.C. § 2201 insofar as the parties are completely diverse and the amount in
+
+controversy exceeds $75,000, exclusive of interest and costs.
+
+       8.      Venue is proper in this District under 28 U.S.C. § 1391 because a substantial part
+
+of the events or omissions giving rise to the claims occurred in this District, insofar as, among
+
+other things, Northland issued endorsements under the Policy that provide coverage to PCA, a
+
+company headquartered in this District, and PCA suffered injury in this District as a direct result
+
+of the acts and omissions of Northland that are alleged herein.
+
+                  THE INSURANCE POLICY ISSUED BY NORTHLAND
+
+       9.      Northland issued Policy No. WF011456 to JA for the policy period of June 1, 2022
+
+to June 1, 2023 (the “Policy”). A true and correct copy of the Policy is attached hereto as Exhibit
+
+A.
+
+       10.     Under the Policy, Northland promised to reimburse all sums that an insured
+
+becomes legally obligated to pay as damages because of bodily injury caused by an accident
+
+resulting from the ownership, maintenance or use of a covered auto. Under the Policy, Northland
+
+also agreed to defend any insured against a suit seeking such damages.
+
+       11.     The Policy defines “bodily injury” to include “bodily injury, sickness or disease
+
+sustained by a person including death resulting from any of these.”
+
+       12.     The Policy defines “auto” to include a “land motor vehicle, ‘trailer’ or semitrailer
+
+designed for travel on public roads.”
+
+
+
+
+                                               -3-
+     Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 4 of 197 PageID #:4
+
+
+
+
+       13.     The Policy includes two endorsements entitled “Additional Insured – Designated
+
+Person or Organization” that specifically name PCA in the “Schedule of Additional Insured
+
+Persons or Organizations.”
+
+       14.     Any conditions and requirements imposed on PCA by the Policy, including but not
+
+limited to notice of claims or occurrences, have been satisfied and/or have been waived and/or are
+
+subject to an estoppel or other avoidance against Northland.
+
+ THE UNDERLYING LAWSUIT AGAINST PCA, JA AND DAY, AND NORTHLAND’S
+                  DELAYED DENIAL OF COVERAGE
+
+       15.     On or about October 5, 2023, Steven Plazio, as Administrator of the Estate of
+
+Samuel R. Plazio, initiated a lawsuit against PCA, JA, and Day in Pennsylvania state court (the
+
+“Plazio Suit”) asserting claims against them arising out of an incident that took place on or about
+
+June 6, 2022 at PCA’s facility located in Cheswick, Pennsylvania. A true and correct copy of the
+
+complaint in the Plazio Suit is attached hereto as Exhibit B. The Plazio Suit alleges that Mr. Plazio
+
+was killed when he was crushed by a truck negligently driven by Mr. Day and that JA is vicariously
+
+liable for Mr. Day’s negligence in causing Mr. Plazio’s death.
+
+       16.     Under Pennsylvania’s Fair Share Act (“FSA”), a defendant’s liability is joint and
+
+several “[w]here the defendant has been held liable for not less than 60% of the total liability
+
+apportioned to all parties….” 42 Pa. C.S. § 7102(a.1)(iii)(3). Thus, if PCA were held to be at least
+
+60% at fault in causing Mr. Plazio’s death, PCA can be held jointly and severally liable to the
+
+underlying plaintiff and required to pay all damages awarded, even if JA and Mr. Day shared fault
+
+in bringing about the incident alleged in the Plazio Suit. PCA can similarly be held jointly and
+
+severally liable to the underlying plaintiff and required to pay all damages awarded, if a court were
+
+to determine that the FSA does not apply to the Plazio Suit. The Plazio Suit thus puts PCA at risk
+
+of being held liable for the acts and omissions of co-defendants JA and Mr. Day.
+
+
+
+                                                -4-
+     Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 5 of 197 PageID #:5
+
+
+
+
+        17.     Northland was timely notified of the incident giving rise to the Plazio Suit and the
+
+filing of the Plazio Suit.
+
+        18.     By letter dated October 12, 2023, PCA tendered the complaint in the Plazio Suit to
+
+Northland for defense and indemnity.
+
+        19.     On October 26, 2023, Northland responded to PCA’s October 12, 2023 tender by
+
+merely acknowledging receipt of the tender and stating that Northland was “in the process of
+
+evaluating and will respond.” No coverage decision was provided at that time, and no additional
+
+information was requested by Northland.
+
+        20.     Northland failed to provide any coverage determination to PCA in response to
+
+PCA’s October 12, 2023 tender during the month of November 2023.
+
+        21.     Northland did not request any information from PCA concerning the Plazio Suit or
+
+the incident giving rise to it during the month of November 2023.
+
+        22.     Northland failed to provide any coverage determination to PCA in response to
+
+PCA’s October 12, 2023 tender during the month of December 2023.
+
+        23.     Northland did not request any information from PCA concerning the Plazio Suit or
+
+the incident giving rise to it during the month of December 2023.
+
+        24.     On January 9, 2024, counsel for PCA contacted Northland via email in view of
+
+Northland’s failure to provide PCA with a coverage determination in response to PCA’s October
+
+12, 2023 tender of the Plazio Suit. In that email, counsel for PCA informed Northland that it was
+
+“critical” that PCA hear back from Northland promptly and that PCA was considering retaining
+
+new defense counsel for the Plazio Suit.
+
+        25.     Northland failed to provide any coverage determination to PCA in response to
+
+PCA’s October 12, 2023 tender during the month of January 2024.
+
+
+
+
+                                                -5-
+     Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 6 of 197 PageID #:6
+
+
+
+
+        26.     Northland did not request any information from PCA concerning the Plazio Suit or
+
+the incident giving rise to it during the month of January 2024.
+
+        27.     Northland did not request any input concerning PCA’s retention of defense counsel.
+
+        28.     On February 1, 2024, having still received no coverage determination, request for
+
+additional information, or request for input on selection of defense counsel in response to a tender
+
+that was now more than 100 days old or in response to PCA’s follow-up, counsel for PCA again
+
+contacted Northland via email to remind Northland that it still owed PCA a coverage determination
+
+and to inform Northland of its selection of new defense counsel for the Plazio Suit.
+
+        29.     On February 7, 2024, Northland finally responded to PCA’s October 12, 2023
+
+tender by denying coverage to PCA for the Plazio Suit, asserting that PCA does not qualify for
+
+coverage under the Policy on the purported basis that the Plazio Suit’s allegations against PCA are
+
+“for PCA’s independent acts of negligence.”
+
+        30.     In denying coverage to PCA, Northland seeks to read the complaint in the Plazio
+
+Suit with blinders on, ignoring the allegations against Mr. Day and JA that appear in the very same
+
+complaint, ignoring facts that are known and/or reasonably ascertainable by Northland through
+
+reasonable investigation, and ignoring the readily ascertainable nature of Pennsylvania tort law,
+
+which renders PCA potentially liable for damages arising from the alleged acts or omissions of
+
+Mr. Day and JA.
+
+                            COUNT I - BREACH OF CONTRACT
+
+        31.     PCA incorporates by reference and realleges Paragraphs 1 through 30, as though
+
+fully stated herein.
+
+        32.     The Plazio Suit alleges that Mr. Plazio suffered “bodily injury” that resulted from
+
+ownership, maintenance or use of a covered “auto” as those terms are used in the Policy.
+
+
+
+
+                                               -6-
+     Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 7 of 197 PageID #:7
+
+
+
+
+        33.     Although Northland received notice of the Plazio Suit and demand has been made
+
+on Northland for defense of PCA against that suit, Northland has failed and refused to perform its
+
+contractual obligations to provide defense coverage to PCA with respect to the Plazio Suit.
+
+        34.     By virtue of this failure and refusal, Northland is in breach of its obligations under
+
+the Policy.
+
+        35.     Any conditions precedent to coverage under the Policy have been satisfied, waived,
+
+or are otherwise inapplicable.
+
+        36.     As a result of Northland’s breaches of the Policy, PCA has been denied the benefits
+
+of insurance coverage under the Policy and PCA has incurred damages for amounts it has paid as
+
+a result of the Plazio Suit, including attorneys’ fees and expenses it has been forced to incur and
+
+will continue to incur in defense of the Plazio Suit.
+
+        WHEREFORE, PCA respectfully prays that the Court:
+
+                A. Award PCA its actual damages sustained as a result of Northland’s breaches
+
+                       of the Policy, in an amount to be established through proof at trial;
+
+                B. Award PCA its costs and expenses, including but not limited to attorneys’ fees,
+
+                       in bringing and pursuing this action;
+
+                C. Award PCA pre-judgment and post-judgment interest; and
+
+                D. Award PCA any other and further relief to which it is entitled.
+
+                               COUNT II – DECLARATORY RELIEF
+
+        37.     PCA incorporates by reference and realleges Paragraphs 1 through 36, as though
+
+fully stated herein.
+
+        38.     Pursuant to the terms and conditions of the Policy, Northland is obligated to defend
+
+PCA against the Plazio Suit.
+
+
+
+
+                                                   -7-
+     Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 8 of 197 PageID #:8
+
+
+
+
+        39.     Northland has denied that it is obligated to defend PCA against the Plazio Suit.
+
+        40.     An actual controversy of a justiciable nature presently exists between PCA and
+
+Northland concerning the parties’ rights and obligations under the Policy.
+
+        WHEREFORE, PCA respectfully prays that the Court:
+
+                A. Declare that Northland is obligated to defend PCA against the Plazio Suit;
+
+                B. Award PCA its costs and expenses, including but not limited to attorneys’ fees,
+
+                       in bringing and pursuing this action;
+
+                C. Award PCA pre-judgment and post-judgment interest; and
+
+                D. Award PCA any other and further relief to which it is entitled.
+
+                         COUNT III – EXTRA-CONTRACTUAL RELIEF
+
+        41.     PCA incorporates by reference and realleges Paragraphs 1 through 40, as though
+
+fully stated herein.
+
+        42.     Northland’s breaches of the Policy and failure to defend PCA are unreasonable,
+
+frivolous, unfounded, outrageous and/or otherwise in violation of common law and applicable
+
+statute, including but not limited to 42 Pa. C.S.A. § 8371, to the extent that Pennsylvania law
+
+applies to Northland’s conduct.
+
+        43.     As a direct and natural consequence of Northland’s conduct, to the extent that
+
+Pennsylvania law applies, PCA is entitled to the common law and statutory remedies provided
+
+therefor, including without limitation, money damages in an amount to be proven at trial, punitive
+
+damages in an amount sufficient to deter Northland from such conduct in the future, statutory
+
+penalties, attorneys’ fees and costs, and interest.
+
+        44.     Northland’s breaches of the Policy and failure to defend PCA are vexatious and
+
+unreasonable in violation of 215 ILCS § 5/155, to the extent that Illinois law applies to Northland’s
+
+
+
+
+                                                   -8-
+     Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 9 of 197 PageID #:9
+
+
+
+
+conduct, pursuant to which PCA is entitled to statutory remedies, including without limitation,
+
+money damages in an amount to be proven at trial, statutory penalties, attorneys’ fees, and costs.
+
+       WHEREFORE, PCA respectfully prays that the Court:
+
+               A. Award PCA its actual damages sustained as a result of Northland’s breaches
+
+                   of the Policy, in an amount to be established through proof at trial;
+
+               B. Award PCA punitive damages in an amount sufficient to deter Northland from
+
+                   future acts of bad faith;
+
+               C. Award PCA its costs and expenses, including but not limited to attorneys’ fees,
+
+                   in bringing and pursuing this action;
+
+               D. Award PCA statutory penalties and/or statutory damages;
+
+               E. Award PCA pre-judgment and post-judgment interest; and
+
+               F. Award PCA any other and further relief to which it is entitled.
+
+                                 DEMAND FOR JURY TRIAL
+
+       Plaintiff hereby demands trial by jury for all issues deemed so triable.
+
+Dated: February 26, 2024                       Respectfully submitted,
+
+
+
+                                               By: /s/ Thomas A. Marrinson
+                                                   Thomas A. Marrinson
+                                                   REED SMITH LLP
+                                                   10 S. Wacker Drive, 40th Floor
+                                                   Chicago, Illinois 60606
+                                                   Telephone: (312) 207-3868
+                                                   Facsimile: (312) 207-6400
+                                                   tmarrinson@reedsmith.com
+
+                                                   COUNSEL FOR PLAINTIFF PACKAGING
+                                                   CORPORATION OF AMERICA
+
+
+
+
+                                                -9-
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 10 of 197 PageID #:10
+
+
+
+
+                        EXHIBIT A
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 11 of 197 PageID #:11
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 12 of 197 PageID #:12
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 13 of 197 PageID #:13
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 14 of 197 PageID #:14
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 15 of 197 PageID #:15
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 16 of 197 PageID #:16
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 17 of 197 PageID #:17
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 18 of 197 PageID #:18
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 19 of 197 PageID #:19
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 20 of 197 PageID #:20
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 21 of 197 PageID #:21
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 22 of 197 PageID #:22
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 23 of 197 PageID #:23
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 24 of 197 PageID #:24
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 25 of 197 PageID #:25
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 26 of 197 PageID #:26
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 27 of 197 PageID #:27
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 28 of 197 PageID #:28
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 29 of 197 PageID #:29
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 30 of 197 PageID #:30
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 31 of 197 PageID #:31
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 32 of 197 PageID #:32
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 33 of 197 PageID #:33
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 34 of 197 PageID #:34
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 35 of 197 PageID #:35
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 36 of 197 PageID #:36
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 37 of 197 PageID #:37
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 38 of 197 PageID #:38
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 39 of 197 PageID #:39
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 40 of 197 PageID #:40
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 41 of 197 PageID #:41
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 42 of 197 PageID #:42
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 43 of 197 PageID #:43
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 44 of 197 PageID #:44
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 45 of 197 PageID #:45
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 46 of 197 PageID #:46
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 47 of 197 PageID #:47
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 48 of 197 PageID #:48
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 49 of 197 PageID #:49
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 50 of 197 PageID #:50
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 51 of 197 PageID #:51
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 52 of 197 PageID #:52
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 53 of 197 PageID #:53
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 54 of 197 PageID #:54
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 55 of 197 PageID #:55
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 56 of 197 PageID #:56
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 57 of 197 PageID #:57
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 58 of 197 PageID #:58
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 59 of 197 PageID #:59
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 60 of 197 PageID #:60
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 61 of 197 PageID #:61
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 62 of 197 PageID #:62
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 63 of 197 PageID #:63
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 64 of 197 PageID #:64
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 65 of 197 PageID #:65
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 66 of 197 PageID #:66
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 67 of 197 PageID #:67
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 68 of 197 PageID #:68
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 69 of 197 PageID #:69
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 70 of 197 PageID #:70
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 71 of 197 PageID #:71
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 72 of 197 PageID #:72
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 73 of 197 PageID #:73
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 74 of 197 PageID #:74
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 75 of 197 PageID #:75
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 76 of 197 PageID #:76
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 77 of 197 PageID #:77
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 78 of 197 PageID #:78
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 79 of 197 PageID #:79
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 80 of 197 PageID #:80
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 81 of 197 PageID #:81
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 82 of 197 PageID #:82
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 83 of 197 PageID #:83
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 84 of 197 PageID #:84
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 85 of 197 PageID #:85
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 86 of 197 PageID #:86
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 87 of 197 PageID #:87
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 88 of 197 PageID #:88
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 89 of 197 PageID #:89
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 90 of 197 PageID #:90
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 91 of 197 PageID #:91
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 92 of 197 PageID #:92
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 93 of 197 PageID #:93
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 94 of 197 PageID #:94
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 95 of 197 PageID #:95
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 96 of 197 PageID #:96
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 97 of 197 PageID #:97
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 98 of 197 PageID #:98
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 99 of 197 PageID #:99
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 100 of 197 PageID #:100
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 101 of 197 PageID #:101
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 102 of 197 PageID #:102
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 103 of 197 PageID #:103
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 104 of 197 PageID #:104
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 105 of 197 PageID #:105
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 106 of 197 PageID #:106
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 107 of 197 PageID #:107
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 108 of 197 PageID #:108
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 109 of 197 PageID #:109
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 110 of 197 PageID #:110
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 111 of 197 PageID #:111
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 112 of 197 PageID #:112
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 113 of 197 PageID #:113
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 114 of 197 PageID #:114
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 115 of 197 PageID #:115
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 116 of 197 PageID #:116
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 117 of 197 PageID #:117
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 118 of 197 PageID #:118
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 119 of 197 PageID #:119
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 120 of 197 PageID #:120
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 121 of 197 PageID #:121
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 122 of 197 PageID #:122
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 123 of 197 PageID #:123
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 124 of 197 PageID #:124
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 125 of 197 PageID #:125
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 126 of 197 PageID #:126
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 127 of 197 PageID #:127
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 128 of 197 PageID #:128
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 129 of 197 PageID #:129
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 130 of 197 PageID #:130
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 131 of 197 PageID #:131
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 132 of 197 PageID #:132
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 133 of 197 PageID #:133
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 134 of 197 PageID #:134
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 135 of 197 PageID #:135
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 136 of 197 PageID #:136
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 137 of 197 PageID #:137
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 138 of 197 PageID #:138
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 139 of 197 PageID #:139
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 140 of 197 PageID #:140
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 141 of 197 PageID #:141
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 142 of 197 PageID #:142
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 143 of 197 PageID #:143
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 144 of 197 PageID #:144
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 145 of 197 PageID #:145
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 146 of 197 PageID #:146
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 147 of 197 PageID #:147
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 148 of 197 PageID #:148
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 149 of 197 PageID #:149
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 150 of 197 PageID #:150
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 151 of 197 PageID #:151
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 152 of 197 PageID #:152
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 153 of 197 PageID #:153
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 154 of 197 PageID #:154
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 155 of 197 PageID #:155
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 156 of 197 PageID #:156
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 157 of 197 PageID #:157
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 158 of 197 PageID #:158
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 159 of 197 PageID #:159
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 160 of 197 PageID #:160
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 161 of 197 PageID #:161
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 162 of 197 PageID #:162
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 163 of 197 PageID #:163
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 164 of 197 PageID #:164
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 165 of 197 PageID #:165
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 166 of 197 PageID #:166
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 167 of 197 PageID #:167
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 168 of 197 PageID #:168
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 169 of 197 PageID #:169
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 170 of 197 PageID #:170
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 171 of 197 PageID #:171
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 172 of 197 PageID #:172
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 173 of 197 PageID #:173
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 174 of 197 PageID #:174
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 175 of 197 PageID #:175
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 176 of 197 PageID #:176
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 177 of 197 PageID #:177
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 178 of 197 PageID #:178
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 179 of 197 PageID #:179
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 180 of 197 PageID #:180
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 181 of 197 PageID #:181
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 182 of 197 PageID #:182
+
+
+
+
+                          EXHIBIT B
+    Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 183 of 197 PageID #:183
+
+
+
+
+               IN THE COURT OF COMMON PLEAS OF ALLEGHENY COUNTY, PENNSYLVANIA
+
+STEVEN PLAZIO, as ADMINISTRATOR                                         CIVIL DIVISION
+of the ESTATE OF SAMUEL R. PLAZIO,
+                                                                        GD NO. 22-12158
+                           Plaintiff,
+
+
+
+                   VS.
+
+
+
+PACKAGING CORPORATION OF AMERICA,
+a DELAWARE CORPORATION, WILLIAM DAY,
+and J A TRUCKING INC.,
+a   PENNSYLVANIA CORPORATION;
+
+                           Defendants.
+
+
+
+                                        COMPLAINT IN CIVIL ACTION
+
+           AND NOW comes the Plaintiff, Steven Plazio, as Administrator of the Estate of Samuel R. Plazio,
+
+
+and files the following Complaint in Civil Action against the Defendants, Packaging Corporation of America,
+
+
+a   Delaware Corporation, William Day, and J A Trucking, Inc., averring in support as follows:
+
+
+          1.       The Plaintiff, Steven Plazio,   is   an adult individual who resides at 303 Marengo Lane,
+
+
+Pennsylvania Furnace, Centre County,          Pennsylvania     16865.    Steven   Plazio was sworn in as the
+
+
+Administrator of the Estate of Samuel R. Plazio on June 23, 2022.
+
+
+          2.       The Defendant, Packaging Corporation of America (“PCA”), is a Delaware Corporation
+
+
+with a local address at 499 Nixon Road, Cheswick, Allegheny County, Pennsylvania 15024.
+
+
+          3.       The Defendant, William Day (“Day”), is an adult individual with a last known address at
+
+
+137 McCune Road, Ruffsdale, Westmoreland County, Pennsylvania 15679.
+  Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 184 of 197 PageID #:184
+
+
+
+            4.       The Defendant, J A Trucking Inc. (“J A”), is a Pennsylvania Corporation with an address at
+
+
+212 Country Lane, West Newton, Westmoreland County, Pennsylvania 15089.
+
+
+            5.       The incident giving rise to this lawsuit, which ultimately resulted in the tragic death of
+
+
+Plaintiff's      decedent,   Samuel   Plazio, occurred   on June   6,   2022,   in Cheswick,   Allegheny   County,
+
+
+Pennsylvania, on the property owned and operated by Defendant PCA.
+
+
+            6.       At all times relevant hereto, Plaintiff believes and therefore avers that Defendant PCA
+
+
+conducted business producing and distributing packaging materials throughout the United States, and
+
+
+specifically at their warehouse and manufacturing facility at 499 Nixon Road, Cheswick, Allegheny County,
+
+
+Pennsylvania.
+
+            7.       Defendant PCA’s Nixon Road facility consists of a narrow thoroughfare for the ingress and
+
+
+egress of tractor trailers continuously arriving and leaving the facility.
+
+
+            8.       This thoroughfare runs parallel to an area with twenty-seven (27) loading docks located
+
+
+on the northwest side of the facility.
+
+            9.       The thoroughfare is also lined with unhitched trailers, on the side opposite the loading
+
+
+docks, that are staged there to be moved and loaded and/or are loaded and waiting to be hauled from
+
+
+the facility, further narrowing and congesting the thoroughfare for the ingress and egress of tractor
+
+
+trailers.
+
+
+            10.       At all times relevant hereto, Plaintiff believes and therefore avers that Defendant J A
+
+
+conducted business as a trucking company and provided various trucking and hauling services throughout
+
+
+the Commonwealth of Pennsylvania and, specifically, at Defendant PCA’s Nixon Road facility.
+
+            41.       Plaintiff believes and therefore avers that at all times relevant, Defendant J A contracted
+
+
+with Defendant PCA to provide trucking services at the Nixon Road facility and specifically to provide
+
+
+drivers, known as “lot jockeys”, at the facility to move and jockey trailers to and from the loading docks
+
+
+from various spots along the thoroughfare.
+  Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 185 of 197 PageID #:185
+
+
+
+          12,    Plaintiff believes and therefore avers that at all times relevant, Defendant William Day
+
+
+                              J
+was employed by Defendant A as a driver and assigned to Defendant PCA’s Nixon Road facility, whose
+
+
+duties included, but were not limited to, utilizing a tractor to hitch on to trailers from various spots in the
+
+
+thoroughfare and move them to and from the various loading docks.
+
+FACTS OF THE UNSAFE NATURE OF THE CONGESTION AND TRAFFIC CAUSED BY TRUCKS AND TRAILERS
+
+
+                               AT DEFENDANT PCA’S NIXON ROAD FACILITY
+
+
+          13.    Defendant PCA’s Nixon Road facility, and specifically the area of the thoroughfare
+
+providing access to trucks and trailers to the loading docks, is oriented in such a way and congested with
+
+
+stationary trailers and idling trucks, that causes traffic to be constrained from safely maneuvering around
+
+
+the facility.
+
+          14.    In addition, during regular business hours, it is customary at Defendant PCA’s Nixon    Road
+
+
+facility for multiple pedestrians to be wandering about the lot of the facility, including, but not limited to,
+
+
+employees of Defendant PCA and/or drivers making deliveries to the facility, in the areas of the
+
+
+thoroughfare, the parked trailers, and/or the loading docks, bays, stalls, and pedestrian aisleways.
+
+
+          15.    During regular business hours, it is customary at Defendant PCA’s Nixon Road facility for
+
+
+multiple trucks, with or without trailers, and whether they be arriving or departing the facility, or jockeying
+
+
+trailers around the lot, to be moving around the cramped facility, and specifically within the thoroughfare
+
+
+adjacent to the loading docks, creating congested and constrained traffic conditions.
+
+          16.    Due to the layout and orientation of the building, much    of the maneuvering of trucks and
+
+trailers, including, but not limited those operated by Defendant Day, on the date of the incident described
+
+
+in this Complaint, as well as previously, must be done in reverse and in switchback and T-moves,
+
+
+considerably restricting a driver’s vision, sight lines, and ability to see and discover pedestrians or other
+
+
+hazards which may be obstructing their travel.
+ Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 186 of 197 PageID #:186
+
+
+
+        17.     The areas around the loading dock bays and stalls of Defendant PCA’s Nixon Road facility,
+
+
+and specifically near loading dock 25 where the subject accident took place, are quite narrow, allowing
+
+
+for only a narrow aisleway for pedestrians, such as Plaintiff's decedent, providing no safe refuge for such
+
+pedestrians other than those narrow aisleways.
+
+        18.      Due to the configuration of the bays, stalls, and pedestrian aisleways of Defendant PCA’s
+
+
+Nixon Road facility, drivers, including, but not limited to Defendant Day, operating a full-length tractor-
+
+
+trailer in reverse must carefully “thread a needle,” causing their attention to be carefully focused on the
+
+movement of the tractor trailer as it backs towards the dock door, and not on any potential pedestrian or
+
+
+other obstacle or hazard, such as Plaintiff's decedent.
+
+        19.     Due to the configuration of the bays, stalls, and pedestrian aisleways of Defendant PCA’s
+
+
+Nixon Road facility, drivers, including, but not limited to Defendant Day, operating a full-length tractor-
+
+
+trailer in reverse, have a severely restricted rearview of anything or anyone near the loading dock door or
+
+
+near the loading dock itself.
+
+
+        20.      During regular business hours, it is customary at Defendant PCA’s Nixon Road facility for
+
+
+multiple backing alarm of tractor-trailers blaring at the same time, making it impossible for pedestrians to
+
+
+be alerted to any particular trailer moving in reverse.
+
+                  FACTS OF PLAINTIFFS DECEDENT SAMUEL R. PLAZIO’S TRAGIC DEATH
+
+
+        21.      On June 6, 2022, Plaintiffs decedent was employed by Shanahan Transportation as a
+
+
+truck driver operating a box truck, and in the course and scope of his employment, he arrived at Defendant
+
+
+PCA’s Nixon Road facility to make a delivery operating a box truck.
+
+         22.     Because the Nixon Road facility has no security gate or exterior office for directing
+
+
+incoming trucks as to where to go, Plaintiff's decedent was forced to park his box truck in the thoroughfare
+
+near the middle of the facility and exit his truck in order to locate an employee of Defendant PCA who
+
+
+could direct him where to go.
+  Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 187 of 197 PageID #:187
+
+
+
+          23.    After receiving instructions to proceed to Bay 26, Plaintiff's decedent returned to his truck
+
+
+and drove to Bay 26 to complete his delivery.
+
+
+          24,    After arriving at Bay 26, Plaintiffs decedent backed his truck to the loading dock so that
+
+
+his delivery could be completed.
+
+
+          25.    After backing up his truck to the loading dock, Plaintiff's decedent exited the truck, and
+
+
+due to the configuration of the loading dock bays and stalls, his exit placed him within a close proximity
+
+
+of the pathway of a tractor trailer that would be backing up to reach the loading dock of Bay 25, such as
+
+Defendant Day.
+
+          26.    At some time after Plaintiff's decedent exited his truck, Defendant Day hooked onto a
+
+
+trailer with a tractor and drove to the area of the lot near Bay 25.
+
+          27.    Due to the congested nature of the lot, included numerous parked trailers, as well as the
+
+
+configuration of the lot and thoroughfare, Defendant Day had to utilize switchbacks, T-moves and reverse
+
+
+driving in order to position his tractor trailer to be able to back up to the loading dock of Bay 25.
+
+
+          28.    Due to the need of Defendant Day to utilize these maneuvers to back into Bay 25, his sight
+
+
+lines to the loading dock were blocked by other trailers already parked by the load dock bays adjacent to
+
+
+Bay 25.
+
+          29.    Prior to initiating his switchbacks, T-moves, and reverse driving, Defendant Day failed to
+
+
+look for pedestrians or other hazards, including, but not limited to the presence of Plaintiff's decedent,
+
+
+within the path of his trailer as he proceeded to back into Bay 25.
+
+          30.    Additionally, prior to initiating his switchbacks, T-moves, and reverse driving, Defendant
+
+
+Day failed to take any steps to provide a warning to any pedestrians who may have been in his trailer’s
+
+
+path to Bay 25, such as Plaintiff's decedent.
+
+          31.    Defendant Day began backing his tractor trailer toward the loading dock of Bay 25 and
+
+
+failed to notice Plaintiff's decedent standing directly in his trailer’s path.
+  Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 188 of 197 PageID #:188
+
+
+
+            32.   As Defendant Day continued backing toward the loading dock of Bay 25, Defendant Day’s
+
+
+trailer struck Plaintiff's decedent in the back and/or buttocks and pinned his body at approximately
+
+abdomen level between the rear of Defendant Day’s trailer and the loading dock of Bay 25.
+
+
+        33.       After Defendant Day backed his truck to loading dock 25, he unhitched his trailer and
+
+
+drove his tractor away from loading dock 25 without exiting his tractor to visibly inspect the connection
+
+
+between the loading dock and his trailer to determine whether there was anything obstructing this
+
+
+attachment, such as Plaintiff's decedent.
+
+            34.   Plaintiff's decedent’s body was pinned between the trailer and the loading dock, causing
+
+
+him to be unable to breath and offering him no opportunity to retreat or free himself from being pinned
+
+
+between the trailer and the loading dock.
+
+        35.       Plaintiff’s decedent was not discovered until an employee of Defendant PCA opened the
+
+
+loading dock door of Bay 25 and shockingly found Plaintiffs decedent blue in the face and bleeding from
+
+
+his ears.
+
+
+            36.   As he was slowly crushed to death, Plaintiff's decedent was still alive for such a time
+
+
+period that he would have been cognizant of the excruciating pain and fully aware of his impending death.
+
+
+            37.   After unknowingly pinning Plaintiff's decedent, Defendant Day drove his tractor to the
+
+
+opposite side of the Nixon Road facility before he was informed that he pinned Plaintiff's decedent
+
+
+between the trailer and loading dock of Bay 25.
+
+            38.   At this point, he contacted a fellow lot jockey to move the trailer pinning Plaintiffs
+
+decedent, and slowly crushing him to death, to give emergency personnel an opportunity to administer
+
+
+potential lifesaving treatment.
+
+            39.   The responding emergency personnels’ efforts were futile, and Plaintiff's decedent was
+
+
+ pronounced dead at the scene, with the ultimate cause of death ruled as blunt force trauma to the torso.
+ Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 189 of 197 PageID #:189
+
+
+
+                                         COUNT I~ SURVIVAL ACTION
+
+
+               Steven Plazio, as Administrator of the Estate of Samuel R. Plazio, deceased
+
+
+                                      v. Packaging Corporation of America
+
+        40.      Plaintiff incorporates Paragraphs 1 through 39 of this Complaint as if the same were set
+
+
+forth herein at length.
+
+        41.      All of the resultant losses, damages, and injuries sustained by Plaintiff's decedent were
+
+
+the direct and proximate result of the negligent and careless conduct of Defendant PCA, as follows:
+
+                 a.   in operating, maintaining, and providing for use to an unsafe facility for delivery
+                      drivers, generally, and Plaintiff's decedent, specifically;
+
+
+                 b.   in operating, maintaining, and providing for use to employees, contractors, business
+                      invitees, and authorized personnel an unsafe facility for anyone operating any vehicle
+                      on the property such that they are forced to endure constrained maneuvering in the
+                      traffic ways of the facility;
+
+                 c.   In operating,   maintaining, and providing for use to employees, contractors, business
+                      invitees, and authorized personnel an unsafe facility for anyone operating a vehicle
+                      on the property, or pedestrians, such as Plaintiff's decedent, by allowing various
+                      trucks, tractors, and/or trailers to be positioned in such a way that makes ingress and
+                      egress unreasonably dangerous;
+
+
+                 d.   In operating,   maintaining, and providing for use to employees, contractors, business
+                      invitees, and authorized personnel an unsafe          facility for pedestrians, such as
+                      Plaintiff's decedent, near the loading dock by providing unreasonably narrow bays,
+                      stalls, and/or pedestrians aisleways;
+
+
+                 e.   In operating,   maintaining, and providing for use to employees, contractors, business
+                      invitees, and authorized personnel an unsafe facility which includes a layout and
+                      design which requires trucks backing trailers to the loading dock, such as Defendant
+                      Day, to have to utilize switchbacks, T-moves, and reverse driving at odd angles to
+                      access the loading dock, constituting an unreasonable risk of harm to others, such as
+                      Plaintiff's decedent;
+
+                 f.   In operating,   maintaining, and providing for use to employees, contractors, business
+                      invitees, and authorized personnel an unsafe facility which included          a   layout and
+                      design which required trucks backing trailers to the loading dock, such as Defendant
+                      Day, to have severely restricted rearview sightlines;
+
+
+                 g.   In failing to require any drivers backing trailers into the loading docks of their facility,
+                      including, but not limited to Defendant Day, to ensure their path to the loading dock
+ Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 190 of 197 PageID #:190
+
+
+
+                        is free from obstructions and/or hazards, such as Plaintiff's decedent,   prior to backing
+                        into a bay;
+
+
+                 h.     In   failing to design the layout and arrangement of their lot adjacent to the loading
+                        dock of their facility in such   a   way that would be safe for pedestrians, such as
+                        Plaintiff's decedent;
+
+
+
+        42,      As a direct result of the negligent and careless conduct of Defendant PCA, Plaintiff claims
+
+
+the following on behalf of the Estate of Samuel Plazio:
+
+                 a.     Pain, suffering, mental anguish, and inconvenience sustain by Plaintiff's decedent;
+
+
+                 b.     Decedent’s future earning power;
+
+
+                 c.     Decedent’s loss of retirement benefits and social security income; and
+
+
+                 d.     Expenses for the administration of the Estate.
+
+
+        WHEREFORE, the Plaintiff, Steven Plazio, as Administrator of the Estate of Samuel R. Plazio,
+
+
+respectfully requests judgment in his favor and against Defendants, Packaging Corporation of America,
+
+
+William Day, and J A Trucking Inc., in an amount in excess of the arbitration limits of this Court, plus costs
+
+
+of suit as sustained.
+
+                                          COUNT   If—WRONGFUL DEATH
+               Steven Plazio, as Administrator of the Estate of Samuel R. Plazio, deceased
+
+
+                                        v. Packaging Corporation of America
+
+        43.      The Plaintiff incorporates Paragraphs 1 through 42 of this Complaint as if the same were
+
+
+set forth herein at length.
+
+
+        44,      As a result of the foregoing, Plaintiff sets forth the following beneficiaries under the
+
+
+Wrongful Death Act of the Commonwealth of Pennsylvania who suffered damages:
+
+
+                 a.     Steven Plazio
+                        303 Marengo Lane
+                        Pennsylvania Furnace,
+                         Pennsylvania 16865
+ Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 191 of 197 PageID #:191
+
+
+
+        45.      As a result of the foregoing, Plaintiff claims damages under the Wrongful Death Act of the
+
+
+Commonwealth of Pennsylvania for and on behalf of the Decedent's aforementioned next of kin:
+
+                 a.     Loss of services, consortium, and contribution, which the Plaintiffs decedent would
+                        have rendered during his lifetime had he not been killed by the conduct of the
+                        Defendants;
+
+
+                 b.     Funeral and burial expenses; and
+
+
+                 c.     Expenses of the administration of the Estate.
+
+
+        WHEREFORE, the Plaintiff, Steven Plazio, as Administrator of the Estate of Samuel R. Plazio,
+
+
+respectfully requests judgment in his favor and against Defendants, Packaging Corporation of America,
+
+
+               J A Trucking Inc., in an amount in excess of the arbitration limits of this Court, plus costs
+William Day, and
+
+
+of suit as sustained.
+
+                                         COUNT III — SURVIVAL ACTION
+
+
+       Steven Plazio, as Administrator of the Estate of Samuel R. Plazio, deceased v. William Day
+
+
+        46.      Plaintiff incorporates Paragraphs 1 through 43 of this Complaint as if the same were set
+
+
+forth herein at length.
+
+        47.      All of the resultant losses, damages, and injuries sustained by Plaintiff's decedent were
+
+
+the direct and proximate result of the negligent and careless conduct of Defendant Day, as follows:
+
+                 a.         In operating his tractor trailer in such a way so as to create an
+                            unreasonable risk of harm to foreseeable pedestrians located
+                            near the loading dock, such as Plaintiff's decedent;
+
+
+                 b.         In failing to keep a reasonable lookout for hazards or
+                            obstructions in his path to the loading dock, such as Plaintiff's
+                            decedent;
+
+
+                 c.         In failing to have his vehicle under   proper and adequate control
+                            under the circumstances;
+
+
+                 d.         In failing to use and/or apply the braking mechanism,    or take
+                            any other reasonable steps to avoid a striking Plaintiff's
+                            decedent;
+ Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 192 of 197 PageID #:192
+
+
+
+                 e,         In failing to observe Plaintiff's decedent until he had no
+                            opportunity to avoid striking Plaintiff's decedent;
+
+
+                f.          in failing to observe pedestrians, such as Plaintiff's decedent,
+                            located in his path to the loading dock;
+
+
+                 g.         in failing to operate his tractor trailer in a reasonable manner
+                            under the circumstances;
+
+
+                 h.         in failing to adhere to the policies and procedures of Defendant
+                           J A with regard to the safe operation of tractors and/or trailers
+                           within the scope of his employment; and
+
+
+                i.          In failing to adhere to the policies and procedures of Defendant
+                            PCA with regard to the safe operation of tractors and/or trailers
+                           on their property within the scope of this employment.
+
+
+
+        48.      Asa direct result of the negligent and careless conduct of Defendant Day, Plaintiff claims
+
+
+the following on behalf of the Estate of Samuel Plazio:
+
+                 a.     Pain, suffering, mental anguish, and inconvenience sustain by Plaintiff's decedent;
+
+
+                 b.     Decedent's future earning power;
+
+
+                 c.     Decedent's loss of retirement benefits and social security income; and
+
+
+                 d.     Expenses for the administration of the Estate.
+
+
+        WHEREFORE, the Plaintiff, Steven Plazio, as Administrator of the Estate of Samuel           R.   Plazio,
+
+
+respectfully requests judgment in his favor and against Defendants, Packaging Corporation of America,
+
+
+William Day, and J A Trucking Inc., in an amount in excess of the arbitration limits of this Court, plus costs
+
+
+of suit as sustained.
+
+                                        COUNT IV — WRONGFUL DEATH
+
+       Steven Plazio, as Administrator of the Estate of Samuel R. Plazio, deceased v. William Day
+
+
+        49.          The Plaintiff incorporates Paragraphs 1 through 48 of this Complaint as if the same were
+
+
+set forth herein at length.
+ Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 193 of 197 PageID #:193
+
+
+
+
+        50.      As a result of the foregoing, Plaintiff sets forth the following beneficiaries under the
+
+
+Wrongful Death Act of the Commonwealth of Pennsylvania who suffered damages:
+
+
+                 a.     Steven Plazio
+                        303 Marengo Lane
+                        Pennsylvania Furnace,
+                        Pennsylvania 16865
+
+
+        51.      Asa result of the foregoing, Plaintiff claims damages under the Wrongful Death Act of the
+
+
+Commonwealth of Pennsylvania for and on behalf of the Decedent’s aforementioned next of kin:
+
+                 a.     Loss of services, consortium, and contribution, which the Plaintiff's decedent would
+                        have rendered during his lifetime had he not been killed by the conduct        of the
+                        Defendants;
+
+
+                 b.     Funeral and burial expenses; and
+
+
+                 c.     Expenses of the administration of the Estate.
+
+
+        WHEREFORE, the Plaintiff, Steven Plazio, as Administrator of the Estate of Samuel R. Plazio,
+
+
+respectfully requests judgment in his favor and against Defendants, Packaging Corporation of America,
+
+William Day, and J A Trucking Inc., in an amount in excess of the arbitration limits of this Court, plus costs
+
+
+of suit as sustained.
+
+                                         COUNT V— SURVIVAL ACTION
+
+    Steven Plazio, as Administrator of the Estate of Samuel R. Plazio, deceased v. J A Trucking, Inc.
+
+
+         51.     Plaintiff incorporates Paragraphs 1 through 50 of this Complaint as if the same were set
+
+
+forth herein at length.
+
+         52.     All of the resultant losses, damages, and injuries sustained by Plaintiff's decedent were
+
+
+the direct and proximate result of the negligent and careless conduct of Defendant Day, for which
+
+
+        J A is vicariously liable, as follows:
+Defendant
+
+                 a.         In operating his tractor trailer in such a way so as to create an
+
+                            unreasonable risk of harm to foreseeable pedestrians located
+                            near the loading dock, such as Plaintiff's decedent;
+ Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 194 of 197 PageID #:194
+
+
+
+
+                        In failing to keep   a   reasonable lookout for hazards or
+                        obstructions in his path to the loading dock, such as Plaintiff's
+                        decedent;
+
+
+                        In failing to have his vehicle   under proper and adequate control
+                        under the circumstances;
+
+
+                        in failing to use and/or apply the braking mechanism, or take
+                       any other reasonable steps to avoid a striking Plaintiff's
+                       decedent;
+
+
+                        In failing to observe Plaintiff's decedent until he had no
+                       opportunity to avoid striking Plaintiff's decedent;
+
+
+                        In failing to observe pedestrians, such as Plaintiff's decedent,
+                        located in his path to the loading dock;
+
+
+                        In failing to operate his tractor trailer in a reasonable manner
+                        under the circumstances;
+
+                        in failing to adhere to the policies and procedures of Defendant
+                       J Awith regard to the safe operation of tractors and/or trailers
+                       within the scope of his employment; and
+
+                        In failing to adhere to the policies and procedures of Defendant PCA with regard
+                       to the safe operation of tractors and/or trailers on their property within the scope
+                        of this employment.
+
+               All of the resultant losses, damages, and injuries sustained by Plaintiff's decedent were
+
+
+the direct and proximate result of the negligent and careless conduct of Defendant J A, individually, as
+
+
+follows:
+
+                        In hiring Defendant Day as a driver when they knew or should
+                        have known that he was not qualified to safely operate a tractor
+                        trailer;
+
+                        in engaging the services of Defendant Day as a driver, when they
+                        knew or should have known he was not qualified to safely
+                        operatea tractor trailer;
+
+
+                        In failing to adequately train, supervise, and instruct Defendant
+                        Day in a manner as to how to properly and safely operate said
+                        tractor trailer;
+  Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 195 of 197 PageID #:195
+
+
+
+                 d.                   Defendant Day to remain in their employ when they
+                            In allowing
+                            knew or should have known he was not qualified to safely
+                            operate the tractor trailer;
+
+
+        54,                                                                         J A, Plaintiff claims
+                 As a direct result of the negligent and careless conduct of Defendant
+
+
+the following on behalf of the Estate of Samuel Plazio:
+
+                 e.     Pain, suffering, mental anguish, and inconvenience sustain by Plaintiff's decedent;
+
+
+                 f.     Decedent’s future earning power;
+
+
+                 g.     Decedent’s loss of retirement benefits and social security income; and
+
+
+                 h.     Expenses for the administration of the Estate.
+
+
+        WHEREFORE, the Plaintiff, Steven Plazio, as Administrator of the Estate of Samuel R. Plazio,
+
+
+respectfully requests judgment in his favor and against Defendants, Packaging Corporation of America,
+
+
+William Day, and J A Trucking Inc., in an amount in excess of the arbitration limits of this Court, plus costs
+
+
+of suit as sustained.
+
+                                          COUNT VI — WRONGFUL DEATH
+
+
+    Steven Plazio, as Administrator of the Estate of Samuel R. Plazio, deceased v. J A Trucking, Inc.
+
+
+        55.       The Plaintiff incorporates Paragraphs 1 through 54 of this Complaint as if the same were
+
+
+set forth herein at length.
+
+
+        56.      As a result of the foregoing, Plaintiff sets forth the following beneficiaries under the
+
+
+Wrongful Death Act of the Commonwealth of Pennsylvania who suffered damages:
+
+                 a.     Steven Plazio
+                        303 Marengo Lane
+                        Pennsylvania Furnace,
+                        Pennsylvania 16865
+
+
+         57.     As a result of the foregoing, Plaintiff claims damages under the Wrongful Death Act of the
+
+
+Commonwealth of Pennsylvania for and on behalf of the Decedent's aforementioned next of kin:
+
+
+                  d.    Loss of services, consortium, and contribution, which the Plaintiff's decedent would
+                        have rendered during his lifetime had he not been killed by the conduct of the
+                        Defendants;
+  Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 196 of 197 PageID #:196
+
+
+
+
+                 e.     Funeral and burial expenses; and
+
+
+                 f.     Expenses of the administration of the Estate.
+
+
+        WHEREFORE, the Plaintiff, Steven Plazio, as Administrator of the Estate of Samuel R. Plazio,
+
+
+respectfully requests judgment in his favor and against Defendants, Packaging Corporation of America,
+
+
+William Day, and J A Trucking Inc., in an amount in excess of the arbitration limits of this Court, plus costs
+
+
+of suit as sustained.
+
+
+
+
+                                                     Che
+                                                            Respectfully submitted,
+
+
+
+
+                                                            Raymond J: Corilon} Esquire
+                                                            Matthew     T. coon] Esquire
+Case: 1:24-cv-01581 Document #: 1 Filed: 02/26/24 Page 197 of 197 PageID #:197
+
+
+
+
+                              CERTIFICATE OF SERVICE
+
+
+
+     | hereby certify that the within document was served upon counsel named below on the
+
+
+5h day of October, 2023 by:
+            (fax),   X___ e-mail,          first class, U.S. mail, postage prepaid:
+
+
+
+                                 Mark A. Eck, Esquire
+                                Tucker Arensburg, P.C.
+                                       One PPG Place
+                                         Suite 1500
+                                 Pittsburgh, PA 15222
+                        sent by email to meck@tuckerlaw.com
+
+
+                                    Alan T. Silko, Esquire
+                               SILKO & ASSOCIATES, P.C.
+                                     80 Emerson Lane
+                                         Suite 1305
+                                    Bridgeville, PA 15017
+
+
+                         Sent by email to asilko@silkolaw.com
+
+
+
+
+                                                   Conlon Tarker, P.C.
+
+
+
+
+                                                    Mat
+                                                   Ray       J. C6nlon, Esquire
+                                                   Matth ew T. McCune, Esquire
+                                                   Attorneys for Plaintiff
+

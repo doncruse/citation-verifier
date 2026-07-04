@@ -1,0 +1,798 @@
+         Case 1:24-cv-12330-BEM            Document 19        Filed 05/17/25      Page 1 of 16
+
+
+                          IN THE UNITED STATES DISTRICT COURT
+                          FOR THE DISTRICT OF MASSACHUSETTS
+
+  MARGO SIMMONS, individually and on                    Case No. 24-cv-12330-BEM
+  behalf of all others similarly situated,
+                                                        CLASS ACTION
+                 Plaintiff,
+                                                        JURY TRIAL DEMANDED
+  v.
+
+  AUTHOR REPUTATION PRESS LLC
+
+                 Defendant.
+
+
+
+            PLAINTIFF’S MOTION TO COMPEL RESPONSES TO DISCOVERY
+                 INCLUDING THE PRODUCTION OF CALLING DATA
+                     NECESSARY FOR CLASS CERTIFICATION
+
+       To begin this case, the parties had a straightforward dispute: should all discovery be permitted
+
+ to proceed in one discovery period or was the Defendant able to limit discovery to the individual merits
+
+ of the Plaintiff’s claims? The Court’s decision on this issue was clear:
+
+       bifurcation is ordinarily the exception and not the rule…Defendant has not shown
+       here that bifurcation would serve[] the interests of justice….Defendant has merely
+       pointed out that individual claims are subject to individual defenses, but that is true
+       for all putative class-action plaintiffs. For these reasons, Defendant’s request for
+       bifurcation is DENIED. The Court ADOPTS Plaintiff’s proposed pretrial schedule.
+
+See ECF No. 17. Unfortunately, the Defendant has not provided any calling or consent data related to
+
+any putative class member and the Plaintiff now must file this motion to receive such information.
+
+       Plaintiff Margo Simmons (“Plaintiff”) received discovery responses from Author Reputation
+
+ Press LLC (“Defendant” or “Author Reputation”) on May 7, 2025. See Exhibit 1. In this putative class
+
+ action alleging violations of the Telephone Consumer Protection Act, 47 U.S.C. §227 (“TCPA”) for
+
+ making telemarketing calls to numbers on the National Do Not Call Registry, the Plaintiff sought
+
+ information related to (1) where the Defendant acquired the telephone numbers from that they made
+
+ telemarketing calls to (2) records of the telemarketing calls they made during the class period and (3)
+
+                                                    1
+            Case 1:24-cv-12330-BEM          Document 19        Filed 05/17/25      Page 2 of 16
+
+
+    any records of consent they had to make those calls (an affirmative defense they put at issue). The
+
+    responses included 13 pages of documents and no calling or consent records1.
+
+         This motion to compel follows.
+
+                                            BACKGROUND
+
+         Telemarketing calls are intrusive. A great many people object to these calls, which interfere
+
+with their lives, tie up their phone lines, and cause confusion and disruption. Faced with growing
+
+public criticism of abusive telephone marketing practices, Congress enacted the Telephone Consumer
+
+Protection Act of 1991. Pub. L. No. 102-243, 105 Stat. 2394 (1991) (codified at 47 U.S.C. § 227). As
+
+Congress explained, the law was a response to Americans “outraged over the proliferation of intrusive,
+
+nuisance calls to their homes from telemarketers” id. § 2(6), and sought to strike a balance between
+
+“[i]ndividuals’ privacy rights, public safety interests, and commercial freedoms” id. § 2(9).
+
+         “The law opted for a consumer-driven process that would allow objecting individuals to
+
+prevent unwanted calls to their homes. The result of the telemarketing regulations was the national Do-
+
+Not-Call registry. See 47 C.F.R. § 64.1200(c)(2). Within the federal government’s web of
+
+indecipherable acronyms and byzantine programs, the Do-Not-Call registry stands out as a model of
+
+clarity. It means what it says. If a person wishes to no longer receive telephone solicitations, he can
+
+add his number to the list. The TCPA then restricts the telephone solicitations that can be made to that
+
+number. See id.; 16 C.F.R. § 310.4(b)(iii)(B) (‘It is an abusive telemarketing act or practice and a
+
+violation of this Rule for a telemarketer to . . . initiat[e] any outbound telephone call to a person when .
+
+. . [t]hat person’s telephone number is on the “do-not-call” registry, maintained by the
+
+Commission.’)…Private suits can seek either monetary or injunctive relief. Id…This private cause of
+
+action is a straightforward provision designed to achieve a straightforward result. Congress enacted the
+
+
+1
+ There were references to the Plaintiff’s name and telephone number, but no document that relates to
+her signed written agreement to receive telemarketing calls. In any event, there is no data related to any
+other telephone number called.
+                                                   2
+           Case 1:24-cv-12330-BEM          Document 19        Filed 05/17/25      Page 3 of 16
+
+
+law to protect against invasions of privacy that were harming people. The law empowers each person
+
+to protect his own personal rights. Violations of the law are clear, as is the remedy. Put simply, the
+
+TCPA affords relief to those persons who, despite efforts to avoid it, have suffered an intrusion upon
+
+their domestic peace.” Krakauer v. Dish Network, L.L.C., 925 F.3d 643, 649-50 (4th Cir. 2019).
+
+       Margo Simmons alleges that Author Reputation violated the TCPA by making telemarketing
+
+calls to Plaintiff and other putative class members listed on the National Do Not Call Registry without
+
+their written consent. Plaintiff has never been a customer of Author Reputation and never consented to
+
+receive calls from Author Reputation. See ECF No. 1 at ¶ 19. Id. Despite this, the Plaintiff received calls
+
+from Author Reputation on at least December 13, 2023, February 1, 2024, April 29, 2024, June 3, 2024
+
+and August 29, 2024 (twice). Id. at ¶ 20. The calls were from (888) 821-0229, a number for the
+
+Defendant. Id. at ¶ 21-22. During the first 3 calls the Plaintiff answered he informed the caller that he
+
+had not asked for the call and was not interested in their services. Id. at ¶26. Yet, the subsequent calls
+
+were made. Id. at ¶ 28. Other individuals have complained to the Better Business Bureau about similar
+
+conduct:
+
+               The company has repeatedly violated the Do Not Call List. My phone has been
+               registered for over ten years. They have called me first offering to "freely" promote my
+               already published book at bookstores and then asking for fees. I told them I wasn't
+               interested and to not call back. A couple of months later (1/29 2:32 PM) I get another
+               call and then when I tell the individual that my book is already published, he hangs up.
+               This company is irresponsible and doesn't follow the law.
+
+See Id. at ¶ 29; https://www.bbb.org/us/ma/canton/profile/publishers/author-reputation-press-llc-0021-
+
+477587/complaints. Due to the en masse nature of telemarketing, the plaintiff filed this matter as a
+
+class action and the putative class is defined as follows:
+
+               National DNC Class: All persons in the United States whose (1)
+               telephone numbers were on the National Do Not Call Registry for at least
+               31 days, (2) but who received more than one telemarketing call from or on
+               behalf of Defendant encouraging the purchase of Author Reputation’s
+               goods or services, (3) within a 12-month period (4) at any time in the
+               period that begins four years before the date of filing this Complaint to
+               trial.
+                                                     3
+          Case 1:24-cv-12330-BEM           Document 19       Filed 05/17/25       Page 4 of 16
+
+
+
+
+See ECF No. 1 at ¶ 32.
+
+       The Plaintiff has sought discovery that identifies the other individuals called as well as
+
+information related to the Defendant’s affirmative defense of consent.
+
+                             LOCAL RULE 37.1(a) CERTIFICATION
+
+       Counsel for the Plaintiff Anthony Paronich and Defendant Andrew Schneiderman conferred on
+
+May 16, 2025 for approximately 15 minutes regarding the issues raised in this motion and while they
+
+resolved some issues, they did not reach agreement on the relief sought herein.
+
+                                         LEGAL STANDARD
+
+       Rule 26(b)(1) provides, in pertinent part:
+
+       Parties may obtain discovery regarding any nonprivileged matter that is relevant to any
+       party's claim or defense and proportional to the needs of the case, considering the
+       importance of the issues at stake in the action, the amount in controversy, the parties’
+       relative access to relevant information, the parties’ resources, the importance of the
+       discovery in resolving the issues, and whether the burden or expense of the proposed
+       discovery outweighs its likely benefit. Information within this scope of discovery need
+       not be admissible in evidence to be discoverable.
+
+Fed. R. Civ. P. 26(b)(1).
+
+       As the party resisting discovery, Defendant bears "the burden of showing some sufficient
+
+reason why discovery should not be allowed." Flag Fables, Inc. v. Jean Ann's Country Flags and
+
+Crafts, Inc., 730 F. Supp. 1165, 1186 (D. Mass. 1989) (citation and internal quotation marks omitted).
+
+Merely because compliance with a "Request for Production" would be costly or time-consuming is not
+
+ordinarily sufficient reason to grant a protective order where the requested material is relevant and
+
+necessary to the discovery of evidence “[Where] the plaintiff has a demonstrable need for the
+
+documents, the defendant undisputedly has possession of them, and the plaintiff has no other access to
+
+them . . . . the defendant has a duty pursuant to Rule 34 to produce [responsive documents]..”
+
+Kozlowski v. Sears, Roebuck & Co., 73 F.R.D. 73, 76 (D. Mass. 1976) (internal citations omitted).
+
+
+
+                                                    4
+             Case 1:24-cv-12330-BEM           Document 19       Filed 05/17/25      Page 5 of 16
+
+
+                                                ARGUMENT
+
+      I.      The call records Plaintiff seeks are highly relevant to contested elements of Rule 23
+              and damages
+
+           The disputed request at issue is below:
+
+
+           Request No. 16: Please produce all documents containing any of the following information
+           for each outbound telemarketing call sent by you or your vendors during the putative
+           class period:
+           a) the date and time;
+           b) the caller ID;
+           c) any recorded message used;
+           d) the result;
+           e) identifying information for the recipient; and
+           f) any other information stored by the call detail records.
+
+           RESPONSE:
+           Objection. Defendant objects to this request insofar as it seeks all documents concerning
+           every telemarketing call placed by Defendant during the relevant time period without
+           regard to the violation alleged or the manner in which the call was made. There are
+           simply no qualifiers limiting the breadth of information requested by the Plaintiff. For
+           example, there are no qualifiers regarding whether consent was/was not provided for the
+           calls at issue, whether the calls were placed to a cellular phone or whether the calls even
+           violated the TCPA etc. Plaintiff’s request would undoubtedly lead to produce of myriad
+           records for calls to individuals who are not part of the class. Cf. Fralish v. Digital Media
+           Solutions, 2021 U.S. Dist. LEXIS 22581 at *22 (N.D. Ind. Nov. 17, 2021) (“RFP 21 does not
+           limit the scope of the requested text messages in any way even though Mr. Fralish’s
+           Section 227(c) claim only concerns a specific type of text message sent to a specific type of
+           person….As written, RFP 21 demand production of information pertaining to text
+           messages beyond the scope of advertisement and marketing messages he challenges in this
+           case and other irrelevant aspects of the business relationship between Digital and an
+           unknown number of third parties.”)2. Subject to, and without waiving its objection,
+           Defendant will produce those materials in its possession, custody or control reflecting
+           information for the three calls at issue placed to the Plaintiff.3
+
+See Exhibit 1.
+           The Defendant’s position is in clear disregard for this Court’s directive regarding the scope of
+
+discovery and the information should be compelled.
+
+
+2
+    Ironically, as discussed below, this case compelled classwide calling data in a TCPA case.
+3
+    As discussed above, there are far more than 3 calls at issue.
+                                                      5
+          Case 1:24-cv-12330-BEM           Document 19        Filed 05/17/25      Page 6 of 16
+
+
+       The call records Plaintiff seeks are highly relevant to the numerosity, commonality, typicality,
+
+and predominance elements of Rule 23 and the calculation of class-wide damages.
+
+       As an initial matter, where defendants contest elements of Rule 23 in proposed class actions
+
+under the TCPA, courts routinely require the production of information necessary to support those
+
+requirements. See, e.g., Cahill v. GC Servs. Ltd. P’ship, No. 3:17-cv-01308-GPCMDD, 2018 WL
+
+1791910, at *4 (S.D. Cal. Apr. 16, 2018) (“RFPs 10-13 and 18 are relevant at least to the issues of
+
+numerosity and commonality. The lists are reasonably calculated to identify the number of recipients of
+
+calls made during the class period, which is crucial to determine whether the class is so numerous to
+
+make joinder impracticable. The call lists are also relevant to the commonality requirement under Rule
+
+23(a), for which plaintiff must show the class ‘suffered the same injury ... such that the ... class claims
+
+will share common questions of law or fact” with those of the named plaintiffs.’”); Mbazomo v.
+
+ETourandTravel, Inc., No. 2:16-CV-02229-SB, 2017 WL 2346981, at *5 (E.D. Cal. May 30, 2017)
+
+(compelling the production of call data because “the Court agrees with the weight of authority on this
+
+matter that call logs and dialing lists are relevant to the commonality prong of the class certification
+
+inquiry. The requested list would also be relevant to Plaintiff’s need to show numerosity.”) (internal
+
+citation omitted). As the Northern District of Illinois explained:
+
+       Moreover, the information plaintiff seeks in the contested first and second requests for
+       production is clearly relevant to class discovery; specifically, to the issues of numerosity,
+       commonality, and typicality. As explained above, plaintiff proposes a class of persons
+       who received faxed advertisements without a proper opt out notice, with whom Quill did
+       not have an EBR, and from whom Quill did not have prior express permission or
+       invitation to send such faxes (Compl. at ¶ 20). Plaintiff’s requests seek, for example,
+       copies of all faxed advertising documents, documents showing express permission or
+       invitation to receive such faxes, and documents indicating an EBR with the recipients of
+       the facsimiles.
+
+       As we made clear to Quill in multiple court hearings, the Court cannot permit Quill on
+       one hand to contest class certification and on the other hand deny plaintiff the
+       discovery relevant to its position that a class should be certified.
+
+
+
+
+                                                     6
+          Case 1:24-cv-12330-BEM            Document 19          Filed 05/17/25    Page 7 of 16
+
+
+Whiteamire Clinic, P.A. v. Quill Corp., No. 12 C 5490, 2013 WL 5348377, at *3 (N.D. Ill. Sept. 24,
+
+2013) (emphasis added); see also Central Alarm Signal, Inc. v. Business Fin. Servs., Inc., No. 14-14166,
+
+2016 WL 3595627, at *2 (E.D. Mich. July 5, 2016) (granting motion to compel in putative TCPA class
+
+action, in part, because “the Court cannot permit [Defendant] on the one hand to contest class
+
+certification and on the other hand deny plaintiff the discovery relevant to its position that a class should
+
+be certified.”) (quoting Whiteamire Clinic, P.A., 2013 WL 5348377, at *3); Ossola v. Am. Express Co.,
+
+No. 13 C 4836, 2015 WL 5158712, at *7 (N.D. Ill. Sept. 3, 2015) (“Call data is relevant, and thus
+
+produced as standard practice . . . in cases where the defendant is the alleged dialer.”).
+
+       In the same vein, “[o]utbound dial lists are relevant to establish the issues of numerosity and
+
+commonality under Federal Rule of Civil Procedure 23(a) and are therefore discoverable.” Thomas v.
+
+Fin. Corp. of Am., No. 3:19-CV-152-E, 2019 WL 5157022, at *1 (N.D. Tex. Oct. 10, 2019) (compelling
+
+the production of similar data sought here); Doherty v. Comenity Capital Bank & Comenity Bank, No.
+
+16CV1321-H-BGS, 2017 WL 1885677, at *4 (S.D. Cal. May 9, 2017) (“The Court finds that outbound
+
+dial lists are relevant to establish the issues of numerosity and commonality under Federal Rule of Civil
+
+Procedure 23(a) and are therefore discoverable.”).
+
+       Not surprising, then, is that courts across the country routinely compel TCPA class action
+
+defendants to provide analogous information relevant to the sizes of proposed classes. As the Northern
+
+District of Indiana explained:
+
+       When certifying a class, the Court must find numerosity, commonality, typicality, and
+       predominance. Fed. R. Civ. P. 23. Considering Federal Rule 23’s threshold requirements,
+       precertification discovery is appropriate to determine whether a class can be properly
+       certified, and discovery should be sufficiently broad to allow a putative class plaintiff,
+       like Mr. Fralish, a chance to meet these requirements.
+                                             *       *       *
+
+       Nevertheless, courts in class-action TCPA cases have consistently held that information
+       regarding plaintiffs and putative class members who were called by a defendant or by
+       others on a defendant’s behalf, such as outbound call lists and the number of calls made
+       to those recipients are relevant to the numerosity and commonality requirements listed in
+       Rule 23. . . . Although the requested information here is not precisely a call list, it does
+                                                    7
+         Case 1:24-cv-12330-BEM            Document 19           Filed 05/17/25     Page 8 of 16
+
+
+       seek to quantify the number of calls and is therefore analogous to the outbound call lists
+       that have been found relevant to the numerosity and commonality requirements. Thus,
+       the requested text message-related information is relevant to class certification in a way
+       that is analogous to the relevance of call logs in these other TCPA class actions.
+       Moreover, text messages are analogous to phone calls in other TCPA cases such that the
+       text data requested through ROGs 7–16 and RFPs 7–14, 17, 19, 34–35 is relevant to the
+       Rule 23 numerosity and commonality requirements for class certification applicable in
+       this case.
+                                             *       *       *
+
+       As Digital has not shown the point at which the burden of producing this discovery
+       outweighs its benefits, Digital has not met its burden and its undue burden objections are
+       overruled.
+
+       For the foregoing reasons, Mr. Fralish is entitled to the class related data he seeks through
+       Interrogatories 7–16 and RFPs 7–14, 17, 19, 34–35.
+
+Fralish v. Digital Media Sols., Inc., No. 3:21-cv-00045-JD-MGG, 2021 WL 5370104, at *9-10 (N.D.
+
+Ind. Nov. 17, 2021) (compelling the production of class data in a putative TCPA class action) (internal
+
+citations and quotations omitted); accord Fralish v. Deliver Tech., LLC, No. 3:20-CV-00353-DRL-
+
+MGG, 2021 WL 3285528, at *9 (N.D. Ind. Aug. 2, 2021) (“For the foregoing reasons, Plaintiff is entitled
+
+to the class related data he seeks through RFPs 7-14 & 33, and ROGs 9-15.”).
+
+       Also analogous, a Court in the Eastern District of Pennsylvania has held in a TCPA case while
+
+compelling the same data:
+
+       Frey has shown that the outbound call list is relevant to class certification and to the merits
+       of his claim. See, e.g., Gossett v. CMRE Fin. Servs., 142 F.Supp.3d 1083, 1087 (S.D. Cal.
+       2015) ("This court finds that the outbound call lists are relevant to the class claims and
+       meritorious claims and defenses in this case and overrules [the defendant's] objections to
+       the requests."). The call records can be used to determine which calls were made to cell
+       phone numbers, a fact that is relevant to the numerosity and typicality requirements
+       of Rule 23(a). See Thrasher v. CMRE Fin. Servs., Inc., No. 14-cv-1540, 2015 WL
+       1138469 at *2 (S.D. Cal. March 13, 2015) ("The court finds that the outbound call list is
+       reasonably calculated to identify the number and recipients of calls made during the class
+       period, which is relevant to Rule 23 requirements."). (See Doc. No. 36 at p. 12 (defining
+       the putative class as all individuals to whom Frontier or its vendor made a non-emergency
+       telephone call "to a cellular telephone number or to a number where the recipient is
+       charged for the call").) It is also relevant to the question of liability and damages under
+       the TCPA. See 47 U.S.C. § 227(b)(1)(A)(3) (prohibiting calls "using any
+       automatic telephone dialing system . . . to any telephone number assigned to a . . . cellular
+       telephone service . . . ."); id. § 227(b)(3)(B) (creating a private right of action to recover
+
+                                                     8
+          Case 1:24-cv-12330-BEM           Document 19        Filed 05/17/25      Page 9 of 16
+
+
+       "for actual monetary loss" caused by a violation of the TCPA or "to receive $500 in
+       damages for each such violation").
+
+       EAG argues that Frey is not entitled to this personal identifying information pre-class
+       certification, but, as discussed below, the Court did not bifurcate the discovery period in
+       this matter. As such, Frey was required to seek discovery on both his individual claim
+       and his class claim at the same time and could not wait until after the Court ruled on his
+       motion for class certification to request this relevant information.
+
+Frey v. Frontier Utils. Ne. Llc, No. 19-2372-KSM, 2020 U.S. Dist. LEXIS 260620 *5-6 (E.D. Pa. Apr.
+
+13, 2020). For the same reasons in Frey, the motion to compel should be granted here as there is a
+
+single discovery period at issue relating to merits discovery, class certification discovery and damages.
+
+As one court summarized when granting a motion to compel for the calling records in a TCPA case:
+
+       This information will assist Plaintiff’s experts in determining which phone numbers
+       were tied to cellular phones, which calls were for telemarketing purposes, which
+       numbers were on the National Do Not Call Registry (“NDNCR”) and which calls were
+       made using an automatic telephone dialing system (“ATDS”). The information is
+       therefore relevant to the numerosity, commonality, and typicality inquiries the Court
+       will undertake to decide Plaintiff’s motion for class certification under Rule 23.
+
+See Mey v. Frontier Commc’ns Corp., No. 13-cv-01191-MPS, ECF No. 102 (D. Conn. Dec. 5, 2014).
+
+Here, like Mey, the Plaintiff, or her expert, will determine which calls qualify for membership in the
+
+class in order to prepare this case for class certification. Because the sought-after Call Records are
+
+plainly relevant to contested elements of Rule 23, including numerosity, this Court should compel their
+
+production.
+
+       Indeed, multiple judges in this Court have recognized the appropriateness of producing calling
+
+record discovery in TCPA cases. First, Judge Burroughs granted a similar motion to compel in Katz v.
+
+Liberty Power Corp., LLC, 2020 U.S. Dist. LEXIS 112969, *10 (D. Ma. June 26, 2020) holding,
+
+“Given the availability of Defendants' call records, and the fact that such call records are relevant to
+
+Plaintiffs' claim that Defendants violated the TCPA, the Defendants are ordered to provide all records
+
+of calls made by Liberty Power's Telesales Channels to potential and prospective customers during the
+
+class period.” Similarly, in granting a motion for class certification in Mantha v. Quotewizard.Com,
+
+
+                                                     9
+         Case 1:24-cv-12330-BEM           Document 19        Filed 05/17/25     Page 10 of 16
+
+
+LLC, 347 F.R.D. 376, 385 (D. Ma.), Judge Sorokin recognized the need for calling data so the
+
+Plaintiff’s expert could perform an analysis of that data:
+
+       Mantha's expert, Verkhovskaya, prepared the "Class List" described in the proposed Class
+       Definition. See generally Doc. No. [**11] 339-2. Her analysis was not an attempt to
+       identify, via a scientific inquiry, all possible phone numbers satisfying subparts (a) to (c)
+       of the proposed Class Definition. Rather, using standard data analysis techniques, she
+       prepared a list, substantially at the direction of counsel for Mantha, of a subset of persons
+       who satisfy the proposed Class Definition, while eliminating potential legal or factual
+       issues by narrowing the Class. The data analysis techniques she utilized are well-
+       established, fairly unremarkable, and plainly appropriate for use by an expert witness.
+       Indeed, QuoteWizard, despite the vigorous defense at every stage of this case, makes no
+       challenge to those techniques. The same is true of the standard software tools
+       Verkhovskaya employed.
+
+       Step 1: [**12] She eliminated from the call records all phone numbers that QuoteWizard
+       obtained from its own websites. What remained were 5,090,954 sales leads/phone
+       numbers, all of which QuoteWizard purchased from lead sources—entities that may, in
+       turn, have purchased the numbers from other sources. Id.
+
+       Step 2: Counsel for Mantha directed Verkhovskaya to exclude from the Step 1 list all
+       numbers except those which QuoteWizard expressly authorized Drips to contact. Id. at 7.
+       This was done, according to Mantha, because QuoteWizard claimed that Drips had sent
+       some texts to consumers without authorization. Id.
+
+       Step 3: Verkhovskaya took the Step 2 list and (a) excluded all numbers except those which
+       records from Bandwidth and Twilio confirmed had received QuoteWizard's texts via
+       Drips;6 then (b) excluded all numbers except those that had replied to the texts requesting
+       that the messages cease. Id. Initially, Verkhovskaya identified the numbers described in
+       Step 3(b) using a list created by [*386] Drips for QuoteWizard ("the Drips DNC
+       list").7,8 Doc. No. 339-2 ¶ 59.
+
+       Step 4: Verkhovskaya (a) verified that all remaining numbers were on the NDNCR before
+       the consumer received a QuoteWizard text, and that the numbers received two texts in a
+       twelve-month period; (b) removed the few numbers that responded to QuoteWizard's texts
+       with an expression of interest, for whom QuoteWizard paid Drips for generating a
+       successful lead; and (c) verified the remaining numbers were residential. Doc. No. 340 at
+       7-8. As to Step 4(b), she identified the numbers to exclude by reviewing text message
+       responses preserved by QuoteWizard. Id. at 7. As to Step 4(c), she ran the numbers through
+       the PacificEast database of known business numbers, removed any that were business-
+       identified, and further applied a business keyword analysis to remove numbers associated
+       with business names. Id. at 8.
+
+       From this process, Verkhovskaya found that QuoteWizard had sent 314,828 text messages
+       to 66,693 telephone numbers that "satisfied the [NDNCR] requirements of having received,
+       on a residential number listed on the national do-not-call registry, more than one text
+       message[] in a 12-month period."9 Id.
+                                                    10
+          Case 1:24-cv-12330-BEM            Document 19        Filed 05/17/25      Page 11 of 16
+
+
+
+
+The Plaintiff is seeking the exact same type of data here so a similar analysis can be performed. The
+
+Court should compel this data.
+
+         Separately, Call Records are relevant to class-wide damages. Pertinent here, a TCPA plaintiff
+
+may bring an action to recover for actual monetary loss from a violation of the TCPA, or to receive $500
+
+in damages for each such violation, whichever is greater.” 47 U.S.C. § 227(c)(5). Because courts
+
+calculate damages under the TCPA based on the number of violations—in this case, the number of
+
+telemarketing calls delivered to class members during the class period—discovery is highly relevant to
+
+damages suffered by absent class members. For this additional reason, the Call Records Plaintiff seeks—
+
+which she will use to identify potential class members—are highly relevant and this Court should compel
+
+their production.
+
+         Finally, the Defendant’s objections should be overruled. First, the Plaintiff is plainly seeking all
+
+documents related to the telemarketing call logs themselves, which is to say all of the data that is
+
+housed natively in the telemarketing call logs. As such, the Plaintiff is not requesting all documents of
+
+every kind related to any call the Defendant has made, the Plaintiff simply wishes to ensure that she
+
+gets all of the data captured in the single document they are seeking: the records of outbound calls.
+
+Indeed, in the Katz matter the request compelled by Judge Burroughs similarly requested “all
+
+records and/or call detail records for calls made…” Katz at *9. This is the same data that the Plaintiff
+
+seeks.
+
+         The Defendant’s objections with respect to scope can be addressed as well. It is true that the
+
+only claim at issue is telemarketing calls to numbers on the National Do Not Call Registry, however,
+
+the Defendant has given no indication that it stores telemarketing call records limited to numbers that
+
+were on the National Do Not Call Registry. Indeed, if they do, the Plaintiff agrees her request can be so
+
+limited. However, as this Court held in Mantha, it is the Plaintiff’s expert that typically undertakes
+
+
+                                                     11
+          Case 1:24-cv-12330-BEM          Document 19        Filed 05/17/25        Page 12 of 16
+
+
+such an analysis. As such, the Defendant’s production should include all telemarketing calls or be
+
+limited to calls to numbers on the National Do Not Call Registry. However, producing neither should
+
+not be an option.
+
+   II.      If the Defendant claims to have records of consent to make telemarketing calls, like it
+            claims in its Answer, it should produce records supporting that assertion.
+
+
+         The parties also have a dispute related to the Defendant’s failure to produce consent evidence
+
+for any individual other than the Plaintiff. The request and response are below:
+
+         Request No. 17: Please provide all evidence of written consent to make calls
+         in response to the foregoing, including any language that complies with the
+         E-Sign Act.
+
+         RESPONSE: Objection. Defendant objects to this request insofar as Plaintiff’s
+         Complaint does not include a claim under the E-Sign Act. Furthermore, there
+         is no private right of action under this act which would otherwise permit
+         Plaintiff to sue for a violation of the same. Accordingly, this request is not
+         reasonably calculated to lead to the discovery of admissible evidence.
+
+
+See Exhibit 1.
+
+
+         The Defendant’s Answer includes the following affirmative defenses
+
+
+         Plaintiff consented to being telephoned and/or receiving communications at the number
+         provided and/or otherwise waived the right to claim lack of consent.
+
+
+See ECF No. 5. It is sensible for the Defendant to put forward a claim that it had consent to make the
+
+calls at issue because the TCPA exempts from its scope telemarketing calls made with consumers’
+
+prior express written consent. E.g., 47 U.S.C. 47 U.S.C. 227(b)(1)(A). “Prior express consent” exists
+
+where a consumer has (a) clearly stated that the telemarketer may call, and (b) clearly expressed an
+
+understanding that the call will be made for the purpose of encouraging the purchase of goods or
+
+services. In the Matter of Rules and Regulations Implementing the Telephone Consumer Protection Act
+
+of 1991, 27 F.C.C.R. 1830 ¶ 7 (FCC 2012). The FCC’s definition is consistent with the everyday
+                                                    12
+         Case 1:24-cv-12330-BEM           Document 19        Filed 05/17/25      Page 13 of 16
+
+
+meaning of the term “prior express consent” meaning “[c]onsent that is clearly and unmistakably
+
+stated.” See Satterfield v. Simon & Schuster, Inc., 569 F.3d 946, 955 (9th Cir. 2009).
+
+       However, despite having the right to assert a consent defense, the Defendant has not produced
+
+any documents to support it. A telemarketer who claims it had consent to contact a particular consumer
+
+bears the burden of proof, and must maintain records that prove such a claim. The FCC has cautioned
+
+that a telemarketer claiming consent “must be prepared to provide clear and convincing evidence of the
+
+existence of such a relationship.” In the Matter of Rules and Regulations Implementing the Telephone
+
+Consumer Protection Act of 1991, FCC 03-153 at ¶112, -- FCC Rcd. --, 2003 WL 2157853, 2003 FCC
+
+LEXIS 3673 (July 3, 2003) (emphasis added). The FCC has also noted: In the event a complaint is
+
+filed, the burden of proof [as to whether prior express consent was obtained] rests on the sender to
+
+demonstrate that permission was given. We strongly suggest that senders take steps to promptly
+
+document that they received such permission. Id. at ¶46.
+
+       The case law has made this clear, including by the First Circuit Court of Appeals. See Rosales
+
+v. Heath, No. 8:17CV87, 2019 U.S. Dist. LEXIS 225294, at *9 (D. Neb. June 27, 2019) (“The FCC
+
+ruled that ‘if any question arises as to whether prior express consent was provided by a call recipient,
+
+the burden is on the caller to prove that it obtained the necessary prior express consent.” Consistent
+
+with that burden, all circuit courts deciding the question of whether consent is part of a prima-
+
+facia TCPA case or an affirmative defense have concluded that consent is an affirmative
+
+defense. See Breda v. Cellco P'ship, 934 F.3d 1, 4 (1st Cir. 2019) (“we understand consent to be
+
+an affirmative defense, which the caller has the burden to prove; lack of consent is not an element of
+
+the called party's claim.”); Latner v. Mount Sinai Health Sys., Inc., 879 F.3d 52, 54 (2nd Cir.
+
+2018); Van Patten v. Vertical Fitness Grp., LLC, 847 F.3d 1037, 1044 (9th Cir. 2017); Blow v. Bijora,
+
+855 F.3d 793, 803 (7th Cir. 2017); Mais v. Gulf Coast Collection Bureau, Inc., 768 F.3d 1110, 1115
+
+(11th Cir. 2014).”).
+
+
+                                                    13
+         Case 1:24-cv-12330-BEM           Document 19        Filed 05/17/25      Page 14 of 16
+
+
+        Such requests have previously been compelled. See e.g. O'Shea v. Am. Solar Solution, Inc.,
+
+2016 U.S. Dist. LEXIS 23420, *10 (S.D. CA.) (“These requests ask for documents concerning prior
+
+express consent, Defendant's methods for obtaining phone numbers, and removal requests by call
+
+recipients. (Id. Attach. #4 Ex. 1, at 15-19.) The items sought relate to American Solar's affirmative
+
+defenses and are discoverable. See Fed. R. Civ. P. 26(b)(1)”); Stemple v. QC Holdings, Inc., 2013 U.S.
+
+Dist. LEXIS 99582, *19-22 (S.D. Cal. June 17, 2013) (compelling Defendant to provide proof of
+
+express consent and finding the RFP necessary, proper in pre-class certification discovery, and not
+
+unduly burdensome). As another has held in a TCPA case when compelling similar information:
+
+               If defendant cannot substantiate this defense with documents or
+               information responsive to the interrogatory, it should say so under
+               verification and withdraw that defense.
+
+Martin v. Bureau of Collection Recovery, No. 10 C 7725, 2011 WL 2311869, at *1 (N.D. Ill. June 13,
+
+2011). As such, the Plaintiff has a legitimate need for this information and a reasonable expectation
+
+that it be produced.
+
+        Again, the Defendant’s objections can be overruled. First, relevance cannot be materially
+
+disputed, as discussed above. Second, with respect to breadth, the Defendant misapprehends the
+
+Plaintiff’s intent in asking for documents that also relate to the E-SIGN Act. The Plaintiff does not
+
+assert that there is a private right of action for an E-SIGN Act claim, she is instead referencing
+
+documents that need to be provided to demonstrate sufficient consent. As Judge Kelley has previously
+
+held:
+
+        As Plaintiff notes, to be TCPA compliant, a consumer's consent to receive
+        solicitations from a seller must comply with the E-SIGN Act. (#234-1 at 4 n.4.)
+        This is consistent with TCPA regulations, which allow an electronic signature in
+        connection with prior written consent if it complies with the requirements under
+        the E-SIGN Act. 47 C.F.R. § 64.1200(f)(9) (defining prior express written consent
+        and requirements for electronic signatures); see In re Rules 2012 ¶ 34 ("[C]onsent
+        obtained in compliance with the E-SIGN Act will satisfy the requirements of our
+        revised rule, including permission obtained via an email, website form, text
+        message, telephone keypress, or voice recording."). The E-SIGN Act provides that
+        an electronic record may be used to provide information to a consumer that is
+                                                   14
+         Case 1:24-cv-12330-BEM          Document 19        Filed 05/17/25     Page 15 of 16
+
+
+       required to be made in writing per a statute or regulation where the consumer is
+       provided with certain disclosures, including how to withdraw consent. 15 U.S.C. §
+       7001(c). Those disclosures were not included in the consent form defendant
+       identified.
+       …Nor would a jury be able to find plaintiffs consent valid where the disclosure on
+       the consent form did not contain those required under 15 U.S.C. § 7001(c) and 47
+       C.F.R. § 64.1200(f)(9). Contra Winner v. Kohl's Dep't Stores, Inc., No. 16-cv-1541,
+       2017 U.S. Dist. LEXIS 131225, at *21 (E.D. Pa. Aug. 17, 2017) (finding valid
+       consent where plaintiff was notified of right to withdraw consent and the
+       procedures to do so, consistent with 15 U.S.C. § 7001(c)).
+
+
+Mantha v. Quotewizard.com, LLC, 2021 U.S. Dist. LEXIS 245059, *24-25 (D. MA. 2021). As such,
+
+the Plaintiff has intentionally and legitimately asked for any consent documents that comply with the
+
+E-SIGN act. The request should be compelled.
+
+
+
+
+                                           CONCLUSION
+
+       For the reasons stated herein, the Plaintiff requests that her motion to compel be granted and
+
+that the Court should award any relief under Fed. R. Civ. P. 37 that it deems appropriate.
+
+
+                                             Attorneys for Plaintiff,
+                                             By Counsel
+
+                                             /s/ Anthony I. Paronich
+                                             Anthony I. Paronich
+                                             PARONICH LAW, P.C.
+                                             350 Lincoln Street, Suite 2400
+                                             Hingham, MA 02043
+                                             Telephone: (508) 221-1510
+                                             anthony@paronichlaw.com
+
+
+
+
+                                                   15
+         Case 1:24-cv-12330-BEM           Document 19        Filed 05/17/25      Page 16 of 16
+
+
+                                    CERTIFICATE OF SERVICE
+
+       I hereby certify that this document filed through the ECF system will be sent electronically to
+
+the registered participants as identified on the Notice of Electronic Filing (NEF).
+
+
+                                              /s/ Anthony I. Paronich
+                                              Anthony I. Paronich
+
+
+
+
+                                                   16
+

@@ -1,0 +1,500 @@
+     Case 1:25-cv-00165-BAH           Document 19       Filed 04/21/25      Page 1 of 10
+
+
+
+
+                          UNITED STATES DISTRICT COURT
+                          FOR THE DISTRICT OF COLUMBIA
+
+
+CENTER FOR BIOLOGICAL DIVERSITY,
+
+                             Plaintiff,                   Case No. 1:25-cv-00165-BAH
+
+              v.                                          Judge Beryl A. Howell
+
+OFFICE OF MANAGEMENT AND
+BUDGET, et al.,
+                   Defendants.
+
+
+
+       PLAINTIFF’S MOTION FOR LEAVE TO AMEND AND SUPPLEMENT
+          COMPLAINT AND MEMORANDUM IN SUPPORT THEREOF
+
+         Pursuant to Federal Rule of Civil Procedure 15(a) and 15(d), Plaintiff respectfully
+
+  requests leave to file a second amended complaint in this matter. Specifically, Plaintiff
+
+  seeks leave to amend a First Amended complaint to add claims regarding the failure to
+
+  timely respond to four new Freedom of Information Act (FOIA) requests directed to the
+
+  reformed United States Digital Service now the United States DOGE Service (DOGE)
+
+  and the United States DOGE Service Temporary Organization (DOGETO). Plaintiff
+
+  seeks leave to amend for judicial efficiency to avoid having to litigate over whether
+
+  previous FOIAs to DOGE and DOGETO (DOGE Defendants) directed to the Office of
+
+  Management and Budget (OMB) are proper, after the government took the position that
+
+  Plaintiff must exhaust administrative remedies as to the DOGE Defendants by sending
+
+  FOIA requests directly to them before seeking relief under FOIA in court. See Joint Mtn.
+
+  to Suspend Defendants’ Deadline to Respond to Plaintiff’s Amended Complaint and Set
+
+  New Deadline ¶¶ 4-5 (ECF No. 17) (hereafter “March 21 Joint Mtn.”). The Amended
+
+
+
+
+                                               1
+   Case 1:25-cv-00165-BAH           Document 19         Filed 04/21/25      Page 2 of 10
+
+
+
+
+Complaint now removes claims regarding the earlier FOIAs to the DOGE Defendants
+
+that were directed to OMB.
+
+       This motion is timely, made in good faith, and is neither dilatory nor unduly
+
+prejudicial to Defendants. Plaintiff conferred with Defendants, who state that Defendants
+
+take no position on this motion. Plaintiff respectfully requests that the Court grant this
+
+motion and allow this case to proceed expeditiously. This motion is supported by
+
+Plaintiff’s following Memorandum of Law, accompanying Exhibits 1 (Second Amended
+
+Complaint) and 2 (Redline of Second Amended Complaint), and a Proposed Order.
+
+            MEMORANDUM IN SUPPORT OF MOTION FOR LEAVE
+                   TO AMEND AND SUPPLEMENT
+
+       Leave to file an amended complaint should be “freely give[n] . . . when justice so
+
+requires” and is within the district court’s discretion. Fed. R. Civ. Proc. 15(a); Firestone
+
+v. Firestone, 76 F.3d 1205, 1208 (D.C. Cir. 1996). Motions to supplement “are to be
+
+‘freely granted when doing so will promote the economic and speedy disposition of the
+
+entire controversy between the parties, will not cause undue delay or trial inconvenience,
+
+and will not prejudice the rights of any of the other parties to the action.’” Hall v. CIA,
+
+437 F.3d 94, 101 (D.C. Cir. 2006) (quoting 6A Charles Alan Wright et al., Federal
+
+Practice and Procedure § 1504 (2d ed. 1990)). “Motions to amend under Rule 15(a) and
+
+motions to supplement under Rule 15(d) are subject to the same standard.” WildEarth
+
+Guardians v. Kempthorne, 592 F. Supp. 2d 18, 23 (D.D.C. 2008) (citing Armstrong v.
+
+Bush, 807 F. Supp. 816, 818-19 (D.D.C. 1992)).
+
+       In resolving Rule 15 motions, the Court considers: “(1) undue delay; (2) prejudice
+
+to the opposing party; (3) futility of the amendment; (4) bad faith; and (5) whether the
+
+plaintiff has previously amended the complaint.” Howell v. Gray, 843 F.Supp.2d 49, 54
+
+                                              2
+   Case 1:25-cv-00165-BAH            Document 19       Filed 04/21/25      Page 3 of 10
+
+
+
+
+(D.D.C. 2012) (citing Atchinson v. District of Columbia, 73 F.3d 418, 425-426 (D.C. Cir.
+
+1996)); see also Foman v. Davis, 371 U.S. 178, 182 (1962). “If the underlying facts or
+
+circumstances relied upon by a plaintiff may be a proper subject of relief, he ought to be
+
+afforded an opportunity to test his claim on the merits.” Foman, 371 U.S. at 182. “Under
+
+Rule 15(a), the nonmovant generally carries the burden in persuading the court to deny
+
+leave to amend.” Dove v. Wash. Metro. Area Transit Auth., 221 F.R.D. 246, 247 (D.D.C.
+
+2004).
+
+         Plaintiff’s motion for leave to file a second amended complaint is in direct
+
+response to Defendants’ position that Plaintiff failed to exhaust its administrative
+
+remedies in sending the January 27, 2025 FOIAs to OMB instead of directly to the
+
+DOGE Defendants. March 21 Joint Mtn. ¶¶ 4-5 (ECF No. 17). Rather than litigating that
+
+issue, Plaintiff is seeking leave to amend in order to substitute FOIA requests sent
+
+directly to DOGE and DOGETO on March 13, 2025 for those previously sent to OMB on
+
+January 27, and to include two additional FOIA requests also sent to the DOGE
+
+Defendants on March 13. This motion does not expand the parties or claims presented in
+
+the First Amended Complaint (ECF No. 9), and was made both in the time frame
+
+prescribed in the Court’s March 25, 2025 Minute Order, and before the time for
+
+Defendants to answer or file a responsive pleading. Therefore, Plaintiff respectfully
+
+requests that the Court grant this timely, non-prejudicial motion to amend the complaint
+
+to seek judicial review of Defendants’ failure to respond to Plaintiff’s March 13 FOIA
+
+requests.
+
+
+
+
+                                              3
+   Case 1:25-cv-00165-BAH             Document 19       Filed 04/21/25     Page 4 of 10
+
+
+
+
+                                      BACKGROUND
+
+        Congress believed that the FOIA was necessary “to pierce the veil of
+
+administrative secrecy and to open agency action to the light of public scrutiny.” Dep’t of
+
+Air Force v. Rose, 425 U.S. 352, 361 (1976) (internal citations omitted). Thus, following
+
+the inauguration of President Trump, Plaintiff submitted several FOIA requests to OMB
+
+seeking certain presidential transition documents that concern OMB’s key functions and
+
+duties as well as records regarding, among other matters, the staffing, calendars, and
+
+communications of DOGE and DOGETO given the media reports suggesting these
+
+entities were being formulated to review federal agency staffing and regulations with
+
+direct implications for air and water quality; climate change, imperiled plants and
+
+wildlife; public lands; and environmental justice. Complaint ¶¶ 1-5 (ECF No. 1). FOIA
+
+was designed to ensure that monumental and consequential undertakings such as those
+
+being effectuated by DOGE and DOGETO could not take place without transparency and
+
+the requested records are time sensitive given DOGE’s efforts to refashion the federal
+
+workforce and regulatory regime behind closed doors. Because OMB did not timely
+
+respond to these requests, Plaintiff filed this suit.
+
+        Following the official creation of DOGE and DOGETO, Plaintiff submitted
+
+additional FOIA requests on January 27, 2025 seeking additional information regarding
+
+DOGE and DOGETO’s efforts to dismantle and restructure the federal government. Am.
+
+Complaint ¶¶ 49-68 (ECF No. 9). These requests were sent to OMB due to DOGE and
+
+DOGETO failing to provide the public with any information regarding the appropriate
+
+method or means for submitting a FOIA request. Id. ¶ 65. Following concerns from the
+
+government that in so fashioning these requests Plaintiff failed to exhaust its
+
+
+
+                                                4
+  Case 1:25-cv-00165-BAH           Document 19        Filed 04/21/25       Page 5 of 10
+
+
+
+
+administrative remedies (given the government’s view that DOGE is not a subcomponent
+
+of OMB, March 21 Joint Mtn. ¶¶ 4-5 (ECF No. 17)), Plaintiff submitted four new
+
+requests on March 13, 2025. Two requests were specifically directed to DOGE and two
+
+were directed to DOGETO. The first two FOIA requests, one directed to DOGE and the
+
+other to DOGETO, sought:
+
+               1. Any updated or new staff directory for the U.S. DOGE
+               Service and/or the U.S. DOGE Service Temporary
+               Organization;
+
+               2. The calendar schedules, including but not limited to travel
+               and/or meeting schedules, of all individuals whose status is
+               either a volunteer or paid federal employee within the U.S.
+               DOGE Service or the U.S. DOGE Service Temporary
+               Organization since January 20, 2025;
+
+               3. All emails, direct messages, and messages via other
+               messenger apps (e.g., Signal, WhatsApp, and Telegram)
+               between any individual who is either a volunteer or paid federal
+               employee within the U.S. DOGE Service Temporary
+               Organization or a paid employee within the U.S. DOGE
+               Service, and any entities outside of the federal government
+               (emails ending with a suffix other than “.gov”, including but not
+               limited to @tesla.com, @spacex.com, @x.com,
+               @neuralink.com, or @starlinkworld.com or any email
+               representing an individual employed during the Presidential
+               transition period from the entity known as the “Department of
+               Government Efficiency”);
+
+               4. All emails to or from [a list of 32 individuals and their related
+               “@doge.eop.gov” emails]
+
+               5. All emails to or from erm71@who.eop.gov ;
+
+               6. All emails to or from Katie Miller,
+               katie.r.miller@who.eop.gov to the extent this individual now
+               works in the U.S. DOGE Service Temporary Organization or
+               the U.S. DOGE Service; and
+
+               5. All emails to or from White House Deputy Chief of Staff
+               Stephen Miller.
+
+
+
+                                             5
+   Case 1:25-cv-00165-BAH          Document 19       Filed 04/21/25      Page 6 of 10
+
+
+
+
+The third and fourth FOIA requests, one to DOGE and one to DOGETO, sought:
+
+              1. Any updated staff directory for DOGE and DOGE teams;
+
+              2. All planned or proposed staffing changes at any environmental
+              agencies including but not limited to: Department of Interior and
+              its sub-units; Department of Energy and its sub-units; U.S.
+              Environmental Protection Agency; National Oceanic and
+              Atmospheric Administration; and the U.S. Forest Service; and
+
+              3. All planned or proposed rescissions or modifications of
+              environmental regulations, including those identified at any point
+              in the process outlined in Executive Order 14219 (Feb. 19, 2025)4,
+              implemented solely or jointly by environmental agencies including
+              but not limited to: Department of Interior and its sub-units;
+              Department of Energy and its sub-units; U.S. Environmental
+              Protection Agency; National Oceanic and Atmospheric
+              Administration; and the U.S. Forest Service.
+
+       Subsequently, on March 21, 2025, the parties filed a Joint Motion to suspend
+
+Defendants’ deadline to respond to the Amended Complaint in order to allow Plaintiff to
+
+substitute the new FOIAs into this case. March 21 Joint Mtn. (ECF No. 17). In a
+
+subsequent Minute Order, the Court directed that Plaintiff should file any amended
+
+Complaint concerning the new FOIAs by April 21, 2025. Mar. 25, 2025 Minute Order.
+
+       As of the date of this filing, neither of the DOGE Defendants have produced
+
+records responsive to the new FOIA requests, more than 20 working days after the
+
+requests were submitted. On April 14, 2025, Plaintiff informed Defendants’ counsel that
+
+Plaintiff would amend the First Amended Complaint to substitute the March 13 FOIA
+
+requests for the January 27 FOIA requests and sought Defendants consent. Defendants
+
+responded that they take no position on the motion to file an amended complaint.
+
+                                     ARGUMENT
+
+       Plaintiff respectfully submits that it meets the standards for a motion to amend:
+
+Plaintiff has not unduly delayed submitting this motion to amend and supplement,
+
+                                            6
+   Case 1:25-cv-00165-BAH            Document 19      Filed 04/21/25      Page 7 of 10
+
+
+
+
+Plaintiff has neither a dilatory purpose nor bad faith motives in seeking leave to amend
+
+and supplement, and granting this motion will not unduly prejudice Defendants. Foman
+
+v. Davis, 371 U.S. at 182. Allowing Plaintiff to amend the complaint to substitute four
+
+new FOIA requests for the three FOIA requests added by the First Amended Complaint is
+
+in the interest of judicial efficiency and economy, as these new requests will help to
+
+narrow the issues for resolution by the Court. Hall v. CIA, 437 F.3d at 101 (Rule 15
+
+motions “are to be ‘freely granted when doing so will promote the economic and speedy
+
+disposition of the entire controversy between the parties’” (quoting 6A Charles Alan
+
+Wright et al., Federal Practice and Procedure § 1504 (2d ed. 1990))).
+
+       A.      Plaintiff’s Motion is Timely.
+
+       This motion is timely. This matter is at an early stage in the proceedings –
+
+Defendants have not filed any responsive pleadings or substantive briefs in this matter.
+
+Given the stage of these proceedings, Plaintiff’s motion to amend and supplement is
+
+timely. Nor has Plaintiff delayed in pursuing this amendment. The four new FOIA
+
+requests were promptly sent on March 13, 2025 and having received no responsive
+
+records or other FOIA determination by the 20th working day, Plaintiff promptly sought
+
+Defendants’ position on the filing of a second amended complaint. Thus, this motion was
+
+not unduly delayed. Any delay caused by expanding the scope of the requests directed to
+
+DOGE and DOGETO in this matter is outweighed by the judicial efficiency and
+
+economy of Plaintiff addressing the government’s concerns about requests to DOGE and
+
+DOGETO being directed to OMB. Smith v. Cafe Asia, 598 F. Supp. 2d 45, 48 (D.D.C.
+
+2009) (“favoring proposed complaints that do not ‘radically alter the scope and nature of
+
+the case’” (internal citation omitted)).
+
+
+
+                                             7
+   Case 1:25-cv-00165-BAH           Document 19        Filed 04/21/25       Page 8 of 10
+
+
+
+
+        B.     The Motion to Amend and Supplement is Not Brought in Bad Faith
+               or for a Dilatory Purpose.
+
+        This motion is not made in bad faith or for a dilatory purpose. Plaintiff is seeking
+
+leave to amend and supplement early on in these proceedings and has not delayed or
+
+withheld the new FOIA requests. Cf. Key Airlines, Inc. v. Nat’l Mediation Bd., 745 F.
+
+Supp. 749, 752 (D.D.C. 1990) (refusing to grant leave to amend the complaint because
+
+the plaintiff had acted in bad faith by withholding a claim until a very late stage in the
+
+litigation).
+
+        Plaintiff seeks leave to amend and supplement in order to conserve judicial
+
+resources and in the interest of efficiency and economy. Hall v. CIA, 437 F.3d at 101
+
+(explaining that “‘economic and speedy disposition of the entire controversy between the
+
+parties’” is a sound basis for a Rule 15 motion (internal citation omitted)). Resolving the
+
+government’s exhaustion concerns by directing FOIA requests to DOGE and DOGETO
+
+to OMB will help to narrow the issues in this case.
+
+        Nor is Plaintiffs’ motion futile. “An amendment is ‘futile if it merely restates the
+
+same facts as the original complaint in different terms, reasserts a claim on which the
+
+court previously ruled, fails to state a legal theory, or could not withstand a motion to
+
+dismiss.’” Klotzbach-Piper v. Nat’l R.R. Passenger Corp., 678 F. Supp. 3d 62, 69
+
+(D.D.C. 2023) (quoting De Sousa v. Dep’t of State, 840 F. Supp. 2d 92, 113 (D.D.C.
+
+2012)). The attached Second Amended Complaint substitutes the three January 27 FOIA
+
+requests with four March 13 FOIA requests. Exhibit 1. As the proposed amended
+
+pleading illustrates, the amendments are narrow, well-grounded, and made with the intent
+
+of narrowing the issues before the Court.
+
+
+
+
+                                              8
+   Case 1:25-cv-00165-BAH           Document 19         Filed 04/21/25      Page 9 of 10
+
+
+
+
+       C.      Granting Plaintiffs’ Motion Will Not Unduly Prejudice Defendants.
+
+       Permitting this amendment will not unduly prejudice Defendants. This case is still
+
+early in the proceedings and Defendants have not yet filed an answer or other responsive
+
+pleading. Plaintiff’s amendment is designed to narrow the issues the court must resolve in
+
+this case. While this motion has necessitated a slight delay in the schedule of this case, it
+
+is Plaintiff’s intent this motion will ultimately make resolution of this matter more
+
+efficient without causing injustice to Defendants. See, e.g., Smith v. Cafe Asia, 598 F.
+
+Supp. 2d at 49 (“To determine if the threat of prejudice to the opposing party is great
+
+enough to warrant denying leave to amend, courts consider ‘the hardship to the moving
+
+party if leave to amend is denied, the reasons for the moving party failing to include the
+
+material to be added in the original pleading, and the injustice resulting to the party
+
+opposing the motion should it be granted’” (quoting Childers v. Mineta, 205 F.R.D. 29,
+
+32 (D.D.C. 2001))).
+
+                                      CONCLUSION
+
+       For these reasons, Plaintiff respectfully requests that the Court grant Plaintiff’s
+
+motion for leave to file the attached amended and supplemental complaint in this matter.
+
+
+
+Dated: April 21, 2025                          Respectfully submitted,
+
+                                               s/ Tanya Sanerib
+                                               Tanya Sanerib (DDC Bar No. 473506)
+                                               (206) 379-7363
+                                               tsanerib@biologicaldiversity.org
+                                               Center for Biological Diversity
+                                               P.O. Box 11374
+                                               Portland, OR 97211
+
+                                               Jason Rylander (DDC Bar No. 474995)
+                                               (202) 744-2244
+
+                                              9
+Case 1:25-cv-00165-BAH   Document 19   Filed 04/21/25     Page 10 of 10
+
+
+
+
+                                jrylander@biologicaldiversity.org
+                                Lauren Parker (DC Bar No. 1670885)
+                                (202) 868-1008
+                                lparker@biologicaldiversity.org
+                                1411 K Street NW,
+                                Washington DC 20005
+
+                                Attorneys for Plaintiff
+                                Center for Biological Diversity
+
+
+
+
+                               10
+

@@ -1,0 +1,859 @@
+             Case 3:24-cv-02033-JR      Document 36        Filed 09/05/25   Page 1 of 14
+
+
+
+
+ 1                            UNITED STATES DISTRICT COURT
+ 2                                    DISTRICT OF OREGON
+ 3                                    PORTLAND DIVISION
+
+     CAMERON JAMES WILSON,
+ 4                                                                      Case No.: 3:24-cv-2033-JR
+     Plaintiff,
+
+ 5                                                v.
+
+ 6                               CITY OF HOOD RIVER, a municipal
+
+ 7                                corporation; OFFICER EMELIKE
+
+ 8                               DELANCY, in his individual capacity;
+
+ 9                               OFFICER AUSTIN GRIFFIN, in his
+
+10                               individual capacity; OFFICER RYAN
+
+11                                JUNDT, in his individual capacity,
+
+12                                           Defendants.
+
+
+13                                   PLAINTIFF’S RESPONSE TO
+
+14                                 DEFENDANTS’ MOTION FOR
+
+15                                 SUMMARY JUDGMENT AND
+
+16                                     REQUEST FOR TRIAL
+
+
+17   Cameron James Wilson
+
+18   Pro Se Plaintiff
+
+19   1312 South 44th Avenue
+
+20   Yakima, Washington 98908
+
+21   503-496-9239
+
+22   cam@piitp.com
+
+
+
+
+                                                  1
+              Case 3:24-cv-02033-JR                       Document 36                 Filed 09/05/25              Page 2 of 14
+
+
+
+
+23   INTRODUCTION
+
+24   I. Philosophical Foundation and Creator-Endowed Rights Framework
+
+25   This Response to Defendants’ Motion for Summary Judgment is grounded in the fundamental principle that the
+
+26   Creator-endowed rights of sovereign individuals transcend governmental authority and predate constitutional
+
+27   recognition. The constitutional violations perpetrated against Plaintiff Cameron James Wilson on December
+
+28   10, 2022, represent not merely technical infractions of positive law, but profound violations of natural rights
+
+29   that exist independent of and prior to governmental acknowledgment.1
+
+30        The Constitution of the United States does not create fundamental rights; rather, it recognizes and protects
+
+31   pre-existing natural rights inherent in the dignity and sovereignty of every individual.2 The procedural
+
+32   remedies sought herein are not mere requests for discretionary judicial relief, but assertions of sovereign
+
+33   rights against governmental overreach that violates the fundamental compact between the governed and those
+
+34   who derive their limited authority from the consent of the governed.
+
+
+35   II. Procedural Posture and Strategic Framework
+
+36   Defendants’ Motion for Summary Judgment must be denied because it relies entirely upon systematic perjury,
+
+37   creates genuine issues of material fact requiring jury determination, and fundamentally mischaracterizes both
+
+38   the factual record and the applicable legal standards. The depositions of the individual defendants reveal
+
+39   devastating admissions that directly contradict their sworn declarations and establish clear constitutional
+
+40   violations that no reasonable officer could have believed were lawful.
+
+41        The standard for summary judgment requires that there be no genuine issue of material fact and that
+
+42   the moving party be entitled to judgment as a matter of law.3 When viewing the evidence in the light most
+
+43   favorable to the non-moving party, as is required,4 the record establishes multiple constitutional violations
+
+44   that were clearly established at the time of the incident and that no reasonable officer could have believed
+
+45   were lawful.
+         1 See Declaration of Independence (1776) (”We hold these truths to be self-evident, that all men are created equal, that they are
+     endowed by their Creator with certain unalienable Rights”).
+          2 See Calder v. Bull, 3 U.S. (3 Dall.) 386, 388 (1798) (Chase, J.) (”An act of the Legislature (for I cannot call it a law) contrary to
+     the great first principles of the social compact, cannot be considered a rightful exercise of legislative authority”).
+          3 Fed. R. Civ. P. 56(a); see also Celotex Corp. v. Catrett, 477 U.S. 317, 322-23 (1986).
+          4Anderson v. Liberty Lobby, Inc., 477 U.S. 242, 255 (1986).
+
+
+
+
+                                                                          2
+              Case 3:24-cv-02033-JR                      Document 36                Filed 09/05/25              Page 3 of 14
+
+
+
+
+46   III. Constitutional Framework and Clearly Established Law
+
+47   The constitutional violations in this case implicate multiple clearly established rights that have been recognized
+
+48   by the Supreme Court and circuit courts for decades:
+
+49       First Amendment Retaliation: The Supreme Court in Nieves v. Bartlett established that the presence of
+
+50   probable cause generally defeats a First Amendment retaliatory arrest claim, but recognized an important
+
+51   exception where a plaintiff can demonstrate they were treated differently than similarly situated individuals
+
+52   who did not engage in protected speech.5 The right to request badge numbers from police officers is clearly
+
+53   established First Amendment activity,6 and retaliation for exercising this right violates clearly established
+
+54   constitutional law.7
+
+55       Fourth Amendment Excessive Force: The Supreme Court in Graham v. Connor established that all
+
+56   excessive force claims must be analyzed under the Fourth Amendment’s objective reasonableness standard,
+
+57   considering the totality of circumstances from the perspective of a reasonable officer on the scene.8 The
+
+58   Graham factors include: (1) the need for the application of force; (2) the relationship between that need and
+
+59   the amount of force used; (3) the extent of the injury inflicted; and (4) whether the force was applied in good
+
+60   faith or maliciously and sadistically for the purpose of causing harm.9
+
+61       Fourth Amendment Unreasonable Seizure: Under Terry v. Ohio, an investigative detention requires
+
+62   reasonable suspicion that the individual has committed, is committing, or is about to commit a crime.10 A
+
+63   traffic violation alone, without more, does not provide reasonable suspicion of criminal activity sufficient to
+
+64   justify handcuffing and detention.11
+
+65       Qualified Immunity Standard: Under Harlow v. Fitzgerald, government officials are entitled to qualified
+
+66   immunity only if their conduct did not violate clearly established statutory or constitutional rights of which a
+
+67   reasonable person would have known.12 The contours of the right must be sufficiently clear that a reasonable
+
+68   official would understand that what he is doing violates that right.13
+         5 Nieves v. Bartlett, 139 S. Ct. 1715, 1727 (2019).
+          6 Glik v. Cunniffe, 655 F.3d 78, 85 (1st Cir. 2011) (”The filming of government officials engaged in their duties in a public place,
+     including police officers performing their responsibilities, fits comfortably within these principles [of First Amendment protection]”).
+          7 Turner v. Driver, 848 F.3d 678, 688 (5th Cir. 2017) (”the right to record police officers as they perform their official duties is
+     clearly established”).
+          8 Graham v. Connor, 490 U.S. 386, 396-97 (1989).
+          9 Id. at 396.
+        10 Terry v. Ohio, 392 U.S. 1, 21 (1968).
+        11 See United States v. Hensley, 469 U.S. 221, 229 (1985).
+        12 Harlow v. Fitzgerald, 457 U.S. 800, 818 (1982).
+        13Anderson v. Creighton, 483 U.S. 635, 640 (1987).
+
+
+
+
+                                                                        3
+               Case 3:24-cv-02033-JR                     Document 36                Filed 09/05/25              Page 4 of 14
+
+
+
+
+69   IV. Municipal Liability Under Monell
+
+70   The City of Hood River faces municipal liability under Monell v. Department of Social Services because the
+
+71   constitutional violations resulted from official policy, custom, or practice of the municipality.14 The systematic
+
+72   nature of the constitutional violations, the lack of proper training regarding citizens’ constitutional rights, and
+
+73   the institutional cover-up following the incident establish municipal liability that must be determined by a
+
+74   jury.15
+
+
+
+75   FACTUAL BACKGROUND
+
+76   I. The December 10, 2022 Constitutional Violations
+
+77   On December 10, 2022, Plaintiff Cameron James Wilson was walking on a public sidewalk when he was
+
+78   approached by Defendants Delancy, Griffin, and Jundt. The undisputed facts, as established through the
+
+79   defendants’ own deposition testimony, demonstrate a systematic pattern of constitutional violations that began
+
+80   with the initial contact and escalated through retaliatory arrest and excessive force.
+
+81        Initial Contact and Lack of Criminal Suspicion: Officer Griffin, under oath, admitted that he possessed
+
+82   no reasonable suspicion that Wilson had committed, was committing, or was about to commit any crime.16
+
+83   Griffin further testified that the only basis for contact was ”a violation of a traffic statute,” explicitly
+
+84   distinguishing this from criminal activity.17
+
+85        Critically, Griffin admitted that this was not a traffic stop, but merely ”making contact” with Wilson, who
+
+86   was walking on a sidewalk after his vehicle was already parked.18
+
+87        Exercise of Constitutional Rights: Wilson exercised his clearly established First Amendment right to
+
+88   request the badge numbers of the officers present.19 Wilson also exercised his Fifth Amendment right to
+
+89   remain silent, which Griffin explicitly acknowledged as a constitutional right.20
+        14 Monell v. Dept. of Social Services, 436 U.S. 658, 694 (1978).
+         15 Canton v. Harris, 489 U.S. 378, 388 (1989) (municipal liability may be established through deliberate indifference to
+     constitutional rights).
+         16 Griffin Depo. at 18:5-6 (”Beyond what I’ve already stated, no. No crime past that point”).
+         17 Griffin Depo. at 17:13-15 (”the only thing I have for you is that I was making contact with you due to the violation of a traffic
+     statute”).
+         18 Griffin Depo. at 24:13-15 (confirming they ”made contact” rather than conducted traffic stop); Griffin Depo. at 25:21-22
+     (admitting Wilson’s car was ”parked” and they did not ”pull over” Wilson’s car).
+         19 Griffin Depo. at 20:22-24 (Griffin confirms Wilson requested badge numbers and ”it was provided”).
+         20 Griffin Depo. at 18:15-16 (Griffin advised Wilson ”he absolutely had the right to” remain silent); Griffin Depo. at 18:19 (Griffin
+     confirms he was acknowledging Wilson’s Fifth Amendment right).
+
+
+
+                                                                        4
+              Case 3:24-cv-02033-JR                     Document 36               Filed 09/05/25            Page 5 of 14
+
+
+
+
+90        Cooperative Behavior and Lack of Threat: The defendants’ own testimony establishes that Wilson
+
+91    posed no threat and exhibited no dangerous or threatening behavior. Griffin testified that he ”did not
+
+92    observe dangerous actions” by Wilson.21 Griffin further confirmed that Wilson was not ”belligerent, yelling,
+
+93    screaming,”22 did not attempt to flee,23 and did not physically resist when detained.24
+
+
+94    II. Retaliatory Arrest and Excessive Force
+
+95    Temporal Proximity Establishing Retaliation: The timing of Wilson’s detention is crucial to establishing
+
+96    First Amendment retaliation. Griffin testified that Wilson was placed in handcuffs ”during that time or shortly
+
+97    thereafter” his request for badge numbers.25 This temporal proximity, combined with the lack of any criminal
+
+98    suspicion or threatening behavior, establishes the retaliatory nature of the arrest.
+
+99        Excessive Force Through Handcuffing: The handcuffing of Wilson constituted excessive force under
+
+100   the Graham v. Connor analysis. Applying the Graham factors: (1) there was no need for the application of
+
+101   force, as Wilson was cooperative and posed no threat; (2) the relationship between any perceived need and the
+
+102   force used was disproportionate; (3) Wilson suffered physical restraint and constitutional injury; and (4) the
+
+103   force was applied in retaliation for exercising constitutional rights, not in good faith law enforcement.
+
+104       Training Officer Status and Institutional Failure: Griffin’s testimony reveals that he was a training
+
+105   officer who was ”early in my career” and ”still learning,”26 was ”in training,”27 and was essentially ”just
+
+106   following orders” from Delancy.28 This establishes not only individual liability but also municipal liability
+
+107   for failure to properly train officers regarding constitutional rights.
+
+
+108   III. Systematic Perjury in Defendants’ Declarations Contradicted by Devastating Deposition
+109   Admissions
+
+110   The defendants’ sworn declarations filed in support of their motion for summary judgment contain material
+
+111   misrepresentations that are directly contradicted by their own deposition testimony. This systematic perjury
+
+112   creates genuine issues of material fact that preclude summary judgment and warrant criminal referral for
+        21 Griffin Depo. at 19:22.
+        22 Griffin Depo. at 19:25.
+        23 Griffin Depo. at 20:2.
+        24 Griffin Depo. at 22:23 (”No, not that I can recall” when asked if Wilson physically resisted).
+        25 Griffin Depo. at 21:2-3.
+        26 Griffin Depo. at 22:1-3.
+        27 Griffin Depo. at 22:14.
+        28 Griffin Depo. at 22:11-13.
+
+
+
+
+                                                                      5
+              Case 3:24-cv-02033-JR                Document 36         Filed 09/05/25         Page 6 of 14
+
+
+
+
+113   perjury prosecution.
+
+114       Officer Delancy’s Devastating Admissions of Constitutional Violations: Officer Delancy’s deposition
+
+115   contains the most damaging admissions, including his explicit acknowledgment that he was wrong to arrest
+
+116   Wilson for ”obstruction of justice.” When confronted with the Oregon Revised Statute on obstruction, Delancy
+
+117   admitted: ”me telling Mr. Wilson it was for obstruction itself was incorrect. That was incorrect.”29 He further
+
+118   acknowledged: ”I cannot arrest you for obstruction. Someone cannot be arrest for interfering with a police,
+
+119   or parole or probation officer. That, I cannot arrest you for. So again, that is on me.”30 Most devastatingly,
+
+120   Delancy explicitly stated: ”Mr. Wilson did not commit obstruction of justice during a street encounter.”31
+
+121       Acknowledgment of Wilson’s Constitutional Rights: Delancy admitted under oath that Wilson was
+
+122   exercising fundamental constitutional rights, including the right to travel. He testified: ”I know the right to
+
+123   travel is part of the constitution and part of our right, yes.”32 He further acknowledged: ”We all have a right
+
+124   to travel. It’s just how we travel that’s the issue.”33
+
+125       Admission of Wilson’s Cooperative Behavior: Delancy’s testimony completely contradicts any
+
+126   justification for the use of force. When asked if Wilson was resisting during the handcuffing, Delancy testified:
+
+127   ”No. No, not at all. No.”34 When asked if Wilson was cooperative during the handcuffing process, Delancy
+
+128   responded: ”Yes, he were. Absolutely. Absolutely.”35 Most significantly, Delancy acknowledged: ”Yes. Yes.
+
+129   Yes. You were a gentleman at that point, absolutely.”36 So the plaintiff asks, why was he placed in handcuffs?
+
+130       Temporal Proximity Establishing Retaliation: Delancy admitted that the detention occurred immediately
+
+131   after Wilson’s request for badge numbers. When asked about the time elapsed between Wilson’s badge
+
+132   number request and the decision to handcuff him, Delancy testified: ”I say about 15 seconds, maybe. 20,
+
+133   maybe.”37 When asked if he would agree it was ”pretty immediate,” Delancy confirmed: ”Yeah. Fifteen to –
+
+134   15 to 20. Yes, sir.”38
+
+135       No Criminal Charges Filed Despite Alleged Justifications: Despite all the alleged justifications in their
+
+136   declarations, Delancy admitted that Wilson was never charged with any crime. When asked directly, ”Did
+         29 Delancy Depo. at 61:21-23.
+         30 Delancy Depo. at 62:2-4.
+         31 Delancy Depo. at 64:2-3.
+         32 Delancy Depo. at 143:6-7.
+         33 Delancy Depo. at 145:17-18.
+         34 Delancy Depo. at 64:5.
+         35 Delancy Depo. at 64:7.
+         36 Delancy Depo. at 64:9-10.
+         37 Delancy Depo. at 63:12.
+         38 Delancy Depo. at 63:14.
+
+
+
+
+                                                                6
+              Case 3:24-cv-02033-JR                     Document 36              Filed 09/05/25   Page 7 of 14
+
+
+
+
+137   you charge Mr. Wilson with obstruction of justice?” Delancy responded: ”I didn’t charge Mr. Wilson with
+
+138   anything, no, sir.”39 He further testified that he was not going to issue any citations.40
+
+139       Unlawful Confiscation of Recording Device: The defendants’ confiscation of Wilson’s cellular telephone
+
+140   during the encounter constituted an unlawful seizure designed to prevent documentation of their constitutional
+
+141   violations. This confiscation terminated Wilson’s ability to record the encounter, demonstrating the defendants’
+
+142   consciousness of guilt and intent to conceal their unlawful conduct. The timing of the confiscation, immediately
+
+143   following Wilson’s exercise of his First Amendment right to record the police encounter, establishes additional
+
+144   evidence of retaliatory intent and creates adverse inferences regarding the defendants’ awareness that their
+
+145   conduct violated clearly established constitutional law.
+
+
+146   IV. Systematic Contradictions Between Declarations and Deposition Testimony Create Credi-
+147   bility Issues for Jury Determination
+
+148   The defendants’ sworn declarations contain material misrepresentations that are directly contradicted by their
+
+149   own deposition testimony under oath. These systematic contradictions create genuine issues of material fact
+
+150   regarding credibility that must be resolved by a jury, not by summary judgment.
+
+151       Griffin’s declaration attempts to justify the detention and use of force, but his deposition reveals he was
+
+152   merely a training officer ”early in my career” who was ”still learning” and essentially ”following orders.”41
+
+153   This admission undermines any claim of independent professional judgment and creates a factual dispute
+
+154   about his qualifications to assess the situation.
+
+155       More significantly, Griffin’s deposition admissions directly contradict the justifications presented in his
+
+156   declaration. He admitted that Wilson posed no threat, exhibited no dangerous behavior, was not belligerent,
+
+157   did not attempt to flee, and did not physically resist.42 These material admissions are conspicuously absent
+
+158   from his declaration, creating genuine issues about the truthfulness of his sworn statements.
+
+159       Similarly, Jundt’s deposition contains admissions that contradict his declaration, including that he observed
+
+160   no criminal activity, that Wilson was not threatening, and that he possessed no articulable facts supporting
+
+161   detention.43
+        39 Delancy Depo. at 63:19.
+        40 Delancy Depo. at 155:8 (”I’m not going to issue a citation for anything”).
+        41 Griffin Depo. at 22:1-3, 11-14.
+        42 Griffin Depo. at 19:21-22, 24-25; 20:1-2; 22:22-23.
+        43 Jundt Depo. at 16:6-11; 21:8-10; 20:16-20.
+
+
+
+
+                                                                      7
+               Case 3:24-cv-02033-JR                    Document 36              Filed 09/05/25             Page 8 of 14
+
+
+
+
+162       Most devastatingly, Delancy’s explicit admission that his obstruction charge was ”incorrect” and that
+
+163   Wilson ”did not commit obstruction of justice during a street encounter” directly contradicts the justifications
+
+164   in his declaration.44
+
+165       These systematic contradictions between sworn declarations and sworn deposition testimony create
+
+166   credibility determinations that are quintessentially jury questions and preclude summary judgment.45
+
+
+
+167   LEGAL ARGUMENT
+
+168   I. DEFENDANTS’ MOTION FOR SUMMARY JUDGMENT MUST BE DENIED BECAUSE
+169   GENUINE ISSUES OF MATERIAL FACT EXIST REGARDING CONSTITUTIONAL
+170   VIOLATIONS
+
+171   A. First Amendment Retaliation Claim Survives Summary Judgment
+
+172   Wilson’s First Amendment retaliation claim is supported by overwhelming evidence that defendants retaliated
+
+173   against him for exercising his clearly established right to request badge numbers from police officers. The
+
+174   elements of a First Amendment retaliation claim are: (1) the plaintiff engaged in constitutionally protected
+
+175   activity; (2) the defendant’s actions would chill a person of ordinary firmness from continuing to engage in
+
+176   that activity; and (3) the protected activity was a substantial or motivating factor in the defendant’s conduct.46
+
+177       Protected Activity: Wilson’s request for badge numbers constitutes clearly established First Amendment
+
+178   activity. The right to request identification from police officers is a fundamental aspect of the right to gather
+
+179   information about government officials performing their duties.47 This right has been clearly established for
+
+180   decades and is essential to democratic accountability.48
+
+181       Chilling Effect: The defendants’ actions would clearly chill a person of ordinary firmness from requesting
+
+182   badge numbers. Being handcuffed and detained immediately after making such a request sends an unmistakable
+
+183   message that exercising this constitutional right will result in arrest and detention.
+
+184       Substantial or Motivating Factor: The temporal proximity between Wilson’s badge number request and
+
+185   his detention establishes that the protected activity was a substantial motivating factor. Delancy admitted that
+         44 Delancy Depo. at 61:21-23; 64:2-3.
+         45 See Anderson v. Liberty Lobby, Inc., 477 U.S. 242, 255 (1986) (”Credibility determinations, the weighing of the evidence, and
+      the drawing of legitimate inferences from the facts are jury functions”).
+         46 Nieves v. Bartlett, 139 S. Ct. 1715, 1722 (2019).
+         47 Glik v. Cunniffe, 655 F.3d 78, 85 (1st Cir. 2011).
+         48 Turner v. Driver, 848 F.3d 678, 688 (5th Cir. 2017).
+
+
+
+                                                                      8
+              Case 3:24-cv-02033-JR                    Document 36               Filed 09/05/25             Page 9 of 14
+
+
+
+
+186   only 15-20 seconds elapsed between the request and the handcuffing.49 This immediate retaliation, combined
+
+187   with the lack of any criminal activity or threatening behavior, establishes the retaliatory motive.
+
+188       Nieves Exception Applies: Even if defendants argue that probable cause existed for some traffic violation,
+
+189   the Nieves exception applies because Wilson can demonstrate he was treated differently than similarly situated
+
+190   individuals who did not engage in protected speech. The evidence shows that the decision to handcuff and
+
+191   detain Wilson was made immediately after his badge number request, not based on any traffic violation.50
+
+
+192   B. Fourth Amendment Excessive Force Claim Survives Summary Judgment
+
+193   Wilson’s excessive force claim under the Fourth Amendment must be analyzed under the Graham v. Connor
+
+194   objective reasonableness standard. Applying the Graham factors to the undisputed facts establishes that the
+
+195   force used was objectively unreasonable:
+
+196       Severity of Crime: The alleged ”crime” was a minor traffic violation, which Griffin explicitly distinguished
+
+197   from criminal activity.51 Traffic violations are among the least serious offenses and do not justify the use of
+
+198   handcuffs absent additional circumstances.
+
+199       Immediate Threat: Wilson posed no immediate threat to officer safety or others. Griffin testified that he
+
+200   ”did not observe dangerous actions” by Wilson,52 and Delancy confirmed that Wilson was ”a gentleman” who
+
+201   was ”cooperative” and not ”resisting.”53
+
+202       Active Resistance or Flight: Wilson did not actively resist arrest or attempt to flee. Griffin confirmed
+
+203   that Wilson did not attempt to flee54 and did not physically resist.55 Delancy similarly testified that Wilson
+
+204   was not resisting and was cooperative during the handcuffing process.56
+
+205       The handcuffing of a cooperative individual who posed no threat and was not resisting for a minor traffic
+
+206   violation constitutes excessive force under clearly established Fourth Amendment law.57
+        49 Delancy Depo. at 63:12, 14.
+        50 Griffin Depo. at 21:2-3 (confirming handcuffing occurred ”during that time or shortly thereafter” the badge request).
+        51 Griffin Depo. at 17:13-15.
+        52 Griffin Depo. at 19:22.
+        53 Delancy Depo. at 64:5, 7, 9-10.
+        54 Griffin Depo. at 20:2.
+        55 Griffin Depo. at 22:23.
+        56 Delancy Depo. at 64:5, 7.
+        57 See Graham v. Connor, 490 U.S. 386, 396-97 (1989).
+
+
+
+
+                                                                     9
+             Case 3:24-cv-02033-JR                    Document 36               Filed 09/05/25             Page 10 of 14
+
+
+
+
+207   C. Fourth Amendment Unreasonable Seizure Claim Survives Summary Judgment
+
+208   Wilson’s detention constituted an unreasonable seizure under the Fourth Amendment because defendants
+
+209   lacked reasonable suspicion of criminal activity. Under Terry v. Ohio, an investigative detention requires
+
+210   reasonable suspicion that the individual has committed, is committing, or is about to commit a crime.58
+
+211       Lack of Criminal Suspicion: Griffin explicitly testified that he possessed no reasonable suspicion of
+
+212   criminal activity beyond a traffic violation.59 He distinguished between traffic violations and criminal activity,
+
+213   confirming that the only basis for contact was ”a violation of a traffic statute.”60
+
+214       Traffic Stop vs. Investigative Detention: This was not a traffic stop, as Wilson’s vehicle was already
+
+215   parked and he was walking on a sidewalk.61 The handcuffing and detention of Wilson transformed what
+
+216   should have been a brief investigative contact into an arrest without probable cause.
+
+217       Pretextual Nature of Detention: The timing of the detention immediately after Wilson’s badge number
+
+218   request, combined with the lack of any criminal suspicion, establishes that the detention was pretextual and
+
+219   retaliatory rather than based on legitimate law enforcement concerns.
+
+
+220   II. DEFENDANTS ARE NOT ENTITLED TO QUALIFIED IMMUNITY
+
+221   Qualified immunity protects government officials from liability only if their conduct did not violate clearly
+
+222   established statutory or constitutional rights of which a reasonable person would have known.62 Defendants
+
+223   are not entitled to qualified immunity because they violated clearly established constitutional rights.
+
+
+224   A. Clearly Established First Amendment Rights
+
+225   The right to request badge numbers from police officers has been clearly established for decades. Courts
+
+226   have consistently held that citizens have a First Amendment right to gather information about government
+
+227   officials, including police officers performing their duties.63 Retaliating against citizens for exercising this
+
+228   right violates clearly established constitutional law.
+        58 Terry v. Ohio, 392 U.S. 1, 21 (1968).
+        59 Griffin Depo. at 17:5-6.
+        60 Griffin Depo. at 17:13-15.
+        61 Griffin Depo. at 24:13-15; 25:21-22.
+        62 Harlow v. Fitzgerald, 457 U.S. 800, 818 (1982).
+        63 Glik v. Cunniffe, 655 F.3d 78, 85 (1st Cir. 2011); Turner v. Driver, 848 F.3d 678, 688 (5th Cir. 2017).
+
+
+
+
+                                                                     10
+             Case 3:24-cv-02033-JR                   Document 36           Filed 09/05/25    Page 11 of 14
+
+
+
+
+229   B. Clearly Established Fourth Amendment Rights
+
+230   The Fourth Amendment rights violated in this case have been clearly established since the Supreme Court’s
+
+231   decisions in Terry v. Ohio and Graham v. Connor. The prohibition against excessive force and unreasonable
+
+232   seizures has been clearly established for decades, and no reasonable officer could have believed that handcuffing
+
+233   a cooperative individual who posed no threat for a minor traffic violation was constitutionally permissible.
+
+
+234   C. Defendants’ Knowledge of Constitutional Violations
+
+235   The defendants’ own admissions establish that they knew or should have known that their conduct violated
+
+236   clearly established constitutional rights. Delancy’s admission that his obstruction charge was ”incorrect”64
+
+237   and that Wilson ”did not commit obstruction of justice”65 demonstrates consciousness of the unlawful nature
+
+238   of the detention.
+
+
+239   III. MUNICIPAL LIABILITY UNDER MONELL IS ESTABLISHED
+
+240   The City of Hood River faces municipal liability under Monell v. Department of Social Services because the
+
+241   constitutional violations resulted from official policy, custom, or practice of the municipality.66
+
+
+242   A. Failure to Train
+
+243   Municipal liability may be established through deliberate indifference to constitutional rights, including
+
+244   failure to train officers regarding clearly established constitutional law.67 The evidence establishes that the
+
+245   City failed to adequately train its officers regarding:
+
+
+246      1. Citizens’ First Amendment rights to request badge numbers and record police encounters
+
+247      2. Proper application of the Graham factors for use of force decisions
+
+248      3. Constitutional limitations on investigative detentions under Terry v. Ohio
+
+249      4. The distinction between traffic violations and criminal activity
+        64 Delancy Depo. at 61:21-23.
+        65 Delancy Depo. at 64:2-3.
+        66 Monell v. Dept. of Social Services, 436 U.S. 658, 694 (1978).
+        67 Canton v. Harris, 489 U.S. 378, 388 (1989).
+
+
+
+
+                                                                   11
+             Case 3:24-cv-02033-JR                  Document 36      Filed 09/05/25         Page 12 of 14
+
+
+
+
+250       Griffin’s Training Deficiencies: Griffin’s testimony reveals fundamental gaps in constitutional training.
+
+251   Despite being designated as a training officer, he admitted he was ”early in his career,” ”still learning,” and
+
+252   essentially ”following orders” rather than making independent constitutional assessments.68
+
+253       Institutional Pattern: The systematic nature of the constitutional violations, involving multiple officers
+
+254   who all failed to recognize clearly established constitutional rights, establishes an institutional pattern of
+
+255   deliberate indifference to constitutional training.
+
+
+256   B. Custom or Practice of Constitutional Violations
+
+257   The evidence suggests a custom or practice within the Hood River Police Department of retaliating against
+
+258   citizens who exercise their constitutional rights. The coordinated nature of the constitutional violations,
+
+259   involving multiple officers acting in concert, suggests an institutional tolerance for such conduct.
+
+
+260   IV. DAMAGES ARE CLEARLY ESTABLISHED
+
+261   Wilson is entitled to both compensatory and punitive damages for the constitutional violations he suffered.
+
+
+262   A. Compensatory Damages
+
+263   Wilson suffered both tangible and intangible injuries as a result of defendants’ constitutional violations:
+
+
+264      1. Physical restraint and discomfort from handcuffing
+
+265      2. Humiliation and embarrassment from public detention
+
+266      3. Constitutional injury from violation of First, Fourth, and Fifth Amendment rights
+
+267      4. Interference with his right to travel and freedom of movement
+
+
+268   B. Punitive Damages
+
+269   Punitive damages are appropriate where defendants acted with reckless or callous indifference to constitutional
+
+270   rights.69 The evidence establishes that defendants acted with such indifference:
+
+
+271      1. Delancy’s admission that his obstruction charge was ”incorrect” demonstrates knowledge of wrongdoing
+        68 Griffin Depo. at 22:1-3, 11-14.
+        69 Smith v. Wade, 461 U.S. 30, 56 (1983).
+
+
+
+                                                            12
+             Case 3:24-cv-02033-JR               Document 36         Filed 09/05/25        Page 13 of 14
+
+
+
+
+272      2. The immediate retaliation following Wilson’s badge number request shows callous disregard for First
+
+273         Amendment rights
+
+274      3. The systematic perjury in defendants’ declarations demonstrates ongoing indifference to constitutional
+
+275         and legal obligations
+
+
+
+276   CONCLUSION
+
+277   For the foregoing reasons, Defendants’ Motion for Summary Judgment must be denied in its entirety.
+
+278   The undisputed facts, as established through defendants’ own deposition testimony, demonstrate clear
+
+279   constitutional violations that were objectively unreasonable and violated clearly established law. The
+
+280   systematic contradictions between defendants’ sworn declarations and their deposition testimony create
+
+281   genuine issues of material fact that must be resolved by a jury.
+
+282       This case presents a clear example of law enforcement officers who violated clearly established constitu-
+
+283   tional rights and then attempted to cover up their misconduct through perjurious declarations. Such conduct
+
+284   cannot be tolerated in a constitutional democracy and warrants both civil liability and criminal prosecution.
+
+285       Plaintiff respectfully requests that this Court:
+
+
+286      1. Deny Defendants’ Motion for Summary Judgment in its entirety
+
+287      2. Set this matter for jury trial on all claims
+
+288      3. Award Plaintiff compensatory and punitive damages
+
+289      4. Award Plaintiff reasonable litigation fees and costs
+
+290      5. Refer this matter to appropriate authorities for criminal prosecution of perjury
+
+291      6. Grant such other relief as the Court deems just and proper
+
+
+
+
+                                                             13
+             Case 3:24-cv-02033-JR           Document 36          Filed 09/05/25       Page 14 of 14
+
+
+
+
+292   Respectfully submitted,
+
+293
+
+
+
+
+294   Executed on September 5, 2025, at Yakima, Washington.
+
+295
+
+
+296   /s/ Cameron James Wilson
+
+297   Pro Se Plaintiff
+
+298   1312 South 44th Ave
+
+299   Yakima, Washington 98908
+
+300   (503) 496-9239
+
+301   cam@piitp.com
+
+
+
+302   CERTIFICATE OF SERVICE
+
+303   I hereby certify that on September 5, 2025, I served a true and correct copy of the foregoing PLAINTIFF’S
+
+304   RESPONSE TO DEFENDANTS’ MOTION FOR SUMMARY JUDGMENT AND REQUEST FOR TRIAL
+
+305   upon the following parties by the method indicated:
+
+       Keegan C. Murphy, OSB #194264
+
+       Kenneth S. Montoya, OSB #064467
+
+       Montoya Law
+306    350 Mission St. SE, Suite 202
+
+       Salem, OR 97302
+
+       Emails: kenny@montoyalaw.org, keegan@montoyalaw.org
+
+       Attorneys for Defendants
+307       □ Electronic filing via CM/ECF
+
+
+308   /s/Cameron James Wilson
+
+309   Pro Se Plaintiff
+
+
+
+
+                                                            14
+

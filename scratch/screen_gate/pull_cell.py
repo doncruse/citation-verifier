@@ -22,12 +22,20 @@ import argparse
 import asyncio
 import json
 import os
+import sys
 from pathlib import Path
+
+# Make `from pull_baseline import ...` resolve regardless of cwd, so agents can
+# run this from the repo root while it still finds its sibling module.
+_HERE = os.path.dirname(os.path.abspath(__file__))
+if _HERE not in sys.path:
+    sys.path.insert(0, _HERE)
 
 from citation_verifier.client import AsyncCourtListenerClient
 from pull_baseline import classify_doctype, sanction_hits, pull_candidate
 
-BASELINE_ROOT = "scratch/screen_gate/baseline"
+# baseline/ lives next to this script; script-relative so cwd doesn't matter.
+BASELINE_ROOT = os.path.join(_HERE, "baseline")
 
 
 def load_token() -> str:

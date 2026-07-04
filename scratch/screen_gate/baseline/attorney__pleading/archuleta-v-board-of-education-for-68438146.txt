@@ -1,0 +1,1012 @@
+     Case 1:24-cv-00359-KK-JHR            Document 1       Filed 04/15/24     Page 1 of 19
+
+
+
+
+                       IN THE UNITED STATES DISTRICT COURT
+                         FOR THE DISTRICT OF NEW MEXICO
+
+RUBEN ARCHULETA, and TINA ARCHULETA,
+as next friends and legal guardians of
+LUKE ARCHULETA, a minor,
+
+                      Plaintiffs,
+
+v.                                                          No.     24-CV-359
+
+BOARD OF EDUCATION FOR
+ESPANOLA PUBLIC SCHOOLS,
+FILIBERTO “FIL” DOMINGUEZ,
+JOEY TRUJILLO, and
+HOLLY MARTINEZ,
+
+                      Defendants.
+
+             COMPLAINT FOR DAMAGES AND DECLARATORY RELIEF
+
+       Plaintiffs Ruben Archuleta and Tina Archuleta, as next friends and legal guardians of Luke
+
+Archuleta, a minor, by and through undersigned counsel, hereby file this Complaint for Damages
+
+and Declaratory Relief (“Complaint”). Plaintiffs bring claims against Defendants Board of
+
+Education for Española Public Schools (“EPS”), Filiberto “Fil” Dominguez, Joey Trujillo, and
+
+Holly Martinez (collectively referred to as “Defendants”). Plaintiffs bring claims against
+
+Defendants for violations of the United States Constitution pursuant to 42 U.S.C. § 1983, and the
+
+New Mexico Civil Rights Act (“NMCRA”), NMSA 1978 §§ 41-4A-1, et. seq.
+
+                                JURISDICTION AND VENUE
+
+       1.      This is a civil action authorized by 42 U.S.C. § 1983 to redress the deprivation,
+
+under color of state law, of rights secured by the Constitution of the United States. The court has
+
+jurisdiction under 28 U.S.C. §§ 1331 and 1343 (a)(3). This Court also has supplemental
+
+jurisdiction over the state law claims pursuant to 28 U.S.C. § 1367(a).
+
+
+
+
+                                                    1
+     Case 1:24-cv-00359-KK-JHR             Document 1        Filed 04/15/24     Page 2 of 19
+
+
+
+
+       2.      The United States District Court for the District of New Mexico is an appropriate
+
+venue under 28 U.S.C. § 1391(b)(2) because it is where the events giving rise to this claim
+
+occurred.
+
+       3.      In connection with Plaintiffs’ state law claims, Plaintiffs provided a timely notice
+
+to Defendants for claims under the NMCRA.
+
+                                             PARTIES
+
+       1.      Plaintiffs Ruben Archuleta and Tina Archuleta (occasionally referred to as the
+
+“parents”) are residents of the State of New Mexico, County of Rio Arriba and the parents of Luke
+
+Archuleta (collectively referred to as “Plaintiffs” or by their first names).
+
+       2.      Defendant Board of Education for Española Public Schools (“EPS”) is a New
+
+Mexico Public School System located in Espanola, Rio Arriba County, New Mexico, which school
+
+board sanctions school sport activities, and employs the Individual Defendants. Defendant EPS is
+
+a “public body” pursuant to the New Mexico Civil Rights Act, NMSA 1978, § 41-4A-2, and those
+
+claims are brought exclusively against it. See NMSA 1978, § 41-4A-3(C).
+
+       3.      Defendant Filiberto “Fil” Dominguez is a resident of the State of New Mexico, and
+
+an athletic coach for Espanola Valley High School at EPS. This defendant is sued in his individual
+
+and official capacity.
+
+       4.      Defendant Joey Trujillo is a resident of the State of New Mexico, and an athletic
+
+coach for Espanola Valley High School at EPS. This defendant is sued in his individual and official
+
+capacity.
+
+       5.      Defendant Holly Martinez is a resident of the State of New Mexico, and the
+
+Superintendent at EPS. Defendant Holly Martinez is a policymaker for Defendant EPS. This
+
+defendant is sued in his individual and official capacity.
+
+
+
+                                                      2
+        Case 1:24-cv-00359-KK-JHR           Document 1       Filed 04/15/24      Page 3 of 19
+
+
+
+
+                                    FACTUAL ALLEGATIONS
+
+   I.          Relevant state laws and rules regarding the licensing of 7-12 coaching staff.
+
+         6.       The New Mexico Activities Association (“NMAA”) is a nonprofit organization that
+
+regulates interscholastic programs for junior and senior high schools in New Mexico.
+
+         7.       Even though the NMAA is a private organization, it is regulated to great extent by
+
+the State of New Mexico. New Mexico law gives the Public Education Department (“PED”)
+
+authority over “an association or organization attempting to regulate a public school activity,”
+
+giving it authority to approve or disapprove rules and to require performance and financial audits,
+
+and requiring the organizations to comply with state laws. See NMSA 1978, § 22-2-2(L) (2019).
+
+         8.       The NMAA Rules provide that “coaches must have a coaching license issued by
+
+the [PED] and be an employee or have a contractual relationship with [the school district] (this
+
+applies to both voluntary and paid individuals.)” NMAA Handbook, Rule 3.3(A).
+
+         9.       “A paid or volunteer individual working with a school team…must be under
+
+contract of the local school district and satisfy all NMAA requirements associated with that
+
+person’s role. All coaches…must be licensed.” Id.
+
+         10.      The New Mexico Public School Insurance Authority regulations require that
+
+volunteers at its member schools sign a pledge committing to various conduct, including refraining
+
+from striking or assaulting a student. NMAC 6.50.18.8.
+
+         11.      The PED regulations require that all persons who perform athletic coaching be
+
+licensed by the PED. NMAC 6.63.8.8.
+
+         12.      Athletic coaching is defined as “athletic services in grades 7-12 performed by a
+
+head coach or assistant coach, paid or volunteer, for any athletic sport…” Id.
+
+         13.      EPS policy provides that “[a]ll coaching schedules will be managed by the athletic
+
+
+
+                                                      3
+         Case 1:24-cv-00359-KK-JHR            Document 1        Filed 04/15/24      Page 4 of 19
+
+
+
+
+director in accordance with [NMAA] guidelines. Head coaches, assistants and volunteer coaches
+
+shall be licensed by the state of New Mexico.” Policy G-5050 Professional Staff Extra Duty.
+
+    II.         Policies and Rules Regarding Removal of Varsity Student Athletes from Athletic
+                Programs.
+
+          14.      EPS policy provides that the “principal of a school may remove a student from a
+
+school-sponsored activity if the principal determines that the student has violated a provision of
+
+the student discipline policies, rules, and/or regulations or if the principal determines that such
+
+removal is in the best interest of the activity or in the best interest of the school as a whole.” Policy
+
+J-4890.
+
+          15.      These actions are delegated from the board to the superintendent, who delegates in
+
+turn to the principal.
+
+          16.      There a no policies that allow the principal to delegate these actions to the coaching
+
+staff.
+
+          17.      As a result, the person ultimately responsible is the superintendent as the
+
+policymaker.
+
+          18.      It further provides that “[b]efore removing a student from an activity or position as
+
+a result of the student’s violation of the student discipline policies, rules, and/or regulations, the
+
+principal must comply with the notice-and-hearing provisions of those policies, rules, and/or
+
+regulations.” Id.
+
+          19.      Moreover, this Policy states that “[b]efore removing a student from an activity or
+
+position for reasons other than a student’s violation of the student discipline policies and/or
+
+regulations, the principal shall give written notice to the student.” Id.
+
+          20.      “The notice shall include the reason or reasons for the removal and the date that the
+
+removal is to become effective.” Id.
+
+                                                         4
+      Case 1:24-cv-00359-KK-JHR                Document 1       Filed 04/15/24      Page 5 of 19
+
+
+
+
+           21.      “If the student disagrees with the principal’s determination, the student may, within
+
+five (5) school days, request in writing a conference with the principal.” Id.
+
+           22.      “The conference shall be held as soon as practicable after the principal receives the
+
+written request.” Id.
+
+           23.      “At the conference, the student shall be given a full explanation of the reason or
+
+reasons for the action taken. The student shall be given an opportunity to present an explanation
+
+of the events relating to the action.” Id.
+
+           24.      This Policy and its enforcement are mandated by the State of New Mexico. See
+
+NMSA 1978, § 22-5-4.3.
+
+           25.      Of important relevance as further explained below, the NMAA states that students
+
+who were a participant in an athletic program, any tryout period is considered practice, and thus,
+
+the student remains part of the program throughout his high-school education unless properly
+
+removed or voluntarily leaves the program. See NMAA Handbook, Section XIV, p. 10 (defining
+
+the term “practice” as “[a] structured period in which a coach or other agent of the school directs
+
+the activities of a sports team or part of a team. […] If a Student has been a participant in a
+
+particular athletic program the previous year, the start of the ‘tryout period’ is considered
+
+practice.”).
+
+    III.         Policies Regarding Violence Against Students.
+
+           26.      EPS policy provides that school employees “shall not, when on school property or
+
+off campus while representing the school or attending a school function, engage in violent, abusive,
+
+indecent, profane, boisterous, unreasonably loud or otherwise disorderly conduct which tends to
+
+disturb the peace” and that school employees “shall not engage in unprofessional conduct, which
+
+conduct shall include … striking, assaulting or restraining a student for no valid reason.” Policy
+
+
+
+                                                         5
+      Case 1:24-cv-00359-KK-JHR               Document 1       Filed 04/15/24       Page 6 of 19
+
+
+
+
+G-0750 Staff Conduct.
+
+    IV.         Policies and Rules Regarding Discriminatory or Retaliatory Conduct Against
+                Students with Medical Conditions.
+
+          27.      EPS policy states that employees “shall not discriminate or permit students within
+
+our control, supervision or responsibility to discriminate against any other student on the basis of
+
+race, color, national origin, ethnicity, sex, sexual orientation, disability, religion, or serious medical
+
+condition[.]” Id.
+
+          28.      Last, the NMAA Rules require that school districts comply with all state and federal
+
+laws and regulations, such as the NMHRA and the Americans with Disabilities Act, in determining
+
+whether a student is eligible to play a sport at a particular school. NMAA Handbook, Rules 6.1.4
+
+and 6.12.2.
+
+                    FACTUAL ALLEGATIONS COMMON TO ALL COUNTS
+
+          29.      At all relevant times, Luke was 16 years old and in the 11th grade at Española Valley
+
+High School (“EVHS”).
+
+          30.      During his time at EVHS, Luke was a star student and athlete.
+
+          31.      Luke received high marks in his classes and was one of the best athletes at the
+
+EVHS’ football and basketball programs—Luke played varsity for both teams.
+
+          32.      Due to his exceptional grades, athleticism, and acumen, Luke planned on applying
+
+to the United States Military Academy West Point (“West Point”).
+
+          33.      Luke very likely could have obtained a recommendation from our United States
+
+Senators or Congresspeople to be admitted into West Point.
+
+          34.      This all changed when Defendant Dominguez and Defendant Trujillo were hired
+
+by Defendant EPS, and Defendant Martinez to coach boys’ basketball at EVHS.
+
+          35.      Defendant Trujillo is the head coach and supervised Defendant Dominguez as his
+
+                                                        6
+      Case 1:24-cv-00359-KK-JHR           Document 1         Filed 04/15/24   Page 7 of 19
+
+
+
+
+assistant coach.
+
+        36.     On May 27, 2022, Plaintiffs found out that Defendant Dominguez was hired.
+
+        37.     Defendant Dominguez was introduced to the team that he would be on the new
+
+coaching staff and would be in charge until the new permanent coach, Defendant Trujillo, started
+
+the position later in the year.
+
+        38.     Parents or students were never informed that new coaching staff were hired.
+
+        39.     A formal introduction was never initiated.
+
+        40.     Defendant Dominguez was not properly licensed until July 1st, 2022 and should
+
+have never been allowed to coach until licensed.
+
+        41.     During a meeting with Defendant Martinez and Athletic Director Abeyta, neither
+
+could confirm whether the new coaching staff was formally cleared or licensed to be around
+
+children and to coach the basketball team.
+
+        42.     Luke, Ruben, and Tina reported several times to Defendant Martinez that
+
+Defendant Dominguez was not licensed prior to July 1, 2022.
+
+        43.     Defendant Martinez explained that she was new and was not aware of the process,
+
+rules, policies, or regulations that required the school to clear new staff and to ensure they are
+
+licensed per state law, and PED and NMAA regulations.
+
+        44.     On June 3, 2022, players for EVHS, including Luke, were taken to play at a team
+
+camp for the basketball team at Santa Fe High School and Capitol High School.
+
+        45.     During a game, Defendant Dominguez was noticeably upset with the team.
+
+        46.     During a time out, Luke turned to another teammate and asked him a question and
+
+Defendant Dominguez turned to Luke and yelled at him, “Shut the fuck up!”
+
+        47.     Defendant Dominguez yelled this loud enough that Luke’s parents heard it in the
+
+
+
+                                                    7
+      Case 1:24-cv-00359-KK-JHR            Document 1        Filed 04/15/24       Page 8 of 19
+
+
+
+
+stands.
+
+          48.   At the time, Luke’s parents were not aware that this obscenity was directed at Luke.
+
+          49.   Luke did not initially tell his parents of the incident, but after the game he was very
+
+quiet and did not want to talk about what happened during the game.
+
+          50.   During the next game Luke was put in to play, he made a bad shot and Defendant
+
+Dominguez pulled him out of the game and yelled at him for taking “such a stupid shot.”
+
+          51.   Luke returned to the bench and sat down. Another child made the same shot a few
+
+moments later and was allowed to stay in the game.
+
+          52.   At some point, Luke turned to another teammate and was discussing the game, a
+
+couple of minutes later Defendant Dominguez approached Luke and said something to Luke
+
+stating, “Especially you!” and forcefully placed his hands upon Luke and struck him in the head
+
+to the point his head snapped back.
+
+          53.   Luke did not know what provoked Defendant Dominguez to assault and batter him.
+
+          54.   Luke’s teammate turned to him and said, “Damn, bro! [Defendant Dominguez] just
+
+little bro’d you.”
+
+          55.   Meaning that he is bullying Luke.
+
+          56.   After the game, Luke was visibly upset but would not tell his parents what occurred.
+
+          57.   Luke explained the incidents to his parents during an interview with Cristian Lopez,
+
+an employee investigating the incident, and Mr. Abeyta that he was fearful that after Defendant
+
+Dominguez forcefully poked him in the head, Defendant Dominguez would come back to hit him
+
+because he was enraged.
+
+          58.   On June 4, 2022, Luke attended the game the next day and was not allowed to play
+
+as frequently as the other players.
+
+
+
+                                                      8
+     Case 1:24-cv-00359-KK-JHR            Document 1      Filed 04/15/24      Page 9 of 19
+
+
+
+
+       59.     He was visibly upset and still would not tell his parents what was going on.
+
+       60.     Defendant Dominguez’s retaliation against Luke began for reporting the abusive
+
+and bullyish behavior to Mr. Lopez and Mr. Abeyta.
+
+       61.     Upon information and belief, Defendant Dominguez also became aggressive
+
+towards Luke because his parents questioned Defendants whether Defendant Dominguez had been
+
+cleared to be around students.
+
+       62.     On June 5, 2022, during the first game of the day, Luke played minimally.
+
+       63.     Defendant Dominguez was visibly upset with Luke and the team during the game
+
+to the point that parents approached Plaintiff Ruben Archuleta and complained about Defendant
+
+Dominguez and his behavior towards the team.
+
+       64.     Luke approached his parents and told them, “I can’t play anymore, [Defendant
+
+Dominguez] said I’m done.”
+
+       65.     Luke further stated that he was asking questions during the game and Defendant
+
+Dominguez did not like it, so he told him to leave.
+
+       66.     Plaintiff Ruben Archuleta approached Defendant Dominguez to inquire about the
+
+situation and if he should take his son home. Defendant Dominguez first response was, “You need
+
+to help me with him.”
+
+       67.     Plaintiff Ruben Archuleta asked how he could help.
+
+       68.     Defendant Dominguez went on to complain about Luke and his bad behavior. At
+
+some point he told Plaintiff Ruben Archuleta, “I almost got in a fight with another parent because
+
+of Luke.”
+
+       69.     Defendant Dominguez went on to tell everything that he believed was wrong with
+
+Luke to Plaintiff Ruben Archuleta.
+
+
+
+                                                      9
+        Case 1:24-cv-00359-KK-JHR        Document 1        Filed 04/15/24     Page 10 of 19
+
+
+
+
+         70.    He focused on how Luke should not have been allowed to play varsity the previous
+
+year.
+
+         71.    Plaintiff Ruben Archuleta explained that it was not Luke’s decision where he
+
+played and there was nothing they could do at this point in relation to the previous year.
+
+         72.    Defendant Dominguez threatened several times that this was his last chance and
+
+that he would be letting the new coach know of his bad behavior.
+
+         73.    Luke and his parents returned to the next game, and he told Luke he would not be
+
+allowed to play with the team, and he would be demoted to play with the junior varsity.
+
+         74.    Despite this, Luke was allowed to play because another player was hurt.
+
+         75.    During the game, Defendant Dominguez was agitated and frustrated with the team.
+
+         76.    When the game ended, Luke was visibly upset and would not communicate with
+
+his parents.
+
+         77.    Sometime that day, Plaintiffs found out that Defendant Dominguez was not cleared
+
+by EPS, Defendant Martinez, or Mr. Abeyta to coach the team.
+
+         78.    Luke continued to attend practice and the new permanent coach, Defendant
+
+Trujillo, started his position.
+
+         79.    Luke attended a team camp in Moriarty, New Mexico.
+
+         80.    Luke was demoted from the regular position to a second-string position.
+
+         81.    Defendant Trujillo demoted Luke without explanation.
+
+         82.    Upon information and belief, Defendant Trujillo received recommendations from
+
+Defendant Dominguez, and thus, was done intentionally.
+
+         83.    On June 22, 2022, Luke attended practice, during that time he and another
+
+teammate became engaged in a verbal argument, the other kid told Luke that he was not a good
+
+
+
+                                                    10
+     Case 1:24-cv-00359-KK-JHR           Document 1       Filed 04/15/24      Page 11 of 19
+
+
+
+
+player several times.
+
+        84.    Defendant Trujillo was present and did not control the situation.
+
+        85.    Defendant Trujillo screamed at Luke that he needed to leave, and he was not
+
+allowed to play.
+
+        86.    Defendant Trujillo did not do the same to the other student athlete.
+
+        87.    Luke called his father crying stating that Defendant Trujillo had thrown him out of
+
+practice.
+
+        88.    Luke’s parents were never informed that he was asked to leave practice.
+
+        89.    Luke’s parents tried calling Luke to find out his whereabouts and they were not
+
+able to locate him, until they went to the high school and found him there visibly upset.
+
+        90.    Tina asked Luke what happened, and he explained the situation.
+
+        91.    Luke also said that Defendant Trujillo sent Defendant Dominguez to go talk to him.
+
+        92.    At that time, Luke asked Defendant Dominguez to get away from him, that he made
+
+him feel unsafe because he had put his hands on him in the past.
+
+        93.    Defendant Dominguez told Luke he was a liar.
+
+        94.    Tina was upset by this, so she approached Defendant Trujillo and Mr. Abeyta and
+
+asked if she could talk to them about the incident involving Luke.
+
+        95.    Defendant Trujillo went on to tell her how horrible Luke was and how he had a bad
+
+attitude.
+
+        96.    Defendant Trujillo was very argumentative and abusive during the conversation.
+
+        97.    At that time, Plaintiffs reported the verbal and physical abuse of Luke.
+
+        98.    Defendant Trujillo told her that he had full faith in his coaches, and he did not
+
+believe that happened.
+
+
+
+                                                    11
+       Case 1:24-cv-00359-KK-JHR           Document 1       Filed 04/15/24      Page 12 of 19
+
+
+
+
+        99.      She asked him if he was calling Luke a liar and he responded that he was indeed
+
+calling Luke a liar.
+
+        100.     Tina explained to Defendant Trujillo and Mr. Abeyta that she felt like he was
+
+retaliating against Luke because of the incident between Luke and Defendant Dominguez.
+
+        101.     On July 8, 2022, Ruben made an appointment with Defendant Martinez to discuss
+
+the situation.
+
+        102.     Mr. Abeyta nor Defendant Trujillo reported the retaliatory conduct to her.
+
+        103.     Defendant Martinez assured Ruben that she would take care of the situation.
+
+        104.     These types of incidents must be reported, and all Defendants failed to do so.
+
+        105.     On July 18, 2022, Tina, Mr. Abeyta, former EVHS Principal Jeffrey Sagor, Security
+
+Director Cristian Lopez and Defendant Martinez met to discuss the incident.
+
+        106.     During that time, it was communicated that an investigation was being conducted.
+
+        107.     Mr. Lopez and Mr. Abeyta would interview Luke the next day.
+
+        108.     Luke’s parents were told that Defendant Dominguez would not be allowed at
+
+practice until an investigation was completed.
+
+        109.     Also, during the meeting, Tina asked why Defendant Dominguez and Defendant
+
+Trujillo were allowed to be at practice since their contract date stated July 1st, 2022.
+
+        110.     Mr. Abeyta stated they were volunteers.
+
+        111.     Tina then stated that they still needed a contract whether they were volunteers or
+
+not.
+
+        112.     She also asked why the other assistant coaches were allowed to be around the
+
+players without a background check or being drug tested per the New Mexico Public Education
+
+Department requirements.
+
+
+
+                                                     12
+     Case 1:24-cv-00359-KK-JHR            Document 1          Filed 04/15/24   Page 13 of 19
+
+
+
+
+        113.    Mr. Abeyta and Defendant Martinez could not and did not have an answer.
+
+Defendant Dominguez was allowed to be there throughout the summer by Defendant Martinez
+
+even though he was not cleared and did not have a license.
+
+        114.    After the meeting, Defendant Martinez and Mr. Abeyta proceeded to the HR office
+
+to inquire.
+
+        115.    On July 19, 2022, Luke was interviewed by Mr. Lopez and Mr. Abeyta.
+
+        116.    On July 20, 2022, Mr. Lopez was placed on administrative leave.
+
+        117.    A full investigation was not completed due to Mr. Lopez being put on
+
+administrative leave for reasons unknown.
+
+        118.    During this interview, Mr. Lopez and Mr. Abeyta assured Luke that Defendant
+
+Dominguez would not be allowed to attend practice until an investigation was done and the issue
+
+was resolved.
+
+        119.    Nonetheless, Defendant Dominguez was allowed to return to practice on July 20,
+
+2022.
+
+        120.    Because Luke was a varsity player the prior year, Luke attended the basketball class
+
+offered at EVHS during school hours and throughout the semester and gained academic credit for
+
+his attendance and participation in this class.
+
+        121.    On October 5, 2022, after several sessions with therapists, Luke’s doctor provided
+
+a note to all Defendants stating that Luke suffered from anxiety, panic attacks, and depression as
+
+a result of the retaliation he endured from all Defendants.
+
+        122.    All Defendants ignored Luke’s medical note.
+
+        123.    On November 14, 2022, Luke went to the EVHS routine tryouts, which are
+
+considered practice for him under NMAA Rules since he was a varsity player the prior school
+
+
+
+                                                    13
+     Case 1:24-cv-00359-KK-JHR              Document 1   Filed 04/15/24      Page 14 of 19
+
+
+
+
+year, for the basketball team.
+
+        124.   Luke performed as expected and had a great performance.
+
+        125.   Nonetheless, Luke was cut from the basketball team altogether by Defendant
+
+Dominguez and Defendant Trujillo in further retaliation against Luke, which here done with the
+
+intent to injure Luke by depriving him of participation in the basketball program and forcing a
+
+transfer to a school in a different town.
+
+        126.   Defendants EPS and Martinez did not address any of Plaintiffs’ complaints,
+
+including the fact that they were provided a medical note from Luke’s doctor stating Luke’s
+
+medical conditions and that requested that Defendant Dominguez and Trujillo not retaliate against
+
+Luke.
+
+        127.   Defendant EPS’s policy manual states that the coaching staff are supposed to meet
+
+with the student and explain the reasons for not making the team. This did not occur.
+
+        128.   Using the “f” word on the bench and/or poking a student in the forehead for
+
+allegedly poor basketball play violates Policy G-0750.
+
+        129.   Defendant Dominguez and Defendant Trujillo continued to retaliate against Luke
+
+until Luke was forced to transfer schools to Los Alamos High School.
+
+        130.   Luke must drive every school day and for basketball events from Española to Los
+
+Alamos, and thus, must spend money that otherwise he would not have to spend.
+
+        131.   To transfer and be able to play basketball at Los Alamos High School, Luke had to
+
+have a hardship and eligibility hearing in front of an NMAA panel.
+
+        132.   The panel determined that Luke had a hardship because of the medical conditions
+
+inflicted upon him by Defendants and that he was eligible because he did not meet the definition
+
+of “tryout” which would have prevented him from playing if it was determined that he tried out
+
+
+
+                                                   14
+     Case 1:24-cv-00359-KK-JHR            Document 1         Filed 04/15/24   Page 15 of 19
+
+
+
+
+for the EVHS team but was not selected.
+
+       133.    Rather, they determined that this tryout period was practice for Luke because he
+
+was a varsity player the year prior.
+
+       134.    Luke continues to suffer from severe anxiety, panic attacks, and depression.
+
+       135.    He has suffered severe panic attacks in the middle of the night.
+
+       136.    Luke’s academic and athletic reputation has been damaged by Defendants.
+
+       137.    Luke continued to be intimated by Defendants Dominguez and Trujillo after he left
+
+EVHS for Los Alamos High School whenever these two schools would play against each other in
+
+basketball by mocking and laughing at Luke.
+
+       138.    Luke continues to meet with therapists to help him with his serious medical
+
+condition.
+
+       139.    On March 10, 2023, a second investigation was conducted by independent counsel.
+
+       140.    That investigation found that Defendant Dominguez was not properly licensed at
+
+the time of the incidents and found that Luke’s version of events was believable.
+
+       141.    Despite this finding, Defendants Dominguez and Trujillo were never reprimanded,
+
+and did not receive training to address these issues.
+
+                                       COUNT I
+                             FIRST AMENDMENT VIOLATION
+                               AGAINST ALL DEFENDANTS
+                                    (RETALIATION)
+
+       142.    Plaintiff incorporates the preceding paragraphs as though fully set forth herein.
+
+       143.    As a result of Plaintiffs reporting that Defendant Dominguez was not licensed at
+
+the relevant times, Defendants EPS, Dominguez, Trujillo, and Martinez retaliated against Luke by
+
+demoting him from the basketball program, expelling him from the team, and forcing Luke to
+
+transfer schools.
+
+                                                        15
+     Case 1:24-cv-00359-KK-JHR           Document 1       Filed 04/15/24      Page 16 of 19
+
+
+
+
+       144.    As a result of Plaintiffs reporting that Defendant Dominguez assaulted and battered
+
+Luke in violation of policies and regulations, Defendants EPS, Dominguez, Trujillo, and Martinez
+
+retaliated against Luke by demoting him from the basketball program, expelling him from the
+
+team, and forcing Luke to transfer schools.
+
+       145.    As a result of Plaintiffs reporting that Luke was diagnosed with a medical condition
+
+because of Defendant Dominguez’s assault and battery upon Luke in violation of policies and
+
+regulations, Defendants EPS, Dominguez, Trujillo, and Martinez retaliated against Luke by
+
+demoting him from the basketball program, expelling him from the team, and forcing Luke to
+
+transfer schools.
+
+       146.    Defendants EPS and Martinez have a policy and/or custom of hiring and retaining
+
+coaching staff that are not licensed or screened properly in violation of state laws, NMAA
+
+regulations, and EPS policies.
+
+       147.    Defendants EPS and Martinez have a policy and/or custom of failing to supervise
+
+and train coaching staff to adequately deal with students with medical conditions.
+
+       148.    Defendants EPS and Martinez have a policy and/or custom of failing to supervise
+
+and train coaching staff to adequately deal with students with medical conditions.
+
+       149.    Defendants EPS and Martinez have a policy and/or custom of failing to supervise
+
+and train their coaching staff when they are found to have violated state laws, NMAA regulations,
+
+and/or EPS policies.
+
+       150.    Defendants EPS and Martinez have a policy and/or custom of retaliating against
+
+students who report misconduct. This is evidenced by the fact that Defendants Dominguez and
+
+Trujillo were never disciplined and continue to be coaches at EVHS.
+
+       151.    Defendants EPS and Martinez created a custom and/or policy by allowing
+
+
+
+                                                   16
+     Case 1:24-cv-00359-KK-JHR             Document 1       Filed 04/15/24    Page 17 of 19
+
+
+
+
+Defendants Dominguez and Trujillo to violate multiple state laws, NMAA regulations, and EPS
+
+policies.
+
+        152.   Defendants EPS and Martinez created a custom and/or policy by violating multiple
+
+state laws, NMAA regulations, and EPS policies.
+
+        153.    Defendants conduct as alleged herein, violated Luke’s First Amendment rights,
+
+specifically the right to free speech in public places, and express and/or file grievances, causing
+
+the resulting injuries and damages set forth herein.
+
+        154.   The conduct of all Defendants, as alleged herein, was motivated by Plaintiffs
+
+conduct.
+
+        155.   The conduct of all Defendants, as alleged herein, was a direct and proximate cause
+
+of injuries and damage to Luke.
+
+        156.   Defendants acted willfully, knowingly, and purposefully or with deliberate
+
+indifference to deprive Luke of his clearly established First Amendment rights.
+
+        157.   The conduct of all Defendant was intentional, unreasonable, reckless, wanton,
+
+willful, and callously indifferent to the rights of Luke.
+
+        158.   Plaintiffs seek a declaration that Defendants violated his First Amendment rights
+
+by retaliating against him, as well as damages.
+
+                                     COUNT II
+                                  NMCRA CLAIM
+                              AGAINST DEFENDANT EPS
+                       VIOLATION OF N.M. CONST. ART. II, SEC. 17
+                                  (RETALIATION)
+
+        159.   Plaintiff incorporates the preceding paragraphs as though fully set forth herein.
+
+        160.   Plaintiff’s constitutional rights under Article II, Section 17 of the New Mexico
+
+Constitution are afforded greater protection than his rights under the United States Constitution.
+
+
+
+                                                       17
+     Case 1:24-cv-00359-KK-JHR             Document 1        Filed 04/15/24     Page 18 of 19
+
+
+
+
+       161.     As a result of Plaintiffs reporting that Defendant Dominguez was not licensed at
+
+the time, all Defendants retaliated against Plaintiff by demoting him, expelling him from the team,
+
+and forcing Luke to transfer schools.
+
+       162.     Defendants conduct as alleged herein, violated Luke’s constitutional rights,
+
+specifically the right to free speech in public places, causing the resulting injuries and damages set
+
+forth herein.
+
+       163.     The conduct of all Defendants, as alleged herein, was motivated by Plaintiffs
+
+conduct.
+
+       164.     The conduct of all Defendants, as alleged herein, was a direct and proximate cause
+
+of injuries and damage to Luke.
+
+       165.     All Defendants acted willfully, knowingly, and purposefully or with deliberate
+
+indifference to deprive Luke of his constitutional rights.
+
+       166.     The conduct of all Defendants was intentional, unreasonable, reckless, wanton,
+
+willful, and callously indifferent to the rights of Luke.
+
+       167.     Plaintiffs seek a declaration that Defendants violated his constitutional rights by
+
+retaliating against him, as well as damages.
+
+       168.     Defendant EPS is liable under the NMCRA.
+
+                                         JURY DEMAND
+
+       Plaintiffs demand a trial by jury on all issues so triable.
+
+                                     PRAYER FOR RELIEF
+
+       WHEREFORE, Plaintiffs respectfully request that the Court enter judgment on their behalf
+
+and against Defendants:
+
+       A. Declaratory relief;
+
+
+
+                                                      18
+Case 1:24-cv-00359-KK-JHR         Document 1       Filed 04/15/24      Page 19 of 19
+
+
+
+
+ B. Judgment against Defendants;
+
+ C. Compensatory damages;
+
+ D. Pre-judgment interest;
+
+ E. Post-judgment interest;
+
+ F. Plaintiffs’ costs;
+
+ G. Punitive damages;
+
+ H. Past and future pain, suffering, and mental anguish;
+
+ I. Reasonable attorney’s fees and costs; and
+
+ J. Such other and further relief as the Court deems just.
+
+ DATED: April 15, 2024                               Respectfully submitted,
+
+                                                     /s/ Ramón A. Soto
+
+                                                     Ramón A. Soto
+                                                     THE SOTO LAW OFFICE, LLC
+                                                     300 Central Ave. SW
+                                                     Suite 2500W
+                                                     Albuquerque, New Mexico 87102
+                                                     Office: (505) 273-4062
+                                                     Fax: (505) 494-1092
+                                                     ramon@thesotolawofficellc.com
+
+                                                      Attorney for Plaintiffs
+
+
+
+
+                                             19
+

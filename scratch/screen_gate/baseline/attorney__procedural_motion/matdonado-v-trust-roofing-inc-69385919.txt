@@ -1,0 +1,632 @@
+Case 8:24-cv-02687-WFJ-AAS         Document 16          Filed 01/16/25        Page 1 of 14 PageID 73
+
+
+
+
+                            UNITED STATES DISTRICT COURT
+                             MIDDLE DISTRICT OF FLORIDA
+
+                           CASE NO.: 8:24-CV-2687-WFJ-AAS
+
+ FRANCISCO MATDONADO,
+
+       Plaintiff,
+
+ vs.
+
+ TRUST ROOFING, INC.,
+
+        Defendant.
+ ______________________________/
+
+             PLAINTIFF’S MOTION TO STRIKE AFFIRMATIVE DEFENSES
+            AND DEEM CERTAIN “AFFIRMATIVE DEFENSES” AS DENIALS
+
+       Plaintiff, Francisco Matdonado (“Mr. Matdonado”), through his undersigned
+
+ counsel and pursuant to Rules 8(a) and 12(f) of the Federal Rules of Civil Procedure,
+
+ Local Rule 3.01, and other applicable Rules and laws, requests that the Court enter
+
+ an Order striking Affirmative Defenses Nos. 21 and 25 asserted by Defendant, Trust
+
+ Roofing, Inc. (“Defendant”), and deeming Affirmative Defenses Nos. 2, 3, 8, 10, and
+
+ 14 as denials based on the following good cause:
+
+                                            MOTION
+
+
+
+
+                                                  1
+
+                    135 San Lorenzo Avenue, Suite 770, Coral Gables, Florida 33146
+                                 TEL 305.230.4884 FAX 305.230.4844
+                                      www.fairlawattorney.com
+Case 8:24-cv-02687-WFJ-AAS         Document 16          Filed 01/16/25        Page 2 of 14 PageID 74
+
+
+
+
+       1.     Mr. Matdonado sued Defendant for violating: (i) the Family and
+
+ Medical Leave Act (“FMLA”) by unlawfully interfering with his ability to exercise the
+
+ rights afforded to him under the FMLA, failing to notify him of those rights, and
+
+ retaliating against him for attempting to exercise those rights; and (ii) the Florida
+
+ Workers’ Compensation Act, Fla. Stat. § 440.205 (“FWCA”), by retaliating against
+
+ Mr. Matdonado for pursuing a valid workers’ compensation claim as a result of
+
+ injuries he sustained while working for Defendant. See D.E. 1.
+
+       2.     Defendant responded to the Complaint by filing its Answer in which it
+
+ asserted twenty-seven (27) defenses. See D.E. 13 at 22-26.
+
+       3.     Affirmative Defenses Nos. 21 and 25 asserted by Defendant are
+
+ properly stricken under Fed. R. Civ. P. 12(f), which permits the Court to strike from
+
+ any pleading “an insufficient defense or any redundant, immaterial, impertinent, or
+
+ scandalous matter.”
+
+       4.     Additionally, Affirmative Defenses Nos. 2, 3, 8, 10, and 14 aim to attack
+
+ the sufficiency of the Complaint rather than admitting the factual allegations
+
+ asserted therein, and should be treated as denials rather than affirmative defenses.
+
+       WHEREFORE Plaintiff, Francisco Matdonado, requests that the Court enter
+
+ an Order striking Affirmative Defenses Nos. 21, and 25 pled by Defendant, Trust
+
+                                                  2
+
+                    135 San Lorenzo Avenue, Suite 770, Coral Gables, Florida 33146
+                                 TEL 305.230.4884 FAX 305.230.4844
+                                      www.fairlawattorney.com
+Case 8:24-cv-02687-WFJ-AAS        Document 16          Filed 01/16/25        Page 3 of 14 PageID 75
+
+
+
+
+ Roofing, Inc., and holding that Affirmative Defenses Nos. 2, 3, 8, 10, and 14 must
+
+ be treated as specific denials based on the foregoing Motion and the following
+
+ Memorandum of Law, and to award such other and further relief as the Court
+
+ deems just and proper.
+
+
+
+
+                                MEMORANDUM OF LAW
+
+                                     I. INTRODUCTION
+
+       Mr. Matdonado sued Defendant, his former employer, for the above-
+
+ mentioned violations of the FMLA and FWCA. In response to the Complaint,
+
+ Defendant then asserted twenty-seven (27) “Affirmative Defenses” which are the
+
+ subject of this motion. However, several of the “Affirmative Defenses” asserted by
+
+ Defendant either amount to mere denials or are inapplicable to the claims at issue
+
+ in this lawsuit. To streamline these proceedings, avoid subsequent dispositive
+
+ motions over the viability of defenses, and avoid much of the back-and-forth that
+
+ occurs at the pretrial conference arguing over whether defenses are viable, Mr.
+
+ Matdonado requests that the Court strike Affirmative Defenses Nos. 21 and 25 as
+
+                                                 3
+
+                   135 San Lorenzo Avenue, Suite 770, Coral Gables, Florida 33146
+                                TEL 305.230.4884 FAX 305.230.4844
+                                     www.fairlawattorney.com
+Case 8:24-cv-02687-WFJ-AAS           Document 16          Filed 01/16/25        Page 4 of 14 PageID 76
+
+
+
+
+ insufficient defenses or as redundant, immaterial, and/or impertinent, and deem
+
+ Affirmative Defenses Nos. 2, 3, 8, 10, and 14 to be specific denials rather than
+
+ affirmative defenses.
+
+                                            II. THE LAW
+
+       Rule 12(f) of the Federal Rules of Civil Procedure expressly states, “the court
+
+ may order stricken from any pleading any insufficient defense or any redundant,
+
+ immaterial, impertinent, or scandalous matter.”
+
+       “An affirmative defense is generally a defense that, if established, requires
+
+ judgment for the defendant even if the plaintiff can prove his case by a
+
+ preponderance of the evidence.” Wright v. Southland Corp., 187 F.3d 1287, 1303
+
+ (11th Cir. 1999).
+
+       “A defense is insufficient as a matter of law if, on the face of the pleadings,
+
+ it is patently frivolous, or if it is clearly invalid as a matter of law.” Morrison v.
+
+ Executive Aircraft Refinishing, Inc., 434 F. Supp. 2d 1314, 1318 (S.D. Fla. 2005)
+
+ (quoting Anchor Hocking Corp. v. Jacksonville Elec. Auth., 419 F.Supp. 992, 1000
+
+ (M.D. Fla. 1976).)
+
+       As summarized by the Court in S.D. v. St. Johns County Sch. Dist., 2009 WL
+
+ 1941482, at *1 (M.D. Fla. July 7, 2009), “An ‘immaterial matter’ is one that has no
+
+                                                    4
+
+                      135 San Lorenzo Avenue, Suite 770, Coral Gables, Florida 33146
+                                   TEL 305.230.4884 FAX 305.230.4844
+                                        www.fairlawattorney.com
+Case 8:24-cv-02687-WFJ-AAS          Document 16          Filed 01/16/25        Page 5 of 14 PageID 77
+
+
+
+
+ important relationship to the claim or defense and an ‘impertinent’ matter is one
+
+ that does not pertain to the issue(s) in question.” Citing 126th Avenue Landfill, Inc.
+
+ v. Pinellas County, 2009 WL 1544030, at *2–3 (M.D. Fla. June 3, 2009); also citing
+
+ Wright & Miller Wright & Miller, Federal Practice & Procedure: Civil § 1382 at 458–
+
+ 63 (3d ed. 2004). In responding to a pleading, a party must admit or deny the
+
+ allegations asserted against it by an opposing party. Fed. R. Civ. P. 8(b)(1)(B).
+
+        Although a defendant is not obligated to set forth detailed and particular
+
+ facts, Rule 8(a) of the Federal Rules of Civil Procedure requires a Defendant to
+
+ nonetheless give “fair notice” of the defense and “the grounds upon which it rests.”
+
+ Bell Atlantic v. Twombly, 550 U.S. 544, 555 (2007); accord Conley v. Gibson, 355 U.S.
+
+ 41, 47 (1957). This means that a defendant’s affirmative defense “must do more
+
+ than make conclusory allegations.” An affirmative defense must be stricken when
+
+ it is “insufficient as a matter of law”. Home Mgmt. Sols., Inc. v. Prescient, Inc., 2007
+
+ WL 2412834, at *2 (S.D. Fla. Aug. 21, 2007). “A defense is insufficient as a matter of
+
+ law only if: (1) on the face of the pleadings, it is patently frivolous, or (2) it is clearly
+
+ invalid as a matter of law.” Microsoft Corp. v. Jesse’s Computers & Repair, Inc., 211
+
+ F.R.D. 681, 683 (M.D. Fla. 2002).
+
+        Further, “[a]ffirmative defenses that do not admit the complaint’s factual
+
+                                                   5
+
+                     135 San Lorenzo Avenue, Suite 770, Coral Gables, Florida 33146
+                                  TEL 305.230.4884 FAX 305.230.4844
+                                       www.fairlawattorney.com
+Case 8:24-cv-02687-WFJ-AAS         Document 16          Filed 01/16/25        Page 6 of 14 PageID 78
+
+
+
+
+ allegations, but are vehicles to attack the sufficiency of the complaint are treated
+
+ as denials” rather than affirmative defenses. Reese v. Fla. BC Holdings, LLC, 2017
+
+ U.S. Dist. LEXIS 215514, 2017 WL 8812778, at *2 (M.D. Fla. Nov. 28, 2017).
+
+                                        III. ARGUMENT
+
+                               Second Affirmative Defense
+
+       Plaintiff fails to state a cause of action under Counts I, II, or III because
+       the Complaint fails to adequately allege or plead employer coverage
+       or employee eligibility under the FMLA.
+
+       In Affirmative Defense No. 2, rather than accepting as true the allegations
+
+ set forth in Mr. Matdonado’s Complaint, Defendant attacks the sufficiency of the
+
+ pleading by stating that the Complaint fails to allege or plead employer coverage
+
+ or employee eligibility under the FMLA.
+
+       “The FMLA defines an ‘employer’ as ‘any person engaged in commerce or in
+
+ any industry or activity affecting commerce who employs 50 or more employees
+
+ for each working day during each of 20 or more calendar workweeks in the current
+
+ or preceding calendar year.’” Cardinale v. S. Homes of Polk County, Inc., 2008 U.S.
+
+ Dist. LEXIS 21716, at *7-8 (M.D. Fla. Mar. 18, 2008) (quoting 29 U.S.C. §
+
+ 2611(4)(A)(i)). Additionally, the FMLA defines an “eligible employee” as an
+
+ individual who has been employed by a covered employer for at least 12 months,
+
+                                                  6
+
+                    135 San Lorenzo Avenue, Suite 770, Coral Gables, Florida 33146
+                                 TEL 305.230.4884 FAX 305.230.4844
+                                      www.fairlawattorney.com
+Case 8:24-cv-02687-WFJ-AAS         Document 16          Filed 01/16/25        Page 7 of 14 PageID 79
+
+
+
+
+ “for at least 1,250 hours of service with such employer during the previous 12-
+
+ month period.” 29 U.S.C. § 2611(2)(A).
+
+       The Complaint plainly states that “Defendant employed at least 50
+
+ employees for at least 20 weeks during each week relevant to the claims”, thereby
+
+ satisfying the pleading standard for alleging employer coverage. D.E. 1 at ¶ 4. It
+
+ further satisfies the pleading standard for employee eligibility at paragraphs 9, 21,
+
+ 45, 56, and 68 by stating that Mr. Matdonado worked for Defendant for at least 12
+
+ months, for at least 1,250 hours during each 12-month period preceding his
+
+ requested leave.
+
+       Here, although the Complaint clearly pleads the requisite elements for
+
+ employer coverage and employee eligibility under the FLSA, Defendant denies the
+
+ same rather than accepting these allegations as true. Here, Defendant merely
+
+ “attack[s] the sufficiency of the complaint”. U.S. Commodity Futures Trading
+
+ Comm’n v. Montano, 2019 U.S. Dist. LEXIS 39852, 2019 WL 568393, at *1 (M.D. Fla.
+
+ Feb. 1, 2019). Therefore, Affirmative Defense No. 2 must be treated as a denial
+
+ rather than an affirmative defense.
+
+                                 Third Affirmative Defense
+
+
+
+                                                  7
+
+                    135 San Lorenzo Avenue, Suite 770, Coral Gables, Florida 33146
+                                 TEL 305.230.4884 FAX 305.230.4844
+                                      www.fairlawattorney.com
+Case 8:24-cv-02687-WFJ-AAS         Document 16          Filed 01/16/25        Page 8 of 14 PageID 80
+
+
+
+
+       Plaintiff fails to state a cause of action under Counts I or II because the
+       Complaint fails to adequately allege or plead a qualifying event under
+       the FMLA.
+
+       Similarly to Affirmative Defense No. 2, No. 3 fails to accept the allegations of
+
+ the Complaint as true and provide some other lawful justification for the violations
+
+ at issue—although the Complaint adequately alleges qualifying events at
+
+ paragraphs 16, 20-23, 26, 32-34, 36, and 62-64. Rather, this defense again attacks
+
+ the sufficiency of the pleading and should therefore be treated as a denial rather
+
+ than an affirmative defense.
+
+                                Eighth Affirmative Defense
+
+       Plaintiff fails to state a cause of action under Count III because the
+       Complaint fails to adequately allege or plead protected activity or
+       unlawful retaliation under the FMLA.
+
+       Again, Affirmative Defense No. 8 cannot be deemed an affirmative defense,
+
+ as it fails to accept Mr. Matdonado’s allegations of protected activity and unlawful
+
+ retaliation. Here, the Complaint sets forth sufficient allegations constituting
+
+ protected activity under the FMLA at paragraphs 16-17, 22, and 69, and unlawful
+
+ retaliation at paragraph 74. Rather than accepting these allegations as true and
+
+ providing some lawful justification for the actions described, this “defense” simply
+
+ cuts toward the pleading requirements of protected activity and retaliation under
+
+                                                  8
+
+                    135 San Lorenzo Avenue, Suite 770, Coral Gables, Florida 33146
+                                 TEL 305.230.4884 FAX 305.230.4844
+                                      www.fairlawattorney.com
+Case 8:24-cv-02687-WFJ-AAS        Document 16          Filed 01/16/25        Page 9 of 14 PageID 81
+
+
+
+
+ the FLSA. Accordingly, Affirmative Defense No. 8 must be treated as a denial rather
+
+ than an affirmative defense.
+
+                                Tenth Affirmative Defense
+
+       Plaintiff fails to state a cause of action under Count IV because the
+       Complaint fails to adequately allege or plead protected activity or
+       unlawful retaliation under Fla. Stat. § 440.205. Additionally, Plaintiff
+       cannot state a cause of action under Count IV to the extent he did not
+       file or attempt to file a valid claim for compensation under Florida’s
+       Workers’ Compensation Law.
+
+
+       Similar to Affirmative Defense No. 8, No. 10 is directed toward the technical
+
+ pleading requirements under the FWCA, rather than accepting the Complaint’s
+
+ allegations as true and providing some lawful justification for the actions
+
+ complained of. Accordingly, Affirmative Defense No. 10 must be treated as a denial.
+
+                            Fourteenth Affirmative Defense
+
+       With respect to Count IV under Florida’s Workers’ Compensation Law,
+       the Complaint does not comply with Florida’s applicable procedural
+       and pleading standard for punitive damages under Fla. Stat. § 768.72.
+       There is plainly no evidence in the record whatsoever, let alone
+       sufficient record evidence to support a reasonably basis for recovery
+       of punitive damages. Moreover, Plaintiff has not sought, nor been
+       granted, leave to assert a claim for punitive damages. Accordingly,
+       Plaintiff cannot seek or recover “punitive damages” under Count IV.
+
+
+
+
+                                                 9
+
+                   135 San Lorenzo Avenue, Suite 770, Coral Gables, Florida 33146
+                                TEL 305.230.4884 FAX 305.230.4844
+                                     www.fairlawattorney.com
+Case 8:24-cv-02687-WFJ-AAS         Document 16          Filed 01/16/25         Page 10 of 14 PageID 82
+
+
+
+
+        Affirmative Defense No. 14 must also be treated as a denial given its focus
+
+  on the technical pleading requirements set forth under Fla. Stat. § 768.72, rather
+
+  than accepting the Complaint’s allegations as true, and providing some other
+
+  lawful justification for the claims at issue. The Complaint alleges Defendant’s
+
+  conduct which justifies an award of punitive damages by demonstrating
+
+  Defendant’s “lack of care, reckless disregard for [Mr. Matdonado’s] safety, and
+
+  conscious indifference to consequences sufficient to meet the test established for
+
+  punitive damages” at paragraphs 16, 21-22, 26, 28, 33, and 36. Rease v. Anheuser-
+
+  Busch, Inc., 644 So. 2d 1382, 1388 (Fla. 1st DCA 1994); see Cypress Aviation, Inc. v.
+
+  Bollea, 826 So. 2d 1091 (Fla. 2d DCA 2002). Accordingly, this defense cannot be
+
+  deemed an “affirmative defense,” but rather a mere denial.
+
+                             Twenty-First Affirmative Defense
+
+        To the extent that Plaintiff’s claims are barred by the applicable statute
+        of limitations, he is not entitled to relief.
+
+        Although each violation of the FMLA and FWCA described in the Complaint
+
+  clearly falls within the applicable statutes of limitations prescribed under those acts,
+
+  Defendant asserts the impertinent and frivolous defense that Mr. Matdonado’s
+
+  claims are time-barred.
+
+
+                                                  10
+
+                     135 San Lorenzo Avenue, Suite 770, Coral Gables, Florida 33146
+                                  TEL 305.230.4884 FAX 305.230.4844
+                                       www.fairlawattorney.com
+Case 8:24-cv-02687-WFJ-AAS         Document 16          Filed 01/16/25         Page 11 of 14 PageID 83
+
+
+
+
+        In general, an FMLA plaintiff must initiate their action “not later than 2 years
+
+  after the date of the last event constituting the alleged violation for which the
+
+  action is brought.” 29 U.S.C. § 2617(c)(1). However, if the employer acted willfully,
+
+  the statute of limitations is extended to three years. See 29 U.S.C. § 2617(c)(2).
+
+  Under the FMLA, Mr. Matdonado asserts claims for interference (Count I), failure
+
+  to notify of FMLA rights (Count II), and retaliation (Count III). Mr. Matdonado
+
+  suffered work injuries in November 2023 and January 2024 necessitating medical
+
+  care, surgery, and postoperative restrictions which are the subject of Counts I and
+
+  II. See D.E. 1 at ¶¶ 13-40. With respect to Count III, Mr. Matdonado alleges that
+
+  Defendant retaliated against him for attempting to exercise his rights under the
+
+  FMLA by constructively terminating his employment in January 2024. See D.E. 1 at
+
+  ¶¶ 21, 74. Therefore, Mr. Matdonado’s FMLA claims span from as early as November
+
+  2023—approximately one year before the filing of his Complaint on November 18,
+
+  2024. Undoubtedly, these claims fall within the two-year and three-year statutes of
+
+  limitations under the FLSA.
+
+        Claims for retaliation under the FWCA “must be brought within four years of
+
+  the allegedly retaliatory discharge.” Quince v. Broward Cty., 2020 U.S. Dist. LEXIS
+
+  14008, 2020 WL 409535, at *8 (S.D. Fla. Jan. 24, 2020) (citing Scott v. Otis Elevator
+
+                                                  11
+
+                     135 San Lorenzo Avenue, Suite 770, Coral Gables, Florida 33146
+                                  TEL 305.230.4884 FAX 305.230.4844
+                                       www.fairlawattorney.com
+Case 8:24-cv-02687-WFJ-AAS         Document 16          Filed 01/16/25         Page 12 of 14 PageID 84
+
+
+
+
+  Co., 524 So. 2d 642, 643 (Fla. 1988)). Here too, Mr. Matdonado’s claim of retaliation
+
+  under the FWCA (Count IV) spanned from as early as November 2023 until as late
+
+  as January 2024—well within the FWCA’s four-year statutory period.
+
+        Given that each of Mr. Matdonado’s claims under the FMLA and FWCA arose
+
+  within approximately one year of the Complaint’s filing, the Court properly strikes
+
+  Affirmative Defense No. 21 as wholly impertinent to the claims at issue.
+
+                             Twenty-Fifth Affirmative Defense
+
+        While Defendant denies Plaintiff’s claim, Defendant further states that
+        any recovery Plaintiff seeks is barred, in whole or in part, by Plaintiff’s
+        own contributory and/or comparative negligence or culpable
+        conduct. To the extent Plaintiff suffered any damages or losses for
+        which he seeks to hold Defendant responsible, those damages or
+        losses were caused, at least in part, by Plaintiff’s own acts, omissions,
+        and conduct, or the acts, omissions, and conduct of third parties.
+
+        The defenses of contributory and comparative negligence applicable to
+
+  Florida negligence claims under Fla. Stat. § 768.81 are entirely irrelevant to Mr.
+
+  Matdonado’s claims under the FMLA and FWCA. As to Mr. Matdonado’s claim for
+
+  failure to notify at Count II, the FMLA imposes notice requirements upon a covered
+
+  employer which applies a standard similar to strict liability, to which an employee’s
+
+  negligence cannot constitute a valid defense. See 29 C.F.R. § 825.300 (“Failure to
+
+  follow the notice requirements set forth in this section may constitute an
+
+                                                  12
+
+                     135 San Lorenzo Avenue, Suite 770, Coral Gables, Florida 33146
+                                  TEL 305.230.4884 FAX 305.230.4844
+                                       www.fairlawattorney.com
+Case 8:24-cv-02687-WFJ-AAS         Document 16          Filed 01/16/25         Page 13 of 14 PageID 85
+
+
+
+
+  interference with, restraint, or denial of the exercise of an employee's FMLA rights.”)
+
+  A review of FMLA caselaw within, and beyond, the Eleventh Circuit does not reveal
+
+  contributory negligence or comparative negligence as a valid defense to these
+
+  claims.
+
+        Similarly, based on the undersigned’s review of applicable caselaw in and
+
+  beyond this Circuit, no court has recognized contributory or comparative
+
+  negligence as valid defenses to interference or retaliation under the FMLA, or to
+
+  retaliation under the FWCA. The Court, therefore, properly strikes Affirmative
+
+  Defense No. 25 as immaterial and impertinent to the claims at issue.
+
+                                        IV. CONCLUSION
+
+        For the reasons set forth above, Mr. Matdonado requests that the Court
+
+  enter an Order striking Affirmative Defenses Nos. 21 and 25, and holding that
+
+  Affirmative Defenses Nos. 2, 3, 8, 10, and 14 must be treated as denials rather than
+
+  affirmative defenses.
+
+
+                           LOCAL RULE 3.01(G) CERTIFICATION
+
+       I HEREBY CERTIFY that the undersigned has attempted to confer with counsel
+
+  for Defendant on January 13, 2025 regarding the relief sought in this motion, and
+
+
+                                                  13
+
+                     135 San Lorenzo Avenue, Suite 770, Coral Gables, Florida 33146
+                                  TEL 305.230.4884 FAX 305.230.4844
+                                       www.fairlawattorney.com
+Case 8:24-cv-02687-WFJ-AAS         Document 16          Filed 01/16/25         Page 14 of 14 PageID 86
+
+
+
+
+  that Defendant’s counsel responded to this conferral attempt on January 15 and
+
+  16, 2025 but stated that he was unavailable to confer regarding the merits of this
+
+  motion in advance of Plaintiff’s January 16, 2025 deadline to file the foregoing
+
+  under Fed. R. Civ. P. 12(f). It is therefore unknown whether Defendant objects to
+
+  the relief sought herein.
+
+        Dated this 16th day of January 2025.
+
+                                                        s/ Patrick Brooks LaRou -
+                                                        Brian H. Pollock, Esq. (174742)
+                                                        brian@fairlawattorney.com
+                                                        Patrick Brooks LaRou, Esq. (1039018)
+                                                        brooks@fairlawattorney.com
+                                                        FAIRLAW FIRM
+                                                        135 San Lorenzo Avenue, Suite 770
+                                                        Coral Gables, Florida 33146
+                                                        Telephone: (305) 230-4884
+                                                        Counsel for Plaintiff
+
+
+
+
+                                                  14
+
+                     135 San Lorenzo Avenue, Suite 770, Coral Gables, Florida 33146
+                                  TEL 305.230.4884 FAX 305.230.4844
+                                       www.fairlawattorney.com
+

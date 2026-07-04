@@ -1,0 +1,472 @@
+        Case 3:25-cv-00880-AB       Document 83   Filed 05/28/26    Page 1 of 9
+
+
+
+
+Brian R. Talcott, OSB No. 965371
+DUNN CARNEY LLP
+851 SW Sixth Avenue, Suite 1500
+Portland, OR 97204
+Telephone: (503) 224-6440
+Facsimile: (503) 224-7324
+E-mail: btalcott@dunncarney.com
+
+Cary D. Sullivan (admitted Pro Hac Vice)
+JONES DAY
+3161 Michelson Drive, Suite 800
+Irvine, CA 92612
+Telephone: (949) 851-3939
+Facsimile: (949) 553-7539
+E-mail: carysullivan@jonesday.com
+
+Attorneys for Plaintiff
+
+
+
+                              UNITED STATES DISTRICT COURT
+
+                          DISTRICT OF OREGON – PORTLAND DIVISION
+
+
+ESHA RESEARCH, LLC., now known as             Civil No. 3:25-cv-00880-AB
+TRUSTWELL,
+                                              PLAINTIFF TRUSTWELL’S MOTION
+Plaintiff,                                    TO STRIKE DEFENDANT
+                                              FOODWIT’S BALD AFFIRMATIVE
+v.                                            DEFENSES
+
+RLH ASSETS, LLC, doing business as            ORAL ARGUMENT REQUESTED
+FOODWIT, an Oregon limited liability
+company,
+
+Defendant.
+
+
+
+
+ Page 1      TRUSTWELL’S MOTION TO STRIKE BALD AFFIRMATIVE DEFENSES
+        Case 3:25-cv-00880-AB           Document 83        Filed 05/28/26       Page 2 of 9
+
+
+
+
+        Plaintiff ESHA Research, LLC, now known as Trustwell (“Trustwell”), hereby moves,
+
+pursuant to Federal Rule of Civil Procedure 12(f), to strike the first through twelfth affirmative
+
+defenses asserted by Defendant RLH Assets, LLC, doing business as Foodwit (“Foodwit”), in its
+
+Answer to Trustwell’s Second Amended Complaint (Foodwit’s “Answer,” Dkt. 78) as bald and
+
+insufficient.
+
+                           LOCAL RULE 7-1(a) CERTIFICATION
+
+        Before filing this motion, counsel for Trustwell conferred by telephone with counsel for
+
+Foodwit in an attempt to resolve this dispute. The Parties were unable to reach agreement.
+
+                                        INTRODUCTION
+        Rule 12(f) of the Federal Rules of Civil Procedure permits a court to strike any “insufficient
+
+defense or any redundant, immaterial, impertinent, or scandalous matter” from a pleading. The
+
+purpose of such a motion is to “avoid the expenditure of time and money that must arise from
+
+litigating spurious issues by dispensing with those issues prior to trial.” Sidney–Vinstein v. A.H.
+
+Robins Co., 697 F.2d 880, 885 (9th Cir. 1983). Every one of Foodwit’s affirmative defenses should
+
+be stricken for presenting spurious issues.
+
+        Fundamentally, “affirmative defenses must give [the] plaintiff ‘fair notice’ of the defense
+
+being advanced.” Qarbon.com Inc. v. eHelp Corp., 315 F. Supp. 2d 1046, 1049 (N.D. Cal. 2004).
+
+But Foodwit’s affirmative defenses provide no notice of any sort. Indeed, each of Foodwit’s
+
+purported affirmative defenses is just a single sentence stating only that Foodwit believes
+
+Trustwell’s claims “are barred in whole or in part by” various doctrines (including some that are
+
+not even affirmative defenses), without any explanation or factual basis to support it. See Answer
+
+(Dkt. 78) at 15-17. Such conclusory and improper pleading falls woefully short of providing fair
+
+notice of the defenses, as required by Federal Rule of Civil Procedure 8(b). In fact, as pled,
+
+Trustwell has no notice whatsoever of the bases for Foodwit’s affirmative defenses—or if any such
+
+bases exist at all. These types of conclusory defenses are precisely the “insufficient defense[s]”
+
+Rule 12(f) contemplates striking.
+
+
+
+Page 1          TRUSTWELL’S MOTION TO STRIKE BALD AFFIRMATIVE DEFENSES
+        Case 3:25-cv-00880-AB             Document 83           Filed 05/28/26   Page 3 of 9
+
+
+
+
+        In addition, Foodwit bases its first, ninth, and tenth affirmative defenses on doctrines or
+
+theories that are not affirmative defenses at all. These, too, should be stricken as “redundant,
+
+immaterial, impertinent, or scandalous matter[s]” under Rule 12(f). District courts throughout this
+
+Circuit, including this Court, routinely strike negative defenses—i.e., defenses that merely negate
+
+an element of the plaintiff’s prima facie case—mislabeled as affirmative defenses.
+
+        Because Foodwit’s affirmative defenses lack any factual support whatsoever, and some are
+
+not affirmative defenses at all, the Court should strike them to avoid the costly, distracting, and
+
+needless discovery and motion practice that Rule 12(f) was designed to prevent.
+
+                                         LEGAL STANDARD
+        Pursuant to Rule 12(f), a court “may strike from a pleading an insufficient defense or any
+
+redundant, immaterial, impertinent, or scandalous matter.” Fed. R. Civ. P. 12(f). Under Rule 8(b),
+
+a defendant, in its answer, must “state in short and plain terms its defenses to each claim asserted
+
+against it.” “Like complaints, affirmative defenses must give [the] plaintiff ‘fair notice’ of the
+
+defense being advanced.” Qarbon.com Inc. v. eHelp Corp., 315 F. Supp. 2d 1046, 1049 (N.D. Cal.
+
+2004) (quoting Wyshak v. City Nat’l Bank, 607 F.2d 824, 827 (9th Cir. 1979)). While Iqbal and
+
+Twombly’s heightened standards do not apply to affirmative defenses, “[a] defendant is not free to
+
+conjure its responses out of thin air, as there must be ‘at least some valid factual basis in support
+
+of its affirmative defense.’” In re Honest Co., Inc. Sec. Litig., 343 F.R.D. 147, 152 (C.D. Cal.
+
+2022) (quoting Rosen v. Masterpiece Mktg. Grp., LLC, 222 F. Supp. 3d 793, 798 (C.D. Cal. 2016)).
+
+Accordingly, a defense that merely states a legal conclusion without setting forth the underlying
+
+factual basis is insufficient as a matter of law. See Gomez v. J. Jacobo Farm Lab. Contractor, Inc.,
+
+188 F. Supp. 3d 986, 993 (E.D. Cal. 2016) (striking more than a dozen affirmative defenses that
+
+“all begin ‘[t]he complaint and each cause of action set forth therein are barred, in whole or in
+
+part,’ then state the name of a doctrine, legal theory, or statute”); Qarbon, 315 F. Supp. 2d at 1049
+
+(“[a] reference to a doctrine . . . is insufficient notice”).
+
+        Further, “[a] defense that does no more than point out a defect in a plaintiff’s prima facie
+
+case . . . is a ‘negative defense’ that can be set up by a denial, not an affirmative defense,” and is
+
+ Page 2       TRUSTWELL’S MOTION TO STRIKE BALD AFFIRMATIVE DEFENSES
+       Case 3:25-cv-00880-AB            Document 83          Filed 05/28/26       Page 4 of 9
+
+
+
+
+properly stricken pursuant to Rule 12(f). Unigestion Holding, S.A. v. UPM Tech., Inc., 305 F. Supp.
+
+3d 1134, 1143-44 (D. Or. 2018).
+
+                                            ARGUMENT
+
+       All twelve of Foodwit’s affirmative defenses should be stricken because each is either (or
+
+both) (1) an “insufficient defense” due to bald and conclusory pleading that should be stricken for
+
+failure to give Trustwell fair notice; or (2) a negative defense that should be stricken as “redundant,
+
+immaterial, [and] impertinent.” Fed. R. Civ. P. 12(f).
+
+I.     EACH OF FOODWIT’S AFFIRMATIVE DEFENSES SHOULD BE STRICKEN
+
+       FOR FAILURE TO PROVIDE FAIR NOTICE.
+
+       Each of Foodwit’s affirmative defenses lacks any factual support and should be stricken
+
+for failure to provide fair notice, as required by Rule 8(b). As set forth above, an affirmative
+
+defense must give the plaintiff fair notice of the defense being advanced, and a defense that merely
+
+states a legal conclusion without setting forth any supporting factual basis is insufficient as a matter
+
+of law. See Qarbon, 315 F. Supp. 2d at 1049; Gomez, 188 F. Supp. 3d at 993.
+
+       Every one of Foodwit’s purported affirmative defenses is nothing more than a single,
+
+conclusory sentence devoid of any factual allegations. For example, Foodwit’s second affirmative
+
+defense (unclean hands) states in its entirety: “[Trustwell]’s claims, and each of them, are barred
+
+in whole or in part by the doctrine of unclean hands.” Answer (Dkt. 78) at 15. The balance of
+
+Foodwit’s defenses follow an identical, formulaic pattern: a single conclusory sentence stating that
+
+Trustwell’s “claims, and each of them, are barred in whole or in part by” a particular doctrine or
+
+legal theory. See id. at 15-17. Foodwit does not identify, for example, what conduct by Trustwell
+
+supposedly constitutes “unclean hands;” when the alleged laches period began or ended; what
+
+statute of limitations allegedly applies, how, and when it began to run; what acts supposedly
+
+constitute “waiver” or give rise to “estoppel;” what agreement is purportedly subject to the Statute
+
+of Frauds and why; what rights Trustwell purportedly “abandoned” and how; what contract and
+
+provision was allegedly breached and how; or what steps Trustwell purportedly failed to take or
+
+what damages could have been “mitigated.” Without any factual support, these defenses are
+
+ Page 3      TRUSTWELL’S MOTION TO STRIKE BALD AFFIRMATIVE DEFENSES
+       Case 3:25-cv-00880-AB            Document 83        Filed 05/28/26       Page 5 of 9
+
+
+
+
+nothing more than “bare legal conclusions” of the type routinely stricken by courts throughout this
+
+Circuit. Gomez, 188 F. Supp. 3d at 993; see also In re Honest Co., 343 F.R.D. at 152.
+
+       The district court’s order in Gomez is particularly instructive. There, several of the
+
+defendant’s affirmative defenses “all begin ‘[t]he complaint and each cause of action set forth
+
+therein are barred, in whole or in part,’ then state the name of a doctrine, legal theory, or statute,
+
+e.g., ‘the doctrine of avoidable consequences,’ ‘the doctrine of unclean hands,’ ‘the doctrine of
+
+waiver,’ ‘the doctrine of estoppel,’ or based on violation of ‘California Labor Code §§ 2854, 2856,
+
+2857, 2858, and/or 2859.’” Gomez, 188 F. Supp. 3d at 993-94. That is exactly what Foodwit did
+
+here. And those are exactly the type of affirmative defenses that courts throughout this Circuit
+
+routinely strike as inadequate. See Qarbon, 315 F. Supp. 2d at 1049-50 (striking affirmative
+
+defense that merely states the defendant “must be ‘barred from recovery in whole or in part’ by
+
+the doctrines of waiver, estoppel, and unclean hands”); Rosen, 222 F. Supp. 3d at 803–04 (striking
+
+defense that “Plaintiff is barred by the Statute of Limitations” as inadequate for failure to “allege
+
+which statute(s) of limitations [defendant] is relying upon, what cause(s) of action are barred, the
+
+date after which such bar became effective, and some factual allegations concerning why the
+
+limitations period has expired”); Kohler v. Staples the Office Superstore, LLC, 291 F.R.D. 464,
+
+469-72 (S.D. Cal. 2013) (striking ten affirmative defenses referring only to legal doctrines or
+
+theories without factual support); Hartford Underwriters Ins. Co. v. Kraus USA, Inc., 313 F.R.D.
+
+572, 576-78 (N.D. Cal. 2016) (striking five affirmative defenses referring only to legal doctrines
+
+or theories without factual support). This Court should reach the same conclusion.
+
+       Because Foodwit fails to allege any factual support whatsoever for any of its affirmative
+
+defenses—let alone sufficient facts to provide Trustwell with fair notice—the Court should strike
+
+each of Foodwit’s twelve affirmative defenses.
+
+II.    FOODWIT’S FIRST, NINTH, AND TENTH, AFFIRMATIVE DEFENSES ALSO
+
+       SHOULD BE STRICKEN AS NEGATIVE DEFENSES.
+
+       In addition to Foodwit’s failure to provide fair notice, the Court also should strike
+
+Foodwit’s first (failure to state a claim), ninth (puffery), and tenth (independent creation)
+
+ Page 4      TRUSTWELL’S MOTION TO STRIKE BALD AFFIRMATIVE DEFENSES
+       Case 3:25-cv-00880-AB            Document 83          Filed 05/28/26       Page 6 of 9
+
+
+
+
+affirmative defenses because they are not affirmative defenses at all. They are negative defenses
+
+that merely address alleged defects in Trustwell’s prima facie case. As this Court has recognized,
+
+such improperly labeled negative defenses are properly stricken pursuant to Rule 12(f). Unigestion
+
+Holding, 305 F. Supp. 3d at 1143-44 (“[a] defense that does no more than point out a defect in a
+
+plaintiff’s prima facie case . . . is a ‘negative defense’ that can be set up by a denial, not an
+
+affirmative defense,” and “it is proper to strike them”).
+
+       First, it is well settled that “failure to state a claim” is not an affirmative defense. “‘Failure
+
+to state a claim’ is a negative defense that merely argues that plaintiff has not met its burden in
+
+establishing one or more elements of a claim, whatever that burden may be at a given stage of
+
+litigation.” Id. Accordingly, the Court should strike this defense on that basis alone. Id.; Hartford,
+
+313 F.R.D. at 575-76. Moreover, while Foodwit was entitled to “assert this claim in a 12(b)(6)
+
+motion,” Hartford, 313 F.R.D. at 576, the Court already rejected this defense, ruling that Trustwell
+
+has stated claims upon which relief may be granted. Op. & Order, April 24, 2026 (Dkt. 74).
+
+Accordingly, the Court also should strike this purported affirmative defense on the additional basis
+
+that it is “redundant” and “impertinent” under Rule 12(f).
+
+       Second, the doctrine of puffery serves only to negate a Lanham Act plaintiff’s showing of
+
+a false or misleading statement of fact in commercial advertising—if the statement is “mere
+
+puffery,” then the plaintiff cannot satisfy this element of a Lanham Act claim. See Cook, Perkiss
+
+& Liehe, Inc. v. N. California Collection Serv. Inc., 911 F.2d 242, 245 (9th Cir. 1990). Indeed,
+
+“[d]istrict courts often resolve whether a statement is puffery when considering a motion to dismiss
+
+pursuant to Federal Rule of Civil Procedure 12(b)(6) . . . .” Id. Such procedural postures are
+
+inconsistent with an affirmative defense, which presupposes that the plaintiff has stated a valid
+
+claim and requires the defendant to bear the burden of establishing a new matter that defeats
+
+recovery. See E.E.O.C. v. Cal. Psychiatric Transitions, Inc., 725 F. Supp. 2d 1100, 1118 (E.D.
+
+Cal. 2010) (citing Saks v. Franklin Covey Co., 316 F.3d 337, 350 (2d Cir. 2003); Wolf v. Reliance
+
+Standard Life Ins. Co., 71 F.3d 444, 449 (1st Cir. 1995)). Moreover, the Court already rejected
+
+this defense in ruling that Trustwell has stated a viable Lanham Act claim. Op. & Order, April 24,
+
+Page 5       TRUSTWELL’S MOTION TO STRIKE BALD AFFIRMATIVE DEFENSES
+        Case 3:25-cv-00880-AB              Document 83     Filed 05/28/26       Page 7 of 9
+
+
+
+
+2026 (Dkt. 74). For both of these additional reasons, Foodwit’s ninth affirmative defense should
+
+be stricken. See Rule 12(f); Unigestion, 305 F. Supp. 3d at 1144 (because puffery is “in fact [a]
+
+negative defense[] . . . it is proper to strike [it]”).
+
+        Third, the independent creation doctrine is also a negative defense negating the
+
+misappropriation element of a plaintiff’s DTSA or OUTSA claim. “Proof that [a] defendant’s use
+
+[of the trade secret] resulted from independent derivation or reverse engineering is evidence that
+
+there was no improper use on its part. The defendant does not have a burden of proof to make that
+
+showing.” In re Sotera Wireless, Inc., 591 B.R. 453, 461 (S.D. Cal. 2018), aff’d, 794 F. App’x 625
+
+(9th Cir. 2020) (analyzing California’s Uniform Trade Secrets Act); see InteliClear, LLC v. ETC
+
+Global Holdings, Inc., 978 F.3d 653, 657 (9th Cir. 2020) (holding that “[c]ourts have analyzed
+
+[DTSA and CUTSA] claims together because the elements are substantially similar”). Thus,
+
+Foodwit’s tenth affirmative defense also should be stricken as an improperly pled negative
+
+defense. Unigestion, 305 F. Supp. 3d at 1144.
+
+        Of course, negative defenses improperly pled as affirmative defenses cannot be cured by
+
+amendment.
+
+III.    LEAVE TO AMEND SHOULD BE DENIED.
+
+        During meet-and-confer discussions, Trustwell suggested that Foodwit simply amend its
+
+answer rather than forcing Trustwell to file this motion. Foodwit declined to amend and stated that
+
+it will oppose this motion, citing Trustwell’s answer to Foodwit’s antitrust complaint in the related
+
+case RLH Assets, LLC v. ESHA Research, LLC, Case No. 25-cv-00656-AB. Trustwell explained
+
+that its answer in a different lawsuit, where Foodwit did not request amendment and its deadline
+
+to file a Rule 12 motion expired nearly a year ago, provides no basis to refuse amendment here.
+
+Indeed, there is no good faith basis whatsoever to refuse amendment here.
+
+        Because Foodwit declined to amend, forcing Trustwell to file the instant motion, Foodwit
+
+should not be granted leave to amend in response to this motion. At a minimum, because Foodwit
+
+forced Trustwell to file this motion, if the Court is still inclined to grant leave to amend, Foodwit
+
+should be ordered to pay the costs Trustwell was forced to incur in filing and briefing this motion.
+
+ Page 6       TRUSTWELL’S MOTION TO STRIKE BALD AFFIRMATIVE DEFENSES
+       Case 3:25-cv-00880-AB         Document 83        Filed 05/28/26      Page 8 of 9
+
+
+
+
+                                       CONCLUSION
+
+       For all of the reasons above, Trustwell respectfully requests that the Court strike all of
+
+Foodwit’s affirmative defenses pursuant to Rule 12(f) and deny leave to amend.
+
+
+Dated: May 28, 2026                             Respectfully submitted,
+
+                                                JONES DAY
+
+                                                 /s/ Cary D. Sullivan
+                                                Cary D. Sullivan (admitted Pro Hac Vice)
+                                                Email: carysullivan@jonesday.com
+
+                                                DUNN CARNEY LLP
+                                                Brian R. Talcott, OSB 965371
+                                                Email: btalcott@dunncarney.com
+
+                                                Attorneys for Plaintiff
+
+
+
+
+Page 7      TRUSTWELL’S MOTION TO STRIKE BALD AFFIRMATIVE DEFENSES
+      Case 3:25-cv-00880-AB          Document 83        Filed 05/28/26      Page 9 of 9
+
+
+
+                              CERTIFICATE OF SERVICE
+      I hereby certify that on the 28th day of May, 2026, I caused to be served the foregoing
+
+PLAINTIFF TRUSTWELL’S MOTION TO STRIKE DEFENDANT FOODWIT’S BALD
+
+AFFIRMATIVE DEFENSES on the following party via the following method(s):
+
+P. Andrew McStay, Jr.
+Email: andymcstay@dwt.com                       by:
+DAVIS WRIGHT TREMAINE LLP                        ☐   U.S. Postal Service, ordinary first class
+560 S.W. Tenth Avenue, Suite 700                     mail
+Portland, Oregon, 97205                           ☒ electronic service
+Telephone: +1 (503) 241-2300                      ☐ other (specify) Email
+Facsimile: +1 (503) 778-5299
+
+      Attorney for RLH Assets, LLC d/b/a
+      Foodwit
+
+                                               JONES DAY
+
+                                                /s/ Cary D. Sullivan
+                                               Cary D. Sullivan (admitted Pro Hac Vice)
+                                               Email: carysullivan@jonesday.com
+
+                                               DUNN CARNEY LLP
+                                               Brian R. Talcott, OSB 965371
+                                               Email: btalcott@dunncarney.com
+
+
+
+
+Page 8     TRUSTWELL’S MOTION TO STRIKE BALD AFFIRMATIVE DEFENSES
+

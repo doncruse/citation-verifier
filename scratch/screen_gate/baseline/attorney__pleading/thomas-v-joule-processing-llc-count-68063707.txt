@@ -1,0 +1,1605 @@
+       Case 1:23-cv-01528-AMN-CFH Document 1 Filed 05/02/23 Page 1 of 29
+
+
+
+
+                            IN THE UNITED STATES DISTRICT COURT
+                                 SOUTHERN DISTRICT OF TEXAS
+
+JACOB THOMAS, and JTURBO              §
+ENGINEERING & TECHNOLOGY,             §
+LLC.                                  §
+                                      §
+Plaintiffs,                           §
+                                      §
+v.                                    §         CIVIL ACTION NO. ___________
+                                      §
+JOULE PROCESSING, LLC. and            §
+PLUG POWER, INC.                      §
+                                      §
+Defendants                            §
+                                      §
+   __________________________________________________________________________
+
+                      PLAINTIFFS’ ORIGINAL COMPLAINT
+  __________________________________________________________________________
+
+              Plaintiffs, JACOB THOMAS and JTURBO ENGINEERING & TECHNOLOGY, LLC,
+
+  (collectively the “Plaintiffs”), file this Plaintiffs’ Original Complaint, to bring direct and
+
+  derivative claims against Defendants, JOULE PROCESSING, LLC., and PLUG POWER, INC.
+
+  (collectively, the “Defendants”) and would respectfully show as follows:
+
+                                 I.   NATURE OF THE ACTION
+
+         1.       This is a lawsuit involving the development of hydrogen liquefaction technology.
+
+Specifically, the technology at issue can liquify hydrogen using significantly lower kilowatts
+
+(kWH) per kilograms (kg) of liquid hydrogen, which is 50% lower than other liquefaction
+
+technologies in operation or development. The method for such liquefaction, and more efficient
+
+processes of liquefaction, was developed by Plaintiff Jacob Thomas (“Thomas”) and is owned by
+
+Plaintiff JTurbo Engineering & Technology, LLC (“JTurbo”).
+
+         2.       Although there is a United States patent obtained by Plaintiff, which is very
+
+specialized and specific, the technology discussed in this Complaint are Mr. Thomas’ trade secrets
+
+
+
+
+Plaintiffs’ Original Complaint                                                     Page 1 of 29
+       Case 1:23-cv-01528-AMN-CFH Document 1 Filed 05/02/23 Page 2 of 29
+
+
+
+
+which he developed to increase energy efficiency in the liquefaction industry, and which are not
+
+disclosed or claimed in the patent.
+
+         3.       Defendants Joule Processing (“Joule”)          and Plug Power (“Plug”)              have
+
+misappropriated that technology by using it without compensating Plaintiffs as agreed in the four
+
+contracts between Plaintiffs and Defendants, a figure totaling around $11,200,000. Defendants
+
+have thereby breached each of these contracts.
+
+         4.       Defendant Plug is a successor in interest to Joule, as Plug acquired Joule and
+
+assumed it contracts.
+
+         5.       Jacob Thomas and JTurbo seek relief under the following federal question counts,
+
+each of which are addressed in this Complaint:
+
+              a. The D EFEND TRADE SECRETS A CT
+
+         6.       Thomas and JTurbo also seek relief under Texas state law, specifically,
+
+              a. The TEXAS UNIFORM TRADE SECRETS A CT;
+
+              b. Breach of Contract;
+
+              c. Tortious Interference of Prospective Business Relationship; and
+
+              d. Unfair Competition.
+
+                                 II.   JURISDICTION AND VENUE
+
+         7.       This Court has original federal question jurisdiction over the subject matter of this
+
+action pursuant to 28 U.S.C. § 1331 because Plaintiff has asserted a cause of action arising under
+
+the laws of the United States, specifically 18 U.S.C. § 1836 (Defend Trade Secrets Act).
+
+         8.       This Court also has supplemental jurisdiction under 28 U.S.C. § 1367 to hear
+
+Plaintiffs’ other causes of action, all of which are so related that they form part of the same case
+
+or controversy under Article III of the United States Constitution.
+
+
+
+
+Plaintiffs’ Original Complaint                                                         Page 2 of 29
+       Case 1:23-cv-01528-AMN-CFH Document 1 Filed 05/02/23 Page 3 of 29
+
+
+
+
+         9.       This Court has personal jurisdiction over Defendant Joule as Defendant is in and
+
+carries on its business in the State of Texas. Defendant Joule is headquartered in Harris County,
+
+Texas within the Sothern District of Texas.
+
+         10.      This Court has personal jurisdiction over Defendant Plug as it carries or carried on
+
+its business in the State of Texas. Defendant has engaged with business with both JTurbo and
+
+Joule, who are both Texas limited liability companies, and Plug has even purchased Joule which
+
+maintains its principal place of business in Harris County, Texas within the Southern District of
+
+Texas. Furthermore, all or a substantial portion of the events giving rise to this claim have occurred
+
+or will continue to occur in the Southern District of Texas.
+
+         11.      Venue in this Judicial District is proper under 28 U.S.C. § 1391(b) and 18 U.S.C. §
+
+1965(b) because this Complaint shows that the ends of justice require that other parties residing in
+
+any other district be brought before this Court.
+
+
+                                         III.   PARTIES
+
+         12.      Plaintiff, Jacob Thomas (“Thomas”) is a citizen of the State of Texas and resides in
+
+Fort Bend County, Texas.
+
+         13.      JTurbo Engineering & Technology, LLC (“JTurbo”) is a limited liability company
+
+duly organized under the laws of the State of Texas, is in good standing, and is domiciled in Fort
+
+Bend County, Texas.
+
+         14.      Defendant Joule Processing, LLC. (“Joule”) is a Texas limited liability company
+
+doing business in Harris County, Texas and may be served through its registered agent, Bradley
+
+W. Rapp, 1980 Post Oak Blvd., Suite 1200, Houston, Texas 77056, or wherever it may be found.
+
+         15.      Defendant Plug Power, Inc. (“Plug”) is a corporation doing business in Latham,
+
+NY and may be served through its registered agent, CT Corporation System, 1999 Bryan St., Suite
+
+
+
+
+Plaintiffs’ Original Complaint                                                        Page 3 of 29
+       Case 1:23-cv-01528-AMN-CFH Document 1 Filed 05/02/23 Page 4 of 29
+
+
+
+
+900, Dallas, Texas 75201, or at its office location of 968 Albany Shaker Road, Latham, NY 12110,
+
+or wherever it may be found.
+
+                                 IV.   FACTUAL BACKGROUND
+
+         16.      JTurbo is a provider of process technology and consulting services in the energy
+
+industry.
+
+         17.      It is also a developer of hydrogen and liquefied natural gas (“LNG”) liquefaction
+
+technology.
+
+         18.      Jacob Thomas is the Founder and President of JTurbo Engineering and Technology,
+
+LLC. Thomas developed hydrogen and liquefied natural gas liquefaction technology for JTurbo.
+
+This would include the trade secrets and process simulations claimed in this complaint.
+
+         19.      JTurbo, by assignment from Thomas, owned certain trade secrets, know how, and
+
+improvements and enhancements to the technology and designs used to develop hydrogen
+
+liquefaction plants (collectively “JTurbo H2L IP”). The JTurbo H2L IP technology trade secrets
+
+also included process simulations, the different process data, and vendor lists.
+
+         20.      This Complaint does not seek relief under Thomas’ patent, but seeks recovery on
+
+those engineering technology, know how, selection of equipment packages relative to process
+
+facilities generally, and the processes he developed for facilities, and sold through JTurbo, to
+
+enhance production at liquefaction process facilities.
+
+         21.      JTurbo’s patents are the mechanism and process that liquefies hydrogen gas.
+
+However, JTurbo’s trade secrets, including the methods and deliverables, make the process of
+
+liquefying hydrogen more efficient and less costly.
+
+         22.      This is a general description of Thomas / JTurbo’s trade secrets.
+
+         23.       Thomas charges his clients for his experience and consulting acumen, which
+
+includes both his time and expenses. Joule, in turn, retained Thomas's consulting services.
+
+
+
+
+Plaintiffs’ Original Complaint                                                        Page 4 of 29
+       Case 1:23-cv-01528-AMN-CFH Document 1 Filed 05/02/23 Page 5 of 29
+
+
+
+
+           24.    Joule Processing, a predecessor in interest to Plug, is an engineering, process
+
+equipment and services, company that sought to enhance the efficiency of liquefaction processing.
+
+           25.    JTurbo was contacted by Thomas’s old employer, Fluor Corporation (“Fluor”), to
+
+contract with Joule for a Natural Gas Liquid (NGL) Recovery project (a cryogenic process that
+
+removes natural gas from liquids).
+
+           26.    Prior to JTurbo reaching out to Joule, Joule had virtually no experience in the
+
+Cryogenic Liquefaction Technology industry.
+
+           27.    On or about October 2020, Joule was attempting to develop a proposal for a
+
+company called Navitas for a Natural Gas Liquid (NGL) Recovery project.
+
+           28.     Because Joule lacked experienced engineers to perform and converge the process
+
+simulation for the Navitas Project, they turned to Thomas, who had ample experience in cryogenic
+
+processing.
+
+           29.     To consult and promote their business prospects for NGL Recovery and Nitrogen
+
+Rejection Unit project proposals, Joule actively retained Thomas's services.
+
+           30.    On or about February 8, 2021, Joule requested JTurbo's help with a proposal to H2
+
+Renewables in early February 2021. Although JTurbo prepared the proposal, they did not share
+
+the process simulation. Instead, they only walked through it during production of the proposal.
+
+           31.    Thomas developed the process simulations on Joule’s server for the H2 Renewables
+
+to help Joule. However, the process simulations were under lock and key. Thomas had his own
+
+user profile that was locked and protected from any other user from seeing the process simulations.
+
+No other user was allowed access to Thomas’s unless the administrator override Thomas’s user
+
+profile.
+
+           32.    Then, on or about April 18, 2021, JTurbo began providing certain trade secrets,
+
+know-how, process simulations, vendor selections, and contacts with their original equipment
+
+
+
+
+Plaintiffs’ Original Complaint                                                      Page 5 of 29
+       Case 1:23-cv-01528-AMN-CFH Document 1 Filed 05/02/23 Page 6 of 29
+
+
+
+
+manufacturer and research and development group on hydrogen liquefaction as part of an exclusive
+
+package and provider agreement that advanced JTurbo’s and Joule’s mutual interests.
+
+Additionally, prior to JTurbo providing those trade secrets and process simulations, Joule and
+
+JTurbo entered into a non-disclosure agreement on or about April 1, 2021. See Exhibit 1. This was
+
+because Joule and JTurbo anticipated entering an exclusive worldwide joint venture partnership to
+
+exploit Thomas’ technology with Joule’s market contacts, a joint venture and collaboration that
+
+would greatly benefit both parties.
+
+         33.      After providing JTurbo’s trade secrets to Joule on or about April 2021, Joule
+
+engaged Fluor, as a subject matter expert, to validate JTurbo’s H2L IP liquefaction technology.
+
+         34.      Joule had neither the technological expertise nor experience to properly evaluate
+
+Thomas and JTurbo’s simulation and determine if it would increase efficiency and costs of
+
+proposed liquefaction units.
+
+         The Original Exclusivity Agreement
+
+         35.      After Fluor validated Thomas’ process, on or about April 29, 2021, JTurbo and
+
+Joule entered into an Exclusivity Agreement for Joule to be the exclusive worldwide packager and
+
+provider for JTurbo’s H2L IP technology. See Exhibit 2 (Original Exclusivity Agreement).
+
+         36.      To induce Plaintiffs into signing the Exclusivity Agreement, Joule promised to
+
+develop clients to license the JTurbo H2L IP technology and process simulations and that Plaintiffs
+
+would be compensated for any hydrogen liquefaction plants that would use the JTurbo H2L IP
+
+technology and process simulations.
+
+         37.      Plug Power is a company engaged in the development of electrolysers and
+
+hydrogen fuel cell systems that replace conventional batteries in equipment and vehicles powered
+
+by electricity. Plug also had no experience in Cryogenic Liquefaction Technology.
+
+         September 29, 2021 The Design Fee Agreement
+
+
+
+
+Plaintiffs’ Original Complaint                                                      Page 6 of 29
+       Case 1:23-cv-01528-AMN-CFH Document 1 Filed 05/02/23 Page 7 of 29
+
+
+
+
+         38.      On or about May 2021, Plug discussed with Joule and JTurbo its desire to develop
+
+a Hydrogen Liquefier to complete their value chain. After discussions, Plug and JTurbo entered
+
+into a non-disclosure agreement. See Exhibit 3. On or about September 29, 2021, JTurbo met with
+
+Joule’s representatives, including Chuck Laughter. See Exhibit 4.
+
+         39.      During the meeting Joule and JTurbo agreed that Joule would pay JTurbo a
+
+Technology and Design Development Fee whereby JTurbo would receive $500,000 per unit using
+
+the JTurbo H2L IP technology and process simulations and designs JTurbo created for Joule. See
+
+Exhibit 4.
+
+
+
+
+         40.      Pursuant to the Design Fee agreement, Joule was to pay JTurbo $500,000 for
+
+developing a process design that would be similar to JTurbo’s H2L IP technology.
+
+         41.      The Design Fee Agreement was to design both a 15 ton per day (tpd) and a 30 tpd
+
+hydrogen liquefaction plant units, which would include JTurbo’s nitrogen pre-cooling cycle design
+
+coupled with the process liquefaction cycle design. Unbeknownst to JTurbo, Plug had ordered
+
+three units of hydrogen liquefaction plants from Joule on or around the time of this discussion.
+
+         42.      Plug and Joule knowingly sought out JTurbo because of JTurbo’s innovative
+
+hydrogen liquefaction technology that has a 50% lower specific energy consumption (SEC), which
+
+is JTurbo’s H2L IP technology. However, JTurbo solely developed the process liquefaction cycle
+
+design without any input from Plug or Joule.
+
+         43.      Seeing the potential of JTurbo’s H2L IP liquefaction technology and process
+
+designs, Plug engaged with Dr. Jacob Leachman, a well-known hydrogen expert from Washington
+
+University and Atlas Copco R&D expander manufacturer to validate JTurbo’s hydrogen
+
+liquefaction technology. See Exhibit 5.
+
+
+
+
+Plaintiffs’ Original Complaint                                                     Page 7 of 29
+       Case 1:23-cv-01528-AMN-CFH Document 1 Filed 05/02/23 Page 8 of 29
+
+
+
+
+The Amended Restated Exclusivity Agreement
+
+         44.      On or about January 10, 2022, JTurbo and Joule signed and executed an Amended
+
+and Restated Exclusivity Agreement (“Amended Exclusivity Agreement”), which superseded the
+
+Exclusivity Agreement executed on April 29, 2021. See Exhibit 6 (Amended Exclusivity
+
+Agreement).
+
+         45.      Around the time of the Amended Exclusivity Agreement, Plaintiffs and Defendants
+
+all enter into Non-Disclosures Agreements (NDA) to protect the intellectual property rights and
+
+trade secrets, know how, process simulations, and improvements and enhancements of the JTurbo
+
+H2L IP technology from becoming known to the public. See Exhibit 3. Plaintiffs and Defendants
+
+also executed NDAs with third parties that would be evaluating or wanting to know more about
+
+the technology. See Exhibits 7, 8, 9, 10, 11, 12, and 13.
+
+         46.      All the NDAs signed by Plaintiffs, Defendants, and third parties were all mutual
+
+NDAs. The purpose of these NDAs was to protect both parties’ confidential information, which
+
+includes proprietary information but also trade secrets, from being disclosed to the public.
+
+         47.      Plug saw the potential of JTurbo’s H2L IP liquefaction technology. On or about
+
+January 2022, Plug acquired Joule to use the JTurbo H2L IP technology. See Exhibit 14.
+
+         48.      Joule was worth around $2 million to $5 million before JTurbo shared their trade
+
+secrets, know-how, process simulations, designs, and vendor lists. Plug acquired Joule, who was
+
+a small engineering company for around $190 million. This was primarily because of the JTurbo
+
+H2L IP technology and process designs. Now Plug did not have to go through Joule to obtain the
+
+JTurbo H2L IP technology and process designs.
+
+         49.      When Plug bought Joule, Plug became successor in interest and assumed Joule’s
+
+agreements with JTurbo, which are the Design Fee Agreement and the Amended Exclusivity
+
+Agreement.
+
+
+
+
+Plaintiffs’ Original Complaint                                                      Page 8 of 29
+       Case 1:23-cv-01528-AMN-CFH Document 1 Filed 05/02/23 Page 9 of 29
+
+
+
+
+         50.         JTurbo shared the JTurbo H2L IP technology, process simulations vendor lists, and
+
+process designs with Defendants as part of their mutually beneficial business relationship for the
+
+purpose of fulfilling their obligations under the Amended Exclusivity Agreement.
+
+         51.         Defendants failed to compensate Plaintiffs per the terms of the Amended
+
+Exclusivity Agreement. Joule agreed to license certain H2 liquefaction technology from JTurbo.
+
+That technology was described in paragraph 2.a of the Amended Agreement as the “JTurbo H2L
+
+IP”, attached as Exhibit 6 hereto. The provision included:
+
+               a. Trade Secrets and know-how related to the JTurbo H2L IP as it existed on the
+
+                     Effective Date;
+
+               b. Improvements and enhancements made solely by JTurbo to the JTurbo H2L IP as
+
+                     they existed on the Effective Date;
+
+               and
+
+               c. Any other protectible Intellectual Property obtained by JTurbo or its Affiliates in
+
+                     the future alone or in collaboration with Joule.
+
+         52.         The Amended Exclusivity Agreement provided that JTurbo would license the
+
+JTurbo H2L IP to Joule, and that Joule, in turn would sublicense the JTurbo H2L IP to each client.
+
+See Exhibit 6, paragraph 4. It provided for the possibility that JTurbo would provid e the process
+
+engineering design services to Joule, who will then in turn provide it to potential clients.
+
+         53.         JTurbo was supposed to be compensated for each Project, through (1) License Fees
+
+and (2) the projects for which JTurbo provided the process engineering design services, called
+
+“PDP Fees.” “Project” is defined in paragraph 1.h. of the Amended Exclusivity Agreement,
+
+meaning a hydrogen liquefaction project using JTurbo H2L IP, which in turn, can also include
+
+contemplated stand-alone liquefaction plant units.
+
+
+
+
+Plaintiffs’ Original Complaint                                                         Page 9 of 29
+       Case 1:23-cv-01528-AMN-CFH Document 1 Filed 05/02/23 Page 10 of 29
+
+
+
+
+         54.      Fees were negotiated separately for each Project. JTurbo would negotiate its
+
+licensing fee with Joule, and then Joule and JTurbo would jointly negotiate the sublicensing fee
+
+directly with each customer. See Exhibit 6, paragraph 4.a. The license fees paid to JTurbo by Joule
+
+were a condition of sale on each Project. JTurbo’s licensing fee on each Project was capped at 5%
+
+of the Ex Works purchase price for each H2 liquefaction plant. 1 The parties defined this price as
+
+the “H2L Equipment Price.” See Exhibit 6, paragraph 4.a. If JTurbo provided the process
+
+engineering design services, its fees were to be commercially reasonable and capped at 1% of the
+
+H2L Equipment Price.
+
+         55.      Joule also promised in both the Original and Amended Exclusivity Agreement that
+
+Joule would generate at least $5 million in gross revenue for JTurbo within 5 years. See Exhibit 6
+
+(Paragraph 11.b). To date, the Amended Agreement has not been terminated.
+
+         56.      On or about January 2023, Joule received three more orders of liquefaction plants
+
+units using the JTurbo H2L IP from Nikola and TC Energy. Again, these orders were discussed
+
+without JTurbo’s knowledge or compensation of the fees based on the Amended Exclusivity
+
+Agreement.
+
+         57.      It is known to JTurbo that the current process designs of the six hydrogen
+
+liquefaction plant units are the same designs that JTurbo developed for Defendants. Which have
+
+been confirmed by engineers working at Defendants and the vendors that were selected by JTurbo.
+
+         58.      Upon information and belief, Defendants are working with the same vendors
+
+JTurbo hand selected to produce the equipment used in JTurbo’s process simulations and designs.
+
+JTurbo has been working with these vendors for eight years and all the vendors are under non-
+
+disclosure agreements with JTurbo.
+
+
+
+
+  1 “Ex Works” is an international trade term that describes when a seller makes        a product
+  available at a designated location, and the buyer of the product must cover the transport costs.
+
+
+Plaintiffs’ Original Complaint                                                      Page 10 of 29
+       Case 1:23-cv-01528-AMN-CFH Document 1 Filed 05/02/23 Page 11 of 29
+
+
+
+
+Confidential Information Shared with Joule in Confidence
+
+         59.      JTurbo shared certain information – part of its trade secrets – in confidence, and
+
+not available to the public to Joule as Joule and JTurbo signed a non-disclosure agreement on or
+
+about April 1, 2021. See Exhibit 1. This was because of their belief that JTurbo and Joule were to
+
+be exclusive worldwide joint venture partnership to package and provide the JTurbo H2L IP
+
+technology and designs to the world.
+
+         60.      JTurbo H2L IP technology is the first of its kind, using low energy and cost-
+
+efficient technology to liquify hydrogen compared to all other hydrogen liquefaction technology
+
+on the market today.
+
+         61.      JTurbo’s hydrogen liquefaction simulation platforms, if utilized in facilities,
+
+surpass all other similar liquefaction inventions in the market. JTurbo’s system can achieve 5.2
+
+kilowatts hour per kilograms (kWh/KG) of hydrogen compared to the current state of the art
+
+technologies available in the market which can only achieve 10-12 kWh/KG.
+
+         62.      The advantage of JTurbo’s simulation was that it would look at a proposed
+
+liquefaction platform and identify how costs and energy input could be reduced for the end user –
+
+Joule’s client.
+
+         63.      Once Thomas explained the general concept of what the JTurbo simulation could
+
+provide to Joule’s clients, Joule was understandably motivated to work with Thomas and his
+
+company, JTurbo to be an exclusive purveyor of its methods.
+
+         64.      In a matter of a few weeks, JTurbo and Joule struck an accord about forming an
+
+exclusive worldwide joint venture partnership to sell the process to end users who were looking at
+
+building a liquefaction facility. Joule would sell the deal, then JTurbo would run its simulations,
+
+based on what the end user (customer) wanted, to provide specifications for equipment, vendors
+
+
+
+
+Plaintiffs’ Original Complaint                                                       Page 11 of 29
+       Case 1:23-cv-01528-AMN-CFH Document 1 Filed 05/02/23 Page 12 of 29
+
+
+
+
+of product (expanders, for example), and optimal operating pressures for the end user’s proposed
+
+facility.
+
+         65.      As the terms of their exclusive worldwide joint venture were essentially finalized,
+
+on or about February 8, 2022, JTurbo emailed Daniel Kennedy, the President of Joule, some of the
+
+revised process simulations with the updated performance data. See Exhibit 15. The revised
+
+process simulations contained Plaintiffs’ trade secrets. Defendants used the process simulations
+
+and data that was developed by JTurbo, to advertise on Plug’s LinkedIn page as a provider of
+
+hydrogen liquefactions. See Exhibit 16.
+
+  January 10, 2022, Consulting Agreement Required Thomas’ Experience and Expertise
+
+         66.      On or about January 10, 2022, Plug and Thomas executed a Consulting Agreement.
+
+See Exhibit 17 (Consulting Agreement).
+
+         67.      Thomas diligently worked with the parameters Plug provided him to continue
+
+provide valuable feedback on what Plug was doing, all the while being surprised at the lack of
+
+knowledge of their engineering team.
+
+         68.      The scope of services under the Consulting Agreement was a distinctly separate
+
+agreement with different scopes from the Amended Exclusivity and Design Fee Agreements.
+
+         69.      Plug knew that they needed the expertise of Thomas to further develop process their
+
+own hydrogen liquefaction plant units.
+
+         70.      Specifically, the consulting services were related to the further development of the
+
+implementation of the designs into their own hydrogen liquefaction plant units.
+
+         71.      The Consulting Agreement provided that Plug would pay Thomas $300 per hour
+
+for consulting services not to exceed 20 hours per week for a term of two years.
+
+JTurbo Provided Enough to Satisfy Joule’s Every Need; But not its Greed
+
+
+
+
+Plaintiffs’ Original Complaint                                                        Page 12 of 29
+       Case 1:23-cv-01528-AMN-CFH Document 1 Filed 05/02/23 Page 13 of 29
+
+
+
+
+         72.      Notwithstanding the express terms of the Consulting Agreement, on or about June
+
+2022, after obtaining critical information from Thomas, Plug reduced the consulting services to 10
+
+hours per week, eventually terminating Thomas’ consulting services. See Exhibit 18. As of today,
+
+Defendants owe Thomas approximately $400,000 on the Consulting Agreement, lost profits that
+
+Thomas could have made had he worked through the term of the Consulting Agreement.
+
+         73.      Upon information and belief, Joule saw a more profitable venture with Plug, and
+
+sold itself and the secrecy it promised to JTurbo to Plug.
+
+         74.      The technology that Joule, a small engineering company of about 20 people, turning
+
+over a few million per year, was sold for several multiples of its topline to Plug.
+
+         75.      The only technological asset Joule, and now Plug, had of import as US Energy
+
+policy changes, is JTurbo’s trade secrets.
+
+         76.      Joule and Plug knew that forcing Thomas out of the equation was the only way to
+
+leverage his technology and squeeze him out.
+
+         77.      Plaintiffs invested substantial time, expense, and effort into developing the JTurbo
+
+H2L IP, including the trade secrets, know-how, process simulations, process designs, and
+
+improvement and enhancements, only to have Defendants state it as their own. See Exhibit 16. The
+
+video on the LinkedIn page even showed the process design JTurbo developed. See Exhibit 16.
+
+         78.      Furthermore, Defendants have refused to pay JTurbo any fees for the use of
+
+JTurbo’s H2L IP per the terms of the Amended Exclusivity Agreement or the $5 million that was
+
+promised to JTurbo. Joule has also refused to pay JTurbo the Technology and Design Development
+
+fee for the six units that were ordered from Joule.
+
+         79.      The evil that was done to JTurbo and Thomas is that they were brought to the table
+
+by Joule, and led to believe Joule could be trusted, when Joule with its conspirator, Plug, decided
+
+
+
+
+Plaintiffs’ Original Complaint                                                        Page 13 of 29
+       Case 1:23-cv-01528-AMN-CFH Document 1 Filed 05/02/23 Page 14 of 29
+
+
+
+
+to wreak havok on Thomas / JTurbo, taking that which Thomas has spent the better part of his life
+
+developing.
+
+         80.      This lawsuit is for recovery of compensation owed and recompense for Joule and
+
+its conspirator’s betrayal.
+
+                                      V.    CAUSES OF ACTION
+
+Count 1: Violations of the Defend Trade Secrets Act of 2016 (“DTSA”), 18 U.S.C. § 1836
+
+         81.      Plaintiffs hereby adopt and re-allege each and every allegation previously set forth
+
+in this Complaint as if fully set forth herein. FED. R. CIV. P. 10(c).
+
+         82.      Trade secrets, as defined under the Defend Trade Secrets Act, includes “all forms
+
+and types of financial, business, scientific, technical, economic, or engineering information,
+
+including patterns, plans, compilations, program devices, formulas, designs, prototypes, methods,
+
+techniques, processes, procedures, programs, or codes, whether tangible or intangible, and whether
+
+or   how       stored,    compiled,   or   memorialized   physically,    electronically,   graphically,
+
+photographically, or in writing.” 18 U.S.C §1839(3). Two requirements must be met. First, the
+
+owner of the trade secret must have taken reasonable measures to keep such information secret. 18
+
+U.S.C §1839(3)(A). Second, the information itself must derive “independent economic value,
+
+actual or potential, from not being generally known to, and not being readily ascertainable through
+
+proper means by, another person who can obtain economic value from the disclosure or use of the
+
+information.” 18 U.S.C §1839(3)(B). An owner of a trade secret that is misappropriated may bring
+
+a civil action under the Defend Trade Secrets Act if the trade secret is related to a product or service
+
+used in, or intended for use in, interstate or foreign commerce. 18 U.S.C. § 1836(b)(1).
+
+         83.      Misappropriation means disclosure of use of a trade secret of another without
+
+express or implied consent by a person who at the time of disclosure or use, knew or had reason
+
+to know that the knowledge of the trade secret was acquired under circumstances giving rise to a
+
+
+
+
+Plaintiffs’ Original Complaint                                                          Page 14 of 29
+       Case 1:23-cv-01528-AMN-CFH Document 1 Filed 05/02/23 Page 15 of 29
+
+
+
+
+duty to maintain the secrecy of the trade secret or limit the use of the trade secret . 18 U.S.C. §
+
+1836(5)(b)(ii)(II). Misappropriation also means acquisition of a trade secret of another by a person
+
+who knows or has reason to know that the trade secret was acquired by improper means; or
+
+disclosure or use of a trade secret of another without express or implied consent by a person who
+
+used improper means to acquire knowledge of the trade secret. 18 U.S.C §1839(5). Improper
+
+means includes theft or breach of a duty to maintain secrecy. 18 U.S.C §1839(6).
+
+         84.      JTurbo is the owner of trade secrets related to a product or services used in interstate
+
+and foreign commerce. JTurbo’s trade secrets were composed of proprietary process design,
+
+process simulations, know-how, and improvements and enhancements to its hydrogen liquefaction
+
+technology developed by Thomas and which could be used for energy consumption. JTurbo’s trade
+
+secrets also included its financial information, business operation methods, the identity of JTurbo’s
+
+vendors and customers, and JTurbo’s pricing.
+
+         85.      JTurbo derived independent economic value from its trade secrets not being
+
+generally known or readily ascertainable by legal means. JTurbo’s hydrogen liquefaction system
+
+surpasses all other similar liquefaction inventions in the market. JTurbo’s system can achieve 5.2
+
+kilowatts hour per kilograms (kWh/KG) of hydrogen compared to the current state of the art
+
+technologies available in the market which can only achieve 10-12 kWh/KG. As a capital cost
+
+estimate, the JTurbo liquefaction cost is approximately $1,000 per KG whereas its nearest
+
+competitor is at $2,500 per KG, which is 150% more than JTurbo’s costs. The economic value of
+
+JTurbo’s trade secrets is evidenced by the six orders of hydrogen liquefaction plant units from
+
+various business entities, including Plug, Nikola, and TC Energy.
+
+         86.      JTurbo took steps that were reasonable under the circumstances to maintain the
+
+secrecy of the trade secrets. The technology, design, operation methods, and process simulations
+
+were known only to Joule and Plug, who agreed to not disclose to others the technical and business
+
+
+
+
+Plaintiffs’ Original Complaint                                                            Page 15 of 29
+       Case 1:23-cv-01528-AMN-CFH Document 1 Filed 05/02/23 Page 16 of 29
+
+
+
+
+information or to use that information to its own benefit. JTurbo also had a non-disclosure
+
+agreement (NDA) with Joule, Plug, and many more third parties who would be evaluating the
+
+JTurbo H2P IP technology. See Exhibits c. Furthermore, the confidentiality provisions of the
+
+Amended Exclusivity Agreement and NDA show that JTurbo used reasonable measures to keep
+
+the information a secret.
+
+         87.      Defendants misappropriated the trade secrets by selling hydrogen liquefaction
+
+plants incorporating JTurbo’s trade secrets, including the process simulations, process designs,
+
+know-how, and improvements and enhancements, without discussing the fees with JTurbo or
+
+compensating JTurbo for each sale of the units. Pursuant to the Design Fee Agreement, Defendants
+
+were supposed to compensate Plaintiffs for use of the process design they created for Plug for the
+
+development of hydrogen liquefaction plant units. Also, pursuant to Section 4 of the Amended
+
+Exclusivity Agreement, Joule needed to license the JTurbo H2L IP from JTurbo for each project
+
+and pay for the license. However, Joule and Plug sold the units without consulting JTurbo in the
+
+dealings or paying them for the license/technology and design development fee.
+
+         88.      Defendants further misappropriated JTurbo’s trade secrets by disclosing or using
+
+the trade secrets, including the process simulations, process designs, without express or implied
+
+consent of JTurbo when they knew they acquired under circumstances giving rise to a duty of
+
+confidentiality or to limit use of the trade secret. Joule knew at the time they entered into the
+
+Amended Exclusivity Agreement and NDA with JTurbo that there would be some information
+
+that must be kept a secret.
+
+         89.      Not only did Defendants sell these units, but they are also now marketing
+
+technology utilizing JTurbo’s H2L IP, including process simulations, trade secrets, the process
+
+designs, know-how, and improvements and enhancements, to other business entities furthering
+
+their misappropriation.
+
+
+
+
+Plaintiffs’ Original Complaint                                                     Page 16 of 29
+       Case 1:23-cv-01528-AMN-CFH Document 1 Filed 05/02/23 Page 17 of 29
+
+
+
+
+          90.     Defendants had the intent to convert the trade secrets, the process designs, know-
+
+how, and improvements and enhancements, and knew the offense would injure the owner of the
+
+of the trade secret.
+
+          91.     The misappropriation was also willful and malicious because Joule and Plug Power
+
+consciously disregarded the JTurbo’s trade secret rights. They knew that the information provided
+
+by JTurbo was confidential pursuant to Section 4 in the Amended Exclusivity Agreement and
+
+NDA but still engaged in transactions without compensating or licensing the JTurbo H2L IP from
+
+JTurbo.
+
+
+Count 2: Misappropriation of Trade Secrets Under the Texas Uniform Trade Secrets Act
+
+          92.     Plaintiffs hereby adopt and re-allege each and every allegation previously set forth
+
+in this Compliant as if fully set forth herein. FED. R. CIV. P. 10(c).
+
+          93.     The elements of a cause of action for trade secret misappropriation are (1) the
+
+plaintiff owned a trade secret, (2) the defendant misappropriated the trade secret and (3) the
+
+misappropriation caused injury. TEX. CIV. PRAC. & REM . CODE § 134A.002.
+
+          94.     A trade secret is defined under the Texas Uniform Trade Secrets Act (“TUTSA”)
+
+as “information, including a formula, pattern, compilation, program, device, method, technique,
+
+process, financial data, or list of actual or potential customers or suppliers. TEX. CIV. PRAC. &
+
+REM. CODE § 134A.002(6). A trade secret is further defined as “deriv[ing] independent economic
+
+value, actual or potential, from not being generally known to, and not being readily ascertainable
+
+by proper means by, other persons who can obtain economic value from its disclosure or use.”
+
+TEX. CIV. PRAC. & REM. CODE § 134A.002(6)(A). Finally, a trade secret must be “…the subject of
+
+efforts that are reasonable under the circumstances to maintain its secrecy.” TEX. CIV. PRAC. &
+
+REM. CODE § 134A.002(6)(B).
+
+          95.     JTurbo is the owner of trade secrets, process simulations, process designs, know-
+
+
+
+Plaintiffs’ Original Complaint                                                        Page 17 of 29
+       Case 1:23-cv-01528-AMN-CFH Document 1 Filed 05/02/23 Page 18 of 29
+
+
+
+
+how, and improvements and enhancements, related to a product or services used in interstate and
+
+foreign commerce. JTurbo’s trade secrets were composed of its proprietary hydrogen liquefaction
+
+technology developed by Thomas, and which could be used for energy consumption. JTurbo’s
+
+trade secrets also included its technology, process designs, know-how, and improvements and
+
+enhancements, process simulations, financial information, business operation methods, the
+
+identity of JTurbo’s vendors and customers, and JTurbo’s pricing.
+
+         96.      JTurbo derived independent economic value from its trade secrets not being
+
+generally known or readily ascertainable by legal means. JTurbo’s hydrogen liquefaction system
+
+surpasses all other similar liquefaction inventions in the market. JTurbo’s system can achieve 5.2
+
+kilowatts hour per kilograms (kWh/KG) of hydrogen compared to the current state of the art
+
+technologies available in the market which can only achieve 10-12 kWh/KG. As a capital cost
+
+estimate, the JTurbo liquefaction cost is approximately $1,000 per KG whereas its nearest
+
+competitor is at $2,500 per KG, which is 150% more than JTurbo’s costs. The economic value of
+
+JTurbo’s trade secrets is evidenced by the six orders of hydrogen liquefaction plant units from
+
+various business entities, including Plug, Nikola, and TC Energy.
+
+         97.      JTurbo took steps that were reasonable under the circumstances to maintain the
+
+secrecy of the trade secrets, process simulations, the process designs, know-how, and
+
+improvements and enhancements. The technology, design, operation methods, and financial
+
+information were known only to Joule, who agreed to not disclose to others the technical and
+
+business information or to use that information to its own benefit. JTurbo also had a non-disclosure
+
+agreement (NDA) with Joule, Plug, and many more third parties who would be evaluating the
+
+JTurbo H2P IP technology. See Exhibits 1, 3, 7, 8, 9, 10, 11, 12, and 13. Furthermore, the
+
+confidentiality provisions of the Amended Exclusivity Agreement and NDA show that JTurbo
+
+used reasonable measures to keep the information a secret.
+
+
+
+
+Plaintiffs’ Original Complaint                                                      Page 18 of 29
+       Case 1:23-cv-01528-AMN-CFH Document 1 Filed 05/02/23 Page 19 of 29
+
+
+
+
+         98.      Defendants misappropriated JTurbo trade secrets, process simulations, the process
+
+designs, know-how, improvements, and enhancements, in violation of their duty to maintain
+
+secrecy and to limit use of the trade secrets. See TEX. CIV. PRAC. & REM. CODE ANN. § 134A.002(2),
+
+(3). Pursuant to the Design Fee Agreement, Defendants were supposed to compensate Plaintiffs
+
+for use of the process design they created for Plug for the development of hydrogen liquefaction
+
+plant units. Also, pursuant to Section 4 of the Amended Exclusivity Agreement, Joule needed to
+
+license the JTurbo H2L IP from JTurbo for each project and pay for the license. However, Joule
+
+and Plug sold the units without consulting JTurbo in the dealings or paying them for the
+
+license/technology and design development fee.
+
+         99.      Defendants further misappropriated JTurbo’s trade secrets, process simulations, the
+
+process designs, know-how, and improvements and enhancements, by disclosing or using the trade
+
+secrets without express or implied consent of JTurbo. See TEX. CIV. PRAC. & REM. CODE ANN. §
+
+134A.002(3)(B)(ii)(b).           Joule knew that it had an expressed and implied duty to maintain
+
+confidentiality or limit the use of trade secrets. Joule knew at the time they entered into the
+
+Amended Exclusivity Agreement and NDA with JTurbo that there would be some information
+
+that must be kept a secret.
+
+         100.     Not only did Defendants sell these units, but they are also now marketing
+
+technology utilizing JTurbo’s H2L IP, including trade secrets, including the process simulations,
+
+process designs, to other business entities furthering their misappropriation.
+
+         101.     Defendants had the intent to convert the trade secrets, process simulations, the
+
+process designs, know-how, and improvements and enhancements, and knew the offense would
+
+injure the owner of the of the trade secret.
+
+         102.     The misappropriation was also willful and malicious because Joule and Plug Power
+
+consciously disregarded the JTurbo’s trade secret rights. They knew that the information provided
+
+
+
+
+Plaintiffs’ Original Complaint                                                       Page 19 of 29
+       Case 1:23-cv-01528-AMN-CFH Document 1 Filed 05/02/23 Page 20 of 29
+
+
+
+
+by JTurbo was confidential pursuant to Section 4 in the Amended Exclusivity Agreement and
+
+NDA but still engaged in transactions without compensating or licensing the JTurbo H2L IP from
+
+JTurbo.
+
+Count 3: Breach of Contract of Amended & Restated Exclusivity Agreement in January 2022.
+
+          103.    Plaintiffs hereby adopt and re-allege each and every allegation previously set forth
+
+in this Complaint as if fully set forth herein. FED. R. CIV. P. 10(c).
+
+          104.    The elements of a cause of action for breach of contract are (1) a valid contract
+
+exists, (2) the plaintiff performed or tendered performance as contractually required, (3) the
+
+defendant breached the contract by failing to perform or tender performance as contractually
+
+required, and (4) the plaintiff sustained damages due to the breach. Pathfinder Oil & Gas, Inc. v.
+
+Great Western Drilling, Ltd., 574 S.W.3d 882, 890 (Tex. 2019).
+
+          105.    The Amended Exclusivity Agreement is an amendment to a contract, as it was
+
+signed and executed by both JTurbo and Joule Processing to amend the Original Exclusivity
+
+Agreement. The Amended Exclusivity Agreement supersedes the Original Exclusivity Agreement.
+
+          106.    The Amended Exclusivity Agreement obligated Plaintiffs to license their JTurbo
+
+H2L IP to Joule, and in turn, Joule would sublicense JTurbo H2L IP to customers with the consent
+
+of Plaintiffs. Plaintiffs performed under the contract as they were contractually required to because
+
+Thomas had discussed and given Joule the JTurbo H2L IP technology and plant design.
+
+          107.    However, Defendants have breached the contract by failing to perform their
+
+obligations under the Amended Exclusivity Agreement. Defendants were obligated to include
+
+Plaintiffs in the sale process of each Project that used the JTurbo H2L IP in the design, including
+
+JTurbo’s trade secrets, process simulations, the process designs, know-how, and improvements
+
+and enhancements.
+
+
+
+
+Plaintiffs’ Original Complaint                                                        Page 20 of 29
+       Case 1:23-cv-01528-AMN-CFH Document 1 Filed 05/02/23 Page 21 of 29
+
+
+
+
+         108.     Defendants were also obligated to pay Plaintiffs a License Fee and PDP fee for
+
+every Project that Joule would use JTurbo’s process engineering design services and JTurbo H2L
+
+IP. Joule received six orders of liquefaction plants that used JTurbo H2L IP in the design, but
+
+Plaintiffs were not involved in the discussions with the buyers or were paid a license fee.
+
+         109.     Furthermore, Defendants have also breached the contract by not generating at least
+
+$5 million in gross revenue for JTurbo, as stated in Paragraph 11.b. See Exhibit 6. Defendants
+
+were obligated to generate at least $5 million in gross revenue in 5 years, which could include any
+
+license or sale of JTurbo H2L IP, Process Design Package (PDP), and other revenue of any kind
+
+or character. To date, Defendants have not generated any revenue for Plaintiffs. Instead,
+
+Defendants have used Plaintiffs’ process simulations, the data in the process simulations, and
+
+process designs, meaning Defendants have taken away revenue from Plaintiffs.
+
+         110.     Plaintiffs sustained damages because they were not compensated based on the
+
+license fees due to them for every unit sold using the JTurbo H2L IP in the design. Defendants
+
+owed around $10,800,000 as lost revenue from the six hydrogen liquefaction units sold without
+
+compensating Plaintiffs to use the JTurbo H2L IP technology, including its trade secrets, process
+
+simulations, the process designs, know-how, and improvements and enhancements. Plaintiffs have
+
+also sustained damages based on Defendants’ obligation to generate $5 million in gross revenue
+
+in 5 years, which Defendants have shown no signs of performing.
+
+         111.     Plaintiffs performed as contractually required. Defendants breached the contract by
+
+failing to include Plaintiffs in the discussion with buyers and not being compensated on the
+
+licensing fee. Plaintiffs have suffered damages because of Defendants’ breach.
+
+  Count 4: Breach of Design Fee Agreement
+
+         112.     Plaintiffs hereby adopt and re-allege each and every allegation previously set forth
+
+in this Complaint as if fully set forth herein. FED. R. CIV. P. 10(c).
+
+
+
+
+Plaintiffs’ Original Complaint                                                        Page 21 of 29
+       Case 1:23-cv-01528-AMN-CFH Document 1 Filed 05/02/23 Page 22 of 29
+
+
+
+
+         113.     The elements of a cause of action for breach of contract are (1) a valid contract
+
+exists, (2) the plaintiff performed or tendered performance as contractually required, (3) the
+
+defendant breached the contract by failing to perform or tender performance as contractually
+
+required, and (4) the plaintiff sustained damages due to the breach. Pathfinder Oil & Gas, Inc. v.
+
+Great Western Drilling, Ltd., 574 S.W.3d 882, 890 (Tex. 2019).
+
+         114.     Parties form a binding contract when the following elements are present: (1) an
+
+offer, (2) an acceptance in strict compliance with the terms of the offer, (3) a meeting of the minds,
+
+(4) each party's consent to the terms, and (5) execution and delivery of the contract with the intent
+
+that it be mutual and binding. Levetz v. Sutton, 404 S.W.3d 798, 803 (Tex. App.—Dallas 2013,
+
+pet. denied).
+
+         115.     The Design Fee Agreement is a contract, as it was written and agreed upon by both
+
+JTurbo and Plug. See Exhibit 4. The September 29, 2021, email states what was agreed upon in
+
+the meeting with Joule and JTurbo on that day. In the email, it states “The agreed “H2L technology
+
+development assistance fee” for JTurbo is $500k/unit ordered by Plug Power for up to the first
+
+three units.” As the email states, the agreed upon terms were that there would be a Design Fee for
+
+the process designs of $500,000 per unit.
+
+         116.     The Design Fee Agreement obligated Joule to compensate JTurbo for the process
+
+designs that JTurbo would grant to Defendants to help develop hydrogen liquefaction plants.
+
+JTurbo performed under the contract when JTurbo handed over the process designs and process
+
+simulations, including the data, to Defendants. Defendants breached the Design Fee Agreement as
+
+a result of not compensating JTurbo for the designs that were provided to Defendants from JTurbo.
+
+As to date, Plaintiffs have not received any compensation for their process designs.
+
+         117.     Plaintiffs have sustained damages because they were not given compensation for
+
+the process designs that were provided to Defendants to use to help develop hydrogen liquefaction
+
+
+
+
+Plaintiffs’ Original Complaint                                                        Page 22 of 29
+       Case 1:23-cv-01528-AMN-CFH Document 1 Filed 05/02/23 Page 23 of 29
+
+
+
+
+plants for Plug. Defendants owe around $10,800,000 as lost revenue from the six hydrogen
+
+liquefaction plant units sold.
+
+         118.     Plaintiffs performed as required by providing the process designs and process
+
+simulations, including the data, to Defendants. Defendants breached the contract by failing to
+
+compensate for the process that was developed by Plaintiffs. Plaintiffs have suffered damages as
+
+a result of Defendants’ breach.
+
+  Count 5: Consulting Agreement
+
+         119.     Plaintiffs hereby adopt and re-allege each and every allegation previously set forth
+
+in this Complaint as if fully set forth herein. FED. R. CIV. P. 10(c).
+
+         120.     The Consulting Agreement is a contract, as it was signed and executed by Plaintiff
+
+Jacob Thomas and the VP of Strategy and M&A of Plug Power, Kevin Kopczynski.
+
+         121.     The Consulting Agreement obligated Thomas to provide consulting services to
+
+Plug at a rate of $300 per hour up to 20 hours a week. Thomas performed under the contract as
+
+required by, as he provided consulting services related to the further development of and
+
+implementation of the hydrogen liquefiers. Specifically, he participated in design reviews and
+
+made reports to Plug for hydrogen liquefiers. Defendants breached the Consulting Agreement
+
+because they did not fully compensate Thomas for his consulting services. As of to date, Plug has
+
+only paid Thomas $200,000 under the terms of the Consulting Agreement. See Exhibit 19.
+
+         122.     Thomas has sustained damages in the amount of $400,000 of lost profits if he were
+
+to have performed until the end of the contract term.
+
+         123.     Thomas performed as contractually required. Plug breached the contract by failing
+
+to compensate Thomas what he is owned by Plug for his consulting services. Thomas has suffered
+
+damage as a result of Plug’s breach.
+
+Count 6: Tortious Interference with Prospective Business Relationships
+
+
+
+
+Plaintiffs’ Original Complaint                                                        Page 23 of 29
+       Case 1:23-cv-01528-AMN-CFH Document 1 Filed 05/02/23 Page 24 of 29
+
+
+
+
+         124.     Plaintiffs hereby adopt and re-allege each and every allegation previously set forth
+
+in this Complaint as if fully set forth herein. FED. R. CIV. P. 10(c).
+
+         125.     The elements for tortious interference with prospective relations are (1) there was
+
+a reasonable probability that the plaintiff would have entered into a business relationship with a
+
+third person, (2) the defendant intentionally interfered with the relationship, (3) the defendant’s
+
+conduct was independently tortious or unlawful, (4) the interference proximately caused the
+
+plaintiff’s injury, and (5) the plaintiff suffered actual damage or loss. Coinmach Corp. v.
+
+Aspenwood Apartment Corp., 417 S.W.3d 909, 923 (Tex. 2013).
+
+         126.     There is a reasonable probability that JTurbo would have entered into a business
+
+relationship with prospective businesses to sell its services. Defendants knew that if they did not
+
+include Plaintiffs in the discussions of selling their units of liquefaction plants it would interfere
+
+with Plaintiffs’ prospective clients or knew that their actions were certain or substantially certain
+
+to cause interference.
+
+         127.     Defendants have used Plaintiffs’ JTurbo H2P IP technology, including its trade
+
+secrets, process simulations,       the process designs, know-how, and improvements and
+
+enhancements, to obtain clients knowing that it would damage Plaintiffs. Plaintiff was damaged
+
+every time Defendants would exclude Plaintiff in the sale of the liquefaction plants units without
+
+compensating them for using the JTurbo H2P IP technology in the design.
+
+Count 7: Unfair Competition
+
+         128.     Plaintiffs hereby adopt and re-allege each and every allegation previously set forth
+
+in this Complaint as if fully set forth herein. FED. R. CIV. P. 10(c).
+
+         129.     The elements of a cause of action for unfair competition by misappropriation are
+
+(1) the creation of plaintiff's product (i.e., the trade secret information) through extensive time,
+
+labor, skill, and money; (2) the defendant's use of that product in competition with the plaintiff,
+
+
+
+
+Plaintiffs’ Original Complaint                                                        Page 24 of 29
+       Case 1:23-cv-01528-AMN-CFH Document 1 Filed 05/02/23 Page 25 of 29
+
+
+
+
+thereby gaining a special advantage in that competition (i.e., a 'free ride') because defendant is
+
+burdened with little or none of the expense incurred by the plaintiff; and (3) commercial damage
+
+to the plaintiff." BP Automotive, L.P. v. RML Waxahachie Dodge, L.L.C., 448 S.W.3d 562, 572
+
+(Tex. App.—Houston [1st Dist.] 2014, no pet.).
+
+         130.     JTurbo developed the trade secrets, including process simulations, the process
+
+designs, know-how, improvements, and enhancements. It took JTurbo years to develop the designs
+
+and trade secrets, spending time and money to perfect the JTurbo H2L IP technology.
+
+         131.     In Plug’s LinkedIn post, Plug portrays that they are the owners of the JTurbo’s
+
+design and H2L IP technology. See Exhibit 16. Plug has been engaging in unfair competition and
+
+unfair trade practices against JTurbo by marketing and advertising that they are the owners of the
+
+JTurbo H2L IP technology and process simulations of hydrogen liquefiers with little to no expense
+
+incurred in developing the technology.
+
+         132.     Plug took JTurbo’s protected and secret information to undercut Plaintiff in the
+
+Cryogenic Liquefaction market, causing commercial damage.
+
+Count 8: Joule’s Breach of Fiduciary Duty
+
+         133.     Plaintiffs hereby adopt and re-allege each and every allegation previously set forth
+
+in this Complaint as if fully set forth herein. FED. R. CIV. P. 10(c).
+
+         134.     The elements of a cause of action for breach of fiduciary duty are (1) the plaintiff
+
+and defendant had a fiduciary relationship, (2) the defendant breached its fiduciary duty to the
+
+plaintiff, (3) the defendant’s breach resulted in (a) injury to the plaintiff, or (b) benefit to the
+
+defendant. Burrow v. Arce, 997 S.W.2d 229, 237 (Tex. 1999). Partners owe certain fiduciary duties
+
+to other partners within the partnership, such as the duty of loyalty and the duty of care. Johnson
+
+v. Brewer & Pritchard, P.C., 73 S.W.3d 193, 199 (Tex. 2002); Nguyen, 507 S.W.3d at 379.
+
+
+
+
+Plaintiffs’ Original Complaint                                                        Page 25 of 29
+       Case 1:23-cv-01528-AMN-CFH Document 1 Filed 05/02/23 Page 26 of 29
+
+
+
+
+         135.     Joule and JTurbo were exclusive partners to provide and package the JTurbo H2L
+
+IP technology, process simulations and designs worldwide under the Amended Exclusivity
+
+Agreement. In other words, the partnership was formed to exploit Thomas’ technology with
+
+Joule’s market contacts. This joint venture and collaboration would greatly benefit both parties.
+
+         136.     As exclusive partners, Joule had a fiduciary duty to not disclose JTurbo’s trade
+
+secrets, process simulations, and designs. Joule knew that it had an expressed and implied duty to
+
+maintain confidentiality or limit the use of trade secrets. Joule knew at the time they entered into
+
+the Amended Exclusivity Agreement and NDA with JTurbo that there would be some information
+
+that must be kept a secret.
+
+         137.     JTurbo trusted Joule with JTurbo’s trade secrets, including process simulations,
+
+process designs, know-how, improvements, and enhancements. This was on the belief that they
+
+would be exclusive partners in the long run and each benefit from the partnership.
+
+         138.     JTurbo entrusted Joule with negotiations and sales of the JTurbo H2L IP technology
+
+and process simulations. Rather than represent JTurbo’s best interests, Joule put their best interests
+
+first and breached their fiduciary duty to JTurbo to JTurbo’s detriment. Joule not only disclosed
+
+JTurbo’s trade secrets to Plug, but Joule and Plug are now claiming that they are the owners of
+
+those trade secrets, including the process simulations and process designs.
+
+         139.     JTurbo justifiably placed its trust in Joule. Joule has breached that trust and the
+
+fiduciary duty to JTurbo by failing to place JTurbo’s best interests before Joule’s own self-interest.
+
+Accordingly, JTurbo sustained damages as a result of Joule’s breach of fiduciary duty to not
+
+disclose JTurbo’s trade secrets. JTurbo seeks to recover in this suit, in an amount within the
+
+jurisdictional limits of this Court.
+
+         140.     JTurbo alleges herein that Defendant Joule knowingly or recklessly violated their
+
+fiduciary duties by disclosing JTurbo’s trade secrets and claiming it as their own.
+
+
+
+
+Plaintiffs’ Original Complaint                                                        Page 26 of 29
+       Case 1:23-cv-01528-AMN-CFH Document 1 Filed 05/02/23 Page 27 of 29
+
+
+
+
+Count 9: Plug’s Conspiracy to Commit Breach of Fiduciary Duty
+
+         141.     Plaintiffs hereby adopt and re-allege each and every allegation previously set forth
+
+in this Complaint as if fully set forth herein. FED. R. CIV. P. 10(c).
+
+         142.     In Texas, a party who knowingly participates in another's breach of fiduciary duty
+
+may be liable for the breach as a joint tort-feasor. See Kinzbach Tool Co. v. Corbett-Wallace Corp.,
+
+138 Tex. 565, 160 S.W.2d 509, 514 (1942). Under Texas law, an actionable civil conspiracy occurs
+
+when there is a "combination by two or more persons to accomplish an unlawful purpose or to
+
+accomplish a lawful purpose by unlawful means." See Firestone Steel Prods. Co v. Barajas, 927
+
+S.W.2d 608, 614 (Tex. 1996).
+
+         143.     Joule and JTurbo were exclusive partners to provide and package the JTurbo H2L
+
+IP technology, process simulations and designs to customers worldwide. When Plug acquired
+
+Joule, Plug became a successor in interest. Meaning that Plug knew that Joule had a fiduciary duty
+
+to not disclose JTurbo’s trade secrets, process simulations, and designs.
+
+         144.     Plug conspired with Joule to obtain JTurbo’s trade secrets, process simulations, and
+
+designs. Plug knowingly participated in Joule’s breach of fiduciary duty to JTurbo to not disclose
+
+JTurbo’s trade secrets, process simulations, and process designs. Plug obtained those trade secrets,
+
+process simulations and designs from Joule in order to not have to compensate JTurbo for them.
+
+         145.     JTurbo sustained damages as a result of Plug’s acts to conspire with Joule to obtain
+
+JTurbo’s trade secrets, process simulations, and process designs.
+
+                                 VI.DAMAGES & ATTORNEYS’ FEES
+
+         146.     Plaintiffs seek to recover their actual and consequential damages in this suit, in an
+
+amount within the jurisdictional limits of this Court. Plaintiffs seek exemplary damages against
+
+Defendants as Defendants’ actions were committed with malice as defined by Chapter 41 of the
+
+Texas Civil Practice & Remedies Code.
+
+
+
+
+Plaintiffs’ Original Complaint                                                         Page 27 of 29
+       Case 1:23-cv-01528-AMN-CFH Document 1 Filed 05/02/23 Page 28 of 29
+
+
+
+
+         147.     Plaintiffs are entitled to reasonable attorney’s fees under 18 U.S.C. § 1836(b)(3)(D)
+
+(Defend Trade Secrets Act) and TEX. CIV. PRAC. & REM CODE ANN. § 134A.005 (Texas Uniform
+
+Trade Secrets Act).
+
+         148.     Plaintiffs are entitled to an award of attorney’s fees under 18 U.S.C. §
+
+1836(b)(3)(D) and TEX. CIV. PRAC. & REM CODE ANN. § 134A.005 as Plaintiffs have shown that
+
+the misappropriation was made in bad faith and the trade secret was willfully and maliciously
+
+misappropriated. As a result of Defendants’ conduct, Plaintiffs were forced to retain the
+
+undersigned counsel to pursue these causes of action.
+
+         149.     Plaintiffs seek to recover their reasonable attorneys’ fees and costs, along with pre-
+
+judgment and post-judgment interest, under the provisions of Chapter 38 of the Texas Civil
+
+Practice & Remedies Code or as otherwise allowed by law.
+
+                                          VII. JURY DEMAND
+
+         150.     Plaintiffs respectfully demand the right to have a trial by jury and hereby tender the
+
+appropriate jury fee to the district Clerk of Court for the U.S. District Court for the Western District
+
+of Texas.
+
+                                             VIII. PRAYER
+
+         151.     For these reasons, Plaintiffs ask that the Court issue citation for Defendants to
+
+appear and answer, and that Plaintiffs be awarded judgment against Defendants for the following:
+
+                  1. Actual, consequential and exemplary damages, as allowed by law;
+
+                  2. Pre-judgment and post-judgment interest;
+
+                  3. Reasonable attorneys’ fees and costs of court;
+
+                  4. All other relief to which Plaintiffs may show themselves to be entitled to, in law
+                     or in equity.
+
+
+
+
+Plaintiffs’ Original Complaint                                                          Page 28 of 29
+       Case 1:23-cv-01528-AMN-CFH Document 1 Filed 05/02/23 Page 29 of 29
+
+
+
+
+                                          Respectfully submitted,
+
+                                          THE VETHAN LAW FIRM , PC
+
+                                          By: /s/ Charles M. R. Vethan
+                                          Charles M. R. Vethan
+                                          Attorney-in-Charge
+                                          Texas Bar No. 00791852
+                                          Joseph L. Lanza
+                                          Texas Bar No. 00784447
+                                          Two Memorial City Plaza
+                                          820 Gessner, Suite 1510
+                                          Houston, Texas 77024
+                                          Tel: (713) 526-2222
+                                          Fax: (713) 526-2230
+                                          Email: edocs@vwtexlaw.com
+
+                                          Attorneys for Plaintiffs
+
+
+
+
+Plaintiffs’ Original Complaint                                       Page 29 of 29
+

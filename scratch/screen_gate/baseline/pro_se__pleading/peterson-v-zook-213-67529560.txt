@@ -1,0 +1,258 @@
+                     IN THE UNITED STATES DISTRICT COURT FOR THE
+                             MIDDLE DISTRICT OF TENNESSEE
+                                  NASHVILLE DIVISION
+
+    DEREK W. PETERSON,                                 )
+                                                       )
+             Plaintiff,                                )
+                                                       )
+    v.                                                 )   NO. 3:23-cv-00647
+                                                       )
+    SGT. ZOOK #213, et al.,                            )   JUDGE CAMPBELL
+                                                       )
+             Defendants.                               )
+
+
+                              MEMORANDUM OPINION AND ORDER
+
+            Derek Peterson, an inmate in custody at the Rutherford County Adult Detention Center in
+
+Murfreesboro, Tennessee, has filed a pro se civil rights complaint under 42 U.S.C. § 1983 (Doc.
+
+No. 1, “the Complaint”) and an application for leave to proceed in forma pauperis (IFP). (Doc. No.
+
+2.)
+
+            The case is before the Court for ruling on Plaintiff’s IFP application and for an initial
+
+review under the Prison Litigation Reform Act (PLRA), 28 U.S.C. §§ 1915(e)(2) and 1915A.
+
+                                 I. APPLICATION TO PROCEED IFP
+
+            A prisoner bringing a civil action may be permitted to file suit without prepaying the filing
+
+fee. 28 U.S.C. § 1915(a). Because it appears from Plaintiff’s submission that he lacks sufficient
+
+financial resources to pay the full filing fee in advance, his application to proceed IFP in this matter
+
+(Doc. No. 2) is GRANTED and a $350 filing fee1 is ASSESSED.
+
+            The warden of the facility in which Plaintiff is currently housed, as custodian of his trust
+
+
+1
+        While prisoners who are not granted pauper status must pay a total fee of $402––a civil filing fee
+of $350 plus a civil administrative fee of $52––prisoners who are granted pauper status are only liable for
+the $350 civil filing fee. See 28 U.S.C. § 1914(a)–(b) and attached District Court Miscellaneous Fee
+Schedule, provision 14 (eff. Dec. 1, 2020).
+
+
+
+
+         Case 3:23-cv-00647       Document 4        Filed 09/12/23      Page 1 of 5 PageID #: 16
+account, is DIRECTED to submit to the Clerk of Court, as an initial payment, the greater of: (a)
+
+20% of the average monthly deposits to Plaintiff’s credit at the jail; or (b) 20% of the average
+
+monthly balance to Plaintiff’s credit for the six-month period immediately preceding the filing of
+
+the Complaint. 28 U.S.C. § 1915(b)(1). Thereafter, the custodian shall submit 20% of Plaintiff’s
+
+preceding monthly income (or income credited to Plaintiff for the preceding month), but only when
+
+the balance in his account exceeds $10. Id. § 1915(b)(2). Payments shall continue until the $350
+
+filing fee has been paid in full to the Clerk of Court. Id. § 1915(b)(3).
+
+        The Clerk of Court MUST send a copy of this Order to the warden of the facility in which
+
+Plaintiff is currently housed to ensure compliance with that portion of 28 U.S.C. § 1915 pertaining
+
+to the payment of the filing fee. If Plaintiff is transferred from his present place of confinement,
+
+the custodian must ensure that a copy of this Order follows Plaintiff to his new place of
+
+confinement, for continued compliance with the Order. All payments made pursuant to this Order
+
+must be submitted to the Clerk of Court for the United States District Court for the Middle District
+
+of Tennessee, 719 Church Street, Nashville, TN 37203.
+
+                                       II. INITIAL REVIEW
+
+A. Legal Standard
+
+        The Court must dismiss the Complaint (or any portion thereof) if it is facially frivolous or
+
+malicious, if it fails to state a claim upon which relief may be granted, or if it seeks monetary relief
+
+against a defendant who is immune from such relief. 28 U.S.C. §§ 1915(e)(2), 1915A(b). The
+
+review for whether the Complaint states a claim asks whether it contains “sufficient factual matter,
+
+accepted as true, to state a claim to relief that is plausible on its face,” such that it would survive a
+
+motion to dismiss under Federal Rule of Civil Procedure 12(b)(6). Hill v. Lappin, 630 F.3d 468,
+
+470–71 (6th Cir. 2010) (quoting Ashcroft v. Iqbal, 556 U.S. 662, 678 (2009)). Although pro se
+
+
+
+                                                   2
+
+   Case 3:23-cv-00647          Document 4         Filed 09/12/23      Page 2 of 5 PageID #: 17
+pleadings must be liberally construed, Erickson v. Pardus, 551 U.S. 89, 94 (2007), they must still
+
+“plead[] factual content that allows the court to draw the reasonable inference that the defendant
+
+is liable for the misconduct alleged,” Iqbal, 556 U.S. at 678, upon “view[ing] the complaint in the
+
+light most favorable to the plaintiff[.]” Tackett v. M & G Polymers, USA, LLC, 561 F.3d 478, 488
+
+(6th Cir. 2009).
+
+         Plaintiff filed this action under 42 U.S.C. § 1983, which confers a private federal right of
+
+action against any person who, acting under color of state law, deprives an individual of any right,
+
+privilege or immunity secured by the Constitution or federal laws. Wurzelbacher v. Jones-Kelley,
+
+675 F.3d 580, 583 (6th Cir. 2012).
+
+B. Analysis of the Complaint
+
+         Plaintiff sues Sergeant Zook and the Rutherford County Adult Detention Center (RCADC)
+
+for an alleged violation of his constitutional right to be free from cruel and unusual punishment,
+
+based on Zook’s communication that, per the RCADC administration, Plaintiff would not “at this
+
+time” be transported to an outside provider to get eyeglasses after losing the contact lens from his
+
+right eye, even though Plaintiff had done as he was told by another officer and arranged for his
+
+family to deposit sufficient funds to prepay the cost of new glasses. (Doc. No. 1 at 5.) According
+
+to Plaintiff, Zook explained that transport was denied because of “the combination of [Plaintiff’s]
+
+drug charges with the addition of an introduction charge.” (Id.) Plaintiff alleges that other inmates
+
+with similar charges have been transported to get glasses. (Id.) He further alleges that he has severe
+
+astigmatism, has been harmed by being made to feel “less of a human,” and has suffered a “slip
+
+and fall in a puddle of water on the floor [he] didn’t see . . . and now the doctor says [he] need[s]
+
+a new knee[.]” (Id. at 5–6.) Plaintiff requests an award of damages for his pain and suffering. (Id.
+
+at 6.)
+
+
+
+                                                  3
+
+    Case 3:23-cv-00647         Document 4       Filed 09/12/23      Page 3 of 5 PageID #: 18
+        The Court assumes for purposes of initial review that Plaintiff has a constitutional right to
+
+the vision-correction services allegedly denied by Zook and the RCADC administration. See Koehl
+
+v. Dalsheim, 85 F.3d 86, 88 (2d Cir. 1996) (finding viable constitutional claim based on allegation
+
+of “visual deficiencies [which] can readily cause a person to fall or walk into objects,” combined
+
+with allegation that inmate whose glasses were confiscated “has experienced such occurrences,
+
+and has suffered injuries as a consequence”). Nonetheless, Plaintiff’s allegations are not sufficient
+
+to support a plausible claim of entitlement to relief. It is unclear from the Complaint whether
+
+Plaintiff was permanently denied transport to obtain glasses, or only temporarily. The allegation
+
+that Zook stated that transport was denied “at this time” (Doc. No.1 at 5) would indicate the latter,
+
+and the fact that the Complaint is dated less than a month after Zook communicated this decision
+
+(see id. at 5, 6) does not lend plausibility to Plaintiff’s claim that the deprivation was inhumane or
+
+otherwise unconstitutional. See Pendermon v. Jones, No. CV 5:20-32-WOB, 2020 WL 495512, at
+
+*1 (E.D. Ky. Jan. 30, 2020) (“While an extended and unwarranted delay in filling the prescription
+
+[for eyeglasses] might eventually support an Eighth Amendment claim, thirty days does not
+
+approach that threshold in the absence of clear evidence that it is medically necessary that the
+
+prescription be filled immediately.”) (citing White v. Corr. Corp. of Am., No. 3:13-1437, 2014 WL
+
+6871551, at *5 (M.D. Tenn. Dec. 5, 2014), report and recommendation adopted, 2015 WL 331935
+
+(M.D. Tenn. Jan. 26, 2015) (finding that inmate’s “complaints that the health care providers did
+
+not . . . provide him with an eye examination or with eye glasses” for four months did not suffice
+
+to show a constitutional violation)). In any event, the RCADC is not a proper defendant to this or
+
+any other claim, as it “is a building, not a ‘person’ who can be sued under 42 U.S.C. § 1983.”2
+
+
+
+2
+        “Section 1983 creates liability for ‘persons’ who deprive others of federal rights under color of law.
+Only a ‘person’ faces liability under the statute.” Hohenberg v. Shelby Cnty., Tennessee, 68 F.4th 336, 342
+(6th Cir. 2023) (citing Will v. Michigan Dep’t of State Police, 491 U.S. 58, 64 (1989)). While municipal
+
+                                                      4
+
+    Case 3:23-cv-00647           Document 4         Filed 09/12/23        Page 4 of 5 PageID #: 19
+Page v. R.C.A.D.C., No. 3:22-CV-00650, 2022 WL 4486400, at *2 (M.D. Tenn. Sept. 26, 2022).
+
+        The Court thus finds that the Complaint is subject to dismissal because it does not contain
+
+“sufficient factual matter, accepted as true, to state a claim to relief that is plausible on its face”
+
+against a proper defendant. Hill, 630 F.3d at 470–71. In this circumstance, rather than dismissing
+
+the complaint outright, a court may grant leave to amend in order to allow the plaintiff an
+
+opportunity to supply the clarifying information. See LaFountain v. Harry, 716 F.3d 944, 951 (6th
+
+Cir. 2013) (holding “that under Rule 15(a) a district court can allow a plaintiff to amend his
+
+complaint even when the complaint is subject to dismissal under the PLRA”). The Court will
+
+exercise its discretion to take that approach in this case. Plaintiff will thus be allowed an
+
+opportunity to present additional factual allegations against the proper defendant(s) concerning the
+
+claimed deprivation of access to vision-correction services at RCADC.
+
+                                         III. CONCLUSION
+
+        For the reasons discussed above, although the Complaint is subject to dismissal for failure
+
+to state a claim on which relief may be granted pursuant to 28 U.S.C. §§ 1915(e)(2)(B)(ii) and
+
+1915A, the Court will allow Plaintiff to file an Amended Complaint in response to this Order
+
+within 30 DAYS of the entry of the Order. The Clerk is DIRECTED to provide Plaintiff with a
+
+form for filing a civil rights complaint (Pro Se Form 14).
+
+        Plaintiff is cautioned that failure to file an Amended Complaint within 30 days or to seek
+
+an extension of this deadline before it expires will result in the dismissal of this action.
+
+        It is so ORDERED.
+
+
+                                                 ____________________________________
+                                                 WILLIAM L. CAMPBELL, JR.
+                                                 UNITED STATES DISTRICT JUDGE
+
+and corporate entities involved in the operation of county jails qualify as “persons,” see generally Monell
+v. Dep’t of Soc. Servs. of City of New York, 436 U.S. 658, 690 (1978), jail buildings do not.
+
+                                                    5
+
+   Case 3:23-cv-00647           Document 4         Filed 09/12/23       Page 5 of 5 PageID #: 20
+

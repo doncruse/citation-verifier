@@ -1,0 +1,2173 @@
+ Case 1:25-cv-20924-AHS Document 29 Entered on FLSD Docket 06/13/2025 Page 1 of 44
+
+
+
+
+                          IN THE UNITED STATES DISTRICT COURT
+                         FOR THE SOUTHERN DISTRICT OF FLORIDA
+
+GWENDOLYN           A.      DIXON,        STACIE
+ALEXANDER, and TASIA PRICE, individually,
+and on behalf of the class and all others similarly
+situated,                                                   CLASS and COLLECTIVE ACTION
+
+                Plaintiffs,                                       Case No.: 1:25-cv-20924
+
+                    v.                                              Jury Trial Demanded
+
+INKTEL CONTRACT CENTER SOLUTIONS,
+LLC.,
+
+                Defendant.
+
+
+
+                              PLAINTIFFS’ FIRST AMENDED COMPLAINT
+
+
+           Plaintiffs Gwendolyn A. Dixon, Stacie Alexander and Tasia Price (collectively,
+
+    “Plaintiffs”), on behalf of themselves and all others similarly situated, allege, upon personal
+
+    knowledge as to themselves and upon information and belief as to others, against Inktel Contract
+
+    Center Solutions, LLC (“Inktel” or “Defendant”) as follows:
+
+                                            INTRODUCTION
+
+           1.        Wage theft remains a pervasive issue across the United States, depriving workers
+
+    of the wages they rightfully earn, and creating significant financial and emotional strain on
+
+    individuals and families. It occurs when employers refuse to pay their workers for all the wages
+
+    and benefits that they have earned by engaging in practices such as requiring off-the-clock work,
+
+    denying overtime pay, denying them benefits, or misclassifying employees as independent
+
+    contractors. Such practices not only businesses and also deprive governments of tax revenue,
+                                                        1
+Case 1:25-cv-20924-AHS Document 29 Entered on FLSD Docket 06/13/2025 Page 2 of 44
+
+
+
+
+  disadvantage law-abiding businesses, and erode the principles of a fair and equitable labor
+
+  market. Defendant exemplifies these harmful and unlawful practices on a large scale.
+
+         2.      This class and collective action, brought by Plaintiffs on behalf of
+
+  themselves and a class of current and former workers employed by Defendant as customer
+
+  service and call center representatives, challenges Defendant’s practices and policies of
+
+  misclassifying Plaintiffs as independent contractors, not paying them overtime
+
+  compensation, forcing them to pay a weekly surcharge to access the Inktel’s system, and
+
+  other employment benefits, violating the Fair Labor Standards Act, 29 U.S.C. §§ 201, et
+
+  seq. (“FLSA”) and the Employee Retirement Income Security Act, 29 U.S.C. §§ 29 U.S.C.
+
+  § 1001 et seq. (“ERISA”).
+
+         3.      Defendant provides remote call center services to corporate clients,
+
+  including many Fortune 500 companies. To meet its contractual obligations, Defendant
+
+  has, over the years, recruited and trained hundreds of individuals that it classifies as
+
+  independent contractors (collectively, “Contractors”). These workers are trained as
+
+  customer service and call center representatives, and they perform tasks and have
+
+  responsibilities that are identical to Defendant’s employees, including voice, email, and
+
+  chat-based customer service, technical support, and sales. Despite their central role in
+
+  fulfilling Defendant’s contractual obligations and business operations, these Contractors
+
+  are misclassified as independent contractors, depriving them of critical wage and hour
+
+  protections and statutory benefits.
+
+         4.      Defendant advertises schedule flexibility to attract workers but, in reality,
+
+  Contractors are subject to strict oversight. They must adhere to pre-set schedules and
+
+                                                      2
+Case 1:25-cv-20924-AHS Document 29 Entered on FLSD Docket 06/13/2025 Page 3 of 44
+
+
+
+
+  follow specific, detailed instructions on how to perform their duties and interact with customers.
+
+  Supervisors play a significant role in assigning work hours, approving schedule adjustments, and
+
+  overseeing many aspects of their activities. Before starting work, Contractors are required to
+
+  register on Defendant’s virtual platform, for which they must pay a weekly fee to access.
+
+  Supervisors also monitor their online activities, including actions performed outside of
+
+  Defendant’s system.
+
+          5.      If Contractors need to go offline for a quick restroom break, leave due to a family
+
+  emergency, or request unpaid voluntary time off (“VTO”), they are required to obtain supervisor
+
+  approval. Supervisors strictly regulate these activities, and Contractors who raise concerns about
+
+  their schedules or attempt to adjust their working hours are met with warnings that failure to
+
+  comply with Defendant’s procedures could result in termination of their contracts.
+
+          6.      Plaintiffs and similarly situated Contractors regularly performed uncompensated
+
+  labor, including being denied overtime pay, attending hours of unpaid meetings, and were denied
+
+  pay due to system errors or technical failures. By denying these workers overtime pay and
+
+  compensation for all hours worked, Defendant unlawfully shifts the cost of essential work onto
+
+  the Contractors.
+
+          7.      Plaintiffs bring this class and collective action under the FLSA and ERISA to
+
+  recover compensation and benefits unlawfully withheld by Defendant. Specifically, Plaintiffs seek
+
+  to address the denial of access to group health insurance, retirement plans, and other benefits to
+
+  which they are entitled as employees. On behalf of themselves and the proposed Class and
+
+  Collective, Plaintiffs seek unpaid wages, overtime compensation, liquidated damages, statutory
+
+  penalties, restitution, injunctive relief, attorneys’ fees, costs, and applicable interest.
+
+                                                          3
+Case 1:25-cv-20924-AHS Document 29 Entered on FLSD Docket 06/13/2025 Page 4 of 44
+
+
+
+
+                                    JURISDICTION AND VENUE
+
+          8.      This court has original jurisdiction of this civil action as one arising under the laws
+
+  of the United States. See 28 U.S.C. §1331. This Court has jurisdiction over the subject matter of
+
+  this civil action pursuant to FLSA and ERISA.
+
+          9.      This Court has jurisdiction over Plaintiffs’ claims under 29 U.S.C. §§ 216 and 217,
+
+  and 28 U.S.C. §§ 1331 and 1345, to enjoin violations of the FLSA, restrain the withholding of
+
+  back wages due under the FLSA, award additional amounts equal to back wages due as liquidated
+
+  damages and ERISA claims under 29 U.S.C. § 1132(e)(1).
+
+          10.     Venue is proper in this Court under 28 U.S.C. §§ 1391(b) and 1391(c) because a
+
+  substantial part of the events giving rise to the claim occurred in this district, and Defendant is
+
+  headquartered in this District, and, therefore, subject to personal jurisdiction in this District.
+
+                                                PARTIES
+
+          11.     Plaintiff Gwendolyn A. Dixon (“Dixon” or Plaintiff”) is a resident of the state of
+
+  Georgia who was employed by Defendant as a call center representative during the statutory period
+
+  covered by this Complaint. Defendant misclassified Dixon as an independent contractor, charged
+
+  her a weekly service fee to access their system, and did not pay her overtime and other benefits of
+
+  employment. Dixon was an employee of Defendant pursuant to FLSA.
+
+          12.     Plaintiff Stacie Alexander (“Alexander” or Plaintiff”) is a resident of the state of
+
+  Texas who was employed by Defendant as a call center representative during the statutory period
+
+  covered by this Complaint. Defendant misclassified Alexander as an independent contractor,
+
+  charged her a weekly service fee to access their system, and did not pay her overtime and other
+
+  benefits of employment. Alexander was an employee of Defendant pursuant to FLSA.
+
+                                                         4
+Case 1:25-cv-20924-AHS Document 29 Entered on FLSD Docket 06/13/2025 Page 5 of 44
+
+
+
+
+         13.     Plaintiff Tasia Price (“Price” or Plaintiff”) is a resident of the state of Georgia who
+
+  was employed by Defendant as a call center representative during the statutory period covered by
+
+  this Complaint. Defendant misclassified Price as an independent contractor, charged her a weekly
+
+  service fee to access their system, and did not pay her overtime and other benefits of employment.
+
+  Price was an employee of Defendant pursuant to FLSA.
+
+         14.     Defendant Inktel is a Florida corporation with its principal place of business located
+
+  at 8200 NW 33rd St #100, Miami, Florida 33122. Inktel is a global outsourcer of business services
+
+  and direct marketing services. Inktel was founded in 1997 and services federal, state, and local
+
+  government agencies along with various Fortune 500 companies. Inktel offers its workers the
+
+  opportunity to work from home and has workers located across the country.
+
+                                    FACTUAL ALLEGATIONS
+
+               DEFENDANT IS AN ENTERPRISE ENGAGED IN COMMERCE
+
+         15.     At all times mentioned herein, Defendant was an “employer” of Plaintiffs and
+
+  Plaintiffs were employees of Defendant, within the meaning of the FLSA. At all relevant times,
+
+  Defendant was an enterprise engaged in the commerce or production of goods for commerce,
+
+  within the meaning of the FLSA. At all relevant times, Defendant has had annual gross revenues
+
+  in excess of $500,000.
+
+                  CONTRACTORS ARE EMPLOYEES UNDER THE FLSA
+
+         16.     Defendant provides business process outsourcing services, including customer
+
+  support, to large corporate clients such as Roadside Protect, Sephora, and Pandora. It connects its
+
+  workforce—many of whom are classified as independent contractors but some of whom are
+
+  employees—to its clients through a virtual platform. Like their employee counterparts, Contractors
+
+                                                       5
+Case 1:25-cv-20924-AHS Document 29 Entered on FLSD Docket 06/13/2025 Page 6 of 44
+
+
+
+
+  handle customer interactions via phone, email, and chat, providing vital services to Defendant’s
+
+  clients.
+
+             17.    Plaintiffs and all similarly situated Contractors were/are employees of Defendant
+
+  pursuant to FLSA.
+
+             18.    Defendant were/are Plaintiffs’ and all similarly situated Contractors’ employer
+
+  pursuant to the FLSA.
+
+             19.    Under the FLSA’s economic realities test, workers are employees, not independent
+
+  contractors, if their work is (1) controlled by the employer, (2) integral to the employer’s business,
+
+  (3) subject to company-imposed conditions, (4) devoid of meaningful opportunities for profit or
+
+  loss, and (5) performed under strict oversight. Solis v. A+ Nursetemps, Inc., No. 5:07-cv-182, 2013
+
+  U.S. Dist. LEXIS 49595, at *14 (M.D. Fla. Apr. 5, 2013). Defendant’s control over Plaintiffs'
+
+  schedules, work methods, and performance metrics demonstrates that they function as employees,
+
+  but are unlawfully classified as independent contractors and are entitled to overtime compensation
+
+  under FLSA.
+
+             20.    In Julie A. Su v. Arise Virtual Sols., Inc., 2024 U.S. Dist. LEXIS 239942, *9, the
+
+  court used a six-factor analysis of “economic dependence” is used in the Eleventh Circuit:
+
+                    (1) the nature and degree of the alleged employer's control as to the manner in which
+
+             the work is to be performed;
+
+                    (2) the alleged employee's opportunity for profit or loss depending upon his
+
+             managerial skill;
+
+                    (3) the alleged employee's investment in equipment or materials required for his
+
+             task, or his employment of workers;
+
+                                                          6
+Case 1:25-cv-20924-AHS Document 29 Entered on FLSD Docket 06/13/2025 Page 7 of 44
+
+
+
+
+                 (4) whether the service rendered requires a special skill;
+
+                 (5) the degree of permanency and duration of the working relationship; and
+
+                 (6) the extent to which the service rendered is an integral part of the alleged
+
+         employer's business.
+
+         21.     If a business exercises significant control over individuals such that they are not
+
+  "separate economic entities" who are "in business for themselves," then this factor weighs in favor
+
+  of an employee classification. Id. (quoting Scantland v. Jeffry Knight, Inc., 721 F.3d 1308, 1311
+
+  (11th Cir. 2013).
+
+         22.     Defendant exercises significant control over the Plaintiffs and all similarly situated
+
+  Contractors such that they are not "separate economic entities" who are "in business for
+
+  themselves," evidencing that the Plaintiffs are employees. Id.
+
+         23.     Defendant maintains a workforce of full-time W-2 employees performing identical
+
+  call center and customer service tasks, yet only independent contractors are required to pay the
+
+  $9.98 weekly fee, provide their own equipment, and forgo access to health benefits and retirement
+
+  plans. Despite the distinction, both groups follow the same strict schedules, scripted interactions,
+
+  and monitoring requirements.
+
+         24.     Defendant’s operations depend on its Contractors, who perform tasks integral to
+
+  the company’s business model. Without the labor these Contractors provide, Defendant would be
+
+  unable to fulfill its obligations to its clients. Defendant employed Plaintiffs and other similarly
+
+  situated Contractors to provide these services in accordance with specific terms already negotiated
+
+  by Defendant with its customers. Contractors do not exercise managerial skills or business
+
+  judgment to affect their profits or losses, and the work performed does not require any special
+
+                                                       7
+Case 1:25-cv-20924-AHS Document 29 Entered on FLSD Docket 06/13/2025 Page 8 of 44
+
+
+
+
+  skills or initiative. Contractors must provide these services to Defendant’s customers in the manner
+
+  and time dictated by Defendant. Contractors must not deviate from the guidelines and instructions
+
+  provided to them by Defendant. Refusal to adhere to these instructions results in disciplinary action
+
+  or contract termination.
+
+         25.     Defendant exercises significant control over its Contractors’ schedules. Contractors
+
+  are required to adhere to pre-determined schedules and seek supervisor approval for changes,
+
+  including requests for time off or adjustments due to emergencies. Contractors are assigned fixed
+
+  shifts and told when they have breaks and lunch. Deviations from the mandated schedule, even
+
+  minor infractions, such as logging off five minutes early, are met with warnings from Defendant.
+
+  Approval from Defendant is required before taking any VTO. Plaintiffs, like all other similarly
+
+  situated Contractors, worked overtime hours for which they were not paid overtime wages.
+
+         26.     Defendant’s supervisors provide explicit, detailed instructions on how tasks and
+
+  communications with clients must be performed and monitor compliance using digital surveillance
+
+  tools. Contractors must follow specific protocols dictated by Defendant and its clients, including
+
+  scripts and guidelines for customer interactions. Contractors are regularly informed that they are
+
+  required to follow verbatim scripts provided during training in day-to-day work and are instructed
+
+  on how to handle calls from customers, dispatch support, and engage in chat support, leaving little
+
+  room for independent decision-making. Contractors must obtain approval from Defendant before
+
+  dispatching payments exceeding a certain amount.
+
+         27.     In addition to providing these online support services, Contractors must attend
+
+  mandatory meetings in accordance with instructions from their supervisors. During these meetings,
+
+  Contractors must abide by instructions from their Inktel supervisors, including, for example,
+
+                                                       8
+Case 1:25-cv-20924-AHS Document 29 Entered on FLSD Docket 06/13/2025 Page 9 of 44
+
+
+
+
+  activation of web-cameras. Refusal to attend or comply with instructions from supervisors is
+
+  grounds for discipline or contract termination.
+
+         28.     Defendant’s supervisors also conduct regular audits and performance reviews of
+
+  the Contractors to ensure they are meeting internal company standards. Supervisors regularly
+
+  remind Contractors of attendance policies and warn that any deviation may result in contract
+
+  termination. Deviations from internal company guidelines are grounds for discipline or contract
+
+  termination.
+
+         29.     Plaintiffs were required to use their own equipment but are subject to real-time
+
+  monitoring and surveillance by Defendant. Contractors must configure that equipment to meet
+
+  Defendant’s specifications, and Defendant exercises invasive control over Contractors’ computers,
+
+  at times without prior authorization, tracking communications, activity, and even being able to
+
+  alter aspects of software beyond the platforms Defendant uses for customer interactions. Defendant
+
+  requires Contractors to pay a $9.98 weekly charge to access Defendant’s virtual platform, which
+
+  is automatically deducted from Contractors’ paychecks. Additionally, Defendant opened credit
+
+  cards in Contractors’ names that were to be used only for business purposes.
+
+         30.     Plaintiffs and similarly situated Contractors were not paid for any work before or
+
+  after logging into Inktel’s platform. By way of example, this included, but is not limited to, not
+
+  being paid for attending meetings, system errors, technical failures, roll over calls, team updates,
+
+  system updates, client updates, team reminders, team coaching, one-one-one coaching with
+
+  Defendant’s supervisors, team meetings and inclement weather issues.
+
+         31.     Plaintiffs and similarly situated Contractors would frequently find themselves
+
+  waiting on Defendant supervisors for a substantially long time for approval. This would affect
+
+                                                       9
+Case 1:25-cv-20924-AHS Document 29 Entered on FLSD Docket 06/13/2025 Page 10 of 44
+
+
+
+
+   their service ratings and, in turn, limit their ability to work additional hours, pick their schedules,
+
+   and overall maintain their contracts.
+
+          32.     Defendant requires its Contractors to sign independent contractor agreements (the
+
+   “Agreement”) that are misleading in both content and effect. These agreements state that “each
+
+   party ... agrees that it is and will always ... be deemed an independent contractor. Each party will
+
+   have exclusive control of the manner, means, location, and details of accomplishing the services
+
+   that it contracts to provide... neither party may control the manner in which the other party meets
+
+   its contractual obligations.” These provisions are crafted to give the impression that Contractors
+
+   will operate as truly independent contractors, free to determine how they meet their contractual
+
+   obligations. In reality, however, the agreements are a façade designed to mislead Contractors into
+
+   believing they will have autonomy while Defendant exercises substantial and overwhelming
+
+   control over virtually every aspect of their work.
+
+          33.     Contrary to the language of the agreements, Defendant does not treat its Contractors
+
+   as independent. Instead, it imposes strict controls over their schedules, work processes, and
+
+   performance metrics. Contractors are required to follow detailed instructions from supervisors,
+
+   attend mandatory meetings and training sessions, and submit written and oral reports on their
+
+   work—all practices inconsistent with the terms of the Agreement. For example, while the
+
+   agreements explicitly state that “none of the meetings nor online sessions are mandatory and are
+
+   completely voluntary to attend,” Contractors are routinely required to attend training and
+
+   performance reviews under threat of losing their contracts.
+
+          34.     Contractors have no ability to negotiate the terms of the independent contractor
+
+   agreements and must accept them as presented to begin work with Defendant. Contractors are paid
+
+                                                         10
+Case 1:25-cv-20924-AHS Document 29 Entered on FLSD Docket 06/13/2025 Page 11 of 44
+
+
+
+
+   an hourly rate, and their work is devoid of meaningful opportunities for profit or loss based on
+
+   their own skill and effort.
+
+          35.     Defendant prevents Contractors from working with multiple clients, further
+
+   curtailing their independence and controlling their ability to earn income. For example,
+
+   Contractors who sought to service more than one client through Defendant were often denied or
+
+   pressured not to do so, despite language in the agreements suggesting otherwise. This level of
+
+   control is fundamentally incompatible with the concept of independence and demonstrates that
+
+   Defendant’s classification of its workforce as independent contractors is nothing more than a cost-
+
+   saving measure to avoid providing legally mandated wages, benefits, and protections.
+
+          36.     Defendant has exclusive control over Plaintiffs’: hiring, firing, pay, schedules,
+
+   scheduled breaks, supervision, digital surveillance, contracts, vacations, personal time, and
+
+   disciplinary actions.
+
+          37.     Defendant’s Contractors do the work at the very heart of the company’s business-
+
+   Inktel could not operate its customer support business without customer support Contractors.
+
+          38.     Unsurprisingly, Inktel employs full-time employees who regularly perform the
+
+   same work as the Contractors. The work performed by both the full-time employees and the
+
+   Contractors are integral to Inktel’s business. Inktel requires W-2 employees perform identical
+
+   support functions as the Contractors. Despite the considerable control Inktel exerts over
+
+   Contractors, it uniformly misclassified them as independent contractors to ensure Inktel continues
+
+   to receive the $9.98 payments, to avoid paying taxes and overtime, and to avoid providing benefits.
+
+   However, the Contractors are not independent contractors; rather, they are Inktel employees and
+
+
+
+                                                       11
+Case 1:25-cv-20924-AHS Document 29 Entered on FLSD Docket 06/13/2025 Page 12 of 44
+
+
+
+
+   are entitled to avoid the $9.98 weekly fees, entitled to overtime pay, and entitled to the benefits
+
+   that Inktel employees—who have identical job responsibilities and perform identical tasks—enjoy.
+
+                                 DEFENDANT VIOLATED ERISA
+
+          39.     Defendant mischaracterized Plaintiffs as independent contractors instead of
+
+   employees to avoid the significant financial costs of providing them with employment benefits,
+
+   insurance coverage (medical, dental, vision and life), 401(k) plan, and misled Plaintiffs into
+
+   believing that Defendant could exclude them from participation in such plans.
+
+          40.     Defendant offers valuable employee benefit plans, including a 401(k) plan and
+
+   medical, dental, vision and life insurance, which are available to individuals classified as
+
+   employees and who meet specific eligibility requirements, such as working a designated number
+
+   of hours over a particular period, as outlined in the respective benefit plans’ terms and agreements.
+
+          41.     Plaintiffs and all similarly situated Contractors have been unlawfully excluded from
+
+   Defendant’s employee benefit plans as a result of Defendant’s deliberate misclassification of them
+
+   as independent contractors. This misclassification has also interfered with their ability to attain
+
+   rights and benefits protected under ERISA.
+
+          42.     Plaintiffs and other similarly situated Contractors were employees of Defendant
+
+   and were therefore entitled to participate in these employee benefit plans. Defendant’s wrongful
+
+   exclusion of Plaintiffs and others from these ERISA-protected benefit plans has caused significant
+
+   harm, depriving them of benefits they were rightfully entitled to as employees. Plaintiffs have
+
+   suffered financial injury and damages as a direct result of Defendants’ actions.
+
+
+
+
+                                                        12
+Case 1:25-cv-20924-AHS Document 29 Entered on FLSD Docket 06/13/2025 Page 13 of 44
+
+
+
+
+                               PLAINTIFF – GWENDOLYN DIXON
+
+          43.     On July 19, 2023, Dixon started working for Inktel Contact Solutions, as an
+
+   independent contractor. From July 2023 through March 2024, Dixon was the dispatch agent for
+
+   Roadside Protect, one of Defendant’s clients. Dixon provided dispatching services for roadside
+
+   assistance services and customers that had claims, whether personal or commercial. Dixon was
+
+   later assigned to Sephora on March 8, 2024. Dixon’s Sephora contract was abruptly terminated on
+
+   March 29, 2024. Dixon’s daily work life mirrored that of a W-2 employee, yet she was classified
+
+   as an independent contractor, effectively denying her the benefits, overtime compensation, and
+
+   other legal protections enjoyed by the W-2 employees.
+
+          44.     From the outset, Dixon’s schedule was strictly controlled by Defendant. Initially,
+
+   Dixon was listed in Defendant’s payment system as a W-2 employee; however, at the end of the
+
+   three-week training period, her status was changed from W-2 and she was “reclassified” as a 1099
+
+   Contractor. From that point on, she was assigned a fixed schedule that required her to clock in and
+
+   out at specific times, adhere to pre-scheduled breaks and lunches, and obtain approval for any
+
+   deviations. If a call extended beyond her scheduled break or shift, she was forced to either forfeit
+
+   the break or continue working unpaid. Supervisors strictly monitored her attendance, adherence,
+
+   and productivity, enforcing performance metrics identical to those imposed on W-2 employees.
+
+          45.     Dixon frequently worked beyond her scheduled hours due to extended customer
+
+   calls. When another worker raised the issue concerning the hourly rate for hours worked beyond
+
+   40 in a week, Dixon’s supervisor, Justin Rodriguez, publicly stated that independent contractors
+
+   were not eligible for overtime pay. Additionally, Dixon was required to perform unpaid work,
+
+   including (but not limited to) boot-up time and technical downtime. Dixon had to log in early to
+
+                                                       13
+Case 1:25-cv-20924-AHS Document 29 Entered on FLSD Docket 06/13/2025 Page 14 of 44
+
+
+
+
+   prepare multiple systems before her shift but was not compensated for this time, and she was not
+
+   paid for time lost due to system failures, even though W-2 employees received compensation in
+
+   such situations. In addition, Dixon was forced to attend meetings and training sessions that were
+
+   unpaid.
+
+             46.   As one of many examples of Defendant’s failure to pay Overtime Pay, for the pay
+
+   period August 14, 2023 – August 20, 2023, Dixon worked 65.88 hours according to Defendant’s
+
+   records and was not paid overtime pay at time and half for hours worked. (DEF 00212). This
+
+   assumes that Defendant’s records were reliable and accurate, which Plaintiffs’ allege is not the
+
+   case. More specifically, Defendant failed to maintain correct time records.
+
+             47.   Throughout Dixon’s employment with Defendant, she was required to pay $9.98 to
+
+   access Defendant’s virtual platform. All similarly situated Contractors are required to pay the
+
+   access fee. The fee is deducted from the contractor’s paychecks.
+
+             48.   Unlike W-2 employees, Dixon and similarly situated Contractors are required to
+
+   use their own equipment while being subject to Defendant’s remote monitoring software, which
+
+   had access to her system beyond work-related platforms.
+
+             49.   In early 2024, Dixon’s ability to work independently was severely restricted. Dixon
+
+   discovered that Defendant had deeper access to her system than expected. She noticed the Inktel
+
+   logo in her system’s search bar, even before logging into Defendant’s platform, indicating that
+
+   Defendant had access to her computer beyond its customer service platform. Dixon and other
+
+   workers were monitored in real-time, had their calls recorded and reviewed, and were penalized
+
+   for deviating from Defendant’s strict service scripts. Breaks and lunches were rigidly scheduled,
+
+
+
+                                                       14
+Case 1:25-cv-20924-AHS Document 29 Entered on FLSD Docket 06/13/2025 Page 15 of 44
+
+
+
+
+   and she had to request permission from supervisors to step away from her computer, even for a
+
+   brief moment.
+
+           50.       Despite being classified as an independent contractor, Dixon was, on at least one
+
+   occasion, provided paid time off, a benefit typically reserved for W-2 employees.
+
+           51.       In late 2023, Dixon was given paid leave following the death of her grandmother,
+
+   demonstrating that, in effect, Dixon was treated as an employee while being denied full protections
+
+   of that status.
+
+           52.       Dixon began questioning her classification in early 2024, particularly after being
+
+   required to work overtime without commensurate pay and to follow strict company-imposed
+
+   guidelines.
+
+           53.       On January 1, 2024, in a Teams chat Cedric Jerome advised he was monitoring
+
+   Dixon’s calls with Roadside customers.
+
+           54.       On January 23, 2024, Dixon asked Rodriguez if he could schedule a Q&A session
+
+   with the original training group to discuss inconsistencies regarding Defendant’s independent
+
+   contractor policies. Rodriguez declined, stating he was available for one-on-one discussions but
+
+   would not facilitate a group meeting.
+
+           55.       On February 5, 2024, Dixon received an Appreciation Gift and Acknowledgment
+
+   from Defendant evidence that Dixon performed the duties and responsibilities of her job.
+
+           56.       In February 2024, Dixon had an incident with team lead Cedric Jerome regarding
+
+   a two-hour customer call that extended into her lunch break. When she asked Jerome to reassign
+
+   the call, he refused. Dixon escalated the issue to Rodriguez, explaining that Defendant was exerting
+
+   too much control over her work to justify her classification as a 1099 contractor.
+
+                                                         15
+Case 1:25-cv-20924-AHS Document 29 Entered on FLSD Docket 06/13/2025 Page 16 of 44
+
+
+
+
+          57.     In March 2024, Dixon applied for an additional Sephora contract, which offered a
+
+   higher hourly rate ($1.20 more per hour). After being approved and onboarded into Defendant’s
+
+   system, Dixon was suddenly informed that she could not service both clients at the same time due
+
+   to an alleged “billing system limitation.”
+
+          58.     On or about March 6, 2024, Dixon received a notification from her manager
+
+   prompting her to log in for her Sephora training. Dixon was also scheduled to work for Roadside
+
+   Protect that same day. Management informed Dixon that she would no longer be servicing
+
+   Roadside Protect and cancelled her contract.
+
+          59.     On March 7, 2024, Dixon contacted Human Resources to address her concerns
+
+   about Defendant cancelling her Roadside Protect contract after management allowed her to
+
+   interview and secure the contract with Sephora.
+
+          60.     Defendant had direct control over Dixon and the similarly situated Contractors by
+
+   supervising their every actions through Team Chats, on-call monitoring and online monitoring.
+
+          61.     On March 7, 2024, Dixon received an urgent Teams chat from Justin Rodriguez
+
+   and Christinia Kuenker, Roadside Director of Operations, which stated: “Re: Roadside Overview
+
+   and Processes – This is very important we adhere to all processes in the special instruction
+
+   section…This seems to be a recurring issue with agents at your site. Please get communication
+
+   out to all agents that overviews must be followed.”
+
+          62.      On March 11, 2024, Dixon met virtually via Teams with Maybal Wall and Kelly
+
+   Angel in Human Resources. The meeting lasted about 30 minutes. Dixon addressed concerns that
+
+   she was being misclassified as a 1099 contractor.
+
+
+
+                                                         16
+Case 1:25-cv-20924-AHS Document 29 Entered on FLSD Docket 06/13/2025 Page 17 of 44
+
+
+
+
+          63.     On March 19, 2024, Dixon received an email acknowledging her complaints to
+
+   Human Resources and supervisors of being misclassified.
+
+          64.     On March 29, 2024, in retaliation for complaining about being misclassified as a
+
+   Contractor, Dixon’s contract was terminated, without a written explanation. Her termination came
+
+   just weeks after she formally raised concerns about misclassification and labor law violations.
+
+          65.     Dixon is suffering from ongoing headaches, loss of sleep, chest pains, stress, weight
+
+   gain, and emotional instability due to Defendant’s adverse actions.
+
+                               PLAINTIFF – STACIE ALEXANDER
+
+          66.     On July 19, 2023, Stacie Alexander began working for Defendant. Alexander was
+
+   hired as a dispatcher, responsible for coordinating roadside assistance services for customers. Like
+
+   Dixon, her role and job responsibilities mirrored those of Defendant’s W-2 employees, yet she was
+
+   misclassified as Contractor. Initially, Alexander was listed in Defendant’s payment system as a
+
+   W-2 employee; however, at the end of the three-week training period, her status was changed from
+
+   W-2 and she was “reclassified” as a 1099 Contractor. Throughout her employment, Alexander
+
+   reported directly to supervisors Justin Rodriguez and John Escobar, before eventually being
+
+   reassigned to a person named “Tenoa.” Her employment with Defendant was characterized by
+
+   strict scheduling requirements, unpaid work, excessive monitoring, and retaliation for raising
+
+   concerns about workplace policies that violated ERISA and the FLSA.
+
+          67.     From the beginning of her employment, Alexander had no autonomy in setting her
+
+   schedule. She was assigned fixed shifts and was required to clock in and out at exact times. All
+
+   break and lunch times were pre-scheduled and enforced rigidly, leaving no flexibility in her
+
+   workday. If a customer call extended into her break or shift ending time, she was required to remain
+
+                                                       17
+Case 1:25-cv-20924-AHS Document 29 Entered on FLSD Docket 06/13/2025 Page 18 of 44
+
+
+
+
+   on the call without additional pay. Leaving early or logging off outside of the scheduled time was
+
+   considered non-adherence, leading to warnings and potential contract termination.
+
+           68.     Despite being classified as a Contractor, Alexander had to comply with strict
+
+   attendance and adherence policies, including, requesting supervisor approval for all time off, being
+
+   reprimanded for taking too many restroom breaks, and being removed from the system for
+
+   supposed “non-adherence.” Supervisors claimed that these removals were automated, but
+
+   Alexander believed they were manually controlling the system to reduce her hours without
+
+   formally terminating her.
+
+           69.     On April 12, 2023, Alexander received – “Memo from Inktel Management to All
+
+   Roadside Protect Program Staff Re: Professionalism” stating: “Intel Employees are expected to
+
+   conduct themselves professionally at all times, please see the below as outlined in our Employee
+
+   Handbook, etc”.
+
+           70.     On April 12, 2023, Alexander had a Teams Chat conversation with John Escobar
+
+   re: complaint from client [Roadside, client to Defendant] and Jennifer Deloah getting on her call
+
+   to assist. Alexander advised John Escobar of her fear of retaliation from Defendant in the Teams
+
+   Chat. Alexander stated: “I am fearful of losing my “contract and would prefer everything in
+
+   writing moving forward.” “I would much rather contact HR regarding this matter as I do not feel
+
+   it’s confidential.”
+
+           71.     On May 12, 2023, Alexander received – Memo from Inktel Management to All
+
+   Roadside Protect Staff Re: Schedule, Adherence, Timeclock and Ultipro which stated, “All
+
+   Employees need to log in Daily and take (breaks) and lunch ON TIME and return ON TIME.”
+
+   “Any additional unapproved activity will affect your schedule Adherence.”
+
+                                                       18
+Case 1:25-cv-20924-AHS Document 29 Entered on FLSD Docket 06/13/2025 Page 19 of 44
+
+
+
+
+          72.      On Aug 2, 2023, Alexander left a message in Teams for John Escobar. Escobar
+
+   called Alexander and verbally reprimanded her for complaining about waiting 25 minutes or longer
+
+   off the clock for approval from supervisors and team leaders. Escobar told Alexander: “She had
+
+   to wait they help everyone.” She stated, “As a contractor I should be able to work freely and make
+
+   my own decisions.”
+
+          73.      On Aug 23, 2023, John Escobar sent a message on Teams reminding Alexander to
+
+   clock in and out for lunch.
+
+          74.      On or around September 13, 2023, Justin Rodriguez coached Alexander on not
+
+   pushing back on service providers. Alexander stressed that she thought it was the best decision
+
+   and as a Contractor and she should be able to make that call. Justin instructed her to adhere to
+
+   client’s needs. Alexander replied to Justin, “The way Inktel manages and scores sounds like I am
+
+   an employee.”
+
+          75.      On September 26, 2023, Justin manually altered Alexander’s time and indicated so
+
+   on a Teams chat.
+
+          76.      On October 16, 2023, Alexander was offered an earlier shift from Justin in the same
+
+   manner W-2 employees are offered shifts, without a shift bid.
+
+          77.      On or around Oct 17, 2023, Justin forced Alexander to clock out for over 4 hours
+
+   due to Inktel system issues. Alexander worked with Sayan Bocanegra in the IT department during
+
+   the four hours off the clock.
+
+          78.      On or around November 2023, Alexander worked around 4 hours of overtime but
+
+   was paid at regular rate of $16.80 per hour, she notified Justin Rodriguez and was told he would
+
+
+
+                                                       19
+Case 1:25-cv-20924-AHS Document 29 Entered on FLSD Docket 06/13/2025 Page 20 of 44
+
+
+
+
+   forward to Operations Manager, John Escobar. Alexander never received overtime pay and was
+
+   not contacted by anyone from payroll or Human Resources.
+
+          79.     At the end of November, first of December 2023, there were conversations in Team
+
+   Chats supervisors Justin Rodriguez and Chenoa McKinney about shift bids.
+
+          80.     At the end of December 2023, John Escobar had a meeting with Alexander saying
+
+   she was abusing her breaks and lunches and she could lose her contract. Alexander told him that
+
+   as a Contractor, she should be able to take her breaks and lunches at her own will.
+
+          81.     On December 12, 2023, Alexander received an email from Justin Rodriguez “Re:
+
+   Break/Restroom Aux Overuse (cc: John Escobar)”, “I am reaching out to remind you of our policy
+
+   regarding your overuse or Break/Restroom time.”
+
+          82.     On or Around February 10, 2024, Alexander had a conversation with Justin (Teams
+
+   and verbally) about upcoming vacation and Justin said it would be considered PTO.
+
+          83.     On February 26, 2024, Justin Rodriguez requested days and was approved as PTO
+
+   in Calabrio (Teams chat).
+
+          84.     Around March 2024, Alexander asked Justin for Teams meeting to discuss with
+
+   other Contractors shift bid and additional concerns, Justin refused to meet with the group and
+
+   agreed to meet only 1 on 1.
+
+          85.     In March 2024, a shift bid started on a day Alexander was off. She did not
+
+   participate in the shift bid because she thought it was unfair and unethical for Contractors to have
+
+   to participate. In retaliation, John Escobar took 1 hour from her daily schedule, said it was the
+
+   only shift available. Shortly thereafter, Alexander was rushed to the emergency room with
+
+   extremely high blood pressure and stress due to work related issues.
+
+                                                       20
+Case 1:25-cv-20924-AHS Document 29 Entered on FLSD Docket 06/13/2025 Page 21 of 44
+
+
+
+
+          86.     On April 5, 2024, sent an email to Justin Rodriguez and John Escobar Re: 2nd
+
+   Notification for Schedule Adjustment and stated, “Again, I believe you have me misclassified as
+
+   you do not adhere to my contract.”
+
+          87.     On or Around April 5, 2024, Alexander complained about Chenoa McKinney not
+
+   assisting and her attitude when Justin Rodriguez is out of the office.
+
+          88.     In retaliation for complaining, on or around April 10, 2024, Alexander was moved
+
+   to Chenoa McKinney’s team.
+
+          89.     On or around April 12, 2024, in retaliation Alexander was reprimanded by Justin
+
+   Rodriguez for submitting a form regarding her pay.
+
+          90.     On or around August 23, 2024, Alexander complained to John Escobar about her
+
+   time being changed in Defendant’s system and asked if they could manually change time.
+
+          91.     On August 15, 2024, Alexander mailed Chenoa McKinney Re: issues logging in
+
+   and not being paid while attempting to log in.
+
+          92.     On or around September 18, 2024, Alexander asked for a raise and was told she
+
+   would have to renegotiate her contract. She stated that the Defendant makes changes daily and
+
+   the contract is not mentioned. In retaliation, later that day, Justin Rodriquez reprimanded her about
+
+   her time.
+
+          93.     On or around October 3, 2024, in retaliation for Alexander’s complaints,
+
+   Alexander’s scheduled changed again based on “company’s needs” per John.
+
+          94.     On October 25 and October 28, 2024, Alexander had log-in issues due to
+
+   Defendant’s system and was not paid for an hour each day.
+
+
+
+                                                        21
+Case 1:25-cv-20924-AHS Document 29 Entered on FLSD Docket 06/13/2025 Page 22 of 44
+
+
+
+
+          95.     On or around October 29, 2024, Alexander asked Justin Rodriguez in Teams chat
+
+   about her call volume and whether her job was secure because her calls had decreased. She was
+
+   told, “nothing is wrong, job secure”.
+
+          96.     On November 18, 2024, Alexander emailed John Escobar and Justin Rodriguez
+
+   inquiring about not being on schedule after November 22, 2024. Alexander received on that same
+
+   date, an email from John Escobar Re: Termination Effective 11/22/24 -- “Please be advised that
+
+   due to reduction in available work hours, we will be terminating your contract effective November
+
+   24, 2024.”
+
+          97.     Alexander worked overtime shifts without being compensated properly. From
+
+   August to October 2023, Alexander regularly worked overtime shifts, assuming that Defendant
+
+   would pay her time and a half for all hours worked beyond 40 in a given week. However, she
+
+   quickly discovered that overtime pay was not provided. When she asked about the missing
+
+   overtime pay, she was told that Contractors are not entitled to overtime wages, despite working
+
+   the same hours and tasks as W-2 employees. Contrary to the language of the agreements,
+
+   Defendant does not treat its Contractors as independent. Instead, it imposes strict controls over
+
+   their schedules, work processes, and performance metrics. Contractors are required to follow
+
+   detailed instructions from supervisors, attend mandatory meetings and training sessions, and
+
+   submit written and oral reports on their work—all practices inconsistent with the terms of the
+
+   Agreement.
+
+          98.     As one of many examples of Defendant’s failure to pay Overtime Pay, for the pay
+
+   period August 14, 2023 – August 20, 2023, Alexander worked 71.16 hours and was not paid
+
+   overtime pay at time and half for hours worked. (DEF 00080). This assumes that Defendant’s
+
+                                                      22
+Case 1:25-cv-20924-AHS Document 29 Entered on FLSD Docket 06/13/2025 Page 23 of 44
+
+
+
+
+   records were reliable and accurate, which Plaintiffs’ allege is not the case. More specifically,
+
+   Defendant failed to maintain correct time records.
+
+          99.     Like other Contractors, Alexander was required to pay a $9.98 weekly fee to access
+
+   Defendant’s virtual platform, deducted directly from her pay. She was also expected to provide
+
+   her own equipment, yet Defendant had full access to her system, even beyond work-related
+
+   software. In early 2024, Alexander noticed that “Inktel” appeared in her system search bar before
+
+   she even logged in to the work platform, and when she raised this issue with her supervisor,
+
+   “Tenoa,” she never received a clear answer on what Defendant was tracking or why it had access
+
+   to her personal computer.
+
+          100.    In March or April 2024, Defendant required workers to participate in a shift bidding
+
+   process, which determined the number of hours they would be assigned. Alexander did not
+
+   participate in the bid process, resulting in Defendant reducing her hours from 8 per day to 7.
+
+   Alexander was terminated in November 2024.
+
+                                    PLAINTIFF – TASIA PRICE
+
+          101.    On July 19, 2023, Tasia Price was hired by Defendant. Price was classified as a
+
+   Contractor despite working under the same controlled conditions as W-2 employees. Like Dixon
+
+   and Alexander, Price was initially listed in Defendant’s payment system as a W-2 employee;
+
+   however, at the end of the three-week training period, her status was changed from W-2 and she
+
+   was “reclassified” as a 1099 Contractor. Price also worked as a dispatcher for Roadside Protect,
+
+   handling roadside assistance requests and following Defendant’s rigid call center guidelines.
+
+   Throughout her employment with Inktel, Price was subjected to strict scheduling rules, unpaid
+
+   work, wage discrepancies, and surveillance.
+
+                                                        23
+Case 1:25-cv-20924-AHS Document 29 Entered on FLSD Docket 06/13/2025 Page 24 of 44
+
+
+
+
+            102.   Throughout Price’s employment with Inktel Price experienced similar work and
+
+   schedule restrictions. She was told that this was a “permanent” position, but Defendant ultimately
+
+   terminated her without warning. She was required to clock out for bathroom breaks and strictly
+
+   monitored for excessive breaks. Breaks were unpaid, and she was penalized for returning late, even
+
+   if it was due to a long customer call.
+
+            103.   In September 2023, during a Teams Chat, Price communicated with Chenoa
+
+   McKinney, Supervisor, about her concerns of being misclassified and not being paid properly.
+
+            104.   In November 2023, Inktel changed Price’s schedule without consent or without
+
+   cause.
+
+            105.   Throughout Price’s employment with Inktel, she had to wait for VTO approval,
+
+   even in emergencies. When Price needed time off to see her neurologist after undergoing two brain
+
+   surgeries, she was initially told she could not take time off. She was eventually able to switch shifts
+
+   with another worker, but the lack of formal leave policies caused her significant stress and anxiety.
+
+            106.   Throughout Price’s employment Price also experienced underpayment and wage
+
+   discrepancies. She was not paid time and a half for overtime hours, including when long calls
+
+   extended past her shift. Unlike W-2 employees, she received no compensation for roll over calls
+
+   or technical downtime. Additionally, the scheduling platform indicated that Price had paid time
+
+   off; however, in practice, she—like Dixon and Alexander—was rarely compensated for that time,
+
+   except on rare occasions.
+
+            107.   As one of many examples of Defendant’s failure to pay Overtime Pay, for the pay
+
+   period August 14, 2023 – August 20, 2023, Price worked 75.32 hours (DEF 00250); July 22, 2024
+
+   – July 28, 2024, Price worked 67.26 hours and was not paid overtime pay at time and half for hours
+
+                                                         24
+Case 1:25-cv-20924-AHS Document 29 Entered on FLSD Docket 06/13/2025 Page 25 of 44
+
+
+
+
+   worked. (DEF 00300). This assumes that Defendant’s records were reliable and accurate, which
+
+   Plaintiffs’ allege is not the case. More specifically, Defendant failed to maintain correct time
+
+   records.
+
+          108.    Price was also forced to pay $9.98 each week to use Defendant’s systems, and she
+
+   similarly noticed that Defendant was tracking her computer activity beyond simply its virtual
+
+   platforms. Like a W-2 employee, Price experienced supervisor access to her notes and live
+
+   monitoring of her calls.
+
+          109.    In February or early March, Price was forced to accept a changed schedule without
+
+   cause or notice.
+
+          110.    In late April or early May, during a Teams Chat, Price asked Shanoy LNU,
+
+   Supervisor, why she was not classified as a W-2 employee. Shanoy replied that she thought Price
+
+   was a W-2 employee. Shanov advised Price that she would look into why she was misclassified
+
+   as an independent contractor. Shanoy never advised Price of why she was misclassified.
+
+          111.    On May 7, 2024, Price mentioned to Cedric Jerome that she was misclassified as a
+
+   1099. Jerome advised Price that he would raise the issue Justin Rodriguez, Manager.
+
+          112.    On May 7, 2024 and May 9, 2024, Price complained directly to Justin Rodriguez
+
+   that she should be classified as a W-2 employee because she was being denied pay, benefits and
+
+   breaks. Rodriguez responded that he would check with his supervisor, John Escobar. Justin
+
+   Rodriguez never got back to Price regarding why was misclassified as a 1099 or why she was
+
+   being denied benefits and pay.
+
+          113.    On June 19, 2024, Price advised John Escobar, Operational Supervisor, that she
+
+   was having technical difficulties logging into Inktel’s system which caused her to work off the
+
+                                                     25
+Case 1:25-cv-20924-AHS Document 29 Entered on FLSD Docket 06/13/2025 Page 26 of 44
+
+
+
+
+   clock and not receive pay. Escobar disregarded Price’s concerns and complaints and denied there
+
+   were any technical difficulties.
+
+          114.    In June or July 2024, Price told her Team Lead, Cedric Jerome, that she needed to
+
+   take her scheduled break but Cedric Jerome refused, telling her that she had to clock out before
+
+   she could take her break because she was a 1099 employee instead of a W-2 employee.
+
+          115.    On August 9, 2024, Price was suddenly removed from the system in the middle of
+
+   her shift while she was on a phone call with a customer.
+
+          116.    On August 10, 2024, Price received a termination letter at 1:38 AM, claiming there
+
+   was “a lack of available hours.” She was not given any prior warning about termination. Price was
+
+   never offered a reassignment or chance to dispute the decision.
+
+          117.    Price is experiencing ongoing stress characterized by symptoms such as ongoing
+
+   migraines, loss of sleep, chest pains, stress, weight gain, and emotional instability due to
+
+   Defendant’s adverse actions.
+
+                             COLLECTIVE ACTION ALLEGATIONS
+
+          118.    Plaintiffs bring this collective action pursuant to 29 U.S.C. §§ 207 and 216(b), to
+
+   recover unpaid wages, including unpaid overtime and access surcharges, on behalf of themselves
+
+   and on behalf of all other persons similarly situated (the “Collective”).
+
+          119.    Plaintiffs bring this suit on behalf of the following similarly situated persons:
+
+                  All current and former Contractors who have worked for Defendant
+                  nationwide during the statutory period covered by this Complaint
+                  and who elect to join this action pursuant to the Fair Labor Standards
+                  Act, 29 U.S.C. § 216(b).
+
+          120.    Plaintiffs reserve the right to modify or amend the definition of the proposed
+
+   Collective before the Court determines whether certification is appropriate.
+                                                        26
+Case 1:25-cv-20924-AHS Document 29 Entered on FLSD Docket 06/13/2025 Page 27 of 44
+
+
+
+
+          121.    Plaintiffs and other potential members of the Collective are similarly situated in
+
+   that they all suffered unpaid overtime as a result of Defendant’s purposeful misclassification of its
+
+   contract employees and they are entitled to liquidated damages pursuant to the FLSA. The claims
+
+   under the FLSA may be pursued by those who opt-in to this case pursuant to 29 U.S.C. § 216(b).
+
+          122.    Defendant has engaged in a continuing and willful violation of the FLSA.
+
+          123.    There are many similarly situated current and former Contractors engaged by
+
+   Defendant who have regularly worked over 40 hours per week without receiving appropriate
+
+   overtime pay, in violation of the FLSA. These Contractors have been intentionally misclassified
+
+   as independent contractors. All of these Contractors perform similar, if not identical, job
+
+   responsibilities, which are directed and controlled by Defendant. Contractors have designated at-
+
+   home work areas where they respond to inbound customer inquiries via phone, email, and chat,
+
+   using customer relationship management tools provided by Defendant to research inquiries,
+
+   document customer interactions, and guide customers through troubleshooting processes.
+
+   Contractors log all activities in Defendant’s internal systems, maintain regular communication
+
+   with supervisors, undergo mandatory group training for a specified period of time, attend meetings
+
+   as directed, and are required to meet strict attendance and performance standards. They use their
+
+   own personal electronic and digital equipment, which must comply with Defendant’s technical
+
+   specifications, including specific hardware, software, and internet connectivity requirements.
+
+   These Contractors are known to Defendant, readily identifiable, and can be located and contacted
+
+   using Defendant’s records.
+
+
+
+
+                                                        27
+Case 1:25-cv-20924-AHS Document 29 Entered on FLSD Docket 06/13/2025 Page 28 of 44
+
+
+
+
+           124.    All similarly situated Contractors would benefit from the issuance of a court-
+
+   supervised notice of the present lawsuit and the opportunity to join the present lawsuit pursuant to
+
+   the FLSA. Notice should be sent to the collective pursuant to 29 U.S.C. § 216(b).
+
+                                  CLASS ACTION ALLEGATIONS
+
+           125.    Plaintiffs, on behalf of themselves and a Class of Contractors, and in accordance
+
+   with Rule 23(b) of the Federal Rules of Civil Procedure, bring this action as a class action to
+
+   recover benefits under Defendant’s benefit plans.
+
+           126.    Plaintiffs bring this class action on behalf of the following Class:
+
+                   All individuals nationwide who, at any time during the six years
+                   preceding the filing of this Complaint, have performed work for
+                   Defendant as Contractors, were classified by Defendant as
+                   independent contractors, and were subject to Defendant’s control
+                   and policies as described herein.
+
+           127.    Excluded from the Class are Defendant, its parents, subsidiaries, affiliates, officers
+
+   and directors, and judicial officers and their immediate family members and associated court staff
+
+   assigned to this case.
+
+           128.    Plaintiffs reserve the right to modify or amend the definition of the proposed Class
+
+   before the Court determines whether certification is appropriate.
+
+           129.    Plaintiffs allege they are entitled to unpaid benefits under Defendant’s benefit
+
+   plans, including Defendant’s 401(k) plan and health and welfare plans, pursuant to Section
+
+   502(a)(1)(b) of ERISA, 29 U.S.C. § 1132(a)(1)(b).
+
+           130.    The proposed Class meet the criteria for certification under Fed. R. Civ. P. 23(a),
+
+   (b)(1), (b)(2), and (b)(3).
+
+
+
+
+                                                        28
+Case 1:25-cv-20924-AHS Document 29 Entered on FLSD Docket 06/13/2025 Page 29 of 44
+
+
+
+
+          131.    Numerosity. This action is appropriately suited for a class action. The members of
+
+   the Class are so numerous that the joinder of all members is impracticable. Plaintiffs are informed,
+
+   believe, and thereon allege, that the proposed Class contains at least hundreds of participants who
+
+   have been damaged by Defendant’s conduct as alleged herein, the identity of whom is within the
+
+   knowledge of Defendant and can be easily determined through Defendant’s records.
+
+          132.    Commonality. This action involves questions of law and fact common to the Class.
+
+   The common legal and factual questions include, but are not limited to, the following:
+
+                  a. Whether Defendant’s misclassification of Contractors as independent
+                     contractors violates their rights under ERISA;
+
+                  b. Whether Defendant exerted sufficient control over Contractors’ work,
+                     schedules, and performance to render them employees under ERISA;
+
+                  c. Whether Defendant failed to notify Contractors of their eligibility to
+                     participate in employee benefit plans, including health insurance, retirement
+                     plans, and other benefits, as required by ERISA;
+
+                  d. Whether Defendant’s classification of Contractors as independent contractors
+                     unlawfully deprived them of wages, overtime pay, and benefits in violation of
+                     ERISA;
+                  e. Whether Defendant breached its fiduciary duties under ERISA by denying
+                     Contractors access to employee benefit plans and retaining the cost savings
+                     from the misclassification;
+
+                  f. Whether Defendant breached its fiduciary duties by failing to administer its
+                     benefit plans in compliance with ERISA, including the obligation to notify
+                     eligible participants of their rights and benefits;
+
+                  g. Whether Defendant failed to periodically review and ensure its classification
+                     practices and benefit plans complied with federal labor and employee benefit
+                     laws; and
+
+                  h. The appropriate methods for determining damages, including unpaid wages,
+                     overtime, and lost benefits, on a class-wide basis for the Class.
+
+
+                                                       29
+Case 1:25-cv-20924-AHS Document 29 Entered on FLSD Docket 06/13/2025 Page 30 of 44
+
+
+
+
+            133.   Typicality: Plaintiffs’ claims are typical of the claims of the members of the Class
+
+   because all Class members have been harmed by Defendant’s uniform misclassification practices
+
+   and the associated denial of wages, overtime pay, and employee benefits. Plaintiffs and the Class
+
+   members were subjected to the same policies and practices, including being classified as
+
+   independent contractors despite performing work under conditions that rendered them employees.
+
+   Plaintiffs advance the same legal theories and claims on behalf of themselves and the Class,
+
+   asserting violations of the FLSA and ERISA. Additionally, Plaintiffs seek relief based on the same
+
+   factual allegations, legal standards, and causes of action as the other members of the proposed
+
+   Class.
+
+            134.   Adequacy of Representation: Plaintiffs will fairly and adequately protect the
+
+   interests of the members of the Class. Plaintiffs and members of the Class were similarly harmed
+
+   by Defendant’s uniform misclassification practices, which deprived them of wages, overtime pay,
+
+   and access to employee benefits, including health and welfare plans. Plaintiffs are committed to
+
+   fairly and adequately representing and protecting the interests of the Class and have retained
+
+   competent counsel experienced in complex litigation and class action cases. Plaintiffs have no
+
+   interests that are antagonistic to those of the Class, and Defendant has no defenses unique to
+
+   Plaintiffs that would impair their ability to represent the Class.
+
+            135.   Superiority: A class action is superior to other methods for the fair and efficient
+
+   adjudication of this controversy. The financial harm suffered by individual Class members, while
+
+   significant, is relatively small compared to the burden and expense of pursuing individual litigation
+
+   against Defendant. It would be impractical, if not impossible, for members of the Class to
+
+   effectively redress these wrongs on an individual basis. Moreover, even if Class members could
+
+                                                         30
+Case 1:25-cv-20924-AHS Document 29 Entered on FLSD Docket 06/13/2025 Page 31 of 44
+
+
+
+
+   afford individual litigation, such a process would overwhelm the court system, creating the risk of
+
+   inconsistent or contradictory judgments based on the same set of facts. Individual litigation would
+
+   also lead to unnecessary delays and increased costs for all parties and the judiciary. In contrast, a
+
+   class action allows for the resolution of these common issues in a single proceeding, achieving
+
+   economies of scale, ensuring consistency, and providing comprehensive oversight by a single
+
+   court. Under these circumstances, the class action mechanism presents a fair, efficient, and
+
+   manageable method for addressing the claims at issue.
+
+                                             COUNT I
+                                   VIOLATION OF THE FLSA
+                                 (On Behalf of Plaintiffs and the Collective)
+
+          136.    Plaintiffs incorporate all previous paragraphs of this Complaint into this Count.
+
+   This claim is brought by Plaintiffs for themselves and on behalf of the Collective.
+
+          137.    At all relevant times, Defendant has been and continues to be an employer engaged
+
+   in interstate commerce, within the meaning of the FLSA, 29 U.S.C. §§ 206(a) and 207(a), and has
+
+   had gross revenues in excess of $500,000.
+
+          138.    At all relevant times, Defendant has had a willful policy and practice of
+
+   misclassifying Plaintiffs and similarly situated Contractors as “independent contractors” to, inter
+
+   alia, avoid paying them appropriate overtime compensation for all hours worked in excess of 40
+
+   hours per work week.
+
+          139.    At times throughout the year, Plaintiffs worked more than 40 hours per week.
+
+   Despite exceeding the 40-hour threshold, Defendant classified them as Contractors to avoid paying
+
+   the overtime premium of 1.5 times their regular rate, in violation of the FLSA.
+
+
+
+                                                        31
+Case 1:25-cv-20924-AHS Document 29 Entered on FLSD Docket 06/13/2025 Page 32 of 44
+
+
+
+
+          140.    Additionally, Defendant required Contractors to pay a weekly fee of $9.98 to access
+
+   Defendant’s virtual platform, which was essential for performing their work, thereby further
+
+   reducing Contractors’ pay. This fee was deducted directly from the Contractors’ payments,
+
+   effectively reducing their earnings. By contrast, Defendant did not impose this fee on its W-2
+
+   employees.
+
+          141.    Defendant also routinely required Contractors to attend meetings and other sessions
+
+   regarding their performance for which they were not compensated. While Defendant compensated
+
+   Contractors for initial training sessions, additional meetings, performance reviews, and other
+
+   mandatory sessions were unpaid. Contractors were explicitly instructed by supervisors to attend
+
+   these sessions as part of their ongoing work with Defendant.
+
+          142.    Defendant failed to pay Plaintiffs and similarly situated Contractors time and half
+
+   for all time worked over forty hours in a work week.
+
+          143.    Defendant’s Pay Statements and Weekly Timesheets show that Plaintiffs worked
+
+   more than forty hours and were not paid overtime pursuant to FLSA.
+
+          144.    Defendant willfully failed and/or refused to pay overtime pay to Plaintiffs at the
+
+   time of one and half their regular hourly rate of $16.80.
+
+          145.    Defendant’s business practice is to lure workers in as independent contractors under
+
+   the pretense they will have freedom to work independently without control.
+
+          146.    Defendant willfully misclassified Plaintiffs and others similarly situated to avoid
+
+   paying overtime pay in accordance with FLSA.
+
+          147.    The financial and operational burdens imposed on Contractors, such as the system
+
+   access fee and unpaid mandatory meetings, were not required of Defendant’s W-2 employees. W-
+
+                                                       32
+Case 1:25-cv-20924-AHS Document 29 Entered on FLSD Docket 06/13/2025 Page 33 of 44
+
+
+
+
+   2 employees performing similar tasks were not subjected to these fees or required to attend unpaid
+
+   sessions
+
+          148.    Defendant violated and continues to violate 29 U.S.C. §§ 207, of the FLSA by not
+
+   paying Plaintiffs overtime pay and failing to keep and preserve adequate and accurate records of
+
+   all persons employed in accordance with 29 U.S.C. §§ 211(c).
+
+          149.    As a result of Defendant’s deliberate refusal to properly compensate their workers,
+
+   including Plaintiffs and members of the Collective, for all hours worked and for overtime at a rate
+
+   of time and a half for hours worked beyond 40 in a workweek, for imposing additional,
+
+   unnecessary fees on Contractors, and for refusing to compensate them for mandatory meetings,
+
+   Defendant violated and continues to violate the FLSA.
+
+          150.    Defendant’s actions, as described herein, constitute willful violations of the FLSA
+
+   under 29 U.S.C. § 255(a).
+
+          151.    Because of these violations, Plaintiffs, on behalf of themselves and the Collective,
+
+   are entitled to recover unpaid overtime wages, an equivalent amount as liquidated damages, and
+
+   reasonable attorneys’ fees, costs, and expenses associated with this action pursuant to 29 U.S.C. §
+
+   216(b), as well as the relief outlined in the Prayer of Relief below.
+
+                                         COUNT II
+                        VIOLATION OF SECTION 502(a)(1)(B) OF ERISA
+                                 (29 U.S.C. § 1132(a)(1)(B))
+                               (On Behalf of Plaintiffs and the Class)
+
+          152.    Plaintiffs, on behalf of themselves and the ERISA Class, re-allege and incorporate
+
+   by reference all previous paragraphs as if fully set forth herein.
+
+          153.    Section 502(a)(1)(B) of ERISA [29 U.S.C. § 1132(a)(1)(B)] permits a participant
+
+   to bring suit to recover benefits due to him or her under the terms of a plan subject to ERISA, to
+                                                        33
+Case 1:25-cv-20924-AHS Document 29 Entered on FLSD Docket 06/13/2025 Page 34 of 44
+
+
+
+
+   enforce his or her rights under such a plan, or to clarify his or her rights to future benefits under
+
+   the terms of such a plan.
+
+          154.    Defendants have improperly withheld benefits from Plaintiffs and members of the
+
+   ERISA Class, including but not limited to benefits under Defendants’ 401(k) plan, by improperly
+
+   classifying them as independent contractors rather than employees, despite the significant control
+
+   Defendants exercised over their work and conditions of employment.
+
+          155.    Plaintiffs and members of the ERISA Class were integral to Defendants’ business
+
+   operations, performed work indistinguishable from that of W-2 employees, and met the eligibility
+
+   criteria for participation in Defendants’ employee benefit plans, including the 401(k) plan.
+
+   However, they were denied access solely due to their misclassification as independent contractors.
+
+          156.    As a result of Defendants’ improper classification and denial of benefits, Plaintiffs
+
+   and members of the ERISA Class have suffered financial harm, including the loss of vested
+
+   benefits, employer contributions, and potential investment growth under Defendants’ 401(k) plan.
+
+   See Vizcaino v. Microsoft Corp., 120 F.3d 1006, 1009–10 (9th Cir. 1997) (en banc).
+
+          157.    Plaintiffs and members of the ERISA Class seek to recover the benefits unlawfully
+
+   denied to them under the terms of Defendants’ ERISA-governed plans, as well as a declaration
+
+   clarifying their eligibility for future benefits, as provided by Section502(a)(1)(B) of ERISA, as
+
+   well as the relief outlined in the Prayer of Relief below.
+
+
+
+
+                                                        34
+Case 1:25-cv-20924-AHS Document 29 Entered on FLSD Docket 06/13/2025 Page 35 of 44
+
+
+
+
+                                          COUNT III
+                               BREACH OF FIDUCIARY DUTY
+                         VIOLATION OF SECTIONS 404 and 406 OF ERISA
+                                  (29 U.S.C. §§ 1104 and 1106)
+                              (On Behalf of Plaintiffs and the Class)
+
+          158.       Plaintiffs, on behalf of themselves and the ERISA Class, re-allege and incorporate
+
+   by reference all previous paragraphs as if fully set forth herein.
+
+          159.       ERISA requires a fiduciary to act “solely in the interest of participants” with “the
+
+   care, skill, prudence, and diligence” of a prudent person, “in accordance with the documents and
+
+   instruments governing the plan,” and to refrain from “deal[ing] with the assets of the plan” for the
+
+   fiduciary’s own interest. 29 U.S.C. §§ 1104(a)(1); 1106(b)(1). These fiduciary duties of loyalty
+
+   and prudence are the “highest known to the law” and require fiduciaries to act with an “eye single
+
+   to the interests of the participants and beneficiaries.” Donovan v. Bierwirth, 680 F.2d 263, 272 n.8
+
+   (2d Cir. 1982).
+
+          160.       Instead of loyally and prudently acting in the best interests of participants and
+
+   beneficiaries, Defendant engaged in systematic and intentional breaches of fiduciary duty by
+
+   misclassifying workers as independent contractors rather than employees, thereby denying them
+
+   participation in the Plan and other employee benefits.
+
+          161.       Each year, Defendant acted as a fiduciary under ERISA, as defined by 29 U.S.C. §
+
+   1002(21), by exercising discretionary authority and control over the administration of its benefit
+
+   plans, including decisions regarding eligibility and contributions.
+
+          162.       Defendant intentionally misclassified Plaintiffs and members of the ERISA Class
+
+   as independent contractors to avoid its obligations to contribute to the Plan on their behalf,
+
+   depriving the Plan of significant assets. This misclassification was deliberate and designed to
+
+                                                         35
+Case 1:25-cv-20924-AHS Document 29 Entered on FLSD Docket 06/13/2025 Page 36 of 44
+
+
+
+
+   reduce Defendant’s costs while retaining the benefits of employee-like control over Plaintiffs and
+
+   other members of the ERISA Class.
+
+           163.    Defendant breached its fiduciary duties under ERISA by: misclassifying Plaintiffs
+
+   and the ERISA Class, thereby excluding them from Plan participation; failing to contribute to the
+
+   Plan on behalf of Plaintiffs and other members of the ERISA Class, as required for eligible
+
+   employees; omitting required disclosures and notices regarding Plan benefits, depriving Plaintiffs
+
+   and members of the ERISA Class of the ability to make informed decisions about their rights and
+
+   benefits.
+
+           164.    Defendant’s actions directly benefitted itself at the expense of Plan participants by
+
+   avoiding contributions to the Plan and withholding benefits owed under ERISA. These actions
+
+   constitute self-dealing and violations of 29 U.S.C. § 1106(b)(1), which prohibits fiduciaries from
+
+   engaging in transactions that benefit themselves at the expense of Plan participants.
+
+           165.    Defendant further breached its fiduciary duties by failing to prudently and diligently
+
+   review the terms and administration of the Plan to ensure compliance with ERISA and by failing
+
+   to act in the sole interest of Plan participants.
+
+           166.    As a direct and proximate result of these breaches, the Plan was deprived of
+
+   significant contributions, and Plaintiffs and members of the ERISA Class were unlawfully denied
+
+   benefits, causing financial harm to the Plan and its participants.
+
+           167.    Plaintiffs bring this action on behalf of the Plan pursuant to 29 U.S.C. § 1132(a)(2)
+
+   and seek relief under 29 U.S.C. § 1109(a), including but not limited to: restitution to Defendant’s
+
+   benefit plans of all amounts unlawfully withheld; disgorgement of all profits or unjust enrichment
+
+   gained by Defendant through its breaches of fiduciary duty; restoration of all Plan benefits owed
+
+                                                        36
+Case 1:25-cv-20924-AHS Document 29 Entered on FLSD Docket 06/13/2025 Page 37 of 44
+
+
+
+
+   to Plaintiffs and the ERISA Class, including employer contributions and lost earnings; an
+
+   injunction to prevent further violations and ensure future compliance with ERISA.
+
+           168.    Defendant’s ongoing misclassification scheme and failure to contribute to the Plan
+
+   have caused millions of dollars in losses to the Plan and its participants, warranting immediate
+
+   equitable and legal relief.
+
+           169.    Plaintiffs and the ERISA Class request all appropriate remedies, including
+
+   monetary and equitable relief, to redress the harm caused by Defendant’s breaches of fiduciary
+
+   duty, including but not limited to the relief outlined in the Prayer of Relief below.
+
+                                              COUNT IV
+                               RETALIATION UNDER THE FLSA
+                                        (29 U.S.C. § 215(a)(3))
+       (On Behalf of Plaintiffs, Individually and on Behalf of Similarly Situated Individuals
+                                           of the Collective)
+
+           170.    Plaintiffs re-allege and incorporate by reference paragraphs all previous paragraphs
+
+   as if fully set forth herein.
+
+           171.    This claim is brought by Plaintiffs on behalf of themselves and similarly situated
+
+   individuals under the § 216(b) Collective for retaliation under 29 U.S.C. § 215(a)(3).
+
+           172.    The FLSA prohibits employers from retaliating against employees who complain
+
+   about or oppose unlawful wage and hour practices, including but not limited to misclassification
+
+   as independent contractors, non-payment of overtime, and other wage theft practices.
+
+           173.    Plaintiffs, and on belief, other similarly situated workers, repeatedly raised
+
+   concerns with Defendant’s supervisors and HR representatives about their misclassification as
+
+   independent contractors, their unpaid overtime, and Defendant’s excessive control over their work.
+
+   These complaints constituted protected activity under the FLSA.
+
+                                                        37
+Case 1:25-cv-20924-AHS Document 29 Entered on FLSD Docket 06/13/2025 Page 38 of 44
+
+
+
+
+          174.    Specifically, Plaintiffs:
+
+              a. Raised concerns about the misclassification of contractors and unpaid overtime in
+                 January and February 2024, both in internal meetings and directly to HR in a March
+                 11, 2024 Teams call. Dixon was terminated on March 29, 2024, just weeks after
+                 formally raising her misclassification concerns;
+
+              b. Questioned overtime pay and work conditions in August–October 2023, asking
+                 why they were denied overtime pay. After participating in shift bidding in early
+                 2024, Alexander’s hours were reduced, and she was later terminated in November
+                 2024;
+
+              c. Raised concerns about unpaid overtime and wage discrepancy in early 2024. Price
+                 specifically questioned the lack of overtime pay and inquired about inconsistencies
+                 with paid time off. Price also inquired about the misclassification and being denied
+                 benefits in August 2024, prior to her termination; and
+
+             d. Upon information and belief, other similarly situated workers also raised concerns
+                about their misclassification and were terminated or had their hours reduced as a
+                result.
+          175. Defendant engaged in a pattern of retaliatory conduct against workers who
+
+   questioned their classification as Contractors and pay, including but not limited to:
+
+                  a. Sudden termination without prior warnings;
+
+                  b. Reduction in hours after raising concerns about classification; and
+
+                  c. Targeted removals from shifts or teams following complaints.
+
+          176.    Defendant’s actions violated § 215(a)(3) by retaliating against Plaintiffs and
+
+   similarly situated Contractors for engaging in protected activity under the FLSA.
+
+          177.    As a direct and proximate result of this unlawful retaliation, Plaintiffs and the
+
+   similarly situated workers have suffered lost wages, emotional distress, and other damages.
+
+          178.    Plaintiffs, individually and on behalf of the collective, seek all relief available under
+
+   § 216(b), including but not limited to:
+
+                  a. Reinstatement or front pay, where applicable;
+
+                                                         38
+Case 1:25-cv-20924-AHS Document 29 Entered on FLSD Docket 06/13/2025 Page 39 of 44
+
+
+
+
+                   b. Back pay for lost wages;
+
+                   c. Liquidated damages in an amount equal to lost wages;
+
+                   d. Punitive damages to deter future retaliation;
+
+                   e. Attorneys’ fees and costs as allowed by law; and
+
+                   f. Such other and further relief as the Court deems just and proper.
+
+                                              COUNT V
+                   VIOLATION OF SECTION 510 OF ERISA, 29 U.S.C. § 1140
+                  (On Behalf of Plaintiffs, Individually and on Behalf of the Class)
+
+           179.    Plaintiffs re-allege and incorporate by reference all previous paragraphs as if fully
+
+   set forth herein.
+
+           180.    Plaintiffs engaged in protected activities under ERISA by objecting to and raising
+
+   concerns about Defendant’s unlawful misclassification scheme, which Defendant implemented to
+
+   deny them and similarly situated Contractors participation in ERISA-governed employee benefit
+
+   plans, including retirement and healthcare plans.
+
+           181.    Plaintiffs specifically raised concerns with Defendant’s supervisors, HR
+
+   representatives, and managerial staff regarding their improper classification as independent
+
+   contractors, which resulted in their unlawful exclusion from receiving ERISA-protected benefits
+
+   to which they were entitled as employees.
+
+           182.    Defendant retaliated against Plaintiffs due to their exercise of ERISA-protected
+
+   rights and their complaints about the denial of ERISA benefits by engaging in adverse employment
+
+   actions, including, but not limited to:
+
+               a. Plaintiff Dixon being terminated without explanation shortly after formally raising
+                  concerns about misclassification as a Contractor and denial of ERISA-governed
+                  benefits;
+
+                                                        39
+Case 1:25-cv-20924-AHS Document 29 Entered on FLSD Docket 06/13/2025 Page 40 of 44
+
+
+
+
+              b. Plaintiff Alexander having her work hours reduced and subsequently being
+                 terminated without explanation shortly after objecting to her misclassification as a
+                 Contractor and raising concerns regarding her exclusion from ERISA-protected
+                 employee benefit plans; and
+              c. Plaintiff Price being terminated shortly after raising concerns about
+                 misclassification as a Contractor and denial of ERISA-governed benefits.
+
+          183.    Defendant’s actions were undertaken with specific intent to retaliate against
+
+   Plaintiffs for exercising their ERISA rights, to interfere with their entitlement to employee benefits
+
+   under ERISA, and to discourage Plaintiffs and other workers from asserting their rights under
+
+   ERISA.
+
+          184.    Defendant’s conduct was intentional, malicious, and carried out with reckless
+
+   disregard for Plaintiffs’ ERISA-protected rights.
+
+          185.    As a direct and proximate result of Defendant’s retaliatory and discriminatory
+
+   conduct under Section 510 of ERISA, Plaintiffs suffered substantial economic harm, including lost
+
+   wages and lost benefits, as well as non-economic harm, including emotional distress and
+
+   reputational damage.
+
+          186.    Plaintiffs seek all available relief, including but not limited to:
+
+              a. Reinstatement to their former positions or front pay in lieu thereof;
+
+              b. Back pay, restoration of lost wages, and the value of lost ERISA benefits;
+
+              c. Compensatory damages for emotional distress and reputational harm;
+
+              d. Equitable relief, including surcharge, restitution, and disgorgement of any unjust
+
+                  enrichment Defendant derived from its violations;
+
+              e. Removal of the fiduciaries responsible for managing the ERISA-governed plans,
+
+                  and appointment of independent fiduciaries to manage these plans in compliance
+
+                  with ERISA;
+                                                         40
+Case 1:25-cv-20924-AHS Document 29 Entered on FLSD Docket 06/13/2025 Page 41 of 44
+
+
+
+
+                  f. Injunctive relief prohibiting Defendant from further retaliatory actions against
+
+                     Plaintiffs and similarly situated employees exercising ERISA-protected rights;
+
+                  g. Attorneys’ fees and costs pursuant to 29 U.S.C. § 1132(g); and
+
+                  h. Such other and further relief as the Court deems just and proper.
+
+                                           PRAYER FOR RELIEF
+
+             WHEREFORE, Plaintiffs, on behalf of themselves, the Class, and the Collective,
+
+   respectfully request that this Court:
+
+             A.      Certify this action as a class action under Rule 23 of the Federal Rules of Civil
+
+   Procedure, appoint Plaintiffs as Class Representatives, and appoint the undersigned attorneys to
+
+   act as Class Counsel;
+
+             B.      Certify this action as a collective action under 29 U.S.C. § 216(b) of the Fair Labor
+
+   Standards Act, and direct notice to all similarly situated individuals, allowing them to opt into this
+
+   action;
+
+             C.      Issue a declaratory judgment that Inktel has violated FLSA and ERISA by
+
+   misclassifying its Contractors as independent contractors, failing to pay them overtime, and
+
+   denying them participation in employee benefit plans;
+
+             D.      Issue an Order requiring Inktel to reimburse all current and former Contractors for
+
+   unpaid wages and overtime compensation, along with an equal amount as liquidated damages
+
+   under 29 U.S.C. § 216(b);
+
+             E.      Issue an Order finding that Inktel breached its fiduciary duties under ERISA, 29
+
+   U.S.C. § 1104, by misclassifying Contractors and failing to make contributions to the Plan on their
+
+   behalf;
+
+                                                          41
+Case 1:25-cv-20924-AHS Document 29 Entered on FLSD Docket 06/13/2025 Page 42 of 44
+
+
+
+
+          F.       Require Inktel to provide a full accounting of all amounts unlawfully deducted
+
+   from Contractors, including the $9.98 weekly access fee and uncompensated time spent in
+
+   meetings and training sessions, and restore such amounts to the Contractors;
+
+          G.      Issue declaratory and injunctive relief requiring Inktel to: (i) stop misclassifying
+
+   Contractors as independent contractors; (ii) enroll Contractors in all ERISA-governed benefit plans
+
+   retroactively to the date they were improperly excluded; (iii) pay all amounts owed to the Plan on
+
+   behalf of the Contractors, including missed contributions and interest; (iv) reimburse for all
+
+   medical expenses incurred for being denied enrollment in medical plans; (v) ensure future
+
+   compliance with the FLSA and ERISA; (vi) disgorge any benefits or profits obtained by Defendant
+
+   through its misclassification scheme, including the amounts saved on Plan contributions and wage
+
+   obligations; (vii) cease retaliating against Contractors who raised concerns about their
+
+   misclassification and working conditions, in violation of public policy and the Florida
+
+   Whistleblower Act, Fla. Stat. § 448.101, et seq., and enjoin Inktel from engaging in any further
+
+   retaliatory conduct;
+
+          H.      Award Plaintiffs and the Class and Collective compensatory damages, including
+
+   damages for emotional distress caused by Inktel’s intentional and willful violations of applicable
+
+   laws and retaliatory actions against Plaintiffs and similarly situated Contractors;
+
+          I.      Award Plaintiffs and the Class and Collective punitive damages in an amount
+
+   sufficient to punish Inktel for its willful, malicious, and reckless disregard of Plaintiffs’ and
+
+   similarly situated Contractors’ rights under the FLSA, ERISA, and Florida Whistleblower Act,
+
+   and to deter such misconduct in the future;
+
+
+
+                                                        42
+Case 1:25-cv-20924-AHS Document 29 Entered on FLSD Docket 06/13/2025 Page 43 of 44
+
+
+
+
+           J.      Order the establishment of a constructive trust consisting of all amounts that Inktel
+
+   should have contributed to ERISA-governed benefit plans, plus interest and profits earned thereon,
+
+   for the benefit of Plaintiffs and Class members;
+
+           K.      Order the disgorgement of all profits and financial benefits Inktel received due to
+
+   its breaches of fiduciary duty and violations of ERISA;
+
+           L.      Order the removal of the current fiduciaries responsible for managing and
+
+   administering the ERISA-governed benefit plans and appoint independent fiduciaries to manage
+
+   these plans in compliance with ERISA;
+
+           M.      Award Plaintiffs and the Class and Collective pre-judgment interest on all unpaid
+
+   wages, benefits, and damages as allowed by law;
+
+           N.      Award Plaintiffs and the Class reasonable attorneys’ fees, expenses, and taxable
+
+   costs, as provided under 29 U.S.C. § 216(b), 29 U.S.C. § 1132(g), Fla. Stat. § 448.104, and any
+
+   other applicable law;
+
+           O.      Permanently enjoin and restrain Inktel, its officers, agents, servants, employees,
+
+   and all persons in active concert or participation with Inktel from continuing to violate the FLSA,
+
+   ERISA, and other applicable laws; and
+
+           P.      Grant such other and further relief as the Court may deem just, equitable, and proper
+
+   under the circumstances.
+
+                                              JURY DEMAND
+
+           Pursuant to Federal Rule of Civil Procedure 38 and 29 U.S.C. § 626, Plaintiffs demand a
+
+   jury trial on all issues upon which there is a federal right to a jury trial.
+
+
+
+                                                          43
+Case 1:25-cv-20924-AHS Document 29 Entered on FLSD Docket 06/13/2025 Page 44 of 44
+
+
+
+
+   Dated: June 13, 2025               Respectfully submitted,
+
+                                      SIRI & GLIMSTAD LLP
+
+                                      By: /s/ Jessica Wallace
+                                      Jessica Wallace (Bar No. 1008325)
+                                      Walker D. Moller (pro hac vice)
+                                      Oren Faircloth (pro hac vice)
+                                      Kimberly Dodson (pro hac vice)
+                                      Scott Haskins (pro hac vice)
+                                      20200 W. Dixie Highway, Suite 902
+                                      Aventura, FL 33180
+                                      Tel: (717) 967-5529
+                                      E: jwallace@sirillp.com
+                                      E: wmoller@sirillp.com
+                                      E: ofaircloth@sirillp.com
+                                      E: kdodson@sirillp.com
+                                      E: shaskins@sirillp.com
+
+                                      Attorneys for Plaintiff and the Proposed Class
+
+
+
+
+                                            44
+

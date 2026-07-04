@@ -1,0 +1,149 @@
+     Case 3:23-cv-01013-DMS-JLB Document 3 Filed 08/03/23 PageID.13 Page 1 of 4
+
+
+
+ 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8                              UNITED STATES DISTRICT COURT
+ 9                         SOUTHERN DISTRICT OF CALIFORNIA
+10
+11   LEILA MARIE MCCOY,                                Case No.: 23-cv-1013-DMS-JLB
+12                 Plaintiff,                          ORDER GRANTING PLAINTIFF’S
+13          v.                                         MOTION TO PROCEED IN FORMA
+                                                       PAUPERIS AND DISMISSING
+14   CALIFORNIA CIVIL RIGHTS
+                                                       COMPLAINT FOR FAILURE TO
+     DEPARTMENT,
+15                                                     STATE A CLAIM
+                   Defendant.
+16
+17
+18         On May 31, 2023, Plaintiff Leila Marie McCoy, proceeding pro se, filed a complaint
+19   against Defendant California Civil Rights Department. (Compl., ECF No. 1.) Plaintiff
+20   concurrently filed a motion to proceed in forma pauperis (“IFP”) pursuant to 28 U.S.C. §
+21   1915(a). (Pl.’s Mot. to Proceed IFP (“Mot.”), ECF No. 2.) Plaintiff sues the California
+22   Civil Rights Department following its alleged denial of Plaintiff’s request for
+23   accommodations due to her disabilities. (Compl. 2–3.) For the reasons set forth below,
+24   the Court GRANTS Plaintiff’s Motion to Proceed IFP and DISMISSES the action for
+25   failure to state a claim pursuant to 28 U.S.C. § 1915(e)(2)(B)(ii).
+26                   I.         MOTION TO PROCEED IN FORMA PAUPERIS
+27         All parties instituting any civil action, suit or proceeding in a district court of the
+28   United States, except an application for writ of habeas corpus, must pay a filing fee of
+
+                                                   1
+                                                                                 23-cv-1013-DMS-JLB
+     Case 3:23-cv-01013-DMS-JLB Document 3 Filed 08/03/23 PageID.14 Page 2 of 4
+
+
+
+ 1   $402. 1 See 28 U.S.C. § 1914(a). The action may proceed despite a failure to prepay the
+ 2   entire fee only if leave to proceed IFP is granted pursuant to 28 U.S.C. § 1915(a). See
+ 3   Andrews v. Cervantes, 493 F.3d 1047, 1051 (9th Cir. 2007). The plaintiff must submit an
+ 4   affidavit demonstrating his inability to pay the filing fee, and the affidavit must include a
+ 5   complete statement of the plaintiff’s assets. 28 U.S.C. § 1915(a)(1). “To satisfy the
+ 6   requirements of 28 U.S.C. § 1915, applicants must demonstrate that because of poverty,
+ 7   they cannot meet court costs and still provide themselves, and any dependents, with the
+ 8   necessities of life.” Soldani v. Comm’r of Soc. Sec., No. 1:19-cv-00040-JLT, 2019 WL
+ 9   2160380, at *1 (E.D. Cal. Jan. 31, 2019).
+10          Plaintiff has declared in her form application under penalty of perjury that she has
+11   had no income during the past twelve months, has not been employed for the past two
+12   years, has $0 in her checking account, and estimated her monthly expenses at $1,170 per
+13   month. (Mot. 1–5.) She has also declared that she is blind, is currently living “on loans
+14   and [her] credit cards,” and that her Supplemental Security Income award is currently
+15   “suspended.” (Mot. 5.) Accordingly, because Plaintiff has demonstrated an inability to
+16   pay the filing fee, the Court GRANTS Plaintiff's Motion to Proceed IFP and declines to
+17   impose an initial partial filing fee pursuant to 28 U.S.C. § 1915(b)(1). See Beasley v. San
+18   Diego Cnty. Sheriff’s Dep’t, No. 23-cv-1203-DMS, 2023 WL 4918306, at *1 (S.D. Cal.
+19   Aug. 1, 2023) (declining to impose partial filing fee due to defendant’s inability to pay).
+20                                   II.     SUA SPONTE SCREENING
+21          A complaint filed by any person proceeding IFP pursuant to 28 U.S.C. § 1915(a) is
+22   subject to mandatory sua sponte review and dismissal by the Court. “[T]he court shall
+23   dismiss” a case filed IFP “at any time if the court determines that . . . the action . . . (i) is
+24   frivolous or malicious; (ii) fails to state a claim on which relief may be granted; or (iii)
+25
+26
+     1
+       Effective December 1, 2020, civil litigants must pay an additional administrative fee of $52 in addition
+27   to the $350 filing fee set by statute. See 28 U.S.C. § 1914(a) (Judicial Conference Schedule of Fees,
+     District Court Misc. Fee Schedule, § 14 (eff. Dec. 1, 2020)). The $52 administrative fee does not apply
+28   to persons granted leave to proceed IFP. Id.
+
+                                                         2
+                                                                                            23-cv-1013-DMS-JLB
+     Case 3:23-cv-01013-DMS-JLB Document 3 Filed 08/03/23 PageID.15 Page 3 of 4
+
+
+
+ 1   seeks monetary relief against a defendant who is immune from such relief.” 28 U.S.C. §
+ 2   1915(e)(2). “The purpose of [screening] is ‘to ensure that the targets of frivolous or
+ 3   malicious suits need not bear the expense of responding.’” Nordstrom v. Ryan, 762 F.3d
+ 4   903, 920 n.1 (9th Cir. 2014) (quoting Wheeler v. Wexford Health Sources, Inc., 689 F.3d
+ 5   680, 681 (7th Cir. 2012)).
+ 6          A. Plaintiff’s Allegations
+ 7          Plaintiff alleges that she is blind and mobility-impaired and requires the assistance
+ 8   of adaptive software to read and fill out forms. (Compl. 2.) Plaintiff alleges that she
+ 9   requested accommodations from the California Civil Rights Department (“Agency”) to
+10   allow her access to the Agency’s programs, services, and facilities. (Id.) She requested
+11   accommodations in the form of an “auxiliary aide” or “qualified reader” to assist her in
+12   communicating with the Agency. (Id.) As best as the Court can decipher, Plaintiff asserts
+13   that the Agency closed her pending claims with the Agency in retaliation for her contacting
+14   a supervisor regarding her request for accommodations. (Id.) Plaintiff explains that this
+15   left her and her children “without life sustaining medication,” “housing,” and “other
+16   necessities.” (Id.)
+17          Plaintiff alleges that she then filed a complaint with a state administrative law judge
+18   (“ALJ”) who ruled that the Agency had retaliated against Plaintiff. (Id.) As best as the
+19   Court can decipher, Plaintiff alleges that the Agency then refused to comply with the ALJ’s
+20   ruling. (Id.) Plaintiff now brings this action seeking money damages to remedy the injury
+21   she suffered due to the Agency’s actions toward her. (Id. at 3.)
+22          B. Legal Standard
+23          “The standard for determining whether a plaintiff has failed to state a claim upon
+24   which relief can be granted under § 1915(e)(2)(B)(ii) is the same as the Federal Rule of
+25   Civil Procedure 12(b)(6) standard for failure to state a claim.” Watison v. Carter, 668 F.3d
+26   1108, 1112 (9th Cir. 2012). A complaint must contain “a short and plain statement of the
+27   claim showing that the pleader is entitled to relief.” Fed. R. Civ. P. 8(a)(2). A complaint
+28   fails to state a claim for relief under Rule 8 if the factual assertions in it, taken as true, are
+
+                                                     3
+                                                                                     23-cv-1013-DMS-JLB
+     Case 3:23-cv-01013-DMS-JLB Document 3 Filed 08/03/23 PageID.16 Page 4 of 4
+
+
+
+ 1   insufficient for the reviewing court plausibly “to draw the reasonable inference that the
+ 2   defendant is liable for the misconduct alleged.” Ashcroft v. Iqbal, 556 U.S. 662, 678
+ 3   (2009). “[T]he pleading standard . . . does not require ‘detailed factual allegations,’ but it
+ 4   demands more than an unadorned, the-defendant-unlawfully-harmed-me accusation.” Id.
+ 5   (quoting Bell Atl. Corp. v. Twombly, 550 U.S. 544, 555 (2007)).
+ 6         C. Analysis
+ 7         Plaintiff has failed to satisfy the Rule 8 pleading standard. Plaintiff’s terse complaint
+ 8   does not allege any cause of action and fails to “plausibly allege facts to support the
+ 9   elements of any cause of action.” Rashidiasl v. MEP, No. 23-cv-0325-GPC, 2023 WL
+10   3728685 (S.D. Cal. May 30, 2023); see also Bautista v. Los Angeles County, 216 F.3d 837,
+11   840 (9th Cir. 2000) (explaining that Rule 8 requires a plaintiff to “plead a short and plain
+12   statement of the elements of his or her claim, identifying the transaction or occurrence
+13   giving rise to the claim and the elements of the prima facie case”). As pleaded, Plaintiff's
+14   complaint does not afford Defendant a fair opportunity to defend itself.         Accordingly,
+15   Plaintiff’s Complaint is DISMISSED without prejudice.
+16                               III.   CONCLUSION AND ORDER
+17         For the reasons explained above, the Court GRANTS Plaintiff’s motion to proceed
+18   in forma pauperis; and DISMISSES the Complaint without prejudice pursuant to the
+19   mandatory screening required by 28 U.S.C. § 1915(e)(2) for failure to state a claim. Within
+20   forty-five (45) days of the date of this Order, Plaintiff may file an amended complaint. If
+21   Plaintiff files an amended complaint, she must state a cause of action and present facts
+22   sufficient to plausibly allege that cause of action. See Bautista, 216 F.3d at 840–41.
+23         IT IS SO ORDERED.
+24
+25    Dated: August 3, 2023
+26                                               _________________________________
+27                                               Hon. Dana M. Sabraw, Chief Judge
+                                                 United States District Court
+28
+
+                                                   4
+                                                                                  23-cv-1013-DMS-JLB
+

@@ -1,0 +1,348 @@
+Case 1:24-cv-20543-KMW Document 14 Entered on FLSD Docket 04/24/2024 Page 1 of 7
+
+
+
+
+                              UNITED STATES DISTRICT COURT
+                              SOUTHERN DISTRICT OF FLORIDA
+
+                      CASE NO.: 1:24-CV-20543-WILLIAMS/GOODMAN
+
+  JUAN MENDEZ,
+
+         Plaintiff,
+
+  vs.
+
+  ALPHA & OMEGA CALBIRATION
+  SERVICES LLC and
+  LIZ Y. LAGO,
+
+        Defendants.
+  ______________________________/
+
+              PLAINTIFFS’ MOTION TO STRIKE AFFIRMATIVE DEFENSES
+
+         Plaintiff, Juan Mendez, through his undersigned counsel and pursuant to Rules 8(a) and
+
+  12(f) of the Federal Rules of Civil Procedure, Local Rule 7.1, and other applicable Rules and laws,
+
+  requests the Court to enter an Order Striking the Second, Third, and Fifth Affirmative Defenses
+
+  asserted by Defendants, Alpha & Omega Calibration Services LLC and Liz Y. Lago, based upon
+
+  the following good cause:
+
+                                                MOTION
+
+         1.      Mr. Mendez sued Defendants for violating the Fair Labor Standards Act (“FLSA”),
+
+  29 U.S.C. §201, et seq., by not paying him the overtime wages he earned. [ECF No. 1.]
+
+         2.      Defendants responded to the Amended Complaint with their Answer in which they,
+
+  as pertinent herein, asserted seven (13) “Defenses and Affirmative Defenses”.1 [ECF No. 11.]
+
+
+
+
+  1    Defendants agreed to remove the portion of their Answer to ¶19 about why they claim Mr.
+  Mendez ceased working for them as immaterial.
+                                               1
+
+                        135 San Lorenzo Avenue, Suite 770, Coral Gables, Florida 33146
+                                     TEL 305.230.4884 FAX 305.230.4844
+                                          www.fairlawattorney.com
+Case 1:24-cv-20543-KMW Document 14 Entered on FLSD Docket 04/24/2024 Page 2 of 7
+
+
+
+
+         3.      The Second, Third, and Fifth Affirmatives Defenses asserted by Defendants are
+
+  properly stricken under Fed. R. Civ. P. 12(f) which permits the Court to strike from any pleading
+
+  “an insufficient defense or any redundant, immaterial, impertinent, or scandalous matter.”
+
+         4.      Consequently, Mr. Mendez requests the Court to strike the Second, Third, Fourth,
+
+  Fifth, Sixth, and Thirteenth Affirmative Defenses.
+
+         WHEREFORE Plaintiff, Juan Mendez, requests the Court to enter an Order striking the
+
+  Second, Third, and Fifth Affirmative Defenses pled by Defendants, Alpha & Omega Calibration
+
+  Services LLC and Liz Y. Lago, based on the foregoing Motion and the following Memorandum
+
+  of Law and to award such other and further relief as the Court deems just and proper.
+
+                                     MEMORANDUM OF LAW
+
+                                        I. INTRODUCTION
+
+         Mr. Mendez sued his former employers for not paying him overtime wages for his overtime
+
+  hours. Defendants responded to the Complaint by admitting that the corporate Defendant is a
+
+  Florida corporation, subject to FLSA enterprise coverage, that Ms. Lago is listed as the Managing
+
+  Member of it, and the venue for this dispute, denying the remainder of the 30 paragraphs in the
+
+  Complaint. [ECF Nos. 1, 11.] Defendants then asserted 13 “Defenses and Affirmative Defenses,”
+
+  which are the subject of this Motion to Strike. To streamline these proceedings, avoid subsequent
+
+  dispositive motions over the viability of their defenses, and avoid much of the back-and-forth that
+
+  occurs at the pretrial conference arguing over whether defenses are viable or not, Mr. Mendez
+
+  requests the Court to strike the Second, and Fifth Affirmative Defenses as insufficient defenses or
+
+  as redundant, immaterial, and/or impertinent.
+
+                                             II. THE LAW
+
+
+                                                      2
+
+                        135 San Lorenzo Avenue, Suite 770, Coral Gables, Florida 33146
+                                     TEL 305.230.4884 FAX 305.230.4844
+                                          www.fairlawattorney.com
+Case 1:24-cv-20543-KMW Document 14 Entered on FLSD Docket 04/24/2024 Page 3 of 7
+
+
+
+
+          Rule 12(f) of the Federal Rules of Civil Procedure expressly states, “the court may order
+
+  stricken from any pleading any insufficient defense or any redundant, immaterial, impertinent, or
+
+  scandalous matter.”
+
+          “An affirmative defense is generally a defense that, if established, requires judgment for the
+
+  defendant even if the plaintiff can prove his case by a preponderance of the evidence.” Wright v.
+
+  Southland Corp., 187 F.3d 1287, 1303 (11th Cir. 1999).
+
+          “A defense is insufficient as a matter of law if, on the face of the pleadings, it is patently
+
+  frivolous, or if it is clearly invalid as a matter of law.” Morrison v. Executive Aircraft Refinishing, Inc., 434
+
+  F. Supp. 2d 1314, 1318 (S.D. Fla. 2005) (quoting Anchor Hocking Corp. v. Jacksonville Elec. Auth., 419
+
+  F.Supp. 992, 1000 (M.D. Fla. 1976).)
+
+          As summarized by the Court in S.D. v. St. Johns County Sch. Dist., 2009 WL 1941482, at *1
+
+  (M.D. Fla. July 7, 2009), “An ‘immaterial matter’ is one that has no important relationship to the
+
+  claim or defense and an ‘impertinent’ matter is one that does not pertain to the issue(s) in question.”
+
+  Citing 126th Avenue Landfill, Inc. v. Pinellas County, 2009 WL 1544030, at *2–3 (M.D. Fla. June 3,
+
+  2009); also citing Wright & Miller Wright & Miller, Federal Practice & Procedure: Civil § 1382 at
+
+  458–63 (3d ed. 2004). In responding to a pleading, a party must admit or deny the allegations
+
+  asserted against it by an opposing party. Fed. R. Civ. P. 8(b)(1)(B).
+
+          Although a defendant is not obligated to set forth detailed and particular facts, Rule 8(a) of
+
+  the Federal Rules of Civil Procedure requires a Defendant to nonetheless give “fair notice” of the
+
+  defense and “the grounds upon which it rests.” Bell Atlantic v. Twombly, 550 U.S. 544, 555 (2007);
+
+  accord Conley v. Gibson, 355 U.S. 41, 47 (1957). This means that a defendant’s affirmative defense
+
+  “must do more than make conclusory allegations.” An affirmative defense must be stricken when
+
+
+                                                         3
+
+                           135 San Lorenzo Avenue, Suite 770, Coral Gables, Florida 33146
+                                        TEL 305.230.4884 FAX 305.230.4844
+                                             www.fairlawattorney.com
+Case 1:24-cv-20543-KMW Document 14 Entered on FLSD Docket 04/24/2024 Page 4 of 7
+
+
+
+
+  it is “insufficient as a matter of law”. Home Mgmt. Sols., Inc. v. Prescient, Inc., 2007 WL 2412834, at
+
+  *2 (S.D. Fla. Aug. 21, 2007). “A defense is insufficient as a matter of law only if: (1) on the face of
+
+  the pleadings, it is patently frivolous, or (2) it is clearly invalid as a matter of law.” Microsoft Corp. v.
+
+  Jesse’s Computers & Repair, Inc., 211 F.R.D. 681, 683 (M.D. Fla. 2002).
+
+                                             III. ARGUMENT
+
+                                      Second Affirmative Defense
+
+          Plaintiff’s claims are barred in whole or in part by the doctrine of
+          unclean hands.
+
+          Generally, the defense of unclean hands is “not permitted under FLSA”. Moore v. Live Cheap,
+
+  LLC, 2015 WL 12805689, at *2 (S.D. Fla. Aug. 26, 2015). The reason is because unclean hands is
+
+  an equitable defense that is not available to defeat a statutory claim. Bailey v. TitleMax of Georgia,
+
+  Inc., 776 F.3d 797, 804 (11th Cir. 2015). The FLSA only affords legal and not equitable relief.
+
+  Bailey v. Gulf Coast Transp., Inc., 280 F.3d 1333, 1335 (11th Cir. 2002). Therefore, unclean hands is
+
+  not an available defense to Mr. Mendez’s FLSA overtime claim.
+
+          Defendants are not entitled to rely on the defense of unclean hands from a factual
+
+  standpoint because they allege no facts in it. See Dionisio v. Ultimate Images & Designs, Inc., 391 F.
+
+  Supp. 3d 1187, 1191 (S.D. Fla. 2019). The second affirmative defense fails because it does not
+
+  satisfy either of the necessary requirements to state a claim for unclean hands:
+
+          For a defendant to successfully avail itself of the doctrine of unclean hands, it must satisfy
+          two requirements. First, the defendant must demonstrate that the plaintiff’s wrongdoing is
+          directly related to the claim against which it is asserted. Keystone Driller Co. v. General Excavator
+          Co., 290 U.S. 240, 245, 54 S.Ct. 146, 147-48, 78 L.Ed. 293 (1933). Second, even if directly
+          related, the plaintiff’s wrongdoing does not bar relief unless the defendant can show that it
+          was personally injured by her conduct. Mitchell Bros. Film Group v. Cinema Adult Theater, 604
+          F.2d 852, 863 (5th Cir.1979), cert. denied, 445 U.S. 917, 100 S.Ct. 1277, 63 L.Ed.2d 601
+          (1980).
+
+
+                                                        4
+
+                          135 San Lorenzo Avenue, Suite 770, Coral Gables, Florida 33146
+                                       TEL 305.230.4884 FAX 305.230.4844
+                                            www.fairlawattorney.com
+Case 1:24-cv-20543-KMW Document 14 Entered on FLSD Docket 04/24/2024 Page 5 of 7
+
+
+
+
+  Calloway v. Partners Nat. Health Plans, 986 F.2d 446, 450-51 (11th Cir. 1993). Defendants can only
+
+  avail themselves of the defense of unclean hands if they can show that Mr. Mendez did (or did not
+
+  do) something that caused them not to pay him the overtime he earned. As this Court previously
+
+  recognized:
+
+          A recent decision from the Southern District of Florida analyzes what “directly related”
+          means: it is not just the same kind of conduct, but that the “connection between the
+          unclean-hands conduct and the matter in litigation is to be very close.” Gastaldi v. Sunvest
+          Resort Communities, LC, 2010 WL 457243, *9 (S.D. Fla. Feb.3, 2010). The “matter in
+          litigation” to must be the actual basis of the plaintiff’s claiMr. Id.
+
+  Royal Palm Properties, LLC v. Premier Estate Properties, Inc., 2010 WL 3941745, at *2 (S.D. Fla. Oct. 6,
+
+  2010). The Second Affirmative Defense is properly stricken as factually and legally insufficient.
+
+                                      Third Affirmative Defense
+
+          Plaintiff was not engaged in interstate commerce or in the production
+          of goods for interstate commerce.
+
+          Defendants admitted that Mr. Mendez was a non-exempt employee of Alpha & Omega
+
+  Calibration Services LLC and that it was an enterprise engaged in commerce from 2021 to 2024,
+
+  thereby admitting it was required to comply with the FLSA’s requirements. [ECF Nos. 1 and 11
+
+  at ¶¶3, 17 and 22.] Admitting that Mr. Mendez was a non-exempt employee of a business subject
+
+  to the FLSA makes the issue of individual coverage irrelevant. Consequently, Defendants’ Third
+
+  Affirmative Defense – even if a denial – is immaterial and irrelevant and properly stricken.
+
+                                      Fifth Affirmative Defense
+
+          To the extent that Plaintiff may have worked with or without the actual
+          or constructive knowledge of Defendants, Plaintiff is not entitled to any
+          compensation for any such hours worked.
+
+          The law does not permit employers to avoid paying their employees overtime wages simply
+
+  because they lack actual or constructive knowledge. The Eleventh Circuit Court of Appeals permits
+
+                                                       5
+
+                         135 San Lorenzo Avenue, Suite 770, Coral Gables, Florida 33146
+                                      TEL 305.230.4884 FAX 305.230.4844
+                                           www.fairlawattorney.com
+Case 1:24-cv-20543-KMW Document 14 Entered on FLSD Docket 04/24/2024 Page 6 of 7
+
+
+
+
+  an employer to avoid paying overtime when it lacked “the opportunity through reasonable
+
+  diligence to acquire knowledge” of the overtime hours worked. Reich v. Dep't of Conservation & Nat.
+
+  Res., State of Ala., 28 F.3d 1076, 1082 (11th Cir. 1994). Thus, the issue is not simply whether Mr.
+
+  Mendez worked without Defendants’ “actual or constructive knowledge” but also that Defendants
+
+  should or could not have known that he was working overtime through the exercise of reasonable
+
+  diligence. Allen v. Bd. of Pub. Educ. for Bibb Cnty., 495 F.3d 1306, 1315 (11th Cir. 2007); and Reich,
+
+  28 F.3d 1082. The Court properly strikes Defendants’ Fifth Affirmative Defenses as insufficient as
+
+  a matter of law because it reflects an incomplete statement of what Defendants must prove to avoid
+
+  liability for overtime under the FLSA.
+
+                                          IV. CONCLUSION
+
+         For the reasons set forth above, Mr. Mendez requests that the Court enter an Order striking
+
+  the Defendants’ Second, Third, and Fifth Affirmative Defenses.
+
+
+
+
+                                                      6
+
+                        135 San Lorenzo Avenue, Suite 770, Coral Gables, Florida 33146
+                                     TEL 305.230.4884 FAX 305.230.4844
+                                          www.fairlawattorney.com
+Case 1:24-cv-20543-KMW Document 14 Entered on FLSD Docket 04/24/2024 Page 7 of 7
+
+
+
+
+                                    RULE 7.1 CERTIFICATION
+
+        Counsel for the movant has conferred with all parties or non-parties who may be affected by
+
+  the relief sought in the motion in a good faith effort to resolve the issues raised in the motion, but
+
+  Defendants would not agree to the relief requested herein (other than to agree to strike that portion
+
+  of ¶19 of their Answer about why they claim Mr. Mendez ceased working for them.
+
+         Dated this 24th day of April 2024.
+
+                                                           s/Brian H. Pollock, Esq.
+                                                           Brian H. Pollock, Esq. (174742)
+                                                           brian@fairlawattorney.com
+                                                           FAIRLAW FIRM
+                                                           135 San Lorenzo Avenue
+                                                           Suite 770
+                                                           Coral Gables, FL 33146
+                                                           Tel: 305.230.4884
+                                                           Counsel for Plaintiff
+
+
+
+
+                                                      7
+
+                        135 San Lorenzo Avenue, Suite 770, Coral Gables, Florida 33146
+                                     TEL 305.230.4884 FAX 305.230.4844
+                                          www.fairlawattorney.com
+
