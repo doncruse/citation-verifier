@@ -605,9 +605,39 @@ git push origin screen-signals-gate
 
 ---
 
-### Task 4: Retrieval build — populate `baseline/` (sonnet agents)
+### Task 4: Retrieval build — populate `baseline/`
 
-Collect the reference corpus. This task is **data collection, not a TDD cycle**: its deliverable is the `baseline/` tree with clean manifest rows and saved text, and its acceptance is coverage per cell. Executed via **sonnet** subagents — one per cell (6 agents), dispatchable in parallel.
+**Refined 2026-07-03 (user chose "helper + pilot, then fan out"):** split into
+**4a** (build & unit-test a deterministic `pull_baseline.py` helper on
+`AsyncCourtListenerClient` — offline TDD), **4b** (pilot ONE cell over the
+network to validate the plumbing end-to-end), **4c** (fan out the remaining five
+cells via sonnet agents driving the helper). The client is the retrieval vehicle,
+**not** the CourtListener MCP — the token is already in `.env`, and the client
+carries rate-limiting, 429 retry, and the canonical opinion-text fallback chain.
+
+**Task 4a — `pull_baseline.py` (offline, TDD).** Pure helpers are unit-tested;
+the one network function is validated in 4b.
+- `classify_doctype(description:str)->str|None` — `merits_brief`/`pleading`/
+  `procedural_motion`/`None` from a RECAP entry description, precedence
+  merits→procedural→pleading (a "response in opposition ... complaint" is a
+  merits brief, not a pleading).
+- `sanction_hits(texts:Iterable[str])->list[str]` — sanction/show-cause/
+  fabricat/hallucin/fictitious/rule 11 terms found across entry descriptions.
+- `slugify(case_name:str, docket_number:str="")->str`.
+- `manifest_row(**fields)->dict` — assemble the exact manifest schema (below).
+- `async pull_candidate(client, docket_id:int, document_number:int, cell_dir:str,
+  meta:dict)->dict|None` — build the `/docket/<id>/<n>/` URL, fetch via
+  `client.get_opinion_text_with_metadata`, save `<slug>.txt`, return the manifest
+  row; `None` when no text. (Network — validated in 4b, not unit-tested.)
+
+**Task 4b — pilot.** Run 4a's flow for one abundant cell
+(`attorney__merits_brief`) end-to-end; confirm it finds ≥3 clean docs, screens
+correctly, and saves real text. Fix the helper if the pilot exposes gaps.
+
+**Task 4c — fan out (sonnet agents).** Collect the remaining five cells. Data
+collection, not a TDD cycle: deliverable is the `baseline/` tree with clean
+manifest rows and saved text; acceptance is coverage per cell. One sonnet agent
+per cell, driving the helper.
 
 **Files:**
 - Create: `scratch/screen_gate/baseline/<cell>/<slug>.txt` (extracted filing text, one per doc)
