@@ -1,0 +1,254 @@
+{
+  "attorney__merits_brief": {
+    "n_cites": {
+      "median": 52.0,
+      "mad": 37.0,
+      "n": 9
+    },
+    "words": {
+      "median": 9266.0,
+      "mad": 5343.0,
+      "n": 9
+    },
+    "cite_density": {
+      "median": 7.892,
+      "mad": 4.3999999999999995,
+      "n": 9
+    },
+    "parenthetical_richness": {
+      "median": 0.292,
+      "mad": 0.11599999999999999,
+      "n": 9
+    },
+    "string_cite_rate": {
+      "median": 0.0,
+      "mad": 0.0,
+      "n": 9
+    },
+    "gerund_paren_rate": {
+      "median": 0.094,
+      "mad": 0.056,
+      "n": 9
+    },
+    "proposition_repeat_rate": {
+      "median": 0.0,
+      "mad": 0.0,
+      "n": 9
+    },
+    "cite_prop_cv": {
+      "median": 0.0,
+      "mad": 0.0,
+      "n": 9
+    }
+  },
+  "attorney__pleading": {
+    "n_cites": {
+      "median": 2.0,
+      "mad": 2.0,
+      "n": 10
+    },
+    "words": {
+      "median": 4159.5,
+      "mad": 2769.5,
+      "n": 10
+    },
+    "cite_density": {
+      "median": 0.3845,
+      "mad": 0.3845,
+      "n": 10
+    },
+    "parenthetical_richness": {
+      "median": 0.0,
+      "mad": 0.0,
+      "n": 10
+    },
+    "string_cite_rate": {
+      "median": 0.0,
+      "mad": 0.0,
+      "n": 10
+    },
+    "gerund_paren_rate": {
+      "median": 0.0,
+      "mad": 0.0,
+      "n": 10
+    },
+    "proposition_repeat_rate": {
+      "median": 0.0,
+      "mad": 0.0,
+      "n": 10
+    },
+    "cite_prop_cv": {
+      "median": 0.0,
+      "mad": 0.0,
+      "n": 10
+    }
+  },
+  "attorney__procedural_motion": {
+    "n_cites": {
+      "median": 19.0,
+      "mad": 19.0,
+      "n": 9
+    },
+    "words": {
+      "median": 1818.0,
+      "mad": 1173.0,
+      "n": 9
+    },
+    "cite_density": {
+      "median": 6.59,
+      "mad": 6.59,
+      "n": 9
+    },
+    "parenthetical_richness": {
+      "median": 0.037,
+      "mad": 0.037,
+      "n": 9
+    },
+    "string_cite_rate": {
+      "median": 0.0,
+      "mad": 0.0,
+      "n": 9
+    },
+    "gerund_paren_rate": {
+      "median": 0.037,
+      "mad": 0.037,
+      "n": 9
+    },
+    "proposition_repeat_rate": {
+      "median": 0.0,
+      "mad": 0.0,
+      "n": 9
+    },
+    "cite_prop_cv": {
+      "median": 0.0,
+      "mad": 0.0,
+      "n": 9
+    }
+  },
+  "pro_se__merits_brief": {
+    "n_cites": {
+      "median": 8.0,
+      "mad": 8.0,
+      "n": 7
+    },
+    "words": {
+      "median": 2249.0,
+      "mad": 1632.0,
+      "n": 7
+    },
+    "cite_density": {
+      "median": 2.832,
+      "mad": 2.832,
+      "n": 7
+    },
+    "parenthetical_richness": {
+      "median": 0.0,
+      "mad": 0.0,
+      "n": 7
+    },
+    "string_cite_rate": {
+      "median": 0.0,
+      "mad": 0.0,
+      "n": 7
+    },
+    "gerund_paren_rate": {
+      "median": 0.0,
+      "mad": 0.0,
+      "n": 7
+    },
+    "proposition_repeat_rate": {
+      "median": 0.0,
+      "mad": 0.0,
+      "n": 7
+    },
+    "cite_prop_cv": {
+      "median": 0.0,
+      "mad": 0.0,
+      "n": 7
+    }
+  },
+  "pro_se__pleading": {
+    "n_cites": {
+      "median": 0.5,
+      "mad": 0.5,
+      "n": 10
+    },
+    "words": {
+      "median": 1392.0,
+      "mad": 226.5,
+      "n": 10
+    },
+    "cite_density": {
+      "median": 0.3155,
+      "mad": 0.3155,
+      "n": 10
+    },
+    "parenthetical_richness": {
+      "median": 0.0,
+      "mad": 0.0,
+      "n": 10
+    },
+    "string_cite_rate": {
+      "median": 0.0,
+      "mad": 0.0,
+      "n": 10
+    },
+    "gerund_paren_rate": {
+      "median": 0.0,
+      "mad": 0.0,
+      "n": 10
+    },
+    "proposition_repeat_rate": {
+      "median": 0.0,
+      "mad": 0.0,
+      "n": 10
+    },
+    "cite_prop_cv": {
+      "median": 0.0,
+      "mad": 0.0,
+      "n": 10
+    }
+  },
+  "pro_se__procedural_motion": {
+    "n_cites": {
+      "median": 0.0,
+      "mad": 0.0,
+      "n": 3
+    },
+    "words": {
+      "median": 329.0,
+      "mad": 42.0,
+      "n": 3
+    },
+    "cite_density": {
+      "median": 0.0,
+      "mad": 0.0,
+      "n": 3
+    },
+    "parenthetical_richness": {
+      "median": 0.0,
+      "mad": 0.0,
+      "n": 3
+    },
+    "string_cite_rate": {
+      "median": 0.0,
+      "mad": 0.0,
+      "n": 3
+    },
+    "gerund_paren_rate": {
+      "median": 0.0,
+      "mad": 0.0,
+      "n": 3
+    },
+    "proposition_repeat_rate": {
+      "median": 0.0,
+      "mad": 0.0,
+      "n": 3
+    },
+    "cite_prop_cv": {
+      "median": 0.0,
+      "mad": 0.0,
+      "n": 3
+    }
+  }
+}

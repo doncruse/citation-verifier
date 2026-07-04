@@ -148,6 +148,50 @@ without a pure professionalism confound — repeating a point with *different*
 authorities is genuinely unusual for a human. Re-test it, not the others, if the
 corpus doubles. Everything else in Tier 0.5 is retired.
 
+## Deviation gate — first run (2026-07-04)
+
+The effort-triage pivot's actual test: score the 11 known-bad docs as robust-z
+deviation from their **stratum baseline** (48 agent-curated normal filings, 6
+cells: attorney 9/10/9, pro se 10/7/3 — see `baseline/SHORTFALLS.md`). A metric
+flags at |robust-z| ≥ 3.5; the null to beat is each cell's own leave-one-out
+(LOO) tail rate. Reproduce: `python compute_baselines.py baseline &&
+python run_gate.py --deviation baseline`.
+
+| stratum (bad n) | bad docs flagging | baseline LOO null | verdict |
+|---|---|---|---|
+| attorney merits (4) | **0/4** | 3/9 (33%) | **no separation** — fabricated attorney merits briefs are statistically normal for the stratum |
+| attorney procedural (3) | 2/3 (villalovos, johnson) | **4/9 (44%)** | **noise** — null ≈ signal; johnson's flag is a 4-citation-denominator artifact on parenthetical_richness |
+| pro se merits (2) | 0/2 | 0/7 | **no separation** — reed, stafford look normal |
+| pro se pleading (2) | sherwood ✔, burnside (artifact) | 1/10 (10%) | **one real hit** |
+
+**The one genuine, interpretable separation — sherwood-botetourt.** The 116-cite,
+133-page pro se "amended complaint" deviates enormously (n_cites **+155σ**, words
++89σ, cite_density +7σ) against a baseline of normal pro se complaints that cite
+2–45 times. This is the **within-stratum citation-volume anomaly** — the "a pro
+se litigant citing like a machine is suspicious" hypothesis — firing for a
+*defensible reason* (a real anomaly vs. a clean baseline, LOO null only 10%), not
+a professionalism confound. **The first signal in this project to separate for
+the right reason.**
+
+**What still fails (and why the gate is not shippable yet):**
+- **Attorney fabrications don't deviate at all** (0/4 merits, and procedural is
+  noise). The recurring finding holds: competent attorney fabrication is
+  statistically normal on surface metrics. Surface deviation cannot catch it.
+- **Attorney cell baselines are too heterogeneous** (n=9, 33–44% own-tail) — with
+  a 40%-ish false-flag rate on their own members, deviation is meaningless there.
+  Needs much larger, tighter baselines.
+- **burnside doesn't replicate sherwood** — it flags only as anomalously *short*
+  (it is the un-OCR'd stub). So the pro se pleading signal rests on n=1 real bad
+  doc. OCR burnside and pull more bad pro se pleadings before trusting it.
+- **available_only sampling skew** (SHORTFALLS.md) still caps external validity.
+
+**Verdict.** The blanket deviation gate does not separate. But the citation-volume
+anomaly in the *tight* pro se pleading cell is a real, explainable, non-confounded
+signal — the effort-triage/anomaly framing's first evidence of life. It is worth
+one focused follow-up: OCR burnside, expand the pro se pleading baseline and the
+bad pro se pleading set, and test whether the n_cites/density deviation replicates
+beyond sherwood. Everything else in the deviation gate is, on this corpus, null.
+
 ## Immediate next (unblocked, mostly mechanical)
 
 1. **Implement `chatbot_preamble`** — pure text, near-zero FP; braun-day is a
